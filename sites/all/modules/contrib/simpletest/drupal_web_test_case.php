@@ -1,16 +1,16 @@
 <?php
-// $Id: drupal_web_test_case.php,v 1.2.2.3.2.47 2010/01/27 01:55:29 boombatower Exp $
-// Core: Id: drupal_web_test_case.php,v 1.146 2009/08/31 18:30:26 webchick Exp $
 
 /**
- * @file
- * Provide required modifications to Drupal 7 core DrupalWebTestCase in order
- * for it to function properly in Drupal 6.
+ * Global variable that holds information about the tests being run.
  *
- * Copyright 2008-2009 by Jimmy Berry ("boombatower", http://drupal.org/user/214218)
+ * An array, with the following keys:
+ *  - 'test_run_id': the ID of the test being run, in the form 'simpletest_%"
+ *  - 'in_child_site': TRUE if the current request is a cURL request from
+ *     the parent site.
+ *
+ * @var array
  */
-
-module_load_include('function.inc', 'simpletest');
+global $drupal_test_info;
 
 /**
  * Base class for Drupal tests.
@@ -33,6 +33,13 @@ abstract class DrupalTestCase {
   protected $originalPrefix = NULL;
 
   /**
+   * The database prefix of this test run.
+   *
+   * @var string
+   */
+  protected $databasePrefix = NULL;
+
+  /**
    * The original file directory, before it was changed for testing purposes.
    *
    * @var string
@@ -42,7 +49,7 @@ abstract class DrupalTestCase {
   /**
    * Time limit for the test.
    */
-  protected $timeLimit = 180;
+  protected $timeLimit = 500;
 
   /**
    * Current results of this test case.
@@ -74,7 +81,7 @@ abstract class DrupalTestCase {
   protected $skipClasses = array(__CLASS__ => TRUE);
 
   /**
-   * Constructor for DrupalWebTestCase.
+   * Constructor for DrupalTestCase.
    *
    * @param $test_id
    *   Tests with the same id are reported together.
@@ -101,8 +108,6 @@ abstract class DrupalTestCase {
    *   is the caller function itself.
    */
   protected function assert($status, $message = '', $group = 'Other', array $caller = NULL) {
-    global $db_prefix;
-
     // Convert boolean status to string status.
     if (is_bool($status)) {
       $status = $status ? 'pass' : 'fail';
@@ -115,10 +120,6 @@ abstract class DrupalTestCase {
     if (!$caller) {
       $caller = $this->getAssertionCall();
     }
-
-    // Switch to non-testing database to store results in.
-    $current_db_prefix = $db_prefix;
-    $db_prefix = $this->originalPrefix;
 
     // Creation assertion array that can be displayed while tests are running.
     $this->assertions[] = $assertion = array(
@@ -133,15 +134,13 @@ abstract class DrupalTestCase {
     );
 
     // Store assertion for display after the test has completed.
-//    db_insert('simpletest')
-//      ->fields($assertion)
-//      ->execute();
+    $current_db_prefix = $GLOBALS['db_prefix'];
+    $GLOBALS['db_prefix'] = $this->originalPrefix;
     db_query("INSERT INTO {simpletest}
               (test_id, test_class, status, message, message_group, function, line, file)
               VALUES (%d, '%s', '%s', '%s', '%s', '%s', %d, '%s')", array_values($assertion));
+    $GLOBALS['db_prefix'] = $current_db_prefix;
 
-    // Return to testing prefix.
-    $db_prefix = $current_db_prefix;
     // We do not use a ternary operator here to allow a breakpoint on
     // test failure.
     if ($status == 'pass') {
@@ -162,7 +161,11 @@ abstract class DrupalTestCase {
    * the method behaves just like DrupalTestCase::assert() in terms of storing
    * the assertion.
    *
+   * @return
+   *   Message ID of the stored assertion.
+   *
    * @see DrupalTestCase::assert()
+   * @see DrupalTestCase::deleteAssert()
    */
   public static function insertAssert($test_id, $test_class, $status, $message = '', $group = 'Other', array $caller = array()) {
     // Convert boolean status to string status.
@@ -187,12 +190,26 @@ abstract class DrupalTestCase {
       'file' => $caller['file'],
     );
 
-//    db_insert('simpletest')
-//      ->fields($assertion)
-//      ->execute();
     db_query("INSERT INTO {simpletest}
               (test_id, test_class, status, message, message_group, function, line, file)
               VALUES (%d, '%s', '%s', '%s', '%s', '%s', %d, '%s')", array_values($assertion));
+    $message_id = db_last_insert_id('simpletest', 'message_id');
+    return $message_id;
+  }
+
+  /**
+   * Delete an assertion record by message ID.
+   *
+   * @param $message_id
+   *   Message ID of the assertion to delete.
+   * @return
+   *   TRUE if the assertion was deleted, FALSE otherwise.
+   *
+   * @see DrupalTestCase::insertAssert()
+   */
+  public static function deleteAssert($message_id) {
+    db_query("DELETE FROM {simpletest} WHERE message_id = %d", $message_id);
+    return (bool) db_affected_rows();
   }
 
   /**
@@ -230,7 +247,7 @@ abstract class DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertTrue($value, $message = '', $group = 'Other') {
-    return $this->assert((bool) $value, $message ? $message : t('Value is TRUE'), $group);
+    return $this->assert((bool) $value, $message ? $message : t('Value @value is TRUE.', array('@value' => var_export($value, TRUE))), $group);
   }
 
   /**
@@ -246,7 +263,7 @@ abstract class DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertFalse($value, $message = '', $group = 'Other') {
-    return $this->assert(!$value, $message ? $message : t('Value is FALSE'), $group);
+    return $this->assert(!$value, $message ? $message : t('Value @value is FALSE.', array('@value' => var_export($value, TRUE))), $group);
   }
 
   /**
@@ -262,7 +279,7 @@ abstract class DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertNull($value, $message = '', $group = 'Other') {
-    return $this->assert(!isset($value), $message ? $message : t('Value is NULL'), $group);
+    return $this->assert(!isset($value), $message ? $message : t('Value @value is NULL.', array('@value' => var_export($value, TRUE))), $group);
   }
 
   /**
@@ -278,7 +295,7 @@ abstract class DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertNotNull($value, $message = '', $group = 'Other') {
-    return $this->assert(isset($value), $message ? $message : t('Value is not NULL'), $group);
+    return $this->assert(isset($value), $message ? $message : t('Value @value is not NULL.', array('@value' => var_export($value, TRUE))), $group);
   }
 
   /**
@@ -296,7 +313,7 @@ abstract class DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertEqual($first, $second, $message = '', $group = 'Other') {
-    return $this->assert($first == $second, $message ? $message : t('First value is equal to second value'), $group);
+    return $this->assert($first == $second, $message ? $message : t('Value @first is equal to value @second.', array('@first' => var_export($first, TRUE), '@second' => var_export($second, TRUE))), $group);
   }
 
   /**
@@ -314,7 +331,7 @@ abstract class DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertNotEqual($first, $second, $message = '', $group = 'Other') {
-    return $this->assert($first != $second, $message ? $message : t('First value is not equal to second value'), $group);
+    return $this->assert($first != $second, $message ? $message : t('Value @first is not equal to value @second.', array('@first' => var_export($first, TRUE), '@second' => var_export($second, TRUE))), $group);
   }
 
   /**
@@ -332,7 +349,7 @@ abstract class DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertIdentical($first, $second, $message = '', $group = 'Other') {
-    return $this->assert($first === $second, $message ? $message : t('First value is identical to second value'), $group);
+    return $this->assert($first === $second, $message ? $message : t('Value @first is identical to value @second.', array('@first' => var_export($first, TRUE), '@second' => var_export($second, TRUE))), $group);
   }
 
   /**
@@ -350,7 +367,7 @@ abstract class DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertNotIdentical($first, $second, $message = '', $group = 'Other') {
-    return $this->assert($first !== $second, $message ? $message : t('First value is not identical to second value'), $group);
+    return $this->assert($first !== $second, $message ? $message : t('Value @first is not identical to value @second.', array('@first' => var_export($first, TRUE), '@second' => var_export($second, TRUE))), $group);
   }
 
   /**
@@ -404,26 +421,68 @@ abstract class DrupalTestCase {
   }
 
   /**
-   * Run all tests in this class.
+   * Logs verbose message in a text file.
+   *
+   * The a link to the vebose message will be placed in the test results via
+   * as a passing assertion with the text '[verbose message]'.
+   *
+   * @param $message
+   *   The verbose message to be stored.
+   *
+   * @see simpletest_verbose()
    */
-  public function run() {
+  protected function verbose($message) {
+    if ($id = simpletest_verbose($message)) {
+      $url = $GLOBALS['base_url'] . '/' . $this->originalFileDirectory . '/simpletest/verbose/' . get_class($this) . '-' . $id . '.html';
+      $this->error(l(t('Verbose message'), $url, array('attributes' => array('target' => '_blank'))), 'User notice');
+    }
+  }
+
+  /**
+   * Run all tests in this class.
+   *
+   * Regardless of whether $methods are passed or not, only method names
+   * starting with "test" are executed.
+   *
+   * @param $methods
+   *   (optional) A list of method names in the test case class to run; e.g.,
+   *   array('testFoo', 'testBar'). By default, all methods of the class are
+   *   taken into account, but it can be useful to only run a few selected test
+   *   methods during debugging.
+   */
+  public function run(array $methods = array()) {
     // Initialize verbose debugging.
-    simpletest_verbose(NULL, file_directory_path(), get_class($this));
+    simpletest_verbose(NULL, variable_get('file_directory_path', conf_path() . '/files'), get_class($this));
 
     // HTTP auth settings (<username>:<password>) for the simpletest browser
     // when sending requests to the test site.
-    $username = variable_get('simpletest_username', NULL);
-    $password = variable_get('simpletest_password', NULL);
+    $this->httpauth_method = variable_get('simpletest_httpauth_method', CURLAUTH_BASIC);
+    $username = variable_get('simpletest_httpauth_username', NULL);
+    $password = variable_get('simpletest_httpauth_password', NULL);
     if ($username && $password) {
       $this->httpauth_credentials = $username . ':' . $password;
     }
 
     set_error_handler(array($this, 'errorHandler'));
-    $methods = array();
-    // Iterate through all the methods in this class.
-    foreach (get_class_methods(get_class($this)) as $method) {
+    $class = get_class($this);
+    // Iterate through all the methods in this class, unless a specific list of
+    // methods to run was passed.
+    $class_methods = get_class_methods($class);
+    if ($methods) {
+      $class_methods = array_intersect($class_methods, $methods);
+    }
+    foreach ($class_methods as $method) {
       // If the current method starts with "test", run it - it's a test.
       if (strtolower(substr($method, 0, 4)) == 'test') {
+        // Insert a fail record. This will be deleted on completion to ensure
+        // that testing completed.
+        $method_info = new ReflectionMethod($class, $method);
+        $caller = array(
+          'file' => $method_info->getFileName(),
+          'line' => $method_info->getStartLine(),
+          'function' => $class . '->' . $method . '()',
+        );
+        $completion_check_id = DrupalTestCase::insertAssert($this->testId, $class, FALSE, t('The test did not complete due to a fatal error.'), 'Completion check', $caller);
         $this->setUp();
         try {
           $this->$method();
@@ -433,6 +492,8 @@ abstract class DrupalTestCase {
           $this->exceptionHandler($e);
         }
         $this->tearDown();
+        // Remove the completion check record.
+        DrupalTestCase::deleteAssert($completion_check_id);
       }
     }
     // Clear out the error messages and restore error handler.
@@ -441,11 +502,10 @@ abstract class DrupalTestCase {
   }
 
   /**
-   * Handle errors.
+   * Handle errors during test runs.
    *
    * Because this is registered in set_error_handler(), it has to be public.
    * @see set_error_handler
-   *
    */
   public function errorHandler($severity, $message, $file = NULL, $line = NULL) {
     if ($severity & error_reporting()) {
@@ -490,45 +550,90 @@ abstract class DrupalTestCase {
    * is not restricted.
    *
    * @param $length
-   *   Length of random string to generate which will be appended to $db_prefix.
+   *   Length of random string to generate.
    * @return
    *   Randomly generated string.
    */
   public static function randomString($length = 8) {
-    global $db_prefix;
-
     $str = '';
     for ($i = 0; $i < $length; $i++) {
       $str .= chr(mt_rand(32, 126));
     }
-    return str_replace('simpletest', 's', $db_prefix) . $str;
+    return $str;
   }
 
   /**
    * Generates a random string containing letters and numbers.
    *
-   * The letters may be upper or lower case. This method is better for
-   * restricted inputs that do not accept certain characters. For example,
-   * when testing input fields that require machine readable values (ie without
-   * spaces and non-standard characters) this method is best.
+   * The string will always start with a letter. The letters may be upper or
+   * lower case. This method is better for restricted inputs that do not
+   * accept certain characters. For example, when testing input fields that
+   * require machine readable values (i.e. without spaces and non-standard
+   * characters) this method is best.
    *
    * @param $length
-   *   Length of random string to generate which will be appended to $db_prefix.
+   *   Length of random string to generate.
    * @return
    *   Randomly generated string.
    */
   public static function randomName($length = 8) {
-    global $db_prefix;
-
     $values = array_merge(range(65, 90), range(97, 122), range(48, 57));
     $max = count($values) - 1;
-    $str = '';
-    for ($i = 0; $i < $length; $i++) {
+    $str = chr(mt_rand(97, 122));
+    for ($i = 1; $i < $length; $i++) {
       $str .= chr($values[mt_rand(0, $max)]);
     }
-    return str_replace('simpletest', 's', $db_prefix) . $str;
+    return $str;
   }
 
+  /**
+   * Converts a list of possible parameters into a stack of permutations.
+   *
+   * Takes a list of parameters containing possible values, and converts all of
+   * them into a list of items containing every possible permutation.
+   *
+   * Example:
+   * @code
+   * $parameters = array(
+   *   'one' => array(0, 1),
+   *   'two' => array(2, 3),
+   * );
+   * $permutations = $this->permute($parameters);
+   * // Result:
+   * $permutations == array(
+   *   array('one' => 0, 'two' => 2),
+   *   array('one' => 1, 'two' => 2),
+   *   array('one' => 0, 'two' => 3),
+   *   array('one' => 1, 'two' => 3),
+   * )
+   * @endcode
+   *
+   * @param $parameters
+   *   An associative array of parameters, keyed by parameter name, and whose
+   *   values are arrays of parameter values.
+   *
+   * @return
+   *   A list of permutations, which is an array of arrays. Each inner array
+   *   contains the full list of parameters that have been passed, but with a
+   *   single value only.
+   */
+  public static function generatePermutations($parameters) {
+    $all_permutations = array(array());
+    foreach ($parameters as $parameter => $values) {
+      $new_permutations = array();
+      // Iterate over all values of the parameter.
+      foreach ($values as $value) {
+        // Iterate over all existing permutations.
+        foreach ($all_permutations as $permutation) {
+          // Add the new parameter value to existing permutations.
+          $new_permutations[] = $permutation + array($parameter => $value);
+        }
+      }
+      // Replace the old permutations with the new permutations.
+      $all_permutations = $new_permutations;
+    }
+    return $all_permutations;
+  }
 }
 
 /**
@@ -536,8 +641,7 @@ abstract class DrupalTestCase {
  *
  * These tests can not access the database nor files. Calling any Drupal
  * function that needs the database will throw exceptions. These include
- * watchdog(), function_exists(), module_implements(),
- * module_invoke_all() etc.
+ * watchdog(), module_implements(), module_invoke_all() etc.
  */
 class DrupalUnitTestCase extends DrupalTestCase {
 
@@ -549,18 +653,31 @@ class DrupalUnitTestCase extends DrupalTestCase {
     $this->skipClasses[__CLASS__] = TRUE;
   }
 
-  function setUp() {
-    global $db_prefix, $conf;
+  /**
+   * Sets up unit test environment.
+   *
+   * Unlike DrupalWebTestCase::setUp(), DrupalUnitTestCase::setUp() does not
+   * install modules because tests are performed without accessing the database.
+   * Any required files must be explicitly included by the child class setUp()
+   * method.
+   */
+  protected function setUp() {
+    global $conf;
 
-    // Store necessary current values before switching to prefixed database.
-    $this->originalPrefix = $db_prefix;
-    $this->originalFileDirectory = file_directory_path();
+    // Store necessary current values before switching to the test environment.
+    $this->originalPrefix = $GLOBALS['db_prefix'];
+    $this->originalFileDirectory =  variable_get('file_directory_path', conf_path() . '/files');
 
     // Generate temporary prefixed database to ensure that tests have a clean starting point.
-//    $db_prefix = Database::getConnection()->prefixTables('{simpletest' . mt_rand(1000, 1000000) . '}');
-    $db_prefix = $db_prefix . 'simpletest' . mt_rand(1000, 1000000);
-//    $conf['file_public_path'] = $this->originalFileDirectory . '/' . $db_prefix;
-    $conf['file_directory_path'] = $this->originalFileDirectory . '/simpletest/' . substr($db_prefix, 10);
+    $this->databasePrefix = 'simpletest' . mt_rand(1000, 1000000);
+
+    // Create test directory.
+    $public_files_directory = $this->originalFileDirectory . '/simpletest/' . substr($this->databasePrefix, 10);
+    file_check_directory($public_files_directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+    $conf['file_directory_path'] = $public_files_directory;
+
+    // Clone the current connection and replace the current prefix.
+    $GLOBALS['db_prefix'] = is_array($GLOBALS['db_prefix']) ? $GLOBALS['db_prefix']['default'] : $GLOBALS['db_prefix'] . $this->databasePrefix;
 
     // If locale is enabled then t() will try to access the database and
     // subsequently will fail as the database is not accessible.
@@ -572,17 +689,16 @@ class DrupalUnitTestCase extends DrupalTestCase {
     }
   }
 
-  function tearDown() {
-    global $db_prefix, $conf;
-    if (preg_match('/simpletest\d+/', $db_prefix)) {
-//      $conf['file_public_path'] = $this->originalFileDirectory;
-      $conf['file_directory_path'] = $this->originalFileDirectory;
-      // Return the database prefix to the original.
-      $db_prefix = $this->originalPrefix;
-      // Restore modules if necessary.
-      if (isset($this->originalModuleList)) {
-        module_list(TRUE, FALSE, FALSE, $this->originalModuleList);
-      }
+  protected function tearDown() {
+    global $conf;
+
+    // Get back to the original connection.
+    $GLOBALS['db_prefix'] = $this->originalPrefix;
+
+    $conf['file_directory_path'] = $this->originalFileDirectory;
+    // Restore modules if necessary.
+    if (isset($this->originalModuleList)) {
+      module_list(TRUE, FALSE, FALSE, $this->originalModuleList);
     }
   }
 }
@@ -591,6 +707,13 @@ class DrupalUnitTestCase extends DrupalTestCase {
  * Test case for typical Drupal tests.
  */
 class DrupalWebTestCase extends DrupalTestCase {
+  /**
+   * The profile to install as a basis for testing.
+   *
+   * @var string
+   */
+  protected $profile = 'default';
+
   /**
    * The URL currently loaded in the internal browser.
    *
@@ -625,6 +748,13 @@ class DrupalWebTestCase extends DrupalTestCase {
    * @var string
    */
   protected $plainTextContent;
+
+  /**
+   * The value of the Drupal.settings JavaScript variable for the page currently loaded in the internal browser.
+   *
+   * @var Array
+   */
+  protected $drupalSettings;
 
   /**
    * The parsed version of the page.
@@ -663,6 +793,11 @@ class DrupalWebTestCase extends DrupalTestCase {
   protected $originalUser = NULL;
 
   /**
+   * HTTP authentication method
+   */
+  protected $httpauth_method = CURLAUTH_BASIC;
+
+  /**
    * HTTP authentication credentials (<username>:<password>).
    */
   protected $httpauth_credentials = NULL;
@@ -676,6 +811,16 @@ class DrupalWebTestCase extends DrupalTestCase {
    * The current session ID, if available.
    */
   protected $session_id = NULL;
+
+  /**
+   * Whether the files were copied to the test files directory.
+   */
+  protected $generatedTestFiles = FALSE;
+
+  /**
+   * The number of redirects followed during the handling of a request.
+   */
+  protected $redirect_count;
 
   /**
    * Constructor for DrupalWebTestCase.
@@ -695,10 +840,6 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   A node object matching $title.
    */
   function drupalGetNodeByTitle($title) {
-//    $nodes = node_load_multiple(array(), array('title' => $title));
-//    // Load the first node returned from the database.
-//    $returned_node = reset($nodes);
-//    return $returned_node;
     return node_load(array('title' => $title));
   }
 
@@ -714,13 +855,11 @@ class DrupalWebTestCase extends DrupalTestCase {
   protected function drupalCreateNode($settings = array()) {
     // Populate defaults array.
     $settings += array(
-//      'body'      => array(FIELD_LANGUAGE_NONE => array(array())),
       'body'      => $this->randomName(32),
+      'format'    => FILTER_FORMAT_DEFAULT,
       'title'     => $this->randomName(8),
       'comment'   => 2,
-//      'changed'   => REQUEST_TIME,
       'changed'   => time(),
-      'format'    => FILTER_FORMAT_DEFAULT,
       'moderate'  => 0,
       'promote'   => 0,
       'revision'  => 1,
@@ -729,7 +868,7 @@ class DrupalWebTestCase extends DrupalTestCase {
       'sticky'    => 0,
       'type'      => 'page',
       'revisions' => NULL,
-      'taxonomy'  => NULL,
+      'language'  => '',
     );
 
     // Use the original node's created time for existing nodes.
@@ -749,21 +888,10 @@ class DrupalWebTestCase extends DrupalTestCase {
       }
     }
 
-//    // Merge body field value and format separately.
-//    $body = array(
-//      'value' => $this->randomName(32),
-//      'format' => FILTER_FORMAT_DEFAULT
-//    );
-//    $settings['body'][FIELD_LANGUAGE_NONE][0] += $body;
-
     $node = (object) $settings;
     node_save($node);
 
     // Small hack to link revisions to our test user.
-//    db_update('node_revision')
-//      ->fields(array('uid' => $node->uid))
-//      ->condition('vid', $node->vid)
-//      ->execute();
     db_query('UPDATE {node_revisions} SET uid = %d WHERE vid = %d', $node->uid, $node->vid);
     return $node;
   }
@@ -780,9 +908,7 @@ class DrupalWebTestCase extends DrupalTestCase {
   protected function drupalCreateContentType($settings = array()) {
     // Find a non-existent random type name.
     do {
-//      $name = strtolower($this->randomName(8));
-//    } while (node_type_get_type($name));
-      $name = strtolower($this->randomName(3, 'type_'));
+      $name = strtolower($this->randomName(8));
     } while (node_get_types('type', $name));
 
     // Populate defaults array.
@@ -791,7 +917,7 @@ class DrupalWebTestCase extends DrupalTestCase {
       'name' => $name,
       'description' => '',
       'help' => '',
-      'min_word_count' => 0, // Drupal 6.
+      'min_word_count' => 0,
       'title_label' => 'Title',
       'body_label' => 'Body',
       'has_title' => 1,
@@ -807,11 +933,11 @@ class DrupalWebTestCase extends DrupalTestCase {
       'locked' => 0,
     );
     $type = $forced + $settings + $defaults;
-    $type = (object)$type;
+    $type = (object) $type;
 
     $saved_type = node_type_save($type);
     node_types_rebuild();
-    menu_rebuild(); // Drupal 6.
+    menu_rebuild();
 
     $this->assertEqual($saved_type, SAVED_NEW, t('Created content type %type.', array('%type' => $type->type)));
 
@@ -832,22 +958,41 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   List of files that match filter.
    */
   protected function drupalGetTestFiles($type, $size = NULL) {
-    $files = array();
+    if (empty($this->generatedTestFiles)) {
+      // Generate binary test files.
+      $lines = array(64, 1024);
+      $count = 0;
+      foreach ($lines as $line) {
+        simpletest_generate_file('binary-' . $count++, 64, $line, 'binary');
+      }
 
+      // Generate text test files.
+      $lines = array(16, 256, 1024, 2048, 20480);
+      $count = 0;
+      foreach ($lines as $line) {
+        simpletest_generate_file('text-' . $count++, 64, $line);
+      }
+
+      // Copy other test files from simpletest.
+      $original = drupal_get_path('module', 'simpletest') . '/files';
+      $files = file_scan_directory($original, '(html|image|javascript|php|sql)-.*');
+      foreach ($files as $file) {
+        file_copy($file->filename, variable_get('file_directory_path', conf_path() . '/files'));
+      }
+
+      $this->generatedTestFiles = TRUE;
+    }
+
+    $files = array();
     // Make sure type is valid.
     if (in_array($type, array('binary', 'html', 'image', 'javascript', 'php', 'sql', 'text'))) {
-      // Use original file directory instead of one created during setUp().
-      $path = $this->originalFileDirectory . '/simpletest';
-//      $files = file_scan_directory($path, '/' . $type . '\-.*/');
-      $files = file_scan_directory($path, '' . $type . '\-.*');
+      $files = file_scan_directory(variable_get('file_directory_path', conf_path() . '/files'), $type . '\-.*');
 
       // If size is set then remove any files that are not of that size.
       if ($size !== NULL) {
         foreach ($files as $file) {
-//          $stats = stat($file->uri);
           $stats = stat($file->filename);
           if ($stats['size'] != $size) {
-//            unset($files[$file->uri]);
             unset($files[$file->filename]);
           }
         }
@@ -861,7 +1006,6 @@ class DrupalWebTestCase extends DrupalTestCase {
    * Compare two files based on size and file name.
    */
   protected function drupalCompareFiles($file1, $file2) {
-//    $compare_size = filesize($file1->uri) - filesize($file2->uri);
     $compare_size = filesize($file1->filename) - filesize($file2->filename);
     if ($compare_size) {
       // Sort by file size.
@@ -931,22 +1075,14 @@ class DrupalWebTestCase extends DrupalTestCase {
     }
 
     // Create new role.
-//    $role = new stdClass();
-//    $role->name = $name;
-//    user_role_save($role);
-//    user_role_set_permissions($role->name, $permissions);
     db_query("INSERT INTO {role} (name) VALUES ('%s')", $name);
     $role = db_fetch_object(db_query("SELECT * FROM {role} WHERE name = '%s'", $name));
 
     $this->assertTrue(isset($role->rid), t('Created role of name: @name, id: @rid', array('@name' => $name, '@rid' => (isset($role->rid) ? $role->rid : t('-n/a-')))), t('Role'));
     if ($role && !empty($role->rid)) {
-//      $count = db_query('SELECT COUNT(*) FROM {role_permission} WHERE rid = :rid', array(':rid' => $role->rid))->fetchField();
-//      $this->assertTrue($count == count($permissions), t('Created permissions: @perms', array('@perms' => implode(', ', $permissions))), t('Role'));
-
-      // Assign permissions to role and mark it for clean-up.
       db_query("INSERT INTO {permission} (rid, perm) VALUES (%d, '%s')", $role->rid, implode(', ', $permissions));
-      $perm = db_result(db_query("SELECT perm FROM {permission} WHERE rid = %d", $role->rid));
-      $this->assertTrue(count(explode(', ', $perm)) == count($permissions), t('Created permissions: @perms', array('@perms' => implode(', ', $permissions))), t('Role'));
+      $count = count(explode(', ', db_result(db_query("SELECT perm FROM {permission} WHERE rid = %d", $role->rid))));
+      $this->assertTrue($count == count($permissions), t('Created permissions: @perms', array('@perms' => implode(', ', $permissions))), t('Role'));
       return $role->rid;
     }
     else {
@@ -965,11 +1101,9 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   TRUE or FALSE depending on whether the permissions are valid.
    */
   protected function checkPermissions(array $permissions, $reset = FALSE) {
-//    $available = &drupal_static(__FUNCTION__);
     static $available;
 
     if (!isset($available) || $reset) {
-//      $available = array_keys(module_invoke_all('permission'));
       $available = module_invoke_all('perm');
     }
 
@@ -993,7 +1127,7 @@ class DrupalWebTestCase extends DrupalTestCase {
    * populated with data of the logged in user. If you need full access to the
    * user object after logging in, it must be updated manually. If you also need
    * access to the plain-text password of the user (set by drupalCreateUser()),
-   * e.g. to login the same user again, then it must be re-assigned manually.
+   * e.g. to log in the same user again, then it must be re-assigned manually.
    * For example:
    * @code
    *   // Create a user.
@@ -1006,7 +1140,7 @@ class DrupalWebTestCase extends DrupalTestCase {
    * @endcode
    *
    * @param $user
-   *   User object representing the user to login.
+   *   User object representing the user to log in.
    *
    * @see drupalCreateUser()
    */
@@ -1045,8 +1179,8 @@ class DrupalWebTestCase extends DrupalTestCase {
     // Make a request to the logout page, and redirect to the user page, the
     // idea being if you were properly logged out you should be seeing a login
     // screen.
-//    $this->drupalGet('user/logout', array('query' => 'destination=user'));
-    $this->drupalGet('logout', array('query' => 'destination=user'));
+    $this->drupalGet('logout');
+    $this->drupalGet('user');
     $pass = $this->assertField('name', t('Username field found.'), t('Logout'));
     $pass = $pass && $this->assertField('pass', t('Password field found.'), t('Logout'));
 
@@ -1063,17 +1197,23 @@ class DrupalWebTestCase extends DrupalTestCase {
    * is created with the same name as the database prefix.
    *
    * @param ...
-   *   List of modules to enable for the duration of the test.
+   *   List of modules to enable for the duration of the test. This can be
+   *   either a single array or a variable number of string arguments.
    */
   protected function setUp() {
-    global $db_prefix, $user, $language;
+    global $user, $language, $conf;
+
+    // Generate a temporary prefixed database to ensure that tests have a clean starting point.
+    $this->databasePrefix = 'simpletest' . mt_rand(1000, 1000000);
+    $db_prefix_new = is_array($GLOBALS['db_prefix']) ? $GLOBALS['db_prefix']['default'] : $GLOBALS['db_prefix'] . $this->databasePrefix;
+    db_query("UPDATE {simpletest_test_id} SET last_prefix = '%s' WHERE test_id = %d", $db_prefix_new, $this->testId);
 
     // Store necessary current values before switching to prefixed database.
+    $this->originalPrefix = $GLOBALS['db_prefix'];
     $this->originalLanguage = $language;
-//    $this->originalLanguageDefault = variable_get('language_default');
-    $this->originalPrefix = $db_prefix;
-    $this->originalFileDirectory = file_directory_path();
-//    $this->originalProfile = drupal_get_profile();
+    $this->originalLanguageDefault = variable_get('language_default', (object) array('language' => 'en', 'name' => 'English', 'native' => 'English', 'direction' => 0, 'enabled' => 1, 'plurals' => 0, 'formula' => '', 'domain' => '', 'prefix' => '', 'weight' => 0, 'javascript' => ''));
+    $this->originalFileDirectory = variable_get('file_directory_path', conf_path() . '/files');
+    $this->originalProfile = variable_get('install_profile', 'default');
     $clean_url_original = variable_get('clean_url', 0);
 
     // Must reset locale here, since schema calls t(). (Drupal 6)
@@ -1082,128 +1222,116 @@ class DrupalWebTestCase extends DrupalTestCase {
       locale(NULL, NULL, TRUE);
     }
 
-    // Generate temporary prefixed database to ensure that tests have a clean starting point.
-//    $db_prefix_new = Database::getConnection()->prefixTables('{simpletest' . mt_rand(1000, 1000000) . '}');
-    $db_prefix_new = $db_prefix . 'simpletest' . mt_rand(1000, 1000000);
-
     // Workaround to insure we init the theme layer before going into prefixed
     // environment. (Drupal 6)
     $this->pass(t('Starting run with db_prefix %prefix', array('%prefix' => $db_prefix_new)), 'System');
 
-//    db_update('simpletest_test_id')
-//      ->fields(array('last_prefix' => $db_prefix_new))
-//      ->condition('test_id', $this->testId)
-//      ->execute();
-    db_query("UPDATE {simpletest_test_id}
-              SET last_prefix = '%s'
-              WHERE test_id = %d", $db_prefix_new, $this->testId);
-    $db_prefix = $db_prefix_new;
+    // Clone the current connection and replace the current prefix.
+    $GLOBALS['db_prefix'] = $db_prefix_new;
 
     // Create test directory ahead of installation so fatal errors and debug
     // information can be logged during installation process.
-    $directory = $this->originalFileDirectory . '/simpletest/' . substr($db_prefix, 10);
-//    file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
-    file_check_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+    // Use temporary files directory with the same prefix as the database.
+    $public_files_directory  = $this->originalFileDirectory . '/simpletest/' . substr($this->databasePrefix, 10);
+    $temp_files_directory    = $public_files_directory . '/tmp';
+
+    // Create the directories
+    file_check_directory($public_files_directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+    file_check_directory($temp_files_directory, FILE_CREATE_DIRECTORY);
+    $this->generatedTestFiles = FALSE;
 
     // Log fatal errors.
     ini_set('log_errors', 1);
-    ini_set('error_log', $directory . '/error.log');
+    ini_set('error_log', $public_files_directory . '/error.log');
 
-//    include_once DRUPAL_ROOT . '/includes/install.inc';
+    // Reset all statics and variables to perform tests in a clean environment.
+    $conf = array();
+
+    // Set the test information for use in other parts of Drupal.
+    $test_info = &$GLOBALS['drupal_test_info'];
+    $test_info['test_run_id'] = $this->databasePrefix;
+    $test_info['in_child_site'] = FALSE;
+
     include_once './includes/install.inc';
     drupal_install_system();
 
-//    $this->preloadRegistry();
+    // Set path variables.
+    variable_set('file_directory_path', $public_files_directory);
+    variable_set('file_directory_temp', $temp_files_directory);
 
-//    // Include the default profile
-//    variable_set('install_profile', 'default');
-//    $profile_details = install_profile_info('default', 'en');
+    // Include the testing profile.
+    variable_set('install_profile', $this->profile);
+    $profile_modules = drupal_verify_profile($this->profile, 'en');
 
-    // Add the specified modules to the list of modules in the default profile.
-    // Install the modules specified by the default profile.
-//    drupal_install_modules($profile_details['dependencies'], TRUE);
-    drupal_install_modules(drupal_verify_profile('default', 'en'));
+    // Install the modules specified by the testing profile.
+    drupal_install_modules($profile_modules);
 
-//    node_type_clear();
-
-    // Install additional modules one at a time in order to make sure that the
-    // list of modules is updated between each module's installation.
+    // Install modules needed for this test. This could have been passed in as
+    // either a single array argument or a variable number of string arguments.
+    // @todo Remove this compatibility layer in Drupal 8, and only accept
+    // $modules as a single array argument.
     $modules = func_get_args();
-    foreach ($modules as $module) {
-//      drupal_install_modules(array($module), TRUE);
-      drupal_install_modules(array($module));
+    if (isset($modules[0]) && is_array($modules[0])) {
+      $modules = $modules[0];
+    }
+    if ($modules) {
+      drupal_install_modules($modules);
     }
 
-    // Because the schema is static cached, we need to flush
-    // it between each run. If we don't, then it will contain
-    // stale data for the previous run's database prefix and all
-    // calls to it will fail.
-    drupal_get_schema(NULL, TRUE);
-
-    // Run default profile tasks.
-//    $install_state = array();
-//    drupal_install_modules(array('default'), TRUE);
+    // Run the profile tasks.
     $task = 'profile';
-    default_profile_tasks($task, '');
+    $function = $this->profile . '_profile_tasks';
+    if (function_exists($function)) {
+      $function($task, '');
+    }
 
-    // Rebuild caches.
-//    node_types_rebuild();
-    actions_synchronize();
-    _drupal_flush_css_js();
-    $this->refreshVariables();
-    $this->checkPermissions(array(), TRUE);
-    user_access(NULL, NULL, TRUE); // Drupal 6.
+    // Reset/rebuild all data structures after enabling the modules.
+    $this->resetAll();
+
+    // Run cron once in that environment, as install.php does at the end of
+    // the installation process.
+    drupal_cron_run();
 
     // Log in with a clean $user.
     $this->originalUser = $user;
-//    drupal_save_session(FALSE);
-//    $user = user_load(1);
     session_save_session(FALSE);
     $user = user_load(array('uid' => 1));
 
     // Restore necessary variables.
-    variable_set('install_profile', 'default');
-//    variable_set('install_task', 'done');
-    variable_set('install_task', 'profile-finished');
+    variable_set('install_task', 'done');
     variable_set('clean_url', $clean_url_original);
     variable_set('site_mail', 'simpletest@example.com');
-//    // Set up English language.
-//    unset($GLOBALS['conf']['language_default']);
-//    $language = language_default();
+
+    // Set up English language.
+    unset($GLOBALS['conf']['language_default']);
+    $language = language_default();
 
     // Use the test mail class instead of the default mail handler class.
-//    variable_set('mail_sending_system', array('default-system' => 'TestingMailSystem'));
     variable_set('smtp_library', drupal_get_path('module', 'simpletest') . '/simpletest.mail.inc');
 
-    // Use temporary files directory with the same prefix as the database.
-//    $public_files_directory  = $this->originalFileDirectory . '/' . $db_prefix;
-//    $private_files_directory = $public_files_directory . '/private';
-    $directory = $this->originalFileDirectory . '/' . $db_prefix;
-
-    // Set path variables
-//    variable_set('file_public_path', $public_files_directory);
-//    variable_set('file_private_path', $private_files_directory);
-    variable_set('file_directory_path', $directory);
-
-    // Create the directories
-//    $directory = file_directory_path('public');
-//    file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
-//    file_prepare_directory($private_files_directory, FILE_CREATE_DIRECTORY);
-    file_check_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
-
-//    drupal_set_time_limit($this->timeLimit);
     set_time_limit($this->timeLimit);
   }
 
-//  /**
-//   * This method is called by DrupalWebTestCase::setUp, and preloads the
-//   * registry from the testing site to cut down on the time it takes to
-//   * setup a clean environment for the current test run.
-//   */
-//  protected function preloadRegistry() {
-//    db_query('INSERT INTO {registry} SELECT * FROM ' . $this->originalPrefix . 'registry');
-//    db_query('INSERT INTO {registry_file} SELECT * FROM ' . $this->originalPrefix . 'registry_file');
-//  }
+  /**
+   * Reset all data structures after having enabled new modules.
+   *
+   * This method is called by DrupalWebTestCase::setUp() after enabling
+   * the requested modules. It must be called again when additional modules
+   * are enabled later.
+   */
+  protected function resetAll() {
+    // Rebuild caches.
+    drupal_flush_all_caches();
+    actions_synchronize();
+    user_access(NULL, NULL, TRUE);
+
+    // Reload global $conf array and permissions.
+    $this->refreshVariables();
+    $this->checkPermissions(array(), TRUE);
+
+    // Reset statically cached schema for new database prefix.
+    drupal_get_schema(NULL, TRUE);
+  }
 
   /**
    * Refresh the in-memory set of variables. Useful after a page request is made
@@ -1220,7 +1348,6 @@ class DrupalWebTestCase extends DrupalTestCase {
   protected function refreshVariables() {
     global $conf;
     cache_clear_all('variables', 'cache');
-//    $conf = variable_initialize();
     $conf = variable_init();
   }
 
@@ -1229,72 +1356,61 @@ class DrupalWebTestCase extends DrupalTestCase {
    * and reset the database prefix.
    */
   protected function tearDown() {
-    global $db_prefix, $user, $language;
+    global $user, $language;
 
     // In case a fatal error occured that was not in the test process read the
     // log to pick up any fatal errors.
-    $db_prefix_temp = $db_prefix;
-    $db_prefix = $this->originalPrefix;
-    simpletest_log_read($this->testId, $db_prefix, get_class($this), TRUE);
-    $db_prefix = $db_prefix_temp;
+    simpletest_log_read($this->testId, $this->databasePrefix, get_class($this), TRUE);
 
     $emailCount = count(variable_get('drupal_test_email_collector', array()));
     if ($emailCount) {
-      $message = format_plural($emailCount, t('!count e-mail was sent during this test.'), t('!count e-mails were sent during this test.'), array('!count' => $emailCount));
+      $message = format_plural($emailCount, '1 e-mail was sent during this test.', '@count e-mails were sent during this test.');
       $this->pass($message, t('E-mail'));
     }
 
-    if (preg_match('/simpletest\d+/', $db_prefix)) {
-      // Delete temporary files directory.
-//      file_unmanaged_delete_recursive(file_directory_path());
-      simpletest_clean_temporary_directory(file_directory_path());
+    // Delete temporary files directory.
+    simpletest_file_unmanaged_delete_recursive($this->originalFileDirectory . '/simpletest/' . substr($this->databasePrefix, 10));
 
-      // Remove all prefixed tables (all the tables in the schema).
-      $schema = drupal_get_schema(NULL, TRUE);
-      $ret = array();
-      foreach ($schema as $name => $table) {
-        db_drop_table($ret, $name);
-      }
-
-      // Return the database prefix to the original.
-      $db_prefix = $this->originalPrefix;
-
-      // Return the user to the original one.
-      $user = $this->originalUser;
-//      drupal_save_session(TRUE);
-      session_save_session(TRUE);
-
-      // Bring back default language. (Drupal 6)
-      if (module_exists('locale')) {
-        drupal_init_language();
-        locale(NULL, NULL, TRUE);
-      }
-
-      // Ensure that internal logged in variable and cURL options are reset.
-      $this->loggedInUser = FALSE;
-      $this->additionalCurlOptions = array();
-
-      // Reload module list and implementations to ensure that test module hooks
-      // aren't called after tests.
-      module_list(TRUE);
-//      module_implements('', FALSE, TRUE);
-      module_implements('', '', TRUE);
-
-      // Reset the Field API.
-//      field_cache_clear();
-
-      // Rebuild caches.
-      $this->refreshVariables();
-
-//      // Reset language.
-//      $language = $this->originalLanguage;
-//      if ($this->originalLanguageDefault) {
-//        $GLOBALS['conf']['language_default'] = $this->originalLanguageDefault;
-//      }
-
-      // Close the CURL handler.
-      $this->curlClose();
+    // Remove all prefixed tables (all the tables in the schema).
+    $schema = drupal_get_schema(NULL, TRUE);
+    $ret = array();
+    foreach ($schema as $name => $table) {
+      db_drop_table($ret, $name);
     }
+
+    // Get back to the original connection.
+    $GLOBALS['db_prefix'] = $this->originalPrefix;
+
+    // Return the user to the original one.
+    $user = $this->originalUser;
+    session_save_session(TRUE);
+
+    // Bring back default language. (Drupal 6)
+    if (module_exists('locale')) {
+      drupal_init_language();
+      locale(NULL, NULL, TRUE);
+    }
+
+    // Ensure that internal logged in variable and cURL options are reset.
+    $this->loggedInUser = FALSE;
+    $this->additionalCurlOptions = array();
+
+    // Reload module list and implementations to ensure that test module hooks
+    // aren't called after tests.
+    module_list(TRUE, FALSE);
+    module_implements('', FALSE, TRUE);
+
+    // Rebuild caches.
+    $this->refreshVariables();
+
+    // Reset language.
+    $language = $this->originalLanguage;
+    if ($this->originalLanguageDefault) {
+      $GLOBALS['conf']['language_default'] = $this->originalLanguageDefault;
+    }
+
+    // Close the CURL handler.
+    $this->curlClose();
   }
 
   /**
@@ -1306,21 +1422,22 @@ class DrupalWebTestCase extends DrupalTestCase {
    * See the description of $curl_options for other options.
    */
   protected function curlInitialize() {
-    global $base_url, $db_prefix;
+    global $base_url;
 
     if (!isset($this->curlHandle)) {
       $this->curlHandle = curl_init();
-      $curl_options = $this->additionalCurlOptions + array(
+      $curl_options = array(
         CURLOPT_COOKIEJAR => $this->cookieFile,
         CURLOPT_URL => $base_url,
-        CURLOPT_FOLLOWLOCATION => TRUE,
-        CURLOPT_MAXREDIRS => 5,
+        CURLOPT_FOLLOWLOCATION => FALSE,
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_SSL_VERIFYPEER => FALSE, // Required to make the tests run on https.
         CURLOPT_SSL_VERIFYHOST => FALSE, // Required to make the tests run on https.
         CURLOPT_HEADERFUNCTION => array(&$this, 'curlHeaderCallback'),
+        CURLOPT_USERAGENT => $this->databasePrefix,
       );
       if (isset($this->httpauth_credentials)) {
+        $curl_options[CURLOPT_HTTPAUTH] = $this->httpauth_method;
         $curl_options[CURLOPT_USERPWD] = $this->httpauth_credentials;
       }
       curl_setopt_array($this->curlHandle, $this->additionalCurlOptions + $curl_options);
@@ -1330,22 +1447,42 @@ class DrupalWebTestCase extends DrupalTestCase {
     }
     // We set the user agent header on each request so as to use the current
     // time and a new uniqid.
-    if (preg_match('/simpletest\d+/', $db_prefix, $matches)) {
+    if (preg_match('/simpletest\d+/', $this->databasePrefix, $matches)) {
       curl_setopt($this->curlHandle, CURLOPT_USERAGENT, drupal_generate_test_ua($matches[0]));
     }
   }
 
   /**
-   * Performs a cURL exec with the specified options after calling curlConnect().
+   * Initializes and executes a cURL request.
    *
    * @param $curl_options
-   *   Custom cURL options.
+   *   An associative array of cURL options to set, where the keys are constants
+   *   defined by the cURL library. For a list of valid options, see
+   *   http://www.php.net/manual/function.curl-setopt.php
+   * @param $redirect
+   *   FALSE if this is an initial request, TRUE if this request is the result
+   *   of a redirect.
+   *
    * @return
-   *   Content returned from the exec.
+   *   The content returned from the call to curl_exec().
+   *
+   * @see curlInitialize()
    */
-  protected function curlExec($curl_options) {
+  protected function curlExec($curl_options, $redirect = FALSE) {
     $this->curlInitialize();
+
+    // cURL incorrectly handles URLs with a fragment by including the
+    // fragment in the request to the server, causing some web servers
+    // to reject the request citing "400 - Bad Request". To prevent
+    // this, we strip the fragment from the request.
+    // TODO: Remove this for Drupal 8, since fixed in curl 7.20.0.
+    if (!empty($curl_options[CURLOPT_URL]) && strpos($curl_options[CURLOPT_URL], '#')) {
+      $original_url = $curl_options[CURLOPT_URL];
+      $curl_options[CURLOPT_URL] = strtok($curl_options[CURLOPT_URL], '#');
+    }
+
     $url = empty($curl_options[CURLOPT_URL]) ? curl_getinfo($this->curlHandle, CURLINFO_EFFECTIVE_URL) : $curl_options[CURLOPT_URL];
+
     if (!empty($curl_options[CURLOPT_POST])) {
       // This is a fix for the Curl library to prevent Expect: 100-continue
       // headers in POST requests, that may cause unexpected HTTP response
@@ -1356,19 +1493,40 @@ class DrupalWebTestCase extends DrupalTestCase {
     }
     curl_setopt_array($this->curlHandle, $this->additionalCurlOptions + $curl_options);
 
-    // Reset headers and the session ID.
-    $this->session_id = NULL;
-    $this->headers = array();
+    if (!$redirect) {
+      // Reset headers, the session ID and the redirect counter.
+      $this->session_id = NULL;
+      $this->headers = array();
+      $this->redirect_count = 0;
+    }
 
-    $this->drupalSetContent(curl_exec($this->curlHandle), curl_getinfo($this->curlHandle, CURLINFO_EFFECTIVE_URL));
+    $content = curl_exec($this->curlHandle);
+    $status = curl_getinfo($this->curlHandle, CURLINFO_HTTP_CODE);
+
+    // cURL incorrectly handles URLs with fragments, so instead of
+    // letting cURL handle redirects we take of them ourselves to
+    // to prevent fragments being sent to the web server as part
+    // of the request.
+    // TODO: Remove this for Drupal 8, since fixed in curl 7.20.0.
+    if (in_array($status, array(300, 301, 302, 303, 305, 307)) && $this->redirect_count < variable_get('simpletest_maximum_redirects', 5)) {
+      if ($this->drupalGetHeader('location')) {
+        $this->redirect_count++;
+        $curl_options = array();
+        $curl_options[CURLOPT_URL] = $this->drupalGetHeader('location');
+        $curl_options[CURLOPT_HTTPGET] = TRUE;
+        return $this->curlExec($curl_options, TRUE);
+      }
+    }
+
+    $this->drupalSetContent($content, isset($original_url) ? $original_url : curl_getinfo($this->curlHandle, CURLINFO_EFFECTIVE_URL));
     $message_vars = array(
       '!method' => !empty($curl_options[CURLOPT_NOBODY]) ? 'HEAD' : (empty($curl_options[CURLOPT_POSTFIELDS]) ? 'GET' : 'POST'),
-      '@url' => $url,
-      '@status' => curl_getinfo($this->curlHandle, CURLINFO_HTTP_CODE),
-      '!length' => format_size(strlen($this->content))
+      '@url' => isset($original_url) ? $original_url : $url,
+      '@status' => $status,
+      '!length' => format_size(strlen($this->drupalGetContent()))
     );
     $message = t('!method @url returned @status (!length).', $message_vars);
-    $this->assertTrue($this->content !== FALSE, $message, t('Browser'));
+    $this->assertTrue($this->drupalGetContent() !== FALSE, $message, t('Browser'));
     return $this->drupalGetContent();
   }
 
@@ -1393,7 +1551,7 @@ class DrupalWebTestCase extends DrupalTestCase {
       call_user_func_array(array(&$this, 'error'), unserialize(urldecode($matches[1])));
     }
 
-    // Save the session cookie, if set.
+    // Save cookies.
     if (preg_match('/^Set-Cookie: ' . preg_quote($this->session_name) . '=([a-z90-9]+)/', $header, $matches)) {
       if ($matches[1] != 'deleted') {
         $this->session_id = $matches[1];
@@ -1427,7 +1585,8 @@ class DrupalWebTestCase extends DrupalTestCase {
     if (!$this->elements) {
       // DOM can load HTML soup. But, HTML soup can throw warnings, suppress
       // them.
-      @$htmlDom = DOMDocument::loadHTML($this->content);
+      $htmlDom = new DOMDocument();
+      @$htmlDom->loadHTML($this->drupalGetContent());
       if ($htmlDom) {
         $this->pass(t('Valid HTML found on "@path"', array('@path' => $this->getUrl())), t('Browser'));
         // It's much easier to work with simplexml than DOM, luckily enough
@@ -1465,7 +1624,7 @@ class DrupalWebTestCase extends DrupalTestCase {
     $this->refreshVariables(); // Ensure that any changes to variables in the other thread are picked up.
 
     // Replace original page output with new output from redirected page(s).
-    if (($new = $this->checkForMetaRefresh())) {
+    if ($new = $this->checkForMetaRefresh()) {
       $out = $new;
     }
     $this->verbose('GET request to: ' . $path .
@@ -1483,6 +1642,7 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   NULL to post to the current page. For multi-stage forms you can set the
    *   path to NULL and have it post to the last received page. Example:
    *
+   *   @code
    *   // First step in form.
    *   $edit = array(...);
    *   $this->drupalPost('some_url', $edit, t('Save'));
@@ -1490,6 +1650,7 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   // Second step in form.
    *   $edit = array(...);
    *   $this->drupalPost(NULL, $edit, t('Save'));
+   *   @endcode
    * @param  $edit
    *   Field data in an associative array. Changes the current input fields
    *   (where possible) to the values indicated. A checkbox can be set to
@@ -1499,43 +1660,70 @@ class DrupalWebTestCase extends DrupalTestCase {
    *
    *   Multiple select fields can be set using name[] and setting each of the
    *   possible values. Example:
+   *   @code
    *   $edit = array();
    *   $edit['name[]'] = array('value1', 'value2');
+   *   @endcode
    * @param $submit
-   *   Value of the submit button.
+   *   Value of the submit button whose click is to be emulated. For example,
+   *   t('Save'). The processing of the request depends on this value. For
+   *   example, a form may have one button with the value t('Save') and another
+   *   button with the value t('Delete'), and execute different code depending
+   *   on which one is clicked.
+   *
+   *   This can also be set to NULL in order to emulate an Internet Explorer
+   *   submission of a form with a single text field, and pressing ENTER in that
+   *   textfield: under these conditions, no button information is added to the
+   *   POST data.
    * @param $options
    *   Options to be forwarded to url().
    * @param $headers
    *   An array containing additional HTTP request headers, each formatted as
    *   "name: value".
+   * @param $form_html_id
+   *   (optional) HTML ID of the form to be submitted. On some pages
+   *   there are many identical forms, so just using the value of the submit
+   *   button is not enough. For example: 'trigger-node-presave-assign-form'.
+   *   Note that this is not the Drupal $form_id, but rather the HTML ID of the
+   *   form, which is typically the same thing but with hyphens replacing the
+   *   underscores.
+   * @param $extra_post
+   *   (optional) A string of additional data to append to the POST submission.
+   *   This can be used to add POST data for which there are no HTML fields, as
+   *   is done by drupalPostAJAX(). This string is literally appended to the
+   *   POST data, so it must already be urlencoded and contain a leading "&"
+   *   (e.g., "&extra_var1=hello+world&extra_var2=you%26me").
    */
-  protected function drupalPost($path, $edit, $submit, array $options = array(), array $headers = array()) {
+  protected function drupalPost($path, $edit, $submit, array $options = array(), array $headers = array(), $form_html_id = NULL, $extra_post = NULL) {
     $submit_matches = FALSE;
     if (isset($path)) {
-      $html = $this->drupalGet($path, $options);
+      $this->drupalGet($path, $options);
     }
     if ($this->parse()) {
       $edit_save = $edit;
       // Let's iterate over all the forms.
-      $forms = $this->xpath('//form');
+      $xpath = "//form";
+      if (!empty($form_html_id)) {
+        $xpath .= "[@id='" . $form_html_id . "']";
+      }
+      $forms = $this->xpath($xpath);
       foreach ($forms as $form) {
         // We try to set the fields of this form as specified in $edit.
         $edit = $edit_save;
         $post = array();
         $upload = array();
         $submit_matches = $this->handleForm($post, $edit, $upload, $submit, $form);
-        $action = isset($form['action']) ? $this->getAbsoluteUrl($form['action']) : $this->getUrl();
+        $action = isset($form['action']) ? $this->getAbsoluteUrl((string) $form['action']) : $this->getUrl();
 
         // We post only if we managed to handle every field in edit and the
         // submit button matches.
-        if (!$edit && $submit_matches) {
+        if (!$edit && ($submit_matches || !isset($submit))) {
           $post_array = $post;
           if ($upload) {
             // TODO: cURL handles file uploads for us, but the implementation
             // is broken. This is a less than elegant workaround. Alternatives
             // are being explored at #253506.
             foreach ($upload as $key => $file) {
-//              $file = drupal_realpath($file);
               $file = realpath($file);
               if ($file && is_file($file)) {
                 $post[$key] = '@' . $file;
@@ -1549,14 +1737,14 @@ class DrupalWebTestCase extends DrupalTestCase {
               // http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4.1
               $post[$key] = urlencode($key) . '=' . urlencode($value);
             }
-            $post = implode('&', $post);
+            $post = implode('&', $post) . $extra_post;
           }
           $out = $this->curlExec(array(CURLOPT_URL => $action, CURLOPT_POST => TRUE, CURLOPT_POSTFIELDS => $post, CURLOPT_HTTPHEADER => $headers));
           // Ensure that any changes to variables in the other thread are picked up.
           $this->refreshVariables();
 
           // Replace original page output with new output from redirected page(s).
-          if (($new = $this->checkForMetaRefresh())) {
+          if ($new = $this->checkForMetaRefresh()) {
             $out = $new;
           }
           $this->verbose('POST request to: ' . $path .
@@ -1570,9 +1758,18 @@ class DrupalWebTestCase extends DrupalTestCase {
       foreach ($edit as $name => $value) {
         $this->fail(t('Failed to set field @name to @value', array('@name' => $name, '@value' => $value)));
       }
-      $this->assertTrue($submit_matches, t('Found the @submit button', array('@submit' => $submit)));
+      if (isset($submit)) {
+        $this->assertTrue($submit_matches, t('Found the @submit button', array('@submit' => $submit)));
+      }
       $this->fail(t('Found the requested form fields at @path', array('@path' => $path)));
     }
+  }
+
+  /**
+   * Runs cron in the Drupal installed by Simpletest.
+   */
+  protected function cronRun() {
+    $this->drupalGet($GLOBALS['base_url'] . '/cron.php', array('external' => TRUE));
   }
 
   /**
@@ -1584,7 +1781,7 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   Either the new page content or FALSE.
    */
   protected function checkForMetaRefresh() {
-    if ($this->drupalGetContent() != '' && $this->parse()) {
+    if (strpos($this->drupalGetContent(), '<meta ') && $this->parse()) {
       $refresh = $this->xpath('//meta[@http-equiv="Refresh"]');
       if (!empty($refresh)) {
         // Parse the content attribute of the meta tag for the format:
@@ -1635,15 +1832,15 @@ class DrupalWebTestCase extends DrupalTestCase {
    */
   protected function handleForm(&$post, &$edit, &$upload, $submit, $form) {
     // Retrieve the form elements.
-    $elements = $form->xpath('.//input|.//textarea|.//select');
+    $elements = $form->xpath('.//input[not(@disabled)]|.//textarea[not(@disabled)]|.//select[not(@disabled)]');
     $submit_matches = FALSE;
     foreach ($elements as $element) {
       // SimpleXML objects need string casting all the time.
       $name = (string) $element['name'];
       // This can either be the type of <input> or the name of the tag itself
       // for <select> or <textarea>.
-      $type = isset($element['type']) ? (string)$element['type'] : $element->getName();
-      $value = isset($element['value']) ? (string)$element['value'] : '';
+      $type = isset($element['type']) ? (string) $element['type'] : $element->getName();
+      $value = isset($element['value']) ? (string) $element['value'] : '';
       $done = FALSE;
       if (isset($edit[$name])) {
         switch ($type) {
@@ -1651,6 +1848,14 @@ class DrupalWebTestCase extends DrupalTestCase {
           case 'textarea':
           case 'hidden':
           case 'password':
+          // In order to support PIFR's review of Drupal 7+ core patches, we
+          // need to ensure that new core elements are supported here even if
+          // they are not available for Drupal 6.
+          case 'email':
+          case 'url':
+          case 'tel':
+          case 'number':
+          case 'range':
             $post[$name] = $edit[$name];
             unset($edit[$name]);
             break;
@@ -1675,22 +1880,37 @@ class DrupalWebTestCase extends DrupalTestCase {
             break;
           case 'select':
             $new_value = $edit[$name];
-            $index = 0;
-            $key = preg_replace('/\[\]$/', '', $name);
             $options = $this->getAllOptions($element);
-            foreach ($options as $option) {
-              if (is_array($new_value)) {
-                $option_value= (string)$option['value'];
-                if (in_array($option_value, $new_value)) {
-                  $post[$key . '[' . $index++ . ']'] = $option_value;
-                  $done = TRUE;
-                  unset($edit[$name]);
+            if (is_array($new_value)) {
+              // Multiple select box.
+              if (!empty($new_value)) {
+                $index = 0;
+                $key = preg_replace('/\[\]$/', '', $name);
+                foreach ($options as $option) {
+                  $option_value = (string) $option['value'];
+                  if (in_array($option_value, $new_value)) {
+                    $post[$key . '[' . $index++ . ']'] = $option_value;
+                    $done = TRUE;
+                    unset($edit[$name]);
+                  }
                 }
               }
-              elseif ($new_value == $option['value']) {
-                $post[$name] = $new_value;
-                unset($edit[$name]);
+              else {
+                // No options selected: do not include any POST data for the
+                // element.
                 $done = TRUE;
+                unset($edit[$name]);
+              }
+            }
+            else {
+              // Single select box.
+              foreach ($options as $option) {
+                if ($new_value == $option['value']) {
+                  $post[$name] = $new_value;
+                  unset($edit[$name]);
+                  $done = TRUE;
+                  break;
+                }
               }
             }
             break;
@@ -1703,7 +1923,7 @@ class DrupalWebTestCase extends DrupalTestCase {
       if (!isset($post[$name]) && !$done) {
         switch ($type) {
           case 'textarea':
-            $post[$name] = (string)$element;
+            $post[$name] = (string) $element;
             break;
           case 'select':
             $single = empty($element['multiple']);
@@ -1717,10 +1937,10 @@ class DrupalWebTestCase extends DrupalTestCase {
               if ($option['selected'] || ($first && $single)) {
                 $first = FALSE;
                 if ($single) {
-                  $post[$name] = (string)$option['value'];
+                  $post[$name] = (string) $option['value'];
                 }
                 else {
-                  $post[$key . '[' . $index++ . ']'] = (string)$option['value'];
+                  $post[$key . '[' . $index++ . ']'] = (string) $option['value'];
                 }
               }
             }
@@ -1729,7 +1949,7 @@ class DrupalWebTestCase extends DrupalTestCase {
             break;
           case 'submit':
           case 'image':
-            if ($submit == $value) {
+            if (isset($submit) && $submit == $value) {
               $post[$name] = $value;
               $submit_matches = TRUE;
             }
@@ -1749,6 +1969,48 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
+   * Builds an XPath query.
+   *
+   * Builds an XPath query by replacing placeholders in the query by the value
+   * of the arguments.
+   *
+   * XPath 1.0 (the version supported by libxml2, the underlying XML library
+   * used by PHP) doesn't support any form of quotation. This function
+   * simplifies the building of XPath expression.
+   *
+   * @param $xpath
+   *   An XPath query, possibly with placeholders in the form ':name'.
+   * @param $args
+   *   An array of arguments with keys in the form ':name' matching the
+   *   placeholders in the query. The values may be either strings or numeric
+   *   values.
+   * @return
+   *   An XPath query with arguments replaced.
+   */
+  protected function buildXPathQuery($xpath, array $args = array()) {
+    // Replace placeholders.
+    foreach ($args as $placeholder => $value) {
+      // XPath 1.0 doesn't support a way to escape single or double quotes in a
+      // string literal. We split double quotes out of the string, and encode
+      // them separately.
+      if (is_string($value)) {
+        // Explode the text at the quote characters.
+        $parts = explode('"', $value);
+
+        // Quote the parts.
+        foreach ($parts as &$part) {
+          $part = '"' . $part . '"';
+        }
+
+        // Return the string.
+        $value = count($parts) > 1 ? 'concat(' . implode(', \'"\', ', $parts) . ')' : $parts[0];
+      }
+      $xpath = preg_replace('/' . preg_quote($placeholder) . '\b/', $value, $xpath);
+    }
+    return $xpath;
+  }
+
+  /**
    * Perform an xpath search on the contents of the internal browser. The search
    * is relative to the root element (HTML tag normally) of the page.
    *
@@ -1759,11 +2021,18 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   format and return values see the SimpleXML documentation,
    *   http://us.php.net/manual/function.simplexml-element-xpath.php.
    */
-  protected function xpath($xpath) {
+  protected function xpath($xpath, array $arguments = array()) {
     if ($this->parse()) {
-      return $this->elements->xpath($xpath);
+      $xpath = $this->buildXPathQuery($xpath, $arguments);
+      $result = $this->elements->xpath($xpath);
+      // Some combinations of PHP / libxml versions return an empty array
+      // instead of the documented FALSE. Forcefully convert any falsish values
+      // to an empty array to allow foreach(...) constructions.
+      return $result ? $result : array();
     }
-    return FALSE;
+    else {
+      return FALSE;
+    }
   }
 
   /**
@@ -1806,8 +2075,8 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertLink($label, $index = 0, $message = '', $group = 'Other') {
-    $links = $this->xpath('//a[text()="' . $label . '"]');
-    $message = ($message ?  $message : t('Link with label "!label" found.', array('!label' => $label)));
+    $links = $this->xpath('//a[normalize-space(text())=:label]', array(':label' => $label));
+    $message = ($message ?  $message : t('Link with label %label found.', array('%label' => $label)));
     return $this->assert(isset($links[$index]), $message, $group);
   }
 
@@ -1826,8 +2095,48 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   TRUE if the assertion succeeded, FALSE otherwise.
    */
   protected function assertNoLink($label, $message = '', $group = 'Other') {
-    $links = $this->xpath('//a[text()="' . $label . '"]');
-    $message = ($message ?  $message : t('Link with label "!label" not found.', array('!label' => $label)));
+    $links = $this->xpath('//a[normalize-space(text())=:label]', array(':label' => $label));
+    $message = ($message ?  $message : t('Link with label %label not found.', array('%label' => $label)));
+    return $this->assert(empty($links), $message, $group);
+  }
+
+  /**
+   * Pass if a link containing a given href (part) is found.
+   *
+   * @param $href
+   *   The full or partial value of the 'href' attribute of the anchor tag.
+   * @param $index
+   *   Link position counting from zero.
+   * @param $message
+   *   Message to display.
+   * @param $group
+   *   The group this message belongs to, defaults to 'Other'.
+   *
+   * @return
+   *   TRUE if the assertion succeeded, FALSE otherwise.
+   */
+  protected function assertLinkByHref($href, $index = 0, $message = '', $group = 'Other') {
+    $links = $this->xpath('//a[contains(@href, :href)]', array(':href' => $href));
+    $message = ($message ?  $message : t('Link containing href %href found.', array('%href' => $href)));
+    return $this->assert(isset($links[$index]), $message, $group);
+  }
+
+  /**
+   * Pass if a link containing a given href (part) is not found.
+   *
+   * @param $href
+   *   The full or partial value of the 'href' attribute of the anchor tag.
+   * @param $message
+   *   Message to display.
+   * @param $group
+   *   The group this message belongs to, defaults to 'Other'.
+   *
+   * @return
+   *   TRUE if the assertion succeeded, FALSE otherwise.
+   */
+  protected function assertNoLinkByHref($href, $message = '', $group = 'Other') {
+    $links = $this->xpath('//a[contains(@href, :href)]', array(':href' => $href));
+    $message = ($message ?  $message : t('No link containing href %href found.', array('%href' => $href)));
     return $this->assert(empty($links), $message, $group);
   }
 
@@ -1848,15 +2157,15 @@ class DrupalWebTestCase extends DrupalTestCase {
    */
   protected function clickLink($label, $index = 0) {
     $url_before = $this->getUrl();
-    $urls = $this->xpath('//a[text()="' . $label . '"]');
+    $urls = $this->xpath('//a[normalize-space(text())=:label]', array(':label' => $label));
 
     if (isset($urls[$index])) {
       $url_target = $this->getAbsoluteUrl($urls[$index]['href']);
     }
 
-    $this->assertTrue(isset($urls[$index]), t('Clicked link "!label" (!url_target) from !url_before', array('!label' => $label, '!url_target' => $url_target, '!url_before' => $url_before)), t('Browser'));
+    $this->assertTrue(isset($urls[$index]), t('Clicked link %label (@url_target) from @url_before', array('%label' => $label, '@url_target' => $url_target, '@url_before' => $url_before)), t('Browser'));
 
-    if (isset($urls[$index])) {
+    if (isset($url_target)) {
       return $this->drupalGet($url_target);
     }
     return FALSE;
@@ -1866,26 +2175,28 @@ class DrupalWebTestCase extends DrupalTestCase {
    * Takes a path and returns an absolute path.
    *
    * @param $path
-   *   The path, can be a Drupal path or a site-relative path. It might have a
-   *   query, too. Can even be an absolute path which is just passed through.
+   *   A path from the internal browser content.
    * @return
-   *   An absolute path.
+   *   The $path with $base_url prepended, if necessary.
    */
   protected function getAbsoluteUrl($path) {
-    $options = array('absolute' => TRUE);
+    global $base_url, $base_path;
+
     $parts = parse_url($path);
-    // This is more crude than the menu_is_external but enough here.
     if (empty($parts['host'])) {
-      $path = $parts['path'];
-      $base_path = base_path();
-      $n = strlen($base_path);
-      if (substr($path, 0, $n) == $base_path) {
-        $path = substr($path, $n);
+      // Ensure that we have a string (and no xpath object).
+      $path = (string) $path;
+      // Strip $base_path, if existent.
+      $length = strlen($base_path);
+      if (substr($path, 0, $length) === $base_path) {
+        $path = substr($path, $length);
       }
-      if (isset($parts['query'])) {
-        $options['query'] = $parts['query'];
+      // Ensure that we have an absolute path.
+      if ($path[0] !== '/') {
+        $path = '/' . $path;
       }
-      $path = url($path, $options);
+      // Finally, prepend the $base_url.
+      $path = $base_url . $path;
     }
     return $path;
   }
@@ -1994,6 +2305,13 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
+   * Gets the value of the Drupal.settings JavaScript variable for the currently loaded page.
+   */
+  protected function drupalGetSettings() {
+    return $this->drupalSettings;
+  }
+
+  /**
    * Gets an array containing all e-mails sent during this test case.
    *
    * @param $filter
@@ -2007,8 +2325,7 @@ class DrupalWebTestCase extends DrupalTestCase {
 
     foreach ($captured_emails as $message) {
       foreach ($filter as $key => $value) {
-//        if (!isset($message[$key]) || $message[$key] != $value) {
-        if (!isset($message['params'][$key]) || $message['params'][$key] != $value) {
+        if ((!isset($message[$key]) || $message[$key] != $value) && (!isset($message['params'][$key]) || $message['params'][$key] != $value)) {
           continue 2;
         }
       }
@@ -2032,6 +2349,42 @@ class DrupalWebTestCase extends DrupalTestCase {
     $this->url = $url;
     $this->plainTextContent = FALSE;
     $this->elements = FALSE;
+    $this->drupalSettings = array();
+    //if (preg_match('/jQuery\.extend\(Drupal\.settings, (.*?)\);/', $content, $matches)) {
+    //  $this->drupalSettings = drupal_json_decode($matches[1]);
+    //}
+  }
+
+  /**
+   * Sets the value of the Drupal.settings JavaScript variable for the currently loaded page.
+   */
+  protected function drupalSetSettings($settings) {
+    $this->drupalSettings = $settings;
+  }
+
+  /**
+   * Pass if the internal browser's URL matches the given path.
+   *
+   * @param $path
+   *   The expected system path.
+   * @param $options
+   *   (optional) Any additional options to pass for $path to url().
+   * @param $message
+   *   Message to display.
+   * @param $group
+   *   The group this message belongs to, defaults to 'Other'.
+   *
+   * @return
+   *   TRUE on pass, FALSE on fail.
+   */
+  protected function assertUrl($path, array $options = array(), $message = '', $group = 'Other') {
+    if (!$message) {
+      $message = t('Current URL is @url.', array(
+        '@url' => var_export(url($path, $options), TRUE),
+      ));
+    }
+    $options['absolute'] = TRUE;
+    return $this->assertEqual($this->getUrl(), url($path, $options), $message, $group);
   }
 
   /**
@@ -2049,9 +2402,9 @@ class DrupalWebTestCase extends DrupalTestCase {
    */
   protected function assertRaw($raw, $message = '', $group = 'Other') {
     if (!$message) {
-      $message = t('Raw "@raw" found', array('@raw' => check_plain($raw)));
+      $message = t('Raw "@raw" found', array('@raw' => $raw));
     }
-    return $this->assert(strpos($this->content, $raw) !== FALSE, $message, $group);
+    return $this->assert(strpos($this->drupalGetContent(), $raw) !== FALSE, $message, $group);
   }
 
   /**
@@ -2069,9 +2422,9 @@ class DrupalWebTestCase extends DrupalTestCase {
    */
   protected function assertNoRaw($raw, $message = '', $group = 'Other') {
     if (!$message) {
-      $message = t('Raw "@raw" not found', array('@raw' => check_plain($raw)));
+      $message = t('Raw "@raw" not found', array('@raw' => $raw));
     }
-    return $this->assert(strpos($this->content, $raw) === FALSE, $message, $group);
+    return $this->assert(strpos($this->drupalGetContent(), $raw) === FALSE, $message, $group);
   }
 
   /**
@@ -2126,9 +2479,9 @@ class DrupalWebTestCase extends DrupalTestCase {
    * @return
    *   TRUE on pass, FALSE on fail.
    */
-  protected function assertTextHelper($text, $message, $group, $not_exists) {
+  protected function assertTextHelper($text, $message = '', $group, $not_exists) {
     if ($this->plainTextContent === FALSE) {
-      $this->plainTextContent = filter_xss($this->content, array());
+      $this->plainTextContent = filter_xss($this->drupalGetContent(), array());
     }
     if (!$message) {
       $message = !$not_exists ? t('"@text" found', array('@text' => $text)) : t('"@text" not found', array('@text' => $text));
@@ -2192,9 +2545,9 @@ class DrupalWebTestCase extends DrupalTestCase {
    * @return
    *   TRUE on pass, FALSE on fail.
    */
-  protected function assertUniqueTextHelper($text, $message, $group, $be_unique) {
+  protected function assertUniqueTextHelper($text, $message = '', $group, $be_unique) {
     if ($this->plainTextContent === FALSE) {
-      $this->plainTextContent = filter_xss($this->content, array());
+      $this->plainTextContent = filter_xss($this->drupalGetContent(), array());
     }
     if (!$message) {
       $message = '"' . $text . '"' . ($be_unique ? ' found only once' : ' found more than once');
@@ -2258,8 +2611,15 @@ class DrupalWebTestCase extends DrupalTestCase {
    * @return
    *   TRUE on pass, FALSE on fail.
    */
-  protected function assertTitle($title, $message, $group = 'Other') {
-    return $this->assertEqual(current($this->xpath('//title')), $title, $message, $group);
+  protected function assertTitle($title, $message = '', $group = 'Other') {
+    $actual = (string) current($this->xpath('//title'));
+    if (!$message) {
+      $message = t('Page title @actual is equal to @expected.', array(
+        '@actual' => var_export($actual, TRUE),
+        '@expected' => var_export($title, TRUE),
+      ));
+    }
+    return $this->assertEqual($actual, $title, $message, $group);
   }
 
   /**
@@ -2274,30 +2634,38 @@ class DrupalWebTestCase extends DrupalTestCase {
    * @return
    *   TRUE on pass, FALSE on fail.
    */
-  protected function assertNoTitle($title, $message, $group = 'Other') {
-    return $this->assertNotEqual(current($this->xpath('//title')), $title, $message, $group);
+  protected function assertNoTitle($title, $message = '', $group = 'Other') {
+    $actual = (string) current($this->xpath('//title'));
+    if (!$message) {
+      $message = t('Page title @actual is not equal to @unexpected.', array(
+        '@actual' => var_export($actual, TRUE),
+        '@unexpected' => var_export($title, TRUE),
+      ));
+    }
+    return $this->assertNotEqual($actual, $title, $message, $group);
   }
 
   /**
-   * Assert that a field exists in the current page by the given XPath.
+   * Asserts that a field exists in the current page by the given XPath.
    *
    * @param $xpath
    *   XPath used to find the field.
    * @param $value
-   *   Value of the field to assert.
+   *   (optional) Value of the field to assert.
    * @param $message
-   *   Message to display.
+   *   (optional) Message to display.
    * @param $group
-   *   The group this message belongs to.
+   *   (optional) The group this message belongs to.
+   *
    * @return
    *   TRUE on pass, FALSE on fail.
    */
-  protected function assertFieldByXPath($xpath, $value, $message, $group = 'Other') {
+  protected function assertFieldByXPath($xpath, $value = NULL, $message = '', $group = 'Other') {
     $fields = $this->xpath($xpath);
 
     // If value specified then check array for match.
     $found = TRUE;
-    if ($value) {
+    if (isset($value)) {
       $found = FALSE;
       if ($fields) {
         foreach ($fields as $field) {
@@ -2351,25 +2719,26 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
-   * Assert that a field does not exist in the current page by the given XPath.
+   * Asserts that a field does not exist in the current page by the given XPath.
    *
    * @param $xpath
    *   XPath used to find the field.
    * @param $value
-   *   Value of the field to assert.
+   *   (optional) Value of the field to assert.
    * @param $message
-   *   Message to display.
+   *   (optional) Message to display.
    * @param $group
-   *   The group this message belongs to.
+   *   (optional) The group this message belongs to.
+   *
    * @return
    *   TRUE on pass, FALSE on fail.
    */
-  protected function assertNoFieldByXPath($xpath, $value, $message, $group = 'Other') {
+  protected function assertNoFieldByXPath($xpath, $value = NULL, $message = '', $group = 'Other') {
     $fields = $this->xpath($xpath);
 
     // If value specified then check array for match.
     $found = TRUE;
-    if ($value) {
+    if (isset($value)) {
       $found = FALSE;
       if ($fields) {
         foreach ($fields as $field) {
@@ -2383,7 +2752,7 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
-   * Assert that a field exists in the current page with the given name and value.
+   * Asserts that a field exists in the current page with the given name and value.
    *
    * @param $name
    *   Name of field to assert.
@@ -2401,7 +2770,7 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
-   * Assert that a field does not exist with the given name and value.
+   * Asserts that a field does not exist with the given name and value.
    *
    * @param $name
    *   Name of field to assert.
@@ -2419,7 +2788,7 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
-   * Assert that a field exists in the current page with the given id and value.
+   * Asserts that a field exists in the current page with the given id and value.
    *
    * @param $id
    *   Id of field to assert.
@@ -2437,7 +2806,7 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
-   * Assert that a field does not exist with the given id and value.
+   * Asserts that a field does not exist with the given id and value.
    *
    * @param $id
    *   Id of field to assert.
@@ -2455,7 +2824,7 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
-   * Assert that a checkbox field in the current page is checked.
+   * Asserts that a checkbox field in the current page is checked.
    *
    * @param $id
    *   Id of field to assert.
@@ -2465,12 +2834,12 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   TRUE on pass, FALSE on fail.
    */
   protected function assertFieldChecked($id, $message = '') {
-    $elements = $this->xpath('//input[@id="' . $id . '"]');
+    $elements = $this->xpath('//input[@id=:id]', array(':id' => $id));
     return $this->assertTrue(isset($elements[0]) && !empty($elements[0]['checked']), $message ? $message : t('Checkbox field @id is checked.', array('@id' => $id)), t('Browser'));
   }
 
   /**
-   * Assert that a checkbox field in the current page is not checked.
+   * Asserts that a checkbox field in the current page is not checked.
    *
    * @param $id
    *   Id of field to assert.
@@ -2480,12 +2849,48 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   TRUE on pass, FALSE on fail.
    */
   protected function assertNoFieldChecked($id, $message = '') {
-    $elements = $this->xpath('//input[@id="' . $id . '"]');
+    $elements = $this->xpath('//input[@id=:id]', array(':id' => $id));
     return $this->assertTrue(isset($elements[0]) && empty($elements[0]['checked']), $message ? $message : t('Checkbox field @id is not checked.', array('@id' => $id)), t('Browser'));
   }
 
   /**
-   * Assert that a field exists with the given name or id.
+   * Asserts that a select option in the current page is checked.
+   *
+   * @param $id
+   *   Id of select field to assert.
+   * @param $option
+   *   Option to assert.
+   * @param $message
+   *   Message to display.
+   * @return
+   *   TRUE on pass, FALSE on fail.
+   *
+   * @todo $id is unusable. Replace with $name.
+   */
+  protected function assertOptionSelected($id, $option, $message = '') {
+    $elements = $this->xpath('//select[@id=:id]//option[@value=:option]', array(':id' => $id, ':option' => $option));
+    return $this->assertTrue(isset($elements[0]) && !empty($elements[0]['selected']), $message ? $message : t('Option @option for field @id is selected.', array('@option' => $option, '@id' => $id)), t('Browser'));
+  }
+
+  /**
+   * Asserts that a select option in the current page is not checked.
+   *
+   * @param $id
+   *   Id of select field to assert.
+   * @param $option
+   *   Option to assert.
+   * @param $message
+   *   Message to display.
+   * @return
+   *   TRUE on pass, FALSE on fail.
+   */
+  protected function assertNoOptionSelected($id, $option, $message = '') {
+    $elements = $this->xpath('//select[@id=:id]//option[@value=:option]', array(':id' => $id, ':option' => $option));
+    return $this->assertTrue(isset($elements[0]) && empty($elements[0]['selected']), $message ? $message : t('Option @option for field @id is not selected.', array('@option' => $option, '@id' => $id)), t('Browser'));
+  }
+
+  /**
+   * Asserts that a field exists with the given name or id.
    *
    * @param $field
    *   Name or id of field to assert.
@@ -2497,11 +2902,11 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   TRUE on pass, FALSE on fail.
    */
   protected function assertField($field, $message = '', $group = 'Other') {
-    return $this->assertFieldByXPath($this->constructFieldXpath('name', $field) . '|' . $this->constructFieldXpath('id', $field), '', $message, $group);
+    return $this->assertFieldByXPath($this->constructFieldXpath('name', $field) . '|' . $this->constructFieldXpath('id', $field), NULL, $message, $group);
   }
 
   /**
-   * Assert that a field does not exist with the given name or id.
+   * Asserts that a field does not exist with the given name or id.
    *
    * @param $field
    *   Name or id of field to assert.
@@ -2513,7 +2918,37 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   TRUE on pass, FALSE on fail.
    */
   protected function assertNoField($field, $message = '', $group = 'Other') {
-    return $this->assertNoFieldByXPath($this->constructFieldXpath('name', $field) . '|' . $this->constructFieldXpath('id', $field), '', $message, $group);
+    return $this->assertNoFieldByXPath($this->constructFieldXpath('name', $field) . '|' . $this->constructFieldXpath('id', $field), NULL, $message, $group);
+  }
+
+  /**
+   * Asserts that each HTML ID is used for just a single element.
+   *
+   * @param $message
+   *   Message to display.
+   * @param $group
+   *   The group this message belongs to.
+   * @param $ids_to_skip
+   *   An optional array of ids to skip when checking for duplicates. It is
+   *   always a bug to have duplicate HTML IDs, so this parameter is to enable
+   *   incremental fixing of core code. Whenever a test passes this parameter,
+   *   it should add a "todo" comment above the call to this function explaining
+   *   the legacy bug that the test wishes to ignore and including a link to an
+   *   issue that is working to fix that legacy bug.
+   * @return
+   *   TRUE on pass, FALSE on fail.
+   */
+  protected function assertNoDuplicateIds($message = '', $group = 'Other', $ids_to_skip = array()) {
+    $status = TRUE;
+    foreach ($this->xpath('//*[@id]') as $element) {
+      $id = (string) $element['id'];
+      if (isset($seen_ids[$id]) && !in_array($id, $ids_to_skip)) {
+        $this->fail(t('The HTML ID %id is unique.', array('%id' => $id)), $group);
+        $status = FALSE;
+      }
+      $seen_ids[$id] = TRUE;
+    }
+    return $this->assert($status, $message, $group);
   }
 
   /**
@@ -2527,11 +2962,12 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   XPath for specified values.
    */
   protected function constructFieldXpath($attribute, $value) {
-    return '//textarea[@' . $attribute . '="' . $value . '"]|//input[@' . $attribute . '="' . $value . '"]|//select[@' . $attribute . '="' . $value . '"]';
+    $xpath = '//textarea[@' . $attribute . '=:value]|//input[@' . $attribute . '=:value]|//select[@' . $attribute . '=:value]';
+    return $this->buildXPathQuery($xpath, array(':value' => $value));
   }
 
   /**
-   * Assert the page responds with the specified response code.
+   * Asserts the page responds with the specified response code.
    *
    * @param $code
    *   Response code. For example 200 is a successful page request. For a list
@@ -2548,7 +2984,27 @@ class DrupalWebTestCase extends DrupalTestCase {
   }
 
   /**
-   * Assert that the most recently sent e-mail message has a field with the given value.
+   * Asserts the page did not return the specified response code.
+   *
+   * @param $code
+   *   Response code. For example 200 is a successful page request. For a list
+   *   of all codes see http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html.
+   * @param $message
+   *   Message to display.
+   *
+   * @return
+   *   Assertion result.
+   */
+  protected function assertNoResponse($code, $message = '') {
+    $curl_code = curl_getinfo($this->curlHandle, CURLINFO_HTTP_CODE);
+    $match = is_array($code) ? in_array($curl_code, $code) : $curl_code == $code;
+    return $this->assertFalse($match, $message ? $message : t('HTTP response not expected !code, actual !curl_code', array('!code' => $code, '!curl_code' => $curl_code)), t('Browser'));
+  }
+
+  /**
+   * Asserts that the most recently sent e-mail message has the given value.
+   *
+   * The field in $name must have the content described in $value.
    *
    * @param $name
    *   Name of field or message property to assert. Examples: subject, body, id, ...
@@ -2556,40 +3012,81 @@ class DrupalWebTestCase extends DrupalTestCase {
    *   Value of the field to assert.
    * @param $message
    *   Message to display.
+   *
    * @return
    *   TRUE on pass, FALSE on fail.
    */
   protected function assertMail($name, $value = '', $message = '') {
     $captured_emails = variable_get('drupal_test_email_collector', array());
     $email = end($captured_emails);
-//    return $this->assertTrue($email && isset($email[$name]) && $email[$name] == $value, $message, t('E-mail'));
-    return $this->assertTrue(
-      ($email && isset($email[$name]) && $email[$name] == $value) ||
-      ($email && isset($email['params'][$name]) && $email['params'][$name] == $value),
-      $message,
-      t('E-mail'));
+    return $this->assertTrue($email && (isset($email[$name]) && $email[$name] == $value || isset($email['params'][$name]) && $email['params'][$name] == $value), $message, t('E-mail'));
   }
 
   /**
-   * Log verbose message in a text file.
+   * Asserts that the most recently sent e-mail message has the string in it.
    *
-   * The a link to the vebose message will be placed in the test results via
-   * as a passing assertion with the text '[verbose message]'.
+   * @param $field_name
+   *   Name of field or message property to assert: subject, body, id, ...
+   * @param $string
+   *   String to search for.
+   * @param $email_depth
+   *   Number of emails to search for string, starting with most recent.
    *
-   * @param $message
-   *   The verbose message to be stored.
-   * @see simpletest_verbose()
+   * @return
+   *   TRUE on pass, FALSE on fail.
    */
-  protected function verbose($message) {
-    if ($id = simpletest_verbose($message)) {
-      $this->pass(l(t('Verbose message'), $this->originalFileDirectory . '/simpletest/verbose/' . get_class($this) . '-' . $id . '.html', array('attributes' => array('target' => '_blank'))), 'Debug');
+  protected function assertMailString($field_name, $string, $email_depth) {
+    $mails = $this->drupalGetMails();
+    $string_found = FALSE;
+    for ($i = sizeof($mails) -1; $i >= sizeof($mails) - $email_depth && $i >= 0; $i--) {
+      $mail = $mails[$i];
+      // Normalize whitespace, as we don't know what the mail system might have
+      // done. Any run of whitespace becomes a single space.
+      $normalized_mail = preg_replace('/\s+/', ' ', $mail[$field_name]);
+      $normalized_string = preg_replace('/\s+/', ' ', $string);
+      $string_found = (FALSE !== strpos($normalized_mail, $normalized_string));
+      if ($string_found) {
+        break;
+      }
     }
+    return $this->assertTrue($string_found, t('Expected text found in @field of email message: "@expected".', array('@field' => $field_name, '@expected' => $string)));
   }
 
+  /**
+   * Asserts that the most recently sent e-mail message has the pattern in it.
+   *
+   * @param $field_name
+   *   Name of field or message property to assert: subject, body, id, ...
+   * @param $regex
+   *   Pattern to search for.
+   *
+   * @return
+   *   TRUE on pass, FALSE on fail.
+   */
+  protected function assertMailPattern($field_name, $regex, $message) {
+    $mails = $this->drupalGetMails();
+    $mail = end($mails);
+    $regex_found = preg_match("/$regex/", $mail[$field_name]);
+    return $this->assertTrue($regex_found, t('Expected text found in @field of email message: "@expected".', array('@field' => $field_name, '@expected' => $regex)));
+  }
+
+  /**
+   * Outputs to verbose the most recent $count emails sent.
+   *
+   * @param $count
+   *   Optional number of emails to output.
+   */
+  protected function verboseEmail($count = 1) {
+    $mails = $this->drupalGetMails();
+    for ($i = sizeof($mails) -1; $i >= sizeof($mails) - $count && $i >= 0; $i--) {
+      $mail = $mails[$i];
+      $this->verbose(t('Email:') . '<pre>' . print_r($mail, TRUE) . '</pre>');
+    }
+  }
 }
 
 /**
- * Log verbose message in a text file.
+ * Logs verbose message in a text file.
  *
  * If verbose mode is enabled then page requests will be dumped to a file and
  * presented on the test result screen. The messages will be placed in a file
@@ -2601,15 +3098,15 @@ class DrupalWebTestCase extends DrupalTestCase {
  *   The original file directory, before it was changed for testing purposes.
  * @param $test_class
  *   The active test case class.
+ *
  * @return
  *   The ID of the message to be placed in related assertion messages.
+ *
  * @see DrupalTestCase->originalFileDirectory
  * @see DrupalWebTestCase->verbose()
  */
 function simpletest_verbose($message, $original_file_directory = NULL, $test_class = NULL) {
-  static $file_directory = NULL, $class = NULL, $id = 1;
-//  $verbose = &drupal_static(__FUNCTION__);
-  static $verbose;
+  static $file_directory = NULL, $class = NULL, $id = 1, $verbose = NULL;
 
   // Will pass first time during setup phase, and when verbose is TRUE.
   if (!isset($original_file_directory) && !$verbose) {
@@ -2625,10 +3122,13 @@ function simpletest_verbose($message, $original_file_directory = NULL, $test_cla
   if ($original_file_directory) {
     $file_directory = $original_file_directory;
     $class = $test_class;
-    $verbose = variable_get('simpletest_verbose', FALSE);
+    $verbose = variable_get('simpletest_verbose', TRUE);
     $directory = $file_directory . '/simpletest/verbose';
-//    return file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
-    return file_check_directory($directory, FILE_CREATE_DIRECTORY);
+    $writable = file_check_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+    if ($writable && !file_exists($directory . '/.htaccess')) {
+      file_put_contents($directory . '/.htaccess', "<IfModule mod_expires.c>\nExpiresActive Off\n</IfModule>\n");
+    }
+    return $writable;
   }
   return FALSE;
 }

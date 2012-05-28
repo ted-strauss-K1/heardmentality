@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.12.4.4 2009/03/28 03:35:17 boombatower Exp $
 
 AUTHOR
 ------

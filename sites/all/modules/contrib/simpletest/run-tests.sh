@@ -1,14 +1,7 @@
 <?php
-// $Id: run-tests.sh,v 1.1.2.7 2009/10/19 01:49:41 boombatower Exp $
-// Core: Id: run-tests.sh,v 1.35 2009/08/17 19:14:41 webchick Exp
-
 /**
  * @file
- * Backport of Drupal 7 run-tests.sh with modifications, see BACKPORT.txt.
- * This file must be placed in the Drupal scripts folder in order for it to
- * work properly.
- *
- * Copyright 2008-2009 by Jimmy Berry ("boombatower", http://drupal.org/user/214218)
+ * This script runs Drupal tests from command line.
  */
 
 define('SIMPLETEST_SCRIPT_COLOR_PASS', 32); // Green.
@@ -47,7 +40,7 @@ if ($args['clean']) {
 
   // Get the status messages and print them.
   $messages = array_pop(drupal_get_messages('status'));
-  foreach($messages as $text) {
+  foreach ($messages as $text) {
     echo " - " . $text . "\n";
   }
   exit;
@@ -77,15 +70,11 @@ if ($args['list']) {
 $test_list = simpletest_script_get_test_list();
 
 // Try to allocate unlimited time to run the tests.
-//drupal_set_time_limit(0);
-if (!ini_get('safe_mode')) {
-  set_time_limit(0);
-}
+@set_time_limit(0);
 
 simpletest_script_reporter_init();
 
 // Setup database for test results.
-//$test_id = db_insert('simpletest_test_id')->useDefaults(array('test_id'))->execute();
 db_query('INSERT INTO {simpletest_test_id} VALUES (default)');
 $test_id = db_last_insert_id('simpletest_test_id', 'test_id');
 
@@ -98,8 +87,15 @@ simpletest_script_command($args['concurrency'], $test_id, implode(",", $test_lis
 list($last_prefix, $last_test_class) = simpletest_last_test_get($test_id);
 simpletest_log_read($test_id, $last_prefix, $last_test_class);
 
+// Stop the timer.
+simpletest_script_reporter_timer_stop();
+
 // Display results before database is cleared.
 simpletest_script_reporter_display_results();
+
+if ($args['xml']) {
+  simpletest_script_reporter_write_xml_results();
+}
 
 // Cleanup our test results.
 simpletest_clean_results_table($test_id);
@@ -145,7 +141,11 @@ All arguments are long options.
   --file      Run tests identified by specific file names, instead of group names.
               Specify the path and the extension (i.e. 'modules/user/user.test').
 
-  --color     Output the results with color highlighting.
+  --xml       <path>
+
+              If provided, test results will be written as xml files to this path.
+
+  --color     Output text format results with color highlighting.
 
   --verbose   Output detailed assertion messages in addition to summary.
 
@@ -194,7 +194,8 @@ function simpletest_script_parse_args() {
     'test_names' => array(),
     // Used internally.
     'test-id' => NULL,
-    'execute-batch' => FALSE
+    'execute-batch' => FALSE,
+    'xml' => '',
   );
 
   // Override with set values.
@@ -236,7 +237,7 @@ function simpletest_script_parse_args() {
     exit;
   }
   elseif ($args['concurrency'] > 1 && !function_exists('pcntl_fork')) {
-    simpletest_script_print_error("Parallel test execution requires the Process Control extension to be compiled in PHP. Please see http://php.net/manual/en/intro.pcntl.php for more information.");
+    simpletest_script_print_error("Parallel test execution requires the Process Control extension to be compiled in PHP. See http://php.net/manual/en/intro.pcntl.php for more information.");
     exit;
   }
 
@@ -265,7 +266,7 @@ function simpletest_script_init($server_software) {
     list($php, ) = explode(' ', $_ENV['SUDO_COMMAND'], 2);
   }
   else {
-    simpletest_script_print_error('Unable to automatically determine the path to the PHP interpreter. Please supply the --php command line argument.');
+    simpletest_script_print_error('Unable to automatically determine the path to the PHP interpreter. Supply the --php command line argument.');
     simpletest_script_help();
     exit();
   }
@@ -274,7 +275,7 @@ function simpletest_script_init($server_software) {
   if (!empty($args['url'])) {
     $parsed_url = parse_url($args['url']);
     $host = $parsed_url['host'] . (isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '');
-    $path = $parsed_url['path'];
+    $path = isset($parsed_url['path']) ? $parsed_url['path'] : '';
   }
 
   $_SERVER['HTTP_HOST'] = $host;
@@ -299,7 +300,7 @@ function simpletest_script_init($server_software) {
 function simpletest_script_execute_batch() {
   global $args;
 
-  if (is_null($args['test-id'])) {
+  if (!isset($args['test-id'])) {
     simpletest_script_print_error("--execute-batch should not be called interactively.");
     exit;
   }
@@ -362,10 +363,9 @@ function simpletest_script_execute_batch() {
  * Run a single test (assume a Drupal bootstrapped environment).
  */
 function simpletest_script_run_one_test($test_id, $test_class) {
-  // Drupal 6.
   require_once drupal_get_path('module', 'simpletest') . '/drupal_web_test_case.php';
   $classes = simpletest_test_get_all_classes();
-  require_once $classes[$test_class]['file'];
+  require_once $classes[$test_class]->file;
 
   $test = new $test_class($test_id);
   $test->run();
@@ -418,18 +418,16 @@ function simpletest_script_get_test_list() {
       require_once drupal_get_path('module', 'simpletest') . '/drupal_web_test_case.php';
       $files = array();
       foreach ($args['test_names'] as $file) {
-//        $files[drupal_realpath($file)] = 1;
         $files[realpath($file)] = 1;
         require_once realpath($file);
       }
 
       // Check for valid class names.
       foreach ($all_tests as $class_name) {
-        if (class_exists($class_name, FALSE)) {
-          $refclass = new ReflectionClass($class_name);
-          if (isset($files[$refclass->getFileName()])) {
-            $test_list[] = $class_name;
-          }
+        $refclass = new ReflectionClass($class_name);
+        $file = $refclass->getFileName();
+        if (isset($files[$file])) {
+          $test_list[] = $class_name;
         }
       }
     }
@@ -437,7 +435,7 @@ function simpletest_script_get_test_list() {
       // Check for valid group names and get all valid classes in group.
       foreach ($args['test_names'] as $group_name) {
         if (isset($groups[$group_name])) {
-          foreach($groups[$group_name] as $class_name => $info) {
+          foreach ($groups[$group_name] as $class_name => $info) {
             $test_list[] = $class_name;
           }
         }
@@ -456,7 +454,13 @@ function simpletest_script_get_test_list() {
  * Initialize the reporter.
  */
 function simpletest_script_reporter_init() {
-  global $args, $all_tests, $test_list;
+  global $args, $all_tests, $test_list, $results_map;
+
+  $results_map = array(
+    'pass' => 'Pass',
+    'fail' => 'Fail',
+    'exception' => 'Exception'
+  );
 
   echo "\n";
   echo "Drupal test run\n";
@@ -486,15 +490,90 @@ function simpletest_script_reporter_init() {
 }
 
 /**
- * Display test results.
+ * Display jUnit XML test results.
  */
-function simpletest_script_reporter_display_results() {
+function simpletest_script_reporter_write_xml_results() {
   global $args, $test_id, $results_map;
 
+  $results = db_query("SELECT * FROM {simpletest} WHERE test_id = %d ORDER BY test_class, message_id", $test_id);
+
+  $test_class = '';
+  $xml_files = array();
+
+  while ($result = db_fetch_object($results)) {
+    if (isset($results_map[$result->status])) {
+      if ($result->test_class != $test_class) {
+        // We've moved onto a new class, so write the last classes results to a file:
+        if (isset($xml_files[$test_class])) {
+          file_put_contents($args['xml'] . '/' . $test_class . '.xml', $xml_files[$test_class]['doc']->saveXML());
+          unset($xml_files[$test_class]);
+        }
+        $test_class = $result->test_class;
+        if (!isset($xml_files[$test_class])) {
+          $doc = new DomDocument('1.0');
+          $root = $doc->createElement('testsuite');
+          $root = $doc->appendChild($root);
+          $xml_files[$test_class] = array('doc' => $doc, 'suite' => $root);
+        }
+      }
+
+      // For convenience:
+      $dom_document = &$xml_files[$test_class]['doc'];
+
+      // Create the XML element for this test case:
+      $case = $dom_document->createElement('testcase');
+      $case->setAttribute('classname', $test_class);
+      list($class, $name) = explode('->', $result->function, 2);
+      $case->setAttribute('name', $name);
+
+      // Passes get no further attention, but failures and exceptions get to add more detail:
+      if ($result->status == 'fail') {
+        $fail = $dom_document->createElement('failure');
+        $fail->setAttribute('type', 'failure');
+        $fail->setAttribute('message', $result->message_group);
+        $text = $dom_document->createTextNode($result->message);
+        $fail->appendChild($text);
+        $case->appendChild($fail);
+      }
+      elseif ($result->status == 'exception') {
+        // In the case of an exception the $result->function may not be a class
+        // method so we record the full function name:
+        $case->setAttribute('name', $result->function);
+
+        $fail = $dom_document->createElement('error');
+        $fail->setAttribute('type', 'exception');
+        $fail->setAttribute('message', $result->message_group);
+        $full_message = $result->message . "\n\nline: " . $result->line . "\nfile: " . $result->file;
+        $text = $dom_document->createTextNode($full_message);
+        $fail->appendChild($text);
+        $case->appendChild($fail);
+      }
+      // Append the test case XML to the test suite:
+      $xml_files[$test_class]['suite']->appendChild($case);
+    }
+  }
+  // The last test case hasn't been saved to a file yet, so do that now:
+  if (isset($xml_files[$test_class])) {
+    file_put_contents($args['xml'] . '/' . $test_class . '.xml', $xml_files[$test_class]['doc']->saveXML());
+    unset($xml_files[$test_class]);
+  }
+}
+
+/**
+ * Stop the test timer.
+ */
+function simpletest_script_reporter_timer_stop() {
   echo "\n";
   $end = timer_stop('run-tests');
   echo "Test run duration: " . format_interval($end['time'] / 1000);
   echo "\n";
+}
+
+/**
+ * Display test results.
+ */
+function simpletest_script_reporter_display_results() {
+  global $args, $test_id, $results_map;
 
   if ($args['verbose']) {
     // Report results.
@@ -502,17 +581,8 @@ function simpletest_script_reporter_display_results() {
     echo "----------------------\n";
     echo "\n";
 
-    $results_map = array(
-      'pass' => 'Pass',
-      'fail' => 'Fail',
-      'exception' => 'Exception'
-    );
-
-//    $results = db_query("SELECT * FROM {simpletest} WHERE test_id = :test_id ORDER BY test_class, message_id", array(':test_id' => $test_id));
     $results = db_query("SELECT * FROM {simpletest} WHERE test_id = %d ORDER BY test_class, message_id", $test_id);
-
     $test_class = '';
-//    foreach ($results as $result) {
     while ($result = db_fetch_object($results)) {
       if (isset($results_map[$result->status])) {
         if ($result->test_class != $test_class) {

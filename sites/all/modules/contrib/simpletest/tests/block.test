@@ -1,5 +1,4 @@
 <?php
-// $Id: block.test,v 1.1.2.1.2.3 2009/05/27 19:13:43 boombatower Exp $
 /**
  * @file
  * Backport of Drupal 7 block.test with modifications, see BACKPORT.txt.

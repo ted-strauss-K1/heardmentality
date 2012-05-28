@@ -22,7 +22,7 @@ function profiles_menu() {
     $items['profile'] = array(
       'title' => 'Profile', 
       'page callback' => 'profile_view', 
-      'access arguments' => array('Profile View'), 
+      'access arguments' => array('Profile View'),
       'type' => MENU_SUGGESTED_ITEM, 
       'file' => 'profiles.pages.inc',
       );
