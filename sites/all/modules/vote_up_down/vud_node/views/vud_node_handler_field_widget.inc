@@ -34,7 +34,7 @@ class vud_node_handler_field_widget extends views_handler_field {
     $widget = '';
     if (($can_edit = user_access('use vote up/down on nodes')) || user_access('view vote up/down count on nodes')) {
       $nid = $values->{$this->aliases['nid']};
-      $type = db_result(db_query("SELECT type FROM {node} WHERE nid = '%d'", $nid));
+      $type = db_result(db_query(db_rewrite_sql('SELECT type FROM {node} n WHERE n.nid = %d'), $nid));
       $valid_type = in_array($type, variable_get('vud_node_types', array()), TRUE);
 
       if ($valid_type) {

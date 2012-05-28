@@ -12,7 +12,7 @@
 function vud_term_views_data_alter(&$data) {
   $data['node']['vud_term_widget'] = array(
     'group' => t('Vote Up/Down'),
-    'title' => t('Term Widget'),
+    'title' => t('Term widget'),
     'help' => t('Provide a term widget for the Vote up/Down module.'),
     'field' => array(
       'handler' => 'vud_term_handler_field_widget',
