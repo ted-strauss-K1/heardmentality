@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions_mail.admin.inc,v 1.5 2010/10/09 14:46:26 salvis Exp $
 
 /**
  * @file
@@ -18,12 +17,7 @@ function _subscriptions_mail_form_subscriptions_settings_form_alter(&$form, &$fo
   if (variable_get('subscriptions_mail_trash_silently', 0)) {
     drupal_set_message(t('All notification mails are discarded because the %varname variable is set &mdash; see the @filename file for more information.', array('%varname' => 'subscriptions_mail_trash_silently', '@filename' => 'README.txt')), 'error');
   }
-
-  // check the $base_url (#199039, #226335)
-  $url = url('', array('absolute' => TRUE));
-  if (empty($_POST) && preg_match('!//($|/|localhost/|([0-9]{1,3}\.){3}[0-9]{1,3}/)!', $url)) {
-    drupal_set_message(t('Your installation returns %url as the base URL of the site. This is probably not what you want, and it can usually be fixed by setting the %variable variable in your %file file.', array('%url' => $url, '%variable' => '$base_url', '%file' => 'settings.php')), 'error');
-  }
+  _subscriptions_mail_check_baseurl(TRUE);
 
   $variables = array('!Module' => 'Subscriptions');
   $form['mail_settings'] = array(

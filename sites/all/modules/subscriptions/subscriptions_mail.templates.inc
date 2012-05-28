@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions_mail.templates.inc,v 1.5 2008/08/30 12:42:40 salvis Exp $
 
 /**
  * @file

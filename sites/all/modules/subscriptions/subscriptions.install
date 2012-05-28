@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions.install,v 1.21 2010/07/15 14:27:06 salvis Exp $
 
 /**
  * @file
@@ -127,6 +126,7 @@ function subscriptions_uninstall() {
     db_query("DELETE FROM {mail_edit_registry} WHERE id LIKE 'subscriptions_%'");
   }
 
+  variable_del('subscriptions_allow_html_node_output');
   variable_del('subscriptions_avoid_empty_subscribe_links');
   variable_del('subscriptions_blocked_content_types');
   variable_del('subscriptions_blocked_nodes');

@@ -6,9 +6,9 @@ dependencies[] = gigya
 core = 6.x
 php = 5.2
 
-; Information added by drupal.org packaging script on 2011-12-19
-version = "6.x-3.1"
+; Information added by drupal.org packaging script on 2012-04-04
+version = "6.x-3.2"
 core = "6.x"
 project = "gigya"
-datestamp = "1324280741"
+datestamp = "1333551649"
 

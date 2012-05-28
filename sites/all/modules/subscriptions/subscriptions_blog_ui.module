@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions_blog_ui.module,v 1.7 2009/07/20 21:55:53 salvis Exp $
 
 /**
  * @file
@@ -35,9 +34,8 @@ function subscriptions_blog_ui_subscriptions($op, $arg0 = NULL, $arg1 = NULL, $a
  * @see subscriptions_types()
  */
 function _subscriptions_blog_ui_types() {
-  $tr = 't';
   $types['blog'] = array(
-    'title' => $tr('Blogs'),
+    'title' => 'Blogs',
     'access' => 'subscribe to blogs',
     'page' => 'subscriptions_blog_ui_page_blog',
     'fields' => array('blog', 'author_uid'),
@@ -99,16 +97,24 @@ function subscriptions_blog_ui_page_blog($account, $form) {
  * @ingroup form
  */
 function subscriptions_blog_ui_blog_form(&$form_state, $blogs, $account, $form) {
-  $uid = (isset($account) ? $account->uid : (is_numeric(arg(5)) ? -arg(5) : -DRUPAL_AUTHENTICATED_RID));
   $subscriptions = array();
-  $result = db_query("
-    SELECT s.value, s.send_interval, s.author_uid, s.send_comments, s.send_updates, u.name
-    FROM {subscriptions} s
-    INNER JOIN {users} u ON s.author_uid = u.uid
-    WHERE s.module = 'node' AND s.field = 'type' AND s.value = 'blog' AND s.recipient_uid = %d
-    ORDER BY u.name", $uid);
-  while ($s = db_fetch_array($result)) {
-    $subscriptions[$s['author_uid']] = $s;
+  $bulk_op = (empty($_SESSION['subscriptions']['bulk_op']) ? '' : $_SESSION['subscriptions']['bulk_op']);
+  if ($bulk_op) {
+    // No initialization for bulk subscription.
+    $uid = -DRUPAL_AUTHENTICATED_RID;
+  }
+  else {
+    $arg5 = subscriptions_arg(5);
+    $uid = (isset($account) ? $account->uid : (is_numeric($arg5) ? -$arg5 : -DRUPAL_AUTHENTICATED_RID));
+    $result = db_query("
+      SELECT s.value, s.send_interval, s.author_uid, s.send_comments, s.send_updates, u.name
+      FROM {subscriptions} s
+      INNER JOIN {users} u ON s.author_uid = u.uid
+      WHERE s.module = 'node' AND s.field = 'type' AND s.value = 'blog' AND s.recipient_uid = %d
+      ORDER BY u.name", $uid);
+    while ($s = db_fetch_array($result)) {
+      $subscriptions[$s['author_uid']] = $s;
+    }
   }
   $form[0] = array(
     '#type' => 'item',
@@ -117,7 +123,6 @@ function subscriptions_blog_ui_blog_form(&$form_state, $blogs, $account, $form) 
     '#theme' => 'subscriptions_form_table',
   );
 
-  $intervals = _subscriptions_send_intervals();
   foreach ($blogs as $blog) {
     $title = ($blog['has_blog'] ? l($blog['name'], 'blog/'. $blog['uid']) : $blog['name']);
     // add the active subscriptions
@@ -139,7 +144,7 @@ function subscriptions_blog_ui_blog_form(&$form_state, $blogs, $account, $form) 
   subscriptions_form_column_filter($form[0], $uid);
 
   $form['#tree'] = TRUE;
-  $form['uid'] = array('#type' => 'value', '#value' => $uid);
+  $form['uid'] = array('#type' => 'value', '#value' => ($bulk_op ? $_SESSION['subscriptions']['uids'] : $uid));
   $form['access_key'] = array('#type' => 'value', '#value' => 'blog');
   $form['module'] = array('#type' => 'value', '#value' => 'node');
   $form['field'] = array('#type' => 'value', '#value' => 'type');

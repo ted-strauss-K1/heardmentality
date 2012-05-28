@@ -210,7 +210,7 @@ function _user_relationship_process_query_argument($key, &$value) {
   }
   elseif (preg_match('/([<>=]{1,2})\s*(.+)/', $value, $matches)) {
     $marker = "'%s'";
-    $value = $matches[3];
+    $value = $matches[2];
 
     if (is_numeric($value)) {
       $marker = '%d';
@@ -223,7 +223,6 @@ function _user_relationship_process_query_argument($key, &$value) {
     return "= '%s'";
   }
 }
-
 
 /**
  * hook_perm()

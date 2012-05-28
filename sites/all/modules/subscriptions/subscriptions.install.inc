@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions.install.inc,v 1.7 2009/09/03 00:25:16 salvis Exp $
 
 /**
  * @file

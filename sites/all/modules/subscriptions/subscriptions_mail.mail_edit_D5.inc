@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions_mail.mail_edit_D5.inc,v 1.1 2008/12/25 12:15:34 salvis Exp $
 
 /**
  * @file

@@ -29,14 +29,17 @@ function gigya_logout_ajax() {
   module_load_include('inc', 'gigya');
 
   $dest = $_REQUEST['destination'];
-  if (empty($dest)) $dest = $base_path;
+  if (empty($dest)) {
+    $dest = url('<front>', array('absolute' => TRUE));
+  }
+  $dest = url($dest);
   $logout_behavior = array('logoutLocation' => $dest);
 
   drupal_add_js(array('gigya' => $logout_behavior), 'setting');
-  $behavior_js = 'gigya.services.socialize.waitForService({},{service:"fbConnect",callback:function(){
-    gigya.services.socialize.logout(Drupal.settings.gigya.conf, {callback: Drupal.gigya.logout(Drupal.settings.gigya.conf, {callback:Drupal.gigya.logoutResponse})});}});';
+  //$behavior_js = 'gigya.services.socialize.waitForService({},{service:"fbConnect",callback:function(){
+  //  gigya.services.socialize.logout(Drupal.settings.gigya.conf, {callback: Drupal.gigya.logout(Drupal.settings.gigya.conf, {callback:Drupal.gigya.logoutResponse})});}});';
 
-  //$behavior_js = 'Drupal.behaviors.gigyaLogout = function(){ gigya.services.socialize.logout(Drupal.settings.gigya.conf, {callback:Drupal.gigya.logoutResponse});};';
+  $behavior_js = 'Drupal.behaviors.gigyaLogout = function(){ gigya.services.socialize.logout(Drupal.settings.gigya.conf, {callback:Drupal.gigya.logoutResponse});};';
   drupal_add_js($behavior_js, 'inline');
   return '<div id="logoutMessage">' . t("Logging out...") . '</div>';
 }
@@ -52,7 +55,12 @@ function gigya_login_ajax() {
 
   if (!($user->uid)) {
     if ($_gigya_user = GigyaUser::userFromUrl()) {
-      $dest = variable_get('gigya_login_uiconfig_urlredirect', 'user');
+      if (variable_get('gigya_login_uiconfig_back_current_page', '') && !variable_get('gigya_login_uiconfig_urlredirect', '')) {
+        $dest = $_SERVER['HTTP_REFERER'];
+      }
+      else {
+        $dest = variable_get('gigya_login_uiconfig_urlredirect', 'user');
+      }
       $bio = $_gigya_user->getUserInfo();
       // Check to see if the Gigya user is a Drupal user.
       if (is_numeric($_gigya_user->uid) && $account = user_load($_gigya_user->uid)) {

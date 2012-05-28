@@ -1,4 +1,3 @@
-// $Id: subscriptions_tableselect.js,v 1.5 2009/04/13 21:50:29 salvis Exp $
 
 Drupal.subscriptions_rowToggle = function(ckb) {
   var thisRow = $(ckb).parents('tr:first');

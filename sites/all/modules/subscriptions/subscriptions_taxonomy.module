@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions_taxonomy.module,v 1.17 2010/05/07 12:02:36 salvis Exp $
 
 /**
  * @file
@@ -33,7 +32,7 @@ function subscriptions_taxonomy_subscriptions($op, $arg0 = NULL, $arg1 = NULL, $
                                                           .'tn.tid'. ($GLOBALS['db_type'] == 'pgsql' ? ' AS VARCHAR)' : ''),
           'where' => 'tn.nid = %d',
           'args' => array($node->nid),
-          'groupby' => 'GROUP BY u.uid, tn.nid',
+          'groupby' => 'GROUP BY u.uid, tn.nid'. ($GLOBALS['db_type'] != 'pgsql' ? '' : ', s.module, s.field, s.value, s.author_uid, s.send_interval, su.digest, last_sent, su.suspended'),
         );
         if ($arg0['type'] == 'comment') {
           $where = ' AND s.send_comments = 1';
@@ -77,7 +76,7 @@ function subscriptions_taxonomy_subscriptions($op, $arg0 = NULL, $arg1 = NULL, $
  * @see subscriptions_ui_node_form()
  */
 function _subscriptions_taxonomy_node_options($account, $node) {
-  if (!isset($node->taxonomy) || !is_array($node->taxonomy)) {
+  if (!isset($node->taxonomy) || !is_array($node->taxonomy) || !user_access('subscribe to taxonomy terms')) {
     return;
   }
   $options = array();
@@ -210,20 +209,30 @@ function subscriptions_taxonomy_page_taxa($account, $form) {
  * @ingroup form
  */
 function subscriptions_taxonomy_taxa_form(&$form_state, $vocabularies, $account, $form) {
-  $uid = (isset($account) ? $account->uid : (is_numeric(arg(5)) ? -arg(5) : -DRUPAL_AUTHENTICATED_RID));
-  $sql = db_rewrite_sql("
-    SELECT s.value, s.send_interval, s.author_uid, s.send_comments, s.send_updates, t.tid, t.vid, t.name
-    FROM {term_data} t
-    INNER JOIN {subscriptions} s ON ". ($GLOBALS['db_type'] == 'pgsql' ? 'CAST(' : '')
-                                  ."t.tid". ($GLOBALS['db_type'] == 'pgsql' ? ' AS VARCHAR)' : '')
-                                       ." = s.value
-    WHERE s.module = 'node' AND s.field = 'tid' AND s.recipient_uid = %d
-    ORDER BY s.author_uid", 't', 'tid');
-  $result = db_query($sql, $uid);
-  while ($s = db_fetch_array($result)) {
-    $subscriptions[$s['vid']][$s['value']][$s['author_uid']] = $s;
-    $subscriptions_terms_by_vid[$s['vid']][$s['value']] = $s;
+  $subscriptions = array();
+  $bulk_op = (empty($_SESSION['subscriptions']['bulk_op']) ? '' : $_SESSION['subscriptions']['bulk_op']);
+  if ($bulk_op) {
+    // No initialization for bulk subscription.
+    $uid = -DRUPAL_AUTHENTICATED_RID;
   }
+  else {
+    $arg5 = subscriptions_arg(5);
+    $uid = (isset($account) ? $account->uid : (is_numeric($arg5) ? -$arg5 : -DRUPAL_AUTHENTICATED_RID));
+    $sql = db_rewrite_sql("
+      SELECT s.value, s.send_interval, s.author_uid, s.send_comments, s.send_updates, t.tid, t.vid, t.name
+      FROM {term_data} t
+      INNER JOIN {subscriptions} s ON ". ($GLOBALS['db_type'] == 'pgsql' ? 'CAST(' : '')
+                                    ."t.tid". ($GLOBALS['db_type'] == 'pgsql' ? ' AS VARCHAR)' : '')
+                                         ." = s.value
+      WHERE s.module = 'node' AND s.field = 'tid' AND s.recipient_uid = %d
+      ORDER BY s.author_uid", 't', 'tid');
+    $result = db_query($sql, $uid);
+    while ($s = db_fetch_array($result)) {
+      $subscriptions[$s['vid']][$s['value']][$s['author_uid']] = $s;
+      $subscriptions_terms_by_vid[$s['vid']][$s['value']] = $s;
+    }
+  }
+
   foreach ($vocabularies as $vocab) {
     // display vocabulary name and group terms together
     $form[$vocab->vid] = array(
@@ -302,7 +311,7 @@ function subscriptions_taxonomy_taxa_form(&$form_state, $vocabularies, $account,
   }
   else {
     $form['#tree'] = TRUE;
-    $form['uid'] = array('#type' => 'value', '#value' => $uid);
+    $form['uid'] = array('#type' => 'value', '#value' => ($bulk_op ? $_SESSION['subscriptions']['uids'] : $uid));
     $form['access_key'] = array('#type' => 'value', '#value' => 'taxa');
     $form['module'] = array('#type' => 'value', '#value' => 'node');
     $form['field'] = array('#type' => 'value', '#value' => 'tid');

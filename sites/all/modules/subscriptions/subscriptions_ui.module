@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions_ui.module,v 1.20 2010/06/10 20:45:59 salvis Exp $
 
 /**
  * @file
@@ -17,9 +16,10 @@
 function subscriptions_ui_nodeapi(&$node, $op, $teaser) {
   global $user;
   if ($op == 'view' && $node->nid && !$teaser && subscriptions_ui_can_subscribe()) {
+    $op2 = subscriptions_arg(2);
     if (!variable_get('subscriptions_form_in_block', 0) &&
-        (!variable_get('subscriptions_form_link_only', 0) && (!arg(2) || arg(2) == 'view') ||
-          variable_get('subscriptions_form_link_only', 0) && arg(2) == 'subscribe' )) {
+        (!variable_get('subscriptions_form_link_only', 0) && (!$op2 || $op2 == 'view') ||
+          variable_get('subscriptions_form_link_only', 0) && $op2 == 'subscribe' )) {
       if ($form = drupal_get_form('subscriptions_ui_node_form', $node)) {
         $node->content['subscriptions_ui'] = array(
           '#value' => $form,
@@ -45,9 +45,10 @@ function subscriptions_ui_block($op = 'list', $delta = 0) {
       $blocks[0]['region'] = 'content';
       return $blocks;
     case 'view':
+      $op2 = subscriptions_arg(2);
       if (subscriptions_ui_can_subscribe() && variable_get('subscriptions_form_in_block', 0) &&
-          (!variable_get('subscriptions_form_link_only', 0) && (!arg(2) || arg(2) == 'view') ||
-            variable_get('subscriptions_form_link_only', 0) && arg(2) == 'subscribe' )) {
+          (!variable_get('subscriptions_form_link_only', 0) && (!$op2 || $op2 == 'view') ||
+            variable_get('subscriptions_form_link_only', 0) && $op2 == 'subscribe' )) {
         return array(
           'subject' => t('Subscriptions'),
           'content' => drupal_get_form('subscriptions_ui_node_form', menu_get_object()),
@@ -63,8 +64,9 @@ function subscriptions_ui_block($op = 'list', $delta = 0) {
  */
 function subscriptions_ui_can_subscribe() {
   global $user;
-  
-  return ($user->uid && arg(0) == 'node' && is_numeric(arg(1)) && module_invoke('subscriptions_ui', 'get_permission_to_handle', arg(1), 'subscriptions_ui') !== FALSE);
+
+  $arg1 = subscriptions_arg(1, 'nid');
+  return ($user->uid && subscriptions_arg(0) == 'node' && is_numeric($arg1) && module_invoke('subscriptions_ui', 'get_permission_to_handle', $arg1, 'subscriptions_ui') !== FALSE);
 }
 
 /**
@@ -79,7 +81,8 @@ function subscriptions_ui_link($type, $node = NULL, $teaser = NULL) {
   
   if ($type == 'node' && subscriptions_ui_can_subscribe() && empty($teaser)) {
     subscriptions_suspended($user->uid, TRUE);
-    if (variable_get('subscriptions_form_link_only', 0) && arg(2) != 'subscribe' && (!variable_get('subscriptions_avoid_empty_subscribe_links', 0) || module_invoke_all('subscriptions', 'node_options', $user, $node))) {
+    $arg2 = subscriptions_arg(2);
+    if (variable_get('subscriptions_form_link_only', 0) && $arg2 != 'subscribe' && (!variable_get('subscriptions_avoid_empty_subscribe_links', 0) || module_invoke_all('subscriptions', 'node_options', $user, $node))) {
       $blocked_types = variable_get('subscriptions_blocked_content_types', array());
       if (in_array($node->type, $blocked_types) && !user_access('subscribe to all content types')) {
         return;
@@ -92,7 +95,7 @@ function subscriptions_ui_link($type, $node = NULL, $teaser = NULL) {
         'attributes' => array('title' => t('Receive notifications about changes and/or comments to this page (and possibly similar pages).')),
       ));
     }
-    elseif (variable_get('subscriptions_form_in_block', 0) && arg(2) == 'subscribe') {
+    elseif (variable_get('subscriptions_form_in_block', 0) && $arg2 == 'subscribe') {
       // Make sure the block is visible
       global $theme;
       if (!isset($theme)) {
@@ -146,6 +149,10 @@ function subscriptions_ui_node_form(&$form_state, $node, $account = NULL) {
   init_theme();  // just in case, before calling theme_get_setting()
   $show_node_info = theme_get_setting('toggle_node_info_'. $node->type);
   $node_options = module_invoke_all('subscriptions', 'node_options', $account, $node);
+
+  // Allow other modules to alter the node options.
+  drupal_alter('subscriptions_node_options', $node_options);
+
   if (!$node_options || !user_access('subscribe to content', $account)) {
     return array();
   }

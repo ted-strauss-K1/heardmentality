@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions_mail.cron.inc,v 1.11 2010/12/27 16:22:49 salvis Exp $
 
 /**
  * @file
@@ -85,6 +84,9 @@ function _subscriptions_mail_cron() {
           }
           if (!empty($object)) {
             $access = module_invoke_all('subscriptions', 'access', $load_function, $load_args, $object);
+            // Allow other modules to alter the data.
+            drupal_alter('subscriptions_access', $access);
+
             // One FALSE vote is enough to deny. Also, we need a non-empty array.
             $allow = !empty($access) && array_search(FALSE, $access) === FALSE;
             $loaded_objects[$user->uid][$load_function][$index] = $allow ? $object : FALSE;
@@ -233,6 +235,8 @@ function _subscriptions_mail_cron() {
     $message .= ' '. t('!remaining_items queue items remaining (plus !suspended_items suspended), !remaining_seconds seconds left for other @cron client modules.', $variables);
     $watchdog = 'watchdog'; // keep potx from translating 'cron'
     $watchdog('cron', $message);
+
+    _subscriptions_mail_check_baseurl(FALSE);
   }
 }
 

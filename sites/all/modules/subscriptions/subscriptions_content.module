@@ -1,5 +1,4 @@
 <?php
-// $Id: subscriptions_content.module,v 1.53 2010/12/27 16:22:49 salvis Exp $
 
 /**
  * @file
@@ -105,7 +104,7 @@ function _subscriptions_content_node_options($account, $node) {
       }
     }
     // Content type
-    $type_name = check_plain(node_get_types('name', $node->type));
+    $type_name = node_get_types('name', $node->type);
     if ($type_name) {
       $options['type'][] = array(
         'name' => t('To %type content', array('%type' => $type_name)) . $unlisted_tag,
@@ -175,6 +174,7 @@ function _subscriptions_content_types() {
   return $types;
 
   // help potx to pick up these strings:
+  t('Pages/Threads');
   t('subscribe to content');
   t('subscribe to content types');
 }
@@ -248,8 +248,8 @@ function subscriptions_content_comment($comment, $op) {
   $comment = (array)$comment;  // $comment can be an object or an array.
 
   if (!isset($comment['nomail']) && ($op == 'insert' || $op == 'update' || ($op == 'publish' && $comment['cid'] != $inserted_cid))) {
+    $node = node_load($comment['nid']);
     if (!isset($comment['subscriptions_notify']) || $comment['subscriptions_notify']) {
-      $node = node_load($comment['nid']);
       $event = array(
         'module' => 'node',
         'load_function' => 'subscriptions_content_comment_load',
@@ -344,6 +344,13 @@ function subscriptions_content_form_subscriptions_settings_form_alter(&$form, &$
     '#title'         => t('Avoid empty %Subscribe links', array('%Subscribe' => t('Subscribe'))),
     '#default_value' => $avoid_empty_subscribe_links,
     '#description'   => t('Nodes of %Static_content_types may end up with no %Subscribe options at all. Turn this option on to avoid displaying %Subscribe links in this case. The default is OFF, because this option causes processing overhead for each node view operation.', array('%Static_content_types' => t('Static content types'), '%Subscribe' => t('Subscribe'))),
+  );
+
+  $form['content']['subscriptions_allow_html_node_output'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => t('Allow HTML node body output'),
+    '#default_value' => variable_get('subscriptions_allow_html_node_output', 0),
+    '#description'   => t("Allow HTML from the node body to pass through to the email output. This, by itself, is not sufficient for sending HTML email, but it's what @Subscriptions can do to accommodate other modules that attempt to do that.<br />Default is OFF, to turn HTML formatting into plain text and to resolve the HTML entities.", array('@Subscriptions' => 'Subscriptions')),
   );
 
   $form['content']['subscriptions_generate_full_node'] = array(
@@ -453,13 +460,15 @@ function subscriptions_content_form_alter(&$form, &$form_state, $form_id) {
  * @ingroup form
  */
 function subscriptions_content_form_node_admin_content_alter(&$form, &$form_state) {
-  $form['admin']['options']['subscriptions_notify'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Send subscriptions notifications'),
-    '#description' => '<br />'. t('When publishing unpublished nodes, you probably want to turn this ON.'),
-    '#prefix' => '<br />',
-  );
-  array_unshift($form['admin']['options']['submit']['#submit'], 'subscriptions_content_node_admin_nodes_submit');
+  if (!$form_state['submitted']) {
+    $form['admin']['options']['subscriptions_notify'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Send subscriptions notifications on %Publish', array('%Publish' => t('Publish'))),
+      '#description' => '<br />'. t('When publishing unpublished nodes, you may want to turn this ON.'),
+      '#prefix' => '<br />',
+    );
+    array_unshift($form['admin']['options']['submit']['#submit'], 'subscriptions_content_node_admin_nodes_submit');
+  }
 }
 
 /**
@@ -531,11 +540,11 @@ function subscriptions_content_form_comment_form_alter(&$form, &$form_state) {
  * Handle bulk publishing.
  */
 function subscriptions_content_node_admin_nodes_submit($form, &$form_state) {
-  if (!$form_state['values']['subscriptions_notify']) {
-    subscriptions_content_suppress_notifications(TRUE);
-    return;
-  }
   if ($form_state['values']['operation'] == 'publish') {
+    if (!$form_state['values']['subscriptions_notify']) {
+      subscriptions_content_suppress_notifications(TRUE);
+      return;
+    }
     foreach ($form_state['values']['nodes'] as $nid) {
       if ($nid != 0 && ($node = node_load($nid)) && !$node->status) {
         subscriptions_content_nodeapi($node, 'prepare');
@@ -572,7 +581,7 @@ function subscriptions_content_suppress_notifications($set = NULL) {
  */
 function _subscriptions_content_autosubscribe($content_type, $module, $field, $value, $context)
 {
-  if (subscriptions_content_type_is_blocked($content_type)) {
+  if (!user_access('subscribe to content') || subscriptions_content_type_is_blocked($content_type)) {
     return;
   }
   subscriptions_autosubscribe($module, $field, $value, $context);
@@ -670,7 +679,9 @@ function _subscriptions_content_format_text($text, $format = NULL) {
   if (isset($format)) {
     $text = check_markup($text, $format, FALSE);
   }
-  $text = drupal_html_to_text($text);
+  if (!variable_get('subscriptions_allow_html_node_output', 0)) {
+    $text = drupal_html_to_text($text);
+  }
   return trim($text);
 }
 
@@ -832,7 +843,12 @@ function subscriptions_content_node_form(&$form_state, $account, $form) {
   $subscriptions = array();
   $sql = db_rewrite_sql("
     SELECT n.nid, n.uid, s.send_interval, s.author_uid, s.send_comments, s.send_updates, n.title, n.status, n.changed, n.comment AS comment_count, ncs.last_comment_timestamp,
-      IF(s.send_comments + s.send_updates = 0, n.created, IF(s.send_comments + s.send_updates = 2, IF(n.changed > ncs.last_comment_timestamp, n.changed, ncs.last_comment_timestamp), IF(s.send_comments = 1, ncs.last_comment_timestamp, n.changed))) AS latest_activity
+      CASE WHEN s.send_comments + s.send_updates = 0 THEN n.created
+           WHEN s.send_comments + s.send_updates = 2 THEN
+                CASE WHEN n.changed > ncs.last_comment_timestamp THEN n.changed ELSE ncs.last_comment_timestamp END
+           WHEN s.send_comments = 1 THEN ncs.last_comment_timestamp
+           ELSE n.changed END
+        AS latest_activity
     FROM {node} n
     INNER JOIN {subscriptions} s ON ". ($GLOBALS['db_type'] == 'pgsql' ? 'CAST(' : '')
                                   ."n.nid". ($GLOBALS['db_type'] == 'pgsql' ? ' AS VARCHAR)' : '')
@@ -945,19 +961,28 @@ function subscriptions_content_page_type($account, $form) {
  * @ingroup form
  */
 function subscriptions_content_type_form(&$form_state, $account, $form) {
-  $uid = (isset($account) ? $account->uid : (is_numeric(arg(5)) ? -arg(5) : -DRUPAL_AUTHENTICATED_RID));
+  $subscriptions = array();
+  $bulk_op = (empty($_SESSION['subscriptions']['bulk_op']) ? '' : $_SESSION['subscriptions']['bulk_op']);
+  if ($bulk_op) {
+    // No initialization for bulk subscription.
+    $uid = -DRUPAL_AUTHENTICATED_RID;
+  }
+  else {
+    $arg5 = subscriptions_arg(5);
+    $uid = (isset($account) ? $account->uid : (is_numeric($arg5) ? -$arg5 : -DRUPAL_AUTHENTICATED_RID));
+    $result = db_query(db_rewrite_sql("
+      SELECT s.value, s.send_interval, s.author_uid, s.send_comments, s.send_updates, nt.type, nt.name
+      FROM {subscriptions} s
+      INNER JOIN {node_type} nt ON s.value = nt.type
+      WHERE s.module = 'node' AND s.field = 'type' AND s.recipient_uid = %d
+      ORDER BY s.author_uid", 'nt', 'type'), $uid);
+    while ($s = db_fetch_array($result)) {
+      $subscriptions[$s['value']][$s['author_uid']] = $s;
+    }
+  }
   $unlisteds = variable_get('subscriptions_unlisted_content_types', array());
   $blockeds = variable_get('subscriptions_blocked_content_types', array());
   $omits = array_merge($unlisteds, $blockeds);
-  $result = db_query(db_rewrite_sql("
-    SELECT s.value, s.send_interval, s.author_uid, s.send_comments, s.send_updates, nt.type, nt.name
-    FROM {subscriptions} s
-    INNER JOIN {node_type} nt ON s.value = nt.type
-    WHERE s.module = 'node' AND s.field = 'type' AND s.recipient_uid = %d
-    ORDER BY s.author_uid", 'nt', 'type'), $uid);
-  while ($s = db_fetch_array($result)) {
-    $subscriptions[$s['value']][$s['author_uid']] = $s;
-  }
   $form[0] = array(
     '#type' => 'item',
     '#title' => '',
@@ -1002,7 +1027,7 @@ function subscriptions_content_type_form(&$form_state, $account, $form) {
     );
     subscriptions_form_column_filter($form[0], $uid);
     $form['#tree'] = TRUE;
-    $form['uid'] = array('#type' => 'value', '#value' => $uid);
+    $form['uid'] = array('#type' => 'value', '#value' => ($bulk_op ? $_SESSION['subscriptions']['uids'] : $uid));
     $form['access_key'] = array('#type' => 'value', '#value' => 'type');
     $form['module'] = array('#type' => 'value', '#value' => 'node');
     $form['field'] = array('#type' => 'value', '#value' => 'type');
@@ -1025,8 +1050,8 @@ function subscriptions_content_type_form(&$form_state, $account, $form) {
  */
 function subscriptions_content_mailkeys() {
   $mailkeys['node-nid'] = t('Notifications for %Pages (update/comment) subscriptions', array('%Pages' => t('Pages/Threads')));
-  foreach (array_keys(node_get_types()) as $type) {
-    $mailkeys['node-type-'. $type] = t('Notifications for %type !content_type subscriptions', array('%type' => $type, '!content_type' => t('content type')));
+  foreach (node_get_types() as $key => $type) {
+    $mailkeys['node-type-'. $key] = t('Notifications for %type !content_type subscriptions', array('%type' => $type->name, '!content_type' => t('content type')));
   }
   return $mailkeys;
 }
@@ -1112,7 +1137,7 @@ function subscriptions_content_mail_edit_tokens_list($mailkey, $options = array(
       }
       else {
         $tokens['!comments'] = $tokens['!comments'] . t('The rendering of the comments is defined by the !link.', array(
-                                                          '!link' => '<a href="../subscriptions_content_node-nid/'. check_plain(arg(4)) .'#edit-comment-body">'. t('comment templates') .'</a>'));
+                                                          '!link' => '<a href="../subscriptions_content_node-nid/'. check_plain(subscriptions_arg(4)) .'#edit-comment-body">'. t('comment templates') .'</a>'));
       }
   }
   return $tokens;

@@ -841,6 +841,14 @@ function gigya_user($op, &$edit, &$account, $category = NULL) {
         // We can suppress the notify login JS because
         // the user is clearly already logged into Gigya.
         $_SESSION['gigya_suppress_notifylogin_js'] = TRUE;
+        $parms = array(
+          'siteUID' => $account->uid,
+          'newUser' => TRUE,
+          'userInfo' => drupal_to_js(array('nickname' => $account->name, 'email' => $account->mail)),
+        );
+        //let other modules add more parms reference here http://developers.gigya.com/037_API_reference/020_REST_API/socialize.notifyLogin
+        drupal_alter('gigya_new_user', $parms);
+        _gigya_api('notifyLogin', $parms);
       }
       break;
     case 'delete':
@@ -997,21 +1005,23 @@ function gigya_form_alter(&$form, $form_state, $form_id) {
    * Modify the user login block.
    */
   if ($form_id == 'user_login_block') {
-    module_load_include('inc', 'gigya');
+    if (!variable_get('gigya_login_surpress_gigya_login', FALSE)) {
+      module_load_include('inc', 'gigya');
 
-    if (variable_get('gigya_login_surpress_login', FALSE)) {
-      unset($form['name']);
-      unset($form['pass']);
-      unset($form['submit']);
-      unset($form['links']);
-      // If it's the only item on the page we definitely want
-      // the title hidden to avoid duplicates.
-      $hide_title = TRUE;
+      if (variable_get('gigya_login_surpress_login', FALSE)) {
+        unset($form['name']);
+        unset($form['pass']);
+        unset($form['submit']);
+        unset($form['links']);
+        // If it's the only item on the page we definitely want
+        // the title hidden to avoid duplicates.
+        $hide_title = TRUE;
+      }
+
+      $form[$form_key] .= theme('gigya_login_block', $form_id, $hide_title);
+
+      return $form;
     }
-
-    $form[$form_key] .= theme('gigya_login_block', $form_id, $hide_title);
-
-    return $form;
   }
 
   /*

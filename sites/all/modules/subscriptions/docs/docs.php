@@ -1,5 +1,4 @@
 <?php
-// $Id: docs.php,v 1.1 2010/02/03 21:01:16 salvis Exp $
 /**
  * @file
  * This file contains no working PHP code; it exists to provide additional documentation

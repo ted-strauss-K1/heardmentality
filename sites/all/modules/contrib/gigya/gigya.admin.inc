@@ -85,6 +85,12 @@ function gigya_admin_form() {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+  $form['login_uiconfig']['gigya_login_surpress_gigya_login'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display only Drupal component in the login block (suppress Socialize login)'),
+    '#default_value' => variable_get('gigya_login_surpress_gigya_login', FALSE),
+    '#description' => t('Checking this option will disable Gigya login.'),
+  );
   $form['login_uiconfig']['gigya_login_surpress_login'] = array(
     '#type' => 'checkbox',
     '#title' => t('Display only Socialize component in the login block (suppress Drupal login)'),
@@ -201,6 +207,11 @@ function gigya_admin_form() {
     '#title' => t('URL redirect after login'),
     '#default_value' => variable_get('gigya_login_uiconfig_urlredirect', 'user'),
     '#description' => t('Choose an alternate URL to direct users to after login. Defaults to user. Do not use a beginning or ending slash!'),
+  );
+  $form['login_uiconfig']['login_advanced']['gigya_login_uiconfig_back_current_page'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Go back to current page after login'),
+    '#default_value' => variable_get('gigya_login_uiconfig_back_current_page', ''),
   );
   /*
    *$form['login_uiconfig']['login_advanced']['gigya_login_advanced_custombuttons'] = array(
