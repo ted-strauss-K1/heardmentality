@@ -126,7 +126,7 @@ function validate_reg()
 
       if (ielem.hasClass('validate-zip'))
       {
-        if (!get_zip_city(ielemVal, false))
+        if (!get_zip_city(ielem, false))
         {
           errorCount++;
         }
@@ -306,7 +306,7 @@ jQuery(document).ready(function(){
   });
 
   jQuery('#zip').keypress(function() {
-      get_zip_city($(this).val(), true);
+      get_zip_city($(this), true);
     });
 
   jQuery('#username').keyup(function() {

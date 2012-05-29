@@ -1100,7 +1100,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Postal / Zip Code:</div>
-                 <div class="w2"> <input name="zip"  value="' . $zip . '" class="txtbx-1" tabindex="8" onblur="get_zip_city(this.value);" id="edit-zip"  type="text"><span style="display:none;" id="edit-city-wrapper">' . $statecity . ' </span></div>
+                 <div class="w2"> <input name="zip"  value="' . $zip . '" class="txtbx-1" tabindex="8" id="edit-zip"  type="text"><span style="display:none;" id="edit-city-wrapper">' . $statecity . ' </span></div>
                  <div class="w3"><input name="zip_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="zip_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="zip_privacy" type="radio" value="3" /></div>

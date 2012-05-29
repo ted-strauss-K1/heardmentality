@@ -140,12 +140,12 @@ function profile_comment(make){
 
 // zip code validator
 
-function get_zip_city(code, lock){
+function get_zip_city(ielem, lock){
   LockPage(lock);
   var result = false;
   var urr=spath+'qlite/ajax?action=zipcity';
-
-
+  var code = $(ielem).val();
+  add_validate_message(ielem, '<span class="validate-wait">Please wait your username is validating...</span>');
   jQuery.ajax({
     type: "POST",
     url: urr,
@@ -162,9 +162,11 @@ function get_zip_city(code, lock){
 
       if(msg.state==null){
         jQuery('#location').val('');
-        jQuery('#cit-stat').html('Please Provide the proper Zip code');
+        //jQuery('#cit-stat').html('Please Provide the proper Zip code');
+        add_validate_message(ielem, 'Please Provide the proper Zip code');
 
       }else{
+
         jQuery('#location').val('');
         //  add_validate_message(ielem, 'You have entered valid zipcode');
         result = true;
@@ -189,8 +191,8 @@ function get_zip_city(code, lock){
           }
           citStat += msg.country;
         }
-
-        jQuery('#cit-stat').html(citStat);
+        add_validate_message(ielem, citStat);
+      //  jQuery('#cit-stat').html(citStat);
       }
 
       // jQuery.unblockUI();
@@ -238,7 +240,7 @@ function chk_uname(ielem, lock){
 
     } else if(val.length>0){
       LockPage(lock);
-      add_validate_message(ielem, 'Please wait your username is validating...');
+      add_validate_message(ielem, '<span class="validate-wait">Please wait your username is validating...</span>');
 
         jQuery.getJSON(urr,
         {
