@@ -1,131 +1,175 @@
+
+
+var scrollOnValidateError = true;
+
+
+function clear_validate_messages()
+{
+  var allMessages = jQuery('div.validate-error');
+  allMessages.each(
+    function ()
+    {
+      jQuery(this).remove();
+    });
+}
+
+function add_validate_message(elem, message)
+{
+  var elemParent = jQuery(elem).parent().parent();
+  if (elemParent.find('div.validate-error').length == 0)
+  {
+    jQuery(elem).parent().after('<div class="validate-error" style="display:none"><span>' + message + '</span></div>');
+    elemParent.find('div.validate-error').slideDown();
+  } else {
+    var validateMessage = elemParent.find('div.validate-error span');
+    validateMessage.html(message);
+  }
+}
+
+function getDomain(url) {
+  var arUrl =  url
+      .replace('http://www.','')
+      .replace('https://www.','')
+      .replace('http://','')
+      .replace('https://','')
+      .replace('www.','')
+      .split(/[/?#]/);
+  var result = '';
+  if (arUrl.length > 0)
+  {
+    result = arUrl[0];
+  }
+  return result;
+}
 function validate_reg()
 {
-    var err='';
-    //alert("llll");
+ // return true;
 
-    if (jQuery('#username').val()=='')
+ /*
+  * validate classes
+  *
+  *   validate
+  *
+  *   validate-name
+  *   validate-not-empty
+  *   validate-email
+  *   validate-date-year
+  *   validate-zip
+  *   validate-url
+  *   validate-url-username
+  *
+  *
+  *   error block
+  *
+  *   <div class="validate-error">
+  *     <span>text</span>
+  *   <div>
+  *
+  * */
+
+  var validateElements = jQuery('input.validate');
+  clear_validate_messages();
+
+  var errorCount = 0;
+
+  validateElements.each(
+    function ()
     {
-
-        err=err+"User name should not be  blank! ";
-
-    }
-
-    var ck_uname = /^[A-Za-z0-9_]{5,20}$/;
-    if(!jQuery('#username').val().match(ck_uname)){
-
-        err=err+" Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ";
-        load_notify(err);
-        return false;
-    }
-
-    if (jQuery('#name').val()=='')
-    {
-	
-        err=err+" Name should not be blank! ";
-	
-    }
-
-    
-    if (jQuery('#email').val()=='')
-    {
-	
-        err=err+" Email Id must not blank! ";
-	
-    }
-	
-    if (!(/^[a-z0-9\.\-\_]+\@[a-z0-9\.\-]+\.[a-z0-9]{2,4}$/.test(jQuery('#email').val())))
-    {
-	
-        err=err+" Please Enter the Valid Email Id!";
-        load_notify(err);
-        return false;
-    }
-	
-    if (jQuery('#dob').val()!='')
-    {
-            
-        if(!(/^[0-9]{4}$/.test(jQuery('#dob').val())))
+      var ielem = $(this)
+      var ielemVal = ielem.val();
+;
+      if (ielem.hasClass('validate-not-empty'))
+      {
+        if (ielemVal == '')
         {
-	
-            err=err+" Date Of Birth must be valid format YYYY-[1986]! ";
-            load_notify(err);
-            return false;
+          add_validate_message(this, 'Field should not be blank!');
+          errorCount++;
         }
-    }
+      }
 
-    var zip=jQuery('#zip').val();
 
-    if(zip.length>0){
-        var zstate=jQuery('input[name="state"]').val();
-  
-        if(jQuery.trim(zstate).length<1){
-            err=err+" Please re-check the zip code you have entered check space if needed  ";
-            load_notify(err);
-            return false;
+      if (ielem.hasClass('validate-username'))
+      {
+        if(!chk_uname(ielem, false))
+        {
+          errorCount++;
         }
-       
+      }
+
+      if (ielem.hasClass('validate-name'))
+      {
+        if(!(/^([a-zA-Z]+ ){1,2}[a-zA-Z]+$/i.test(ielemVal)))
+        {
+          add_validate_message(this, 'Full Name should be Alpha Ex : Kevin kumar');
+          errorCount++;
+        }
+      }
+
+
+      if (ielem.hasClass('validate-email'))
+      {
+        if(!(/^[a-z0-9\.\-\_]+\@[a-z0-9\.\-]+\.[a-z0-9]{2,4}$/.test(ielemVal)))
+        {
+          add_validate_message(this, 'Please Enter the Valid Email Id!');
+          errorCount++;
+        }
+      }
+
+      if (ielem.hasClass('validate-date-year'))
+      {
+        if(!(/^[0-9]{4}$/.test(ielemVal)))
+        {
+          add_validate_message(this, 'Date Of Birth must be valid format YYYY-[1986]!');
+          errorCount++;
+        }
+      }
+
+      if (ielem.hasClass('validate-zip'))
+      {
+        if (!get_zip_city(ielemVal, false))
+        {
+          errorCount++;
+        }
+      }
+
+      var patt= /^http:\/\/(www.)*([a-zA-Z0-9]*)*(.)*/;
+      var host = ielem.attr('name');
+
+      if (ielem.hasClass('validate-url-username') && (ielemVal != ''))
+      {
+        var hostVal = getDomain(ielemVal);
+        if(!patt.test(ielemVal)) {
+          add_validate_message(this, 'Please provide proper url format Ex: http://www.'+ host +'.com/username');
+          errorCount++;
+        } else if(host + '.com' != hostVal){
+          add_validate_message(this, 'Please provide '+host+' link for '+host+' field');
+          errorCount++;
+        }
+      }
+
+      if (ielem.hasClass('validate-url') && (ielemVal != ''))
+      {
+        if(!patt.test(ielemVal)){
+          add_validate_message(this, 'Please provide proper url format im My website Ex: http://www.'+host+'.com');
+          errorCount++;
+        }
+      }
+
+    });
+
+  if (errorCount > 0)
+  {
+    if (scrollOnValidateError)
+    {
+      var destination = $('div.validate-error:first').offset().top - 30;
+      jQuery("html,body").animate({scrollTop: destination}, 400);
     }
-    /*
-var pic=jQuery('input:radio[name=pic_avt]:checked').val();
-// if(pic==1&&jQuery('#edit-file-upload').val().length<2){
-//  err=err+"<li>Please upload Image for your profile or pick an avatar below! </li>";
-
-// }
-
-if(pic==2&&jQuery("input[name=select_avatar]:checked").length<1){
-    err=err+" Please pick any avatar or upload an image above  ";
-load_notify(err);
+    scrollOnValidateError = false;
     return false;
-}
-    */
-    //social networks
+  }
 
-    var patt= /^http:\/\/(www.)*([a-zA-Z0-9]*)*(.)*/;
-       var re = new RegExp("http:\/\/(www.)([a-zA-Z0-9]+)(.)","ig");
-    var fb=jQuery('#face').val();
 
-    if(fb.length>0){
-        var host1='facebook';
-       // fb.match(patt);
-        var arr = re.exec(fb);
-        var host2=RegExp.$2;
-        
-        if(!patt.test(fb)){
-            err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
-        }else if(host1!=host2){
-            err=err+" <small> Please provide "+host1+" link for "+host1+" field,<small>  ";
-
-        }
-    }
-
-    var twit=jQuery('#twitter').val();
-
-    if(twit.length>0){
-        var host1='twitter';
-         var arr = re.exec(twit);
-     //   twit.match(patt);
-        var host2=RegExp.$2;
-       
-        if(!patt.test(twit)){
-            err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
-        }else if(host1!=host2){
-            err=err+" <small> Please provide "+host1+" link for "+host1+" field,<small>  ";
-
-        }
-    }
-
-// my website url checking
-    var myweb=jQuery('#myweb').val();
-
-    if(myweb.length>0){
-        var host1='example';
-       // myweb.match(patt);
-        var arr = re.exec(myweb);
-        if(!patt.test(myweb)){
-            err=err+"<small> Please provide proper url format im My website Ex: http://www."+host1+".com,  </small>";
-        }
-    }
-
+/*
 
     jQuery('select.socials-name').each( function(ind,el){
 
@@ -152,17 +196,8 @@ load_notify(err);
         } 
 
     } );
-
-    if(err.length>0){
-        // window.scrollTo(0,0);
-        // err=err.wrap('<ul></ul>');
-        // jQuery('#twitMsg',top.document).html(err);
-        //  jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-        load_notify(err);
-        return false;
-    }
-	
-    return true;
+*/
+  return true;
 }
 
 
@@ -256,7 +291,46 @@ function getFriends_callback(response) {
 
 // disable submit button when entering zipcode
 jQuery(document).ready(function(){
-    $('#zip').keypress(function() {
-      $("#update_submit").attr('disabled', 'disabled');
+
+  jQuery('#zip, #dob').keydown(function(e)
+  {
+    var key = e.charCode || e.keyCode || 0;
+    return (
+        key == 8 ||
+            key == 9 ||
+            key == 13 ||
+            key == 46 ||
+            (key >= 37 && key <= 40) ||
+            (key >= 48 && key <= 57) ||
+            (key >= 96 && key <= 105));
+  });
+
+  jQuery('#zip').keypress(function() {
+      get_zip_city($(this).val(), true);
     });
+
+  jQuery('#username').keyup(function() {
+    chk_uname($(this), true);
+  });
+
+
+  // Blur for input and textarea
+
+  var elemBlur = $('input[blurtext], textarea[blurtext]');
+
+
+
+  elemBlur.focus(function() {
+    if($(this).attr("value").toLowerCase() == $(this).attr("blurtext").toLowerCase()) {
+      $(this).attr("value", "");
+    }
+  });
+
+  elemBlur.blur(function() {
+    if($(this).attr("value") == "") {
+      $(this).attr("value", $(this).attr("blurtext"));
+    }
+  });
 });
+
+

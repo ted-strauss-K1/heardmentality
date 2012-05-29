@@ -31,7 +31,7 @@ function save_follow_profile() {
 
 function save_follower_profile() {
   global $base_url, $user, $base_root;
-  print_r($_REQEST);
+  //print_r($_REQEST);
   if (isset($_REQEST['action'])) {
     print_r($_REQEST);
     $del_blog = "update  follower  set follower_status='" . $_REQUEST['blk'] . "' where  id='" . $_REQEST['action'] . "' ";
@@ -205,7 +205,7 @@ function user_details() {
     '#default_value' => variable_get('username', ''),
     '#id' => 'username',
     '#required' => 1,
-    '#attributes' => array('class' => 'info', 'onblur' => 'chk_uname(this.value);'),
+    '#attributes' => array('class' => 'info validate validate-username', 'blurtext' => t('Username')),
   );
   $form['fname'] = array(
     '#type' => 'textfield',
@@ -214,7 +214,7 @@ function user_details() {
     '#description' => t(' '),
     '#default_value' => variable_get('fname', ''),
     '#id' => 'name',
-    '#attributes' => array('class' => 'info'),
+    '#attributes' => array('class' => 'info validate validate-name', 'blurtext' => t('Name')),
   );
   $form['email'] = array(
     '#type' => 'textfield',
@@ -224,7 +224,7 @@ function user_details() {
     '#default_value' => variable_get('email', ''),
     '#id' => 'email',
     '#required' => 1,
-    '#attributes' => array('class' => 'info'),
+    '#attributes' => array('class' => 'info validate validate-email', 'blurtext' => t('Email')),
   );
   $form['gender'] = array(
     '#type' => 'select',
@@ -242,7 +242,7 @@ function user_details() {
     '#description' => t(' '),
     '#default_value' => variable_get('dob', ''),
     '#id' => 'dob',
-    '#attributes' => array('class' => 'info'),
+    '#attributes' => array('class' => 'info validate validate-date-year', 'blurtext' => t('Year Of Birth')),
   );
 
   $form['country'] = array(
@@ -259,10 +259,27 @@ function user_details() {
     '#description' => t(''),
     '#default_value' => variable_get('zip', ''),
     '#id' => 'zip',
-    '#attributes' => array('class' => 'info', 'onblur' => 'get_zip_city(this.value);'),
+    '#attributes' => array('class' => 'info validate validate-zip', 'blurtext' => t('Zip code')),
   );
 
-  $locDetails = $details->city . ',' . $details->state . ',' . $details->country;
+  $locDetails = $details->city;
+  if ($details->state)
+  {
+    if ($locDetails)
+    {
+      $locDetails .= ', ';
+    }
+    $locDetails .= $details->state;
+  }
+  if ($details->country)
+  {
+    if ($locDetails)
+    {
+      $locDetails .= ', ';
+    }
+    $locDetails .= $details->country;
+  }
+
 //  if($details->latitude!= '' && $details->longitude != ''){
 //      $locDetails .= '<br />('.$details->latitude.', '.$details->longitude.')';
 //  }
@@ -342,11 +359,11 @@ function user_details() {
     '#description' => t(''),
     '#default_value' => variable_get('bio', ''),
     '#id' => 'bio',
-    '#attributes' => array('class' => 'info'),
+    '#attributes' => array('class' => 'info', 'blurtext' => t('Bio')),
     '#resizable' => FALSE,
   );
   // set default values
-  $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
+  $form['bio']['#default_value'] = empty($details->bio) ? t('Bio') : $details->bio;
 
   $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
   $form['income']['#default_value'] = empty($details->income) ? '0' : $details->income;
@@ -354,12 +371,12 @@ function user_details() {
   $form['education']['#default_value'] = empty($details->edu) ? '0' : $details->edu;
   $form['ethnic']['#default_value'] = empty($details->ethnic) ? '0' : $details->ethnic;
   $form['religion']['#default_value'] = empty($details->religion) ? '0' : $details->religion;
-  $form['zip']['#default_value'] = empty($details->zip) ? 'Zip code' : $details->zip;
+  $form['zip']['#default_value'] = empty($details->zip) ? t('Zip code') : $details->zip;
   $form['gender']['#default_value'] = empty($details->gender) ? '0' : $details->gender;
-  $form['dob']['#default_value'] = empty($details->dob) ? 'Year OF Birth' : $details->dob;
-  $form['email']['#default_value'] = empty($details->mail) ? 'Email' : $details->mail;
-  $form['fname']['#default_value'] = empty($details->real_name) ? 'Name' : $details->real_name;
-  $form['username']['#default_value'] = empty($details->name) ? 'Username' : $details->name;
+  $form['dob']['#default_value'] = empty($details->dob) ? t('Year OF Birth') : $details->dob;
+  $form['email']['#default_value'] = empty($details->mail) ? t('Email') : $details->mail;
+  $form['fname']['#default_value'] = empty($details->real_name) ? t('Name') : $details->real_name;
+  $form['username']['#default_value'] = empty($details->name) ? t('Username') : $details->name;
 
   $form = $form + get_privacy_form();
   
@@ -369,14 +386,14 @@ function user_details() {
     '#description' => t(''),
     '#default_value' => variable_get('facebook', $social[0]),
     '#id' => 'face',
-    '#attributes' => array('class' => 'info'),
+    '#attributes' => array('class' => 'info validate validate-url-username'),
   );
   $form['twitter'] = array(
     '#type' => 'textfield',
     '#description' => t(' '),
     '#default_value' => variable_get('twitter', $social[1]),
     '#id' => 'twitter',
-    '#attributes' => array('class' => 'info'),
+    '#attributes' => array('class' => 'info validate validate-url-username'),
   );
   $form['myweb'] = array(
     '#type' => 'textfield',
@@ -384,7 +401,7 @@ function user_details() {
     '#description' => t(''),
     '#default_value' => variable_get('myweb', $details->urls),
     '#id' => 'myweb',
-    '#attributes' => array('class' => 'info'),
+    '#attributes' => array('class' => 'info validate validate-url'),
   );
 
   $form = $form + follow_links_form($form_state, $user->uid);
@@ -549,7 +566,8 @@ function user_details_validate($form, &$form_state) {
   $zip = $form_state['values']['zip'];
   $state = $form_state['values']['state'];
   $uname = $form_state['values']['username'];
-
+  $email = $form_state['values']['email'];
+  $fname=$form_state['values']['fname'];
   if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $uname)) {
     form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
     $form_state['rebuild'] = TRUE;
@@ -576,6 +594,17 @@ function user_details_validate($form, &$form_state) {
       $form_state['rebuild'] = TRUE;
     }
   }
+  if (!valid_email_address($email)) {
+    form_set_error('email', t('Your email address "') . $email . t('" appears malformed'));
+  } elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE mail = '%s' AND uid!='%d'", $email, $user->uid))) {
+    form_set_error('email', t('Sorry Email already taken by other user'));
+    $form_state['rebuild'] = TRUE;
+  }
+  if(!empty($fname) && !preg_match('/^([a-zA-Z]+ ){1,2}[a-zA-Z]+$/i',$fname)) {
+    form_set_error('fname', t('Full Name should be Alpha Ex : Kevin kumar'));
+    $form_state['rebuild'] = TRUE;
+  }
+
 }
 
 function user_details_submit($form, &$form_state) {

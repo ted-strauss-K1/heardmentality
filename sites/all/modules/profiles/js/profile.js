@@ -137,88 +137,133 @@ function profile_comment(make){
     }
 
 }
-   
-function get_zip_city(code){
-	
-    var urr=spath+'qlite/ajax?action=zipcity';
-    show_inotify('Please wait your zip code is validating...');
-    //jQuery.blockUI({
-     //   message: '<h3> Just a moment validating your zip code...</h3>'
-   // });
-   jQuery("body").css({'opacity': 0.5});
-  jQuery("#avatar-selection-loading").show();
 
-    jQuery.ajax({
-        type: "POST",
-        url: urr,
-         dataType: "json",
-        data: {
-            code: code
-        },
-        success: function(msg){
-        //alert(msg);
-            jQuery('#country').val(msg.country);
-            jQuery('#state').val(msg.state);
-            jQuery('#city').val(msg.city);
-            
-            if(msg.state==null){
-               show_inotify('Please Provide the proper Zip code ');
-               jQuery('#location').val('');
-               jQuery('#cit-stat').html('Please Provide the proper Zip code');
-            }else{
-               show_inotify('You have entered valid zipcode');
-               jQuery('#cit-stat').html(msg.city+','+msg.state+','+msg.country);
-            }
+// zip code validator
 
-           // jQuery.unblockUI();
-            jQuery("body").css({'opacity':''});
+function get_zip_city(code, lock){
+  LockPage(lock);
+  var result = false;
+  var urr=spath+'qlite/ajax?action=zipcity';
+
+
+  jQuery.ajax({
+    type: "POST",
+    url: urr,
+    dataType: "json",
+    data: {
+      code: code
+    },
+    success: result = function(msg){
+      //alert(msg);
+      var result = false;
+      jQuery('#country').val(msg.country);
+      jQuery('#state').val(msg.state);
+      jQuery('#city').val(msg.city);
+
+      if(msg.state==null){
+        jQuery('#location').val('');
+        jQuery('#cit-stat').html('Please Provide the proper Zip code');
+
+      }else{
+        jQuery('#location').val('');
+        //  add_validate_message(ielem, 'You have entered valid zipcode');
+        result = true;
+        var citStat = '';
+        if (msg.city)
+        {
+        citStat += msg.city;
         }
-    });
+        if (msg.state)
+        {
+          if (citStat != '')
+          {
+            citStat += ', ';
+          }
+          citStat += msg.state;
+        }
+        if (msg.country)
+        {
+          if (citStat != '')
+          {
+            citStat += ', ';
+          }
+          citStat += msg.country;
+        }
 
-    // enable submit button
-    $("#update_submit").attr('disabled', false);
+        jQuery('#cit-stat').html(citStat);
+      }
+
+      // jQuery.unblockUI();
+
+      return result;
+    }
+  });
+  UnlockPage(lock);
+  return result;
 }
 
-function chk_uname(val){
 
+
+function LockPage(lock)
+{
+  if (lock)
+  {
+    $("#update_submit").attr('disabled', 'disabled');
+    jQuery("body").css({'opacity': 0.5});
+    jQuery("#avatar-selection-loading").show();
+  }
+}
+
+function UnlockPage(lock)
+{
+  if (lock)
+  {
+    jQuery("body").css({'opacity':''});
+    $("#update_submit").attr('disabled', false);
+  }
+}
+
+function chk_uname(ielem, lock){
+
+
+    var val = ielem.val();
     var urr=spath+'qlite/ajax?action=uname';
+    var result = true;
 
     var ck_uname = /^[A-Za-z0-9_]{5,20}$/;
     if(!val.match(ck_uname)){
 
-        err="Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ";
-        load_notify(err);
-        return false;
+      add_validate_message(ielem, 'Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ');
+        result = false;
 
-    }else if(val.length>0){
-       // jQuery.blockUI({
-        //    message: '<h3> Just a moment validating your username...</h3>'
-       // });
-show_inotify('Please wait your username is validating...');
+    } else if(val.length>0){
+      LockPage(lock);
+      add_validate_message(ielem, 'Please wait your username is validating...');
 
-   jQuery("body").css({'opacity': 0.5});
         jQuery.getJSON(urr,
         {
             userid: val
         },
-        function(data) {
-            var msg=data.messages;
-           // jQuery.unblockUI();
-            if(data.error){
-               
-                jQuery('#rname').val('');
-                err="Username already taken please try any other combination";
-                load_notify(err+''+msg);
-              
+        result = function(data) {
+          var result= false;
+          var msg=data.messages;
+         // jQuery.unblockUI();
+          if(data.error){
 
-            }else{
-                load_notify(msg);
-            }
-        jQuery("body").css({'opacity':''});
+            jQuery('#rname').val('');
+            add_validate_message(ielem, 'Username already taken please try any other combination');
+
+
+          } else {
+            add_validate_message(ielem, '');
+            result = true;
+          }
+          UnlockPage(lock);
+          return result;
         });
-        return true;
     }
-    return false;
+
+    return result;
 }
 
 
