@@ -28,7 +28,6 @@ $directoryPath = $base_path . $directory;
 	<link rel="apple-touch-icon" sizes="114x114" href="<?php print $directoryPath;?>/images/apple-touch-icon-114x114.png" />
 
   <!-- socialize.js script should only be included once -->
-  <script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php print $apikey; ?>"></script>
   <script type="text/javascript">
   var conf=
   {

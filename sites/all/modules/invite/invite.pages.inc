@@ -272,9 +272,6 @@ HeardMentality: Its all about Sharing </div>
                 </td>
                 <td align="left">
                     
-<script type="text/javascript" 
-	src="http://cdn.gigya.com/JS/socialize.js?apikey=2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8">
-</script>
 <script type="text/javascript">
 var conf =
 {

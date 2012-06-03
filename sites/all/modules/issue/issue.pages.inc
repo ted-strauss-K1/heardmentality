@@ -1244,7 +1244,6 @@ function search_issue_results() {
       break;
   }
 
-
   $sqlcount = ExecuteQuery($sql, 'norows');
 
   /*   * Rally dev :498* */

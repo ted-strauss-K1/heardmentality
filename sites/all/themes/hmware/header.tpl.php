@@ -32,7 +32,6 @@ $directory = $base_path . $directory;
         <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
         <script src="<?php echo $directory; ?>/scripts/jquery.livequery.js"></script>
         <script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script>
-        <script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey; ?>"></script>
         <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
 
         <!-- Autosuggest module -->

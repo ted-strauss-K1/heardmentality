@@ -1074,7 +1074,7 @@ var spath=\'' . $base_url . '/\';
             drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
             drupal_add_css(drupal_get_path('module', 'avatar_selection') . '/avatar_selection.css');
             drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
-            drupal_set_html_head('<script src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '" type="text/javascript"></script>');
+          //  drupal_set_html_head('<script src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '" type="text/javascript"></script>');
             drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js';
             $account = load_user($user->uid);
 

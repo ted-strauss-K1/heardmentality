@@ -457,7 +457,7 @@ function qlite_view() {
 
     if ($user->uid > 0) {
         $voutput .= '
-	<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
+
 	<script>
         var conf =
         {

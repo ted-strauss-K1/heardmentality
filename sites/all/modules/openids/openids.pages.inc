@@ -978,9 +978,6 @@ var spath=\'' . $gSitePath . '\';
     </script><script src="' . $gSitePath . '/misc/jquery.js" type="text/javascript"></script>
 <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
 <script src="' . $gSitePath . path_to_theme() . '/floatbox/floatbox.js" type="text/javascript"></script>
-    	<SCRIPT type="text/javascript" lang="javascript"
-	   src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '">
-	</SCRIPT>
 	<script>
 	    var conf =
         {
