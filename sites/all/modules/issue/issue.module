@@ -713,7 +713,7 @@ function issue_vote_submit_ajax($type = '') {
  * Implementation of hook_form_alter().
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
-
+  $res->field_filepath[0]['value'] = $file_im;
   if ($form_id == 'user_relationships_ui_request') {
 
     $form['#submit'][] = 'add_follow_notify';
@@ -2634,21 +2634,27 @@ function add_new_debate_form_submit($form, &$form_state) {
       $html = file_get_html($form_state['values']['ref_title']);
       $tags = get_meta_tags($form_state['values']['ref_title']);
       if ($form_state['values']['image'] != 'no_image') {
-        $res->field_filepath[0]['value'] = $form_state['values']['image'];
+        $filename = substr($form_state['values']['image'], strrpos($form_state['values']['image'], '/'), strlen($form_state['values']['image']));
+        $file = file_get_contents($form_state['values']['image']);
+        $path = file_directory_path() . '/resources' . $filename;
+        $file_im = file_save_data($file, $path, FILE_EXISTS_REPLACE);
+        image_scale($file_m, $path, '110', '70');
+
+        $res->field_filepath[0]['value'] = file_create_url($file_im);
       }
       else {
-        $res->field_filepath[0]['value'] = file_directory_path() . '/noimage.jpg';
+        $res->field_filepath[0]['value'] = file_create_url(file_directory_path() . '/noimage.jpg');
       }
       $res->title = $html->find('title', 0)->innertext;
       $res->field_rtype[0]['value'] = 'news';
       $res->body = $tags['description'];
-      $html->clear();
     }
     $res->type = 'forum';
     $res->field_source[0]['value'] = parse_url($form_state['values']['ref_title'], PHP_URL_HOST);
     $res->uid = $user->uid;
     $res->field_nlink[0]['value'] = $form_state['values']['ref_title'];
     $res->status = 1;
+    $html->clear();
     // get tid (debate or resource)
     // get_taxonomy_id('module name','term data name')
     $tid = get_taxonomy_id('forum', 'Resource');
