@@ -2450,7 +2450,6 @@ function add_new_debate_form($form_state, $nid = '') {
     $i++;
   }
   $form['clr_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div><span class="req_assign">(Required to set one or more)</span>');
-krumo(drupal_get_path('theme', $theme));
   $form['new_debate_submit'] = array(
     '#type' => 'submit',
     '#value' => t('Add'),
@@ -3029,7 +3028,6 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
       '#prefix' => '<div class="help_radios" style="display:none;">',
       '#suffix' => '</div>',
     );
-    krumo(drupal_get_path('theme', $theme));
     $form['reply_submit'] = array('#type' => 'submit',
       '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
