@@ -66,11 +66,11 @@ $('#add_new_debate').live('click',function() {
       jQuery('#deb-err').html('<span>You must choose at least one suppose or oppose.</span>');
       return false;
     }
-    else if(!tomatch.test(nlink)) {
+    else if(!tomatch.test(nlink) && type == 0) {
       jQuery('#deb-err').html('<span>Please Enter a valid URL.</span>');
       return false;
     }
-    else if (linkbox == '') {
+    else if (linkbox == '' && type == 0) {
       jQuery('#deb-err').html('<span>Please press Attach before adding.</span>');
       return false;
     }
