@@ -1,6 +1,6 @@
 /**Rallydev:530**/
 $(document).ready(function(){
-  imageUrl = spath+'sites/all/themes/heardmentalitylight/images/ui-bg_diagonals40x40_red.png';
+  imageUrl = Drupal.settings.base_url +'sites/all/themes/heardmentalitylight/images/ui-bg_diagonals40x40_red.png';
   if($('.error').html() != null ) {
     $('.top-message').css('background-image', 'url(' + imageUrl + ')');
     $('.error').css('border','none');
@@ -18,7 +18,7 @@ $(document).ready(function(){
  * @author gobinath.m
  */
 function get_filter_option(type) {
-  var url=spath+'qlite/ajax?action=filter';
+  var url=Drupal.settings.base_url+'qlite/ajax?action=filter';
   jQuery('#fopt').html('');
   jQuery.ajax({
     type: "POST",
@@ -365,7 +365,7 @@ jQuery('#deb-ana').live('click', function(){
 // load reference statistics
 jQuery('#res-ana').live('click', function(){
   var nid = jQuery('#curr_nid').val();
-  var url = spath+'issue/ajax/resource_statistics/'+nid;
+  var url = Drupal.settings.base_url+'issue/ajax/resource_statistics/'+nid;
   jQuery('#res-ana-load-txt').html('Loading...');
   jQuery.ajax({
     type: 'get',
@@ -566,7 +566,7 @@ function startload(){
 function createUploader(){
   var uploader = new qq.FileUploader({
     element: document.getElementById('file-uploader-demo1'),
-    action: spath+'upload_document.php',
+    action: Drupal.settings.base_url+'upload_document.php',
     debug: true,
     // url of the server-side upload script, should be on the same domain
     // additional data to send, name-value pairs
@@ -738,7 +738,7 @@ function res_type_tab(id,tab,nid){
   var sort = jQuery('#sort').val();
 
   jQuery('#load-resource').prepend('Loading...');
-  var url = spath+'issues/load_resources/'+nid+'/'+id+'/'+sup+'/'+ans+'/'+sort;
+  var url = Drupal.settings.base_url+'issues/load_resources/'+nid+'/'+id+'/'+sup+'/'+ans+'/'+sort;
   jQuery.ajax({
     type: 'post',
     url: url,
@@ -918,7 +918,7 @@ jQuery('#issue_edit_form_stream').live('submit', function(){
   jQuery.ajax({
     type: 'POST',
     dataType: 'json',
-    url: spath+'issue/vote/ajax/submit/'+vote_type,
+    url: Drupal.settings.base_url+'issue/vote/ajax/submit/'+vote_type,
     data: data,
     success: function(msg){
       var nid_val = thisForm.find('#nid_val').val();
@@ -1022,7 +1022,7 @@ $(document).ready(function(){
     var e = $(this).attr('class');
     var id = $(this).parents('dl').attr('name');
     nid = $('#curr_nid').val();
-    var url = '/issue/' + nid +'/tab_content/1/';
+    var url = Drupal.settings.base_url + '/issue/' + nid +'/tab_content/1/';
     $('#debate_list_area').tabs("url", 0 , url+0+'?class='+e +'&chorder='+id);
     $('#debate_list_area').tabs("url", 1 , url+1+'?class='+e +'&chorder='+id);
     $('#debate_list_area').tabs("url", 2 , url+2+'?class='+e +'&chorder='+id);
