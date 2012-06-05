@@ -347,7 +347,7 @@ function loadDebateStatistic() {
 
 jQuery('#deb-ana').live('click', function(){
   var nid = jQuery('#curr_nid').val();
-  var url = '/issue/ajax/debate_statistics/'+nid;
+  var url = Drupal.settings.base_url + '/issue/ajax/debate_statistics/'+nid;
   jQuery('#deb-ana-load-txt').html('Loading...');
   jQuery.ajax({
     type: 'get',
@@ -999,7 +999,7 @@ function open_flag_box(oid, type){
     data: {
       'flag_type': type
     },
-    url: sitepath+'/issue/ajax/getForumFlagForm/'+oid,
+    url: Drupal.settings.base_url + '/issue/ajax/getForumFlagForm/'+oid,
     success: function(form){
       jQuery(divId).html(form);
     }
