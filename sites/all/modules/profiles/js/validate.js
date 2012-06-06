@@ -9,16 +9,23 @@ function clear_validate_messages()
   allMessages.each(
     function ()
     {
-      jQuery(this).remove();
+      if (!$(this).hasClass('validate-ajax'))
+      {
+        jQuery(this).remove();
+      }
     });
 }
 
-function add_validate_message(elem, message)
+function add_validate_message(elem, message, addClass)
 {
   var elemParent = jQuery(elem).parent().parent();
   if (elemParent.find('div.validate-error').length == 0)
   {
-    jQuery(elem).parent().after('<div class="validate-error" style="display:none"><span>' + message + '</span></div>');
+    if (typeof addClass == 'undefined')
+    {
+      addClass = 'validate-error';
+    }
+    jQuery(elem).parent().after('<div class="' + addClass + '" style="display:none"><span>' + message + '</span></div>');
     elemParent.find('div.validate-error').slideDown();
   } else {
     var validateMessage = elemParent.find('div.validate-error span');
@@ -28,12 +35,12 @@ function add_validate_message(elem, message)
 
 function getDomain(url) {
   var arUrl =  url
-      .replace('http://www.','')
-      .replace('https://www.','')
-      .replace('http://','')
-      .replace('https://','')
-      .replace('www.','')
-      .split(/[/?#]/);
+    .replace('http://www.','')
+    .replace('https://www.','')
+    .replace('http://','')
+    .replace('https://','')
+    .replace('www.','')
+    .split(/[/?#]/);
   var result = '';
   if (arUrl.length > 0)
   {
@@ -43,31 +50,31 @@ function getDomain(url) {
 }
 function validate_reg()
 {
- // return true;
+  // return true;
 
- /*
-  * validate classes
-  *
-  *   validate
-  *
-  *   validate-name
-  *   validate-not-empty
-  *   validate-email
-  *   validate-date-year
-  *   validate-zip
-  *   validate-url
-  *   validate-url-username
-  *
-  *
-  *   error block
-  *
-  *   <div class="validate-error">
-  *     <span>text</span>
-  *   <div>
-  *
-  * */
+  /*
+   * validate classes
+   *
+   *   validate
+   *
+   *   validate-name
+   *   validate-not-empty
+   *   validate-email
+   *   validate-date-year
+   *   validate-zip
+   *   validate-url
+   *   validate-url-username
+   *
+   *
+   *   error block
+   *
+   *   <div class="validate-error">
+   *     <span>text</span>
+   *   <div>
+   *
+   * */
 
-  var validateElements = jQuery('input.validate');
+  var validateElements = jQuery('input.validate, textarea.validate');
   clear_validate_messages();
 
   var errorCount = 0;
@@ -75,12 +82,12 @@ function validate_reg()
   validateElements.each(
     function ()
     {
-      var ielem = $(this)
+      var ielem = $(this);
       var ielemVal = ielem.val();
-;
+
       if (ielem.hasClass('validate-not-empty'))
       {
-        if (ielemVal == '')
+        if ((ielemVal == '') || ( (ielemVal == ielem.attr('blurtext'))))
         {
           add_validate_message(this, 'Field should not be blank!');
           errorCount++;
@@ -90,10 +97,16 @@ function validate_reg()
 
       if (ielem.hasClass('validate-username'))
       {
-        if(!chk_uname(ielem, false))
+        if(!(/^[A-Za-z0-9_]{5,20}$/.test(ielemVal)))
         {
+          add_validate_message(ielem, 'Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ');
           errorCount++;
         }
+        /*
+         if(!chk_uname(ielem, false))
+         {
+
+         }  */
       }
 
       if (ielem.hasClass('validate-name'))
@@ -157,6 +170,8 @@ function validate_reg()
 
     });
 
+
+  errorCount = $('div.validate-error').length;
   if (errorCount > 0)
   {
     if (scrollOnValidateError)
@@ -169,53 +184,53 @@ function validate_reg()
   }
 
 
-/*
+  /*
 
-    jQuery('select.socials-name').each( function(ind,el){
+   jQuery('select.socials-name').each( function(ind,el){
 
-       
-        var host1=jQuery(this).val();
-        //var ele=jQuery(this).nextAll('input:eq(0)');
-        var url=jQuery('.socials-val:eq('+ind+')').val();
 
-    
-        if(url.length>0){
-            //edit-follow-links-facebook-url
-             var re = new RegExp("http:\/\/(www.)([a-zA-Z0-9]+)(.)","ig");
-             var arr = re.exec(url);
-            //url.match(patt);
-            var host2=RegExp.$2;
-         
-            if(!patt.test(url)){
-                err=err+"Please provide proper url format Ex: http://www."+host1+".com/username,";
-            }else if(host1!=host2){
-                err=err+"  Please provide "+host1+" link for "+host1+" field ,  ";
+   var host1=jQuery(this).val();
+   //var ele=jQuery(this).nextAll('input:eq(0)');
+   var url=jQuery('.socials-val:eq('+ind+')').val();
 
-            }
 
-        } 
+   if(url.length>0){
+   //edit-follow-links-facebook-url
+   var re = new RegExp("http:\/\/(www.)([a-zA-Z0-9]+)(.)","ig");
+   var arr = re.exec(url);
+   //url.match(patt);
+   var host2=RegExp.$2;
 
-    } );
-*/
+   if(!patt.test(url)){
+   err=err+"Please provide proper url format Ex: http://www."+host1+".com/username,";
+   }else if(host1!=host2){
+   err=err+"  Please provide "+host1+" link for "+host1+" field ,  ";
+
+   }
+
+   }
+
+   } );
+   */
   return true;
 }
 
 
 
 jQuery('#edit-file-upload').live('change', function() {
-    jQuery('input:radio[name=pic_avt]:first').attr('checked',true);
-    jQuery("div.form-item img").hasClass("avatar-select").removeClass('avatar-select');
+  jQuery('input:radio[name=pic_avt]:first').attr('checked',true);
+  jQuery("div.form-item img").hasClass("avatar-select").removeClass('avatar-select');
 });
 
 
 jQuery('div.form-item img').live('click', function() {
- 
-    jQuery('input:radio[name=pic_avt]:nth(1)').attr('checked',true);
+
+  jQuery('input:radio[name=pic_avt]:nth(1)').attr('checked',true);
 });
 
 
 jQuery('div.avatar-selection-pager-nav a').live('click', function() {
-    setTimeout('chk_avatar()',1000);
+  setTimeout('chk_avatar()',1000);
 
 });
 
@@ -225,21 +240,21 @@ function load_notify(err){
 //
 //    jQuery('#twitMsg',top.document).html(err);
 //    jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-    jQuery('.toggler').html(err);
-    jQuery('.toggler').show('slow');
+  jQuery('.toggler').html(err);
+  jQuery('.toggler').show('slow');
 
 }
 function onLoad() {
-    // get user info
-    gigya.services.socialize.getUserInfo(conf, {
-        callback: renderUI
-    });
+  // get user info
+  gigya.services.socialize.getUserInfo(conf, {
+    callback: renderUI
+  });
 
-    // register for connect status changes
-    gigya.services.socialize.addEventHandlers(conf,
+  // register for connect status changes
+  gigya.services.socialize.addEventHandlers(conf,
     {
-        onConnectionAdded: renderUI,
-        onConnectionRemoved: renderUI
+      onConnectionAdded: renderUI,
+      onConnectionRemoved: renderUI
     });
 
 }
@@ -251,32 +266,32 @@ function renderUI(res) {
 
 // Get the user's friends
 function getFriends() {
-    gigya.services.socialize.getFriendsInfo(conf, {
-        callback: getFriends_callback
-    });
-    document.getElementById('btnGetFriends').disabled = true;
+  gigya.services.socialize.getFriendsInfo(conf, {
+    callback: getFriends_callback
+  });
+  document.getElementById('btnGetFriends').disabled = true;
 }
 
 // Use the reponse of getFriends and render HTML to display the first five friends.
 function getFriends_callback(response) {
-    document.getElementById('btnGetFriends').disabled = false;
-    document.getElementById('friends').innerHTML = "";
-    if (response.errorCode == 0) {
-        var array = response.friends.asArray();
-        var html = "You have " + array.length + " friends, here are a few of them:<BR/>";
-        html += "<table cellpadding=20><tr>";
-        for (var i = 0; i < Math.min(5, array.length); i++) {
-            html += "<td align=center valign='bottom'>";
-            if (array[i].thumbnailURL)
-                html += "<img width='50' height='50' src='"
-                + array[i].thumbnailURL + "' ><br>";
-            html += array[i].nickname + "</td>";
-        }
-        html += "</tr></table>";
-        document.getElementById('friends').innerHTML = html;
-    } else {
-        alert('Error :' + response.errorMessage);
+  document.getElementById('btnGetFriends').disabled = false;
+  document.getElementById('friends').innerHTML = "";
+  if (response.errorCode == 0) {
+    var array = response.friends.asArray();
+    var html = "You have " + array.length + " friends, here are a few of them:<BR/>";
+    html += "<table cellpadding=20><tr>";
+    for (var i = 0; i < Math.min(5, array.length); i++) {
+      html += "<td align=center valign='bottom'>";
+      if (array[i].thumbnailURL)
+        html += "<img width='50' height='50' src='"
+          + array[i].thumbnailURL + "' ><br>";
+      html += array[i].nickname + "</td>";
     }
+    html += "</tr></table>";
+    document.getElementById('friends').innerHTML = html;
+  } else {
+    alert('Error :' + response.errorMessage);
+  }
 
 }
 
@@ -296,20 +311,21 @@ jQuery(document).ready(function(){
   {
     var key = e.charCode || e.keyCode || 0;
     return (
-        key == 8 ||
-            key == 9 ||
-            key == 13 ||
-            key == 46 ||
-            (key >= 37 && key <= 40) ||
-            (key >= 48 && key <= 57) ||
-            (key >= 96 && key <= 105));
+      key == 8 ||
+        key == 9 ||
+        key == 13 ||
+        key == 46 ||
+        (key >= 37 && key <= 40) ||
+        (key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105));
   });
 
-  jQuery('#zip').keypress(function() {
-      get_zip_city($(this), true);
-    });
+  $('#zip').keypress(function() {
+    get_zip_city($(this), true);
+  });
 
-  jQuery('#username').keyup(function() {
+  chk_uname($('#username'), true);
+  $('#username').keyup(function() {
     chk_uname($(this), true);
   });
 
@@ -318,6 +334,11 @@ jQuery(document).ready(function(){
 
   var elemBlur = $('input[blurtext], textarea[blurtext]');
 
+  elemBlur.each(function () {
+    if($(this).attr("value") == "") {
+      $(this).attr("value", $(this).attr("blurtext"));
+    }
+  });
 
 
   elemBlur.focus(function() {

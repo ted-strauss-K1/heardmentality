@@ -192,7 +192,9 @@ var spath=\'' . $base_url . '/' . '\';
 
 function user_details() {
   global $base_url, $user, $apikey, $theme;
-  $details = load_user($user->uid);
+  // $details = load_user($user->uid);
+  $details = user_load($user->uid);
+  // print_r($details);
   $options = array('0' => t(''), '2' => t(''), '1' => t(''));
   $form['#attributes']['enctype'] = "multipart/form-data";
   $form['#attributes']['onsubmit'] = "return validate_reg();";
@@ -203,6 +205,7 @@ function user_details() {
     '#maxlength' => 20,
     '#description' => t(''),
     '#default_value' => variable_get('username', ''),
+    //'#value' => variable_get('username', ''),
     '#id' => 'username',
     '#required' => 1,
     '#attributes' => array('class' => 'info validate validate-username', 'blurtext' => t('Username')),
@@ -259,7 +262,7 @@ function user_details() {
     '#description' => t(''),
     '#default_value' => variable_get('zip', ''),
     '#id' => 'zip',
-    '#attributes' => array('class' => 'info validate validate-zip', 'blurtext' => t('Zip code')),
+    '#attributes' => array('class' => 'info validate validate-not-empty validate-zip', 'blurtext' => t('Zip code')),
   );
 
   $locDetails = $details->city;
@@ -359,7 +362,7 @@ function user_details() {
     '#description' => t(''),
     '#default_value' => variable_get('bio', ''),
     '#id' => 'bio',
-    '#attributes' => array('class' => 'info', 'blurtext' => t('Bio')),
+    '#attributes' => array('class' => 'info validate validate-not-empty', 'blurtext' => t('Bio')),
     '#resizable' => FALSE,
   );
   // set default values
@@ -379,7 +382,7 @@ function user_details() {
   $form['username']['#default_value'] = empty($details->name) ? t('Username') : $details->name;
 
   $form = $form + get_privacy_form();
-  
+
   $social = explode('||', $details->social);
   $form['facebook'] = array(
     '#type' => 'textfield',
@@ -525,7 +528,7 @@ function get_avatar_form() {
   drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
   drupal_add_css(drupal_get_path('module', 'avatar_selection') . '/avatar_selection.css');
   drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
- // drupal_set_html_head('<script src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '" type="text/javascript"></script>');
+  drupal_set_html_head('<script src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '" type="text/javascript"></script>');
   drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js';
   $account = load_user($user->uid);
   $data = '
