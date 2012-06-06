@@ -1,6 +1,6 @@
 /**Rallydev:530**/
 $(document).ready(function(){
-  imageUrl = Drupal.settings.base_url +'sites/all/themes/heardmentalitylight/images/ui-bg_diagonals40x40_red.png';
+  imageUrl = Drupal.settings.base_url +'/sites/all/themes/heardmentalitylight/images/ui-bg_diagonals40x40_red.png';
   if($('.error').html() != null ) {
     $('.top-message').css('background-image', 'url(' + imageUrl + ')');
     $('.error').css('border','none');

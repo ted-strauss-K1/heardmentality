@@ -51,7 +51,7 @@ function bind_clk(){
       el.closest('span').find('a.dagree').attr('class','');
       el.closest('span').find('a.ddisagree').attr('class','');
 
-      var url = '/issues/debate/save';
+      var url = Drupal.settings.base_url + '/issues/debate/save';
       jQuery('#twitMsg').html("Please wait while saving your post....!");
       jQuery('#twitMsg').delay(400).slideDown(400);
       jQuery.ajax({
