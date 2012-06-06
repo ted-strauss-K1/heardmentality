@@ -201,7 +201,7 @@ function delete_thread(id, type){
   var fid  = spl[2];
   var dtype = spl[1];
   //var msgid = '#reply-msg-'+fid;
-  var url = '/issue/thread/delete/'+dtype+'/'+fid+'/'+type;
+  var url = Drupal.settings.base_url + '/issue/thread/delete/'+dtype+'/'+fid+'/'+type;
   if(confirm("Are you sure to delete this argument?")){
     jQuery.ajax({
       type: 'post',
@@ -226,7 +226,7 @@ function delete_thread(id, type){
 
 function insight_view(nid){
 
-  var url = Drupal.settings.base_url+'/issue/ajax/insightview/'+nid;
+  var url = Drupal.settings.base_url + '/issue/ajax/insightview/'+nid;
   jQuery.ajax({
     type: 'get',
     url: url,
@@ -347,7 +347,7 @@ function loadDebateStatistic() {
 
 jQuery('#deb-ana').live('click', function(){
   var nid = jQuery('#curr_nid').val();
-  var url = Drupal.settings.base_url + '/issue/ajax/debate_statistics/'+nid;
+  var url = Drupal.settings.base_url + '/issue/ajax/debate_statistics/'+ nid;
   jQuery('#deb-ana-load-txt').html('Loading...');
   jQuery.ajax({
     type: 'get',
@@ -365,7 +365,7 @@ jQuery('#deb-ana').live('click', function(){
 // load reference statistics
 jQuery('#res-ana').live('click', function(){
   var nid = jQuery('#curr_nid').val();
-  var url = Drupal.settings.base_url+'issue/ajax/resource_statistics/'+nid;
+  var url = Drupal.settings.base_url + 'issue/ajax/resource_statistics/'+nid;
   jQuery('#res-ana-load-txt').html('Loading...');
   jQuery.ajax({
     type: 'get',
