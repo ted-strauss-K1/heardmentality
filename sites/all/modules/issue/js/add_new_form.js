@@ -86,12 +86,13 @@ $('#add_new_debate').live('click',function() {
       url: jQuery(this).attr('action'),
       data: data,
       success: function(msg){
+        var selected = $("#debate_list_area").tabs( "option", "selected" );
         jQuery('#add_debate_wrapper').slideUp('slow');
         jQuery('#add-new-debate-form select').val(0);
         jQuery('#add-new-debate-form textarea').val('');
-        $('#debate_list_area').tabs("load", 1);
-        $('#debate_list_area').tabs("load", 2);
-        $('#debate_list_area').tabs("select", 1);
+        //  $('#debate_list_area').tabs("load", 1);
+        //  $('#debate_list_area').tabs("load", 2);
+        $('#debate_list_area').tabs("select", selected);
         jQuery('#deb-err').fadeIn("slow");
     
         jQuery('#deb-err').html(msg.message); 
@@ -120,7 +121,8 @@ $(document).ready(function() {
     $('.resources').toggle();
   });
 
-  $( "#debate_list_area" ).tabs({
+  $("#debate_list_area").tabs({
+    cache: false,
     load: function(event, ui) {
       Drupal.attachBehaviors();
     }

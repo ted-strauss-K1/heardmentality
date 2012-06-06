@@ -50,8 +50,6 @@ function bind_clk(){
 
       el.closest('span').find('a.dagree').attr('class','');
       el.closest('span').find('a.ddisagree').attr('class','');
-      console.log('Hello');
-      console.log(Drupal.settings.base_url);
       var url = Drupal.settings.base_url + '/issues/debate/save';
       jQuery('#twitMsg').html("Please wait while saving your post....!");
       jQuery('#twitMsg').delay(400).slideDown(400);

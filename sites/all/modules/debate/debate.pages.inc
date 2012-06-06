@@ -472,7 +472,6 @@ function make_clickable($ret) {
 }
 
 function debate_submit() {
-
   global $user, $base_root, $base_url, $language, $theme;
   extract($_REQUEST);
 

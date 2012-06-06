@@ -558,7 +558,7 @@ jQuery(document).ready(function() {
 });
 
 function startload(){
-  initialize();
+ // initialize();
 //createUploader();
 }
 

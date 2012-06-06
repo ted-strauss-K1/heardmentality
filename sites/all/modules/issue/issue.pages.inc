@@ -1565,6 +1565,7 @@ function insight_view($nid='') {
     }
     return $insight;
   }
+  
 }
 
 function by_possible_answers_votes($nid = '', $short_answers, $colors) {
