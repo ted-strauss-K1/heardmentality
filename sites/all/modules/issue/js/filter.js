@@ -558,7 +558,7 @@ jQuery(document).ready(function() {
 });
 
 function startload(){
- // initialize();
+// initialize();
 //createUploader();
 }
 
@@ -947,7 +947,7 @@ jQuery('#issue_edit_form_stream').live('submit', function(){
           thisForm.find('#def_vote').val(choice);
         }
         thisForm.find('#edit-change').val('Change Vote');
-      }else{
+      }else {
         if(vote_type == 'edit'){
           thisForm.find('#edit-change').val('Change Vote');
         }else{
