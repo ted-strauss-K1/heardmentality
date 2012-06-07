@@ -120,10 +120,14 @@ function apachesolr_search_page_list_pages() {
     // Operations
     $row[] = array('data' => l(t('Edit'), 'admin/settings/apachesolr/search-pages/' . $search_page['page_id'] . '/edit'));
     $row[] = array('data' => l(t('Clone'), 'admin/settings/apachesolr/search-pages/' . $search_page['page_id'] . '/clone'));
-    // CTools already unserializes settings.
-    $settings = is_array($search_page['settings']) ? $search_page['settings'] : unserialize($search_page['settings']);
-    if (!isset($settings['apachesolr_search_not_removable'])) {
-      $row[] = array('data' => l(t('Delete'), 'admin/settings/apachesolr/search-pages/' . $search_page['page_id'] . '/delete'));
+
+    // Allow to revert a search page or to delete it
+    if (!isset($search_page['settings']['apachesolr_search_not_removable']) && !isset($search_page['in_code_only'])) {
+      if ((isset($search_page['type']) && $search_page['type'] == 'Overridden')) {
+        $row[] = array('data' => l(t('Revert'), 'admin/settings/apachesolr/search-pages/' . $search_page['page_id'] . '/delete'));
+      } else {
+        $row[] = array('data' => l(t('Delete'), 'admin/settings/apachesolr/search-pages/' . $search_page['page_id'] . '/delete'));
+      }
     }
     else {
       $row[] = array('data' => '');
@@ -400,7 +404,7 @@ function apachesolr_search_page_settings_form(&$form_state, $search_page = NULL)
   $form['advanced']['apachesolr_search_allow_user_input'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow user input using the URL'),
-    '#description' => t('Allow users to use the URL (mysite.com?q=test&fq=userinput) for manual facetting. This will only work after a search term is searched. Recommended is to leave this unchecked'),
+    '#description' => t('Allow users to use the URL for manual facetting via fq[] params (e.g. http://example.com/search/site/test?fq[]=uid:1&fq[]=tid:99). This will only work in combination with a keyword search. The recommended value is unchecked'),
     '#default_value' => $default_value,
   );
 
