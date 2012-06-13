@@ -868,10 +868,15 @@ function issue_search_form(&$form_state) {
   drupal_add_js($inline, 'inline');
 
 
-  $form['issue_key'] = array('#type' => 'textfield',
+  $form['issue_key'] = array(
+    '#type' => 'textfield',
     '#size' => 40,
-    '#default_value' => $key);
-  $form['category_mark'] = array('#type' => 'markup', '#value' => t('FILTER BY CATEGORY') . '<br /><div class="clr"></div>');
+    '#default_value' => $key
+  );
+  $form['category_mark'] = array(
+    '#type' => 'markup',
+    '#value' => t('FILTER BY CATEGORY') . '<br /><div class="clr"></div>'
+  );
   /* categories */
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
@@ -895,17 +900,27 @@ function issue_search_form(&$form_state) {
     '#default_value' => $subject,
     '#id' => 'subject');
   // get first level category
-  $form['defarea'] = array('#type' => 'hidden', '#default_value' => $area);
-  $form['defdetail'] = array('#type' => 'hidden', '#default_value' => $detail);
-  $form['sub_categories'] = array('#type' => 'markup',
+  $form['defarea'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $area
+  );
+  $form['defdetail'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $detail
+  );
+  $form['sub_categories'] = array(
+    '#type' => 'markup',
     '#value' => '<div id="sub-cat-wrapper" style="float:left"></div>',
   );
-
-  $form['sub_sub_categories'] = array('#type' => 'markup',
+  $form['sub_sub_categories'] = array(
+    '#type' => 'markup',
     '#value' => '<div id="sub-sub-cat-wrapper" style="float:left">
                                                 </div>',
     '#suffix' => '<br /><div class="clr"></div>');
-  $form['location_mark'] = array('#type' => 'markup', '#value' => t('FILTER BY LOCATION') . '<br /><div class="clr"></div>');
+  $form['location_mark'] = array(
+    '#type' => 'markup',
+    '#value' => t('FILTER BY LOCATION') . '<br /><div class="clr"></div>'
+  );
   // location
   $countries[''] = t('COUNTRY');
   // $countryList = geonames_query('countryinfo',NULL);
@@ -939,18 +954,41 @@ function issue_search_form(&$form_state) {
     '#id' => 's_country');
 
   // default state, city
-  $form['defstate'] = array('#type' => 'hidden', '#default_value' => $getState);
-  $form['defcity'] = array('#type' => 'hidden', '#default_value' => $getCity);
-  $form['cur_language'] = array('#type' => 'hidden', '#value' => $curLanguage);
-
-  $form['state_div'] = array('#type' => 'markup',
-    '#value' => '<div id="state-wrapper" style="float:left"></div>');
-  $form['city_div'] = array('#type' => 'markup',
+  $form['defstate'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $getState
+  );
+  $form['defcity'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $getCity
+  );
+  $form['cur_language'] = array(
+    '#type' => 'hidden',
+    '#value' => $curLanguage
+  );
+  $form['state_div'] = array(
+    '#type' => 'markup',
+    '#value' => '<div id="state-wrapper" style="float:left"></div>'
+  );
+  $form['city_div'] = array(
+    '#type' => 'markup',
     '#value' => '<div id="city-wrapper" style="float:left"></div>',
-    '#suffix' => '<br /><div class="clr"></div>');
-  $form['submit'] = array('#type' => 'submit', '#value' => t('SUBMIT'), '#attributes' => array('class' => 're-submit light floatleft'));
-  $form['search'] = array('#type' => 'submit', '#value' => t('Search'), '#attributes' => array('class' => 'search-button'));
-  $form['reset_btn'] = array('#type' => 'markup', '#value' => '<input type="button" value="' . t('CLEAR OPTIONS') . '" name="reset" onclick="javascript:clrForm(this.form)" class="re-submit light floatleft" />');
+    '#suffix' => '<br /><div class="clr"></div>'
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('SUBMIT'),
+    '#attributes' => array(
+      'class' => 're-submit light floatleft')
+  );
+  $form['search'] = array(
+    '#type' => 'submit',
+    '#value' => t('Search'),
+    '#attributes' => array('class' => 'search-button')
+  );
+  $form['reset_btn'] = array(
+    '#type' => 'markup',
+    '#value' => '<input type="button" value="' . t('CLEAR OPTIONS') . '" name="reset" onclick="javascript:clrForm(this.form)" class="re-submit light floatleft" />');
   return $form;
 }
 
@@ -1565,7 +1603,6 @@ function insight_view($nid='') {
     }
     return $insight;
   }
-  
 }
 
 function by_possible_answers_votes($nid = '', $short_answers, $colors) {
@@ -1844,7 +1881,6 @@ function filter_options_submit($form, &$form_state) {
   $path = $base_url . '/' . $language->language . '/' . drupal_get_path_alias('node/' . $nid) . $ids;
   drupal_goto($path);
 }
-
 
 // ISSUE RESOURCES
 function issue_resources_list($qid = '') {

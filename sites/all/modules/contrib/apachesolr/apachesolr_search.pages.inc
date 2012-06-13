@@ -33,7 +33,6 @@ function apachesolr_search_custom_page($page_id, $keys = '', $path_replacer = NU
   }
   // Build our page and allow modification.
   $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
-
   $build_output = NULL;
   foreach($build_results as $build_result) {
     $build_output .= $build_result;
