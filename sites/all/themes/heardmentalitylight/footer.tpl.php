@@ -125,9 +125,6 @@ else {
 <!-- JS
 ================================================== -->
 
-
-<script>window.jQuery || document.write("<script src='<?php echo $directoryPath; ?>/javascripts/jquery-1.6.2.min.js'>\x3C/script>")</script>
-
 <script src="<?php echo $directoryPath; ?>/javascripts/app.js"></script>
 <script>        
 

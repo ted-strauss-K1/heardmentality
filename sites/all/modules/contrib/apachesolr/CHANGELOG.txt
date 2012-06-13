@@ -1,28 +1,5 @@
 Apache Solr integration 6.x-3.x, xxxx-xx-xx
 ------------------------------
-#1554552 by Nick_vh | xeconsulting: Fixed Call to undefined function search_get_info() in apachesolr.module on line 508.
-#1611338 by remimikalsen: Added Allowing several bundles to share the same field name within a given entity type after field_mapping_alter().
-#1567614 by pwolanin, Nick_vh: Fixed Uninstall is not complete.
-#1536628 by Nick_vh: Added exclude hook that allows to skip content without removing it from the table.
-#1519900 by pwolanin, Nick_vh, Georgique: Fixed Error in apachesolr_index_get_entities_to_index() function.
-#1536600 by Nick_vh: Fixed Performance optimizations when doing hundreds of deletes.
-#1515822 by pwolanin, Nick_vh, drasgardian: Added Support notion of parent entity for derived documents.
-#1515580 by Nick_vh | yannou: Fixed Deleting node is impossible, stdClass problem.
-#1498490 by Nick_vh, milesw: Fixed Menu paths for custom search pages are broken when exported as features.
-#1609184 by pwolanin: Minor code cleanup in MLT response handling.
-#1609030 by pwolanin: Fix for Missing search page still executes search.
-#1494576 by gnucifer: Added Taxonomy facets.
-#1558626 by pwolanin: fix for broken OR facet when value has spaces.
-#1569718 by webadpro: Fixed Node update/add .. add/update node in solr.
-#1538244 by by julianmancera: Fix for Solr base query adds an extra slasj in getPath() when there is no 'q' param.
-#1532214 by setvik, pwolanin: Fix for mergePolicy syntax has changed and throws error in Apache Solr 3.6, update config versions.
-#1536936 by pwolanin: Fix for Use json.nl=map for Luke and other json data.
-#1514314 by Nick_vh, Georgique: Fixed Error in apachesolr_entity_update().
-#1547672 by xeconsulting: Fixed apachesolr_search().module - line 27 - current_path() should be replaced with $_GET['q'].
-#1514314 by Nick_vh, Georgique: Fixed Error in apachesolr_entity_update().
-
-Apache Solr integration 6.x-3.0-alpha1, 2012-04-03
-------------------------------
 #1509790 by Nick_vh: Fixed Status is not checked when a reindex is initiated.
 #1476228 by ygerasimov: Fixed Items to index determined not correct.
 #1477732 by ygerasimov: Fixed apachesolr_index_entities() sets index position that leads to cycle.

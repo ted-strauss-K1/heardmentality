@@ -180,12 +180,7 @@ class DrupalApacheSolrService {
    */
   protected function setLuke($num_terms = 0) {
     if (empty($this->luke[$num_terms])) {
-      $params = array(
-        'numTerms' => "$num_terms",
-        'wt' => 'json',
-        'json.nl' => self::NAMED_LIST_FORMAT,
-      );
-      $url = $this->_constructUrl(self::LUKE_SERVLET, $params);
+      $url = $this->_constructUrl(self::LUKE_SERVLET, array('numTerms' => "$num_terms", 'wt' => 'json'));
       if ($this->env_id) {
         $cid = $this->env_id . ":luke:" . $this->drupal_apachesolr_hash_base64($url);
         $cache = cache_get($cid, 'cache_apachesolr');
@@ -388,7 +383,6 @@ class DrupalApacheSolrService {
     // Add default params.
     $params += array(
       'wt' => 'json',
-      'json.nl' => self::NAMED_LIST_FORMAT,
     );
 
     $url = $this->_constructUrl($servlet, $params);
