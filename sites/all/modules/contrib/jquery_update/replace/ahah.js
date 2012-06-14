@@ -1,14 +1,7 @@
+// ahah.js,v 1.1.2.1 + fixes
 
 /**
  * Provides AJAX-like page updating via AHAH (Asynchronous HTML and HTTP).
- *
- * AHAH is a method of making a request via Javascript while viewing an HTML
- * page. The request returns a small chunk of HTML, which is then directly
- * injected into the page.
- *
- * Drupal uses this file to enhance form elements with #ahah[path] and
- * #ahah[wrapper] properties. If set, this file will automatically be included
- * to provide AHAH capabilities.
  */
 
 /**
@@ -16,15 +9,15 @@
  */
 Drupal.behaviors.ahah = function(context) {
   for (var base in Drupal.settings.ahah) {
-    if (!$('#'+ base + '.ahah-processed').size()) {
+    if ( !$.shell.find('#'+ base + '.ahah-processed').length ) {
       var element_settings = Drupal.settings.ahah[base];
 
-      $(element_settings.selector).each(function() {
+      $.shell.find(element_settings.selector).each(function() {
         element_settings.element = this;
         var ahah = new Drupal.ahah(base, element_settings);
       });
 
-      $('#'+ base).addClass('ahah-processed');
+      $.shell.find('#'+ base).addClass('ahah-processed');
     }
   }
 };
@@ -33,7 +26,6 @@ Drupal.behaviors.ahah = function(context) {
  * AHAH object.
  */
 Drupal.ahah = function(base, element_settings) {
-  // Set the properties for this object.
   this.element = element_settings.element;
   this.selector = element_settings.selector;
   this.event = element_settings.event;
@@ -77,10 +69,9 @@ Drupal.ahah = function(base, element_settings) {
       return ahah.beforeSubmit(form_values, element_settings, options);
     },
     success: function(response, status) {
-      // Sanity check for browser support (object expected).
-      // When using iFrame uploads, responses must be returned as a string.
       if (typeof(response) == 'string') {
-        response = Drupal.parseJson(response);
+        //response = Drupal.parseJson(response);
+	      response = $.getJSON(response);
       }
       return ahah.success(response, status);
     },
@@ -135,7 +126,7 @@ Drupal.ahah.prototype.beforeSubmit = function (form_values, element, options) {
   else if (this.progress.type == 'throbber') {
     this.progress.element = $('<div class="ahah-progress ahah-progress-throbber"><div class="throbber">&nbsp;</div></div>');
     if (this.progress.message) {
-      $('.throbber', this.progress.element).after('<div class="message">' + this.progress.message + '</div>');
+      $('.throbber', this.progress.element).after('<div class="message">' + this.progress.message + '</div>')
     }
     $(this.element).after(this.progress.element);
   }
@@ -166,7 +157,6 @@ Drupal.ahah.prototype.success = function (response, status) {
   $(this.element).removeClass('progress-disabled').attr('disabled', false);
 
   // Add the new content to the page.
-  Drupal.freezeHeight();
   if (this.method == 'replace') {
     wrapper.empty().append(new_content);
   }
@@ -180,8 +170,12 @@ Drupal.ahah.prototype.success = function (response, status) {
   }
 
   // Determine what effect use and what content will receive the effect, then
-  // show the new content.
-  if ($('.ahah-new-content', new_content).size() > 0) {
+  // show the new content. For browser compatibility, Safari is excluded from
+  // using effects on table rows.
+  if (($.browser.safari && $("tr.ahah-new-content", new_content).size() > 0)) {
+    new_content.show();
+  }
+  else if ($('.ahah-new-content', new_content).size() > 0) {
     $('.ahah-new-content', new_content).hide();
     new_content.show();
     $(".ahah-new-content", new_content)[this.showEffect](this.showSpeed);
@@ -190,13 +184,16 @@ Drupal.ahah.prototype.success = function (response, status) {
     new_content[this.showEffect](this.showSpeed);
   }
 
+  // Merge in new and changed settings, if any.
+  if (response.settings) {
+    $.extend(Drupal.settings, response.settings);
+  }
+
   // Attach all javascript behaviors to the new content, if it was successfully
   // added to the page, this if statement allows #ahah[wrapper] to be optional.
   if (new_content.parents('html').length > 0) {
     Drupal.attachBehaviors(new_content);
   }
-
-  Drupal.unfreezeHeight();
 };
 
 /**

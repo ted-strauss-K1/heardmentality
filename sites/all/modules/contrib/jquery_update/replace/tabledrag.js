@@ -1,4 +1,4 @@
-
+// $Id: tabledrag.js,v 1.1.2.1.2.3 2010/09/09 03:10:31 sun Exp $
 /**
  * Drag and drop table rows with field manipulation.
  *
@@ -171,12 +171,13 @@ Drupal.tableDrag.prototype.makeDraggable = function(item) {
   // Create the handle.
   var handle = $('<a href="#" class="tabledrag-handle"><div class="handle">&nbsp;</div></a>').attr('title', Drupal.t('Drag to re-order'));
   // Insert the handle after indentations (if any).
-  if ($('td:first .indentation:last', item).after(handle).size()) {
-    // Update the total width of indentation in this entire table.
-    self.indentCount = Math.max($('.indentation', item).size(), self.indentCount);
+  
+  if($('td:first .indentation:last', item).length && $('td:first .indentation:last', item).after(handle).size()){
+	// Update the total width of indentation in this entire table.
+	self.indentCount = Math.max($('.indentation', item).size(), self.indentCount);
   }
   else {
-    $('td:first', item).prepend(handle);
+	$('td:first', item).prepend(handle);
   }
 
   // Add hover action for the handle.
@@ -964,7 +965,6 @@ Drupal.tableDrag.prototype.row.prototype.indent = function(indentDiff) {
   indent = Math.max(indent, this.interval.min);
   indent = Math.min(indent, this.interval.max);
   indentDiff = indent - this.indents;
-
   for (var n = 1; n <= Math.abs(indentDiff); n++) {
     // Add or remove indentations.
     if (indentDiff < 0) {
@@ -997,8 +997,11 @@ Drupal.tableDrag.prototype.row.prototype.findSiblings = function(rowSettings) {
   var siblings = new Array();
   var directions = new Array('prev', 'next');
   var rowIndentation = this.indents;
-  for (var d in directions) {
+  
+   for (var d = 0; d < directions.length; d++) {
+
     var checkRow = $(this.element)[directions[d]]();
+
     while (checkRow.length) {
       // Check that the sibling contains a similar target field.
       if ($('.' + rowSettings.target, checkRow)) {
@@ -1028,6 +1031,7 @@ Drupal.tableDrag.prototype.row.prototype.findSiblings = function(rowSettings) {
       siblings.push(this.element);
     }
   }
+
   return siblings;
 };
 

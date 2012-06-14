@@ -1,9 +1,7 @@
-
 Drupal.behaviors.multiselectSelector = function() {
-  // Automatically selects the right radio button in a multiselect control.
-  $('.multiselect select:not(.multiselectSelector-processed)')
+  $.shell.find('.multiselect select:not(.multiselectSelector-processed)')
     .addClass('multiselectSelector-processed').change(function() {
-      $('.multiselect input:radio[value="'+ this.id.substr(5) +'"]')
+      $.shell.find('.multiselect input:radio[value="'+ this.id.substr(5) +'"]')
         .attr('checked', true);
   });
 };

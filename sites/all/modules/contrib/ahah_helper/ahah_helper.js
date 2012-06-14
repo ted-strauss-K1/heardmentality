@@ -31,7 +31,7 @@ Drupal.ahah.prototype.success = function (response, status) {
   $(this.element).removeClass('progress-disabled').attr('disabled', false);
 
   // Add the new content to the page.
-  Drupal.freezeHeight();
+  //Drupal.freezeHeight();
   if (this.method == 'replace') {
     wrapper.empty().append(new_content);
   }
@@ -70,7 +70,7 @@ Drupal.ahah.prototype.success = function (response, status) {
     Drupal.attachBehaviors(new_content);
   }
 
-  Drupal.unfreezeHeight();
+ // Drupal.unfreezeHeight();
 };
 
     }
