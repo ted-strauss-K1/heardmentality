@@ -20,7 +20,7 @@ $directoryPath = $base_path . $directory;
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <?php print $styles; ?>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
 	<?php print $scripts; ?>
 	<link rel="shortcut icon" href="<?php print $directoryPath;?>/images/favicon.ico">
 	<link rel="apple-touch-icon" href="<?php print $directoryPath;?>/images/apple-touch-icon.png">
