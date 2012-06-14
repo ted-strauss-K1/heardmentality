@@ -1,0 +1,113 @@
+<?php
+
+function solr_issues_menu() {
+  $items['issues2'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('solr_issues_block_form'),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+          // 'file' => 'issue.pages.inc',
+  );
+  return $items;
+}
+
+function solr_issues_seach_form($form_state) {
+  $form = array();
+  // Loads the core Search CSS file, use the core search module's classes.
+  drupal_add_css(drupal_get_path('module', 'search') . '/search.css');
+
+  $form = array();
+  $form['#id'] = 'search-form';
+  //$form['#attributes']['class'][] = 'search-form';
+  $form['#search_page'] = $search_page;
+
+  $form['basic']['keys'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Enter terms'),
+    '#default_value' => $keys,
+    '#size' => 20,
+    '#maxlength' => 255,
+  );
+  $form['basic']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Search'),
+  );
+
+  $apachesolr_has_searched = apachesolr_has_searched($search_page->env_id);
+  $query = apachesolr_current_query($search_page->env_id);
+
+  if ($apachesolr_has_searched) {
+    $query = apachesolr_current_query($search_page->env_id);
+    $searcher = $query->getSearcher();
+    // We use the presence of filter query params as a flag for the retain filters checkbox.
+    $fq = $query->getParam('fq');
+  }
+
+  if ($apachesolr_has_searched && ($response = apachesolr_static_response_cache($searcher))) {
+    $form['basic']['get'] = array(
+      '#type' => 'hidden',
+      '#default_value' => json_encode(array_diff_key($_GET, array('q' => 1, 'page' => 1, 'solrsort' => 1, 'retain-filters' => 1))),
+    );
+
+    if ($fq) {
+      $form['basic']['retain-filters'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Retain current filters'),
+        '#default_value' => (int) isset($_GET['retain-filters']),
+      );
+    }
+  }
+  return $form;
+}
+
+function solr_issues_seach_form_submit($form, &$form_state) {
+  $search_page = $form['#search_page'];
+  $redirect = $search_page->search_path;
+  if (strlen($form_state['values']['keys'])) {
+    $redirect .= '/' . $form_state['values']['keys'];
+  }
+  if (isset($form_state['values']['get'])) {
+    $get = json_decode($form_state['values']['get'], TRUE);
+  }
+  if (!empty($form_state['values']['retain-filters'])) {
+    // Add our saved value
+    $get['retain-filters'] = '1';
+    // Add the query values into the redirect.
+    $form_state['redirect'] = array($redirect, array('query' => $get));
+  }
+  else {
+    // Redirects to path set in configuration.
+    $form_state['redirect'] = $redirect;
+  }
+}
+
+function solr_issues_form_alter(&$form, $form_state, $form_id) {
+  //krumo('dfg');
+  //krumo($form);
+}
+
+function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      $blocks[0] = array(
+        'info' => t('Issues'),
+        'cache' => BLOCK_NO_CACHE,
+      );
+      return $blocks;
+      break;
+
+    case 'view':
+      $block = array();
+      switch ($delta) {
+        case 0:
+          $block['subject'] = t('Find A Golf Course:');
+          $block['content'] = drupal_get_form('solr_issues_block_form');
+          break;
+      }
+  }
+}
+
+function solr_issues_block_form($form_state) {
+  
+  return $form;
+}
