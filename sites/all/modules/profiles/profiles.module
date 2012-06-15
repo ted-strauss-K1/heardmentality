@@ -624,7 +624,20 @@ function profiles_user($op, $edit, &$account, $category = NULL) {
     switch ($op) {
 
         case 'insert':
-        //home page
+
+
+            // create empty field in user_profile table on sign up user
+
+            $uid = $account->uid;
+            $chk = db_query("select * from {user_profile} where uid='$uid'");
+            $chk_result = db_result($chk);
+            if (!$chk_result)
+            {
+              $query = "INSERT INTO {user_profile} set uid='%d' ";
+              db_query($query,$uid);
+            }
+
+            //home page
             $_REQUEST['destination'] ='qlite/view';
 
             break;
@@ -1766,7 +1779,15 @@ function _basic_submit($form, &$form_state) {
         $longitude = '';
     }
     // Location data ends
+
+  $chk = db_query("select * from {user_profile} where uid='$user->uid'");
+  $chk_result = db_result($chk);
+  if ($chk_result)
+  {
     $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s', latitude = '%s', longitude = '%s' where uid='%d' ";
+  } else {
+    $query = "INSERT INTO {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s', latitude = '%s', longitude = '%s', uid='%d' ";
+  }
     $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['income'],$form_state['values']['marital'],$form_state['values']['sorient'], $form_state['values']['education'], $latitude, $longitude, $user->uid);
     //update username
     db_query("update {users} set name='%s',mail='%s',prompt='%d',language='%s' where uid='%d'", $form_state['values']['username'], $form_state['values']['email'],'0',$form_state['values']['default_language'],$user->uid);
