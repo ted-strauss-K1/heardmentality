@@ -3,7 +3,7 @@
 function solr_issues_menu() {
   $items['issues2'] = array(
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('solr_issues_block_form'),
+    'page arguments' => array('solr_issues_search_form'),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
           // 'file' => 'issue.pages.inc',
@@ -111,7 +111,7 @@ function solr_issues_block_form($form_state) {
   ahah_helper_register($form, $form_state);
   $query = array('geonameid' => 'Canada');
   $result = geonames_query('children', $query);
-  krumo($result);
+  // krumo($result);
   global $language;
   $curLanguage = $language->language;
   $cck_country = db_query("select cc.field_issue_country_value from content_field_issue_country cc, node n where cc.nid = n.nid and n.language = '$curLanguage' group by field_issue_country_value");
@@ -193,35 +193,69 @@ function solr_issues_block_form($form_state) {
     ),
   );
 
+  if (isset($form_state['storage']['location']['country'])) {
+    foreach ($form_state['storage']['location']['country'] as $country) {
+      $xyz = geonames_countryinfo($country);
+      $query = array('geonameid' => $xyz['geonameid']);
+      $results = geonames_query('children', $query);
+      foreach ($results->results as $state) {
+        $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
+        if ($count > 0) {
+          $states[$state['geonameid']] = $state['name'];
+        }
+      }
+    }
+  }
+  if (isset($form_state['storage']['location']['defstate'])) {
+ //   krumo($form_state);
+    foreach ($form_state['storage']['location']['defstate'] as $state) {
+     
+      $query = array('geonameid' => $state);
+      $results = geonames_query('children', $query);
+   //   krumo($results);
+      foreach ($results->results as $city) {
+        $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'].$state));
+   //   krumo($count);
+        if ($count > 0) {
+          $cities[$city['geonameid'].$state] = $city['name'];
+        }
+      }
+    }
+  }
   $form['location'] = array(
     '#type' => 'fieldset',
     '#prefix' => '<div id="location-wrapper">',
     '#suffix' => '</div>',
     '#tree' => TRUE,
   );
-  $form['location']['country'] = array('#type' => 'select',
-    '#options' => $countries,
-    '#ahah' => array(
-      'event' => 'change',
-      'path' => ahah_helper_path(array('location')),
-      'wrapper' => 'location-wrapper',
-    ),
-    '#default_value' => $getcountry,
-  );
-
-  // default state, city
-  $form['location']['defstate'] = array(
+  $form['location']['country'] = array(
     '#type' => 'select',
+    '#options' => $countries,
     '#multiple' => TRUE,
     '#ahah' => array(
       'event' => 'change',
       'path' => ahah_helper_path(array('location')),
       'wrapper' => 'location-wrapper',
     ),
-    '#default_value' => $getState
+    '#default_value' => $form_state['storage']['location']['country'],
+  );
+
+  // default state, city
+  $form['location']['defstate'] = array(
+    '#type' => 'select',
+    '#multiple' => TRUE,
+    '#default_value' => $form_state['storage']['location']['defstate'],
+    '#options' => $states,
+    '#ahah' => array(
+      'event' => 'change',
+      'path' => ahah_helper_path(array('location')),
+      'wrapper' => 'location-wrapper',
+    ),
+          //  '#default_value' => $getState
   );
   $form['location']['defcity'] = array(
     '#type' => 'select',
+    '#options' => $cities,
     '#multiple' => TRUE,
     '#ahah' => array(
       'event' => 'change',
@@ -238,6 +272,7 @@ function solr_issues_block_form($form_state) {
   // unset($form['#submit']);
   $form['#submit'][] = 'solr_issues_block_form_submit';
   unset($form_state['storage']['category']);
+  unset($form_state['storage']['location']);
   return $form;
 }
 
