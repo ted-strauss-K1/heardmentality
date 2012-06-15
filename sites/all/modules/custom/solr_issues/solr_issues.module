@@ -8,55 +8,35 @@ function solr_issues_menu() {
     'type' => MENU_CALLBACK,
           // 'file' => 'issue.pages.inc',
   );
+  $items['issues_solr/ajax/%'] = array(
+    'page callback' => 'solr_issues_ajax_response',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+          // 'file' => 'issue.pages.inc',
+  );
+  $items['issues_solr2/ajax/%'] = array(
+    'page callback' => 'solr_issues_ajax_response2',
+    'page arguments' => array('issues', 2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+          // 'file' => 'issue.pages.inc',
+  );
+  $items['issues_solr2/ajax'] = array(
+    'page callback' => 'solr_issues_ajax_response2',
+    'page arguments' => array('issues'),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+          // 'file' => 'issue.pages.inc',
+  );
   return $items;
 }
 
 function solr_issues_search_form($form_state) {
-  $form = array();
-  // Loads the core Search CSS file, use the core search module's classes.
-  drupal_add_css(drupal_get_path('module', 'search') . '/search.css');
-
-  $form = array();
-  $form['#id'] = 'search-form';
-  //$form['#attributes']['class'][] = 'search-form';
-  $form['#search_page'] = $search_page;
-
-  $form['basic']['keys'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Enter terms'),
-    '#default_value' => $keys,
-    '#size' => 20,
-    '#maxlength' => 255,
+  $form['linkbox'] = array(
+    '#type' => 'item',
+    '#value' => '<div id ="linkbox"></div>',
   );
-  $form['basic']['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Search'),
-  );
-
-  $apachesolr_has_searched = apachesolr_has_searched($search_page->env_id);
-  $query = apachesolr_current_query($search_page->env_id);
-
-  if ($apachesolr_has_searched) {
-    $query = apachesolr_current_query($search_page->env_id);
-    $searcher = $query->getSearcher();
-    // We use the presence of filter query params as a flag for the retain filters checkbox.
-    $fq = $query->getParam('fq');
-  }
-
-  if ($apachesolr_has_searched && ($response = apachesolr_static_response_cache($searcher))) {
-    $form['basic']['get'] = array(
-      '#type' => 'hidden',
-      '#default_value' => json_encode(array_diff_key($_GET, array('q' => 1, 'page' => 1, 'solrsort' => 1, 'retain-filters' => 1))),
-    );
-
-    if ($fq) {
-      $form['basic']['retain-filters'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Retain current filters'),
-        '#default_value' => (int) isset($_GET['retain-filters']),
-      );
-    }
-  }
   return $form;
 }
 
@@ -104,6 +84,7 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
           $block['content'] = drupal_get_form('solr_issues_block_form');
           break;
       }
+      return $block;
   }
 }
 
@@ -111,7 +92,8 @@ function solr_issues_block_form($form_state) {
   ahah_helper_register($form, $form_state);
   $query = array('geonameid' => 'Canada');
   $result = geonames_query('children', $query);
-  // krumo($result);
+  drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
+  drupal_add_js(array('base_url' => "$base_url"), 'setting');
   global $language;
   $curLanguage = $language->language;
   $cck_country = db_query("select cc.field_issue_country_value from content_field_issue_country cc, node n where cc.nid = n.nid and n.language = '$curLanguage' group by field_issue_country_value");
@@ -207,17 +189,15 @@ function solr_issues_block_form($form_state) {
     }
   }
   if (isset($form_state['storage']['location']['defstate'])) {
- //   krumo($form_state);
+
     foreach ($form_state['storage']['location']['defstate'] as $state) {
-     
+
       $query = array('geonameid' => $state);
       $results = geonames_query('children', $query);
-   //   krumo($results);
       foreach ($results->results as $city) {
-        $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'].$state));
-   //   krumo($count);
+        $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'] . $state));
         if ($count > 0) {
-          $cities[$city['geonameid'].$state] = $city['name'];
+          $cities[$city['geonameid'] . $state] = $city['name'];
         }
       }
     }
@@ -264,9 +244,15 @@ function solr_issues_block_form($form_state) {
     ),
     '#default_value' => $getCity
   );
+
+  $form['search_text'] = array(
+    '#type' => 'textfield',
+  );
+
   $form['search'] = array(
     '#type' => 'submit',
     '#value' => t('Search'),
+    '#id' => 'search-solr-block',
           //  '#attributes' => array('class' => 'search-button')
   );
   // unset($form['#submit']);
@@ -278,4 +264,28 @@ function solr_issues_block_form($form_state) {
 
 function solr_issues_block_form_submit($form, &$form_state) {
   // krumo($form_state);
+}
+
+function solr_issues_ajax_response() {
+  $return = menu_execute_active_handler('issues_search/' . search_get_keys());
+  $json = array('regions' => array('apachesolr_ajax' => $return));
+  print drupal_json(array(
+            'data' => $json));
+}
+
+function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
+  $search_page = apachesolr_search_page_load($page_id);
+  // krumo($search_page);
+  $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
+  // Retrieve the conditions that apply to this page
+  $conditions = apachesolr_search_conditions_default($search_page);
+  // Retrieve the results of the search
+  $results = apachesolr_search_search_results($keys, $conditions, $search_page);
+  // krumo($results);
+  $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
+  print drupal_json(array(
+            'data' => $build_results['search_results']));
+  /* foreach ($build_results as $build_result) {
+    $build_output .= $build_result;
+    } */
 }
