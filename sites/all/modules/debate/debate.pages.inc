@@ -294,7 +294,7 @@ function debate_ajax() {
       /* jQuery(window).resize(function() {
         chart.destroy();
        */
-      /*   echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
+      /*   echo $output.='<div id="container" class="highcharts-container" style="height:360px; width: 100%; margin: 0 auto; clear:both"></div>
         <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
         '; */
       break;
@@ -346,9 +346,8 @@ $(document).ready(function() {
    chart = new Highcharts.Chart({
       chart: {
          renderTo: 'container',
-         defaultSeriesType: 'column',
-        marginBottom: 20
-		},
+         defaultSeriesType: 'column'
+      },
       title: {
          text: 'Resource Report Analysis'
       },
@@ -376,7 +375,7 @@ $(document).ready(function() {
 });
 
  </script>";
-      echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
+      echo $output.='<div id="container" class="highcharts-container" style="height:360px; width: 100%; margin: 0 auto; clear:both"></div>
         <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>';
 
       break;
