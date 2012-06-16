@@ -2839,6 +2839,10 @@ h6#deb-ana:hover a,
 	padding-top: 21px;
 }
 
+#analytics-area .highcharts-container {
+	height: 360px !important;
+}
+
 #leave_comment_area b {
 	color: #CD2027;
 }
@@ -3832,8 +3836,11 @@ ul.control_links h6#reply:hover {
 }
 
 .show_only span.title.reset {
-	text-align: right;
-	font-style: italic;
+    cursor: pointer;
+    font-style: italic;
+    font-weight: normal;
+    padding: 8px 0 0 !important;
+    text-align: right;
 }
 
 .show_only span.title.reset:hover {
