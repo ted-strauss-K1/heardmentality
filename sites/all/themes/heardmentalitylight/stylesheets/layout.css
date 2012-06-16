@@ -153,11 +153,11 @@
 		ul.menu li a.add {background:#ccc;color:#111;margin:0px}
 		ul.menu li a.add-2 {background:#bbb;color:#111;margin:0px}
 		ul.menu li a:hover.add {color:white;background:#000;}
-		ul.menu li a:hover.analysis {	background:#434bf0;color:white;}
+		ul.menu li a:hover.analysis {	background:#934d9e;color:white;}
 
 
 		ul.menu li a:hover, ul.menu li a:active, ul.menu li a.active{
-			background:#6CCBD5;
+			background:#934d9e;
 			color:white;
 		} 
     ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 18px 0 0; clear: both; max-width: 412px; float: right; text-align: right;}
@@ -2286,7 +2286,7 @@ ul.menu li:last-child a {
 }
 
 ul.menu li:last-child a:hover {
-	background-color: #434bf0;
+	background-color: #934d9e;
 	color: #fff;
 }
 
