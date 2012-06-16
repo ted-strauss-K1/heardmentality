@@ -3646,6 +3646,7 @@ ul.control_links h6#reply:hover {
 #debate_list_area .ui-tabs-panel {
 	position: relative;
 	z-index: 13;
+	min-height: 100px;
 }
 
 #debate_list_area li.one_reply {
