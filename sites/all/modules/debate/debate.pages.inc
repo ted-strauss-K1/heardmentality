@@ -346,8 +346,9 @@ $(document).ready(function() {
    chart = new Highcharts.Chart({
       chart: {
          renderTo: 'container',
-         defaultSeriesType: 'column'
-      },
+         defaultSeriesType: 'column',
+        marginBottom: 20
+		},
       title: {
          text: 'Resource Report Analysis'
       },
