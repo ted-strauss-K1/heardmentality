@@ -3831,6 +3831,15 @@ ul.control_links h6#reply:hover {
 	padding: 0 0 4px !important;
 }
 
+.show_only span.title.reset {
+	text-align: right;
+	font-style: italic;
+}
+
+.show_only span.title.reset:hover {
+	text-decoration: underline;
+}
+
 .show_only dl {
 	overflow: hidden;
 	margin-top: 4px;

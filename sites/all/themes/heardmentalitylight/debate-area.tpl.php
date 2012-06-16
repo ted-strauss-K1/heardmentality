@@ -54,7 +54,8 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
         <dl name="<?php print $key?>">
             <dd><a href="" class="neutral"><span class="small_pos">+</span><span class="small_neg">-</span></a><a href="" class="positive"><span class="small_pos">+</span></a><a href="" class="negative"><span class="small_neg">-</span></a></dd><dt><?php print $answer; ?></dt>
           </dl>
-        <?php } ?> 	
+        <?php } ?>
+		<span class="title reset">Reset filters</span>
       </div>
     </div>
   </h2>
