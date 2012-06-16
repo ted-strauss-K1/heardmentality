@@ -143,7 +143,7 @@
 		}
 		
 		ul.menu li:nth-child(odd), ul.menu li {background-color: #D81A29; color:white;}
-		ul.menu li:nth-child(even), ul.menu li + li{background-color: #F7314A; color:white;}
+		ul.menu li:nth-child(even), ul.menu li + li{background-color: #ef3d3b; color:white;}
 		ul.menu li + li + li {background-color: #CC2027; color:white;}
 		
 		ul.menu li.login{
