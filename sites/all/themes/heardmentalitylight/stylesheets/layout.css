@@ -2840,7 +2840,7 @@ h6#deb-ana:hover a,
 }
 
 #debate_statistic {
-	height: 360px;
+	height: 350px;
 	overflow: hidden;
 }
 
@@ -4081,6 +4081,11 @@ p.result-title {
 	-webkit-border-radius: 200px;
 	-o-border-radius: 200px;
 	-khtml-border-radius: 200px;
+}
+
+.vote-results span.highlight {
+	padding: 0 5px;
+	color: #fff;
 }
 
 /*Small circle*/
