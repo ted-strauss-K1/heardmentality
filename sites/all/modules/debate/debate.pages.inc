@@ -375,7 +375,7 @@ $(document).ready(function() {
 });
 
  </script>";
-      echo $output.='<div id="container" class="highcharts-container" style="height:360px; width: 100%; margin: 0 auto; clear:both"></div>
+      echo $output.='<div id="container" class="highcharts-container" style="height:360px; width: 100%; margin: 0 auto; clear:both; border: 1px solid red;"></div>
         <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>';
 
       break;
