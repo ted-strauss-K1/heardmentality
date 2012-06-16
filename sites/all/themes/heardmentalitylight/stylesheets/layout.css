@@ -2839,8 +2839,9 @@ h6#deb-ana:hover a,
 	padding-top: 21px;
 }
 
-#analytics-area .highcharts-container {
-	height: 360px !important;
+#debate_statistic {
+	height: 360px;
+	overflow: hidden;
 }
 
 #leave_comment_area b {

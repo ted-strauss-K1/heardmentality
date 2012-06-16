@@ -1539,7 +1539,7 @@ function issue_ajax($task = '', $nid = '') {
 
     case 'debate_statistics':
       $result = '<div id="debate_statistic" width="520" height="360">
-        <div id="container" class="highcharts-container" style="height:360px; width: 100%; margin: 0 auto; clear:both"></div>
+        <div id="container" class="highcharts-container" style="height:400px; width: 100%; margin: 0 auto; clear:both"></div>
         <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
 </div>';
       break;
