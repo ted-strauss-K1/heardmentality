@@ -212,6 +212,7 @@
 		.top-right.login a.login {
 			float: none;
 			text-align: left !important;
+			background-color: #222;
 		}
 		
 		.top-right.login a#dialog_link:hover {
