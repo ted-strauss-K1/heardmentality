@@ -4289,6 +4289,12 @@ span.small_pos.fixes,
 	margin-right: 3px;
 }
 
+/*Solr search*/
+
+.filter_search {
+	padding-top: 20px;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
