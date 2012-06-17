@@ -23,14 +23,6 @@ $(document).ready(function() {
       });
     }
 			
-    $('body.front .grey-box').resize(function(e) {
-      jQuery('.container .nine .grey-box .uactivity').jScrollPane({
-        scrollbarWidth:12, 
-        scrollbarMargin:0, 
-        showArrows:true
-      });
-    });
-
   });
 	
   // Show/Hide Add argument & Debate statistic
