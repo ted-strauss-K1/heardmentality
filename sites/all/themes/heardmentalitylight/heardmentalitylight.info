@@ -19,7 +19,7 @@ scripts[] = javascripts/jquery-ui-1.8.16.custom.min.js
 scripts[] = javascripts/ui/minified/jquery.ui.slider.min.js
 ;scripts[] = javascripts/jquery.ba-resize.min.js
 scripts[] = javascripts/jScrollPane.js
-scripts[] = javascripts/jquery.mousewheel.js
+;scripts[] = javascripts/jquery.mousewheel.js
 scripts[] = javascripts/custom_scripts.js
 
 
