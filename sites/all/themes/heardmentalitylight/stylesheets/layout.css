@@ -1637,9 +1637,9 @@ span.sort {font-weight:normal;font-weight:bold;color:#666;text-shadow: 0 1px #ff
 span.activity {font-weight:bold;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;padding:0px 3px 0px 3px;}
 .activity.map-title {font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #c0c0c0; margin: 0 10px 9px; padding: 0 3px 10px;}
 
-.action span.date {color:#BA00A4;}
-.action span.name {color:#BA00A4;font-weight:bold}
-.action span.name a{color:#BA00A4;font-weight:bold}
+.action span.date {color:#ef3d3b;}
+.action span.name {color:#ef3d3b;font-weight:bold}
+.action span.name a{color:#ef3d3b;font-weight:bold}
 
 
 .action ul {}
