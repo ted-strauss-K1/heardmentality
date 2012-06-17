@@ -212,7 +212,7 @@
 		.top-right.login a.login {
 			float: none;
 			text-align: left !important;
-			background-color: #222;
+			background-color: #222 !important;
 		}
 		
 		.top-right.login a#dialog_link:hover {
@@ -248,10 +248,6 @@
 		.top-left.user-menu ul.menu.second li:first-child {
 			position: relative;
 			right: 0;
-		}
-		
-		.line-top {
-			background:#EF00D3;
 		}
 		
 		.line-bottom {
