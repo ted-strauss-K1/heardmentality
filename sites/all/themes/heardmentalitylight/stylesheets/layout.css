@@ -2357,13 +2357,12 @@ body.admin-menu {
 	text-decoration: underline;
 }
 
-.jScrollPaneContainer .uactivity  {
+.uactivity .jspContainer {
 	padding-right: 5px !important;
 }
 
-body.front .jScrollPaneContainer {
+body.front .jspContainer {
 	width: 100% !important;
-	
 }
 
 /*Custom dialog*/
