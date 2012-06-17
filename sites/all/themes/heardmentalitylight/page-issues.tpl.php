@@ -45,7 +45,7 @@ $directoryPath = $base_path . $directory;
       }
     </script>
   </head>
-  <body class="<?php print $classes; ?>">333
+  <body class="<?php print $classes; ?>">
 
 
 
@@ -95,7 +95,13 @@ $directoryPath = $base_path . $directory;
           </div>
         </div>
         <div class="four columns">
-          <br>
+		
+          <div class="filter_search">
+		  
+			<?php print $right_search; ?>
+		  
+		  </div>
+		  
           <div class="toggler profile-message">
             <div id="effect">
 
@@ -106,8 +112,8 @@ $directoryPath = $base_path . $directory;
           <div class="grey-box">
             <div class="icon cat text"></div>
             <ul class="tags">
-<?php if ($popular_categories): print $popular_categories;
-endif; ?>
+				<?php if ($popular_categories): print $popular_categories;
+				endif; ?>
             </ul>
             <br class="clear">
             <div class="clear"></div>
