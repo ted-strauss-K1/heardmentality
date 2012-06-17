@@ -73,7 +73,9 @@
 		float: none;
 		}
 	.line-top {
-		background: none #a29cac;/*EF00D3*/		
+		background: url(../images/cross_hatch_texture_dark.png) repeat scroll 0 0 #A29CAC; /*EF00D3*/	
+		border: solid #A29CAC;
+		border-width: 1px 0;		
 		}
 	.line-bottom {
 		background:#DDDDDD;		
