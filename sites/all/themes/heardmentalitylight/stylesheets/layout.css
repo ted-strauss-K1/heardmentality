@@ -73,7 +73,7 @@
 		float: none;
 		}
 	.line-top {
-		background: rgba(61, 199, 244, 0.6);		
+		background: rgba(61, 199, 244, 0.6);/*EF00D3*/		
 		}
 	.line-bottom {
 		background:#DDDDDD;		
@@ -2296,7 +2296,7 @@ ul.menu.second li:last-child a.add {
 }
 
 ul.menu.second li:last-child a.add:hover {
-	background-color: #000;
+	background-color: #362750;
 	color: #fff;	
 }
 
