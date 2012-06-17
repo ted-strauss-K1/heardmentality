@@ -24,6 +24,25 @@ $(document).ready(function() {
     }
 			
   });
+  
+$(function()
+{
+	var settings = {
+		scrollbarWidth:12, 
+        scrollbarMargin:0, 
+        showArrows:true
+	};
+	
+	var pane = $('.container .nine .grey-box .uactivity');
+	pane.jScrollPane(settings);
+	var api = pane.data('jsp');
+	
+	jQuery(window).resize(function () {
+        api.reinitialise();
+
+    });
+
+});
 	
   // Show/Hide Add argument & Debate statistic
 	
