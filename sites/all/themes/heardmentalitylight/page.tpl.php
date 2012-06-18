@@ -78,7 +78,7 @@ $directoryPath = $base_path . $directory;
 		</div>
         <div class="four columns">
 		
-		   <?php if($messages):?><div class="filter_search">
+		   <?php if($right_search):?><div class="filter_search">
 		  
 			<?php print $right_search; ?>
 		  
