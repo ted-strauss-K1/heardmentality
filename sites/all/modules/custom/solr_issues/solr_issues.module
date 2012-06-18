@@ -188,22 +188,10 @@ function solr_issues_block_form($form_state) {
       }
     }
   }
-  if (isset($form_state['storage']['location']['defstate'])) {
 
-    foreach ($form_state['storage']['location']['defstate'] as $state) {
-
-      $query = array('geonameid' => $state);
-      $results = geonames_query('children', $query);
-      foreach ($results->results as $city) {
-        $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'] . $state));
-        if ($count > 0) {
-          $cities[$city['geonameid'] . $state] = $city['name'];
-        }
-      }
-    }
-  }
   $form['location'] = array(
     '#type' => 'fieldset',
+    '#title' => t('Narrow by'),
     '#prefix' => '<div id="location-wrapper">',
     '#suffix' => '</div>',
     '#tree' => TRUE,
@@ -220,35 +208,57 @@ function solr_issues_block_form($form_state) {
     '#default_value' => $form_state['storage']['location']['country'],
   );
 
-  // default state, city
-  $form['location']['defstate'] = array(
-    '#type' => 'select',
-    '#multiple' => TRUE,
-    '#default_value' => $form_state['storage']['location']['defstate'],
-    '#options' => $states,
-    '#ahah' => array(
-      'event' => 'change',
-      'path' => ahah_helper_path(array('location')),
-      'wrapper' => 'location-wrapper',
-    ),
-          //  '#default_value' => $getState
+  if (isset($form_state['storage']['location']['defstate'])) {
+    $form['location']['defstate'] = array(
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#default_value' => $form_state['storage']['location']['defstate'],
+      '#options' => $states,
+      '#ahah' => array(
+        'event' => 'change',
+        'path' => ahah_helper_path(array('location')),
+        'wrapper' => 'location-wrapper',
+      ),
+            //  '#default_value' => $getState
+    );
+    $form['location']['defcity'] = array(
+      '#type' => 'select',
+      '#options' => $cities,
+      '#multiple' => TRUE,
+      '#ahah' => array(
+        'event' => 'change',
+        'path' => ahah_helper_path(array('location')),
+        'wrapper' => 'location-wrapper',
+      ),
+      '#default_value' => $getCity
+    );
+    foreach ($form_state['storage']['location']['defstate'] as $state) {
+
+      $query = array('geonameid' => $state);
+      $results = geonames_query('children', $query);
+      foreach ($results->results as $city) {
+        $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'] . $state));
+        if ($count > 0) {
+          $cities[$city['geonameid'] . $state] = $city['name'];
+        }
+      }
+    }
+  }
+
+  $form['my_region'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('my region'),
   );
-  $form['location']['defcity'] = array(
-    '#type' => 'select',
-    '#options' => $cities,
-    '#multiple' => TRUE,
-    '#ahah' => array(
-      'event' => 'change',
-      'path' => ahah_helper_path(array('location')),
-      'wrapper' => 'location-wrapper',
-    ),
-    '#default_value' => $getCity
+  $form['voted_status'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show only not voted'),
   );
+
 
   $form['search_text'] = array(
     '#type' => 'textfield',
+    '#title' => t('Keyword'),
   );
-
   $form['search'] = array(
     '#type' => 'submit',
     '#value' => t('Search'),
@@ -288,4 +298,12 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   /* foreach ($build_results as $build_result) {
     $build_output .= $build_result;
     } */
+}
+
+function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
+  
+}
+
+function solr_issues_apachesolr_query_alter($query) {
+  
 }
