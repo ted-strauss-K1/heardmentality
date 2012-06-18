@@ -58,68 +58,68 @@ function apachesolr_search_init() {
 function apachesolr_search_menu() {
   $base_path = 'admin/settings/apachesolr/';
   $items[$base_path . 'search-pages'] = array(
-    'title'            => 'Pages/Blocks',
-    'description'      => 'Configure search pages',
-    'page callback'    => 'apachesolr_search_page_list_all',
+    'title' => 'Pages/Blocks',
+    'description' => 'Configure search pages',
+    'page callback' => 'apachesolr_search_page_list_all',
     'access arguments' => array('administer search'),
-    'type'             => MENU_LOCAL_TASK,
-    'file'             => 'apachesolr_search.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'apachesolr_search.admin.inc',
   );
   $items[$base_path . 'search-pages/add'] = array(
-    'title'            => 'Add search page',
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('apachesolr_search_page_settings_form'),
+    'title' => 'Add search page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('apachesolr_search_page_settings_form'),
     'access arguments' => array('administer search'),
-    'weight'           => 1,
-    'file'             => 'apachesolr_search.admin.inc',
+    'weight' => 1,
+    'file' => 'apachesolr_search.admin.inc',
   );
   $items[$base_path . 'search-pages/%apachesolr_search_page/edit'] = array(
     'title' => 'Edit search page',
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('apachesolr_search_page_settings_form', 4),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('apachesolr_search_page_settings_form', 4),
     'access arguments' => array('administer search'),
-    'file'             => 'apachesolr_search.admin.inc',
+    'file' => 'apachesolr_search.admin.inc',
   );
   $items[$base_path . 'search-pages/%apachesolr_search_page/delete'] = array(
-    'title'            => 'Delete search page',
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('apachesolr_search_delete_search_page_confirm', 4),
+    'title' => 'Delete search page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('apachesolr_search_delete_search_page_confirm', 4),
     'access arguments' => array('administer search'),
-    'file'             => 'apachesolr_search.admin.inc',
+    'file' => 'apachesolr_search.admin.inc',
   );
   $items[$base_path . 'search-pages/%apachesolr_search_page/clone'] = array(
     'title' => 'Clone search page',
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('apachesolr_search_clone_search_page_confirm', 4),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('apachesolr_search_clone_search_page_confirm', 4),
     'access arguments' => array('administer search'),
-    'file'             => 'apachesolr_search.admin.inc',
+    'file' => 'apachesolr_search.admin.inc',
   );
   $items[$base_path . 'search-pages/addblock'] = array(
-    'title'            => 'Add search block "More Like This"',
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('apachesolr_search_mlt_add_block_form'),
+    'title' => 'Add search block "More Like This"',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('apachesolr_search_mlt_add_block_form'),
     'access arguments' => array('administer search'),
-    'weight'           => 2,
-    'file'             => 'apachesolr_search.admin.inc',
+    'weight' => 2,
+    'file' => 'apachesolr_search.admin.inc',
   );
   $items[$base_path . 'search-pages/block/%apachesolr_search_mlt_block/delete'] = array(
-    'page callback'      => 'drupal_get_form',
-    'page arguments'     => array('apachesolr_search_mlt_delete_block_form', 5),
-    'access arguments'   => array('administer search'),
-    'file'               => 'apachesolr_search.admin.inc',
-    'type'               => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('apachesolr_search_mlt_delete_block_form', 5),
+    'access arguments' => array('administer search'),
+    'file' => 'apachesolr_search.admin.inc',
+    'type' => MENU_CALLBACK,
   );
 
   // Environment specific settings
   $settings_path = 'settings/';
   $items[$base_path . $settings_path . '%apachesolr_environment/bias'] = array(
-    'title'            => 'Bias',
-    'page callback'    => 'apachesolr_bias_settings_page',
-    'page arguments'   => array(4),
+    'title' => 'Bias',
+    'page callback' => 'apachesolr_bias_settings_page',
+    'page arguments' => array(4),
     'access arguments' => array('administer search'),
-    'weight'           => 4,
-    'type'             => MENU_LOCAL_TASK,
-    'file'             => 'apachesolr_search.admin.inc',
+    'weight' => 4,
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'apachesolr_search.admin.inc',
   );
   return $items;
 }
@@ -186,10 +186,10 @@ function apachesolr_search_menu_alter(&$items) {
       $items[$search_page->search_path . '/%menu_tail']['title arguments'] = array($search_page->page_id, $position);
     }
     // If we have additional searches in the search/* path
-    /*if ($core_search) {
+    /* if ($core_search) {
       $items[$search_page->search_path . '/%menu_tail']['tab_root'] = 'search/' . $default_info['path'] . '/%';
       $items[$search_page->search_path . '/%menu_tail']['tab_parent'] = 'search/' . $default_info['path'];
-    }*/
+      } */
 
     if ($taxonomy_search) {
       unset($items['taxonomy/term/%taxonomy_term']);
@@ -251,17 +251,17 @@ function apachesolr_search_load_all_search_types() {
  * @return String
  */
 function apachesolr_search_get_taxonomy_term_title($search_page_id = NULL, $value = NULL) {
-   $page_title = 'Search results for %value';
-   if (isset($value) && isset($search_page_id)) {
-     $search_page = apachesolr_search_page_load($search_page_id);
-     $page_title = str_replace('%value', '!value', $search_page->page_title);
-     $term = taxonomy_term_load($value);
-     if (!$term) {
-       return;
-     }
-     $title = $term->name;
-   }
-   return t($page_title, array('!value' => $title));
+  $page_title = 'Search results for %value';
+  if (isset($value) && isset($search_page_id)) {
+    $search_page = apachesolr_search_page_load($search_page_id);
+    $page_title = str_replace('%value', '!value', $search_page->page_title);
+    $term = taxonomy_term_load($value);
+    if (!$term) {
+      return;
+    }
+    $title = $term->name;
+  }
+  return t($page_title, array('!value' => $title));
 }
 
 /**
@@ -279,8 +279,8 @@ function apachesolr_search_get_user_title($search_page_id = NULL, $value = NULL)
     $page_title = str_replace('%value', '!value', $search_page->page_title);
     $user = user_load($value);
     if (!$user) {
-       return;
-     }
+      return;
+    }
     $title = $user->name;
   }
   return t($page_title, array('!value' => $title));
@@ -295,7 +295,7 @@ function apachesolr_search_get_user_title($search_page_id = NULL, $value = NULL)
  */
 function apachesolr_search_get_value_title($search_page_id = NULL, $value = NULL) {
   $page_title = 'Search results for %value';
-  if (isset($value)  && isset($search_page_id)) {
+  if (isset($value) && isset($search_page_id)) {
     $search_page = apachesolr_search_page_load($search_page_id);
     $page_title = str_replace('%value', '!value', $search_page->page_title);
     $title = $value;
@@ -334,7 +334,7 @@ function apachesolr_search_page_load($page_id, $reset = FALSE) {
   }
 
   if (!isset($pages[$page_id]) && db_table_exists('apachesolr_search_page')) {
-      $page = db_fetch_object(db_query("SELECT * FROM {apachesolr_search_page} s WHERE s.page_id = '%s'", array($page_id)));
+    $page = db_fetch_object(db_query("SELECT * FROM {apachesolr_search_page} s WHERE s.page_id = '%s'", array($page_id)));
     if ($page) {
       $page->settings = unserialize($page->settings);
       // Special case page - always uses the default environment.
@@ -379,7 +379,7 @@ function apachesolr_search_page_save($search_page) {
   }
 }
 
- /**
+/**
  * Function that clones a search page
  *
  * @param $page_id
@@ -506,7 +506,6 @@ function apachesolr_search_block_save($delta = '', $edit = array()) {
   }
 }
 
-
 /**
  * Return all the saved search pages
  * @return array $search_pages
@@ -517,7 +516,7 @@ function apachesolr_search_load_all_search_pages() {
   if (db_table_exists('apachesolr_search_page')) {
     $search_pages = array();
     $result = db_query('SELECT * FROM {apachesolr_search_page}');
-    while($search_page = db_fetch_array($result)) {
+    while ($search_page = db_fetch_array($result)) {
       $search_pages[$search_page['page_id']] = $search_page;
     }
     // If ctools module is enabled, add search pages from code, e.g. from a
@@ -642,19 +641,19 @@ function apachesolr_search_search($op = 'search', $keys = NULL) {
       $env_id = apachesolr_default_environment();
       return apachesolr_index_status($env_id);
 
-/*    case 'search':
+    /*    case 'search':
       $conditions_callback = variable_get('apachesolr_search_conditions_callback', 'apachesolr_search_conditions');
       $conditions = call_user_func($conditions_callback);
       try {
-        $results = apachesolr_search_search_execute($keys, $conditions);
-        return $results;
+      $results = apachesolr_search_search_execute($keys, $conditions);
+      return $results;
       }
       catch (Exception $e) {
-        watchdog('Apache Solr', nl2br(check_plain($e->getMessage())), NULL, WATCHDOG_ERROR);
-        apachesolr_failure(t('Solr search'), $keys);
+      watchdog('Apache Solr', nl2br(check_plain($e->getMessage())), NULL, WATCHDOG_ERROR);
+      apachesolr_failure(t('Solr search'), $keys);
       }
       break;
- */
+     */
   } // switch
 }
 
@@ -727,9 +726,8 @@ function apachesolr_search_search_box_form_submit($form, &$form_state) {
   // Remove leading slash
   ($path{0} == "/" ) ? $path = substr($path, 1) : '';
   // Set our path to the correct search page
-  $form_state['redirect'] = $path . '/' .trim($keys);
+  $form_state['redirect'] = $path . '/' . trim($keys);
 }
-
 
 /**
  * Helper function to retrieve results
@@ -806,6 +804,7 @@ function apachesolr_search_search_page_custom($results, $search_page, $build = a
  * Executes search depending on the conditions given.
  * See apachesolr_search.pages.inc for another use of this function
  */
+
 function apachesolr_search_search_results($keys = NULL, $conditions = NULL, $search_page = NULL) {
   $params = array();
   $results = array();
@@ -815,9 +814,9 @@ function apachesolr_search_search_results($keys = NULL, $conditions = NULL, $sea
   // form submits with POST but redirects to GET. This way we can keep
   // the search query URL clean as a whistle.
   if (empty($_POST['form_id'])
-    || ($_POST['form_id'] != 'apachesolr_search_custom_page_search_form')
-    && ($_POST['form_id'] != 'search_form')
-    && ($_POST['form_id'] != 'search_block_form') ) {
+          || ($_POST['form_id'] != 'apachesolr_search_custom_page_search_form')
+          && ($_POST['form_id'] != 'search_form')
+          && ($_POST['form_id'] != 'search_block_form')) {
     // Check input variables
     if (empty($search_page)) {
       $search_page = apachesolr_search_page_load('core_search');
@@ -899,7 +898,7 @@ function apachesolr_search_conditions_default($search_page) {
       // Reset the array so that we have one level lower to go through
       $conditions['fq'] = $_GET['fq'];
     }
-    foreach($conditions['fq'] as $condition_id => $condition) {
+    foreach ($conditions['fq'] as $condition_id => $condition) {
       // If the user input does not pass our validation we do not allow
       // it to query solr
       $test_query = apachesolr_drupal_subquery('Test');
@@ -983,7 +982,7 @@ function apachesolr_search_page_browse($empty_search_behavior, $env_id) {
  * Shows a groups of blocks for starting a search from a filter.
  */
 function theme_apachesolr_search_browse_blocks($blocks) {
-  $result = "<div class='apachesolr_browse_block'><h2>" . t('Browse available categories') .'</h2>';
+  $result = "<div class='apachesolr_browse_block'><h2>" . t('Browse available categories') . '</h2>';
   $result .= '<p>' . t('Pick a category to launch a search.') . '</p>';
   foreach ($blocks as $facet_field => $block) {
     $result .= theme('block', $block);
@@ -1067,21 +1066,21 @@ function apachesolr_search_run($name, array $params = array(), $solrsort = '', $
 function apachesolr_search_basic_params(DrupalSolrQueryInterface $query = NULL) {
   $params = array(
     'fl' => array(
-        'id',
-        'entity_id',
-        'entity_type',
-        'bundle',
-        'bundle_name',
-        'label',
-        'is_comment_count',
-        'ds_created',
-        'ds_changed',
-        'score',
-        'path',
-        'url',
-        'is_uid',
-        'tos_name',
-      ),
+      'id',
+      'entity_id',
+      'entity_type',
+      'bundle',
+      'bundle_name',
+      'label',
+      'is_comment_count',
+      'ds_created',
+      'ds_changed',
+      'score',
+      'path',
+      'url',
+      'is_uid',
+      'tos_name',
+    ),
     'rows' => 10,
   );
   if ($query) {
@@ -1099,7 +1098,7 @@ function apachesolr_search_basic_params(DrupalSolrQueryInterface $query = NULL) 
  */
 function apachesolr_search_highlighting_params(DrupalSolrQueryInterface $query = NULL) {
   $params['hl'] = variable_get('apachesolr_hl_active', NULL);
-  $params['hl.fragsize']= variable_get('apachesolr_hl_textsnippetlength', NULL);
+  $params['hl.fragsize'] = variable_get('apachesolr_hl_textsnippetlength', NULL);
   $params['hl.simple.pre'] = variable_get('apachesolr_hl_pretag', NULL);
   $params['hl.simple.post'] = variable_get('apachesolr_hl_posttag', NULL);
   $params['hl.snippets'] = variable_get('apachesolr_hl_numsnippets', NULL);
@@ -1446,7 +1445,7 @@ function apachesolr_search_preprocess_search_results(&$variables) {
       '@start' => $params['start'] + 1,
       '@end' => $params['start'] + $params['rows'] - 1,
       '@total' => $total,
-    ));
+            ));
     // Redefine the pager if it was missing
     //pager_default_initialize($total, $params['rows']);
     $variables['pager'] = theme('pager');
@@ -1466,7 +1465,6 @@ function apachesolr_search_apachesolr_environment_delete($server) {
     menu_rebuild();
   }
 }
-
 
 /**
  * Implements hook_form_[form_id]_alter().

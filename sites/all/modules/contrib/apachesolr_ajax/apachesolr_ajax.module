@@ -35,11 +35,9 @@ function apachesolr_ajax_menu() {
  */
 function apachesolr_ajax_proxy() {
   $return = menu_execute_active_handler('search/apachesolr_search/'. search_get_keys());
-
   if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
     return $return;
   }
-
   if (is_int($return)) {
     switch ($return) {
       case MENU_NOT_FOUND:

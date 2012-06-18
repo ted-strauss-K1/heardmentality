@@ -80,7 +80,7 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
       $block = array();
       switch ($delta) {
         case 0:
-          $block['subject'] = t('Find A Golf Course:');
+          $block['subject'] = t('');
           $block['content'] = drupal_get_form('solr_issues_block_form');
           break;
       }
@@ -89,6 +89,7 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 }
 
 function solr_issues_block_form($form_state) {
+  $form = array();
   ahah_helper_register($form, $form_state);
   $query = array('geonameid' => 'Canada');
   $result = geonames_query('children', $query);
@@ -103,7 +104,7 @@ function solr_issues_block_form($form_state) {
   }
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
-  $options[''] = t('SUBJECT');
+ // $options[''] = t('SUBJECT');
   while ($list = db_fetch_object($client_select)) {
     $cnt = taxonomy_term_count_nodes($list->cat_id);
     if ($cnt != 0) {
@@ -112,9 +113,10 @@ function solr_issues_block_form($form_state) {
   }
 
   if (!isset($form_state['storage']['category']['subject'])) {
-    $usage_default_value = t('SUBJECT');
+  //  $usage_default_value = t('SUBJECT');
   }
   else {
+
     $usage_default_value = $form_state['storage']['category']['subject'];
     foreach ($usage_default_value as $catid) {
       $ids = taxonomy_get_children($catid);
@@ -122,7 +124,6 @@ function solr_issues_block_form($form_state) {
         $area_opts[$value->tid] = $value->name;
       }
     }
-
     if (isset($form_state['storage']['category']['defarea'])) {
       foreach ($form_state['storage']['category']['defarea'] as $areatid) {
         $ids = taxonomy_get_children($areatid);
@@ -137,6 +138,7 @@ function solr_issues_block_form($form_state) {
   }
   $form['category'] = array(
     '#type' => 'fieldset',
+    '#title' => t('Narrow by'),
     '#prefix' => '<div id="category-wrapper">',
     '#suffix' => '</div>',
     '#tree' => TRUE,
@@ -152,29 +154,32 @@ function solr_issues_block_form($form_state) {
     '#default_value' => $usage_default_value,
     '#multiple' => TRUE,
   );
-  $form['category']['defarea'] = array(
-    '#default_value' => $form_state['storage']['category']['defarea'],
-    '#type' => 'select',
-    '#options' => $area_opts,
-    '#multiple' => TRUE,
-    '#ahah' => array(
-      'event' => 'change',
-      'path' => ahah_helper_path(array('category')),
-      'wrapper' => 'category-wrapper',
-    ),
-  );
-  $form['category']['defdetail'] = array(
-    '#default_value' => $form_state['storage']['category']['defdetail'],
-    '#type' => 'select',
-    '#multiple' => TRUE,
-    '#options' => $detail_opts,
-    '#ahah' => array(
-      'event' => 'change',
-      'path' => ahah_helper_path(array('category')),
-      'wrapper' => 'category-wrapper',
-    ),
-  );
-
+  if (count($area_opts) != 0) {
+    $form['category']['defarea'] = array(
+      '#default_value' => $form_state['storage']['category']['defarea'],
+      '#type' => 'select',
+      '#options' => $area_opts,
+      '#multiple' => TRUE,
+      '#ahah' => array(
+        'event' => 'change',
+        'path' => ahah_helper_path(array('category')),
+        'wrapper' => 'category-wrapper',
+      ),
+    );
+  }
+  if (count($detail_opts) != 0) {
+    $form['category']['defdetail'] = array(
+      '#default_value' => $form_state['storage']['category']['defdetail'],
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#options' => $detail_opts,
+      '#ahah' => array(
+        'event' => 'change',
+        'path' => ahah_helper_path(array('category')),
+        'wrapper' => 'category-wrapper',
+      ),
+    );
+  }
   if (isset($form_state['storage']['location']['country'])) {
     foreach ($form_state['storage']['location']['country'] as $country) {
       $xyz = geonames_countryinfo($country);
@@ -191,7 +196,7 @@ function solr_issues_block_form($form_state) {
 
   $form['location'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Narrow by'),
+    '#title' => t('Location'),
     '#prefix' => '<div id="location-wrapper">',
     '#suffix' => '</div>',
     '#tree' => TRUE,
@@ -207,31 +212,8 @@ function solr_issues_block_form($form_state) {
     ),
     '#default_value' => $form_state['storage']['location']['country'],
   );
-
   if (isset($form_state['storage']['location']['defstate'])) {
-    $form['location']['defstate'] = array(
-      '#type' => 'select',
-      '#multiple' => TRUE,
-      '#default_value' => $form_state['storage']['location']['defstate'],
-      '#options' => $states,
-      '#ahah' => array(
-        'event' => 'change',
-        'path' => ahah_helper_path(array('location')),
-        'wrapper' => 'location-wrapper',
-      ),
-            //  '#default_value' => $getState
-    );
-    $form['location']['defcity'] = array(
-      '#type' => 'select',
-      '#options' => $cities,
-      '#multiple' => TRUE,
-      '#ahah' => array(
-        'event' => 'change',
-        'path' => ahah_helper_path(array('location')),
-        'wrapper' => 'location-wrapper',
-      ),
-      '#default_value' => $getCity
-    );
+
     foreach ($form_state['storage']['location']['defstate'] as $state) {
 
       $query = array('geonameid' => $state);
@@ -244,6 +226,34 @@ function solr_issues_block_form($form_state) {
       }
     }
   }
+  if (count($states)) {
+    $form['location']['defstate'] = array(
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#default_value' => $form_state['storage']['location']['defstate'],
+      '#options' => $states,
+      '#ahah' => array(
+        'event' => 'change',
+        'path' => ahah_helper_path(array('location')),
+        'wrapper' => 'location-wrapper',
+      ),
+            //  '#default_value' => $getState
+    );
+  }
+  if (count($cities)) {
+    $form['location']['defcity'] = array(
+      '#type' => 'select',
+      '#options' => $cities,
+      '#multiple' => TRUE,
+      '#ahah' => array(
+        'event' => 'change',
+        'path' => ahah_helper_path(array('location')),
+        'wrapper' => 'location-wrapper',
+      ),
+      '#default_value' => $getCity
+    );
+  }
+
 
   $form['my_region'] = array(
     '#type' => 'checkbox',

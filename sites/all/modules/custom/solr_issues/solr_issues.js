@@ -1,16 +1,16 @@
 $(document).ready(function(){
   $('#search-solr-block').click(function(){
-    $.post(Drupal.settings.base_url + '/issues_solr2/ajax/' + 'post',
+    var text = $('#edit-search-text').val();
+    $.post(Drupal.settings.base_url + '/issues_solr2/ajax/' + text,
     {
       js: 1
     }, 
     function(data){
-      console.log(data);
-    //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
-    $('#linkbox').html(data.data);
+      //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
+      $('#linkbox').html(data.data);
     },
-      'json'
-      );
+    'json'
+    );
   
     return false;
   })
