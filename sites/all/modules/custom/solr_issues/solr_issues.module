@@ -104,7 +104,7 @@ function solr_issues_block_form($form_state) {
   }
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
- // $options[''] = t('SUBJECT');
+  // $options[''] = t('SUBJECT');
   while ($list = db_fetch_object($client_select)) {
     $cnt = taxonomy_term_count_nodes($list->cat_id);
     if ($cnt != 0) {
@@ -113,7 +113,7 @@ function solr_issues_block_form($form_state) {
   }
 
   if (!isset($form_state['storage']['category']['subject'])) {
-  //  $usage_default_value = t('SUBJECT');
+    //  $usage_default_value = t('SUBJECT');
   }
   else {
 
@@ -295,13 +295,15 @@ function solr_issues_ajax_response() {
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   $search_page = apachesolr_search_page_load($page_id);
-  // krumo($search_page);
+//  krumo($search_page);
+ // krumo($keys);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
   // Retrieve the conditions that apply to this page
   $conditions = apachesolr_search_conditions_default($search_page);
   // Retrieve the results of the search
   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
-  // krumo($results);
+ // krumo($results);
+ // exit;
   $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
   print drupal_json(array(
             'data' => $build_results['search_results']));
@@ -310,10 +312,33 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
     } */
 }
 
-function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
-  
+function solr_issues_apachesolr_query_alter($query) {
+ //   $query->addFilter("tid", '96');
+//   krumo($query);
+ // krumo($_GET);
+ // krumo($_POST);
+ /*   print('<pre>');
+    print_r($query);
+    print('</pre>');
+    exit; 
+   */ 
 }
 
-function solr_issues_apachesolr_query_alter($query) {
-  
+function solr_issues_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
+  // krumo($mappings);
+  // krumo($entity_type);
+  //exit;
+}
+
+function solr_issues_apachesolr_field_name_map_alter(&$map) {
+//krumo($map);exit;
+}
+
+function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
+/*  krumo($document);
+    print('<pre>');
+    print_r($document);
+    print('</pre>');
+  krumo($entity);
+  exit;*/
 }

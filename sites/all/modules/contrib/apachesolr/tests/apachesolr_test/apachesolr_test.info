@@ -5,9 +5,9 @@ core = 6.x
 hidden = TRUE
 dependencies[] = apachesolr
 
-; Information added by drupal.org packaging script on 2012-04-03
-version = "6.x-3.0-alpha1"
+; Information added by drupal.org packaging script on 2012-06-06
+version = "6.x-3.0-alpha1+23-dev"
 core = "6.x"
 project = "apachesolr"
-datestamp = "1333465837"
+datestamp = "1338940987"
 

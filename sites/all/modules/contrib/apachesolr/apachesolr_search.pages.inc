@@ -12,7 +12,7 @@ function apachesolr_search_custom_page($page_id, $keys = '', $path_replacer = NU
   $search_page = apachesolr_search_page_load($page_id);
   if (empty($search_page)) {
     drupal_set_message(t('This search page cannot be found'), 'error');
-    drupal_not_found();
+    return drupal_not_found();
   }
   // Add our replacement value in the conditions array
   if (!empty($path_replacer)) {
@@ -33,6 +33,7 @@ function apachesolr_search_custom_page($page_id, $keys = '', $path_replacer = NU
   }
   // Build our page and allow modification.
   $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
+
   $build_output = NULL;
   foreach($build_results as $build_result) {
     $build_output .= $build_result;
