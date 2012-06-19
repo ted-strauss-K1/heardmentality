@@ -295,18 +295,22 @@ function solr_issues_ajax_response() {
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   $search_page = apachesolr_search_page_load($page_id);
-//  krumo($search_page);
- // krumo($keys);
+ // krumo($search_page);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
   // Retrieve the conditions that apply to this page
   $conditions = apachesolr_search_conditions_default($search_page);
   // Retrieve the results of the search
   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
- // krumo($results);
- // exit;
-  $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
+//krumo($results);exit;
+ foreach ($results as $result) {
+   $node = node_load($result['node']->entity_id);
+
+   $build_result .= node_view($node, 1);
+ }
+ 
+  //$build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
   print drupal_json(array(
-            'data' => $build_results['search_results']));
+            'data' => $build_result));
   /* foreach ($build_results as $build_result) {
     $build_output .= $build_result;
     } */
