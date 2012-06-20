@@ -2,7 +2,6 @@
 
 function solr_issues_init() {
   //print node_view(node_load(2242)); exit;
-  
 }
 
 function solr_issues_menu() {
@@ -305,7 +304,7 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   // Retrieve the conditions that apply to this page
   $conditions = apachesolr_search_conditions_default($search_page);
   // Retrieve the results of the search
-   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
+  $results = apachesolr_search_search_results($keys, $conditions, $search_page);
 //krumo($results);exit;
 
   $build_results = solr_issues_search_output($results);
@@ -319,15 +318,13 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 }
 
 function solr_issues_apachesolr_query_alter($query) {
-  //   $query->addFilter("tid", '96');
-//   krumo($query);
-  // krumo($_GET);
-  // krumo($_POST);
-  /*   print('<pre>');
-    print_r($query);
-    print('</pre>');
-    exit;
-   */
+  if (count($_POST['tid'])) {
+    $query->addFilter("tid", implode(',', $_POST['tid']));
+  }
+/*  print '<pre>';
+  print_r($query);
+  print '</pre>';
+  exit;*/
 }
 
 function solr_issues_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
@@ -343,9 +340,14 @@ function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $documen
 }
 
 function solr_issues_search_output($results) {
+//  krumo($results);
+  // exit;
   foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
-    $output .= node_view($node);
+    //   krumo($node);exit;
+    if ($node->nid == $node->tnid || $node->tnid == 0) {
+      $output .= node_view($node);
+    }
   }
   return $output;
 }
