@@ -295,54 +295,57 @@ function solr_issues_ajax_response() {
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   $search_page = apachesolr_search_page_load($page_id);
- // krumo($search_page);
+  // krumo($search_page);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
   // Retrieve the conditions that apply to this page
   $conditions = apachesolr_search_conditions_default($search_page);
   // Retrieve the results of the search
   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
 //krumo($results);exit;
- foreach ($results as $result) {
-   $node = node_load($result['node']->entity_id);
+  /* foreach ($results as $result) {
+    $node = node_load($result['node']->entity_id);
 
-   $build_result .= node_view($node, 1);
- }
- 
+    $build_result .= node_view($node, 1);
+    }
+   */
+  $build_results = solr_issues_search_output($results);
   //$build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
   print drupal_json(array(
-            'data' => $build_result));
+            'data' => $build_results));
   /* foreach ($build_results as $build_result) {
     $build_output .= $build_result;
     } */
 }
 
 function solr_issues_apachesolr_query_alter($query) {
- //   $query->addFilter("tid", '96');
+  //   $query->addFilter("tid", '96');
 //   krumo($query);
- // krumo($_GET);
- // krumo($_POST);
- /*   print('<pre>');
+  // krumo($_GET);
+  // krumo($_POST);
+  /*   print('<pre>');
     print_r($query);
     print('</pre>');
-    exit; 
-   */ 
+    exit;
+   */
 }
 
 function solr_issues_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
-  // krumo($mappings);
-  // krumo($entity_type);
-  //exit;
+
 }
 
 function solr_issues_apachesolr_field_name_map_alter(&$map) {
-//krumo($map);exit;
+
 }
 
 function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
-/*  krumo($document);
-    print('<pre>');
-    print_r($document);
-    print('</pre>');
-  krumo($entity);
-  exit;*/
+
+}
+
+function solr_issues_search_output($results) {
+  foreach ($results as $result) {
+    //$node = node_load($result['node']->entity_id);
+    $node = node_load(2242);
+    $output .= node_view($node);
+  }
+  return $output;
 }

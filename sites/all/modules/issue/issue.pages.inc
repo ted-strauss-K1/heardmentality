@@ -1296,18 +1296,21 @@ function search_issue_results() {
 
   $count = db_affected_rows($query);
   if ($sqlcount) {
-    while ($result = db_fetch_object($query)) {
+    /*   while ($result = db_fetch_object($query)) {
       $nid = $result->nid;
       $node = node_load($nid);
       $issue .= node_view(node_load($node->nid), 1);
-      
-    }
-    $issue .= '<div class="pagination">' . theme('pager', array(), $rec_per_page) . '</div><br class="clear">';
+
+      }
+      $issue .= '<div class="pagination">' . theme('pager', array(), $rec_per_page) . '</div><br class="clear">';
+      }
+      else {
+      $issue .= t('No Issues Found');
+      } */
   }
-  else {
-    $issue .= t('No Issues Found');
-  }
-  krumo($issue);
+  $node = node_load(2242);
+  $issue = node_view($node);
+
   return $issue;
 }
 
