@@ -1,5 +1,10 @@
 <?php
 
+function solr_issues_init() {
+  //print node_view(node_load(2242)); exit;
+  
+}
+
 function solr_issues_menu() {
   $items['issues2'] = array(
     'page callback' => 'drupal_get_form',
@@ -300,16 +305,12 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   // Retrieve the conditions that apply to this page
   $conditions = apachesolr_search_conditions_default($search_page);
   // Retrieve the results of the search
-  $results = apachesolr_search_search_results($keys, $conditions, $search_page);
+   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
 //krumo($results);exit;
-  /* foreach ($results as $result) {
-    $node = node_load($result['node']->entity_id);
 
-    $build_result .= node_view($node, 1);
-    }
-   */
   $build_results = solr_issues_search_output($results);
   //$build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
+
   print drupal_json(array(
             'data' => $build_results));
   /* foreach ($build_results as $build_result) {
@@ -330,21 +331,20 @@ function solr_issues_apachesolr_query_alter($query) {
 }
 
 function solr_issues_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
-
+  
 }
 
 function solr_issues_apachesolr_field_name_map_alter(&$map) {
-
+  
 }
 
 function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
-
+  
 }
 
 function solr_issues_search_output($results) {
   foreach ($results as $result) {
-    //$node = node_load($result['node']->entity_id);
-    $node = node_load(2242);
+    $node = node_load($result['node']->entity_id);
     $output .= node_view($node);
   }
   return $output;

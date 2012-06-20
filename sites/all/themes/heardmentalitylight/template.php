@@ -237,7 +237,7 @@ function phptemplate_user_picture($account, $size = '65x56') {
   }
 }
 function phptemplate_preprocess_node(&$vars) {
-  if (arg(0) == 'issues') {
+  if (arg(0) == 'issues' or arg(0) == 'issues_solr2') {
     $suggestions = array(
       'node-issues'
     );

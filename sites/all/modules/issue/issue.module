@@ -7,6 +7,7 @@
  * Issue Poll -A sophisticated issue module for voting and analysis report generating.
  */
 
+
 /**
  * Implementation of hook_help().
  */
@@ -398,7 +399,7 @@ function issue_add_vote($dummy = '', $nid = '') {
   }
 
   ////////////////////////
-  if (arg(0) == 'issues') {
+ // if (arg(0) == 'issues') {
     $form['#id'] = 'issue_edit_form_stream';
     $form['nid_val'] = array(
       '#type' => 'hidden',
@@ -416,7 +417,7 @@ function issue_add_vote($dummy = '', $nid = '') {
       '#id' => 'vote_type'
     );
     $form['#validate'] = '';
-  }
+ // }
 
   // check login before vote
   $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
@@ -552,13 +553,13 @@ function issue_edit_vote($dummy='', $nid='') {
   }
   $form['#nid'] = $tnid;
 
-  if (arg(0) == 'issues') {
+  //if (arg(0) == 'issues') {
     $form['#id'] = 'issue_edit_form_stream';
     $form['nid_val'] = array('#type' => 'hidden', '#value' => $tnid, '#id' => 'nid_val');
     $form['def_vote'] = array('#type' => 'hidden', '#value' => $tnode->vote, '#id' => 'def_vote');
     $form['vote_type'] = array('#type' => 'hidden', '#value' => 'edit', '#id' => 'vote_type');
     $form['#validate'] = '';
-  }
+ // }
   $form['change'] = array(
     '#type' => 'submit',
     '#value' => t('Change Vote'),
@@ -903,7 +904,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
 
         $node->flagForm = $flagForm;
         // only for search issues
-        if (arg(0) == 'issues') {
+        //if (arg(0) == 'issues') {
           //votes
           $tnid = get_tnid($node->nid);
           $tnode = node_load($tnid);
@@ -952,7 +953,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
           $node->catarea = !empty($sctitle) ? rtrim(implode(",", $sctitle)) : 'none';
           $node->catdetail = !empty($ssctitle) ? rtrim(implode(",", $ssctitle)) : 'none';
           ////////////
-        }
+       
 
         break;
     }

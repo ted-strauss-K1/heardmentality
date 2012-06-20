@@ -23,7 +23,7 @@ function report_percent($nid='') {
 
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist); //кол-во ответов
-  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts/highcharts.js");
+//drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts/highcharts.js");
 
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
@@ -37,7 +37,7 @@ function report_percent($nid='') {
     array_push($ans_array, $answer);
   }
   $result = report_percent_broken($nid, '', $_REQUEST);
-  //$ans = $result['divide'];
+//$ans = $result['divide'];
   if ($_REQUEST['dochg'] == '') {
     $ans = $result['divide'];
     $xtitle = "'" . "'";
@@ -97,7 +97,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
   $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
 
   $vlist = ExecuteQuery($vans, "select");
-  // IMPORTANT get translate nid (tnid) for current node
+// IMPORTANT get translate nid (tnid) for current node
   $nid = get_tnid($nid);
 
   switch ($filter) {
@@ -320,7 +320,7 @@ function report_graph($nid='') {
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
 
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/charts.js");
-  //$output.= "<script type='text/javascript' language='javascript'>";
+//$output.= "<script type='text/javascript' language='javascript'>";
 
   $query = "select date(date_voted) as dat from {poll_votes} where nid='" . $nid . "' ORDER BY date_voted DESC";
   $list = ExecuteQuery($query, "select");
@@ -338,7 +338,7 @@ function report_graph($nid='') {
   $drange = array_reverse($drange);
 
   for ($ab = 0; $ab < $cnt_ans; $ab++) {
-    // short answers
+// short answers
     $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
     $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
     $answer = substr(t(addslashes($answer)), 0, 16);
@@ -385,7 +385,7 @@ function report_graph($nid='') {
   $month = date("m") - 1;
   $dat = date("d");
   $edate = "Date.UTC(" . $year . "," . $month . "," . $dat . ")";
-  // $script.=$ins_sc;
+// $script.=$ins_sc;
 
   $output.='<div id="container_graph" class="highcharts-container" style="min-height:280px; width: 100%; "></div>
         <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>';
@@ -430,11 +430,11 @@ function issue_create() {
 }
 
 function issue_create_form(&$form_state) {
-  //drupal_add_js( drupal_get_path('module', 'question') . '/scripts/post_list.js');
+//drupal_add_js( drupal_get_path('module', 'question') . '/scripts/post_list.js');
   if (isset($form_state['action'])) {
     $form['#action'] = $form_state['action'];
   }
-  //$form['#attributes'] = array('onsubmit' => 'return validate_question()');
+//$form['#attributes'] = array('onsubmit' => 'return validate_question()');
   $form['issue_cont'] = array(
     '#type' => 'markup',
     '#value' => '<div class="grey-box">
@@ -491,7 +491,7 @@ function issue_create_form(&$form_state) {
 
 
 // We name our button 'poll_more' to avoid conflicts with other modules using
-  // AHAH-enabled buttons with the id 'more'.
+// AHAH-enabled buttons with the id 'more'.
   $form['choice_wrapper']['poll_more'] = array(
     '#type' => 'submit',
     '#value' => t('+ Add another answer'),
@@ -524,10 +524,10 @@ function issue_create_form(&$form_state) {
 
     $question = $form_state['values']['q_quest'];
 
-    // define a string variable to contain callback output
+// define a string variable to contain callback output
     $output = "";
 
-    // loop through the taxonomy tree and fetch child taxonomies
+// loop through the taxonomy tree and fetch child taxonomies
     $options = array();
 
     $res = get_releated_issues($question);
@@ -564,7 +564,7 @@ function issue_create_form(&$form_state) {
     '#type' => 'hidden',
     '#id' => 'dupe_count',
     '#default_value' => 0);
-  //$form['#validate'][] = 'issue_create_form_validate';
+//$form['#validate'][] = 'issue_create_form_validate';
 
   $form['submit'] = array(
     '#type' => 'submit',
@@ -573,7 +573,7 @@ function issue_create_form(&$form_state) {
     '#id' => 'save_issue',
     '#prefix' => '<label class="before-submit">Your issue will go live immediately, but a moderator will edit it soon to assign categories, look for duplicates, or make format changes</label>',
     '#suffix' => ' <div class="clear"></div>');
-  //$form['#redirect'] = '';
+//$form['#redirect'] = '';
   $form['issue_cont_close'] = array(
     '#type' => 'markup',
     '#value' => '</div></div>');
@@ -592,16 +592,16 @@ function issue_form_validate($form, &$form_state) {
 function issue_autotextfields_callback() {
   $delta = count($_POST['answer']);
 
-  // Build our new form element.
+// Build our new form element.
   $form_element = _issue_answer_form($delta);
-  // drupal_alter('form', $form_element, array(), 'issue/autotextfields/callback');
-  // Build the new form.
+// drupal_alter('form', $form_element, array(), 'issue/autotextfields/callback');
+// Build the new form.
   $form_state = array('storage' => NULL, 'submitted' => FALSE);
   $form_build_id = $_POST['form_build_id'];
 
-  // Add the new element to the stored form. Without adding the element to the
-  // form, Drupal is not aware of this new elements existence and will not
-  // process it. We retreive the cached form, add the element, and resave.
+// Add the new element to the stored form. Without adding the element to the
+// form, Drupal is not aware of this new elements existence and will not
+// process it. We retreive the cached form, add the element, and resave.
   $form = form_get_cache($form_build_id, $form_state);
   $args = $form['#parameters'];
   $form_id = array_shift($args);
@@ -612,21 +612,21 @@ function issue_autotextfields_callback() {
     '#programmed' => FALSE,
   );
   $form_state['post'] = $_POST;
-  // Build, validate and if possible, submit the form.
+// Build, validate and if possible, submit the form.
   $form_state['action'] = $form['#action'];
   $form_state['rebuild'] = TRUE;
   drupal_process_form($form_id, $form, $form_state);
-  // Rebuild the form.
+// Rebuild the form.
   $form = form_builder($form_id, $form, $args, $form_state);
 
 //  $validate = issue_form_validate($form, $form_state);
 //  if($validate){$delta = 1;}
-  // Render the new output.
+// Render the new output.
   unset($_SESSION['messages']);
   $choice_form = $form['choice_wrapper']['answer'];
   unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
   $choice_form[$delta]['#attributes']['class'] = empty($choice_form[$delta]['#attributes']['class']) ? 'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] . ' ahah-new-content';
-  //$choice_form[$delta]['chvotes']['#value'] = 0;
+//$choice_form[$delta]['chvotes']['#value'] = 0;
   $output = drupal_render($choice_form);
 
   drupal_json(array('status' => TRUE, 'data' => $output));
@@ -637,14 +637,14 @@ function _issue_answer_form($delta, $value = '', $votes = 0) {
     '#tree' => TRUE,
   );
 
-  // We'll manually set the #parents property of these fields so that
-  // their values appear in the $form_state['values']['choice'] array.
-  // limited fields 10 (0 to 9)
+// We'll manually set the #parents property of these fields so that
+// their values appear in the $form_state['values']['choice'] array.
+// limited fields 10 (0 to 9)
   if ($delta == 0 || $delta == 1) {
-    // $req = TRUE;
+// $req = TRUE;
   }
   else {
-    //$req = FALSE;
+//$req = FALSE;
   }
   if ($delta < 10) {
     $form['chtext'] = array(
@@ -682,7 +682,7 @@ function issue_related_callback() {
   drupal_process_form($form_id, $form, $form_state);
   $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
 
-  //$form = form_builder($form_id, $form, $form_state);
+//$form = form_builder($form_id, $form, $form_state);
   unset($_SESSION['messages']);
   $textfields = $form['related_issues'];
   $output = drupal_render($textfields);
@@ -694,7 +694,7 @@ function issue_related_callback() {
 }
 
 function issue_create_form_submit($form, &$form_state) {
-  //echo '<pre>'; print_r($form_state); exit;
+//echo '<pre>'; print_r($form_state); exit;
   global $user, $base_url;
 
 
@@ -707,9 +707,9 @@ function issue_create_form_submit($form, &$form_state) {
   $node->uid = $account->uid;
   $node->status = 1;
   $node->active = 1;
-  //$node->path=
-  // LANGUAGE DETECTION
-  // detect language from inputs using googleapis
+//$node->path=
+// LANGUAGE DETECTION
+// detect language from inputs using googleapis
   $inputLanguage = get_input_language($form_state['values']['q_quest']);
 
   $node->language = $inputLanguage; // set user input language
@@ -721,29 +721,29 @@ function issue_create_form_submit($form, &$form_state) {
   for ($i = 0; $i < $count; $i++) {
     $node->choice[$i]['chtext'] = $form_state['values']['answer'][$i];
     $node->choice[$i]['chorder'] = $i;
-    // Make sure all votes are 0 initially
+// Make sure all votes are 0 initially
     $node->choice[$i]['chvotes'] = 0;
   }
 
   node_save($node);
 
   /* New SET NOTIFY LOG */
-  //set_notify_log($uid , $message_id, $nid, $variable)
+//set_notify_log($uid , $message_id, $nid, $variable)
   $qid = $node->nid;
   $qtitle = $node->title;
   $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
   set_notify_log($user->uid, $qid, 'add_question', $variable);
   /* New SET NOTIFY LOG */
-  //url alias
+//url alias
   $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
   $url = 'node/' . $node->nid;
-  // db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, $inputLanguage);
+// db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, $inputLanguage);
 
   path_set_alias($url, $dst, '', $inputLanguage);
 
 
 
-  //Related Issues
+//Related Issues
   if (!empty($form_state['values']['rel_iss_check'])) {
     $cont_type = array('content_types' => array('poll' => 'poll'));
     $relatedissues = array_combine($form_state['values']['rel_iss_check'], $form_state['values']['rel_iss_check']);
@@ -763,8 +763,8 @@ function issue_create_form_submit($form, &$form_state) {
     $path = drupal_get_path_alias(getPathAlias($node->nid));
 
   increasepoints('1', $node->nid, '0');
-  //_send_qnotify($node->nid);
-  //drupal_goto($path);
+//_send_qnotify($node->nid);
+//drupal_goto($path);
 
   drupal_goto($base_url . '/' . $inputLanguage . '/' . $path);
 }
@@ -772,7 +772,7 @@ function issue_create_form_submit($form, &$form_state) {
 function getPathAlias($nid) {
   $alias = 'node/' . $nid;
 
-  //check for an alias using drupal_lookup_path()
+//check for an alias using drupal_lookup_path()
   if ((drupal_lookup_path('alias', 'node/' . $nid) !== false))
     $alias = drupal_lookup_path('alias', 'node/' . $nid);
 
@@ -780,7 +780,7 @@ function getPathAlias($nid) {
 }
 
 function get_releated_issues($question = '', $cat_id = '', $context = '') {
-  //$form = array('#tree'=>TRUE);
+//$form = array('#tree'=>TRUE);
 
   $currLanguage = i18n_get_lang();
   $where_condition = '';
@@ -812,15 +812,15 @@ function get_releated_issues($question = '', $cat_id = '', $context = '') {
   }
   $text = "$question $context";
   $text = trim($text);
-  //printf("SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text, $currLanguage);
+//printf("SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text, $currLanguage);
 //printf("SELECT count(MATCH(r.body, r.title) AGAINST ('%s')) FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,0);
   $count = db_result(db_query("SELECT COUNT(n.nid) FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10", $text, $currLanguage));
   $rel_output.= '<div class="innerbox" style="width:auto;height:auto; overflow:auto; min-height:150px;"><ul>';
   if (($count != 0) && ($question != '')) {
     $rel_count = 1;
     $rel_query = db_query("SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10", $text, $currLanguage);
-    //$sql = "SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND n.title LIKE '%$question%' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10";
-    //$rel_query = db_query($sql);
+//$sql = "SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND n.title LIKE '%$question%' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10";
+//$rel_query = db_query($sql);
     while ($rel_options = db_fetch_object($rel_query)) {
 
       $form['mycheck_' . $rel_count] = array('#type' => 'checkbox', '#default_value' => $rel_count, '#title' => substr($rel_options->title, 0, 50));
@@ -840,7 +840,7 @@ function get_releated_issues($question = '', $cat_id = '', $context = '') {
   $quest = array($rel_count, $content);
   $conResult = array('content' => $content, 'nid' => $ids);
   return $conResult;
-  //return $form;
+//return $form;
 //echo "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid ";
 }
 
@@ -854,7 +854,7 @@ function issues_list() {
 
 // issue search form
 function issue_search_form(&$form_state) {
-  //$form['#method'] = 'get';
+//$form['#method'] = 'get';
   $key = arg(1) == '0' ? '' : check_plain(arg(1));
   $subject = check_plain(arg(2));
   $area = check_plain(arg(3));
@@ -899,7 +899,7 @@ function issue_search_form(&$form_state) {
     '#attributes' => array('class' => 'selectbox-sm'),
     '#default_value' => $subject,
     '#id' => 'subject');
-  // get first level category
+// get first level category
   $form['defarea'] = array(
     '#type' => 'hidden',
     '#default_value' => $area
@@ -921,14 +921,14 @@ function issue_search_form(&$form_state) {
     '#type' => 'markup',
     '#value' => t('FILTER BY LOCATION') . '<br /><div class="clr"></div>'
   );
-  // location
+// location
   $countries[''] = t('COUNTRY');
-  // $countryList = geonames_query('countryinfo',NULL);
-  //foreach($countryList->results as $country){
-  //   $countries[$country['countryname']] = $country['countryname'];
-  //}
-  //list only the country the issue is
-  //$cck_country=db_query("select field_issue_country_value from {content_field_issue_country} group by field_issue_country_value ");
+// $countryList = geonames_query('countryinfo',NULL);
+//foreach($countryList->results as $country){
+//   $countries[$country['countryname']] = $country['countryname'];
+//}
+//list only the country the issue is
+//$cck_country=db_query("select field_issue_country_value from {content_field_issue_country} group by field_issue_country_value ");
 
   /*   * Ralldev : 481* */
   global $language;
@@ -940,7 +940,7 @@ function issue_search_form(&$form_state) {
     if (!empty($ccklist->field_issue_country_value))
       $countries[$ccklist->field_issue_country_value] = $ccklist->field_issue_country_value;
   }
-  //  array_filter($countries, 'strlen');
+//  array_filter($countries, 'strlen');
   $form['country'] = array('#type' => 'select',
     '#options' => $countries,
     '#prefix' => '<div style="float:left;">',
@@ -953,7 +953,7 @@ function issue_search_form(&$form_state) {
     '#default_value' => $getcountry,
     '#id' => 's_country');
 
-  // default state, city
+// default state, city
   $form['defstate'] = array(
     '#type' => 'hidden',
     '#default_value' => $getState
@@ -994,7 +994,7 @@ function issue_search_form(&$form_state) {
 
 // issue search form submit
 function issue_search_form_submit($form, &$form_state) {
-  //echo '<pre>';print_r($form_state);exit;
+//echo '<pre>';print_r($form_state);exit;
   $key = $form_state['values']['issue_key'];
   $key = $key != "" ? $key : 0;
 
@@ -1012,7 +1012,7 @@ function issue_search_form_submit($form, &$form_state) {
   $city = $form_state['clicked_button']['#post']['city'];
   $city = $city != "" ? $city : 0;
 
-  // $path = 'issues/?key='.$key.'&subject='.$subject.'&area='.$area.'&detail='.$detail.'&country='.$country.'&state='.$state.'&city='.$city;
+// $path = 'issues/?key='.$key.'&subject='.$subject.'&area='.$area.'&detail='.$detail.'&country='.$country.'&state='.$state.'&city='.$city;
   $path = 'issues/' . $key . '/' . $subject . '/' . $area . '/' . $detail . '/' . $country . '/' . $state . '/' . $city;
   drupal_goto($path);
 }
@@ -1038,12 +1038,12 @@ function search_issue_results__problamatic() {
   $rec_per_page = 5;
 
   $val = array();
-  // conditions key
+// conditions key
   if (!empty($key)) {
     $where .= " AND MATCH(nr.title, nr.body) AGAINST('%s*' IN BOOLEAN MODE)";
     $val[] = $key;
   }
-  // categories
+// categories
   if (!empty($detail)) {
     $where .= " AND tn.tid = '%d'";
     $val[] = $detail;
@@ -1056,7 +1056,7 @@ function search_issue_results__problamatic() {
     $where .= " AND tn.tid = '%d'";
     $val[] = $subject;
   }
-  // locations
+// locations
   if (!empty($country)) {
     $where .= "AND cc.field_issue_country_value = '%s'";
     $val[] = $country;
@@ -1070,16 +1070,16 @@ function search_issue_results__problamatic() {
     $val[] = $city;
   }
 
-  // filter with default language if issue key is empty
-  //if($key!=''){
+// filter with default language if issue key is empty
+//if($key!=''){
   if ($curLanguage == 'en') {
     $langFilter = "AND (n.language = '$curLanguage' OR n.language = '')";
   }
   else {
     $langFilter = "AND n.language = '$curLanguage'";
   }
-  //}
-  //$langFilter = $key==''?"AND n.language = '$curLanguage'":'';
+//}
+//$langFilter = $key==''?"AND n.language = '$curLanguage'":'';
 
 
   switch ($sortValue) {
@@ -1187,11 +1187,11 @@ function search_issue_results() {
 
 
   $val = array();
-  // conditions key
+// conditions key
   if (!empty($key)) {
     $where .= "AND ( nr.title like '%%$key%%' OR  nr.body like '%%$key%%'  OR  (MATCH(nr.title, nr.body) AGAINST('$key*' IN BOOLEAN MODE)) ) ";
   }
-  // categories
+// categories
   if (!empty($detail)) {
     $where .= " AND tn.tid = '$detail' ";
     $val[] = $detail;
@@ -1204,7 +1204,7 @@ function search_issue_results() {
     $where .= " AND tn.tid = '$subject' ";
     $val[] = $subject;
   }
-  // locations
+// locations
   if (!empty($country)) {
     $where .= "AND cc.field_issue_country_value = '$country' ";
     $val[] = $country;
@@ -1218,8 +1218,8 @@ function search_issue_results() {
     $val[] = $city;
   }
 
-  // filter with default language if issue key is empty
-  //if($key!=''){
+// filter with default language if issue key is empty
+//if($key!=''){
   if ($curLanguage == 'en') {
     $langFilter = "AND (n.language = '$curLanguage' OR n.language = '')";
   }
@@ -1289,28 +1289,29 @@ function search_issue_results() {
   /*   * *************** */
 
   $final = $sql;
-  //echo $final; 
+//echo $final; 
 
   $query = pager_query_new($final, $rec_per_page, 0, $sqlcount);
 
 
   $count = db_affected_rows($query);
   if ($sqlcount) {
-    /*   while ($result = db_fetch_object($query)) {
+    while ($result = db_fetch_object($query)) {
       $nid = $result->nid;
       $node = node_load($nid);
       $issue .= node_view(node_load($node->nid), 1);
-
-      }
-      $issue .= '<div class="pagination">' . theme('pager', array(), $rec_per_page) . '</div><br class="clear">';
-      }
-      else {
-      $issue .= t('No Issues Found');
-      } */
+    }
+    $issue .= '<div class="pagination">' . theme('pager', array(), $rec_per_page) . '</div><br class="clear">';
   }
-  $node = node_load(2242);
-  $issue = node_view($node);
+  else {
+    $issue .= t('No Issues Found');
+  }
 
+
+//$node = node_load(2242);
+
+  $issue = node_view($node, true);
+//print $issue;exit;
   return $issue;
 }
 
@@ -1323,8 +1324,8 @@ function issue_debates($qid='', $type='', $sort = null) {
   $click = '';
   $debate_theme = '';
 
-  //drupal_add_js( drupal_get_path('module', 'debate') . '/scripts/debate.js');
-  // load debate
+//drupal_add_js( drupal_get_path('module', 'debate') . '/scripts/debate.js');
+// load debate
   $sup = isset($_GET['sup']) ? $_GET['sup'] : '';
   $ans = isset($_GET['ans']) ? $_GET['ans'] : '';
   if (!isset($sort)) {
@@ -1350,14 +1351,14 @@ function issue_debates($qid='', $type='', $sort = null) {
     $cond.=" AND do.ans_val='$sup'";
   }
   $tid = get_taxonomy_id('forum', 'Debate');
-  //$sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
+//$sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
 
   if (empty($cond))
     $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
   else
     $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
 
-  // forum for translated languages
+// forum for translated languages
   $issueId = $qid;
   $tnid = get_tnid($qid);
   $qid = $tnid;
@@ -1371,9 +1372,9 @@ function issue_debates($qid='', $type='', $sort = null) {
 
       $items = load_debate_datas($node->nid, $issueId, $tnid);
 
-      // anwers strength
+// anwers strength
       $strnth = $items['strength'];
-      //echo '<pre>';print_r($strnth);exit;
+//echo '<pre>';print_r($strnth);exit;
       $strength = '';
       foreach ($strnth as $list) {
         $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
@@ -1391,22 +1392,22 @@ function issue_debates($qid='', $type='', $sort = null) {
         }
       }
 
-      // reply
+// reply
       $reply_box = drupal_get_form('forum_reply_form', $items['debate_id'], $items['debate_tnid'], $items['issue_id']);
       $comments = forum_replies($items['debate_tnid'], 0);
       $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
-      // delete
+// delete
       if (is_moderator() || $items['uid'] == $user->uid) {
         $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['debate_tnid'] . '\', \'debate\')">' . t('Delete') . '</h6>';
       }
       else {
         $delete = '';
       }
-      // ratings
-      // allow rating check
+// ratings
+// allow rating check
       $ratings = get_rating_buttons($items, 'is_debate');
 
-      //$debate_theme .= theme('single_debate_template', $items);
+//$debate_theme .= theme('single_debate_template', $items);
 
       $date1 = new DateTime($items['posted']);
       $date2 = new DateTime("now");
@@ -1439,7 +1440,7 @@ function issue_debates($qid='', $type='', $sort = null) {
       }
       $items['ago'] = $ago;
       $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-      // update points
+// update points
       $tForumId = get_tnid($node->nid);
       debate_roundup($tForumId);
     }
@@ -1465,11 +1466,11 @@ function forum_replies($debate_tnid, $pid = '') {
       $cid = $forum['cid'];
       if (!empty($forum['comment'])) {
         $items = forum_reply_datas($cid);
-        // ratings
-        // allow rating check
+// ratings
+// allow rating check
         $ratings = get_rating_buttons($items, 'is_debate_reply');
 
-        //delete
+//delete
         if (is_moderator() || $items['uid'] == $user->uid) {
           $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_reply_' . $items['cid'] . '\', \'reply\')">' . t('Delete') . '</h6>';
         }
@@ -1526,12 +1527,12 @@ function issue_thread_delete($type = '', $tnid = '', $source = '') {
 }
 
 function delete_replies($comment) {
-  // Delete the comment:
+// Delete the comment:
   db_query('DELETE FROM {comments} WHERE cid = %d', $comment->cid);
   watchdog('content', 'Comment: deleted %subject.', array('%subject' => $comment->subject));
 
   comment_invoke_comment($comment, 'delete');
-  // update comment statistics
+// update comment statistics
   _comment_update_node_statistics($comment->nid);
 }
 
@@ -1552,11 +1553,11 @@ function issue_ajax($task = '', $nid = '') {
       $result = '<iframe src="' . $base_url . '/debate/ajax/' . $nid . '?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
       break;
     case 'getForumFlagForm':
-      // abuse flag form ############
+// abuse flag form ############
       $tnid = $nid;
       $flagType = $_GET['flag_type'];
       $object = _abuse_load($flagType, $tnid);
-      // echo '<pre>'; print_r($object);exit;
+// echo '<pre>'; print_r($object);exit;
       $reported = db_result(db_query("SELECT COUNT(*) FROM {abuse} WHERE type='%s' AND oid=%d AND uid=%d", $flagType, $tnid, $user->uid));
       if ($reported > 0) {
         $flagForm = t('We have already received your report.  Thank you very much!');
@@ -1567,7 +1568,7 @@ function issue_ajax($task = '', $nid = '') {
       else {
         $flagForm = drupal_get_form('abuse_report_form', $object, $user);
       }
-      // abuse flag form ############
+// abuse flag form ############
       $result = $flagForm;
   }
   echo $result;
@@ -1594,8 +1595,8 @@ function insight_view($nid='') {
     foreach ($ans as $key => $list) {
       $short_answers[$list['chorder']] = get_short_answer($nid, $list['chorder']);
     }
-    // calculation
-    // total votes a issue
+// calculation
+// total votes a issue
     $insight = '';
     $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
     if ($totalVotes >= 10) {
@@ -1619,7 +1620,7 @@ function by_possible_answers_votes($nid = '', $short_answers, $colors) {
   $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
   $node = node_load($nid);
 
-  // DEMOGRAPHICS
+// DEMOGRAPHICS
   $demographics = array('gender', 'age', 'religion', 'ethnicity', 'income', 'marital', 'sorient', 'edu');
   foreach ($demographics as $demographic) {
     $demo = report_percent_broken($nid, '', array('dochg' => $demographic));
@@ -1628,7 +1629,7 @@ function by_possible_answers_votes($nid = '', $short_answers, $colors) {
     $cnts = $demo['cnt'];
 
     foreach ($divides as $key => $divide) {
-      // removed undefined from results
+// removed undefined from results
       if ($divide == 'undefined') {
         unset($key);
       }
@@ -1665,7 +1666,7 @@ function by_possible_answers_votes($nid = '', $short_answers, $colors) {
       $sChoice['color'] = $short_ans_colors[$ch];
     }
   }
-  //special wordings for each demographic
+//special wordings for each demographic
   $age = report_percent_broken($nid, '', array('dochg' => 'age'));
   $income = report_percent_broken($nid, '', array('dochg' => 'income'));
   if (in_array($first_key, $age['divide'])) {
@@ -1687,8 +1688,8 @@ function by_possible_answers_votes($nid = '', $short_answers, $colors) {
 
 function by_demographic_votes($nid = '', $short_answers, $colors) {
   $byDemographic = array();
-  //$node = node_load($nid);
-  // DEMOGRAPHICS
+//$node = node_load($nid);
+// DEMOGRAPHICS
 
   foreach ($short_answers as $key => $value) {
     $short_ans_colors[$value] = $colors[$key];
@@ -1701,19 +1702,19 @@ function by_demographic_votes($nid = '', $short_answers, $colors) {
     $divides = $demo['divide'];
     $cnts = $demo['cnt'];
 
-    // total votes per demographic
+// total votes per demographic
     $val = 0;
 
     foreach ($divides as $key => $divide) {
-      // removed undefined from results
+// removed undefined from results
       if ($divide == 'undefined') {
         unset($key);
       }
       $divide = $divide == 'undefined' ? 'undefined_' . $demographic : $divide;
       $count = $cnts[$key];
-      //  $choices = json_decode($count);
+//  $choices = json_decode($count);
       $choices = $count;
-      // total counts for group x in each demographic
+// total counts for group x in each demographic
       $demoVotes = array_sum($choices);
 
       foreach ($choices as $choice => $cCount) {
@@ -1747,7 +1748,7 @@ function by_demographic_votes($nid = '', $short_answers, $colors) {
     }
   }
 
-  //special wordings for each demographic
+//special wordings for each demographic
   $age = report_percent_broken($nid, '', array('dochg' => 'age'));
   $income = report_percent_broken($nid, '', array('dochg' => 'income'));
   if (in_array($first_key, $age['divide'])) {
@@ -1771,21 +1772,21 @@ function by_total_votes($nid = '') {
   $bytotalVotes = array();
   $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
   $node = node_load($nid);
-  // DEMOGRAPHICS
+// DEMOGRAPHICS
   $demographics = array('gender', 'age', 'religion', 'ethnicity', 'income', 'marital', 'sex_orient', 'education');
   foreach ($demographics as $demographic) {
     $demo = report_percent_broken($nid, '', array('dochg' => $demographic));
     $divides = $demo['divide'];
     $cnts = $demo['cnt'];
-    // total votes per demographic
+// total votes per demographic
     $val = 0;
 
     $demoVotes = $val;
     foreach ($divides as $key => $divide) {
       $count = $cnts[$key];
-      //$choices = json_decode($count);
+//$choices = json_decode($count);
       $choices = $count;
-      // total counts for group x in each demographic
+// total counts for group x in each demographic
       $demoVotes = array_sum($choices);
       $percent = ($demoVotes / $totalVotes) * 100;
       $bytotalVotes[$divide] = $percent;
@@ -1808,7 +1809,7 @@ function by_total_votes($nid = '') {
     }
   }
 
-  //special wordings for each demographic
+//special wordings for each demographic
   $age = report_percent_broken($nid, '', array('dochg' => 'age'));
   $income = report_percent_broken($nid, '', array('dochg' => 'income'));
   if (in_array($first_key, $age['divide'])) {
@@ -1889,7 +1890,7 @@ function filter_options_submit($form, &$form_state) {
 
 // ISSUE RESOURCES
 function issue_resources_list($qid = '') {
-  //$inline = 'jQuery(document).ready(function(){res_type_tab(1,\'resource\',' . $qid . ')})';
+//$inline = 'jQuery(document).ready(function(){res_type_tab(1,\'resource\',' . $qid . ')})';
   $inline = 'jQuery(document).ready(function(){res_type_tab(4,\'all\',' . $qid . ')})';
   drupal_add_js($inline, 'inline');
   $resources = '';
@@ -1905,12 +1906,12 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
   $sortin = 'ORDER BY rid DESC';
   $cond = '';
 
-  // load resources
+// load resources
   $sup = $sup != 'n' ? $sup : '';
   $ans = $ans != 'n' ? $ans : '';
   $sort = $sort != 'n' ? $sort : '';
 
-  // site url with default language
+// site url with default language
   $path = '<front>';
   $sitelink = url($path, array('absolute' => TRUE)) . '/';
 
@@ -1932,7 +1933,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
     $cond.=" AND do.ans_val='$sup'";
   }
 
-  // resource type
+// resource type
   switch ($rtype) {
     case '1':
       $resType = 'news';
@@ -1961,7 +1962,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
       $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
     }
 
-    // forum for translated languages
+// forum for translated languages
     $issueId = $qid;
     $tnid = get_tnid($qid);
     $qid = $tnid;
@@ -1975,7 +1976,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
     else
       $sql = "SELECT DISTINCT(f.nid) FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $cond $sorting";
 
-    // forum for translated languages
+// forum for translated languages
     $issueId = $qid;
     $tnid = get_tnid($qid);
     $qid = $tnid;
@@ -2010,7 +2011,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
         }
       }
 
-      // delete
+// delete
       if (is_moderator() || $items['uid'] == $user->uid) {
         $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['resource_id'] . '\', \'resource\')">' . t('Delete') . '</h6>';
       }
@@ -2018,13 +2019,13 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
         $delete = '';
       }
 
-      // reply box
+// reply box
       $reply_box = drupal_get_form('forum_reply_form', $items['resource_id'], $items['resource_id'], $items['issue_id']);
       $comments = forum_replies($items['resource_id'], 0);
       $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['resource_id'] . "'"));
 
-      // ratings
-      // allow rating check
+// ratings
+// allow rating check
       $ratings = get_rating_buttons($items, 'is_resource');
 
 
@@ -2036,7 +2037,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
   else {
     $resouce_theme = '<div class="messages warning">' . t('No Resource Posted Yet!!') . '</div>';
   }
-  //return $resouce_theme;
+//return $resouce_theme;
   if (isAjax()) {
     print $resouce_theme;
   }
@@ -2047,7 +2048,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
 
 // validate issue create form
 function validate_issue_add($form, &$form_state) {
-  //echo '<pre>';print_r($form_state); exit;
+//echo '<pre>';print_r($form_state); exit;
   if ($form_state['values']['q_quest'] == '') {
     form_set_error('error', t('Please enter your question'));
   }
@@ -2116,7 +2117,7 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
   $wave = '';
   $click = '';
   $debate_theme = '';
-  // load debate
+// load debate
   $sorting = 'ORDER BY f.nid DESC';
   $third = ',n.created ';
 
@@ -2176,7 +2177,7 @@ UNION
     $nodes = db_query($sql, $qid);
     $count = db_result(db_query($sql, $qid));
   }
-  // forum for translated languages
+// forum for translated languages
 
 
 
@@ -2190,7 +2191,7 @@ UNION
         $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
       }
 
-      // anwers strength
+// anwers strength
       $strnth = $items['strength'];
       $strength = '';
       foreach ($strnth as $list) {
@@ -2207,11 +2208,11 @@ UNION
             break;
         }
       }
-      // reply
+// reply
       $reply_box = drupal_get_form('forum_reply_form', $items['debate_id'], $items['debate_tnid'], $items['issue_id']);
       $comments = forum_replies($items['debate_tnid'], 0);
       $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
-      // delete
+// delete
       if (is_moderator() || $items['uid'] == $user->uid) {
         if (isset($items['debate_tnid'])) {
           $id = $items['debate_tnid'];
@@ -2223,16 +2224,16 @@ UNION
         }
         $delete = '<h6 value="Delete" id="reply" class="add-comment button light" 
           onclick="delete_thread(\'own_forum_' . $id . '\', \'' . $arg . '\')">' . t('Delete') . '</h6>';
-        //(\'own_reply_' . $items['cid'] . '\', \'reply\')
+//(\'own_reply_' . $items['cid'] . '\', \'reply\')
       }
       else {
         $delete = '';
       }
-      // ratings
-      // allow rating check
+// ratings
+// allow rating check
       $ratings = get_rating_buttons($items, 'is_debate');
       $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-      // update points
+// update points
       $tForumId = get_tnid($node->nid);
       debate_roundup($tForumId);
     }
@@ -2275,7 +2276,7 @@ function issue_ajax_highstock_graph($nid, $number) {
   $drange = array_reverse($drange);
   for ($ab = 0; $ab < $cnt_ans; $ab++) {
 
-    // short answers
+// short answers
     $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
     $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
     $answer = substr(t(addslashes($answer)), 0, 16);
@@ -2356,7 +2357,7 @@ function issue_ajax_highchart_result($nid, $param) {
     $xtitle = "'" . "'";
   }
   else {
-    // $ans = $ans_array;
+// $ans = $ans_array;
     $json['name'] = $ans_array;
     $xtitle = "'" . $_REQUEST['dochg'] . "'";
     $json['categories'] = $result['divide'];
