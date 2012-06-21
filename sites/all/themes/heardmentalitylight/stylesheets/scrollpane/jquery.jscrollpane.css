@@ -93,6 +93,7 @@ a.jScrollArrowDown {
 {
 	overflow: hidden;
 	position: relative;
+	min-width: 243px;
 }
 
 .jspPane
