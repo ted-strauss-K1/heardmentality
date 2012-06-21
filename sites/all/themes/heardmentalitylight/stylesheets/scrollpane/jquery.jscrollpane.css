@@ -101,13 +101,6 @@ a.jScrollArrowDown {
 }
 
 @media only screen and (max-width: 767px) {
-	.jspPane {
-		width: 243px !important;
-		overflow: hidden;
-	}	
-}
-
-@media only screen and (max-width: 767px) {
 	.jspHorizontalBar {
 		display: none;
 	}
