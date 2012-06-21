@@ -120,6 +120,13 @@ a.jScrollArrowDown {
 	background: red;
 }
 
+
+@media only screen and (max-width: 767px) {
+	.jspHorizontalBar {
+		visibility: hidden;
+	}
+}
+
 .jspVerticalBar *,
 .jspHorizontalBar *
 {
