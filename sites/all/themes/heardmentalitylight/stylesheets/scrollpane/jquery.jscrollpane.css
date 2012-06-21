@@ -107,7 +107,7 @@ a.jScrollArrowDown {
 	right: 0;
 	width: 16px;
 	height: 100%;
-	background: red;
+	background: none transparent;
 }
 
 .jspHorizontalBar
@@ -178,7 +178,7 @@ a.jScrollArrowDown {
 {
 	height: 20px;
 	width: 18px;
-	background: url(../images/s_arrow_red.png) no-repeat;
+	background: url(../../images/s_arrow_red.png) no-repeat;
 }
 
 .jspHorizontalBar .jspArrow
