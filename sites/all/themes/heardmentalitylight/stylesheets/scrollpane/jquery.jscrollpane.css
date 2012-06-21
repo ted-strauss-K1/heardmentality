@@ -98,7 +98,12 @@ a.jScrollArrowDown {
 .jspPane
 {
 	position: absolute;
-		min-width: 243px;
+}
+
+@media only screen and (max-width: 767px) {
+	.jspPane {
+			width: 243px !important;
+	}	
 }
 
 .jspVerticalBar
