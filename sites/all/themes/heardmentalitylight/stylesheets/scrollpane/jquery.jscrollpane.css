@@ -82,11 +82,13 @@ a.jScrollArrowDown {
 	background: url(../../images/state.gif) no-repeat scroll -15px -6px  transparent;
 }*/
 
-/*Scroll*/
+/*
+ * CSS Styles that are needed by jScrollPane for it to operate correctly.
+ *
+ * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
+ * may not operate correctly without them.
+ */
 
-.jspScrollable, .jspContainer{
-	width: 100% !important;
-}
 .jspContainer
 {
 	overflow: hidden;
@@ -103,10 +105,9 @@ a.jScrollArrowDown {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 10px;
+	width: 16px;
 	height: 100%;
-	background: none #DEDEDA;
-	border-right: 1px solid #BBBEB8;
+	background: red;
 }
 
 .jspHorizontalBar
@@ -116,7 +117,7 @@ a.jScrollArrowDown {
 	left: 0;
 	width: 100%;
 	height: 16px;
-	background: none #DEDEDA;
+	background: red;
 }
 
 .jspVerticalBar *,
@@ -138,23 +139,17 @@ a.jScrollArrowDown {
 
 .jspTrack
 {
-	background: none #DEDEDA;
+	background: #dde;
 	position: relative;
-	padding: 0 3px 0 0;
 }
 
 .jspDrag
 {
-	background: #3f4343;
+	background: #bbd;
 	position: relative;
 	top: 0;
 	left: 0;
 	cursor: pointer;
-	border-radius: 6px;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	-o-border-radius: 6px;
-	-khtml-border-radius: 6px;
 }
 
 .jspHorizontalBar .jspTrack,
@@ -166,7 +161,7 @@ a.jScrollArrowDown {
 
 .jspArrow
 {
-	background: none transparent;
+	background: #50506d;
 	text-indent: -20000px;
 	display: block;
 	cursor: pointer;
@@ -175,12 +170,12 @@ a.jScrollArrowDown {
 .jspArrow.jspDisabled
 {
 	cursor: default;
-	background: none transparent;
+	background: #80808d;
 }
 
 .jspVerticalBar .jspArrow
 {
-	height: 5px;
+	height: 16px;
 }
 
 .jspHorizontalBar .jspArrow
@@ -207,5 +202,3 @@ a.jScrollArrowDown {
 {
 	margin: 0 -3px 0 0;
 }
-
-/*Scroll end*/
