@@ -125,7 +125,7 @@ function slidestream(){
 var delay = 0;
 jQuery(jQuery('#uactivity div.activity-stream:hidden').get().reverse()).each(function(){
     jQuery(this).delay(delay).slideDown('slow', function() {
-		if (jQuery.browser.mobile == false) {
+
 			var settings = {
 				scrollbarWidth:12, 
 				scrollbarMargin:0, 
@@ -140,7 +140,7 @@ jQuery(jQuery('#uactivity div.activity-stream:hidden').get().reverse()).each(fun
 				api.reinitialise();
 
 			});
-		}
+
 	});
     delay +=2000;
 });
