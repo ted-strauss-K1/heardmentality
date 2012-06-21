@@ -124,6 +124,7 @@ a.jScrollArrowDown {
 @media only screen and (max-width: 767px) {
 	.jspHorizontalBar {
 		visibility: hidden;
+		height: 1px;
 	}
 }
 
