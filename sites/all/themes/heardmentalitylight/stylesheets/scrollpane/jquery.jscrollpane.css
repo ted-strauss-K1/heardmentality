@@ -189,7 +189,7 @@ a.jScrollArrowDown {
 }
 
 .jspVerticalBar .jspArrowUp {
-	background-position: 2px 100%;
+	background-position: 0 100%;
 }
 
 .jspVerticalBar .jspArrowUp.jspDisabled {
@@ -197,7 +197,7 @@ a.jScrollArrowDown {
 }
 
 .jspVerticalBar .jspArrowDown {
-	background-position: 2px 2px;
+	background-position: 0 2px;
 }
 
 .jspVerticalBar .jspArrowDown.jspDisabled {
