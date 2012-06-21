@@ -105,7 +105,7 @@ a.jScrollArrowDown {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 18px;
+	width: 20px;
 	height: 100%;
 	background: none transparent;
 }
@@ -141,7 +141,7 @@ a.jScrollArrowDown {
 {
 	background: #none transparent;
 	position: relative;
-	width: 18px;
+	width: 20px;
 }
 
 .jspDrag
@@ -177,7 +177,7 @@ a.jScrollArrowDown {
 .jspVerticalBar .jspArrow
 {
 	height: 20px;
-	width: 18px;
+	width: 20px;
 	background: url(../../images/s_arrow_red.png) no-repeat;
 }
 
@@ -189,11 +189,11 @@ a.jScrollArrowDown {
 }
 
 .jspVerticalBar .jspArrowUp {
-	background-position: 0 100%;
+	background-position: 100% 100%;
 }
 
 .jspVerticalBar .jspArrowDown {
-	background-position: 0 0;
+	background-position: 100% 0;
 }
 
 .jspVerticalBar .jspArrow:focus
