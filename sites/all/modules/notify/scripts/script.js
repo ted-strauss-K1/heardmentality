@@ -125,7 +125,22 @@ function slidestream(){
 var delay = 0;
 jQuery(jQuery('#uactivity div.activity-stream:hidden').get().reverse()).each(function(){
     jQuery(this).delay(delay).slideDown('slow', function() {
-		//jQuery('.container .nine .grey-box .uactivity').jScrollPane({scrollbarWidth:12, scrollbarMargin:0, showArrows:true});
+		if (jQuery.browser.mobile == false) {
+			var settings = {
+				scrollbarWidth:12, 
+				scrollbarMargin:0, 
+				showArrows:true
+			};
+			
+			var pane = $('.container .nine .grey-box .uactivity');
+			pane.jScrollPane(settings);
+			var api = pane.data('jsp');
+			
+			jQuery(window).resize(function () {
+				api.reinitialise();
+
+			});
+		}
 	});
     delay +=2000;
 });
