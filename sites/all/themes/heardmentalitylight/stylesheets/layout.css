@@ -1889,6 +1889,7 @@ textarea#q_quest  {
 }
 .container .nine .grey-box .uactivity {
     height: 395px;
+	min-width: 263px;
 	overflow: auto;
 	overflow-y: auto;
 	overflow-x: hidden;
