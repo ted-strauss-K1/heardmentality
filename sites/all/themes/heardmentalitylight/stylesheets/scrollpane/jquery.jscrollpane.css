@@ -105,7 +105,7 @@ a.jScrollArrowDown {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 16px;
+	width: 18px;
 	height: 100%;
 	background: none transparent;
 }
@@ -188,12 +188,12 @@ a.jScrollArrowDown {
 	height: 100%;
 }
 
-.jspArrowUp {
-	  background-position: 0 0;
+.jspVerticalBar .jspArrowUp {
+	background-position: 0 0;
 }
 
-.jspArrowDown {
-	  background-position: 0 100%;
+.jspVerticalBar .jspArrowDown {
+	background-position: 0 100%;
 }
 
 .jspVerticalBar .jspArrow:focus
