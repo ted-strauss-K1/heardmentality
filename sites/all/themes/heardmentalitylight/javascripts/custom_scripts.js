@@ -17,7 +17,7 @@ $(document).ready(function() {
 			
     if (jQuery.browser.mobile == false) {
 		var settings = {
-			scrollbarWidth:12, 
+			scrollbarWidth:18, 
 			scrollbarMargin:0, 
 			showArrows:true
 		};
