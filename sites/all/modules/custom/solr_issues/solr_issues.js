@@ -5,10 +5,6 @@ $(document).ready(function(){
     var categ = $('#edit-category-subject').val();
     var defarea = $('#edit-category-defarea').val();
     var defdetail = $('#edit-category-defdetail').val();
-    
-    
-    
-    
     // tid = $('#edit-category-subject').val() + $('#edit-category-defarea').val() + $('#edit-category-defdetail').val();
     if (categ != null) {
       categ.map(function(index, element) {
@@ -38,6 +34,13 @@ $(document).ready(function(){
     'json'
     );
     return false;
-  })
-
+  });
+/*
+  $('.solr-block-form').live('change', function(){
+    alert('hello');
+  });
+  $('.solr-block-form').change(function(){
+    alert('hello1');
+  });
+*/
 });

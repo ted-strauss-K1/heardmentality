@@ -66,8 +66,7 @@ function solr_issues_seach_form_submit($form, &$form_state) {
 }
 
 function solr_issues_form_alter(&$form, $form_state, $form_id) {
-  //krumo('dfg');
-  //krumo($form);
+  
 }
 
 function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
@@ -100,6 +99,7 @@ function solr_issues_block_form($form_state) {
   drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
   drupal_add_js(array('base_url' => "$base_url"), 'setting');
   global $language;
+
   $curLanguage = $language->language;
   $cck_country = db_query("select cc.field_issue_country_value from content_field_issue_country cc, node n where cc.nid = n.nid and n.language = '$curLanguage' group by field_issue_country_value");
   while ($ccklist = db_fetch_object($cck_country)) {
@@ -116,23 +116,34 @@ function solr_issues_block_form($form_state) {
     }
   }
 
-  if (!isset($form_state['storage']['category']['subject'])) {
+  if (!isset($form_state['storage']['block']['subject'])) {
     //  $usage_default_value = t('SUBJECT');
   }
   else {
-
-    $usage_default_value = $form_state['storage']['category']['subject'];
+    $return_info = t('Issues about ');
+    foreach ($form_state['storage']['block']['subject'] as $key => $value) {
+      $return_info .= '<span>' . $options[$value] . '</span> ';
+    }
+    $usage_default_value = $form_state['storage']['block']['subject'];
     foreach ($usage_default_value as $catid) {
       $ids = taxonomy_get_children($catid);
       foreach ($ids as $value) {
         $area_opts[$value->tid] = $value->name;
       }
     }
-    if (isset($form_state['storage']['category']['defarea'])) {
-      foreach ($form_state['storage']['category']['defarea'] as $areatid) {
+    if (isset($form_state['storage']['block']['defarea'])) {
+      foreach ($form_state['storage']['block']['defarea'] as $key => $value) {
+        $return_info .= '<span>' . $area_opts[$value] . '</span> ';
+      }
+      foreach ($form_state['storage']['block']['defarea'] as $areatid) {
         $ids = taxonomy_get_children($areatid);
         foreach ($ids as $value) {
           $detail_opts[$value->tid] = $value->name;
+        }
+      }
+      if (isset($form_state['storage']['block']['defdetail'])) {
+        foreach ($form_state['storage']['block']['defdetail'] as $key => $value) {
+          $return_info .= '<span>' . $detail_opts[$value] . '</span> ';
         }
       }
     }
@@ -140,52 +151,64 @@ function solr_issues_block_form($form_state) {
       $detail_opts = array();
     }
   }
-  $form['category'] = array(
+
+  $form['block'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Narrow by'),
-    '#prefix' => '<div id="category-wrapper">',
+    '#prefix' => '<div id="block-wrapper">',
     '#suffix' => '</div>',
     '#tree' => TRUE,
   );
-  $form['category']['subject'] = array(
+  $form['block']['results'] = array(
+    '#value' => '<span>0</span>' . ' issues',
+    '#type' => 'item',
+  );
+  $form['block']['information'] = array(
+    '#value' => $return_info,
+    '#type' => 'item',
+  );
+  $form['block']['subject'] = array(
     '#type' => 'select',
     '#options' => $options,
+    '#title' => t('Narrow by'),
     '#ahah' => array(
       'event' => 'change',
-      'path' => ahah_helper_path(array('category')),
-      'wrapper' => 'category-wrapper',
+      'path' => ahah_helper_path(array('block')),
+      'wrapper' => 'block-wrapper',
     ),
     '#default_value' => $usage_default_value,
     '#multiple' => TRUE,
+    '#attributes' => array('class' => 'solr-block-form'),
   );
   if (count($area_opts) != 0) {
-    $form['category']['defarea'] = array(
-      '#default_value' => $form_state['storage']['category']['defarea'],
+    $form['block']['defarea'] = array(
+      '#default_value' => $form_state['storage']['block']['defarea'],
       '#type' => 'select',
       '#options' => $area_opts,
+      '#attributes' => array('class' => 'solr-block-form'),
       '#multiple' => TRUE,
       '#ahah' => array(
         'event' => 'change',
-        'path' => ahah_helper_path(array('category')),
-        'wrapper' => 'category-wrapper',
+        'path' => ahah_helper_path(array('block')),
+        'wrapper' => 'block-wrapper',
       ),
     );
   }
   if (count($detail_opts) != 0) {
-    $form['category']['defdetail'] = array(
-      '#default_value' => $form_state['storage']['category']['defdetail'],
+    $form['block']['defdetail'] = array(
+      '#default_value' => $form_state['storage']['block']['defdetail'],
       '#type' => 'select',
       '#multiple' => TRUE,
+      '#attributes' => array('class' => 'solr-block-form'),
       '#options' => $detail_opts,
       '#ahah' => array(
         'event' => 'change',
-        'path' => ahah_helper_path(array('category')),
-        'wrapper' => 'category-wrapper',
+        'path' => ahah_helper_path(array('block')),
+        'wrapper' => 'block-wrapper',
       ),
     );
   }
-  if (isset($form_state['storage']['location']['country'])) {
-    foreach ($form_state['storage']['location']['country'] as $country) {
+  if (isset($form_state['storage']['block']['country'])) {
+    foreach ($form_state['storage']['block']['country'] as $country) {
       $xyz = geonames_countryinfo($country);
       $query = array('geonameid' => $xyz['geonameid']);
       $results = geonames_query('children', $query);
@@ -198,27 +221,21 @@ function solr_issues_block_form($form_state) {
     }
   }
 
-  $form['location'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Location'),
-    '#prefix' => '<div id="location-wrapper">',
-    '#suffix' => '</div>',
-    '#tree' => TRUE,
-  );
-  $form['location']['country'] = array(
+  $form['block']['country'] = array(
     '#type' => 'select',
+    '#title' => t('Location'),
     '#options' => $countries,
     '#multiple' => TRUE,
     '#ahah' => array(
       'event' => 'change',
-      'path' => ahah_helper_path(array('location')),
-      'wrapper' => 'location-wrapper',
+      'path' => ahah_helper_path(array('block')),
+      'wrapper' => 'block-wrapper',
     ),
-    '#default_value' => $form_state['storage']['location']['country'],
+    '#default_value' => $form_state['storage']['block']['country'],
   );
-  if (isset($form_state['storage']['location']['defstate'])) {
+  if (isset($form_state['storage']['block']['defstate'])) {
 
-    foreach ($form_state['storage']['location']['defstate'] as $state) {
+    foreach ($form_state['storage']['block']['defstate'] as $state) {
 
       $query = array('geonameid' => $state);
       $results = geonames_query('children', $query);
@@ -231,32 +248,33 @@ function solr_issues_block_form($form_state) {
     }
   }
   if (count($states)) {
-    $form['location']['defstate'] = array(
+    $form['block']['defstate'] = array(
       '#type' => 'select',
       '#multiple' => TRUE,
-      '#default_value' => $form_state['storage']['location']['defstate'],
+      '#default_value' => $form_state['storage']['block']['defstate'],
       '#options' => $states,
       '#ahah' => array(
         'event' => 'change',
-        'path' => ahah_helper_path(array('location')),
-        'wrapper' => 'location-wrapper',
+        'path' => ahah_helper_path(array('block')),
+        'wrapper' => 'block-wrapper',
       ),
             //  '#default_value' => $getState
     );
   }
   if (count($cities)) {
-    $form['location']['defcity'] = array(
+    $form['block']['defcity'] = array(
       '#type' => 'select',
       '#options' => $cities,
       '#multiple' => TRUE,
       '#ahah' => array(
         'event' => 'change',
-        'path' => ahah_helper_path(array('location')),
-        'wrapper' => 'location-wrapper',
+        'path' => ahah_helper_path(array('block')),
+        'wrapper' => 'block-wrapper',
       ),
       '#default_value' => $getCity
     );
   }
+
 
 
   $form['my_region'] = array(
@@ -267,7 +285,6 @@ function solr_issues_block_form($form_state) {
     '#type' => 'checkbox',
     '#title' => t('Show only not voted'),
   );
-
 
   $form['search_text'] = array(
     '#type' => 'textfield',
@@ -281,8 +298,7 @@ function solr_issues_block_form($form_state) {
   );
   // unset($form['#submit']);
   $form['#submit'][] = 'solr_issues_block_form_submit';
-  unset($form_state['storage']['category']);
-  unset($form_state['storage']['location']);
+  unset($form_state['storage']['block']);
   return $form;
 }
 
@@ -319,12 +335,20 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 
 function solr_issues_apachesolr_query_alter($query) {
   if (count($_POST['tid'])) {
-    $query->addFilter("tid", implode(',', $_POST['tid']));
+    foreach ($_POST['tid'] as $key => $value) {
+      $query->addFilter('tid', $value);
+    }
   }
-/*  print '<pre>';
-  print_r($query);
-  print '</pre>';
-  exit;*/
+
+  /* $a = $query->getSolrParams();
+    $b = $query->getParams();
+    krumo($a);
+    krumo($b);
+    print '<pre>';
+    print_r($query);
+
+    print '</pre>';
+    exit; */
 }
 
 function solr_issues_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
@@ -340,8 +364,7 @@ function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $documen
 }
 
 function solr_issues_search_output($results) {
-//  krumo($results);
-  // exit;
+  // krumo($results);exit;
   foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
     //   krumo($node);exit;
