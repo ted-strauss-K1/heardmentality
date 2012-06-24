@@ -170,6 +170,11 @@
 		border-width: 1px 1px 3px;
 	}
 	
+	.ie8 .button.vote, .ie8 input.submit-issue, .ie8 input.save,
+	.ie7 .button.vote, .ie7 input.submit-issue, .ie7 input.save {
+		border: 1px solid #849eb7;
+	}
+	
 
 	.ie8 .button.vote:hover, .ie8 input.submit-issue:hover, .ie8 input.save:hover,
 	.ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
