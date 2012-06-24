@@ -4298,6 +4298,10 @@ span.small_pos.fixes,
 	padding-top: 20px;
 }
 
+#uactivity .activity-stream {
+	display: block !important;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
