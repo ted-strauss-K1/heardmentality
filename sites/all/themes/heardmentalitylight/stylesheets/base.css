@@ -325,12 +325,13 @@
 		background:     -ms-linear-gradient(top, #7cbbf1, #4298ef);
 		background:      -o-linear-gradient(top, #7cbbf1, #4298ef);
 		background:         linear-gradient(top, #7cbbf1, #4298ef);
+		border: 1px solid #849eb7;
 		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
 		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
 		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
 		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
 		box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
-		
+		text-shadow: 0 1px #386c9b;
 		position: relative;
 		top: -3px;
 		color: #fff !important;
