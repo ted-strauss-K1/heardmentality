@@ -2750,6 +2750,10 @@ h2.page-title {
 	position: relative;
 }
 
+#new_vote .button.vote:hover {
+	top: 21px;	
+}
+
 #issue-edit-vote  .button.vote {
     margin: 12px 0 0 30px;
 	top: 0;
