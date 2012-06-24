@@ -37,9 +37,9 @@
 	zoom: 1;
 }
 
-.ie8 ul.menu li, .ie7 ul.menu li {background-color: #D81A29; color:white;}
-.ie8 ul.menu li + li, .ie7 ul.menu li + li {background-color: #F7314A; color:white;}
-.ie8 ul.menu li + li + li, .ie7 ul.menu li + li + li {background-color: #CC2027; color:white;}
+.ie8 ul.menu li, .ie7 ul.menu li {background-color: #CC2027; color:white;}
+.ie8 ul.menu li + li, .ie7 ul.menu li + li {background-color: #EF3D3B; color:white;}
+.ie8 ul.menu li + li + li, .ie7 ul.menu li + li + li {background-color: #D81A29; color:white;}
 
 .ie7 .white-box ul.map-stats {
 	float: none;
@@ -170,16 +170,10 @@
 		border-width: 1px 1px 3px;
 	}
 	
-	.ie8 .button.vote, .ie8 input.submit-issue, .ie8 input.save,
-	.ie7 .button.vote, .ie7 input.submit-issue, .ie7 input.save	{
-		border: solid #339cb4;
-		border-width: 1px 1px 3px;
-	}
-	
+
 	.ie8 .button.vote:hover, .ie8 input.submit-issue:hover, .ie8 input.save:hover,
 	.ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
-		border: solid #2d8ca2;
-		border-width: 1px 1px 3px;
+		border-width: 1px 1px 4px;
 	}
 	
 	/*PIE*/
