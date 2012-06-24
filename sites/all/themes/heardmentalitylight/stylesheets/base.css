@@ -282,19 +282,19 @@
 
 	.button.vote, input.submit-issue, input.save {
 		text-transform: uppercase;
-		background: none #42bbd7;
-		background: -webkit-gradient(linear, left top, left bottom, from(#51d2f0), to(#42bbd7));
-		background: -webkit-linear-gradient(top, #51d2f0, #42bbd7);
+		background: none #4298ef;
+		background: -webkit-gradient(linear, left top, left bottom, from(#7cbbf1), to(#4298ef));
+		background: -webkit-linear-gradient(top, #7cbbf1, #4298ef);
 		background:    -moz-linear-gradient(top, #7cbbf1, #4298ef);
-		background:     -ms-linear-gradient(top, #51d2f0, #42bbd7);
-		background:      -o-linear-gradient(top, #51d2f0, #42bbd7);
+		background:     -ms-linear-gradient(top, #7cbbf1, #4298ef);
+		background:      -o-linear-gradient(top, #7cbbf1, #4298ef);
 		background:         linear-gradient(top, #7cbbf1, #4298ef);
-		border: 1px solid #339cb4;
-		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
-		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
-		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
-		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
+		border: 1px solid #849eb7;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
 		padding: 7px 25px 5px;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
@@ -302,12 +302,12 @@
 		-khtml-border-radius: 3px;
 		-o-border-radius: 3px;
 		-ms-border-radius: 3px;
-	  color: #359db5 !important;
+	  color: #fff !important;
 	  display: inline-block;
 	  font-size: 16px;
 	  font-weight: bold;
 	  text-decoration: none;
-	  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+	  text-shadow: 0 1px #386c9b;
 	  cursor: pointer;
 	  margin-bottom: 0px;
 	  line-height: 19px;
