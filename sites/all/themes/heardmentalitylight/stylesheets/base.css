@@ -290,12 +290,12 @@
 		background:      -o-linear-gradient(top, #7cbbf1, #4298ef);
 		background:         linear-gradient(top, #7cbbf1, #4298ef);
 		border: 1px solid #849eb7;
-		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
-		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
-		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
-		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #849eb7;
-		padding: 7px 25px 5px;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 2px #849eb7;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 2px #849eb7;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 2px #849eb7;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 2px #849eb7;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0 2px #849eb7;
+		padding: 8px 25px 6px;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
 		border-radius: 3px;
@@ -318,19 +318,14 @@
 	}
 	
 	.button.vote:hover, input.submit-issue:hover, input.save:hover {
-		background-color: #3cc7f4;
-		background: -webkit-gradient(linear, left top, left bottom, from(#71d3f3), to(#3cc7f4));
-		background: -webkit-linear-gradient(top, #71d3f3, #3cc7f4);
-		background:    -moz-linear-gradient(top, #71d3f3, #3cc7f4);
-		background:     -ms-linear-gradient(top, #71d3f3, #3cc7f4);
-		background:      -o-linear-gradient(top, #71d3f3, #3cc7f4);
-		background:         linear-gradient(top, #71d3f3, #3cc7f4);
-		/*border: 1px solid #2d8ca2;
-		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
-		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
-		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
-		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;*/
+
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
+		position: relative;
+		top: -3px;
 		color: #fff !important;
 	}
 	
