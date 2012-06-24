@@ -318,12 +318,19 @@
 	}
 	
 	.button.vote:hover, input.submit-issue:hover, input.save:hover {
-
+		background: none #4298ef;
+		background: -webkit-gradient(linear, left top, left bottom, from(#7cbbf1), to(#4298ef));
+		background: -webkit-linear-gradient(top, #7cbbf1, #4298ef);
+		background:    -moz-linear-gradient(top, #7cbbf1, #4298ef);
+		background:     -ms-linear-gradient(top, #7cbbf1, #4298ef);
+		background:      -o-linear-gradient(top, #7cbbf1, #4298ef);
+		background:         linear-gradient(top, #7cbbf1, #4298ef);
 		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
 		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
 		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
 		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
 		box-shadow: inset 0px 0px 2px 0px #fff, 0 4px #849eb7;
+		
 		position: relative;
 		top: -3px;
 		color: #fff !important;
