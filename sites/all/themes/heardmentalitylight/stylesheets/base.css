@@ -318,20 +318,20 @@
 	}
 	
 	.button.vote:hover, input.submit-issue:hover, input.save:hover {
-		background-color: #3aa8c1;
-		background: -webkit-gradient(linear, left top, left bottom, from(#44bfdb), to(#3aa8c1));
-		background: -webkit-linear-gradient(top, #44bfdb, #3aa8c1);
-		background:    -moz-linear-gradient(top, #44bfdb, #3aa8c1);
-		background:     -ms-linear-gradient(top, #44bfdb, #3aa8c1);
-		background:      -o-linear-gradient(top, #44bfdb, #3aa8c1);
-		background:         linear-gradient(top, #44bfdb, #3aa8c1);
-		border: 1px solid #2d8ca2;
+		background-color: #7cbbf1;
+		background: -webkit-gradient(linear, left top, left bottom, from(#4298ef), to(#7cbbf1));
+		background: -webkit-linear-gradient(top, #4298ef, #7cbbf1);
+		background:    -moz-linear-gradient(top, #4298ef, #7cbbf1);
+		background:     -ms-linear-gradient(top, #4298ef, #7cbbf1);
+		background:      -o-linear-gradient(top, #4298ef, #7cbbf1);
+		background:         linear-gradient(top, #4298ef, #7cbbf1);
+		/*border: 1px solid #2d8ca2;
 		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
 		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
 		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
 		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
-		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
-		color: #2d8ea5 !important;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;*/
+		color: #fff !important;
 	}
 	
 	/*.button.vote:active, input.submit-issue:active, input.save:active {
