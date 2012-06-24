@@ -318,13 +318,13 @@
 	}
 	
 	.button.vote:hover, input.submit-issue:hover, input.save:hover {
-		background-color: #7cbbf1;
-		background: -webkit-gradient(linear, left top, left bottom, from(#4298ef), to(#7cbbf1));
-		background: -webkit-linear-gradient(top, #4298ef, #7cbbf1);
-		background:    -moz-linear-gradient(top, #4298ef, #7cbbf1);
-		background:     -ms-linear-gradient(top, #4298ef, #7cbbf1);
-		background:      -o-linear-gradient(top, #4298ef, #7cbbf1);
-		background:         linear-gradient(top, #4298ef, #7cbbf1);
+		background-color: #3cc7f4;
+		background: -webkit-gradient(linear, left top, left bottom, from(#71d3f3), to(#3cc7f4));
+		background: -webkit-linear-gradient(top, #71d3f3, #3cc7f4);
+		background:    -moz-linear-gradient(top, #71d3f3, #3cc7f4);
+		background:     -ms-linear-gradient(top, #71d3f3, #3cc7f4);
+		background:      -o-linear-gradient(top, #71d3f3, #3cc7f4);
+		background:         linear-gradient(top, #71d3f3, #3cc7f4);
 		/*border: 1px solid #2d8ca2;
 		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
 		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
