@@ -321,7 +321,7 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 //krumo($results);exit;
 
   $build_results = solr_issues_search_output($results);
-  $build_results.=theme('pager', NULL, 10, 0);
+  $build_results.= theme('pager', NULL, 10, 0);
   // $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
 
   print drupal_json(array(
@@ -332,7 +332,25 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 }
 
 function solr_issues_apachesolr_query_alter($query) {
-  // $query->addParam('fl', 'sm_field_issue_country');
+  $query->addParam('fl', 'sm_field_issue_country');
+  $query->addParam('fl', 'tid');
+  // $query->addFilter('tid', 67);
+  // $query->addFilter('tid', 78);
+  /* $query1 = apachesolr_drupal_query();
+    $query1->addfilter("tid", 30);
+    $query2 = apachesolr_drupal_query();
+    $query2->addfilter("tid", 31);
+    $query1->addFilterSubQuery($query2, 'OR');
+    $query->addFilterSubQuery($query1, 'AND');
+   */
+/*
+  $query2 = apachesolr_drupal_query();
+  $query2->addfilter('tid', '8');
+  $query2->addfilter('tid', '78');
+  $query->addFilterSubQuery($query2, 'OR', 'AND');
+*/
+
+
   if (count($_POST['tid'])) {
     foreach ($_POST['tid'] as $key => $value) {
       $query->addFilter('tid', $value);
@@ -343,7 +361,8 @@ function solr_issues_apachesolr_query_alter($query) {
     print_r($query);
 
     print '</pre>';
-    exit; */
+    exit;
+   * */
 }
 
 function solr_issues_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
@@ -364,8 +383,8 @@ function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $documen
 }
 
 function solr_issues_search_output($results) {
-  /* krumo($results);
-    exit; */
+ /* krumo($results);
+  exit;*/
   foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
     if ($node->nid == $node->tnid || $node->tnid == 0) {
