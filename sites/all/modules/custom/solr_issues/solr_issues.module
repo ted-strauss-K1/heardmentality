@@ -122,7 +122,7 @@ function solr_issues_block_form($form_state) {
   else {
     $return_info = t('Issues about ');
     foreach ($form_state['storage']['block']['subject'] as $key => $value) {
-      $return_info .= '<span>' . $options[$value] . '</span> ';
+      $return_info .= '<span>' . $options[$value] . '</span> <span class="del-item">x</span> ';
     }
     $usage_default_value = $form_state['storage']['block']['subject'];
     foreach ($usage_default_value as $catid) {
@@ -133,7 +133,7 @@ function solr_issues_block_form($form_state) {
     }
     if (isset($form_state['storage']['block']['defarea'])) {
       foreach ($form_state['storage']['block']['defarea'] as $key => $value) {
-        $return_info .= '<span>' . $area_opts[$value] . '</span> ';
+        $return_info .= '<span>' . $area_opts[$value] . '</span> <span class="del-item">x</span> ';
       }
       foreach ($form_state['storage']['block']['defarea'] as $areatid) {
         $ids = taxonomy_get_children($areatid);
@@ -143,7 +143,7 @@ function solr_issues_block_form($form_state) {
       }
       if (isset($form_state['storage']['block']['defdetail'])) {
         foreach ($form_state['storage']['block']['defdetail'] as $key => $value) {
-          $return_info .= '<span>' . $detail_opts[$value] . '</span> ';
+          $return_info .= '<span>' . $detail_opts[$value] . '</span> <span class="del-item">x</span>';
         }
       }
     }
@@ -258,7 +258,6 @@ function solr_issues_block_form($form_state) {
         'path' => ahah_helper_path(array('block')),
         'wrapper' => 'block-wrapper',
       ),
-            //  '#default_value' => $getState
     );
   }
   if (count($cities)) {
@@ -274,8 +273,6 @@ function solr_issues_block_form($form_state) {
       '#default_value' => $getCity
     );
   }
-
-
 
   $form['my_region'] = array(
     '#type' => 'checkbox',
@@ -324,7 +321,8 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 //krumo($results);exit;
 
   $build_results = solr_issues_search_output($results);
-  //$build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
+  $build_results.=theme('pager', NULL, 10, 0);
+  // $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
 
   print drupal_json(array(
             'data' => $build_results));
@@ -334,16 +332,13 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 }
 
 function solr_issues_apachesolr_query_alter($query) {
+  // $query->addParam('fl', 'sm_field_issue_country');
   if (count($_POST['tid'])) {
     foreach ($_POST['tid'] as $key => $value) {
       $query->addFilter('tid', $value);
     }
   }
-
-  /* $a = $query->getSolrParams();
-    $b = $query->getParams();
-    krumo($a);
-    krumo($b);
+  /*
     print '<pre>';
     print_r($query);
 
@@ -360,17 +355,48 @@ function solr_issues_apachesolr_field_name_map_alter(&$map) {
 }
 
 function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
-  
+  /*
+    if (!empty($entity->field_issue_country)) {
+    foreach ($entity->field_issue_country as $key => $country) {
+    $document->field_issue_country[$key] = (string) $country['value'];
+    }
+    } */
 }
 
 function solr_issues_search_output($results) {
-  // krumo($results);exit;
+  /* krumo($results);
+    exit; */
   foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
-    //   krumo($node);exit;
     if ($node->nid == $node->tnid || $node->tnid == 0) {
       $output .= node_view($node);
     }
   }
   return $output;
+}
+
+function solr_issues_search_apachesolr_field_callback($node, $field_name, $index_key, $field_info) {
+  /* $fields = array();
+    if (isset($node->field_issue_country)) {
+    foreach ($node->field_issue_country as $field) {
+    $fields[] = array(
+    'key' => 'issue_country',
+    'value' => $field['value'],
+    );
+    }
+    }
+    return $fields; */
+}
+
+function solr_issues_apachesolr_field_mappings() {
+  /* $mappings = array(
+    // Example for a field API type. See extensive documentation below
+    'cck_fields' => array(
+    //     'display_callback' => 'solr_issues_search_apachesolr_field_callback',
+    'indexing_callback' => 'solr_issues_search_apachesolr_field_callback',
+    'index_type' => 'string',
+    ),
+    );
+    return $mappings;
+   */
 }

@@ -1,11 +1,35 @@
 $(document).ready(function(){
   $('#search-solr-block').click(function(){
+  
+    get_issues_solr();
+    return false;
+  });
+  /*
+  $('.solr-block-form').live('change', function(){
+    alert('hello');
+  });
+  $('.solr-block-form').change(function(){
+    alert('hello1');
+  });
+*/
+
+
+  $('.pager-item a.active').live('click', function(){
+    var page= $(this).html()- 1;
+    //   console.log(page);
+    get_issues_solr(page);
+ 
+    return false;
+  });
+  
+  
+  function get_issues_solr(page) {
     var text = $('#edit-search-text').val();
+    var parameters = [];
     var tid = [];
-    var categ = $('#edit-category-subject').val();
-    var defarea = $('#edit-category-defarea').val();
-    var defdetail = $('#edit-category-defdetail').val();
-    // tid = $('#edit-category-subject').val() + $('#edit-category-defarea').val() + $('#edit-category-defdetail').val();
+    var categ = $('#edit-block-subject').val();
+    var defarea = $('#edit-block-defarea').val();
+    var defdetail = $('#edit-block-defdetail').val();
     if (categ != null) {
       categ.map(function(index, element) {
         tid.push(index);
@@ -21,11 +45,19 @@ $(document).ready(function(){
         }
       }
     }
-
-    $.post(Drupal.settings.base_url + '/issues_solr2/ajax/' + text,
+    parameters['tid']= tid;
+    if (page) {
+      var pageQ = '?page='+page;
+    }
+    else{
+      pageQ = '';
+    }
+    $.post(Drupal.settings.base_url + '/issues_solr2/ajax/' + text + pageQ,
     {
       js: 1,
-      tid: tid
+      page: page,
+      tid: parameters['tid']
+      
     }, 
     function(data){
       //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
@@ -33,14 +65,6 @@ $(document).ready(function(){
     },
     'json'
     );
-    return false;
-  });
-/*
-  $('.solr-block-form').live('change', function(){
-    alert('hello');
-  });
-  $('.solr-block-form').change(function(){
-    alert('hello1');
-  });
-*/
+  }
+
 });
