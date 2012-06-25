@@ -3748,7 +3748,7 @@ ul.control_links h6#reply:hover {
 }
 
 #debate_list_area .no_debate {
-	padding: 0 30px;
+	padding: 40px 30px;
 	font-style: italic;
 	color: #4c4c4c;
 }
