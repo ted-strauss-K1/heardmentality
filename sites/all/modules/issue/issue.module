@@ -3416,7 +3416,7 @@ function popular_categories() {
 
 function __issue_description_trimmer($context) {
 
-  $initial_character_count = 2000;
+  $initial_character_count = 1000;
   $context_initial = "";
   $context_remaining = "";
   $output = array();
