@@ -3751,6 +3751,8 @@ ul.control_links h6#reply:hover {
 	padding: 40px 30px;
 	font-style: italic;
 	color: #4c4c4c;
+	border: 0 none;
+	background-color: transparent;
 }
 
 .arg-reply-form .form-item {
