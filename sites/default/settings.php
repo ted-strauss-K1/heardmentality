@@ -91,7 +91,8 @@
  */
 //for local
 error_reporting(E_ALL);
-ini_set('display_errors','On');
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 //$db_url = 'mysql://root:@localhost/hm';
 //for 10 server 
 //$db_url = 'mysql://heardmentality:H3@rdM3nt@l!ty@localhost/heardmentality';
