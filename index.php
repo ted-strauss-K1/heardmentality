@@ -10,7 +10,7 @@
  * All Drupal code is released under the GNU General Public License.
  * See COPYRIGHT.txt and LICENSE.txt.
  */
-
+print('Hello');exit;
 require_once './includes/bootstrap.inc';
 drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
 error_reporting(E_ALL);
