@@ -1,12 +1,9 @@
 <?php
 
-function solr_issues_init() {
-  //print node_view(node_load(2242)); exit;
-}
-
 function solr_issues_menu() {
   $items['issues2'] = array(
     'page callback' => 'drupal_get_form',
+    'title' => t('Issues'),
     'page arguments' => array('solr_issues_search_form'),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
@@ -37,6 +34,19 @@ function solr_issues_menu() {
 }
 
 function solr_issues_search_form($form_state) {
+  $form['date_filters'] = array(
+    '#type' => 'item',
+    '#value' => '<a class="date-solr-filter" href="issues">This Week</a> |
+      <a class="date-solr-filter" href="issues">Month</a> |
+      <a class="date-solr-filter" href="issues">All time</a>',
+  );
+  $form['sorting'] = array(
+    '#type' => 'item',
+    '#value' => '<a class="solr-sort" href="issues">views</a> |
+      <a href="issues" class="solr-sort">latest</a> |
+      <a href="issues" class="solr-sort">votes</a>',
+  );
+
   $form['linkbox'] = array(
     '#type' => 'item',
     '#value' => '<div id ="linkbox"></div>',
@@ -54,13 +64,13 @@ function solr_issues_seach_form_submit($form, &$form_state) {
     $get = json_decode($form_state['values']['get'], TRUE);
   }
   if (!empty($form_state['values']['retain-filters'])) {
-    // Add our saved value
+// Add our saved value
     $get['retain-filters'] = '1';
-    // Add the query values into the redirect.
+// Add the query values into the redirect.
     $form_state['redirect'] = array($redirect, array('query' => $get));
   }
   else {
-    // Redirects to path set in configuration.
+// Redirects to path set in configuration.
     $form_state['redirect'] = $redirect;
   }
 }
@@ -108,7 +118,7 @@ function solr_issues_block_form($form_state) {
   }
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
-  // $options[''] = t('SUBJECT');
+// $options[''] = t('SUBJECT');
   while ($list = db_fetch_object($client_select)) {
     $cnt = taxonomy_term_count_nodes($list->cat_id);
     if ($cnt != 0) {
@@ -117,7 +127,7 @@ function solr_issues_block_form($form_state) {
   }
 
   if (!isset($form_state['storage']['block']['subject'])) {
-    //  $usage_default_value = t('SUBJECT');
+//  $usage_default_value = t('SUBJECT');
   }
   else {
     $return_info = t('Issues about ');
@@ -161,6 +171,7 @@ function solr_issues_block_form($form_state) {
   $form['block']['results'] = array(
     '#value' => '<span>0</span>' . ' issues',
     '#type' => 'item',
+    '#id' => 'count_results'
   );
   $form['block']['information'] = array(
     '#value' => $return_info,
@@ -293,14 +304,14 @@ function solr_issues_block_form($form_state) {
     '#id' => 'search-solr-block',
           //  '#attributes' => array('class' => 'search-button')
   );
-  // unset($form['#submit']);
+// unset($form['#submit']);
   $form['#submit'][] = 'solr_issues_block_form_submit';
   unset($form_state['storage']['block']);
   return $form;
 }
 
 function solr_issues_block_form_submit($form, &$form_state) {
-  // krumo($form_state);
+// krumo($form_state);
 }
 
 function solr_issues_ajax_response() {
@@ -312,20 +323,20 @@ function solr_issues_ajax_response() {
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   $search_page = apachesolr_search_page_load($page_id);
-  // krumo($search_page);
+// krumo($search_page);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
-  // Retrieve the conditions that apply to this page
+// Retrieve the conditions that apply to this page
   $conditions = apachesolr_search_conditions_default($search_page);
-  // Retrieve the results of the search
+// Retrieve the results of the search
   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
-//krumo($results);exit;
 
   $build_results = solr_issues_search_output($results);
   $build_results.= theme('pager', NULL, 10, 0);
-  // $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
+  $count = count($results);
+// $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
 
   print drupal_json(array(
-            'data' => $build_results));
+            'data' => $build_results, 'count' => $count));
   /* foreach ($build_results as $build_result) {
     $build_output .= $build_result;
     } */
@@ -334,27 +345,12 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 function solr_issues_apachesolr_query_alter($query) {
   $query->addParam('fl', 'sm_field_issue_country');
   $query->addParam('fl', 'tid');
-  // $query->addFilter('tid', 67);
-  // $query->addFilter('tid', 78);
-  /* $query1 = apachesolr_drupal_query();
-    $query1->addfilter("tid", 30);
-    $query2 = apachesolr_drupal_query();
-    $query2->addfilter("tid", 31);
-    $query1->addFilterSubQuery($query2, 'OR');
-    $query->addFilterSubQuery($query1, 'AND');
-   */
-/*
-  $query2 = apachesolr_drupal_query();
-  $query2->addfilter('tid', '8');
-  $query2->addfilter('tid', '78');
-  $query->addFilterSubQuery($query2, 'OR', 'AND');
-*/
-
-
   if (count($_POST['tid'])) {
+    $query2 = apachesolr_drupal_query();
     foreach ($_POST['tid'] as $key => $value) {
-      $query->addFilter('tid', $value);
+      $query2->addFilter('tid', $value);
     }
+    $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
   /*
     print '<pre>';
@@ -362,60 +358,33 @@ function solr_issues_apachesolr_query_alter($query) {
 
     print '</pre>';
     exit;
-   * */
-}
-
-function solr_issues_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
-  
-}
-
-function solr_issues_apachesolr_field_name_map_alter(&$map) {
-  
-}
-
-function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
-  /*
-    if (!empty($entity->field_issue_country)) {
-    foreach ($entity->field_issue_country as $key => $country) {
-    $document->field_issue_country[$key] = (string) $country['value'];
-    }
-    } */
+   */
 }
 
 function solr_issues_search_output($results) {
- /* krumo($results);
-  exit;*/
+  /* krumo($results);
+    exit; */
   foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
     if ($node->nid == $node->tnid || $node->tnid == 0) {
-      $output .= node_view($node);
+      if ($_POST['voted'] && $node->allowvotes == TRUE) {
+        $output .= node_view($node);
+      }
+      else if ($_POST['voted'] == FALSE) {
+        $output .= node_view($node);
+      }
     }
   }
   return $output;
 }
 
-function solr_issues_search_apachesolr_field_callback($node, $field_name, $index_key, $field_info) {
-  /* $fields = array();
-    if (isset($node->field_issue_country)) {
-    foreach ($node->field_issue_country as $field) {
-    $fields[] = array(
-    'key' => 'issue_country',
-    'value' => $field['value'],
-    );
-    }
-    }
-    return $fields; */
-}
+function solr_issues_apachesolr_query_prepare($query) {
 
-function solr_issues_apachesolr_field_mappings() {
-  /* $mappings = array(
-    // Example for a field API type. See extensive documentation below
-    'cck_fields' => array(
-    //     'display_callback' => 'solr_issues_search_apachesolr_field_callback',
-    'indexing_callback' => 'solr_issues_search_apachesolr_field_callback',
-    'index_type' => 'string',
-    ),
-    );
-    return $mappings;
-   */
+  switch ($_POST['sort']) {
+    case 'latest':
+      $query->setSolrsort('ds_created', 'desc');
+      break;
+    default:
+      break;
+  }
 }
