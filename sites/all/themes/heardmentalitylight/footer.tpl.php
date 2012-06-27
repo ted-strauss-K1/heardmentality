@@ -133,7 +133,7 @@ else {
 
 
 <div id="permalink_text" style="display:none;">
-  <span>share a link to this post</span><br />
+  <span>share a link to this post</span>
   <input type="text" style="display: block; width: 320px;" value="">
   <!--<a href="" style="float: right;" class="close-permalink">close</a>-->
 </div>

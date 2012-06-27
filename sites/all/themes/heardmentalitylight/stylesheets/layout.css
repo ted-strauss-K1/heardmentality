@@ -2509,6 +2509,15 @@ body.admin-menu {
 	text-decoration: none;
 }
 
+#permalink_text {
+	font-family: Arial, sans-serif;
+}
+
+#permalink_text span {
+	display: inline-block;
+	padding-bottom: 15px;
+}
+
 /*Vote/Debate page*/
 
 .white-box.poll-box {
