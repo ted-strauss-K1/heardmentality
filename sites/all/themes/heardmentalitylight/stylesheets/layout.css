@@ -2442,7 +2442,11 @@ body.admin-menu {
 }
 
 .ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin_page {
-	padding-top: 10px;
+	padding-top: 10px !important;
+}
+
+.ui-dialog .ui-tabs-panel .gigya-login img {
+	margin-top: 10px !important;
 }
 
 .ui-dialog .ui-tabs-panel #user-login,
