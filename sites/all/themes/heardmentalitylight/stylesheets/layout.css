@@ -2416,11 +2416,11 @@ body.admin-menu {
 
 .ui-dialog.ui-widget-content .ui-tabs-nav .ui-tabs-selected {
 	background-color: #fff;
-	-webkit-border-radius: 4px 4px 0 0;
-	-moz-border-radius: 4px 4px 0 0;
-	border-radius: 4px 4px 0 0;
-	-khtml-border-radius: 4px 4px 0 0;
-	-o-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 3px 3px 0 0;
+	-moz-border-radius: 3px 3px 0 0;
+	border-radius: 3px 3px 0 0;
+	-khtml-border-radius: 3px 3px 0 0;
+	-o-border-radius: 3px 3px 0 0;
 	border: solid #c0c0c0;
 	border-width: 1px 1px 0;
 }
@@ -2438,7 +2438,11 @@ body.admin-menu {
 .ui-dialog .ui-tabs-panel #componentDiv ,
 .ui-dialog .ui-tabs-panel .gigya-login {
 	clear: both;
-	padding: 0;
+	padding: 16px 0 0;
+}
+
+.ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin_page {
+	padding-top: 10px;
 }
 
 .ui-dialog .ui-tabs-panel #user-login,
@@ -2460,7 +2464,7 @@ body.admin-menu {
 
 .ui-dialog .ui-tabs-panel #user-login input.form-text,
 .ui-dialog .ui-tabs-panel #user-register input.form-text {
-	width: 15em;
+	width: 96%;
 	padding: 8px 5px;
 }
 
