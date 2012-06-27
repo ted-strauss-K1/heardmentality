@@ -2380,7 +2380,7 @@ body.admin-menu {
 }
 
 .ui-dialog.ui-widget-content .ui-dialog-content {
-	padding: 0.5em;
+	padding: 0.5em 0;
 	height: auto !important;
 }
 
@@ -2397,6 +2397,7 @@ body.admin-menu {
 	border: solid #c0c0c0;
 	border-width: 0 0 1px;
 	background: none transparent;
+	padding: 0.2em 0.5em 0 1em;
 }
 
 .ui-dialog.ui-widget-content .ui-dialog-titlebar-close:hover {
@@ -2426,7 +2427,7 @@ body.admin-menu {
 
 #dialog .ui-tabs-panel {
 	width: auto;
-	padding: 0.5em; 
+	padding: 0.5em 1em; 
 }
 
 .ui-dialog .ui-tabs-panel #componentDiv,
