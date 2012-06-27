@@ -451,7 +451,7 @@ $(function(){
   // Dialog			
   $('#dialog').dialog({
     autoOpen: false,
-    modal: false,
+    modal: true,
     minWidth: 320,
     resizable:true
   });
@@ -474,7 +474,7 @@ $(function(){
   // Dialog			
   $('#dialog-flag').dialog({
     autoOpen: false,
-    modal: false,
+    modal: true,
     minWidth: 320,
     resizable:false
   });
@@ -487,7 +487,7 @@ $(function(){
 
   $('#permalink_text').dialog({
     autoOpen: false,
-    modal: false,
+    modal: true,
     minWidth: 360,
     resizable:false
   });
@@ -495,7 +495,7 @@ $(function(){
   // Dialog			
   $('#dialog-profile-pic').dialog({
     autoOpen: false,
-    modal: false,
+    modal: true,
     minWidth: 320,
     resizable:false
   });
