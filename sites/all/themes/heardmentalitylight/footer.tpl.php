@@ -132,8 +132,8 @@ else {
 <script src="//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=auto"></script>
 
 
-<div id="permalink_text" style="display:none">
-  share a link to this post
+<div id="permalink_text" style="display:none;">
+  <span>share a link to this post</span><br />
   <input type="text" style="display: block; width: 320px;" value="">
-  <a href="" style="float: right;" class="close-permalink">close</a>
+  <!--<a href="" style="float: right;" class="close-permalink">close</a>-->
 </div>
