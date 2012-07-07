@@ -75,7 +75,7 @@ function solr_issues_form_alter(&$form, $form_state, $form_id) {
  /* $node = node_load(852);
   $node->field_issue_country[0]['value'] = 'Canada';
   node_save($node);*/$result = geonames_query('countryinfo');
-  krumo($result);exit;
+ // krumo($result);exit;
 }
 
 function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
