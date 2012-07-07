@@ -1,40 +1,49 @@
 $(document).ready(function(){
-  $('#search-solr-block').click(function(){
-  
+  get_issues_solr(null, null, true);
+  $('#search-solr-block').click(function(){  
     get_issues_solr();
     return false;
   });
-  /*
-  $('.solr-block-form').live('change', function(){
-    alert('hello');
-  });
-  $('.solr-block-form').change(function(){
-    alert('hello1');
-  });
-   */
+
   $('.solr-sort').live('click', function(){
     var sort = $(this).html();
     get_issues_solr(false, sort);
     return false;
   });
-
+  $('#my_region').change(function(){
+    if ($(this).prop('checked')) {
+      $('#edit-block-country,#edit-block-defstate,#edit-block-defcity').attr('disabled',true);
+    }
+    else {
+      $('#edit-block-country,#edit-block-defstate,#edit-block-defcity').attr('disabled',false);
+    }
+  });
   $('.pager-item a.active').live('click', function(){
     var page= $(this).html()- 1;
-    //   console.log(page);
     get_issues_solr(page);
  
     return false;
   });
   
   
-  function get_issues_solr(page, sort) {
-    var text = $('#edit-search-text').val();
+  function get_issues_solr(page, sort, all) {
+    var text;
+    if (all == null) {
+      text = $('#edit-search-text').val();
+    }
+    else {
+      text = '*';
+    }
     var parameters = [];
     var allow_vote = $('#edit-voted-status').prop('checked');
     var tid = [];
     var categ = $('#edit-block-subject').val();
     var defarea = $('#edit-block-defarea').val();
     var defdetail = $('#edit-block-defdetail').val();
+    var country = $('#edit-block-country').val();
+    var state = $('#edit-block-defstate').val();
+    var city = $('#edit-block-defcity').val();
+    
     if (categ != null) {
       categ.map(function(index, element) {
         tid.push(index);
@@ -64,7 +73,10 @@ $(document).ready(function(){
       page: page,
       tid: parameters['tid'],
       voted: allow_vote,
-      sort: sort
+      sort: sort,
+      country: country,
+      city:city,
+      state:state
       
     }, 
     function(data){

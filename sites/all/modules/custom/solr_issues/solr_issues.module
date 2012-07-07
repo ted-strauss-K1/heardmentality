@@ -7,28 +7,24 @@ function solr_issues_menu() {
     'page arguments' => array('solr_issues_search_form'),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
-          // 'file' => 'issue.pages.inc',
   );
   $items['issues_solr/ajax/%'] = array(
     'page callback' => 'solr_issues_ajax_response',
     'page arguments' => array(2),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
-          // 'file' => 'issue.pages.inc',
   );
   $items['issues_solr2/ajax/%'] = array(
     'page callback' => 'solr_issues_ajax_response2',
     'page arguments' => array('issues', 2),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
-          // 'file' => 'issue.pages.inc',
   );
   $items['issues_solr2/ajax'] = array(
     'page callback' => 'solr_issues_ajax_response2',
     'page arguments' => array('issues'),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
-          // 'file' => 'issue.pages.inc',
   );
   return $items;
 }
@@ -104,6 +100,7 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 function solr_issues_block_form($form_state) {
   $form = array();
   ahah_helper_register($form, $form_state);
+  global $user, $base_url;
   $query = array('geonameid' => 'Canada');
   $result = geonames_query('children', $query);
   drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
@@ -161,7 +158,6 @@ function solr_issues_block_form($form_state) {
       $detail_opts = array();
     }
   }
-
   $form['block'] = array(
     '#type' => 'fieldset',
     '#prefix' => '<div id="block-wrapper">',
@@ -281,14 +277,26 @@ function solr_issues_block_form($form_state) {
         'path' => ahah_helper_path(array('block')),
         'wrapper' => 'block-wrapper',
       ),
-      '#default_value' => $getCity
+      '#default_value' => $form_state['storage']['block']['defcity'],
     );
   }
-
-  $form['my_region'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('my region'),
-  );
+  if ($user->uid) {
+    //  $result = profile_get_user_coordinates($user->uid);
+    $result = TRUE;
+    if ($result) {
+      $form['my_region'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('my region'),
+        '#id' => 'my_region',
+      );
+    }
+    else {
+      $form['my_region'] = array(
+        '#type' => 'item',
+        '#value' => l('Add location to your profile', $base_url . '/account/edit'),
+      );
+    }
+  }
   $form['voted_status'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show only not voted'),
@@ -337,18 +345,40 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 
   print drupal_json(array(
             'data' => $build_results, 'count' => $count));
-  /* foreach ($build_results as $build_result) {
-    $build_output .= $build_result;
-    } */
 }
 
 function solr_issues_apachesolr_query_alter($query) {
   $query->addParam('fl', 'sm_field_issue_country');
   $query->addParam('fl', 'tid');
+  $query->addParam('fl', 'sm_field_issue_city');
+  $query->addParam('fl', 'itm_field_issue_state');
+
+// $query->addFilter('sm_field_issue_city', '16497571923047');
   if (count($_POST['tid'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['tid'] as $key => $value) {
       $query2->addFilter('tid', $value);
+    }
+    $query->addFilterSubQuery($query2, 'OR', 'AND');
+  }
+  if (count($_POST['country'])) {
+    $query2 = apachesolr_drupal_query();
+    foreach ($_POST['country'] as $key => $value) {
+      $query2->addFilter('sm_field_issue_country', $value);
+    }
+    $query->addFilterSubQuery($query2, 'OR', 'AND');
+  }
+  if (count($_POST['state'])) {
+    $query2 = apachesolr_drupal_query();
+    foreach ($_POST['state'] as $key => $value) {
+      $query2->addFilter('itm_field_issue_state', $value);
+    }
+    $query->addFilterSubQuery($query2, 'OR', 'AND');
+  }
+  if (count($_POST['city'])) {
+    $query2 = apachesolr_drupal_query();
+    foreach ($_POST['city'] as $key => $value) {
+      $query2->addFilter('sm_field_issue_city', $value);
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
@@ -378,13 +408,27 @@ function solr_issues_search_output($results) {
   return $output;
 }
 
-function solr_issues_apachesolr_query_prepare($query) {
+function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
+  if (!empty($entity->views_count)) {
+    $document->views_count = (int) $entity->views_count;
+  }
+  if (!empty($entity->votecount)) {
+    $document->votecount = (int) $entity->votecount;
+  }
+  //exit;
+}
 
-  switch ($_POST['sort']) {
-    case 'latest':
-      $query->setSolrsort('ds_created', 'desc');
-      break;
-    default:
-      break;
+function profile_get_user_coordinates($uid) {
+  $result = db_query("SELECT latitude from {user_profile} up where up.uid ='%d'", $uid);
+  return db_result($result);
+}
+
+//nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($op == 'load' && $node->type == 'poll') {
+    $result = db_query("SELECT count(aid) FROM {accesslog} a WHERE a.path = 'node/%d'", $node->nid);
+    $node->views_count = db_result($result);
+    // $result = db_query("SELECT count(nid) FROM {poll_votes} p WHERE p.nid = '%d'", $node->nid);
+    //  $node->votes_count = db_result($result);
   }
 }
