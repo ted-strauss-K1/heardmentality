@@ -78,13 +78,7 @@ $directoryPath = $base_path . $directory;
 			</div>
 		</div>
         <div class="four columns">
-		
-		   <?php if($right_search):?><div class="filter_search">
-		  
-			<?php print $right_search; ?>
-		  
-		  </div><?php endif; ?>
-		
+	
 			<div class="toggler profile-message poll-box">
   	    	<div id="effect">
 			<?php 

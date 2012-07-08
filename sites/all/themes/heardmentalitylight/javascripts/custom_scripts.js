@@ -135,4 +135,8 @@ Drupal.behaviors.fix_circle = function(context) {
     $(this).parents('ul.argument_box').find('strong.motivat').css('display', 'block');
 	
   });
+  
+  // Registration tooltip
+  
+  $('#user-register span.password-confirm').wrapInner('<div class="inner_confirm" />');
 };

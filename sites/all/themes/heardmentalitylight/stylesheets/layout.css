@@ -610,7 +610,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
      	text-decoration:none;
 	 }
 	 a.username:hover, a.lang:hover {
-	   color:#EF00D3;
+	   color:#EF3D3B;
 	 }
 	.results, label.profile, label.queue{ 
 		color:#fefefe;
@@ -2441,7 +2441,8 @@ body.admin-menu {
 	padding: 16px 0 0;
 }
 
-.ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin_page {
+.ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin_page,
+.ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin-1_page {
 	padding-top: 10px !important;
 }
 
@@ -2508,6 +2509,7 @@ body.admin-menu {
 	margin: 0;
 	position: relative;
 	top: 1px;
+	margin-right: 3px;
 }
 
 .ui-dialog .ui-tabs-panel #user-register #edit-terms-wrapper label  a {
@@ -2518,6 +2520,88 @@ body.admin-menu {
 	text-decoration: none;
 }
 
+#user-register .description {
+	font: 11px/15px Arial, sans-serif;
+}
+
+#user-register .confirm-parent {
+	margin: 0 !important;
+}
+
+#user-register #edit-mail-wrapper input#edit-mail,
+#user-register input.password-confirm {
+	margin-bottom: 5px;
+}
+
+#user-register .password-description{
+	display: none;
+}
+
+#user-register .password-description {
+	border: 0;
+	background-color: transparent;
+	font: 11px/15px Arial, sans-serif;
+	margin: 0 0 5px;
+    padding: 0;
+}
+
+#user-register .password-description.error {
+	color: #EE5555;
+}
+
+#user-register #edit-news-wrapper label,
+#user-register #edit-terms-wrapper label {
+	font-size: 12px;
+}
+
+#user-register #edit-news-wrapper {
+	margin-bottom: 0.5em;
+}
+
+#user-register .password-parent,
+#user-register .confirm-parent {
+	position: relative;
+}
+
+#user-register .password-strength,
+#user-register span.password-confirm {
+	position: absolute;
+	left: 0;
+	top: 107%;
+	background-color: #000; 
+	color: #FFF;
+	padding: 10px; 
+	text-align: left;
+	font-size: 11px;
+	line-height: 1.2em;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	width: 24em;
+	z-index: 1000;
+	white-space: nowrap;
+}
+
+#user-register .password-strength .password-title,
+#user-register span.password-confirm div.inner_confirm  {
+	background: url(../images/black_arr.png) no-repeat 0 0;
+}
+
+#user-register .password-strength span,
+#user-register span.password-confirm div.inner_confirm {
+	position: relative;
+	top: -15px;
+	padding-top: 15px;
+	margin-bottom: -15px;
+	float: left;
+	padding-right: 3px;
+}
+
+#user-register span.password-confirm div.inner_confirm  {
+	padding-right: 0;
+}
+ 
 #permalink_text {
 	font-family: Arial, sans-serif;
 }
@@ -2531,6 +2615,11 @@ body.admin-menu {
 
 .white-box.poll-box {
 	padding: 0 0 20px;
+	margin: 0;	
+}
+
+.white-box.issues_search {
+	padding: 20px;
 	margin: 0;
 }
 
@@ -2546,6 +2635,11 @@ body.admin-menu {
 	position: relative;
 	top: 30px;
     padding: 20px 20px 14px 14px;
+}
+
+.grey-box.issues_search {
+	top: 0px;
+	margin-top: 30px;	
 }
 
 .profile-message.poll-box {
@@ -4318,12 +4412,118 @@ span.small_pos.fixes,
 
 /*Solr search*/
 
-.filter_search {
-	padding-top: 20px;
+.filter_search.issues_search {
+	margin-top: 59px;
+	padding-top: 18px;
 }
 
 #uactivity .activity-stream {
 	display: block !important;
+}
+
+form#solr-issues-search-form {
+	margin: 0;
+	padding: 0 10px 15px;
+	border-bottom: 1px solid #C0C0C0;
+}
+
+form#solr-issues-search-form .form-item {
+	margin: 0;
+}
+
+ul.date_filter {
+	margin: 0;
+	float: left;
+}
+
+ul.options_filter {
+	margin: 0;
+	float: right;
+}
+
+ul.date_filter li, ul.options_filter li {
+	float: left;
+	margin: 0;
+	border-left: 1px solid #666;
+}
+
+ul.date_filter li:first-child, ul.options_filter li:first-child {
+	border: 0 none;
+}
+
+ul.date_filter li a, ul.options_filter li a {
+	color: #666666;
+    display: block;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 15px;
+    margin: 0;
+    padding: 0px 10px;
+    text-decoration: none;
+}
+
+ul.date_filter li a.first,
+ul.options_filter li a.first {
+	padding-left: 0;
+}
+
+ul.date_filter li a.last,
+ul.options_filter li a.last {
+	padding-right: 0;
+}
+
+ul.date_filter li a:hover, ul.options_filter li a:hover {
+	text-decoration: underline;
+}
+
+ul.date_filter li a.active, ul.options_filter li a.active,
+ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
+	color: #924C9D;
+	text-decoration: none;
+}
+
+#solr-issues-block-form .form-item {
+	margin: 0 0 1em;
+}
+
+#count_results-wrapper {
+	font-family: 'DINLightRegular',Arial,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+	color: #372418;
+	font-size: 19px;
+	line-height: 22px;
+	margin: 0 0 0.8em !important;
+}
+
+#count_results-wrapper span {
+	font-size: 28px;
+	line-height: 30x;
+	font-family: 'DINBoldRegular',Arial,sans-serif;
+	font-style: normal;
+    font-weight: normal;
+}
+
+#solr-issues-block-form select {
+	float: none;
+	margin: 0;
+	width: 100%;
+}
+
+#solr-issues-block-form fieldset {
+	margin: 0;
+}
+
+#my_region-wrapper {
+	margin: 0 0 0.3em !important;
+}
+
+#my_region-wrapper input.form-checkbox,
+#edit-voted-status-wrapper input.form-checkbox {
+	position: relative;
+	top: 2px;
+	margin: 0 5px 0 0;
 }
 
 /*Clear*/
@@ -4345,7 +4545,8 @@ span.small_pos.fixes,
 #debate_list_area > h2:first-child:after,
 .vote-results ul:after,
 .vote-results div.space:after,
-.vote-results .legend dl:after {
+.vote-results .legend dl:after,
+#solr-issues-search-form:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;

@@ -32,20 +32,16 @@ function solr_issues_menu() {
 function solr_issues_search_form($form_state) {
   $form['date_filters'] = array(
     '#type' => 'item',
-    '#value' => '<a class="date-solr-filter" href="issues">This Week</a> |
-      <a class="date-solr-filter" href="issues">Month</a> |
-      <a class="date-solr-filter" href="issues">All time</a>',
+    '#value' => '<ul class="date_filter"><li><a class="date-solr-filter first" href="issues">This Week</a></li><li><a class="date-solr-filter" href="issues">Month</a></li><li><a class="date-solr-filter last active" href="issues">All time</a></li></ul>',
   );
   $form['sorting'] = array(
     '#type' => 'item',
-    '#value' => '<a class="solr-sort" href="issues">views</a> |
-      <a href="issues" class="solr-sort">latest</a> |
-      <a href="issues" class="solr-sort">votes</a>',
+    '#value' => '<ul class="options_filter"><li><a class="solr-sort first" href="issues">views</a></li><li><a href="issues" class="solr-sort">latest</a></li><li><a href="issues" class="solr-sort last">votes</a></li></ul>',
   );
 
   $form['linkbox'] = array(
     '#type' => 'item',
-    '#value' => '<div id ="linkbox"></div>',
+    '#value' => '<div id="linkbox"></div>',
   );
   return $form;
 }
@@ -294,7 +290,7 @@ function solr_issues_block_form($form_state) {
     if ($result) {
       $form['my_region'] = array(
         '#type' => 'checkbox',
-        '#title' => t('my region'),
+        '#title' => t('My region'),
         '#id' => 'my_region',
       );
     }

@@ -33,7 +33,9 @@
 .ie7 .vote-results div.space,
 .ie8 .vote-results div.space,
 .ie7 .vote-results .legend dl,
-.ie8 .vote-results .legend dl{
+.ie8 .vote-results .legend dl,
+.ie8 #solr-issues-search-form,
+.ie7 #solr-issues-search-form{
 	zoom: 1;
 }
 
