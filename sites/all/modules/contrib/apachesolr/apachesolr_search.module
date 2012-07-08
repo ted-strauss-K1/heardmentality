@@ -1068,7 +1068,8 @@ function apachesolr_search_run($name, array $params = array(), $solrsort = '', $
   list($final_query, $response) = apachesolr_do_query($query, $page);
   $solr_id = $query->solr('getId');
   apachesolr_has_searched($solr_id, TRUE);
-  return apachesolr_search_process_response($response, $final_query);
+  $process_response_callback = variable_get('apachesolr_search_process_response_callback', 'apachesolr_search_process_response');
+  return call_user_func($process_response_callback, $response, $final_query);
 }
 
 function apachesolr_search_basic_params(DrupalSolrQueryInterface $query = NULL) {
@@ -1251,8 +1252,18 @@ function apachesolr_search_process_response($response, DrupalSolrQueryInterface 
         }
       }
 
-      $hook = 'apachesolr_search_snippets';
-      $snippet = theme($hook, array('doc' => $doc, 'snippets' => $snippets));
+      $hooks = array();
+
+      $bundle = !empty($doc->bundle) ? $doc->bundle : NULL;
+      if ($bundle) {
+        // Add a bundle specific theming hook if it has been defined
+        // in hook_theme
+        $hooks[] = 'apachesolr_search_snippets__' . $bundle;
+      }
+      // Add a general theming hook for snippets
+      $hooks[] = 'apachesolr_search_snippets';
+
+      $snippet = theme($hooks, array('doc' => $doc, 'snippets' => $snippets));
 
       if (!isset($doc->content)) {
         $doc->content = $snippet;
@@ -1309,11 +1320,11 @@ function apachesolr_search_process_response($response, DrupalSolrQueryInterface 
         'snippet' => $snippet,
         'fields' => $fields,
         'entity_type' => $doc->entity_type,
-        'bundle' => $doc->bundle,
+        'bundle' => $bundle,
       );
 
       // Call entity-type-specific callbacks for extra handling.
-      $function = apachesolr_entity_get_callback($doc->entity_type, 'result callback');
+      $function = apachesolr_entity_get_callback($doc->entity_type, 'result callback', $bundle);
       if (is_callable($function)) {
         $function($doc, $result, $extra);
       }
@@ -1322,12 +1333,11 @@ function apachesolr_search_process_response($response, DrupalSolrQueryInterface 
 
       $results[] = $result;
     }
-
-    // Hook to allow modifications of the retrieved results
-    foreach (module_implements('apachesolr_process_results') as $module) {
-      $function = $module . '_apachesolr_process_results';
-      $function($results, $query);
-    }
+  }
+  // Hook to allow modifications of the retrieved results
+  foreach (module_implements('apachesolr_process_results') as $module) {
+    $function = $module . '_apachesolr_process_results';
+    $function($results, $query);
   }
   return $results;
 }

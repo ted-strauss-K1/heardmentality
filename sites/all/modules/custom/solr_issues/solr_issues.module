@@ -72,10 +72,10 @@ function solr_issues_seach_form_submit($form, &$form_state) {
 }
 
 function solr_issues_form_alter(&$form, $form_state, $form_id) {
- /* $node = node_load(852);
-  $node->field_issue_country[0]['value'] = 'Canada';
-  node_save($node);*/$result = geonames_query('countryinfo');
- // krumo($result);exit;
+  /* $node = node_load(852);
+    $node->field_issue_country[0]['value'] = 'Canada';
+    node_save($node); */$result = geonames_query('countryinfo');
+  // krumo($result);exit;
 }
 
 function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
@@ -111,14 +111,16 @@ function solr_issues_block_form($form_state) {
   global $language;
 
   $curLanguage = $language->language;
-  $cck_country = db_query("select cc.field_issue_country_value from content_field_issue_country cc, node n where cc.nid = n.nid and n.language = '$curLanguage' group by field_issue_country_value");
+  $cck_country = db_query("
+    SELECT gc.name, gc.geonameid FROM {geonames_countryinfo} gc ORDER BY gc.name ASC"
+  );
+
   while ($ccklist = db_fetch_object($cck_country)) {
-    if (!empty($ccklist->field_issue_country_value))
-      $countries[$ccklist->field_issue_country_value] = $ccklist->field_issue_country_value;
+    $countries[$ccklist->geonameid] = $ccklist->name;
   }
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
-// $options[''] = t('SUBJECT');
+
   while ($list = db_fetch_object($client_select)) {
     $cnt = taxonomy_term_count_nodes($list->cat_id);
     if ($cnt != 0) {
@@ -219,14 +221,17 @@ function solr_issues_block_form($form_state) {
   }
   if (isset($form_state['storage']['block']['country'])) {
     foreach ($form_state['storage']['block']['country'] as $country) {
-      $xyz = geonames_countryinfo($country);
+      $xyz = geonames_countryinfo_geonameid($country);
+  //    krumo($form_state['storage']['block']['country']);
+    //  krumo($xyz);
       $query = array('geonameid' => $xyz['geonameid']);
       $results = geonames_query('children', $query);
+    //  krumo($results);
       foreach ($results->results as $state) {
-        $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
-        if ($count > 0) {
+      //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
+      //  if ($count > 0) {
           $states[$state['geonameid']] = $state['name'];
-        }
+      //  }
       }
     }
   }
@@ -250,10 +255,10 @@ function solr_issues_block_form($form_state) {
       $query = array('geonameid' => $state);
       $results = geonames_query('children', $query);
       foreach ($results->results as $city) {
-        $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'] . $state));
-        if ($count > 0) {
+      //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'] . $state));
+      //  if ($count > 0) {
           $cities[$city['geonameid'] . $state] = $city['name'];
-        }
+      //  }
       }
     }
   }
@@ -396,7 +401,7 @@ function solr_issues_apachesolr_query_alter($query) {
 
 function solr_issues_search_output($results) {
   /* krumo($results);
-    exit;*/ 
+    exit; */
   foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
     if ($node->nid == $node->tnid || $node->tnid == 0) {
@@ -434,4 +439,10 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     // $result = db_query("SELECT count(nid) FROM {poll_votes} p WHERE p.nid = '%d'", $node->nid);
     //  $node->votes_count = db_result($result);
   }
+}
+
+function geonames_countryinfo_geonameid($param) {
+  $param = check_plain($param);
+  $result = db_fetch_array(db_query("SELECT * FROM {geonames_countryinfo} WHERE geonameid = '%s'", $param));
+  return $result;
 }

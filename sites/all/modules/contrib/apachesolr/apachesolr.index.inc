@@ -73,30 +73,33 @@ function apachesolr_index_status($env_id) {
   $bundles = apachesolr_get_index_bundles($env_id, $entity_type);
   $table = apachesolr_get_indexer_table($entity_type);
 
-  $query = "SELECT count(*)
-    FROM {{$table}} asn
-    WHERE (asn.status = 1) AND (asn.bundle IN (" . db_placeholders($bundles, 'varchar') . "))";
-  $total += db_result(db_query($query, $bundles));
+  if (!empty($bundles)) {
+    $query = "SELECT count(*)
+      FROM {{$table}} asn
+      WHERE (asn.status = 1) AND (asn.bundle IN (" . db_placeholders($bundles, 'varchar') . "))";
+    $total += db_result(db_query($query, $bundles));
 
-  // Get $last_entity_id and $last_change.
-  extract(apachesolr_get_last_index_position($env_id, $entity_type));
+    // Get $last_entity_id and $last_change.
+    extract(apachesolr_get_last_index_position($env_id, $entity_type));
 
-  // Find the next batch of entities to index for this entity type.  Note that
-  // for ordering we're grabbing the oldest first and then ordering by ID so
-  // that we get a definitive order.
-  $query = "SELECT count(*)
-   FROM {{$table}} aie
-   WHERE (aie.bundle IN (" . db_placeholders($bundles, 'varchar') . "))
-   AND (aie.entity_type = '%s')
-   AND ((aie.changed > %d) OR ((aie.changed <= %d) AND (aie.entity_id > %d)))";
-  $arguments = array_merge($bundles, array($entity_type, $last_changed, $last_changed, $last_entity_id));
-  if ($table == 'apachesolr_index_entities') {
-    // Other, entity-specific tables don't need this condition.
-    $query .= " AND aie.entity_type = '%s'";
-    $arguments[] = $entity_type;
+    // Find the next batch of entities to index for this entity type.  Note that
+    // for ordering we're grabbing the oldest first and then ordering by ID so
+    // that we get a definitive order.
+    $query = "SELECT count(*)
+     FROM {{$table}} aie
+     WHERE (aie.bundle IN (" . db_placeholders($bundles, 'varchar') . "))
+     AND (aie.entity_type = '%s')
+     AND ((aie.changed > %d) OR ((aie.changed <= %d) AND (aie.entity_id > %d)))";
+    $arguments = array_merge($bundles, array($entity_type, $last_changed, $last_changed, $last_entity_id));
+    if ($table == 'apachesolr_index_entities') {
+      // Other, entity-specific tables don't need this condition.
+      $query .= " AND aie.entity_type = '%s'";
+      $arguments[] = $entity_type;
+    }
+    $query .= " ORDER BY aie.entity_id ASC";
+    $remaining += db_result(db_query($query, $arguments));
+
   }
-  $query .= " ORDER BY aie.entity_id ASC";
-  $remaining += db_result(db_query($query, $arguments));
 
   return array('remaining' => $remaining, 'total' => $total);
 }
@@ -143,7 +146,7 @@ function apachesolr_index_entity_to_documents($item, $env_id) {
   $document = _apachesolr_index_process_entity_get_document($entity, $entity_type);
 
   //Get the callback array to add stuff to the document
-  $callbacks = apachesolr_entity_get_callback($entity_type, 'document callback');
+  $callbacks = apachesolr_entity_get_callback($entity_type, 'document callback', $bundle);
   $documents = array();
   foreach ($callbacks as $callback) {
     // Call a type-specific callback to add stuff to the document.
@@ -379,11 +382,13 @@ function apachesolr_index_get_entities_to_index($env_id, $entity_type, $limit) {
   $status_callbacks = apachesolr_entity_get_callback($entity_type, 'status callback');
   while ($record = db_fetch_object($result)) {
     // Check status and status callbacks before sending to the index
-    foreach($status_callbacks as $status_callback) {
-      if (is_callable($status_callback)) {
-        // by placing $status in front we prevent calling any other callback
-        // after one status callback returned false
-        $record->status = $record->status && $status_callback($record->entity_id, $record->entity_type);
+    if (is_array($status_callbacks)) {
+      foreach($status_callbacks as $status_callback) {
+        if (is_callable($status_callback)) {
+          // by placing $status in front we prevent calling any other callback
+          // after one status callback returned false
+          $record->status = $record->status && $status_callback($record->entity_id, $record->entity_type);
+        }
       }
     }
     $rows[] = $record;
@@ -393,14 +398,27 @@ function apachesolr_index_get_entities_to_index($env_id, $entity_type, $limit) {
 
 /**
  * Delete the whole index for an environment.
- * @param String $env_id
- * @param String $type
+ *
+ * @param string $env_id
+ *   The solr environment indentifier.
+ * @param string $entity_type
+ *   (optional) specify to remove just this entity_type from the index.
+ * @param string $bundle
+ *   (optional) also specify a bundle to remove just the bundle from
+ *   the index.
  */
-function apachesolr_index_delete_index($env_id) {
+function apachesolr_index_delete_index($env_id, $entity_type = NULL, $bundle = NULL) {
   // Instantiate a new Solr object.
   try {
     $solr = apachesolr_get_solr($env_id);
     $query = '*:*';
+
+    if (!empty($entity_type) && !empty($bundle)) {
+      $query = "(bundle:$bundle AND entity_type:$entity_type) OR sm_parent_entity_bundle:{$entity_type}-{$bundle}";
+    }
+    elseif (!empty($bundle)) {
+      $query = "(bundle:$bundle)";
+    }
 
     // Allow other modules to modify the delete query.
     // For example, use the site hash so that you only delete this site's
@@ -408,7 +426,17 @@ function apachesolr_index_delete_index($env_id) {
     drupal_alter('apachesolr_delete_by_query', $query);
     $solr->deleteByQuery($query);
     $solr->commit();
-    apachesolr_index_mark_for_reindex($env_id);
+
+    if (!empty($entity_type)) {
+      $rebuild_callback = apachesolr_entity_get_callback($entity_type, 'reindex callback');
+      if (is_callable($rebuild_callback)) {
+        $rebuild_callback($env_id, $bundle);
+      }
+    }
+    else {
+      apachesolr_index_mark_for_reindex($env_id);
+    }
+
     apachesolr_set_last_index_updated($env_id, APACHESOLR_REQUEST_TIME);
   }
   catch (Exception $e) {
@@ -433,6 +461,7 @@ function apachesolr_index_delete_bundles($env_id, $entity_type, array $excluded_
     $solr = apachesolr_get_solr($env_id);
     foreach ($excluded_bundles as $bundle) {
       $query = "(bundle:$bundle AND entity_type:$entity_type) OR sm_parent_entity_bundle:{$entity_type}-{$bundle}";
+
       // Allow other modules to modify the delete query.
       // For example, use the site hash so that you only delete this site's
       // content:  $query = 'hash:' . apachesolr_site_hash()
@@ -584,6 +613,8 @@ function apachesolr_index_node_solr_document(ApacheSolrDocument $document, $node
   $node->body = drupal_render($node->content);
 
   $document->content = apachesolr_clean_text($node->body);
+
+  // Adding the teaser
   if (isset($node->teaser)) {
     $document->teaser = apachesolr_clean_text($node->teaser);
   }
@@ -603,6 +634,7 @@ function apachesolr_index_node_solr_document(ApacheSolrDocument $document, $node
     }
   }
 
+  // Author information
   $document->ss_name = $node->name;
   // We want the name to be searchable for keywords.
   $document->tos_name = $node->name;
@@ -614,14 +646,14 @@ function apachesolr_index_node_solr_document(ApacheSolrDocument $document, $node
 
   $document->ss_name_formatted = $username;
   $document->tos_name_formatted = $username;
-
-  // Everything else uses dynamic fields
   $document->is_uid = $node->uid;
   $document->bs_status = $node->status;
   $document->bs_sticky = $node->sticky;
   $document->bs_promote = $node->promote;
   $document->is_tnid = $node->tnid;
   $document->bs_translate = $node->translate;
+
+  // Language specific checks
   if (empty($node->language)) {
     // 'und' is the language-neutral code in Drupal 7.
     $document->ss_language = 'und';
@@ -629,46 +661,27 @@ function apachesolr_index_node_solr_document(ApacheSolrDocument $document, $node
   else {
     $document->ss_language = $node->language;
   }
+  // Timestamp of the node
   $document->ds_created = apachesolr_date_iso($node->created);
   $document->ds_changed = apachesolr_date_iso($node->changed);
+
+  // Comment counts + time
   if (isset($node->last_comment_timestamp) && !empty($node->comment_count)) {
     $document->ds_last_comment_timestamp = apachesolr_date_iso($node->last_comment_timestamp);
     $document->ds_last_comment_or_change = apachesolr_date_iso(max($node->last_comment_timestamp, $node->changed));
+    $document->is_comment_count = $node->comment_count;
   }
   else {
     $document->ds_last_comment_or_change = apachesolr_date_iso($node->changed);
   }
-  $document->is_comment_count = isset($node->comment_count) ? $node->comment_count : 0;
 
   // Fetch extra data normally not visible, including comments.
   // We do this manually (with module_implements instead of node_invoke_nodeapi)
   // because we want a keyed array to come back. Only in this way can we decide
   // whether to index comments or not.
   $extra = array();
-  $exclude_comments = in_array($node->type, variable_get('apachesolr_exclude_comments_types', array()), TRUE);
-
-  if (!empty($extra)) {
-    // Use an omit-norms text field since this is generally going to be short; not
-    // really a full-text field.
-    $document->tos_content_extra = apachesolr_clean_text(implode(' ', $extra));
-  }
-
-  $document->type_name =  node_get_types('name', $node);
-  $document->created = apachesolr_date_iso($node->created);
-  $document->changed = apachesolr_date_iso($node->changed);
-  $last_change = (isset($node->last_comment_timestamp) && $node->last_comment_timestamp > $node->changed) ? $node->last_comment_timestamp : $node->changed;
-  $document->last_comment_or_change = apachesolr_date_iso($last_change);
-  $document->comment_count = isset($node->comment_count) ? $node->comment_count : 0;
-
-  // We need to get the real username here, since it needs a full user object.
-  // That means we can't do the format_username() call on the display side.
-  $document->name = $node->name;
-
-  // Fetch extra data normally not visible, including comments.
-  // We do this manually (with module_implements instead of node_invoke_nodeapi)
-  // because we want a keyed array to come back. Only in this way can we decide
-  // whether to index comments or not.
-  $extra = array();
+  $excludes = variable_get('apachesolr_exclude_nodeapi_types', array());
+  $exclude_nodeapi = isset($excludes[$node->type]) ? $excludes[$node->type] : array();
   foreach (module_implements('node_update_index') as $module) {
     // Invoke nodeapi if this module has not been excluded, for example,
     // exclude 'comment' for a type to skip indexing its comments.
@@ -677,18 +690,23 @@ function apachesolr_index_node_solr_document(ApacheSolrDocument $document, $node
       if ($output = $function($node)) {
         $extra[$module] = $output;
       }
+    }
   }
-  }
+  // Adding the text of the comments
   if (isset($extra['comment'])) {
     $comments = $extra['comment'];
+    // Remove comments from the extra fields
     unset($extra['comment']);
     $document->ts_comments = apachesolr_clean_text($comments);
     // @todo: do we want to reproduce apachesolr_add_tags_to_document() for comments?
   }
-  // Use an omit-norms text field since this is generally going to be short; not
-  // really a full-text field.
-  $document->tos_content_extra = apachesolr_clean_text(implode(' ', $extra));
 
+  // If there are other extra fields, add them to the document
+  if (!empty($extra)) {
+    // Use an omit-norms text field since this is generally going to be short; not
+    // really a full-text field.
+    $document->tos_content_extra = apachesolr_clean_text(implode(' ', $extra));
+  }
   //  Generic usecase for future reference. Callbacks can
   //  allow you to send back multiple documents
   $documents = array();
@@ -696,54 +714,56 @@ function apachesolr_index_node_solr_document(ApacheSolrDocument $document, $node
   return $documents;
 }
 
-
 function apachesolr_index_node_bundles_changed($env_id, $existing_bundles, $new_bundles) {
-  /*$removed_bundles = array_diff($existing_bundles, $new_bundles);
-  $added_bundles = array_diff($new_bundles, $existing_bundles);
-  $indexer_table = apachesolr_get_indexer_table('node');
-  try {
-    if ($removed_bundles) {
-      $query = "DELETE FROM {{$indexer_table}}
-      WHERE entity_type = 'node'
-      AND bundle IN (". db_placeholders($removed_bundles, 'varchar') .")";
-      db_query($query, $removed_bundles);
-    }
-
-
-    if ($added_bundles) {
-      $query = "INSERT INTO {{$indexer_table}} (entity_id, bundle, status, entity_type, changed) (
-      SELECT n.nid AS entity_id, n.type AS bundle, n.status AS status, 'node' AS entity_type, %d AS changed
-      FROM node n
-      WHERE (n.type IN (". db_placeholders($added_bundles, 'varchar') .")))";
-      db_query($query, array_merge(array(APACHESOLR_REQUEST_TIME), $added_bundles));
-    }
-  }
-  catch (Exception $e) {
-    // Re-throw the exception so we are aware of the failure.
-    throw $e;
-  }
-  */
   // Nothing to do for now.
 }
 
 /**
  * Reindexing callback for ApacheSolr, for nodes.
  *
- * @param String $env_id
+ * @param string $env_id
+ *   The solr environment
+ * @param string|null $bundle
+ *   (optional) The bundle type to reindex. If not used
+ *   all bundles will be reindexed.
  *
  * @throws Exception
  */
-function apachesolr_index_node_solr_reindex($env_id) {
+function apachesolr_index_node_solr_reindex($env_id, $bundle = NULL) {
   $indexer_table = apachesolr_get_indexer_table('node');
   try {
-    // Leave status 0 rows - those need to be
-    // removed from the index later.
-    db_query("DELETE FROM {{$indexer_table}} WHERE entity_type = 'node' AND status = 1");
+    $indexable_bundles = apachesolr_get_index_bundles($env_id, 'node');
+    if ($bundle && !empty($indexable_bundles) && !in_array($bundle, $indexable_bundles)) {
+      // The bundle specified is not in the indexable bundles list.
+      return;
+    }
 
-    $query = "INSERT INTO {{$indexer_table}} (entity_id, bundle, status, entity_type, changed) (
-      SELECT n.nid AS entity_id, n.type AS bundle, n.status AS status, 'node' AS entity_type, %d AS changed
-      FROM node n WHERE status = 1)";
-    db_query($query, array(APACHESOLR_REQUEST_TIME));
+    // in the 6.x-3.x version we are not very respective to what bundles we
+    // keep or remove in contrary to the 7.x-1.x version. db layer makes our
+    // life complicated
+    if ($bundle) {
+      // Leave status 0 rows - those need to be
+      // removed from the index later.
+      db_query("DELETE FROM {{$indexer_table}} WHERE entity_type = 'node' AND bundle = '%s' AND status = 1", array($bundle));
+      // Mark all nodes of the specified content type for reindexing.
+      $query = "INSERT INTO {{$indexer_table}} (entity_id, bundle, status, entity_type, changed) (
+        SELECT n.nid AS entity_id, n.type AS bundle, n.status AS status, 'node' AS entity_type, %d AS changed
+        FROM node n WHERE n.type = '%s' AND status = 1)";
+      db_query($query, array(APACHESOLR_REQUEST_TIME, $bundle));
+    }
+    else {
+      // Leave status 0 rows - those need to be
+      // removed from the index later.
+      db_query("DELETE FROM {{$indexer_table}} WHERE entity_type = 'node' AND status = 1");
+      $query = "INSERT INTO {{$indexer_table}} (entity_id, bundle, status, entity_type, changed) (
+        SELECT n.nid AS entity_id, n.type AS bundle, n.status AS status, 'node' AS entity_type, %d AS changed
+        FROM node n WHERE status = 1)";
+      db_query($query, array(APACHESOLR_REQUEST_TIME));
+    }
+
+
+
+
   }
   catch (Exception $e) {
     throw $e;
@@ -1019,6 +1039,13 @@ function apachesolr_nodereference_indexing_callback($entity, $field_name, $index
     $index_key = apachesolr_index_key($field_info);
     foreach ($entity->$field_name as $field_references) {
       foreach ($field_references as $reference) {
+
+        // Validate that reference is an array
+        // If not, skip this element
+        if(!is_array($reference)){
+          continue;
+        }
+
         if ($index_value = (!empty($reference['nid'])) ? $reference['nid'] : FALSE) {
           $fields[] = array(
             'key' => $index_key,
@@ -1041,6 +1068,13 @@ function apachesolr_userreference_indexing_callback($entity, $field_name, $index
     $index_key = apachesolr_index_key($field_info);
     foreach ($entity->$field_name as $field_references) {
       foreach ($field_references as $reference) {
+
+        // Validate that reference is an array
+        // If not, skip this element
+        if(!is_array($reference)){
+          continue;
+        }
+
         if ($index_value = (isset($reference['uid']) && strlen($reference['uid'])) ? $reference['uid'] : FALSE) {
           $fields[] = array(
             'key' => $index_key,
@@ -1112,7 +1146,7 @@ function apachesolr_index_node_check_table() {
   $node_lists = array_chunk($nodes, $limit, TRUE);
 
   foreach ($node_lists as $nodes) {
-    watchdog('Apache Solr', 'On cron running apachesolr_nodeapi_mass_update() on nids @nids', array('@nids' => implode(',', array_keys($nodes))), WATCHDOG_WARNING);
+    watchdog('Apache Solr', 'On cron running apachesolr_nodeapi_mass_update() on nids @nids', array('@nids' => implode(',', array_keys($nodes))), WATCHDOG_NOTICE);
     if (!apachesolr_index_nodeapi_mass_update($nodes, $table)) {
       // Solr query failed - so stop trying.
       break;
@@ -1172,11 +1206,11 @@ function apachesolr_index_nodeapi_mass_update($nodes, $table = NULL) {
     apachesolr_set_last_index_updated($env_id, APACHESOLR_REQUEST_TIME);
 
     // There was no exception, so update the table.
-    if ($published_ids) {
+    if (count($published_ids)) {
       $query = "UPDATE {{$table}} asn SET asn.changed = '%s' WHERE asn.entity_id IN " . db_placeholders($published_ids);
       db_query($query, array_merge(array(APACHESOLR_REQUEST_TIME), $published_ids));
     }
-    if ($unpublished_ids) {
+    if (count($unpublished_ids)) {
       $query = "UPDATE {{$table}} asn SET asn.changed = '%s', asn.status = 0 WHERE asn.entity_id IN " . db_placeholders($unpublished_ids);
       db_query($query, array_merge(array(APACHESOLR_REQUEST_TIME), $unpublished_ids));
     }

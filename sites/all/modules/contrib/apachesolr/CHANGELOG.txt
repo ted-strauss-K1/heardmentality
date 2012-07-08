@@ -1,5 +1,38 @@
 Apache Solr integration 6.x-3.x, xxxx-xx-xx
 ------------------------------
+#1672738 by Nick_vh: Added Allow a dynamic apachesolr_process_results() function.
+#1670834 by killua99, Nick_vh: Fixed Bundle specific overrides do not work as expected in drupal 6.
+#1473722 by levialliance: Added Bundle specific overrides.
+#1408844 by Nick_vh, jrbeeman: Added As a site builder I want to override the environment settings in settings.php.
+#1668202 by killua99: Fixed wrong redirect on admin/settings/apachesolr.
+#1665790 by snowfox: Fixed Nodes not indexed, Taxonomy needs to be set to be a multiple.
+#1402748 by Nick_vh, killua99: Fixed Check in apachesolr_do_query() if the static of the query with that name already exists, and if so return it.
+#1661004 by killua99: Fixed warning: table <db>.taxonomy_index() doesn't exist.
+#1518108 by killua99, grendzy: Added Devel interface for inspecting solr documents.
+#1658252 by pwolanin: Sync rc2 configs.
+
+Apache Solr integration 6.x-3.0-beta1, 06-20-2012
+------------------------------
+#1593580 by Nick_vh | jutulen: Fixed Testing connection erases form entries.
+#1547712 by Nick_vh | xeconsulting: Fixed fatal error: Call to undefined function taxonomy_term_load() in apachesolr_search().module line 258.
+#1631702 by Nick_vh, killua99 | khaled.zaidan: Fixed Report at admin/reports/apachesolr doesn't always display data from the current default solr server.
+#1522174 by killua99, pwolanin: Fixed hook_node_type_delete() is wrong.
+#1588256 by killua99, InternetDevels.Com, Nick_vh | RaulMuroc: Follow-up : Fixed Warning: Invalid argument supplied for foreach() in apachesolr_entity_update() (line 1766 of /apachesolr/apachesolr.module).
+#1475014 by ceng, Nick_vh: Fixed Drush command solr-delete-index ignores type arguments.
+#1621142 by pwolanin, killua99: Fixed Broken logic in indexing of extra data.
+#1576710 by killua99 | skwashd: Added Indexing with drush cron generates a lot of invalid cron notifications.
+#1586320 by killua99, cpliakas, pwolanin: Added support for the ExternalFileField field type.
+#1588256 by InternetDevels.Com, Nick_vh, killua99 | RaulMuroc: Fixed Warning: Invalid argument supplied for foreach() in apachesolr_entity_update() (line 1766 of /apachesolr/apachesolr.module).
+#1612530 by Nick_vh, willmoy: Added Results say '0 comments' when comment.module is disabled.
+#1481564 by milesw: Added Allow other modules to react when there are no results.
+#1470794 by pwolanin: Added Show size of index on disk in index report.
+#1491214 by gnucifer, Nick_vh: Fixed SQL errors on index page if no bundles.
+#1613328 by cpliakas: Fixed The service_class() is not passed to apachesolr_server_status() when checking each server's status on the settings page.
+#1627484 by gnucifer: Fixed 'allowed operator" not transfered from field definitions.
+#1627604 by Nick_vh: Fixed Add query type for taxonomy_term_reference().
+#1563520 by killua99 | xeconsulting: Fixed UPDATE unpublished nodes.
+#1559880 by pwolanin, Nick_vh: Fixed 'retain filters' checkbox does not work.
+#1512398 by webadpro: Fix Node Reference Fields.
 #1554552 by Nick_vh | xeconsulting: Fixed Call to undefined function search_get_info() in apachesolr.module on line 508.
 #1611338 by remimikalsen: Added Allowing several bundles to share the same field name within a given entity type after field_mapping_alter().
 #1567614 by pwolanin, Nick_vh: Fixed Uninstall is not complete.

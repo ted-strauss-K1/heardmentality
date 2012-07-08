@@ -680,7 +680,8 @@ function moderator_edit_issue_form($form_state, $qid) {
   while ($country = db_fetch_object($qcountries)) {
     $countriesSelected[] = $country->country;
   }
-  $form['q_country'] = array('#type' => 'select',
+  $form['q_country'] = array(
+    '#type' => 'select',
     '#options' => $countries,
     '#prefix' => '<div style="float:left">',
     '#suffix' => '</div>',
@@ -691,8 +692,10 @@ function moderator_edit_issue_form($form_state, $qid) {
       'effect' => 'fade',
       'event' => 'click',),
     '#size' => 5,
-    '#default_value' => $countriesSelected);
-  $form['state_div'] = array('#type' => 'markup',
+    '#default_value' => $countriesSelected
+  );
+  $form['state_div'] = array(
+    '#type' => 'markup',
     '#value' => '<div id="state-wrapper" style="padding-left:5px; float:left"></div>');
   $form['city_div'] = array('#type' => 'markup',
     '#value' => '<div id="city-wrapper" style="padding-left:5px; float:left"></div>',
@@ -714,11 +717,10 @@ function moderator_edit_issue_form($form_state, $qid) {
     '#suffix' => '<div class="clear"></div>',
   );
 
-
-  $form['mod_main_close_div'] = array('#type' => 'markup', '#value' => ' </div></div>');
-
-
-
+  $form['mod_main_close_div'] = array(
+    '#type' => 'markup',
+    '#value' => ' </div></div>'
+  );
 
   return $form;
 }

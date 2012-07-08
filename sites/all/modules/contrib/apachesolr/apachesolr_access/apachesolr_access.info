@@ -10,9 +10,9 @@ dependencies[] = apachesolr_search
 files[] = apachesolr_access.module
 files[] = tests/apachesolr_access.test
 
-; Information added by drupal.org packaging script on 2012-06-06
-version = "6.x-3.0-alpha1+23-dev"
+; Information added by drupal.org packaging script on 2012-07-06
+version = "6.x-3.0-beta1+11-dev"
 core = "6.x"
 project = "apachesolr"
-datestamp = "1338940987"
+datestamp = "1341533014"
 
