@@ -396,8 +396,8 @@ function solr_issues_apachesolr_query_alter($query) {
 }
 
 function solr_issues_search_output($results) {
-  krumo($results);
-    exit; 
+ /* krumo($results);
+    exit;*/ 
   foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
     if ($node->nid == $node->tnid || $node->tnid == 0) {
