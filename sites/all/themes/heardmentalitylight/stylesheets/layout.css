@@ -4414,7 +4414,7 @@ span.small_pos.fixes,
 
 .filter_search.issues_search {
 	margin-top: 59px;
-	padding-top: 18px;
+	padding-top: 15px;
 }
 
 #uactivity .activity-stream {
@@ -4499,7 +4499,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 #count_results-wrapper span {
 	font-size: 28px;
-	line-height: 30x;
+	line-height: 30px;
 	font-family: 'DINBoldRegular',Arial,sans-serif;
 	font-style: normal;
     font-weight: normal;
