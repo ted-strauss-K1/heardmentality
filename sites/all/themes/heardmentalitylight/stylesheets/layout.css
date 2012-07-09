@@ -651,14 +651,13 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	p.profile-links.quick-profile { 
-		color:#ccc;
+		color:#666;
 		font-size:13px;
 		line-height:1.4em;
-		font-weight:bold;
+		font-weight:normal;
 		text-transform:none;
 		text-shadow: 0 -1px #fff;
-		margin:-20px 0px 25px 0px;
-		
+		margin:-20px 1.4em 25px;
 		text-shadow:none;
 	}
 	p.profile-links a{ 
@@ -672,7 +671,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		line-height:1em;
 		cursor:pointer;
 		text-shadow: 0 -1px #fff;
-		font-weight:bold;
+		font-weight:normal;
 	}
 	p.profile-links.quick-profile a:hover{ 
 		color:#000;
@@ -681,6 +680,13 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		color:#fff;
 	}
 	
+	#dialog .medals {
+		margin: -15px 1em 0.5em;
+	}
+	
+	#dialog .profile-links.quick-profile + .floatleft + a.button {
+		margin-right: 1.4em;
+	}
 	
 	label.following, label.badges{ 
 		color:#fefefe;
@@ -1569,6 +1575,10 @@ img.user-profile{
 	margin:-15px 12px 10px 1px;
 	width:50px;
 	height:50px;
+}
+
+#dialog img.user-profile {
+	margin:-15px 12px 10px 1em;
 }
 
 .small-prog {

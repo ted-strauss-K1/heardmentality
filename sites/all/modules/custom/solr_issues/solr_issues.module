@@ -36,7 +36,7 @@ function solr_issues_search_form($form_state) {
   );
   $form['sorting'] = array(
     '#type' => 'item',
-    '#value' => '<ul class="options_filter"><li><a class="solr-sort first" href="issues">views</a></li><li><a href="issues" class="solr-sort">latest</a></li><li><a href="issues" class="solr-sort last">votes</a></li></ul>',
+    '#value' => '<ul class="options_filter"><li><a class="solr-sort first" href="issues">Views</a></li><li><a href="issues" class="solr-sort">Latest</a></li><li><a href="issues" class="solr-sort last">Votes</a></li></ul>',
   );
 
   $form['linkbox'] = array(
@@ -186,6 +186,7 @@ function solr_issues_block_form($form_state) {
     ),
     '#default_value' => $usage_default_value,
     '#multiple' => TRUE,
+	'#size' => '4',
     '#attributes' => array('class' => 'solr-block-form'),
   );
   if (count($area_opts) != 0) {
@@ -195,6 +196,7 @@ function solr_issues_block_form($form_state) {
       '#options' => $area_opts,
       '#attributes' => array('class' => 'solr-block-form'),
       '#multiple' => TRUE,
+	  '#size' => '4',
       '#ahah' => array(
         'event' => 'change',
         'path' => ahah_helper_path(array('block')),
@@ -207,6 +209,7 @@ function solr_issues_block_form($form_state) {
       '#default_value' => $form_state['storage']['block']['defdetail'],
       '#type' => 'select',
       '#multiple' => TRUE,
+	  '#size' => '4',
       '#attributes' => array('class' => 'solr-block-form'),
       '#options' => $detail_opts,
       '#ahah' => array(
@@ -238,6 +241,7 @@ function solr_issues_block_form($form_state) {
     '#title' => t('Location'),
     '#options' => $countries,
     '#multiple' => TRUE,
+	'#size' => '4',
     '#ahah' => array(
       'event' => 'change',
       'path' => ahah_helper_path(array('block')),
@@ -263,6 +267,7 @@ function solr_issues_block_form($form_state) {
     $form['block']['defstate'] = array(
       '#type' => 'select',
       '#multiple' => TRUE,
+	  '#size' => '4',
       '#default_value' => $form_state['storage']['block']['defstate'],
       '#options' => $states,
       '#ahah' => array(
@@ -277,6 +282,7 @@ function solr_issues_block_form($form_state) {
       '#type' => 'select',
       '#options' => $cities,
       '#multiple' => TRUE,
+	  '#size' => '4',
       '#ahah' => array(
         'event' => 'change',
         'path' => ahah_helper_path(array('block')),
