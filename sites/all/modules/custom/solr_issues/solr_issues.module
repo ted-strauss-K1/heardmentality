@@ -128,9 +128,9 @@ function solr_issues_block_form($form_state) {
 //  $usage_default_value = t('SUBJECT');
   }
   else {
-    $return_info = t('Issues about ');
+    $return_info = t('Issues about: ');
     foreach ($form_state['storage']['block']['subject'] as $key => $value) {
-      $return_info .= '<span>' . $options[$value] . '</span> <span class="del-item">x</span> ';
+      $return_info .= '<span>' . $options[$value] . '<span class="del-item">x</span></span>';
     }
     $usage_default_value = $form_state['storage']['block']['subject'];
     foreach ($usage_default_value as $catid) {
@@ -141,7 +141,7 @@ function solr_issues_block_form($form_state) {
     }
     if (isset($form_state['storage']['block']['defarea'])) {
       foreach ($form_state['storage']['block']['defarea'] as $key => $value) {
-        $return_info .= '<span>' . $area_opts[$value] . '</span> <span class="del-item">x</span> ';
+        $return_info .= '<span>' . $area_opts[$value] . '<span class="del-item">x</span></span>';
       }
       foreach ($form_state['storage']['block']['defarea'] as $areatid) {
         $ids = taxonomy_get_children($areatid);
@@ -151,7 +151,7 @@ function solr_issues_block_form($form_state) {
       }
       if (isset($form_state['storage']['block']['defdetail'])) {
         foreach ($form_state['storage']['block']['defdetail'] as $key => $value) {
-          $return_info .= '<span>' . $detail_opts[$value] . '</span> <span class="del-item">x</span>';
+          $return_info .= '<span>' . $detail_opts[$value] . '<span class="del-item">x</span></span>';
         }
       }
     }
@@ -173,6 +173,7 @@ function solr_issues_block_form($form_state) {
   $form['block']['information'] = array(
     '#value' => $return_info,
     '#type' => 'item',
+	'#id' => 'item_results'
   );
   $form['block']['subject'] = array(
     '#type' => 'select',

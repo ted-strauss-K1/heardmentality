@@ -4414,7 +4414,7 @@ span.small_pos.fixes,
 
 .filter_search.issues_search {
 	margin-top: 59px;
-	padding-top: 15px;
+	padding: 15px 14px 20px;
 }
 
 #uactivity .activity-stream {
@@ -4483,8 +4483,13 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	text-decoration: none;
 }
 
+#solr-issues-block-form {
+	margin: 0;
+}
+
 #solr-issues-block-form .form-item {
 	margin: 0 0 1em;
+	position: relative;
 }
 
 #count_results-wrapper {
@@ -4511,6 +4516,10 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	width: 100%;
 }
 
+#solr-issues-block-form label {
+	padding-bottom: 3px;
+}
+
 #solr-issues-block-form fieldset {
 	margin: 0;
 }
@@ -4522,8 +4531,102 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 #my_region-wrapper input.form-checkbox,
 #edit-voted-status-wrapper input.form-checkbox {
 	position: relative;
-	top: 2px;
+	top: 1px;
 	margin: 0 5px 0 0;
+}
+
+#solr-issues-block-form input.form-text  {
+	padding: 6px 4px;
+	margin: 0;
+	width: 95%;
+}
+
+#solr-issues-block-form .messages {
+	padding: 5px;
+	margin-bottom: 1em;
+}
+
+.issues_search_page .ahah-progress-throbber {
+	float: none;
+	height: 66px;
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: url(../images/grey_trnsp.png) repeat scroll 0 0 transparent;
+}
+
+.issues_search_page .ahah-progress-throbber .throbber {
+	float: none;
+	margin: 0 auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -7px 0 0 -7px;
+}
+
+#item_results-wrapper {
+	font-family: 'DINLightRegular',Arial,sans-serif;
+	font-size: 15px;
+	line-height: 18px;
+}
+
+#item_results-wrapper span {
+	background: none repeat scroll 0 0 #76D2DC;
+    border-color: #92B7DD;
+    border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-khtml-border-radius: 3px 3px 3px 3px;
+	-o-border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    color: #111111;
+    font-size: 12px;
+    margin: 3px 6px 3px 0;
+    padding: 0 22px 0 4px;
+    text-shadow: 0 1px #C8E2FC;
+    width: auto;
+	display: inline-block;
+	font-family: Arial,"Lucida Grande",sans-serif;	
+	position: relative;
+}
+
+#item_results-wrapper span:hover {
+	color: #fff;
+	text-shadow: 0 -1px #3b536c;
+	border-color:#53789d;
+	background: #53789d /*#39676c*/;
+}
+
+#item_results-wrapper span.del-item,
+#item_results-wrapper span.del-item:hover {
+	background: none transparent;
+    border: 0 none;
+    border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	-khtml-border-radius: 0;
+	-o-border-radius: 0;
+    margin: 0;
+    padding: 0;
+	cursor: pointer;
+	color: #111111;
+	text-shadow: 0 1px #C8E2FC;
+	position: absolute;
+	right: 3px;
+	top: 1px;
+	width: 16px;
+	height: 16px;
+	display: block;
+	background: url(../images/del.png) no-repeat scroll 5px 5px transparent;
+	text-indent: -9999%;
+}
+
+#item_results-wrapper span.del-item:hover,
+#item_results-wrapper span:hover span.del-item {
+	background-position: 6px -20px;
 }
 
 /*Clear*/
@@ -4559,3 +4662,8 @@ div.tabs {
 	display: none;
 }
 
+.ahah-progress-throbber .throbber {
+	width: 15px !important;
+	height: 15px !important;
+	background: url(../images/loading.gif) no-repeat scroll 0 0 transparent !important;
+}
