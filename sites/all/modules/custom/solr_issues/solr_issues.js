@@ -10,6 +10,16 @@ $(document).ready(function(){
     get_issues_solr(false, sort);
     return false;
   });
+  
+  
+  $('.del-item').live('click', function(){
+    var name = $(this).prev().attr('name');
+    var value = $(this).prev().val();
+    $(name).find("option[value="+value +"]").removeAttr("selected");
+    $(this).parent().remove();
+    return false;
+  });
+ 
   $('#my_region').change(function(){
     if ($(this).prop('checked')) {
       $('#edit-block-country,#edit-block-defstate,#edit-block-defcity').attr('disabled',true);
@@ -30,9 +40,6 @@ $(document).ready(function(){
     var text;
     if (all == null) {
       text = $('#edit-search-text').val();
-    }
-    else {
-      text = '*';
     }
     var parameters = [];
     var allow_vote = $('#edit-voted-status').prop('checked');
@@ -76,7 +83,8 @@ $(document).ready(function(){
       sort: sort,
       country: country,
       city:city,
-      state:state
+      state:state,
+      all: all
       
     }, 
     function(data){
