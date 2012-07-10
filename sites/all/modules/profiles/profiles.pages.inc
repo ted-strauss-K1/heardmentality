@@ -190,15 +190,6 @@ var spath=\'' . $base_url . '/' . '\';
   return $update;
 }
 
-function show_print($var, $return = FALSE) {
-  $output = '<pre>' . print_r($var, TRUE) . '</pre>';
-  if ($return) {
-    return $return;
-  } else {
-    print $output;
-  }
-}
-
 function user_details(&$form_state) {
   global $base_url, $user, $apikey, $theme;
   // $details = load_user($user->uid);
