@@ -190,10 +190,23 @@ var spath=\'' . $base_url . '/' . '\';
   return $update;
 }
 
-function user_details() {
+function show_print($var, $return = FALSE) {
+  $output = '<pre>' . print_r($var, TRUE) . '</pre>';
+  if ($return) {
+    return $return;
+  } else {
+    print $output;
+  }
+}
+
+function user_details(&$form_state) {
   global $base_url, $user, $apikey, $theme;
   // $details = load_user($user->uid);
   $details = user_load($user->uid);
+  // fix fields to have default_values in form
+  foreach ((array)load_user($user->uid) as $key => $value) {
+    $details->{$key} = $value;
+  }
   // print_r($details);
   $options = array('0' => t(''), '2' => t(''), '1' => t(''));
   $form['#attributes']['enctype'] = "multipart/form-data";
