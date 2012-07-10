@@ -219,7 +219,10 @@ function validate_reg()
 
 jQuery('#edit-file-upload').live('change', function() {
   jQuery('input:radio[name=pic_avt]:first').attr('checked',true);
-  jQuery("div.form-item img").hasClass("avatar-select").removeClass('avatar-select');
+  var $avatar = jQuery("div.form-item img").hasClass("avatar-select");
+  if ($avatar) {
+    $avatar.removeClass('avatar-select');
+  }
 });
 
 

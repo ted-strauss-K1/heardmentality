@@ -27,7 +27,9 @@ $(document).ready(function() {
 		var api = pane.data('jsp');
 		
 		jQuery(window).resize(function () {
-			api.reinitialise();
+      if (api) {
+        api.reinitialise();
+      }
 
 		});
     }
