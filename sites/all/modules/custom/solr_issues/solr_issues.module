@@ -159,6 +159,40 @@ function solr_issues_block_form($form_state) {
       $detail_opts = array();
     }
   }
+  if (isset($form_state['storage']['block']['country'])) {
+    foreach ($form_state['storage']['block']['country'] as $country) {
+
+      $xyz = geonames_countryinfo_geonameid($country);
+      $query = array('geonameid' => $xyz['geonameid']);
+      $results = geonames_query('children', $query);
+      //   krumo($countries);
+      $return_info .= '<span><input type="hidden" name="#edit-block-country" value="' . $country . '">' . $countries[$country] . '<span class="del-item">x</span></span>';
+      foreach ($results->results as $state) {
+        //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
+        //  if ($count > 0) {
+        $states[$state['geonameid']] = $state['name'];
+        //  }
+      }
+    }
+  }
+  if (isset($form_state['storage']['block']['defstate'])) {
+    foreach ($form_state['storage']['block']['defstate'] as $key => $state) {
+      $query = array('geonameid' => $state);
+      $results = geonames_query('children', $query);
+      foreach ($results->results as $city) {
+        //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'] . $state));
+        //  if ($count > 0) {
+        $cities[$city['geonameid'] . $state] = $city['name'];
+        //  }
+      }
+      $return_info .= '<span><input type="hidden" name="#edit-block-defdetail" value="' . $state . '">' . $states[$state] . '<span class="del-item">x</span></span>';
+    }
+  }
+  if (isset($form_state['storage']['block']['defcity'])) {
+    foreach ($form_state['storage']['block']['defcity'] as $key => $value) {
+      $return_info .= '<span><input type="hidden" name="#edit-block-defdetail" value="' . $value . '">' . $cities[$value] . '<span class="del-item">x</span></span>';
+    }
+  }
   $form['block'] = array(
     '#type' => 'fieldset',
     '#prefix' => '<div id="block-wrapper">',
@@ -219,22 +253,6 @@ function solr_issues_block_form($form_state) {
       ),
     );
   }
-  if (isset($form_state['storage']['block']['country'])) {
-    foreach ($form_state['storage']['block']['country'] as $country) {
-      $xyz = geonames_countryinfo_geonameid($country);
-      //    krumo($form_state['storage']['block']['country']);
-      //  krumo($xyz);
-      $query = array('geonameid' => $xyz['geonameid']);
-      $results = geonames_query('children', $query);
-      //  krumo($results);
-      foreach ($results->results as $state) {
-        //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
-        //  if ($count > 0) {
-        $states[$state['geonameid']] = $state['name'];
-        //  }
-      }
-    }
-  }
 
   $form['block']['country'] = array(
     '#type' => 'select',
@@ -252,17 +270,10 @@ function solr_issues_block_form($form_state) {
   if (isset($form_state['storage']['block']['defstate'])) {
 
     foreach ($form_state['storage']['block']['defstate'] as $state) {
-
-      $query = array('geonameid' => $state);
-      $results = geonames_query('children', $query);
-      foreach ($results->results as $city) {
-        //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $city['geonameid'] . $state));
-        //  if ($count > 0) {
-        $cities[$city['geonameid'] . $state] = $city['name'];
-        //  }
-      }
+      
     }
   }
+//krumo();
   if (count($states)) {
     $form['block']['defstate'] = array(
       '#type' => 'select',
@@ -307,6 +318,7 @@ function solr_issues_block_form($form_state) {
       );
     }
   }
+  krumo($GLOBALS);
   $form['voted_status'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show only not voted'),
@@ -419,14 +431,14 @@ function solr_issues_search_output($results) {
     exit; */
   foreach ($results as $result) {
     $node = node_load($result['nid']);
-    if ($node->nid == $node->tnid || $node->tnid == 0) {
-      if ($_POST['voted'] && $node->allowvotes == TRUE) {
-        $output .= node_view($node);
-      }
-      else if ($_POST['voted'] == FALSE) {
-        $output .= node_view($node);
-      }
+    //   if ($node->nid == $node->tnid || $node->tnid == 0) {
+    if ($_POST['voted'] && $node->allowvotes == TRUE) {
+      $output .= node_view($node);
     }
+    else if ($_POST['voted'] == FALSE) {
+      $output .= node_view($node);
+    }
+    // }
   }
   return $output;
 }
