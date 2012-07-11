@@ -344,16 +344,16 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   }
   $search_page = apachesolr_search_page_load($page_id);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
+  $search_page->settings['apachesolr_search_browse'] = 'results';
 // Retrieve the conditions that apply to this page
   $conditions = apachesolr_search_conditions_default($search_page);
 // Retrieve the results of the search
   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
 
   $build_results = solr_issues_search_output($results);
-  $build_results.= theme('pager', NULL, 10, 0);
+  $build_results .= theme('pager', NULL, 10, 0);
   $count = count($results);
 // $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
-
   print drupal_json(array(
             'data' => $build_results, 'count' => $count));
 }
@@ -375,8 +375,10 @@ function solr_issues_apachesolr_query_alter($query) {
   if (count($_POST['country'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['country'] as $key => $value) {
-      $query2->addFilter('sm_field_issue_country', $value);
-      //  $query2->addFilter('sm_field_issue_country', "<p>Canada</p>");
+      $countryName = solr_issues_country_name($value);
+      if ($countryName) {
+        $query2->addFilter('sm_field_issue_country', $countryName);
+      }
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
@@ -443,10 +445,41 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     // $result = db_query("SELECT count(nid) FROM {poll_votes} p WHERE p.nid = '%d'", $node->nid);
     //  $node->votes_count = db_result($result);
   }
+
+  if ($op == 'view' && $node->field_issue_country) {
+    // remove tags <p> from country name
+    foreach ($node->field_issue_country as &$country) {
+      $country['safe'] = trim($country['value']);
+    }
+  }
 }
 
 function geonames_countryinfo_geonameid($param) {
   $param = check_plain($param);
   $result = db_fetch_array(db_query("SELECT * FROM {geonames_countryinfo} WHERE geonameid = '%s'", $param));
   return $result;
+}
+
+/**
+ * Get country name by country ID
+ * @param int $geonameid Country ID
+ * @return string Name of country
+ */
+function solr_issues_country_name($geonameid) {
+  static $countries = array();
+  if (!$countries) {
+    foreach (geonames_countries() as $country) {
+      $countries[$country['geonameid']] = $country['name'];
+    }
+  }
+  return $countries[$geonameid];
+}
+
+function show_print($var, $return = FALSE) {
+  $output = '<pre>' . print_r($var, TRUE) . '</pre>';
+  if ($return) {
+    return $output;
+  } else {
+    print $output;
+  }
 }
