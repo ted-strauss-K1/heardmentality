@@ -405,11 +405,20 @@ function solr_issues_apachesolr_query_alter($query) {
    */
 }
 
+/**
+ * Implementation of hook_apachesolr_process_results();
+ */
+function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterface $query) {
+  foreach ($results as &$result) {
+    $result['nid'] = array_pop(split('/', $result['fields']['path']));
+  }
+}
+
 function solr_issues_search_output($results) {
   /* krumo($results);
     exit; */
   foreach ($results as $result) {
-    $node = node_load($result['node']->entity_id);
+    $node = node_load($result['nid']);
     if ($node->nid == $node->tnid || $node->tnid == 0) {
       if ($_POST['voted'] && $node->allowvotes == TRUE) {
         $output .= node_view($node);
