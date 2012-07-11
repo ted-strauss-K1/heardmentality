@@ -318,7 +318,7 @@ function solr_issues_block_form($form_state) {
       );
     }
   }
-  krumo($GLOBALS);
+ // krumo($GLOBALS);
   $form['voted_status'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show only not voted'),
