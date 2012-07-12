@@ -1845,7 +1845,7 @@ global $base_url, $user, $gDocPath, $base_root, $base_path;
 
     $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
-        case '2':
+        case '-2': // hmm, seems smth strange, let's use default option
             $image_path = file_create_path('avatar_selection');
 
             //  $image_path=file_directory_path().'/avatar_selection';
