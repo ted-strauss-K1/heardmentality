@@ -8,10 +8,7 @@ function moderater_user_mail($array='', $type='', $action='') {
   $msg = check_plain($_REQUEST['reporttext']);
   switch ($type) {
     case 'warning':
-
       if ($action) {
-
-
         foreach ($array as $idd) {
 
           quest_mail_warning($idd, $msg);

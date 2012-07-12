@@ -112,7 +112,7 @@ function solr_issues_block_form($form_state) {
   );
 
   while ($ccklist = db_fetch_object($cck_country)) {
-    $countries[$ccklist->geonameid] = $ccklist->name;
+    $countries[$ccklist->name] = $ccklist->name;
   }
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
@@ -162,7 +162,7 @@ function solr_issues_block_form($form_state) {
   if (isset($form_state['storage']['block']['country'])) {
     foreach ($form_state['storage']['block']['country'] as $country) {
 
-      $xyz = geonames_countryinfo_geonameid($country);
+      $xyz = geonames_countryinfo($country);
       $query = array('geonameid' => $xyz['geonameid']);
       $results = geonames_query('children', $query);
       //   krumo($countries);
@@ -318,7 +318,7 @@ function solr_issues_block_form($form_state) {
       );
     }
   }
- // krumo($GLOBALS);
+  // krumo($GLOBALS);
   $form['voted_status'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show only not voted'),
@@ -387,10 +387,11 @@ function solr_issues_apachesolr_query_alter($query) {
   if (count($_POST['country'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['country'] as $key => $value) {
-      $countryName = solr_issues_country_name($value);
+  /*    $countryName = solr_issues_country_name($value);
       if ($countryName) {
         $query2->addFilter('sm_field_issue_country', $countryName);
-      }
+      }*/
+      $query2->addFilter('sm_field_issue_country', $value);
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
@@ -500,7 +501,8 @@ function show_print($var, $return = FALSE) {
   $output = '<pre>' . print_r($var, TRUE) . '</pre>';
   if ($return) {
     return $output;
-  } else {
+  }
+  else {
     print $output;
   }
 }

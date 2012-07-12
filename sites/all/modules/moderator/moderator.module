@@ -674,7 +674,7 @@ function moderator_edit_issue_form($form_state, $qid) {
   $countryList = geonames_query('countryinfo', NULL, $options);
   //print_r($countryList);
   foreach ($countryList->results as $country) {
-    $countries[$country['geonameid']] = $country['countryname'];
+    $countries[$country['countryname']] = $country['countryname'];
   }
   $qcountries = db_query("SELECT field_issue_country_value AS country FROM {content_field_issue_country} WHERE nid = '$qid'");
   while ($country = db_fetch_object($qcountries)) {
@@ -1813,18 +1813,10 @@ function moderator_ahah_callback($type = '', $key = '') {
 
         $countryList = geonames_query('countryinfo', NULL, $options);
         foreach ($countryNames as $country) {
-
           $xyz = geonames_countryinfo($country);
-          //print_r($xyz);
-          foreach ($countryList->results as $countryss) {
-            if ($country == $countryss['countryname']) {
-              $geoid = $countryss['geonameid'];
-              break;
-            }
-          }
-
-          $query = array('geonameid' => $geoid);
+          $query = array('geonameid' => $xyz['geonameid']);
           $results = geonames_query('children', $query);
+         // krumo($results);
           foreach ($results->results as $state) {
             $states[$state['geonameid']] = $state['name'];
           }
