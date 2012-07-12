@@ -212,7 +212,7 @@ function LockPage(lock)
   {
     $("#update_submit").attr('disabled', 'disabled');
     jQuery("body").css({'opacity': 0.5});
-    jQuery("#avatar-selection-loading").show();
+//    jQuery("#avatar-selection-loading").show();
   }
 }
 
