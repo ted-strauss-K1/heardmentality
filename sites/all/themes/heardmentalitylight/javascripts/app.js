@@ -10,8 +10,8 @@
 
 $(document).ready(function() {
 
- // $('#effect').delay(5000).fadeOut(1000);
-  $('#effect').fadeOut(1000);
+  $('#effect').delay(5000).fadeOut(1000);
+//  $('#effect').fadeOut(1000);
   /* Tabs Activiation
 	================================================== */
   var tabs = $('ul.tabs');
