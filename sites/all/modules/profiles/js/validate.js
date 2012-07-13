@@ -323,8 +323,14 @@ jQuery(document).ready(function(){
         (key >= 96 && key <= 105));
   });
 
-  $('#zip').change(function() {
-    get_zip_city($(this), true);
+  $(function() {
+    var zip = $('#zip').val();
+
+    $('#zip').keyup(function() {
+      if ($('#zip').val() != zip) {
+        get_zip_city($(this), true);
+      }
+    });
   });
 
   chk_uname($('#username'), true);
