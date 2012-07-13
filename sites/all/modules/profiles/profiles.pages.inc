@@ -411,7 +411,17 @@ function user_details(&$form_state) {
     '#attributes' => array('class' => 'info validate validate-url'),
   );
 
-  $form = $form + follow_links_form($form_state, $user->uid);
+  $follow_links_form = follow_links_form($form_state, $user->uid);
+  // remove extra fields
+  foreach ($follow_links_form['follow_links'] as &$link) {
+    if (isset($link['weight'])) {
+      $link['weight']['#access'] = FALSE;
+    }
+    if (isset($link['title'])) {
+      $link['title']['#access'] = FALSE;
+    }
+  }
+  $form = $form + $follow_links_form;
 
   $form['merge'] = array('#type' => 'markup', '#value' => '
                 
@@ -461,7 +471,12 @@ function user_details(&$form_state) {
     '#required' => 1,
     '#attributes' => array('class' => 'upload button'),
   );
-  $form['submit'] = array('#type' => 'submit', '#value' => t('Save changes'), '#id' => 'update_submit', '#attributes' => array('class' => 'submit-issue'));
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save changes'),
+    '#id' => 'update_submit',
+    '#attributes' => array('class' => 'submit-issue')
+  );
   $form = $form + get_avatar_form();
 
   return $form;
@@ -623,6 +638,8 @@ function user_details_submit($form, &$form_state) {
   _privacy_submit($form, $form_state);
   //avatar update
   _avatar_submit($form, $form_state);
+  // follow links update
+  follow_links_form_submit($form, $form_state);
 
 
   /* New SET NOTIFY LOG */
