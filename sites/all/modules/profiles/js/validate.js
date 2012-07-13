@@ -327,7 +327,8 @@ jQuery(document).ready(function(){
     var zip = $('#zip').val();
 
     $('#zip').keyup(function() {
-      if ($('#zip').val() != zip) {
+      if ($(this).val() != zip) {
+        zip = $(this).val();
         get_zip_city($(this), true);
       }
     });
