@@ -407,66 +407,36 @@ function pcp_get_complete_percentage_data_old($user) {
  *  - Refer to comments in theme_pcp_profile_percent_complete() for specific values.
  */
 function pcp_get_complete_percentage_data($user) {
-  $profile_fields = pcp_get_tagged_profile_fields();
-  $additional_fields = pcp_get_additional_tagged_fields();
-  $fields = $profile_fields + $additional_fields;
-  $user_profile_values = pcp_get_user_profile_values($user->uid);
-  $user_additional_values = pcp_get_user_additional_values($user->uid);
-  $user_values = $user_profile_values + $user_additional_values;
-
-  // for now we have all fields in one table, so need to define their names
-//  $fields = array(
-//    'real_name',
-//    'gender',
-//    'dob',
-//    'zip',
-//    'religion',
-//    'ethnic',
-//    'edu',
-//    'sorient',
-//    'income',
-//    'marital',
-//    'bio',
-//    'urls',
-//    'social',
-//    'image_url',
-//  );
+  $fields = pcp_profile_fields();
+  $user_values = array();
+  // add profile fields
+  foreach ((array)load_user($user->uid) as $key => $value) {
+    if ($key == 'social') {
+      $social = explode('||', $value);
+      $user_values['face'] = $social[0];
+      $user_values['twitter'] = $social[1];
+    } else {
+      $user_values[$key] = $value;
+    }
+  }
 
   $percent = 0;
   $complete = 0;
   $nextfield_set = FALSE;
 
   if (is_array($fields) && !empty($fields)) {
-
     //Shuffle the fields to display a random field to fill in (issue #708382)
     shuffle($fields);
-
-    foreach ($fields as $key => $value) {
-      if (($user_values[$value['fid']] == '') || ($user_values[$value['fid']] == '0' && $value['type'] == 'selection')) {
+    foreach ($fields as $field) {
+      if (!$user_values[$field['id']]) {
         if ($nextfield_set === FALSE) {
           $nextfield_set = TRUE;
-          $fid = $value['fid'];
-          $nextfield_fid = $fid;
-
-          if (is_numeric($fid)) {
-            $nextdata = db_fetch_array(db_query("SELECT title, name, category FROM {profile_fields} WHERE fid = %d", $fid));
-            $nextfield = $nextdata['title'];
-            $nextcategory = $nextdata['category'];
-            $nextname = $nextdata['name'];
-          }
-          elseif ($fid == 'user_picture') {
-            $nextfield = $value['title'];
-            $nextcategory = 'Default';
-            $nextname = $value['name'];
-          }
-          elseif (substr($fid, 0, 10) == 'user_terms') {
-            $nextfield = $value['title'];
-            $nextcategory = ($value['category'] == 'account') ? 'Default' : $value['category'];
-            $nextname = $value['name'];
-          }
+          $nextfield = $field['name'];
+          $nextname = $field['id'];
         }
         continue;
       }
+      
       $complete++;
     }
     $dec = number_format(($complete / count($fields)), 2);
@@ -484,12 +454,80 @@ function pcp_get_complete_percentage_data($user) {
   $complete_data['incomplete'] = count($fields) - $complete;
   $complete_data['total'] = count($fields);
   $complete_data['nextfield'] = $nextfield;
-  $complete_data['nextfield_fid'] = $nextfield_fid;
   $complete_data['nextpercent'] = $nextpercent;
-  $complete_data['nextcategory'] = $nextcategory;
   $complete_data['nextname'] = $nextname;
 
   return $complete_data;
+}
+
+/**
+ * Get user profile fields
+ * @return array Array of user profile fields
+ */
+function pcp_profile_fields() {
+  // for now we have all fields in one table, so need to define their names
+  return array(
+    array(
+      'id' => 'real_name',
+      'name' => t('Name'),
+    ),
+    array(
+      'id' => 'gender',
+      'name' => t('Gender'),
+    ),
+    array(
+      'id' => 'dob',
+      'name' => t('Year of Birth'),
+    ),
+    array(
+      'id' => 'zip',
+      'name' => t('Zip/Postal Code'),
+    ),
+    array(
+      'id' => 'religion',
+      'name' => t('Religion'),
+    ),
+    array(
+      'id' => 'ethnic',
+      'name' => t('Ethnicity'),
+    ),
+    array(
+      'id' => 'edu',
+      'name' => t('Education'),
+    ),
+    array(
+      'id' => 'sorient',
+      'name' => t('Sexual Orientation'),
+    ),
+    array(
+      'id' => 'income',
+      'name' => t('Household income'),
+    ),
+    array(
+      'id' => 'marital',
+      'name' => t('Marital Status'),
+    ),
+    array(
+      'id' => 'bio',
+      'name' => t('Bio'),
+    ),
+    array(
+      'id' => 'urls',
+      'name' => t('My Homepage'),
+    ),
+    array(
+      'id' => 'face',
+      'name' => t('Facebook URL'),
+    ),
+    array(
+      'id' => 'twitter',
+      'name' => t('Twitter URL'),
+    ),
+    array(
+      'id' => 'image_url',
+      'name' => t('Picture'),
+    ),
+  );
 }
 
 /**
