@@ -323,7 +323,7 @@ jQuery(document).ready(function(){
         (key >= 96 && key <= 105));
   });
 
-  $('#zip').keyup(function() {
+  $('#zip').change(function() {
     get_zip_city($(this), true);
   });
 
