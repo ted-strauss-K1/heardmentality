@@ -98,10 +98,15 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 
 function solr_issues_block_form($form_state) {
   $form = array();
+  $user_region = profile_get_user_coordinates(1);
+//  $query = array('lat' => $user_region['latitude'], 'lng' => $user_region['longitude']);
+  // $query = array('lat' => '55', 'lng' => '73');
+//  $query = array('name' => 'Altayskiy Kray', 'maxrows' => 5);
+  //$results = geonames_query('search', $query);
+  //krumo($results);
+
   ahah_helper_register($form, $form_state);
   global $user, $base_url;
-  $query = array('geonameid' => 'Canada');
-  $result = geonames_query('children', $query);
   drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
   drupal_add_js(array('base_url' => "$base_url"), 'setting');
   global $language;
@@ -161,11 +166,10 @@ function solr_issues_block_form($form_state) {
   }
   if (isset($form_state['storage']['block']['country'])) {
     foreach ($form_state['storage']['block']['country'] as $country) {
-
       $xyz = geonames_countryinfo($country);
       $query = array('geonameid' => $xyz['geonameid']);
       $results = geonames_query('children', $query);
-      //   krumo($countries);
+      //   krumo($results);
       $return_info .= '<span><input type="hidden" name="#edit-block-country" value="' . $country . '">' . $countries[$country] . '<span class="del-item">x</span></span>';
       foreach ($results->results as $state) {
         //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
@@ -253,6 +257,7 @@ function solr_issues_block_form($form_state) {
       ),
     );
   }
+  global $pager_page_array, $pager_total;
 
   $form['block']['country'] = array(
     '#type' => 'select',
@@ -363,8 +368,10 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
 
   $build_results = solr_issues_search_output($results);
+  global $pager_page_array, $pager_total, $pager_total_items, $pager_limits;
+  $count = $pager_total_items[0];
   $build_results .= theme('pager', NULL, 10, 0);
-  $count = count($results);
+ // $count = count($results);
 // $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
   print drupal_json(array(
             'data' => $build_results, 'count' => $count));
@@ -387,10 +394,10 @@ function solr_issues_apachesolr_query_alter($query) {
   if (count($_POST['country'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['country'] as $key => $value) {
-  /*    $countryName = solr_issues_country_name($value);
-      if ($countryName) {
+      /*    $countryName = solr_issues_country_name($value);
+        if ($countryName) {
         $query2->addFilter('sm_field_issue_country', $countryName);
-      }*/
+        } */
       $query2->addFilter('sm_field_issue_country', $value);
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
@@ -401,6 +408,11 @@ function solr_issues_apachesolr_query_alter($query) {
       $query2->addFilter('itm_field_issue_state', $value);
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
+  }
+  if ($_POST['myregion']) {
+    global $user;
+    $user_region = profile_get_user_coordinates($user->uid);
+    // $query->addFilter('itm_field_issue_state', $user_region);
   }
   if (count($_POST['city'])) {
     $query2 = apachesolr_drupal_query();
@@ -455,8 +467,8 @@ function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $documen
 }
 
 function profile_get_user_coordinates($uid) {
-  $result = db_query("SELECT latitude from {user_profile} up where up.uid ='%d'", $uid);
-  return db_result($result);
+  $result = db_query("SELECT latitude, longitude from {user_profile} up where up.uid ='%d'", $uid);
+  return db_fetch_array($result);
 }
 
 //nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)

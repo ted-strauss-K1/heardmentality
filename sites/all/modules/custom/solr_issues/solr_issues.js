@@ -50,6 +50,7 @@ $(document).ready(function(){
     var country = $('#edit-block-country').val();
     var state = $('#edit-block-defstate').val();
     var city = $('#edit-block-defcity').val();
+    var my_region = $('#my_region').prop('checked');
     
     if (categ != null) {
       categ.map(function(index, element) {
@@ -83,6 +84,7 @@ $(document).ready(function(){
       sort: sort,
       country: country,
       city:city,
+      myregion: my_region,
       state:state,
       all: all
       
