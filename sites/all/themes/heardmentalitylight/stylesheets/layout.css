@@ -1914,7 +1914,7 @@ textarea#q_quest  {
 }
 .choices .form-radios .form-item,
 #new_vote .fieldset-wrapper .form-radios .form-item,
-#search_list .fieldset-wrapper .form-radios .form-item  {
+#solr-issues-search-form #search_list .fieldset-wrapper .form-radios .form-item  {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
     margin: 3px 0 10px;
