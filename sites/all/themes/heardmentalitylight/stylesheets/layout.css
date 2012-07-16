@@ -4433,8 +4433,13 @@ span.small_pos.fixes,
 
 form#solr-issues-search-form {
 	margin: 0;
+	padding: 0;
+}
+
+.search_top_filters {
 	padding: 0 10px 15px;
 	border-bottom: 1px solid #C0C0C0;
+	margin-bottom: 15px;	
 }
 
 form#solr-issues-search-form .form-item {

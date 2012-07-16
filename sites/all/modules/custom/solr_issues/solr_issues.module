@@ -33,10 +33,12 @@ function solr_issues_search_form($form_state) {
   $form['date_filters'] = array(
     '#type' => 'item',
     '#value' => '<ul class="date_filter"><li><a class="date-solr-filter first" href="issues">This Week</a></li><li><a class="date-solr-filter" href="issues">Month</a></li><li><a class="date-solr-filter last active" href="issues">All time</a></li></ul>',
+	'#prefix' => '<div class="search_top_filters clearfix">',
   );
   $form['sorting'] = array(
     '#type' => 'item',
     '#value' => '<ul class="options_filter"><li><a class="solr-sort first" href="issues">Views</a></li><li><a href="issues" class="solr-sort">Latest</a></li><li><a href="issues" class="solr-sort last">Votes</a></li></ul>',
+	'#suffix' => '</div>',
   );
 
   $form['linkbox'] = array(
