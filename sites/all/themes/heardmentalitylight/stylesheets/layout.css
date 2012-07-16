@@ -1913,7 +1913,8 @@ textarea#q_quest  {
     text-decoration: underline;
 }
 .choices .form-radios .form-item,
-#new_vote .fieldset-wrapper .form-radios .form-item {
+#new_vote .fieldset-wrapper .form-radios .form-item,
+#search_list .fieldset-wrapper .form-radios .form-item  {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
     margin: 3px 0 10px;
@@ -2741,9 +2742,13 @@ h2.page-title {
 	color: #CD2027;
 }
 
-#new_vote .poll-vote-area .voting-pane .choices,
-#search_list .poll-vote-area .voting-pane .choices {
+#new_vote .poll-vote-area .voting-pane .choices {
 	width: 85%;
+	margin: 0;
+}
+
+#search_list .poll-vote-area .voting-pane .choices {
+	width: 88%;
 	margin: 0;
 }
 
@@ -4668,7 +4673,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 #search_list h2.din.half {
 	padding: 0 30px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 #search_list h2.din.half a {
@@ -4683,7 +4688,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 #search_list .vote-form {
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-    padding: 0 30px 20px;
+    padding: 0 30px 14px;
 } 
 
 /*Clear*/
