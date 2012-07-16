@@ -4667,7 +4667,8 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 }
 
 #search_list h2.din.half {
-	padding: 0 20px;
+	padding: 0 30px;
+	margin-bottom: 20px;
 }
 
 #search_list h2.din.half a {
@@ -4677,11 +4678,12 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 #search_list h2.din.half a:hover {
 	text-decoration: underline;
+	border: 0 none;
 }
 
 #search_list .vote-form {
-	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
-    padding: 0 20px 2px;
+	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+    padding: 0 30px 20px;
 } 
 
 /*Clear*/
