@@ -5,6 +5,8 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
 
 ?>
 
+<div id="search_list">
+
 <div id="vote-msg-alert-<?php print $tnid; ?>" class="v-msg"></div>
 
 <h2 class="din half"><a href="<?php print $node_url; ?>" title="permalink" class="issue-title"><?php print t($title); ?>?</a></h2>
@@ -47,7 +49,7 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
   <a class="button stats stats-quick" title="See the Debate Statistics" href="<?php print $node_url; ?>#results"><span class="icon stats "></span></a>
 <?php } ?>
 
-
+</div>
 
 
 
