@@ -1917,7 +1917,7 @@ textarea#q_quest  {
 #solr-issues-search-form #search_list .fieldset-wrapper .form-radios .form-item  {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
-    margin: 3px 0 10px;
+    margin: 3px 0 10px !important;
     padding: 13px 12px 10px;
     width: auto;
 	cursor: pointer;
