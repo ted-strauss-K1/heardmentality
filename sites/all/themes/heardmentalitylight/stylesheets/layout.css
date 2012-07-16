@@ -2748,8 +2748,8 @@ h2.page-title {
 }
 
 #search_list .poll-vote-area .voting-pane .choices {
-	width: 88%;
-	margin: 0;
+	width: auto;
+	margin: 0 12% 0 30px;
 }
 
 #new_vote .poll-vote-area .form-radios,
@@ -2757,9 +2757,12 @@ h2.page-title {
     margin: 0;
 }
 
-#new_vote .poll-vote-area fieldset,
-#search_list .poll-vote-area fieldset {
+#new_vote .poll-vote-area fieldset {
 	margin: 0;
+}
+
+#search_list .poll-vote-area fieldset {
+	margin: 0 30px;
 }
 
 #new_vote .poll-vote-area fieldset legend,
@@ -2781,6 +2784,10 @@ h2.page-title {
 	text-decoration: none;
 	padding: 3px 26px 3px 0;
 	z-index: 13;
+}
+
+#search_list .poll-vote-area fieldset legend a {
+	top: 15px;
 }
 
 #new_vote .poll-vote-area fieldset.collapsible legend a,
@@ -4688,7 +4695,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 #search_list .vote-form {
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-    padding: 0 30px 14px;
+    padding: 0 0 14px;
 } 
 
 /*Clear*/
