@@ -213,7 +213,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
   .icon.dupes {background:url(../images/icons/104-index-cards.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}	  
 .icon.guides {background:url(../images/icons/187-pencil.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}	    
 	.icon.profile {background:url(../images/icons/123-id-card.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-3px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}
-  .icon.photo {background:url(../images/icons/121-landscape.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-3px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}	
+  .icon.photo {background:url(../images/icons/121-landscape.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-2px 0 0px 0px;filter:alpha(opacity=90);opacity:0.9}	
 	.icon.profile-i {background:url(../images/icons/123-id-card-i.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-3px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}
 
 	.icon.share	 {padding:6px 28px 0px 0px;line-height:1.1em;width:20px}
@@ -245,7 +245,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
     text-shadow: 0 1px #fff;
 		text-transform:uppercase;
   }
-
 
 	.white-box {
 		background-color: #fff;
@@ -296,6 +295,19 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		border-radius: 0 0 4px 4px;
 		-khtml-border-radius: 0 0 4px 4px;
 		-o-border-radius: 0 0 4px 4px;
+	}
+	
+	#edit_profile,
+	.grey-box.full	{
+		background: url(../images/white_50.png) repeat 0 0;
+		border: 1px solid #c0c0c0;
+		padding: 20px 30px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		-khtml-border-radius: 4px;
+		-o-border-radius: 4px;
+		margin: 30px 0 0;	
 	}
 	
 	.grey-box.message {
@@ -418,15 +430,21 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	
 	.dark-grey-box {
 		background:url(../images/cross_hatch_texture_dark.png);
-		border-width:1px;
-		border-style:solid;
-		border-color:#9f9f9f #afafaf #aaa #acacac;
-		margin:10px 3px 30px 12px;
-		padding:26px 22px 18px 22px;
-		border-radius: 3px;
+		padding: 20px 14px;
+		border: 1px solid #afafaf;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		-khtml-border-radius: 4px;
+		-o-border-radius: 4px;
+		margin: 30px 0 0;
 	}
 	
-		.thirty-top {margin-top:30px}
+	.dark-grey-box.top {
+		margin-top: 59px;
+	}
+	
+	.thirty-top {margin-top:30px}
 	
 	ul.tags, ul.badges {
 		margin:-5px 0px 0px 0px;
@@ -619,9 +637,14 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		width:140px;
 		line-height:1em;
 		text-transform:uppercase;
-		padding:0px 0px 10px 0px;
+		padding:0px 0px 18px 0px;
 		margin:-5px 0px 25px 0px;
 	}
+	
+	label.profile {
+		margin: 0;
+	}
+	
 	label.queue{ 
 		color:#999;
 		text-shadow: 0 1px #fff;
@@ -1218,11 +1241,6 @@ ul.map-stats li{
 /* #FORMS (ISSUE, NEW ISSUE, PROFILE EDIT, )
 ================================================== */
 
-
-.new-issue{
-  
-}
-
 .new-issue .number{
   width:30px;
   float:left;
@@ -1233,14 +1251,19 @@ ul.map-stats li{
 }
 
 label.add-on, label.add-on-2 {
-	float:left;
-	margin:-2px 20px 20px 0px ;
-	width:32%;
-	line-height:1em;
+	float: left;
+	margin: 7px 20px 0 00 ;
+	width: 32%;
+	line-height: 1em;
 }
 
 label.add-on-2 {
 	width:18%;
+	margin-right: 3%;
+}
+
+label.add-on-2.small {
+	margin-top: 10px;
 }
 
 textarea#Question, input#Answer, input#Answer3, input#info, textarea#Comment, textarea#Reply  {
@@ -1341,7 +1364,7 @@ label span.title, label span.title-2  {
 
 
 label span.title-2  {
-	line-height:2em;
+	line-height:1.5em;
 	font-size:13px;
 }
 
@@ -1434,11 +1457,16 @@ ul.answer-value  {
 	margin:-15px 0px 5px 0px;
 	float:right;
 }
+
 ul.privacy li, ul.subscription li, ul.answer-value li{
 	float:right;
 	text-align:center;
 	width:22%;
 	margin:0px 0px 0px 1%;
+}
+
+ul.privacy #income li {
+	margin-right: 69%;
 }
 
 ul.subscription li{
@@ -1454,21 +1482,98 @@ ul.answer-value li{
 	margin:0px 0px 0px 1%;
 }
 
-
 span.left {float:left;padding:0px 0px 0px 0px}
+
+form#user-details {
+	margin: 0;
+}
+
+.user-info {margin:0px 0px 10px 0px; clear: both; padding: 18px 0 0;}
+
+#edit_profile {
+	margin: 0;
+}
+
+#edit_profile h2.din {
+	float: left;
+	width: 50%;
+}
+
 .privacy-info {
-	float:right;
-	width:40%;
-	color:#777;
-	margin:-55px 0px 0px 0px;
+	float: right;
+	width: 43%;
+	color: #777;
+	margin: 0;
+}
+
+.privacy-info strong {
+	display: block;
+}
+
+.privacy-info p {
+	margin: 0;
+}
+
+#edit_profile .user-info-inputs {
+	margin: 0 0 5px;
+}
+
+#edit_profile .user-info-inputs > li {
+	float: left;
+	width: 100%;
+	margin-bottom: 22px;
+}
+
+#edit_profile .user-info-inputs > li .form-item {
+	margin: 0;
+	float: left;
+	width: 33%;
+}
+
+#edit_profile  select {
+	width: 100%;
+	margin: 9px 0 0;
+}
+
+#edit_profile fieldset,
+#edit_profile .form-radios,
+#edit_profile input.form-radio {
+	margin: 0;
+}
+
+#edit_profile .form-radios {
+	clear: both;
+	overflow: hidden;
+	width: 100%;
+}
+
+#edit_profile ul.privacy {
+	margin: 0 0 0 55%;
+	float: none;
+	float: none;
+}
+
+#edit_profile .validate-error,
+#edit_profile .validate-error-wait {
+	clear: left;
+	float: left;
+	padding: 5px 0 0 21%;
+	width: 33%;
+	font: 11px/13px Arial, sans-serif;
+	color: #CC2027;
+}
+
+#edit_profile .validate-error-wait {
+	color: #43b649;
 }
 
 .visible-to {
 	font-size:10px;
-	width:50px;
+	width:8%;
 	margin:0px 0px -14px 0px;
 	float:left;
 	visibility:hidden;
+	display: none;
 }
 .privacy-info p{
 	font-size:12px;
@@ -1637,7 +1742,7 @@ span.user-info {
 .hide-message2 {float:right;width: auto; margin: -4px -6px 0 0; padding: 1px; border:1px solid #ccc;border-radius: 3px;font-weight:bold;text-shadow: 0 1px #fff;}
 .hide-message2:hover {color:#222;border:1px solid #999;}
 .profile-message {width:auto;height:auto;margin:0px 0px 0px 0px;}
-.user-info {margin:0px 0px 10px 0px;}
+
 span.URL {white-space:nowrap;}
 span.light {color:#888}
 span.lighter {color:#777;}
@@ -2093,11 +2198,12 @@ textarea#deb_title, textarea.textarea-input {
 }
 input.info, textarea.info {
     float: left;
-    margin: 2px 0 20px;
-    padding: 1%;
-    width: 29%;
+    margin: 0;
+    padding: 8px 5px;
+    width: 95%;
 }
-.privacy .form-radios .form-item{
+
+#edit_profile .privacy .form-radios .form-item{
     float: right;
     margin: 0 0 0 1%;
     text-align: center;
@@ -2105,6 +2211,11 @@ input.info, textarea.info {
     border: 0px solid #ff0000;
 
 }
+
+#edit_profile .privacy #income .form-radios .form-item {
+	margin-right: 69%;
+}
+
 .subscription .form-radios .form-item{
     float: right;
     margin: 0 0 0 1%;
@@ -2122,17 +2233,26 @@ input.info, textarea.info {
     border-width: 1px;
     float: left;
     height: 75px;
-    margin: -6px 12px 10px 0;
+    margin: 0 12px 10px 0;
     width: 75px;
 }
+
+#edit_profile .follow-links {
+	clear: both;
+	color: #444;
+}
+
 .follow-links .form-select{
     clear: both;
     float: left;
     width: 119px;
 }
+
 .follow-links .form-text{
-    margin-left: 6px;
+	padding: 8px 5px;
+	width: 83%;
 }
+
 .icon.photo {
     padding: 1px 18px 0 146px;
     position: absolute;
@@ -2157,9 +2277,11 @@ input.form-text.upload{
     
 }
 #cit-stat{
-    margin-left: 136px;
-    margin-top: 17px;
-    position: absolute;
+	display: inline-block;
+    margin: 25px 0 0 100%;
+    padding: 0 0 0 20px;
+    white-space: nowrap;
+	color: #362750;
 }
 
 /*moderator*/
