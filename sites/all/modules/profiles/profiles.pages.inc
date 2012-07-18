@@ -252,9 +252,20 @@ function user_details(&$form_state) {
     '#attributes' => array('class' => 'info validate validate-date-year', 'blurtext' => t('Year Of Birth')),
   );
 
+  $countries = geonames_query('countryinfo');
+  $contriesOptions = array();
+  foreach ($countries->results as $country) {
+    if ($country['countryname'] == $details->country) {
+      $defaultCountry = $country['countrycode'];
+    }
+    $contriesOptions[$country['countrycode']] = $country['countryname'];
+  }
+  asort($contriesOptions);
+
   $form['country'] = array(
-    '#type' => 'hidden',
-    '#default_value' => variable_get('country', $details->country),
+    '#type' => 'select',
+    '#default_value' => $defaultCountry,
+    '#options' => $contriesOptions,
     '#id' => 'country',
     '#attributes' => array('class' => 'info'),
   );
@@ -631,6 +642,14 @@ function user_details_validate($form, &$form_state) {
 
 function user_details_submit($form, &$form_state) {
   global $user;
+
+  // translate back country code to country name
+  $countries = geonames_query('countryinfo');
+  $contriesOptions = array();
+  foreach ($countries->results as $country) {
+    $contriesOptions[$country['countrycode']] = $country['countryname'];
+  }
+  $form_state['values']['country'] = $contriesOptions[$form_state['values']['country']];
 
   //profile fields update
   _basic_submit($form, $form_state);

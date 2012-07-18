@@ -2278,9 +2278,8 @@ input.form-text.upload{
 }
 #cit-stat{
 	display: inline-block;
-    margin: 25px 0 0 100%;
-    padding: 0 0 0 20px;
-    white-space: nowrap;
+  margin: 0;
+  white-space: nowrap;
 	color: #362750;
 }
 
@@ -4857,4 +4856,21 @@ div.tabs {
 	width: 15px !important;
 	height: 15px !important;
 	background: url(../images/loading.gif) no-repeat scroll 0 0 transparent !important;
+}
+
+
+/* Country info */
+#edit_profile .user-info-inputs > li.country-info label span.title-2 {
+  display: block;
+}
+
+#edit_profile .user-info-inputs > li.country-info .form-item .form-item {
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+#edit_profile .user-info-inputs > li.country-info .validate-error,
+#edit_profile .user-info-inputs > li.country-info .validate-error-wait {
+  padding: 0;
+  width: 100%;
 }

@@ -6,7 +6,7 @@ print drupal_render($form['form_id']);
 
 
 // get hidden values
-print drupal_render($form['country']);
+//print drupal_render($form['country']);
 print drupal_render($form['state']);
 print drupal_render($form['city']);
 print drupal_render($form['img_avt']);
@@ -126,11 +126,16 @@ print drupal_render($form['current_image']);
 							</ul>
 					</li>
 					
-					<li>
-						<label for="" class="add-on-2"><span class="title-2"><?php print t('Zip/Postal Code'); ?></span>
-						<?php print drupal_render($form['city-state-country']); ?>
+					<li class="country-info">
+						<label for="" class="add-on-2">
+              <span class="title-2"><?php print t('Country'); ?></span>
+              <span class="title-2"><?php print t('Zip/Postal Code'); ?></span>
 						</label>
+            <div class="form-item">
+             <?php print drupal_render($form['country']); ?>
 						 <?php print drupal_render($form['zip']); ?>
+             <?php print drupal_render($form['city-state-country']); ?>
+            </div>
 							<div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
 									<fieldset>
 											<li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">

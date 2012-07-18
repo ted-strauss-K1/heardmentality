@@ -147,20 +147,23 @@ function get_zip_city(ielem, lock){
   var code = $(ielem).val();
   add_validate_message(ielem, '<span class="validate-wait">Please wait your zip code is validating...</span>', 'validate-error-wait');
   jQuery.ajax({
-    type: "POST",
+    type: "GET",
     url: urr,
     dataType: "json",
     data: {
+      country: $('#country').val(),
       code: code
     },
     success: result = function(msg){
       //alert(msg);
-      var result = false;
-      jQuery('#country').val(msg.country);
-      jQuery('#state').val(msg.state);
-      jQuery('#city').val(msg.city);
+      var geoname = msg.geoname;
+      geoname.country = $('#country').find('[value="' + $('#country').val() + '"]').text();
 
-      if(msg.state==null){
+      var result = false;
+      jQuery('#state').val(geoname.state);
+      jQuery('#city').val(geoname.city);
+
+      if(geoname.state==null){
         jQuery('#location').val('');
         //jQuery('#cit-stat').html('Please Provide the proper Zip code');
         add_validate_message(ielem, 'Please Provide the proper Zip code');
@@ -171,28 +174,28 @@ function get_zip_city(ielem, lock){
         //  add_validate_message(ielem, 'You have entered valid zipcode');
         result = true;
         var citStat = '';
-        if (msg.city)
+        if (geoname.city)
         {
-          citStat += msg.city;
+          citStat += geoname.city;
         }
-        if (msg.state)
-        {
-          if (citStat != '')
-          {
-            citStat += ', ';
-          }
-          citStat += msg.state;
-        }
-        if (msg.country)
+        if (geoname.state)
         {
           if (citStat != '')
           {
             citStat += ', ';
           }
-          citStat += msg.country;
+          citStat += geoname.state;
         }
-        add_validate_message(ielem, citStat, 'validate-error-wait');
-        //  jQuery('#cit-stat').html(citStat);
+        if (geoname.country)
+        {
+          if (citStat != '')
+          {
+            citStat += ', ';
+          }
+          citStat += geoname.country;
+        }
+        clear_validate_messages();
+        jQuery('#cit-stat').html(citStat);
       }
 
       // jQuery.unblockUI();

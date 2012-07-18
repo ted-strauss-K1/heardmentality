@@ -3132,16 +3132,34 @@ function qfull_ajax() {
             echo $list;
             break;
         case 'zipcity':
+            $country = $_REQUEST['country'];
             $code = $_REQUEST['code'];
-            $query = array('postalcode' => $code, 'maxrows' => 1);
-            $result = geonames_query('postalcodesearch', $query);
-            $city = $result->results;
 
-            $query = array('country' => $city[0]['countrycode'], 'maxrows' => 1);
-            $result1 = geonames_query('countryinfo', $query);
-            $cnt = $result1->results;
-            $array = array('country' => $cnt[0]['countryname'], 'state' => $city[0]['adminname1'], 'city' => $city[0]['adminname2']);
+            $query = array('postalcode' => $code, 'country' => $country, 'maxrows' => 1);
+            $result = geonames_query('postalcodesearch', $query);
+            $geoname = $result->results[0];
+            
+            $array = array(
+              'geoname' => array(
+                'state' => $geoname['adminname1'],
+                'city' => $geoname['adminname2'],
+              ),
+            );
             echo json_encode($array);
+
+//            $query = array('postalcode' => $code, 'maxrows' => 1);
+//            $query = array('postalcode' => $code);
+//            $result = geonames_query('postalcodesearch', $query);
+//            $city = $result->results;
+//
+//            $query = array('country' => $city[0]['countrycode'], 'maxrows' => 1);
+//            $result1 = geonames_query('countryinfo', $query);
+//            $cnt = $result1->results;
+//            $array = array(
+//              'country' => $cnt[0]['countryname'],
+//              'state' => $city[0]['adminname1'],
+//              'city' => $city[0]['adminname2'],
+//            );
             //   print_r($cnt);
             //print_r($city);
             /*      echo '<b>Country :</b>' . $cnt[0]['countryname'];

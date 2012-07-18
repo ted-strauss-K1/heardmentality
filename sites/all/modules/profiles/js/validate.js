@@ -332,6 +332,10 @@ jQuery(document).ready(function(){
         get_zip_city($(this), true);
       }
     });
+
+    $('#country').change(function() {
+      get_zip_city($('#zip'), true);
+    });
   });
 
   chk_uname($('#username'), true);
