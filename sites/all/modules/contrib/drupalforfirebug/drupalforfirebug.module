@@ -186,8 +186,8 @@ function drupalforfirebug_execute_form() {
 }
 
 function drupalforfirebug_get_php_exec_area() {
-  #$output = '<iframe style="width=100%;frameborder=0;height=100%;margin-bottom:-3px;" src="' . url('admin/firebug/exec', array('absolute' => TRUE)) . '"></iframe>';
-  $output = '<object style="width:100%;frameborder=0;height=100%;margin-bottom:-3px;" type="text/html" data="' . url('admin/firebug/exec', array('absolute' => TRUE)) . '"></object>';
+  //$output = '<iframe style="width=100%;frameborder=0;height=100%;margin-bottom:-3px;" src="' . url('admin/firebug/exec', array('absolute' => TRUE)) . '"></iframe>';
+  $output = '<object style="width:100%;frameborder:0;height:100%;margin-bottom:-3px;" type="text/html" data="' . url('admin/firebug/exec', array('absolute' => TRUE)) . '"></object>';
   return $output;
 }
 
