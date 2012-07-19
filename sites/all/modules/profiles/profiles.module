@@ -1784,9 +1784,9 @@ function _basic_submit($form, &$form_state) {
   $chk_result = db_result($chk);
   if ($chk_result)
   {
-    $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s', latitude = '%s', longitude = '%s' where uid='%d' ";
+    $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%s',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s', latitude = '%s', longitude = '%s' where uid='%d' ";
   } else {
-    $query = "INSERT INTO {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s', latitude = '%s', longitude = '%s', uid='%d' ";
+    $query = "INSERT INTO {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%s',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s', latitude = '%s', longitude = '%s', uid='%d' ";
   }
     $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['income'],$form_state['values']['marital'],$form_state['values']['sorient'], $form_state['values']['education'], $latitude, $longitude, $user->uid);
     //update username
