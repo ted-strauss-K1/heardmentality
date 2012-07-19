@@ -155,6 +155,7 @@ function hackfix_form_alter(&$form, &$form_state, $form_id) {
     $form['news'] = array(
       '#type' => 'checkbox',
       '#title' => t('Yes, send me useful news about Heard Mentality.'),
+      '#default_value' => TRUE,
     );
 
 
