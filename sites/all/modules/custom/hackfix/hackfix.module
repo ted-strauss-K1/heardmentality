@@ -140,7 +140,8 @@ function hackfix_user($op, &$edit, &$account, $category = NULL){
 
 
 function hackfix_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'user_register') {
+  if ($form_id == 'user_register') {    
+    drupal_add_js(drupal_get_path('module', 'hackfix') . '/js/hackfix.js');
 
     unset($form['civicrm-profile-register']);
     $form['#validate'][] = 'hackfix_register_form_validate';
