@@ -4874,3 +4874,14 @@ div.tabs {
   padding: 0;
   width: 100%;
 }
+
+/* User register */
+#user-register .messages.error {
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+#user-register .messages.error ul,
+#user-register .messages.error ul li {
+  margin-bottom: 0;
+}
