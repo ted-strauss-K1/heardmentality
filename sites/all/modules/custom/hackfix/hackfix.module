@@ -145,6 +145,7 @@ function hackfix_form_alter(&$form, &$form_state, $form_id) {
 
     unset($form['civicrm-profile-register']);
     $form['#validate'][] = 'hackfix_register_form_validate';
+    $form['#submit'][] = 'hackfix_register_form_submit';
     $form['account']['mail']['#title'] = t("What's your email address?");
     $form['account']['mail']['#description'] = '';
     $form['account']['pass']['#description'] = '';
@@ -155,7 +156,7 @@ function hackfix_form_alter(&$form, &$form_state, $form_id) {
     $form['news'] = array(
       '#type' => 'checkbox',
       '#title' => t('Yes, send me useful news about Heard Mentality.'),
-      '#default_value' => TRUE,
+      '#default_value' => 1,
     );
 
 
@@ -177,6 +178,15 @@ function hackfix_register_form_validate($form, $form_state) {
   $value = $form_state['values']['terms'];
   if ($value == 0) {
     form_set_error('terms', t('You must agree with the Terms of use and Privacy Policy to get an account.'));
+  }
+}
+
+function hackfix_register_form_submit($form, $form_state) {
+  global $user;
+  $value = $form_state['values']['news'];
+
+  if ($value == 1 && $user->uid) {
+    db_query("UPDATE {users} SET notify_etype='%d' WHERE uid='%d'", $value, $user->uid);
   }
 }
 
