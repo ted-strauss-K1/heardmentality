@@ -480,7 +480,6 @@ function user_details(&$form_state) {
     '#default_value' => variable_get('email', $user->mail),
     '#id' => 'sub_email',
     '#required' => 1,
-    '#attributes' => array('class' => 'upload button'),
   );
   $form['submit'] = array(
     '#type' => 'submit',

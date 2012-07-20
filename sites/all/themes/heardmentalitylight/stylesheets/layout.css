@@ -310,6 +310,10 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		margin: 30px 0 0;	
 	}
 	
+	.four .grey-box {
+		padding: 17px 14px 14px 14px;
+	}
+	
 	.grey-box.message {
 	background:url(../images/ui-bg_diagonals40x40.png);
 	}
@@ -453,6 +457,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		text-shadow: 0 1px #fff;
 		color:#666;
 		font-size:11px;
+		line-height: 1.1;
 		text-transform:uppercase;
 		padding:0px 0px 10px 0px;
 	}
@@ -461,6 +466,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	    border-bottom: 1px solid #c0c0c0;
 		color: #999999;
 		font-size: 13px;
+		line-height: 21px;
 		font-weight: bold;
 		margin: 0 0 12px;
 		padding: 0 3px 10px;
@@ -1447,9 +1453,25 @@ ul.privacy, ul.subscription, ul.answer-value  {
 }
 
 ul.subscription  {
-	margin:0px 0px 5px 0px;
+	margin:-5px 0px 0 0px;
 	width:100%;
 	float:right;
+}
+
+ul.subscription fieldset {
+	margin: 0;
+}
+
+#sub_email-wrapper {
+	clear: both;
+	margin: 0;
+}
+
+#sub_email-wrapper input.form-text {
+	padding: 8px 5px;
+    width: 93%;
+	margin: 0.5em 0 1em;
+	display: inline-block;
 }
 
 ul.answer-value  {
@@ -2138,9 +2160,6 @@ textarea#q_quest  {
     color: #EF00D3;
 }
 /*Active Category*/
-.four .grey-box {
-    padding: 20px 20px 14px 14px;
-}
 .twelve .suggest{
     float: right;
     width: 73%;
