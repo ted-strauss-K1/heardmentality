@@ -1495,7 +1495,7 @@ ul.subscription li{
 	float:right;
 	text-align:center;
 	width:32%;
-	margin:0px 0px 0px 1%;
+	margin: 0 1% 0 0;
 }
 
 ul.answer-value li{
@@ -2259,7 +2259,7 @@ input.info, textarea.info {
 
 .subscription .form-radios .form-item{
     float: right;
-    margin: 0 0 0 1%;
+    margin: 0 1% 0 0;
     text-align: center;
     width: 32%;
 }
