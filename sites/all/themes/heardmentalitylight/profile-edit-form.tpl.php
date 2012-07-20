@@ -396,7 +396,7 @@ print drupal_render($form['current_image']);
 					<label for="profile" class="profile"><?php print t('Change Photo'); ?></label>
                                         <?php print drupal_render($form['file_upload']);?>
                                         <div id="brow_img_name"></div>
-                                        <p>...<?php print t('or choose a picture'); ?><a href="#" id="dialog_link-pic" title="Pick a photo"> <?php print t('Here'); ?> </a></p>                                        
+                                        <p class="choose_pic">...<?php print t('or choose a picture'); ?><a href="#" id="dialog_link-pic" title="Pick a photo"> <?php print t('Here'); ?> </a></p>                                        
 					<input type="submit" value="Submit" class="submit-issue leftfloat" id="submit_brow-avat" />
 				</div>
 	</div>

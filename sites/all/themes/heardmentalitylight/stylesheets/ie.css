@@ -35,7 +35,9 @@
 .ie7 .vote-results .legend dl,
 .ie8 .vote-results .legend dl,
 .ie8 #solr-issues-search-form,
-.ie7 #solr-issues-search-form{
+.ie7 #solr-issues-search-form,
+.ie7 .profile-meta,
+.ie8 .profile-meta{
 	zoom: 1;
 }
 
