@@ -1669,6 +1669,10 @@ p.choose_pic {
 	display:block;
 }
 
+.avatar-left #edit-file-upload{
+	max-width: 190px;
+}
+
 .profile-meta.quick-profile {
 	margin-top:-20px;
 
