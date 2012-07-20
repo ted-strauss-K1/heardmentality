@@ -1843,7 +1843,7 @@ global $base_url, $user, $gDocPath, $base_root, $base_path;
     $userslist=user_load(array('uid'=>$mid));
     $default = $base_url.'/'.avatar_selection_get_random_image($userslist);
 
-//    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
         case '-2': // hmm, seems smth strange, let's use default option
             $image_path = file_create_path('avatar_selection');
