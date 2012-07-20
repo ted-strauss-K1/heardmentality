@@ -2278,9 +2278,10 @@ input.form-text.upload{
 }
 #cit-stat{
 	display: inline-block;
-  margin: 0;
-  white-space: nowrap;
+	margin: 0;
+	white-space: nowrap;
 	color: #362750;
+	padding-top: 5px;
 }
 
 /*moderator*/

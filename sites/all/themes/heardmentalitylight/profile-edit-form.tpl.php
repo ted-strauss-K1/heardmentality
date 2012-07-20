@@ -127,7 +127,7 @@ print drupal_render($form['current_image']);
 					</li>
 					
 					<li class="country-info">
-						<div class="country_wrapper">
+						<div class="c_wrapper">
 							<label class="add-on-2 small">
 								<span class="title-2"><?php print t('Country'); ?></span>
 							</label>
@@ -136,8 +136,8 @@ print drupal_render($form['current_image']);
 								<?php print drupal_render($form['country']); ?>
 							</div>
 						</div>
-						<div class="zip_wrapper">
-							<label  class="add-on-2">
+						<div class="z_wrapper">
+							<label class="add-on-2">
 								<span class="title-2"><?php print t('Zip/Postal Code'); ?></span>
 							</label>
 							
