@@ -633,10 +633,8 @@ function profiles_user($op, $edit, &$account, $category = NULL) {
             $chk_result = db_result($chk);
             if (!$chk_result)
             {
-              $query = "INSERT INTO {user_profile} SET uid='%d', image='%s'";
-              $avatar = profiles_get_random_avatar();
-              db_query($query, $uid, $avatar);
-              db_query("UPDATE {users} SET picture='%s' WHERE uid='%d'", $avatar, $uid);
+              $query = "INSERT INTO {user_profile} SET uid='%d'";
+              db_query($query, $uid);
             }
 
             //home page
@@ -1845,7 +1843,7 @@ global $base_url, $user, $gDocPath, $base_root, $base_path;
     $userslist=user_load(array('uid'=>$mid));
     $default = $base_url.'/'.avatar_selection_get_random_image($userslist);
 
-    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+//    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
         case '-2': // hmm, seems smth strange, let's use default option
             $image_path = file_create_path('avatar_selection');
@@ -2294,20 +2292,4 @@ function _following_counts(){
     $followingCount = count($following);
     $followersCount = count($followers);
     return theme('following_counts', $followingCount, $followersCount);
-}
-
-/**
- * Get random avatar.
- */
-function profiles_get_random_avatar() {
-  static $avatars = array();
-  if (!$avatars) {
-    $dir = file_create_path('avatar_selection');
-
-    $result = db_query("SELECT * FROM {avatar_selection}");
-    while ($avatar = db_fetch_object($result)) {
-      $avatars[$avatar->aid] = $dir . '/' . $avatar->avatar;
-    }
-  }
-  return $avatars[array_rand($avatars, 1)];
 }
