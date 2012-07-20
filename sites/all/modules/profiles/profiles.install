@@ -22,3 +22,23 @@ function profiles_update_6001() {
   }
   return $ret;
 }
+
+/**
+ * Implementation of hook_update().
+ * Fix avatars.
+ */
+function profiles_update_6002() {
+  $ret = array();
+  $result = db_query('SELECT uid, picture FROM {users} WHERE uid > 0');
+  while ($user = db_fetch_object($result)) {
+    if (empty($user->picture) || file_exists($user->picture)) {
+      db_query("UPDATE {users} SET picture='%s' WHERE uid='%d'", profiles_get_random_avatar(), $user->uid);
+    }
+  }
+
+  $ret[] = array(
+    'success' => TRUE,
+    'query' => "Updated user pictures",
+  );
+  return $ret;
+}

@@ -3,7 +3,7 @@
 /**
  * Storing the base url in the js variable
  */
-function profiles_init() { 
+function profiles_init() {
   global $base_url;
   drupal_add_js(array('hm_base_url' => $base_url),'setting');
 }
@@ -633,8 +633,10 @@ function profiles_user($op, $edit, &$account, $category = NULL) {
             $chk_result = db_result($chk);
             if (!$chk_result)
             {
-              $query = "INSERT INTO {user_profile} set uid='%d' ";
-              db_query($query,$uid);
+              $query = "INSERT INTO {user_profile} SET uid='%d', image='%s'";
+              $avatar = profiles_get_random_avatar();
+              db_query($query, $uid, $avatar);
+              db_query("UPDATE {users} SET picture='%s' WHERE uid='%d'", $avatar, $uid);
             }
 
             //home page
@@ -2292,4 +2294,21 @@ function _following_counts(){
     $followingCount = count($following);
     $followersCount = count($followers);
     return theme('following_counts', $followingCount, $followersCount);
+}
+
+/**
+ * Get random avatar.
+ */
+function profiles_get_random_avatar() {
+  static $avatars = array();
+  if (!$avatars) {
+    $dir = file_create_path('avatar_selection');
+    $url = file_directory_path() .'/'. $dir;
+
+    $result = db_query("SELECT * FROM {avatar_selection}");
+    while ($avatar = db_fetch_object($result)) {
+      $avatars[$avatar->aid] = check_url($url . '/' . $avatar->avatar);
+    }
+  }
+  return $avatars[array_rand($avatars, 1)];
 }
