@@ -1516,7 +1516,7 @@ form#user-details {
 
 #edit_profile .z_wrapper {
 	clear: both;
-	padding-top: 5px;
+	padding-top: 8px;
 }
 
 #edit_profile .user-info-inputs > li {
@@ -1530,6 +1530,10 @@ form#user-details {
 	float: left;
 	width: 33%;
 }
+
+#edit_profile .user-info-inputs > li.country-info .form-item .form-item {
+	width: 100%;
+}  
 
 #edit_profile  select {
 	width: 100%;
@@ -1554,12 +1558,16 @@ form#user-details {
 	float: none;
 }
 
+#edit_profile li.country-info ul.privacy {
+	margin-top: -18px;
+}
+
 #edit_profile .validate-error,
 #edit_profile .validate-error-wait {
 	clear: left;
 	float: left;
-	padding: 5px 0 0 21%;
-	width: 33%;
+	padding: 8px 0 0;
+	width: auto;
 	font: 11px/13px Arial, sans-serif;
 	color: #CC2027;
 }
@@ -4858,23 +4866,6 @@ div.tabs {
 	width: 15px !important;
 	height: 15px !important;
 	background: url(../images/loading.gif) no-repeat scroll 0 0 transparent !important;
-}
-
-
-/* Country info */
-#edit_profile .user-info-inputs > li.country-info label span.title-2 {
-  display: block;
-}
-
-#edit_profile .user-info-inputs > li.country-info .form-item .form-item {
-  margin-bottom: 5px;
-  width: 100%;
-}
-
-#edit_profile .user-info-inputs > li.country-info .validate-error,
-#edit_profile .user-info-inputs > li.country-info .validate-error-wait {
-  padding: 0;
-  width: 100%;
 }
 
 /* User register */
