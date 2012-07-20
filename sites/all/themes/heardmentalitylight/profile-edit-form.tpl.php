@@ -127,16 +127,27 @@ print drupal_render($form['current_image']);
 					</li>
 					
 					<li class="country-info">
-						<label for="" class="add-on-2">
-              <span class="title-2"><?php print t('Country'); ?></span>
-              <span class="title-2"><?php print t('Zip/Postal Code'); ?></span>
-						</label>
-            <div class="form-item">
-             <?php print drupal_render($form['country']); ?>
-						 <?php print drupal_render($form['zip']); ?>
-             <?php print drupal_render($form['city-state-country']); ?>
-            </div>
-							<div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
+						<div class="country_wrapper">
+							<label class="add-on-2 small">
+								<span class="title-2"><?php print t('Country'); ?></span>
+							</label>
+
+							<div class="form-item">
+								<?php print drupal_render($form['country']); ?>
+							</div>
+						</div>
+						<div class="zip_wrapper">
+							<label  class="add-on-2">
+								<span class="title-2"><?php print t('Zip/Postal Code'); ?></span>
+							</label>
+							
+							<div class="form-item">
+								<?php print drupal_render($form['zip']); ?>
+								<?php print drupal_render($form['city-state-country']); ?>
+							</div>
+						</div>
+						
+						<div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
 									<fieldset>
 											<li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
 												 <span class="privacy-answer"><?php print t('Anyone'); ?></span>
@@ -366,9 +377,9 @@ print drupal_render($form['current_image']);
 							</ul>
 					</li>
 
-					<div class="follow-links">
+					<!-- <div class="follow-links">
 						<?php print drupal_render($form['follow_links']); ?>
-					</div>
+					</div>-->
 				   
 			</ul>
 			

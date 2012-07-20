@@ -1514,8 +1514,8 @@ form#user-details {
 	margin: 0;
 }
 
-#edit_profile .user-info-inputs {
-	margin: 0 0 5px;
+#edit_profile .zip_wrapper {
+	clear: both;
 }
 
 #edit_profile .user-info-inputs > li {
