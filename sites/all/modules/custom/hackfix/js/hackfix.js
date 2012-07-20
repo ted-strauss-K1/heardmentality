@@ -83,7 +83,7 @@ Drupal.behaviors.hackfix = function (context) {
    * Set errors messages to given form
    */
   function setErrors(form, errors) {
-    var $messages = $('div.messages.error');
+    var $messages = $('div.messages.error', form);
     if ($messages) {
       $messages.remove();
     }
