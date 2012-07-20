@@ -2303,11 +2303,10 @@ function profiles_get_random_avatar() {
   static $avatars = array();
   if (!$avatars) {
     $dir = file_create_path('avatar_selection');
-    $url = file_directory_path() .'/'. $dir;
 
     $result = db_query("SELECT * FROM {avatar_selection}");
     while ($avatar = db_fetch_object($result)) {
-      $avatars[$avatar->aid] = check_url($url . '/' . $avatar->avatar);
+      $avatars[$avatar->aid] = $dir . '/' . $avatar->avatar;
     }
   }
   return $avatars[array_rand($avatars, 1)];
