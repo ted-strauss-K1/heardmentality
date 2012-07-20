@@ -1488,7 +1488,11 @@ form#user-details {
 	margin: 0;
 }
 
-.user-info {margin:0px 0px 10px 0px; clear: both; padding: 18px 0 0;}
+.user-info {margin:0; clear: both; padding: 18px 0 0;}
+
+.user-info  .user-info-inputs {
+	margin: 0;
+}
 
 #edit_profile {
 	margin: 0;
