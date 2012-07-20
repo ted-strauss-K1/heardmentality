@@ -1836,6 +1836,12 @@ function is_moderator($uid = ''){
 function UserPicture_small_src($mid) {
 
 global $base_url, $user, $gDocPath, $base_root, $base_path;
+
+    static $userImage = array();
+    if (isset ($userImage[$mid])) {
+      return $userImage[$mid];
+    }
+    
     $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     $rs_image = db_query($selimage);
     $resultimage = db_fetch_object($rs_image);
@@ -1843,7 +1849,7 @@ global $base_url, $user, $gDocPath, $base_root, $base_path;
     $userslist=user_load(array('uid'=>$mid));
     $default = $base_url.'/'.avatar_selection_get_random_image($userslist);
 
-    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+//    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
         case '-2': // hmm, seems smth strange, let's use default option
             $image_path = file_create_path('avatar_selection');
@@ -1900,6 +1906,7 @@ global $base_url, $user, $gDocPath, $base_root, $base_path;
             break;
     }
 
+    $userImage[$mid] = $PROFILE_IMAGE;
     return $PROFILE_IMAGE;
 }
 
