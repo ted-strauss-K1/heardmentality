@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implementation of hook_update().
+ * Fix profile charset.
+ */
+function profiles_update_6001() {
+  $ret = array();
+  $fields = array(
+    'country',
+    'city',
+    'state',
+  );
+  // we use plain SQL because no collation in drupal API presented
+  foreach ($fields as $field) {
+    $query = "ALTER TABLE  {user_profile} CHANGE  $field $field VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL";
+    $ret[] = array(
+      'success' => TRUE,
+      'query' => $query,
+    );
+    db_query($query);
+  }
+  return $ret;
+}

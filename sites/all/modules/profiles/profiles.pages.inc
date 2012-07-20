@@ -422,17 +422,17 @@ function user_details(&$form_state) {
     '#attributes' => array('class' => 'info validate validate-url'),
   );
 
-  $follow_links_form = follow_links_form($form_state, $user->uid);
-  // remove extra fields
-  foreach ($follow_links_form['follow_links'] as &$link) {
-    if (isset($link['weight'])) {
-      $link['weight']['#access'] = FALSE;
-    }
-    if (isset($link['title'])) {
-      $link['title']['#access'] = FALSE;
-    }
-  }
-  $form = $form + $follow_links_form;
+//  $follow_links_form = follow_links_form($form_state, $user->uid);
+//  // remove extra fields
+//  foreach ($follow_links_form['follow_links'] as &$link) {
+//    if (isset($link['weight'])) {
+//      $link['weight']['#access'] = FALSE;
+//    }
+//    if (isset($link['title'])) {
+//      $link['title']['#access'] = FALSE;
+//    }
+//  }
+//  $form = $form + $follow_links_form;
 
   $form['merge'] = array('#type' => 'markup', '#value' => '
                 
@@ -658,7 +658,7 @@ function user_details_submit($form, &$form_state) {
   //avatar update
   _avatar_submit($form, $form_state);
   // follow links update
-  follow_links_form_submit($form, $form_state);
+//  follow_links_form_submit($form, $form_state);
 
 
   /* New SET NOTIFY LOG */
