@@ -237,7 +237,7 @@ function UserPicture_small($mid) {
 $userslist=user_load(array('uid'=>$mid));
  $default = $base_url.'/'.avatar_selection_get_random_image($userslist);
    // $resultimage = db_fetch_object($rs_image);
-   // $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
         case '2':
             $image_path = file_create_path('avatar_selection');
