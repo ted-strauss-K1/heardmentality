@@ -4876,11 +4876,14 @@ div.tabs {
 }
 
 /* User register */
+#user-login .messages.error,
 #user-register .messages.error {
   font-size: 11px;
   margin-bottom: 5px;
 }
 
+#user-login .messages.error ul,
+#user-login .messages.error ul li,
 #user-register .messages.error ul,
 #user-register .messages.error ul li {
   margin-bottom: 0;

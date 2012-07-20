@@ -4,47 +4,84 @@ Drupal.hackfix = {
 }
 
 Drupal.behaviors.hackfix = function (context) {
-  $('form#user-register').submit(function () {
-    var errors = {},
-        hasError = false;
+  // ajax validating of login form
+  $('form#user-login', context).submit(function() {
+    var credentials = {
+          'name': {
+            'title': 'E-mail' + Drupal.hackfix.field,
+            'field': $('#edit-name', this)
+          },
+          'pass': {
+            'title': 'Password' + Drupal.hackfix.field,
+            'field': $('#edit-pass', this)
+          }
+        };
 
-    // @TODO: replace this by smth beautiful
-    if ($('#edit-mail', this).val() == '') {
-      $('#edit-mail', this).addClass('error');
-      errors['mail'] = 'E-Mail' + Drupal.hackfix.field;
-      hasError = true;
+    var status = checkInputValues(credentials);
+    if (status.hasError) {
+      setErrors(this, status.errors);
     } else {
-      $('#edit-mail', this).removeClass('error');
+      // do ajax validation of credentials
+      var data = {},
+          url = Drupal.settings.basePath + 'login/validate/ajax';
+      for (var i in credentials) {
+        data[i] = credentials[i].field.val();
+      }
+      var $form = $(this);
+      $form.throbberStart();
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        dataType: 'json',
+        success: function(response) {
+          if (response.hasError) {
+            setErrors($form, response.errors);
+            $form.throbberStop();
+          } else {
+            window.location.href = Drupal.settings.basePath;
+          }
+        }
+      });
     }
+    
+    return false;
+  });
 
-    if ($('#edit-pass-pass1', this).val() == '') {
-      $('#edit-pass-pass1', this).addClass('error');
-      errors['pass1'] = 'Password' + Drupal.hackfix.field;
-      hasError = true;
-    } else {
-      $('#edit-pass-pass1', this).removeClass('error');
-    }
-
-    if ($('#edit-pass-pass2', this).val() == '') {
-      $('#edit-pass-pass2', this).addClass('error');
-      errors['pass2'] = 'Confirmation' + Drupal.hackfix.field;
-      hasError = true;
-    } else {
-      $('#edit-pass-pass2', this).removeClass('error');
-    }
+  // ajax validating of registration form
+  $('form#user-register', context).submit(function() {
+    var inputs = {
+          'mail': {
+            'title': 'E-mail' + Drupal.hackfix.field,
+            'field': $('#edit-mail', this)
+          },
+          'pass1': {
+            'title': 'Password' + Drupal.hackfix.field,
+            'field': $('#edit-pass-pass1', this)
+          },
+          'pass2': {
+            'title': 'Confirmation' + Drupal.hackfix.field,
+            'field': $('#edit-pass-pass2', this)
+          }
+        };
+    var status = checkInputValues(inputs);
 
     var $term = $('#edit-terms', this);
     if (!$term.is(':checked')) {
-      errors['term'] = Drupal.hackfix.term;
-      hasError = true;
+      status.errors['term'] = Drupal.hackfix.term;
+      status.hasError = true;
     }
 
-    if (hasError) {
-      setErrors(this, errors);
+    if (status.hasError) {
+      setErrors(this, status.errors);
       return false;
     }
+    return true;
   });
 
+  /**
+   * Set errors messages to given form
+   */
   function setErrors(form, errors) {
     var $messages = $('div.messages.error');
     if ($messages) {
@@ -60,5 +97,28 @@ Drupal.behaviors.hackfix = function (context) {
     }
     $messages.append($ul);
     $(form).prepend($messages);
+  }
+
+  /**
+   * Check input values to be not empty
+   */
+  function checkInputValues(inputs) {
+    var errors = {},
+        hasError = false;
+
+    for (var i in inputs) {
+      if (inputs[i].field.val() == '') {
+        inputs[i].field.addClass('error');
+        errors[i] = inputs[i].title;
+        hasError = true;
+      } else {
+        inputs[i].field.removeClass('error');
+      }
+    }
+
+    return {
+      hasError: hasError,
+      errors: errors
+    };
   }
 }

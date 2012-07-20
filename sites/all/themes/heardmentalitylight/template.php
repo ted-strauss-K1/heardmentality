@@ -59,6 +59,7 @@ function phptemplate_breadcrumb($breadcrumb) {
  */
 function phptemplate_preprocess_page(&$vars) {
     global $user;
+    $vars['styles'] = drupal_get_css();
 	//echo '<pre>';
 //print_r($vars);exit;
     if ((arg(1) == 'block')) {

@@ -88,6 +88,11 @@ function hackfix_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+  $items['login/validate/ajax'] = array(
+    'page callback' => 'hackfix_login_validate_ajax',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -146,9 +151,14 @@ function hackfix_user($op, &$edit, &$account, $category = NULL){
 
 
 function hackfix_form_alter(&$form, &$form_state, $form_id) {
+  if (in_array($form_id, array('user_login', 'user_register'))) {
+    $path = drupal_get_path('module', 'hackfix');
+    drupal_add_js($path . '/js/hackfix.js');
+    // add throbber plugin
+    drupal_add_css($path . '/js/throbber/jquery.throbber.css');
+    drupal_add_js($path . '/js/throbber/jquery.throbber.js');
+  }
   if ($form_id == 'user_register') {    
-    drupal_add_js(drupal_get_path('module', 'hackfix') . '/js/hackfix.js');
-
     unset($form['civicrm-profile-register']);
     $form['#validate'][] = 'hackfix_register_form_validate';
     $form['account']['mail']['#title'] = t("What's your email address?");
@@ -192,4 +202,27 @@ function hackfix_preprocess_page(&$vars) {
     $vars['login_register'] = drupal_get_form('user_register');
 //    krumo($vars);
   }
+}
+
+/**
+ * Validate login form ajax
+ */
+function hackfix_login_validate_ajax() {
+  $form = array();
+  $form_state = array();
+  $form_state['values'] = $_POST;
+
+  $errors = array();
+  if (isset($form_state['values']['name']) && isset($form_state['values']['pass'])) {
+    $validators = user_login_default_validators();
+    array_unshift($validators, 'email_registration_user_login_validate');
+    foreach ($validators as $validator) {
+      if (function_exists($validator)) {
+        $validator($form, $form_state);
+      }
+    }
+    $errors = form_get_errors();
+  }
+  drupal_json(array('errors' => $errors, 'hasError' => (count($errors) > 0)));
+  exit;
 }
