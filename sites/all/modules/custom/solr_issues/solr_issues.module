@@ -201,10 +201,11 @@ function solr_issues_block_form($form_state) {
     '#id' => 'item_results'
   );
   $form['block']['top'] = array(
-    '#value' => '',
+    '#value' => $_SESSION['top_categ'],
     '#type' => 'item',
     '#id' => 'top_categories'
   );
+  
   $form['block']['subject'] = array(
     '#type' => 'select',
     '#options' => $options,
@@ -356,13 +357,14 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   $top_categ = $adapter->getBuild('block');
   $top3 = array_slice($top_categ['im_taxonomy_vid_3'], 0, 3, TRUE);
   if (count($top3)) {
-    $output = t('Top categories:');
+    $output = t('Top categories ');
     foreach ($top3 as $key => $category) {
-      $output .= '<div id="' . $key . '">' . $category['#value'] . '</div>';
+      $output .= '<span id="' . $key . '">' . $category['#value'] . '</span> ';
     }
   }
   global $pager_page_array, $pager_total, $pager_total_items, $pager_limits;
   $count = $pager_total_items[0];
+  $_SESSION['top_categ'] = $output;
   $build_results .= theme('pager', NULL, 10, 0);
   // $count = count($results);
 // $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);

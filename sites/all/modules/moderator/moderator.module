@@ -502,9 +502,7 @@ function possible_dupe_form($form_state, $qid) {
 
 function moderator_edit_issue_form($form_state, $qid) {
   global $base_url, $user, $gDocPath, $base_root, $theme;
-//    $left_qry = "SELECT * FROM {node_revisions} as n left join {term_node} as t on n.nid=t.nid where n.nid='" . $qid . "'";
-//    $result = db_query($left_qry);
-//    $quest = db_fetch_object($result);
+
   drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/multi_select.js');
   drupal_add_css(drupal_get_path('theme', 'heardmentalitylight') . '/floatbox/floatbox.css');
   drupal_add_js(drupal_get_path('theme', 'heardmentalitylight') . '/floatbox/floatbox.js');
@@ -522,7 +520,8 @@ function moderator_edit_issue_form($form_state, $qid) {
     '#value' => ' <div class="grey-box"><a class="button light" href="' . $base_url . '/' . $originalPath . '" target="_blank">' . t('View issue') . '</a>
                                     <h2 class="din">Issue #</h2><div class="new-issue">
                                     <hr class="short2">');
-  $form['quest_title'] = array('#type' => 'markup',
+  $form['quest_title'] = array(
+    '#type' => 'markup',
     '#value' => '<label for="" class="add-on"><span class="title ">Question</span><br><span class="guides">' . t('Max 140 chars') . '.</span></label>');
   $form['title'] = array('#type' => 'textarea',
     '#default_value' => $node->title,
@@ -533,8 +532,6 @@ function moderator_edit_issue_form($form_state, $qid) {
     '#resizable' => FALSE);
   $dupecnt = get_dupe_query($qid);
   $dcnt = !empty($dupecnt['count']) ? $dupecnt['count'] : '0';
-
-
 
   $form['quest_context'] = array('#type' => 'markup',
     '#value' => '<label for="" class="add-on"><span class="title ">' . t('Context') . '</span><br><span class="guides">' . t('Enter a brief description or backstory to provide context. You may include links.') . '</span></label>');
@@ -550,9 +547,6 @@ function moderator_edit_issue_form($form_state, $qid) {
   $i = 1;
   $tab = 3;
   $answer_count = 1;
-
-
-
 
   ///////////////////// CLONE OF POLL CHOICE MODULE
 
@@ -607,7 +601,6 @@ function moderator_edit_issue_form($form_state, $qid) {
       'effect' => 'fade',
     ),
   );
-
 
   ////////////////////////
 
@@ -1813,7 +1806,7 @@ function moderator_ahah_callback($type = '', $key = '') {
           $xyz = geonames_countryinfo($country);
           $query = array('geonameid' => $xyz['geonameid']);
           $results = geonames_query('children', $query);
-         // krumo($results);
+          // krumo($results);
           foreach ($results->results as $state) {
             $states[$state['geonameid']] = $state['name'];
           }
@@ -1986,20 +1979,17 @@ function moderator_edit_issue_form_submit($form, &$form_state) {
 
   for ($i = 0; $i <= count($q_state); $i++) {
     $state = explode(",", $q_state[$i]);
-//    $node->field_issue_state[$i]['value'] = $states[$i];
-  //  krumo($form);
- //   krumo($form['q_state']['q_state']['#options']);
- //   krumo($states[$i]);
-    $node->field_issue_state[$i]['value'] = $form['q_state']['q_state']['#options'][$states[$i]];
+ //   krumo($form);
+  //  krumo($states[$i]);
+    $node->field_issue_state_text[$i]['value'] = $form['q_state']['q_state']['#options'][$states[$i]];
+ //   krumo($node);
     //$node->field_scountry_value[$i]['value'] = $state[1];
   }
   for ($i = 0; $i <= count($q_city); $i++) {
     $city = explode(",", $q_city[$i]);
     $node->field_issue_city[$i]['value'] = $cities[$i];
-    //$node->field_cstate_value[$i]['value'] = $city[1];
-    //$node->field_ccountry_value[$i]['value'] = $city[2];
-  }
 
+  }
 
   node_save($node);
   taxonomy_node_delete($node);

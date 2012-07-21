@@ -91,6 +91,7 @@ $(document).ready(function(){
     function(data){
       //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
       $('#linkbox').html(data.data);
+      $('#top_categories-wrapper').html();
       $('#top_categories-wrapper').html(data.categories);
       $('#count_results-wrapper span').html(data.count);
     },
