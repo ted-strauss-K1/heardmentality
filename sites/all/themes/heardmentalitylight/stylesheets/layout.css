@@ -1458,14 +1458,6 @@ ul.subscription  {
 	float:right;
 }
 
-ul.subscription fieldset {
-	margin: 0;
-}
-
-ul.subscription .form-radios {
-	width: 100%;
-}
-
 #sub_email-wrapper {
 	clear: both;
 	margin: 0;

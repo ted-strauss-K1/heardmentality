@@ -237,10 +237,18 @@
 	line-height: 13px !important;
 }*/
 
+.ie7 .subscription .form-radios {
+	width: 190px;
+}	
+
 .ie7 .subscription .form-radios .form-item{
     margin: 0 1px 0 0;
     width: 61px;
 }
+
+.ie7 #edit_profile .privacy .form-radios {
+	width: 287px;
+}	
 
 .ie7 #edit_profile .privacy .form-radios .form-item {
     border: 0 solid #FF0000;
