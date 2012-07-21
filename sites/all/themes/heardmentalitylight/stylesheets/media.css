@@ -37,10 +37,6 @@
 			width:97%;
 			float:none;
 		}
-		
-		label.add-on, label.add-on-2 {
-			width:auto;
-		}
     
 		.new-issue .number{
 			width:30px;
@@ -70,6 +66,24 @@
 		
 		.container .nine .grey-box .uactivity {
 			height: 700px;
+		}
+		
+		/*Edit profile*/
+		
+		.icon.photo {
+		    padding: 1px 18px 0 125px;
+		}
+		
+		.profile-meta p {
+			line-height: 1.2em;
+		}
+		
+		.grey-box #divConnect {
+			width: 138px !important;
+		}
+		
+		input.info.form-text, textarea.info.form-text {
+		    width: 93%;
 		}
 		
 	}
