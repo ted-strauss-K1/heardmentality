@@ -1618,6 +1618,7 @@ p.choose_pic {
     width: 20%;
 	position: relative;
 	top: 12px;
+	text-align: right;
 }
 .privacy-info p{
 	font-size:12px;

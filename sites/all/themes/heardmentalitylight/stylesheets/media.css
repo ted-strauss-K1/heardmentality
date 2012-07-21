@@ -80,6 +80,7 @@
 		
 		.grey-box #divConnect {
 			width: 138px !important;
+			overflow: hidden;
 		}
 		
 		input.info.form-text, textarea.info.form-text {
@@ -406,6 +407,10 @@
 		
 		.visible-to {
 			display: block;
+		}
+		
+		.dark-grey-box.top {
+			margin-top: 30px;
 		}
 }
 	
