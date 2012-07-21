@@ -240,8 +240,6 @@
 .ie7 .subscription .form-radios {
 	width: 190px;
 	text-align: left;
-	position: relative;
-	left: -26px;
 }	
 
 .ie7 .subscription .form-radios .form-item{
