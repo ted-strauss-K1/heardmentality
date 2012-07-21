@@ -421,6 +421,10 @@
 		#edit_profile h2.din {
 			width: 100%;
 		}
+		
+		span.privacy-answer {
+			font-size: 11px;
+		}
 }
 	
 /* Mobile Landscape/Browser */
