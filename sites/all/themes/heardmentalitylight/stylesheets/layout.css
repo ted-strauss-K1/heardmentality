@@ -1615,7 +1615,9 @@ p.choose_pic {
 	margin: 0;
 	display: none;
 	clear: both;
-    width: 18%;
+    width: 20%;
+	position: relative;
+	top: 12px;
 }
 .privacy-info p{
 	font-size:12px;
