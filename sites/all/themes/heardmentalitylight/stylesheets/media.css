@@ -427,6 +427,10 @@
 		span.privacy-answer {
 			font-size: 8px;
 		}
+		
+		#edit_profile .user-info-inputs > li {
+			margin-bottom: 15px;
+		}
 }
 	
 /* Mobile Landscape/Browser */
