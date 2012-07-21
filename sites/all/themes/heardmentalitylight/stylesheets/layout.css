@@ -1492,6 +1492,11 @@ ul.privacy #income li {
 	margin-right: 69%;
 }
 
+ul.subscription fieldset {
+	padding: 0;
+	margin: 0;
+}
+
 ul.subscription li{
 	float:right;
 	text-align:center;
