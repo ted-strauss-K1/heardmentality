@@ -259,4 +259,11 @@
 .ie7 #edit_profile .privacy .form-radios .form-item {
     width: 63px;
 }	
-	
+
+.ie7 span.privacy-answer {
+	font-size: 0.8em;
+}
+
+.ie7 #sub_email-wrapper input.form-text {
+	width: 177px;
+}
