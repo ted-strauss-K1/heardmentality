@@ -182,7 +182,7 @@
 	
 	.ie8 .button.vote, .ie8 input.submit-issue, .ie8 input.save,
 	.ie7 .button.vote, .ie7 input.submit-issue, .ie7 input.save {
-		border: 1px solid #849eb7;
+		border: 1px solid #849EB7;
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7cbbf1', endColorstr='#4298ef',GradientType=0 ); /* IE6-8 */
 	}
 	
@@ -190,6 +190,7 @@
 	.ie8 .button.vote:hover, .ie8 input.submit-issue:hover, .ie8 input.save:hover,
 	.ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
 		border-width: 1px 1px 4px;
+		border-color: #849EB7;
 		margin-top: -3px;
 		position: static;
 	}
