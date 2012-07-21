@@ -389,16 +389,17 @@
 		}
 		
 		label.add-on-2 {
-			width: 30%;
+			width: 100%;
+			margin: 0 0 5px;
 		}
 		
 		#edit_profile .user-info-inputs > li .form-item {
-			width: 60%;
+			width: 100%;
 		}
 		
 		#edit_profile .validate-error, #edit_profile .validate-error-wait {
-			padding: 8px 0 0 33%;
-			width: 60%;
+			padding: 8px 0 0;
+			width: 100%;
 		}
 		
 		ul.privacy li {
