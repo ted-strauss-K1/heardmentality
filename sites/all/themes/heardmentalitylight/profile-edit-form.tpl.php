@@ -420,11 +420,11 @@ print drupal_render($form['current_image']);
 							
 						</li>
 						<li>
-							<span class="privacy-answer"><?php print t('Weekly'); ?></span><br>
+							<span class="privacy-answer"><?php print t('Weekly'); ?></span>
 						  
 						</li>
 						
-						<div class="form-radios"><?php print drupal_render($form['notify']); ?></div>
+						<div class="form-radios"><?php print drupal_render($form['notify']); ?>
                         <?php print drupal_render($form['subscription_email']); ?>
 						<input type="submit" value="Submit" class="submit-issue leftfloat" />
 				</ul>
