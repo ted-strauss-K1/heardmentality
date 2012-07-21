@@ -1,5 +1,11 @@
 /*IE only stylesheet*/
 
+.ie7 input[type="submit"], input[type="button"] {
+		overflow: visible;
+		zoom: 1;
+		line-height: 12px;
+	}
+
 .ie7 .ui-dialog .ui-tabs-panel #user-login,
 .ie7 .ui-dialog .ui-tabs-panel #user-register,
 .ie7 .poll-vote-area,

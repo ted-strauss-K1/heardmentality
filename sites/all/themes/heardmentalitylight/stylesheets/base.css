@@ -317,7 +317,8 @@
 		letter-spacing: 0.02em;
 	}
 	
-	.button.vote:hover, input.submit-issue:hover, input.save:hover {
+	.button.vote:hover, input.submit-issue:hover, input.save:hover,
+	.button.vote:active, input.submit-issue:active, input.save:active 	{
 		background: none #4298ef;
 		background: -webkit-gradient(linear, left top, left bottom, from(#7cbbf1), to(#4298ef));
 		background: -webkit-linear-gradient(top, #7cbbf1, #4298ef);
