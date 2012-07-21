@@ -1499,6 +1499,10 @@ ul.subscription li{
 	margin: 0 1% 0 0;
 }
 
+ul.subscription li span.privacy-answer {
+	vertical-align: top;
+}
+
 ul.answer-value li{
 	float:left;
 	width:13%;
