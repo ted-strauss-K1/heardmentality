@@ -420,7 +420,7 @@ print drupal_render($form['current_image']);
 							
 						</li>
 						<li>
-							<span class="privacy-answer"><?php print t('Weekly'); ?></span><br>
+							<span class="privacy-answer"><?php print t('Weekly'); ?></span>
 						  
 						</li>
 						
