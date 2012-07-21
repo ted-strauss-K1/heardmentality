@@ -412,6 +412,11 @@
 		.dark-grey-box.top {
 			margin-top: 30px;
 		}
+		
+		.grey-box #divConnect {
+			width: auto !important;
+			overflow: visible;
+		}
 }
 	
 /* Mobile Landscape/Browser */
