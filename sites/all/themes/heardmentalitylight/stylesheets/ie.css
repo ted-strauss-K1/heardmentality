@@ -177,7 +177,7 @@
 	.ie7 .button.active,
 	.ie8 .button.active	{
 		border: solid #b8b8b8;
-		border-width: 1px 1px 3px;
+		border-width: 1px 1px 3px 1px;
 	}
 	
 	.ie8 .button.vote, .ie8 input.submit-issue, .ie8 input.save,
@@ -189,7 +189,7 @@
 
 	.ie8 .button.vote:hover, .ie8 input.submit-issue:hover, .ie8 input.save:hover,
 	.ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
-		border-width: 1px 1px 4px;
+		border-width: 1px 1px 4px 1px;
 		border-color: #849EB7;
 		margin-top: -3px;
 		position: static;
