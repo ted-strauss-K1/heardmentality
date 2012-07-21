@@ -383,7 +383,8 @@
 		#edit_profile ul.privacy {
 			clear: both;
 			float: none;
-			margin: 0;
+			margin: 0 0 0 20%;
+			width: 80%;
 		}
 		
 		label.add-on-2 {
@@ -404,7 +405,7 @@
 		}
 		
 		.visible-to {
-			display: inline-block;
+			display: block;
 		}
 }
 	

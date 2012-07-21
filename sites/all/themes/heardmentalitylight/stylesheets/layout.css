@@ -1611,11 +1611,11 @@ p.choose_pic {
 
 .visible-to {
 	font-size:10px;
-	width:8%;
-	margin:0px 0px -14px 0px;
-	float:left;
-	visibility:hidden;
+	line-height: 13px;
+	margin: 0;
 	display: none;
+	clear: both;
+    width: 18%;
 }
 .privacy-info p{
 	font-size:12px;
