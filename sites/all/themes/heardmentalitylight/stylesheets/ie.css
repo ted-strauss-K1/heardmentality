@@ -239,6 +239,9 @@
 
 .ie7 .subscription .form-radios {
 	width: 190px;
+	text-align: left;
+	position: relative;
+	left: -10px;
 }	
 
 .ie7 .subscription .form-radios .form-item{
@@ -248,13 +251,12 @@
 
 .ie7 #edit_profile .privacy .form-radios {
 	width: 287px;
+	text-align: left;
+	position: relative;
+	left: -10px;
 }	
 
 .ie7 #edit_profile .privacy .form-radios .form-item {
-    border: 0 solid #FF0000;
-    float: right;
-    margin: 0 0 0 2px;
-    text-align: center;
     width: 63px;
 }	
 	
