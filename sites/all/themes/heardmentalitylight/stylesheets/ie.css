@@ -183,6 +183,7 @@
 	.ie8 .button.vote, .ie8 input.submit-issue, .ie8 input.save,
 	.ie7 .button.vote, .ie7 input.submit-issue, .ie7 input.save {
 		border: 1px solid #849EB7;
+		border-left: 1px solid #849EB7;
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7cbbf1', endColorstr='#4298ef',GradientType=0 ); /* IE6-8 */
 	}
 	
