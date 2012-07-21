@@ -171,6 +171,35 @@
 		
 		p.suggest-answer {width:100%;margin:10px 0px;padding:0px 0px;}
 		fieldset.suggest-answer li {width:auto;}
+		
+		/*Edit Profile*/
+		
+		#edit_profile ul.privacy {
+			clear: both;
+			float: none;
+			margin: 0;
+		}
+		
+		label.add-on-2 {
+			width: 30%;
+		}
+		
+		#edit_profile .user-info-inputs > li .form-item {
+			width: 60%;
+		}
+		
+		#edit_profile .validate-error, #edit_profile .validate-error-wait {
+			padding: 8px 0 0 33%;
+			width: 60%;
+		}
+		
+		ul.privacy li {
+			margin-top: 0;
+		}
+		
+		.visible-to {
+			display: inline-block;
+		}
 	}
 	
 
