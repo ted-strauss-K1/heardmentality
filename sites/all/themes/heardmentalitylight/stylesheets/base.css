@@ -609,6 +609,7 @@
 	.toggler { width: 500px; height: 200px; }
   	#button { padding: .5em 1em; text-decoration: none; }
   	#effect { /*width: 98.3%; height:auto; padding: 0.4em; position: relative;*/ }
+	.toggler #effect { position: relative; }
   	#effect h3 { margin: 0; padding: 0.4em; text-align: center; }
   	
   	
