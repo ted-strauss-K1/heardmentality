@@ -115,7 +115,8 @@ load_issue_data_ahah();
 //            });
 
             return true;
-        }else{
+        }
+        else{
              e.preventDefault();
              alert('Please add the required fields');
             jQuery('#twitMsg').html('Some Of The Required fields are Empty!');

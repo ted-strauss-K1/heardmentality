@@ -87,11 +87,11 @@ $(document).ready(function(){
       myregion: my_region,
       state:state,
       all: all
-      
     }, 
     function(data){
       //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
       $('#linkbox').html(data.data);
+      $('#top_categories-wrapper').html(data.categories);
       $('#count_results-wrapper span').html(data.count);
     },
     'json'

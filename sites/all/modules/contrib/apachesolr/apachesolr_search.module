@@ -962,7 +962,7 @@ function apachesolr_search_page_browse($empty_search_behavior, $env_id) {
         $elements = facetapi_build_realm($searcher, 'block');
         $blocks = array();
         $build_results = array();
-
+        
         foreach (element_children($elements) as $key) {
           $delta = "facetapi_{$key}";
           // @todo: order/filter these pseudo-blocks according to block.module weight, visibility (see 7.x-1beta4)
@@ -970,6 +970,7 @@ function apachesolr_search_page_browse($empty_search_behavior, $env_id) {
           $block->visibility = TRUE;
           $block->enabled = TRUE;
           $block->module = 'facetapi';
+          
           $block->subject = theme('facetapi_title', array('title' => $elements[$key]['#title']));
           //$build[$delta] = $elements[$key];
           $block->region = NULL;

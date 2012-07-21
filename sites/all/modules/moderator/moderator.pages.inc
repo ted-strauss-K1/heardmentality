@@ -2,7 +2,6 @@
 
 function moderater_user_mail($array='', $type='', $action='') {
   global $base_url, $user;
-
   $days_from_now = 10; //10 days from now
   $us_id = implode(',', $array['qids']);
   $msg = check_plain($_REQUEST['reporttext']);

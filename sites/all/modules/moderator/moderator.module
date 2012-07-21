@@ -1435,9 +1435,6 @@ function moderator_save_issue($array) {
     }
     /* SAVING META INFORMATION */
     /*     * ******Node Conversion******* */
-
-
-
     //location
 
     $output['msg'] = 'Thank you, Question updated successfully!';
@@ -1914,9 +1911,7 @@ function moderator_ahah_callback($type = '', $key = '') {
 
 // submit moderatr edit issues
 function moderator_edit_issue_form_submit($form, &$form_state) {
-//echo '<pre>'; print_r($form_state); exit;
   global $base_url, $user, $gDocPath, $base_root;
-
   $sql = "SELECT aid FROM {abuse} WHERE oid = '$nid'";
   $flagids = ExecuteQuery($sql, "select");
   foreach ($flagids as $flagid) {
@@ -1991,7 +1986,11 @@ function moderator_edit_issue_form_submit($form, &$form_state) {
 
   for ($i = 0; $i <= count($q_state); $i++) {
     $state = explode(",", $q_state[$i]);
-    $node->field_issue_state[$i]['value'] = $states[$i];
+//    $node->field_issue_state[$i]['value'] = $states[$i];
+  //  krumo($form);
+ //   krumo($form['q_state']['q_state']['#options']);
+ //   krumo($states[$i]);
+    $node->field_issue_state[$i]['value'] = $form['q_state']['q_state']['#options'][$states[$i]];
     //$node->field_scountry_value[$i]['value'] = $state[1];
   }
   for ($i = 0; $i <= count($q_city); $i++) {
@@ -2031,9 +2030,6 @@ function moderator_edit_issue_form_submit($form, &$form_state) {
       $posted_rating = $form_state['values']['choice'][$i][$metaCnt] . '<br />';
       $ans_id = $ans_array['chid'];
       $political_id = $Spec_result2->political_spec_id;
-      /* echo '<pre>';
-        echo $posted_rating.'-';
-        echo $Spec_result2->political_spec_id.'<br>'; */
       $sql = "insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id', possible_chorder = '" . $ans_array['chorder'] . "',value='$posted_rating', uid = '$user->uid'";
       $insert_query = db_query($sql);
       $row_count++;

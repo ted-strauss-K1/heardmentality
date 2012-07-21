@@ -8,12 +8,6 @@ function solr_issues_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  $items['issues_solr/ajax/%'] = array(
-    'page callback' => 'solr_issues_ajax_response',
-    'page arguments' => array(2),
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
   $items['issues_solr2/ajax/%'] = array(
     'page callback' => 'solr_issues_ajax_response2',
     'page arguments' => array('issues', 2),
@@ -33,12 +27,12 @@ function solr_issues_search_form($form_state) {
   $form['date_filters'] = array(
     '#type' => 'item',
     '#value' => '<ul class="date_filter"><li><a class="date-solr-filter first" href="issues">This Week</a></li><li><a class="date-solr-filter" href="issues">Month</a></li><li><a class="date-solr-filter last active" href="issues">All time</a></li></ul>',
-	'#prefix' => '<div class="search_top_filters clearfix">',
+    '#prefix' => '<div class="search_top_filters clearfix">',
   );
   $form['sorting'] = array(
     '#type' => 'item',
     '#value' => '<ul class="options_filter"><li><a class="solr-sort first" href="issues">Views</a></li><li><a href="issues" class="solr-sort">Latest</a></li><li><a href="issues" class="solr-sort last">Votes</a></li></ul>',
-	'#suffix' => '</div>',
+    '#suffix' => '</div>',
   );
 
   $form['linkbox'] = array(
@@ -70,10 +64,7 @@ function solr_issues_seach_form_submit($form, &$form_state) {
 }
 
 function solr_issues_form_alter(&$form, $form_state, $form_id) {
-  /* $node = node_load(852);
-    $node->field_issue_country[0]['value'] = 'Canada';
-    node_save($node); */$result = geonames_query('countryinfo');
-  // krumo($result);exit;
+
 }
 
 function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
@@ -101,11 +92,6 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 function solr_issues_block_form($form_state) {
   $form = array();
   $user_region = profile_get_user_coordinates(1);
-//  $query = array('lat' => $user_region['latitude'], 'lng' => $user_region['longitude']);
-  // $query = array('lat' => '55', 'lng' => '73');
-//  $query = array('name' => 'Altayskiy Kray', 'maxrows' => 5);
-  //$results = geonames_query('search', $query);
-  //krumo($results);
 
   ahah_helper_register($form, $form_state);
   global $user, $base_url;
@@ -171,7 +157,6 @@ function solr_issues_block_form($form_state) {
       $xyz = geonames_countryinfo($country);
       $query = array('geonameid' => $xyz['geonameid']);
       $results = geonames_query('children', $query);
-      //   krumo($results);
       $return_info .= '<span><input type="hidden" name="#edit-block-country" value="' . $country . '">' . $countries[$country] . '<span class="del-item">x</span></span>';
       foreach ($results->results as $state) {
         //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
@@ -214,6 +199,11 @@ function solr_issues_block_form($form_state) {
     '#value' => $return_info,
     '#type' => 'item',
     '#id' => 'item_results'
+  );
+  $form['block']['top'] = array(
+    '#value' => '',
+    '#type' => 'item',
+    '#id' => 'top_categories'
   );
   $form['block']['subject'] = array(
     '#type' => 'select',
@@ -259,7 +249,7 @@ function solr_issues_block_form($form_state) {
       ),
     );
   }
-  global $pager_page_array, $pager_total;
+//  global $pager_page_array, $pager_total;
 
   $form['block']['country'] = array(
     '#type' => 'select',
@@ -280,7 +270,6 @@ function solr_issues_block_form($form_state) {
       
     }
   }
-//krumo();
   if (count($states)) {
     $form['block']['defstate'] = array(
       '#type' => 'select',
@@ -325,7 +314,6 @@ function solr_issues_block_form($form_state) {
       );
     }
   }
-  // krumo($GLOBALS);
   $form['voted_status'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show only not voted'),
@@ -347,14 +335,7 @@ function solr_issues_block_form($form_state) {
 }
 
 function solr_issues_block_form_submit($form, &$form_state) {
-// krumo($form_state);
-}
 
-function solr_issues_ajax_response() {
-  $return = menu_execute_active_handler('issues_search/' . search_get_keys());
-  $json = array('regions' => array('apachesolr_ajax' => $return));
-  print drupal_json(array(
-            'data' => $json));
 }
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
@@ -368,15 +349,25 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   $conditions = apachesolr_search_conditions_default($search_page);
 // Retrieve the results of the search
   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
-
   $build_results = solr_issues_search_output($results);
+  $query = apachesolr_drupal_query();
+  $searcher = $query->getSearcher();
+  $adapter = facetapi_adapter_load('apachesolr@solr');
+  $top_categ = $adapter->getBuild('block');
+  $top3 = array_slice($top_categ['im_taxonomy_vid_3'], 0, 3, TRUE);
+  if (count($top3)) {
+    $output = t('Top categories:');
+    foreach ($top3 as $key => $category) {
+      $output .= '<div id="' . $key . '">' . $category['#value'] . '</div>';
+    }
+  }
   global $pager_page_array, $pager_total, $pager_total_items, $pager_limits;
   $count = $pager_total_items[0];
   $build_results .= theme('pager', NULL, 10, 0);
- // $count = count($results);
+  // $count = count($results);
 // $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
   print drupal_json(array(
-            'data' => $build_results, 'count' => $count));
+            'data' => $build_results, 'count' => $count, 'categories' => $output));
 }
 
 function solr_issues_apachesolr_query_alter($query) {
@@ -396,10 +387,10 @@ function solr_issues_apachesolr_query_alter($query) {
   if (count($_POST['country'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['country'] as $key => $value) {
-      /*    $countryName = solr_issues_country_name($value);
-        if ($countryName) {
+      $countryName = solr_issues_country_name($value);
+      if ($countryName) {
         $query2->addFilter('sm_field_issue_country', $countryName);
-        } */
+      }
       $query2->addFilter('sm_field_issue_country', $value);
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
@@ -423,10 +414,10 @@ function solr_issues_apachesolr_query_alter($query) {
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
+  // $query->params['facet.field'][0] = '{!ex=dt}im_taxonomy_vid_1';
   /*
     print '<pre>';
     print_r($query);
-
     print '</pre>';
     exit;
    */
@@ -442,8 +433,6 @@ function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterf
 }
 
 function solr_issues_search_output($results) {
-  /* krumo($results);
-    exit; */
   foreach ($results as $result) {
     $node = node_load($result['nid']);
     //   if ($node->nid == $node->tnid || $node->tnid == 0) {
@@ -520,3 +509,4 @@ function show_print($var, $return = FALSE) {
     print $output;
   }
 }
+

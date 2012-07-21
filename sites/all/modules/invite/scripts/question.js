@@ -3,7 +3,6 @@
 
 
 function validate_question(){
-
     var quest = $('q_quest').value;
     var ans1 = $('q_ans1').value;
     var ans2 = $('q_ans2').value;
@@ -36,7 +35,7 @@ function validate_question(){
         el.setStyle('display', 'block');
         el.set('html', err);
         el.highlight("#EBCC22");
-        
+        console.log(err);
         return false;
     }
     

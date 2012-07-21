@@ -101,7 +101,7 @@ abstract class FacetapiAdapter {
     $registered_types = array();
     foreach (ctools_get_plugins('facetapi', 'query_types') as $plugin) {
       if ((isset($searcher_info['adapter']) && isset($plugin['handler']['adapter'])) &&
-          ($searcher_info['adapter'] == $plugin['handler']['adapter'])) {
+              ($searcher_info['adapter'] == $plugin['handler']['adapter'])) {
         $class = ctools_plugin_get_class($plugin, 'handler');
         $type = call_user_func(array($class, 'getType'));
         $registered_types[$type] = $class;
@@ -817,7 +817,6 @@ abstract class FacetapiAdapter {
     if (!$realm = facetapi_realm_load($realm_name)) {
       return array();
     }
-
     // Makes sure facet builds are initialized.
     $this->processFacets();
 
@@ -838,6 +837,7 @@ abstract class FacetapiAdapter {
       // Gets the initialized build.
       $field_alias = $facet['field alias'];
       $processor = $this->processors[$facet['name']];
+
       $facet_build = $this->getFacet($facet)->build($realm, $processor);
 
       // Tries to be smart when merging the render arrays. Crazy things happen
@@ -855,14 +855,12 @@ abstract class FacetapiAdapter {
         else {
           if (isset($build[$child][$field_alias]) && isset($facet_build[$child][$field_alias])) {
             $build[$child][$field_alias] = array_merge_recursive(
-              $build[$child][$field_alias],
-              $facet_build[$child][$field_alias]
+                    $build[$child][$field_alias], $facet_build[$child][$field_alias]
             );
           }
           elseif (isset($build[$child]['#options']) && isset($facet_build[$child]['#options'])) {
             $build[$child]['#options'] = array_merge_recursive(
-              $build[$child]['#options'],
-              $facet_build[$child]['#options']
+                    $build[$child]['#options'], $facet_build[$child]['#options']
             );
           }
           else {
@@ -873,6 +871,34 @@ abstract class FacetapiAdapter {
     }
     return $build;
   }
+
+  public function getBuild($realm_name) {
+    // Bails if realm isn't valid.
+    // @todo Call watchdog()?
+    if (!$realm = facetapi_realm_load($realm_name)) {
+      return array();
+    }
+    // Makes sure facet builds are initialized.
+    $this->processFacets();
+
+    // Builds each facet in the realm, merges into realm's render array.
+    foreach ($this->getEnabledFacets($realm['name']) as $facet) {
+      // Continue to the next facet if this one failed its dependencies.
+      if (!$this->dependenciesPassed[$facet['name']]) {
+        continue;
+      }
+
+      // Gets the initialized build.
+      $field_alias = $facet['field alias'];
+      $processor = $this->processors[$facet['name']];
+      
+      $build[$facet['name']] = $processor->getBuild();
+
+    }
+
+    return $build;
+  }
+
 }
 
 /**
@@ -1081,6 +1107,7 @@ class FacetapiFacet implements ArrayAccess {
     // Returns array keyed by the FacetapiWidget::$key property.
     return array($widget_plugin->getKey() => $build);
   }
+
 }
 
 /**
@@ -1307,7 +1334,8 @@ class FacetapiFacetProcessor {
           }
         }
       }
-    } while ($active);
+    }
+    while ($active);
 
     // Since the children are copied to their parent's "#item_parents" property
     // during processing, we have to filter the original child items from the
@@ -1357,8 +1385,8 @@ class FacetapiFacetProcessor {
    */
   public function getFacetPath(array $values, $active) {
     return $this->facet
-      ->getAdapter()
-      ->getFacetPath($this->facet->getFacet(), $values, $active);
+                    ->getAdapter()
+                    ->getFacetPath($this->facet->getFacet(), $values, $active);
   }
 
   /**
@@ -1375,9 +1403,10 @@ class FacetapiFacetProcessor {
    */
   public function getQueryString(array $values, $active) {
     return $this->facet
-      ->getAdapter()
-      ->getQueryString($this->facet->getFacet(), $values, $active);
+                    ->getAdapter()
+                    ->getQueryString($this->facet->getFacet(), $values, $active);
   }
+
 }
 
 /**
@@ -1428,5 +1457,5 @@ function facetapi_filter_top_level_children(array $build) {
  *   A boolean flagging whether the value should remain in the array.
  */
 function facetapi_filter_disabled_filters($settings) {
-  return !empty($settings['status']);
+  return!empty($settings['status']);
 }
