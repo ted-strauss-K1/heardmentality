@@ -417,6 +417,10 @@
 			width: auto !important;
 			overflow: visible;
 		}
+		
+		#edit_profile h2.din {
+			width: 100%;
+		}
 }
 	
 /* Mobile Landscape/Browser */
