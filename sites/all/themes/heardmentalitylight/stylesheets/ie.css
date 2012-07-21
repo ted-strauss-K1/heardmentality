@@ -262,6 +262,6 @@
 	font-size: 0.8em;
 }
 
-.ie7 #sub_email-wrapper input.form-text {
-	width: 177px;
+.ie7 #sub_email-wrapper {
+	width: 190px;
 }
