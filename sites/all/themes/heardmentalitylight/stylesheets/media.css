@@ -91,6 +91,10 @@
 			width: 138px;
 		}
 		
+		.avatar-left #edit-file-upload {
+			max-width: 190px;
+		}
+		
 	}
 
 /* iPad Portrait/Browser */
