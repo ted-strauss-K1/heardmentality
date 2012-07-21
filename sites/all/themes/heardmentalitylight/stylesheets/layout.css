@@ -1589,10 +1589,16 @@ form#user-details {
 #edit_profile .validate-error-wait {
 	clear: left;
 	float: left;
-	padding: 8px 0 0;
-	width: auto;
+	padding: 8px 0 0 21%;
+	width: 33%;
 	font: 11px/13px Arial, sans-serif;
 	color: #CC2027;
+}
+
+#edit_profile .country-info .validate-error,
+#edit_profile .country-info .validate-error-wait {
+	padding: 8px 0 0;
+	width: auto;	
 }
 
 #edit_profile .validate-error-wait {
