@@ -411,7 +411,6 @@ print drupal_render($form['current_image']);
 				<label for="" class="subscriptions"><?php print t('Subscriptions'); ?></label>
 				<p class="twelve"><?php print t('Send me a summary of what\'s happening on Heard Mentality to my email'); ?></p>
 				<ul class="subscription">
-					<fieldset>
 						<li>
 							<span class="privacy-answer"><?php print t('Never'); ?></span><br>
 						  
@@ -428,7 +427,6 @@ print drupal_render($form['current_image']);
 						<?php print drupal_render($form['notify']); ?>
                         <?php print drupal_render($form['subscription_email']); ?>
 						<input type="submit" value="Submit" class="submit-issue leftfloat" />
-					</fieldset>
 				</ul>
 	</div>
 	
