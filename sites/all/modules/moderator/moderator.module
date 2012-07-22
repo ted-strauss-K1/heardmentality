@@ -1979,16 +1979,14 @@ function moderator_edit_issue_form_submit($form, &$form_state) {
 
   for ($i = 0; $i <= count($q_state); $i++) {
     $state = explode(",", $q_state[$i]);
- //   krumo($form);
-  //  krumo($states[$i]);
     $node->field_issue_state_text[$i]['value'] = $form['q_state']['q_state']['#options'][$states[$i]];
- //   krumo($node);
+    $node->field_issue_state[$i]['value'] = $states[$i];
+    //   krumo($node);
     //$node->field_scountry_value[$i]['value'] = $state[1];
   }
   for ($i = 0; $i <= count($q_city); $i++) {
     $city = explode(",", $q_city[$i]);
     $node->field_issue_city[$i]['value'] = $cities[$i];
-
   }
 
   node_save($node);

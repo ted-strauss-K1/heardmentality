@@ -64,7 +64,7 @@ function solr_issues_seach_form_submit($form, &$form_state) {
 }
 
 function solr_issues_form_alter(&$form, $form_state, $form_id) {
-
+  
 }
 
 function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
@@ -91,8 +91,6 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 
 function solr_issues_block_form($form_state) {
   $form = array();
-  $user_region = profile_get_user_coordinates(1);
-
   ahah_helper_register($form, $form_state);
   global $user, $base_url;
   drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
@@ -205,7 +203,7 @@ function solr_issues_block_form($form_state) {
     '#type' => 'item',
     '#id' => 'top_categories'
   );
-  
+
   $form['block']['subject'] = array(
     '#type' => 'select',
     '#options' => $options,
@@ -300,7 +298,7 @@ function solr_issues_block_form($form_state) {
     );
   }
   if ($user->uid) {
-    $result = TRUE;
+  $result = profile_get_user_region($user->uid);
     if ($result) {
       $form['my_region'] = array(
         '#type' => 'checkbox',
@@ -336,7 +334,7 @@ function solr_issues_block_form($form_state) {
 }
 
 function solr_issues_block_form_submit($form, &$form_state) {
-
+  
 }
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
@@ -406,8 +404,8 @@ function solr_issues_apachesolr_query_alter($query) {
   }
   if ($_POST['myregion']) {
     global $user;
-    $user_region = profile_get_user_coordinates($user->uid);
-    // $query->addFilter('itm_field_issue_state', $user_region);
+    $user_region = profile_get_user_region($user->uid);
+    $query->addFilter('sm_field_issue_state_text', $user_region);
   }
   if (count($_POST['city'])) {
     $query2 = apachesolr_drupal_query();
@@ -417,7 +415,7 @@ function solr_issues_apachesolr_query_alter($query) {
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
   // $query->params['facet.field'][0] = '{!ex=dt}im_taxonomy_vid_1';
-  /*
+ /* 
     print '<pre>';
     print_r($query);
     print '</pre>';
@@ -459,9 +457,9 @@ function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $documen
   //exit;
 }
 
-function profile_get_user_coordinates($uid) {
-  $result = db_query("SELECT latitude, longitude from {user_profile} up where up.uid ='%d'", $uid);
-  return db_fetch_array($result);
+function profile_get_user_region($uid) {
+  $result = db_query("SELECT up.state from {user_profile} up where up.uid ='%d'", $uid);
+  return db_result($result);
 }
 
 //nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
