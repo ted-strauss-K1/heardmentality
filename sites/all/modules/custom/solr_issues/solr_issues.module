@@ -90,6 +90,9 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 }
 
 function solr_issues_block_form($form_state) {
+  // krumo(time());
+// krumo(strtotime("+1 week"));
+// krumo(strtotime("-1 week"));
   $form = array();
   ahah_helper_register($form, $form_state);
   global $user, $base_url;
@@ -298,7 +301,7 @@ function solr_issues_block_form($form_state) {
     );
   }
   if ($user->uid) {
-  $result = profile_get_user_region($user->uid);
+    $result = profile_get_user_region($user->uid);
     if ($result) {
       $form['my_region'] = array(
         '#type' => 'checkbox',
@@ -315,6 +318,7 @@ function solr_issues_block_form($form_state) {
   }
   $form['voted_status'] = array(
     '#type' => 'checkbox',
+    '#default_value' => TRUE,
     '#title' => t('Show only not voted'),
   );
 
@@ -349,6 +353,7 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
 // Retrieve the results of the search
   $results = apachesolr_search_search_results($keys, $conditions, $search_page);
   $build_results = solr_issues_search_output($results);
+
   $query = apachesolr_drupal_query();
   $searcher = $query->getSearcher();
   $adapter = facetapi_adapter_load('apachesolr@solr');
@@ -407,6 +412,10 @@ function solr_issues_apachesolr_query_alter($query) {
     $user_region = profile_get_user_region($user->uid);
     $query->addFilter('sm_field_issue_state_text', $user_region);
   }
+  if ($_POST['date_filter']) {
+    $query->addFilter('sm_field_issue_state_text', $user_region);
+  }
+
   if (count($_POST['city'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['city'] as $key => $value) {
@@ -414,8 +423,7 @@ function solr_issues_apachesolr_query_alter($query) {
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
-  // $query->params['facet.field'][0] = '{!ex=dt}im_taxonomy_vid_1';
- /* 
+  /*
     print '<pre>';
     print_r($query);
     print '</pre>';
@@ -435,15 +443,14 @@ function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterf
 function solr_issues_search_output($results) {
   foreach ($results as $result) {
     $node = node_load($result['nid']);
-    //   if ($node->nid == $node->tnid || $node->tnid == 0) {
-    if ($_POST['voted'] && $node->allowvotes == TRUE) {
+    if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
       $output .= node_view($node);
     }
-    else if ($_POST['voted'] == FALSE) {
+    else if ($_POST['voted'] == 'false') {
       $output .= node_view($node);
     }
-    // }
   }
+
   return $output;
 }
 

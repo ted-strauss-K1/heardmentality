@@ -1254,11 +1254,6 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
 
     /*     * ******Node Conversion******* */
 
-
-
-
-
-
     //debate resource and their neutral, answers options
 
     db_query("UPDATE {content_type_forum} SET field_ref_qid_nid = '$qid' WHERE field_ref_qid_nid = '$dupeid'");

@@ -11,7 +11,13 @@ $(document).ready(function(){
     return false;
   });
   
+  $('.date-solr-filter').live('click', function(){
+    var filter = $(this).html();
+    get_issues_solr(null, null, true, filter);
+    return false;
+  });
   
+  //date-solr-filter
   $('.del-item').live('click', function(){
     var name = $(this).prev().attr('name');
     var value = $(this).prev().val();
@@ -36,7 +42,7 @@ $(document).ready(function(){
   });
   
   
-  function get_issues_solr(page, sort, all) {
+  function get_issues_solr(page, sort, all, date_Filter) {
     var text;
     if (all == null) {
       text = $('#edit-search-text').val();
@@ -86,7 +92,8 @@ $(document).ready(function(){
       city:city,
       myregion: my_region,
       state:state,
-      all: all
+      all: all,
+      date_filter: date_Filter
     }, 
     function(data){
       //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
