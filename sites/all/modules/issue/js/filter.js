@@ -914,11 +914,11 @@ $('#issue_edit_form_stream').live('submit', function(){
   }
   thisForm.find('#edit-change').val(but_val);
   var choice = thisForm.find('input:radio[name=choice]:checked').val();
-    
+
   $.ajax({
     type: 'POST',
     dataType: 'json',
-    url: Drupal.settings.base_url+'issue/vote/ajax/submit/'+vote_type,
+    url: Drupal.settings.basePath + 'issue/vote/ajax/submit/'+vote_type,
     data: data,
     success: function(msg){
       var nid_val = thisForm.find('#nid_val').val();
