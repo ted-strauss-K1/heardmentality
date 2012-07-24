@@ -3,7 +3,7 @@ $(document).ready(function() {
   function initialize() {
     $.getJSON(Drupal.settings.base_url + '/issue/gmap/ajax/'+ nid, function(data) {
       var beaches = [];
-      var latitude, longitud;
+      var latitude, longitude;
       $.each(data, function(key, val) {
         for (i in val) {
           //  beaches.push(val[i].latitude, val[i].longitude);
