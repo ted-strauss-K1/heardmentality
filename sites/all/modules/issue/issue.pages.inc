@@ -112,7 +112,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $gen = '0';
 
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND u.gender='" . $gen . "' ";
+          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND u.gender='" . $gen . "' ";
           $tcnt = ExecuteQuery($query, "norows");
           $answer_cnt[$ab][$key] = $tcnt;
         }
@@ -137,7 +137,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         }
 
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' " . $query_ins;
+          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' " . $query_ins;
           $tcnt = ExecuteQuery($query, "norows");
           $answer_cnt[$ab][$key] = $tcnt;
         }
@@ -155,7 +155,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $reg = $list;
         }
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND religion='" . $reg . "'";
+          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND religion='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $answer_cnt[$ab][$key] = $tcnt;
         }
@@ -172,7 +172,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $reg = $list;
 
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND ethnic='" . $reg . "'";
+          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND ethnic='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $answer_cnt[$ab][$key] = $tcnt;
         }
@@ -180,7 +180,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
       break;
     case 'income':
-      $answer['divide'] = array('$0-$9,999', '$10,000 - $19,999', '$20,000 - $39,999', '$40,000 - $69,999', '$70,000 - $99,999', '$100,000 - $149,999', '$150,000 - $299,999', '$300,000', 'undefined');
+      $answer['divide'] = array('$0-$9,999', '$10,000 - $19,999', '$20,000 - $39,999', '$40,000 - $69,999', '$70,000 - $99,999', '$100,000 - $149,999', '$150,000 - $299,999', '>$300,000', 'undefined');
 
       foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined') {
@@ -190,7 +190,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $reg = $list;
         }
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND income='" . $reg . "'";
+          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND income='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $answer_cnt[$ab][$key] = $tcnt;
         }
@@ -207,7 +207,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $reg = $list;
 
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND marital='" . $reg . "'";
+          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND marital='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
 
           $answer_cnt[$ab][$key] = $tcnt;
@@ -223,7 +223,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         else
           $reg = $list;
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND sorient='" . $reg . "'";
+          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND sorient='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $answer_cnt[$ab][$key] = $tcnt;
         }
@@ -231,7 +231,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
       break;
     case 'education':
-      $answer['divide'] = array('No High School', 'High School', 'Technical College', 'Masters Degree', 'PhD', 'undefined');
+      $answer['divide'] = array('No High School', 'High School', 'Technical College', 'University', 'Masters Degree', 'undefined');
 
       foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined')
@@ -239,7 +239,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         else
           $reg = $list;
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND edu='" . $reg . "'";
+          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND edu='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $answer_cnt[$ab][$key] = $tcnt;
         }
@@ -250,7 +250,8 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     default:
       $answer['divide'] = array('Total Votes');
       foreach ($vlist as $key => $chvote) {
-        $total_votes[] = (int) $chvote['chvotes'];
+        $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $chvote['chorder'] . "'";
+        $total_votes[] = (int) ExecuteQuery($query, "norows");
       }
 
       $answer_cnt[] = $total_votes;
