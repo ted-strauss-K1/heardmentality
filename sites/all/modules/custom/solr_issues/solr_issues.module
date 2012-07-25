@@ -23,7 +23,6 @@ function solr_issues_menu() {
   return $items;
 }
 
-/*
 function solr_issues_init() {
   $query = db_query('select nid from {node}
   where type = "poll" and created between 1338386655 and 1338576169');
@@ -31,7 +30,6 @@ function solr_issues_init() {
     node_delete($nid->nid);
   }
 }
-*/
 
 function solr_issues_search_form($form_state) {
   $form['date_filters'] = array(
