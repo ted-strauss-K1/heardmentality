@@ -1,22 +1,25 @@
 $(document).ready(function(){
-  get_issues_solr(null, null, true);
+  get_issues_solr(null, null);
+  
   $('#search-solr-block').click(function(){  
     get_issues_solr();
     return false;
   });
 
-  $('.solr-sort').live('click', function(){
+  $('.solr-sort').live('click', function() {
     var sort = $(this).html();
     get_issues_solr(false, sort);
     return false;
   });
-  
-  $('.date-solr-filter').live('click', function(){
-    var filter = $(this).html();
-    get_issues_solr(null, null, true, filter);
+ 
+  $('.date-solr-filter').live('click', function() {
+    $('.date-solr-filter').removeClass('active');
+    $(this).addClass('active');
+    get_issues_solr(null, null);
     return false;
   });
   
+ 
   //date-solr-filter
   $('.del-item').live('click', function(){
     var name = $(this).prev().attr('name');
@@ -42,16 +45,17 @@ $(document).ready(function(){
   });
   
   
-  function get_issues_solr(page, sort, all, date_Filter) {
-    var text;
-    if (all == null) {
-      text = $('#edit-search-text').val();
+  function get_issues_solr(page, sort) {
+    var text = $('#edit-search-text').val();
+    if (text == "") {
+      var all = true;
     }
     var parameters = [];
     var allow_vote = $('#edit-voted-status').prop('checked');
     var tid = [];
     var categ = $('#edit-block-subject').val();
     var defarea = $('#edit-block-defarea').val();
+    var date_Filter = $('.date-solr-filter.active').html();
     var defdetail = $('#edit-block-defdetail').val();
     var country = $('#edit-block-country').val();
     var state = $('#edit-block-defstate').val();

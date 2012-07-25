@@ -23,6 +23,14 @@ function solr_issues_menu() {
   return $items;
 }
 
+function solr_issues_init() {
+  $query = db_query('select nid from {node}
+  where type = "poll" and created between 1338386655 and 1338576169');
+  while ($nid = db_fetch_object($query)) {
+    node_delete($nid->nid);
+  }
+}
+
 function solr_issues_search_form($form_state) {
   $form['date_filters'] = array(
     '#type' => 'item',
@@ -90,7 +98,7 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 }
 
 function solr_issues_block_form($form_state) {
-  // krumo(time());
+// krumo(time());
 // krumo(strtotime("+1 week"));
 // krumo(strtotime("-1 week"));
   $form = array();
@@ -342,6 +350,7 @@ function solr_issues_block_form_submit($form, &$form_state) {
 }
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
+
   if ($_POST['all'] == TRUE) {
     $keys = ' ';
   }
@@ -379,8 +388,10 @@ function solr_issues_apachesolr_query_alter($query) {
   $query->addParam('fl', 'sm_field_issue_country');
   $query->addParam('fl', 'tid');
   $query->addParam('fl', 'sm_field_issue_city');
-  $query->addParam('fl', 'itm_field_issue_state');
-
+  $query->addParam('fl', 'itm_field_issue_state'); //itm_field_votes_count
+  $query->addParam('fl', 'sm_field_issue_state_text');
+  $query->addParam('fl', 'itm_field_votes_count');
+  $query->addParam('fl', 'itm_field_visits_count');
 // $query->addFilter('sm_field_issue_city', '16497571923047');
   if (count($_POST['tid'])) {
     $query2 = apachesolr_drupal_query();
@@ -412,10 +423,21 @@ function solr_issues_apachesolr_query_alter($query) {
     $user_region = profile_get_user_region($user->uid);
     $query->addFilter('sm_field_issue_state_text', $user_region);
   }
-  if ($_POST['date_filter']) {
+  /*  if ($_POST['date_filter']) {
     $query->addFilter('sm_field_issue_state_text', $user_region);
-  }
+    }
+   */
 
+  switch ($_POST['date_filter']) {
+    case 'This Week':
+      $query->addFilter('ds_created', '[' . apachesolr_date_iso(strtotime("-1 week")) . ' TO ' . apachesolr_date_iso(strtotime("Today")) . ']');
+      break;
+    case 'Month':
+      $query->addFilter('ds_created', '[' . apachesolr_date_iso(strtotime("-4 week")) . ' TO ' . apachesolr_date_iso(strtotime("Today")) . ']');
+      break;
+    default:
+      break;
+  }
   if (count($_POST['city'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['city'] as $key => $value) {
@@ -428,6 +450,7 @@ function solr_issues_apachesolr_query_alter($query) {
     print_r($query);
     print '</pre>';
     exit;
+
    */
 }
 
@@ -441,6 +464,7 @@ function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterf
 }
 
 function solr_issues_search_output($results) {
+  //  krumo($results);
   global $user;
   if ($user->uid) {
     foreach ($results as $result) {
@@ -483,15 +507,19 @@ function profile_get_user_region($uid) {
 function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   if ($op == 'load' && $node->type == 'poll') {
     $result = db_query("SELECT count(aid) FROM {accesslog} a WHERE a.path = 'node/%d'", $node->nid);
-    $node->views_count = db_result($result);
-    // $result = db_query("SELECT count(nid) FROM {poll_votes} p WHERE p.nid = '%d'", $node->nid);
-    //  $node->votes_count = db_result($result);
+    $node->field_visits_count[0]['value'] = db_result($result);
+    $result = db_query("SELECT count(nid) FROM {poll_votes} p WHERE p.nid = '%d'", $node->nid);
+    $node->field_votes_count[0]['value'] = db_result($result);
   }
-
   if ($op == 'view' && $node->field_issue_country) {
     // remove tags <p> from country name
     foreach ($node->field_issue_country as &$country) {
       $country['safe'] = trim($country['value']);
+    }
+  }
+  if ($op == 'view' && $node->field_issue_state_text) {
+    foreach ($node->field_issue_state_text as &$state) {
+      $country['safe'] = trim($state['value']);
     }
   }
 }
