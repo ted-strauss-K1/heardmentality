@@ -24,14 +24,14 @@ function solr_issues_menu() {
 }
 
 /*
-function solr_issues_init() {
+  function solr_issues_init() {
   $query = db_query('select nid from {node}
   where type = "poll" and created between 1338386655 and 1338576169');
   while ($nid = db_fetch_object($query)) {
-    node_delete($nid->nid);
+  node_delete($nid->nid);
   }
-}
-*/
+  }
+ */
 
 function solr_issues_search_form($form_state) {
   $form['date_filters'] = array(
@@ -100,9 +100,6 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 }
 
 function solr_issues_block_form($form_state) {
-// krumo(time());
-// krumo(strtotime("+1 week"));
-// krumo(strtotime("-1 week"));
   $form = array();
   ahah_helper_register($form, $form_state);
   global $user, $base_url;
@@ -168,6 +165,7 @@ function solr_issues_block_form($form_state) {
       $xyz = geonames_countryinfo($country);
       $query = array('geonameid' => $xyz['geonameid']);
       $results = geonames_query('children', $query);
+      // krumo($results);
       $return_info .= '<span><input type="hidden" name="#edit-block-country" value="' . $country . '">' . $countries[$country] . '<span class="del-item">x</span></span>';
       foreach ($results->results as $state) {
         //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
@@ -524,6 +522,20 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
       $country['safe'] = trim($state['value']);
     }
   }
+  if ($op == 'presave' && $node->type == 'poll') {
+    unset($node->field_issue_state);
+    unset($node->field_issue_state_text);
+    unset($node->field_issue_city);
+    $xyz = geonames_countryinfo($node->field_issue_country[0]['value']);
+    $query = array('geonameid' => $xyz['geonameid']);
+    $results = geonames_query('children', $query);
+    $state_id = mt_rand(0, 6);
+    $node->field_issue_state[0]['value'] = $results->results[$state_id]['geonameid'];
+    $node->field_issue_state_text[0]['value'] = $results->results[$state_id]['name'];
+    $query = array('geonameid' => $node->field_issue_state[0]['value']);
+    $results = geonames_query('children', $query);
+    $node->field_issue_city[0]['value'] = $results->results[$state_id]['name'];
+  }
 }
 
 function geonames_countryinfo_geonameid($param) {
@@ -556,4 +568,3 @@ function show_print($var, $return = FALSE) {
     print $output;
   }
 }
-
