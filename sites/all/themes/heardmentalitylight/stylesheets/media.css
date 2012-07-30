@@ -172,9 +172,105 @@
 		
 		p.suggest-answer {width:100%;margin:10px 0px;padding:0px 0px;}
 		fieldset.suggest-answer li {width:auto;}
+		
+		/*Edit Profile*/
+		
+		#edit_profile ul.privacy {
+			clear: both;
+			float: none;
+			margin: 0;
+			width: 100%;
+			padding-top: 8px;
+		}
+		
+		#edit_profile ul.privacy li span{
+			font-size: 11px;
+			line-height: 13px;
+			font-style: italic;
+		}
+		
+		#edit_profile ul.privacy li,
+		#edit_profile .privacy .form-radios .form-item,
+		.subscription .form-radios .form-item,
+		ul.subscription li {
+			float: right;
+			margin: 0 1% 0 0;
+			text-align: left;
+			width: 24%;
+		}
+		
+		.subscription .form-radios .form-item,
+		ul.subscription li {
+			width: 32.33%;
+		}
+		
+		ul.privacy #income li,
+		#edit_profile .privacy #income .form-radios .form-item {
+			margin-right: 1%;
+			width: 99%;
+		}
+
+		label.add-on-2 {
+			width: 100%;
+			margin: 0 0 5px;
+		}
+		
+		label.add-on-2.small {
+			margin-top: 0;
+		}
+		
+		label.add-on-2 span {
+			font-weight: bold;
+		}
+		
+		#edit_profile select,
+		#edit_profile li.country-info ul.privacy {
+			margin: 0;
+		}
+		
+		input.info.form-text, textarea.info.form-text {
+		    width: 95%;
+		}
+		
+		#edit_profile .user-info-inputs > li .form-item {
+			width: 100%;
+		}
+		
+		#edit_profile .validate-error, #edit_profile .validate-error-wait {
+			padding: 8px 0 0;
+			width: 100%;
+		}
+		
+		ul.privacy li {
+			margin-top: 0;
+		}
+		
+		.visible-to {
+			display: block;
+		}
+		
+		form#user-details #update_submit {
+			float: left;
+		}
+		
+		.dark-grey-box.top {
+			margin-top: 30px;
+		}
+		
+		.grey-box #divConnect {
+			width: auto !important;
+			overflow: visible;
+		}
+		
+		#edit_profile h2.din {
+			width: 100%;
+		}
+
+		#edit_profile .user-info-inputs > li {
+			margin-bottom: 15px;
+		}
 	
 	}
-	
 
 	
 /* Mobile Only */
@@ -382,15 +478,58 @@
 		/*Edit Profile*/
 		
 		#edit_profile ul.privacy {
-			clear: both;
-			float: none;
 			margin: 0 0 0 20%;
 			width: 80%;
+			padding: 0;
 		}
 		
+		#edit_profile ul.privacy li span{
+			font-size: 11px;
+			line-height: 13px;
+			font-style: italic;
+		}
+		
+		#edit_profile ul.privacy li,
+		#edit_profile .privacy .form-radios .form-item,
+		.subscription .form-radios .form-item,
+		ul.subscription li {
+			float: right;
+			margin: 0 1% 0 0;
+			text-align: center;
+			width: 24%;
+		}
+		
+		.subscription .form-radios .form-item,
+		ul.subscription li {
+			width: 32.33%;
+		}
+		
+		ul.privacy #income li,
+		#edit_profile .privacy #income .form-radios .form-item {
+			margin-right: 1%;
+			width: 99%;
+		}
+
 		label.add-on-2 {
 			width: 100%;
 			margin: 0 0 5px;
+		}
+		
+		label.add-on-2.small {
+			margin-top: 0;
+		}
+		
+		label.add-on-2 span {
+			font-weight: bold;
+		}
+		
+		#edit_profile select,
+		#edit_profile li.country-info ul.privacy {
+			margin: 0;
+		}
+		
+		input.info.form-text, textarea.info.form-text {
+		    width: 95%;
 		}
 		
 		#edit_profile .user-info-inputs > li .form-item {
@@ -407,8 +546,16 @@
 		}
 		
 		.visible-to {
-			display: block;
-			font-size: 8px;
+		display: block;
+		position: relative;
+		text-align: right;
+		top: 13px;
+		width: 20%;
+		padding: 0;
+			}
+		
+		form#user-details #update_submit {
+			float: left;
 		}
 		
 		.dark-grey-box.top {
@@ -423,11 +570,7 @@
 		#edit_profile h2.din {
 			width: 100%;
 		}
-		
-		span.privacy-answer {
-			font-size: 8px;
-		}
-		
+
 		#edit_profile .user-info-inputs > li {
 			margin-bottom: 15px;
 		}
