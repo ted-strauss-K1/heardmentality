@@ -617,8 +617,13 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.poll-vote-area p.issue-meta {
 		margin: 0;
 		clear: none;
-		margin: -17px 0 0;
+		margin: -17px 30px 0 0;
 		float: right;
+	}
+	
+	.poll-vote-area p.issue-meta a,
+	.poll-vote-area p.issue-meta a:visited {
+		color: #1366BA;
 	}
 	
 	.poll-box p.issue-meta {
