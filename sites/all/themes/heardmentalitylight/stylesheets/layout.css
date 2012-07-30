@@ -4804,13 +4804,15 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	margin: -7px 0 0 -7px;
 }
 
-#item_results-wrapper {
+#item_results-wrapper,
+#top_categories-wrapper {
 	font-family: 'DINLightRegular',Arial,sans-serif;
 	font-size: 15px;
 	line-height: 18px;
 }
 
-#item_results-wrapper span {
+#item_results-wrapper span,
+#top_categories-wrapper span {
 	background: none repeat scroll 0 0 #76D2DC;
     border-color: #92B7DD;
     border-radius: 3px 3px 3px 3px;
