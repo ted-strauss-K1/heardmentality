@@ -2084,7 +2084,7 @@ textarea#q_quest  {
 }
 .choices .form-radios .form-item,
 #new_vote .fieldset-wrapper .form-radios .form-item,
-#solr-issues-search-form #search_list .fieldset-wrapper .form-radios .form-item  {
+#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .form-item  {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
     margin: 3px 0 10px !important;
@@ -2936,13 +2936,13 @@ h2.page-title {
 	margin: 0;
 }
 
-#search_list .poll-vote-area .voting-pane .choices {
+.search_list .poll-vote-area .voting-pane .choices {
 	width: auto;
 	margin: 0 12% 0 30px;
 }
 
 #new_vote .poll-vote-area .form-radios,
-#search_list .poll-vote-area .form-radios {
+.search_list .poll-vote-area .form-radios {
     margin: 0;
 }
 
@@ -2950,18 +2950,18 @@ h2.page-title {
 	margin: 0;
 }
 
-#search_list .poll-vote-area fieldset {
+.search_list .poll-vote-area fieldset {
 	margin: 0 30px;
 }
 
 #new_vote .poll-vote-area fieldset legend,
-#search_list .poll-vote-area fieldset legend {
+.search_list .poll-vote-area fieldset legend {
 	width: 100%;
 	display: block;
 }
 
 #new_vote .poll-vote-area fieldset legend a,
-#search_list .poll-vote-area fieldset legend a {
+.search_list .poll-vote-area fieldset legend a {
 	color: #924c9d;
 	display: inline-block;
 	margin: 0;
@@ -2975,27 +2975,27 @@ h2.page-title {
 	z-index: 13;
 }
 
-#search_list .poll-vote-area fieldset legend a {
+.search_list .poll-vote-area fieldset legend a {
 	top: 15px;
 }
 
 #new_vote .poll-vote-area fieldset.collapsible legend a,
-#search_list .poll-vote-area fieldset.collapsible legend a {
+.search_list .poll-vote-area fieldset.collapsible legend a {
 	background:url(../images/s_arrow.png) no-repeat 100% -27px;
 }
 
 #new_vote .poll-vote-area fieldset.collapsible.collapsed legend a,
-#search_list .poll-vote-area fieldset.collapsible.collapsed legend a {
+.search_list .poll-vote-area fieldset.collapsible.collapsed legend a {
 	background:url(../images/s_arrow.png) no-repeat 100% 0;
 }
 
 #new_vote .poll-vote-area fieldset legend a:hover,
-#search_list .poll-vote-area fieldset legend a:hover {
+.search_list .poll-vote-area fieldset legend a:hover {
 	text-decoration: underline;	
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper,
-#search_list .poll-vote-area .fieldset-wrapper {
+.search_list .poll-vote-area .fieldset-wrapper {
 	padding: 22px 0 0;
 	z-index: 12;
 	position: relative;
@@ -3004,7 +3004,7 @@ h2.page-title {
 }
 
 #new_vote .suggest-error,
-#search_list .suggest-error {
+.search_list .suggest-error {
 	color: #cd2027;
 	font: 11px/14px Arial,"Lucida Grande",sans-serif;
 	padding: 6px 0 0;
@@ -3013,7 +3013,7 @@ h2.page-title {
 }
 
 #new_vote fieldset.collapsible.collapsed + .suggest-error,
-#search_list fieldset.collapsible.collapsed + .suggest-error {
+.search_list fieldset.collapsible.collapsed + .suggest-error {
 	margin: 16px 0 -4px 30px;
 }
 
@@ -3023,33 +3023,33 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item,
-#search_list .poll-vote-area .fieldset-wrapper .form-item {
+.search_list .poll-vote-area .fieldset-wrapper .form-item {
 	margin: 3px 0 10px;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper,
-#search_list .poll-vote-area .fieldset-wrapper .nsa-wrapper {
+.search_list .poll-vote-area .fieldset-wrapper .nsa-wrapper {
 	width: 85%;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper table,
-#search_list .poll-vote-area .fieldset-wrapper table {
+.search_list .poll-vote-area .fieldset-wrapper table {
 	width: 100%;
 	margin-bottom: -14px;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper table td,
-#search_list .poll-vote-area .fieldset-wrapper table td {
+.search_list .poll-vote-area .fieldset-wrapper table td {
 	vertical-align: top;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper table td.first,
-#search_list .poll-vote-area .fieldset-wrapper table td.first {
+.search_list .poll-vote-area .fieldset-wrapper table td.first {
 	width: 100%;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3,
-#search_list .poll-vote-area .fieldset-wrapper .form-item #Answer3{
+.search_list .poll-vote-area .fieldset-wrapper .form-item #Answer3{
 	float: left;
 	border: 1px solid #b3b3b3;
 	color: #4c4c4c;
@@ -3059,7 +3059,7 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus,
-#search_list .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus {
+.search_list .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus {
 	border: 1px solid #9c9c9c;
  	-moz-box-shadow: 0 0 3px rgba(0,0,0,0.3);
 	-webkit-box-shadow: 0 0 3px rgba(0,0,0,0.3);
@@ -3069,7 +3069,7 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item .description,
-#search_list .poll-vote-area .fieldset-wrapper .form-item .description {
+.search_list .poll-vote-area .fieldset-wrapper .form-item .description {
 	clear: left;
 	float: left;
 	color: #4c4c4c;
@@ -3079,14 +3079,14 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper input.form-submit,
-#search_list .poll-vote-area .fieldset-wrapper input.form-submit {
+.search_list .poll-vote-area .fieldset-wrapper input.form-submit {
 	display: inline-block;
 	margin: 2px 0 0 23px;
 	padding: 8px 12px 6px;
 }
 
 #new_vote .button.vote,
-#search_list .button.vote {
+.search_list .button.vote {
 	clear: both;
     float: left;
     margin: 0 0 24px 30px;
@@ -3095,7 +3095,7 @@ h2.page-title {
 }
 
 #new_vote .button.vote:hover,
-#search_list .button.vote:hover {
+.search_list .button.vote:hover {
 	top: 21px;	
 }
 
@@ -4867,32 +4867,32 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	background-position: 6px -20px;
 }
 
-#search_list h2.din.half {
+.search_list h2.din.half {
 	padding: 10px 30px 0;
 	margin-bottom: 15px;
 }
 
-#search_list:first-child h2.din.half {
+.search_list:first-child h2.din.half {
 	padding-top: 0;
 }
 
-#search_list h2.din.half a {
+.search_list h2.din.half a {
 	color: #372418;
 	text-decoration: none;
 }
 
-#search_list h2.din.half a:hover {
+.search_list h2.din.half a:hover {
 	text-decoration: underline;
 	border: 0 none;
 }
 
-/*#search_list .vote-form*/
-#search_list {
+/*.search_list .vote-form*/
+.search_list {
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
     padding: 0 0 14px;
 }
 
-#search_list form {
+.search_list form {
 	margin: 0;
 }
 
