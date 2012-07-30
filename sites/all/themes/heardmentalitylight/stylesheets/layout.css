@@ -4811,8 +4811,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	line-height: 18px;
 }
 
-#item_results-wrapper span,
-#top_categories-wrapper span {
+#item_results-wrapper span {
 	background: none repeat scroll 0 0 #76D2DC;
     border-color: #92B7DD;
     border-radius: 3px 3px 3px 3px;
@@ -4833,11 +4832,23 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	position: relative;
 }
 
+#top_categories-wrapper span {
+	background: none repeat scroll 0 0 #55ba59;
+    color: #fff;
+	text-shadow: 0 0 transparent;
+	padding: 0 4px;
+	cursor: pointer;
+}
+
 #item_results-wrapper span:hover {
 	color: #fff;
 	text-shadow: 0 -1px #3b536c;
 	border-color:#53789d;
 	background: #53789d /*#39676c*/;
+}
+
+#top_categories-wrapper span:hover {
+	background: none repeat scroll 0 0 #0c6926;
 }
 
 #item_results-wrapper span.del-item,
