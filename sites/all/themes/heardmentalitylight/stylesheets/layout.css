@@ -614,6 +614,13 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		margin:-10px 0px 10px 0px;
 	}
 	
+	.poll-vote-area p.issue-meta {
+		margin: 0;
+		clear: none;
+		margin: -17px 0 0;
+		float: right;
+	}
+	
 	.poll-box p.issue-meta {
 		margin: -10px 0 0;	
 	}
