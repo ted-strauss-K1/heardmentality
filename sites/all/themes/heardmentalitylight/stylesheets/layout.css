@@ -4880,6 +4880,12 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	margin: 0;
 }
 
+.poll .login-error {
+	margin: 10px 30px 0;
+	color: #CD2027;
+	font-style: italic;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
