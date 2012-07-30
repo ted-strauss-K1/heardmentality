@@ -206,7 +206,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.icon.heart {background:url(../images/icons/29-heart.png) center left no-repeat;float:right;padding:7px 28px 0px 0px;margin:2px 7px 0px 0px}
 	
 	.icon.stats {background:url(../images/icons/122-stats.png) top center no-repeat;float:left;padding:1px 16px 0px 14px;margin:-5px 0px -5px 0px;filter:alpha(opacity=90);opacity:0.9;height:27px;}
-	.icon.cat {background:url(../images/icons/14-tag.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -8px 0px 0px;filter:alpha(opacity=90);opacity:0.75}
+	.icon.cat {background:url(../images/icons/14-tag.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -8px 0px 0px;filter:alpha(opacity=90);opacity:0.75; height: 22px;}
 	.icon.cat2 {background:url(../images/icons/14-tag.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:0px 5px 0px 0px;filter:alpha(opacity=90);opacity:0.75}
 
   .icon.mod-history {background:url(../images/icons/162-receipt.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}	
@@ -4812,7 +4812,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 }
 
 #item_results-wrapper span,
-#top_categories-wrapper span  {
+#top_categories-wrapper span {
 	background: none repeat scroll 0 0 #76D2DC;
     border-color: #92B7DD;
     border-radius: 3px 3px 3px 3px;

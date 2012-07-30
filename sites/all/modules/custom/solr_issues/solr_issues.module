@@ -129,7 +129,7 @@ function solr_issues_block_form($form_state) {
 //  $usage_default_value = t('SUBJECT');
   }
   else {
-    $return_info = t('Issues about: ');
+    $return_info = t('Issues about:<br />');
     foreach ($form_state['storage']['block']['subject'] as $key => $value) {
       $return_info .= '<span><input type="hidden" name="#edit-block-subject" value="' . $value . '">' . $options[$value] . '<span class="del-item">x</span></span>';
     }
@@ -369,7 +369,7 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   $top_categ = $adapter->getBuild('block');
   $top3 = array_slice($top_categ['im_taxonomy_vid_3'], 0, 3, TRUE);
   if (count($top3)) {
-    $output = t('Top categories ');
+    $output = t('Top categories:<br /> ');
     foreach ($top3 as $key => $category) {
       $output .= '<span id="' . $key . '">' . $category['#value'] . '</span> ';
     }
