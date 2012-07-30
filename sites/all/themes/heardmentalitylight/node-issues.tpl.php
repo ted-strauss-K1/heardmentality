@@ -5,7 +5,7 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
 
 ?>
 
-<div id="search_list">
+<div class="search_list">
 
 <div id="vote-msg-alert-<?php print $tnid; ?>" class="v-msg"></div>
 

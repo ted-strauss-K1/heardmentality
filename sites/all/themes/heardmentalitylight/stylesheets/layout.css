@@ -626,8 +626,8 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		color: #1366BA;
 	}
 	
-	.poll-box p.issue-meta {
-		margin: -10px 0 0;	
+	.poll-vote-area p.issue-meta a:hover {
+		text-decoration: underline;
 	}
 	
 	ul.issue-meta {
@@ -4868,8 +4868,12 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 }
 
 #search_list h2.din.half {
-	padding: 0 30px;
+	padding: 10px 30px 0;
 	margin-bottom: 15px;
+}
+
+#search_list:first-child h2.din.half {
+	padding-top: 0;
 }
 
 #search_list h2.din.half a {
