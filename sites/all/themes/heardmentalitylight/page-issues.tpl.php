@@ -48,10 +48,6 @@ $directoryPath = $base_path . $directory;
   </head>
   <body class="<?php print $classes; ?>">
 
-
-
-
-
     <!-- Primary Page Layout
     ================================================== -->
 
