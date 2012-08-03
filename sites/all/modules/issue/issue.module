@@ -88,7 +88,7 @@ function issue_menu() {
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'issue.pages.inc'
   );
-  $menu['issues2'] = array(
+  $menu['issues'] = array(
     'title' => 'Issues',
     'page callback' => 'issues_list',
     'access arguments' => array('issue list'),
