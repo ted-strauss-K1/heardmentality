@@ -492,7 +492,6 @@ function solr_issues_search_output($results) {
     }
   }
 
-
   return $output;
 }
 
