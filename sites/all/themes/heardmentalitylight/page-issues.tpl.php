@@ -77,15 +77,7 @@ $directoryPath = $base_path . $directory;
 			<?php print $right_search; ?>
 		  
 		  </div>
-		  
-          <?php if($issue_real_info):?>
-			<div class="grey-box poll-box issues_search">
-			
-                <?php print $issue_real_info; ?>
-			 
-			</div>
-          <?php endif; ?>
-		  
+
         </div>	
 
     </div>
