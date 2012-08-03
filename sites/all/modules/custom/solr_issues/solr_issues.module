@@ -426,7 +426,7 @@ function solr_issues_apachesolr_query_alter($query) {
   if ($_POST['myregion']) {
     global $user;
     $user_region = profile_get_user_region($user->uid);
-  //  $query->addFilter('sm_field_issue_state_text', $user_region);
+    //  $query->addFilter('sm_field_issue_state_text', $user_region);
   }
   /*  if ($_POST['date_filter']) {
     $query->addFilter('sm_field_issue_state_text', $user_region);
@@ -455,7 +455,7 @@ function solr_issues_apachesolr_query_alter($query) {
     print_r($query);
     print '</pre>';
     exit;
-*/
+   */
 }
 
 /**
@@ -543,6 +543,9 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     $results = geonames_query('children', $query);
     $node->field_issue_city[0]['value'] = $results->results[$state_id]['name'];
   }
+  if ($op == 'view' && $node->type == 'poll') {
+   // krumo($node);
+  }
 }
 
 function geonames_countryinfo_geonameid($param) {
@@ -574,4 +577,12 @@ function show_print($var, $return = FALSE) {
   else {
     print $output;
   }
+}
+
+function solr_issues_preprocess_node(&$variables) {
+  //krumo($variables);
+}
+
+function solr_issues_preprocess_page(&$variables) {
+ // krumo($variables);
 }
