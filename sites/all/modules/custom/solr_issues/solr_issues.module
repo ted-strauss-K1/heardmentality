@@ -472,6 +472,7 @@ function solr_issues_search_output($results) {
   global $user;
   krumo($_POST);
   if ($user->uid) {
+    krumo($user);
     foreach ($results as $result) {
       $node = node_load($result['nid']);
       if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
