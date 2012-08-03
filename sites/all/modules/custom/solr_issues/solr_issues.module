@@ -464,11 +464,12 @@ function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterf
 }
 
 function solr_issues_search_output($results) {
+  krumo($results);
   global $user;
   if ($user->uid) {
     foreach ($results as $result) {
       $node = node_load($result['nid']);
-      if ($_POST['voted'] == 'true') {
+      if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
         $output .= node_view($node);
       }
       else if ($_POST['voted'] == 'false') {
