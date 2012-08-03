@@ -426,7 +426,7 @@ function solr_issues_apachesolr_query_alter($query) {
   if ($_POST['myregion']) {
     global $user;
     $user_region = profile_get_user_region($user->uid);
-    $query->addFilter('sm_field_issue_state_text', $user_region);
+  //  $query->addFilter('sm_field_issue_state_text', $user_region);
   }
   /*  if ($_POST['date_filter']) {
     $query->addFilter('sm_field_issue_state_text', $user_region);
@@ -450,12 +450,12 @@ function solr_issues_apachesolr_query_alter($query) {
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
-  
+  /*
     print '<pre>';
     print_r($query);
     print '</pre>';
     exit;
-
+*/
 }
 
 /**
@@ -469,19 +469,18 @@ function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterf
 
 function solr_issues_search_output($results) {
   global $user;
-  krumo($results);
+
   if ($user->uid) {
-    krumo($user);
-    krumo($_POST['voted']);
+
     foreach ($results as $result) {
       $node = node_load($result['nid']);
-      krumo($_POST);
+
       if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
-        krumo($node);
+
         $output .= node_view($node);
       }
       else if ($_POST['voted'] == 'false') {
-        krumo($node);
+
         $output .= node_view($node);
       }
     }
