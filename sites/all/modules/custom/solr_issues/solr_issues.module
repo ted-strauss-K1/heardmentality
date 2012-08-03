@@ -350,10 +350,10 @@ function solr_issues_block_form_submit($form, &$form_state) {
 }
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
-
   if ($_POST['all'] == TRUE) {
     $keys = ' ';
   }
+  krumo($_POST);
   $search_page = apachesolr_search_page_load($page_id);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
   $search_page->settings['apachesolr_search_browse'] = 'results';
