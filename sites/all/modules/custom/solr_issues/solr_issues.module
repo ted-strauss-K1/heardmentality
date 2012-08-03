@@ -392,6 +392,7 @@ function solr_issues_apachesolr_query_alter($query) {
   $query->addParam('fl', 'sm_field_issue_state_text');
   $query->addParam('fl', 'itm_field_votes_count');
   $query->addParam('fl', 'itm_field_visits_count');
+  krumo($_POST);
 // $query->addFilter('sm_field_issue_city', '16497571923047');
   if (count($_POST['tid'])) {
     $query2 = apachesolr_drupal_query();
@@ -465,10 +466,10 @@ function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterf
 
 function solr_issues_search_output($results) {
   global $user;
+  krumo($_POST);
   if ($user->uid) {
     foreach ($results as $result) {
       $node = node_load($result['nid']);
-      krumo($node);
       if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
         $output .= node_view($node);
       }
@@ -476,9 +477,6 @@ function solr_issues_search_output($results) {
         $output .= node_view($node);
       }
     }
-    krumo($output);
-    krumo($_POST);
-    
   }
   else {
     foreach ($results as $result) {
