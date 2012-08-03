@@ -450,13 +450,12 @@ function solr_issues_apachesolr_query_alter($query) {
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
-  /*
+  
     print '<pre>';
     print_r($query);
     print '</pre>';
     exit;
 
-   */
 }
 
 /**
