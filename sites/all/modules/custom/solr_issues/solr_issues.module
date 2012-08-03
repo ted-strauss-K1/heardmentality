@@ -1,7 +1,7 @@
 <?php
 
 function solr_issues_menu() {
-  $items['issues2'] = array(
+  $items['issues'] = array(
     'page callback' => 'drupal_get_form',
     'title' => t('Issues'),
     'page arguments' => array('solr_issues_search_form'),
