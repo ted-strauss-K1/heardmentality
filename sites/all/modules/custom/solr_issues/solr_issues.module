@@ -354,11 +354,11 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
     $keys = ' ';
   }
   //print_r($_POST);
- /* krumo($_POST);
-  exit;
-  print drupal_json(array(
-            'data' => $_POST, 'count' => $count, 'categories' => $output));exit;
-     */       
+  /* krumo($_POST);
+    exit;
+    print drupal_json(array(
+    'data' => $_POST, 'count' => $count, 'categories' => $output));exit;
+   */
   $search_page = apachesolr_search_page_load($page_id);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
   $search_page->settings['apachesolr_search_browse'] = 'results';
@@ -470,11 +470,12 @@ function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterf
 
 function solr_issues_search_output($results) {
   global $user;
-  krumo($_POST);
+
   if ($user->uid) {
     krumo($user);
     foreach ($results as $result) {
       $node = node_load($result['nid']);
+      krumo($_POST);
       if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
         krumo($node);
         $output .= node_view($node);
