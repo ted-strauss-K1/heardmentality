@@ -253,7 +253,8 @@
 			float: left;
 		}
 		
-		.dark-grey-box.top {
+		.dark-grey-box.top,
+		.filter_search.issues_search {
 			margin-top: 30px;
 		}
 		
@@ -558,7 +559,8 @@
 			float: left;
 		}
 		
-		.dark-grey-box.top {
+		.dark-grey-box.top,
+		.filter_search.issues_search {
 			margin-top: 30px;
 		}
 		
