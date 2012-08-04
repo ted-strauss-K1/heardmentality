@@ -598,6 +598,10 @@
 	ul.date_filter li a, ul.options_filter li a {
 		padding: 0 0 2px;		
 	}
+	
+	.item-list .pager li {
+		margin: 0 0 0 0.5em;
+	}
 }
 	
 /* Mobile Landscape/Browser */

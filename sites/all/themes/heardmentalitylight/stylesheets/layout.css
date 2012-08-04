@@ -3116,6 +3116,10 @@ ul.pager a:hover {
 	margin: 0 0 0 1em;
 }
 
+.item-list .pager li:first-child {
+	margin: 0;
+}
+
 .item-list .pager li a {
 	margin: 0 0 0.25em 0;
 	display: inline-block;
