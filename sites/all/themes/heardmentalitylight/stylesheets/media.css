@@ -277,6 +277,10 @@
 /* Mobile Only */
 	@media only screen and (max-width: 767px)  {
 		
+		select option {
+			padding: 0 3px;
+		}
+		
 		.hide-on-mobiles {
 			display:none;
 		}
@@ -592,7 +596,7 @@
 	
 	ul.options_filter {
 		float: left;
-		padding-left: 4em;
+		padding-left: 3em;
 	}
 	
 	ul.date_filter li a, ul.options_filter li a {
