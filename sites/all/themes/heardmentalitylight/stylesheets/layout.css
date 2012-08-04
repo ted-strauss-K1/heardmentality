@@ -4839,6 +4839,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	text-shadow: 0 0 transparent;
 	padding: 0 4px;
 	cursor: pointer;
+	border: 1px solid #43b649;
 }
 
 #item_results-wrapper span:hover {
