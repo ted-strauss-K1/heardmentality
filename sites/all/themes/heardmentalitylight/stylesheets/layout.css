@@ -617,7 +617,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.poll-vote-area p.issue-meta {
 		margin: 0;
 		clear: none;
-		margin: -17px 30px 0 0;
+		margin: -23px 30px 0 0;
 		float: right;
 	}
 	
@@ -2951,7 +2951,7 @@ h2.page-title {
 }
 
 .search_list .poll-vote-area fieldset {
-	margin: 0 30px;
+	margin: 0 30px 2px !important;
 }
 
 #new_vote .poll-vote-area fieldset legend,
@@ -2961,7 +2961,7 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area fieldset legend a,
-.search_list .poll-vote-area fieldset legend a {
+#solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
 	color: #924c9d;
 	display: inline-block;
 	margin: 0;
@@ -2975,8 +2975,9 @@ h2.page-title {
 	z-index: 13;
 }
 
-.search_list .poll-vote-area fieldset legend a {
-	top: 15px;
+#solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
+	top: 10px;
+	padding-left: 0 !important;
 }
 
 #new_vote .poll-vote-area fieldset.collapsible legend a,
