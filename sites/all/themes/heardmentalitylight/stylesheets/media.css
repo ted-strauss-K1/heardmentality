@@ -605,7 +605,8 @@
 	}
 	
 	ul.date_filter li a, ul.options_filter li a {
-		padding: 0 0 2px;		
+		padding: 0 0 2px;
+		display: inline-block;		
 	}
 	
 	.item-list .pager li {
