@@ -581,8 +581,9 @@
 	
 	.poll-vote-area p.issue-meta {
 		clear: both;
+		float: none;
 		margin: 0 30px;
-		padding-top: 10px;
+		padding-top: 15px;
 	}
 	
 	ul.date_filter {
