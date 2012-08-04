@@ -592,6 +592,7 @@
 	ul.date_filter li, ul.options_filter li {
 		float: none;
 		border: 0 none;
+		list-style: square outside none;
 	}
 	
 	ul.date_filter li a, ul.options_filter li a {
