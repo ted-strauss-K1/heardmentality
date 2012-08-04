@@ -585,6 +585,15 @@
 		padding-top: 10px;
 	}
 	
+	ul.date_filter {
+		padding-left: 1em;
+	}
+	
+	ul.options_filter {
+		float: left;
+		padding-left: 4em;
+	}
+	
 	ul.date_filter li a, ul.options_filter li a {
 		font-size: 12px;
 	}
@@ -601,6 +610,11 @@
 	
 	.item-list .pager li {
 		margin: 0 0 0 0.5em;
+	}
+	
+	.issues_search_page .ahah-progress-throbber,
+	.issues_search_page .ahah-progress-throbber .throbber {
+		display: none;
 	}
 }
 	
