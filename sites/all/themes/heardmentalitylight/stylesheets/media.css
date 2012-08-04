@@ -144,7 +144,7 @@
 	
 	}
 	
-/* Mobile/Browser */
+	/* Mobile/Browser */
 
 	@media only screen and (max-width: 767px) {
 	
@@ -576,6 +576,27 @@
 		#edit_profile .user-info-inputs > li {
 			margin-bottom: 15px;
 		}
+		
+	/*Issues search*/
+	
+	.poll-vote-area p.issue-meta {
+		clear: both;
+		margin: 0 30px;
+		padding-top: 10px;
+	}
+	
+	ul.date_filter li a, ul.options_filter li a {
+		font-size: 12px;
+	}
+	
+	ul.date_filter li, ul.options_filter li {
+		float: none;
+		border: 0 none;
+	}
+	
+	ul.date_filter li a, ul.options_filter li a {
+		padding: 0 0 2px;		
+	}
 }
 	
 /* Mobile Landscape/Browser */
