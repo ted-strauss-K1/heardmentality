@@ -3100,6 +3100,14 @@ h2.page-title {
 	top: 21px;	
 }
 
+#solr-issues-search-form .item-list {
+	padding: 18px 0 0;
+}
+
+ul.pager a:hover {
+	text-decoration: none;
+}
+
 #issue-edit-vote  .button.vote {
     margin: 12px 0 0 30px;
 	top: 0;
