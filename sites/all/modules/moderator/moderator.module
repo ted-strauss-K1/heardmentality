@@ -403,8 +403,6 @@ function moderator_edit_issues($qid = '') {
 
   // select sub categories for a issue
 
-
-
   $moderateform.= drupal_get_form('moderator_edit_issue_form', $qid);
   // AHAH is not being nice to us and doesn't know the "other" button (that is,
   // either "Upload" or "Delete") yet. Which in turn causes it not to attach

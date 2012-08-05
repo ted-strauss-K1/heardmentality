@@ -1,5 +1,10 @@
 $(document).ready(function(){
-  get_issues_solr(null, null);
+  // $('#edit-block-subject').simpleMultiSelect();
+  // $('#edit-block-country').simpleMultiSelect();
+  //  $('#edit-subject').simpleMultiSelect();
+  //  multi_select();
+  
+  get_issues_solr(null, null);  
   
   $('#search-solr-block').click(function(){  
     get_issues_solr();
@@ -19,7 +24,6 @@ $(document).ready(function(){
     return false;
   });
   
- 
   //date-solr-filter
   $('.del-item').live('click', function(){
     var name = $(this).prev().attr('name');
@@ -43,7 +47,6 @@ $(document).ready(function(){
  
     return false;
   });
-  
   
   function get_issues_solr(page, sort) {
     var text = $('#edit-search-text').val();
@@ -102,6 +105,7 @@ $(document).ready(function(){
     function(data){
       //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
       $('#linkbox').html(data.data);
+      $("input[name=choice]:checked").parents("div").addClass("staygreen");
       $('#top_categories-wrapper').html();
       $('#top_categories-wrapper').html(data.categories);
       $('#count_results-wrapper span').html(data.count);

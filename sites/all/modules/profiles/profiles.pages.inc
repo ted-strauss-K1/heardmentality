@@ -195,7 +195,7 @@ function user_details(&$form_state) {
   // $details = load_user($user->uid);
   $details = user_load($user->uid);
   // fix fields to have default_values in form
-  foreach ((array)load_user($user->uid) as $key => $value) {
+  foreach ((array) load_user($user->uid) as $key => $value) {
     $details->{$key} = $value;
   }
   // print_r($details);
@@ -281,18 +281,14 @@ function user_details(&$form_state) {
   );
 
   $locDetails = $details->city;
-  if ($details->state)
-  {
-    if ($locDetails)
-    {
+  if ($details->state) {
+    if ($locDetails) {
       $locDetails .= ', ';
     }
     $locDetails .= $details->state;
   }
-  if ($details->country)
-  {
-    if ($locDetails)
-    {
+  if ($details->country) {
+    if ($locDetails) {
       $locDetails .= ', ';
     }
     $locDetails .= $details->country;
@@ -422,17 +418,6 @@ function user_details(&$form_state) {
     '#attributes' => array('class' => 'info validate validate-url'),
   );
 
-//  $follow_links_form = follow_links_form($form_state, $user->uid);
-//  // remove extra fields
-//  foreach ($follow_links_form['follow_links'] as &$link) {
-//    if (isset($link['weight'])) {
-//      $link['weight']['#access'] = FALSE;
-//    }
-//    if (isset($link['title'])) {
-//      $link['title']['#access'] = FALSE;
-//    }
-//  }
-//  $form = $form + $follow_links_form;
 
   $form['merge'] = array('#type' => 'markup', '#value' => '
                 
@@ -465,9 +450,13 @@ function user_details(&$form_state) {
 
 
 
-  $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
+  $form['hiddentop'] = array(
+    '#type' => 'markup',
+    '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
   $form = $form + inc_avatar_form($form, $form_state);
-  $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
+  $form['hiddenbot'] = array(
+    '#type' => 'markup',
+    '#value' => '</div>');
   $languages = i18n_language_list();
   $form['default_language'] = array('#type' => 'select',
     '#options' => $languages,
@@ -488,7 +477,6 @@ function user_details(&$form_state) {
     '#attributes' => array('class' => 'submit-issue')
   );
   $form = $form + get_avatar_form();
-
   return $form;
 }
 
@@ -530,7 +518,6 @@ function get_privacy_form() {
         '#checked' => TRUE,
       );
     }
-
 
     $form['div_down'] = array('#type' => 'markup', '#value' => '
           <div class="clr"></div>
@@ -599,7 +586,7 @@ function user_details_validate($form, &$form_state) {
   $state = $form_state['values']['state'];
   $uname = $form_state['values']['username'];
   $email = $form_state['values']['email'];
-  $fname=$form_state['values']['fname'];
+  $fname = $form_state['values']['fname'];
   if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $uname)) {
     form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
     $form_state['rebuild'] = TRUE;
@@ -628,20 +615,20 @@ function user_details_validate($form, &$form_state) {
   }
   if (!valid_email_address($email)) {
     form_set_error('email', t('Your email address "') . $email . t('" appears malformed'));
-  } elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE mail = '%s' AND uid!='%d'", $email, $user->uid))) {
+  }
+  elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE mail = '%s' AND uid!='%d'", $email, $user->uid))) {
     form_set_error('email', t('Sorry Email already taken by other user'));
     $form_state['rebuild'] = TRUE;
   }
-  if(!empty($fname) && !preg_match('/^([a-zA-Z]+ ){1,2}[a-zA-Z]+$/i',$fname)) {
+  if (!empty($fname) && !preg_match('/^([a-zA-Z]+ ){1,2}[a-zA-Z]+$/i', $fname)) {
     form_set_error('fname', t('Full Name should be Alpha Ex : Kevin kumar'));
     $form_state['rebuild'] = TRUE;
   }
-
 }
 
 function user_details_submit($form, &$form_state) {
   global $user;
-
+krumo($form_state);
   // translate back country code to country name
   $countries = geonames_query('countryinfo');
   $contriesOptions = array();
