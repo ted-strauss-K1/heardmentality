@@ -622,6 +622,10 @@
 	.issues_search_page .ahah-progress-throbber .throbber {
 		display: none;
 	}
+	
+	#new_vote .poll-vote-area fieldset legend a, #solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
+		text-transform: none;
+	}
 }
 	
 /* Mobile Landscape/Browser */
