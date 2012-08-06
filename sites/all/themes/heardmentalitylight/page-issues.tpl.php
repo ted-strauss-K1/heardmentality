@@ -48,9 +48,7 @@ $directoryPath = $base_path . $directory;
 		<?php endif; ?>
 		<?php if($messages):?>
 			<div class="toggler profile-message">
-        
-	    	<div id="effect" class="">
-
+        <div id="effect" class="">
 						<div class="message top-message">
 							<p class="double" style="disply:block">
                                  <?php print $messages; ?>
