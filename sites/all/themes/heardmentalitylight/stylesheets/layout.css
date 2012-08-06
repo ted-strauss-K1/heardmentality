@@ -4851,6 +4851,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
     border-width: 1px;
     color: #111111;
     font-size: 12px;
+	line-height: 18px;
     margin: 3px 6px 3px 0;
     padding: 0 22px 0 4px;
     text-shadow: 0 1px #C8E2FC;
