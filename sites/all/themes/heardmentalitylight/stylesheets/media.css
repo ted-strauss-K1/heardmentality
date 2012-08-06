@@ -628,7 +628,8 @@
 		text-transform: none;
 	}
 	
-	#solr-issues-block-form select {
+	#solr-issues-block-form select,
+	#solr-issues-block-form select option	{
 		padding: 0 3px;
 	}
 }

@@ -4943,7 +4943,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	margin: 0 30px;
 	color: #CD2027;
 	font-style: italic;
-	padding: 10px 0 0;
+	padding: 10px 0 0 !important;
 }
 
 /*Clear*/
