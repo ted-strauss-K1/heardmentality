@@ -627,6 +627,10 @@
 	#new_vote .poll-vote-area fieldset legend a, #solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
 		text-transform: none;
 	}
+	
+	#solr-issues-block-form select {
+		padding: 0 3px;
+	}
 }
 	
 /* Mobile Landscape/Browser */
