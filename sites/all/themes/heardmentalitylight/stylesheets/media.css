@@ -596,7 +596,7 @@
 	
 	ul.options_filter {
 		float: left;
-		padding-left: 3em;
+		padding-left: 2em;
 	}
 	
 	ul.date_filter li a, ul.options_filter li a {
