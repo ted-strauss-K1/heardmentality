@@ -55,7 +55,6 @@ function issue_access($op, $node, $account) {
  * Implementation of hook_node_info().
  */
 function issue_node_info() {
-
   $info = array();
 
   return $info;
@@ -1087,26 +1086,35 @@ function issue_theme($existing, $type, $theme, $path) {
     'issue_results' => array(
       'template' => 'issue_results',
       'arguments' => array('nid' => NULL, 'cdebate' => NULL, 'cresource' => NULL, 'cpundit' => NULL, 'allowvotes' => NULL),
-    ), 'issue_details' => array(
+    ),
+    'issue_details' => array(
       'template' => 'issue_details_tab',
       'arguments' => array('nid' => NULL, 'votes' => NULL),
-    ), 'issue_answer' => array(
+    ),
+    'issue_answer' => array(
       'arguments' => array('form' => NULL),
-    ), 'issue_information' => array(
+    ),
+    'issue_information' => array(
       'template' => 'issue-real-informations',
       'arguments' => array('nid' => NULL, 'created' => NULL, 'postedby' => NULL, 'subject' => NULL, 'area' => NULL, 'detail' => NULL, 'original_nid' => NULL, 'original_language' => NULL, 'orgLangKey' => NULL),
-    ), 'issue_result_analysis' => array(
+    ),
+    'issue_result_analysis' => array(
       'arguments' => array('nid' => NULL),
-    ), 'issue_debate_list' => array(
+    ),
+    'issue_debate_list' => array(
       'arguments' => array('nid' => NULL),
-    ), 'issue_detail_wrapper' => array(
+    ),
+    'issue_detail_wrapper' => array(
       'template' => 'issue_detail_wrapper',
       'arguments' => array('nid' => NULL, 'result_analysis' => NULL, 'debate_list' => NULL, 'resource_list' => NULL, 'debateCount' => NULL, 'resourceCount' => NULL),
-    ), 'single_debate_template' => array(
+    ),
+    'single_debate_template' => array(
       'arguments' => array('debItems' => array()),
-    ), 'forum_reply_template' => array(
+    ),
+    'forum_reply_template' => array(
       'arguments' => array('repItems' => array()),
-    ), 'single_resource_template' => array(
+    ),
+    'single_resource_template' => array(
       'arguments' => array('debItems' => array()),
     ), 'debate_area' => array(
       'template' => 'debate-area',

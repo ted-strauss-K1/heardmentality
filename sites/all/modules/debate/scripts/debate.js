@@ -74,8 +74,24 @@ function bind_clk(){
           var ntype = msg.type;
           var barid = '#likebar-'+ntype+'-'+wid;
           var btnid = '#lik-btns-'+ntype+'-'+wid;
+
+          var btnid_val = jQuery(btnid).html();
+
           jQuery(btnid).html(msg.msg);
           jQuery(barid).html(msg.likebar);
+
+          jQuery(btnid).delay(5000).fadeOut(1000, function(e) {
+              jQuery(btnid).html(btnid_val);
+              var name = type == 1 ? 'a-' : 'da-';
+              name = name + wid;
+              jQuery(btnid).find('a[name='+name+'] span').each(function(index,element){
+                var cont = $(element).html().replace(/[\(\)]/g,'');
+                $(element).html(parseInt(cont)+1 );
+              });
+              jQuery(btnid).fadeIn(1000);
+          });
+
+
 
         }
       });
