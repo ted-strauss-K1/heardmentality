@@ -14,7 +14,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                             <div class="medal" ><span class="gold" id="medal1" title="Gold Medals">&nbsp;</span><?php print $badges['gold'];?></div>
                             <div class="medal" ><span class="silver" id="medal2" title="Silver Medals">&nbsp;</span><?php print $badges['silver'];?></div>
                             <div class="medal" ><span class="bronze" id="medal3" title="Bronze Medals">&nbsp;</span><?php print $badges['bronze'];?></div>
-                            <div class="medal" ><img src="<?php print $directoryPath; ?>/images/icons/coin.png" class="coin2 floatleft" title="Coins"></span><?php print $coins; ?></div>
+                            <div class="medal" ><span class="coins_char">&cent;</span><?php print $coins; ?></div>
                     </div>
 
                     <div class="clear"></div>
