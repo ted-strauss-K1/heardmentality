@@ -184,6 +184,9 @@ $('.arg-reply-form').live('submit', function(e){
         $(open_id).slideDown('slow');
         cont.find('#reply_err').html('');
         $('#reply-msg-'+ded_tnid).html(msg.message);
+        $('#reply-msg-'+ded_tnid).delay(5000).fadeOut(1000, function(){
+            $(this).html('');
+        });
       },
       complete: function(){
         cont.find('#add_reply').show();
