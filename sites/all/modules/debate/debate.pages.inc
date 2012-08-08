@@ -22,9 +22,7 @@ function like_notification($nid='', $set='') { //vijay important comented
 }
 
 function debate_ajax() {
-
   global $base_url, $user, $gDocPath, $base_root, $theme;
-
   extract($_REQUEST);
   // site url with default language
   $path = '<front>';
@@ -286,7 +284,7 @@ function debate_ajax() {
         }
         $data[$ab]['name'] = t('Strength');
       }
-  
+
       print drupal_json(array(
                 'data' => $data,
                 'categories' => $insdata
@@ -407,8 +405,6 @@ $(document).ready(function() {
           $output.= resource_media($qid);
           break;
         case 'facts':
-
-
           $output.= resource_innews($qid, 3);
           break;
         default:
@@ -476,7 +472,6 @@ function debate_submit() {
   extract($_REQUEST);
 
   if (!user_is_logged_in()) {
-
     echo "<small>Sorry, Please log in first before you can join this debate!</small>";
     exit;
   }
@@ -520,7 +515,6 @@ function debate_submit() {
 
           // get like dislike counts
           if ($action == 'is_debate_reply' || $action == 'is_resource_reply') {
-
             $query = "SELECT str_wk FROM {comments} WHERE cid = '%d'";
             $result = db_query($query, $content_id);
             $result = db_result($result);
@@ -563,6 +557,7 @@ function debate_submit() {
 
           /* New SET NOTIFY LOG */
           $nodeid = 0;
+          $sum_count = $agreecnt - $disagreecnt;
           if ($agree == 1) {
             if ($action == 'is_debate') {
 
@@ -611,7 +606,6 @@ function debate_submit() {
           }
           else if ($agree == 0) {
             if ($action == 'is_debate') {
-
               $message_id = 'deb_disagree';
               $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
               $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
@@ -707,6 +701,7 @@ function debate_submit() {
         $msg['error'] = '1';
         $msg['msg'] = '<em>Sorry! <strong>Error</strong> occurs while updating.</em>';
       }
+      $msg['sum_count'] = debate_get_sum_count($action, $parent_node);
       echo json_encode($msg);
       break;
     default:
@@ -732,4 +727,19 @@ function collect_valid_images($images) {
     }
   }
   return $fImages;
+}
+
+function debate_get_sum_count($action, $content_id, $type = "node") {
+
+  $criteriaUpNode = array('content_type' => $type,
+    'content_id' => $content_id,
+    'tag' => 'vote',
+    'vote_type' => 'up');
+  $criteriaDownNode = array('content_type' => $type,
+    'content_id' => $content_id,
+    'tag' => 'vote',
+    'vote_type' => 'down');
+  $count = vote_up_down_count($criteriaUpNode) - vote_up_down_count($criteriaDownNode);
+
+  return $count;
 }

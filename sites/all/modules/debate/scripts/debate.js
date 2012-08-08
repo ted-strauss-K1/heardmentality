@@ -42,7 +42,6 @@ function bind_clk(){
       }
 
       // el.empty();
-
       el.slideDown('slow');
       var wid=el.parent('span').attr('name');
       var action=el.parent('span').attr('type');
@@ -53,6 +52,7 @@ function bind_clk(){
       var url = Drupal.settings.base_url + '/issues/debate/save';
       jQuery('#twitMsg').html("Please wait while saving your post....!");
       jQuery('#twitMsg').delay(400).slideDown(400);
+      console.log(el);
       jQuery.ajax({
         type: "POST",
         dataType: 'json',
@@ -64,13 +64,14 @@ function bind_clk(){
           'parent_node': id_par
         },
         success: function(msg){
+          console.log(msg);
           if(type==0){
             el.closest('div').find('#disag-cnt').html(msg.ratecount);
           }
           if(type==1){
             el.closest('div').find('#ag-cnt').html(msg.ratecount);
           }
-
+          el.parents('.one-forum').find('span.sum span').html(msg.sum_count); 
           var ntype = msg.type;
           var barid = '#likebar-'+ntype+'-'+wid;
           var btnid = '#lik-btns-'+ntype+'-'+wid;
@@ -79,7 +80,6 @@ function bind_clk(){
 
           jQuery(btnid).html(msg.msg);
           jQuery(barid).html(msg.likebar);
-
           jQuery(btnid).delay(5000).fadeOut(1000, function(e) {
               jQuery(btnid).html(btnid_val);
               var name = type == 1 ? 'a-' : 'da-';
@@ -145,12 +145,11 @@ function wave_form(){
 
 
 }
-*/
+*/;
 function addComment(ele){
   var el=jQuery(ele);
   var wid = el.attr('id');
   var gid = wid.split('-');
-
   jQuery('#waveletcmt').css('border-color', '');
   jQuery('#waveletcmt').val('');
   jQuery('#frid').val(gid[1]);
@@ -160,8 +159,7 @@ function addComment(ele){
 }
 
 function switchdebate(url){
-    
-
+   
   var newCaption = '`DEBATE SUMMARY <a href="" onclick="fb.instances[fb.ownerInstance(this)].goBack(); return false;"><b>Go back...</b></a>`';
   var options = 'type:ajax sameBox:true width:70% height:90% caption: ' + newCaption;
   parent.fb.start(url, options);
@@ -205,7 +203,6 @@ function likethis(action, wid, like, ele){
       'nodeid': wid
     },
     success: function(msg){
-
       el.html(msg);
       var finl = el.find('a');
       //  el.fade('in');
@@ -221,16 +218,7 @@ function likethis(action, wid, like, ele){
 }
 
 
-
-
-
-
-
-
-
-
 function toggle(){
-
 
   if(uid>0){
 
@@ -255,11 +243,6 @@ function toggle(){
 jQuery(document).ready(function() {
   //bind event for reply link
   bind_clk();
-
-
-    
-
-
 });
 
 
@@ -269,7 +252,6 @@ jQuery('#waveButton').live('click',function(e) {
     e.preventDefault();
 
     var el=jQuery('#postreplyform');
-
 
     var cmt=jQuery('#waveletcmt').val();
     if (cmt.length > 5) {
