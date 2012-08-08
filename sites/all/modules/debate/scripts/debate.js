@@ -52,7 +52,6 @@ function bind_clk(){
       var url = Drupal.settings.base_url + '/issues/debate/save';
       jQuery('#twitMsg').html("Please wait while saving your post....!");
       jQuery('#twitMsg').delay(400).slideDown(400);
-      console.log(el);
       jQuery.ajax({
         type: "POST",
         dataType: 'json',
@@ -64,7 +63,6 @@ function bind_clk(){
           'parent_node': id_par
         },
         success: function(msg){
-          console.log(msg);
           if(type==0){
             el.closest('div').find('#disag-cnt').html(msg.ratecount);
           }
