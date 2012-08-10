@@ -129,8 +129,9 @@ else {
 <script>        
 
 </script>
+<!--
 <script src="//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=auto"></script>
-
+-->
 
 <div id="permalink_text" style="display:none;">
   <span>share a link to this post</span>

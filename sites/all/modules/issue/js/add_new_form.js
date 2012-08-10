@@ -1,12 +1,18 @@
+
 function googleSectionalElementInit() {
+
   new google.translate.SectionalElement({
     sectionalNodeClassName: 'goog-trans-section',
     controlNodeClassName: 'goog-trans-control',
     background: '#E1E43C'
   }, 'google_sectional_element');
+
 }
 
 $(document).ready(function() {
+
+  /*
+  console.log('x2');
   function googleSectionalElementInit() {
     new google.translate.SectionalElement({
       sectionalNodeClassName: 'goog-trans-section',
@@ -14,7 +20,8 @@ $(document).ready(function() {
       background: '#E1E43C'
     }, 'google_sectional_element');
   }
-  
+  */
+
   $('.reference-form').hide();
   $('#link_arg-wrapper a').click(function(){
     $('.reference-form').show();
@@ -142,10 +149,26 @@ Drupal.behaviors.add_new_form = function(context) {
     $('#permalink_text').dialog('close');
     return false;
   });
-    
-  var lang = $("html").attr("lang");
-  var s = document.createElement('script');
-  s.type='text/javascript';
-  document.body.appendChild(s);
-  s.src='//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl='+lang;
+
+  $('a.delete').click(function(e){
+      $( "#dialog_"+$(this).attr('name') ).dialog({
+        resizable: false
+      });
+      return false;
+  });
+  $('a.delete button').click(function(e){
+        $(this).dialog("close");
+        return false;
+  });
+
+  $('.goog-trans-control').html('');
+
+    var lang = $("html").attr("lang");
+    lang = 'auto';
+    var s = document.createElement('script');
+    s.type='text/javascript';
+    s.className = "gt";
+    s.src='//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=' +lang;
+    document.body.appendChild(s);
+
 }

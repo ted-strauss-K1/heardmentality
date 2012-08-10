@@ -1692,45 +1692,53 @@ function scholer() {
   }
 }
 
-// user coin updates
+/*
+ * Recalculates the user total coins value
+ *
+ * @uid     - User Id
+ * @bid     - Badge Id
+ * @keyname - Coin Name
+ *
+ * @returns New user's total coins value
+ */
 function user_coins_update($uid = '', $bid = '', $keyname = '') {
-  if ($bid != '') {
-    $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
+  # get badge name if bid is set
+  if( $bid ) {
+    $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '%s'", $bid));
   }
-  $sql = "SELECT * FROM {tbl_coins} WHERE key_name = '$keyname'";
-  $coins = ExecuteQuery($sql, 'select');
-  foreach ($coins as $coin) {
-    $coin_count = $coin['coin_count'];
-    $coin_type = $coin['type'];
-  }
-  $insert = "INSERT INTO {user_coins} SET coin_key = '%s', coin_type = '%s', coin_count = '%d', uid = '%d'";
-  db_query($insert, $keyname, $coin_type, $coin_count, $uid);
-  // update total coins
-  $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
-  if ($coin_type == 'earn') {
-    $total_coins = $user_coins + $coin_count;
+  # get coin
+  $coin = db_result(db_query("SELECT * FROM {tbl_coins} WHERE key_name = '%s'", $keyname));
+  # add user coin
+  db_query("INSERT INTO {user_coins} SET coin_key = '%s', coin_type = '%s', coin_count = '%d', uid = '%d'",
+    $keyname, $coin['type'], $coin['coin_count'], $uid
+  );
+  # update user total coins
+  $user = user_load(array('uid' => $uid));
+  if( $coin['type'] == 'earn' ) {
+    $user->total_coins += $coin['coin_count'];
     $message_id = 'add_coins';
-  }
-  if ($coin_type == 'lose') {
-    $total_coins = $user_coins - $coin_count;
+  } else {
+    $user->total_coins -= $coin['coin_count'];
     $message_id = 'lose_coins';
   }
-
-  /* New SET NOTIFY LOG */
-  $variable = array('coin_count' => $coin_count, 'coint_type' => $coin_type);
-  set_notify_log($uid, '', $message_id, $variable);
-  /* New SET NOTIFY LOG */
-
-  db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
+  # notify log
+  set_notify_log($uid, '', $message_id, array('coin_count' => $coin['coin_count'], 'coin_type' => $coin['type']));
+  # save user
+  user_save($user);
+  return $user->total_coins;
 }
 
+/*
+ * Load a comment by cid
+ *
+ * @uses _comment_load() from comment.module
+ */
 function comment_load($cid = '') {
-  $comments = db_query("SELECT * FROM {comments} WHERE cid = '$cid'");
-  while ($comment = db_fetch_object($comments)) {
-    $comDet['type'] = $comment->subject;
-    $comDet['pid'] = $comment->pid;
-  }
-  return $comDet;
+  $comment = _comment_load($cid);
+  return array(
+    'type' => $comment->subject,
+    'pid'  => $comment->pid,
+  );
 }
 
 // get vocabulary id
@@ -1748,4 +1756,9 @@ function _get_vid($vocabulary_name) {
   else {
     return FALSE;
   }
+}
+
+function get_coins($key) {
+  $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = '$key'"));
+  return $coins;
 }

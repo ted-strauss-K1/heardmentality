@@ -9,6 +9,10 @@ function bind_clk(){
     addComment(jQuery(this));
   });
 
+  jQuery('a[name="rep"]').live('click', function(){
+    addComment(jQuery(this));
+  });
+
   //agree
   jQuery('a.dagree').live('click', function(e){
     jQuery(this).agree(e,'1');
@@ -25,6 +29,15 @@ function bind_clk(){
   jQuery('a.rdisagree').live('click', function(e){
     jQuery(this).agree(e,'0');
   });
+
+    jQuery('#debate_list_area ul.ui-tabs-nav li a').click(function(){
+        var href = jQuery(this).attr('href');
+        if( jQuery(href).html() == '' ) {
+            jQuery(href).html('<div style="text-align: center; margin-top: 30px;"><img src="/sites/all/themes/hmware/images/loading_min.gif" /></div>')
+        }
+    });
+
+
 }
 
 (function(jQuery){
@@ -43,12 +56,19 @@ function bind_clk(){
 
       // el.empty();
       el.slideDown('slow');
+
       var wid=el.parent('span').attr('name');
       var action=el.parent('span').attr('type');
       var id_par = el.parents('.one-forum').attr('name');
 
-      el.closest('span').find('a.dagree').attr('class','');
-      el.closest('span').find('a.ddisagree').attr('class','');
+      console.log(el);
+      console.log(wid);
+      console.log(action);
+      console.log(id_par);
+
+      el.closest('span').find('a.dagree').attr({'class':'','title':'You have rated this!'});
+      el.closest('span').find('a.ddisagree').attr({'class':'','title':'You have rated this!'});
+        // $('#forum-block-36896').find('a.agree[name=a-36896]')
       var url = Drupal.settings.base_url + '/issues/debate/save';
       jQuery('#twitMsg').html("Please wait while saving your post....!");
       jQuery('#twitMsg').delay(400).slideDown(400);
@@ -236,6 +256,8 @@ function toggle(){
     jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
   }
 }
+
+
 
 
 jQuery(document).ready(function() {

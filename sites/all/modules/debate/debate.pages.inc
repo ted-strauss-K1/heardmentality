@@ -1,87 +1,31 @@
 <?php
 
-function post_notification($did='', $rid='') { ///vijay important comented
-  global $user;
-  db_query("insert into {notification} set follower_action='1',is_wavelets='1',uid='$user->uid',node_id='$nid' ");
-
-
-  hm_mails('', $did, 'reply_forum');
-////////////mail notication for user follwers to me//////////////////////////////////////
-}
-
-function like_notification($nid='', $set='') { //vijay important comented
-  global $user;
-///////Notifications///
-  db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nid' ");
-  $sel_forum = "select * from debate_reply as f join debate as w on f.rid=w.fid where f.rid='" . $nid . "'";
-  $forum_fet = db_query($sel_forum);
-  $forum_row = db_fetch_object($forum_fet);
-  $qid_rid = $forum_row->qid;
-  hm_mails($qid, $nid, 'add_like');
-//////Notifications///
-}
-
+/**
+ * The function to handle "/debate/ajax" callbacks
+ *
+ *
+ */
 function debate_ajax() {
   global $base_url, $user, $gDocPath, $base_root, $theme;
+  # Extract the params: $_REQUEST['action'] to $action
+  $action = '';
+  $url = '';
   extract($_REQUEST);
-  // site url with default language
-  $path = '<front>';
-  $sitelink = url($path, array('absolute' => TRUE)) . '/';
-  switch ($action) {
+  # Get site url with default language
+  $sitelink = url('<front>', array('absolute' => TRUE)) . '/';
 
-    case 'url':
-      if ($_GET['url']) {
-
-        require_once('simple_html_dom.php');
-        require_once('thumbnail.php');
-        require_once('url_to_absolute.php');
-
-        $url = $_GET['url'];
-        $html = file_get_html($url);
-        $tags = get_meta_tags($url);
-        $domain = parse_url($url, PHP_URL_HOST);
-        $images = array();
-        foreach ($html->find('img') as $element) {
-          $images[$element->src] = true;
-        }
-
-        $inc.='<em>' . $html->find('title', 0)->innertext . '</em>';
-        $inc.='source:&nbsp;<strong>' . $domain . '</strong>';
-        $inc.='<span>' . $tags['description'] . '</span>';
-
-        foreach ($html->find('img') as $element) {
-          $imgs[] = url_to_absolute($url, $element->src);
-        }
-        $web_images = collect_valid_images($imgs);
-
-        $count = count($web_images);
-        $totalImage = $count > 10 ? '10' : $count;
-        //$totalImage = $count;
-        $imgCount = $count > 0 ? 1 : 0;
-        $endImage = $totalImage != 0 ? ($totalImage - 1) : 0;
-        $imgPath = $base_url . '/' . drupal_get_path('theme', 'hmware') . '/images/';
-        $imgSelector = '<div class="linkbox_inner"><div class="img-selector"><div class="inner">';
-        for ($i = 0; $i < $totalImage; $i++) {
-          $imgSelector .= '<div class="cur-img">
-                                    <img id="cur_img_' . $i . '" src="' . $web_images[$i] . '" width="118" height="73"  />
-                                    </div>';
-        }
-        $imgSelector .= ' <input type="hidden" id="cur_id_val" value="0" />
-                                    <input type="hidden" id="end_image" value="' . $endImage . '" />
-                                        <input type="hidden" id="pre_id_val" value="" />
-
-                                 </div></div><div class="img_controls">
-								 <span class="left_right"><a href="javascript:void(0)" title="previous"  id="re-sel-pre"><img src="' . $imgPath . 'arrow_left.png"></a>
-								 <a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="' . $imgPath . 'arrow_right.png"></a></span>
-								 <span id="img_count">' . $imgCount . '</span> of ' . $totalImage . '
-								 </div>';
-        echo $imgSelector;
-        echo '<div class="rightfm">' . $inc . '
-                    <span class="no_thumb"><input type="checkbox" name="no_thumbnail" id="no_thumbnail" />No Thumbnail
-                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/></span></div></div>
-                        ';
+  # Switch $action
+  switch( $action ) {
+    case 'url' :
+      if( empty($url) ) {
+        exit("<div class='messages error'>".t('No URL provided.')."</div>");
       }
+      _debate_ajax_url($url);
       break;
+  }
+
+  switch ($action) {
+    case 'url' : break;
     case 'resource_new':
       if ($rtype != 0) {
         if (!empty($membed) && $rtype == 2 && $mtype == 1) {
@@ -189,7 +133,7 @@ function debate_ajax() {
         // return inserted data
         $tnid = get_tnid($qaid);
         module_load_include('inc', 'issue', 'issue.pages');
-        $items = load_resource_datas($nodeid, $qaid, $tnid, $res->field_rtype[0]['value']);
+        $items = load_resource($nodeid, $qaid, $tnid, $res->field_rtype[0]['value']);
 
 
         // strength
@@ -217,10 +161,7 @@ function debate_ajax() {
 
         // delete
         if (is_moderator() || $items['uid'] == $user->uid) {
-          $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['resource_id'] . '\', \'resource\')">' . t('Delete') . '</h6>';
-        }
-        else {
-          $delete = '';
+          $delete = theme('delete_button', $items['content_id'], $items['type'], 'Are you sure you want to delete this thread?');
         }
 
         // reply box
@@ -230,7 +171,7 @@ function debate_ajax() {
 
         // ratings
         // allow rating check
-        $ratings = get_rating_buttons($items, 'is_resource');
+        $ratings = theme('rating_button', $items);
 
         $resouce_theme .= theme('reference_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
 
@@ -285,10 +226,7 @@ function debate_ajax() {
         $data[$ab]['name'] = t('Strength');
       }
 
-      print drupal_json(array(
-                'data' => $data,
-                'categories' => $insdata
-              ));
+      print drupal_json(array('data' => $data, 'categories' => $insdata));
       /* jQuery(window).resize(function() {
         chart.destroy();
        */
@@ -420,6 +358,231 @@ $(document).ready(function() {
 
   exit;
 }
+ 
+ 
+/**
+ * Function to handle URL calls fro debate_ajax()
+ *
+ * @param url - the URL to handle
+ */
+function _debate_ajax_url($url) {
+  global $base_url;
+
+  # include required libraries
+  require_once('simple_html_dom.php');
+  require_once('thumbnail.php');
+  require_once('url_to_absolute.php');
+
+  # get html
+  $html = file_get_html($url);
+  if( !$html ) {
+    exit("<div class='messages error'>".t('Error loading URL')."</div>");
+  }
+
+  # get domain
+  $domain = parse_url($url, PHP_URL_HOST);
+  # get images
+  $images = array();
+  $images_source = $html->find('img');
+  foreach( $images_source as $element ) {
+    # $images[$element->src] = true;
+    $images[] = url_to_absolute($url, $element->src);
+  }
+  $images = collect_valid_images($images);
+  # get title
+  $title = $html->find('title', 0);
+  if( $title ) {
+    $title = $title->innertext;
+  }
+  # get description
+  $tags = get_meta_tags($url);
+  $description = $tags['description'];
+  # get image count
+  $count = count($images);
+  $image_count = $count > 10 ? '10' : $count;
+  $image_first = $count > 0 ? 1 : 0;
+  $image_last = $image_count != 0 ? ($image_count - 1) : 0;
+  $image_path = $base_url . '/' . drupal_get_path('theme', 'hmware') . '/images/';
+  # output
+  echo theme('debate_ajax_url',
+    $images, $image_count, $image_first, $image_last, $image_path,
+    '<em>'.$title.'</em>source:&nbsp;<strong>'.$domain.'</strong><span>'.$description.'</span>'
+  );
+}
+
+/**
+ * Function to validate the images
+ */
+function collect_valid_images($images) {
+  $ext_arr = array('png', 'jpg', 'jpeg', 'JPEG');
+  $result = array();
+  foreach ($images as $image) {
+    $im = explode("/", $image);
+    $webimage = end($im);
+    $ext = explode(".", $webimage);
+    $extension = end($ext);
+    if (in_array($extension, $ext_arr)) {
+      list($width, $height, $type, $attr) = getimagesize($image);
+      if ($width > 30 && $height > 30) {
+        $fImages[] = $image;
+      }
+    }
+  }
+  return $fImages; 
+}
+
+
+/**
+ * The function to handle "/issue/debate/save" callbacks
+ *
+ *
+ */
+function debate_submit() {
+  global $user;
+  if( !user_is_logged_in() ) {
+    exit("<small>Sorry, Please log in first before you can join this debate!</small>");
+  }
+  # $action - debate/resource/reply
+  $action = '';
+  $content_id = '';
+  $parent_node = '';
+  $agree = 1;
+  extract($_REQUEST);
+  #exit($action.'&'.$content_id.'&'.$parent_node.'&'.$agree);
+
+  switch( $action ) {
+    case  'debate'    :
+    case  'resource'  :
+    case  'reply'     :
+      $json = array();
+      # $user_coins = $user->total_coins;
+      $type = $action == 'reply' ? 'comment' : 'node';
+      $voted = rating_allowed($content_id, $type, $user->uid);
+      /*
+      $voted = db_result(db_query("
+        SELECT * FROM {votingapi_vote}
+        WHERE
+          content_id ='%d' AND
+          content_type = '%s' AND
+          uid='%d' AND
+          vote_source IS NULL",
+        $content_id, $type, $user->uid)
+      );
+      */
+      # add vote only for logged in user
+      if( $voted && user_is_logged_in() ) {
+        $coins_threshold = $agree == 1 ? get_coins('agree') : get_coins('disagree');
+        if( $user->total_coins < $coins_threshold ) {
+          $json['msg'] = '<em>Sorry! <strong>Error, You do not have enough coins.</strong></em>';
+        } else {
+          # add values to votingapi
+          $vote_value = $agree == 1 ? 1 : -1;
+          db_query("
+            INSERT INTO {votingapi_vote}
+            SET
+              content_type = '%s', content_id = '%d', value = '%s', value_type = '%s',
+              tag = '%s', uid = '%d', timestamp = '%d'",
+            $type, $content_id, $vote_value, 'points', 'vote', $user->uid, time()
+          );
+          # add like/dislike counts
+          if( $action == 'reply' ) {
+            $result = db_result(db_query("SELECT str_wk FROM {comments} WHERE cid = '%d'", $content_id));
+            if( !$result ) {
+              $vote_value *= -1;
+            }
+            db_query("
+              INSERT INTO {votingapi_vote}
+              SET
+                content_type = '%s', content_id = '%d', value = '%s', value_type = '%s',
+                tag = '%s', uid = '%d', timestamp = '%d', vote_source = 'reply_auto'",
+              'node', $parent_node, $vote_value, 'points', 'vote', $user->uid, time()
+            );
+          }
+          # recalculate votes
+          list($pro,$con) = get_votes($content_id, $type);
+          $strength = $pro - $con;
+          if( $type == 'node' ) {
+            $node = node_load($content_id);
+            $node->field_strength[0]['value'] = $strength;
+            node_save($node);
+          }
+          # add coin for agree and disagree
+          $coin_type = $agree == '1' ? 'agree' : 'disagree';
+          $coins = user_coins_update($user->uid, '', $coin_type);
+
+          # insert guru points TODO -- this function's doing something somehow
+          ### insertpoints($action, $content_id);
+          # like notification TODO -- not supported when reply id is sent
+          ### user_notify('like', array('nid' => $content_id));
+
+          # RAM HEARTBEAT MODULE DEBATE REPLY UPDATE TODO -- there's no even such table in db!
+          /*
+          $qid_url = db_query("select * from {question} where qid='$content_id'");
+          $question_values = db_fetch_array($qid_url);
+          if (isset($question_values)) {
+            $question_urlff = $question_values['url'] . '/' . $content_id;
+            $qtion = $question_values['question'];
+            $ctxt = $question_values['context'];
+          }
+          $message_id = 'debate_disagree';
+          $variables = array(
+            '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
+            '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+          );
+          //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+          */
+          # message
+          if( $agree ) {
+            $json['msg'] = "<em><strong>Agreed! </strong>You have $coins coins left.</em> ";
+            $json['ratecount'] = $pro;
+          } else {
+            $json['msg'] = "<em><strong>Disagreed! &nbsp;</strong>You have $coins coins left.</em> ";
+            $json['ratecount'] = $con;
+          }
+          $json['error'] = '0';
+          $json['type'] = $type;
+          $json['likebar'] = theme('like_dislike_bar', $pro, $con);
+        }
+      } else {
+        $json['error'] = '1';
+        $json['msg'] = '<em>Sorry! <strong>Error</strong> occurs while updating.</em>';
+      }
+      list($pro,$con) = get_votes($parent_node, 'node');
+      $json['sum_count'] = $pro - $con;
+      echo json_encode($json);
+    break;
+  }
+  return;
+}
+
+
+
+
+
+
+
+
+
+function post_notification($did='', $rid='') { ///vijay important comented
+  global $user;
+  db_query("insert into {notification} set follower_action='1',is_wavelets='1',uid='$user->uid',node_id='$nid' ");
+
+
+  hm_mails('', $did, 'reply_forum');
+////////////mail notication for user follwers to me//////////////////////////////////////
+}
+
+function like_notification($nid='', $set='') { //vijay important comented
+  global $user;
+///////Notifications///
+  db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nid' ");
+  $sel_forum = "select * from debate_reply as f join debate as w on f.rid=w.fid where f.rid='" . $nid . "'";
+  $forum_fet = db_query($sel_forum);
+  $forum_row = db_fetch_object($forum_fet);
+  $qid_rid = $forum_row->qid;
+  hm_mails($qid, $nid, 'add_like');
+//////Notifications///
+}
 
 ////url to hyperlink converting 
 function _make_url_clickable_cb($matches) {
@@ -467,267 +630,9 @@ function make_clickable($ret) {
   return $ret;
 }
 
-function debate_submit() {
-  global $user, $base_root, $base_url, $language, $theme;
-  extract($_REQUEST);
-
-  if (!user_is_logged_in()) {
-    echo "<small>Sorry, Please log in first before you can join this debate!</small>";
-    exit;
-  }
-  $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
-  switch ($action) {
-
-    case 'is_debate':
-    case 'is_debate_reply':
-    case 'is_resource':
-    case 'is_resource_reply':
-
-      if ($action == 'is_debate' || $action == 'is_resource') {
-        $type = 'node';
-      }
-      else if ($action == 'is_debate_reply' || $action == 'is_resource_reply') {
-        $type = 'comment';
-      }
-
-      $cond = " AND type = '" . $type . "'";
-
-      $query = "select * from {votingapi_vote} where content_id ='$content_id' $cond AND uid='$user->uid'";
-
-      $chk = db_result(db_query($query));
-
-      if (!$chk && $user->uid > 0) {
-        $lose_coins = $agree == 1 ? get_coins('agree') : get_coins('disagree');
-        if ($user_coins >= $lose_coins) {
-          // add values into votingapi_vote
-          $voteValue = $agree == 1 ? '1' : '-1';
-          if ($action == 'is_debate' || $action == 'is_resource') {
-            $content_type = 'node';
-          }
-          else if ($action == 'is_debate_reply' || $action == 'is_resource_reply') {
-            $content_type = 'comment';
-          }
-
-          db_query("INSERT INTO {votingapi_vote} 
-            SET content_type = '%s', content_id = '%d', 
-            value = '%s', value_type = '%s', tag = '%s', 
-            uid = '%d', timestamp = '%d'", $content_type, $content_id, $voteValue, 'points', 'vote', $user->uid, time());
-
-          // get like dislike counts
-          if ($action == 'is_debate_reply' || $action == 'is_resource_reply') {
-            $query = "SELECT str_wk FROM {comments} WHERE cid = '%d'";
-            $result = db_query($query, $content_id);
-            $result = db_result($result);
-            if ($result) {
-              $parvoteValue = $voteValue == 1 ? '1' : '-1';
-            }
-            else {
-              $parvoteValue = $voteValue == 1 ? '-1' : '1';
-            }
-
-            db_query("INSERT INTO {votingapi_vote} 
-            SET content_type = '%s', content_id = '%d', 
-            value = '%s', value_type = '%s', tag = '%s', 
-            uid = '%d', timestamp = '%d'", 'node', $parent_node, $parvoteValue, 'points', 'vote', $user->uid, time());
-          }
-
-          $criteriaUpNode = array('content_type' => $type,
-            'content_id' => $content_id,
-            'tag' => 'vote',
-            'vote_type' => 'up');
-          $criteriaDownNode = array('content_type' => $type,
-            'content_id' => $content_id,
-            'tag' => 'vote',
-            'vote_type' => 'down');
-          $agreecnt = vote_up_down_count($criteriaUpNode);
-          $disagreecnt = vote_up_down_count($criteriaDownNode);
-          if ($content_type == 'node') {
-            $node = node_load($content_id);
-            $node->field_strength[0]['value'] = $agreecnt - $disagreecnt;
-            node_save($node);
-          }
-// add coin for agree and disagree
-          $coin_type = $agree == '1' ? 'agree' : 'disagree';
-          $coins = users_coins_update($user->uid, '', $coin_type);
-
-//guru points
-          insertpoints($action, $content_id);
-//notification
-          like_notification($content_id, $set);
-
-          /* New SET NOTIFY LOG */
-          $nodeid = 0;
-          $sum_count = $agreecnt - $disagreecnt;
-          if ($agree == 1) {
-            if ($action == 'is_debate') {
-
-              $message_id = 'deb_agree';
-              $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
-
-              $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
-              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-
-              $variable = array('did' => $content_id, 'd_title' => $dtitle, 'qid' => $qid, 'q_title' => $qtitle);
-              $nodeid = $content_id;
-              $item = load_debate_datas($content_id);
-              $msg['cnt'] = $item['vote_up'];
-            }
-            else if ($action == 'is_debate_reply') {
-
-              $message_id = 'deb_reply_agree';
-              $did = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
-              $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
-
-              $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $did));
-              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-
-              $variable = array('did' => $did, 'cid' => $content_id, 'c_title' => $ctitle, 'qid' => $qid, 'q_title' => $qtitle);
-            }
-            else if ($action == 'is_resource') {
-
-              $message_id = 'res_agree';
-              $rtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
-              $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
-              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-
-              $variable = array('rid' => $content_id, 'r_title' => $rtitle, 'qid' => $qid, 'q_title' => $qtitle);
-              $nodeid = $content_id;
-            }
-            else if ($action == 'is_resource_reply') {
-
-              $message_id = 'res_reply_agree';
-              $rid = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
-              $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $rid));
-              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-
-              $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
-              $variable = array('rid' => $rid, 'cid' => $content_id, 'c_title' => $ctitle, 'qid' => $qid, 'q_title' => $qtitle);
-            }
-          }
-          else if ($agree == 0) {
-            if ($action == 'is_debate') {
-              $message_id = 'deb_disagree';
-              $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
-              $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
-              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-
-              $variable = array('did' => $content_id, 'd_title' => $dtitle, 'qid' => $qid, 'q_title' => $qtitle);
-              $nodeid = $content_id;
-              $item = load_debate_datas($content_id);
-              $msg['cnt'] = $item['vote_down'];
-            }
-            else if ($action == 'is_debate_reply') {
-
-              $message_id = 'deb_reply_disagree';
-              $did = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
-              $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
-              $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $did));
-              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-
-              $variable = array('did' => $did, 'cid' => $content_id, 'c_title' => $ctitle, 'qid' => $qid, 'q_title' => $qtitle);
-            }
-            else if ($action == 'is_resource') {
-              $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
-              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-              $message_id = 'res_disagree';
-              $rtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
-              $variable = array('rid' => $content_id, 'r_title' => $rtitle, 'qid' => $qid, 'q_title' => $qtitle);
-              $nodeid = $content_id;
-            }
-            else if ($action == 'is_resource_reply') {
-
-              $message_id = 'res_reply_disagree';
-              $rid = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
-              $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
-              $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $rid));
-              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-
-              $variable = array('rid' => $rid, 'cid' => $content_id, 'c_title' => $ctitle, 'qid' => $qid, 'q_title' => $qtitle);
-            }
-          }
-          // print_r($variable); exit;
-          set_notify_log($user->uid, $nodeid, $message_id, $variable);
-          /* New SET NOTIFY LOG */
 
 
-          //$msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
-          if ($agree) {
-            $msg['msg'] = "<em><strong>Agreed! </strong>You have $coins coins left.</em> ";
-            $msg['ratecount'] = $agreecnt;
-            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-            $qid_url = db_query("select * from {question} where qid='$content_id'");
-            $question_values = db_fetch_array($qid_url);
-            if (isset($question_values)) {
-              $question_urlff = $question_values['url'] . '/' . $frid;
-              $qtion = $question_values['question'];
-              $ctxt = $question_values['context'];
-            }
-            $message_id = 'debate_agree';
-            $variables = array(
-              '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
-              '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
-            );
-            //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
-            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-          }
-          else {
-            $msg['msg'] = "<em><strong>Disagreed! &nbsp;</strong>You have $coins coins left.</em> ";
-            $msg['ratecount'] = $disagreecnt;
-            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-            $qid_url = db_query("select * from {question} where qid='$content_id'");
-            $question_values = db_fetch_array($qid_url);
-            if (isset($question_values)) {
-              $question_urlff = $question_values['url'] . '/' . $content_id;
-              $qtion = $question_values['question'];
-              $ctxt = $question_values['context'];
-            }
-            $message_id = 'debate_disagree';
-            $variables = array(
-              '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
-              '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
-            );
-            //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
-            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-          }
-          $msg['error'] = '0';
-          $msg['type'] = $type;
-          $msg['likebar'] = like_dislike_bar($agreecnt, $disagreecnt);
-        }
-        else {
-          $msg['msg'] = '<em>Sorry! <strong>Error, You do not have enough coins.</strong></em>';
-        }
-      }
-      else {
-        $msg['error'] = '1';
-        $msg['msg'] = '<em>Sorry! <strong>Error</strong> occurs while updating.</em>';
-      }
-      $msg['sum_count'] = debate_get_sum_count($action, $parent_node);
-      echo json_encode($msg);
-      break;
-    default:
 
-      break;
-  }
-  return;
-}
-
-function collect_valid_images($images) {
-  $ext_arr = array('jpg', 'jpeg', 'JPEG');
-  $result = array();
-  foreach ($images as $image) {
-    $im = explode("/", $image);
-    $webimage = end($im);
-    $ext = explode(".", $webimage);
-    $extension = end($ext);
-    if (in_array($extension, $ext_arr)) {
-      list($width, $height, $type, $attr) = getimagesize($image);
-      if ($width > 30 && $height > 30) {
-        $fImages[] = $image;
-      }
-    }
-  }
-  return $fImages;
-}
 
 function debate_get_sum_count($action, $content_id, $type = "node") {
 

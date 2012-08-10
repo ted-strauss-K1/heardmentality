@@ -7,6 +7,144 @@
  * Page callbacks for the issue module.
  */
 
+/*
+ * Callback function for "issue/%/tab_content/%/%" pages
+ * Outputs the content of the issue pages
+ *
+ * TODO - refactor
+ */
+function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
+  $output = '';
+  global $user;
+
+  # get sort parameters / third selected parameter
+  $order_by = 'ORDER BY f.nid DESC';
+  $select = ',n.created ';
+  $order_sort = 'DESC';
+  if (isset($sort) && $sort == 1) {
+    $order_by = 'ORDER BY n.created DESC';
+    $select = ',n.created ';
+    $order_sort = 'DESC';
+  }
+  elseif (isset($sort) && $sort == 2) {
+    $order_by = ' ORDER BY c.field_strength_value DESC';
+    $select = ',c.field_strength_value ';
+    $order_sort = 'DESC';
+  }
+  elseif (isset($sort) && $sort == 0) {
+    $order_by = 'ORDER BY n.created ASC';
+    $select = ',n.created ';
+    $order_sort = 'ASC';
+  }
+
+  # sql queries for forum translation
+  $issue_id = $qid;
+  // get parent translate id
+  $parent_id = get_tnid($qid);
+  // queries
+  if( isset($_GET['class']) ) {
+    $ans_val = 0;
+    switch ($_GET['class']) {
+      case 'neutral'  : $ans_val = 0; break;
+      case 'positive' : $ans_val = 1; break;
+      case 'negative' : $ans_val = 2; break;
+    }
+    $sql = "
+      SELECT DISTINCT(f.nid),f.tid $select
+      FROM forum as f
+        LEFT JOIN content_type_forum as c
+          ON f.nid = c.nid
+        JOIN node as n
+          ON f.nid = n.nid
+        LEFT JOIN debate_options as do
+          ON f.nid = do.nid
+      WHERE
+        c.field_ref_qid_nid = '%d' AND
+        do.chorder = '%d' AND
+        do.ans_val = '%d'
+      UNION
+      SELECT DISTINCT(f.nid),f.tid $select
+      FROM forum as f
+        LEFT JOIN content_type_forum as c
+          ON f.nid = c.nid
+        JOIN node as n
+          ON f.nid = n.nid
+      WHERE
+        c.field_ref_qid_nid = %d AND
+        f.tid = 7
+      ORDER by 3 $order_sort
+    ";
+    $nodes = db_query($sql, $parent_id, $_GET['chorder'], $ans_val, $parent_id);
+    $count = db_result(db_query($sql, $parent_id, $_GET['chorder'], $ans_val, $parent_id));
+  } else {
+    $sql = "
+      SELECT DISTINCT(f.nid),f.tid
+      FROM {forum} as f
+        LEFT JOIN {content_type_forum} as c
+          ON f.nid = c.nid
+        JOIN {node} as n
+          ON f.nid = n.nid
+        WHERE c.field_ref_qid_nid = '%d' $order_by";
+    $nodes = db_query($sql, $parent_id);
+    $count = db_result(db_query($sql, $parent_id));
+  }
+
+  # loading data
+  if( $count > 0 ) {
+    $counter = 0;
+    while ($node = db_fetch_object($nodes)) {
+      if ($node->tid == 6) {
+        $item = load_debate($node->nid, $issue_id, $parent_id);
+      } else {
+        $item = load_resource($node->nid, $issue_id, $parent_id, $node->field_rtype_value);
+      }
+      # get answers' strenght
+      foreach( $item['strength'] as &$list ) {
+        $list['answer'] = get_short_answer($item['issue_id'], $list['chorder']);
+        if( !$list['answer'] ) {
+          $list['answer'] = db_result(db_query("
+            SELECT chtext
+            FROM {poll_choices}
+            WHERE
+              nid = '%d' AND
+              chorder = '%s'",
+            $item['issue_id'], $list['chorder'])
+          );
+          $list['answer_value'] = $list['ans_val'] == 1 ? 'plus' : ( $list['ans_val'] == 2 ? 'minus' : '' );
+        }
+      }
+
+      /* odyachenko #14 - problem is here */
+      $reply_box = drupal_get_form('reply_form', $item['content_id'], array('issue_id' => $item['issue_id']));
+      $comments = theme('forum_replies', $item['content_id']);
+      $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '%d'", $item['content_id']));
+
+      if (is_moderator() || $item['uid'] == $user->uid) {
+        $delete = theme('delete_button', $item['content_id'], $item['type'], 'Are you sure you want to delete this thread?');
+      }
+      $ratings = theme('rating_button', $item);
+      $output .= theme('debate_parent_template', $item, $comments, $reply_box, $reply_count, $ratings, $delete);
+      # update forum points
+      $tForumId = get_tnid($node->nid);
+      debate_roundup($tForumId);
+    }
+  } else {
+    $output = '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
+  }
+
+  # print/return
+  if ($print == 1) {
+    return $output;
+  } else {
+    print $output;
+  }
+}
+
+
+
+
+
+
 /**
  * List all issue as a page.
  */
@@ -1371,7 +1509,7 @@ function issue_debates($qid='', $type='', $sort = null) {
     $i = 0;
     while ($node = db_fetch_object($nodes)) {
 
-      $items = load_debate_datas($node->nid, $issueId, $tnid);
+      $items = load_debate($node->nid, $issueId, $tnid);
 
 // anwers strength
       $strnth = $items['strength'];
@@ -1394,52 +1532,22 @@ function issue_debates($qid='', $type='', $sort = null) {
       }
 
 // reply
-      $reply_box = drupal_get_form('forum_reply_form', $items['debate_id'], $items['debate_tnid'], $items['issue_id']);
-      $comments = forum_replies($items['debate_tnid'], 0);
+      # warning!!! see reply_form()
+      $reply_box = drupal_get_form('reply_form', $items['debate_id'], array('debate_tnid' => $items['debate_tnid'], 'issue_id' => $items['issue_id']));
+      $comments = theme('forum_replies', $items['debate_tnid']);
       $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
 // delete
       if (is_moderator() || $items['uid'] == $user->uid) {
-        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['debate_tnid'] . '\', \'debate\')">' . t('Delete') . '</h6>';
+        $delete = theme('delete_button', $items['content_id'], $items['type'], 'Are you sure you want to delete this thread?');
       }
       else {
         $delete = '';
       }
 // ratings
 // allow rating check
-      $ratings = get_rating_buttons($items, 'is_debate');
+      $ratings = theme('rating_button', $items);
+      $items['ago'] = get_time_interval($items['posted']);
 
-//$debate_theme .= theme('single_debate_template', $items);
-
-      $date1 = new DateTime($items['posted']);
-      $date2 = new DateTime("now");
-      $interval = $date1->diff($date2);
-      $years = $interval->format('%y');
-      $months = $interval->format('%m');
-      $days = $interval->format('%d');
-      $hours = $interval->format('%h');
-      $minutes = $interval->format('%i');
-      if ($years != 0) {
-        $ago = $years . ' year(s) ago';
-      }
-      else {
-        if ($months != 0) {
-          $ago = ($months . ' month(s) ago');
-        }
-        else {
-          if ($days != 0) {
-            $ago = ($days . ' day(s) ago');
-          }
-          else {
-            if ($hours != 0) {
-              $ago = ($hours . ' hour(s) ago ');
-            }
-            else {
-              $ago = ($minutes . ' minute(s) ago');
-            }
-          }
-        }
-      }
-      $items['ago'] = $ago;
       $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
 // update points
       $tForumId = get_tnid($node->nid);
@@ -1453,41 +1561,7 @@ function issue_debates($qid='', $type='', $sort = null) {
   return $debate_theme;
 }
 
-// forum replies
-function forum_replies($debate_tnid, $pid = '') {
-  global $user, $language, $theme;
-  $curLanguage = $language->language;
-  $comments = '';
 
-  $query = "SELECT * FROM {comments} as c where c.nid='$debate_tnid' and c.status='0' and c.pid='$pid' AND (c.cid = c.tcid OR c.tcid = 0) ORDER BY c.cid DESC";
-  $list = ExecuteQuery($query, "select");
-
-  if (count($list) > 0) {
-    foreach ($list as $forum) {
-      $cid = $forum['cid'];
-      if (!empty($forum['comment'])) {
-        $items = forum_reply_datas($cid);
-// ratings
-// allow rating check
-        $ratings = get_rating_buttons($items, 'is_debate_reply');
-
-//delete
-        if (is_moderator() || $items['uid'] == $user->uid) {
-          $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_reply_' . $items['cid'] . '\', \'reply\')">' . t('Delete') . '</h6>';
-        }
-        else {
-          $delete = '';
-        }
-        $userPicture = UserPicture_small_src($items['uid']);
-        $comments .= theme('forum_child_reply_template', $items, $userPicture, $ratings, $delete);
-      }
-    }
-  }
-  else {
-    
-  }
-  return $comments;
-}
 
 // delete forum, comments
 function issue_thread_delete($type = '', $tnid = '', $source = '') {
@@ -1990,10 +2064,10 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
 
     while ($node = db_fetch_object($nodes)) {
       if ($rtype == 4) {
-        $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
+        $items = load_resource($node->nid, $issueId, $tnid, $node->field_rtype_value);
       }
       else {
-        $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
+        $items = load_resource($node->nid, $issueId, $tnid, $resType);
       }
       $strnth = $items['strength'];
       $strength = '';
@@ -2014,20 +2088,20 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
 
 // delete
       if (is_moderator() || $items['uid'] == $user->uid) {
-        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['resource_id'] . '\', \'resource\')">' . t('Delete') . '</h6>';
+        $delete = theme('delete_button', $items['content_id'], $items['type'], 'Are you sure you want to delete this thread?');
       }
       else {
         $delete = '';
       }
 
 // reply box
-      $reply_box = drupal_get_form('forum_reply_form', $items['resource_id'], $items['resource_id'], $items['issue_id']);
-      $comments = forum_replies($items['resource_id'], 0);
+      $reply_box = drupal_get_form('reply_form', $items['resource_id'], array('resource_id' => $items['resource_id'], 'issue_id' => $items['issue_id']));
+      $comments = theme('forum_replies', $items['resource_id']);
       $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['resource_id'] . "'"));
 
 // ratings
 // allow rating check
-      $ratings = get_rating_buttons($items, 'is_resource');
+      $ratings = theme('rating_button', $items);
 
 
       $resouce_theme .= theme('reference_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
@@ -2111,145 +2185,7 @@ function report_get_ans_range_history($nid='', $range='') {
   return $answer[0];
 }
 
-function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
 
-  global $user, $language, $theme;
-  $curLanguage = $language->language;
-  $wave = '';
-  $click = '';
-  $debate_theme = '';
-// load debate
-  $sorting = 'ORDER BY f.nid DESC';
-  $third = ',n.created ';
-
-  $cond = '';
-  if (isset($sort) && $sort == 1) {
-    $sorting = 'ORDER BY n.created DESC';
-    $third = ',n.created ';
-    $order_sort = 'DESC';
-  }
-  elseif (isset($sort) && $sort == 2) {
-    $sorting = ' ORDER BY c.field_strength_value DESC';
-    $third = ',c.field_strength_value ';
-    $order_sort = 'DESC';
-  }
-  elseif (isset($sort) && $sort == 0) {
-    $sorting = 'ORDER BY n.created ASC';
-    $third = ',n.created ';
-    $order_sort = 'ASC';
-  }
-
-  $issueId = $qid;
-  $tnid = get_tnid($qid);
-  $qid = $tnid;
-  if (isset($_GET['class'])) {
-    switch ($_GET['class']) {
-      case 'neutral':
-        $ans_val = 0;
-        break;
-      case 'positive':
-        $ans_val = 1;
-        break;
-      case 'negative':
-        $ans_val = 2;
-        break;
-    }
-    $and = 'and  do.chorder = "%d" and do.ans_val = "%d"';
-    $sql = "SELECT DISTINCT(f.nid),f.tid $third FROM forum as f
-    LEFT JOIN content_type_forum as c ON f.nid = c.nid
-    JOIN node as n ON f.nid = n.nid
-    LEFT JOIN debate_options as do ON f.nid = do.nid
-    WHERE c.field_ref_qid_nid = '%d' $and
-UNION
-    SELECT DISTINCT(f.nid),f.tid $third FROM forum as f
-    LEFT JOIN content_type_forum as c ON f.nid = c.nid
-    JOIN node as n ON f.nid = n.nid
-    WHERE c.field_ref_qid_nid = %d and f.tid = 7
-    ORDER by 3 $order_sort
-    ";
-    $nodes = db_query($sql, $qid, $_GET['chorder'], $ans_val, $qid);
-    $count = db_result(db_query($sql, $qid, $_GET['chorder'], $ans_val, $qid));
-  }
-  else {
-    $sql = "SELECT DISTINCT(f.nid),f.tid FROM {forum} as f
-    LEFT JOIN {content_type_forum} as c ON f.nid = c.nid
-    JOIN {node} as n ON f.nid = n.nid
-    WHERE c.field_ref_qid_nid = '%d' $sorting";
-    $nodes = db_query($sql, $qid);
-    $count = db_result(db_query($sql, $qid));
-  }
-// forum for translated languages
-
-
-
-  if ($count > 0) {
-    $i = 0;
-    while ($node = db_fetch_object($nodes)) {
-      if ($node->tid == 6) {
-        $items = load_debate_datas($node->nid, $issueId, $tnid);
-      }
-      else {
-        $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
-      }
-
-// anwers strength
-      $strnth = $items['strength'];
-      $strength = '';
-      foreach ($strnth as $list) {
-        $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
-        $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
-        $ans = $short_answer != '' ? $short_answer : $tranAns;
-
-        switch ($list['ans_val']) {
-          case 1:
-            $strength.='<p class="position-plus"><strong>+</strong>&nbsp;' . $ans . '</p>';
-            break;
-          case 2:
-            $strength.='<p class="position-minus"><strong>-</strong>&nbsp;' . $ans . '</p>';
-            break;
-        }
-      }
-// reply
-      $reply_box = drupal_get_form('forum_reply_form', $items['debate_id'], $items['debate_tnid'], $items['issue_id']);
-      $comments = forum_replies($items['debate_tnid'], 0);
-      $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
-// delete
-      if (is_moderator() || $items['uid'] == $user->uid) {
-        if (isset($items['debate_tnid'])) {
-          $id = $items['debate_tnid'];
-          $arg = 'debate';
-        }
-        else {
-          $id = $items['resource_id'];
-          $arg = 'resource';
-        }
-        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" 
-          onclick="delete_thread(\'own_forum_' . $id . '\', \'' . $arg . '\')">' . t('Delete') . '</h6>';
-//(\'own_reply_' . $items['cid'] . '\', \'reply\')
-      }
-      else {
-        $delete = '';
-      }
-// ratings
-// allow rating check
-      $ratings = get_rating_buttons($items, 'is_debate');
-      $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-// update points
-      $tForumId = get_tnid($node->nid);
-      debate_roundup($tForumId);
-    }
-  }
-  else {
-    $debate_theme .= '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
-  }
-
-  if ($print == 1) {
-    return $debate_theme;
-  }
-  else {
-    print $debate_theme;
-  }
-}
 
 function issue_ajax_highstock_graph($nid, $number) {
   global $base_url, $user, $base_path;
@@ -2413,3 +2349,10 @@ function issue_ajax_gmap_result($nid) {
   print drupal_json(array(
             'data' => $getresult));
 }
+
+
+
+
+/*
+ * Function to get themed forum replies
+ */

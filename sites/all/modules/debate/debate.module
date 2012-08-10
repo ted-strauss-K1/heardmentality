@@ -8,6 +8,27 @@ function debate_perm() {
 }
 
 /**
+ * Implementation of hook_perm().
+ */
+function debate_theme() {
+  $theme = array();
+
+  $theme['debate_ajax_url'] = array(
+    'template' => 'debate-ajax-url',
+    'arguments' => array(
+      'images' => array(),
+      'image_count' => 0,
+      'image_first' => 0,
+      'image_last' => 0,
+      'image_path' => '',
+      'info' => '',
+    ),
+  );
+
+  return $theme;
+}
+
+/**
  * Implementation of hook_menu().
  */
 function debate_menu() {
@@ -558,13 +579,6 @@ function datediff($interval, $datefrom, $dateto, $using_timestamps = false) {
   return $datediff;
 }
 
-// vote up down count
-function vote_up_down_count($criteria = '') {
-  $value = $criteria['vote_type'] == 'up' ? '1' : '-1';
-  $count = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_id = '%d' AND content_type = '%s' AND tag = '%s' AND value = '%d'", $criteria['content_id'], $criteria['content_type'], $criteria['tag'], $value));
-  return $count;
-}
-
 function debate_cron() {
   global $user, $language, $theme;
   // get oly debates (not resources)
@@ -612,56 +626,6 @@ function resource_save_ext_imgs($url='') {
   }
 }
 
-function get_coins($key) {
-  $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = '$key'"));
-  return $coins;
-}
 
-function users_coins_update($uid = '', $bid = '', $keyname = '') {
-  if ($bid != '') {
-    $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
-  }
-  $sql = "SELECT * FROM {tbl_coins} WHERE key_name = '$keyname'";
-  $coins = ExecuteQuery($sql, 'select');
-  foreach ($coins as $coin) {
-    $coin_count = $coin['coin_count'];
-    $coin_type = $coin['type'];
-  }
-  $insert = "INSERT INTO {user_coins} SET coin_key = '%s', coin_type = '%s', coin_count = '%d', uid = '%d'";
-  db_query($insert, $keyname, $coin_type, $coin_count, $uid);
 
-  // update total coins
-  $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
-  if ($coin_type == 'earn') {
-    $total_coins = $user_coins + $coin_count;
-    $message_id = 'add_coins';
-  }
-  if ($coin_type == 'lose') {
-    $total_coins = $user_coins - $coin_count;
-    $message_id = 'lose_coins';
-  }
 
-  /* New SET NOTIFY LOG */
-  $variable = array('coin_count' => $coin_count, 'coint_type' => $coin_type);
-  set_notify_log($uid, '', $message_id, $variable);
-  /* New SET NOTIFY LOG */
-
-  db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
-  $details = user_load(array('uid' => $uid));
-  return $details->total_coins;
-}
-
-// reply as comments
-function custom_comment_update($cid, $comm = '') {
-  //db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s'", $comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk'], $comm['language']);
-  db_query("UPDATE {comments} SET str_wk = '%d', language = '%s' WHERE cid = '%d'", $comm['str_wk'], $comm['language'], $cid);
-}
-
-// like dislike bar
-function like_dislike_bar($cntagree = '', $cntdisagree = '') {
-  $totalCount = $cntagree + $cntdisagree;
-  $up_percent = $totalCount != 0 ? ($cntagree * 100) / $totalCount : 0;
-  $down_percent = $totalCount != 0 ? ($cntdisagree * 100) / $totalCount : 0;
-  $bar = '<span id="like-percent-area" class="like-per" style="width:' . $up_percent . '%;"></span><span id="dislike-percent-area" class="dislike-per" style="width:' . $down_percent . '%;"></span>';
-  return $bar;
-}

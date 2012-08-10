@@ -4,7 +4,15 @@
  * Implementation of hook_perm().
  */
 function notify_perm() {
-    return array('notify', 'Notify Report', 'Notify Report Content', 'Notify Report Content2', 'Notify Report Content3', 'Admin Notification', 'happening now');
+  return array(
+    'notify',
+    'Notify Report',
+    'Notify Report Content',
+    'Notify Report Content2',
+    'Notify Report Content3',
+    'Admin Notification',
+    'happening now'
+  );
 }
 
 /**
@@ -1065,4 +1073,31 @@ INNER JOIN `users` u
     $pagination = theme('pager', NULL, $limit, 0);
 
    return theme('user_activity_stream', $filters, $output, $pagination);
+}
+
+
+
+/*
+ * User events' notifications
+ */
+function user_notify($event, $params = array()) {
+  global $user;
+  switch($event) {
+    case 'like' : // TODO -- not completely compatible with notifications
+      if( isset($params['nid']) ) {
+        # add notification
+        db_query("INSERT INTO {notification} SET is_like='1', uid='%d', node_id='%d'", $user->uid, $params['nid']);
+        # send mail
+        $forum = db_fetch_object(db_query("
+          SELECT *
+          FROM debate_reply AS f
+            JOIN debate AS w
+              ON f.rid = w.fid
+          WHERE f.rid='%d'", $params['nid'])
+        );
+        hm_mails($forum->qid, $params['nid'], 'add_like');
+      }
+    break;
+    default : break;
+  }
 }

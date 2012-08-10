@@ -656,6 +656,7 @@ krumo($form_state);
   drupal_set_message(t('Your profile info has been updated'), 'success');
 }
 
+// not used anywhere
 function profile_box_session() {
   $_SESSION['hide_profile_box'] = 1;
   print "Profile Box Vanished";

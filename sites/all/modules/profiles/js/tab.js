@@ -32,6 +32,8 @@ $(document).ready(function(){
 		},
 		success: function(msg){
 		  $('.profile-status-toggle').remove();
+          // do not show in this session again
+          $.cookie('profile_status', '0');
 		}
 	});
 		
