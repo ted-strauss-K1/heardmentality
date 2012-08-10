@@ -2631,6 +2631,10 @@ body.admin-menu {
 	padding: 0.5em 1em; 
 }
 
+.ui-tabs .ui-tabs-nav li a {
+	padding: 0.5em 1em !important;
+}
+
 .ui-dialog .ui-tabs-panel #componentDiv,
 .ui-dialog .ui-tabs-panel p {
 	margin: 0 !important;
