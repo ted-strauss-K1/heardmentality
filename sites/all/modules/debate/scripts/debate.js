@@ -89,7 +89,18 @@ function bind_clk(){
           if(type==1){
             el.closest('div').find('#ag-cnt').html(msg.ratecount);
           }
-          el.parents('.one-forum').find('span.sum span').html(msg.sum_count); 
+          el.parents('.one-forum').find('span.sum span')
+              .html(msg.sum_count)
+              .removeClass('null positive negative')
+              .addClass( msg.sum_count > 0 ? 'positive' : (msg.sum_count < 0 ? 'negative' : 'null') );
+          var size = 'small';
+          if( Math.abs(msg.sum_count) > 100 ) {
+              size = 'large';
+          } else if( Math.abs(msg.sum_count) > 10 ) {
+              size = 'middle';
+          }
+          el.parents('.one-forum').find('span.sum').removeClass('small middle large').addClass(size);
+
           var ntype = msg.type;
           var barid = '#likebar-'+ntype+'-'+wid;
           var btnid = '#lik-btns-'+ntype+'-'+wid;
