@@ -139,6 +139,12 @@ Drupal.behaviors.fix_circle = function(context) {
   });
   
   // Registration tooltip
-  
-  $('#user-register span.password-confirm').wrapInner('<div class="inner_confirm" />');
+	$('#user-register span.password-confirm').wrapInner('<div class="inner_confirm" />');
+	
+  	$('html').live('click', 
+      function (e) {
+		if (e.target.id != 'edit-pass-pass1' && e.target.id != 'edit-pass-pass2') {
+			$('#user-register .password-strength, #user-register span.password-confirm').css('visibility', 'hidden');
+		}
+	});
 };
