@@ -2750,7 +2750,7 @@ body.admin-menu {
     padding: 0;
 }
 
-#user-register .password-description {
+#user-register .password-description ul {
     list-style: disc outside none;
     padding: 0 0 0 30px;
 }	
