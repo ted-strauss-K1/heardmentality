@@ -1449,7 +1449,7 @@ hr.bottom {
 }
 input.submit-issue {
 	float:right;
-	font-weight:normal;
+	/*font-weight:normal;*/
 	text-transform:uppercase;
 
 }
