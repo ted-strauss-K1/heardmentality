@@ -560,6 +560,7 @@
 		top: 13px;
 		width: 20%;
 		padding: 0;
+		color: #0c6926;
 			}
 		
 		form#user-details #update_submit {
@@ -677,6 +678,7 @@
 			width: 100%;
 			top: 0;
 			padding-top: 13px;
+			text-align: left;
 		}
 		
 		#edit_profile ul.privacy {
