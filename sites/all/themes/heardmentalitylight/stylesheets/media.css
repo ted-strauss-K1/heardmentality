@@ -669,3 +669,19 @@
 	@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {
 		
 	}
+	
+/* Small screens */	
+	@media only screen and (max-width: 480px){
+		.visible-to {
+			display: block;
+			width: 100%;
+			top: 0;
+			padding-top: 13px;
+		}
+		
+		#edit_profile ul.privacy {
+			width: 100%;
+			margin: 0;
+			padding-top: 15px;
+		}
+	}
