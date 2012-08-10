@@ -1751,6 +1751,14 @@ img.user-profile{
 	margin:-15px 12px 10px 1em;
 }
 
+#dialog .profile-meta {
+	margin: -10px 0 0;
+}
+
+#dialog .profile-meta .profile-meta {
+	margin: 0;
+}
+
 .small-prog {
   width:210px;
 }
