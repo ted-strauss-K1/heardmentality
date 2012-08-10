@@ -2750,8 +2750,18 @@ body.admin-menu {
     padding: 0;
 }
 
+#user-register .password-description {
+    list-style: disc outside none;
+    padding: 0 0 0 30px;
+}	
+
+#user-register .password-description li {
+	margin: 0;
+	list-style: disc outside none;
+}
+
 #user-register .password-description.error {
-	color: #EE5555;
+	color: #CD2027;
 }
 
 #user-register #edit-news-wrapper label,
