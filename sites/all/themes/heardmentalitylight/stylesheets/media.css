@@ -223,9 +223,12 @@
 			font-weight: bold;
 		}
 		
-		#edit_profile select,
-		#edit_profile li.country-info ul.privacy {
+		#edit_profile select {
 			margin: 0;
+		}
+		
+		#edit_profile li.country-info ul.privacy {
+			margin-top: 0;
 		}
 		
 		input.info.form-text, textarea.info.form-text {
@@ -528,13 +531,13 @@
 			font-weight: bold;
 		}
 		
-		#edit_profile select,
-		#edit_profile li.country-info ul.privacy {
+		#edit_profile select
+		/*#edit_profile li.country-info ul.privacy*/ {
 			margin: 0;
 		}
 		
 		input.info.form-text, textarea.info.form-text {
-		    width: 95%;
+		    width: 96%;
 		}
 		
 		#edit_profile .user-info-inputs > li .form-item {
@@ -579,6 +582,10 @@
 
 		#edit_profile .user-info-inputs > li {
 			margin-bottom: 15px;
+		}
+		
+		#cit-stat {
+			display: block;
 		}
 		
 	/*Issues search*/
