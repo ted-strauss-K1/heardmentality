@@ -36,8 +36,6 @@ function bind_clk(){
             jQuery(href).html('<div style="text-align: center; margin-top: 30px;"><img src="/sites/all/themes/hmware/images/loading_min.gif" /></div>')
         }
     });
-
-
 }
 
 (function(jQuery){
@@ -60,11 +58,6 @@ function bind_clk(){
       var wid=el.parent('span').attr('name');
       var action=el.parent('span').attr('type');
       var id_par = el.parents('.one-forum').attr('name');
-
-      console.log(el);
-      console.log(wid);
-      console.log(action);
-      console.log(id_par);
 
       el.closest('span').find('a.dagree').attr({'class':'','title':'You have rated this!'});
       el.closest('span').find('a.ddisagree').attr({'class':'','title':'You have rated this!'});
@@ -110,14 +103,14 @@ function bind_clk(){
           jQuery(btnid).html(msg.msg);
           jQuery(barid).html(msg.likebar);
           jQuery(btnid).delay(5000).fadeOut(1000, function(e) {
-              jQuery(btnid).html(btnid_val);
-              var name = type == 1 ? 'a-' : 'da-';
-              name = name + wid;
-              jQuery(btnid).find('a[name='+name+'] span').each(function(index,element){
-                var cont = $(element).html().replace(/[\(\)]/g,'');
-                $(element).html(parseInt(cont)+1 );
-              });
-              jQuery(btnid).fadeIn(1000);
+            jQuery(btnid).html(btnid_val);
+            var name = type == 1 ? 'a-' : 'da-';
+            name = name + wid;
+            jQuery(btnid).find('a[name='+name+'] span').each(function(index,element){
+              var cont = $(element).html().replace(/[\(\)]/g,'');
+              $(element).html(parseInt(cont)+1 );
+            });
+            jQuery(btnid).fadeIn(1000);
           });
 
 

@@ -11,11 +11,13 @@
  */
 $class = $item['type'] == 'resource' ? 'resources' : '';
 $diff = $item['vote_up'] - $item['vote_down'];
-if( $diff <= 10 and $diff >= -10 ) {
+if ($diff <= 10 and $diff >= -10) {
   $vote_class = 'small';
-} elseif( $diff <= -100 or $diff >= 100 ) {
+}
+elseif ($diff <= -100 or $diff >= 100) {
   $vote_class = "large";
-} else {
+}
+else {
   $vote_class = 'middle';
 }
 $vote_type = $diff > 0 ? 'positive' : ( $diff < 0 ? 'negative' : 'null');
@@ -25,7 +27,7 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
 ?>
 <div
   id="forum-block-<?php print $item['content_id']; ?>"
-  class="one-forum <?php print $class?>"
+  class="one-forum <?php print $class ?>"
   name="<?php print $item['content_id']; ?>">
   <ul class="argument_box">
     <li>
@@ -34,46 +36,46 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
           <span class="<?php print $vote_type ?>"> <?php print $diff; ?></span>
         </span>
         <div class="goog-trans-section argument_body">
-          <?php if( isset($item['image']) ) : ?>
-          <span class="pic">
+<?php if (isset($item['image'])) : ?>
+            <span class="pic">
               <a target="_blank" title="reference" href="<?php print $item['nlink']; ?>">
                 <img src="<?php print $item['image']; ?>" alt=""/>
               </a>
             </span>
-          <?php endif; ?>
-          <?php if( $item['type'] == 'resource' ) : ?>
-          <div class="ref_wrap">
-            <h5 class="ref_title">
-              <a target="_blank" title="reference" href="<?php print $item['nlink']; ?>">
-                <?php print t($item['title']); ?>
-              </a>
-            </h5>
+<?php endif; ?>
+<?php if ($item['type'] == 'resource') : ?>
+            <div class="ref_wrap">
+              <h5 class="ref_title">
+                <a target="_blank" title="reference" href="<?php print $item['nlink']; ?>">
+  <?php print t($item['title']); ?>
+                </a>
+              </h5>
               <span class="source">source:
                 <a target="_blank" title="reference" href="<?php print $item['nlink']; ?>">
-                  <?php print t($item['source']); ?>
+  <?php print t($item['source']); ?>
                 </a>
               </span>
-            <p><?php print t($item['body']); ?></p>
-          </div>
+              <p><?php print t($item['body']); ?></p>
+            </div>
           <?php else : ?>
-          <p><?php print t($item['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
-          <?php endif; ?>
+            <p><?php print t($item['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+        <?php endif; ?>
         </div>
-        <?php if( $item['type'] == 'debate' ) : ?>
-        <div class="position">
-          <?php foreach( $item['strength'] as $list ) : ?>
-          <?php if( $list['ans_val'] == 1 ) : ?>
-            <p class="position-plus"><strong>+</strong>&nbsp;<?php print $list['answer'] ?></p>
-            <?php endif; ?>
-          <?php if( $list['ans_val'] == 2 ) : ?>
-            <p class="position-minus"><strong>-</strong>&nbsp;<?php print $list['answer'] ?></p>
+          <?php if ($item['type'] == 'debate') : ?>
+          <div class="position">
+            <?php foreach ($item['strength'] as $list) : ?>
+              <?php if ($list['ans_val'] == 1) : ?>
+                <p class="position-plus"><strong>+</strong>&nbsp;<?php print $list['answer'] ?></p>
+              <?php endif; ?>
+              <?php if ($list['ans_val'] == 2) : ?>
+                <p class="position-minus"><strong>-</strong>&nbsp;<?php print $list['answer'] ?></p>
             <?php endif; ?>
           <?php endforeach; ?>
-        </div>
-        <?php endif; ?>
+          </div>
+            <?php endif; ?>
         <div class="userinfo-debate">
           <span class="date">
-            <?php print t('posted '); ?><span><?php print $item['ago']; ?></span>
+<?php print t('posted '); ?><span><?php print $item['ago']; ?></span>
           </span>
           <a class="user-thumb" href="<?php print $userlink; ?>">
             <img src="<?php print UserPicture_small_src($item['uid']); ?>" alt="<?php print $item['uname']; ?>" class="user-thumb" >
@@ -87,38 +89,38 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
       <ul class="control_links">
         <li><a href="#" class="icon flag2" title="flag this argument">flag</a></li>
         <li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
-        <?php if ($delete) : ?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
+<?php if ($delete) : ?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
       </ul>
 
       <div class="replies">
-        <?php if( $comments ) : ?>
-        <fieldset class="collapsible collapsed reply_wrapper">
-          <legend class="comment-meta">
-            <?php print t('&#9658;'); ?>
-            <span><?php print $reply_count; ?> <?php print t('replies'); ?></span>
-          </legend>
-          <div class="fieldset-wrapper">
-            <ul>
-              <div id="all_replybox_<?php print $item['content_id']; ?>">
-                <?php print $comments; ?>
-              </div>
-            </ul>
-          </div>
-        </fieldset>
-        <?php endif; ?>
+            <?php if ($comments) : ?>
+          <fieldset class="collapsible collapsed reply_wrapper">
+            <legend class="comment-meta">
+  <?php print t('&#9658;'); ?>
+              <span><?php print $reply_count; ?> <?php print t('replies'); ?></span>
+            </legend>
+            <div class="fieldset-wrapper">
+              <ul>
+                <div id="all_replybox_<?php print $item['content_id']; ?>">
+  <?php print $comments; ?>
+                </div>
+              </ul>
+            </div>
+          </fieldset>
+<?php endif; ?>
       </div>
 
       <div class="position-question">
         <span class="line"><span>&nbsp;</span></span>
-        <?php print $ratings; ?>
-        <?php if ($reply_box): ?>
-        <ul class="argument_replybox">
-          <div id="reply-msg-<?php print $item['content_id']; ?>" class="suc-msg"></div>
-          <div id="reply-comment" class="hidden">
-            <?php print $reply_box; ?>
-          </div>
-        </ul>
-        <?php endif; ?>
+<?php print $ratings; ?>
+<?php if ($reply_box): ?>
+          <ul class="argument_replybox">
+            <div id="reply-msg-<?php print $item['content_id']; ?>" class="suc-msg"></div>
+            <div id="reply-comment" class="hidden">
+          <?php print $reply_box; ?>
+            </div>
+          </ul>
+<?php endif; ?>
       </div>
     </li>
   </ul>
@@ -126,7 +128,7 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
 
 <div id="flag-arg-<?php print $item['content_id']; ?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
   <input type="hidden" value="forum" id="flagtype" />
-  <?php print t('Please Wait...'); ?>
+<?php print t('Please Wait...'); ?>
 </div>
 
 <script type="text/javascript">

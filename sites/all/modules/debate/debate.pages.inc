@@ -555,14 +555,6 @@ function debate_submit() {
   return;
 }
 
-
-
-
-
-
-
-
-
 function post_notification($did='', $rid='') { ///vijay important comented
   global $user;
   db_query("insert into {notification} set follower_action='1',is_wavelets='1',uid='$user->uid',node_id='$nid' ");
@@ -629,10 +621,6 @@ function make_clickable($ret) {
   $ret = trim($ret);
   return $ret;
 }
-
-
-
-
 
 function debate_get_sum_count($action, $content_id, $type = "node") {
 

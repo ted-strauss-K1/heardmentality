@@ -6,7 +6,6 @@
  * @file
  * Page callbacks for the issue module.
  */
-
 /*
  * Callback function for "issue/%/tab_content/%/%" pages
  * Outputs the content of the issue pages
@@ -42,12 +41,15 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
   // get parent translate id
   $parent_id = get_tnid($qid);
   // queries
-  if( isset($_GET['class']) ) {
+  if (isset($_GET['class'])) {
     $ans_val = 0;
     switch ($_GET['class']) {
-      case 'neutral'  : $ans_val = 0; break;
-      case 'positive' : $ans_val = 1; break;
-      case 'negative' : $ans_val = 2; break;
+      case 'neutral' : $ans_val = 0;
+        break;
+      case 'positive' : $ans_val = 1;
+        break;
+      case 'negative' : $ans_val = 2;
+        break;
     }
     $sql = "
       SELECT DISTINCT(f.nid),f.tid $select
@@ -76,7 +78,8 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
     ";
     $nodes = db_query($sql, $parent_id, $_GET['chorder'], $ans_val, $parent_id);
     $count = db_result(db_query($sql, $parent_id, $_GET['chorder'], $ans_val, $parent_id));
-  } else {
+  }
+  else {
     $sql = "
       SELECT DISTINCT(f.nid),f.tid
       FROM {forum} as f
@@ -90,25 +93,25 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
   }
 
   # loading data
-  if( $count > 0 ) {
+  if ($count > 0) {
     $counter = 0;
     while ($node = db_fetch_object($nodes)) {
       if ($node->tid == 6) {
         $item = load_debate($node->nid, $issue_id, $parent_id);
-      } else {
+      }
+      else {
         $item = load_resource($node->nid, $issue_id, $parent_id, $node->field_rtype_value);
       }
       # get answers' strenght
-      foreach( $item['strength'] as &$list ) {
+      foreach ($item['strength'] as &$list) {
         $list['answer'] = get_short_answer($item['issue_id'], $list['chorder']);
-        if( !$list['answer'] ) {
+        if (!$list['answer']) {
           $list['answer'] = db_result(db_query("
             SELECT chtext
             FROM {poll_choices}
             WHERE
               nid = '%d' AND
-              chorder = '%s'",
-            $item['issue_id'], $list['chorder'])
+              chorder = '%s'", $item['issue_id'], $list['chorder'])
           );
           $list['answer_value'] = $list['ans_val'] == 1 ? 'plus' : ( $list['ans_val'] == 2 ? 'minus' : '' );
         }
@@ -128,22 +131,19 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
       $tForumId = get_tnid($node->nid);
       debate_roundup($tForumId);
     }
-  } else {
+  }
+  else {
     $output = '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
   }
 
   # print/return
   if ($print == 1) {
     return $output;
-  } else {
+  }
+  else {
     print $output;
   }
 }
-
-
-
-
-
 
 /**
  * List all issue as a page.
@@ -201,7 +201,6 @@ function report_percent($nid='') {
 
     $incflt = '<script>jQuery(document).ready(function() {jQuery("#dochg").val(\'' . $filter . '\');});</script>';
   }
-
 
   $output .= '
 <div id="contentr1">
@@ -647,10 +646,10 @@ function issue_create_form(&$form_state) {
                                 <hr class="bottom">',
   );
 
-
-
-  $form['exist_check'] = array('#type' => 'hidden', '#value' => '', '#id' => 'exist_check');
-
+  $form['exist_check'] = array(
+    '#type' => 'hidden',
+    '#value' => '',
+    '#id' => 'exist_check');
 
   $form['related_issues'] = array(
     '#title' => t("Related Issues"),
@@ -879,8 +878,6 @@ function issue_create_form_submit($form, &$form_state) {
 // db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, $inputLanguage);
 
   path_set_alias($url, $dst, '', $inputLanguage);
-
-
 
 //Related Issues
   if (!empty($form_state['values']['rel_iss_check'])) {
@@ -1561,8 +1558,6 @@ function issue_debates($qid='', $type='', $sort = null) {
   return $debate_theme;
 }
 
-
-
 // delete forum, comments
 function issue_thread_delete($type = '', $tnid = '', $source = '') {
   if ($type == 'forum') {
@@ -2146,8 +2141,6 @@ function report_answer_details_history($nid = '', $aid = '', $action = '', $date
         $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $aid . "' ";
         $answer = ExecuteQuery($query, "norows");
       }
-
-
       return $answer;
       break;
     case 'timeline':
@@ -2184,8 +2177,6 @@ function report_get_ans_range_history($nid='', $range='') {
   }
   return $answer[0];
 }
-
-
 
 function issue_ajax_highstock_graph($nid, $number) {
   global $base_url, $user, $base_path;
@@ -2331,7 +2322,6 @@ function issue_ajax_highchart_result($nid, $param) {
 
 function issue_ajax_gmap_result($nid) {
   $colors = _load_colors_array();
-
   $query = "select count(nid) from {poll_choices} where  nid=$nid  order by chorder";
   $result = db_result(db_query($query));
   for ($i = 0; $i < $result; $i++) {
@@ -2349,9 +2339,6 @@ function issue_ajax_gmap_result($nid) {
   print drupal_json(array(
             'data' => $getresult));
 }
-
-
-
 
 /*
  * Function to get themed forum replies

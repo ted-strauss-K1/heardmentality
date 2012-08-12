@@ -931,28 +931,6 @@ function comment_update($cid, $str_wk = '', $language) {
  * Forms
  ************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function issue_callback_helper() {
   $form_state = array('storage' => NULL, 'submitted' => FALSE);
   $form_build_id = $_POST['form_build_id'];
@@ -989,10 +967,6 @@ function ahah_render($fields, $name) {
 
   return drupal_render($new_form);
 }
-
-
-
-
 
 // add vote for issue
 function issue_add_vote($dummy = '', $nid = '') {
@@ -1436,7 +1410,6 @@ function issue_vote_submit_ajax($type = '') {
  * Implementation of hook_form_alter().
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
-  //krumo($form);
   $res->field_filepath[0]['value'] = $file_im;
   if ($form_id == 'user_relationships_ui_request') {
 
