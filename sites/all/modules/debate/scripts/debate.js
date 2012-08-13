@@ -71,7 +71,6 @@ function circle_update(element, count) {
             el.closest('span').find('a.dagree').attr({'class':'','title':'You have rated this!'});
             el.closest('span').find('a.ddisagree').attr({'class':'','title':'You have rated this!'});
 
-
             jQuery('#twitMsg').html("Please wait while saving your post....!");
             jQuery('#twitMsg').delay(400).slideDown(400);
 
@@ -97,13 +96,18 @@ function circle_update(element, count) {
                     var btnid = '#lik-btns-'+ntype+'-'+wid;
                     var btnid_val = jQuery(btnid).html();
                     // show message
+                    /* odyachenko disable coins
                     jQuery(btnid).html(msg.msg);
+                    */
                     // update clicked Y/N vote count
+                    votes_update(wid, ntype, type, null);
+                    /* odyachenko disable coins
                     jQuery(btnid).delay(5000).fadeOut(1000, function(){
                         jQuery(btnid).html(btnid_val);
                         votes_update(wid, ntype, type, null);
                         jQuery(btnid).fadeIn(1000);
                     });
+                    */
                     // update parent Y/N vote count
                     if( id_par != wid ) {
                         votes_update(id_par, 'node', type, null);

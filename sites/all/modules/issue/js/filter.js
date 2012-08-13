@@ -19,7 +19,6 @@ function show_msg(element, message, delayTimeout, slideTimeout) {
 jQuery('.arg-reply-form').live('submit', function(e){
     e.preventDefault();
     // get form element
-
     var form = jQuery(this);
     if( form.find('textarea').val().length < 2 ) {
         form.find('.reply_err').html('<span>Please enter your reply.</span>').delay(3000).fadeOut(1000, function() {
@@ -428,35 +427,7 @@ $('#res-ana').live('click', function(){
 // from debate module - code cleanup
 
 $(document).ready(function() {
-  $("#lattach").click(function() {
-    var url = $('#edit-ref-title').val();
-    //var objRE = /(^http?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i;
-    var objRE = /http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
-    //  var url= content.match(urlRegex);
-    if (objRE.test(url) == false) {
-      $('#deb-err').html('<span>Please enter a valid URL.</span>');
-      return false;
-    }
-    else {
-      var purl=Drupal.settings.base_url+'/debate/ajax';
-      $(this).attr('disabled',true);
-      $("#linkbox").slideDown('show');
-      $("#linkbox").html("<span class='load'>Loading...</span>");
-      $.get(purl+"?action=url&url="+url,function(response)
-      {
-        $("#linkbox").html(response);
-        $("#lattach").removeAttr('disabled');
-        if($('#cur_id_val').val() == $('#end_image').val()){
-          $('#re-sel-next').hide();
-          $('#re-sel-prev').hide();
-        }
 
-        $('#re-sel-pre').hide();
-      });
-      
-    }
-    return false;
-  });
 
 
   var selObj = $('#rtype');

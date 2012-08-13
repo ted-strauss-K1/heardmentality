@@ -21,8 +21,8 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     </div>
 
     <div id="analytics-area" class="hidden_deb" style="display: none;">
-      <h2><span>Debate statistics</span></h2>	
-      <?php print $debateStatistics; ?>
+      <h2><span>Debate statistics</span></h2>
+      <input type="hidden" id="curr_nid" value="<?php print $nid ?>" />
       <div id="deb-ana-load-txt"></div>
       <div id="load-deb-statics"></div>
     </div>
@@ -31,7 +31,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     <!--<div class="expanding">
             <h6 class="button"><?php print t('Show only'); ?></h6>
             <ul>
-    <?php print $debateFilterForm; ?>
+              <?php print $debateFilterForm; ?>
             </ul>
     </div>-->
 
@@ -41,21 +41,36 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 
 <div id="debate_list_area">
   <h2>
-    <span><?php print $count[0];
-    print ' Arguments'; ?> & <?php print $count[1];
-      print ' References'; ?></span>
+    <span class="argcount"><?php print $count[0]; ?></span> <span> Arguments & </span><span class="rescount"><?php print $count[1]; ?></span> <span> References</span>
 
     <div class="show_only">
-      <span class="button" href="">&#9660; Show only</span> <div class="inc"><form id="inc_ref"><input type="checkbox" checked="yes" value="include references" id="inc_check" /><label for="inc_check">Include References</label></form></div>
+      <span class="button" href="">&#9660; Show only</span>
+      <div class="inc">
+        <form id="inc_ref">
+          <input type="checkbox" checked="yes" value="include references" id="inc_check" />
+          <label for="inc_check">Include References</label>
+        </form>
+      </div>
       <div class="hidden">
         <span class="title">Show all</span>
-        <?php foreach ($show_only as $key => $answer) {
-          ?> 
-        <dl name="<?php print $key?>">
-            <dd><a href="" class="neutral"><span class="small_pos">+</span><span class="small_neg">-</span></a><a href="" class="positive"><span class="small_pos">+</span></a><a href="" class="negative"><span class="small_neg">-</span></a></dd><dt><?php print $answer; ?></dt>
+        <?php foreach ($show_only as $key => $answer) : ?>
+          <dl name="<?php print $key?>">
+            <dd>
+              <a href="" class="neutral">
+                <span class="small_pos">+</span>
+                <span class="small_neg">-</span>
+              </a>
+              <a href="" class="positive">
+                <span class="small_pos">+</span>
+              </a>
+              <a href="" class="negative">
+                <span class="small_neg">-</span>
+              </a>
+            </dd>
+            <dt><?php print $answer; ?></dt>
           </dl>
-        <?php } ?>
-		<span class="title reset">Reset filters</span>
+        <?php endforeach; ?>
+		    <span class="title reset">Reset filters</span>
       </div>
     </div>
   </h2>
@@ -63,7 +78,6 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
   <div id="empty_helper">&nbsp;</div>
 
   <ul>
-    <!--  <li><a href="#tabs-1">older</a></li> -->
     <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/1">recent</a></li>
     <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/0">older</a></li>
     <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/2">supported</a></li>

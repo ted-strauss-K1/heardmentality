@@ -1702,6 +1702,10 @@ function scholer() {
  * @returns New user's total coins value
  */
 function user_coins_update($uid = '', $bid = '', $keyname = '') {
+  // odyachenko disable coins
+  $user = user_load(array('uid' => $uid));
+  return $user->total_coins;
+
   # get badge name if bid is set
   if( $bid ) {
     $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '%s'", $bid));

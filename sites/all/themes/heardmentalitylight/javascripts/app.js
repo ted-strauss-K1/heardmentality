@@ -978,8 +978,7 @@ function reply_form_toggle(element) {
 }
 
 
-Drupal.behaviors.add_reply = function(context) { 
-  console.log('xxxx');
+Drupal.behaviors.add_reply = function(context) {
   $('ul.argument_box > li > .position-question a.agree').click(function() {
   
     if ($(this).parents('ul.argument_box > li > .position-question').find('a.disagree').hasClass('collapsed')) {

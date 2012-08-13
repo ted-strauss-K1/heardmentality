@@ -1,3 +1,158 @@
+/*
+ * Add New Form Submit
+ */
+jQuery('#add-new-debate-form').live('submit', function(e) {
+    e.preventDefault();
+    jQuery('#deb-err').html('');
+    // type = 1/0 = debate/resource
+    var type = $('#add_new_type').val();
+    // debate title
+    var title = jQuery('#deb_title').val();
+    // debate flags
+    var flag_set = false;
+    var tot_ans = jQuery('#tot_ans').val();
+    for(var i=0; i<tot_ans; i++) {
+        if(jQuery('#sup_'+i).val() != 0) {
+            flag_set = true;
+            break;
+        }
+    }
+    // resource link & regexp
+    var nlink = $('#edit-ref-title').val();
+    // resource linkbox
+    var linkbox = $('#linkbox').html();
+
+    // check errors
+    var error = false;
+    if(title.length < 2 && type == 1){
+        error = 'Please let us know what you think.';
+    } else if(!flag_set && type == 1) {
+        error = 'You must choose at least one suppose or oppose.';
+    } else if(!url_validate(nlink) && type == 0) {
+        error = 'Please enter a valid URL.';
+    } else if(linkbox == '' && type == 0) {
+        error = 'Please press Attach before adding.';
+    }
+    if( error ) {
+        // css for errors
+        jQuery('#deb-err').css('color','red');
+        show_msg('#deb-err', '<span>'+error+'</span>', 5000, 500);
+        return false;
+    }
+
+    // hide submit button
+    jQuery('#add_new_debate').hide();
+    // show sub loader
+    jQuery('#sub_loader').show();
+    // with no errors submit form
+    var data=jQuery(this).serialize();
+    jQuery.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: jQuery(this).attr('action'),
+        data: data,
+        success: function(msg) {
+            var selected = $("#debate_list_area").tabs( "option", "selected" );
+            jQuery('#add_debate_wrapper').slideUp('slow');
+            $('#debate_list_area').tabs("select", selected);
+            jQuery('#add-new-debate-form select').val(0);
+            jQuery('#add-new-debate-form textarea').val('');
+            // message
+            if(msg.success_post == 1) {
+                jQuery('#deb-err').css('color','green');
+                show_msg('#deb-err', msg.message, 5000, 500);
+            }
+            // set default values for answers
+            for(var i=0; i<tot_ans; i++) {
+                jQuery('#sup_'+i+' option').removeAttr('selected');
+                jQuery('#slider-'+i).slider({value:2});
+                jQuery('#sup_'+i+' :nth-child(2)').attr("selected", "selected");
+                jQuery('#sup_'+i);
+            }
+            // reload tab
+            jQuery('#debate_list_area').tabs("load", selected);
+        },
+        complete: function(){
+            // hide sub loader
+            jQuery('#sub_loader').hide();
+            // show submit button
+            jQuery('#add_new_debate').show();
+            // $('#deb-err').delay(3000).slideUp(400);
+            // hide other elements
+            $('#add-arg').removeClass('expanded');
+            $('#leave_comment_area').delay(5000).slideUp(400).removeClass('visible_ar').addClass('hidden_ar');
+            // recalculate
+            var ct = jQuery('.'+(type==1?'arg':'res')+'count');
+            ct.fadeOut(1000, function(){
+                var count = parseInt(ct.html())+1;
+                ct.html(count);
+                ct.fadeIn(1000);
+            });
+        }
+    });
+    // }
+    return false;
+});
+
+/*
+ * Validate URL
+ */
+function url_validate(url) {
+    var objRE = /http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
+    return objRE.test(url);
+}
+
+/*
+ * Image Value Preprocess when submitting new resource
+ */
+jQuery('#add_new_debate').live('click',function() {
+    var image_value;
+    if( !jQuery('#no_thumbnail').attr('checked') ) {
+        var img_v = jQuery('#cur_id_val').val();
+        image_value = jQuery('#cur_img_'+img_v).attr('src');
+    } else {
+        image_value = 'no_image';
+    }
+    jQuery('#image_value').val(image_value);
+});
+
+/*
+ * Attach Submit
+ */
+jQuery("#lattach").live('click', function() {
+    jQuery('#deb-err').html('');
+    var attach = jQuery(this);
+    var lbox = jQuery('#linkbox');
+    var url = jQuery('#edit-ref-title').val();
+    if( !url_validate(url) ) {
+        show_msg('#deb-err', '<span>Please enter a valid URL.</span>', 5000, 500);
+        return false;
+    } else {
+        var purl=Drupal.settings.base_url+'/debate/ajax';
+        attach.attr('disabled',true);
+        lbox.slideDown('slow');
+        lbox.html("<span class='load'>Loading...</span>");
+        jQuery.get(purl+"?action=url&url="+url,function(response) {
+            if( response == '' ) {
+                show_msg('#deb-err', '<span>Error loading URL.</span>', 5000, 500);
+                attach.removeAttr('disabled');
+                lbox.slideUp('slow', function(){ lbox.html('') });
+                return false;
+            }
+            lbox.html(response);
+            attach.removeAttr('disabled');
+            if(jQuery('#cur_id_val').val() == jQuery('#end_image').val()){
+                jQuery('#re-sel-next').hide();
+                jQuery('#re-sel-prev').hide();
+            }
+            jQuery('#re-sel-pre').hide();
+        });
+
+    }
+    return false;
+});
+
+
 
 
 
@@ -29,91 +184,7 @@ $(document).ready(function() {
   });
 });
 
-$('#add_new_debate').live('click',function() {
-  var image_value;
-  if ($('#no_thumbnail').attr('checked')== false) {
-    var img_v = $('#cur_id_val').val();
-    image_value = $('#cur_img_'+img_v).attr('src');
-  } 
-  else {
-    image_value = 'no_image';
-  }
-  $('#image_value').val(image_value);
-    
-  // add new debate ajax submit
-  jQuery('#add-new-debate-form').live('submit', function(e) {
-    e.preventDefault();
-    jQuery('#deb-err').css('color','red');
-    var title = jQuery('#deb_title').val();
-    var nlink = $('#edit-ref-title').val();
-    var type = $('#add_new_type').val();
-    var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
-    var tot_ans = jQuery('#tot_ans').val();
-    var flag = 0;
-    var linkbox = $('#linkbox').html();
-    for(var i=0; i<tot_ans; i++) {
-      var id = '#sup_'+i;
-      if(jQuery(id).val() != 0) {
-        flag = parseInt(flag)+1;
-      }
-    }
-    if(title.length < 2 && type == 1){
-      jQuery('#deb-err').html('<span>Please let us know what you think.</span>');
-      return false;
-    }
-    else if(flag == 0 && type == 1){
-      jQuery('#deb-err').html('<span>You must choose at least one suppose or oppose.</span>');
-      return false;
-    }
-    else if(!tomatch.test(nlink) && type == 0) {
-      jQuery('#deb-err').html('<span>Please Enter a valid URL.</span>');
-      return false;
-    }
-    else if (linkbox == '' && type == 0) {
-      jQuery('#deb-err').html('<span>Please press Attach before adding.</span>');
-      return false;
-    }
-    /*   else{
-      jQuery('#add_new_debate').hide();
-      jQuery('#sub_loader').show();
-    }
-    */
-    var data=jQuery(this).serialize();
-    jQuery.ajax({
-      type: 'POST',
-      dataType: 'json',
-      url: jQuery(this).attr('action'),
-      data: data,
-      success: function(msg){
-        var selected = $("#debate_list_area").tabs( "option", "selected" );
-        jQuery('#add_debate_wrapper').slideUp('slow');
-        jQuery('#add-new-debate-form select').val(0);
-        jQuery('#add-new-debate-form textarea').val('');
-        //  $('#debate_list_area').tabs("load", 1);
-        //  $('#debate_list_area').tabs("load", 2);
-        $('#debate_list_area').tabs("select", selected);
-        jQuery('#deb-err').fadeIn("slow");
-    
-        jQuery('#deb-err').html(msg.message); 
-        if(msg.success_post == 1) {
-          jQuery('#deb-err').css('color','green'); 
-        }
 
-      //  jQuery(msg.content).prependTo('.comments');
-      },
-      complete: function(){
-        jQuery('#sub_loader').hide();
-        jQuery('#add_new_debate').show();
-        $('#leave_comment_area').delay(5000).slideUp(400).removeClass('visible_ar').addClass('hidden_ar');
-        $('#deb-err').delay(3000).slideUp(400);
-        $('#add-arg').removeClass('expanded');
-      }
-    });
-    // }
-    return false;
-  });
-
-});
 
 $(document).ready(function() {
   $('#inc_ref').change(function(){
@@ -130,28 +201,9 @@ $(document).ready(function() {
 
 
 Drupal.behaviors.add_new_form = function(context) {
-  $('a.permalink').click(function(e){
-    var a = window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id');
-    $('#permalink_text input').val(a)
-    $('#permalink_text').dialog('open');
-    
-    return false;
-  });
-  $('.close-permalink').click(function(e){
-    $('#permalink_text').dialog('close');
-    return false;
-  });
 
-  $('a.delete').click(function(e){
-      $( "#dialog_"+$(this).attr('name') ).dialog({
-        resizable: false
-      });
-      return false;
-  });
-  $('a.delete button').click(function(e){
-        $(this).dialog("close");
-        return false;
-  });
+
+
 
   translate();
 
@@ -167,3 +219,33 @@ Drupal.behaviors.add_new_form = function(context) {
     document.body.appendChild(s);
 */
 }
+
+
+/*
+ * flag/link/delete buttons
+ */
+jQuery('a.permalink').live('click', function(e){
+    var a = window.location.href.replace(/#.*/,'') + '#' +jQuery(this).parents('.one-forum').attr('id');
+    jQuery('#permalink_text input').val(a);
+    jQuery('#permalink_text').dialog('open');
+    return false;
+});
+jQuery('.close-permalink').live('click', function(e){
+    jQuery('#permalink_text').dialog('close');
+    return false;
+});
+jQuery('a.delete').live('click', function(e){
+    jQuery( "#dialog_"+jQuery(this).attr('name') ).dialog({
+        resizable: false
+    });
+    return false;
+});
+jQuery('a.delete button').live('click', function(e){
+    jQuery(this).dialog("close");
+    return false;
+});
+jQuery('.icon.flag2').live('click', function(e) {
+    e.preventDefault();
+    jQuery('#dialog-flag').dialog("open");
+
+});

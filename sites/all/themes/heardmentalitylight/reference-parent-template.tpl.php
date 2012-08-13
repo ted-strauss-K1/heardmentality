@@ -1,4 +1,16 @@
 <?php
+
+die('kill em');
+/*
+ * Template reference-parent-template
+ *
+ * $item        - the debate/resource data array
+ * $comments    -
+ * $reply_box   -
+ * $reply_count -
+ * $ratings     - theme_rating_button
+ * $delete      - theme_delete_button
+ */
 global $base_url;
     $image = !empty($items['image']) ? $items['image'] : file_directory_path() . '/noimage.jpg';
     $loginBoxClass = $user->uid==0?'openlogin_box':'';

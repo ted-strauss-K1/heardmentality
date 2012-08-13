@@ -125,3 +125,27 @@ function theme_sub_loader( $styles ) {
       <img src="'.$base_url.'/'.drupal_get_path('theme', $theme).'/images/loading_min.gif" alt="loading">
     </span>';
 }
+
+/*
+ * Debate List
+ */
+function theme_issue_debate_list($nid = '') {
+  # forms
+  if( user_is_logged_in() ) {
+    $new_debate_form = drupal_get_form('add_new_debate_form', $nid);
+  } else {
+    $new_debate_form = '<div align="center"><b>' . t('Please log in to participate in the debate') . '</b></div>';
+  }
+  $debate_filter_form = drupal_get_form('filter_options', $nid);
+  # $debate_list = array();
+  # $debate_list[0] = issue_ajax_tab_content($nid, 1, 0, 1);
+  $count = array();
+  $count[] = db_result(db_query('SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = 1 AND field_ref_qid_nid = %d', $nid));
+  $count[] = db_result(db_query('SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = 2 AND field_ref_qid_nid = %d', $nid));
+  $show_only = array();
+  $ans = load_options($nid);
+  foreach ($ans as $list) {
+    $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
+  }
+  return theme('debate_area', $new_debate_form, $debate_filter_form, $count, $show_only, $nid);
+}

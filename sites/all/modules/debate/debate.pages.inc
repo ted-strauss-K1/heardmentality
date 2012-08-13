@@ -376,7 +376,8 @@ function _debate_ajax_url($url) {
   # get html
   $html = file_get_html($url);
   if( !$html ) {
-    exit("<div class='messages error'>".t('Error loading URL')."</div>");
+    exit('');
+    # exit("<div class='messages error'>".t('Error loading URL')."</div>");
   }
 
   # get domain
@@ -455,7 +456,6 @@ function debate_submit() {
     case  'resource'  :
     case  'reply'     :
       $json = array();
-      # $user_coins = $user->total_coins;
       $type = $action == 'reply' ? 'comment' : 'node';
       $voted = rating_allowed($content_id, $type, $user->uid);
       /*

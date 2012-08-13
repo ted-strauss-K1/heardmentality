@@ -8,7 +8,7 @@
  */
 #module_load_include('inc', 'issue', 'issue.theme.inc');
 
-/* * ************************
+/**************************
  * Content Type: Issue
  */
 
@@ -64,13 +64,13 @@ function issue_form(&$node, $form_state) {
   if (!$add_js) {
     // Pass translatable strings
     drupal_add_js(
-            array(
-      'advPoll' => array(
-        'remove' => t('Remove'),
-        'addChoice' => t('Add choice'),
-        'noLimit' => t('No limit')
-      )
-            ), 'setting');
+      array(
+'advPoll' => array(
+'remove' => t('Remove'),
+'addChoice' => t('Add choice'),
+'noLimit' => t('No limit')
+)
+), 'setting');
     drupal_add_js(drupal_get_path('module', 'issue') . '/issue-form.js', 'module');
     drupal_add_css(drupal_get_path('module', 'issue') . '/issue.css', 'module');
     $add_js = TRUE;
@@ -121,7 +121,18 @@ function issue_update($node) {
       writeins = %d,
       show_writeins = %d,
       question = '%s'
-    WHERE nid = %d", !$node->settings['close'], $node->settings['max_choices'], $node->settings['algorithm'], $node->settings['use_list'], $node->settings['show_votes'], $node->settings['start_date'] ? strtotime($node->settings['start_date']) : 0, $node->settings['end_date'] ? strtotime($node->settings['end_date']) : 0, $node->settings['writeins'], $node->settings['show_writeins'], isset($node->question) ? $node->question : '', $node->nid
+    WHERE nid = %d", 
+	  !$node->settings['close'], 
+	  $node->settings['max_choices'], 
+	  $node->settings['algorithm'], 
+	  $node->settings['use_list'], 
+	  $node->settings['show_votes'], 
+	  $node->settings['start_date'] ? strtotime($node->settings['start_date']) : 0, 
+	  $node->settings['end_date'] ? strtotime($node->settings['end_date']) : 0, 
+	  $node->settings['writeins'], 
+	  $node->settings['show_writeins'], 
+	  isset($node->question) ? $node->question : '', 
+	  $node->nid
   );
   _issue_insert_choices($node);
   votingapi_recalculate_results('issue', $node->nid);
@@ -405,6 +416,18 @@ function issue_theme($existing, $type, $theme, $path) {
         'delete' => NULL
       ),
     ),
+	'reference_parent_template' => array(
+      'template' => 'reference-parent-template',
+      'arguments' => array(
+        'items' => NULL,
+        'strength' => NULL,
+        'comments' => NULL,
+        'reply_box' => NULL,
+        'reply_count' => NULL,
+        'ratings' => NULL,
+        'delete' => NULL
+      ),
+    ),
     'forum_replies' => array(
       'arguments' => array(
         'content_id' => NULL,
@@ -416,6 +439,33 @@ function issue_theme($existing, $type, $theme, $path) {
         'styles' => NULL,
       ),
       'file' => 'issue.theme.inc',
+    ),
+	'issue_debate_list' => array( // TODO rename
+      'arguments' => array(
+        'nid' => NULL
+      ),
+      'file' => 'issue.theme.inc',
+    ),
+	'debate_area' => array(
+      'template' => 'debate-area',
+      'arguments' => array(
+        'addNewDebateForm' => NULL,
+        'debateFilterForm' => NULL,
+        # 'debateStatistics' => NULL,
+        # 'debateList' => NULL,
+        'count' => NULL,
+        'show_only' => NULL,
+        'nid' => NULL
+      ),
+    ),
+	'forum_child_reply_template' => array(
+      'template' => 'forum-child-reply-template',
+      'arguments' => array(
+        'items' => NULL,
+        'userPicture' => NULL,
+        'ratings' => NULL,
+        'delete' => NULL
+      ),
     ),
     'issue_results' => array(
       'template' => 'issue_results',
@@ -435,9 +485,6 @@ function issue_theme($existing, $type, $theme, $path) {
     'issue_result_analysis' => array(
       'arguments' => array('nid' => NULL),
     ),
-    'issue_debate_list' => array(
-      'arguments' => array('nid' => NULL),
-    ),
     'issue_detail_wrapper' => array(
       'template' => 'issue_detail_wrapper',
       'arguments' => array('nid' => NULL, 'result_analysis' => NULL, 'debate_list' => NULL, 'resource_list' => NULL, 'debateCount' => NULL, 'resourceCount' => NULL),
@@ -445,21 +492,10 @@ function issue_theme($existing, $type, $theme, $path) {
     'single_resource_template' => array(
       'arguments' => array('debItems' => array()),
     ),
-    'debate_area' => array(
-      'template' => 'debate-area',
-      'arguments' => array('addNewDebateForm' => NULL, 'debateFilterForm' => NULL, 'debateStatistics' => NULL, 'debateList' => NULL, 'count' => NULL, 'show_only' => NULL, 'nid' => NULL),
-    ),
-    'forum_child_reply_template' => array(
-      'template' => 'forum-child-reply-template',
-      'arguments' => array('items' => NULL, 'userPicture' => NULL, 'ratings' => NULL, 'delete' => NULL),
-    ),
     'reference_area' => array(
       'template' => 'reference-area',
       'arguments' => array('addNewReferenceForm' => NULL, 'referenceFilterForm' => NULL, 'refTypeFilter' => NULL, 'referenceStatistics' => NULL, 'referenceList' => NULL),
-    ), 'reference_parent_template' => array(
-      'template' => 'reference-parent-template',
-      'arguments' => array('items' => NULL, 'strength' => NULL, 'comments' => NULL, 'reply_box' => NULL, 'reply_count' => NULL, 'ratings' => NULL, 'delete' => NULL),
-    ),
+    ), 
     'issue_result_graph_analysis' => array(
       'template' => 'issue-result-graph-analysis',
       'arguments' => array('map' => NULL, 'report_percent' => NULL, 'report_graph' => NULL, 'short_answers' => NULL),
@@ -489,7 +525,6 @@ function issue_theme($existing, $type, $theme, $path) {
  * issId    - Issue Id the debate is related to
  * issTnid  - Translate Issue Id
  */
-
 function load_debate($debId = '', $issId = '', $issTnid = '') {
   $item = array();
   global $user, $language;
@@ -627,7 +662,6 @@ function load_resource($resId = '', $issId = '', $issTnid = '', $resType = '') {
  * @params
  * cid    - Comment Id
  */
-
 function load_reply($cid = '') {
   global $language, $user;
   # get the comment
@@ -675,7 +709,6 @@ function load_reply($cid = '') {
 /*
  * Converts time to string like "3 hour(s) ago"
  */
-
 function get_time_interval($time) {
   # dates/interval
   $date_now = new DateTime("now");
@@ -930,6 +963,7 @@ function comment_update($cid, $str_wk = '', $language) {
 /*
  * Forms
  * ********************** */
+
 
 function issue_callback_helper() {
   $form_state = array('storage' => NULL, 'submitted' => FALSE);
@@ -2734,32 +2768,6 @@ function view_issue_results($nid = '') {
   return theme('issue_detail_wrapper', $nid, $results, $debates, $resources, $debateCount, $resourceCount);
 }
 
-// debate list
-function theme_issue_debate_list($nid = '') {
-  global $user, $base_path, $base_url;
-  $debates = '';
-  module_load_include('inc', 'issue', 'issue.pages');
-  if (!empty($user->uid)) {
-    $addNewDebateForm .= drupal_get_form('add_new_debate_form', $nid);
-  }
-  else {
-    $addNewDebateForm .= '<div align="center"><b>' . t('Please log in to participate in the debate') . '</b></div>';
-  }
-  $debateFilterForm = drupal_get_form('filter_options', $nid);
-  $debateStatistics = '<input type="hidden" id="curr_nid" value="' . $nid . '" />';
-  $debateList[0] = issue_ajax_tab_content($nid, 1, 0, 1);
-
-  $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
-  $result2 = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 2 and field_ref_qid_nid =%d', $nid);
-  $count[] = db_result($result);
-  $count[] = db_result($result2);
-  $ans = load_options($nid);
-  foreach ($ans as $list) {
-    $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
-  }
-  $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList, $count, $show_only, $nid);
-  return $debates;
-}
 
 // suggest vote form here
 function issue_suggest_form($dummy = '', $nid = '') {
@@ -3243,7 +3251,7 @@ function insertviews($qid = '') {
   global $user;
   //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-  if (user_is_logged_in()) {
+  if( user_is_logged_in() ) {
     $ulid = $user->uid;
     $ipid = $_SERVER['REMOTE_ADDR'];
     //echo "SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='".$qid."' and view_date='".date("Y-m-d")."' ";
