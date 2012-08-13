@@ -37,14 +37,6 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
 <?php endif; ?>
 <div class="voting-pane"><?php print $content;?></div>
 
-
-<p class="issue-meta">
-  <a href="<?php print $node_url; ?>"><span id="tot-count-<?php print $tnid; ?>"><?php print $votecount; ?></span> <?php print t('Votes'); ?></a>
-  / <a href="<?php print $node_url; ?>"><?php print $totaldebates; ?> <?php print t('Arguments'); ?></a>
-  / <a href="<?php print $node_url; ?>"><?php print $totalresources; ?> <?php print t('References'); ?></a>
-</p>
-</div>
-
 <?php if ($allowvotes != 1 && $user->uid > 0) { ?>
 
   <a class="button stats stats-quick" title="See the Debate Statistics" href="<?php print $node_url; ?>#results"><span class="icon stats "></span></a>

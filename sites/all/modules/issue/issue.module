@@ -6,10 +6,9 @@
  * @file
  * Issue Poll -A sophisticated issue module for voting and analysis report generating.
  */
-
 #module_load_include('inc', 'issue', 'issue.theme.inc');
 
-/**************************
+/* * ************************
  * Content Type: Issue
  */
 
@@ -65,13 +64,13 @@ function issue_form(&$node, $form_state) {
   if (!$add_js) {
     // Pass translatable strings
     drupal_add_js(
-      array(
-        'advPoll' => array(
-          'remove' => t('Remove'),
-          'addChoice' => t('Add choice'),
-          'noLimit' => t('No limit')
-        )
-      ), 'setting');
+            array(
+      'advPoll' => array(
+        'remove' => t('Remove'),
+        'addChoice' => t('Add choice'),
+        'noLimit' => t('No limit')
+      )
+            ), 'setting');
     drupal_add_js(drupal_get_path('module', 'issue') . '/issue-form.js', 'module');
     drupal_add_css(drupal_get_path('module', 'issue') . '/issue.css', 'module');
     $add_js = TRUE;
@@ -122,18 +121,7 @@ function issue_update($node) {
       writeins = %d,
       show_writeins = %d,
       question = '%s'
-    WHERE nid = %d",
-      !$node->settings['close'],
-      $node->settings['max_choices'],
-      $node->settings['algorithm'],
-      $node->settings['use_list'],
-      $node->settings['show_votes'],
-      $node->settings['start_date'] ? strtotime($node->settings['start_date']) : 0,
-      $node->settings['end_date'] ? strtotime($node->settings['end_date']) : 0,
-      $node->settings['writeins'],
-      $node->settings['show_writeins'],
-      isset($node->question) ? $node->question : '',
-      $node->nid
+    WHERE nid = %d", !$node->settings['close'], $node->settings['max_choices'], $node->settings['algorithm'], $node->settings['use_list'], $node->settings['show_votes'], $node->settings['start_date'] ? strtotime($node->settings['start_date']) : 0, $node->settings['end_date'] ? strtotime($node->settings['end_date']) : 0, $node->settings['writeins'], $node->settings['show_writeins'], isset($node->question) ? $node->question : '', $node->nid
   );
   _issue_insert_choices($node);
   votingapi_recalculate_results('issue', $node->nid);
@@ -154,6 +142,7 @@ function issue_delete($node) {
 /*
  * Implementation of hook_load()
  */
+
 function issue_load($node) {
   # issue object to return
   $issue = db_fetch_object(db_query('SELECT * FROM {issue} WHERE nid = %d', $node->nid));
@@ -163,7 +152,7 @@ function issue_load($node) {
   $result = db_query('SELECT cid, weight, label, writein FROM {issue_choices} WHERE nid = %d ORDER BY weight', $node->nid);
   while ($choice = db_fetch_array($result)) {
     $issue->choice[$choice['cid']] = $choice;
-    if($choice['writein'] == 1) {
+    if ($choice['writein'] == 1) {
       $issue->writein_choices++;
     }
   }
@@ -176,12 +165,12 @@ function issue_load($node) {
       content_type = 'issue' AND
       content_id = %d AND
       tag = '_issue' AND
-      function = 'total_votes'",
-    $node->nid);
-  if( $cache = db_fetch_object($result) ) {
+      function = 'total_votes'", $node->nid);
+  if ($cache = db_fetch_object($result)) {
     // Found total votes in the cache.
     $issue->votes = $cache->value;
-  } else {
+  }
+  else {
     $issue->votes = 0;
   }
   list($issue->voted, $issue->cancel_vote) = _issue_user_voted($node->nid);
@@ -229,12 +218,12 @@ function issue_validate($node, &$form) {
 
 /*
  * Content Type: Issue
- ************************/
+ * ********************** */
 
 
 
 
-/**************************
+/* * ************************
  * Drupal hooks
  */
 
@@ -381,25 +370,26 @@ function issue_menu() {
 /*
  * Implementation of hook_theme()
  */
+
 function issue_theme($existing, $type, $theme, $path) {
   return array(
     'delete_button' => array(
       'arguments' => array(
-        'id'    => NULL,
-        'type'  => NULL,
+        'id' => NULL,
+        'type' => NULL,
       ),
       'file' => 'issue.theme.inc',
     ),
     'like_dislike_bar' => array(
       'arguments' => array(
-        'pro'    => NULL,
-        'con'    => NULL,
+        'pro' => NULL,
+        'con' => NULL,
       ),
       'file' => 'issue.theme.inc',
     ),
     'rating_button' => array(
       'arguments' => array(
-        'item'    => NULL,
+        'item' => NULL,
       ),
       'file' => 'issue.theme.inc',
     ),
@@ -427,8 +417,6 @@ function issue_theme($existing, $type, $theme, $path) {
       ),
       'file' => 'issue.theme.inc',
     ),
-
-
     'issue_results' => array(
       'template' => 'issue_results',
       'arguments' => array('nid' => NULL, 'cdebate' => NULL, 'cresource' => NULL, 'cpundit' => NULL, 'allowvotes' => NULL),
@@ -454,8 +442,6 @@ function issue_theme($existing, $type, $theme, $path) {
       'template' => 'issue_detail_wrapper',
       'arguments' => array('nid' => NULL, 'result_analysis' => NULL, 'debate_list' => NULL, 'resource_list' => NULL, 'debateCount' => NULL, 'resourceCount' => NULL),
     ),
-
-
     'single_resource_template' => array(
       'arguments' => array('debItems' => array()),
     ),
@@ -463,7 +449,6 @@ function issue_theme($existing, $type, $theme, $path) {
       'template' => 'debate-area',
       'arguments' => array('addNewDebateForm' => NULL, 'debateFilterForm' => NULL, 'debateStatistics' => NULL, 'debateList' => NULL, 'count' => NULL, 'show_only' => NULL, 'nid' => NULL),
     ),
-
     'forum_child_reply_template' => array(
       'template' => 'forum-child-reply-template',
       'arguments' => array('items' => NULL, 'userPicture' => NULL, 'ratings' => NULL, 'delete' => NULL),
@@ -488,11 +473,11 @@ function issue_theme($existing, $type, $theme, $path) {
 
 /*
  * Drupal hooks
- ************************/
+ * ********************** */
 
 
 
-/**************************
+/* * ************************
  * Load data
  */
 
@@ -504,6 +489,7 @@ function issue_theme($existing, $type, $theme, $path) {
  * issId    - Issue Id the debate is related to
  * issTnid  - Translate Issue Id
  */
+
 function load_debate($debId = '', $issId = '', $issTnid = '') {
   $item = array();
   global $user, $language;
@@ -516,7 +502,7 @@ function load_debate($debId = '', $issId = '', $issTnid = '') {
   $forum->title = $translated->title;
   $forum->body = $translated->body;
   # get votes
-  list($vote_up,$vote_down) = get_votes($forum->nid, 'node');
+  list($vote_up, $vote_down) = get_votes($forum->nid, 'node');
   # get strenght votes
   list($strong_count, $weak_count) = get_strenght($forum->nid);
   # get posted and last activity time
@@ -572,6 +558,7 @@ function load_debate($debId = '', $issId = '', $issTnid = '') {
  * issId    - Issue Id the debate is related to
  * issTnid  - Translate Issue Id
  */
+
 function load_resource($resId = '', $issId = '', $issTnid = '', $resType = '') {
   $item = array();
   global $user;
@@ -580,7 +567,7 @@ function load_resource($resId = '', $issId = '', $issTnid = '', $resType = '') {
   $forum = node_load(array('nid' => $resId, 'status' => '1'));
   $account = user_load($forum->uid);
   # get votes
-  list($vote_up,$vote_down) = get_votes($forum->nid, 'node');
+  list($vote_up, $vote_down) = get_votes($forum->nid, 'node');
   # get strenght votes
   list($strong_count, $weak_count) = get_strenght($forum->nid);
   # get posted and last activity time
@@ -640,18 +627,21 @@ function load_resource($resId = '', $issId = '', $issTnid = '', $resType = '') {
  * @params
  * cid    - Comment Id
  */
+
 function load_reply($cid = '') {
   global $language, $user;
   # get the comment
   $forum = db_fetch_array(db_query("SELECT * FROM {comments} WHERE cid = '%d'", $cid));
-  if( !$forum ) return;
+  if (!$forum)
+    return;
   # get translated comment
   $forum['comment'] = get_translated_comment($cid, $language->language);
-  if( empty($forum['comment']) ) return;
+  if (empty($forum['comment']))
+    return;
   # get author
   $account = user_load($forum['uid']);
   # get votes
-  list($vote_up,$vote_down) = get_votes($forum['cid'], 'comment');
+  list($vote_up, $vote_down) = get_votes($forum['cid'], 'comment');
   # get post date
   $posted = date("Y-m-d H:i:s", $forum['timestamp']);
 
@@ -667,10 +657,11 @@ function load_reply($cid = '') {
   $item['allow_rating'] = rating_allowed($forum['cid'], 'comment', $user->uid);
   $item['posted_by'] = $forum['uid'];
   $item['ago'] = get_time_interval($posted);
-  if( $forum['str_wk'] == 1 ) {
+  if ($forum['str_wk'] == 1) {
     $item['class'] = 'positive';
     $item['sign'] = '+';
-  } else {
+  }
+  else {
     $item['class'] = 'negative';
     $item['sign'] = '-';
   }
@@ -684,26 +675,27 @@ function load_reply($cid = '') {
 /*
  * Converts time to string like "3 hour(s) ago"
  */
+
 function get_time_interval($time) {
   # dates/interval
   $date_now = new DateTime("now");
   $date = new DateTime($time);
   $interval = $date->diff($date_now);
   # convert to string
-  if( $interval->y != 0 ) {
-    return $interval->y . ' year' . ($interval->y>1?'s':'').' ago';
+  if ($interval->y != 0) {
+    return $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
   }
-  if( $interval->m != 0 ) {
-    return $interval->m . ' month' . ($interval->m>1?'s':'').' ago';
+  if ($interval->m != 0) {
+    return $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
   }
-  if( $interval->d != 0 ) {
-    return $interval->d . ' day' . ($interval->d>1?'s':'').' ago';
+  if ($interval->d != 0) {
+    return $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
   }
-  if( $interval->h != 0 ) {
-    return $interval->h . ' hour' . ($interval->h>1?'s':'').' ago';
+  if ($interval->h != 0) {
+    return $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
   }
-  if( $interval->i != 0 ) {
-    return $interval->i . ' minute' . ($interval->i>1?'s':'').' ago';
+  if ($interval->i != 0) {
+    return $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
   }
   return 'just now';
 }
@@ -715,6 +707,7 @@ function get_time_interval($time) {
  * @uid         - User Id to check for
  * @content_id  - Content Id
  */
+
 function rating_allowed($content_id, $type, $uid) {
   $comments = db_result(db_query("
     SELECT COUNT(*)
@@ -722,8 +715,7 @@ function rating_allowed($content_id, $type, $uid) {
     WHERE
       content_type = '%s' AND
       uid = '%d' AND
-      content_id = '%d' %s",
-      $type, $uid, $content_id, $type == 'comment' ? '' : 'AND vote_source IS NULL')
+      content_id = '%d' %s", $type, $uid, $content_id, $type == 'comment' ? '' : 'AND vote_source IS NULL')
   );
   return $comments > 0 ? false : true;
 }
@@ -735,6 +727,7 @@ function rating_allowed($content_id, $type, $uid) {
  *
  * TODO make it use only one sql request
  */
+
 function get_votes($content_id, $content_type) {
   $votes = array();
   $query = "
@@ -745,7 +738,7 @@ function get_votes($content_id, $content_type) {
       content_type = '%s' AND
       tag = 'vote' AND
       value = '%d'";
-  $votes[] = db_result(db_query($query, $content_id, $content_type,  1));
+  $votes[] = db_result(db_query($query, $content_id, $content_type, 1));
   $votes[] = db_result(db_query($query, $content_id, $content_type, -1));
   return $votes;
 }
@@ -757,6 +750,7 @@ function get_votes($content_id, $content_type) {
  *
  * TODO make it use only one sql request
  */
+
 function get_strenght($forum_nid) {
   $votes = array();
   $query = "SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'";
@@ -768,6 +762,7 @@ function get_strenght($forum_nid) {
 /*
  * Function to get translated node for the forum
  */
+
 function translate_forum($forumId ='', $curLanguage = '') {
   $ftid = db_result(db_query("
     SELECT nid 
@@ -775,8 +770,7 @@ function translate_forum($forumId ='', $curLanguage = '') {
     WHERE 
       tnid = '%d' AND 
       language = '%s' AND 
-      translate = 1",
-      $forumId, $curLanguage)
+      translate = 1", $forumId, $curLanguage)
   );
   $ftid = $ftid != '' ? $ftid : $forumId;
   $translated = node_load(array('nid' => $ftid, 'status' => '1'));
@@ -785,9 +779,9 @@ function translate_forum($forumId ='', $curLanguage = '') {
 
 /*
  * Load data
- ************************/
+ * ********************** */
 
-/**************************
+/* * ************************
  * Forms
  */
 
@@ -798,15 +792,17 @@ function translate_forum($forumId ='', $curLanguage = '') {
  * @content_id  - debate_tnid/resource_id
  * @variables   - array to pass various number of params to submit
  */
+
 function reply_form($form, $content_id, $variables = array()) {
   $form = array();
 
-  if( !user_is_logged_in() ) {
+  if (!user_is_logged_in()) {
     $form['log_in'] = array(
       '#type' => 'markup',
       '#value' => t('Please Login to post reply')
     );
-  } else {
+  }
+  else {
     $form['#attributes'] = array('class' => 'arg-reply-form');
     $form['#action'] = url($_GET['q'], array('absolute' => TRUE));
     $form['err_r'] = array(
@@ -835,7 +831,7 @@ function reply_form($form, $content_id, $variables = array()) {
       '#type' => 'submit',
       '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
-      '#suffix' => '</div>'.theme('sub_loader', 'display:none; margin-bottom:-15px; float:left;'),
+      '#suffix' => '</div>' . theme('sub_loader', 'display:none; margin-bottom:-15px; float:left;'),
     );
     $form['variables'] = array(
       '#type' => 'hidden',
@@ -856,15 +852,17 @@ function reply_form($form, $content_id, $variables = array()) {
  *
  * TODO find out how the coins' part works and fix it
  */
+
 function reply_form_submit($form, &$form_state) {
   global $user;
   $json = array();
   # find out if user has enough points to leave a comment
   $coins = $user->total_coins;
   $coins_threshold = 0; # get_coins('p_debate');
-  if( $coins < $coins_threshold ) {
-    $json['message'] = '<span>'.t('Sorry, you do not have enough coins to reply for this post').'</span>';
-  } else {
+  if ($coins < $coins_threshold) {
+    $json['message'] = '<span>' . t('Sorry, you do not have enough coins to reply for this post') . '</span>';
+  }
+  else {
     # collect comment data
     $comment = check_plain($form_state['values']['reply_content']);
     $values = array(
@@ -891,9 +889,9 @@ function reply_form_submit($form, &$form_state) {
      * these names may be confusing for developers later
      */
     $vars = json_decode($form_state['values']['variables']);
-    $issue_tnid     = get_tnid($vars->issue_id);
-    $issue_title    = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $issue_tnid));
-    $content_title  = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $values['nid']));
+    $issue_tnid = get_tnid($vars->issue_id);
+    $issue_title = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $issue_tnid));
+    $content_title = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $values['nid']));
     set_notify_log($user->uid, $values['nid'], 'reply', array(
       'did' => $values['nid'],
       'd_title' => $content_title,
@@ -902,9 +900,10 @@ function reply_form_submit($form, &$form_state) {
       'q_title' => $issue_title,
     ));
     # output
-    if( !$cid ) {
-      $json['message'] = '<span>'.t('Sorry, your reply not able to post').'</span>';
-    } else {
+    if (!$cid) {
+      $json['message'] = '<span>' . t('Sorry, your reply not able to post') . '</span>';
+    }
+    else {
       $item = load_reply($cid);
       $ratings = theme('rating_button', $item);
       if (is_moderator() || $item['uid'] == $user->uid) {
@@ -912,7 +911,7 @@ function reply_form_submit($form, &$form_state) {
       }
       $userPicture = UserPicture_small_src($item['uid']);
       $json['content'] = theme('forum_child_reply_template', $item, $userPicture, $ratings, $delete);
-      $json['message'] = '<span>'.t('Thanks, Your reply posted!').'</span>';
+      $json['message'] = '<span>' . t('Thanks, Your reply posted!') . '</span>';
     }
   }
   print json_encode($json);
@@ -922,15 +921,15 @@ function reply_form_submit($form, &$form_state) {
 /*
  * Update Comment
  */
+
 function comment_update($cid, $str_wk = '', $language) {
-  db_query("UPDATE {comments} SET str_wk = '%d', language = '%s' WHERE cid = '%d'",
-    $str_wk, $language, $cid
+  db_query("UPDATE {comments} SET str_wk = '%d', language = '%s' WHERE cid = '%d'", $str_wk, $language, $cid
   );
 }
 
 /*
  * Forms
- ************************/
+ * ********************** */
 
 function issue_callback_helper() {
   $form_state = array('storage' => NULL, 'submitted' => FALSE);
@@ -1127,9 +1126,33 @@ function issue_add_vote($dummy = '', $nid = '') {
     '#attributes' => array('class' => 'button vote floatright ' . $loginBoxClass . ''),
     '#id' => 'edit-change',
   );
+  
+  if (arg(0) == 'issues_solr2') {
+    $voteCount = db_result(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $tnid . "'"));
+    $debates = db_result(db_query("SELECT count(nid) as fcount FROM `content_type_forum` where field_ref_qid_nid='" . $tnid . "' AND field_type_value = '1'"));
+    $resources = db_result(db_query("SELECT COUNT(nid) FROM content_type_forum where  field_ref_qid_nid='$tnid' AND field_type_value = '2'"));
+
+    $link_output = '<p class ="issue-meta">' . l($voteCount . t(' Votes'), 'node/' . $nid) . "/ " . l($debates . t(' Arguments'), 'node/' . $nid) . "/ " . l($resources . t(' References'), 'node/' . $nid) . '</p>';
+
+    $form['vote-meta'] = array(
+      '#type' => 'item',
+      '#value' => $link_output,
+    );
+  }
+  /*
+    <p class="issue-meta">
+    <a href="<?php print $node_url; ?>"><span id="tot-count-<?php print $tnid; ?>"><?php print $votecount;
+    ?></span> <?php print t('Votes'); ?></a>
+    / <a href="<?php print $node_url; ?>"><?php print $totaldebates; ?> <?php print t('Arguments'); ?></a>
+    / <a href="<?php print $node_url; ?>"><?php print $totalresources; ?> <?php print t('References'); ?></a>
+    </p>
+
+   */
+
+
   $form['#cache'] = TRUE;
 
-  // Provide a more cleanly named voting form theme.
+// Provide a more cleanly named voting form theme.
   $form['#theme'] = 'poll_vote';
   return $form;
 }
@@ -1170,15 +1193,15 @@ function issue_add_vote_submit($form, &$form_state) {
         drupal_set_message($message = 'Your answer was added!', $type = 'success');
       }
       else {
-        //echo '<div class="messages error"> Please suggest your answer! </div>';
+//echo '<div class="messages error"> Please suggest your answer! </div>';
         drupal_set_message($message = 'Please enter suggest your answer!', $type = 'error');
       }
     }
-    // suggest a vote
+// suggest a vote
     if ($submit == 'submit_suggest_vote') {
       $suggested_answer = $form_state['values']['suggested_answer'];
 
-      // get suggest answer vote count
+// get suggest answer vote count
       $list_own_answer = db_query("select * from {suggest_answer} where said='$suggested_answer'");
       $userown = db_fetch_object($list_own_answer);
 
@@ -1207,7 +1230,7 @@ function issue_add_vote_submit($form, &$form_state) {
     $nid = $form['#nid'];
     $choice = $form_state['values']['choice'];
     global $user;
-    //$value_ = 'current';
+//$value_ = 'current';
     if ($user->uid) {
       db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $choice, $user->uid, $date_time, 1);
       db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $choice, $user->uid);
@@ -1216,13 +1239,13 @@ function issue_add_vote_submit($form, &$form_state) {
       db_query("INSERT INTO {poll_votes} (nid, chorder, hostname) VALUES (%d, %d, '%s')", $nid, $choice, ip_address());
       db_query('INSERT INTO {poll_votes_history} (nid, chorder, hostname, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $choice, ip_address(), $date_time, 1);
     }
-    // Add one to the votes.
+// Add one to the votes.
     db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
 
     cache_clear_all();
     drupal_set_message(t('Your vote was recorded.'));
   }
-  // Return the user to whatever page they voted from.
+// Return the user to whatever page they voted from.
 }
 
 function issue_edit_vote($dummy='', $nid='') {
@@ -1232,7 +1255,7 @@ function issue_edit_vote($dummy='', $nid='') {
 
   $node = node_load($nid);
 
-  // IMPORTANT get translate nid (tnid) for current node
+// IMPORTANT get translate nid (tnid) for current node
   $tnid = get_tnid($nid);
   $tnode = node_load($tnid);
   if ($node->choice) {
@@ -1265,7 +1288,7 @@ function issue_edit_vote($dummy='', $nid='') {
   }
   $form['#cache'] = TRUE;
 
-  // Provide a more cleanly named voting form theme.
+// Provide a more cleanly named voting form theme.
   $form['#theme'] = 'poll_vote';
   return $form;
 }
@@ -1291,7 +1314,7 @@ function issue_edit_vote_submit($form, &$form_state) {
   $date_time = date("y-m-d H:i:s", time());
   if ($user->uid) {
 
-    // db_query('UPDATE {poll_votes_history} set status=%d where nid=%d and uid=%d', 0, $nid, $user->uid);
+// db_query('UPDATE {poll_votes_history} set status=%d where nid=%d and uid=%d', 0, $nid, $user->uid);
     db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $form['choice']['#default_value'], $user->uid, $date_time, 0);
     db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $choice, $user->uid, $date_time, 1);
 
@@ -1306,20 +1329,20 @@ function issue_edit_vote_submit($form, &$form_state) {
   }
 //minus one the value of previously voted choice
   db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = %d AND chorder = %d", $nid, $form['choice']['#default_value']);
-  // Add one to the votes.for new choices
+// Add one to the votes.for new choices
   db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
 
   cache_clear_all();
   drupal_set_message(t('Your vote has been updated'));
 
-  // Return the user to whatever page they voted from.
+// Return the user to whatever page they voted from.
 }
 
 /* New Feature Ajax Submission */
 
 function issue_vote_submit_ajax($type = '') {
   global $user;
-  //echo '<pre>'; print_r($form); exit;
+//echo '<pre>'; print_r($form); exit;
   $nid = $_POST['nid_val'];
   $choice = $_POST['choice'] != '' ? $_POST['choice'] : -1;
   $default_vote = $_POST['def_vote'];
@@ -1519,8 +1542,8 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
         drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
         drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
         drupal_set_html_head('<script>
-                        var uid="' . $user->uid . '";
-                    </script>');
+            var uid="' . $user->uid . '";
+                      </script>');
         if ($user->initpop == 1 && $user->uid > 1) {
           drupal_add_js('$(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});', 'inline');
           $user_data = array('initpop' => 2);
@@ -1781,8 +1804,6 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
   }
 }
 
-
-
 function issue_pundit_tab($qid='') {
   global $base_url;
   //	$output='sample content Gurus';
@@ -1866,16 +1887,6 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
   return theme('issue_results', $nid, t($debateCount), t($resourceCount), t($punditCount), $tnode->allowvotes);
 }
 
-
-
-
-
-
-
-
-
-
-
 // get taxonomy id
 function get_taxonomy_id($module = '', $name = '') {
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE module = '%s'", $module));
@@ -1935,8 +1946,6 @@ function _send_votenotify($qid='') {
 }
 
 // short answer for issue
-
-
 // follow notify
 function add_follow_notify($form, &$form_state) {
   global $user;
@@ -2351,8 +2360,6 @@ function get_tnid($nid = '') {
 }
 
 // get translated content for debates
-
-
 // get translated debate replies/ and resource replies
 function get_translated_comment($cid = '', $curLanguage = '') {
   $tcid = db_result(db_query("SELECT cid FROM {comments} WHERE tcid = '$cid' AND language = '$curLanguage' AND translate = 1"));
@@ -2762,8 +2769,6 @@ function issue_suggest_form($dummy = '', $nid = '') {
     '#value' => $nid,
   );
   if (user_is_logged_in()) {
-
-
     // get suggest answer for current issue
     $answers = "SELECT * FROM suggest_answer where qid='" . $nid . "'  ";
     $anslist = db_query($answers);
@@ -3186,17 +3191,6 @@ function add_new_debate_form_submit($form, &$form_state) {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // issue filter options
 function issue_filter_options() {
   $key = arg(1) != '' ? arg(1) : '0';
@@ -3247,7 +3241,7 @@ function insertviews($qid = '') {
   global $user;
   //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-  if( user_is_logged_in() ) {
+  if (user_is_logged_in()) {
     $ulid = $user->uid;
     $ipid = $_SERVER['REMOTE_ADDR'];
     //echo "SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='".$qid."' and view_date='".date("Y-m-d")."' ";
@@ -3270,9 +3264,6 @@ function insertviews($qid = '') {
 }
 
 // rating buttons - agree, disagree
-
-
-
 // popular categories
 function popular_categories() {
   $sql = db_query("SELECT nid, count(nid) as cnt from {poll_votes} group by nid ORDER BY cnt desc");
@@ -3338,7 +3329,7 @@ function _load_colors_array() {
   return $colors;
 }
 
-/*   * *********** */
+/* * *********** */
 
 
 
@@ -3354,19 +3345,19 @@ function _load_colors_array() {
 
 
 
-/*** CUSTOM FUNCTIONS ***/
+/* * * CUSTOM FUNCTIONS ** */
 
 /*
  * Get short answer for the node
  */
+
 function get_short_answer($nid = '', $chorder = '') {
   $short = db_fetch_object(db_query("
     SELECT short_answer
     FROM {short_answers}
     WHERE
       qid= '%d' AND
-      chorder = '%d'",
-      $nid, $chorder)
+      chorder = '%d'", $nid, $chorder)
   );
   return $short->short_answer;
 }
