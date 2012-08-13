@@ -15,7 +15,7 @@ $items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
 	</div>
     <span class="userinfo-reply">&nbsp;-&nbsp;
       <span class="name">
-        <a href="<?php print $sitelink . 'profile/' . $items['uname']; print $items['ago'] . " ago" ?>">
+        <a href="<?php print $sitelink . 'profile/' . $items['uname']; ?>">
           <?php print $items['uname']; ?></a></span>&nbsp;
       <span class="date"><?php echo $items['ago']; ?>
       </span>

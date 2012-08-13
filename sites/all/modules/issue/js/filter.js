@@ -1,3 +1,85 @@
+/*
+ * Short Messages
+ *
+ * @element  - element id where to put the message
+ * @message  - message text
+ * @delayTimeout    - timeout
+ * @slideTimeout    - timeout for slideup
+ */
+function show_msg(element, message, delayTimeout, slideTimeout) {
+    jQuery(element).html(message).delay(delayTimeout).slideUp(slideTimeout, function(){
+        jQuery(this).html('').show();
+    });
+}
+
+
+/*
+ * Reply Form Submit
+ */
+jQuery('.arg-reply-form').live('submit', function(e){
+    e.preventDefault();
+    // get form element
+
+    var form = jQuery(this);
+    if( form.find('textarea').val().length < 2 ) {
+        form.find('.reply_err').html('<span>Please enter your reply.</span>').delay(3000).fadeOut(1000, function() {
+            form.find('.reply_err').html('');
+        });
+    } else {
+        // hide submit button
+        form.find('input[type=submit]').hide();
+        // show sub loader
+        form.find('#sub_loader').show();
+        // get form data
+        var data = form.serialize();
+        // get form elements' ids
+        var id = form.find('input[name=content_id]').val();
+        var open = jQuery('#all_replybox_'+id);
+
+        jQuery.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: form.attr('action'),
+            data: data,
+            success: function(msg){
+                // empty the textarea
+                form.find('textarea').val('');
+                reply_form_toggle(form.parents('#reply-comment'));
+                // add comment content
+                open.prepend(msg.content);
+                // show message and hide it shortly
+                /*
+                jQuery('#reply-msg-'+id).html(msg.message).delay(5000).slideUp(500, function(){
+                    jQuery(this).html('').show();
+                });
+                */
+                show_msg('#reply-msg-'+id, msg.message, 5000, 500);
+                // update the number of the replies
+                var replycount = form.parents('.one-forum').find('.replies legend span.replycount');
+                replycount.fadeOut(1000, function(){
+                    replycount.html(parseInt(replycount.html())+1);
+                    replycount.fadeIn(1000);
+                });
+                // add the translate to the new comment
+                translate();
+            },
+            complete: function(){
+                // show submit button
+                form.find('input[type=submit]').show();
+                // hide sub loader
+                form.find('#sub_loader').hide();
+                // empty the error
+                form.find('.reply_err').html('');
+            }
+        });
+    }
+    return false;
+});
+
+
+
+
+
 /**Rallydev:530**/
 $(document).ready(function(){
   imageUrl = Drupal.settings.base_url +'/sites/all/themes/heardmentalitylight/images/ui-bg_diagonals40x40_red.png';
@@ -156,47 +238,7 @@ function show_replies(id){
 
 
 
-$('.arg-reply-form').live('submit', function(e){
-  e.preventDefault();
 
-  var cont = $(this);
-  var debid = cont.find('#ded_tnid').val();
-  var norep = "#no_rply_"+debid;
-  if(cont.find('textarea').val().length<2){
-    cont.find('#reply_err').html('<span>Please enter your reply.</span>');
-  }else{
-    cont.find('#add_reply').hide();
-    cont.find('#sub_loader').show();
-    var data = cont.serialize();
-    var ded_tnid = cont.find('#deb_tnid').val();
-    var box_id = '#reply_box_'+ded_tnid;
-    var open_id = '#all_replybox_'+ded_tnid;
-    $.ajax({
-      type: 'POST',
-      dataType: 'json',
-      url: cont.attr('action'),
-      data: data,
-      success: function(msg){
-        cont.find('textarea').val('');
-        $(box_id).slideUp('slow');
-        $(norep).remove();
-        $(msg.content).prependTo(open_id);
-        $(open_id).slideDown('slow');
-        cont.find('#reply_err').html('');
-        $('#reply-msg-'+ded_tnid).html(msg.message);
-        $('#reply-msg-'+ded_tnid).delay(5000).fadeOut(1000, function(){
-            $(this).html('');
-        });
-      },
-      complete: function(){
-        cont.find('#add_reply').show();
-        cont.find('#sub_loader').hide();
-        cont.find('#reply_err').html('');
-      }
-    });
-  }
-  return false;
-});
 
 
 function delete_thread(id, type){
@@ -531,7 +573,7 @@ $(document).ready(function() {
 
     //$('input[type="submit"]').attr('disabled',true);
     $(this).find('#add-new-res').hide();
-    $(this).find('#sub_loader_res').show();
+    $(this).find('#sub_loader').show();
     // e.preventDefault();
 
     $.post( $(this).attr('action'), $(this).serialize(),
@@ -549,7 +591,7 @@ $(document).ready(function() {
         //$(data).prependTo('#load-resource');
         $(trig_ref).trigger('click');
         $('#add-resource-area').slideUp();
-        $('#sub_loader_res').hide();
+        $('#sub_loader').hide();
         $('#add-new-res').show();
         // el.delay(400).slideDown(400).delay(3000).slideUp(400);
         // $.growlUI('', data);

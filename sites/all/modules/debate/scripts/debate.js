@@ -3,6 +3,121 @@
 
 */
 
+
+
+/*
+ * Change the Yes/No votes number
+ *
+ * id    - content_id
+ * type  - comment/node
+ * agree - 1/0 = agree/disagree
+ * count - if not set will be incremented
+ */
+function votes_update(id, type, agree, count) {
+    var selector = '#lik-btns-'+type+'-'+id+' a[name='+(agree==1?'a-':'da-')+id+'] span';
+    if( count == null ) {
+        count = jQuery(selector).html().replace(/[\(\)]/g,'');
+        count = parseInt(count)+1;
+    }
+    jQuery(selector).fadeOut(1000, function(){ $(this).html('('+count+')').fadeIn(1000); });
+}
+
+/*
+ * Change the size of the debate vote sum count
+ *
+ * @element  - element to recalculate for
+ * @count    - vote count
+ */
+function circle_update(element, count) {
+    var size = Math.abs(count) > 100 ? 'large' : ( Math.abs(count) > 10 ? 'middle' : 'small' );
+    var color = count > 0 ? 'positive' : ( count < 0 ? 'negative' : 'null' );
+    element.find('span.sum')
+        .removeClass('small middle large')
+        .addClass(size);
+    element.find('span.sum span')
+        .html(count)
+        .removeClass('null positive negative')
+        .addClass(color);
+}
+
+
+
+/*
+ * Handle Yes/No votes
+ *
+ * @e       - click event
+ * @type    - 1/0 = agree/disagree
+ */
+(function(jQuery){
+    jQuery.fn.extend({
+        agree: function(e,type) {
+            e.preventDefault();
+            el = jQuery(this);
+            // show dialog if user is not logged in
+            if(uid<1){
+                $('#dialog').dialog('open');
+                return false;
+            }
+
+            el.slideDown('slow');
+            // content_id
+            var wid=el.parent('span').attr('name');
+            // type = debate/resource/reply
+            var action=el.parent('span').attr('type');
+            // parent id - not equals to wid when "action = reply"
+            var id_par = el.parents('.one-forum').attr('name');
+
+            // change the text of clicked button
+            el.closest('span').find('a.dagree').attr({'class':'','title':'You have rated this!'});
+            el.closest('span').find('a.ddisagree').attr({'class':'','title':'You have rated this!'});
+
+
+            jQuery('#twitMsg').html("Please wait while saving your post....!");
+            jQuery('#twitMsg').delay(400).slideDown(400);
+
+            var url = Drupal.settings.base_url + '/issues/debate/save';
+            jQuery.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: url,
+                data: {
+                    'action': action,
+                    'agree': type,
+                    'content_id': wid,
+                    'parent_node': id_par
+                },
+                success: function(msg){
+                    // update circle
+                    circle_update(el.parents('.one-forum'), msg.sum_count);
+                    // update likebar
+                    var barid = '#likebar-'+ntype+'-'+wid;
+                    //jQuery(barid).html(msg.likebar);
+                    //
+                    var ntype = msg.type;
+                    var btnid = '#lik-btns-'+ntype+'-'+wid;
+                    var btnid_val = jQuery(btnid).html();
+                    // show message
+                    jQuery(btnid).html(msg.msg);
+                    // update clicked Y/N vote count
+                    jQuery(btnid).delay(5000).fadeOut(1000, function(){
+                        jQuery(btnid).html(btnid_val);
+                        votes_update(wid, ntype, type, null);
+                        jQuery(btnid).fadeIn(1000);
+                    });
+                    // update parent Y/N vote count
+                    if( id_par != wid ) {
+                        votes_update(id_par, 'node', type, null);
+                    }
+                }
+            });
+        }
+    });
+})(jQuery);
+
+
+
+
+
 function bind_clk(){
 
   jQuery('a[name="rep"]').live('click', function(){
@@ -38,88 +153,7 @@ function bind_clk(){
     });
 }
 
-(function(jQuery){
-  jQuery.fn.extend({
-    agree: function(e,type) {
 
-      e.preventDefault();
-      el = jQuery(this);
-      if(uid<1){
-        //jQuery('#twitMsg').html("Please Login to do this!");
-        //jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-        //alert('Please login to do this!');
-        $('#dialog').dialog('open');
-        return false;
-      }
-
-      // el.empty();
-      el.slideDown('slow');
-
-      var wid=el.parent('span').attr('name');
-      var action=el.parent('span').attr('type');
-      var id_par = el.parents('.one-forum').attr('name');
-
-      el.closest('span').find('a.dagree').attr({'class':'','title':'You have rated this!'});
-      el.closest('span').find('a.ddisagree').attr({'class':'','title':'You have rated this!'});
-        // $('#forum-block-36896').find('a.agree[name=a-36896]')
-      var url = Drupal.settings.base_url + '/issues/debate/save';
-      jQuery('#twitMsg').html("Please wait while saving your post....!");
-      jQuery('#twitMsg').delay(400).slideDown(400);
-      jQuery.ajax({
-        type: "POST",
-        dataType: 'json',
-        url: url,
-        data: {
-          'action': action,
-          'agree': type,
-          'content_id': wid,
-          'parent_node': id_par
-        },
-        success: function(msg){
-          if(type==0){
-            el.closest('div').find('#disag-cnt').html(msg.ratecount);
-          }
-          if(type==1){
-            el.closest('div').find('#ag-cnt').html(msg.ratecount);
-          }
-          el.parents('.one-forum').find('span.sum span')
-              .html(msg.sum_count)
-              .removeClass('null positive negative')
-              .addClass( msg.sum_count > 0 ? 'positive' : (msg.sum_count < 0 ? 'negative' : 'null') );
-          var size = 'small';
-          if( Math.abs(msg.sum_count) > 100 ) {
-              size = 'large';
-          } else if( Math.abs(msg.sum_count) > 10 ) {
-              size = 'middle';
-          }
-          el.parents('.one-forum').find('span.sum').removeClass('small middle large').addClass(size);
-
-          var ntype = msg.type;
-          var barid = '#likebar-'+ntype+'-'+wid;
-          var btnid = '#lik-btns-'+ntype+'-'+wid;
-
-          var btnid_val = jQuery(btnid).html();
-
-          jQuery(btnid).html(msg.msg);
-          jQuery(barid).html(msg.likebar);
-          jQuery(btnid).delay(5000).fadeOut(1000, function(e) {
-            jQuery(btnid).html(btnid_val);
-            var name = type == 1 ? 'a-' : 'da-';
-            name = name + wid;
-            jQuery(btnid).find('a[name='+name+'] span').each(function(index,element){
-              var cont = $(element).html().replace(/[\(\)]/g,'');
-              $(element).html(parseInt(cont)+1 );
-            });
-            jQuery(btnid).fadeIn(1000);
-          });
-
-
-
-        }
-      });
-    }
-  });
-})(jQuery);
 
 /*
 function wave_form(){

@@ -4572,7 +4572,7 @@ span.small_pos.fixes,
 	background-color: #C2499B;
 }
 
-#reply_err span {
+.reply_err span {
 	color: #CD2027; 
 	padding-top: 6px;
 	display: inline-block;

@@ -965,8 +965,21 @@ $(document).ready(function(){
 });*/
 
 // Show textbox yes/no reply on argument
-  
+
+/*
+ * Functions to hide/show the reply form
+ */
+function reply_form_toggle(element) {
+    if( element.hasClass('hidden') ) {
+        element.removeClass('hidden').addClass('visible').slideDown(400);
+    } else {
+        element.removeClass('visible').addClass('hidden').slideUp(400);
+    }
+}
+
+
 Drupal.behaviors.add_reply = function(context) { 
+  console.log('xxxx');
   $('ul.argument_box > li > .position-question a.agree').click(function() {
   
     if ($(this).parents('ul.argument_box > li > .position-question').find('a.disagree').hasClass('collapsed')) {
@@ -976,13 +989,12 @@ Drupal.behaviors.add_reply = function(context) {
     var agree = $(this).parents('ul.argument_box > li > .position-question').find('#reply-comment');
 		
     if (agree.hasClass('hidden')) {
-      agree.removeClass('hidden').addClass('visible').slideDown(400);
       $(this).addClass('collapsed');
     }
     else {
-      agree.removeClass('visible').addClass('hidden').slideUp(400);
       $(this).removeClass('collapsed');
     }
+    reply_form_toggle(agree);
 	
     $(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:even').attr('checked',true);
 		
@@ -995,15 +1007,14 @@ Drupal.behaviors.add_reply = function(context) {
     }
 		
     var disagree = $(this).parents('ul.argument_box > li > .position-question').find('#reply-comment');
-		
-    if (disagree.hasClass('hidden')) {
-      disagree.removeClass('hidden').addClass('visible').slideDown(400);
-      $(this).addClass('collapsed');
-    }
-    else {
-      disagree.removeClass('visible').addClass('hidden').slideUp(400);
-      $(this).removeClass('collapsed');
-    }
+
+      if (disagree.hasClass('hidden')) {
+          $(this).addClass('collapsed');
+      }
+      else {
+          $(this).removeClass('collapsed');
+      }
+      reply_form_toggle(disagree);
 	
     $(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:odd').attr('checked',true);
 		

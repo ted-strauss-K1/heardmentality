@@ -89,25 +89,25 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
       <ul class="control_links">
         <li><a href="#" class="icon flag2" title="flag this argument">flag</a></li>
         <li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
-<?php if ($delete) : ?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
+        <?php if ($delete) : ?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
       </ul>
 
       <div class="replies">
-            <?php if ($comments) : ?>
-          <fieldset class="collapsible collapsed reply_wrapper">
-            <legend class="comment-meta">
-  <?php print t('&#9658;'); ?>
-              <span><?php print $reply_count; ?> <?php print t('replies'); ?></span>
-            </legend>
+        <fieldset class="collapsible collapsed reply_wrapper">
+          <legend class="comment-meta">
+            <?php print t('&#9658;'); ?>
+            <span class="replycount"><?php print $reply_count; ?></span><span><?php print t('replies'); ?></span>
+          </legend>
+          <?php if ($comments) : ?>
             <div class="fieldset-wrapper">
               <ul>
                 <div id="all_replybox_<?php print $item['content_id']; ?>">
-  <?php print $comments; ?>
+                  <?php print $comments; ?>
                 </div>
               </ul>
             </div>
-          </fieldset>
-<?php endif; ?>
+          <?php endif; ?>
+        </fieldset>
       </div>
 
       <div class="position-question">

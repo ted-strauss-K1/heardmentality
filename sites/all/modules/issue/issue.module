@@ -247,6 +247,7 @@ function issue_init() {
   // drupal_add_js('var spath="' . $base_url . '/";', 'inline');
   drupal_add_css(drupal_get_path('module', 'poll') . '/poll.css');
   drupal_add_js(drupal_get_path('module', 'issue') . '/js/filter.js');
+  drupal_add_js(drupal_get_path('module', 'issue') . '/js/common.js');
   if (module_exists('jquery_ui')) {
     jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
   }
@@ -810,7 +811,7 @@ function reply_form($form, $content_id, $variables = array()) {
     $form['#action'] = url($_GET['q'], array('absolute' => TRUE));
     $form['err_r'] = array(
       '#type' => 'markup',
-      '#value' => '<div class="error-msg" id="reply_err"></div>'
+      '#value' => '<div class="error-msg reply_err"></div>'
     );
     $form['reply_content'] = array('#type' => 'textarea',
       '#size' => 70,

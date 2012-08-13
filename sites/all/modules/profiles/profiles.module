@@ -432,48 +432,22 @@ function report_theme() {
   return $form;
 }
 
-function home_facts_figures() {
-  global $base_url, $user, $gDocPath, $base_root;
 
-  $time_period = variable_get('user_block_seconds_online', 900);
-  // drupal_set_html_head('  <script type="text/javascript" src="http://www.google.com/jsapi"></script>');
+/*
+ * Show figure on home page
+ */
+function home_facts_figures() {
+  # add js
   drupal_add_js(drupal_get_path('module', 'profiles') . '/js/tab.js');
-  $output = '';
-  $usercnt = '';
-  $quest = '';
-  $ans = '';
-  //$usercnt = db_result(db_query("select count(uid) from {users} where status='1' and country REGEXP '[^0-9]'"));
-  $num_users = db_result(db_query("SELECT COUNT(*) FROM {users} u WHERE u.access != 0 AND u.status !=0"));
-  $usercnt = db_result(db_query(" select count(u.uid) from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]'"));
-  // $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
+  # collect data
   $type = 'poll';
-  $quest = db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = '%s' ", $type));
-  $ans = db_result(db_query("select count(*) from {poll_votes} as a join {node} as q on q.nid=a.nid  "));
-  $userslist = db_query('SELECT count(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
-  //$get_ans = db_queryd('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'', time() - $time_period);
-  //exit;
-  $total_users = db_result($userslist);
-  $output.= theme('show_heat_map', $quest, $usercnt, $total_users, $ans);
-//    $output.="   <div id='heatmap' style='width: 620px; height: 410px;'><iframe id='cirmap' src ='" . $base_url.'/' . "google/map/users?width=600&height=400' width='610' frameborder='0' height='400' scrolling='no'></iframe></div>
-//";
-//    $output .= '<div class="clr"></div>
-//         <div class="facts-figures">
-//          <ul>
-//
-//          <li><span>' . $usercnt . '</span><a href="' . $base_url.'/' . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $base_url.'/' . 'google/map/users\',\'Facts And Figures : Total Users ' . $num_users . '\')"> '.t('Users').'</a></li>
-//          <li><span >' . $total_users . '</span><a href="' . $base_url.'/' . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $base_url.'/' . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"> '.t('Online').'</a></li>
-//          </ul>
-//          <br />
-//          <ul>
-//          <li><span>' . $quest . '</span><a href="' . $base_url.'/' . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $base_url.'/' . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"> '.t('Issues').'</a></li>
-//          <li><span >' . $ans . '</span><a href="' . $base_url.'/' . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $base_url.'/' . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')">'.t('Votes').'</a></li>
-//          </ul>
-//          </div>
-//
-//
-//<div class="clr"></div>
-//  ';
-  return $output;
+  $count_nodes = db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = '%s' ", $type));
+  $count_users_w_country = db_result(db_query("SELECT COUNT(u.uid) FROM users AS u JOIN user_profile AS up ON u.uid=up.uid WHERE u.status=1 AND up.country REGEXP '[^0-9]'"));
+  $time_period = variable_get('user_block_seconds_online', 900);
+  $count_online_users = db_result(db_query('SELECT COUNT(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period));
+  $count_answers = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} AS a JOIN {node} AS q ON q.nid = a.nid"));
+  # output
+  return theme('show_heat_map', $count_nodes, $count_users_w_country, $count_online_users, $count_answers);
 }
 
 function load_bubble($uid = '') {
