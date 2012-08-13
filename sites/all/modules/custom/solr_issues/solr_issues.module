@@ -104,7 +104,7 @@ function solr_issues_block_form($form_state) {
   ahah_helper_register($form, $form_state);
   global $user, $base_url;
   drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
-  //drupal_add_js(array('base_url' => "$base_url"), 'setting');
+  drupal_add_js(array('base_url' => "$base_url"), 'setting');
   global $language;
 
   $curLanguage = $language->language;
