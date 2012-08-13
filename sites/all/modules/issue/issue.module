@@ -1120,13 +1120,7 @@ function issue_add_vote($dummy = '', $nid = '') {
   $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
   $form['check_login'] = array('#type' => 'hidden', '#value' => $user->uid, '#id' => 'check_login');
 
-  $form['change'] = array(
-    '#type' => 'submit',
-    '#value' => t('Vote'),
-    '#attributes' => array('class' => 'button vote floatright ' . $loginBoxClass . ''),
-    '#id' => 'edit-change',
-  );
-  
+
   if (arg(0) == 'issues_solr2') {
     $voteCount = db_result(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $tnid . "'"));
     $debates = db_result(db_query("SELECT count(nid) as fcount FROM `content_type_forum` where field_ref_qid_nid='" . $tnid . "' AND field_type_value = '1'"));
@@ -1139,6 +1133,13 @@ function issue_add_vote($dummy = '', $nid = '') {
       '#value' => $link_output,
     );
   }
+
+  $form['change'] = array(
+    '#type' => 'submit',
+    '#value' => t('Vote'),
+    '#attributes' => array('class' => 'button vote floatright ' . $loginBoxClass . ''),
+    '#id' => 'edit-change',
+  );
   /*
     <p class="issue-meta">
     <a href="<?php print $node_url; ?>"><span id="tot-count-<?php print $tnid; ?>"><?php print $votecount;
@@ -1279,6 +1280,7 @@ function issue_edit_vote($dummy='', $nid='') {
     $form['#validate'] = '';
   }
   if (arg(0) != 'issues_solr2') {
+    
     $form['change'] = array(
       '#type' => 'submit',
       '#value' => t('Change Vote'),
