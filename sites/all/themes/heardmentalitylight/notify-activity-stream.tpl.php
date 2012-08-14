@@ -119,8 +119,6 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
         <p class="action-item">
             <?php print $username; ?>
             
-        </p>
-		<p class="action-item clearfix">
             <span class="now-foll-txt"><?php print t('Now following'); ?>: </span>
             <div class="foll-user-area">
 
