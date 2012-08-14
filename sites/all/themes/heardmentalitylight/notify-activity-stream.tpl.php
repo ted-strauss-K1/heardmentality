@@ -119,12 +119,14 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
         <p class="action-item">
             <?php print $username; ?>
             
+        </p>
+		<div class="action-item clearfix">
             <span class="now-foll-txt"><?php print t('Now following'); ?>: </span>
             <div class="foll-user-area">
 
                 <a href="<?php print $sitelink.'profile/'.$target->name; ?>"><?php print $target->name; ?><br /><img alt="<?php print $target->name; ?>" src="<?php print UserPicture_small_src($data['target_id']);?>" width="44" height="44" /></a>
             </div>
-		</p>	
+		</div>	
 
         <?php }?>
 <span class="submitted"><?php print $submitted; ?></span>
