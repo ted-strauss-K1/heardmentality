@@ -231,10 +231,6 @@
 			margin-top: 0;
 		}
 		
-		input.info.form-text, textarea.info.form-text {
-		    width: 95%;
-		}
-		
 		#edit_profile .user-info-inputs > li .form-item {
 			width: 100%;
 		}
@@ -537,7 +533,7 @@
 		}
 		
 		input.info.form-text, textarea.info.form-text {
-		    width: 97%;
+		    width: 95%;
 		}
 		
 		#edit_profile .user-info-inputs > li .form-item {
@@ -666,6 +662,11 @@
 		
 		.select-cat.moderate-cat {
 			width:100%;
+		}
+		
+				
+		input.info.form-text, textarea.info.form-text {
+		    width: 97%;
 		}
 		
 		/*a.logo {width:94.4%;margin:0px 0px 0px 0px;text-align:left;float:left}
