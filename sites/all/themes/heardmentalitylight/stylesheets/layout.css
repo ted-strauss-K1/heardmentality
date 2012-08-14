@@ -4754,6 +4754,7 @@ ul.date_filter li, ul.options_filter li {
 
 ul.date_filter li:first-child, ul.options_filter li:first-child {
 	border: 0 none;
+	margin: 0;
 }
 
 ul.date_filter li a, ul.options_filter li a {
