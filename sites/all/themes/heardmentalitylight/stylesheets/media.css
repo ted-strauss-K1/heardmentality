@@ -605,7 +605,7 @@
 	
 	ul.date_filter {
 		padding-left: 1em;
-		padding-right: 4em;
+		padding-right: 5em;
 	}
 	
 	ul.options_filter {
@@ -614,7 +614,7 @@
 	}
 	
 	ul.date_filter li a, ul.options_filter li a {
-		font-size: 13px;
+		font-size: 14px;
 	}
 	
 	ul.date_filter li, ul.options_filter li {
