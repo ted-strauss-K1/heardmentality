@@ -615,10 +615,10 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	.poll-vote-area p.issue-meta {
-		margin: 0;
-		clear: none;
-		margin: -23px 30px 0 0;
 		float: right;
+		margin: 0 30px;
+		padding: 34px 0 0;
+		clear: both;
 	}
 	
 	.poll-vote-area p.issue-meta a,
@@ -3118,6 +3118,10 @@ h2.page-title {
 	position: relative;
 }
 
+.search_list .button.vote {
+	clear: none;
+}
+
 #new_vote .button.vote:hover,
 .search_list .button.vote:hover {
 	top: 21px;	
@@ -4572,7 +4576,7 @@ span.small_pos.fixes,
 	background-color: #C2499B;
 }
 
-.reply_err span {
+#reply_err span {
 	color: #CD2027; 
 	padding-top: 6px;
 	display: inline-block;
@@ -4954,7 +4958,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 /*.search_list .vote-form*/
 .search_list {
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-    padding: 0 0 14px;
+    padding: 0 0 17px;
 }
 
 .search_list form {
