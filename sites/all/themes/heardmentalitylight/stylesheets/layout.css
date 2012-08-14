@@ -2362,7 +2362,7 @@ input.form-text.upload{
     border-width: 1px;
 }
 
-.foll-user-area span.name {
+div.action-item span.name {
 	float: left;
     padding: 5px 8px 0 0;
 }
