@@ -43,6 +43,7 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
 <?php } ?>
 
 </div>
+</div>
 
 
 
