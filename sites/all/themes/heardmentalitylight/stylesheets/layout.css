@@ -698,7 +698,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		font-weight:normal;
 		text-transform:none;
 		text-shadow: 0 -1px #fff;
-		margin:-20px 1.4em 25px;
+		margin:-20px 1.4em 12px;
 		text-shadow:none;
 	}
 	p.profile-links a{ 
@@ -1762,7 +1762,7 @@ img.user-profile{
 .small-prog {
   width:210px;
 }
-.medals {float:left;margin:-15px 0px 0px 0px}
+.medals {float:left;margin:-12px 0px 0px 0px}
 .medal {margin:0px 0px 10px 0px}
 #footer .medal{margin:0px 10px 10px 0px;float:left}
 .medal.quick-profile{margin:0px 10px 10px 0px;float:left;}
