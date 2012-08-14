@@ -646,6 +646,10 @@
 	#solr-issues-block-form select option	{
 		padding: 0 3px;
 	}
+	
+	body.front object {
+		display: none;
+	}
 }
 	
 /* Mobile Landscape/Browser */
