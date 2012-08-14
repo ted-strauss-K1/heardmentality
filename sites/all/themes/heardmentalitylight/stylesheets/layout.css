@@ -2361,6 +2361,12 @@ input.form-text.upload{
     border-style: solid;
     border-width: 1px;
 }
+
+.foll-user-area span.name {
+	float: left;
+    padding: 5px 8px 0 0;
+}
+
 #cit-stat{
 	display: inline-block;
 	margin: 0;
