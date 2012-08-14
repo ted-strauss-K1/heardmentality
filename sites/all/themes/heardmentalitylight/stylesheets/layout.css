@@ -3171,6 +3171,11 @@ ul.pager a:hover {
 	top: 0;
 }
 
+#issue-edit-vote  .button.vote:hover,
+#issue-edit-vote  .button.vote:focus {
+	top: -3px;
+}
+
 #issue-add-vote,
 #issue-edit-vote {
 	margin: 0;
