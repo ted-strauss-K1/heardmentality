@@ -599,6 +599,10 @@
 		padding-top: 15px;
 	}
 	
+	.search_list .button.vote {
+		top: 20px;
+	}
+	
 	ul.date_filter {
 		padding-left: 1em;
 		padding-right: 2.5em;
