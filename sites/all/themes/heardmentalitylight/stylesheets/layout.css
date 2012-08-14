@@ -2353,7 +2353,7 @@ input.form-text.upload{
 }
 .now-foll-txt, .foll-user-area{
     float: left;
-    padding: 5px 8px 0 0;
+    padding: 0 8px 0 0;
 }
 .foll-user-area img{
     vertical-align: top;
@@ -2364,7 +2364,7 @@ input.form-text.upload{
 
 div.action-item span.name {
 	float: left;
-    padding: 5px 8px 0 0;
+    padding: 0 8px 0 0;
 }
 
 #cit-stat{
