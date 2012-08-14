@@ -2146,7 +2146,8 @@ textarea#q_quest  {
 	margin: 0;
 	float: left;
 	position: relative;
-	top: 4px;
+	/*top: 4px;*/
+	height: 22px;
 	padding: 0;
 }
 
@@ -3137,7 +3138,9 @@ h2.page-title {
 }
 
 #new_vote .button.vote:hover,
-.search_list .button.vote:hover {
+.search_list .button.vote:hover,
+#new_vote .button.vote:focus,
+.search_list .button.vote:focus {
 	top: 21px;	
 }
 
