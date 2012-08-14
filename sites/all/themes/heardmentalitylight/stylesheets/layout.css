@@ -722,7 +722,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	#dialog .medals {
-		margin: -15px 1em 0.5em;
+		margin: 0 1em 0.3em;
 	}
 	
 	#dialog .profile-links.quick-profile + .floatleft + a.button {
