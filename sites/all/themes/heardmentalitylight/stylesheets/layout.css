@@ -2083,6 +2083,11 @@ textarea#q_quest  {
 	overflow-y: auto;
 	overflow-x: hidden;
 }
+
+.container .nine .grey-box .uactivity.mobile {
+	overflow-y: hidden;
+}
+
 .seven .foot-empty{
     height: 174px;
 }

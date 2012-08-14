@@ -33,6 +33,9 @@ $(document).ready(function() {
 
 		});
     }
+	else {
+		$('.container .nine .grey-box .uactivity').addClass('mobile');
+	}
 			
   });
 	
