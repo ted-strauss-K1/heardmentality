@@ -1302,6 +1302,7 @@ function issue_edit_vote($dummy='', $nid='') {
       '#type' => 'radios',
       '#default_value' => $tnode->vote,
       '#options' => $list,
+	  '#attributes' => array('class' => 'test'),
     );
   }
   $form['#nid'] = $tnid;
@@ -1602,7 +1603,6 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
             );
           }
           else {
-            //print_r($node);
             unset($node->content['body']);
             // suggest answer calculation here
             suggest_answer_replacement($node->nid);
