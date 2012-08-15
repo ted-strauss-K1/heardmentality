@@ -342,7 +342,7 @@ function load_chart(arg) {
       plotOptions: {
         bar: {
           dataLabels: {
-            enabled: true
+            enabled: false
           },
           borderColor: '#fff',
           borderWidth: 0,
