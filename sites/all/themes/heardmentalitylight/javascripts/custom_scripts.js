@@ -99,6 +99,15 @@ $(document).ready(function() {
 	
   });
   
+    $('html').live('click', 
+      function (e) {
+		if (e.target.id != 'filter_content' && e.target.id != 'show_filter') {
+			if (filter.hasClass('visible')) {
+				filter.removeClass('visible').addClass('hidden');
+				$('#debate_list_area .show_only span.button').removeClass('active');
+		}
+	});
+  
 
   
 // Add references - position
