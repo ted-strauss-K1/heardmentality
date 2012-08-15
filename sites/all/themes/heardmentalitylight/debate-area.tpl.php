@@ -41,7 +41,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 
 <div id="debate_list_area">
   <h2>
-    <span class="argcount"><?php print $count[0]; ?></span> <span> Arguments & </span><span class="rescount"><?php print $count[1]; ?></span> <span> References</span>
+    <span class="argcount"><?php print $count[0]; ?>&nbsp;</span><span>Arguments&nbsp;&amp;&nbsp;</span><span class="rescount"><?php print $count[1]; ?>&nbsp;</span><span>References</span>
 
     <div class="show_only">
       <span class="button" href="">&#9660; Show only</span>
