@@ -51,7 +51,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
           <label for="inc_check">Include References</label>
         </form>
       </div>
-      <div class="hidden">
+      <div class="popup hidden">
         <span class="title">Show all</span>
         <?php foreach ($show_only as $key => $answer) : ?>
           <dl name="<?php print $key?>">
