@@ -1024,6 +1024,8 @@ function issue_add_vote($dummy = '', $nid = '') {
       '#type' => 'radios',
       '#default_value' => -1,
       '#options' => $list,
+	  '#prefix' => '<div class="radio_wrapper"><span class="teaser_reply_count">233<br />replies</span>',
+	  '#suffix' => '</div>',
     );
   }
   $form['#nid'] = $tnid;
@@ -1624,7 +1626,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
         // selected radio button stays green
         if ($node->allowvotes == '' && arg(0)) {
           $radCss = 'jQuery(document).ready(function(){
-                                jQuery("input[name=choice]:checked").parents("div").addClass("staygreen");
+                                jQuery("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
                                 });';
           drupal_add_js($radCss, 'inline');
         }
