@@ -105,6 +105,7 @@ $(document).ready(function() {
 			if (filter.hasClass('visible')) {
 				filter.removeClass('visible').addClass('hidden');
 				$('#debate_list_area .show_only span.button').removeClass('active');
+			}	
 		}
 	});
   
