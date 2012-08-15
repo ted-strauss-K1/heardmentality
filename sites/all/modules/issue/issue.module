@@ -1024,8 +1024,6 @@ function issue_add_vote($dummy = '', $nid = '') {
       '#type' => 'radios',
       '#default_value' => -1,
       '#options' => $list,
-	  '#prefix' => '<div class="radio_wrapper"><span class="teaser_reply_count">233<br />replies</span>',
-	  '#suffix' => '</div>',
     );
   }
   $form['#nid'] = $tnid;
