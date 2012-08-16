@@ -1943,8 +1943,8 @@ p.profile-status {
 
 .pagination {margin:0px 0px 10px 0px;padding:0px 0px;}
 
-.own_info .img.profile-meta,
-.own_info .medals {
+#own_info .img.profile-meta,
+#own_info .medals {
 	margin-top: 0;
 }
 
