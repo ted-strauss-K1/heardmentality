@@ -1523,12 +1523,16 @@ form#user-details {
 
 .user-info {margin:0; clear: both; padding: 18px 0 0;}
 
+#profile_overview .user-info p {
+	margin-bottom: 10px;
+}
+
 .user-info  .user-info-inputs {
 	margin: 0;
 }
 
 #edit_profile,
-#prifile_overview {
+#profile_overview {
 	margin: 0;
 }
 
