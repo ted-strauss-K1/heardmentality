@@ -2096,6 +2096,7 @@ textarea#q_quest  {
     outline: 0 none;
     text-decoration: underline;
 }
+
 .choices .form-radios .form-item,
 #new_vote .fieldset-wrapper .form-radios .form-item,
 #solr-issues-search-form .search_list .fieldset-wrapper .form-radios .form-item  {
@@ -2105,6 +2106,12 @@ textarea#q_quest  {
     padding: 13px 12px 10px;
     width: auto;
 	cursor: pointer;
+}
+
+.choices .form-radios span.teaser_count_vote + .form-item,
+#new_vote .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item,
+#solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
+	margin-left: 65px;	
 }
 
 .poll .vote-form .choices {
@@ -2982,6 +2989,21 @@ h2.page-title {
 #new_vote .poll-vote-area .form-radios,
 .search_list .poll-vote-area .form-radios {
     margin: 0;
+}
+
+#new_vote .poll-vote-area .form-radios span.teaser_count_vote,
+.search_list .poll-vote-area .form-radios span.teaser_count_vote {
+	float: left;
+	width: 50px;
+	font: 18px/1 'DINLightRegular', Arial, sans-serif;
+	color: #362750;
+	padding: 9px 15px 4px 0;
+}
+
+#new_vote .poll-vote-area .form-radios span.teaser_count_vote span,
+.search_list .poll-vote-area .form-radios span.teaser_count_vote span {
+	display: block;
+	font: 20px/1 'DINLightRegular', Arial, sans-serif;
 }
 
 #new_vote .poll-vote-area fieldset {
