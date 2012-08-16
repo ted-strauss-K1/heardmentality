@@ -1912,7 +1912,7 @@ p.profile-status {
 
 .sort-by.profile a {
 	color: #666666;
-    display: block;
+    display: inline-block;
     font-size: 13px;
     font-style: normal;
     font-weight: bold;
@@ -1922,12 +1922,12 @@ p.profile-status {
     text-decoration: none;
 }
 
-.activity_stream a.active {
+.sort-by.profile a.active {
     color: #924C9D;
     text-decoration: none;	
 }
 
-.activity_stream a:hover {
+.sort-by.profile a:hover {
 	text-decoration: underline;
 }
 
