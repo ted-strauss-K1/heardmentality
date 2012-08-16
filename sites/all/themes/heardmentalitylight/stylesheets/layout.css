@@ -2194,7 +2194,7 @@ textarea#q_quest  {
 	width: 85%;
 }
 
-.pagination .pager a{
+/*.pagination .pager a{
     font-weight: normal;
 }
 .pagination .pager .pager-current{
@@ -2233,7 +2233,7 @@ textarea#q_quest  {
 }
 .pagination .pager a:hover{
     color: #EF00D3;
-}
+}*/
 /*Active Category*/
 .twelve .suggest{
     float: right;
