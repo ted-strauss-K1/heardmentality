@@ -98,15 +98,16 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
             <?php print t('&#9658;'); ?>
             <span class="replycount"><?php print $reply_count; ?></span><span><?php print t('replies'); ?></span>
           </legend>
-          <?php if ($comments) : ?>
+
             <div class="fieldset-wrapper">
               <ul>
                 <div id="all_replybox_<?php print $item['content_id']; ?>">
-                  <?php print $comments; ?>
+                  <?php if ($comments) : ?>
+                    <?php print $comments; ?>
+                  <?php endif; ?>
                 </div>
               </ul>
             </div>
-          <?php endif; ?>
         </fieldset>
       </div>
 
