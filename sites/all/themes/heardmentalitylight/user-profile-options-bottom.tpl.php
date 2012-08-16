@@ -15,7 +15,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
             <div class="profile-meta footerfloat">
                     <p><?php print t('Your profile is !complete% Complete', array('!complete' => $complete_percent['percent']))?></p>
                     <div class="profile-complete">
-                            <div class="progress"></div>
+                            <div class="progress" style="width: <?php print $complete_percent['percent']; ?>%;"></div>
                     </div>
                     <br>
             </div>

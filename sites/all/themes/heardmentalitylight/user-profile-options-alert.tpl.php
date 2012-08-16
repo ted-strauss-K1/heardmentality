@@ -19,7 +19,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
       </strong>
     </p>
     <div class="profile-complete">
-      <div class="progress"></div>
+      <div class="progress" style="width: <?php print $complete_percent['percent']; ?>%;"></div>
     </div>
     <p>
       <?php

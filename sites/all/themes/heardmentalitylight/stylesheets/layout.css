@@ -700,6 +700,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		text-shadow: 0 -1px #fff;
 		margin:-20px 1.4em 12px;
 		text-shadow:none;
+		clear: both;
 	}
 	p.profile-links a{ 
 		color:#ccc;
@@ -5088,4 +5089,9 @@ span.coins_char {
 
 #footer span.coins_char {
     padding: 1px 6px;	
+}
+
+.profile-complete .progress {
+    background: none repeat scroll 0 0 #99F279;
+	height: 7px;
 }
