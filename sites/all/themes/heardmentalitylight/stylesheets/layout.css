@@ -1937,11 +1937,16 @@ p.profile-status {
 
 .activity_stream .pagination {
 	margin: 5px 0 10px;
-	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-    padding: 0 0 18px;
+	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
+    padding: 18px 0 0;
 }
 
 .pagination {margin:0px 0px 10px 0px;padding:0px 0px;}
+
+.own_info .img.profile-meta,
+.own_info .medals {
+	margin-top: 0;
+}
 
 /* #Footer
 ================================================== */
