@@ -1935,24 +1935,13 @@ p.profile-status {
 	margin: 0;
 }
 
-/* #Pagination
-================================================== */
+.activity_stream .pagination {
+	margin: 5px 0 10px;
+	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+    padding: 0 0 18px;
+}
 
 .pagination {margin:0px 0px 10px 0px;padding:0px 0px;}
-
-/*.pagination ul {margin:0px 0px 10px 0px;padding:0px 0px;float:right;}
-
-.pagination ul li {margin:0px 0px;padding:0px 5px 0px 5px;float:left;}
-
-.pagination a{color:#777;font-weight:bold;}
-.pagination a.active{background:#777;border-radius: 3px;text-shadow: 0 -1px #666;width:auto;padding:1px 5px 2px 5px;border-width:1px;border-style:solid;color:#fff;border-color:#666;}
-.pagination a.active:hover{color:#fff;}
-
-.pagination a:hover{color:#EF00D3;}
-
-.pagination a.prev{float:left;margin:-2px 5px 0px 0px;}
-
-.pagination a.next{float:left;margin:-2px 5px 0px 5px;}*/
 
 /* #Footer
 ================================================== */
