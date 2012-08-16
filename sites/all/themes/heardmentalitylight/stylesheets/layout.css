@@ -1823,7 +1823,10 @@ span.user-info {
 	padding: 0 0 15px;	
 }
 
-
+#profile_overview h2.din {
+	float: left;
+	margin: 0;
+}
 
 #button.hide-message{padding:4px 11px 4px 4px;}
 #button.hide-message2{padding:4px 6px 4px 4px;}
