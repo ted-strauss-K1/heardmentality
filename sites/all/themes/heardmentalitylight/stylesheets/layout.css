@@ -1700,7 +1700,7 @@ p.choose_pic {
 	float:left;
 	width:100%;
 	margin-top:-10px;
-
+	padding-bottom: 10px;
 }
 
 #footer .profile-meta p{
@@ -2347,6 +2347,10 @@ input.info, textarea.info {
 	width: 100%;
 	background: url(../images/icons/121-landscape.png) no-repeat scroll right top transparent;
 	padding-top: 5px;
+}
+
+.dark-grey-box label.profile.profile_page {
+	background-image: url(../images/icons/123-id-card.png);
 }
 
 .icon.profile{

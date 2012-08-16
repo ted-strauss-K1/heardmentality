@@ -8,7 +8,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 <div class="icon profile text"></div>
             <div class="profile-meta">
                     <!--<div class="icon profile text"></div>-->
-                    <label for="profile" class="profile"><?php print $getuser->name; ?></label>
+                    <label for="profile" class="profile profile_page"><?php print $getuser->name; ?></label>
                     <img class="profile-meta" src="<?php print UserPicture_small_src($getuser->uid, 0); ?>" />
                     <div class="medals">
                             <div class="medal" ><span class="gold" id="medal1" title="Gold Medals">&nbsp;</span><?php print $badges['gold'];?></div>
