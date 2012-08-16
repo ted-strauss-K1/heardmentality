@@ -72,11 +72,6 @@ $directoryPath = $base_path . $directory;
 		</div>
 
 		<div class="five columns">
-			<div class="toggler profile-message">
-				<div id="effect">
-				<?php print $profile_complete_alert; ?>
-				</div>
-			</div>
 			<div class="dark-grey-box top clearfix">
                 <?php print $user_profile_information; ?>
 			</div>
