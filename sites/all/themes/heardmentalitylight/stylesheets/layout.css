@@ -1527,7 +1527,8 @@ form#user-details {
 	margin: 0;
 }
 
-#edit_profile {
+#edit_profile,
+#prifile_overview {
 	margin: 0;
 }
 
@@ -1821,6 +1822,8 @@ span.user-info {
     margin: 7px 0 0;
 	padding: 0 0 15px;	
 }
+
+
 
 #button.hide-message{padding:4px 11px 4px 4px;}
 #button.hide-message2{padding:4px 6px 4px 4px;}

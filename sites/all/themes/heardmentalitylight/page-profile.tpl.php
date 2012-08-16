@@ -63,7 +63,7 @@ $directoryPath = $base_path . $directory;
 		
 			<h2 class="dinbold page-title"><?php print t('Profile'); ?></h2>
 			
-			<div class="grey-box clearfix" id="prifile_overview">
+			<div class="grey-box clearfix full" id="prifile_overview">
                  <?php print $content; ?>
 			</div>
 
@@ -72,11 +72,11 @@ $directoryPath = $base_path . $directory;
 		</div>
 
 		<div class="five columns">
-			<!--<div class="toggler profile-message">
+			<div class="toggler profile-message">
 				<div id="effect">
 				<?php print $profile_complete_alert; ?>
 				</div>
-			</div>-->
+			</div>
 			<div class="dark-grey-box top clearfix">
                 <?php print $user_profile_information; ?>
 			</div>
