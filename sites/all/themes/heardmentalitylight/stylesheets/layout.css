@@ -1810,6 +1810,18 @@ span.user-info {
 	line-height:0.1em;
 }
 
+.profile_page_wrapper .user_info {
+	border-top: 1px dotted #888888;
+    margin: 0 0 15px;
+	padding: 7px 0 0;
+}
+
+.profile_page_wrapper .user_info .section {
+	border-bottom: 1px dotted #888888;
+    margin: 7px 0 0;
+	padding: 0 0 15px;	
+}
+
 #button.hide-message{padding:4px 11px 4px 4px;}
 #button.hide-message2{padding:4px 6px 4px 4px;}
 .hide-message {position: absolute; right: 1.7em; top: 50%; width: 10px; margin: -10px 0 0 0 !important; padding: 1px; height: auto;border:1px solid #ccc;border-radius: 3px;font-weight:bold;text-shadow: 0 1px #fff;}

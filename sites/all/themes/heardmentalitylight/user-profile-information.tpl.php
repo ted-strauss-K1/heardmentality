@@ -5,8 +5,7 @@ $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
 //echo '<pre>';print_r($badgeList);exit;
 ?>
-<div class="icon profile text"></div>
-            <div class="profile-meta">
+            <div class="profile-meta profile_page_wrapper">
                     <!--<div class="icon profile text"></div>-->
                     <label for="profile" class="profile profile_page"><?php print $getuser->name; ?></label>
                     <img class="profile-meta" src="<?php print UserPicture_small_src($getuser->uid, 0); ?>" />
@@ -17,52 +16,54 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                             <!--<div class="medal" ><span class="coins_char">&cent;</span><?php print $coins; ?></div>-->
                     </div>
 
-                    <div class="clear"></div>
-                    <hr class="dark">
-                    <span class="user-title"><?php print t('Member since');?>:</span>
-                    <span class="user-data"><?php print date("d-m-y",$getuser->created); ?></span>
-                    <br>
-                    <span class="user-title"><?php print t('Votes');?>:</span>
-                    <span class="user-data"><?php print number_format($votes); ?></span>
-                    <br>
-                    <span class="user-title"><?php print t('Comments');?>: </span>
-                    <span class="user-data"><?php print number_format($comments); ?></span>
-                    <br>
-                    <span class="user-title"><?php print t('References');?>: </span>
-                    <span class="user-data"><?php print number_format($references); ?></span>
-                    <br>
-                    <span class="user-title"><?php print t('Followers');?>: </span>
-                    <span class="user-data"><?php print number_format($followers); ?></span>
-                    <br>
-                    <hr class="dark">
-                    <?php if($settings['real_name']):?>
-                    <span class="user-data"><?php print $settings['real_name']; ?></span>
-                    <br>
-                    <?php endif; ?>
-                    <?php if($settings['location']): ?>
-                    <span class="user-info"><?php print $getuser->profile_state; ?>, <?php print $getuser->profile_country; ?></span>
-                    <br>
-                    <?php endif; ?>
-                    <?php if($settings['dob']):?>
-                    <span class="user-info"><?php print $settings['dob']; ?></span>
-                    <br>
-                    <?php endif; ?>
-                    <?php if($settings['gender']):?>
-                    <span class="user-info"><?php print t($settings['gender']); ?></span>
-                    <br>
-                    <?php endif; ?>
-                    <?php if($settings['sorient']):?>
-                    <span class="user-info"><?php print t($settings['sorient']); ?></span>
-                    <br>
-                    <?php endif; ?>
-                    <?php if($settings['ethnic']):?>
-                    <span class="user-info"><?php print t($settings['ethnic']); ?></span>
-                    <br>
-                    <?php endif; ?>
-                    <?php if($settings['edu']):?>
-                    <span class="user-info"><?php print t($settings['edu']); ?></span>
-                    <?php endif; ?>
-                    <hr class="dark">
+				<div class="user_info">
+                    <div class="section">
+						<span class="user-title"><?php print t('Member since');?>:</span>
+						<span class="user-data"><?php print date("d-m-y",$getuser->created); ?></span>
+
+						<span class="user-title"><?php print t('Votes');?>:</span>
+						<span class="user-data"><?php print number_format($votes); ?></span>
+
+						<span class="user-title"><?php print t('Comments');?>: </span>
+						<span class="user-data"><?php print number_format($comments); ?></span>
+
+						<span class="user-title"><?php print t('References');?>: </span>
+						<span class="user-data"><?php print number_format($references); ?></span>
+
+						<span class="user-title"><?php print t('Followers');?>: </span>
+						<span class="user-data"><?php print number_format($followers); ?></span>
+
+                    </div>
+					<div class="section">
+						<?php if($settings['real_name']):?>
+						<span class="user-data"><?php print $settings['real_name']; ?></span>
+
+						<?php endif; ?>
+						<?php if($settings['location']): ?>
+						<span class="user-info"><?php print $getuser->profile_state; ?>, <?php print $getuser->profile_country; ?></span>
+
+						<?php endif; ?>
+						<?php if($settings['dob']):?>
+						<span class="user-info"><?php print $settings['dob']; ?></span>
+
+						<?php endif; ?>
+						<?php if($settings['gender']):?>
+						<span class="user-info"><?php print t($settings['gender']); ?></span>
+
+						<?php endif; ?>
+						<?php if($settings['sorient']):?>
+						<span class="user-info"><?php print t($settings['sorient']); ?></span>
+
+						<?php endif; ?>
+						<?php if($settings['ethnic']):?>
+						<span class="user-info"><?php print t($settings['ethnic']); ?></span>
+
+						<?php endif; ?>
+						<?php if($settings['edu']):?>
+						<span class="user-info"><?php print t($settings['edu']); ?></span>
+						<?php endif; ?>
+                    </div>
+				</div>
 
             </div>
             <div class="following">
@@ -72,11 +73,10 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                         ?>
                     <a href="<?php print $sitelink.'profile/'.$name; ?>"><img class="following-user" src="<?php print $image; ?>" /></a>
                     <?php }?>
-                    <br class="clear">
+
                     <a class="more" href="<?php print $sitelink.'user/following/'.$getuser->uid.'/following';?>"><?php print t('See All');?> (<?php print $following; ?>)</a>
-                    <br class="clear">
+
                     <?php endif; ?>
-                    <hr class="dark">
             </div>
             <div class="following">
                     <label for="following" class="following"><?php print t('Following This User'); ?></label>
@@ -85,11 +85,10 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                         ?>
                     <a href="<?php print $sitelink.'profile/'.$name; ?>"><img class="following-user" src="<?php print $image; ?>" /></a>
                     <?php }?>
-                    <br class="clear">
+
                     <a class="more" href="<?php print $sitelink.'user/following/'.$getuser->uid.'/follower';?>"><?php print t('See All');?> (<?php print $followers; ?>)</a>
-                    <br class="clear">
+
                     <?php endif; ?>
-                    <hr class="dark">
             </div>
 
             <ul class="badges">
@@ -101,4 +100,3 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     <?php }
                     endif;?>
             </ul>
-            <br class="clear">
