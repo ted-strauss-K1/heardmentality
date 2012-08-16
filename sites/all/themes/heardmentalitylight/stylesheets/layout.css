@@ -1803,10 +1803,12 @@ span.user-info {
 .profile_page_wrapper .user_info {
 	border-top: 1px dotted #888888;
     margin: 0 0 15px;
-	padding: 7px 0 0;
+	padding: 0;
+	clear: both;
 }
 
-.profile_page_wrapper .user_info .section {
+.profile_page_wrapper .user_info .section,
+.profile_page_wrapper .user_info .following {
 	border-bottom: 1px dotted #888888;
     margin: 7px 0 0;
 	padding: 0 0 15px;	
@@ -1943,9 +1945,10 @@ p.profile-status {
 
 .pagination {margin:0px 0px 10px 0px;padding:0px 0px;}
 
-#own_info .img.profile-meta,
+#own_info img.profile-meta,
 #own_info .medals {
 	margin-top: 0;
+	margin-bottom: 15px;
 }
 
 /* #Footer
