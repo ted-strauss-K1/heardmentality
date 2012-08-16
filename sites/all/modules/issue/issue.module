@@ -1042,7 +1042,13 @@ function issue_add_vote($dummy = '', $nid = '') {
         $options[$answerfet->said] = '<span>' . $answerfet->answer . '</span>';
       }
       $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
-
+      /*$form['add_vote'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('...Or submit a different answer'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#tree' => TRUE,
+      );*/
       $form['add_vote']['suggested_answer'] = array(
         '#type' => 'radios',
         '#options' => $options,
@@ -1077,7 +1083,7 @@ function issue_add_vote($dummy = '', $nid = '') {
     if ($alreadyAdded == 0) {
       $form['add_vote'] = array(
         '#type' => 'fieldset',
-        '#title' => t('...Or submit a different answer'),
+        //'#title' => t('...Or submit a different answer'),
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
         '#tree' => TRUE,
