@@ -284,6 +284,10 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		margin: 0 10px;
 	}
 	
+	.top-grey-box .sort-by.profile {
+		color: #666;
+	}
+	
 	.grey-box {
 		background: url(../images/white_50.png) repeat 0 0;
 		border: 1px solid #c0c0c0;
@@ -1121,31 +1125,6 @@ input.re-submit {
 	margin:15px 0px -10px 15px;
 	color:#ccc;
 }
-.sort-by a{
-	font-weight:bold;
-	color:#444;
-	text-shadow: 0 1px #fff;
-	font-size:1em;
-	padding:0px 3px 0px 3px;
-}
-
-.sort-by a.active{
-	padding:3px 9px 3px 9px;
-	font-size:12px;
-	margin:3px 6px 3px 0px;
-	background:#777;
-	border-radius: 3px;
-	text-shadow: 0 -1px #666;
-	width:auto;
-	border-width:1px;
-	border-style:solid;
-	color:#fff;
-	border-color:#666;
-}
-
-.sort-by a.active:hover {
-  color:white;
-}
 
 float:left;
 .sort-by.queued a{
@@ -1929,6 +1908,27 @@ a.more:hover, a.find:hover  {color:#000;font-size:12px;}
 p.profile-status {
 	font-size:14px;
 	min-height: 34px;
+}
+
+.activity_stream a {
+	color: #666666;
+    display: block;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 15px;
+    margin: 0;
+    padding: 0 10px;
+    text-decoration: none;
+}
+
+.activity_stream a.active {
+    color: #924C9D;
+    text-decoration: none;	
+}
+
+.activity_stream a:hover {
+	text-decoration: underline;
 }
 
 

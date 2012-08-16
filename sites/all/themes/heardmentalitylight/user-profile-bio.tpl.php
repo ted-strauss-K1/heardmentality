@@ -16,7 +16,7 @@
                 <span class="URL block"><strong><?php print t('Web'); ?>:</strong> <a href="<?php print $settings['mywebsite']; ?>" target="_blank"><?php print $settings['mywebsite']; ?></a></span>
                 <?php endif; ?>
                 <?php if($settings['email']): ?>
-                <span class="URL block"><strong><?php print t('Email'); ?>:</strong> <?php print $settings['email']; ?></span>,
+                <span class="URL block"><strong><?php print t('Email'); ?>:</strong> <?php print $settings['email']; ?></span>
                 <?php endif; ?>
                 <?php if($settings['twitter']): ?>
                 <span class="URL block"><strong><?php print t('Twitter'); ?>:</strong> <a href="<?php print $settings['twitter']; ?>" target="_blank"><?php print $settings['twitter']; ?></a></span>
