@@ -20,7 +20,7 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
       </div>
     </div>
     <div class="seven columns">
-      <div class="black-box">
+      <div class="black-box clearfix">
         <?php
         if ($user->uid != '' || $user->uid != '0') {
           if ($profile_options_bottom): print $profile_options_bottom;

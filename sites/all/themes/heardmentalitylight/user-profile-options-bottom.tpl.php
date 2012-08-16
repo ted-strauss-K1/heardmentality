@@ -17,7 +17,6 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     <div class="profile-complete">
                             <div class="progress" style="width: <?php print $complete_percent['percent']; ?>%;"></div>
                     </div>
-                    <br>
             </div>
     </div>
     <?php }?>
@@ -27,4 +26,3 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 
     </div>
     <a type="submit" title="<?php print t('Log out');?>" href="<?php print $base_url.'/logout';?>" class="button darker floatright"><?php print t('Logout'); ?></a>
-    <br class="clear">

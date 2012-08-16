@@ -698,10 +698,11 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		font-weight:normal;
 		text-transform:none;
 		text-shadow: 0 -1px #fff;
-		margin:-20px 1.4em 12px;
+		margin: 0px 1.4em 12px;
 		text-shadow:none;
 		clear: both;
 	}
+	
 	p.profile-links a{ 
 		color:#ccc;
 		line-height:1em;
