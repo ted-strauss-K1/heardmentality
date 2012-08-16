@@ -1808,7 +1808,7 @@ span.user-info {
 }
 
 .profile_page_wrapper .user_info .section,
-.profile_page_wrapper .following {
+.following {
 	border-bottom: 1px dotted #888888;
     margin: 7px 0 0;
 	padding: 0 0 15px;	
