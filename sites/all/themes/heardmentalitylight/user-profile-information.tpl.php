@@ -93,7 +93,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     <?php endif; ?>
             </div>
 
-            <ul class="badges">
+            <ul class="badges profile">
                 <label for="badges" class="badges"><?php print t('Badges'); ?></label>
                     <?php
                     if($badgeList):

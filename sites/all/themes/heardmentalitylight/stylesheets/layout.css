@@ -1802,13 +1802,13 @@ span.user-info {
 
 .profile_page_wrapper .user_info {
 	border-top: 1px dotted #888888;
-    margin: 0 0 15px;
+    margin: 0;
 	padding: 0;
 	clear: both;
 }
 
 .profile_page_wrapper .user_info .section,
-.following {
+div.following {
 	border-bottom: 1px dotted #888888;
     margin: 7px 0 0;
 	padding: 0 0 15px;	
@@ -1817,6 +1817,10 @@ span.user-info {
 #profile_overview h2.din {
 	float: left;
 	margin: 0;
+}
+
+ul.badges.profile {
+	margin: 7px 0 0;
 }
 
 #button.hide-message{padding:4px 11px 4px 4px;}
