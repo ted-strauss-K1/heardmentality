@@ -1083,7 +1083,7 @@ function issue_add_vote($dummy = '', $nid = '') {
     if ($alreadyAdded == 0) {
       $form['add_vote'] = array(
         '#type' => 'fieldset',
-        //'#title' => t('...Or submit a different answer'),
+        '#title' => t('...Or submit a different answer'),
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
         '#tree' => TRUE,
