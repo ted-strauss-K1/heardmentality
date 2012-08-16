@@ -8,7 +8,7 @@ global $base_url;
 	</div>
 </div>
 
-<div class="grey-box activity_stream">
+<div class="grey-box activity_stream clearfix">
 	<ul class="action">
 		<?php print $output; ?>
 	</ul>

@@ -1931,6 +1931,10 @@ p.profile-status {
     text-decoration: none;	
 }
 
+.activity_stream ul {
+	margin: 0;
+}
+
 /* #Pagination
 ================================================== */
 
@@ -3221,6 +3225,7 @@ ul.pager a:hover {
 .item-list .pager li a {
 	margin: 0 0 0.25em 0;
 	display: inline-block;
+	color: #777;
 }	
 
 #issue-edit-vote  .button.vote {
