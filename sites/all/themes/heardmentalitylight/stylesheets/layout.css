@@ -5112,3 +5112,7 @@ span.coins_char {
     background: none repeat scroll 0 0 #99F279;
 	height: 7px;
 }
+
+#admin-menu li li a {
+	font-size: 10px;
+}

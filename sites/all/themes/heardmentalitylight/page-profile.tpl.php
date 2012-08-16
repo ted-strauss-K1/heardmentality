@@ -1,5 +1,5 @@
 <?php
-global $user, $apikey;
+global $user, $gSitePath, $apikey;
 $directoryPath = $base_path . $directory;
 ?>
 <!doctype html>
@@ -8,11 +8,8 @@ $directoryPath = $base_path . $directory;
 <!--[if IE 8 ]><html class="ie ie8" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <![endif]-->
 <!--[if IE 9 ]><html class="ie9" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <!--<![endif]-->
-<head>
-
-	<!-- Basic Page Needs
-  ================================================== -->
-         <?php print $head; ?>
+  <head>
+    <?php print $head; ?>
 	<meta charset="utf-8" />
 	<title><?php print $head_title; ?></title>
 	<meta name="description" content="Heard Mentality">
@@ -21,18 +18,10 @@ $directoryPath = $base_path . $directory;
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	<!-- Mobile Specific Metas
-  ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-	<!-- CSS
-  ================================================== -->
-        <?php print $styles; ?>
-	<!-- JS
-	================================================== -->
-        <?php print $scripts; ?>
-	<!-- Favicons
-	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <?php print $styles; ?>
+	<?php print $scripts; ?>
 	<link rel="shortcut icon" href="<?php print $directoryPath;?>/images/favicon.ico">
 	<link rel="apple-touch-icon" href="<?php print $directoryPath;?>/images/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="<?php print $directoryPath;?>/images/apple-touch-icon-72x72.png" />
@@ -45,77 +34,58 @@ $directoryPath = $base_path . $directory;
   	enabledProviders: 'facebook,twitter,yahoo,messenger,google,linkedin,myspace,aol,foursquare,orkut,vkontakte,renren'
   }
   </script>
-</head>
-<body class="<?php print $classes; ?>">
-
-
-
-
-
-	<!-- Primary Page Layout
-	================================================== -->
+  </head>
+  <body class="<?php print $classes; ?>profile_view_page">
 
 	<div class="header">
 		<?php include 'header.tpl.php';?>
-	<div class="container">
-        <div class="toggler profile-message" style="height:auto;width:auto">
-      <div class="clear"></div>
-        <?php if($messages):?>
-	    	<div id="effect" class="" style="width:auto;height:auto">
+	</div>
 
+	<div class="container">
+	
+        <?php if ($tabs): ?>
+			<div class="tabs"><?php print $tabs; ?></div>
+		<?php endif; ?>
+		<?php if($messages):?>
+			<div class="toggler profile-message">
+			<div id="effect" class="">
 						<div class="message top-message">
 							<p class="double" style="disply:block">
-                                                            <?php print $messages; ?>
-                                                        </p>
+                                 <?php print $messages; ?>
+                            </p>
 						</div>
-                                                <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick"><?php print t('Hide'); ?></span></a>
-
-
-					<br class="clear">
+                        <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick"><?php print t('Hide'); ?></span></a>
 	    	</div>
-       <?php endif; ?>
-    </div>
+			</div>
+		<?php endif; ?>
 
-	<div class="eleven columns">
+		<div class="eleven columns">
+		
 			<h2 class="dinbold page-title"><?php print t('Profile'); ?></h2>
-			<div class="grey-box">
-                                <?php print $content; ?>
-
+			
+			<div class="grey-box clearfix" id="prifile_overview">
+                 <?php print $content; ?>
 			</div>
 
-                        <?php print $user_activity_stream; ?>
-			
+            <?php print $user_activity_stream; ?>
 
 		</div>
 
 		<div class="five columns">
-			<br>
-		  <div class="toggler profile-message">
-  	    	<div id="effect">
-			<?php print $profile_complete_alert; ?>
-	    	</div>
-      </div>
-      <br>
-			<div class="dark-grey-box ">
-                            <?php print $user_profile_information; ?>
-			  
+			<!--<div class="toggler profile-message">
+				<div id="effect">
+				<?php print $profile_complete_alert; ?>
+				</div>
+			</div>-->
+			<div class="dark-grey-box top clearfix">
+                <?php print $user_profile_information; ?>
 			</div>
-
-
 		</div>	
+	</div>
 
+      <!-- container -->
+<?php include 'footer.tpl.php'; ?>
 
-
-  </div>
-
-	<br />
-        <br />
-	<?php include 'footer.tpl.php';?>
-
-
-
-<!-- End Document
-================================================== -->
 </body>
 </html>
 <script type="text/javascript">
