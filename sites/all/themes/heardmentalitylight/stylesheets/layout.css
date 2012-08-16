@@ -1922,15 +1922,14 @@ p.profile-status {
     text-decoration: none;
 }
 
-.sort-by.profile a.active {
-    color: #924C9D;
-    text-decoration: none;	
-}
-
 .sort-by.profile a:hover {
 	text-decoration: underline;
 }
 
+.sort-by.profile a.active {
+    color: #ef3d3b;
+    text-decoration: none;	
+}
 
 /* #Pagination
 ================================================== */
@@ -4848,7 +4847,7 @@ ul.date_filter li a:hover, ul.options_filter li a:hover {
 
 ul.date_filter li a.active, ul.options_filter li a.active,
 ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
-	color: #924C9D;
+	color: #ef3d3b;
 	text-decoration: none;
 }
 

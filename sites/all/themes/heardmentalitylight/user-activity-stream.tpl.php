@@ -4,7 +4,7 @@ global $base_url;
 
 <div class="top-grey-box">
   	<div class="sort-by profile left20">
-  		<span class="activity"><?php print t('ACTIVITY'); ?>:</span> <?php print $filters; ?>
+  		<span class="activity"><?php print t('Activity'); ?>:</span> <?php print $filters; ?>
 	</div>
 </div>
 
