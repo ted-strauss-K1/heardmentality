@@ -1,0 +1,139 @@
+<?php
+
+include('badges.implementations.inc');
+
+/*
+ * Implementation of hook_init()
+ */
+function badges_init() {
+  //
+}
+
+/*
+ * Implementation of hook_perm()
+ */
+function badges_perm() {
+  return array('Manage Badges');
+}
+
+/*
+ * Implementation of hook_menu()
+ */
+function badges_menu() {
+  $menu = array();
+
+  $menu['admin/badges'] = array(
+    'title' => t('Badges'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('badges_form'),
+    'access arguments' => array('Manage Badges'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'badges.admin.inc',
+  );
+
+  return $menu;
+}
+
+/*
+ * Badge machine name
+ */
+function badge_machine_name($name) {
+  $name = preg_replace('/[^a-zA-Z\_]/', '_',  $name);
+  $name = preg_replace('/\_+/', '_',  $name);
+  $name = preg_replace('/(^_|_$)/', '',  $name);
+  $name = strtolower($name);
+  return $name;
+}
+
+/*
+ * Badge process function name
+ */
+function badge_process_fn($name) {
+  return 'badge_process_'.badge_machine_name($name);
+}
+
+/*
+ * Badge id by process_fn name
+ */
+function badge_process_fn_invert($fname) {
+  $badges = badges_get();
+  foreach( $badges as $badge ) {
+    if( $fname == $badge['fname'] ) {
+      return $badge;
+    }
+  }
+  return false;
+}
+
+/*
+ * Badge implementation check
+ */
+function badge_implemented($name) {
+  return function_exists(badge_process_fn($name));
+}
+
+/*
+ * Badges get
+ */
+function badges_get() {
+  static $badges = array();
+  if( !empty($badges) ) {
+    return $badges;
+  }
+  $result = db_query('SELECT * FROM {module_badges} ORDER BY status ASC');
+  while( $badge = db_fetch_array($result) ) {
+    $badge['mname'] = badge_machine_name($badge['name']);
+    $badge['fname'] = badge_process_fn($badge['name']);
+    $badge['implemented'] = badge_implemented($badge['name']);
+    $badges[] = $badge;
+  }
+  return $badges;
+}
+
+/*
+ * Badge types
+ */
+function badge_types() {
+  $types = array();
+  $result = db_query("SELECT * FROM {module_badges_types}");
+  while( $row = db_fetch_object($result) ) {
+    $types[$row->id] = $row->name;
+  }
+  return $types;
+}
+
+/*
+ * Badge add
+ */
+function badge_add($name, $info, $type, $status) {
+  db_query("
+    INSERT INTO {module_badges}
+    SET name = '%s', info = '%s', type = '%d', status = '%d'",
+    $name, $info, $type, $status
+  );
+}
+
+/*
+ * Badge update
+ */
+function badge_update($id, $name, $info, $type, $status) {
+  db_query("
+    UPDATE {module_badges}
+    SET name = '%s', info = '%s', type = '%d', status = '%d' WHERE id = '%d'",
+    $name, $info, $type, $status, $id
+  );
+}
+
+/*
+ * Badge delete
+ */
+function badge_delete($id) {
+  db_query("DELETE FROM {module_badges} WHERE id = '%d'", $id);
+}
+
+/*
+ * Add user badge
+ */
+function user_badge_add($uid, $badge_id) {
+  db_query("INSERT INTO {module_badges_userbadges} SET uid = '%d', badge_id = '%d'", $uid, $badge_id);
+}

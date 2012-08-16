@@ -1,0 +1,27 @@
+<?php
+/*
+ * This module is to provide proper connection between
+ *
+ * Points
+ * Ranks
+ * Badges
+ * Coins
+ */
+
+/*
+ * Implementation of hook_perm()
+ */
+function reputation_perm() {
+  return array('Administer Reputation module');
+}
+
+/*
+ * Implementation of hook_menu()
+ */
+function reputation_menu() {
+  $menu = array();
+
+  //
+
+  return $menu;
+}

@@ -4,6 +4,15 @@ function openids_perm() {
   return array('Login','Facebook Friends');
 
 } // function newmodule_perm
+
+/*
+ * Implementation of hook_uses_points_actions()
+ */
+function openids_uses_points_actions() {
+  return array('visit', 'followers');
+}
+
+
 function openids_menu() {	
  
   $log['member/login'] = array(
@@ -62,16 +71,27 @@ $log['member/index'] = array(
 }
 
 function add_visit_points($uid = ''){
-    $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE uid = '".$uid."' AND point_id = '8' AND DATE(date_added) = CURDATE()"));
+  /**
+   * odyachenko
+   *
+   * These lines refer to updating/using the user points the old way
+   *
+  $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE uid = '".$uid."' AND point_id = '8' AND DATE(date_added) = CURDATE()"));
     if($pexist == 0){
         // get_points() placed in quest_lite.module
         $points = get_points(9);
         db_query("INSERT INTO {tbl_user_points} SET uid = '%d', point_id = '%d', points = '%d'", $uid, 8, $points);
 
-        /*New SET NOTIFY LOG*/
+        // New SET NOTIFY LOG
         $variable = array('points' => $points, 'uid' => $uid );
         set_notify_log($uid, '', 'add_points', $variable);
-        /*New SET NOTIFY LOG*/
+        // New SET NOTIFY LOG
     }
+   */
+  $points = user_points_action('visit', $uid);
+  // New SET NOTIFY LOG
+  $variable = array('points' => $points, 'uid' => $uid );
+  set_notify_log($uid, '', 'add_points', $variable);
+  // New SET NOTIFY LOG
 }
 

@@ -117,7 +117,6 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
         }
       }
 
-      /* odyachenko #14 - problem is here */
       $reply_box = drupal_get_form('reply_form', $item['content_id'], array('issue_id' => $item['issue_id']));
       $comments = theme('forum_replies', $item['content_id']);
       $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '%d'", $item['content_id']));
@@ -898,7 +897,8 @@ function issue_create_form_submit($form, &$form_state) {
   if (empty($path))
     $path = drupal_get_path_alias(getPathAlias($node->nid));
 
-  increasepoints('1', $node->nid, '0');
+  # increasepoints('1', $node->nid, '0');
+  user_points_action_fired('addquestion', $user->uid);
 //_send_qnotify($node->nid);
 //drupal_goto($path);
 

@@ -1,5 +1,16 @@
 <?php
 
+
+
+/*
+ * Implementation of hook_uses_points_actions()
+ */
+function quest_lite_uses_points_actions() {
+  return array('pageview', 'ansquestion', 'flagquestion');
+}
+
+
+
 function quest_lite_perm() {
 
     return array('Question Lite', 'Question Save', 'Add Resource', 'Save Resource', 'Flag Question', 'Question Report Percent', 'Question Report Time', 'Question Report Map', 'Question Like', 'Question Add Tag', 'Question Ajax');

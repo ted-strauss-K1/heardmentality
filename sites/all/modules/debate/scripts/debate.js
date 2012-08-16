@@ -4,6 +4,9 @@
 */
 
 
+/*
+ * Get the vote count
+ */
 
 /*
  * Change the Yes/No votes number
@@ -15,11 +18,14 @@
  */
 function votes_update(id, type, agree, count) {
     var selector = '#lik-btns-'+type+'-'+id+' a[name='+(agree==1?'a-':'da-')+id+'] span';
+    var count_before = jQuery(selector).html().replace(/[\(\)]/g,'');
+    count_before = parseInt(count_before);
     if( count == null ) {
-        count = jQuery(selector).html().replace(/[\(\)]/g,'');
-        count = parseInt(count)+1;
+        count = count_before + 1;
     }
-    jQuery(selector).fadeOut(1000, function(){ $(this).html('('+count+')').fadeIn(1000); });
+    if( count != count_before ) {
+        jQuery(selector).fadeOut(1000, function(){ $(this).html('('+count+')').fadeIn(1000); });
+    }
 }
 
 /*
@@ -40,6 +46,12 @@ function circle_update(element, count) {
         .addClass(color);
 }
 
+/*
+ * Complete debate/resource update
+ */
+function dr_update(data) {
+    // TODO
+}
 
 
 /*
@@ -99,8 +111,9 @@ function circle_update(element, count) {
                     /* odyachenko disable coins
                     jQuery(btnid).html(msg.msg);
                     */
-                    // update clicked Y/N vote count
-                    votes_update(wid, ntype, type, null);
+                    // update Y/N vote count
+                    votes_update(wid, ntype, 1, msg.vote_up);
+                    votes_update(wid, ntype, 0, msg.vote_dn);
                     /* odyachenko disable coins
                     jQuery(btnid).delay(5000).fadeOut(1000, function(){
                         jQuery(btnid).html(btnid_val);
@@ -110,7 +123,8 @@ function circle_update(element, count) {
                     */
                     // update parent Y/N vote count
                     if( id_par != wid ) {
-                        votes_update(id_par, 'node', type, null);
+                        votes_update(id_par, 'node', 1, msg.pvote_up);
+                        votes_update(id_par, 'node', 0, msg.pvote_dn);
                     }
                 }
             });

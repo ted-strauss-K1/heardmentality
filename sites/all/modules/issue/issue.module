@@ -2,6 +2,13 @@
 
 // $Id: issue.module,v 1.21.2.88.2.34 2010/06/22 09:30:59 mirodietiker Exp $
 
+/*
+ * Implementation of hook_uses_points_actions()
+ */
+function issue_uses_points_actions() {
+  return array('ansquestion', 'addquestion');
+}
+
 /**
  * @file
  * Issue Poll -A sophisticated issue module for voting and analysis report generating.
@@ -416,7 +423,7 @@ function issue_theme($existing, $type, $theme, $path) {
         'delete' => NULL
       ),
     ),
-	'reference_parent_template' => array(
+	  'reference_parent_template' => array(
       'template' => 'reference-parent-template',
       'arguments' => array(
         'items' => NULL,
@@ -428,9 +435,24 @@ function issue_theme($existing, $type, $theme, $path) {
         'delete' => NULL
       ),
     ),
+    'forum_child_reply_template' => array(
+      'template' => 'forum-child-reply-template',
+      'arguments' => array(
+        'items' => NULL,
+        'userPicture' => NULL,
+        'ratings' => NULL,
+        'delete' => NULL
+      ),
+    ),
     'forum_replies' => array(
       'arguments' => array(
         'content_id' => NULL,
+      ),
+      'file' => 'issue.theme.inc',
+    ),
+    'forum_reply' => array(
+      'arguments' => array(
+        'item' => NULL,
       ),
       'file' => 'issue.theme.inc',
     ),
@@ -458,16 +480,7 @@ function issue_theme($existing, $type, $theme, $path) {
         'nid' => NULL
       ),
     ),
-	'forum_child_reply_template' => array(
-      'template' => 'forum-child-reply-template',
-      'arguments' => array(
-        'items' => NULL,
-        'userPicture' => NULL,
-        'ratings' => NULL,
-        'delete' => NULL
-      ),
-    ),
-    'issue_results' => array(
+	    'issue_results' => array(
       'template' => 'issue_results',
       'arguments' => array('nid' => NULL, 'cdebate' => NULL, 'cresource' => NULL, 'cpundit' => NULL, 'allowvotes' => NULL),
     ),
@@ -756,12 +769,15 @@ function rating_allowed($content_id, $type, $uid) {
 /*
  * Function to get the number of the +/- votes
  *
- * return array(PRO_COUNT,CON_COUNT)
+ * @content_id    - debate/resource/reply id
+ * @content_type  - node/comment
  *
- * TODO make it use only one sql request
+ * @return array(PRO_COUNT,CON_COUNT)
  */
 
 function get_votes($content_id, $content_type) {
+  $votes = array(0,0);
+  /*
   $votes = array();
   $query = "
     SELECT COUNT(*)
@@ -773,6 +789,24 @@ function get_votes($content_id, $content_type) {
       value = '%d'";
   $votes[] = db_result(db_query($query, $content_id, $content_type, 1));
   $votes[] = db_result(db_query($query, $content_id, $content_type, -1));
+  */
+  $query = "
+    SELECT value, COUNT( * ) AS votes
+    FROM votingapi_vote
+    WHERE
+      content_id =  '%d' AND
+      content_type =  '%s' AND
+      tag =  'vote'
+    GROUP BY value";
+  $result = db_query($query, $content_id, $content_type);
+  while( $row = db_fetch_array($result) ) {
+    if( $row['value'] == 1 ) {
+      $votes[0] = $row['votes'];
+    }
+    if( $row['value'] == -1 ) {
+      $votes[1] = $row['votes'];
+    }
+  }
   return $votes;
 }
 
@@ -1941,7 +1975,10 @@ function add_vote_notify($form, &$form_state) {
   /* New SET NOTIFY LOG */
 
   _send_votenotify($nid);
-  increasepoints('2', $nid, '0');
+
+
+  # increasepoints('2', $nid, '0');
+  user_points_action_fired('ansquestion', $user->uid);
 }
 
 function add_flag_notify($form, &$form_state) {
@@ -3371,3 +3408,57 @@ function get_short_answer($nid = '', $chorder = '') {
   return $short->short_answer;
 }
 
+/*
+ * Debate/resource refresh
+ *
+ * @content_id - debate/resource id
+ *
+ * @returns associative array
+ * #id        - content_id
+ * #vote_up   -
+ * #vote_dn   -
+ * #vote_ct   -
+ * #replies   - array or replies
+ *
+ * TODO -- use it when voting or replying
+ */
+function issue_dr_refresh($content_id) {
+  $output = array();
+  # debate/resource
+  $output['id'] = $content_id;
+  list($output['vote_up'], $output['vote_dn']) = get_votes($output['id'], 'node');
+  $output['vote_ct'] = $output['vote_up'] - $output['vote_dn'];
+  # replies
+  $output['replies'] = array();
+  $items = issue_dr_comments($content_id);
+  foreach( $items as $item ) {
+    $item['markup'] = theme('forum_reply', $item);
+    $output['replies'] = $item;
+  }
+  return $output;
+}
+
+/*
+ * Get debate/resource comments
+ *
+ * @content_id - debate/resource id
+ * @pid        -
+ */
+function issue_dr_comments($content_id, $pid = 0) {
+  $items = array();
+  $query = "
+    SELECT *
+    FROM {comments} AS c
+    WHERE
+      c.nid     = '%d' AND
+      c.status  = '0' AND
+      c.pid     = '%d' AND
+      c.comment <> '' AND
+      (c.cid = c.tcid OR c.tcid = 0)
+    ORDER BY c.cid DESC";
+  $result = db_query($query, $content_id, $pid);
+  while( $row = db_fetch_array($result) ) {
+    $items[] = load_reply($row['cid']);
+  }
+  return $items;
+}

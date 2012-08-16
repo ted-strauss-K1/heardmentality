@@ -7,6 +7,13 @@ function invite_perm() {
     return array('Invite Friends', 'Twitter Login');
 }
 
+/*
+ * Implementation of hook_uses_points_actions()
+ */
+function invite_uses_points_actions() {
+  return 'invite';
+}
+
 /**
  * Implementation of hook_menu().
  */

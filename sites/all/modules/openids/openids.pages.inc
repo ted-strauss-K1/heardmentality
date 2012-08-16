@@ -400,7 +400,9 @@ function openid_login_save() {
     $select_user_count = db_result(db_query("SELECT COUNT(*) from users where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
     $formret .='<div><b>Login processing please wait..</b></div>';
     if ($select_user_count == 0) {
-        $ini_coins = initial_coins();
+        # odyachenko disable coins
+        # $ini_coins = initial_coins();
+        $ini_coins = 0;
         if(function_exists('profile_save_ext_imgs')&&!empty($_GET['photoURL'])){
         $photourl=profile_save_ext_imgs($_GET['photoURL']);
         }
@@ -702,11 +704,22 @@ function welcome_page() {
         $ins_commg = "insert into   follower (uid,follower_id,follower_status,joindate) values('" . $user->uid . "' ,'" . $_COOKIE["faceidc"] . "','1','" . date('Y-m-d') . "') ";
         $rs_commg = db_query($ins_commg);
 
-        $query_pt = "SELECT * FROM tbl_points where id='6' ";
+
+      /**
+       * odyachenko
+       *
+       * These lines refer to updating the user points the old way
+       *
+      $query_pt = "SELECT * FROM tbl_points where id='6' ";
         $query_ptinfo = db_query($query_pt);
         $fetuserpts = db_fetch_object($query_ptinfo);
         $ins_commg = "insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('" . $_COOKIE["faceidc"] . "' ,'6',$fetuserpts->points,'0') ";
         $rs_commg = db_query($ins_commg);
+      */
+      user_points_action('followers', $user->uid);
+
+
+
         setcookie("friend_id", '0');
         $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $user->uid . "'";
         $rs_umlog = db_query($sel_ulist);

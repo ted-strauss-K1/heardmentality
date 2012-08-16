@@ -499,8 +499,8 @@ function debate_submit() {
             );
           }
           # recalculate votes
-          list($pro,$con) = get_votes($content_id, $type);
-          $strength = $pro - $con;
+          list($json['vote_up'],$json['vote_dn']) = get_votes($content_id, $type);
+          $strength = $json['vote_up'] - $json['vote_dn'];
           if( $type == 'node' ) {
             $node = node_load($content_id);
             $node->field_strength[0]['value'] = $strength;
@@ -534,21 +534,19 @@ function debate_submit() {
           # message
           if( $agree ) {
             $json['msg'] = "<em><strong>Agreed! </strong>You have $coins coins left.</em> ";
-            $json['ratecount'] = $pro;
           } else {
             $json['msg'] = "<em><strong>Disagreed! &nbsp;</strong>You have $coins coins left.</em> ";
-            $json['ratecount'] = $con;
           }
           $json['error'] = '0';
           $json['type'] = $type;
-          $json['likebar'] = theme('like_dislike_bar', $pro, $con);
+          $json['likebar'] = theme('like_dislike_bar', $json['vote_up'], $json['vote_dn']);
         }
       } else {
         $json['error'] = '1';
         $json['msg'] = '<em>Sorry! <strong>Error</strong> occurs while updating.</em>';
       }
-      list($pro,$con) = get_votes($parent_node, 'node');
-      $json['sum_count'] = $pro - $con;
+      list($json['pvote_up'],$json['pvote_dn']) = get_votes($parent_node, 'node');
+      $json['sum_count'] = $json['pvote_up'] - $json['pvote_dn'];
       echo json_encode($json);
     break;
   }
@@ -622,17 +620,3 @@ function make_clickable($ret) {
   return $ret;
 }
 
-function debate_get_sum_count($action, $content_id, $type = "node") {
-
-  $criteriaUpNode = array('content_type' => $type,
-    'content_id' => $content_id,
-    'tag' => 'vote',
-    'vote_type' => 'up');
-  $criteriaDownNode = array('content_type' => $type,
-    'content_id' => $content_id,
-    'tag' => 'vote',
-    'vote_type' => 'down');
-  $count = vote_up_down_count($criteriaUpNode) - vote_up_down_count($criteriaDownNode);
-
-  return $count;
-}

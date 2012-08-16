@@ -1263,6 +1263,9 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
 
 
     //Guru points table
+    /*
+     * odyachenko - old way the user points are updated
+     */
     db_query("update {tbl_user_points} set qid='$qid' where qid='$dupeid'");
 
     //badges table

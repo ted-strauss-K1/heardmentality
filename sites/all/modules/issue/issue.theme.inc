@@ -86,31 +86,32 @@ function theme_rating_button($item) {
 }
 
 /*
+ * Forum reply item
+ *
+ * @item - reply item
+ */
+function theme_forum_reply($item) {
+  global $user;
+  $ratings = theme('rating_button', $item);
+  $delete = '';
+  if( is_moderator() || $item['uid'] == $user->uid ) {
+    $delete = theme('delete_button',
+      $item['content_id'], $item['type'], 'Are you sure you want to delete this argument?'
+    );
+  }
+  $userPicture = UserPicture_small_src($item['uid']);
+  return theme('forum_child_reply_template', $item, $userPicture, $ratings, $delete);
+}
+
+/*
  * Forum replies list
  */
 function theme_forum_replies($content_id, $pid = 0) {
   global $user;
   $output = '';
-  $query = "
-    SELECT *
-    FROM {comments} AS c
-    WHERE
-      c.nid='%d' AND
-      c.status='0' AND
-      c.pid='%d' AND
-      (c.cid = c.tcid OR c.tcid = 0)
-    ORDER BY c.cid DESC";
-  $result = db_query($query, $content_id, $pid);
-  while( $row = db_fetch_array($result) ) {
-    if( !empty($row['comment']) ) {
-      $item = load_reply($row['cid']);
-      $ratings = theme('rating_button', $item);
-      if( is_moderator() || $item['uid'] == $user->uid ) {
-        $delete = theme('delete_button', $item['content_id'], $item['type'], 'Are you sure you want to delete this argument?');
-      }
-      $userPicture = UserPicture_small_src($item['uid']);
-      $output .= theme('forum_child_reply_template', $item, $userPicture, $ratings, $delete);
-    }
+  $items = issue_dr_comments($content_id, $pid);
+  foreach( $items as $item ) {
+    $output .= theme('forum_reply', $item);
   }
   return $output;
 }

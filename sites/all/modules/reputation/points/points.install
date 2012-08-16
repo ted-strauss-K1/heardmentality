@@ -1,0 +1,31 @@
+<?php
+
+/*
+ * Implementation of hook_install()
+ */
+function points_install() {
+  db_query("
+    CREATE TABLE IF NOT EXISTS {module_points} (
+      mname VARCHAR(32) NOT NULL,
+      name VARCHAR(256) NOT NULL,
+      points INT NOT NULL DEFAULT 0,
+      type INT NOT NULL DEFAULT 0,
+      cost INT NOT NULL DEFAULT 0,
+      UNIQUE (mname),
+      PRIMARY KEY (mname)
+    )
+  ");
+  db_query("
+    CREATE TABLE IF NOT EXISTS {module_points_userpoints} (
+      id INT NOT NULL AUTO_INCREMENT,
+      uid INT(10) UNSIGNED NOT NULL,
+      mname VARCHAR(32) NOT NULL,
+      points INT NOT NULL DEFAULT 0,
+      date TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      data LONGTEXT DEFAULT '',
+      CONSTRAINT mname FOREIGN KEY (mname) REFERENCES {module_points}(mname),
+      PRIMARY KEY (id)
+    )
+  ");
+}
+

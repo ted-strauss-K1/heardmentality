@@ -1,0 +1,35 @@
+<?php
+
+/*
+ * Implementation of hook_install()
+ */
+function badges_install() {
+  db_query("
+    CREATE TABLE IF NOT EXISTS {module_badges_types} (
+      id INT NOT NULL AUTO_INCREMENT,
+      name VARCHAR(256) NOT NULL,
+      PRIMARY KEY (id)
+    )
+  ");
+  db_query("
+    CREATE TABLE IF NOT EXISTS {module_badges} (
+      id INT NOT NULL AUTO_INCREMENT,
+      name VARCHAR(256) NOT NULL,
+      info VARCHAR(256) NOT NULL,
+      type INT NOT NULL,
+      status INT NOT NULL DEFAULT 1,
+      CONSTRAINT badge_type FOREIGN KEY (type) REFERENCES {module_badges_types}(id),
+      PRIMARY KEY (id)
+    )
+  ");
+  db_query("
+    CREATE TABLE IF NOT EXISTS {module_badges_userbadges} (
+      id INT NOT NULL AUTO_INCREMENT,
+      uid INT(10) NOT NULL,
+      badge_id INT NOT NULL,
+      date TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      CONSTRAINT badge_id FOREIGN KEY (badge_id) REFERENCES {module_badges}(id),
+      PRIMARY KEY (id)
+    )
+  ");
+}

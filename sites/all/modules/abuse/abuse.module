@@ -36,14 +36,13 @@ function abuse_perm() {
 }
 
 /**
- * Implementation of access controls
+ * Implementation of hook_access()
  */
 function abuse_access() {
   $args = func_num_args();
   if ($args < 1) {
     return user_access(ADMINISTER_ALL_ABUSE_REPORTS);
-  }
-  else {
+  } else {
     $perms = func_get_args();
     for ($i = 0; $i < $args; $i++) {
       // Because of the arguments, an array could be passed in

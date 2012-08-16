@@ -1,5 +1,14 @@
 <?php
 
+
+
+/*
+ * Implementation of hook_uses_points_actions()
+ */
+function question_uses_points_actions() {
+  return 'addquestion';
+}
+
 /**
  * Implementation of hook_perm().
  */
@@ -47,7 +56,15 @@ function updateProfileBadge($uid = null) {
   $silver = '';
   $bronze = '';
   $pat = $gSitePath . drupal_get_path('module', 'profile');
+
+  /**
+   * odyachenko
+   *
+   * These lines refer to working with the user points the old way
+   *
   $gp = guru_points('user', $uid);
+   */
+  $gp = user_get_points($uid);
 
   $badges.='<span title="reputation score ' . $gp . '" class="reputation-score">' . $gp . '</span>';
 

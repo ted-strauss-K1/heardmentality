@@ -12,7 +12,6 @@ function show_msg(element, message, delayTimeout, slideTimeout) {
     });
 }
 
-
 /*
  * Reply Form Submit
  */

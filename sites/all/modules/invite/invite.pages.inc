@@ -145,12 +145,22 @@ function invite_friends() {
 			
 			if($to!='')
 			{
-			
-		$query_pt= "SELECT * FROM tbl_points where id='5' "; 
-		$query_ptinfo=db_query($query_pt);
-		$fetuserpts=db_fetch_object($query_ptinfo);
-		$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$user->uid."' ,'5',$fetuserpts->points,'0') ";
-		$rs_commg=db_query($ins_commg);
+
+          /**
+           * odyachenko
+           *
+           * These lines refer to updating the user points the old way
+           *
+          $query_pt= "SELECT * FROM tbl_points where id='5' ";
+          $query_ptinfo=db_query($query_pt);
+          $fetuserpts=db_fetch_object($query_ptinfo);
+          $ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$user->uid."' ,'5',$fetuserpts->points,'0') ";
+          $rs_commg=db_query($ins_commg);
+           * */
+          user_points_action('invite', $user->uid);
+
+
+
 			
 			 	$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
 				db_query($vInsQuery);
