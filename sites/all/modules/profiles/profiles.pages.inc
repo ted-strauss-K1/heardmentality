@@ -9,8 +9,8 @@ function profile_view() {
   $strReturn = user_profile_bio($uid);
 
   // profile badges
-  enthusiast($uid);
-  fanatic($uid);
+  // enthusiast($uid);
+  // fanatic($uid);
 
   return $strReturn;
 }
