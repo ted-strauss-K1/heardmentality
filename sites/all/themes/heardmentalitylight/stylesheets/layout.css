@@ -3226,7 +3226,15 @@ ul.pager a:hover {
 	margin: 0 0 0.25em 0;
 	display: inline-block;
 	color: #777;
+}
+
+.item-list .pager li a:hover {
+	text-decoration: underline;
 }	
+
+.pager-current {
+	color: #ef3d3b;
+}
 
 #issue-edit-vote  .button.vote {
     margin: 12px 0 0 30px;
