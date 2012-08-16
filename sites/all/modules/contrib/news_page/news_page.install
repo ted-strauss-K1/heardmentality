@@ -1,0 +1,51 @@
+<?php
+// $Id: news_page.install,v 1.4 2009/05/09 23:54:37 MegaGrunt Exp $
+
+/**
+ * Implementation of hook_install()
+ */
+function news_page_install() {
+  // Create tables.
+  drupal_install_schema('news_page');
+}
+
+/**
+* Implementation of hook_schema(). 
+*/
+function news_page_schema() {
+  $schema['news_page'] = array(
+    'fields' => array(
+    	'nid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'disp-width' => 10, 'description' => t("nid of the news page node.")),
+    	'include' => array('type' => 'varchar', 'length' => 255, 'description' => t("Keywords to use for filtering.")),
+    	'cid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'disp-width' => 10, 'description' => t("ID of feed category.")),
+    	'max_items' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'disp-width' => 10, 'description' => t("Maximum number of items to include on news page.")),
+    	'search' => array('type' => 'text', 'size' => 'big', 'description' => t("Cache of the search SQL.")),
+    ),
+    'indexes' => array('nid' => array('nid')),
+    'primary key' => array('nid'),
+  );
+
+  return $schema;	
+} 
+
+/**
+ * Updates existing tables from early 4.6 install and add "search" field.
+ */
+function news_page_update_1() {
+  
+  _system_update_utf8(array('news_page'));
+  
+  $items = array();
+  $items[] = update_sql('ALTER TABLE {news_page} ADD search text');
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function news_page_uninstall() {
+  drupal_uninstall_schema('news_page');
+  variable_del('news_page_link_prepend');
+  variable_del('news_page_channel_description');
+}
