@@ -1910,7 +1910,7 @@ p.profile-status {
 	min-height: 34px;
 }
 
-.activity_stream a {
+.sort-by.profile a {
 	color: #666666;
     display: block;
     font-size: 13px;
