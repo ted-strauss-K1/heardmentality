@@ -1855,7 +1855,7 @@ span.activity {font-weight:bold;font-weight:bold;color:#999;text-shadow: 0 1px #
 .action  li:first-child {padding:0px 5px 10px 5px;}
 
 p.action-item, div.action-item {padding:0px 4px 0px 0px;margin:0px 0px 0px 60px;font-size:13px;}
-p.profile.action-item {padding:0px 4px 0px 0px;margin:0px 0px 0px 10px;font-size:13px;}
+p.profile.action-item, div.profile.action-item {padding:0px 4px 0px 0px;margin:0px 0px 0px 10px;font-size:13px;}
 
 p.action-comment-ref {padding:0px 10px 0px 10px;margin:10px 0px 0px 60px ;font-size:13px;white-space:inherit;border-left:3px solid #ccc;}
 p.action-ref {padding:0px 10px 0px 0px;margin:10px 0px 0px 60px ;font-size:13px;white-space:inherit;color:#666}
