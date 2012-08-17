@@ -745,6 +745,10 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		margin:0px 0px 0px 0px;
 	}
 	
+	label.badges {
+		padding-bottom: 12px;
+	}
+	
 	hr.short { margin:12px 0px 8px 0px;border-bottom:1px solid #f9f9f9;}
 	hr.short-2 { margin:0px 0px 10px 0px;border-bottom:1px solid #f9f9f9;}
 	.dark { margin:7px 0px 15px 0px;color:#111;border-top:1px dotted #888;}
