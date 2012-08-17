@@ -276,8 +276,5 @@
 }
 
 .ie7 .more {
-	display: block;
 	font-weight: bold !important;
-	float: none;
-	text-align: right;
 }	
