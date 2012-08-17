@@ -78,24 +78,24 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 				</div>
 
             </div>
-            <div class="following">
+            <div class="following clearfix">
                     <label for="following" class="following"><?php print t('Following'); ?></label>
                     <?php if($followingList):
                         foreach($followingList as $name => $image){
                         ?>
-                    <a href="<?php print $sitelink.'profile/'.$name; ?>"><img class="following-user" src="<?php print $image; ?>" /></a>
+                    <a href="<?php print $sitelink.'profile/'.$name; ?>" class="floatleft"><img class="following-user" src="<?php print $image; ?>" /></a>
                     <?php }?>
 
                     <a class="more" href="<?php print $sitelink.'user/following/'.$getuser->uid.'/following';?>"><?php print t('See All');?> (<?php print $following; ?>)</a>
 
                     <?php endif; ?>
             </div>
-            <div class="following">
+            <div class="following clearfix">
                     <label for="following" class="following"><?php print t('Following This User'); ?></label>
                     <?php if($followerList):
                         foreach($followerList as $name => $image){
                         ?>
-                    <a href="<?php print $sitelink.'profile/'.$name; ?>"><img class="following-user" src="<?php print $image; ?>" /></a>
+                    <a href="<?php print $sitelink.'profile/'.$name; ?>" class="floatleft"><img class="following-user" src="<?php print $image; ?>" /></a>
                     <?php }?>
 
                     <a class="more" href="<?php print $sitelink.'user/following/'.$getuser->uid.'/follower';?>"><?php print t('See All');?> (<?php print $followers; ?>)</a>
