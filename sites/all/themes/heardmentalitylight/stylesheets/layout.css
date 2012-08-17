@@ -338,12 +338,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		padding:22px 22px 6px 20px;
 		border-radius: 3px;
 	}
-	
-	a {
-		font-weight:normal;
-	   	color:#1366BA;
-     	text-decoration:none;
-	}
+
 	.circle-box {
 		background:url(../images/circle_bg.png) -6px -210px no-repeat;
 		margin:50px 0px 10px 0px;
