@@ -1910,6 +1910,7 @@ a.more:hover, a.find:hover  {color:#000;font-size:12px;}
 	font-size: 9px;
 	display: inline-block;
 	vertical-align: middle;
+	height: 11px;
 }
 .badge.gold {background:#F7DB07;}
 .badge.bronze {background:#D1A619;}
