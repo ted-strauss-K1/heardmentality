@@ -46,7 +46,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 						</span>
 
                     </div>
-					<div class="section">
+					<div class="section vcard">
 						<?php if($settings['real_name']):?>
 						<span class="user-data"><?php print $settings['real_name']; ?></span>
 
