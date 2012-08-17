@@ -1897,7 +1897,20 @@ img.following-user.listed {width:44px;height:44px;margin:5px 13px 0px 2px; borde
 .following a.more, .following a.find  {font-size:12px;}
 a.more:hover, a.find:hover  {color:#000;font-size:12px;}
 
-.badge {cursor:pointer;padding:0px 5px 0px 5px;border-radius: 6px;margin:0px 5px 10px 0px;background:#98BF58;font-size:9px}
+.badge {
+	cursor: pointer;
+	padding: 0px 5px;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	-khtml-border-radius: 6px;
+	border-radius: 6px;    
+	margin: 0px 5px 0px 0px;
+	background: #98BF58;
+	font-size: 9px;
+	display: inline-block;
+	vertical-align: middle;
+}
 .badge.gold {background:#F7DB07;}
 .badge.bronze {background:#D1A619;}
 .badge.silver {background:#ececec;}
