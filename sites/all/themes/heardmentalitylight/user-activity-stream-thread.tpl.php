@@ -7,7 +7,7 @@ $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
 <li>
-        <?php if($message_id == 'add_question'){?>
+    <?php if($message_id == 'add_question'){?>
 	<p class="profile action-item"><?php print t('added a new issue'); ?>: "
             <a><?php print l($data['q_title'], $url); ?>?</a>"</p>
         <?php }else if($message_id == 'add_vote'){?>
@@ -92,9 +92,8 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                 $target = user_load($data['target_id']);
             ?>
 
-        <p class="profile action-item">
             <span class="now-foll-txt"><?php print t('now following'); ?>: </span>
-            <div class="foll-user-area"><a href="<?php print $sitelink.'profile/'.$target->name; ?>"><?php print $target->name; ?><br /><img alt="<?php print $target->name; ?>" src="<?php print UserPicture_small_src($data['target_id']);?>" width="44" height="44" /></a></p></div>
+            <div class="foll-user-area"><a href="<?php print $sitelink.'profile/'.$target->name; ?>"><?php print $target->name; ?><br /><img alt="<?php print $target->name; ?>" src="<?php print UserPicture_small_src($data['target_id']);?>" width="44" height="44" /></a></div>
         <?php }?>
 </li>
 
