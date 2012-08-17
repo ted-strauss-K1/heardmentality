@@ -1830,6 +1830,9 @@ ul.badges.profile {
 .user_info .vcard span.user-info {
 	display: block;
 	padding: 0;
+	line-height: 0.6em;
+	color: #333333;
+	text-shadow: 0 1px #CECECE;
 }
 
 #button.hide-message{padding:4px 11px 4px 4px;}
