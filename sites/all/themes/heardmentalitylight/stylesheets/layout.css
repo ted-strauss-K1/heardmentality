@@ -1881,9 +1881,9 @@ p.profile.action-comment-ref {padding:0px 10px 0px 10px;margin:10px 0px 0px 20px
 
 .action p.ref {margin:0px 0px 10px 20px;font-style:italic;font-size:90%;line-height:1.2em}
 
-.more {float:right;font-weight:bold;margin:10px 0px 0px 0px}
+.more {float:right; clear: fix; font-weight:bold; margin: 6px 0px 0px 0px;}
 	
-img.following-user, img.user-thumb {width:44px;height:44px;margin:10px 2px 0px 2px; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
+img.following-user, img.user-thumb {width:44px;height:44px;margin:10px 3px 0px; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
 img.following-user-2 {float:left;width:60px;height:60px;margin:8px 10px 0px 2px; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
 img.user-thumb {margin:5px 10px 0px 2px; }
 
