@@ -46,6 +46,8 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 						</span>
 
                     </div>
+					
+					<?php if($settings):?>
 					<div class="section vcard">
 						<?php if($settings['real_name']):?>
 						<span class="user-data"><?php print $settings['real_name']; ?></span>
@@ -75,6 +77,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 						<span class="user-info"><?php print t($settings['edu']); ?></span>
 						<?php endif; ?>
                     </div>
+					<?php endif; ?>
 				</div>
 
             </div>
