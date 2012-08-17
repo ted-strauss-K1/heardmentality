@@ -265,3 +265,12 @@
 .ie7 #sub_email-wrapper {
 	width: 190px;
 }
+
+.ie7 .user-info,
+.ie8 .user-info {
+	zoom: 1;
+}
+
+.ie7 .user_info .vcard span.user-info {
+	line-height: 21px;
+}
