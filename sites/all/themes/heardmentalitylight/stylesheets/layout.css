@@ -1830,7 +1830,7 @@ ul.badges.profile {
 .user_info .vcard span.user-info {
 	display: block;
 	padding: 0;
-	line-height: 0.6em;
+	line-height: inherit;
 	color: #333333;
 	text-shadow: 0 1px #CECECE;
 }
