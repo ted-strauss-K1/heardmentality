@@ -274,3 +274,8 @@
 .ie7 .user_info .vcard span.user-info {
 	line-height: 21px;
 }
+
+.ie7 .more {
+	display: block;
+	font-weight: bold !important;
+}	
