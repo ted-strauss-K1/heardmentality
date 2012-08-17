@@ -6,7 +6,7 @@ $node = node_load($data['qid']);
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
-<li>
+<li class="clearfix">
     <?php if($message_id == 'add_question'){?>
 	<p class="profile action-item"><?php print t('added a new issue'); ?>: "
             <a><?php print l($data['q_title'], $url); ?>?</a>"</p>
