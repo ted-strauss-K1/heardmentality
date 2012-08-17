@@ -2630,7 +2630,8 @@ body.admin-menu {
 	text-decoration: none;
 }
 
-.container .nine .grey-box .uactivity a:hover {
+.container .nine .grey-box .uactivity a:hover,
+.activity_stream a:hover {
 	text-decoration: underline;
 }
 
