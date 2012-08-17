@@ -103,7 +103,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     <?php endif; ?>
             </div>
 
-            <ul class="badges profile">
+            <ul class="badges profile clearfix">
                 <label for="badges" class="badges"><?php print t('Badges'); ?></label>
                     <?php
                     if($badgeList):
