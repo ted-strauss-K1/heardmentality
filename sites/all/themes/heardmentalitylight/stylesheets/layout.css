@@ -1823,6 +1823,10 @@ ul.badges.profile {
 	margin: 7px 0 0;
 }
 
+.right_wrapper {
+	display: block;
+}
+
 #button.hide-message{padding:4px 11px 4px 4px;}
 #button.hide-message2{padding:4px 6px 4px 4px;}
 .hide-message {position: absolute; right: 1.7em; top: 50%; width: 10px; margin: -10px 0 0 0 !important; padding: 1px; height: auto;border:1px solid #ccc;border-radius: 3px;font-weight:bold;text-shadow: 0 1px #fff;}

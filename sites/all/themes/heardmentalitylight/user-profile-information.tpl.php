@@ -20,20 +20,30 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 
 				<div class="user_info">
                     <div class="section">
-						<span class="user-title"><?php print t('Member since');?>:</span>
-						<span class="user-data"><?php print date("d-m-y",$getuser->created); ?></span>
+						<span class="right_wrapper">
+							<span class="user-title"><?php print t('Member since');?>:</span>
+							<span class="user-data"><?php print date("d-m-y",$getuser->created); ?></span>
+						</span>
 
-						<span class="user-title"><?php print t('Votes');?>:</span>
-						<span class="user-data"><?php print number_format($votes); ?></span>
+						<span class="right_wrapper">
+							<span class="user-title"><?php print t('Votes');?>:</span>
+							<span class="user-data"><?php print number_format($votes); ?></span>
+						</span>
+						
+						<span class="right_wrapper">
+							<span class="user-title"><?php print t('Comments');?>: </span>
+							<span class="user-data"><?php print number_format($comments); ?></span>
+						</span>
 
-						<span class="user-title"><?php print t('Comments');?>: </span>
-						<span class="user-data"><?php print number_format($comments); ?></span>
+						<span class="right_wrapper">
+							<span class="user-title"><?php print t('References');?>: </span>
+							<span class="user-data"><?php print number_format($references); ?></span>
+						</span>
 
-						<span class="user-title"><?php print t('References');?>: </span>
-						<span class="user-data"><?php print number_format($references); ?></span>
-
-						<span class="user-title"><?php print t('Followers');?>: </span>
-						<span class="user-data"><?php print number_format($followers); ?></span>
+						<span class="right_wrapper">
+							<span class="user-title"><?php print t('Followers');?>: </span>
+							<span class="user-data"><?php print number_format($followers); ?></span>
+						</span>
 
                     </div>
 					<div class="section">
