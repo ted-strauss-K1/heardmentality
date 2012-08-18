@@ -1,0 +1,187 @@
+<?php
+
+/*
+ * Implementation of hook_init()
+ *
+ * @see
+ *  votingapi_add_votes()
+ *  votingapi_delete_votes()
+ *  _votingapi_delete()
+ */
+function yn_init() {
+ //
+}
+
+/*
+ * Agree value
+ */
+define('VOTE_AGREE', 1);
+
+/*
+ * Disgree Value
+ */
+define('VOTE_DISAGREE', -1);
+
+/*
+ * Invert vote value
+ */
+function yn_invert_vote_value(&$vote_value) {
+  $vote_value = $vote_value == VOTE_AGREE ? VOTE_DISAGREE : VOTE_AGREE;
+}
+
+/*
+ * Basic yes/no voting function.
+ */
+function yn_vote( $content_id, $value, $content_type, $vote_source = '', $uid = '' ) {
+  # check we got some data
+  if( empty($content_id) || empty($value) || empty($content_type) ) {
+    return;
+  }
+  $vote = array(
+    'content_id'    => $content_id,
+    'value'         => $value,
+    'content_type'  => $content_type,
+    'vote_source'   => empty($vote_source) ? VOTE_NORMAL : $vote_source,
+    'value_type'    => 'points',
+  );
+  if( !empty($uid) ) {
+    $vote['uid'] = $uid;
+  }
+  return votingapi_add_votes($vote);
+}
+
+/*
+ * Basic vote deletion
+ */
+function yn_vote_delete( $content_id, $value, $content_type, $vote_source = '', $uid = '' ) {
+  $criteria = array();
+  if( !empty($content_id) ) {
+    $criteria['content_id'] = $content_id;
+  }
+  if( !empty($value) ) {
+    $criteria['value'] = $value;
+  }
+  if( !empty($content_type) ) {
+    $criteria['content_type'] = $content_type;
+  }
+  if( !empty($vote_source) ) {
+    $criteria['vote_source'] = $vote_source;
+  }
+  if( !empty($uid) ) {
+    $criteria['uid'] = $uid;
+  }
+  _votingapi_delete('vote', $criteria);
+}
+
+/*
+ * Basic agree function
+ */
+function yn_agree($content_id, $content_type, $vote_source = '', $uid = '') {
+  return yn_vote($content_id, VOTE_AGREE, $content_type, $vote_source, $uid);
+}
+
+/*
+ * Basic disagree function
+ */
+function yn_disagree($content_id, $content_type, $vote_source = '', $uid = '') {
+  return yn_vote($content_id, VOTE_DISAGREE, $content_type, $vote_source, $uid);
+}
+
+/*
+ * Agree node
+ */
+function yn_agree_node($content_id, $vote_source = '', $uid = '') {
+  yn_agree($content_id, 'node', $vote_source, $uid);
+}
+
+/*
+ * Disagree node
+ */
+function yn_disagree_node($content_id, $vote_source = '', $uid = '') {
+  yn_disagree($content_id, 'node', $vote_source, $uid);
+}
+
+/*
+ * Special constant to signal auto_added node votes
+ */
+define('VOTE_AUTOADD', 'auto');
+
+/*
+ * Special constant to signal regular Yes/No votes
+ */
+define('VOTE_NORMAL', 'yn');
+
+/*
+ * Agree comment
+ */
+function yn_agree_comment($content_id, $uid = '') {
+  yn_agree($content_id, 'comment', '', $uid);
+}
+
+/*
+ * Disagree comment
+ */
+function yn_disagree_comment($content_id, $uid = '') {
+  yn_disagree($content_id, 'comment', '', $uid);
+}
+
+/*
+ * Function to check if user already voted
+ */
+function yn_user_voted($content_id, $content_type, $uid = '') {
+  if( empty($uid) ) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $criteria = array(
+    'content_id' => $content_id,
+    'content_type' => $content_type,
+    'uid' => $uid,
+    'vote_source' => VOTE_NORMAL,
+  );
+  return 0 != _votingapi_count('vote', $criteria);
+}
+
+/*
+ * Function to get the number of agree/disagree votes, and the sum count
+ */
+function yn_votes($content_id, $content_type) {
+  $votes = array(0,0);
+  $result = db_query("SELECT value, COUNT(*) AS votes FROM {votingapi_vote} WHERE content_id =  '%d' AND content_type = '%s' GROUP BY value", $content_id, $content_type);
+  while( $row = db_fetch_array($result) ) {
+    if( $row['value'] == VOTE_AGREE ) {
+      $votes[0] = $row['votes'];
+    }
+    if( $row['value'] == VOTE_DISAGREE ) {
+      $votes[1] = $row['votes'];
+    }
+  }
+  $votes[] = $votes[0] - $votes[1];
+  return $votes;
+}
+
+/*
+ * Count user Yes/No votes
+ */
+function yn_user_vote_count($uid = '', $value = null) {
+  if( empty($uid) ) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $criteria = array('uid' => $uid, 'vote_source' => VOTE_NORMAL);
+  if( !empty($value) ) {
+    $criteria['value'] = $value;
+  }
+  return _votingapi_count('vote', $criteria);
+}
+
+
+/**
+ * Internal helper function constructs SELECT COUNT(*) queries. Don't use unless you're me.
+ */
+function _votingapi_count($table = 'vote', $criteria = array()) {
+  $query = "SELECT IFNULL(COUNT(*),0) FROM {votingapi_" . $table . "} v WHERE 1 = 1";
+  $details = _votingapi_query('vote', $criteria);
+  $query .= $details['query'];
+  return db_result(db_query($query, $details['args']));
+}
