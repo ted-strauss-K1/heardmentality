@@ -212,7 +212,8 @@
 .ie8 span.small_neg, .ie8 span.small_pos, .ie8 #debate_list_area .arg p.position-minus strong, .ie8 #debate_list_area .arg p.position-plus strong,
 .ie7 #debate_list_area li.one_reply span.negative, .ie7 #debate_list_area li.one_reply span.positive,
 .ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive,
-.vote-results .legend dt {	
+.ie8 .vote-results .legend dt, .ie7 .vote-results .legend dt
+.ie8 .badge, .ie7 .badge {	
 	behavior: url(/sites/all/themes/heardmentalitylight/stylesheets/PIE.htc);
 	zoom: 1;
 }
@@ -278,4 +279,8 @@
 .ie7 .more,
 .ie8 .more {
 	font-weight: bold !important;
-}	
+}
+
+.ie7 ul.badges li {
+	white-space: nowrap;
+}
