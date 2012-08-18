@@ -511,21 +511,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	ul.tags li:hover a{
 		color:#fff;
 	}
-
-	
-	ul.badges li {
-		padding:1px 7px 2px 7px;
-		font-size:12px;
-		margin:3px 6px 3px 0px;
-		background:#e4e4e4;
-		border-radius: 3px;
-		text-shadow: 0 1px #fefefe;
-		width:auto;float:left;
-		border-width:1px;
-		border-style:solid;
-		color:#222;
-		border-color:#dedede;
-	}
 	
 	
 	.page ul {
@@ -910,9 +895,21 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	ul.badges li {
-
+		padding:2px 7px 1px 7px;
+		font-size:12px;
+		margin:3px 6px 3px 0px;
 		background:#e4e4e4;
+		-o-border-radius: 3px;
+		-khtml-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		text-shadow: 0 1px #fefefe;
+		width:auto;float:left;
+		border-width:1px;
+		border-style:solid;
 		color:#222;
+		border-color:#dedede;
 	}
 	
 /* #STATS AND GRAPHS
@@ -1911,6 +1908,8 @@ a.more:hover, a.find:hover  {color:#000;font-size:12px;}
 	display: inline-block;
 	vertical-align: middle;
 	height: 11px;
+	position: relative;
+    top: -1px;
 }
 .badge.gold {background:#F7DB07;}
 .badge.bronze {background:#D1A619;}
