@@ -220,7 +220,10 @@
 	zoom: 1;
 }
 
-.vote-results .legend dt {
+.ie7 .vote-results .legend dt,
+.ie8 .vote-results .legend dt,
+.ie7 .bronze, .ie7 .silver, .ie7 .gold,
+.ie8 .bronze, .ie8 .silver, .ie8 .gold {
 	position: relative;
 }
 
