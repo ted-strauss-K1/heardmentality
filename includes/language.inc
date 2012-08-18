@@ -79,7 +79,17 @@ function language_from_browser() {
       // The language part is either a code or a code with a quality.
       // We cannot do anything with a * code, so it is skipped.
       // If the quality is missing, it is assumed to be 1 according to the RFC.
-      if (preg_match("!([a-z-]+)(;q=([0-9\\.]+))?!", trim($browser_accept[$i]), $found)) {
+      /*
+       * odyachenko (dyachenko.oleg@gmail.com)
+       * 18.08.2012
+       * Needed to fork the regexp since it wasn't suitable for
+       *  $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ru-Ru'
+       * Returning the langcode 'ru-'
+       *
+       * Previous regexp was
+       *  "!([a-z-]+)(;q=([0-9\\.]+))?!"
+       */
+      if (preg_match("!([a-z-]+[a-z])(;q=([0-9\\.]+))?!", trim($browser_accept[$i]), $found)) {
         $browser_langs[$found[1]] = (isset($found[3]) ? (float) $found[3] : 1.0);
       }
     }
