@@ -3,6 +3,7 @@ name = Custom Issue
 description = An advanced issue module for Issue, elections, and group decision-making.
 dependencies[] = votingapi
 dependencies[] = moderator
+dependencies[] = yn
 core = 6.x
 package = "Custom Issue"
 

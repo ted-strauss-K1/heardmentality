@@ -100,7 +100,7 @@ function badge_process_patriotic_citizen($uid) {
   # count different types of votes
   $count_pv = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} WHERE uid = '%d'", $uid));
   $count_sa = db_result(db_query("SELECT COUNT(*) FROM (suggest_answer_vote) WHERE uid = '%d' GROUP BY uid", $uid));
-  $count_ud = db_result(db_query("SELECT COUNT(*) FROM (votingapi_vote) WHERE uid = '%d' GROUP BY uid", $uid));
+  $count_ud = yn_user_vote_count($uid);
   return $count_pv + $count_sa + $count_ud >= $count_vote;
 }
 

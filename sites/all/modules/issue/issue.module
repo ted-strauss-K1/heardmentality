@@ -152,9 +152,8 @@ function issue_delete($node) {
   db_query('DELETE FROM {issue} WHERE nid = %d', $node->nid);
   db_query('DELETE FROM {issue_choices} WHERE nid = %d', $node->nid);
   db_query('DELETE FROM {issue_electoral_list} WHERE nid = %d', $node->nid);
-  // TODO: These should be converted to a votingapi method eventually.
-  db_query("DELETE FROM {votingapi_vote} WHERE content_id = %d AND content_type = 'issue'", $node->nid);
-  db_query("DELETE FROM {votingapi_cache} WHERE content_id = %d AND content_type = 'issue'", $node->nid);
+  yn_vote_delete( $node->nid, null, 'issue' );
+  _votingapi_delete('cache', array('content_id' => $node->nid, 'content_type' => 'issue'));
 }
 
 /*
@@ -550,7 +549,7 @@ function load_debate($debId = '', $issId = '', $issTnid = '') {
   $forum->title = $translated->title;
   $forum->body = $translated->body;
   # get votes
-  list($vote_up, $vote_down) = get_votes($forum->nid, 'node');
+  list($vote_up, $vote_down, $sum) = yn_votes($forum->nid, 'node');
   # get strenght votes
   list($strong_count, $weak_count) = get_strenght($forum->nid);
   # get posted and last activity time
@@ -588,7 +587,7 @@ function load_debate($debId = '', $issId = '', $issTnid = '') {
   $item['strength'] = $strength;
   $item['vote_up'] = $vote_up;
   $item['vote_down'] = $vote_down;
-  $item['allow_rating'] = rating_allowed($forum->nid, 'node', $user->uid);
+  $item['allow_rating'] = !yn_user_voted($forum->nid, 'node');
   $item['posted_by'] = $forum->uid;
   $item['ago'] = get_time_interval($item['posted']);
   // unify the debates and resources and comments
@@ -615,7 +614,7 @@ function load_resource($resId = '', $issId = '', $issTnid = '', $resType = '') {
   $forum = node_load(array('nid' => $resId, 'status' => '1'));
   $account = user_load($forum->uid);
   # get votes
-  list($vote_up, $vote_down) = get_votes($forum->nid, 'node');
+  list($vote_up, $vote_down, $sum) = yn_votes($forum->nid, 'node');
   # get strenght votes
   list($strong_count, $weak_count) = get_strenght($forum->nid);
   # get posted and last activity time
@@ -655,7 +654,7 @@ function load_resource($resId = '', $issId = '', $issTnid = '', $resType = '') {
   $item['strength'] = $strength;
   $item['vote_up'] = $vote_up;
   $item['vote_down'] = $vote_down;
-  $item['allow_rating'] = rating_allowed($forum->nid, 'node', $user->uid);
+  $item['allow_rating'] = !yn_user_voted($forum->nid, 'node');
   $item['posted_by'] = $forum->uid;
   $item['source'] = $forum->field_source[0]['value'] != '' ? $forum->field_source[0]['value'] : '';
   $item['ago'] = get_time_interval($item['posted']);
@@ -688,7 +687,7 @@ function load_reply($cid = '') {
   # get author
   $account = user_load($forum['uid']);
   # get votes
-  list($vote_up, $vote_down) = get_votes($forum['cid'], 'comment');
+  list($vote_up, $vote_down, $sum) = yn_votes($forum['cid'], 'comment');
   # get post date
   $posted = date("Y-m-d H:i:s", $forum['timestamp']);
 
@@ -701,7 +700,7 @@ function load_reply($cid = '') {
   $item['uid'] = $account->uid;
   $item['uname'] = $account->name;
   $item['posted'] = $posted;
-  $item['allow_rating'] = rating_allowed($forum['cid'], 'comment', $user->uid);
+  $item['allow_rating'] = !yn_user_voted($forum['cid'], 'comment');
   $item['posted_by'] = $forum['uid'];
   $item['ago'] = get_time_interval($posted);
   if ($forum['str_wk'] == 1) {
@@ -746,69 +745,6 @@ function get_time_interval($time) {
   return 'just now';
 }
 
-/*
- * Function to check if rating is allowed
- *
- * @type        - comment/node
- * @uid         - User Id to check for
- * @content_id  - Content Id
- */
-
-function rating_allowed($content_id, $type, $uid) {
-  $comments = db_result(db_query("
-    SELECT COUNT(*)
-    FROM {votingapi_vote}
-    WHERE
-      content_type = '%s' AND
-      uid = '%d' AND
-      content_id = '%d' %s", $type, $uid, $content_id, $type == 'comment' ? '' : 'AND vote_source IS NULL')
-  );
-  return $comments > 0 ? false : true;
-}
-
-/*
- * Function to get the number of the +/- votes
- *
- * @content_id    - debate/resource/reply id
- * @content_type  - node/comment
- *
- * @return array(PRO_COUNT,CON_COUNT)
- */
-
-function get_votes($content_id, $content_type) {
-  $votes = array(0,0);
-  /*
-  $votes = array();
-  $query = "
-    SELECT COUNT(*)
-    FROM {votingapi_vote}
-    WHERE
-      content_id = '%d' AND
-      content_type = '%s' AND
-      tag = 'vote' AND
-      value = '%d'";
-  $votes[] = db_result(db_query($query, $content_id, $content_type, 1));
-  $votes[] = db_result(db_query($query, $content_id, $content_type, -1));
-  */
-  $query = "
-    SELECT value, COUNT( * ) AS votes
-    FROM votingapi_vote
-    WHERE
-      content_id =  '%d' AND
-      content_type =  '%s' AND
-      tag =  'vote'
-    GROUP BY value";
-  $result = db_query($query, $content_id, $content_type);
-  while( $row = db_fetch_array($result) ) {
-    if( $row['value'] == 1 ) {
-      $votes[0] = $row['votes'];
-    }
-    if( $row['value'] == -1 ) {
-      $votes[1] = $row['votes'];
-    }
-  }
-  return $votes;
-}
 
 /*
  * Function to get the number of the strong/weak votes
@@ -3426,8 +3362,7 @@ function issue_dr_refresh($content_id) {
   $output = array();
   # debate/resource
   $output['id'] = $content_id;
-  list($output['vote_up'], $output['vote_dn']) = get_votes($output['id'], 'node');
-  $output['vote_ct'] = $output['vote_up'] - $output['vote_dn'];
+  list($output['vote_up'], $output['vote_dn'], $output['vote_sum']) = yn_votes($output['id'], 'node');
   # replies
   $output['replies'] = array();
   $items = issue_dr_comments($content_id);

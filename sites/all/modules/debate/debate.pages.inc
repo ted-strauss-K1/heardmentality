@@ -457,53 +457,29 @@ function debate_submit() {
     case  'reply'     :
       $json = array();
       $type = $action == 'reply' ? 'comment' : 'node';
-      $voted = rating_allowed($content_id, $type, $user->uid);
-      /*
-      $voted = db_result(db_query("
-        SELECT * FROM {votingapi_vote}
-        WHERE
-          content_id ='%d' AND
-          content_type = '%s' AND
-          uid='%d' AND
-          vote_source IS NULL",
-        $content_id, $type, $user->uid)
-      );
-      */
+      $not_voted = !yn_user_voted($content_id, $type);
       # add vote only for logged in user
-      if( $voted && user_is_logged_in() ) {
+      if( $not_voted && user_is_logged_in() ) {
         $coins_threshold = $agree == 1 ? get_coins('agree') : get_coins('disagree');
         if( $user->total_coins < $coins_threshold ) {
           $json['msg'] = '<em>Sorry! <strong>Error, You do not have enough coins.</strong></em>';
         } else {
-          # add values to votingapi
-          $vote_value = $agree == 1 ? 1 : -1;
-          db_query("
-            INSERT INTO {votingapi_vote}
-            SET
-              content_type = '%s', content_id = '%d', value = '%s', value_type = '%s',
-              tag = '%s', uid = '%d', timestamp = '%d'",
-            $type, $content_id, $vote_value, 'points', 'vote', $user->uid, time()
-          );
+          # add votes
+          $vote_value = $agree == 1 ? VOTE_AGREE : VOTE_DISAGREE;
+          yn_vote( $content_id, $vote_value, $type );
           # add like/dislike counts
           if( $action == 'reply' ) {
             $result = db_result(db_query("SELECT str_wk FROM {comments} WHERE cid = '%d'", $content_id));
             if( !$result ) {
-              $vote_value *= -1;
+              yn_invert_vote_value($vote_value);
             }
-            db_query("
-              INSERT INTO {votingapi_vote}
-              SET
-                content_type = '%s', content_id = '%d', value = '%s', value_type = '%s',
-                tag = '%s', uid = '%d', timestamp = '%d', vote_source = 'reply_auto'",
-              'node', $parent_node, $vote_value, 'points', 'vote', $user->uid, time()
-            );
+            yn_vote( $parent_node, $vote_value, 'node', VOTE_AUTOADD );
           }
           # recalculate votes
-          list($json['vote_up'],$json['vote_dn']) = get_votes($content_id, $type);
-          $strength = $json['vote_up'] - $json['vote_dn'];
+          list($json['vote_up'],$json['vote_dn'], $json['sum']) = yn_votes($content_id, $type);
           if( $type == 'node' ) {
             $node = node_load($content_id);
-            $node->field_strength[0]['value'] = $strength;
+            $node->field_strength[0]['value'] = $json['sum'];
             node_save($node);
           }
           # add coin for agree and disagree
@@ -545,8 +521,7 @@ function debate_submit() {
         $json['error'] = '1';
         $json['msg'] = '<em>Sorry! <strong>Error</strong> occurs while updating.</em>';
       }
-      list($json['pvote_up'],$json['pvote_dn']) = get_votes($parent_node, 'node');
-      $json['sum_count'] = $json['pvote_up'] - $json['pvote_dn'];
+      list($json['pvote_up'],$json['pvote_dn'], $json['sum_count']) = yn_votes($parent_node, 'node');
       echo json_encode($json);
     break;
   }
