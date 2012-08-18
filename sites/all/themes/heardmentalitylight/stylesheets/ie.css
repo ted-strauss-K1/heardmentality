@@ -275,6 +275,7 @@
 	line-height: 21px;
 }
 
-.ie7 .more {
+.ie7 .more,
+.ie8 .more {
 	font-weight: bold !important;
 }	
