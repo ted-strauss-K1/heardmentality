@@ -294,3 +294,7 @@
 	height: 14px;
 	border-radius: 10px;
 }
+
+.ie7 .item-list .pager li a {
+	display: inline;
+}
