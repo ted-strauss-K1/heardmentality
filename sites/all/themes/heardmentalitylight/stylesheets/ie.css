@@ -289,3 +289,8 @@
 .ie7 ul.badges li {
 	white-space: nowrap;
 }
+
+.ie7 .bronze, .ie7 .silver, .ie7 .gold {
+	height: 14px;
+	border-radius: 10px;
+}
