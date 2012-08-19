@@ -999,7 +999,6 @@ function issue_search_form(&$form_state) {
   $getState = check_plain(arg(6));
   $getCity = check_plain(arg(7));
 
-
   $inline = 'function clrForm(thisform){jQuery(":input", "#issue-search-form").not(":button, :submit, :hidden").val("").removeAttr(":selected");}';
   drupal_add_js($inline, 'inline');
 
@@ -1317,11 +1316,7 @@ function search_issue_results() {
   $sortValue = arg(8) != '' ? arg(8) : 'all';
   $where = '';
   $groupBy = '';
-
-
   $rec_per_page = 5;
-
-
   $val = array();
 // conditions key
   if (!empty($key)) {
