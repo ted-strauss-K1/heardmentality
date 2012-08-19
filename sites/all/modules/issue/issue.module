@@ -1040,6 +1040,7 @@ function issue_add_vote($dummy = '', $nid = '') {
     }
 
     // user can suggest only one answer per issue
+   if (arg(0) != 'issues_solr2') {
     if ($alreadyAdded == 0) {
       $form['add_vote'] = array(
         '#type' => 'fieldset',
@@ -1081,6 +1082,7 @@ function issue_add_vote($dummy = '', $nid = '') {
       );
     }
   }
+  }
   else {
     $form['login_error'] = array(
       '#type' => 'markup',
@@ -1091,7 +1093,7 @@ function issue_add_vote($dummy = '', $nid = '') {
   }
 
   ////////////////////////
-  if (arg(0) == 'issues2') {
+  if (arg(0) == 'issues_solr2') {
     $form['#id'] = 'issue_edit_form_stream';
     $form['nid_val'] = array(
       '#type' => 'hidden',
