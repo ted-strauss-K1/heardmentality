@@ -1953,6 +1953,8 @@ p.profile-status {
 	float: left;
 	border-left: 1px solid #666666;
 	margin: 0;
+	font-size: 13px;
+	line-height: 15px;
 }
 
 .sort-by.profile li:first-child {
