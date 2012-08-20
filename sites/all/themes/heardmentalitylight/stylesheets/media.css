@@ -96,6 +96,12 @@
 			max-width: 190px;
 		}
 		
+		/*View profile*/
+		
+		span.activity {
+			display: none;
+		}
+		
 	}
 
 /* iPad Portrait/Browser */
