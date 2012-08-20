@@ -1067,7 +1067,7 @@ INNER JOIN `users` u
         $i++;
     }
     if (!$i) {
-        $output.='No User Activity Found!';
+        $output.='<span class="no_active">No User Activity Found!</span>';
     }
 
     $pagination = theme('pager', NULL, $limit, 0);
