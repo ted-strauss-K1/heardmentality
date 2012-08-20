@@ -1943,9 +1943,11 @@ p.profile-status {
 }
 
 .sort-by.profile ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+    display: inline-block;
+    list-style: none outside none;
+    margin: 0;
+    padding: 3px 0 0;
+    vertical-align: top;
 }
 
 .sort-by.profile li {
