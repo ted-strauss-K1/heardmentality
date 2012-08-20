@@ -1507,6 +1507,7 @@ form#user-details {
 #profile_overview span.block {
 	display: block;
 	word-wrap: break-word;
+	line-height: 1.4;
 }
 
 #edit_profile,
@@ -1979,6 +1980,13 @@ p.profile-status {
 	margin-top: 0;
 	margin-bottom: 15px;
 }
+
+.activity_stream .no_active {
+	padding: 0 5px;
+	color: #CC2027;
+	font-size: 12px;
+	display: block;
+} 
 
 /* #Footer
 ================================================== */
