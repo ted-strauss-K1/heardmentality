@@ -623,9 +623,9 @@
 		padding-left: 0;
 	}
 	
-	ul.date_filter li a, ul.options_filter li a {
+	/*ul.date_filter li a, ul.options_filter li a {
 		font-size: 14px;
-	}
+	}*/
 	
 	ul.date_filter li, ul.options_filter li {
 		float: none;
@@ -659,6 +659,15 @@
 	
 	body.front object {
 		display: none;
+	}
+	
+	/*View profile*/
+		
+	.sort-by.profile li {
+		border: 0 none;
+		float: none;
+		list-style: square outside none;
+		margin-top: 10px;
 	}
 }
 	
