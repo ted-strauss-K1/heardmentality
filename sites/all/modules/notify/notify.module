@@ -1016,11 +1016,11 @@ function _user_activity_stream(){
     }else{
         $class = '';
     }
-    $filters = '<a '.$aclass.' href="'.$filterPath.'all"> '.t('All').'</a> |
-                <a '.$vclass.' href="'.$filterPath.'votes">'.t('Votes').'</a> |
-                <a '.$dclass.' href="'.$filterPath.'debates">'.t('Arguments').'</a> |
-                <a '.$iclass.' href="'.$filterPath.'issues">'.t('Issues Added').'</a> |
-                <a '.$rclass.' href="'.$filterPath.'resources">'.t('References').'</a>';
+    $filters = '<li><a '.$aclass.' href="'.$filterPath.'all"> '.t('All').'</a></li>
+                <li><a '.$vclass.' href="'.$filterPath.'votes">'.t('Votes').'</a></li>
+                <li><a '.$dclass.' href="'.$filterPath.'debates">'.t('Arguments').'</a></li>
+                <li><a '.$iclass.' href="'.$filterPath.'issues">'.t('Issues Added').'</a>/<li>
+                <li><a '.$rclass.' href="'.$filterPath.'resources">'.t('References').'</a></li>';
     
     $where = notify_user_stream_filter_where($filter);
     
