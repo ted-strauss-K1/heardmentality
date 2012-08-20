@@ -102,6 +102,14 @@
 			display: none;
 		}
 		
+		.sort-by.profile a {
+			padding: 0 6px;
+		}
+		
+		.sort-by.profile li:first-child a {
+			padding-left: 0;
+		}
+		
 	}
 
 /* iPad Portrait/Browser */
