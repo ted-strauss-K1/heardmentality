@@ -1942,6 +1942,23 @@ p.profile-status {
 	min-height: 34px;
 }
 
+.sort-by.profile ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.sort-by.profile li {
+	list-style: none;
+	float: left;
+	border-left: 1px solid #666666;
+	margin: 0;
+}
+
+.sort-by.profile li:first-child {
+	border: 0 none;
+}
+
 .sort-by.profile a {
 	color: #666666;
     display: inline-block;
