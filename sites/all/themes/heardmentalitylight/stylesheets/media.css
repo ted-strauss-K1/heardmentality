@@ -737,6 +737,10 @@ Mobile Only
 		overflow-x: auto;
 		overflow-y: hidden;
 	}
+	
+	.profile-message.poll-box {
+		padding; 0;
+	}
 
 }
 
