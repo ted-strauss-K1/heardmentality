@@ -1013,7 +1013,7 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#type' => 'radios',
         '#options' => $options,
         '#default_value' => $mysugg,
-		'#prefix' => '<div class="choices">',
+		'#prefix' => '<div class="choices additional">',
 		'#suffix' => '</div>'
       );
 
