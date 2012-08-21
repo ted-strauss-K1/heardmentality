@@ -285,9 +285,10 @@
 		}
 	
 	}
-
 	
-/* Mobile Only */
+/*******************************
+Mobile Only 
+*******************************/
 	@media only screen and (max-width: 767px)  {
 		
 		select option {
@@ -682,7 +683,28 @@
 		display: inline-block;
 		padding: 0 0 2px;
 	}
+	
+	/*Issue details*/
+	
+	.white-box.poll-box h2.din,
+	.poll-box .ul_wrapper h2.din {
+		font-size: 30px;
+		line-height: 33px;
+	}
+	
+	.vote-results li.part {
+		width: 100%;
+		clear: left;
+	}
+	
+	.vote-results li.part.margin {
+		margin: 10px 0;
+	}
 }
+
+/*******************************
+END Mobile Only 
+*******************************/
 	
 /* Mobile Landscape/Browser */
 
@@ -704,12 +726,6 @@
 		input.info.form-text, textarea.info.form-text {
 		    width: 97%;
 		}
-		
-		/*a.logo {width:94.4%;margin:0px 0px 0px 0px;text-align:left;float:left}
-		
-		.top-right.login { 
-			width:98.3%;
-  		}*/
 	}
 	
 /* Mobile Landscape Only */
