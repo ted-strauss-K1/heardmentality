@@ -669,6 +669,14 @@
 		list-style: square outside none;
 		margin-top: 10px;
 	}
+	
+	.sort-by.profile li:first-child {
+		margin: 0;
+	}
+	
+	.sort-by.profile li:first-child a {
+		padding-left: 6px;
+	}
 }
 	
 /* Mobile Landscape/Browser */
