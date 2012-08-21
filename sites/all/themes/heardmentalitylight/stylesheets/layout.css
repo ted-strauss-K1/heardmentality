@@ -3924,13 +3924,13 @@ h6#deb-ana:hover a,
 #debate_list_area .arg p.position-minus,
 #debate_list_area .arg p.position-plus {
 	float: left;
-	margin: 0 0 0 17px;
+	margin: 0 17px 0 0;
 	font-size: 12px;
 	line-height: 18px;
 }
 
-#debate_list_area .arg p.position-minus:first-child,
-#debate_list_area .arg p.position-plus:first-child {
+#debate_list_area .arg p.position-minus:last-child,
+#debate_list_area .arg p.position-plus:last-child {
 	margin: 0;
 }
 
