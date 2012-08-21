@@ -3868,7 +3868,8 @@ h6#deb-ana:hover a,
 	margin: 0;
 	font-size: 12px;
 	line-height: 18px;
-	display: inline;	
+	display: inline;
+    word-wrap: break-word;	
 }
 
 #debate_list_area .arg .argument_body .translate,
