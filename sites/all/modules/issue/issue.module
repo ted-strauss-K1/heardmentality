@@ -999,7 +999,7 @@ function issue_add_vote($dummy = '', $nid = '') {
     $err = 0;
     if (isset($count_row) && $count_row > 0) {
       while ($answerfet = db_fetch_object($anslist)) {
-        $options[$answerfet->said] = '<span>' . $answerfet->answer . '</span>';
+        $options[$answerfet->said] = '<span class="ch">' . $answerfet->answer . '</span>';
       }
       $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
       /* $form['add_vote'] = array(
@@ -1013,6 +1013,8 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#type' => 'radios',
         '#options' => $options,
         '#default_value' => $mysugg,
+		'#prefix' => '<div class="choices">',
+		'#suffix' => '</div>'
       );
 
       $alreadyAdded = db_result(db_query("SELECT COUNT(said) FROM {suggest_answer} WHERE qid = '$nid' AND uid = '$user->uid'"));
