@@ -662,7 +662,11 @@
 	}
 	
 	/*View profile*/
-		
+
+	.sort-by.profile ul {
+		padding-left: 1.5em;
+	}	
+	
 	.sort-by.profile li {
 		border: 0 none;
 		float: none;
@@ -674,8 +678,9 @@
 		margin: 0;
 	}
 	
-	.sort-by.profile li:first-child a {
-		padding-left: 6px;
+	.sort-by.profile li a {
+		display: inline-block;
+		padding: 0 0 2px;
 	}
 }
 	
@@ -729,7 +734,7 @@
 		}
 		
 		ul.date_filter {
-			padding-left: 1em;
-			padding-right: 2em;
+			padding-left: 1.5em;
+			padding-right: 3em;
 		}
 	}
