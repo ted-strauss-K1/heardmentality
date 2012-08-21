@@ -110,6 +110,12 @@
 			padding-left: 0;
 		}
 		
+		/*Issue details*/
+		
+		#debate_list_area > h2:first-child {
+			padding-bottom: 35px;
+		}
+		
 	}
 
 /* iPad Portrait/Browser */
@@ -707,6 +713,7 @@ Mobile Only
 	
 	#debate_list_area > h2:first-child {
 		border: 0 none;
+		padding-bottom: 6px;
 	}
 	
 	#debate_list_area .ui-tabs-nav {
