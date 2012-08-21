@@ -704,6 +704,14 @@ Mobile Only
 	.vote-results li.full {
 		margin-top: 0;
 	}
+	
+	#debate_list_area > h2:first-child {
+		border: 0 none;
+	}
+	
+	#debate_list_area .ui-tabs-nav {
+		margin: 0;
+	}
 }
 
 /*******************************
