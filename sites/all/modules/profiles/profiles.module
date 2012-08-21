@@ -1977,7 +1977,6 @@ function profile_complete_percent_area_bottom() {
   $medalList = load_user_medal_list($user->uid);
   $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$user->rank_id'"));
 
-
   /**
    * odyachenko
    *

@@ -487,6 +487,7 @@ function get_privacy_form() {
   $fetch = ExecuteQuery($query, "select");
   $options = array('1' => t(''), '2' => t(''), '3' => t(''), '4' => t(''));
   $noOne = array('4' => t(''));
+  $noone_value = 4;
   $query = "select * from {profile_fields} ORDER BY `profile_fields`.`fid` ASC";
   $result = db_query($query);
 
@@ -506,14 +507,15 @@ function get_privacy_form() {
     if ($col != 'income') {
       $form[$col . '_privacy'] = array(
         '#type' => 'radios',
-        '#default_value' => variable_get($col . '_privacy', $sel),
+        '#default_value' => $noone_value,
+        '#value' => variable_get($col . '_privacy', $sel),
         '#options' => $options,
       );
     }
     else {
       $form[$col . '_privacy'] = array(
         '#type' => 'radios',
-        '#default_value' => 4,
+        '#default_value' => $noone_value,
         '#options' => $noOne,
         '#checked' => TRUE,
       );
@@ -526,7 +528,8 @@ function get_privacy_form() {
 
   $form['activity_privacy'] = array(
     '#type' => 'radios',
-    '#default_value' => variable_get('activity_privacy', $fetch[0]['question_privacy']),
+    '#default_value' => $noone_value,
+    '#value' => variable_get('activity_privacy', $fetch[0]['question_privacy']),
     '#options' => $options,
     '#prefix' => '<br/><br/><br/><div class="form-wra">',
     '#suffix' => '<div class="clr"></div></div>',

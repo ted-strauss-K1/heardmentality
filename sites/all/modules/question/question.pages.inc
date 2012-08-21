@@ -170,7 +170,7 @@ function question_save() {
         $_SESSION['post'] = '';
         $path=drupal_get_path_alias('node/'.$result->nid);
          # increasepoints('1', $ins_id, '0');
-         user_points_action_fired('addquestion', $user->uid);
+          up_actions_execute('addquestion', $user->uid);
         _send_qnotify($result->nid);
          //drupal_goto($path);
               echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';

@@ -716,8 +716,8 @@ function welcome_page() {
         $ins_commg = "insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('" . $_COOKIE["faceidc"] . "' ,'6',$fetuserpts->points,'0') ";
         $rs_commg = db_query($ins_commg);
       */
-      user_points_action('followers', $user->uid);
-
+      //user_points_action('followers', $user->uid);
+      up_actions_execute('follower', $user->uid);
 
 
         setcookie("friend_id", '0');

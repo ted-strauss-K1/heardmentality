@@ -1,0 +1,8 @@
+name = UserPoints Extension
+description = Module provides set of rules to add/remove userpoints for different actions on site. It also checks reputation level to define whether user has enough points to perform an action.
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
+dependencies[] = "userpoints"
+dependencies[] = "rules"
+dependencies[] = "up_actions"

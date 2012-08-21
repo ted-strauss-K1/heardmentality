@@ -1,6 +1,10 @@
 <?php
+// TODO -- add check
 function invite_friends() {
-    global $gSitePath,$user,$gDocPath,$base_root,$apikey;
+
+
+
+  global $gSitePath,$user,$gDocPath,$base_root,$apikey;
     $uid = $user->uid;
     $requestedemails = NULL;
     $title = NULL;
@@ -157,8 +161,7 @@ function invite_friends() {
           $ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$user->uid."' ,'5',$fetuserpts->points,'0') ";
           $rs_commg=db_query($ins_commg);
            * */
-          user_points_action('invite', $user->uid);
-
+          up_actions_execute('invite', $user->uid);
 
 
 			

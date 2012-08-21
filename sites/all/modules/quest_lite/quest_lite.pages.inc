@@ -172,8 +172,8 @@ function qlite_view() {
     }
     // ADD POINTS FOR EACH VIEW ends
     */
-    if( user_points_action_fired('pageview', $user->uid) ) {
-      $points = user_points_action('pageview', $user->uid);
+    if (up_actions_user_check_action('pageview', $user->uid)) {
+      $points = up_actions_execute('pageview', $user->uid);
       // New SET NOTIFY LOG
       $variable = array('points' => $points, 'uid' => $user->uid );
       set_notify_log($user->uid, '', 'add_points', $variable);
@@ -1000,7 +1000,7 @@ function qlite_save() {
             send_votenotify($mid);
 
             # increasepoints('2', $mid, '0');
-          user_points_action_fired('ansquestion', $user->uid);
+          up_actions_execute('ansquestion', $user->uid);
             //badges
             //teacher($user->uid,$mid);
 
@@ -1165,7 +1165,7 @@ function qlite_save() {
             send_votenotify($mid);
 
             # increasepoints('2', $mid, '0');
-          user_points_action_fired('ansquestion', $user->uid);
+          up_actions_execute('ansquestion', $user->uid);
 
 
             //badges
@@ -1570,7 +1570,8 @@ function flag_report() {
                     db_query($flagnotify);
 
                     # increasepoints('4', $_REQUEST['uid'], '0');
-                  user_points_action_fired('flagquestion', $user->uid);
+                  up_actions_execute('flagquestion', $user->uid);
+                  
 
                     echo 'Flagged';
                 } else {
@@ -1594,7 +1595,7 @@ function flag_report() {
                     db_query($flagnotify);
 
                     # increasepoints('4', $_REQUEST['uid'], '0');
-                  user_points_action_fired('flagquestion', $user->uid);
+                  up_actions_execute('flagquestion', $user->uid);
                     echo '<div class="">Flagged </div>';
                 } else {
                     echo '<div class="red">You have already Flagged this reference!</div>';
@@ -1618,7 +1619,7 @@ function flag_report() {
                     db_query($flagnotify);
 
                     # increasepoints('4', $_REQUEST['uid'], '0');
-                  user_points_action_fired('flagquestion', $user->uid);
+                  up_actions_execute('flagquestion', $user->uid);
                     echo '<div class="">Flagged</div>';
                 } else {
                     echo '<div class="red">You have already Flagged this debate!</div>';
@@ -1642,7 +1643,7 @@ function flag_report() {
                     db_query($flagnotify);
 
                     # increasepoints('4', $_REQUEST['uid'], '0');
-                  user_points_action_fired('flagquestion', $user->uid);
+                  up_actions_execute('flagquestion', $user->uid);
                     echo '<div class="">Flagged</div>';
                 } else {
                     echo '<div class="red">You have already Flagged this discussion!</div>';
@@ -1665,7 +1666,7 @@ function flag_report() {
                     db_query($flagnotify);
 
                     # increasepoints('4', $_REQUEST['qaid'], '0');
-                  user_points_action_fired('flagquestion', $user->uid);
+                  up_actions_execute('flagquestion', $user->uid);
                     echo '<div class="">Flagged</div>';
 
                     /*New SET NOTIFY LOG*/

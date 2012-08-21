@@ -898,7 +898,8 @@ function issue_create_form_submit($form, &$form_state) {
     $path = drupal_get_path_alias(getPathAlias($node->nid));
 
   # increasepoints('1', $node->nid, '0');
-  user_points_action_fired('addquestion', $user->uid);
+  up_actions_execute('addquestion', $user->uid);
+
 //_send_qnotify($node->nid);
 //drupal_goto($path);
 

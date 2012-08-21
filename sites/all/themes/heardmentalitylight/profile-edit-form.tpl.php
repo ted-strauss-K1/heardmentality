@@ -1,4 +1,8 @@
 <?php
+
+# var_dump($form['#id']);
+# die('XXX');
+
 //echo '<pre>'; print_r($form); exit;
 print drupal_render($form['form_token']);
 print drupal_render($form['form_build_id']);

@@ -3,6 +3,8 @@ global $user, $base_url;
 $directoryPath = $base_path . $directory;
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+var_dump($user->uid);
 ?>
 <div class="icon profile-i text"></div>
     <label for="profile" class="profile-dark dinbold"><?php print $name; ?>, <?php print t($ranking); ?></label>

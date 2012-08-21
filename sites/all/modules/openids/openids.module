@@ -70,6 +70,8 @@ $log['member/index'] = array(
   
 }
 
+
+// TODO - get rid of that one - it's to be made with Rules!
 function add_visit_points($uid = ''){
   /**
    * odyachenko
@@ -88,7 +90,8 @@ function add_visit_points($uid = ''){
         // New SET NOTIFY LOG
     }
    */
-  $points = user_points_action('visit', $uid);
+  # $points = user_points_action('visit', $uid);
+  $points = up_actions_execute('visit', $uid);
   // New SET NOTIFY LOG
   $variable = array('points' => $points, 'uid' => $uid );
   set_notify_log($uid, '', 'add_points', $variable);

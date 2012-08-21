@@ -30,6 +30,9 @@ function user_coins_check($uid, $action) {
   return true;
 }
 
+function user_coins_update() {
+  //
+}
 
 
 /*

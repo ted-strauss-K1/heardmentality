@@ -1,0 +1,58 @@
+<?php
+
+/*
+ * Implementation of hook_init()
+ *
+ * @see
+ *  userpoints_get_current_points($uid = NULL, $tid = NULL)
+ */
+function up_init() {
+  //
+}
+
+/*
+ * Get the number of userpoints
+ */
+function up_userpoints($uid = '', $operation = '') {
+  if (empty($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+  if (empty($operation)) {
+    return userpoints_get_current_points($uid, 'all');
+  } else {
+    return (int)db_result(db_query("SELECT SUM(points) FROM {userpoints_txn} WHERE uid = '%d' AND operation = '%s'", $uid, $operation));
+  }
+}
+
+/*
+ * Max userpoints per day
+ */
+define( 'UP_REPUTATION_PER_DAY', 200 );
+
+/*
+ * Get the number of userpoints today (!)
+ */
+function up_userpoints_today($uid = '', $operation = '') {
+  if (empty($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $query = "SELECT SUM(points) FROM {userpoints_txn} WHERE uid = '%d' AND time_stamp > CURDATE()";
+  if (!empty($operation)) {
+    $query .= " AND operation = '%s'";
+  }
+  return (int)db_result(db_query($query, $uid, $operation));
+}
+
+/*
+ * Check if operation was made today
+ */
+function up_check_operation_today($operation, $uid = '') {
+  if (empty($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+  return false != db_result(db_query("SELECT txn_id FROM {userpoints_txn} WHERE uid = '%d' AND time_stamp > CURDATE() AND operation '%s'",$uid, $operation));
+}
+

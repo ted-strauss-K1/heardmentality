@@ -460,7 +460,8 @@ function debate_submit() {
       $not_voted = !yn_user_voted($content_id, $type);
       # add vote only for logged in user
       if( $not_voted && user_is_logged_in() ) {
-        $coins_threshold = $agree == 1 ? get_coins('agree') : get_coins('disagree');
+        $coins_threshold = 0;
+        # $coins_threshold = $agree == 1 ? get_coins('agree') : get_coins('disagree');
         if( $user->total_coins < $coins_threshold ) {
           $json['msg'] = '<em>Sorry! <strong>Error, You do not have enough coins.</strong></em>';
         } else {

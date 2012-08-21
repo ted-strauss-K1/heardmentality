@@ -1,0 +1,5 @@
+name = UserPoints Extension Actions
+description = Provides Actions list with respective Reputation limits for UserPoints Extension
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
