@@ -4328,6 +4328,7 @@ ul.control_links h6#reply:hover {
     text-transform: none;
 	position: relative;
 	top: -5px;
+	margin-right: 16px;
 }
 
 .show_only .inc {
@@ -4335,7 +4336,7 @@ ul.control_links h6#reply:hover {
 }
 
 .show_only .inc form {
-	margin: 0 0 0 16px;
+	margin: 0;
     padding-top: 8px;
 }
 
