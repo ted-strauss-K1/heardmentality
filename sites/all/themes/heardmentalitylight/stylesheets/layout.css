@@ -3311,8 +3311,6 @@ ul.pager a:hover {
 
 #shareDiv {
 	padding: 20px 0 0 30px;
-	max-width: 235px;
-	overflow: auto;
 }
 
 .poll-box .ul_wrapper {

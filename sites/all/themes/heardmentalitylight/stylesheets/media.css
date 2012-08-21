@@ -722,6 +722,14 @@ Mobile Only
 	#empty_helper {
 		display: none;
 	}
+	
+	#shareDiv {
+		padding: 20px 0 0;
+		margin-left: 30px;
+		max-width: 235px;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
 
 }
 
