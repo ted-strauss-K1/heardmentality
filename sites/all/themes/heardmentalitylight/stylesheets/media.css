@@ -713,10 +713,15 @@ Mobile Only
 		margin: 0;
 		float: none;
 		border-bottom: 1px solid #C0C0C0;
+		padding: 10px 18px 0;
 	}
 	
 	#empty_helper {
 		display: none;
+	}
+	
+	#debate_list_area .ui-tabs-panel .one-forum:first-child {
+		background-color: #ccc;
 	}
 }
 
