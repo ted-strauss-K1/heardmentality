@@ -700,6 +700,10 @@ Mobile Only
 	.vote-results li.part.margin {
 		margin: 10px 0;
 	}
+	
+	.vote-results li.full {
+		margin-top: 0;
+	}
 }
 
 /*******************************
