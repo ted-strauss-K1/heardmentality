@@ -711,6 +711,12 @@ Mobile Only
 	
 	#debate_list_area .ui-tabs-nav {
 		margin: 0;
+		float: none;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	
+	#empty_helper {
+		display: none;
 	}
 }
 
