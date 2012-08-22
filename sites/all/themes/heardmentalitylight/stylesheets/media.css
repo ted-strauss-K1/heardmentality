@@ -764,6 +764,10 @@ Mobile Only
 	#debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
 		left: -85px;
 	}
+	
+	#debate_list_area li.one_reply ul.control_links {
+		margin: 8px 0 0;
+	}
 
 }
 
