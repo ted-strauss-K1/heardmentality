@@ -206,6 +206,7 @@ Drupal.behaviors.add_new_form = function(context) {
 
 
   translate();
+  flagger_rebind();
 
 /*
   $('.goog-trans-control').html('');
