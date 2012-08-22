@@ -3,6 +3,23 @@ $(document).ready(function(){
   // $('#edit-block-country').simpleMultiSelect();
   //  $('#edit-subject').simpleMultiSelect();
   //  multi_select();
+  $("#edit-change").live("click", function(e) {
+    console.log(e);
+    // $("#issue_edit_form_stream").submit(function(){
+    var options = {
+      target: "#divToUpdate",
+      url: "issues_ajax/submit",
+      success: function() {
+        alert("Спасибо за комментарий!");
+      }
+    };
+    // передаем опции в  ajaxSubmit
+    console.log($(this).parents('form'));
+    $("form").ajaxSubmit(options);    
+
+    return false;
+  //    })
+  });
   
   get_issues_solr(null, null);  
   

@@ -20,6 +20,12 @@ function solr_issues_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['issues_ajax/submit'] = array(
+    'page callback' => 'solr_issues_form_submit',
+    //'page arguments' => array('issues'),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -577,10 +583,6 @@ function show_print($var, $return = FALSE) {
   }
 }
 
-function solr_issues_preprocess_node(&$variables) {
-  // krumo($variables);
-}
-
-function solr_issues_preprocess_page(&$variables) {
-  // krumo($variables);
+function solr_issues_form_submit($form_state) {
+  krumo($_POST);
 }
