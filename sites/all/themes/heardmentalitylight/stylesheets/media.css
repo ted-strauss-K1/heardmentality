@@ -785,6 +785,10 @@ Mobile Only
 	#deb_title-wrapper, #edit-ref-title-wrapper {
 		padding: 0;
 	}
+	
+	#add-new-debate-form .add_button {
+		width: 100%;
+	}
 
 }
 
