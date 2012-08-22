@@ -664,10 +664,6 @@ Mobile Only
 		padding: 0 3px;
 	}
 	
-	body.front object {
-		display: none;
-	}
-	
 	/*View profile*/
 
 	.sort-by.profile ul {
@@ -804,5 +800,9 @@ END Mobile Only
 		
 		#debate_work_area {
 			clear: both;
+		}
+						
+		body div:last-child object {
+			display: none;
 		}
 	}
