@@ -31,11 +31,9 @@ function yn_menu() {
  * Debug function
  */
 function yn_test() {
-  $u1 = user_load(1);
-  $u2 = user_load(32);
-  $content_id = 1;
-  $content_type = 'node';
-  rules_invoke_event('yn_voteup', $u1, $u2, $content_id, $content_type);
+  global $user;
+  rules_invoke_event('yn_voteup', $user, $user);
+  echo 'time='.time();
 }
 
 /*

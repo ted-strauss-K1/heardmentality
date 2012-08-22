@@ -1,0 +1,5 @@
+name = User Generated Content
+description = UGC Module provides common way for handling: Issues, Debates, Resources and their Replies
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x

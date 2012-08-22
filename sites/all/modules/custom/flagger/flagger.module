@@ -1,0 +1,144 @@
+<?php
+
+/*
+ * Implementation of hook_init()
+ */
+function flagger_init() {
+  drupal_add_js( drupal_get_path('module', 'flagger').'/flagger.js' );
+  drupal_add_js( 'misc/jquery.form.js' );
+}
+
+/*
+ * Flagger path
+ */
+define('FLAGGER_PATH', 'flagger');
+
+/*
+ * Implementation of hook_menu()
+ */
+function flagger_menu() {
+  $menu = array();
+
+  $menu[FLAGGER_PATH] = array(
+    'page callback'     => 'flagger_page',
+    'page arguments'    => array(1,2),
+    'access arguments'  => array('access content'),
+    'type'              => MENU_CALLBACK,
+  );
+
+  $menu[FLAGGER_PATH . '/save'] = array(
+    'page callback'     => 'flagger_page_save',
+    'access arguments'  => array('access content'),
+    'type'              => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+
+/*
+ * Implementation of hook_theme()
+ */
+function flagger_theme() {
+  $theme = array();
+
+  $theme['flagger_button'] = array(
+    'arguments' => array(
+      'content_id'    => NULL,
+      'content_type'  => NULL,
+    ),
+  );
+
+  return $theme;
+}
+
+/*
+ * Flagger Button theme call
+ */
+function theme_flagger_button($content_id, $content_type) {
+  if (user_is_logged_in()) {
+    return l(t('flag'), FLAGGER_PATH.'/'.$content_type.'/'.$content_id,
+      array('attributes' => array(
+        'class' => 'flagger',
+        'name'  => $content_type.'/'.$content_id,
+      ))
+    );
+  } else {
+    return l(t('flag'), '#',
+      array('attributes' => array(
+        'class' => 'flagger_login',
+      ))
+    );
+  }
+}
+
+/*
+ * Flagger popup contents
+ */
+function flagger_page($content_type, $content_id) {
+  $form = drupal_get_form('flagger_form', $content_id, $content_type);
+  drupal_json(array( 'text' => $form ));
+}
+
+/*
+ * Flagger form
+ */
+function flagger_form(&$form,$content_id, $content_type) {
+  $form = array();
+
+  $form['#attributes'] = array(
+    'class' => 'flagger_form'
+  );
+  $form['#action'] = '/'.FLAGGER_PATH . '/save';
+
+  $form['title'] = array(
+    '#type'  => 'markup',
+    "#value" => t('Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?'),
+  );
+  $form['guide'] = array(
+    '#type'  => 'markup',
+    "#value" => l(t('Read Guidelines'), '<front>'),
+  );
+
+  $flags = flag_get_flags($content_type);
+  $i = 0;
+  foreach( $flags as $key => $flag ) {
+    $form['flag-'.$i] = array(
+      '#type'  => 'checkbox',
+      '#title' => t($flag->title),
+      '#value' => $flag->is_flagged($content_id),
+    );
+    $form['flag-fid-'.$i] = array(
+      '#type'  => 'hidden',
+      '#value' => $flag->fid,
+    );
+    $i++;
+  }
+
+  $form['flag_count'] = array(
+    '#type'  => 'hidden',
+    "#value" => count($flags),
+  );
+  $form['content_id'] = array(
+    '#type'  => 'hidden',
+    "#value" => $content_id,
+  );
+  $form['content_type'] = array(
+    '#type'  => 'hidden',
+    "#value" => $content_type,
+  );
+
+  return $form;
+}
+
+/*
+ * Flagger form submit
+ */
+function flagger_page_save() {
+  $post = $_POST;
+  for( $i=0; $i<$post['flag_count']; $i++ ) {
+    $fid = $post['flag-fid-'.$i];
+    $flag = flag_get_flag(null, $fid);
+    $flag->flag( $post['flag-'.$i] ? 'flag' : 'unflag', $post['content_id'] );
+  }
+}

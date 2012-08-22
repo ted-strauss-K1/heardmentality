@@ -8,12 +8,38 @@
  */
 function up_init() {
   //
+  drupal_add_js(drupal_get_path('module', 'up') . '/up.events.js');
+}
+
+/*
+ * Implementation of hook_menu()
+ */
+function up_menu() {
+  $menu = array();
+
+  $menu['up_share/%node'] = array(
+    'page callback'    => 'up_share',
+    'page arguments'   => array(1),
+    'access arguments' => array('access content'),
+    'type'             => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/*
+ * "up_share" callback
+ */
+function up_share($nid) {
+  global $user;
+  $node = node_load($nid);
+  rules_invoke_event('up_user_shared', $user, $node);
 }
 
 /*
  * Get the number of userpoints
  */
-function up_userpoints($uid = '', $operation = '') {
+function up_userpoints_get($uid = '', $operation = '') {
   if (empty($uid)) {
     global $user;
     $uid = $user->uid;
@@ -53,6 +79,36 @@ function up_check_operation_today($operation, $uid = '') {
     global $user;
     $uid = $user->uid;
   }
-  return false != db_result(db_query("SELECT txn_id FROM {userpoints_txn} WHERE uid = '%d' AND time_stamp > CURDATE() AND operation '%s'",$uid, $operation));
+  return false != db_result(db_query("SELECT txn_id FROM {userpoints_txn} WHERE uid = '%d' AND time_stamp > CURDATE() AND operation = '%s'", $uid, $operation));
 }
 
+/*
+ * Form alters
+ */
+function up_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'user_relationships_ui_request') {
+    $form['#submit'][] = 'up_userpoints_follow';
+  }
+  if ($form_id == 'user_relationships_ui_remove') {
+    $form['#submit'][] = 'up_userpoints_unfollow';
+  }
+}
+
+/*
+ * Form user_relationships_ui_request additional submitter
+ */
+function up_userpoints_follow(&$form, $form_state) {
+  global $user;
+  $followed = user_load(arg(1));
+  rules_invoke_event('up_user_followed', $user, $followed);
+}
+
+/*
+ * Form user_relationships_ui_remove additional submitter
+ */
+function up_userpoints_unfollow(&$form, $form_state) {
+  global $user;
+  $relationship = user_relationships_load(arg(3));
+  $followed = user_load($relationship->requestee_id);
+  rules_invoke_event('up_user_unfollowed', $user, $followed);
+}
