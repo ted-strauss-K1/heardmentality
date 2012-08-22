@@ -975,7 +975,7 @@ function issue_add_vote($dummy = '', $nid = '') {
   // IMPORTANT get translate nid (tnid) for current node
   $tnid = get_tnid($nid);
   $tnode = node_load($tnid);
-
+  $form['#nid'] = $tnid;
   if ($node->choice) {
     $list = array();
     foreach ($node->choice as $i => $choice) {
@@ -987,7 +987,7 @@ function issue_add_vote($dummy = '', $nid = '') {
       '#options' => $list,
     );
   }
-  $form['#nid'] = $tnid;
+
 ////////////////////////
   if (user_is_logged_in()) {
 
@@ -1014,8 +1014,8 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#type' => 'radios',
         '#options' => $options,
         '#default_value' => $mysugg,
-		'#prefix' => '<div class="choices additional">',
-		'#suffix' => '</div>'
+        '#prefix' => '<div class="choices additional">',
+        '#suffix' => '</div>'
       );
 
       $alreadyAdded = db_result(db_query("SELECT COUNT(said) FROM {suggest_answer} WHERE qid = '$nid' AND uid = '$user->uid'"));
@@ -1043,48 +1043,48 @@ function issue_add_vote($dummy = '', $nid = '') {
     }
 
     // user can suggest only one answer per issue
-   if (arg(0) != 'issues_solr2') {
-    if ($alreadyAdded == 0) {
-      $form['add_vote'] = array(
-        '#type' => 'fieldset',
-        '#title' => t('...Or submit a different answer'),
-        '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
-        '#tree' => TRUE,
-      );
-      $form['add_vote']['new_suggest_answer'] = array(
-        '#type' => 'textfield',
-        '#size' => 38,
-        '#description' => t('(Answers must not exceed 140 carachters in length)'),
-        '#attributes' => array('class' => 'floatleft'),
-        '#maxlength' => 140,
-        '#id' => 'Answer3',
-        '#prefix' => '<div class="nsa-wrapper"><table><tr><td class="first">',
-        '#suffix' => '</td><td>',
-      );
-      if (empty($nid))
-        $nid = arg(1);
-      $form['add_vote']['nid'] = array(
-        '#type' => 'hidden',
-        '#value' => $nid,
-      );
+    if (arg(0) != 'issues_solr2') {
+      if ($alreadyAdded == 0) {
+        $form['add_vote'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('...Or submit a different answer'),
+          '#collapsible' => TRUE,
+          '#collapsed' => TRUE,
+          '#tree' => TRUE,
+        );
+        $form['add_vote']['new_suggest_answer'] = array(
+          '#type' => 'textfield',
+          '#size' => 38,
+          '#description' => t('(Answers must not exceed 140 carachters in length)'),
+          '#attributes' => array('class' => 'floatleft'),
+          '#maxlength' => 140,
+          '#id' => 'Answer3',
+          '#prefix' => '<div class="nsa-wrapper"><table><tr><td class="first">',
+          '#suffix' => '</td><td>',
+        );
+        if (empty($nid))
+          $nid = arg(1);
+        $form['add_vote']['nid'] = array(
+          '#type' => 'hidden',
+          '#value' => $nid,
+        );
 
-      $form['add_vote']['submit_suggest_answer'] = array(
-        '#type' => 'submit',
-        '#value' => t('Add Answer'),
-        '#attributes' => array('class' => 'add-answer2 light'),
-        '#suffix' => '</td></tr></table></div>',
-      );
+        $form['add_vote']['submit_suggest_answer'] = array(
+          '#type' => 'submit',
+          '#value' => t('Add Answer'),
+          '#attributes' => array('class' => 'add-answer2 light'),
+          '#suffix' => '</td></tr></table></div>',
+        );
+      }
+      elseif ($err == 0) {
+        $form['vote_error'] = array(
+          '#type' => 'markup',
+          '#prefix' => '<div class="suggest-error">',
+          '#value' => t('You have already suggested a answer for this issue.'),
+          '#suffix' => '</div>',
+        );
+      }
     }
-    elseif ($err == 0) {
-      $form['vote_error'] = array(
-        '#type' => 'markup',
-        '#prefix' => '<div class="suggest-error">',
-        '#value' => t('You have already suggested a answer for this issue.'),
-        '#suffix' => '</div>',
-      );
-    }
-  }
   }
   else {
     $form['login_error'] = array(
@@ -1267,6 +1267,8 @@ function issue_edit_vote($dummy='', $nid='') {
       '#type' => 'radios',
       '#default_value' => $tnode->vote,
       '#options' => $list,
+      '#nid' => $tnid,
+      '#after_build' => array('solr_issues_radios_after_build'),
     );
   }
   $form['#nid'] = $tnid;

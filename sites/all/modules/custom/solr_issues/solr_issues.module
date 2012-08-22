@@ -586,3 +586,20 @@ function show_print($var, $return = FALSE) {
 function solr_issues_form_submit($form_state) {
   krumo($_POST);
 }
+
+function solr_issues_radios_after_build($form_element, &$form_state, $tnid) {
+  $count = count($form_element['#options']);
+  $nid = $form_element['#nid'];
+  for ($i = 0; $i < $count; $i++) {
+    $vote = db_result(db_query("select count(nid) from {poll_votes}
+where nid ='%d' and chorder ='%d'", $nid, $i));
+    $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
+<span>' . $vote . '</span>votes
+</span>';
+    $form_element[$i]['#suffix'] = '</div>';
+  }
+
+  // krumo($form_element);
+  // krumo($form_state);
+  return $form_element;
+}
