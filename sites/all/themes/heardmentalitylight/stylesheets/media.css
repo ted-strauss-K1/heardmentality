@@ -98,7 +98,7 @@
 		
 		/*View profile*/
 		
-		span.activity {
+		body.profile_view_page span.activity {
 			display: none;
 		}
 		
