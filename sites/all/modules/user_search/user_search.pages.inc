@@ -52,7 +52,14 @@ function _user_follows($uid = '', $fType = ''){
           if($relationships){
             while($relationship = db_fetch_object($relationships)){
                 // get ranking
-                $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$relationship->requestee_id'"));
+              /*
+              * odyachenko
+              *
+              * These lines refer to working with the ranks the old way
+              */
+              $rank = ranks_user_rank($relationship->requestee_id);
+              $ranking = $rank['name'];
+              # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$relationship->requestee_id'"));
                 // followid
                 $followid = $relationship->requestee_id;
                 if($relationship->requestee_id != $user->uid){
@@ -90,7 +97,15 @@ function _user_follows($uid = '', $fType = ''){
          if($relationships){
             while($relationship = db_fetch_object($relationships)){
                 // get ranking
-                $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$relationship->requester_id'"));
+
+              /*
+              * odyachenko
+              *
+              * These lines refer to working with the ranks the old way
+              */
+              $rank = ranks_user_rank($relationship->requester_id);
+              $ranking = $rank['name'];
+              # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$relationship->requester_id'"));
                 // followid
                 $followid = $relationship->requester_id;
                 if($relationship->requester_id != $user->uid){
