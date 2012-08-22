@@ -64,7 +64,7 @@ function updateProfileBadge($uid = null) {
    *
   $gp = guru_points('user', $uid);
    */
-  $gp = user_get_points($uid);
+  $gp = up_userpoints_get($uid);
 
   $badges.='<span title="reputation score ' . $gp . '" class="reputation-score">' . $gp . '</span>';
 

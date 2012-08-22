@@ -476,7 +476,7 @@ function load_bubble($uid = '') {
   $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
   $points = $points != '' ? $points : 0;
   */
-  $points = user_get_points($details->uid);
+  $points = up_userpoints_get($details->uid);
 
   $coins = $user->total_coins != '' ? $user->total_coins : 0;
   $badges = load_badges($uid);
@@ -528,7 +528,7 @@ function load_user_badge($uid='', $search='') {
   $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
   $points = $points != '' ? $points : 0;
    */
-   $points = user_get_points($details->uid);
+   $points = up_userpoints_get($details->uid);
   $coins = $user->total_coins != '' ? $user->total_coins : 0;
   $badges = load_badges($uid);
   if ($search)
@@ -2007,7 +2007,7 @@ function profile_complete_percent_area_bottom() {
   $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
   $points = $points != '' ? $points : 0;
    */
-  $points = user_get_points($user->uid);
+  $points = up_userpoints_get($user->uid);
 
   return theme('user_profile_options_bottom', $name, $complete_data, $userPicture, $medalList, $ranking, $points);
 }

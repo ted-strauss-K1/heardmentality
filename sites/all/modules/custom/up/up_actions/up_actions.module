@@ -240,7 +240,7 @@ function up_actions_user_check_action($mname, $uid, $extra = array()) {
     if ($mname = 'comment' && $uid = $extra['content_owner']) {
       return true;
     } else {
-      user_get_points($uid) >= $actions[$mname]['reputation'];
+      up_userpoints_get($uid) >= $actions[$mname]['reputation'];
     }
   }
   return false;
