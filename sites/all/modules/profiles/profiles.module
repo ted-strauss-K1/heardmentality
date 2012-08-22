@@ -458,7 +458,14 @@ function load_bubble($uid = '') {
 
   $uname = $details->first_name . ' ' . $details->last_name;
 
-  $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
+  /*
+   * odyachenko
+   *
+   * These lines refer to working with the ranks the old way
+   */
+  $rank = ranks_user_rank($uid);
+  $ranking = $rank['name'];
+  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
 
 
   /**
@@ -504,8 +511,14 @@ function load_user_badge($uid='', $search='') {
 
   $uname = $details->first_name . ' ' . $details->last_name;
 
-
-  $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
+  /*
+   * odyachenko
+   *
+   * These lines refer to working with the ranks the old way
+   */
+  $rank = ranks_user_rank($uid);
+  $ranking = $rank['name'];
+  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
 
   /**
    * odyachenko
@@ -1975,7 +1988,16 @@ function profile_complete_percent_area_bottom() {
   $complete_data = pcp_get_complete_percentage_data($user);
   $userPicture = UserPicture_small_src($user->uid);
   $medalList = load_user_medal_list($user->uid);
-  $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$user->rank_id'"));
+
+
+  /*
+  * odyachenko
+  *
+  * These lines refer to working with the ranks the old way
+  */
+  $rank = ranks_user_rank($user->uid);
+  $ranking = $rank['name'];
+  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$user->rank_id'"));
 
   /**
    * odyachenko
@@ -2017,7 +2039,16 @@ function user_profile_bio($uid = '') {
 
   $getuser = user_load(array('uid' => $uid));
 
-  $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$getuser->rank_id'"));
+
+  /*
+  * odyachenko
+  *
+  * These lines refer to working with the ranks the old way
+  */
+  $rank = ranks_user_rank($uid);
+  $ranking = $rank['name'];
+  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$getuser->rank_id'"));
+
   $profiles = db_query("SELECT * FROM {user_profile} WHERE uid = '$uid'");
   $profileDetails = db_fetch_object($profiles);
 
