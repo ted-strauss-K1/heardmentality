@@ -116,6 +116,10 @@
 			padding-bottom: 35px;
 		}
 		
+		#add-new-debate-form .add_button {
+			width: 62%;
+		}
+		
 	}
 
 /* iPad Portrait/Browser */
@@ -772,6 +776,14 @@ Mobile Only
 	
 	.ref_wrap {
 		clear: both;
+	}
+	
+	#add-new-debate-form .add_button {
+		position: static;
+	}
+	
+	#deb_title-wrapper, #edit-ref-title-wrapper {
+		padding: 0;
 	}
 
 }
