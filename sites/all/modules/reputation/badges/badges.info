@@ -1,7 +1,0 @@
-name = Badges
-description = Badges for Reputation Module
-package = Reputation
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "points"
-dependencies[] = "yn"
