@@ -85,6 +85,10 @@ function phptemplate_preprocess_page(&$vars) {
 }
 
 
+function heardmentalitylight_preprocess_node(&$vars) {
+  drupal_add_js(array('node' => array('nid' => $vars['node']->nid)), 'setting');
+}
+
 function heardmentalitylight_preprocess_page(&$vars) {
     // there's also a $theme_path global
     global $theme, $theme_path;
@@ -245,6 +249,9 @@ function phptemplate_preprocess_node(&$vars) {
     $vars['template_files'] = array_merge($vars['template_files'], $suggestions);
   }
 }
+
+
+
 
 function heardmentalitylight_theme($existing, $type, $theme, $path){
   $themePath = drupal_get_path('theme', $theme);

@@ -25,7 +25,11 @@ $items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
     <?php print $ratings; ?>
   
    <ul class="control_links">
-		<li><a href="javascript:void(0);" class="icon flag2 flag_reply" onclick="open_flag_box(<?php print $items['cid']; ?>, 'comment')" title="flag this reply">flag</a></li>
+		<li>
+      <!-- <a href="javascript:void(0);" class="icon flag2 flag_reply" onclick="open_flag_box(<?php print $items['cid']; ?>, 'comment')" title="flag this reply">flag</a>
+      -->
+      <?php print theme('flagger_button', $item['content_id'], 'comment'); ?>
+    </li>
 		<?php if ($delete):?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
    </ul>
    

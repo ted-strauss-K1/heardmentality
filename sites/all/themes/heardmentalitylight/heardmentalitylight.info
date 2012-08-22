@@ -21,6 +21,11 @@ scripts[] = javascripts/ui/minified/jquery.ui.slider.min.js
 scripts[] = javascripts/jquery.jscrollpane.min.js
 scripts[] = javascripts/jquery.mousewheel.js
 scripts[] = javascripts/custom_scripts.js
+scripts[] = javascripts/noty/jquery.noty.js
+scripts[] = javascripts/noty/default.js
+scripts[] = javascripts/noty/topRight.js
+scripts[] = javascripts/noty/center.js
+scripts[] = javascripts/noty/noty.js
 
 
 ;regions[left] = Left sidebar

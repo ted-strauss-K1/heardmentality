@@ -87,7 +87,10 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
       </div>
 
       <ul class="control_links">
-        <li><a href="#" class="icon flag2" title="flag this argument">flag</a></li>
+        <li>
+        <!-- <a href="#" class="icon flag2" title="flag this argument">flag</a> -->
+        <?php print theme('flagger_button', $item['content_id'], 'node'); ?>
+        </li>
         <li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
         <?php if ($delete) : ?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
       </ul>
@@ -127,10 +130,12 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
   </ul>
 </div>
 
+<!--
 <div id="flag-arg-<?php print $item['content_id']; ?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
   <input type="hidden" value="forum" id="flagtype" />
 <?php print t('Please Wait...'); ?>
 </div>
+-->
 
 <script type="text/javascript">
   $('#flag-arg-<?php print $item['content_id']; ?>').dialog({

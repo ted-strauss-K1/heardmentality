@@ -37,6 +37,7 @@ $gSitePath = $base_path.'/';
 
 <!--<div class="issue-things"></div>-->
 <div class="poll-vote-area">
+
 <?php if($allowvotes == '' ): ?>
    <div class="vote-count-poll">
        <?php foreach($indVoteCounts as $chorder => $vcount){?>
@@ -79,9 +80,11 @@ $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
     }
 </script>
 
+<!--
 <div id="dialog-flag" title="<?php print t('FLAG THIS ITEM'); ?>" class="dialog">
 		<?php if($flagForm): print $flagForm; endif; ?>
 </div>
+-->
 <script type="text/javascript">
    gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
    function showDesc(){
