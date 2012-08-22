@@ -2199,7 +2199,7 @@ textarea#q_quest  {
 .choices .form-radios span.teaser_count_vote + .form-item,
 #new_vote .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item,
 #solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
-	margin-left: 65px;	
+	margin-left: 65px !important;	
 }
 
 .poll .vote-form .choices {
