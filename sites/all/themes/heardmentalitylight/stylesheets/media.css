@@ -764,6 +764,24 @@ END Mobile Only
 		input.info.form-text, textarea.info.form-text {
 		    width: 97%;
 		}
+		
+		.userinfo-debate {
+			float: none;
+			margin: 0;
+			clear: both;
+		}
+		
+		#debate_list_area .arg {
+			padding: 0 0 0 58px;
+		}
+		
+		ul.control_links {
+			margin: 10px 0 10px 58px;
+		}
+		
+		.position-question {
+			position: 5px 0 0 59px;
+		}
 	}
 	
 /* Mobile Landscape Only */
