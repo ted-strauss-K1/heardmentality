@@ -767,6 +767,7 @@ Mobile Only
 	
 	#debate_list_area li.one_reply ul.control_links {
 		margin: 8px 0 0;
+		width: 100%;
 	}
 	
 	.ref_wrap {
