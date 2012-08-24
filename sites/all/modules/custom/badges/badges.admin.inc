@@ -83,7 +83,7 @@ function badges_form() {
     $form['badge-status-'.$i] = array(
       '#type' => 'select',
       '#title' => t('Status'),
-      '#value' => $badge['status'] == 0 ? 0 : 1,
+      '#value' => $badge['status'] === 0 ? 0 : 1,
       '#options' => array(
         0 => 'Off',
         1 => 'On',
@@ -179,5 +179,72 @@ function badges_form_submit($form, $form_state) {
         badge_delete($post['badge-id-'.$i]);
       }
     }
+  }
+}
+
+
+/*
+ * Badges Export Form
+ */
+function badges_export() {
+  $form = array();
+
+  $form['export'] = array(
+    "#type" => "textarea",
+    "#title" => t("Export"),
+    "#value" => json_encode(badges_get()),
+    "#size" => 80,
+  );
+
+  return $form;
+}
+
+/*
+ * Badges Import Form
+ */
+function badges_import() {
+  $form = array();
+
+  $form['import'] = array(
+    "#type" => "textarea",
+    "#title" => t("Import"),
+    "#value" => '',
+    "#size" => 80,
+  );
+
+  $form["submit"] = array(
+    "#type" => "submit",
+    "#value" => t("Run Import"),
+  );
+
+  return $form;
+}
+
+/*
+ * Badges Import Form Validate
+ */
+function badges_import_validate($form, $form_state) {
+  $post = $form_state["clicked_button"]["#post"];
+  $value = $post['import'];
+  $data = json_decode($value);
+  if (json_last_error() != JSON_ERROR_NONE || !is_array($data)) {
+    form_set_error('badges_wrong_import', t('Wrong input'));
+  }
+}
+
+/*
+ * Badges Import Form Submit
+ */
+function badges_import_submit($form, $form_state) {
+  $post = $form_state["clicked_button"]["#post"];
+  $value = $post['import'];
+  $data = json_decode($value);
+  # Run inport
+  $badges = badges_get();
+  foreach ($badges as $badge) {
+     badge_delete($badge['id']);
+  }
+  foreach ($data as $badge) {
+    badge_add( $badge['name'], $badge['info'], $badge['type'], $badge['status'] );
   }
 }
