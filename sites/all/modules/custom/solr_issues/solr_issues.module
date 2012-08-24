@@ -584,7 +584,35 @@ function show_print($var, $return = FALSE) {
 }
 
 function solr_issues_form_submit($form_state) {
-  krumo($_POST);
+//  krumo($_POST);
+  // exit;
+  if (isset($_POST['choice'])) {
+    if ($_POST['check_login']) {
+      $date_time = date("y-m-d H:i:s", time());
+      db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $_POST['nid_val'], $_POST['choice'], $_POST['check_login'], $date_time, 1);
+      db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $_POST['nid_val'], $_POST['choice'], $_POST['check_login']);
+    }
+    else {
+      
+    }
+  }
+  else if ($_POST['suggested_answer']) {
+    $suggested_answer = $_POST['suggested_answer'];
+    $list_own_answer = db_query("select * from {suggest_answer} where said='$suggested_answer'");
+    $userown = db_fetch_object($list_own_answer);
+    $calvote = db_result(db_query("SELECT COUNT(*) from {suggest_answer_vote} where answer_id='$suggested_answer'"));
+    if ($calvote == 0) {
+      $votepoint = '1';
+    }
+    else {
+      $votepoint = $userown->vote + 1;
+    }
+    db_query("INSERT INTO {suggest_answer_vote} SET qid = '%d', uid = '%d', answer_id = '%d', vote_date = '%s'", $_POST['nid_val'], $_POST['check_login'], $suggested_answer, date('Y-m-d'));
+    db_query("UPDATE {suggest_answer} SET vote = '%s' WHERE said = '%d' AND qid = '%d'", $votepoint, $suggested_answer, $_POST['nid_val']);
+  }
+  $message = 'test';
+  print drupal_json(array(
+            'data' => $message));
 }
 
 function solr_issues_radios_after_build($form_element, &$form_state, $tnid) {
@@ -594,12 +622,9 @@ function solr_issues_radios_after_build($form_element, &$form_state, $tnid) {
     $vote = db_result(db_query("select count(nid) from {poll_votes}
 where nid ='%d' and chorder ='%d'", $nid, $i));
     $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
-<span>' . $vote . '</span>votes
-</span>';
+<span>' . $vote . '</span>votes</span>';
     $form_element[$i]['#suffix'] = '</div>';
   }
 
-  // krumo($form_element);
-  // krumo($form_state);
   return $form_element;
 }

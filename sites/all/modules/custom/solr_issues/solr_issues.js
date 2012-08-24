@@ -1,21 +1,17 @@
-$(document).ready(function(){
-  // $('#edit-block-subject').simpleMultiSelect();
-  // $('#edit-block-country').simpleMultiSelect();
-  //  $('#edit-subject').simpleMultiSelect();
-  //  multi_select();
-  $("#edit-change").live("click", function(e) {
-    console.log(e);
-    // $("#issue_edit_form_stream").submit(function(){
+$(document).ready(function() {
+  $(".form-submit.button.vote.floatright").live("click", function(e) {
+
     var options = {
-      target: "#divToUpdate",
+    //  target: "#issue_edit_form_stream",
       url: "issues_ajax/submit",
-      success: function() {
-        alert("Спасибо за комментарий!");
+      success: function(data) {
+        console.log(data);
+    //    alert("Спасибо за комментарий!");
       }
     };
     // передаем опции в  ajaxSubmit
-    console.log($(this).parents('form'));
-    $("form").ajaxSubmit(options);    
+
+    $(this).parents('#issue_edit_form_stream').ajaxSubmit(options);    
 
     return false;
   //    })
