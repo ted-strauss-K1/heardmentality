@@ -584,8 +584,7 @@ function show_print($var, $return = FALSE) {
 }
 
 function solr_issues_form_submit($form_state) {
-//  krumo($_POST);
-  // exit;
+
   if (isset($_POST['choice'])) {
     if ($_POST['check_login']) {
       $date_time = date("y-m-d H:i:s", time());

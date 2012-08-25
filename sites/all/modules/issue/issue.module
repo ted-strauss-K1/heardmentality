@@ -990,34 +990,34 @@ function issue_add_vote($dummy = '', $nid = '') {
 
 ////////////////////////
   if (user_is_logged_in()) {
+    if (arg(0) != 'issues_solr2') {
+      // get suggest answer for current issue
+      $answers = "SELECT * FROM suggest_answer where qid='" . $nid . "'  ";
+      $anslist = db_query($answers);
+      $count_row = db_result(db_query($answers));
 
-    // get suggest answer for current issue
-    $answers = "SELECT * FROM suggest_answer where qid='" . $nid . "'  ";
-    $anslist = db_query($answers);
-    $count_row = db_result(db_query($answers));
-
-    // user should login to participate with suggest answers
-    $err = 0;
-    if (isset($count_row) && $count_row > 0) {
-      while ($answerfet = db_fetch_object($anslist)) {
-        $options[$answerfet->said] = '<span class="ch">' . $answerfet->answer . '</span>';
+      // user should login to participate with suggest answers
+      $err = 0;
+      if (isset($count_row) && $count_row > 0) {
+        while ($answerfet = db_fetch_object($anslist)) {
+          $options[$answerfet->said] = '<span class="ch">' . $answerfet->answer . '</span>';
+        }
+        $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
+        /* $form['add_vote'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('...Or submit a different answer'),
+          '#collapsible' => TRUE,
+          '#collapsed' => TRUE,
+          '#tree' => TRUE,
+          ); */
+        $form['add_vote']['suggested_answer'] = array(
+          '#type' => 'radios',
+          '#options' => $options,
+          '#default_value' => $mysugg,
+          '#prefix' => '<div class="choices additional">',
+          '#suffix' => '</div>'
+        );
       }
-      $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
-      /* $form['add_vote'] = array(
-        '#type' => 'fieldset',
-        '#title' => t('...Or submit a different answer'),
-        '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
-        '#tree' => TRUE,
-        ); */
-      $form['add_vote']['suggested_answer'] = array(
-        '#type' => 'radios',
-        '#options' => $options,
-        '#default_value' => $mysugg,
-        '#prefix' => '<div class="choices additional">',
-        '#suffix' => '</div>'
-      );
-
       $alreadyAdded = db_result(db_query("SELECT COUNT(said) FROM {suggest_answer} WHERE qid = '$nid' AND uid = '$user->uid'"));
       $alreadyVotedSuggest = db_result(db_query("SELECT COUNT(answer_id) FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
       $alreadyVotedMain = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '$nid' AND uid = '$user->uid'"));
@@ -1044,6 +1044,7 @@ function issue_add_vote($dummy = '', $nid = '') {
 
     // user can suggest only one answer per issue
     if (arg(0) != 'issues_solr2') {
+      //krumo($alreadyAdded);
       if ($alreadyAdded == 0) {
         $form['add_vote'] = array(
           '#type' => 'fieldset',
@@ -2581,9 +2582,6 @@ function issue_ahah_callback($type = '', $key = '') {
   if (!empty($filefield_ahah_settings)) {
     $output .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, ' . drupal_to_js($filefield_ahah_settings) . ');</script>';
   }
-
-
-
 
   //print drupal_to_js(array('data' => $output, 'status' => true));
   print drupal_json(array('data' => $output, 'status' => true));
