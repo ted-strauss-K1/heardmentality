@@ -2,11 +2,13 @@ $(document).ready(function() {
   $(".form-submit.button.vote.floatright").live("click", function(e) {
 
     var options = {
-    //  target: "#issue_edit_form_stream",
-      url: "issues_ajax/submit",
+      //  target: "#issue_edit_form_stream",
+      url: "issues_solr2/submit",
+      dataType: 'json',
       success: function(data) {
-        console.log(data);
-    //    alert("Спасибо за комментарий!");
+        $('#issue_edit_form_stream').parent().parent().html(data.data);
+        $("input[name=choice]:checked").parents("div").addClass("staygreen");
+      //    alert("Спасибо за комментарий!");
       }
     };
     // передаем опции в  ajaxSubmit
