@@ -6,7 +6,7 @@ $(document).ready(function() {
       url: "issues_solr2/submit",
       dataType: 'json',
       success: function(data) {
-        $('#issue_edit_form_stream').parent().parent().html(data.data);
+        $('#issue_edit_form_stream').parent().parent().parent().html(data.data);
         $("input[name=choice]:checked").parents("div").addClass("staygreen");
       //    alert("Спасибо за комментарий!");
       }
