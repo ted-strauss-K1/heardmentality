@@ -2397,6 +2397,7 @@ input.info, textarea.info {
 .user-avatar-select img{
     width: 44px;
     height: 44px;
+	vertical-align: top;
 }
 .avatar-left img{
     background: none repeat scroll 0 0 #DDDDDD;
@@ -2958,7 +2959,7 @@ body.admin-menu {
 }
 
 #dialog-profile-pic .form-radios {
-	margin: 5px 0;
+	margin: 2px 0 5px;
 }
 
 div.user-avatar-select div.form-item {
@@ -2966,6 +2967,11 @@ div.user-avatar-select div.form-item {
     float: left;
     text-align: center;
     width: auto;
+	margin: 3px 3px 0 0;
+}
+
+div.user-avatar-select label {
+	font-weight: normal;
 }
 
 /*Vote/Debate page*/
