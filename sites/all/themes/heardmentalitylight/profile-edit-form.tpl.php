@@ -444,5 +444,5 @@ print drupal_render($form['current_image']);
 
 <div id="dialog-profile-pic" title="Pick a Profile Photo" class="dialog">
 		<?php print drupal_render($form['picture']['select_avatar']);?>
-		<input type="submit" value="Submit" class="submit-issue" onclick="update_avatar();" style="font-size: 13px;" />
+		<input type="submit" value="Submit" class="submit-issue leftfloat" onclick="update_avatar();" style="margin-bottom: 3px;" />
 </div>
