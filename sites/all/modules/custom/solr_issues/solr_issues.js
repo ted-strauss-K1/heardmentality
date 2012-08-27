@@ -7,7 +7,7 @@ $(document).ready(function() {
       dataType: 'json',
       success: function(data) {
         $('#issue_edit_form_stream').parent().parent().parent().html(data.data);
-        $("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
+        $("input[name=choice]:checked").parents("div").addClass("staygreen");
       //    alert("Спасибо за комментарий!");
       }
     };
