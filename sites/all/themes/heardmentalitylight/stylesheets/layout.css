@@ -2962,7 +2962,7 @@ body.admin-menu {
 	margin: 2px 0 5px;
 }
 
-div.user-avatar-select div.form-item {
+#dialog-profile-pic div.user-avatar-select div.form-item {
 	display: block;
     float: left;
     text-align: center;
