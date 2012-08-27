@@ -2974,6 +2974,13 @@ div.user-avatar-select label {
 	font-weight: normal;
 }
 
+div.user-avatar-select label.option img.avatar-hover {
+    border: 4px solid #43b649;
+}
+body div.user-avatar-select label.option img.avatar-select {
+    border: 4px solid #ef3d3b;	
+}
+
 /*Vote/Debate page*/
 
 .white-box.poll-box {
