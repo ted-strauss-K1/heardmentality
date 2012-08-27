@@ -2983,7 +2983,16 @@ body div.user-avatar-select label.option img.avatar-select {
 
 div.avatar-selection-pager-nav {
 	font: 13px/14.3px Arial, sans-serif;
-	margin: 2px 0 10px;
+	margin: 10px 0 12px;
+}
+
+div.avatar-selection-pager-nav strong.pager-current {
+	padding: 0 5px;
+}
+
+div.avatar-selection-pager-nav a:hover {
+	text-decoration: underline;
+	color: #ef3d3b;
 }
 
 /*Vote/Debate page*/
