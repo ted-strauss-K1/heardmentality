@@ -2970,7 +2970,7 @@ body.admin-menu {
 	margin: 3px 3px 0 0;
 }
 
-div.user-avatar-select label {
+#dialog-profile-pic label {
 	font-weight: normal;
 }
 
