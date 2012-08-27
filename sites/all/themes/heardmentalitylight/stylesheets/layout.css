@@ -2949,6 +2949,25 @@ body.admin-menu {
 	padding-bottom: 15px;
 }
 
+#dialog-profile-pic {
+	margin: 0 0.5em 0 1em;
+}
+
+#dialog-profile-pic .form-item {
+	margin: 0;
+}
+
+#dialog-profile-pic .form-radios {
+	margin: 5px 0;
+}
+
+div.user-avatar-select div.form-item {
+	display: block;
+    float: left;
+    text-align: center;
+    width: auto;
+}
+
 /*Vote/Debate page*/
 
 .white-box.poll-box {
@@ -5143,7 +5162,8 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 .vote-results div.space:after,
 .vote-results .legend dl:after,
 #solr-issues-search-form:after,
-.profile-meta:after {
+.profile-meta:after,
+div.user-avatar-select:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
