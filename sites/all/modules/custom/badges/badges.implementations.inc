@@ -21,7 +21,12 @@ function badge_process_autobiographer($uid) {
  * First flagged post
  */
 function badge_process_citizen_patrol($uid) {
-  // TODO
+  $result = db_query("SELECT uid FROM {flag_content} fc WHERE 1 GROUP BY content_type, content_id ORDER BY timestamp DESC");
+  while ($row = db_result($result)) {
+    if ($uid == $row) {
+      return true;
+    }
+  }
   return false;
 }
 
@@ -170,8 +175,7 @@ function badge_process_great_answer($uid) {
  *  badge_process_great_answer()
  */
 function _badge_answer_voteups($uid, $count) {
-  // TODO
-  return false;
+  return false != db_result(db_query("SELECT * FROM {comments} c LEFT JOIN {votingapi_vote} vv ON vv.content_id = c.cid WHERE c.uid = %d AND vv.content_type = 'comment' GROUP BY c.cid HAVING COUNT(*) > %d", $uid, $count));
 }
 
 /*
