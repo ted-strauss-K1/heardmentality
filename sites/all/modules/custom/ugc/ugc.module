@@ -1,2 +1,22 @@
 <?php
 
+/*
+ * Custom filter
+ *
+ * @see array_filter
+ */
+function word_array_filter($word = '') {
+  return !empty($word) && (strlen($word)>=3);
+}
+
+/*
+ * Get input language
+ */
+function get_input_language($title = '') {
+  module_load_include('inc', 'issue_translator', 'gtranslate-api-php/googletranslate.class');
+  $gt = new GoogleTranslateWrapper();
+  $input = $gt->detectLanguage($title);
+  $language = $input['language'];
+  $language = $language != '' ? $language : 'en';
+  return $language;
+}
