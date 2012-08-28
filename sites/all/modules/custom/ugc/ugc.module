@@ -11,7 +11,7 @@ function word_array_filter($word = '') {
 
 /*
  * Get input language
- */
+ *
 function get_input_language($title = '') {
   module_load_include('inc', 'issue_translator', 'gtranslate-api-php/googletranslate.class');
   $gt = new GoogleTranslateWrapper();
@@ -20,3 +20,4 @@ function get_input_language($title = '') {
   $language = $language != '' ? $language : 'en';
   return $language;
 }
+*/
