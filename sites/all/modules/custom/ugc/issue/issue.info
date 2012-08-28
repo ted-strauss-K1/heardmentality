@@ -1,6 +1,0 @@
-name = Issue Content Type
-description = User Generated Content: Issue
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-
