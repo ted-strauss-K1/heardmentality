@@ -4,10 +4,11 @@
  * Custom filter
  *
  * @see array_filter
- */
+ *
 function word_array_filter($word = '') {
   return !empty($word) && (strlen($word)>=3);
 }
+*/
 
 /*
  * Get input language
