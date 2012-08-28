@@ -2385,16 +2385,6 @@ function get_translated_comment($cid = '', $curLanguage = '') {
   return $translated;
 }
 
-// detect input language from users
-function get_input_language($title = '') {
-  module_load_include('inc', 'issue_translator', 'gtranslate-api-php/googletranslate.class');
-  $gt = new GoogleTranslateWrapper();
-  $input = $gt->detectLanguage($title);
-  $language = $input['language'];
-  $language = $language != '' ? $language : 'en';
-  return $language;
-}
-
 // issue ahah calllback
 function issue_ahah_callback($type = '', $key = '') {
   if ($type == 'category') {
