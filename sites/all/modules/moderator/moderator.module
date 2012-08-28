@@ -1052,17 +1052,7 @@ function get_dupe_query($qid='') {
   return array('query' => $final, 'count' => $count);
 }
 
-function word_array_filter($word='') {
 
-  $ret = true;
-  if (empty($word)) {
-    $ret = false;
-  }
-  elseif (strlen($word) < 3) {
-    $ret = false;
-  }
-  return $ret;
-}
 
 function merge_dupeform($form_state, $qid, $dupeid) {
   // Access log settings:
