@@ -202,6 +202,21 @@ $(document).ready(function() {
 
 Drupal.behaviors.add_new_form = function(context) {
 
+  /*
+   * Permalink
+   */
+  $('a.permalink').click(function(e) {
+    e.preventDefault();
+    $.hrd.noty({
+      'layout' : 'center',
+      'type'   : 'alert',
+      'text'   : window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id'),
+      'modal'  : true,
+      'timeout': false,
+      'closeWith': ['button']
+    });
+  });
+
 
 
 
@@ -225,16 +240,7 @@ Drupal.behaviors.add_new_form = function(context) {
 /*
  * flag/link/delete buttons
  */
-jQuery('a.permalink').live('click', function(e){
-    var a = window.location.href.replace(/#.*/,'') + '#' +jQuery(this).parents('.one-forum').attr('id');
-    jQuery('#permalink_text input').val(a);
-    jQuery('#permalink_text').dialog('open');
-    return false;
-});
-jQuery('.close-permalink').live('click', function(e){
-    jQuery('#permalink_text').dialog('close');
-    return false;
-});
+
 jQuery('a.delete').live('click', function(e){
     jQuery( "#dialog_"+jQuery(this).attr('name') ).dialog({
         resizable: false
