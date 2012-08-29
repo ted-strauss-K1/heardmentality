@@ -7,6 +7,14 @@ function debate_perm() {
   return array('Debate List', 'Debate Save', 'Admin Debate', 'Resource Debate');
 }
 
+/*
+ * Implementation of hook_init()
+ */
+function debate_init() {
+  global $base_url;
+  drupal_add_js(array('base_url' => $base_url), 'setting');
+}
+
 /**
  * Implementation of hook_perm().
  */
