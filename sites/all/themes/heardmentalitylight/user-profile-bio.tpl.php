@@ -3,8 +3,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+global $user;
 ?>
-<a class="button light <?php print $follow_status['fclass']; ?>" href="<?php print $follow_status['href']; ?>"><?php print $follow_status['status']; ?></a>
+<?php print theme('follower_button', $getuser); ?>
+
 <h2 class="din"><?php print $getuser->name; ?></h2>
 
         <div class="user-info">

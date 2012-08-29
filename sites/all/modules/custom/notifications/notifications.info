@@ -1,0 +1,5 @@
+name = Notifications
+description = Provides the API for Notifications on site
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
