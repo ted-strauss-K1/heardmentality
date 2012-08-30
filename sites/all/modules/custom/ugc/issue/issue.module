@@ -1,10 +1,31 @@
 <?php
 
-// $Id: issue.module,v 1.21.2.88.2.34 2010/06/22 09:30:59 mirodietiker Exp $
+@require_once('issue.func.inc');
+@require_once('issue.forms.inc');
 
+/**
+ * Content type: poll
+ *
+ * @note
+ *  We're not using the drupal's node hooks there
+ *  b/c node type is cck-exported and not created within this module
+ *
+ * TODO get_tnid() -- remove
+ * TODO issue_suggest_form - refactor
+ *
+ */
 
 /*
- * Define constant for debates
+ * Implementation of hook_help().
+ */
+function issue_help($path, $arg) {
+  switch ($path) {
+    case 'admin/modules#issue':
+      return t('');
+    break;
+  }
+}
+
  */
 define('TYPE_DEBATE', 1);
 
@@ -321,17 +342,6 @@ function issue_init() {
 }
 
 /**
- * Implementation of hook_help().
- */
-function issue_help($path, $arg) {
-  switch ($path) {
-    case 'admin/modules#description':
-      return t('A sophisticated issue module for voting and analysis report generating.');
-      break;
-  }
-}
-
-/**
  * Implementation of hook_menu().
  */
 function issue_menu() {
@@ -429,6 +439,10 @@ function issue_menu() {
   );
   return $menu;
 }
+
+
+
+
 
 /*
  * Implementation of hook_theme()
