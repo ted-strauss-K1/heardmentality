@@ -9,6 +9,24 @@ function issue_uses_points_actions() {
   return array('ansquestion', 'addquestion');
 }
 
+/*
+ * Get vote count
+ */
+function issue_get_votes($nid) {
+  static $votes = array();
+  if (!isset($votes[$nid])) {
+    $vote = array();
+    $vote['#all'] = 0;
+    $result = db_query("SELECT chorder, COUNT(*) AS count FROM {poll_votes} where nid='%d' GROUP BY chorder ORDER BY chorder ASC", $nid);
+    while ($row = db_fetch_object($result)) {
+      $vote['#all'] += $row->count;
+      $vote[$row->chorder] = $row->count;
+    }
+    $votes[$nid] = $vote;
+  }
+  return $votes[$nid];
+}
+
 /**
  * @file
  * Issue Poll -A sophisticated issue module for voting and analysis report generating.
