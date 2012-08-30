@@ -3259,8 +3259,8 @@ h2.page-title {
 	width: 97%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus,
-.search_list .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus {
+#new_vote .poll-vote-area .fieldset-wrapper .form-item #edit-add-vote-new-suggest-answer:focus,
+.search_list .poll-vote-area .fieldset-wrapper .form-item #edit-add-vote-new-suggest-answer:focus {
 	border: 1px solid #9c9c9c;
  	-moz-box-shadow: 0 0 3px rgba(0,0,0,0.3);
 	-webkit-box-shadow: 0 0 3px rgba(0,0,0,0.3);
