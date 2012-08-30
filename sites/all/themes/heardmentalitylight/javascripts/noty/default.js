@@ -52,7 +52,7 @@
 				textAlign: 'left',
 				padding: '10px 15px',
 				width: 'auto',
-				color: '#222222',
+				color: '#444444',
 				position: 'relative'
 			});
 			
