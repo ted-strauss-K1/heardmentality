@@ -141,8 +141,9 @@ function theme_issue_debate_list($nid = '') {
   # $debate_list = array();
   # $debate_list[0] = issue_ajax_tab_content($nid, 1, 0, 1);
   $count = array();
-  $count[] = db_result(db_query('SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = 1 AND field_ref_qid_nid = %d', $nid));
-  $count[] = db_result(db_query('SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = 2 AND field_ref_qid_nid = %d', $nid));
+  $dr = issue_get_dr($nid);
+  $count[] = $dr['#count'][TYPE_DEBATE];
+  $count[] = $dr['#count'][TYPE_RESOURCE];
   $show_only = array();
   $ans = load_options($nid);
   foreach ($ans as $list) {
