@@ -41,88 +41,49 @@ function issue_init() {
   drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
 }
 
-		
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-/**
- * @file
- * Issue Poll -A sophisticated issue module for voting and analysis report generating.
+/*
+ * Permission to view an issue
  */
-#module_load_include('inc', 'issue', 'issue.theme.inc');
+define('ISSUE_VIEW', 'View Issue');
 
-/* * ************************
- * Content Type: Issue
+/*
+ * Permission to edit an issue
  */
+define('ISSUE_EDIT', 'Edit Issue');
 
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Implementation of hook_node_info().
+/*
+ * Permission to edit own issue
  */
-function issue_node_info() {
-  $info = array();
-  return $info;
-}
+define('ISSUE_EDIT_OWN', 'Edit Own Issue');
 
-/**
- * Implementation of hook_perm().
+/*
+ * Permission to create an issue
+ */
+define('ISSUE_CREATE', 'Create Issue');
+
+/*
+ * Implementation of hook_perm()
  */
 function issue_perm() {
-  return array(
-    'create issue',
-    'edit issue',
-    'edit own issue',
-    'vote on issue',
-    'cancel own vote',
-    'administer issue',
-    'inspect all votes',
-    'show vote results',
-    'access electoral list',
-    'add write-ins',
-    'issue list',
-  );
+  return array(ISSUE_VIEW, ISSUE_EDIT, ISSUE_EDIT_OWN, ISSUE_CREATE);
 }
 
-/**
- * Implementation of hook_access().
+/*
+ * Implementation of hook_access()
  */
 function issue_access($op, $node, $account) {
-  if ($op == 'create') {
-    return user_access('create issue', $account);
-  }
-  if ($op == 'update') {
-    if (user_access('edit issue', $account) || ($node->uid == $account->uid && user_access('edit own issue', $account))) {
-      return TRUE;
-    }
+  switch( $op ) {
+    case 'create' : return user_access(ISSUE_CREATE, $account);
+    case 'view'   : return user_access(ISSUE_VIEW, $account);
+    case 'update' : return user_access(ISSUE_EDIT, $account) || ($node->uid == $account->uid && user_access(ISSUE_EDIT_OWN, $account));
+    default     : return user_access(ISSUE_CREATE, $account);
   }
 }
 
-/**
- * Implementation of hook_form().
- */
-function issue_form(&$node, $form_state) {
+/*
+ * Implementation of hook_form()
+ * TODO -- chek if it's used somewhare
+ *
   $form = array();
 
   // Only add javascript once, even if _form is called multiple times.
@@ -160,8 +121,17 @@ function issue_form(&$node, $form_state) {
   );
   $form['body_field']['format'] = filter_form($node->format);
 
+
+
+
   return $form;
+
+ *
+ */
+function issue_form() {
+  //
 }
+
 
 /**
  * Implementation of hook_insert().
@@ -410,123 +380,198 @@ function issue_menu() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+ * Validate the issue
+ *
+ * @see issue_nodeapi()
+ */
+function _issue_validate(&$node) {
+  // TODO
+}
+
+/*
+ * Presaving preparations of the issue
+ *
+ * @see issue_nodeapi()
+ */
+function _issue_presave(&$node) {
+  // TODO
+}
+
+/*
+ * Save the issue
+ *
+ * @see issue_nodeapi()
+ */
+function _issue_insert(&$node) {
+  // TODO
+}
+
+/*
+ * Update the issue
+ *
+ * @see issue_nodeapi()
+ */
+function _issue_update(&$node) {
+  // TODO
+}
+
+/*
+ * Delete the issue
+ *
+ * @see issue_nodeapi()
+ */
+function _issue_delete(&$node) {
+  // TODO
+}
+
+/*
+ * Load the issue
+ *
+ * @see issue_nodeapi()
+ */
+function _issue_load(&$node) {
+  // TODO
+
+  $node->tnode = issue_get_translated_node($node->nid);
+  $node->tnid = $node->tnode->nid;
+
+}
+
+/*
+ * View the issue
+ *
+ * @see issue_nodeapi()
+ */
+function _issue_view(&$node) {
+  global $user, $base_url;
+  # add js
+  drupal_add_js(array('google_map_icons' => drupal_get_path('module', 'issue') . '/icons'), 'setting');
+  drupal_add_js(array('base_url' => $base_url), 'setting');
+  # TODO -- refactor javascript
+  drupal_add_js(drupal_get_path('module', 'issue') . '/js/add_new_form.js');
+  drupal_add_js(drupal_get_path('theme', 'heardmentalitylight') . '/javascripts/room_reservation.js');
+  drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
+  drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
+  drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
+  drupal_set_html_head('<script>var uid="' . $user->uid . '";</script>');
+  if ($user->initpop == 1 && $user->uid > 1) {
+    drupal_add_js('$(document).ready(function () {
+      loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");
+    });', 'inline');
+    $user_data = array('initpop' => 2);
+    user_save($user, $user_data);
+  }
+  # make changes in node
+  $node->context = $node->body;
+
+  # TODO - remove the function
+  # $node->style = drupal_link_color($user->uid, $node->nid);
+
+  # replace the content with the special voting form
+  $tnode = issue_get_translated_node($node->nid);
+  $node->content['body'] = array(
+    '#value' => drupal_get_form('issue_vote_form', $node),
+  );
+
+
+
+
+
+
+  /*
+
+  if (user_is_logged_in()) {
+    $tnode = issue_get_translated_node($node->nid);
+
+
+
+
+    if ($tnode->allowvotes) {
+      $node->content['body'] = array(
+        '#value' => drupal_get_form('issue_add_vote', $node->nid),
+      );
+    } else {
+      unset($node->content['body']);
+      // suggest answer calculation here
+      suggest_answer_replacement($node->nid);
+      $node->content['body'] = array(
+        '#value' => drupal_get_form('issue_edit_vote', $node->nid),
+      );
+    }
+  } else {
+    $node->content['body'] = array(
+      '#value' => drupal_get_form('issue_add_vote', $node->nid),
+    );
+  }
+
+
+
+
+
+  $node->allowvotes = $tnode->allowvotes;
+  // selected radio button stays green
+  if ($node->allowvotes == '' && arg(0)) {
+    $radCss = 'jQuery(document).ready(function(){
+                                jQuery("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
+                                });';
+    drupal_add_js($radCss, 'inline');
+  }
+  // selected radio button stays green
+
+
+
+
+  // only for search issues
+  //if (arg(0) == 'issues') {
+  //votes
+  $tnid = get_tnid($node->nid);
+  $tnode = node_load($tnid);
+  $node->tnid = $tnid;
+  $voteCount = db_result(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $tnid . "'"));
+  //debates
+
+  $dr = issue_get_dr($tnid);
+  $node->votecount = $voteCount;
+  $node->totaldebates = $dr['#count'][TYPE_DEBATE];
+  $node->totalresources = $dr['#count'][TYPE_RESOURCE];
+
+  // categories
+  $ctitle = array();
+  $sctitle = array();
+  $ssctitle = array();
+  $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+  $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
+
+  $catVals = array();
+  while ($cat = db_fetch_object($csql)) {
+    $catVals[] = $cat->tid;
+  }
+  if (!empty($catVals)) {
+
+    $cat = implode(",", $catVals);
+    $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$tnid' AND tid IN($cat)");
+    while ($ncat = db_fetch_object($ncats)) {
+      $cat = $ncat->tid;
+      $ctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
+      // parent categories
+      $scats = get_node_tree_child($cat, $tnid);
+      foreach ($scats as $scat) {
+        $sctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
+        // first level categories
+        $sscats = get_node_tree_child($scat, $tnid);
+        foreach ($sscats as $sscat) {
+          $ssctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
+          // second level categories
+        }
+      }
+    }
+  }
+  $node->catsubject = !empty($ctitle) ? rtrim(implode(",", $ctitle)) : 'none';
+  $node->catarea = !empty($sctitle) ? rtrim(implode(",", $sctitle)) : 'none';
+  $node->catdetail = !empty($ssctitle) ? rtrim(implode(",", $ssctitle)) : 'none';
+  */
+}
 
 
 /*
@@ -542,6 +587,7 @@ function issue_get_translated_node($nid) {
     return node_load($tnids[$nid]);
   }
 }
+
 /*
  * Get vote count
  */
