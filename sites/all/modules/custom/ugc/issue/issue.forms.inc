@@ -8,13 +8,15 @@ function issue_vote_form($form, $node) {
   $form = array();
 
   # get translated node
-  $form['#nid'] = $node->tnid;
-
+  $tnode = issue_get_translated_node($node->nid);
+  $form['#nid'] = $tnode->tnid;
+ 
+  
   # check if it's a search page
   $is_search = arg(0) == 'issues_solr2'; # TODO -- check if it's right way to do this
 
   # get user's vote for both regular and suggested answers
-  $vote_regular = $node->tnode->vote ? $node->tnode->vote : -1;
+  $vote_regular = $tnode->vote ? $tnode->vote : -1;
   # get suggested answers
   $vote_suggested = -1;
   if (!$is_search) {
