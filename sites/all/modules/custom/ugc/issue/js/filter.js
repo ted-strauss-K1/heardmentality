@@ -999,28 +999,7 @@ $('.openlogin_box').live('click', function(){
   return false;
 })
 
-// open flag for arguments
-function open_flag_box(oid, type){
-  var divId;
-  if(type == 'node'){
-    divId = '#flag-arg-'+oid;
-  }else if(type == 'comment'){
-    divId = '#flag-comm-'+oid;
-  }
-  $(divId).dialog('open');
-  $(divId).html('Please Wait...');
-  $.ajax({
-    type: 'get',
-    data: {
-      'flag_type': type
-    },
-    url: Drupal.settings.base_url + '/issue/ajax/getForumFlagForm/'+oid,
-    success: function(form){
-      $(divId).html(form);
-    }
-  });
-  return false;
-}
+
 
 /**Rallydev:526**/
 $(document).ready(function(){

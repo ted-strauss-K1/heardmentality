@@ -582,37 +582,6 @@ function qlite_cron() {
 
 
     global $gSitePath, $user, $gDocPath, $base_root;
-//    $j = 5;
-//    $k = 5;
-//    $l = 5;
-//    $fcnt = array();
-//    $gvote = array();
-//    $query = "SELECT * from {question}";
-//    $list = ExecuteQuery($query, "select");
-//
-//    foreach ($list as $quest) {
-//
-//
-//        $query1 = "select IFNULL((select count(*) from {possible_answer_vote} as pa where q.qid=pa.qid group by pa.qid ),0) as pvote,(select count(*) from {suggest_answer_vote} as sa where q.qid=sa.qid group by sa.qid ) as svote from {question} as q where q.qid='" . $quest['qid'] . "'";
-//        $gvote = ExecuteQuery($query1, "select");
-//        $m1 = $gvote[0]['pvote'];
-//        $m2 = $gvote[0]['svote'];
-//
-//        $tvote = $m1 + $m2;
-//
-//        $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,IFNULL((select count(*) from {resource} where qid='" . $quest['qid'] . "' group by qid),0) as rcnt from {forum_wave} as f where f.qid_rid='" . $quest['qid'] . "' ";
-//        $fcnt = db_fetch_object(db_query($query2));
-//
-//        //The value �active� will be calculated as follows (j,k,l are constant values that will be hard-coded):
-//        //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
-//        if (!empty($fcnt)) {
-//            $cntr = $fcnt->wcnt;
-//            $wcnt = $fcnt->rcnt;
-//            $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
-//            db_query("update {question} set active_rate='" . $active . "' where qid='" . $quest['qid'] . "'");
-//        }
-//    }
-
     /*Node conversion*/
 
     $j = 5;

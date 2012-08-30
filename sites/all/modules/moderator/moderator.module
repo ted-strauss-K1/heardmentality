@@ -1226,9 +1226,9 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
         db_query("UPDATE {poll_choices} SET chvotes =%d WHERE nid = %d AND chorder = %d", $totcnt, $qid, $set_order);
     }
     //merge answers ends
+
     //merge suggest answers
-    db_query("update {suggest_answer} set qid='$qid' where qid='$dupeid'");
-    db_query("update {suggest_answer_vote} set qid='$qid' where qid='$dupeid'");
+    issue_sa_merge($qid, $dupeid);
 
     //delete the remaining spectrum for dupe issue
     db_query("delete from {possible_answer_spectrum} where nid='$dupeid'");
@@ -1595,7 +1595,7 @@ function delete_issues($qids='') {
     db_query("DELETE FROM {short_answers} WHERE qid = '%d'", $delid);
     db_query("DELETE FROM {debate_options} WHERE nid = '%d'", $delid);
     db_query("DELETE FROM {resource_options} WHERE nid = '%d'", $delid);
-    db_query("DELETE FROM {suggest_answer} WHERE qid = '%d'", $delid);
+    issue_sa_delete($delid);
     //delete flags
     _abuse_cleanup_content('node', $delid);
   }

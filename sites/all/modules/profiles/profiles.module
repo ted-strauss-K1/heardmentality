@@ -556,22 +556,7 @@ function load_user_badge($uid='', $search='') {
   return $output;
 }
 
-function drupal_link_color($userid, $quesid) {
 
-  if (!empty($userid) && !empty($quesid)) {
-    $linkcolor = db_query("select count(*) as count from {poll_votes} where nid='" . $quesid . "' and uid='" . $userid . "'  ");
-    $get_linkcolor = db_result($linkcolor);
-    //         if($get_linkcolor->count==0)
-    //         {
-    //            // return "color:red";
-    //         }
-    if ($get_linkcolor) {
-      // return "color:green";
-      return "font-weight:bold";
-    }
-  }
-  return "";
-}
 
 function load_badges($uid = '') {
   $sql = "SELECT bid FROM {user_badges} WHERE uid = '" . $uid . "'";

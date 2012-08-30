@@ -7,7 +7,7 @@ $(document).ready(function() {
       dataType: 'json',
       success: function(data) {
         $('#issue_edit_form_stream').parent().parent().parent().html(data.data);
-        $("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
+        // $("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
       //    alert("Спасибо за комментарий!");
       }
     };
@@ -120,7 +120,7 @@ $(document).ready(function() {
     function(data){
       //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
       $('#linkbox').html(data.data);
-      $("input[name=choice]:checked").parents("div").addClass("staygreen");
+      // $("input[name=choice]:checked").parents("div").addClass("staygreen");
       $('#top_categories-wrapper').html();
       $('#top_categories-wrapper').html(data.categories);
       $('#count_results-wrapper span').html(data.count);

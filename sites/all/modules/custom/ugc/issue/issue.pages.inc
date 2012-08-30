@@ -1,5 +1,425 @@
 <?php
 
+/*
+ * "issue/create" page callback
+ */
+function issue_create() {
+  return drupal_get_form('issue_create_form');
+}
+
+/*
+ * "issue/create" form
+ */
+function issue_create_form(&$form_state) {
+  $form = array();
+
+  if (isset($form_state['action'])) {
+    $form['#action'] = $form_state['action'];
+  }
+  $form['issue_cont'] = array(
+    '#type' => 'markup',
+    '#value' => '
+      <div class="grey-box">
+        <h2 class="din">' . t('Add an Issue') . '</h2>
+        <div class="new-issue">
+          <hr class="short2">
+    '
+  );
+  $form['title_div'] = array(
+    '#type' => 'markup',
+    '#value' => '
+      <label for="" class="add-on">
+        <div class="number dinbold">1</div>
+        <span class="title ">' . t('Question') . '</span>
+        <br>
+        <span class="guides">' . t('Max 140 chars.') . '</span>
+      </label>
+    '
+  );
+  $form['q_quest'] = array(
+    '#type' => 'textarea',
+    '#id' => 'q_quest',
+    '#ahah' => array(
+      'path' => 'issue/related',
+      'wrapper' => 'related-issues',
+      'effect' => 'fade'
+    ),
+    '#attributes' => array('onkeyup' => 'limitChars()', 'rows' => 0, 'cols' => 0),
+    '#suffix' => '<hr class="short2">',
+  );
+  $form['desc_div'] = array(
+    '#type' => 'markup',
+    '#value' => '
+      <label for="" class="add-on">
+        <div class="number dinbold">2</div>
+        <span class="title ">' . t('Context') . '</span>
+        <br>
+        <span class="guides">' . t('Enter a brief description or backstory to provide context. You may include links.') . '</span>
+      </label>
+    '
+  );
+  $form['q_context'] = array(
+    '#type' => 'textarea',
+    '#rows' => 4,
+    '#id' => 'Question',
+    '#suffix' => '<hr class="short2">',
+    '#attributes' => array('rows' => 0, 'cols' => 0)
+  );
+  if (isset($form_state['choice_count'])) {
+    $choice_count = $form_state['choice_count'];
+  } else {
+    $choice_count = 2;
+  }
+  $form['choice_wrapper'] = array(
+    '#tree' => FALSE,
+    '#prefix' => '<div class="clear-block" id="poll-choice-wrapper">',
+    '#suffix' => '</div>',
+  );
+  $form['choice_wrapper']['answer'] = array(
+    '#prefix' => '
+      <div id="poll-choices">
+        <label for="" class="add-on">
+          <div class="number dinbold">3</div>
+          <span class="title ">' . t('Answers') . '</span>
+          <br>
+          <span class="guides">' . t('Enter at least two answers.') . '</span>
+        </label>
+    ',
+    '#suffix' => '</div><div class="clear"></div>',
+    '#theme' => 'issue_answer',
+  );
+  for ($delta = 0; $delta < $choice_count; $delta++) {
+    $form['choice_wrapper']['answer'][$delta] = _issue_create_form_answer_textfield($delta);
+  }
+  $form['choice_wrapper']['poll_more'] = array(
+    '#type' => 'submit',
+    '#value' => '+ ' . t('Add another answer'),
+    '#description' => t("If the amount of boxes above isn't enough, click here to add more choices."),
+    '#weight' => 1,
+    '#ahah' => array(
+      'path' => 'issue/create/ahah/answer',
+      'wrapper' => 'poll-choices',
+      'method' => 'replace',
+      'effect' => 'fade',
+    ),
+    '#attributes' => array('class' => 'add-answer light'),
+    '#suffix' => '<div class="clear"></div><hr class="bottom">',
+  );
+  $form['exist_check'] = array(
+    '#type' => 'hidden',
+    '#value' => '',
+    '#id' => 'exist_check'
+  );
+  $form['related_issues'] = array(
+    '#title' => t("Related Issues"),
+    '#prefix' => '<div id="related-issues">',
+    '#suffix' => '</div>',
+    '#type' => 'fieldset',
+  );
+  # check if the question is edited through this form
+  if ($form_state['values']['q_quest']) {
+    $question = $form_state['values']['q_quest'];
+    $related = issue_get_related($question);
+    if (empty($related)) {
+      $form['related_issues']['no_rel'] = array(
+        '#type' => 'markup',
+        '#value' => 'No Related Issues'
+      );
+    } else {
+      $options = array();
+      foreach ($related as $nid => $title) {
+        $options[$nid] = strlen($title) > 50 ? substr($title, 0, 50).'...' : $title;
+      }
+      $form['related_issues']['rel_iss_check'] = array(
+        '#type' => 'checkboxes',
+        '#options' => $options
+      );
+    }
+  }
+  $form['dupe_count'] = array(
+    '#type' => 'hidden',
+    '#id' => 'dupe_count',
+    '#default_value' => 0
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#attributes' => array('class' => 'submit-issue'),
+    '#value' => t('SUBMIT NEW ISSUE'),
+    '#id' => 'save_issue',
+    '#prefix' => '<label class="before-submit">Your issue will go live immediately, but a moderator will edit it soon to assign categories, look for duplicates, or make format changes</label>',
+    '#suffix' => ' <div class="clear"></div>'
+  );
+  $form['issue_cont_close'] = array(
+    '#type' => 'markup',
+    '#value' => '</div></div>'
+  );
+  $form['#cache'] = TRUE;
+  return $form;
+}
+
+/*
+ * "issue/create/ahah/answer" callback
+ */
+function _issue_create_form_answer_textfield($delta, $value = '', $votes = 0) {
+  if ($delta < 4) {
+    $form = array(
+      '#tree' => TRUE,
+    );
+    $form['chtext'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $value,
+      '#parents' => array('answer', $delta),
+      '#id' => 'Answer',
+    );
+    return $form;
+  }
+  return false;
+}
+
+/*
+ * "issue/create/ahah/answer" callback
+ */
+function issue_create_ahah_answer() {
+  $delta = count($_POST['answer']);
+  # build form element
+  $form_element = _issue_create_form_answer_textfield($delta);
+  # build new form
+  $form_state = array('storage' => NULL, 'submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+  # add element
+  $form = form_get_cache($form_build_id, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  if ($form_element !== false) {
+    $form['choice_wrapper']['answer'][$delta] = $form_element;
+  }
+  form_set_cache($form_build_id, $form, $form_state);
+  $form += array(
+    '#post' => $_POST,
+    '#programmed' => FALSE,
+  );
+  $form_state['post'] = $_POST;
+  # Build, validate and if possible, submit the form.
+  $form_state['action'] = $form['#action'];
+  $form_state['rebuild'] = TRUE;
+  drupal_process_form($form_id, $form, $form_state);
+  # Rebuild the form.
+  $form = form_builder($form_id, $form, $args, $form_state);
+  # Render the new output.
+  unset($_SESSION['messages']);
+  $choice_form = $form['choice_wrapper']['answer'];
+  //unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
+  $choice_form[$delta]['#attributes']['class'] =
+    empty($choice_form[$delta]['#attributes']['class']) ?
+      'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] . ' ahah-new-content';
+  $output = drupal_render($choice_form);
+
+  $ahah = array('status' => TRUE, 'data' => $output);
+  if ($form_element === false) {
+    $ahah['js'] = array('func' => 'issue_create_ahah_answer_error');
+  }
+  drupal_json($ahah);
+}
+
+/*
+ * "issue/related" callback
+ */
+function issue_related() {
+  $form_state = array(
+    'storage' => NULL,
+    'submitted' => FALSE
+  );
+  $form_build_id = $_POST['form_build_id'];
+  $form = form_get_cache($form_build_id, $form_state);
+  $delta = count($_POST['answer']);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  $form_state['post'] = $form['#post'] = $_POST;
+  $form['#programmed'] = $form['#redirect'] = FALSE;
+  $form_state['action'] = $form['#action'];
+  $form_state['rebuild'] = TRUE;
+  $form_state['choice_count'] = $delta;
+  drupal_process_form($form_id, $form, $form_state);
+  $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
+  unset($_SESSION['messages']);
+  $textfields = $form['related_issues'];
+  $output = drupal_render($textfields);
+
+  drupal_json(array('status' => TRUE, 'data' => $output));
+}
+
+/*
+ * Get related issues by question
+ *
+ * TODO -- something strange we have here - this search doesn't make sense at all
+ */
+function issue_get_related($question) {
+  $output = array();
+  $language = i18n_get_lang();
+  # get words from question
+  $words = explode(" ", $question);
+  $words = array_filter($words, 'word_array_filter');
+  $words = array_filter($words);
+  //
+  if (!empty($question) && !empty($words)) {
+    $result = db_query("
+      SELECT nr.nid, nr.title
+      FROM {node_revisions} nr
+      INNER JOIN {node} n ON nr.nid = n.nid AND nr.vid = n.vid
+      WHERE n.status <> 0
+        AND n.type = 'poll'
+        AND MATCH(nr.body, nr.title) AGAINST ('%s')
+        AND n.language = '%s'
+      GROUP BY n.nid
+      ORDER BY n.nid DESC, nr.vid DESC LIMIT 0,10",
+        $question, $language
+    );
+    while ($row = db_fetch_array($result)) {
+      $output[] = $row;
+    }
+  }
+  return $output;
+}
+
+/*
+ * "issue/create" form validation
+ */
+function issue_create_form_validate($form, &$form_state) {
+  if ($form_state['values']['q_quest'] == '') {
+    form_set_error('error', t('Please enter your question'));
+  }
+  if ($form_state['values']['answer'][0] == '' || $form_state['values']['answer'][1] == '') {
+    form_set_error('error', t('You must enter atleast two answers'));
+  }
+}
+
+/*
+ * "issue/create" form submission
+ */
+function issue_create_form_submit($form, &$form_state) {
+  global $user, $base_url;
+
+  $node = new StdClass();
+  $node->type       = 'poll';
+  $node->create     = time();
+  $node->title      = $form_state['values']['q_quest'];
+  $node->body       = $form_state['values']['q_context'];
+  $node->uid        = $user->uid;
+  $node->status     = 1;
+  $node->active     = 1;
+  # $node->path       =
+  $language         = get_input_language($form_state['values']['q_quest']);
+  $node->language   = $language;
+  $node->field_mod_status[0]['value'] = 0;
+  if (!user_access('administer nodes')) {
+    # uncomment it if you want to moderate the contents
+    # $node->active = 0;
+  }
+  $count = count($form_state['values']['answer']);
+  for ($i = 0; $i < $count; $i++) {
+    $node->choice[$i]['chtext']  = $form_state['values']['answer'][$i];
+    $node->choice[$i]['chorder'] = $i;
+    $node->choice[$i]['chvotes'] = 0;
+  }
+  node_save($node);
+  # @rules: Create new content fired
+
+  // New SET NOTIFY LOG
+  $variable = array('qid' => $node->nid, 'q_title' => $node->title, 'uid' => $user->uid);
+  set_notify_log($user->uid, $node->nid, 'add_question', $variable);
+  // New SET NOTIFY LOG
+
+  # add alias
+  $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
+  $url = 'node/' . $node->nid;
+  path_set_alias($url, $dst, '', $language);
+
+  # related issues
+  if (!empty($form_state['values']['rel_iss_check'])) {
+    $related = array(
+      'nid'           => $node->nid,
+      'content_types' => array('content_types' => array('poll' => 'poll')),
+      'taxonomy'      => array(''),
+      'manual'        => array(
+        'enable' => 1,
+        'nodes' => array(
+          'poll' => array(
+            'nids' => array_combine(
+              $form_state['values']['rel_iss_check'],
+              $form_state['values']['rel_iss_check']
+            ),
+          ),
+        ),
+      ),
+      'sort'          => array('criteria' => 'none'),
+    );
+    issue_noderecommendation($node->nid, $related);
+  }
+  cache_clear_all();
+
+  /*
+  drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
+'), $type = 'success');
+  */
+
+  # don't know what this means
+  $_SESSION['post'] = '';
+
+  $path = drupal_lookup_path('alias', 'node/'.$node->nid, $language);
+  if ($path === false) {
+    $path = 'node/'.$node->nid;
+  }
+
+  drupal_goto($base_url . '/' . $language . '/' . $path);
+}
+
+/*
+ * Add values to noderecommendation table
+ *
+ * @nid     : Node Id
+ * @related : Associative array containing
+ */
+function issue_noderecommendation($nid, $related) {
+  if (module_exists("noderecommendation")) {
+    db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $nid, serialize($related));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // $Id: issue.pages.inc,v 1.1.2.2 2010/06/22 11:33:06 mirodietiker Exp $
 
 /**
@@ -561,425 +981,22 @@ function report_get_zip($code = '', $ccode = '') {
 
 // add new issue
 
-function issue_create() {
-  $issueForm = drupal_get_form('issue_create_form');
-  return $issueForm;
-}
-
-function issue_create_form(&$form_state) {
-//drupal_add_js( drupal_get_path('module', 'question') . '/scripts/post_list.js');
-  if (isset($form_state['action'])) {
-    $form['#action'] = $form_state['action'];
-  }
-//$form['#attributes'] = array('onsubmit' => 'return validate_question()');
-  $form['issue_cont'] = array(
-    '#type' => 'markup',
-    '#value' => '<div class="grey-box">
-                                        <h2 class="din">' . t('Add an Issue') . '</h2>
-                                        <div class="new-issue">
-                                        <hr class="short2">');
-  $form['title_div'] = array(
-    '#type' => 'markup',
-    '#value' => '<label for="" class="add-on"><div class="number dinbold">1</div><span class="title ">' . t('Question') . '</span><br>
-                                                                <span class="guides">' . t('Max 140 chars.') . '</span></label>');
-  $form['q_quest'] = array(
-    '#type' => 'textarea',
-    '#suffix' => '<hr class="short2">', '#id' => 'q_quest',
-    '#ahah' => array('path' => 'issue/get_related_issues', 'wrapper' => 'related-issues', 'effect' => 'fade'),
-    '#attributes' => array('onkeyup' => 'CountlimitChars()', 'rows' => 0, 'cols' => 0),
-  );
-  $form['desc_div'] = array(
-    '#type' => 'markup',
-    '#value' => '<label for="" class="add-on"><div class="number dinbold">2</div><span class="title ">' . t('Context') . '</span><br><span class="guides">' . t('Enter a brief description or backstory to provide context. You may include links.') . '</span></label>');
-  $form['q_context'] = array(
-    '#type' => 'textarea',
-    '#rows' => 4,
-    '#suffix' => '<hr class="short2">',
-    '#id' => 'Question',
-    '#attributes' => array('rows' => 0, 'cols' => 0));
-
-  if (isset($form_state['choice_count'])) {
-    $choice_count = $form_state['choice_count'];
-  }
-  else {
-    $choice_count = 2;
-  }
-
-  $form['choice_wrapper'] = array(
-    '#tree' => FALSE,
-    '#prefix' => '<div class="clear-block" id="poll-choice-wrapper">',
-    '#suffix' => '</div>',
-  );
 
 
-// Container for just the poll choices.
-  $form['choice_wrapper']['answer'] = array(
-    '#prefix' => '<div id="poll-choices">
-                        <label for="" class="add-on"><div class="number dinbold">3</div><span class="title ">' . t('Answers') . '</span> <br><span class="guides">' . t('Enter at least two answers.') . '</span></label>',
-    '#suffix' => '</div><div class="clear"></div>',
-    '#theme' => 'issue_answer',
-  );
 
 
-// Add the current choices to the form.
-  for ($delta = 0; $delta < $choice_count; $delta++) {
-    $form['choice_wrapper']['answer'][$delta] = _issue_answer_form($delta);
-  }
 
 
-// We name our button 'poll_more' to avoid conflicts with other modules using
-// AHAH-enabled buttons with the id 'more'.
-  $form['choice_wrapper']['poll_more'] = array(
-    '#type' => 'submit',
-    '#value' => t('+ Add another answer'),
-    '#description' => t("If the amount of boxes above isn't enough, click here to add more choices."),
-    '#weight' => 1,
-    '#ahah' => array(
-      'path' => 'issue/autotextfields/callback',
-      'wrapper' => 'poll-choices',
-      'method' => 'replace',
-      'effect' => 'fade',
-    ),
-    '#attributes' => array('class' => 'add-answer light'),
-    '#suffix' => '<div class="clear"></div>
-                                <hr class="bottom">',
-  );
-
-  $form['exist_check'] = array(
-    '#type' => 'hidden',
-    '#value' => '',
-    '#id' => 'exist_check');
-
-  $form['related_issues'] = array(
-    '#title' => t("Related Issues"),
-    '#prefix' => '<div id="related-issues">',
-    '#suffix' => '</div>',
-    '#type' => 'fieldset',
-  );
-
-  if ($form_state['values']['q_quest']) {
-
-    $question = $form_state['values']['q_quest'];
-
-// define a string variable to contain callback output
-    $output = "";
-
-// loop through the taxonomy tree and fetch child taxonomies
-    $options = array();
-
-    $res = get_releated_issues($question);
-
-    if (!empty($res)) {
-      $nids = $res['nid'];
-      $contents = $res['content'];
-      $i = 0;
-      if (!empty($contents)) {
-        foreach ($contents as $key => $result) {
-          $array[$nids[$key]] = $result;
-
-          $i++;
-        }
-
-        $form['related_issues']['rel_iss_check'] = array(
-          '#type' => 'checkboxes',
-          '#options' => $array);
-      }
-      else {
-        $form['related_issues']['no_rel'] = array(
-          '#type' => 'markup',
-          '#value' => 'No Related Issues');
-      }
-    }
-    else {
-      $form['related_issues']['no_rel'] = array(
-        '#type' => 'markup',
-        '#value' => 'No Related Issues');
-    }
-  }
-
-  $form['dupe_count'] = array(
-    '#type' => 'hidden',
-    '#id' => 'dupe_count',
-    '#default_value' => 0);
-//$form['#validate'][] = 'issue_create_form_validate';
-
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#attributes' => array('class' => 'submit-issue'),
-    '#value' => t('SUBMIT NEW ISSUE'),
-    '#id' => 'save_issue',
-    '#prefix' => '<label class="before-submit">Your issue will go live immediately, but a moderator will edit it soon to assign categories, look for duplicates, or make format changes</label>',
-    '#suffix' => ' <div class="clear"></div>');
-//$form['#redirect'] = '';
-  $form['issue_cont_close'] = array(
-    '#type' => 'markup',
-    '#value' => '</div></div>');
-  $form['#validate'][] = 'validate_issue_add';
-  $form['#cache'] = TRUE;
-  return $form;
-}
-
-function issue_form_validate($form, &$form_state) {
-  if ($form['form_id']['#post']['answer'][0] == '' || $form['form_id']['#post']['answer'][1] == '') {
-    $error = 'You must fill in at least two choices.';
-  }
-  return $error;
-}
-
-function issue_autotextfields_callback() {
-  $delta = count($_POST['answer']);
-
-// Build our new form element.
-  $form_element = _issue_answer_form($delta);
-// drupal_alter('form', $form_element, array(), 'issue/autotextfields/callback');
-// Build the new form.
-  $form_state = array('storage' => NULL, 'submitted' => FALSE);
-  $form_build_id = $_POST['form_build_id'];
-
-// Add the new element to the stored form. Without adding the element to the
-// form, Drupal is not aware of this new elements existence and will not
-// process it. We retreive the cached form, add the element, and resave.
-  $form = form_get_cache($form_build_id, $form_state);
-  $args = $form['#parameters'];
-  $form_id = array_shift($args);
-  $form['choice_wrapper']['answer'][$delta] = $form_element;
-  form_set_cache($form_build_id, $form, $form_state);
-  $form += array(
-    '#post' => $_POST,
-    '#programmed' => FALSE,
-  );
-  $form_state['post'] = $_POST;
-// Build, validate and if possible, submit the form.
-  $form_state['action'] = $form['#action'];
-  $form_state['rebuild'] = TRUE;
-  drupal_process_form($form_id, $form, $form_state);
-// Rebuild the form.
-  $form = form_builder($form_id, $form, $args, $form_state);
-
-//  $validate = issue_form_validate($form, $form_state);
-//  if($validate){$delta = 1;}
-// Render the new output.
-  unset($_SESSION['messages']);
-  $choice_form = $form['choice_wrapper']['answer'];
-  unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
-  $choice_form[$delta]['#attributes']['class'] = empty($choice_form[$delta]['#attributes']['class']) ? 'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] . ' ahah-new-content';
-//$choice_form[$delta]['chvotes']['#value'] = 0;
-  $output = drupal_render($choice_form);
-
-  drupal_json(array('status' => TRUE, 'data' => $output));
-}
-
-function _issue_answer_form($delta, $value = '', $votes = 0) {
-  $form = array(
-    '#tree' => TRUE,
-  );
-
-// We'll manually set the #parents property of these fields so that
-// their values appear in the $form_state['values']['choice'] array.
-// limited fields 10 (0 to 9)
-  if ($delta == 0 || $delta == 1) {
-// $req = TRUE;
-  }
-  else {
-//$req = FALSE;
-  }
-  if ($delta < 10) {
-    $form['chtext'] = array(
-      '#type' => 'textfield',
-      '#default_value' => $value,
-      '#parents' => array('answer', $delta),
-      '#required' => $req,
-      '#id' => 'Answer',
-    );
-  }
-  else {
-    $form['error_msg'] = array(
-      '#type' => 'markup',
-      '#value' => 'Maximum Fields Exceeded',
-    );
-  }
-  return $form;
-}
-
-function issue_related_callback() {
-
-  $form_state = array('storage' => NULL, 'submitted' => FALSE);
-  $form_build_id = $_POST['form_build_id'];
-  $form = form_get_cache($form_build_id, $form_state);
-  $delta = count($_POST['answer']);
-
-  $args = $form['#parameters'];
-  $form_id = array_shift($args);
-  $form_state['post'] = $form['#post'] = $_POST;
-  $form['#programmed'] = $form['#redirect'] = FALSE;
-// Stash original form action to avoid overwriting with drupal_rebuild_form().
-  $form_state['action'] = $form['#action'];
-  $form_state['rebuild'] = TRUE;
-  $form_state['choice_count'] = $delta;
-  drupal_process_form($form_id, $form, $form_state);
-  $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
-
-//$form = form_builder($form_id, $form, $form_state);
-  unset($_SESSION['messages']);
-  $textfields = $form['related_issues'];
-  $output = drupal_render($textfields);
 
 
-// Final rendering callback.
-  print drupal_json(array('status' => TRUE, 'data' => $output));
-  exit();
-}
-
-function issue_create_form_submit($form, &$form_state) {
-//echo '<pre>'; print_r($form_state); exit;
-  global $user, $base_url;
 
 
-  $account = user_load(array('uid' => $user->uid));
-  $node = new StdClass();
-  $node->type = 'poll';
-  $node->create = time();
-  $node->title = $form_state['values']['q_quest'];
-  $node->body = $form_state['values']['q_context'];
-  $node->uid = $account->uid;
-  $node->status = 1;
-  $node->active = 1;
-//$node->path=
-// LANGUAGE DETECTION
-// detect language from inputs using googleapis
-  $inputLanguage = get_input_language($form_state['values']['q_quest']);
-
-  $node->language = $inputLanguage; // set user input language
-  $node->field_mod_status[0]['value'] = 0;
-  if (!user_access('administer nodes')) {
-    $node->active = 1;
-  }
-  $count = count($form_state['values']['answer']);
-  for ($i = 0; $i < $count; $i++) {
-    $node->choice[$i]['chtext'] = $form_state['values']['answer'][$i];
-    $node->choice[$i]['chorder'] = $i;
-// Make sure all votes are 0 initially
-    $node->choice[$i]['chvotes'] = 0;
-  }
-
-  node_save($node);
-
-  /* New SET NOTIFY LOG */
-//set_notify_log($uid , $message_id, $nid, $variable)
-  $qid = $node->nid;
-  $qtitle = $node->title;
-  $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
-  set_notify_log($user->uid, $qid, 'add_question', $variable);
-  /* New SET NOTIFY LOG */
-//url alias
-  $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
-  $url = 'node/' . $node->nid;
-// db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, $inputLanguage);
-
-  path_set_alias($url, $dst, '', $inputLanguage);
-
-//Related Issues
-  if (!empty($form_state['values']['rel_iss_check'])) {
-    $cont_type = array('content_types' => array('poll' => 'poll'));
-    $relatedissues = array_combine($form_state['values']['rel_iss_check'], $form_state['values']['rel_iss_check']);
-    $arrayid = array('nids' => $relatedissues);
-    $manual = array('enable' => 1, 'nodes' => array('poll' => $arrayid));
-    $related = array('nid' => $node->nid, 'content_types' => $cont_type, 'taxonomy' => array(''), 'manual' => $manual, 'sort' => array('criteria' => 'none'));
-    db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $node->nid, serialize($related));
-  }
-
-  cache_clear_all();
-  $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
-'), $type = 'success');
-  unset($_SESSION['post']);
-  $_SESSION['post'] = '';
-  $path = db_result(db_query("SELECT dst FROM {url_alias} WHERE src = 'node/%d' LIMIT 1", $node->nid));
-  if (empty($path))
-    $path = drupal_get_path_alias(getPathAlias($node->nid));
-
-  # increasepoints('1', $node->nid, '0');
-  up_actions_execute('addquestion', $user->uid);
-
-//_send_qnotify($node->nid);
-//drupal_goto($path);
-
-  drupal_goto($base_url . '/' . $inputLanguage . '/' . $path);
-}
-
-function getPathAlias($nid) {
-  $alias = 'node/' . $nid;
-
-//check for an alias using drupal_lookup_path()
-  if ((drupal_lookup_path('alias', 'node/' . $nid) !== false))
-    $alias = drupal_lookup_path('alias', 'node/' . $nid);
-
-  return $alias;
-}
-
-function get_releated_issues($question = '', $cat_id = '', $context = '') {
-//$form = array('#tree'=>TRUE);
-
-  $currLanguage = i18n_get_lang();
-  $where_condition = '';
-  $words = explode(" ", $question);
-  $words = array_filter($words, 'word_array_filter');
-  $words = array_filter($words);
-  for ($i = 0; $i < count($words); $i++) {
-    $wheres2 = array();
-    if ($words[$i] != '') {
-      $wheres2[] = "  q.title  LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
-      $wheres[] = implode(' OR ', $wheres2);
-    }
-  }
-  $where_condition = '((' . implode(($match == 'all' ? ') AND (' : ') OR ('), $wheres) . '))';
-
-  if ($context != '') {
-    $words = explode(" ", $context);
-    for ($i = 0; $i < count($words); $i++) {
-      $wheres2 = array();
-      if ($words[$i] != '') {
-        $wheres2[] = "  q.context  LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
-        $wheres1[] = implode(' OR ', $wheres2);
-      }
-    }
-    $where_condition .= ' and ((' . implode(($match == 'all' ? ') AND (' : ') OR ('), $wheres1) . '))';
-  }
-  if ($cat_id != 0) {
-    $where_condition .= " and qc.cat in ($cat_id)";
-  }
-  $text = "$question $context";
-  $text = trim($text);
-//printf("SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text, $currLanguage);
-//printf("SELECT count(MATCH(r.body, r.title) AGAINST ('%s')) FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,0);
-  $count = db_result(db_query("SELECT COUNT(n.nid) FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10", $text, $currLanguage));
-  $rel_output.= '<div class="innerbox" style="width:auto;height:auto; overflow:auto; min-height:150px;"><ul>';
-  if (($count != 0) && ($question != '')) {
-    $rel_count = 1;
-    $rel_query = db_query("SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10", $text, $currLanguage);
-//$sql = "SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND n.title LIKE '%$question%' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10";
-//$rel_query = db_query($sql);
-    while ($rel_options = db_fetch_object($rel_query)) {
-
-      $form['mycheck_' . $rel_count] = array('#type' => 'checkbox', '#default_value' => $rel_count, '#title' => substr($rel_options->title, 0, 50));
 
 
-      $rel_output .= substr($rel_options->title, 0, 50) . '...</li>';
-      $content[] = substr($rel_options->title, 0, 50);
-      $ids[] = $rel_options->nid;
-      $rel_count++;
-    }
-  }
-  else {
-    $rel_output.= t('No Releated issues available');
-  }
 
-  $rel_output.= '</ul></div>';
-  $quest = array($rel_count, $content);
-  $conResult = array('content' => $content, 'nid' => $ids);
-  return $conResult;
-//return $form;
-//echo "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid ";
-}
+
+
+
 
 // issue list here
 function issues_list() {
@@ -1618,24 +1635,6 @@ function issue_ajax($task = '', $nid = '') {
     case 'resource_statistics':
       $result = '<iframe src="' . $base_url . '/debate/ajax/' . $nid . '?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
       break;
-    case 'getForumFlagForm':
-// abuse flag form ############
-      $tnid = $nid;
-      $flagType = $_GET['flag_type'];
-      $object = _abuse_load($flagType, $tnid);
-// echo '<pre>'; print_r($object);exit;
-      $reported = db_result(db_query("SELECT COUNT(*) FROM {abuse} WHERE type='%s' AND oid=%d AND uid=%d", $flagType, $tnid, $user->uid));
-      if ($reported > 0) {
-        $flagForm = t('We have already received your report.  Thank you very much!');
-      }
-      else if ($user->uid == $object->uid) {
-        $flagForm = t('Sorry, you cannot flag your own content');
-      }
-      else {
-        $flagForm = drupal_get_form('abuse_report_form', $object, $user);
-      }
-// abuse flag form ############
-      $result = $flagForm;
   }
   echo $result;
 }
@@ -2112,16 +2111,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
   }
 }
 
-// validate issue create form
-function validate_issue_add($form, &$form_state) {
-//echo '<pre>';print_r($form_state); exit;
-  if ($form_state['values']['q_quest'] == '') {
-    form_set_error('error', t('Please enter your question'));
-  }
-  if ($form_state['values']['answer'][0] == '' || $form_state['values']['answer'][1] == '') {
-    form_set_error('error', t('You must enter atleast two answers'));
-  }
-}
+
 
 function report_answer_details_history($nid = '', $aid = '', $action = '', $date = '') {
   switch ($action) {

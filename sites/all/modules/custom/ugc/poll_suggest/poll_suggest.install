@@ -1,0 +1,95 @@
+<?php
+
+/*
+ * Implementation of hook_install()
+ */
+function poll_suggest_install() {
+  drupal_install_schema('poll_suggest');
+  drupal_install_schema('poll_suggest_votes');
+}
+
+/*
+ * Implementation of hook_schema()
+ */
+function poll_suggest_schema() {
+  $schema = array();
+
+  $schema['poll_suggest'] = array(
+    'description' => 'Stores the suggested answers for {poll}s.',
+    'fields' => array(
+      'chid'    => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier for a poll choice.',
+      ),
+      'nid'     => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid this choice belongs to.',
+      ),
+      'uid'      => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid this suggestion is from.',
+      ),
+      'chtext'  => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The text for this choice.',
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid')
+    ),
+    'primary key' => array('chid'),
+    'unique keys' => array(
+      'poll_suggest'     => array('nid', 'uid')
+    ),
+
+  );
+
+  $schema['poll_suggest_votes'] = array(
+    'description' => 'Stores per-{users} votes for each {poll}.',
+    'fields' => array(
+      'vid'    => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier for a vote.',
+      ),
+      'uid'      => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid this vote is from unless the voter was anonymous.',
+      ),
+      'chid'  => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => -1,
+        'description' => "The {users}'s vote for this poll.",
+      ),
+      'date'      => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The date of the vote.',
+      ),
+    ),
+    'primary key' => array('vid'),
+    'indexes' => array(
+      'uid'      => array('uid'),
+    ),
+  );
+
+  return $schema;
+}

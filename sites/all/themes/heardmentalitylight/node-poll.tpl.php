@@ -2,8 +2,8 @@
 global $apikey, $base_path, $theme, $base_url, $user;
 $gSitePath = $base_path.'/';
  $path=$gSitePath.  drupal_get_path('theme',$theme);
- $node=node_load(array('nid'=>$nid));
- $tnid = get_tnid($nid);
+
+
 ?>
 
 <div id="new_vote">
@@ -12,13 +12,7 @@ $gSitePath = $base_path.'/';
 
 <div class="part part1">
 
-<h2 class="din"><?php print t(rtrim($title, "?")); ?>?
-<!--<?php if($user->uid!=0){?>
-	<a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
-	<?php }else{?>
-	<a class="icon flag openlogin_box" title="flag this issue" rel="lightframe"  href="#"></a>
-	<?php }?>-->
-</h2>
+<h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
 
 <div class="qd">
 <p class="description">
@@ -80,11 +74,6 @@ $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
     }
 </script>
 
-<!--
-<div id="dialog-flag" title="<?php print t('FLAG THIS ITEM'); ?>" class="dialog">
-		<?php if($flagForm): print $flagForm; endif; ?>
-</div>
--->
 <script type="text/javascript">
    gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
    function showDesc(){

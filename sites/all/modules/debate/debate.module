@@ -11,8 +11,7 @@ function debate_perm() {
  * Implementation of hook_init()
  */
 function debate_init() {
-  global $base_url;
-  drupal_add_js(array('base_url' => $base_url), 'setting');
+
 }
 
 /**

@@ -519,8 +519,8 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   if ($op == 'load' && $node->type == 'poll') {
     $result = db_query("SELECT count(aid) FROM {accesslog} a WHERE a.path = 'node/%d'", $node->nid);
     $node->field_visits_count[0]['value'] = db_result($result);
-    $result = db_query("SELECT count(nid) FROM {poll_votes} p WHERE p.nid = '%d'", $node->nid);
-    $node->field_votes_count[0]['value'] = db_result($result);
+    $votes = issue_get_votes($node->nid);
+    $node->field_votes_count[0]['value'] = $votes['#all'];
   }
   if ($op == 'view' && $node->field_issue_country) {
     // remove tags <p> from country name
@@ -605,11 +605,10 @@ $message = node_view($node);
 function solr_issues_radios_after_build($form_element, &$form_state, $tnid) {
   $count = count($form_element['#options']);
   $nid = $form_element['#nid'];
+  $votes = issue_get_votes($nid);
   for ($i = 0; $i < $count; $i++) {
-    $vote = db_result(db_query("select count(nid) from {poll_votes}
-where nid ='%d' and chorder ='%d'", $nid, $i));
     $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
-<span>' . $vote . '</span>votes</span>';
+<span>' . $votes[$i] . '</span>votes</span>';
     $form_element[$i]['#suffix'] = '</div>';
   }
 

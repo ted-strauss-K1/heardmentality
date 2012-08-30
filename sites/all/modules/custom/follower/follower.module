@@ -70,15 +70,22 @@ function theme_follower_button($follow) {
  */
 function follower_page($follow_uid) {
   $form = drupal_get_form('follower_form', user_load($follow_uid));
-  drupal_json(array(
-    'text' => $form,
+  $response = array( 'text' => $form );
+  $response += follower_strings();
+  drupal_json($response);
+}
+
+/*
+ * Text
+ */
+function follower_strings() {
+  return array(
     'follow' => t('Follow'),
     'unfollow' => t('Unfollow'),
     'followtext' => t('You now follow this user'),
     'unfollowtext' => t('You now unfollow this user'),
-  ));
+  );
 }
-
 /*
  * Follower form
  */
@@ -131,6 +138,8 @@ function follower_page_save() {
     $relationship = user_relationships_load($rid);
     user_relationships_delete_relationship($relationship, $user);
   }
+  $response = follower_strings();
+  drupal_json($response);
 }
 
 /*

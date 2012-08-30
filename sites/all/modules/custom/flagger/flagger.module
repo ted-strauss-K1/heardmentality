@@ -66,7 +66,7 @@ function theme_flagger_button($content_id, $content_type) {
   } else {
     return l(t('flag'), '#',
       array('attributes' => array(
-        'class' => 'button_login',
+        'class' => 'openlogin_box',
       ))
     );
   }

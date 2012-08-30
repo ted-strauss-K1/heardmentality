@@ -1,0 +1,92 @@
+<?php
+
+/*
+ * Implementation of hook_init()
+ */
+function poll_suggest_init() {
+  // drupal_install_schema('poll_suggest');
+  // drupal_install_schema('poll_suggest_votes');
+}
+
+/*
+ * Add poll suggestion
+ *
+ * @usage poll_suggest_add(1, "Hello world!")
+ */
+function poll_suggest_add($nid, $chtext, $uid = '') {
+  if (empty($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+  db_query("INSERT INTO {poll_suggest} SET nid = '%d', uid = '%d', chtext = '%s'", $nid, $uid, $chtext);
+  return db_last_insert_id('poll_suggest', 'chid');
+}
+
+/*
+ * Remove poll suggestion
+ *
+ * @usage poll_suggest_remove(array('chid' => 13))
+ * @usage poll_suggest_remove(array('nid' => 14, uid => 32))
+ */
+function poll_suggest_remove($params = array()) {
+  if (isset($params['chid'])) {
+    db_query("DELETE FROM {poll_suggest} WHERE chid = '%d'", $params['chid']);
+  }
+  if (isset($params['nid']) && isset($params['uid'])) {
+    db_query("DELETE FROM {poll_suggest} WHERE nid = '%d', uid = '%d'", $params['nid'], $params['uid']);
+  }
+}
+
+/*
+ * Update poll suggestion text
+ *
+ * @usage poll_suggest_update_text(array('chtext' => 'Hello world!', 'chid' => 13))
+ * @usage poll_suggest_update_text(array('chtext' => 'Hello world!', 'nid' => 14, uid => 32))
+ */
+function poll_suggest_update_text($params = array()) {
+  if (isset($params['chtext']) && !empty($params['chtext'])) {
+    if (isset($params['chid'])) {
+      db_query("UPDATE {poll_suggest} SET chtext = '%s' WHERE chid = '%d'", $params['chtext'], $params['chid']);
+    }
+    if (isset($params['nid']) && isset($params['uid'])) {
+      db_query("UPDATE {poll_suggest} SET chtext = '%s' WHERE nid = '%d', uid = '%d'", $params['chtext'], $params['nid'], $params['uid']);
+    }
+  }
+}
+
+/*
+ * Add the poll suggestion vote
+ *
+ * @usage poll_suggest_vote_add(13, 32)
+ */
+function poll_suggest_vote_add($chid, $uid) {
+  db_query("INSERT INTO {poll_suggest_votes} SET chid = '%d', uid = '%d', date = '%d'", $chid, $uid, time());
+}
+
+/*
+ * Remove poll suggestion vote
+ *
+ * @usage poll_suggest_vote_remove(13, 32)
+ */
+function poll_suggest_vote_remove($chid, $uid) {
+  db_query("DELETE FROM {poll_suggest_votes} WHERE chid = '%d' AND uid = '%d'", $chid, $uid);
+}
+
+/*
+ * Get suggested answers
+ *
+ * @usage
+ */
+function poll_suggest_get($nid, $uid = '') {
+  if (empty($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $list = array();
+  $result = db_query("SELECT ps.chid, ps.uid, ps.chtext, IFNULL(psv.uid, 0) AS uservote FROM {poll_suggest} ps LEFT JOIN {poll_suggest_votes} psv ON psv.chid = ps.chid AND psv.uid = '%d' WHERE ps.nid = '%d' GROUP BY ps.chid", $uid, $nid);
+  while ($row = db_fetch_array($result)) {
+    $list[] = $row;
+  }
+  return $list;
+}
+

@@ -107,11 +107,13 @@ $directoryPath = $base_path . $directory;
 <script type="text/javascript">
     // radio button stay green - selected
     jQuery(document).ready(function(){
+        /*
         jQuery('input[type=radio]').live('change', function() {
-            jQuery('input[type=radio]').parents('div').removeClass('staygreen');
+          jQuery('input[type=radio]').parents('div').removeClass('staygreen');
             if (jQuery(this.checked)){
                 jQuery(this).parents('div').addClass('staygreen');
             }
         });
+        */
     });
 </script>

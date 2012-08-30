@@ -185,7 +185,7 @@ function question_deleted_mail_suggest($qaid) {
   $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
   $delmsg = 'Has been Deleted By Headmentality admin';
 
-  //$query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
   $query = db_query("select n.title AS question,s.uid from suggest_answer as s left join node as n on n.nid=s.qid where s.qid='$qaid' ");
 
   while ($det = db_fetch_object($query)) {
@@ -264,7 +264,7 @@ function question_edited_mail_suggest($qaid) {
   $subject = 'Heardmentality Question Has Been Edited By admin ';
   $delmsg = 'Has been Edited By Moderator';
 
-  //$query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
   $query = db_query("select n.title AS question, s.uid  from suggest_answer as s left join node as n on n.nid=s.qid where s.qid='$qaid' ");
   while ($det = db_fetch_object($query)) {
 

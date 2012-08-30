@@ -53,7 +53,7 @@ function _badge_user_votes($uid, $count) {
   // TODO
   # count different types of votes
   $count_pv = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} WHERE uid = '%d'", $uid));
-  $count_sa = db_result(db_query("SELECT COUNT(*) FROM (suggest_answer_vote) WHERE uid = '%d' GROUP BY uid", $uid));
+  $count_sa = issue_sa_count($uid);
   $count_ud = yn_user_vote_count($uid);
   return $count_pv + $count_sa + $count_ud >= $count;
 }
@@ -78,7 +78,7 @@ function badge_process_electorate($uid) {
   $count_pv_part = 4;
   # count different types of votes
   $count_pv = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} WHERE uid = '%d'", $uid));
-  $count_sa = db_result(db_query("SELECT COUNT(*) FROM (suggest_answer_vote) WHERE uid = '%d' GROUP BY uid", $uid));
+  $count_sa = issue_sa_count($uid);
   $count_ud = yn_user_vote_count($uid);
   return ($count_pv + $count_sa + $count_ud >= $count_vote) && ($count_pv_part*$count_pv >= $count_vote);
 }
@@ -615,17 +615,6 @@ function badge_process_senator($uid) {
   return _badge_posted_agreed_comments($uid, 500);
 }
 
-/*
- * Voted 1000 times
- *
-function badge_process_patriotic_citizen($uid) {
-  $count_vote = 1000;
-  # count different types of votes
-  $count_pv = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} WHERE uid = '%d'", $uid));
-  $count_sa = db_result(db_query("SELECT COUNT(*) FROM (suggest_answer_vote) WHERE uid = '%d' GROUP BY uid", $uid));
-  $count_ud = yn_user_vote_count($uid);
-  return $count_pv + $count_sa + $count_ud >= $count_vote;
-}
 */
 
 
