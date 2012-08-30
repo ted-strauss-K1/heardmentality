@@ -45,60 +45,6 @@ function issue_init() {
  
  
  
-/*
- * Get vote count
- */
-function issue_get_votes($nid) {
-  static $votes = array();
-  if (!isset($votes[$nid])) {
-    $vote = array();
-    $vote['#all'] = 0;
-    $result = db_query("SELECT chorder, COUNT(*) AS count FROM {poll_votes} where nid='%d' GROUP BY chorder ORDER BY chorder ASC", $nid);
-    while ($row = db_fetch_object($result)) {
-      $vote['#all'] += $row->count;
-      $vote[$row->chorder] = $row->count;
-    }
-    $votes[$nid] = $vote;
-  }
-  return $votes[$nid];
-}
-
-/*
- * Define constant for debates
- */
-define('TYPE_DEBATE', 1);
-
-/*
- * Define constant for resources
- */
-define('TYPE_RESOURCE', 2);
-
-/*
- * Get debates and resources
- */
-function issue_get_dr($nid) {
-  static $dr = array();
-  if (empty($dr[$nid])) {
-    $tmp = array(
-      '#list' => array(),
-      '#count' => array(
-        TYPE_DEBATE => 0,
-        TYPE_RESOURCE => 0,
-        '#all' => 0,
-      )
-    );
-
-    $result = db_query("SELECT * FROM {content_type_forum} WHERE field_ref_qid_nid = '%d' ORDER BY nid DESC", $nid);
-    while ($row = db_fetch_array($result)) {
-      $tmp['#list'][] = $row;
-      $tmp['#count']['#all']++;
-      $tmp['#count'][$row['field_type_value']]++;
-    }
-
-    $dr[$nid] = $tmp;
-  }
-  return $dr[$nid];
-}
 
 
 /**
@@ -339,6 +285,7 @@ function issue_validate($node, &$form) {
 
 
 
+
 /**
  * Implementation of hook_menu().
  */
@@ -442,6 +389,65 @@ function issue_menu() {
 
 
 
+
+
+
+
+/*
+ * Get vote count
+ */
+function issue_get_votes($nid) {
+  static $votes = array();
+  if (!isset($votes[$nid])) {
+    $vote = array();
+    $vote['#all'] = 0;
+    $result = db_query("SELECT chorder, COUNT(*) AS count FROM {poll_votes} where nid='%d' GROUP BY chorder ORDER BY chorder ASC", $nid);
+    while ($row = db_fetch_object($result)) {
+      $vote['#all'] += $row->count;
+      $vote[$row->chorder] = $row->count;
+    }
+    $votes[$nid] = $vote;
+  }
+  return $votes[$nid];
+}
+
+
+/*
+ * Define constant for debates
+ */
+define('TYPE_DEBATE', 1);
+
+/*
+ * Define constant for resources
+ */
+define('TYPE_RESOURCE', 2);
+
+/*
+ * Get debates and resources
+ */
+function issue_get_dr($nid) {
+  static $dr = array();
+  if (empty($dr[$nid])) {
+    $tmp = array(
+      '#list' => array(),
+      '#count' => array(
+        TYPE_DEBATE => 0,
+        TYPE_RESOURCE => 0,
+        '#all' => 0,
+      )
+    );
+
+    $result = db_query("SELECT * FROM {content_type_forum} WHERE field_ref_qid_nid = '%d' ORDER BY nid DESC", $nid);
+    while ($row = db_fetch_array($result)) {
+      $tmp['#list'][] = $row;
+      $tmp['#count']['#all']++;
+      $tmp['#count'][$row['field_type_value']]++;
+    }
+
+    $dr[$nid] = $tmp;
+  }
+  return $dr[$nid];
+}
 
 
 
@@ -1012,22 +1018,6 @@ function comment_update($cid, $str_wk = '', $language) {
 /*
  * Forms
  * ********************** */
-
-function issue_callback_helper() {
-  $form_state = array('storage' => NULL, 'submitted' => FALSE);
-  $form_build_id = $_POST['form_build_id'];
-  $form = form_get_cache($form_build_id, $form_state);
-  $args = $form['#parameters'];
-  $form_id = array_shift($args);
-  $form_state['post'] = $form['#post'] = $_POST;
-  // Enable the submit/validate handlers to determine whether AHAH-submittted.
-  $form_state['ahah_submission'] = TRUE;
-  $form['#programmed'] = $form['#redirect'] = FALSE;
-  drupal_process_form($form_id, $form, $form_state);
-  $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
-  return $form;
-}
-
 function ahah_render($fields, $name) {
   $form_state = array('submitted' => FALSE);
   $form_build_id = $_POST['form_build_id'];
