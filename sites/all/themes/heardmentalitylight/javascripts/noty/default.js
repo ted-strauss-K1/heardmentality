@@ -29,6 +29,7 @@
 				position: 'fixed',
 				width: '100%',
 				height: '100%',
+				minHeight: '100%',
 				backgroundColor: '#3C3C3C',
 				zIndex: 10000,
 				opacity: 0.5,
