@@ -3249,8 +3249,8 @@ h2.page-title {
 	width: 100%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3,
-.search_list .poll-vote-area .fieldset-wrapper .form-item #Answer3{
+#new_vote .poll-vote-area .fieldset-wrapper .form-item #edit-add-vote-new-suggest-answer,
+.search_list .poll-vote-area .fieldset-wrapper .form-item #edit-add-vote-new-suggest-answer{
 	float: left;
 	border: 1px solid #b3b3b3;
 	color: #4c4c4c;
