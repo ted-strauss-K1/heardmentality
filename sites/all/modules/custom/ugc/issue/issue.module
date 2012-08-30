@@ -8,7 +8,7 @@
 function issue_uses_points_actions() {
   return array('ansquestion', 'addquestion');
 }
-
+ 
 /*
  * Get vote count
  */
