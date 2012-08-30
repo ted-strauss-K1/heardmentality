@@ -47,6 +47,10 @@ function issue_init() {
  
 
 
+
+
+
+
 /**
  * @file
  * Issue Poll -A sophisticated issue module for voting and analysis report generating.
@@ -56,6 +60,10 @@ function issue_init() {
 /* * ************************
  * Content Type: Issue
  */
+
+
+
+
 
 
 
@@ -271,9 +279,6 @@ function issue_validate($node, &$form) {
 
 
 
-/* * ************************
- * Drupal hooks
- */
 
 
 
@@ -286,32 +291,40 @@ function issue_validate($node, &$form) {
 
 
 
-/**
- * Implementation of hook_menu().
+
+
+
+/*
+ * Implementation of hook_menu()
  */
 function issue_menu() {
-  // global $user;
+  $menu = array();
+
+
   $menu['issue/create'] = array(
-    'title' => 'Add an Issue',
-    'page callback' => 'issue_create',
-    'access arguments' => array('create issue'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'issue.pages.inc',
+    'title'             => 'Add an Issue',
+    'page callback'     => 'issue_create',
+    'access arguments'  => array(ISSUE_CREATE),
+    'type'              => MENU_SUGGESTED_ITEM,
+    'file'              => 'issue.pages.inc',
   );
-  $menu['issue/autotextfields/callback'] = array(
-    'title' => 'Add an Issue',
-    'page callback' => 'issue_autotextfields_callback',
-    'access arguments' => array('create issue'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'issue.pages.inc',
+  // issue/create/ahah/answer
+  $menu['issue/create/ahah/answer'] = array(
+    'title'             => 'Add an Issue',
+    'page callback'     => 'issue_create_ahah_answer',
+    'access arguments'  => array(ISSUE_CREATE),
+    'type'              => MENU_SUGGESTED_ITEM,
+    'file'              => 'issue.pages.inc',
   );
-  $menu['issue/get_related_issues'] = array(
-    'title' => 'Related Issues',
-    'page callback' => 'issue_related_callback',
-    'access arguments' => array('create issue'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'issue.pages.inc'
+  $menu['issue/related'] = array(
+    'title'             => 'Related Issues',
+    'page callback'     => 'issue_related',
+    'access arguments'  => array(ISSUE_CREATE),
+    'type'              => MENU_SUGGESTED_ITEM,
+    'file'              => 'issue.pages.inc'
   );
+
+
   $menu['issues2'] = array(
     'title' => 'Issues',
     'page callback' => 'issues_list',
@@ -393,6 +406,52 @@ function issue_menu() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * Get translated node
+ */
+function issue_get_translated_node($nid) {
+  static $tnids = array();
+  if (isset($tnids[$nid])) {
+    return node_load($tnids[$nid]);
+  } else {
+    $res = db_result(db_query("SELECT tnid FROM {node} WHERE nid = '%d'", $nid));
+    $tnids[$nid] = $res != 0 ? $res : $nid;
+    return node_load($tnids[$nid]);
+  }
+}
 /*
  * Get vote count
  */
@@ -448,21 +507,6 @@ function issue_get_dr($nid) {
   }
   return $dr[$nid];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
