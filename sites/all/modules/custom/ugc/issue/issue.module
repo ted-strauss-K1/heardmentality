@@ -413,8 +413,6 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   }
   return;
 }
-
-
 /*
  * Validate the issue
  *
@@ -468,8 +466,8 @@ function _issue_delete(&$node) {
 function _issue_load(&$node) {
   // TODO
 
-  $node->tnode = issue_get_translated_node($node->nid);
-  $node->tnid = $node->tnode->nid;
+  // $node->tnode = issue_get_translated_node($node->nid);
+  // $node->tnid = $node->tnode->nid;
 
 }
 
