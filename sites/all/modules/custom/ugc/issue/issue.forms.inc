@@ -9,9 +9,11 @@ function issue_vote_form($form, $node) {
 
   # get translated node
   $tnode = issue_get_translated_node($node->nid);
-  $form['#nid'] = $tnode->tnid;
- 
-  
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $tnode->nid,
+  );
+    
   # check if it's a search page
   $is_search = arg(0) == 'issues_solr2'; # TODO -- check if it's right way to do this
 
@@ -186,8 +188,8 @@ function issue_vote_form_validate($form, &$form_state) {
  */
 function issue_vote_form_submit($form, &$form_state) {
   global $user;
-  $nid = $form['#nid'];
   $post = $form_state['values'];
+  $nid = $post['nid'];
 
   switch ($form_state['clicked_button']['#id']) {
     case 'answer-add' :
