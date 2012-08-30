@@ -4,6 +4,43 @@
 
 
 /*
+ * Define constant for debates
+ */
+define('TYPE_DEBATE', 1);
+
+/*
+ * Define constant for resources
+ */
+define('TYPE_RESOURCE', 2);
+
+/*
+ * Get debates and resources
+ */
+function issue_get_dr($nid) {
+  static $dr = array();
+  if (empty($dr[$nid])) {
+    $tmp = array(
+      '#list' => array(),
+      '#count' => array(
+        TYPE_DEBATE => 0,
+        TYPE_RESOURCE => 0,
+        '#all' => 0,
+      )
+    );
+
+    $result = db_query("SELECT * FROM {content_type_forum} WHERE field_ref_qid_nid = '%d' ORDER BY nid DESC", $nid);
+    while ($row = db_fetch_array($result)) {
+      $tmp['#list'][] = $row;
+      $tmp['#count']['#all']++;
+      $tmp['#count'][$row['field_type_value']]++;
+    }
+
+    $dr[$nid] = $tmp;
+  }
+  return $dr[$nid];
+}
+
+/*
  * Get vote count
  */
 function issue_get_votes($nid) {
