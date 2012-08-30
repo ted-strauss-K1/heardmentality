@@ -26,7 +26,7 @@ function issue_help($path, $arg) {
   }
 }
 
- */
+ 
 define('TYPE_DEBATE', 1);
 
 /*
@@ -181,85 +181,6 @@ function issue_form(&$node, $form_state) {
   return $form;
 }
 
-/**
- * Implementation of hook_insert().
- */
-function issue_insert($node) {
-  _issue_insert_choices($node);
-}
-
-/**
- * Implementation of hook_update().
- */
-function issue_update($node) {
-  db_query("
-    UPDATE {issue}
-    SET
-      active = %d,
-      max_choices = %d,
-      algorithm = '%s',
-      use_list = %d,
-      show_votes = %d,
-      start_date = '%s',
-      end_date = '%s',
-      writeins = %d,
-      show_writeins = %d,
-      question = '%s'
-    WHERE nid = %d", !$node->settings['close'], $node->settings['max_choices'], $node->settings['algorithm'], $node->settings['use_list'], $node->settings['show_votes'], $node->settings['start_date'] ? strtotime($node->settings['start_date']) : 0, $node->settings['end_date'] ? strtotime($node->settings['end_date']) : 0, $node->settings['writeins'], $node->settings['show_writeins'], isset($node->question) ? $node->question : '', $node->nid
-  );
-  _issue_insert_choices($node);
-  votingapi_recalculate_results('issue', $node->nid);
-}
-
-/**
- * Implementation of hook_delete().
- */
-function issue_delete($node) {
-  db_query('DELETE FROM {issue} WHERE nid = %d', $node->nid);
-  db_query('DELETE FROM {issue_choices} WHERE nid = %d', $node->nid);
-  db_query('DELETE FROM {issue_electoral_list} WHERE nid = %d', $node->nid);
-  yn_vote_delete($node->nid, null, 'issue');
-  _votingapi_delete('cache', array('content_id' => $node->nid, 'content_type' => 'issue'));
-}
-
-/*
- * Implementation of hook_load()
- */
-
-function issue_load($node) {
-  # issue object to return
-  $issue = db_fetch_object(db_query('SELECT * FROM {issue} WHERE nid = %d', $node->nid));
-
-
-  $issue->choice = array();
-  $issue->writein_choices = 0;
-  $result = db_query('SELECT cid, weight, label, writein FROM {issue_choices} WHERE nid = %d ORDER BY weight', $node->nid);
-  while ($choice = db_fetch_array($result)) {
-    $issue->choice[$choice['cid']] = $choice;
-    if ($choice['writein'] == 1) {
-      $issue->writein_choices++;
-    }
-  }
-  $issue->choices = count($issue->choice);
-
-  $result = db_query("
-    SELECT value
-    FROM {votingapi_cache}
-    WHERE
-      content_type = 'issue' AND
-      content_id = %d AND
-      tag = '_issue' AND
-      function = 'total_votes'", $node->nid);
-  if ($cache = db_fetch_object($result)) {
-    // Found total votes in the cache.
-    $issue->votes = $cache->value;
-  }
-  else {
-    $issue->votes = 0;
-  }
-  list($issue->voted, $issue->cancel_vote) = _issue_user_voted($node->nid);
-  return $issue;
-}
 
 /**
  * Implementation of hook_validate().
@@ -439,6 +360,7 @@ function issue_menu() {
   );
   return $menu;
 }
+
 
 
 
@@ -1421,6 +1343,7 @@ function issue_edit_vote_submit($form, &$form_state) {
 
 // Return the user to whatever page they voted from.
 }
+
 
 /* New Feature Ajax Submission */
 
@@ -2945,6 +2868,7 @@ function issue_suggest_form_submit($form, &$form_state) {
     }
   }
 }
+
 
 function add_new_debate_form($form_state, $nid = '') {
   global $theme, $base_url;
