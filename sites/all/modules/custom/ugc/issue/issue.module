@@ -1,15 +1,50 @@
 <?php
 
-// $Id: issue.module,v 1.21.2.88.2.34 2010/06/22 09:30:59 mirodietiker Exp $
+@require_once('issue.forms.inc');
+
+/**
+ * Content type: poll
+ *
+ * @note
+ *  We're not using the drupal's node hooks there
+ *  b/c node type is cck-exported and not created within this module
+ *
+ * TODO get_tnid() -- remove
+ * TODO issue_suggest_form - refactor
+ *
+ */
 
 /*
- * Implementation of hook_uses_points_actions()
+ * Implementation of hook_help().
  */
-function issue_uses_points_actions() {
-  return array('ansquestion', 'addquestion');
+function issue_help($path, $arg) {
+  switch ($path) {
+    case 'admin/modules#issue':
+      return t('');
+    break;
+  }
 }
 
+/*
+ * Implementation of hook_init()
+ */
+function issue_init() {
+  drupal_add_css(drupal_get_path('module', 'poll') . '/poll.css');
+  drupal_add_js(drupal_get_path('module', 'issue') . '/issue.js');
 
+  // TODO -- refactor
+  drupal_add_js(drupal_get_path('module', 'issue') . '/js/filter.js');
+  drupal_add_js(drupal_get_path('module', 'issue') . '/js/common.js');
+  if (module_exists('jquery_ui')) {
+    jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
+  }
+  drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+}
+
+		
+ 
+ 
+ 
 /*
  * Get vote count
  */
@@ -75,6 +110,9 @@ function issue_get_dr($nid) {
 /* * ************************
  * Content Type: Issue
  */
+
+
+
 
 /**
  * Implementation of hook_node_info().
@@ -291,46 +329,13 @@ function issue_validate($node, &$form) {
  * Drupal hooks
  */
 
-/**
- * Implementation of hook_init().
- */
-function issue_init() {
-  global $base_url;
-  // Use poll.module's stylesheet, no need to duplicate at this point.
-  // drupal_add_js('var spath="' . $base_url . '/";', 'inline');
-  drupal_add_css(drupal_get_path('module', 'poll') . '/poll.css');
-  drupal_add_js(drupal_get_path('module', 'issue') . '/js/filter.js');
-  drupal_add_js(drupal_get_path('module', 'issue') . '/js/common.js');
-  if (module_exists('jquery_ui')) {
-    jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
-  }
-  $inline = '
-  jQuery(function() {
-    var maxChar = 140;
-    CountlimitChars = function(){
-      var text = jQuery("#q_quest").val();
-      if(text.length > maxChar){
-        text = text.substring(0, maxChar);
-        jQuery("#q_quest").val(text);
-      } else {
-        //jQuery("#numberofword").text(maxChar - jQuery("#q_quest").val().length ).show();
-      }
-    }
-  })';
-  drupal_add_js($inline, $type = 'inline');
-  drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
-}
 
-/**
- * Implementation of hook_help().
- */
-function issue_help($path, $arg) {
-  switch ($path) {
-    case 'admin/modules#description':
-      return t('A sophisticated issue module for voting and analysis report generating.');
-      break;
-  }
-}
+
+
+
+
+
+
 
 /**
  * Implementation of hook_menu().
@@ -430,6 +435,13 @@ function issue_menu() {
   );
   return $menu;
 }
+
+
+
+
+
+
+
 
 /*
  * Implementation of hook_theme()
