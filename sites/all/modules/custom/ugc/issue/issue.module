@@ -337,6 +337,8 @@ function issue_validate($node, &$form) {
 
 
 
+
+
 /**
  * Implementation of hook_menu().
  */
@@ -435,6 +437,22 @@ function issue_menu() {
   );
   return $menu;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2799,150 +2817,8 @@ function view_issue_results($nid = '') {
   $debates = theme('issue_debate_list', $nid);
   //$resources = theme('issue_resource_list', $nid);
   // get debate, resource, pundit counts
-  $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$tnid'"));
-  $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$tnid'"));
-
-  return theme('issue_detail_wrapper', $nid, $results, $debates, $resources, $debateCount, $resourceCount);
-}
-
-// suggest vote form here
-function issue_suggest_form($dummy = '', $nid = '') {
-  global $user;
-  $nid = get_tnid($nid);
-  $form = '';
-  $form['nid'] = array(
-    '#type' => 'hidden',
-    '#value' => $nid,
-  );
-  if (user_is_logged_in()) {
-    // get suggest answer for current issue
-    $answers = "SELECT * FROM suggest_answer where qid='" . $nid . "'  ";
-    $anslist = db_query($answers);
-    $count_row = db_result(db_query($answers));
-
-    // user should login to participate with suggest answers
-    $err = 0;
-    if (isset($count_row) && $count_row > 0) {
-      while ($answerfet = db_fetch_object($anslist)) {
-
-        $options[$answerfet->said] = $answerfet->answer;
-      }
-      $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
-      $form['suggested_answer'] = array(
-        '#type' => 'radios',
-        '#options' => $options,
-        '#default_value' => $mysugg,
-      );
-      $alreadyAdded = db_result(db_query("SELECT COUNT(said) FROM {suggest_answer} WHERE qid = '$nid' AND uid = '$user->uid'"));
-      $alreadyVotedSuggest = db_result(db_query("SELECT COUNT(answer_id) FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
-      $alreadyVotedMain = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '$nid' AND uid = '$user->uid'"));
-      // check whether the user already suggested the answer. if yes do not allow him to vote
-      // also check whether the user already voted for this issue
-      if ($alreadyAdded == 0 && $alreadyVotedSuggest == 0 && $alreadyVotedMain == 0) {
-        $form['submit_suggest_vote'] = array(
-          '#type' => 'submit',
-          '#value' => t('Vote'),
-        );
-      }
-      /* else {
-        $form['vote_error'] = array(
-        '#type' => 'markup',
-        '#prefix' => '<div class="suggest-error">',
-        '#value' => t('You are not able to vote from suggested answers list. You have already voted or suggested a new answer.'),
-        '#suffix' => '</div>',
-        );
-        $err = 1;
-        } */
-    }
-
-    // user can suggest only one answer per issue
-    if ($alreadyAdded == 0) {
-      $form['new_suggest_answer'] = array(
-        '#type' => 'textfield',
-        '#size' => 38,
-        '#attributes' => array('class' => 'floatleft'),
-        '#maxlength' => 140,
-        '#id' => 'Answer3',
-      );
-
-      $form['#nid'] = $nid;
-      $form['submit_suggest_answer'] = array(
-        '#type' => 'submit',
-        '#value' => t('Add Answer'),
-        '#attributes' => array('class' => 'add-answer2 light'),
-      );
-    }
-    elseif ($err == 0) {
-      $form['vote_error'] = array(
-        '#type' => 'markup',
-        '#prefix' => '<div class="suggest-error">',
-        '#value' => t('You have already suggested a answer for this issue.'),
-        '#suffix' => '</div>',
-      );
-    }
-  }
-  else {
-    $form['login_error'] = array(
-      '#type' => 'markup',
-      '#prefix' => '<div class="login-error">',
-      '#value' => t('You should login to vote or post suggest answers.'),
-      '#suffix' => '</div>',
-    );
-  }
-  return $form;
-}
-
-function issue_suggest_form_submit($form, &$form_state) {
-  global $user;
-  //echo '<pre>'; print_r($form_state); exit;
-  $nid = $form_state['values']['nid'];
-  $submit = $form_state['clicked_button']['#parents'][0];
-
-  // submit new suggest answer
-  if ($submit == 'submit_suggest_answer') {
-    $new_suggest_answer = $form_state['values']['new_suggest_answer'];
-    if ($new_suggest_answer != '') {
-      db_query("INSERT INTO {suggest_answer} SET uid = '%d', qid = '%d', answer = '%s', date_added = '%s'", $user->uid, $nid, $new_suggest_answer, date('Y-m-d'));
-      $sid = db_last_insert_id('suggest_answer', 'said');
-      /* New SET NOTIFY LOG */
-      $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
-      $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $new_suggest_answer);
-      set_notify_log($user->uid, $nid, 'suggest_answer', $variable);
-      /* New SET NOTIFY LOG */
-
-      drupal_set_message($message = 'Your answer was added!', $type = 'success');
-    }
-    else {
-      //echo '<div class="messages error"> Please suggest your answer! </div>';
-      drupal_set_message($message = 'Please enter suggest your answer!', $type = 'error');
-    }
-  }
-  // suggest a vote
-  if ($submit == 'submit_suggest_vote') {
-    $suggested_answer = $form_state['values']['suggested_answer'];
-
-    // get suggest answer vote count
-    $list_own_answer = db_query("select * from {suggest_answer} where said='$suggested_answer'");
-    $userown = db_fetch_object($list_own_answer);
-
-
-    if ($suggested_answer != '') {
-      $calvote = db_result(db_query("SELECT COUNT(*) from {suggest_answer_vote} where answer_id='$suggested_answer'"));
-      if ($calvote == 0) {
-        $votepoint = '1';
-      }
-      else {
-        $votepoint = $userown->vote + 1;
-      }
-
-      db_query("INSERT INTO {suggest_answer_vote} SET qid = '%d', uid = '%d', answer_id = '%d', vote_date = '%s'", $nid, $user->uid, $suggested_answer, date('Y-m-d'));
-      db_query("UPDATE {suggest_answer} SET vote = '%s' WHERE said = '%d' AND qid = '%d'", $votepoint, $suggested_answer, $nid);
-      drupal_set_message($message = 'Your vote was added!', $type = 'success');
-    }
-    else {
-      drupal_set_message($message = 'Please select your answer to vote!', $type = 'error');
-    }
-  }
+  $dr = issue_get_dr($tnid);
+  return theme('issue_detail_wrapper', $nid, $results, $debates, $resources, $dr['#count'][TYPE_DEBATE], $dr['#count'][TYPE_RESOURCE]);
 }
 
 function add_new_debate_form($form_state, $nid = '') {
