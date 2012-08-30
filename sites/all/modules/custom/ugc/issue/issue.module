@@ -42,6 +42,15 @@ function issue_init() {
 }
 
 /*
+ * Implementation of hook_node_info().
+ */
+function issue_node_info() {
+  $info = array();
+  // something should be there
+  return $info;
+}
+
+/*
  * Permission to view an issue
  */
 define('ISSUE_VIEW', 'View Issue');
@@ -120,12 +129,7 @@ function issue_access($op, $node, $account) {
     '#default_value' => $node->body,
   );
   $form['body_field']['format'] = filter_form($node->format);
-
-
-
-
   return $form;
-
  *
  */
 function issue_form() {
