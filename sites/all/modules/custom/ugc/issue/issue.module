@@ -16,70 +16,6 @@
  */
 
 /*
- * Implementation of hook_help().
- */
-function issue_help($path, $arg) {
-  switch ($path) {
-    case 'admin/modules#issue':
-      return t('');
-    break;
-  }
-}
-
-
-define('TYPE_DEBATE', 1);
-
-/*
- * Define constant for resources
- */
-define('TYPE_RESOURCE', 2);
-
-/*
- * Get debates and resources
- */
-function issue_get_dr($nid) {
-  static $dr = array();
-  if (empty($dr[$nid])) {
-    $tmp = array(
-      '#list' => array(),
-      '#count' => array(
-        TYPE_DEBATE => 0,
-        TYPE_RESOURCE => 0,
-        '#all' => 0,
-      )
-    );
-
-    $result = db_query("SELECT * FROM {content_type_forum} WHERE field_ref_qid_nid = '%d' ORDER BY nid DESC", $nid);
-    while ($row = db_fetch_array($result)) {
-      $tmp['#list'][] = $row;
-      $tmp['#count']['#all']++;
-      $tmp['#count'][$row['field_type_value']]++;
-    }
-
-    $dr[$nid] = $tmp;
-  }
-  return $dr[$nid];
-}
-
-/*
- * Get vote count
- */
-function issue_get_votes($nid) {
-  static $votes = array();
-  if (!isset($votes[$nid])) {
-    $vote = array();
-    $vote['#all'] = 0;
-    $result = db_query("SELECT chorder, COUNT(*) AS count FROM {poll_votes} where nid='%d' GROUP BY chorder ORDER BY chorder ASC", $nid);
-    while ($row = db_fetch_object($result)) {
-      $vote['#all'] += $row->count;
-      $vote[$row->chorder] = $row->count;
-    }
-    $votes[$nid] = $vote;
-  }
-  return $votes[$nid];
-}
-
-/*
  * Implementation of hook_uses_points_actions()
  */
 function issue_uses_points_actions() {
@@ -183,7 +119,6 @@ function issue_form(&$node, $form_state) {
 
 /**
  * Implementation of hook_insert().
-
  */
 function issue_insert($node) {
   _issue_insert_choices($node);
@@ -343,6 +278,17 @@ function issue_init() {
 }
 
 /**
+ * Implementation of hook_help().
+ */
+function issue_help($path, $arg) {
+  switch ($path) {
+    case 'admin/modules#description':
+      return t('A sophisticated issue module for voting and analysis report generating.');
+      break;
+  }
+}
+
+/**
  * Implementation of hook_menu().
  */
 function issue_menu() {
@@ -440,11 +386,6 @@ function issue_menu() {
   );
   return $menu;
 }
-
-
-
-
-
 
 /*
  * Implementation of hook_theme()
