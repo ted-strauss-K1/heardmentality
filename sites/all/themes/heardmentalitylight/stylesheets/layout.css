@@ -3126,6 +3126,10 @@ h2.page-title {
 	margin: 0 12% 0 30px;
 }
 
+.search_list .poll-vote-area .voting-pane .choices .choices.regular {
+	margin: 0;
+}
+
 #new_vote .poll-vote-area .form-radios,
 .search_list .poll-vote-area .form-radios {
     margin: 0;
