@@ -382,6 +382,37 @@ function issue_menu() {
   return $menu;
 }
 
+/*
+ * Implementation of hook_nodeapi()
+ */
+function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($node->type == 'poll') {
+    switch ($op) {
+      case 'validate' :
+        _issue_validate($node);
+        break;
+      case 'presave' :
+        _issue_presave($node);
+        break;
+      case 'insert' :
+        _issue_insert($node);
+        break;
+      case 'update' :
+        _issue_update($node);
+        break;
+      case 'delete' :
+        _issue_delete($node);
+        break;
+      case 'load' :
+        _issue_load($node);
+        break;
+      case 'view' :
+        _issue_view($node);
+        break;
+    }
+  }
+  return;
+}
 
 
 /*
@@ -576,7 +607,6 @@ function _issue_view(&$node) {
   $node->catdetail = !empty($ssctitle) ? rtrim(implode(",", $ssctitle)) : 'none';
   */
 }
-
 
 /*
  * Get translated node
@@ -1408,150 +1438,7 @@ function issue_after_build($form, &$form_state) {
   return $form;
 }
 
-function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
-  global $user;
-  if ($node->type == 'poll') {
-    switch ($op) {
-      case 'insert':
 
-        break;
-      case 'load':
-
-        break;
-      case 'view':
-        $output = '';
-        global $base_url;
-        $icons_path = drupal_get_path('module', 'issue') . '/icons';
-        drupal_add_js(array('google_map_icons' => "$icons_path"), 'setting');
-        drupal_add_js(array('base_url' => "$base_url"), 'setting');
-        drupal_add_js(drupal_get_path('module', 'issue') . '/js/add_new_form.js');
-        drupal_add_js(drupal_get_path('theme', 'heardmentalitylight') . '/javascripts/room_reservation.js');
-        drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
-        drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
-        drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
-        drupal_set_html_head('<script>
-            var uid="' . $user->uid . '";
-                      </script>');
-        if ($user->initpop == 1 && $user->uid > 1) {
-          drupal_add_js('$(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});', 'inline');
-          $user_data = array('initpop' => 2);
-          user_save($user, $user_data);
-        }
-        drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
-        // set context to display in front page 
-        $node->context = $node->body;
-        $node->style = drupal_link_color($user->uid, $node->nid);
-        if (user_is_logged_in()) {
-          $node->suggest = drupal_get_form('issue_suggest_form', $node->nid);
-
-          // IMPORTANT get translate nid (tnid) for current node
-          $tnid = get_tnid($node->nid);
-          $tnode = node_load($tnid);
-          if ($tnode->allowvotes) {
-            $output .= drupal_get_form('issue_add_vote', $node->nid);
-            $node->content['body'] = array(
-              '#value' => $output,
-            );
-          }
-          else {
-            unset($node->content['body']);
-            // suggest answer calculation here
-            suggest_answer_replacement($node->nid);
-            $output .= drupal_get_form('issue_edit_vote', $node->nid);
-            $node->content['body'] = array(
-              '#value' => $output,
-            );
-          }
-        }
-        else {
-          unset($node->content['body']);
-          $output .= drupal_get_form('issue_add_vote', $node->nid);
-          $node->content['body'] = array
-            (
-            '#value' => $output,
-          );
-        }
-        $node->allowvotes = $tnode->allowvotes;
-        // selected radio button stays green
-        if ($node->allowvotes == '' && arg(0)) {
-          $radCss = 'jQuery(document).ready(function(){
-                                jQuery("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
-                                });';
-          drupal_add_js($radCss, 'inline');
-        }
-        // selected radio button stays green
-        // abuse flag form ############
-        $object = _abuse_load('node', $tnid);
-        $reported = db_result(db_query("SELECT COUNT(*) FROM {abuse} WHERE type='%s' AND oid=%d AND uid=%d", 'node', $tnid, $user->uid));
-        if ($reported > 0) {
-          $flagForm = t('We have already received your report.  Thank you very much!');
-        }
-        else if ($user->uid == $object->uid) {
-          $flagForm = t('Sorry, you cannot flag your own content');
-        }
-        else {
-          $flagForm = drupal_get_form('abuse_report_form', $object, $user);
-        }
-        // abuse flag form ############
-
-
-        $node->flagForm = $flagForm;
-        // only for search issues
-        //if (arg(0) == 'issues') {
-        //votes
-        $tnid = get_tnid($node->nid);
-        $tnode = node_load($tnid);
-        $node->tnid = $tnid;
-        $voteCount = db_result(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $tnid . "'"));
-        //debates
-        $debates = db_result(db_query("SELECT count(nid) as fcount FROM `content_type_forum` where field_ref_qid_nid='" . $tnid . "' AND field_type_value = '1'"));
-        //resources
-        $resources = db_result(db_query("SELECT COUNT(nid) FROM content_type_forum where  field_ref_qid_nid='$tnid' AND field_type_value = '2'"));
-        $node->votecount = $voteCount;
-        $node->totaldebates = $debates;
-        $node->totalresources = $resources;
-
-        // categories
-        $ctitle = array();
-        $sctitle = array();
-        $ssctitle = array();
-        $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
-        $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
-
-        $catVals = array();
-        while ($cat = db_fetch_object($csql)) {
-          $catVals[] = $cat->tid;
-        }
-        if (!empty($catVals)) {
-
-          $cat = implode(",", $catVals);
-          $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$tnid' AND tid IN($cat)");
-          while ($ncat = db_fetch_object($ncats)) {
-            $cat = $ncat->tid;
-            $ctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
-            // parent categories
-            $scats = get_node_tree_child($cat, $tnid);
-            foreach ($scats as $scat) {
-              $sctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
-              // first level categories
-              $sscats = get_node_tree_child($scat, $tnid);
-              foreach ($sscats as $sscat) {
-                $ssctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
-                // second level categories
-              }
-            }
-          }
-        }
-        $node->catsubject = !empty($ctitle) ? rtrim(implode(",", $ctitle)) : 'none';
-        $node->catarea = !empty($sctitle) ? rtrim(implode(",", $sctitle)) : 'none';
-        $node->catdetail = !empty($ssctitle) ? rtrim(implode(",", $ssctitle)) : 'none';
-        ////////////
-
-
-        break;
-    }
-  }
-}
 
 function issue_save($array='') {
   global $user;
