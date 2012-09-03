@@ -1,4 +1,4 @@
-name = jQuery Update
+name = jQuery Update 1
 description = Update jQuery and jQuery UI to a more recent version.
 package = User interface
 core = 6.x
