@@ -1,11 +1,12 @@
-name = jQuery Update 1
-description = Update jQuery and jQuery UI to a more recent version.
-package = User interface
+; $Id$
+name = jQuery Update
+description = Updates Drupal to use the latest version of jQuery.
+package = User Interface
 core = 6.x
 
-; Information added by drupal.org packaging script on 2012-01-20
-version = "6.x-2.0-alpha1+7-dev"
+; Information added by drupal.org packaging script on 2008-06-23
+version = "6.x-1.1"
 core = "6.x"
 project = "jquery_update"
-datestamp = "1327020516"
+datestamp = "1214262616"
 
