@@ -78,11 +78,9 @@ function poll_suggest_schema() {
         'description' => "The {users}'s vote for this poll.",
       ),
       'date'      => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type' => 'datetime',
         'description' => 'The date of the vote.',
+        'not null' => TRUE,
       ),
     ),
     'primary key' => array('vid'),

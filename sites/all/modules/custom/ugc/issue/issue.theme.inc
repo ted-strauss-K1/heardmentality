@@ -207,9 +207,6 @@ function issue_results_graph_highchart_filter_data($node) {
   drupal_add_js(array('charts' => array('highchart' => $cat)), 'setting');
 }
 
-
-
-
 /*
  * Highchart Filter Form
  */
@@ -232,6 +229,12 @@ function issue_results_graph_highchart_filter_form() {
 
   return $form;
 }
+
+/*
+ * Quick facts
+ *
+ * TODO -
+ */
 
 /*
  * Graphs' page Legend
@@ -372,70 +375,6 @@ function theme_issue_results_graph_gmap($node){
 
 
 
-
-/*
- * Themer for issue_results_graph
- *
- * TODO - remove
- */
-function theme_issue_results_graph($node) {
-  if (empty($node)) {
-    return;
-  }
-  $tnode = issue_get_translated_node($node->nid);
-  if (user_is_logged_in() && $tnode->allowvotes != 1) {
-
-  }
-
-
-
-
-  global $user, $theme;
-  $node = node_load(array('nid' => $nid));
-
-  // get tnid
-  $tnid = get_tnid($nid);
-  $tnode = node_load($tnid);
-
-  module_load_include('inc', 'issue', 'issue.pages');
-  // update view count
-  insertviews($node->nid);
-  // temp intialize function before user voted for a issue
-  $inline1 = 'function initialize(){}';
-  drupal_add_js($inline1, 'inline');
-  if (user_is_logged_in() && !empty($user) && $tnode->allowvotes != 1) {
-
-    // load insight view
-    $inline = '
-                var nid = ' . $nid . '
-                jQuery(document).ready(function(){
-                  insight_view(nid);
-                })
-                ';
-    drupal_add_js($inline, 'inline');
-
-    $map = report_map($nid);
-    $report_percent = report_percent($nid);
-    $report_graph = report_graph($nid);
-    $colors = _load_colors_array();
-
-    $ans = issue_choices($nid);
-    foreach ($ans as $key => $list) {
-      $short_answers[$list['chorder']]['name'] = get_short_answer($nid, $list['chorder']);
-      $short_answers[$list['chorder']]['color'] = $colors[$key];
-    }
-
-    $results = theme('issue_result_graph_analysis', $map, $report_percent, $report_graph, $short_answers);
-  }
-  $results = '';
-  $debates = theme('issue_debate_list', $nid);
-  //$resources = theme('issue_resource_list', $nid);
-  // get debate, resource, pundit counts
-  $dr = issue_get_dr($tnid);
-  return theme('issue_detail_wrapper', $nid, $results, $debates, $resources, $dr['#count'][TYPE_DEBATE], $dr['#count'][TYPE_RESOURCE]);
-
-
-}
 
 
 

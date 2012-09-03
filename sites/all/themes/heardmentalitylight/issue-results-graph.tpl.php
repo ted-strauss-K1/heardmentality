@@ -11,7 +11,7 @@
       <li class="part margin">
         <div class="space">
           <p class="result-title dinbold"><?php print t('Quick facts'); ?></p>
-          <div id="insight-view" class="inner"><?php print $insight_view; ?></div>
+          <div id="insight-view" class="inner"><?php print $quickfacts; ?></div>
         </div>
       </li>
       <li class="full">

@@ -268,11 +268,11 @@ function issue_vote_form_submit($form, &$form_state) {
         }
         if ($vote_suggested != -1) {
           poll_suggest_vote_add($vote_suggested, $user->uid);
+          # convert
+          issue_sa_convert($nid, $vote_suggested);
         }
       }
-
       drupal_set_message(t('Your vote was recorded.'));
-
     break;
     case 'vote-login' :
       # nothing
@@ -282,3 +282,39 @@ function issue_vote_form_submit($form, &$form_state) {
     break;
   }
 }
+
+/*
+ * Suggested answer conversion
+ */
+function issue_sa_convert($nid, $chid) {
+  $votes_s = poll_suggest_get_votes($nid);
+  if ($votes_s[$chid] >= 10) { # more than 10 votes
+    $votes_r = issue_get_votes($nid);
+    $votes_r_count = count($votes_r) - 1;
+    if (2 * $votes_r_count * $votes_s[$chid] >= $votes_r['#all'] + $votes_s['#all'] ) {
+      # more than half of average regular answer's votes
+      $sa = poll_suggest_get($nid);
+      $chtext = false;
+      foreach ($sa as $s) {
+        if ($s['chid'] == $chid) {
+          $chtext = $s['chtext'];
+          break;
+        }
+      }
+      if ($chtext !== false) {
+        $chorder = db_result(db_query("SELECT MAX(pc.chorder) + 1 FROM {poll_choices} pc WHERE pc.nid = '%d'", $nid));
+        # add ne choice
+        db_query("INSERT INTO {poll_choices} SET nid = '%d', chtext = '%s', chvotes = '%d', chorder = '%d'", $nid, $chtext, $votes_s[$chid], $chorder);
+        # transfer votes
+        db_query("INSERT INTO {poll_votes} (nid, uid, chorder, date_voted) SELECT '%d', psv.uid, '%d', psv.date FROM {poll_suggest_votes} psv WHERE psv.chid = '%d'", $nid, $chorder, $chid);
+        # transfer vote history
+        db_query("INSERT INTO {poll_votes_history} (nid, uid, chorder, status, date_voted) SELECT '%d', psv.uid, '%d', 1, psv.date FROM {poll_suggest_votes} psv WHERE psv.chid = '%d'", $nid, $chorder, $chid);
+        # delete suggested votes
+        db_query("DELETE FROM {poll_suggest_votes} WHERE chid = '%d'", $chid);
+        # delete suggested answer
+        poll_suggest_remove(array('chid' => $chid));
+      }
+    }
+  }
+}
+

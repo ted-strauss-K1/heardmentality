@@ -60,7 +60,7 @@ function poll_suggest_update_text($params = array()) {
  * @usage poll_suggest_vote_add(13, 32)
  */
 function poll_suggest_vote_add($chid, $uid) {
-  db_query("INSERT INTO {poll_suggest_votes} SET chid = '%d', uid = '%d', date = '%d'", $chid, $uid, time());
+  db_query("INSERT INTO {poll_suggest_votes} SET chid = '%d', uid = '%d', date = '%d'", $chid, $uid, date("y-m-d H:i:s"));
 }
 
 /*

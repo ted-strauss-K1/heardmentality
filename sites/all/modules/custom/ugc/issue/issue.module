@@ -157,21 +157,9 @@ function issue_menu() {
     'file'              => 'issue.pages.inc'
   );
 
-  // ajax calls for
-  $menu['issue/ajax/highstock/%/%'] = array( # not used anymore
-    'page callback' => 'issue_ajax_highstock',
-    'type' => MENU_CALLBACK,
-    'page arguments' => array(3, 4),
-    'access callback' => TRUE,
-    'file' => 'issue.pages.inc',
-  );
-  $menu['issue/ajax/highchart/%/%'] = array(
-    'page callback' => 'issue_ajax_highchart',
-    'type' => MENU_CALLBACK,
-    'page arguments' => array(3, 4),
-    'access callback' => TRUE,
-    'file' => 'issue.pages.inc',
-  );
+
+
+
 
   $menu['issues2'] = array(
     'title' => 'Issues',
@@ -520,6 +508,10 @@ function issue_theme() {
     'arguments'             => array('node' => NULL),
     'file'                  => 'issue.theme.inc',
   );
+  $theme['issue_results_graph_quick_facts'] = array(
+    'arguments'             => array('node' => NULL),
+    'file'                  => 'issue.theme.inc',
+  );
   $theme['issue_results_graph_legend'] = array(
     'arguments'             => array('node' => NULL),
     'file'                  => 'issue.theme.inc',
@@ -534,14 +526,10 @@ function issue_theme() {
   );
 
 
-  $theme['issue_detail_wrapper'] = array(
-    'template' => 'issue_detail_wrapper',
-    'arguments' => array('nid' => NULL, 'result_analysis' => NULL, 'debate_list' => NULL, 'resource_list' => NULL, 'debateCount' => NULL, 'resourceCount' => NULL),
-  );
-  $theme['issue_result_graph_analysis'] = array(
-    'template' => 'issue-result-graph-analysis',
-    'arguments' => array('map' => NULL, 'report_percent' => NULL, 'report_graph' => NULL, 'short_answers' => NULL),
-  );
+
+
+
+
 
   $theme += _issue_theme();
 
@@ -557,18 +545,7 @@ function issue_theme() {
  */
 function issue_content_bottom_preprocess(&$vars) {
   $vars['results'] = theme('issue_results_graph', $vars['node']);
-
-
-
-
-  $nid = $vars['node']->nid;
-  $tnid = get_tnid($nid);
-  $tnode = node_load($tnid);
-  $debates = theme('issue_debate_list', $nid);
-  //$resources = theme('issue_resource_list', $nid);
-  // get debate, resource, pundit counts
-  $dr = issue_get_dr($tnid);
-  $vars['content'] = theme('issue_detail_wrapper', $nid, $results, $debates, $resources, $dr['#count'][TYPE_DEBATE], $dr['#count'][TYPE_RESOURCE]);
+  $vars['content'] = theme('issue_debate_list', $vars['node']->nid);
 }
 
 /*
@@ -589,6 +566,8 @@ function issue_results_graph_preprocess(&$vars) {
 
   # Highchart Filter
   $vars['filter'] = theme('issue_results_graph_highchart_filter', $vars['node']);
+  # Quick facts
+  $vars['quickfacts'] = theme('issue_results_graph_quick_facts', $vars['node']);
   # Legend
   $vars['legend'] = theme('issue_results_graph_legend', $vars['node']);
   # Highchart History
@@ -621,177 +600,7 @@ function issue_choices($nid) {
 
 
 
-function report_percent_broken($nid = '', $aid = '', $array = '') {
-  global $user, $base_root, $base_path;
-  $filter = '';
-  $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
-  $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
 
-  $vlist = ExecuteQuery($vans, "select");
-  // IMPORTANT get translate nid (tnid) for current node
-  $nid = get_tnid($nid);
-
-  switch ($filter) {
-    case 'gender':
-      $answer['divide'] = array('male', 'female', 'undefined');
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'male')
-          $gen = 1;
-        elseif ($list == 'female')
-          $gen = 2;
-        else
-          $gen = '0';
-
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND u.gender='" . $gen . "' ";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'age':
-      $answer['divide'] = array('18-30', '30-50', '50 above', 'undefined');
-
-      foreach ($answer['divide'] as $key => $value) {
-        if ($key == 0) {
-          $query_ins = "AND u.age BETWEEN '18' AND '30' ";
-        }
-        elseif ($key == 1) {
-          $query_ins = "AND u.age BETWEEN '31' AND '50'";
-        }
-        elseif ($key == 2) {
-          $query_ins = "AND u.age>='51' ";
-        }
-        else {
-          $query_ins = "AND u.age='0' ";
-        }
-
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' " . $query_ins;
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'religion':
-      $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined') {
-          $reg = '0';
-        }
-        else {
-          $reg = $list;
-        }
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND religion='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'ethnicity':
-      $answer['divide'] = array('Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin', 'Aborigines', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined')
-          $reg = '0';
-        else
-          $reg = $list;
-
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND ethnic='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'income':
-      $answer['divide'] = array('$0-$9,999', '$10,000 - $19,999', '$20,000 - $39,999', '$40,000 - $69,999', '$70,000 - $99,999', '$100,000 - $149,999', '$150,000 - $299,999', '>$300,000', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined') {
-          $reg = '0';
-        }
-        else {
-          $reg = $list;
-        }
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND income='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'marital':
-      $answer['divide'] = array('Single', 'Married', 'Divorced', 'Widow', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined')
-          $reg = '0';
-        else
-          $reg = $list;
-
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND marital='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'sex_orient':
-      $answer['divide'] = array('Straight', 'Gay', 'Bisexual', 'Transgender', 'undefined');
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined')
-          $reg = '0';
-        else
-          $reg = $list;
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND sorient='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'education':
-      $answer['divide'] = array('No High School', 'High School', 'Technical College', 'University', 'Masters Degree', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined')
-          $reg = '0';
-        else
-          $reg = $list;
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND edu='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-
-    default:
-      $answer['divide'] = array('Total Votes');
-      foreach ($vlist as $key => $chvote) {
-        $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $chvote['chorder'] . "'";
-        $total_votes[] = (int) ExecuteQuery($query, "norows");
-      }
-
-      $answer_cnt[] = $total_votes;
-      break;
-  }
-
-  $answer['cnt'] = $answer_cnt;
-  return $answer;
-}
 
 
 
@@ -1640,12 +1449,7 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
           if (arg(0) == 'node' && is_numeric($nid = arg(1))) {
             $node = node_load($nid);
             if (!empty($node) && $node->type == 'poll') {
-
-              //$tab = view_issue_results($nid);
-              //$block['content'] = $tab;
-
               $block['content'] = theme('issue_content_bottom', $node);
-
             }
           }
         break;
@@ -2540,10 +2344,6 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
   return $info;
 }
 
-// issue results , debates, resources
-function view_issue_results($nid = '') {
-  return theme('issue_results_graph', $nid);
-}
 
 function add_new_debate_form($form_state, $nid = '') {
   global $theme, $base_url;

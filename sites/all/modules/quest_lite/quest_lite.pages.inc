@@ -233,21 +233,10 @@ function qlite_view() {
     //likes
     $voutput.=node_view($oListquest, FALSE, true, true);
     //$block=issue_view_results($qid, false, false, true);
-    $block=view_issue_results($qid);
+    $block = theme('issue_results_graph', $qid);
     $voutput.='  <div class="clr"></div>';
     $voutput.=$block;
-    /*  $query = "select sum(like_yes) as res from {question_like} where qid='" . $qid . "' group by qid ";
-    $set = ExecuteQuery($query, "select");
 
-    $set_cnt = ( empty($set[0]['res']) ? '0' : $set[0]['res']);
-  
-
-      $voutput .= '<div id="vote" class="vote">
-      <img onclick="qns_like(1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/up.jpg" id="vote-up" alt="Up" title="This Question is good"/>
-      <span  class="vote-cnt"><h2  id="vote-cnt">&nbsp;'.$set_cnt.'</h2></span>
-      <img onclick="qns_like(-1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/down.jpg" id="vote-down" alt="Down" title="This Question is not useful"/><br/>
-      ';
-     */
     $vans = "select * from {poll_choices} where  nid='$qid' order by chorder desc";
 
     $vlist = db_query($vans);

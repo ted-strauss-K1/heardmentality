@@ -279,6 +279,7 @@ function insight_view(nid){
   });
 
 }
+insight_view($('#curr_nid').val());
 
 
 // load debate statistics

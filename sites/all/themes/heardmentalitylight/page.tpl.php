@@ -52,7 +52,7 @@ $directoryPath = $base_path . $directory;
 
 						<div class="message top-message">
 							<p class="double" style="disply:block">
-                                 <?php print $messages; ?>
+                <?php print $messages; ?>
                             </p>
 						</div>
                         <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick"><?php print t('Hide'); ?></span></a>
