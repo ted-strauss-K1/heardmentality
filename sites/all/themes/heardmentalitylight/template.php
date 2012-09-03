@@ -1,6 +1,37 @@
 <?php
 
-// $Id: template.php,v 1.16.2.2 2009/08/10 11:32:54 goba Exp $
+/*
+ * Drupal Status Messages
+ */
+function heardmentalitylight_status_messages($display = NULL) {
+  $noty = array();
+  $noty_pattern = "$.hrd.noty({'text':'%s','type':'%s'});";
+  foreach (drupal_get_messages($display) as $type => $messages) {
+    $noty_type = false;
+    switch ($type) {
+      case 'status' :
+        $noty_type = 'success';
+      break;
+      case 'warning' :
+        $noty_type = 'warning';
+      break;
+      case 'error' :
+        $noty_type = 'error';
+      break;
+    }
+    if ($noty_type !== false) {
+      foreach ($messages as $message) {
+        $noty[] = sprintf($noty_pattern, addslashes($message), $noty_type);
+      }
+    }
+  }
+  drupal_add_js('$(document).ready(function(){'.implode('',$noty).'});', 'inline');
+  return false;
+}
+
+
+
+
 
 /**
  * Sets the body-tag class attribute.
