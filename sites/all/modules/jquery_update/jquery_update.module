@@ -11,6 +11,8 @@
  * @see hook_jquery_update_alter()
  */
 function jquery_update_jquery_update_alter(&$javascript) {
+  var_dump($javascript['core']);
+
   $path = drupal_get_path('module', 'jquery_update') . '/replace/';
   $scripts = jquery_update_get_replacements();
 
@@ -32,6 +34,8 @@ function jquery_update_jquery_update_alter(&$javascript) {
       }
     }
   }
+  var_dump($javascript['core']);
+  die('JU Runs');
 }
 
 /**
