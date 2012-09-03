@@ -167,17 +167,6 @@ function load_question($qid='') {
   return $final;
 }
 
-function load_options($qid='', $poss='') {
-  if (!empty($qid) && is_numeric($qid)) {
-    $query = "SELECT * FROM {poll_choices} where nid='$qid' ORDER BY chorder";
-    $result = ExecuteQuery($query, "select");
-  }
-  else {
-    return false;
-  }
-  return $result;
-}
-
 function load_votes($qid='') {
 
   $final = array();

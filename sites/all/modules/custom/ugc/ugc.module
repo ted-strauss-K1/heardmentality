@@ -6,6 +6,9 @@
 function ugc_init() {
   global $base_url;
   drupal_add_js(array('base_url' => $base_url), 'setting');
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    drupal_add_js(array('nid' => arg(1)), 'setting');
+  }
 }
 
 /*
@@ -35,4 +38,21 @@ function get_input_language($title = '') {
  */
 function drupal_link_color($uid, $nid) {
   return false != db_result(db_query("SELECT COUNT(*) AS count FROM {poll_votes} WHERE nid='%d' AND uid='%d'", $uid, $nid)) ? 'font-weight:bold' : '';
+}
+
+/*
+ * Range of dates - Y-m-d
+ */
+function dates_range($date1, $date2) {
+  $range = array();
+  if (!empty($date1) && !empty($date2) && $date1 < $date2) {
+    $date1 = strtotime($date1);
+    $date2 = strtotime($date2);
+    $range[] = date('Y-m-d', $date1);
+    while ($date1 < $date2) {
+      $date1 = strtotime('+1 day', $date1);
+      $range[] = date('Y-m-d', $date1);
+    }
+  }
+  return $range;
 }

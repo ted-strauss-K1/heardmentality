@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
  * Form for adding/editing the Issues' votes
  */
@@ -59,8 +61,11 @@ function issue_vote_form($form, $node) {
       '#default_value' => $vote_regular,
       '#options' => $list,
       '#prefix' => '<div class="choices regular">',
-      '#suffix' => '</div>'
+      '#suffix' => '</div>',
     );
+    if ($voted) {
+      $form['choice']['#after_build'] = array('issue_vote_form_radios');
+    }
   }
 
   # login warning
@@ -92,6 +97,11 @@ function issue_vote_form($form, $node) {
         '#prefix' => '<div class="choices suggested">',
         '#suffix' => '</div>'
       );
+      if ($voted) {
+        $form['add_vote']['suggested_answers'] += array(
+          '#after_build' => array('issue_vote_form_radios_suggested'),
+        );
+      }
     }
     if (!$sa_added) {
       $form['add_vote']['new_suggest_answer'] = array(
@@ -145,6 +155,34 @@ function issue_vote_form($form, $node) {
   $form['#cache'] = TRUE;
   $form['#theme'] = 'poll_vote';
   return $form;
+}
+
+/*
+ * Afterbuild for issue_vote_form
+ */
+function issue_vote_form_radios($form_element, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  $count = count($form_element['#options']);
+  $votes = issue_get_votes($nid);
+  for ($i = 0; $i < $count; $i++) {
+    $vote_number = ($votes[$i] ? $votes[$i] : 0);
+    $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
+    $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
+<span>' . $vote_number . '</span>' . $vote_string . '</span>';
+    $form_element[$i]['#suffix'] = '</div>';
+  }
+  return $form_element;
+}
+function issue_vote_form_radios_suggested($form_element, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  $votes = poll_suggest_get_votes($nid);
+  foreach ($votes as $i => $vote_number) {
+    $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
+    $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
+<span>' . $vote_number . '</span>' . $vote_string . '</span>';
+    $form_element[$i]['#suffix'] = '</div>';
+  }
+  return $form_element;
 }
 
 /*

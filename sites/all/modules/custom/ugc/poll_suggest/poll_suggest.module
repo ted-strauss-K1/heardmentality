@@ -90,3 +90,20 @@ function poll_suggest_get($nid, $uid = '') {
   return $list;
 }
 
+/*
+ * Get suggested votes stats
+ */
+function poll_suggest_get_votes($nid) {
+  static $votes = array();
+  if (!isset($votes[$nid])) {
+    $vote = array();
+    $vote['#all'] = 0;
+    $result = db_query("SELECT ps.chid, COUNT(psv.vid) AS count FROM {poll_suggest} ps LEFT JOIN {poll_suggest_votes} psv ON ps.chid = psv.chid WHERE nid = '%d' GROUP BY ps.chid", $nid);
+    while ($row = db_fetch_object($result)) {
+      $vote['#all'] += $row->count;
+      $vote[$row->chid] = $row->count;
+    }
+    $votes[$nid] = $vote;
+  }
+  return $votes[$nid];
+}

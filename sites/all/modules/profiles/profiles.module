@@ -991,7 +991,6 @@ var spath=\'' . $base_url . '/\';
           case 'marital':
             $list = 'Marital Status';
             break;
-            break;
           case 'dob':
             $dob1 = $fetch[0]['age'];
             if ($dob1 == 0) {

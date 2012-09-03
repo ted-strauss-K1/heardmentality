@@ -602,15 +602,3 @@ $message = node_view($node);
             'data' => $message));
 }
 
-function solr_issues_radios_after_build($form_element, &$form_state, $tnid) {
-  $count = count($form_element['#options']);
-  $nid = $form_element['#nid'];
-  $votes = issue_get_votes($nid);
-  for ($i = 0; $i < $count; $i++) {
-    $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
-<span>' . $votes[$i] . '</span>votes</span>';
-    $form_element[$i]['#suffix'] = '</div>';
-  }
-
-  return $form_element;
-}

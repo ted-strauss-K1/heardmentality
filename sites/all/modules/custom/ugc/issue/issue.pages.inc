@@ -385,9 +385,74 @@ function issue_noderecommendation($nid, $related) {
   }
 }
 
+function issue_ajax_highchart($nid, $param) {
 
 
+  global $base_url, $user, $base_root, $base_path;
+  $output = '';
+  $filter = '';
+  $incflt = '';
+  $opt = '';
+  if (!is_numeric($nid))
+    return 'No Data Found';
 
+  $vans = "select * from {poll_choices} where  nid='" . $nid . "' ORDER BY chorder";
+
+  $vlist = ExecuteQuery($vans, "select");
+  $cnt_ans = count($vlist); //кол-во ответов
+
+  $inline = "var example = 'bar-stacked',
+            theme = 'skies'";
+  drupal_add_js($inline, 'inline');
+
+  $ans_array = array();
+  for ($ab = 0; $ab < $cnt_ans; $ab++) {
+    $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
+    $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
+    $answer = substr(t(addslashes($answer)), 0, 16);
+    array_push($ans_array, $answer);
+  }
+  $result = report_percent_broken($nid, '', $_REQUEST);
+  if ($_REQUEST['dochg'] == '') {
+    $json['name'] = $result['divide'];
+    $json['categories'] = $ans_array;
+    $xtitle = "'" . "'";
+  }
+  else {
+    // $ans = $ans_array;
+    $json['name'] = $ans_array;
+    $xtitle = "'" . $_REQUEST['dochg'] . "'";
+    $json['categories'] = $result['divide'];
+  }
+  $cnt = $result['cnt'];
+
+  $json['data'] = $result['cnt'];
+
+  foreach ($json['name'] as $key => $value) {
+    $js_arr[$key]['name'] = $json['name'][$key];
+    $js_arr[$key]['data'] = $json['data'][$key];
+    $js_arr['categories'] = $json['categories'];
+  }
+  $colors = _load_colors_array();
+
+  if ($_REQUEST['dochg'] == '') {
+    foreach ($js_arr[0]['data'] as $key => $value) {
+      $new_js_arr[0]['data'][$key]['y'] = $value;
+      $new_js_arr[0]['data'][$key]['name'] = $js_arr[0]['name'];
+      $new_js_arr[0]['data'][$key]['color'] = $colors[$key];
+    }
+    $new_js_arr['categories'] = $js_arr['categories'];
+    $new_js_arr[0]['name'] = $js_arr[0]['name'];
+    $js_arr = $new_js_arr;
+  }
+
+  print drupal_json(array('name' => $js_arr[$param]['name'],
+      'data' => $js_arr[$param]['data'],
+      'categories' => $js_arr['categories'],
+      'xtitle' => t($_REQUEST['dochg'])
+    )
+  );
+}
 
 
 
@@ -567,256 +632,9 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
 /**
  * List all issue as a page.
  */
-function report_percent($nid='') {
-  global $base_url, $user, $base_root, $base_path;
-  $output = '';
-  $filter = '';
-  $incflt = '';
-  $opt = '';
-  if (!is_numeric($nid))
-    return 'No Data Found';
 
-  $vans = "select * from {poll_choices} where  nid='" . $nid . "' ORDER BY chorder";
 
-  $vlist = ExecuteQuery($vans, "select");
-  $cnt_ans = count($vlist); //кол-во ответов
-//drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts/highcharts.js");
 
-  $inline = "var example = 'bar-stacked',
-            theme = 'skies'";
-  drupal_add_js($inline, 'inline');
-
-  $ans_array = array();
-  for ($ab = 0; $ab < $cnt_ans; $ab++) {
-    $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
-    $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
-    $answer = substr(t(addslashes($answer)), 0, 16);
-    array_push($ans_array, $answer);
-  }
-  $result = report_percent_broken($nid, '', $_REQUEST);
-//$ans = $result['divide'];
-  if ($_REQUEST['dochg'] == '') {
-    $ans = $result['divide'];
-    $xtitle = "'" . "'";
-  }
-  else {
-    $ans = $ans_array;
-    $ans_array = $result['divide'];
-    $xtitle = "'" . $_REQUEST['dochg'] . "'";
-  }
-
-  $cnt = $result['cnt'];
-
-  foreach ($ans as $key => $value) {
-    $ins_script .= "{name: '" . t(addslashes($ans[$key])) . "',data: " . $cnt[$key] . "},";
-  }
-
-  $per = json_encode($result);
-  $inc = rtrim($ins_script, ',');
-
-  $filter = (!empty($_REQUEST['dochg'])) ? $_REQUEST['dochg'] : '';
-
-  if (!empty($filter)) {
-
-    $incflt = '<script>jQuery(document).ready(function() {jQuery("#dochg").val(\'' . $filter . '\');});</script>';
-  }
-
-  $output .= '
-<div id="contentr1">
-	' . $incflt . '
-     <div>
-     <form id="form1" name="form1" method="post" action="' . request_uri() . '#results">
-  <select name="dochg" id="dochg">
-	<option value="">' . t('Filter') . '</option>
-	<option value="age">' . t('Age') . '</option>
-	<option value="gender">' . t('Gender') . '</option>
-    <option value="religion">' . t('Religion') . '</option>
-    <option value="ethnicity">' . t('Ethnicity') . '</option>
-    <option value="income">' . t('Income') . '</option>
-    <option value="marital">' . t('Marital') . '</option>
-    <option value="sex_orient">' . t('Sexual Orientation') . '</option>
-    <option value="education">' . t('Education Level') . '</option>
-
-  </select>
-  <span id="fopt" ></span>
- </form></div>
-    <div id="chart_div" style=" width:300px; min-height: 280px;">
-    </div>
-</div>';
-  return $output;
-}
-
-function report_percent_broken($nid = '', $aid = '', $array = '') {
-  global $user, $base_root, $base_path;
-  $filter = '';
-  $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
-  $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
-
-  $vlist = ExecuteQuery($vans, "select");
-// IMPORTANT get translate nid (tnid) for current node
-  $nid = get_tnid($nid);
-
-  switch ($filter) {
-    case 'gender':
-      $answer['divide'] = array('male', 'female', 'undefined');
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'male')
-          $gen = 1;
-        elseif ($list == 'female')
-          $gen = 2;
-        else
-          $gen = '0';
-
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND u.gender='" . $gen . "' ";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'age':
-      $answer['divide'] = array('18-30', '30-50', '50 above', 'undefined');
-
-      foreach ($answer['divide'] as $key => $value) {
-        if ($key == 0) {
-          $query_ins = "AND u.age BETWEEN '18' AND '30' ";
-        }
-        elseif ($key == 1) {
-          $query_ins = "AND u.age BETWEEN '31' AND '50'";
-        }
-        elseif ($key == 2) {
-          $query_ins = "AND u.age>='51' ";
-        }
-        else {
-          $query_ins = "AND u.age='0' ";
-        }
-
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' " . $query_ins;
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'religion':
-      $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined') {
-          $reg = '0';
-        }
-        else {
-          $reg = $list;
-        }
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND religion='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'ethnicity':
-      $answer['divide'] = array('Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin', 'Aborigines', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined')
-          $reg = '0';
-        else
-          $reg = $list;
-
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND ethnic='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'income':
-      $answer['divide'] = array('$0-$9,999', '$10,000 - $19,999', '$20,000 - $39,999', '$40,000 - $69,999', '$70,000 - $99,999', '$100,000 - $149,999', '$150,000 - $299,999', '>$300,000', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined') {
-          $reg = '0';
-        }
-        else {
-          $reg = $list;
-        }
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND income='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'marital':
-      $answer['divide'] = array('Single', 'Married', 'Divorced', 'Widow', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined')
-          $reg = '0';
-        else
-          $reg = $list;
-
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND marital='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'sex_orient':
-      $answer['divide'] = array('Straight', 'Gay', 'Bisexual', 'Transgender', 'undefined');
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined')
-          $reg = '0';
-        else
-          $reg = $list;
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND sorient='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-    case 'education':
-      $answer['divide'] = array('No High School', 'High School', 'Technical College', 'University', 'Masters Degree', 'undefined');
-
-      foreach ($answer['divide'] as $key => $list) {
-        if ($list == 'undefined')
-          $reg = '0';
-        else
-          $reg = $list;
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND edu='" . $reg . "'";
-          $tcnt = ExecuteQuery($query, "norows");
-          $answer_cnt[$ab][$key] = $tcnt;
-        }
-      }
-
-      break;
-
-    default:
-      $answer['divide'] = array('Total Votes');
-      foreach ($vlist as $key => $chvote) {
-        $query = "select * from {poll_votes} as p inner join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $chvote['chorder'] . "'";
-        $total_votes[] = (int) ExecuteQuery($query, "norows");
-      }
-
-      $answer_cnt[] = $total_votes;
-      break;
-  }
-
-  $answer['cnt'] = $answer_cnt;
-  return $answer;
-}
 
 function report_get_ans_range($nid='', $range='') {
   switch ($range) {
@@ -1655,7 +1473,7 @@ function insight_view($nid='') {
 
   if (is_numeric($nid)) {
     $nid = get_tnid($nid);
-    $ans = load_options($nid);
+    $ans = issue_choices($nid);
     $colors = _load_colors_array();
     foreach ($ans as $key => $list) {
       $short_answers[$list['chorder']] = get_short_answer($nid, $list['chorder']);
@@ -1904,7 +1722,7 @@ function max_key($array) {
 // debate filter options
 function filter_options($form, $nid) {
   $form = '';
-  $ans = load_options($nid);
+  $ans = issue_choices($nid);
   $filterBy[''] = t('Answer');
   foreach ($ans as $list) {
     $short_answer = get_short_answer($nid, $list['chorder']);
@@ -2113,218 +1931,15 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
 
 
 
-function report_answer_details_history($nid = '', $aid = '', $action = '', $date = '') {
-  switch ($action) {
-    case 'percent':
-      if ($_REQUEST['fopt']) {
-        $opt = filter_opt($_REQUEST);
 
-        $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $aid . "' $opt ";
-        $answer = ExecuteQuery($query, "norows");
-      }
-      else {
 
-        $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $aid . "' ";
-        $answer = ExecuteQuery($query, "norows");
-      }
-      return $answer;
-      break;
-    case 'timeline':
-      $query1 = "select count(*) as cnt from {poll_votes_history} where nid='" . $nid . "' and chorder='" . $aid . "'AND date(date_voted)<='" . $date . "' and status=1";
-      $query2 = "select count(*) as cnt from {poll_votes_history} where nid='" . $nid . "' and chorder='" . $aid . "'AND date(date_voted)<='" . $date . "' and status=0";
-      $result1 = db_result(db_query($query1));
-      $result2 = db_result(db_query($query2));
-      if ((!is_null($result1)) and (!is_null($result2))) {
-        $result = $result1 - $result2;
-      }
-      else {
-        $result = 'null';
-      }
 
-      return $result;
-      break;
-  }
-}
 
-function report_get_ans_range_history($nid='', $range='') {
-  switch ($range) {
-    case 'start':
-      $query = "select date(date_voted) as dat from {poll_votes_history} where nid='" . $nid . "' ORDER BY date_voted ASC LIMIT 0,1 ";
-      $answer = ExecuteQuery($query, "select");
-      break;
-    case 'end':
-      $query = "select date(date_voted) as dat from poll_votes_history where nid='" . $nid . "' ORDER BY date_voted DESC LIMIT 0,1 ";
-      $answer = ExecuteQuery($query, "select");
-      break;
-    default:
-      $query = "select count(*) as cnt from poll_votes_history where nid='" . $nid . "' ";
-      $answer = ExecuteQuery($query, "select");
-      break;
-  }
-  return $answer[0];
-}
 
-function issue_ajax_highstock_graph($nid, $number) {
-  global $base_url, $user, $base_path;
-  $qid = $nid;
-  $nid = get_tnid($nid);
-  $output = '';
 
-  $vans = "select * from {poll_choices} where  nid=$qid order by chorder";
-  $vlist = ExecuteQuery($vans, "select");
-  $cnt_ans = count($vlist);
 
-  $query = "select date(date_voted) as dat from {poll_votes} where nid='" . $nid . "' ORDER BY date_voted DESC";
-  $list = ExecuteQuery($query, "select");
-  $s1 = array();
-  $grid = array();
 
-  $srange = report_get_ans_range_history($nid, 'start');
-  $erange = report_get_ans_range_history($nid, 'end');
-  $count = report_get_ans_range_history($nid);
 
-  $query = "select DATEDIFF(date(now()),'" . $srange['dat'] . "') as diff,date(now()) as today";
-  $overall_range = ExecuteQuery($query, "select");
-  $frange = $overall_range[0]['diff'];
-  $drange = dates_range($srange['dat'], $overall_range[0]['today']);
-  $drange = array_reverse($drange);
-  for ($ab = 0; $ab < $cnt_ans; $ab++) {
-
-// short answers
-    $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
-    $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
-    $answer = substr(t(addslashes($answer)), 0, 16);
-    $i = $ab + 1;
-    $ans = array();
-
-    if (count($drange) > 6) {
-      for ($mn = $frange; $mn >= 0; $mn--) {
-        $date = $drange[$mn];
-        $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
-        array_push($ans, $inc_this);
-      }
-      $ins_sc = '[' . implode(',', $ans) . ']';
-      array_push($grid, "'" . $answer . "'");
-      $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
-      $json[$ab]['data'] = $ans;
-      $json[$ab]['name'] = $answer;
-      $dexp = explode('-', $srange['dat']);
-
-      $sdate_arr['year'] = $dexp[0];
-      $sdate_arr['month'] = $dexp[1] - 1;
-      $sdate_arr['day'] = $dexp[2];
-    }
-    else {
-      for ($mn = 6; $mn >= 0; $mn--) {
-        $year = date("Y");
-        $month = date("m");
-        $dat = date("d") - $mn;
-        $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
-        $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
-        array_push($ans, $inc_this);
-      }
-
-      $json[$ab]['data'] = $ans;
-      $json[$ab]['name'] = $answer;
-
-      $sdate_arr['year'] = $year;
-      $sdate_arr['month'] = $month - 1;
-      $sdate_arr['day'] = date("d") - 6;
-    }
-  }
-  print drupal_json(array(
-            'name' => $json[$number]['name'],
-            'data' => $json[$number]['data'],
-            'date' => $sdate_arr,
-          ));
-}
-
-function issue_ajax_highchart_result($nid, $param) {
-  global $base_url, $user, $base_root, $base_path;
-  $output = '';
-  $filter = '';
-  $incflt = '';
-  $opt = '';
-  if (!is_numeric($nid))
-    return 'No Data Found';
-
-  $vans = "select * from {poll_choices} where  nid='" . $nid . "' ORDER BY chorder";
-
-  $vlist = ExecuteQuery($vans, "select");
-  $cnt_ans = count($vlist); //кол-во ответов
-
-  $inline = "var example = 'bar-stacked',
-            theme = 'skies'";
-  drupal_add_js($inline, 'inline');
-
-  $ans_array = array();
-  for ($ab = 0; $ab < $cnt_ans; $ab++) {
-    $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
-    $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
-    $answer = substr(t(addslashes($answer)), 0, 16);
-    array_push($ans_array, $answer);
-  }
-  $result = report_percent_broken($nid, '', $_REQUEST);
-  if ($_REQUEST['dochg'] == '') {
-    $json['name'] = $result['divide'];
-    $json['categories'] = $ans_array;
-    $xtitle = "'" . "'";
-  }
-  else {
-// $ans = $ans_array;
-    $json['name'] = $ans_array;
-    $xtitle = "'" . $_REQUEST['dochg'] . "'";
-    $json['categories'] = $result['divide'];
-  }
-  $cnt = $result['cnt'];
-
-  $json['data'] = $result['cnt'];
-
-  foreach ($json['name'] as $key => $value) {
-    $js_arr[$key]['name'] = $json['name'][$key];
-    $js_arr[$key]['data'] = $json['data'][$key];
-    $js_arr['categories'] = $json['categories'];
-  }
-  $colors = _load_colors_array();
-
-  if ($_REQUEST['dochg'] == '') {
-    foreach ($js_arr[0]['data'] as $key => $value) {
-      $new_js_arr[0]['data'][$key]['y'] = $value;
-      $new_js_arr[0]['data'][$key]['name'] = $js_arr[0]['name'];
-      $new_js_arr[0]['data'][$key]['color'] = $colors[$key];
-    }
-    $new_js_arr['categories'] = $js_arr['categories'];
-    $new_js_arr[0]['name'] = $js_arr[0]['name'];
-    $js_arr = $new_js_arr;
-  }
-
-  print drupal_json(array('name' => $js_arr[$param]['name'],
-            'data' => $js_arr[$param]['data'],
-            'categories' => $js_arr['categories'],
-            'xtitle' => t($_REQUEST['dochg'])
-                  )
-          );
-}
-
-function issue_ajax_gmap_result($nid) {
-  $colors = _load_colors_array();
-  $query = "select count(nid) from {poll_choices} where  nid=$nid  order by chorder";
-  $result = db_result(db_query($query));
-  for ($i = 0; $i < $result; $i++) {
-    $pans = db_query("select u.latitude, u.longitude from {poll_votes} as pav 
-     left join {user_profile} as u on u.uid=pav.uid 
-     where pav.chorder='" . $i . "' AND pav.nid='$nid'");
-    while ($coordinates = db_fetch_object($pans)) {
-
-      if ((!is_null($coordinates->latitude)) and ($coordinates->latitude != '')) {
-        $coordinates->color = $colors[$i];
-        $getresult[] = $coordinates;
-      }
-    }
-  }
-  print drupal_json(array(
-            'data' => $getresult));
-}
 
 /*
  * Function to get themed forum replies

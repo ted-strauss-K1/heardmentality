@@ -592,7 +592,7 @@ function debate_wave($qid = '') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $inc_pans = '';
     $wave = '';
-    $ans = load_options($qid);
+    $ans = issue_choices($qid);
 
     // site url with default language
     $path = '<front>';
