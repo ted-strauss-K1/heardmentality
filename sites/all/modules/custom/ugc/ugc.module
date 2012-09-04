@@ -20,17 +20,40 @@ function word_array_filter($word = '') {
   return !empty($word) && (strlen($word)>=3);
 }
 
+/*
+ * Get taxonomy term id by name and module
+ */
+function ugc_taxonomy_term_id($name, $module) {
+  return db_result(db_query("SELECT td.tid FROM {term_data} td INNER JOIN {vocabulary} v ON v.vid = td.vid WHERE LOWER(td.name) = LOWER('%s') AND LOWER(v.module) = LOWER('%s')", $name, $module));
+}
 
 /*
  * Get input language
+ *
+ * @see issue_translator
  */
-function get_input_language($title = '') {
+function ugc_detect_language($string) {
   module_load_include('inc', 'issue_translator', 'gtranslate-api-php/googletranslate.class');
   $gt = new GoogleTranslateWrapper();
-  $input = $gt->detectLanguage($title);
-  $language = $input['language'];
+  $language = $gt->detectLanguage($string);
+  $language = $language['language'];
   $language = $language != '' ? $language : 'en';
   return $language;
+}
+
+/*
+ * Truncate the string w/ellipsis
+ */
+function ugc_truncate($string, $length, $stopanywhere = false) {
+  if (strlen($string) > $length) {
+    $string = substr($string,0,($length -3));
+    if ($stopanywhere) {
+      $string .= '...';
+    } else{
+      $string = substr($string,0,strrpos($string,' ')).'...';
+    }
+  }
+  return $string;
 }
 
 /*

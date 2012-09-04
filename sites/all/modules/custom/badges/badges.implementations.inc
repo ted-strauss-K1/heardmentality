@@ -458,7 +458,7 @@ function badge_process_librarian($uid) {
  */
 function _badge_resource_has_votes($uid, $count) {
   // TODO
-  $resource_tid = get_taxonomy_id('forum', 'Resource');
+  $resource_tid = ugc_taxonomy_term_id('Resource', 'forum');
   return false != db_result(db_query("
     SELECT n.nid
     FROM {node} n

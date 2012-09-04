@@ -367,7 +367,38 @@ function theme_issue_results_graph_gmap($node){
   ';
 }
 
+/*
+ * Arguments List
+ *
+ * @see arguments.forms.inc
+ */
+function theme_issue_arguments($node) {
+  if (user_is_logged_in()) {
+    $argument_form = drupal_get_form('arguments_form', $node->nid);
+  } else {
+    $argument_form =
+      '<div class="openlogin_box" align="center"><b>' .
+        t('Please log in to participate in the debate') .
+      '</b></div>';
+  }
 
+
+  $nid = $node->nid;
+
+  $debate_filter_form = drupal_get_form('filter_options', $nid);
+  # $debate_list = array();
+  # $debate_list[0] = issue_ajax_tab_content($nid, 1, 0, 1);
+  $count = array();
+  $dr = issue_get_dr($nid);
+  $count[] = $dr['#count'][TYPE_DEBATE];
+  $count[] = $dr['#count'][TYPE_RESOURCE];
+  $show_only = array();
+  $ans = issue_choices($nid);
+  foreach ($ans as $list) {
+    $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
+  }
+  return theme('debate_area', $argument_form, $debate_filter_form, $count, $show_only, $nid);
+}
 
 
 
@@ -516,27 +547,3 @@ function theme_sub_loader( $styles ) {
     </span>';
 }
 
-/*
- * Debate List
- */
-function theme_issue_debate_list($nid = '') {
-  # forms
-  if( user_is_logged_in() ) {
-    $new_debate_form = drupal_get_form('add_new_debate_form', $nid);
-  } else {
-    $new_debate_form = '<div align="center"><b>' . t('Please log in to participate in the debate') . '</b></div>';
-  }
-  $debate_filter_form = drupal_get_form('filter_options', $nid);
-  # $debate_list = array();
-  # $debate_list[0] = issue_ajax_tab_content($nid, 1, 0, 1);
-  $count = array();
-  $dr = issue_get_dr($nid);
-  $count[] = $dr['#count'][TYPE_DEBATE];
-  $count[] = $dr['#count'][TYPE_RESOURCE];
-  $show_only = array();
-  $ans = issue_choices($nid);
-  foreach ($ans as $list) {
-    $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
-  }
-  return theme('debate_area', $new_debate_form, $debate_filter_form, $count, $show_only, $nid);
-}

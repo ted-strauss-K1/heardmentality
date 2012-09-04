@@ -1,16 +1,16 @@
 /*
  * Add New Form Submit
  */
-jQuery('#add-new-debate-form').live('submit', function(e) {
+jQuery('#argument-add-form').live('submit', function(e) {
     e.preventDefault();
     jQuery('#deb-err').html('');
     // type = 1/0 = debate/resource
-    var type = $('#add_new_type').val();
+    var type = $('#argument_type').val();
     // debate title
     var title = jQuery('#deb_title').val();
     // debate flags
     var flag_set = false;
-    var tot_ans = jQuery('#tot_ans').val();
+    var tot_ans = Drupal.settings.arguments_form.count;
     for(var i=0; i<tot_ans; i++) {
         if(jQuery('#sup_'+i).val() != 0) {
             flag_set = true;
@@ -18,7 +18,7 @@ jQuery('#add-new-debate-form').live('submit', function(e) {
         }
     }
     // resource link & regexp
-    var nlink = $('#edit-ref-title').val();
+    var nlink = $('#url').val();
     // resource linkbox
     var linkbox = $('#linkbox').html();
 
@@ -35,8 +35,9 @@ jQuery('#add-new-debate-form').live('submit', function(e) {
     }
     if( error ) {
         // css for errors
-        jQuery('#deb-err').css('color','red');
-        show_msg('#deb-err', '<span>'+error+'</span>', 5000, 500);
+        $.hrd.noty({'type':'error', 'text':error});
+        //jQuery('#deb-err').css('color','red');
+        //show_msg('#deb-err', '<span>'+error+'</span>', 5000, 500);
         return false;
     }
 
@@ -55,8 +56,8 @@ jQuery('#add-new-debate-form').live('submit', function(e) {
             var selected = $("#debate_list_area").tabs( "option", "selected" );
             jQuery('#add_debate_wrapper').slideUp('slow');
             $('#debate_list_area').tabs("select", selected);
-            jQuery('#add-new-debate-form select').val(0);
-            jQuery('#add-new-debate-form textarea').val('');
+            jQuery('#argument-add-form select').val(0);
+            jQuery('#argument-add-form textarea').val('');
             // message
             if(msg.success_post == 1) {
                 jQuery('#deb-err').css('color','green');
@@ -123,9 +124,10 @@ jQuery("#lattach").live('click', function() {
     jQuery('#deb-err').html('');
     var attach = jQuery(this);
     var lbox = jQuery('#linkbox');
-    var url = jQuery('#edit-ref-title').val();
+    var url = jQuery('#url').val();
     if( !url_validate(url) ) {
-        show_msg('#deb-err', '<span>Please enter a valid URL.</span>', 5000, 500);
+        $.hrd.noty({'type':'error', 'text' : '<span>Please enter a valid URL.</span>'});
+        // show_msg('#deb-err', '<span>Please enter a valid URL.</span>', 5000, 500);
         return false;
     } else {
         var purl=Drupal.settings.base_url+'/debate/ajax';
@@ -156,33 +158,7 @@ jQuery("#lattach").live('click', function() {
 
 
 
-$(document).ready(function() {
 
-  /*
-  console.log('x2');
-  function googleSectionalElementInit() {
-    new google.translate.SectionalElement({
-      sectionalNodeClassName: 'goog-trans-section',
-      controlNodeClassName: 'goog-trans-control',
-      background: '#E1E43C'
-    }, 'google_sectional_element');
-  }
-  */
-
-  $('.reference-form').hide();
-  $('#link_arg-wrapper a').click(function(){
-    $('.reference-form').show();
-    $('.argument-form').hide();
-    $('#add_new_type').val(0);
-    return false;
-  });
-  $('#link_ref-wrapper a').click(function(){
-    $('.reference-form').hide();
-    $('.argument-form').show();
-    $('#add_new_type').val(1);
-    return false;
-  });
-});
 
 
 

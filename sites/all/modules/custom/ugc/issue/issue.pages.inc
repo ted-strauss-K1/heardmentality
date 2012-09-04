@@ -308,7 +308,7 @@ function issue_create_form_submit($form, &$form_state) {
   $node->status     = 1;
   $node->active     = 1;
   # $node->path       =
-  $language         = get_input_language($form_state['values']['q_quest']);
+  $language         = ugc_detect_language($form_state['values']['q_quest']);
   $node->language   = $language;
   $node->field_mod_status[0]['value'] = 0;
   if (!user_access('administer nodes')) {
@@ -1248,7 +1248,7 @@ function issue_debates($qid='', $type='', $sort = null) {
   if (isset($sup) && $sup > 0) {
     $cond.=" AND do.ans_val='$sup'";
   }
-  $tid = get_taxonomy_id('forum', 'Debate');
+  $tid = ugc_taxonomy_term_id('Debate', 'forum');
 //$sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
 
   if (empty($cond))
@@ -1506,7 +1506,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
   }
 
 
-  $tid = get_taxonomy_id('forum', 'Resource');
+  $tid = ugc_taxonomy_term_id('Resource', 'forum');
   if ($rtype == 4) {
     if (empty($cond)) {
       $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";

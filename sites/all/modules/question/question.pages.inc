@@ -147,7 +147,7 @@ function question_save() {
                     $deb->status = 1;
                     // get tid for debate
                     // get_taxonomy_id('module name','term data name')
-                    $tid = get_taxonomy_id('forum','Debate');
+                    $tid = ugc_taxonomy_term_id('Debate', 'forum');
                     $deb->taxonomy = array($tid);
 
                     //node_validate($deb);

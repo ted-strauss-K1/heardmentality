@@ -317,4 +317,3 @@ function issue_sa_convert($nid, $chid) {
     }
   }
 }
-

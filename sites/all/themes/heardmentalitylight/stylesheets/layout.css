@@ -3451,21 +3451,21 @@ h6#deb-ana:hover a,
 	color: #CD2027;
 }
 
-#add-new-debate-form {
+#argument-add-form {
 	margin: 0;
 	position: relative;
 	padding: 0;
 }
 
-#add-new-debate-form table {
+#argument-add-form table {
 	width: 100%;
 }
 
-#add-new-debate-form table td {
+#argument-add-form table td {
 	vertical-align: top;
 }
 
-#add-new-debate-form table td.first {
+#argument-add-form table td.first {
 	width: 100%;
 }
 
@@ -3492,16 +3492,16 @@ h6#deb-ana:hover a,
 	padding-bottom: 46px;
 }
 
-#add-new-debate-form .form-item {
+#argument-add-form .form-item {
 	margin: 0;
 }
 
-#add-new-debate-form span#deb-err {
+#argument-add-form span#deb-err {
 	display: block;
 }
 
-#add-new-debate-form span.error-msg span,
-#add-new-debate-form .no_coins {
+#argument-add-form span.error-msg span,
+#argument-add-form .no_coins {
     color: #CD2027 !important;
     display: block;
     font-style: italic;
@@ -3509,7 +3509,7 @@ h6#deb-ana:hover a,
 	text-align: left;
 }
 
-#add-new-debate-form span.error-msg span.posted {
+#argument-add-form span.error-msg span.posted {
 	color: #55BA59 !important;
 }
 
@@ -3519,7 +3519,7 @@ h6#deb-ana:hover a,
 	width: 98%;
 }
 
-#add-new-debate-form .assign {
+#argument-add-form .assign {
 	float: none;
 	margin: 0;
 	padding: 0 0 12px;
@@ -3530,7 +3530,7 @@ h6#deb-ana:hover a,
 	white-space: nowrap;
 }
 
-#add-new-debate-form .assign span.label {
+#argument-add-form .assign span.label {
 	font-size: 12px;
 	line-height: 15px;
 	font-weight: bold;
@@ -3538,16 +3538,16 @@ h6#deb-ana:hover a,
 	float: left;
 }
 
-#add-new-debate-form .assign span {
+#argument-add-form .assign span {
 	float: right;
 	margin: 0 0 0 12px;
 }
 
-#add-new-debate-form .assign span.small_pos {
+#argument-add-form .assign span.small_pos {
 	margin: 0 0 0 44px;
 }
 
-#add-new-debate-form .value-select {
+#argument-add-form .value-select {
 	width: 100%;
 	margin: 0 0 6px;
 	padding: 0;
@@ -3585,46 +3585,46 @@ h6#deb-ana:hover a,
 	visibility: hidden;
 }
 
-#add-new-debate-form .assign span.small_neg,
-#add-new-debate-form .assign span.small_pos {
+#argument-add-form .assign span.small_neg,
+#argument-add-form .assign span.small_pos {
 	position: relative;
 	top: 1px;
 }
  
-#add-new-debate-form .form-submit {
+#argument-add-form .form-submit {
 	float: left;
     left: 0;
     margin: 12px 15px 0 0;
 }
 
-#add-new-debate-form .add_button {
+#argument-add-form .add_button {
 	position: absolute;
     top: 127px;
 	width: 70%;/*63% on small devaces*/
 }
 
-#add-new-debate-form .add_button.reduce {
+#argument-add-form .add_button.reduce {
 	top: 64px;
 }
 
-#add-new-debate-form .add_button .argument-form,
-#add-new-debate-form .add_button .reference-form {
+#argument-add-form .add_button .argument-form,
+#argument-add-form .add_button .reference-form {
 	padding-top: 20px;
 	/*float: left;*/
 }
 
-#add-new-debate-form .add_button .reference-form.pic_ref {
+#argument-add-form .add_button .reference-form.pic_ref {
 	padding: 0;
 }
 
-#add-new-debate-form .add_button .argument-form a,
-#add-new-debate-form .add_button .reference-form a {
+#argument-add-form .add_button .argument-form a,
+#argument-add-form .add_button .reference-form a {
 	color: #924C9D;
 	font: bold 12px/15px Arial,"Lucida Grande",sans-serif;
 }
 
-#add-new-debate-form .add_button .argument-form a:hover,
-#add-new-debate-form .add_button .reference-form a:hover {
+#argument-add-form .add_button .argument-form a:hover,
+#argument-add-form .add_button .reference-form a:hover {
 	color: #924C9D;
 	text-decoration: underline;
 }
@@ -5182,9 +5182,9 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 #new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper:after,
 #new_vote .poll-vote-area .fieldset-wrapper .form-item:after,
 #debate_work_area:after,
-#add-new-debate-form .value-select:after,
-#add-new-debate-form .assign:after,
-#add-new-debate-form:after,
+#argument-add-form .value-select:after,
+#argument-add-form .assign:after,
+#argument-add-form:after,
 #debate_list_area .arg .position:after,
 .userinfo-debate:after,
 #debate_list_area .arg:after,

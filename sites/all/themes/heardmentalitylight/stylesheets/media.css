@@ -116,7 +116,7 @@
 			padding-bottom: 35px;
 		}
 		
-		#add-new-debate-form .add_button {
+		#argument-add-form .add_button {
 			width: 62%;
 		}
 		
@@ -778,7 +778,7 @@ Mobile Only
 		clear: both;
 	}
 	
-	#add-new-debate-form .add_button {
+	#argument-add-form .add_button {
 		position: static;
 	}
 	
@@ -786,7 +786,7 @@ Mobile Only
 		padding: 0;
 	}
 	
-	#add-new-debate-form .add_button {
+	#argument-add-form .add_button {
 		width: 100%;
 	}
 

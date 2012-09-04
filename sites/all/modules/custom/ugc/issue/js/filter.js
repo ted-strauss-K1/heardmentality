@@ -265,23 +265,6 @@ function delete_thread(id, type){
 }
 
 
-// insight view
-
-function insight_view(nid){
-
-  var url = Drupal.settings.base_url + '/issue/ajax/insightview/'+nid;
-  $.ajax({
-    type: 'get',
-    url: url,
-    success:function(msg){
-      $('#insight-view').html(msg);
-    }
-  });
-
-}
-insight_view($('#curr_nid').val());
-
-
 // load debate statistics
 function loadDebateStatistic() {
   var nid = $('#curr_nid').val();

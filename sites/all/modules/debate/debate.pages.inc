@@ -98,7 +98,7 @@ function debate_ajax() {
         $res->status = 1;
         // get tid (debate or resource)
         // get_taxonomy_id('module name','term data name')
-        $tid = get_taxonomy_id('forum', 'Resource');
+        $tid = ugc_taxonomy_term_id('Resource', 'forum');
         $res->taxonomy = array($tid);
         // content type values
         // set main node as ref node for all resources
@@ -389,7 +389,7 @@ function _debate_ajax_url($url) {
     # $images[$element->src] = true;
     $images[] = url_to_absolute($url, $element->src);
   }
-  $images = collect_valid_images($images);
+  $images = arguments_resource_validate_images($images);
   # get title
   $title = $html->find('title', 0);
   if( $title ) {
@@ -410,28 +410,6 @@ function _debate_ajax_url($url) {
     '<em>'.$title.'</em>source:&nbsp;<strong>'.$domain.'</strong><span>'.$description.'</span>'
   );
 }
-
-/**
- * Function to validate the images
- */
-function collect_valid_images($images) {
-  $ext_arr = array('png', 'jpg', 'jpeg', 'JPEG');
-  $result = array();
-  foreach ($images as $image) {
-    $im = explode("/", $image);
-    $webimage = end($im);
-    $ext = explode(".", $webimage);
-    $extension = end($ext);
-    if (in_array($extension, $ext_arr)) {
-      list($width, $height, $type, $attr) = getimagesize($image);
-      if ($width > 30 && $height > 30) {
-        $fImages[] = $image;
-      }
-    }
-  }
-  return $fImages; 
-}
-
 
 /**
  * The function to handle "/issue/debate/save" callbacks

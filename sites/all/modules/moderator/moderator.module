@@ -1130,8 +1130,8 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
     }
 
 //prefetch for debate resources merging
-    $rtid = get_taxonomy_id('forum', 'Resource');
-    $dtid = get_taxonomy_id('forum', 'Debate');
+    $rtid = ugc_taxonomy_term_id('Resource', 'forum');
+    $dtid = ugc_taxonomy_term_id('Debate', 'forum');
 
 
     //merge and filter the dupliacted votes from 2 issues done by same user and set recently voted //PHASE 6
