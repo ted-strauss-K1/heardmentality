@@ -6,9 +6,9 @@ $.hrd.noty = function(options) {
 		dismissQueue: true,
 		timeout: 5000,
 		layout: 'topRight',
-		closeWith: ['click', 'button'],
-		force: true,
+		closeWith: ['button'],
+		force: true
 	};
 	opt = $.extend(opt, options);
 	noty(opt);
-}
+};

@@ -194,7 +194,7 @@ function arguments_form_submit(&$form, &$form_state) {
           ));
         } else {
           $url = parse_url($post['url']);
-          if (strpos($url['host'], 'youtube.com')) {
+          if (false !== strpos($url['host'], 'youtube.com')) {
             drupal_json(array(
               'success' => false,
               'message' => '<div class="messages error"><b>YouTube video ID not found</b></div>',

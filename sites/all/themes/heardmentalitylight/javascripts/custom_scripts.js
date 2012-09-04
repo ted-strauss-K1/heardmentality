@@ -41,45 +41,9 @@ $(document).ready(function() {
 	
   // Show/Hide Add argument & Debate statistic
 	
-  $('h6#add-arg').click(function() {
-	
-    if ($(this).parents('#debate_work_area').find('#analytics-area').hasClass('visible_deb')) {
-      $(this).parents('#debate_work_area').find('#analytics-area').removeClass('visible_deb').addClass('hidden_deb').slideUp();
-	  $('h6#deb-ana').removeClass('expanded');
-    }
-		
-    var add = $(this).parents('#debate_work_area').find('#leave_comment_area');
-		
-    if (add.hasClass('hidden_ar')) {
-      add.removeClass('hidden_ar').addClass('visible_ar').slideDown(400);
-      $(this).addClass('expanded');
-    }
-    else {
-      add.removeClass('visible_ar').addClass('hidden_ar').slideUp(400);
-      $(this).removeClass('expanded');
-    }
-		
-  });
-	
-  $('h6#deb-ana').click(function() {
-	
-    if ($(this).parents('#debate_work_area').find('#leave_comment_area').hasClass('visible_ar')) {
-      $(this).parents('#debate_work_area').find('#leave_comment_area').removeClass('visible_ar').addClass('hidden_ar').slideUp();
-	  $('h6#add-arg').removeClass('expanded');
-    }
-		
-    var graf = $(this).parents('#debate_work_area').find('#analytics-area');
-		
-    if (graf.hasClass('hidden_deb')) {
-      graf.removeClass('hidden_deb').addClass('visible_deb').slideDown(400);
-      $(this).addClass('expanded');
-    }
-    else {
-      graf.removeClass('visible_deb').addClass('hidden_deb').slideUp(400);
-      $(this).removeClass('expanded');
-    }
 
-  });
+	
+
   
   
   // Filter show only
@@ -114,18 +78,7 @@ $(document).ready(function() {
   
 // Add references - position
 
-$('.add_button .argument-form a, .add_button .reference-form a').click(function() {
 
-	var buttonAddTop = $('#leave_comment_area table .reference-form').css('display');
-
-	if (buttonAddTop == 'block'){
-		$('#leave_comment_area .add_button').addClass('reduce');
-	}
-
-	else {
-		$('#leave_comment_area .add_button').removeClass('reduce');
-	}
-});
 
  
 });
