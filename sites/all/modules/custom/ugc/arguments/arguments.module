@@ -98,6 +98,7 @@ function arguments_options($nid, $options = array()) {
  * Resource Node creation
  */
 function arguments_add_resource($nid, $url, $uid, $image) {
+  die('I got to the resource arg');
   if (empty($nid) || empty($url) || empty($uid)) {
     return false;
   }
