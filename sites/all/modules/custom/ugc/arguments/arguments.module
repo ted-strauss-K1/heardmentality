@@ -73,6 +73,12 @@ function arguments_add_debate($nid, $title, $uid) {
   $node->taxonomy = ($tid = ugc_taxonomy_term_id('Debate', 'forum')) !== false ? array($tid) : array();
   $node->language = ugc_detect_language($title);
   $node->field_lang_status[0]['value'] = 0;
+
+  // Without node_submit()
+  $node->teaser = $node->body;
+  $node->created = time();
+  $node->validated = TRUE;
+
   node_save($node);
 
   return $node;
@@ -167,8 +173,13 @@ function arguments_add_resource($nid, $url, $uid, $image) {
   $node->taxonomy = ($tid = ugc_taxonomy_term_id('Resource', 'forum')) !== false ? array($tid) : array();
   $node->field_ref_qid[0]['nid'] = issue_get_translated_node($nid, false);
   $node->field_type[0]['value'] = TYPE_RESOURCE;
-  $node->field_ref_qid[0]['nid'] = issue_get_translated_node($nid, false);
   $node->language = 'en';
+
+  // Without node_submit()
+  $node->teaser = $node->body;
+  $node->created = time();
+  $node->validated = TRUE;
+  
   node_save($node);
 
   return $node;
