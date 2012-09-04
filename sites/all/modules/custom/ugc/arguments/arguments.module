@@ -115,7 +115,7 @@ function arguments_add_resource($nid, $url, $uid, $image) {
   }
   $node = new stdClass();
   $url_p = parse_url($url);
-  if (strpos($url_p['host'], 'youtube.com')) { # YouTube Video
+  if (false !== strpos($url_p['host'], 'youtube.com')) { # YouTube Video
 
     $params = explode('&', $url_p['query']);
     $youtube_id = false;
@@ -126,7 +126,6 @@ function arguments_add_resource($nid, $url, $uid, $image) {
         break;
       }
     }
-    //var_dump($youtube_id);
     if ($youtube_id === false || strlen($youtube_id) != 11) {
       return false;
     }
@@ -179,7 +178,7 @@ function arguments_add_resource($nid, $url, $uid, $image) {
   $node->teaser = $node->body;
   $node->created = time();
   $node->validated = TRUE;
-  
+
   node_save($node);
 
   return $node;
