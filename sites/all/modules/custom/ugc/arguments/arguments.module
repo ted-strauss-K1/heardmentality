@@ -38,7 +38,8 @@ function arguments_menu() {
  * TODO -- remove
  */
 function arguments_test() {
-  $node = node_load(36953	);
+  //$node = node_load(36953	);
+  $node = arguments_add_resource(706, 'http://youtube.com/watch?v=WxKC1-zz_5A&feature=related', 1, '');
   var_dump($node);
 }
 
@@ -98,7 +99,6 @@ function arguments_options($nid, $options = array()) {
  * Resource Node creation
  */
 function arguments_add_resource($nid, $url, $uid, $image) {
-  die('I got to the resource arg');
   if (empty($nid) || empty($url) || empty($uid)) {
     return false;
   }
