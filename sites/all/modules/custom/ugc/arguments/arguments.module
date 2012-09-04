@@ -38,7 +38,8 @@ function arguments_menu() {
  * TODO -- remove
  */
 function arguments_test() {
-  //
+  $node = node_load(36953	);
+  var_dump($node);
 }
 
 /*
