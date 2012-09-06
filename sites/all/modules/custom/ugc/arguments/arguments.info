@@ -3,3 +3,4 @@ description = User Generated Content: Debates & Resources
 package = Custom Modules
 version = "6.x-1.6"
 core = 6.x
+dependencies[] = 'yn'

@@ -916,66 +916,10 @@ $(document).ready(function() {
 });
 
 
-/*$(document).ready(function(){
-  $('.button.light').click(function(e) {
-    $(this).parents('.position-question').find('ul.argument_replybox').toggle(60);
-    $(this).parents('.position-question').find('ul.argument_replybox div').show(60);
-    $(this).parents('.position-question').find('ul.argument_replybox div.help_radios').hide();    
-  })  
-});
-
-$(document).ready(function(){
-  $('.button.light:contains("Yes")').click(function(e) {
-    
-    if ($(this).hasClass('expanded')) {
-      $(this).removeClass('expanded');  
-    }
-    else {
-      if ($(this).next().hasClass('expanded')) {
-        $(this).next().removeClass('expanded');
-      }
-      else {
-        $(this).addClass('expanded');  
-      }
-
-    // $(this).addClass('expanded');  
-    }
-    
-    $(this).parents('.position-question').find('ul.argument_replybox input[name=str_wk]:radio:even').attr('checked',true);
-  })
-});
-
-$(document).ready(function(){
-  $('.button.light:contains("No")').click(function(e) {
-    if ($(this).hasClass('expanded')) {
-      $(this).removeClass('expanded');  
-    }
-    else {
-      if ($(this).prev().hasClass('expanded')) {
-        $(this).prev().removeClass('expanded');
-      }
-      else {
-        $(this).addClass('expanded');  
-      }
-      
-    }
-
-    $(this).parents('.position-question').find('ul.argument_replybox input[name=str_wk]:radio:odd').attr('checked',true);
-  })
-});*/
-
-// Show textbox yes/no reply on argument
-
 /*
  * Functions to hide/show the reply form
  */
-function reply_form_toggle(element) {
-    if( element.hasClass('hidden') ) {
-        element.removeClass('hidden').addClass('visible').slideDown(400);
-    } else {
-        element.removeClass('visible').addClass('hidden').slideUp(400);
-    }
-}
+
 
 
 Drupal.behaviors.add_reply = function(context) {
@@ -993,7 +937,7 @@ Drupal.behaviors.add_reply = function(context) {
     else {
       $(this).removeClass('collapsed');
     }
-    reply_form_toggle(agree);
+    element_toggle(agree);
 	
     $(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:even').attr('checked',true);
 		
@@ -1013,7 +957,7 @@ Drupal.behaviors.add_reply = function(context) {
       else {
           $(this).removeClass('collapsed');
       }
-      reply_form_toggle(disagree);
+      element_toggle(disagree);
 	
     $(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:odd').attr('checked',true);
 		

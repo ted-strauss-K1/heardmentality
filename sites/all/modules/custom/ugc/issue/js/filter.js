@@ -12,67 +12,7 @@ function show_msg(element, message, delayTimeout, slideTimeout) {
     });
 }
 
-/*
- * Reply Form Submit
- */
-jQuery('.arg-reply-form').live('submit', function(e){
-    e.preventDefault();
-    // get form element
-    var form = jQuery(this);
-    if( form.find('textarea').val().length < 2 ) {
-        form.find('.reply_err').html('<span>Please enter your reply.</span>').delay(3000).fadeOut(1000, function() {
-            form.find('.reply_err').html('');
-        });
-    } else {
-        // hide submit button
-        form.find('input[type=submit]').hide();
-        // show sub loader
-        form.find('#sub_loader').show();
-        // get form data
-        var data = form.serialize();
-        // get form elements' ids
-        var id = form.find('input[name=content_id]').val();
-        var open = jQuery('#all_replybox_'+id);
 
-        jQuery.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: form.attr('action'),
-            data: data,
-            success: function(msg){
-                // empty the textarea
-                form.find('textarea').val('');
-                reply_form_toggle(form.parents('#reply-comment'));
-                // add comment content
-                open.prepend(msg.content);
-                // show message and hide it shortly
-                /*
-                jQuery('#reply-msg-'+id).html(msg.message).delay(5000).slideUp(500, function(){
-                    jQuery(this).html('').show();
-                });
-                */
-                show_msg('#reply-msg-'+id, msg.message, 5000, 500);
-                // update the number of the replies
-                var replycount = form.parents('.one-forum').find('.replies legend span.replycount');
-                replycount.fadeOut(1000, function(){
-                    replycount.html(parseInt(replycount.html())+1);
-                    replycount.fadeIn(1000);
-                });
-                // add the translate to the new comment
-                translate();
-            },
-            complete: function(){
-                // show submit button
-                form.find('input[type=submit]').show();
-                // hide sub loader
-                form.find('#sub_loader').hide();
-                // empty the error
-                form.find('.reply_err').html('');
-            }
-        });
-    }
-    return false;
-});
 
 
 
@@ -97,25 +37,10 @@ $(document).ready(function(){
 /**
  * @author gobinath.m
  */
-function get_filter_option(type) {
-  var url=Drupal.settings.base_url+'qlite/ajax?action=filter';
-  $('#fopt').html('');
-  $.ajax({
-    type: "POST",
-    url: url,
-    data: {
-      type: type
-    },
-    success: function(msg){
-      $('#fopt').html(msg);
-    }
-  });		
-}
 
 
-function MM_jumpMenuGo(){ 
-  document.form1.submit();
-}
+
+
 
 function search_iss_trig(){
   $('#subject').trigger('change');
@@ -140,12 +65,7 @@ $(document).ready(function() {
 
   //trigger search filters
   search_iss_trig();
-  //for IE
-  // setTimeout(resetFields,3000);
-  //  $('#subject').change();
-  //   $('#subject').val("3");
-  //sendEvent($('#subject'),'change');//assuming there is a select element
-  //$('#subject').fireEvent("onchange");
+
 
   $('#analytics-area').slideUp(3000);
   $('#res-analytics-area').slideUp(3000);
@@ -180,16 +100,7 @@ $(document).ready(function() {
 
 });
 
-function sendEvent(ele,e){
-  try{// every browser except IE8 and below works here
-    var evt = document.createEvent("HTMLEvents");
-    evt.initEvent(e, true, true);
-    ele.dispatchEvent(evt);
-  }
-  catch(err){
-    ele.fireEvent('on'+e);
-  }
-}
+
 
 
 // open suggest answer form
@@ -267,7 +178,7 @@ function delete_thread(id, type){
 
 // load debate statistics
 function loadDebateStatistic() {
-  var nid = $('#curr_nid').val();
+  var nid = Drupal.settings.nid;
   $.getJSON(Drupal.settings.base_url + '/debate/ajax/'+ nid +'/'+ '?action=analysis', function(data) {
     var chart;
     chart = new Highcharts.Chart({
@@ -373,7 +284,7 @@ function loadDebateStatistic() {
 }
 
 $('#deb-ana').live('click', function(){
-  var nid = $('#curr_nid').val();
+  var nid = Drupal.settings.nid;
   var url = Drupal.settings.base_url + '/issue/ajax/debate_statistics/'+ nid;
   $('#deb-ana-load-txt').html('Loading...');
   $.ajax({
@@ -391,7 +302,7 @@ $('#deb-ana').live('click', function(){
 
 // load reference statistics
 $('#res-ana').live('click', function(){
-  var nid = $('#curr_nid').val();
+  var nid = Drupal.settings.nid;
   var url = Drupal.settings.base_url + 'issue/ajax/resource_statistics/'+nid;
   $('#res-ana-load-txt').html('Loading...');
   $.ajax({
@@ -728,25 +639,7 @@ function disableLink(e) {
 
 
 // open resource subtab types
-function res_type_tab(id,tab,nid){
-  var divid;
 
-  // url sort get values
-  var sup = $('#sup').val();
-  var ans = $('#ans').val();
-  var sort = $('#sort').val();
-
-  $('#load-resource').prepend('Loading...');
-  var url = Drupal.settings.base_url+'issues/load_resources/'+nid+'/'+id+'/'+sup+'/'+ans+'/'+sort;
-  $.ajax({
-    type: 'post',
-    url: url,
-    success: function(msg){
-      $('#load-resource').html('');
-      $('#load-resource').html(msg);
-    }
-  });
-}
 
 function resOpenReplyBox(rid){
   var boxid = '#reply-box-'+rid;
@@ -999,11 +892,17 @@ $(document).ready(function(){
   $('.popup a').click(function(){
     var e = $(this).attr('class');
     var id = $(this).parents('dl').attr('name');
-    nid = $('#curr_nid').val();
+    nid = Drupal.settings.nid;
+    var url = Drupal.settings.base_url + '/arguments/tabs/' + nid +'/';
+    $('#debate_list_area').tabs("url", 0 , url+0+'/0?class='+e +'&chorder='+id);
+    $('#debate_list_area').tabs("url", 1 , url+1+'/0?class='+e +'&chorder='+id);
+    $('#debate_list_area').tabs("url", 2 , url+2+'/0?class='+e +'&chorder='+id);
+/*
     var url = Drupal.settings.base_url + '/issue/' + nid +'/tab_content/1/';
     $('#debate_list_area').tabs("url", 0 , url+0+'?class='+e +'&chorder='+id);
     $('#debate_list_area').tabs("url", 1 , url+1+'?class='+e +'&chorder='+id);
     $('#debate_list_area').tabs("url", 2 , url+2+'?class='+e +'&chorder='+id);
+*/
     var selected = $("#debate_list_area").tabs( "option", "selected" );
     $('#debate_list_area').tabs("load", selected);
     $('#debate_list_area').tabs("select", selected);

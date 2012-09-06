@@ -4100,6 +4100,20 @@ h6#deb-ana:hover a,
 	color: #ccc;
 }
 
+.position-question, .position-question a {
+    color: #ccc;
+    font-weight: bold;
+}
+.position-question a span {
+    margin: 0 2px;
+}
+.position-question a span.notvoted {
+    font-weight: normal;
+}
+.position-question a {
+    margin: 0 4px;
+}
+
 .position-question strong.motivat {
 	display: none;
     font-size: 11px;
@@ -4324,10 +4338,6 @@ ul.control_links h6#reply:hover {
 
 #debate_list_area li.one_reply .position-question .comment-agree {
 	vertical-align: top;
-}
-
-#debate_list_area li.one_reply .position-question span.doyou_app {
-	display: none;
 }
 
 #debate_list_area li.one_reply ul.control_links {
@@ -5254,4 +5264,8 @@ span.coins_char {
 
 #admin-menu li li a {
 	font-size: 10px;
+}
+
+#ui-tabs-1, #ui-tabs-2, #ui-tabs-3 {
+    margin-top: 12px;
 }

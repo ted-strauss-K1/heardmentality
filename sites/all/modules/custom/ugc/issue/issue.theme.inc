@@ -374,30 +374,23 @@ function theme_issue_results_graph_gmap($node){
  */
 function theme_issue_arguments($node) {
   if (user_is_logged_in()) {
-    $argument_form = drupal_get_form('arguments_form', $node->nid);
+    $arguments_form = drupal_get_form('arguments_form', $node->nid);
   } else {
-    $argument_form =
-      '<div class="openlogin_box" align="center"><b>' .
+    $arguments_form =
+      '<div class="'.ugc_loginbox_class(true).'" align="center"><b>' .
         t('Please log in to participate in the debate') .
       '</b></div>';
   }
 
+  $dr = arguments_get_list($node->nid);
 
-  $nid = $node->nid;
-
-  $debate_filter_form = drupal_get_form('filter_options', $nid);
-  # $debate_list = array();
-  # $debate_list[0] = issue_ajax_tab_content($nid, 1, 0, 1);
-  $count = array();
-  $dr = issue_get_dr($nid);
-  $count[] = $dr['#count'][TYPE_DEBATE];
-  $count[] = $dr['#count'][TYPE_RESOURCE];
-  $show_only = array();
-  $ans = issue_choices($nid);
-  foreach ($ans as $list) {
-    $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
-  }
-  return theme('debate_area', $argument_form, $debate_filter_form, $count, $show_only, $nid);
+  return theme('issue_debate_area',
+    $arguments_form,
+    $dr['#count'][TYPE_DEBATE],
+    $dr['#count'][TYPE_RESOURCE],
+    issue_choices($node->nid),
+    $node->nid
+  );
 }
 
 
@@ -423,25 +416,7 @@ function theme_issue_arguments($node) {
 
 
 
-/*
- * Delete debate/resource/comment link
- *
- * @id    - one of the debate_tnid, resource_id, comment_id
- * @type  - one of the 'debate', 'resource', 'reply'
- *
- * @requires javascript function delete_thread
- */
-function theme_delete_button($id, $type, $title = 'Are you sure to delete this argument?') {
-  if( !$id ) return;
-  return l( t('Delete'), '#', array('attributes' => array(
-    'class' => 'flag2 delete',
-    'title' => t('Delete'),
-    'name'  => ($name = 'own_'.($type=='reply'?'reply':'forum').'_'.$id.'_'.$type),
-  )) ) .
-  '<div id="dialog_'.$name.'" style="display:none" title="'.$title.'">
-    <input type="button" value="Delete" onclick="delete_thread(\''.$name.'\')">
-  </div>';
-}
+
 
 /*
  * Like/Dislike bar
@@ -458,52 +433,7 @@ function theme_like_dislike_bar($pro, $con) {
     '<span id="dislike-percent-area" class="dislike-per" style="width:'.$con_perc.'%;"></span>';
 }
 
-/*
- * Rating button
- *
- * @item   - debate/resource/reply
- */
-function theme_rating_button($item) {
-  $text = $item['type'] == 'debate' ? t('Do you agree with the argument?') : t('Do you agree?');
-  $id = $item['content_id'];
-  $ntype = $item['type'] == 'reply' ? 'comment' : 'node';
-  $like_dislike_bar = theme('like_dislike_bar', $item['vote_up'], $item['vote_down']);
-  $suffix = $ntype.'-'.$id;
 
-  # classes and titles
-  global $user;
-  if( $item['posted_by'] == $user->uid) {
-    $agreeTitle = 'You are not able to rate your own post!';
-    $disagreeTitle = $agreeTitle;
-    $agreeClass = 'agree button light';
-    $disagreeClass = 'disagree button light';
-  } elseif( $item['allow_rating'] == true ) {
-    $prefix = $item['type'] != 'resource' ? 'd' : 'r';
-    $agCls = $prefix.'agree';
-    $dagCls = $prefix.'disagree';
-    $agreeClass = 'agree button light '.$agCls ;
-    $disagreeClass = 'disagree button light '.$dagCls;
-    $agreeTitle = 'Agree This!';
-    $disagreeTitle = 'Disagree This!';
-  } else {
-    $agreeTitle = 'You have rated this!';
-    $disagreeTitle = $agreeTitle;
-    $agreeClass = 'agree button light';
-    $disagreeClass = 'disagree button light';
-  }
-
-  return
-    '<div id="likebar-'.$suffix.'" class="likebar">'.$like_dislike_bar.'</div>' .
-    '<span class="comment-agree" type="'.$item['type'].'" name="'.$id.'" id="lik-btns-'.$suffix .'">
-      <strong>'.t('Do you agree').'<span class="doyou_app"> '.t('with the argument').'</span>' . t('?') . '</strong>
-      <a href="javascript:void(0);" id="medal1" title="'.$agreeTitle.'" name="a-'.$id.'" class="'.$agreeClass.'">' .
-        t('Yes').'  <span>('.$item['vote_up'].')</span>
-      </a>&nbsp;|
-      <a href="javascript:void(0);" id="medal1" title="'.$disagreeTitle.'" name="da-'.$id.'" class="'.$disagreeClass.'">' .         t('No').' <span>('.$item['vote_down'].')</span>
-      </a>
-      <strong class="motivat">' . t('(Click yes/no to leave support/oppose comment.)') . '</strong>
-    </span>';
-}
 
 /*
  * Forum reply item
@@ -529,7 +459,7 @@ function theme_forum_reply($item) {
 function theme_forum_replies($content_id, $pid = 0) {
   global $user;
   $output = '';
-  $items = issue_dr_comments($content_id, $pid);
+  $items = arguments_get_comments($content_id, $pid);
   foreach( $items as $item ) {
     $output .= theme('forum_reply', $item);
   }

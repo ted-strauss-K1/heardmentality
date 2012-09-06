@@ -4,12 +4,28 @@
  * Implementation of hook_init()
  */
 function ugc_init() {
-  global $base_url;
+  global $base_url, $user;
   drupal_add_js(array('base_url' => $base_url), 'setting');
   if (arg(0) == 'node' && is_numeric(arg(1))) {
     drupal_add_js(array('nid' => arg(1)), 'setting');
   }
+  drupal_add_js(array('uid' => user_is_logged_in() ? $user->uid : 0), 'setting');
 }
+
+/*
+ * Save translations for UI to Drupal.settings
+ *
+ * @warning do not use t()
+ */
+function ugc_translate($key, $value) {
+  static $t = array();
+  if (!isset($t[$key])) {
+    $t[$key] = $value;
+    drupal_add_js(array('t' => array($key => t($value))), 'setting');
+  }
+}
+
+
 
 /*
  * Custom filter
@@ -78,4 +94,38 @@ function dates_range($date1, $date2) {
     }
   }
   return $range;
+}
+
+/*
+ * Get loginbox class
+ */
+function ugc_loginbox_class($force = false) {
+  return !$force && user_is_logged_in() ? '' : 'openlogin_box';
+}
+
+/*
+ * Converts time to string like "3 hour(s) ago"
+ */
+function ugc_time_interval($time) {
+  # dates/interval
+  $date_now = new DateTime("now");
+  $date = new DateTime($time);
+  $interval = $date->diff($date_now);
+  # convert to string
+  if ($interval->y != 0) {
+    return $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
+  }
+  if ($interval->m != 0) {
+    return $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
+  }
+  if ($interval->d != 0) {
+    return $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
+  }
+  if ($interval->h != 0) {
+    return $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
+  }
+  if ($interval->i != 0) {
+    return $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
+  }
+  return 'just now';
 }

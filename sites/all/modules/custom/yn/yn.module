@@ -9,7 +9,7 @@
  *  _votingapi_delete()
  */
 function yn_init() {
- //
+  drupal_add_js(drupal_get_path('module', 'yn') . '/yn.js');
 }
 
 /*
@@ -22,6 +22,12 @@ function yn_menu() {
     'page callback'    => 'yn_test',
     'access arguments' => array(UP_ACTIONS_ADMIN),
     'type'             => MENU_CALLBACK,
+  );
+  $menu['yn/%/%/%'] = array(
+    'page callback'   => 'yn_ajax',
+    'type'            => MENU_CALLBACK,
+    'page arguments'  => array(1, 2, 3),
+    'access callback' => TRUE,
   );
 
   return $menu;
@@ -71,7 +77,9 @@ function yn_vote( $content_id, $value, $content_type, $vote_source = '', $uid = 
   if( !empty($uid) ) {
     $vote['uid'] = $uid;
   }
-  yn_invoke_event($value, $content_id, $content_type);
+  if ($vote['vote_source'] != VOTE_AUTOADD) {
+    yn_invoke_event($value, $content_id, $content_type);
+  }
   return votingapi_add_votes($vote);
 }
 
@@ -222,10 +230,6 @@ function _votingapi_count($table = 'vote', $criteria = array()) {
   return db_result(db_query($query, $details['args']));
 }
 
-
-
-
-
 /*
  * Function to get the user object of content owner
  *
@@ -239,4 +243,113 @@ function _yn_content_author($content_id, $content_type) {
     $uid = db_result(db_query("SELECT uid FROM {comments} WHERE cid = '%d'", $content_id));
   }
   return user_load($uid);
+}
+
+/*
+ * "yn" ajax callback
+ *
+ * @param content_id - Argument Node Id or Comment Id
+ * @param content_type - 'node' or 'comment'
+ * @param vote_value - VOTE_AGREE or
+ */
+function yn_ajax($content_id, $content_type, $vote_value) {
+  if (empty($content_id) || empty($content_type) || !in_array($vote_value, array(VOTE_AGREE, VOTE_DISAGREE))) {
+    drupal_json(array(
+      'status' => false,
+      'message' => t('Error occurred'),
+    ));
+    exit();
+  }
+  if (!user_is_logged_in()) {
+    drupal_json(array(
+      'status' => false,
+      'message' => t('You need to log in to join this debate'),
+    ));
+    exit();
+  }
+  if (yn_user_voted($content_id, $content_type)) {
+    drupal_json(array(
+      'status' => false,
+      'message' => t('You have already voted'),
+    ));
+    exit();
+  }
+  yn_vote( $content_id, $vote_value, $content_type );
+  if( $content_type == 'comment' ) {
+    $result = db_fetch_array(db_query("SELECT nid, str_wk FROM {comments} WHERE cid = '%d'", $content_id));
+    $_vote_value = $vote_value;
+    if( !$result ) {
+      yn_invert_vote_value($_vote_value);
+    }
+    $parent_id = $result['nid'];
+    yn_vote( $result['nid'], $_vote_value, 'node', VOTE_AUTOADD );
+  } else {
+    $parent_id = $content_id;
+  }
+
+  $output = array();
+  $votes = yn_votes($content_id, $content_type);
+  list($output['vote_up'],$output['vote_dn'], $output['vote_sum']) = $votes;
+  if ($content_type == 'node') {
+    list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum']) = $votes;
+  } else {
+    list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum']) = yn_votes($parent_id, 'node');
+  }
+  # update the parent
+  $node = node_load($parent_id);
+  $node->field_strength[0]['value'] = $output['pvote_sum'];
+  node_save($node);
+
+  $output['content_id'] = $content_id;
+  $output['content_type'] = $content_type;
+  $output['vote_value'] = $vote_value;
+  $output['parent_id'] = $parent_id;
+
+  $message = $vote_value == VOTE_AGREE ? 'Agreed!' : 'Disagreed!';
+  drupal_json(array(
+    'status' => true,
+    'message' => t($message),
+    'data' => $output,
+  ));
+  exit();
+}
+
+
+/*
+ * Implementation of hook_theme()
+ */
+function yn_theme() {
+  $theme = array();
+
+  $theme['yn'] = array(
+    'arguments' => array(
+      'node'    => null,
+    ),
+  );
+
+  return $theme;
+}
+
+/*
+ * "yn" theme
+ */
+function theme_yn($node) {
+  if ($node->owner) {
+    $title1 = t('You are not able to rate your own post!');
+    $title2 = $title1;
+  } elseif ($node->rated) {
+    $title1 = t('You have rated this!');
+    $title2 = $title1;
+  } else {
+    $title1 = t('Agree this!');
+    $title2 = t('Disagree this!');
+    $notrated = true;
+  }
+  return '
+    <span class="comment-agree" id="yn-'.$node->content_type.'-'.$node->content_id.'">
+      <strong>'.t('Do you agree').($node->content_type=='comment'?'':' '.t('with the argument')).'?</strong>
+      <a href="javascript:void(0);" class="yn agree '.($notrated?' yn-a':'').' yn-a-'.$node->content_id.'" title="'.$title1.'" name="'.$node->content_id.'/'.$node->content_type.'/'.VOTE_AGREE.'">'.t('Yes').'<span'.($notrated?'':' class="notvoted"').'>('.$node->vote_up.')</span></a>&nbsp;|
+      <a href="javascript:void(0);" class="yn disagree '.($notrated?' yn-d':'').' yn-d-'.$node->content_id.'" title="'.$title2.'" name="'.$node->content_id.'/'.$node->content_type.'/'.VOTE_DISAGREE.'">'.t('No').'<span'.($notrated?'':' class="notvoted"').'>('.$node->vote_dn.')</span></a>
+      <strong class="motivat">'.t('(Click yes/no to leave support/oppose comment.)').'</strong>
+    </span>';
 }

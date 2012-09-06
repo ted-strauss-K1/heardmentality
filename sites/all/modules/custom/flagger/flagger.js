@@ -43,17 +43,12 @@ function flagger_exec(flagger) {
     });
 }
 
-function flagger_rebind() {
-    $('.flagger').unbind( 'click' );
-    $('.flagger').click(function(e) {
-        e.preventDefault();
-        var flagger = $(this);
-        flagger_exec(flagger);
-        return false;
-    });
-}
 
 $(document).ready(function() {
-    flagger_rebind();
+  $('.flagger').live('click',function(e) {
+    e.preventDefault();
+    var flagger = $(this);
+    flagger_exec(flagger);
+    return false;
+  });
 });
-

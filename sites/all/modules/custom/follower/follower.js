@@ -84,18 +84,13 @@ function follower_exec(follower) {
   });
 }
 
-function follower_rebind() {
-  $('.follower').unbind( 'click' );
-  $('.follower').click(function(e) {
+$(document).ready(function() {
+  $('.follower').live('click', function(e) {
     e.preventDefault();
     var follower = $(this);
     follower_exec(follower);
     return false;
   });
-}
-
-$(document).ready(function() {
-  follower_rebind();
 });
 
 

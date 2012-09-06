@@ -88,10 +88,11 @@ Drupal.behaviors.add_new_form = function(context) {
    */
   $('a.permalink').click(function(e) {
     e.preventDefault();
+    var link = window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id');
     $.hrd.noty({
       'layout' : 'center',
       'type'   : 'alert',
-      'text'   : window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id'),
+      'text'   : '<a href="'+link+'">'+link+'</a>',
       'modal'  : true,
       'timeout': false,
       'closeWith': ['button']
@@ -102,7 +103,6 @@ Drupal.behaviors.add_new_form = function(context) {
 
 
   translate();
-  flagger_rebind();
 
 /*
   $('.goog-trans-control').html('');

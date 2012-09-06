@@ -60,6 +60,8 @@ $item['title'] = str_replace("\n", "<br>", $item['title']);
           <?php else : ?>
             <p><?php print t($item['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
         <?php endif; ?>
+
+
         </div>
           <?php if ($item['type'] == 'debate') : ?>
           <div class="position">

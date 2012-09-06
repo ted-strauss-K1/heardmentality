@@ -35,14 +35,14 @@ function arguments_schema() {
         'default' => 0,
         'description' => 'The sort order of this choice among all choices for the same node.',
       ),
-      'option' => array(
+      'val' => array(
         'type' => 'int',
         'not null' => TRUE,
         'unsigned' => FALSE,
         'default' => 0,
         'description' => 'User option',
       ),
-      'date' => array(
+      'date_added' => array(
         'description' => 'Date the option was added',
         'type' => 'datetime',
         'not null' => TRUE,

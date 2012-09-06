@@ -191,6 +191,130 @@ $(document).ready(function() {
     });
     return false;
   });
+});
+
+/*
+ * Function to toggle element
+ */
+function element_toggle(element) {
+  if( element.hasClass('hidden') ) {
+    element.removeClass('hidden').addClass('visible').slideDown(400);
+  } else {
+    element.removeClass('visible').addClass('hidden').slideUp(400);
+  }
+}
+
+/*
+ * Reply Form Submit
+ */
+$('.arg-reply-form').live('submit', function(e){
+  e.preventDefault();
+  var form = $(this);
+  if (form.find('textarea').val().length < 2) {
+    $.hrd.noty({'type':'error','text':'Please enter your reply'});
+    return;
+  }
+  // hide submit button
+  form.find('input[type=submit]').hide();
+  // show sub loader
+  form.find('#sub_loader').show();
+  // get parent
+  var parent = form.closest('.one-forum');
+  var parent_id = parent.attr('name');
+
+  $.ajax({
+    type: 'POST',
+    dataType: 'json',
+    url: form.attr('action'),
+    data: form.serialize(),
+    success: function(response){
+      if (!response.status) {
+        $.hrd.noty({text:response.message, type:'error'});
+        return false;
+      }
+      // show message
+      $.hrd.noty({text:response.message, type:'success'});
+      // reset form
+      form.reset();
+      // add the comment to the list
+      parent.find('#all_replybox_'+parent_id).prepend(response.content);
+      // toggle replybox
+      element_toggle(parent.find('.reply-comment'));
+      // update reply count
+      var replycount = parent.find('.replies legend span.replycount');
+      replycount.fadeOut(1000, function(){
+        replycount.html(parseInt(replycount.html())+1);
+        replycount.fadeIn(1000);
+      });
+      // add the translate to the new comment
+      translate();
+    },
+    complete: function(){
+      // show submit button
+      form.find('input[type=submit]').show();
+      // hide sub loader
+      form.find('#sub_loader').hide();
+    }
+  });
+});
 
 
+/*
+ * Arguments Delete
+ */
+$('.argument-delete').live('click', function(e){
+  e.preventDefault();
+  var el = $(this);
+
+  $.hrd.noty({
+    'layout' : 'center',
+    'type'   : 'alert',
+    'text'   : Drupal.settings.t.confirm_delete,
+    'modal'  : true,
+    'timeout': false,
+    'buttons': [
+      {
+        addClass : 'btn btn-primary',
+        text     : 'Delete!',
+        onClick  : function($noty) {
+          $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: Drupal.settings.base_url + '/arguments/delete/' + el.attr('name'),
+            data: {},
+            success: function(response){
+              if (!response.status) {
+                $.hrd.noty({text:response.message, type:'error'});
+                return false;
+              }
+              // show message
+              $.hrd.noty({text:response.message, type:'success'});
+              // delete content from page
+              var params = el.attr('name').split('/');
+              var container = false;
+              switch (params[0]) { // by content_type
+                case 'node' :
+                  container = el.closest('.one-forum');
+                  break;
+                case 'comment' :
+                  container = el.closest('.one_reply');
+                  break;
+              }
+              if (container) {
+                container.slideUp(400, function () {container.remove();});
+              }
+            }
+          });
+          $noty.close();
+        }
+      },
+      {
+        addClass: 'btn btn-danger',
+        text: 'Cancel',
+        onClick: function($noty) {
+          $noty.close();
+        }
+      }
+    ]
+  });
 });

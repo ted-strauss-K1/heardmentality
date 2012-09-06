@@ -1,15 +1,15 @@
 <?php
-global $user;
+
 drupal_add_js('misc/collapse.js');
 global $base_url;
-$loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
+
 ?>
 
 <div id="debate_work_area">
   <div class="inner">
 
     <div class="expanding arg">
-      <h6 value="Reply" id="add-arg" class="button <?php print $loginBoxClass; ?>"><?php print t('Add'); ?></h6>
+      <h6 value="Reply" id="add-arg" class="button <?php print ugc_loginbox_class(); ?>"><?php print t('Add'); ?></h6>
     </div>
 
     <div class="expanding stat">
@@ -17,31 +17,21 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     </div>	
 
     <div id="leave_comment_area" class="leave-a-comment hidden_ar" style="display: none;">
-      <?php print $addNewDebateForm; ?>
+      <?php print $arguments_form; ?>
     </div>
 
     <div id="analytics-area" class="hidden_deb" style="display: none;">
       <h2><span>Debate statistics</span></h2>
-      <input type="hidden" id="curr_nid" value="<?php print $nid ?>" />
       <div id="deb-ana-load-txt"></div>
       <div id="load-deb-statics"></div>
     </div>
-
-
-    <!--<div class="expanding">
-            <h6 class="button"><?php print t('Show only'); ?></h6>
-            <ul>
-              <?php print $debateFilterForm; ?>
-            </ul>
-    </div>-->
-
 
   </div><!--/.inner -->
 </div><!--/#debate_work_area -->
 
 <div id="debate_list_area">
   <h2>
-    <span class="argcount"><?php print $count[0]; ?>&nbsp;</span><span>Arguments&nbsp;&amp;&nbsp;</span><span class="rescount"><?php print $count[1]; ?>&nbsp;</span><span>References</span>
+    <span class="argcount"><?php print $debate_count; ?>&nbsp;</span><span>Arguments&nbsp;&amp;&nbsp;</span><span class="rescount"><?php print $resource_count; ?>&nbsp;</span><span>References</span>
 
     <div class="show_only">
       <span class="button" id="show_filter">&#9660; Show only</span>
@@ -53,8 +43,8 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
       </div>
       <div class="popup hidden" id="filter_content">
         <span class="title">Show all</span>
-        <?php foreach ($show_only as $key => $answer) : ?>
-          <dl name="<?php print $key?>">
+        <?php foreach ($choices as $index => $choice) : ?>
+          <dl name="<?php print $choice['chorder'] ?>">
             <dd>
               <a href="" class="neutral">
                 <span class="small_pos">+</span>
@@ -67,20 +57,25 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
                 <span class="small_neg">-</span>
               </a>
             </dd>
-            <dt><?php print $answer; ?></dt>
+            <dt><?php print $choice['short_answer']; ?></dt>
           </dl>
         <?php endforeach; ?>
 		    <span class="title reset">Reset filters</span>
       </div>
     </div>
   </h2>
-  <!--</h2> -->
+
   <div id="empty_helper">&nbsp;</div>
 
   <ul>
+    <li><a href="<?php print $base_url ?>/arguments/tabs/<?php print $nid; ?>/1/0">recent</a></li>
+    <li><a href="<?php print $base_url ?>/arguments/tabs/<?php print $nid; ?>/0/0">older</a></li>
+    <li><a href="<?php print $base_url ?>/arguments/tabs/<?php print $nid; ?>/2/0">supported</a></li>
+  <!--
     <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/1">recent</a></li>
     <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/0">older</a></li>
     <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/2">supported</a></li>
+  -->
   </ul>
 
 </div><!--/#debate_list_area -->

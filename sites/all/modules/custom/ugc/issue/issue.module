@@ -189,14 +189,7 @@ function issue_menu() {
     'access callback' => true,
     'file' => 'issue.pages.inc',
   );
-  $menu['issues/load_resources/%/%/%/%/%'] = array(
-    'title' => 'Load Resources',
-    'page callback' => 'issue_resources',
-    'type' => MENU_LOCAL_TASK,
-    'page arguments' => array(2, 3, 4, 5, 6),
-    'access callback' => TRUE,
-    'file' => 'issue.pages.inc',
-  );
+
   $menu['issue/vote/ajax/submit/%'] = array(
     'page callback' => 'issue_vote_submit_ajax',
     'access arguments' => array('create issue'),
@@ -246,6 +239,7 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   }
   return;
 }
+
 /*
  * Validate the issue
  *
@@ -312,7 +306,7 @@ function _issue_view(&$node) {
   global $user, $base_url;
   # add js
   drupal_add_js(array('google_map_icons' => drupal_get_path('module', 'issue') . '/icons'), 'setting');
-  # drupal_add_js(array('base_url' => $base_url), 'setting');
+
   # TODO -- refactor javascript
   drupal_add_js(drupal_get_path('module', 'issue') . '/js/add_new_form.js');
   drupal_add_js(drupal_get_path('theme', 'heardmentalitylight') . '/javascripts/room_reservation.js');
@@ -376,7 +370,7 @@ function _issue_view(&$node) {
   $voteCount = db_result(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $tnid . "'"));
   //debates
 
-  $dr = issue_get_dr($tnid);
+  $dr = arguments_get_list($tnid);
   $node->votecount = $voteCount;
   $node->totaldebates = $dr['#count'][TYPE_DEBATE];
   $node->totalresources = $dr['#count'][TYPE_RESOURCE];
@@ -451,32 +445,7 @@ function issue_get_votes($nid) {
 
 
 
-/*
- * Get debates and resources
- */
-function issue_get_dr($nid) {
-  static $dr = array();
-  if (empty($dr[$nid])) {
-    $tmp = array(
-      '#list' => array(),
-      '#count' => array(
-        TYPE_DEBATE => 0,
-        TYPE_RESOURCE => 0,
-        '#all' => 0,
-      )
-    );
 
-    $result = db_query("SELECT * FROM {content_type_forum} WHERE field_ref_qid_nid = '%d' ORDER BY nid DESC", $nid);
-    while ($row = db_fetch_array($result)) {
-      $tmp['#list'][] = $row;
-      $tmp['#count']['#all']++;
-      $tmp['#count'][$row['field_type_value']]++;
-    }
-
-    $dr[$nid] = $tmp;
-  }
-  return $dr[$nid];
-}
 
 /*
  * Implementation of hook_theme()
@@ -523,7 +492,16 @@ function issue_theme() {
     'arguments' => array('styles' => NULL),
     'file' => 'issue.theme.inc',
   );
-
+  $theme['issue_debate_area'] = array(
+    'template' => 'issue-debate-area',
+    'arguments' => array(
+      'arguments_form' => NULL,
+      'debate_count' => 0,
+      'resource_count' => 0,
+      'choices' => array(),
+      'nid' => 0,
+    ),
+  );
 
 
 
@@ -611,13 +589,6 @@ function issue_choices($nid) {
 
 function _issue_theme() {
   return array(
-    'delete_button' => array(
-      'arguments' => array(
-        'id' => NULL,
-        'type' => NULL,
-      ),
-      'file' => 'issue.theme.inc',
-    ),
     'like_dislike_bar' => array(
       'arguments' => array(
         'pro' => NULL,
@@ -625,29 +596,12 @@ function _issue_theme() {
       ),
       'file' => 'issue.theme.inc',
     ),
-    'rating_button' => array(
-      'arguments' => array(
-        'item' => NULL,
-      ),
-      'file' => 'issue.theme.inc',
-    ),
+
     'debate_parent_template' => array(
       'template' => 'debate-parent-template',
       'arguments' => array(
         'item' => NULL,
         #'strength' => NULL,
-        'comments' => NULL,
-        'reply_box' => NULL,
-        'reply_count' => NULL,
-        'ratings' => NULL,
-        'delete' => NULL
-      ),
-    ),
-    'reference_parent_template' => array(
-      'template' => 'reference-parent-template',
-      'arguments' => array(
-        'items' => NULL,
-        'strength' => NULL,
         'comments' => NULL,
         'reply_box' => NULL,
         'reply_count' => NULL,
@@ -678,18 +632,7 @@ function _issue_theme() {
     ),
 
 
-    'debate_area' => array(
-      'template' => 'debate-area',
-      'arguments' => array(
-        'addNewDebateForm' => NULL,
-        'debateFilterForm' => NULL,
-        # 'debateStatistics' => NULL,
-        # 'debateList' => NULL,
-        'count' => NULL,
-        'show_only' => NULL,
-        'nid' => NULL
-      ),
-    ),
+
     'issue_results' => array(
       'template' => 'issue_results',
       'arguments' => array('nid' => NULL, 'cdebate' => NULL, 'cresource' => NULL, 'cpundit' => NULL, 'allowvotes' => NULL),
@@ -709,13 +652,6 @@ function _issue_theme() {
       'arguments' => array('nid' => NULL),
     ),
 
-    'single_resource_template' => array(
-      'arguments' => array('debItems' => array()),
-    ),
-    'reference_area' => array(
-      'template' => 'reference-area',
-      'arguments' => array('addNewReferenceForm' => NULL, 'referenceFilterForm' => NULL, 'refTypeFilter' => NULL, 'referenceStatistics' => NULL, 'referenceList' => NULL),
-    ),
     'popular_categories' => array(
       'template' => 'popular-categories',
       'arguments' => array('popular' => NULL),
@@ -750,7 +686,7 @@ function load_debate($debId = '', $issId = '', $issTnid = '') {
   $forum = node_load(array('nid' => $debId, 'status' => '1'));
   $account = user_load($forum->uid);
   # translate title and body
-  $translated = translate_forum($debId, $language->language);
+  $translated = arguments_translate($debId, $language->language);
   $forum->title = $translated->title;
   $forum->body = $translated->body;
   # get votes
@@ -794,7 +730,7 @@ function load_debate($debId = '', $issId = '', $issTnid = '') {
   $item['vote_down'] = $vote_down;
   $item['allow_rating'] = !yn_user_voted($forum->nid, 'node');
   $item['posted_by'] = $forum->uid;
-  $item['ago'] = get_time_interval($item['posted']);
+  $item['ago'] = ugc_time_interval($item['posted']);
   // unify the debates and resources and comments
   $item['content_id'] = $item['debate_tnid'];
   $item['type'] = 'debate';
@@ -862,7 +798,7 @@ function load_resource($resId = '', $issId = '', $issTnid = '', $resType = '') {
   $item['allow_rating'] = !yn_user_voted($forum->nid, 'node');
   $item['posted_by'] = $forum->uid;
   $item['source'] = $forum->field_source[0]['value'] != '' ? $forum->field_source[0]['value'] : '';
-  $item['ago'] = get_time_interval($item['posted']);
+  $item['ago'] = ugc_time_interval($item['posted']);
   $item['video_id'] = $forum->field_videoid[0]['value'] != '' ? $forum->field_videoid[0]['value'] : '';
   $item['nlink'] = $forum->field_nlink[0]['value'] != '' ? $forum->field_nlink[0]['value'] : '';
   $item['filepath'] = $forum->field_filepath[0]['value'] != '' ? $forum->field_filepath[0]['value'] : '';
@@ -887,7 +823,7 @@ function load_reply($cid = '') {
   if (!$forum)
     return;
   # get translated comment
-  $forum['comment'] = get_translated_comment($cid, $language->language);
+  $forum['comment'] = arguments_translate_comment($cid, $language->language);
   if (empty($forum['comment']))
     return;
   # get author
@@ -908,7 +844,7 @@ function load_reply($cid = '') {
   $item['posted'] = $posted;
   $item['allow_rating'] = !yn_user_voted($forum['cid'], 'comment');
   $item['posted_by'] = $forum['uid'];
-  $item['ago'] = get_time_interval($posted);
+  $item['ago'] = ugc_time_interval($posted);
   if ($forum['str_wk'] == 1) {
     $item['class'] = 'positive';
     $item['sign'] = '+';
@@ -924,33 +860,7 @@ function load_reply($cid = '') {
   return $item;
 }
 
-/*
- * Converts time to string like "3 hour(s) ago"
- */
 
-function get_time_interval($time) {
-  # dates/interval
-  $date_now = new DateTime("now");
-  $date = new DateTime($time);
-  $interval = $date->diff($date_now);
-  # convert to string
-  if ($interval->y != 0) {
-    return $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
-  }
-  if ($interval->m != 0) {
-    return $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
-  }
-  if ($interval->d != 0) {
-    return $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
-  }
-  if ($interval->h != 0) {
-    return $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
-  }
-  if ($interval->i != 0) {
-    return $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
-  }
-  return 'just now';
-}
 
 /*
  * Function to get the number of the strong/weak votes
@@ -972,19 +882,7 @@ function get_strenght($forum_nid) {
  * Function to get translated node for the forum
  */
 
-function translate_forum($forumId ='', $curLanguage = '') {
-  $ftid = db_result(db_query("
-    SELECT nid 
-    FROM {node} 
-    WHERE 
-      tnid = '%d' AND 
-      language = '%s' AND 
-      translate = 1", $forumId, $curLanguage)
-  );
-  $ftid = $ftid != '' ? $ftid : $forumId;
-  $translated = node_load(array('nid' => $ftid, 'status' => '1'));
-  return $translated;
-}
+
 
 /*
  * Load data
@@ -1002,139 +900,13 @@ function translate_forum($forumId ='', $curLanguage = '') {
  * @variables   - array to pass various number of params to submit
  */
 
-function reply_form($form, $content_id, $variables = array()) {
-  $form = array();
 
-  if (!user_is_logged_in()) {
-    $form['log_in'] = array(
-      '#type' => 'markup',
-      '#value' => t('Please Login to post reply')
-    );
-  }
-  else {
-    $form['#attributes'] = array('class' => 'arg-reply-form');
-    $form['#action'] = url($_GET['q'], array('absolute' => TRUE));
-    $form['err_r'] = array(
-      '#type' => 'markup',
-      '#value' => '<div class="error-msg reply_err"></div>'
-    );
-    $form['reply_content'] = array('#type' => 'textarea',
-      '#size' => 70,
-      '#cols' => 10,
-      '#id' => 'reply_content_' . $content_id,
-      '#rows' => 3,
-      '#attributes' => array('class' => 'textarea-input'),
-      '#resizable' => FALSE,
-    );
-    $form['str_wk'] = array(
-      '#type' => 'radios',
-      '#options' => array(
-        '1' => t('Strengthen'),
-        '0' => t('Weaken')
-      ),
-      '#default_value' => '1',
-      '#prefix' => '<div class="help_radios" style="display:none;">',
-      '#suffix' => '</div>',
-    );
-    $form['reply_submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Submit reply'),
-      '#prefix' => '<div align="right">',
-      '#suffix' => '</div>' . theme('sub_loader', 'display:none; margin-bottom:-15px; float:left;'),
-    );
-    $form['variables'] = array(
-      '#type' => 'hidden',
-      '#id' => 'variables',
-      '#default_value' => json_encode($variables),
-    );
-    $form['content_id'] = array(
-      '#type' => 'hidden',
-      '#default_value' => $content_id,
-    );
-  }
-
-  return $form;
-}
-
-/*
- * Forum Reply Form submitter
- *
- * TODO find out how the coins' part works and fix it
- */
-
-function reply_form_submit($form, &$form_state) {
-  global $user;
-  $json = array();
-  # find out if user has enough points to leave a comment
-  $coins = $user->total_coins;
-  $coins_threshold = 0; # get_coins('p_debate');
-  if ($coins < $coins_threshold) {
-    $json['message'] = '<span>' . t('Sorry, you do not have enough coins to reply for this post') . '</span>';
-  }
-  else {
-    # collect comment data
-    $comment = check_plain($form_state['values']['reply_content']);
-    $values = array(
-      'nid' => $form_state['values']['content_id'],
-      'uid' => $user->uid,
-      'name' => $user->name,
-      'language' => ugc_detect_language($comment),
-      'subject' => $comment,
-      'comment' => $comment,
-      'status' => 0,
-      'format' => '',
-      'mail' => '',
-      'homepage' => '',
-      'str_wk' => $form_state['values']['str_wk'],
-    );
-    # save the comment
-    $cid = comment_save($values);
-    comment_update($cid, $values['str_wk'], $values['language']);
-    # notify log
-    /*
-     * TODO -
-     * find out if d_title, q_title are used somewhere else,
-     * since they're related to both debates and resources
-     * these names may be confusing for developers later
-     */
-    $vars = json_decode($form_state['values']['variables']);
-    $issue_tnid = get_tnid($vars->issue_id);
-    $issue_title = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $issue_tnid));
-    $content_title = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $values['nid']));
-    set_notify_log($user->uid, $values['nid'], 'reply', array(
-      'did' => $values['nid'],
-      'd_title' => $content_title,
-      'uid' => $user->uid,
-      'qid' => $issue_tnid,
-      'q_title' => $issue_title,
-    ));
-    # output
-    if (!$cid) {
-      $json['message'] = '<span>' . t('Sorry, your reply not able to post') . '</span>';
-    }
-    else {
-      $item = load_reply($cid);
-      $ratings = theme('rating_button', $item);
-      if (is_moderator() || $item['uid'] == $user->uid) {
-        $delete = theme('delete_button', $item['cid'], 'reply', 'Are you sure you want to delete this argument?');
-      }
-      $userPicture = UserPicture_small_src($item['uid']);
-      $json['content'] = theme('forum_child_reply_template', $item, $userPicture, $ratings, $delete);
-      $json['message'] = '<span>' . t('Thanks, Your reply posted!') . '</span>';
-    }
-  }
-  print json_encode($json);
-  exit;
-}
 
 /*
  * Update Comment
  */
 
-function comment_update($cid, $str_wk = '', $language) {
-  db_query("UPDATE {comments} SET str_wk = '%d', language = '%s' WHERE cid = '%d'", $str_wk, $language, $cid
-  );
-}
+
 
 /*
  * Forms
@@ -1554,7 +1326,7 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
 //  $poll_results = '';
 //echo $node->allowvotes; exit;
   // get debate, resource, pundit counts
-  $dr = issue_get_dr($tnid);
+  $dr = arguments_get_list($tnid);
   $punditCount = count(getAnsweredUsers($nid));
   return theme('issue_results', $nid, $dr['#count'][TYPE_DEBATE], $dr['#count'][TYPE_RESOURCE], t($punditCount), $tnode->allowvotes);
 }
@@ -2016,12 +1788,7 @@ function get_tnid($nid = '') {
 
 // get translated content for debates
 // get translated debate replies/ and resource replies
-function get_translated_comment($cid = '', $curLanguage = '') {
-  $tcid = db_result(db_query("SELECT cid FROM {comments} WHERE tcid = '$cid' AND language = '$curLanguage' AND translate = 1"));
-  $tcid = $tcid != '' ? $tcid : $cid;
-  $translated = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '$tcid'"));
-  return $translated;
-}
+
 
 // issue ahah calllback
 function issue_ahah_callback($type = '', $key = '') {
@@ -2573,7 +2340,7 @@ function issue_dr_refresh($content_id) {
   list($output['vote_up'], $output['vote_dn'], $output['vote_sum']) = yn_votes($output['id'], 'node');
   # replies
   $output['replies'] = array();
-  $items = issue_dr_comments($content_id);
+  $items = arguments_get_comments($content_id);
   foreach ($items as $item) {
     $item['markup'] = theme('forum_reply', $item);
     $output['replies'] = $item;
@@ -2581,31 +2348,7 @@ function issue_dr_refresh($content_id) {
   return $output;
 }
 
-/*
- * Get debate/resource comments
- *
- * @content_id - debate/resource id
- * @pid        -
- */
 
-function issue_dr_comments($content_id, $pid = 0) {
-  $items = array();
-  $query = "
-    SELECT *
-    FROM {comments} AS c
-    WHERE
-      c.nid     = '%d' AND
-      c.status  = '0' AND
-      c.pid     = '%d' AND
-      c.comment <> '' AND
-      (c.cid = c.tcid OR c.tcid = 0)
-    ORDER BY c.cid DESC";
-  $result = db_query($query, $content_id, $pid);
-  while ($row = db_fetch_array($result)) {
-    $items[] = load_reply($row['cid']);
-  }
-  return $items;
-}
 
 
 

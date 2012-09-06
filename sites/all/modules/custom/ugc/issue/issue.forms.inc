@@ -147,7 +147,7 @@ function issue_vote_form($form, $node) {
     $form['main_submit'] = array(
       '#type' => 'submit',
       '#value' => t('Login to vote'),
-      '#attributes' => array('class' => 'button vote floatright openlogin_box'),
+      '#attributes' => array('class' => 'button vote floatright '.ugc_loginbox_class(true)),
       '#id' => 'vote-login',
     );
   }

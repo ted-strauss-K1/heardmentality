@@ -1,6 +1,5 @@
 <?php
-global $user;
-$loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
+
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)) . '/';
 $items['title'] = str_replace("\r\n", "<br>", $items['title']);
@@ -42,7 +41,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
       endif;
       ?>
       <?php if ($reply_box): ?>
-        <h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>
+        <h6 value="Reply" id="reply" class="add-comment button light <?php print ugc_loginbox_class(); ?>"><?php print t('Reply'); ?></h6>
         <ul>
           <br />
           <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>

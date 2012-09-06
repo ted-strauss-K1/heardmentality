@@ -458,6 +458,7 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
   $parent_id = get_tnid($qid);
   // queries
   if (isset($_GET['class'])) {
+
     $ans_val = 0;
     switch ($_GET['class']) {
       case 'neutral' : $ans_val = 0;
@@ -1305,7 +1306,7 @@ function issue_debates($qid='', $type='', $sort = null) {
 // ratings
 // allow rating check
       $ratings = theme('rating_button', $items);
-      $items['ago'] = get_time_interval($items['posted']);
+      $items['ago'] = ugc_time_interval($items['posted']);
 
       $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
 // update points
@@ -1389,215 +1390,12 @@ function issue_ajax($task = '', $nid = '') {
 
 
 
-// debate filter options
-function filter_options($form, $nid) {
-  $form = '';
-  $ans = issue_choices($nid);
-  $filterBy[''] = t('Answer');
-  foreach ($ans as $list) {
-    $short_answer = get_short_answer($nid, $list['chorder']);
-    $answer = $short_answer != '' ? $short_answer : $list['chtext'];
-    $filterBy[$list['chorder']] = $answer;
-  }
-  $sortBy = array('0' => t('Sort By'), '1' => t('Most Recent'), '2' => t('Most Support'));
 
-  $panOptions = array('0' => '+/-', '1' => '+', '2' => '-');
-
-  $dSup = $_GET['sup'];
-  $dans = $_GET['ans'];
-  $dSort = $_GET['sort'];
-
-  $form['nid'] = array('#type' => 'hidden', '#value' => $nid);
-
-  $form['dfilt_sup'] = array('#type' => 'select',
-    '#options' => $panOptions,
-    '#default_value' => $dSup,
-    '#prefix' => '<span class="select-cat">',
-    '#suffix' => '</span>');
-  $form['dfilt_ans'] = array('#type' => 'select',
-    '#options' => $filterBy,
-    '#default_value' => $dans,
-    '#prefix' => '<span class="select-cat">',
-    '#suffix' => '</span>');
-  $form['dfilt_sort'] = array('#type' => 'select',
-    '#options' => $sortBy,
-    '#default_value' => $dSort,
-    '#prefix' => '<span class="select-cat">',
-    '#suffix' => '</span>');
-  $form['debate_filter'] = array('#type' => 'submit',
-    '#value' => t('Filter'));
-
-  return $form;
-}
-
-function filter_options_submit($form, &$form_state) {
-  global $base_url, $language, $theme;
-  $nid = $form_state['values']['nid'];
-  $sup = $form_state['values']['dfilt_sup'];
-  $ans = $form_state['values']['dfilt_ans'];
-  $sort = $form_state['values']['dfilt_sort'];
-  $ids = '?sup=' . $sup . '&ans=' . $ans . '&sort=' . $sort;
-  $path = $base_url . '/' . $language->language . '/' . drupal_get_path_alias('node/' . $nid) . $ids;
-  drupal_goto($path);
-}
 
 // ISSUE RESOURCES
-function issue_resources_list($qid = '') {
-//$inline = 'jQuery(document).ready(function(){res_type_tab(1,\'resource\',' . $qid . ')})';
-  $inline = 'jQuery(document).ready(function(){res_type_tab(4,\'all\',' . $qid . ')})';
-  drupal_add_js($inline, 'inline');
-  $resources = '';
-
-  return $resources;
-}
 
 // resources in news
-function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
-  global $base_url, $user, $language, $theme;
-  $wave = '';
-  $click = '';
-  $sortin = 'ORDER BY rid DESC';
-  $cond = '';
 
-// load resources
-  $sup = $sup != 'n' ? $sup : '';
-  $ans = $ans != 'n' ? $ans : '';
-  $sort = $sort != 'n' ? $sort : '';
-
-// site url with default language
-  $path = '<front>';
-  $sitelink = url($path, array('absolute' => TRUE)) . '/';
-
-  extract($_REQUEST);
-
-  $sorting = 'ORDER BY f.nid DESC';
-  $cond = '';
-  extract($_REQUEST);
-  if (isset($sort) && $sort == 1) {
-    $sorting = 'ORDER BY n.created DESC';
-  }
-  elseif (isset($sort) && $sort == 2) {
-    $sorting = ' ORDER BY c.field_strength_value DESC';
-  }
-  if (isset($ans) && !empty($ans)) {
-    $cond.=" AND do.chorder='$ans'";
-  }
-  if (isset($sup) && $sup > 0) {
-    $cond.=" AND do.ans_val='$sup'";
-  }
-
-// resource type
-  switch ($rtype) {
-    case '1':
-      $resType = 'news';
-      break;
-
-    case '2':
-      $resType = 'multimedia';
-      break;
-
-    case '3':
-      $resType = 'facts';
-      break;
-
-    default:
-      $resType = 'news';
-      break;
-  }
-
-
-  $tid = ugc_taxonomy_term_id('Resource', 'forum');
-  if ($rtype == 4) {
-    if (empty($cond)) {
-      $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
-    }
-    else {
-      $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
-    }
-
-// forum for translated languages
-    $issueId = $qid;
-    $tnid = get_tnid($qid);
-    $qid = $tnid;
-
-    $nodes = db_query($sql, $tid, $qid);
-    $count = db_result(db_query($sql, $tid, $qid));
-  }
-  else {
-    if (empty($cond))
-      $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $sorting";
-    else
-      $sql = "SELECT DISTINCT(f.nid) FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $cond $sorting";
-
-// forum for translated languages
-    $issueId = $qid;
-    $tnid = get_tnid($qid);
-    $qid = $tnid;
-
-    $nodes = db_query($sql, $tid, $qid, $resType);
-    $count = db_result(db_query($sql, $tid, $qid, $resType));
-  }
-  if ($count > 0) {
-    $i = 0;
-
-    while ($node = db_fetch_object($nodes)) {
-      if ($rtype == 4) {
-        $items = load_resource($node->nid, $issueId, $tnid, $node->field_rtype_value);
-      }
-      else {
-        $items = load_resource($node->nid, $issueId, $tnid, $resType);
-      }
-      $strnth = $items['strength'];
-      $strength = '';
-      foreach ($strnth as $list) {
-        $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
-        $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
-        $ans = $short_answer != '' ? $short_answer : $tranAns;
-
-        switch ($list['ans_val']) {
-          case 1:
-            $strength.='<div><span class="green-box">+</span>' . $ans . '</div>';
-            break;
-          case 2:
-            $strength.='<div><span class="red-box">-</span>' . $ans . '</div>';
-            break;
-        }
-      }
-
-// delete
-      if (is_moderator() || $items['uid'] == $user->uid) {
-        $delete = theme('delete_button', $items['content_id'], $items['type'], 'Are you sure you want to delete this thread?');
-      }
-      else {
-        $delete = '';
-      }
-
-// reply box
-      $reply_box = drupal_get_form('reply_form', $items['resource_id'], array('resource_id' => $items['resource_id'], 'issue_id' => $items['issue_id']));
-      $comments = theme('forum_replies', $items['resource_id']);
-      $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['resource_id'] . "'"));
-
-// ratings
-// allow rating check
-      $ratings = theme('rating_button', $items);
-
-
-      $resouce_theme .= theme('reference_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-      $tForumId = get_tnid($node->nid);
-      resource_roundup($tForumId);
-    }
-  }
-  else {
-    $resouce_theme = '<div class="messages warning">' . t('No Resource Posted Yet!!') . '</div>';
-  }
-//return $resouce_theme;
-  if (isAjax()) {
-    print $resouce_theme;
-  }
-  else {
-    return $resouce_theme;
-  }
-}
 
 
 
