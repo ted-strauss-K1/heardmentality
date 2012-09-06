@@ -1,7 +1,4 @@
 <?php
-//theme_issue_information($nid = '', $created = '', $postedby = '', $ctitle = array(), $sctitle = array(), $ssctitle = array(), $original_nid = '', $original_language = '', $orgLangKey = '')
-?>
-<?php
   global $base_url;
   $path = '<front>';
   $sitelink = url($path, array('absolute' => TRUE)).'/';    

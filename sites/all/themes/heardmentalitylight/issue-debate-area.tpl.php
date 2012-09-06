@@ -71,11 +71,6 @@ global $base_url;
     <li><a href="<?php print $base_url ?>/arguments/tabs/<?php print $nid; ?>/1/0">recent</a></li>
     <li><a href="<?php print $base_url ?>/arguments/tabs/<?php print $nid; ?>/0/0">older</a></li>
     <li><a href="<?php print $base_url ?>/arguments/tabs/<?php print $nid; ?>/2/0">supported</a></li>
-  <!--
-    <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/1">recent</a></li>
-    <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/0">older</a></li>
-    <li><a href="<?php print $base_url ?>/issue/<?php print $nid; ?>/tab_content/1/2">supported</a></li>
-  -->
   </ul>
 
 </div><!--/#debate_list_area -->

@@ -232,7 +232,7 @@ function qlite_view() {
  */
     //likes
     $voutput.=node_view($oListquest, FALSE, true, true);
-    //$block=issue_view_results($qid, false, false, true);
+
     $block = theme('issue_results_graph', $qid);
     $voutput.='  <div class="clr"></div>';
     $voutput.=$block;
@@ -1159,145 +1159,7 @@ switch($type){
 
 }
 
-function panel_content_old() {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
-
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-
-    $type = $_REQUEST['type'];
-    $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='" . $qid . "' GROUP BY qid";
-    $query_listd = db_query($queryd);
-    $fetvotd = db_fetch_object($query_listd);
-
-    $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='" . $qid . "' GROUP BY qid";
-    $query_sugestlistd = db_query($query_sugests);
-    $fetvotsugestbg = db_fetch_object($query_sugestlistd);
-    $totalvotesm = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
-    $vSql = "select * from {question} where status='1' and qid=$qid ";
-    $rlist = db_query($vSql);
-    $oListquest = db_fetch_object($rlist);
-
-    $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid = '$qid' ";
-    $list = ExecuteQuery($query, "select");
-    $debatecnt = 0;
-    foreach ($list as $fcnt) {
-
-        $debatecnt = $debatecnt + $fcnt['wcnt'];
-    }
-
-
-    $numresource = db_result(db_query("SELECT COUNT(*) from {resource} where qid=$qid"));
-    $query_user = "SELECT * FROM users where uid='$oListquest->uid' ";
-    $query_userinfo = db_query($query_user);
-    $fetuserlist = db_fetch_object($query_userinfo);
-    switch ($type) {
-
-        case "debate":
-            $output = '
-			<div id="waveerr"></div>
-                       <ul id="tabmenu" class="subtabs" >
-                                       <li><a class="" href="javascript:tabactive(\'dargs\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabdargs">Arguments</a></li>
-                                       <li><a class="" href="javascript:tabactive(\'dreport\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabdreport">Analysis</a></li>
-
-                               </ul>
-                               <div id="rcontents" class="mytabs-container"></div>
-                               <script type="text/javascript">tabactive(\'dargs\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
-            break;
-        case "Resources":
-
-            $output = '
-			<div id="waveerr"></div>
-                       <ul id="tabmenu" class="subtabs" >
-                                       <li><a class="" href="javascript:tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabIn">In the News</a></li>
-                                       <li><a class="" href="javascript:tabactive(\'M\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabM">Multimedia</a></li>
-                                       <li><a class="" href="javascript:tabactive(\'F\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabF">Facts</a></li>
-                                       <li><a class="" href="javascript:tabactive(\'resreport\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabresreport">Analysis</a></li>
-
-                               </ul>
-                               <div id="rcontents" class="mytabs-container"></div>
-                               <script type="text/javascript">tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
-
-            break;
-        case "Gurus":
-            //	$output='sample content Gurus';
-            $profileBadges = getAnsweredUsers($qid);
-
-            $output1 = '';
-            if (count($profileBadges) > 0) {
-
-                $pat = $gSitePath . drupal_get_path('module', 'profile');
-                foreach ($profileBadges as $profile) {
-                  $details=load_user($profile['uid']);
-                   $output1.=load_user_badge($profile['uid']);
-                    $output1 .= '<div class="clr"></div><br/>';
-                }
-            } else {
-                $output1 = "No Users available";
-            }
-            $output = $output1;
-
-            break;
-        case "Info":
-            $bubble = load_bubble($fetuserlist->uid);
-            $medal = updateProfileBadge($fetuserlist->uid);
-            $section = load_qcat($qid,1);
-            $output.= '
-                       <div class="">
-<div  class="details-left">
- <span class="profile-gray">Context</span> :' . $oListquest->context . '
-     <br/>
-     <span class="profile-gray">Section </span>:' . $section . '
-     </div>
-<div style="float:left;">
-<div class="profile-lefthm">
-<span class="profile-gray">Byline: </span>
-<br />
-' . $bubble . '
-<div class="clr"></div>
-<div>
-
-<span class="profile-gray">Date Created </span> : ' . date("D j M Y", strtotime($oListquest->date_added)) . '  <br />
-<span class="profile-gray">Number of Votes </span>:  ' . $totalvotesm . '<br />
-<span class="profile-gray">Number of Forum Posts</span> : ' . $debatecnt . '<br />
-<span class="profile-gray">Number of Resources </span> :  ' . $numresource . '<br />
-
-</div>
-</div>
-
-</div><div class="clr"></div><br />
-
-
-
-</div>
-		';
-            break;
-        case "Politician":
-            $output = 'sample content Politician';
-            break;
-
-        case "news":
-            $output = 'sample content news';
-            break;
-        case "multimedia":
-            $output = 'sample content multimedia';
-            break;
-        case "facts":
-            $output = 'sample content facts';
-            break;
-        default:
-            $output = '
-			  <ul class="subtabs" id="tabs">
-				<li class="current"><a href="javascript:loadReport(1,\'' . $gSitePath . '\',' . $qid . ');"  id="tab1">Votes</a></li>
-				<li ><a href="javascript:loadReport(2,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab2">Overtime</a></li>
-				<li ><a href="javascript:loadReport(3,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab3">By Area</a></li>
-			</ul>
-			   <div class="mytabs-container" id="tabs-container"><iframe style="height: 350px;" id="frmGoogle" scrolling="no" src="' . $gSitePath . '/qlite/percent/' . $qid . '" border="0" frameborder="0" width="100%"></iframe></div>
-			<script type="text/javascript">loadReport(1,\'' . $gSitePath . '\',' . $qid . ')</script>';
-            break;
-    }
-    echo $output;
-}
 
 function forum_wave($qid = '') {
     global $gSitePath, $user, $gDocPath, $base_root;

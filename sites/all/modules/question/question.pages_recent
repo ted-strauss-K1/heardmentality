@@ -200,42 +200,7 @@ width:775px; scroll;"></textarea>  </td>
 	
 	}
 
-function question_save()
-{
 
-global $user;
-
-	$q_quest='';
-	//print_r($_REQUEST);
-	extract($_REQUEST);
-	$output='';
-	
-	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($q_edate)) {
-	 echo $edate=$q_edate;
-		 $result =   db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid,$q_quest,$q_context,$q_cid,$q_scid,$q_sscid,$q_global,$q_country,$q_state,$q_city,$time,$edate);
-		
-		 $ins_id=db_last_insert_id('question','qid');
-		 for($i=1;$i<=$ans_cnt;$i++)
-		 {
-			 $name="q_ans".$i;
-			 if(!empty($$name))
-			 	{
-				  $result =   db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')",$ins_id,$$name);
-				}
-		 }
-		 
-		 if($result)
-		 drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
-		 
-		  }
-		   else {
-		   
-				drupal_set_message($message = 'Sorry, Some Of The required fields are Empty!', $type = 'error');
-				drupal_goto("question/add");
-		  }
-	
-	return $output;
-}
 
 
 		function question_ajax(){

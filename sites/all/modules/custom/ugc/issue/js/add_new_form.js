@@ -68,9 +68,6 @@ jQuery("#lattach").live('click', function() {
 
 
 $(document).ready(function() {
-  $('#inc_ref').change(function(){
-    $('.resources').toggle();
-  });
 
   $("#debate_list_area").tabs({
     cache: false,

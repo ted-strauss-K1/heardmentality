@@ -425,64 +425,6 @@ function arguments_tabs($nid, $sort = null, $print = null) {
     print $output;
   }
   exit();
-
-
-
-  # loading data
-  if ($count > 0) {
-    $counter = 0;
-    while ($node = db_fetch_object($nodes)) {
-      if ($node->tid == 6) {
-        $item = load_debate($node->nid, $issue_id, $parent_id);
-      }
-      else {
-        $item = load_resource($node->nid, $issue_id, $parent_id, $node->field_rtype_value);
-      }
-      # get answers' strenght
-      foreach ($item['strength'] as &$list) {
-        $list['answer'] = get_short_answer($item['issue_id'], $list['chorder']);
-        if (!$list['answer']) {
-          $list['answer'] = db_result(db_query("
-            SELECT chtext
-            FROM {poll_choices}
-            WHERE
-              nid = '%d' AND
-              chorder = '%s'", $item['issue_id'], $list['chorder'])
-          );
-          $list['answer_value'] = $list['ans_val'] == 1 ? 'plus' : ( $list['ans_val'] == 2 ? 'minus' : '' );
-        }
-      }
-
-      $reply_box = drupal_get_form('reply_form', $item['content_id'], array('issue_id' => $item['issue_id']));
-      $comments = theme('forum_replies', $item['content_id']);
-      $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '%d'", $item['content_id']));
-
-      if (is_moderator() || $item['uid'] == $user->uid) {
-        $delete = theme('delete_button', $item['content_id'], $item['type'], 'Are you sure you want to delete this thread?');
-      }
-      $ratings = theme('rating_button', $item);
-      $output .= theme('debate_parent_template', $item, $comments, $reply_box, $reply_count, $ratings, $delete);
-      # update forum points
-      $tForumId = get_tnid($node->nid);
-      debate_roundup($tForumId);
-    }
-  }
-  else {
-    $output = '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
-  }
-
-  # print/return
-  if ($print == 1) {
-    return $output;
-  }
-  else {
-    print $output;
-  }
-
-  // $qid, $type, $sort = null, $print = null
-
-  # SELECT * FROM node n INNER JOIN content_type_forum ctf ON ctf.nid = n.nid LEFT JOIN arguments_options ao ON ao.nid = n.nid WHERE n.type = 'forum' AND ctf.field_ref_qid_nid = 706 AND ctf.field_type_value = 1 AND  IFNULL(ao.option,0) <> 0
-
 }
 
 

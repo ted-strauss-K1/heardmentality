@@ -196,13 +196,7 @@ function issue_menu() {
     'page arguments' => array(4),
     'type' => MENU_SUGGESTED_ITEM,
   );
-  $menu['issue/%/tab_content/%/%'] = array(
-    'page callback' => 'issue_ajax_tab_content',
-    'type' => MENU_CALLBACK,
-    'page arguments' => array(1, 3, 4),
-    'access callback' => TRUE,
-    'file' => 'issue.pages.inc',
-  );
+
 
 
   return $menu;
@@ -597,53 +591,13 @@ function _issue_theme() {
       'file' => 'issue.theme.inc',
     ),
 
-    'debate_parent_template' => array(
-      'template' => 'debate-parent-template',
-      'arguments' => array(
-        'item' => NULL,
-        #'strength' => NULL,
-        'comments' => NULL,
-        'reply_box' => NULL,
-        'reply_count' => NULL,
-        'ratings' => NULL,
-        'delete' => NULL
-      ),
-    ),
-    'forum_child_reply_template' => array(
-      'template' => 'forum-child-reply-template',
-      'arguments' => array(
-        'items' => NULL,
-        'userPicture' => NULL,
-        'ratings' => NULL,
-        'delete' => NULL
-      ),
-    ),
-    'forum_replies' => array(
-      'arguments' => array(
-        'content_id' => NULL,
-      ),
-      'file' => 'issue.theme.inc',
-    ),
-    'forum_reply' => array(
-      'arguments' => array(
-        'item' => NULL,
-      ),
-      'file' => 'issue.theme.inc',
-    ),
 
 
 
-    'issue_results' => array(
-      'template' => 'issue_results',
-      'arguments' => array('nid' => NULL, 'cdebate' => NULL, 'cresource' => NULL, 'cpundit' => NULL, 'allowvotes' => NULL),
-    ),
-    'issue_details' => array(
-      'template' => 'issue_details_tab',
-      'arguments' => array('nid' => NULL, 'votes' => NULL),
-    ),
-    'issue_answer' => array(
-      'arguments' => array('form' => NULL),
-    ),
+
+
+
+
     'issue_information' => array(
       'template' => 'issue-real-informations',
       'arguments' => array('nid' => NULL, 'created' => NULL, 'postedby' => NULL, 'subject' => NULL, 'area' => NULL, 'detail' => NULL, 'original_nid' => NULL, 'original_language' => NULL, 'orgLangKey' => NULL),
@@ -669,236 +623,11 @@ function _issue_theme() {
  * Load data
  */
 
-/*
- * Function to load debates
- *
- * @params
- * debId    - Node Id for debate
- * issId    - Issue Id the debate is related to
- * issTnid  - Translate Issue Id
- */
-
-function load_debate($debId = '', $issId = '', $issTnid = '') {
-  $item = array();
-  global $user, $language;
-
-  # get the node and its creator
-  $forum = node_load(array('nid' => $debId, 'status' => '1'));
-  $account = user_load($forum->uid);
-  # translate title and body
-  $translated = arguments_translate($debId, $language->language);
-  $forum->title = $translated->title;
-  $forum->body = $translated->body;
-  # get votes
-  list($vote_up, $vote_down, $sum) = yn_votes($forum->nid, 'node');
-  # get strenght votes
-  list($strong_count, $weak_count) = get_strenght($forum->nid);
-  # get posted and last activity time
-  $posted = date("F d Y H:i:s", $forum->created);
-  $last_timestamp = db_result(db_query("
-    SELECT timestamp
-    FROM {comments}
-    WHERE nid = '%d'
-    ORDER BY cid DESC
-    LIMIT 0,1", $forum->nid)
-  );
-  $last_activity = $last_timestamp != '' ? date("F d Y H:i:s", $last_timestamp) : $posted;
-  # strength
-  $query = "
-    SELECT *
-    FROM {debate_options} a
-      JOIN {poll_choices} b
-        ON a.chorder=b.chorder
-    WHERE
-      a.nid='" . $forum->nid . "' AND
-      b.nid='" . $issTnid . "'
-    ORDER BY b.chorder";
-  $strength = ExecuteQuery($query, "select");
-
-  # output
-  $item['debate_id'] = $translated->nid;
-  $item['issue_id'] = $issId;
-  $item['title'] = $forum->title;
-  $item['issue_tnid'] = $issTnid;
-  $item['debate_tnid'] = $debId;
-  $item['uid'] = $account->uid;
-  $item['uname'] = $account->name;
-  $item['posted'] = $posted;
-  $item['last_activity'] = $last_activity;
-  $item['strength'] = $strength;
-  $item['vote_up'] = $vote_up;
-  $item['vote_down'] = $vote_down;
-  $item['allow_rating'] = !yn_user_voted($forum->nid, 'node');
-  $item['posted_by'] = $forum->uid;
-  $item['ago'] = ugc_time_interval($item['posted']);
-  // unify the debates and resources and comments
-  $item['content_id'] = $item['debate_tnid'];
-  $item['type'] = 'debate';
-
-  return $item;
-}
-
-/*
- * Function to load resources
- *
- * @params
- * resId    - Node Id for debate
- * issId    - Issue Id the debate is related to
- * issTnid  - Translate Issue Id
- */
-
-function load_resource($resId = '', $issId = '', $issTnid = '', $resType = '') {
-  $item = array();
-  global $user;
-
-  # get the node and its creator
-  $forum = node_load(array('nid' => $resId, 'status' => '1'));
-  $account = user_load($forum->uid);
-  # get votes
-  list($vote_up, $vote_down, $sum) = yn_votes($forum->nid, 'node');
-  # get strenght votes
-  list($strong_count, $weak_count) = get_strenght($forum->nid);
-  # get posted and last activity time
-  $posted = date("F d Y H:i:s", $forum->created);
-  $last_timestamp = db_result(db_query("
-    SELECT timestamp
-    FROM {comments}
-    WHERE nid = '%d'
-    ORDER BY cid DESC
-    LIMIT 0,1", $forum->nid)
-  );
-  $last_activity = $last_timestamp != '' ? date("F d Y H:i:s", $last_timestamp) : $posted;
-  # strength
-  $query = "
-    SELECT *
-    FROM {resource_options} a
-      JOIN {poll_choices} b
-        ON a.chorder=b.chorder
-    WHERE
-      a.nid='" . $forum->nid . "' AND
-      b.nid='" . $issTnid . "'
-    ORDER BY b.chorder";
-  $strength = ExecuteQuery($query, "select");
-
-  # output
-  $item['rtype'] = $resType;
-  $item['issue_id'] = $issId;
-  $item['title'] = $forum->title;
-  $item['body'] = $forum->body;
-  $item['issue_tnid'] = $issTnid;
-  $item['resource_id'] = $resId;
-  $item['image'] = $forum->field_filepath[0]['value'];
-  $item['uid'] = $account->uid;
-  $item['uname'] = $account->name;
-  $item['posted'] = $posted;
-  $item['last_activity'] = $last_activity;
-  $item['strength'] = $strength;
-  $item['vote_up'] = $vote_up;
-  $item['vote_down'] = $vote_down;
-  $item['allow_rating'] = !yn_user_voted($forum->nid, 'node');
-  $item['posted_by'] = $forum->uid;
-  $item['source'] = $forum->field_source[0]['value'] != '' ? $forum->field_source[0]['value'] : '';
-  $item['ago'] = ugc_time_interval($item['posted']);
-  $item['video_id'] = $forum->field_videoid[0]['value'] != '' ? $forum->field_videoid[0]['value'] : '';
-  $item['nlink'] = $forum->field_nlink[0]['value'] != '' ? $forum->field_nlink[0]['value'] : '';
-  $item['filepath'] = $forum->field_filepath[0]['value'] != '' ? $forum->field_filepath[0]['value'] : '';
-  // unify the debates and resources and comments
-  $item['content_id'] = $item['resource_id'];
-  $item['type'] = 'resource';
-
-  return $item;
-}
-
-/*
- * Function to load replies
- *
- * @params
- * cid    - Comment Id
- */
-
-function load_reply($cid = '') {
-  global $language, $user;
-  # get the comment
-  $forum = db_fetch_array(db_query("SELECT * FROM {comments} WHERE cid = '%d'", $cid));
-  if (!$forum)
-    return;
-  # get translated comment
-  $forum['comment'] = arguments_translate_comment($cid, $language->language);
-  if (empty($forum['comment']))
-    return;
-  # get author
-  $account = user_load($forum['uid']);
-  # get votes
-  list($vote_up, $vote_down, $sum) = yn_votes($forum['cid'], 'comment');
-  # get post date
-  $posted = date("Y-m-d H:i:s", $forum['timestamp']);
-
-  # output
-  $item = array();
-  $item['cid'] = $cid;
-  $item['reply_content'] = $forum['comment'];
-  $item['vote_up'] = $vote_up;
-  $item['vote_down'] = $vote_down;
-  $item['uid'] = $account->uid;
-  $item['uname'] = $account->name;
-  $item['posted'] = $posted;
-  $item['allow_rating'] = !yn_user_voted($forum['cid'], 'comment');
-  $item['posted_by'] = $forum['uid'];
-  $item['ago'] = ugc_time_interval($posted);
-  if ($forum['str_wk'] == 1) {
-    $item['class'] = 'positive';
-    $item['sign'] = '+';
-  }
-  else {
-    $item['class'] = 'negative';
-    $item['sign'] = '-';
-  }
-  // unify the debates and resources and comments
-  $item['content_id'] = $item['cid'];
-  $item['type'] = 'reply';
-
-  return $item;
-}
 
 
 
-/*
- * Function to get the number of the strong/weak votes
- *
- * return array(STRONG_COUNT,WEAK_COUNT)
- *
- * TODO make it use only one sql request
- */
-
-function get_strenght($forum_nid) {
-  $votes = array();
-  $query = "SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'";
-  $votes[] = db_result(db_query($query, 1, $forum_nid));
-  $votes[] = db_result(db_query($query, 0, $forum_nid));
-  return $votes;
-}
-
-/*
- * Function to get translated node for the forum
- */
 
 
-
-/*
- * Load data
- * ********************** */
-
-/* * ************************
- * Forms
- */
-
-/*
- * Forum Reply Form
- *
- * @form        - drupal required variable
- * @content_id  - debate_tnid/resource_id
- * @variables   - array to pass various number of params to submit
- */
 
 
 
@@ -1118,65 +847,6 @@ function issue_after_build($form, &$form_state) {
 }
 
 
-
-function issue_save($array='') {
-  global $user;
-  $account = user_load(array('uid' => $user->uid));
-  $node = new StdClass();
-  $node->type = 'poll';
-  $node->create = time();
-  $node->title = $array['q_quest'];
-  $node->body = $array['q_context'];
-  $node->uid = $account->uid;
-  $node->status = 1;
-  $node->active = 1;
-  node_save($node);
-
-
-  if (!user_access('administer nodes')) {
-    // Make sure all votes are 0 initially
-    foreach ($node->choice as $i => $choice) {
-      $node->choice[$i]['chvotes'] = 0;
-    }
-    $node->active = 1;
-  }
-
-  db_query("INSERT INTO {poll} (nid, runtime, active) VALUES (%d, %d, %d)", $node->nid, $node->runtime, $node->active);
-
-  $j = 0;
-  for ($i = 1; $i <= $array['ans_cnt']; $i++) {
-    $name = "q_ans" . $i;
-
-    if (!empty($array[$name])) {
-
-      db_query("INSERT INTO {poll_choices} (nid, chtext, chvotes, chorder) VALUES (%d, '%s', %d, %d)", $node->nid, $array[$name], '0', $j++);
-    }
-  }
-
-  /* New SET NOTIFY LOG */
-  //set_notify_log($uid , $message_id, $nid, $variable)
-  $qid = $node->nid;
-  $qtitle = $node->title;
-  $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
-  set_notify_log($user->uid, $qid, 'add_question', $variable);
-  /* New SET NOTIFY LOG */
-
-//url alias
-  $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
-  $url = 'node/' . $node->nid;
-  db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, 'en');
-  //Related Issues
-  if (!empty($array['chk_rel_issue'])) {
-    $cont_type = array('content_types' => array('poll' => 'poll'));
-    $relatedissues = array_combine($array['chk_rel_issue'], $array['chk_rel_issue']);
-    $arrayid = array('nids' => $relatedissues);
-    $manual = array('enable' => 1, 'nodes' => array('poll' => $arrayid));
-    $related = array('nid' => $node->nid, 'content_types' => $cont_type, 'taxonomy' => array(''), 'manual' => $manual, 'sort' => array('criteria' => 'none'));
-    db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $node->nid, serialize($related));
-  }
-  return $node;
-}
-
 function issue_block($op = 'list', $delta = 0, $edit = array()) {
 
   switch ($op) {
@@ -1309,27 +979,7 @@ function load_taxonomy($nid='') {
   return $category;
 }
 
-function issue_view_results(&$nid, $teaser, $page, $block) {
-  global $user;
-  // Count the votes and find the maximum
-  $node = node_load($nid);
-  $tnid = get_tnid($nid);
-  $tnode = node_load($tnid);
-  // $total_votes = 0;
-  // $max_votes = 0;
-  // foreach ($node->choice as $choice) {
-//    if (isset($choice['chvotes'])) {
-//      $total_votes += $choice['chvotes'];
-//      $max_votes = max($max_votes, $choice['chvotes']);
-//    }
-//  }
-//  $poll_results = '';
-//echo $node->allowvotes; exit;
-  // get debate, resource, pundit counts
-  $dr = arguments_get_list($tnid);
-  $punditCount = count(getAnsweredUsers($nid));
-  return theme('issue_results', $nid, $dr['#count'][TYPE_DEBATE], $dr['#count'][TYPE_RESOURCE], t($punditCount), $tnode->allowvotes);
-}
+
 
 
 
@@ -1721,39 +1371,6 @@ function get_node_tree_child($tid, $nid) {
     }
   }
   return $subcats;
-}
-
-function theme_issue_answer($form) {
-  // Change the button title to reflect the behavior when using JavaScript.
-  drupal_add_js('if (Drupal.jsEnabled) { $(document).ready(function() { $("#edit-poll-more").val("' . t('+ Add another answer') . '"); }); }', 'inline');
-
-  $rows = array();
-  $head = t('Possible Answers') . ' <br><small>' . t('Enter atleast two possible answers.') . t('Click Add Another Answer to enter more.') . '</small>';
-  $headers = array(
-    $head,
-  );
-
-  foreach (element_children($form) as $key) {
-    // No need to print the field title every time.
-    unset($form[$key]['chtext']['#title'], $form[$key]['chvotes']['#title']);
-
-    // Build the table row.
-    $row = array(
-      'data' => array(
-        array('data' => drupal_render($form[$key]['chtext']), 'class' => 'poll-chtext'),
-      ),
-    );
-
-    // Add additional attributes to the row, such as a class for this row.
-    if (isset($form[$key]['#attributes'])) {
-      $row = array_merge($row, $form[$key]['#attributes']);
-    }
-    $rows[] = $row;
-  }
-
-  // $output = theme('table', $headers, $rows);
-  $output .= drupal_render($form);
-  return $output;
 }
 
 function issue_link($type, $object, $teaser = FALSE) {
@@ -2318,35 +1935,6 @@ function get_short_answer($nid = '', $chorder = '') {
   return $short->short_answer;
 }
 
-/*
- * Debate/resource refresh
- *
- * @content_id - debate/resource id
- *
- * @returns associative array
- * #id        - content_id
- * #vote_up   -
- * #vote_dn   -
- * #vote_ct   -
- * #replies   - array or replies
- *
- * TODO -- use it when voting or replying
- */
-
-function issue_dr_refresh($content_id) {
-  $output = array();
-  # debate/resource
-  $output['id'] = $content_id;
-  list($output['vote_up'], $output['vote_dn'], $output['vote_sum']) = yn_votes($output['id'], 'node');
-  # replies
-  $output['replies'] = array();
-  $items = arguments_get_comments($content_id);
-  foreach ($items as $item) {
-    $item['markup'] = theme('forum_reply', $item);
-    $output['replies'] = $item;
-  }
-  return $output;
-}
 
 
 

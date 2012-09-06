@@ -173,6 +173,10 @@ function issue_vote_form_radios($form_element, &$form_state) {
   }
   return $form_element;
 }
+
+/*
+ * Afterbuild for issue_vote_form
+ */
 function issue_vote_form_radios_suggested($form_element, &$form_state) {
   $nid = $form_state['values']['nid'];
   $votes = poll_suggest_get_votes($nid);

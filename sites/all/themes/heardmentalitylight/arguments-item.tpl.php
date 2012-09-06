@@ -1,5 +1,5 @@
 <?php $nid = $node->nid; ?>
-<div id="forum-block-<?php print $nid; ?>" class="one-forum" name="<?php print $nid; ?>">
+<div id="forum-block-<?php print $nid; ?>" class="one-forum<?php print $node->field_type[0]['value'] == TYPE_RESOURCE ? ' resources' : ''; ?>" name="<?php print $nid; ?>">
   <ul class="argument_box">
     <li>
       <div class="arg">

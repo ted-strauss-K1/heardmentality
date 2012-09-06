@@ -897,12 +897,7 @@ $(document).ready(function(){
     $('#debate_list_area').tabs("url", 0 , url+0+'/0?class='+e +'&chorder='+id);
     $('#debate_list_area').tabs("url", 1 , url+1+'/0?class='+e +'&chorder='+id);
     $('#debate_list_area').tabs("url", 2 , url+2+'/0?class='+e +'&chorder='+id);
-/*
-    var url = Drupal.settings.base_url + '/issue/' + nid +'/tab_content/1/';
-    $('#debate_list_area').tabs("url", 0 , url+0+'?class='+e +'&chorder='+id);
-    $('#debate_list_area').tabs("url", 1 , url+1+'?class='+e +'&chorder='+id);
-    $('#debate_list_area').tabs("url", 2 , url+2+'?class='+e +'&chorder='+id);
-*/
+
     var selected = $("#debate_list_area").tabs( "option", "selected" );
     $('#debate_list_area').tabs("load", selected);
     $('#debate_list_area').tabs("select", selected);

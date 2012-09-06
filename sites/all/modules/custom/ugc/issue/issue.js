@@ -85,6 +85,13 @@ $(document).ready(function(){
   choices(s1,s2);
   choices(s2,s1);
 
+  /*
+   * Toggle resources
+   */
+  $('#inc_ref').change(function(){
+    $('.resources').toggle();
+  });
+
 
 });
 

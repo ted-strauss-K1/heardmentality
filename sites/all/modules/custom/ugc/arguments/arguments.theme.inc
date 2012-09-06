@@ -116,22 +116,3 @@ function theme_arguments_rating_button($node) {
       <strong class="motivat">' . t('(Click yes/no to leave support/oppose comment.)') . '</strong>
     </span>';
 }
-
-/*
- * Argument Reply
- *
- * @param comment - Comment Object
- *
-function theme_forum_reply($item) {
-  global $user;
-  $ratings = theme('rating_button', $item);
-  $delete = '';
-  if( is_moderator() || $item['uid'] == $user->uid ) {
-    $delete = theme('delete_button',
-      $item['content_id'], $item['type'], 'Are you sure you want to delete this argument?'
-    );
-  }
-  $userPicture = UserPicture_small_src($item['uid']);
-  return theme('forum_child_reply_template', $item, $userPicture, $ratings, $delete);
-}
-*/

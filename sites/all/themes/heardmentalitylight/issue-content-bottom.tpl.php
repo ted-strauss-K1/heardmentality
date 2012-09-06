@@ -8,9 +8,4 @@
   <li class="active" id="simpleTab">
     <?php print $content; ?>
   </li>
-  <!--
-  <li id="lightweightTab">
-    <?php print $resource_list; ?>
-  </li>
-  -->
 </ul>

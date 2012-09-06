@@ -435,36 +435,9 @@ function theme_like_dislike_bar($pro, $con) {
 
 
 
-/*
- * Forum reply item
- *
- * @item - reply item
- */
-function theme_forum_reply($item) {
-  global $user;
-  $ratings = theme('rating_button', $item);
-  $delete = '';
-  if( is_moderator() || $item['uid'] == $user->uid ) {
-    $delete = theme('delete_button',
-      $item['content_id'], $item['type'], 'Are you sure you want to delete this argument?'
-    );
-  }
-  $userPicture = UserPicture_small_src($item['uid']);
-  return theme('forum_child_reply_template', $item, $userPicture, $ratings, $delete);
-}
 
-/*
- * Forum replies list
- */
-function theme_forum_replies($content_id, $pid = 0) {
-  global $user;
-  $output = '';
-  $items = arguments_get_comments($content_id, $pid);
-  foreach( $items as $item ) {
-    $output .= theme('forum_reply', $item);
-  }
-  return $output;
-}
+
+
 
 /*
  * Sub Loader Image

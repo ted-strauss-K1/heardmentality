@@ -1,40 +1,5 @@
 // JavaScript Document
-function tabactive(pmID, pmPath,id)
-{
-    jQuery('#tabIn').parent('li').removeClass('current');
-    jQuery('#tabM').parent('li').removeClass('current');
-    jQuery('#tabF').parent('li').removeClass('current');
-    jQuery("#loading").fadeIn();
-    jQuery('#tab'+pmID).parent('li').addClass('current');
-    if(pmID == 'In')
-        vPath=pmPath+"issues/resource/innews/"+id
-    else if(pmID == 'M')
-        vPath=pmPath+"issues/resource/media/"+id
-    else if(pmID == 'F')
-        vPath=pmPath+"issues/resource/facts/"+id
-    else if(pmID=='dargs')
-        vPath=pmPath+"debate/ajax/"+id+"?action=debatelist";
-    else if(pmID=='dreport')
-        vPath=pmPath+"debate/ajax/"+id+"?action=dreport";
- else if(pmID=='resreport')
-        vPath=pmPath+"debate/ajax/"+id+"?action=resreport";
-    jQuery('#rcontents').html('Loading...');
-    jQuery.ajax({
-        url: vPath,
-        cache: false,
-        timeout:13000,
-        success: function(response){
-            jQuery("#loading").fadeOut();
-            jQuery('#rcontents').html(response);
-            fb.activateElements();
-        },
-        error: function( response, strError,errorThrown ){
-            $( "#rcontents" ).text("Error! Type: " +strError);
-            jQuery("#loading").fadeOut();
-        }
-    });
 
-}
 
 function loaded()
 {
