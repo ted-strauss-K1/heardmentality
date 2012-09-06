@@ -548,7 +548,7 @@ function arguments_translate($nid, $language = 'en') {
   }
   if (!isset($translated[$nid][$language])) {
     $tnid = db_result(db_query("SELECT nid FROM {node} WHERE tnid = '%d' AND language = '%s' AND translate = 1", $nid, $language));
-    if ($tnid !== false) {
+    if ($tnid !== false && $tnid != $nid) {
       $translated[$nid][$language] = node_load(array('nid' => $tnid));
     } else {
       $translated[$nid][$language] = false;
