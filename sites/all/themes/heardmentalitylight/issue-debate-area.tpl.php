@@ -1,9 +1,4 @@
-<?php
-
-drupal_add_js('misc/collapse.js');
-global $base_url;
-
-?>
+<?php drupal_add_js('misc/collapse.js'); global $base_url; ?>
 
 <div id="debate_work_area">
   <div class="inner">

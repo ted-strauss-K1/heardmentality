@@ -382,8 +382,29 @@ function theme_issue_arguments($node) {
         t('Please log in to participate in the debate') .
       '</b></div>';
   }
-
   $dr = arguments_get_list($node->nid);
+
+  # Prepare the data for the debate analysis
+  $data = array();
+  $choices = issue_choices($node->nid);
+  foreach ($choices as $choice) {
+    $data[] = array(
+      'name' => t('Strength'),
+      'color' => '#C2499B',
+      'y' => 0,
+    );
+  }
+  $result = db_query("SELECT ao.chorder, (SUM(ao.val)/COUNT(ao.nid)) AS value FROM {content_type_forum} ctf INNER JOIN {arguments_options} ao ON ao.nid = ctf.nid WHERE ctf.field_ref_qid_nid = 706 AND ao.val <> 0 GROUP BY ao.chorder ORDER BY ao.chorder");
+  while ($row = db_fetch_array($result)) {
+    foreach ($choices as $i => $choice) {
+      if ($choice['chorder'] == $row['chorder']) {
+        $data[$i]['color'] = $row['value'] > 0 ? '#55BA59' : '#C2499B';
+        $data[$i]['y'] = (float)$row['value'];
+      }
+    }
+  }
+  drupal_add_js(array('charts' => array('strength' => $data)), 'setting');
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/chart.strength.js");
 
   return theme('issue_debate_area',
     $arguments_form,

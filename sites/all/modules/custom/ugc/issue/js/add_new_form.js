@@ -1,11 +1,9 @@
 
 
-/*
- * Validate URL
- */
-function url_validate(url) {
-    var objRE = /http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
-    return objRE.test(url);
+function show_msg(element, message, delayTimeout, slideTimeout) {
+  jQuery(element).html(message).delay(delayTimeout).slideUp(slideTimeout, function(){
+    jQuery(this).html('').show();
+  });
 }
 
 /*
@@ -32,7 +30,6 @@ jQuery("#lattach").live('click', function() {
     var url = jQuery('#url').val();
     if( !url_validate(url) ) {
         $.hrd.noty({'type':'error', 'text' : '<span>Please enter a valid URL.</span>'});
-        // show_msg('#deb-err', '<span>Please enter a valid URL.</span>', 5000, 500);
         return false;
     } else {
         var purl=Drupal.settings.base_url+'/debate/ajax';

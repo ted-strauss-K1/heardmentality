@@ -6,11 +6,7 @@
  * @delayTimeout    - timeout
  * @slideTimeout    - timeout for slideup
  */
-function show_msg(element, message, delayTimeout, slideTimeout) {
-    jQuery(element).html(message).delay(delayTimeout).slideUp(slideTimeout, function(){
-        jQuery(this).html('').show();
-    });
-}
+
 
 
 
@@ -129,174 +125,13 @@ $.fn.slideFadeToggle = function(speed, easing, callback) {
 
 
 
-// forum reply
-
-function open_replybox(id){
-  var spl = id.split("_");
-  var open_id = '#reply_box_'+spl[2];
-  var msgid = '#reply-msg-'+spl[2];
-  $(msgid).html('');
-  $(open_id).slideToggle('slow');
-}
-
-function show_replies(id){
-  var spl = id.split("_");
-  var open_id = '#all_replybox_'+spl[2];
-  $(open_id).slideToggle('slow');
-}
 
 
 
 
-
-
-
-
-
-// load debate statistics
-function loadDebateStatistic() {
-  var nid = Drupal.settings.nid;
-  $.getJSON(Drupal.settings.base_url + '/debate/ajax/'+ nid +'/'+ '?action=analysis', function(data) {
-    var chart;
-    chart = new Highcharts.Chart({
-      chart: {
-        renderTo: 'container',
-        defaultSeriesType: 'column',
-        style: {
-          fontFamily: 'Arial',
-          color: '#4c4c4c',
-          fontSize: '12px'
-        },
-        plotBorderColor: '#fff',
-        plotBorderWidth: 0,
-        borderColor: '#fff',
-        borderRadius: 0,
-        borderWidth: 0,
-        marginTop: 10,
-        marginRight: 20,
-        marginBottom: 80,
-        marginLeft: 30,
-        ignoreHiddenSeries: true
-      },
-      title: {
-        text: null
-      },
-	  
-      xAxis: {
-        categories: data.categories,
-        title: {
-          text: null
-        },
-        lineColor: '#ccc',
-        lineWidth: 1,
-        endOnTick: false,
-        tickColor: '#ccc',
-        tickWidth: 1,
-        tickLength: 5,
-        gridLineColor: '#ccc',
-        tickmarkPlacement: 'on',
-        startOnTick: false,
-        labels: {
-          style: {
-            color: '#4c4c4c',
-            font: '12px Aial, sans-serif'	
-          }
-        }
-      },
-	  
-      yAxis:{ 
-        tickInterval: 1,
-        title: {
-          text: null
-        },
-        endOnTick: false,
-        maxPadding: 0.01,
-        lineWidth: 1,
-        lineColor: '#ccc',
-        tickmarkPlacement: 'on',
-        tickColor: '#ccc',
-        tickWidth: 1,
-        tickLength: 5
-      },
-					
-      legend: {
-        enabled: false
-      },
-	
-      tooltip: {
-        formatter: function() {
-          return ''+
-          this.series.name +': '+ this.y +'';
-        },
-        shadow: false,
-        style: {
-          color: '#4c4c4c',
-          font: '12px Aial, sans-serif'
-        },
-        borderRadius: 3
-      },
-	  
-      plotOptions: {
-        column: {
-          dataLabels: {
-            enabled: false
-          },
-          borderColor: '#fff',
-          borderWidth: 0,
-          shadow: false,
-          groupPadding: 0.15,
-          pointPadding: 0
-        }
-      },
-	  
-      credits: {
-        enabled: false
-      },
-      series: [{
-        name: 'Strength',
-        data: data.data
-      }]
-    });
-  });
-}
-
-$('#deb-ana').live('click', function(){
-  var nid = Drupal.settings.nid;
-  var url = Drupal.settings.base_url + '/issue/ajax/debate_statistics/'+ nid;
-  $('#deb-ana-load-txt').html('Loading...');
-  $.ajax({
-    type: 'get',
-    url: url,
-    success:function(msg){
-      $('#load-deb-statics').html(msg);
-    },
-    complete:function(){
-      loadDebateStatistic();
-      $('#deb-ana-load-txt').html('');
-    }
-  });
-});
-
-// load reference statistics
-$('#res-ana').live('click', function(){
-  var nid = Drupal.settings.nid;
-  var url = Drupal.settings.base_url + 'issue/ajax/resource_statistics/'+nid;
-  $('#res-ana-load-txt').html('Loading...');
-  $.ajax({
-    type: 'get',
-    url: url,
-    success:function(msg){
-      $('#load-res-statics').html(msg);
-    },
-    complete:function(){
-      $('#res-ana-load-txt').html('');
-    }
-  });
-});
 
 
 // from debate module - code cleanup
-
 $(document).ready(function() {
 
 
@@ -442,51 +277,15 @@ $(document).ready(function() {
   });
 });
 
-function startload(){
-// initialize();
-//createUploader();
-}
 
 
-function createUploader(){
-  var uploader = new qq.FileUploader({
-    element: document.getElementById('file-uploader-demo1'),
-    action: Drupal.settings.base_url+'upload_document.php',
-    debug: true,
-    // url of the server-side upload script, should be on the same domain
-    // additional data to send, name-value pairs
-    //params: {},
 
-    // validation
-    // ex. ['jpg', 'jpeg', 'png', 'gif'] or []
-    allowedExtensions: ["doc","docx","ppt","pdf"],
-    // each file size limit in bytes
-    // this option isn't supported in all browsers
-    sizeLimit: 1000000, // max size
-    minSizeLimit: 1, // min size
-    multipleFileUpload:false,
-    onSubmit: function(id, fileName){
-      $.growlUI('','File uploading please wait!');
-    },
-    onProgress: function(id, fileName, loaded, total){
-      $.growlUI('','File uploading please wait!');
-    },
-    onComplete: function(id, fileName, responseJSON){
-      $('#docpath').val(responseJSON.filename);
-      $.growlUI('','File uploaded successfully!');
-    },
-    showMessage: function(message){
 
-      $.growlUI('',message);
-    }
-
-  });
-}
 
 // in your app create uploader as soon as the DOM is ready
 // don't wait for the window to load
-//window.onload = createUploader;
-window.onload=startload;
+
+
 
 
 $.fn.clearForm = function() {

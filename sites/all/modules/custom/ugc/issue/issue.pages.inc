@@ -573,9 +573,7 @@ function issue_ajax($task = '', $nid = '') {
         <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
 </div>';
       break;
-    case 'resource_statistics':
-      $result = '<iframe src="' . $base_url . '/debate/ajax/' . $nid . '?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
-      break;
+
   }
   echo $result;
 }

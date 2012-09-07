@@ -35,6 +35,14 @@ function analytics_form_toggle(invoker) {
   }
 }
 
+/*
+ * Validate URL
+ */
+function url_validate(url) {
+  var objRE = /http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
+  return objRE.test(url);
+}
+
 $(document).ready(function() {
 
   /*
