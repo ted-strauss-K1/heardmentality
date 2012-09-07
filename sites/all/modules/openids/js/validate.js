@@ -112,10 +112,6 @@ jQuery('div.social-rite input').each( function(){
 } );
 
 if(err.length>0){
-   // window.scrollTo(0,0);
-    // err=err.wrap('<ul></ul>');
-   // jQuery('#twitMsg',top.document).html(err);
-  //  jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
    load_notify(err);
     return false;
 }

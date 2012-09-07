@@ -185,71 +185,10 @@ jQuery(document).ready(function () {
         jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
     });
 
-    jQuery(".innerbox li a").live('click', function(e) {
-
-//
-//        e.preventDefault();
-//
-//        load_issue($(this).attr('href'));
-//        return false;
-    });
-
-    //link the profile images to popup
-
-//    jQuery(".contarea a[href*='/profile/'],.profile_part a[href*='/profile/']").live('click', function(e) {
-//        e.preventDefault();
-//        e.stopPropagation();
-//
-//        parent.fb.start(jQuery(this).attr('href'), {
-//            type:'ajax',
-//            width: '50%',
-//            height: '70%',
-//            caption: 'Contributor',
-//            afterItemStart:'reset_tabs()'
-//        });
-//        return false;
-//    });
-
-/*
-jQuery('#answer_frm').submit(function(e) {
-  e.preventDefault();
-  e.stopPropagation();
-jQuery.post(jQuery(this).attr('action'),jQuery(this).serialize() );
-//relead the question
-load_issue(curl);
-       //pcp var sets on pcp theme module
-                         if(typeof prompt!='undefined' )
-                             {if(prompt==1){
-                              loadeditquestion(gSitePath+'profile/edit/1','Edit Profile ');
-
-                             }   }
-  return false;
-});
-*/
 
 });
 
-function load_issue(url){
 
-    $('#qajax').load(url, function(response, status, xhr) {
-        if (status == "success") {
-            reset_tabs();
-
-        }else{
-            var msg = "Sorry but there was an error: ";
-            $("#qajax").html(msg + xhr.status + " " + xhr.statusText);
-        }
-    });
-
-}
-
-function check_popup_login(){
-    jQuery(document).ready(function() {
-
-        jQuery('#twitMsg').html("Please Login to do this!");
-                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-    });
-}
 
 function close_notify_message(dcount, mid, uid){
 

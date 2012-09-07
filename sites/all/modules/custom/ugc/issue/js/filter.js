@@ -150,30 +150,7 @@ function show_replies(id){
 
 
 
-function delete_thread(id, type){
-  var spl = id.split("_");
-  var fid  = spl[2];
-  var dtype = spl[1];
-  //var msgid = '#reply-msg-'+fid;
-  var url = Drupal.settings.base_url + '/issue/thread/delete/'+dtype+'/'+fid+'/'+type;
-  if(confirm("Are you sure to delete this argument?")){
-    $.ajax({
-      type: 'post',
-      url: url,
-      success: function(msg){
-          
-      },
-      complete: function(){
-        var bid = '#'+dtype+'-block-'+fid;
-        $(bid).remove();
-      }
-    });
-    return true;
-  }
-  else{
-    return false;
-  }
-}
+
 
 
 // load debate statistics
@@ -424,13 +401,11 @@ $(document).ready(function() {
         err += '<li>Please Enter  Fact Link</li>';
 
     }
-    //var el =  $('#twitMsg', top.document);
     var el =  $('#refer-err');
 
     if ($.trim(err).length > 1) {
       el.html(err);
       el.addClass('error-msg');
-      //$('#twitMsg', top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
       return false;
     }	else{
       el.hide();
@@ -729,65 +704,18 @@ $(document).ready(function () {
     $('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
   });
 
-  $(".innerbox li a").live('click', function(e) {
 
-    });
 
 
 
 });
 
-function load_issue(url){
 
-  $('#qajax').load(url, function(response, status, xhr) {
-    if (status == "success") {
-      reset_tabs();
 
-    }else{
-      var msg = "Sorry but there was an error: ";
-      $("#qajax").html(msg + xhr.status + " " + xhr.statusText);
-    }
-  });
 
-}
 
-function check_popup_login(){
-  $(document).ready(function() {
 
-    $('#twitMsg').html("Please Login to do this!");
-    $('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-  });
-}
 
-function close_notify_message(dcount, mid, uid){
-
-  $(document).ready(function() {
-
-    var divid = 'not-id-'+dcount;
-    var url = gSitePath+'question/ajax';
-    $.ajax({
-      type: "GET",
-      url: url,
-      data: 'mid='+mid+'&uid='+uid+'&notupdate=1',
-      success: function(msg)
-      {
-        if(msg){
-          $('#'+divid+'').hide();
-        }else{
-          return false;
-        }
-      }
-    });
-  });
-
-}
-
-function show_inotify(data){
-
-  $('#twitMsg',top.document).html(data);
-  $('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-
-}
 
 // add / edit vote ajax submission
 $('#issue_edit_form_stream').live('submit', function(){

@@ -371,8 +371,6 @@ function loadfollowing(url,title)
 }
 
 function show_inotify(data){
-  //jQuery('#twitMsg',top.document).html(data);
-  //jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
   jQuery('.effect').html(data);
   jQuery('.effect').show('slow');
 

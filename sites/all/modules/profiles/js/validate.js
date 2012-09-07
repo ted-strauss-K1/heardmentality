@@ -238,11 +238,6 @@ jQuery('div.avatar-selection-pager-nav a').live('click', function() {
 });
 
 function load_notify(err){
-
-//    window.scrollTo(0,0);
-//
-//    jQuery('#twitMsg',top.document).html(err);
-//    jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
   jQuery('.toggler').html(err);
   jQuery('.toggler').show('slow');
 
@@ -298,14 +293,6 @@ function getFriends_callback(response) {
 
 }
 
-//jQuery(document).ready(function(){
-//
-//    if(jQuery('.messages').html().length>2){
-//        jQuery('#twitMsg',top.document).html(jQuery('.messages').html());
-//        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-//    }
-//
-//});
 
 // disable submit button when entering zipcode
 jQuery(document).ready(function(){

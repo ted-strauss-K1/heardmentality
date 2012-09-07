@@ -87,124 +87,130 @@ function issue_results_graph_highchart_filter_categories() {
  * TODO - get back when Profiles module is fixed
  */
 function issue_results_graph_highchart_filter_data($node) {
-  $nid = $node->nid;
-  $choices = issue_choices($nid);
+  static $dataset = array();
+  if (empty($dataset)) {
+    $nid = $node->nid;
+    $choices = issue_choices($nid);
 
-  # template for vote count
-  $pattern = array();
-  foreach ($choices as $i => $choice) {
-    $pattern[$i] = array();
-  }
-
-  # Get votes
-  $votes = array();
-  $result = db_query("SELECT * FROM {poll_votes} AS pv INNER JOIN {user_profile} AS up ON up.uid = pv.uid WHERE  pv.nid='%d'", $nid);
-  while ($row = db_fetch_array($result)) {
-    $votes[] = $row;
-  }
-
-  # Get categories
-  $cat = issue_results_graph_highchart_filter_categories();
-
-  # Initialize statistics
-  foreach ($cat as $key => &$data) {
-
-    if ( $key == '' ) {
-      $data['#results'] = array();
-      $data['#options'] = array();
-      foreach ($choices as $i => $choice) {
-        $data['#options'][] = $choice['short_answer'];
-      }
+    # template for vote count
+    $pattern = array();
+    foreach ($choices as $i => $choice) {
+      $pattern[$i] = array();
     }
-    $data['#results'] = $pattern;
-    foreach ($data['#results'] as $choice_key => &$results) {
-      foreach ($data['#options'] as $optkey => $option) {
-        $results[$optkey] = 0;
-      }
-    }
-  }
 
-  # Collect statistics
-  foreach ($votes as $vote) {
+    # Get votes
+    $votes = array();
+    $result = db_query("SELECT * FROM {poll_votes} AS pv INNER JOIN {user_profile} AS up ON up.uid = pv.uid WHERE  pv.nid='%d'", $nid);
+    while ($row = db_fetch_array($result)) {
+      $votes[] = $row;
+    }
+
+    # Get categories
+    $cat = issue_results_graph_highchart_filter_categories();
+
+    # Initialize statistics
     foreach ($cat as $key => &$data) {
-      $counts = &$data['#results'][$vote['chorder']];
-      // var_dump($results);die();
-      switch ($key) {
-        case '' :
-          $counts[$vote['chorder']]++;
-        break;
-        case 'age' :
-          if ($vote['age'] == 0) {
-            $counts[3]++;
-          } elseif ($vote['age'] >= 51) {
-            $counts[2]++;
-          } elseif ($vote['age'] >= 31) {
-            $counts[1]++;
-          } else {
-            $counts[0]++;
-          }
-        break;
-        case 'gender' :
-          if ($vote['gender'] == 1) {
-            $counts[0]++;
-          } elseif ($vote['gender'] == 2) {
-            $counts[1]++;
-          } else {
-            $counts[2]++;
-          }
-        break;
-        case 'religion' :
-          $index = array_search($vote['religion'], $data['#options']);
-          if (false !== $index) {
-            $counts[$index]++;
-          } else {
-            $counts[sizeof($counts)-1]++;
-          }
-        break;
-        case 'ethnicity' :
-          $index = array_search($vote['ethnic'], $data['#options']);
-          if (false !== $index) {
-            $counts[$index]++;
-          } else {
-            $counts[sizeof($counts)-1]++;
-          }
-        break;
-        case 'income' :
-          $index = array_search($vote['income'], $data['#options']);
-          if (false !== $index) {
-            $counts[$index]++;
-          } else {
-            $counts[sizeof($counts)-1]++;
-          }
-        break;
-        case 'marital' :
-          $index = array_search($vote['marital'], $data['#options']);
-          if (false !== $index) {
-            $counts[$index]++;
-          } else {
-            $counts[sizeof($counts)-1]++;
-          }
-        break;
-        case 'sex_orient' :
-          $index = array_search($vote['sorient'], $data['#options']);
-          if (false !== $index) {
-            $counts[$index]++;
-          } else {
-            $counts[sizeof($counts)-1]++;
-          }
-        break;
-        case 'education' :
-          $index = array_search($vote['edu'], $data['#options']);
-          if (false !== $index) {
-            $counts[$index]++;
-          } else {
-            $counts[sizeof($counts)-1]++;
-          }
-        break;
+
+      if ( $key == '' ) {
+        $data['#results'] = array();
+        $data['#options'] = array();
+        foreach ($choices as $i => $choice) {
+          $data['#options'][] = $choice['short_answer'];
+        }
+      }
+      $data['#results'] = $pattern;
+      foreach ($data['#results'] as $choice_key => &$results) {
+        foreach ($data['#options'] as $optkey => $option) {
+          $results[$optkey] = 0;
+        }
       }
     }
+
+    # Collect statistics
+    foreach ($votes as $vote) {
+      foreach ($cat as $key => &$data) {
+        $counts = &$data['#results'][$vote['chorder']];
+        // var_dump($results);die();
+        switch ($key) {
+          case '' :
+            $counts[$vote['chorder']]++;
+            break;
+          case 'age' :
+            if ($vote['age'] == 0) {
+              $counts[3]++;
+            } elseif ($vote['age'] >= 51) {
+              $counts[2]++;
+            } elseif ($vote['age'] >= 31) {
+              $counts[1]++;
+            } else {
+              $counts[0]++;
+            }
+            break;
+          case 'gender' :
+            if ($vote['gender'] == 1) {
+              $counts[0]++;
+            } elseif ($vote['gender'] == 2) {
+              $counts[1]++;
+            } else {
+              $counts[2]++;
+            }
+            break;
+          case 'religion' :
+            $index = array_search($vote['religion'], $data['#options']);
+            if (false !== $index) {
+              $counts[$index]++;
+            } else {
+              $counts[sizeof($counts)-1]++;
+            }
+            break;
+          case 'ethnicity' :
+            $index = array_search($vote['ethnic'], $data['#options']);
+            if (false !== $index) {
+              $counts[$index]++;
+            } else {
+              $counts[sizeof($counts)-1]++;
+            }
+            break;
+          case 'income' :
+            $index = array_search($vote['income'], $data['#options']);
+            if (false !== $index) {
+              $counts[$index]++;
+            } else {
+              $counts[sizeof($counts)-1]++;
+            }
+            break;
+          case 'marital' :
+            $index = array_search($vote['marital'], $data['#options']);
+            if (false !== $index) {
+              $counts[$index]++;
+            } else {
+              $counts[sizeof($counts)-1]++;
+            }
+            break;
+          case 'sex_orient' :
+            $index = array_search($vote['sorient'], $data['#options']);
+            if (false !== $index) {
+              $counts[$index]++;
+            } else {
+              $counts[sizeof($counts)-1]++;
+            }
+            break;
+          case 'education' :
+            $index = array_search($vote['edu'], $data['#options']);
+            if (false !== $index) {
+              $counts[$index]++;
+            } else {
+              $counts[sizeof($counts)-1]++;
+            }
+            break;
+        }
+      }
+    }
+
+    drupal_add_js(array('charts' => array('highchart' => $cat)), 'setting');
+    $dataset = $cat;
   }
-  drupal_add_js(array('charts' => array('highchart' => $cat)), 'setting');
+  return $dataset;
 }
 
 /*
@@ -230,11 +236,6 @@ function issue_results_graph_highchart_filter_form() {
   return $form;
 }
 
-/*
- * Quick facts
- *
- * TODO -
- */
 
 /*
  * Graphs' page Legend
@@ -393,6 +394,16 @@ function theme_issue_arguments($node) {
   );
 }
 
+/*
+ * Sub Loader Image
+ */
+function theme_sub_loader( $styles ) {
+  global $base_url, $theme;
+  return
+    '<span id="sub_loader" style="'.$styles.'">
+      <img src="'.$base_url.'/'.drupal_get_path('theme', $theme).'/images/loading_min.gif" alt="loading">
+    </span>';
+}
 
 
 
@@ -439,14 +450,5 @@ function theme_like_dislike_bar($pro, $con) {
 
 
 
-/*
- * Sub Loader Image
- */
-function theme_sub_loader( $styles ) {
-  global $base_url, $theme;
-  return
-    '<span id="sub_loader" style="'.$styles.'">
-      <img src="'.$base_url.'/'.drupal_get_path('theme', $theme).'/images/loading_min.gif" alt="loading">
-    </span>';
-}
+
 

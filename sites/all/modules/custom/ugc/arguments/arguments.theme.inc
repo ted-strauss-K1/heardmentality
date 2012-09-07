@@ -38,25 +38,7 @@ function theme_arguments_result_ball($count) {
   return sprintf('<span class="sum %s"><span class="%s">%d</span></span>', $class, $type, $count);
 }
 
-/*
- * Delete Button
- */
-function theme_arguments_delete_button($node, $title = 'Are you sure to delete this argument?') {
-  // TODO
-  $type = 'forum';
-  $id = 1;
-  global $user;
-  if (is_moderator() || $node->uid == $user->uid) {
-    return l( t('Delete'), '#', array('attributes' => array(
-      'class' => 'flag2 delete',
-      'title' => t('Delete'),
-      'name'  => ($name = 'own_'.($type=='reply'?'reply':'forum').'_'.$id.'_'.$type),
-    )) ) .
-      '<div id="dialog_'.$name.'" style="display:none" title="'.$title.'">
-    <input type="button" value="Delete" onclick="delete_thread(\''.$name.'\')">
-  </div>';
-  }
-}
+
 
 /*
  * Theme arguments_delete
