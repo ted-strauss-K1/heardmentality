@@ -156,16 +156,10 @@ function arguments_add_debate($nid, $title) {
  */
 function arguments_options($nid, $options = array()) {
   if (!empty($options)) {
-    var_dump($options);
     $replace = array();
     foreach ($options as $option) {
-      $replace[] = sprintf("('%d', '%d', '%d', '%s')",
-        $nid, $option['chorder'], $option['option'], date('Y-m-d H:i:s')
-      );
+      db_query("INSERT INTO {arguments_options} (nid, chorder, val, date_added) VALUES ('%d', '%d', '%d', '%s')", $nid, $option['chorder'], $option['option'], date('Y-m-d H:i:s'));
     }
-    db_query("INSERT INTO {arguments_options} (nid, chorder, val, date_added) VALUES %s", implode(',', $replace));
-    printf("INSERT INTO {arguments_options} (nid, chorder, val, date_added) VALUES %s", implode(',', $replace));
-    die();
   }
 }
 
