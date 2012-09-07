@@ -167,8 +167,8 @@ function arguments_form_submit(&$form, &$form_state) {
             'chorder' => $post['chorder_'.$i],
             'option' => $post['option_'.$i],
           );
-          arguments_options($node->nid, $options);
         }
+        arguments_options($node->nid, $options);
         drupal_json(array(
           'success' => true,
           'message' => '<span class="posted">Your argument posted successfully!</span>',
