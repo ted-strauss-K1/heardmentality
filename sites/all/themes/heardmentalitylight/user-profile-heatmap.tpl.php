@@ -1,0 +1,11 @@
+<?php global $base_url; ?>
+<div class="map">
+  <iframe id='cirmap' src ='<?php print $base_url; ?>/google/map/users?width=320&height=190' width='330' frameborder='0' height='200' scrolling='no'></iframe>
+</div>
+
+<ul class="map-stats">
+        <li><span class="count"><?php print number_format($count_users); ?></span><span class="count-title"><a href="<?php print $base_url; ?>/google/map/users"><?php print t('Users'); ?></a></span></li>
+        <li><span class="count"><?php print number_format($count_nodes); ?></span><span class="count-title"><a href="<?php print $base_url; ?>/google/map/questions"><?php print t('Issues'); ?></a></span></li>
+        <li><span class="count"><?php print number_format($count_votes); ?></span><span class="count-title"><a href="<?php print $base_url; ?>/google/map/answer"><?php print t('Votes'); ?></a></span></li>
+        <li><span class="count"><?php print number_format($count_users_online); ?></span><span class="count-title"><a href="<?php print $base_url; ?>/google/map/online"><?php print t('Online'); ?></a></span></li>
+</ul>

@@ -107,3 +107,14 @@ function poll_suggest_get_votes($nid) {
   }
   return $votes[$nid];
 }
+
+/*
+ * Get suggested votes stats
+ */
+function poll_suggest_get_uservotes($uid) {
+  static $votes = array();
+  if (!isset($votes[$uid])) {
+    $votes[$uid] = (int)db_result(db_query("SELECT COUNT(*) FROM {poll_suggest_votes} WHERE uid = '%d'", $uid));
+  }
+  return $votes[$uid];
+}

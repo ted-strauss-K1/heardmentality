@@ -12,7 +12,7 @@ function debate_ajax() {
   $url = '';
   extract($_REQUEST);
   # Get site url with default language
-  $sitelink = url('<front>', array('absolute' => TRUE)) . '/';
+
 
   # Switch $action
   switch( $action ) {
@@ -26,58 +26,7 @@ function debate_ajax() {
 
   switch ($action) {
     case 'url' : break;
-    case 'analysis':
-      $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-      $tnid = get_tnid($qid);
-      //$vans = "select * from {possible_answer} where  qid=$qid ";
-      $vans = "select * from {poll_choices} where  nid=$qid ORDER BY chorder";
-      $vlist = ExecuteQuery($vans, "select");
-      $cnt_ans = count($vlist);
-      $colors = array('#55BA59',
-        '#C2499B');
-      for ($ab = 0; $ab < $cnt_ans; $ab++) {
-        // short answers
-        $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
-        $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
 
-        $insdata[] = $answer;
-
-        //$sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
-        $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND d.field_ref_qid_nid = '$tnid' AND o.ans_val IN ('1','2') group by o.nid";
-        $tmplist = ExecuteQuery($sel, "select");
-
-        $final = '';
-
-        foreach ($tmplist as $key => $list) {
-
-          //$cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN ('1','2')"));
-          $cnt_opt = db_result(db_query("select count(chorder) from {debate_options} where nid=" . $list['nid'] . " AND ans_val IN ('1','2')"));
-
-          $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
-
-          $final = $final + (($tmp * $list['field_strength_value']) / $cnt_opt);
-          // echo $final.'<br>';
-        }
-
-        $final = (!empty($final)) ? $final : '0';
-        $data[$ab]['y'] = $final;
-        if ($final >= 0) {
-          $data[$ab]['color'] = $colors[0];
-        }
-        else {
-          $data[$ab]['color'] = $colors[1];
-        }
-        $data[$ab]['name'] = t('Strength');
-      }
-
-      print drupal_json(array('data' => $data, 'categories' => $insdata));
-      /* jQuery(window).resize(function() {
-        chart.destroy();
-       */
-      /*   echo $output.='<div id="container" class="highcharts-container" style="height:360px; width: 100%; margin: 0 auto; clear:both"></div>
-        <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
-        '; */
-      break;
 
 
 

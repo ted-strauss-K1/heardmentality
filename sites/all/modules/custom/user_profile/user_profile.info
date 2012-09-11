@@ -1,0 +1,5 @@
+name = User Profile
+description = User Profile Management
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x

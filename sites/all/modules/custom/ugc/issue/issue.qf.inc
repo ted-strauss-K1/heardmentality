@@ -1,5 +1,30 @@
 <?php
 
+
+function _load_colors_array() {
+  $colors = array(
+    '#934d9e',
+    '#FF7F00',
+    '#50c0ac',
+    '#0c6926',
+    '#ef4c8d',
+    '#362750',
+    '#e1e43c',
+    '#ef3d3b',
+    '#3cc7f4',
+    '#589a1c',
+    '#C2499B',
+    '#f89521',
+    '#CC2027',
+    '#55ba59',
+    '#d5bc29',
+    '#6ccbd5',
+    '#43B649',
+    '#F6EB16'
+  );
+  return $colors;
+}
+
 function theme_issue_results_graph_quick_facts($node) {
   return;
 

@@ -23,7 +23,7 @@ $directory = $base_path . $directory;
 
         <?php print $styles; ?>
  <script type="text/javascript">
-     var spath='<?php print $gSitePath;?>';  var gSitePath='<?php echo $gSitePath; ?>';</script>
+     var spath=Drupal.settings.base_url;  var gSitePath='<?php echo $gSitePath; ?>';</script>
 
         <?php print $scripts; ?>
    <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>

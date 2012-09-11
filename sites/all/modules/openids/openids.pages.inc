@@ -625,6 +625,19 @@ function friends_answers() {
     return $listans;
 }
 
+function userTypes() {
+  $ques_query = "SELECT * FROM {user_types}";
+  $list = ExecuteQuery($ques_query, "select");
+  $usertypes = array();
+  $i = 0;
+  foreach ($list as $options) {
+    $usertypes[$i] = $options['id'];
+    $usertypes[$i] = $options['name'];
+    $i++;
+  }
+  return $usertypes;
+}
+
 function welcome_page() {
 //ob_start();
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
@@ -987,7 +1000,7 @@ function welcome_page() {
     $op = '
 <head>
 <script type="text/javascript">
-var spath=\'' . $gSitePath . '\';
+var spath=Drupal.settings.base_url;
     </script><script src="' . $gSitePath . '/misc/jquery.js" type="text/javascript"></script>
 <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
 <script src="' . $gSitePath . path_to_theme() . '/floatbox/floatbox.js" type="text/javascript"></script>

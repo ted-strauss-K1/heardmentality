@@ -71,7 +71,7 @@ function likethis(action, wid, like, ele){
 
   // $('likelink').empty();
 
-  var url = spath + 'question/forum/savecmt';
+  var url = Drupal.settings.base_url + '/question/forum/savecmt';
 
   jQuery('#waveerr').html('<b>Saving your like..!</b>');
   jQuery('#waveerr').slideDown('slow');

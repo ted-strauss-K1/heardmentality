@@ -8,7 +8,7 @@ jQuery(document).ready(function(){
     // setTimeout('admin_approve();', 5000);
 //     jQuery('#edit-field-issue-country-value').live('change',function(){
 //     var ids=jQuery(this).val();
-//       var url = spath+"moderator/ajax/state/cck";
+//       var url = Drupal.settings.base_url+"/moderator/ajax/state/cck";
 //       if(ids.length>1){
 //
 //    jQuery.ajax({
@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
    //  });
           jQuery('#edit-field-issue-state-value').live('change',function(){
      var ids=jQuery(this).val();
-       var url = spath+"moderator/ajax/city/cck";
+       var url = Drupal.settings.base_url+"/moderator/ajax/city/cck";
        if(ids.length>1){
           
     jQuery.ajax({

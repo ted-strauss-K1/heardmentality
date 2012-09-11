@@ -14,6 +14,11 @@ function follower_init() {
 define('FOLLOWER_PATH', 'follower');
 
 /*
+ * Follower Relation ID
+ */
+define('FOLLOWER_RELATION_ID', 1);
+
+/*
  * Implementation of hook_menu()
  */
 function follower_menu() {
@@ -54,7 +59,8 @@ function follower_theme() {
  * Follower Button theme call
  */
 function theme_follower_button($follow) {
-  if (user_is_logged_in()) {
+  global $user;
+  if (user_is_logged_in() && $user->uid != $follow->uid) {
     $text = follower_status($follow->uid) === false ? t('Follow') : t('Unfollow');
     return l(t($text), FOLLOWER_PATH.'/'.$follow->uid.'/',
       array('attributes' => array(
@@ -112,7 +118,7 @@ function follower_form(&$form, $follow) {
   );
   $form['rtid'] = array(
     '#type' => 'hidden',
-    '#default_value' => 1,
+    '#default_value' => FOLLOWER_RELATION_ID,
   );
 
   return $form;
@@ -151,4 +157,38 @@ function follower_status($follow_uid, $uid = '') {
     $uid = $user->uid;
   }
   return db_result(db_query("SELECT rid FROM {user_relationships} WHERE requester_id = '%d' AND requestee_id = '%d'", $uid, $follow_uid));
+}
+
+/*
+ * Get followers
+ */
+function follower_get_followers($uid) {
+  return user_relationships_load(
+    array(
+      'approved' => 1,
+      'requestee_id' => $uid,
+      'rtid' => FOLLOWER_RELATION_ID
+    ),
+    array(
+      'include_user_info' => 1,
+      'order' => 1
+    )
+  );
+}
+
+/*
+ * Get following
+ */
+function follower_get_following($uid) {
+  return user_relationships_load(
+    array(
+      'approved' => 1,
+      'requester_id' => $uid,
+      'rtid' => FOLLOWER_RELATION_ID
+    ),
+    array(
+      'include_user_info' => 1,
+      'order' => 1
+    )
+  );
 }

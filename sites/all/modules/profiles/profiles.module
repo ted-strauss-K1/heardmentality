@@ -1,24 +1,24 @@
 <?php
 
-/**
- * Storing the base url in the js variable
+/*
+ * Implementation of hook_init()
  */
 function profiles_init() {
-  global $base_url;
-  drupal_add_js(array('hm_base_url' => $base_url), 'setting');
+  //
 }
 
 /**
  * Implementation of hook_perm().
  */
 function profiles_perm() {
-  return array('Profile Edit', 'Profile View', 'Profile Privacy', 'User Sign In', 'Update Profile');
+  return array('Profile Edit', 'Profile View', 'Profile Privacy', 'Update Profile');
 }
 
 /**
  * Implementation of hook_menu().
  */
 function profiles_menu() {
+  /*
   $items['profile'] = array(
     'title' => 'Profile',
     'page callback' => 'profile_view',
@@ -26,6 +26,17 @@ function profiles_menu() {
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'profiles.pages.inc',
   );
+  */
+  /*
+  $items['account/edit'] = array(
+    'title' => 'Update Profile',
+    'page callback' => 'update_profile',
+    'access arguments' => array('Update Profile'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'profiles.pages.inc',
+  );
+  */
+
   $items['profile/edit/%'] = array(
     'title' => ' Edit Profile',
     'page callback' => 'profile_edit',
@@ -69,13 +80,7 @@ function profiles_menu() {
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'profiles.pages.inc',
   );
-  $items['account/edit'] = array(
-    'title' => 'Update Profile',
-    'page callback' => 'update_profile',
-    'access arguments' => array('Update Profile'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'profiles.pages.inc',
-  );
+
 
   $items['profile/profile_box_session'] = array(
     'title' => ' Privacy Profile',
@@ -98,18 +103,7 @@ function profiles_menu() {
   return $items;
 }
 
-function userTypes() {
-  $ques_query = "SELECT * FROM {user_types}";
-  $list = ExecuteQuery($ques_query, "select");
-  $usertypes = array();
-  $i = 0;
-  foreach ($list as $options) {
-    $usertypes[$i] = $options['id'];
-    $usertypes[$i] = $options['name'];
-    $i++;
-  }
-  return $usertypes;
-}
+
 
 function load_user($uid = '') {
 
@@ -118,36 +112,9 @@ function load_user($uid = '') {
   return $result;
 }
 
-function checkPrivacySettings($uid = null) {
-  $ques_query = "SELECT * FROM {privacy_settings} where uid='" . $uid . "'";
-  $list = ExecuteQuery($ques_query, "select");
-  $userFields = array();
-  $i = 0;
 
-  $columns = db_query("SHOW COLUMNS FROM {privacy_settings}");
 
-  while ($res = db_fetch_array($columns)) {
-    $userFields[$res['Field']] = $list[$i][$res['Field']];
-  }
-  if (isset($userFields) && count($userFields) > 0) {
-    return $userFields;
-  }
-}
 
-// to check only follower or followee will see the profile
-function checkFollowStatus($login_user_id = null, $profile_user_id = null) {
-
-  $ques_query = "SELECT *  from {follower}  where uid='" . $login_user_id . "'  AND follower_status='1' AND  follower_id='" . $profile_user_id . "' UNION
-	SELECT *  from {follower}  where uid='" . $profile_user_id . "'  AND follower_status='1' AND  follower_id='" . $login_user_id . "'
-	";
-  $list = ExecuteQuery($ques_query, "select");
-  $isfollow = FALSE;
-  if (isset($list) && count($list) > 0) {
-    $isfollow = TRUE;
-    return $isfollow;
-  }
-  return $isfollow;
-}
 
 // To check user points for user privacy settings
 function checkUserPoints($uid = null) {
@@ -159,17 +126,7 @@ function checkUserPoints($uid = null) {
   return 0;
 }
 
-function get_state($code = '') {
 
-  global $user, $base_path;
-
-  $query = array('postalcode' => $code, 'maxrows' => 1);
-  $result = geonames_query('postalcodesearch', $query);
-
-  print_r($result);
-
-  return $reuslt;
-}
 
 function UserPicture($mid, $profile='') {
   global $base_url, $user, $base_root, $base_path, $theme;
@@ -328,9 +285,7 @@ function save_message() {
 function profiles_block($op = 'list', $delta = 0, $edit = array()) {
   switch ($op) {
     case 'list':
-      $blocks[0] = array(
-        'info' => t('HOME FACTS & FIGURES'),
-      );
+
       $blocks[1] = array(
         'info' => t('Profile complete percent Options'),
       );
@@ -340,9 +295,7 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
       $blocks[3] = array(
         'info' => t('Profile complete percent Options - Right'),
       );
-      $blocks[4] = array(
-        'info' => t('User Profile Bio'),
-      );
+
       $blocks[5] = array(
         'info' => t('User Profile Information'),
       );
@@ -359,10 +312,7 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
 
     case 'view':
       switch ($delta) {
-        case 0:
-          $block['subject'] = t("THE HERD");
-          $block['content'] = home_facts_figures();
-          break;
+
         case 1:
           $block['subject'] = t("Profile Complete Percent");
           $block['content'] = profile_complete_percent_area();
@@ -375,10 +325,7 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
           $block['subject'] = t("Profile Complete Percent Alert");
           $block['content'] = profile_complete_percent_alert();
           break;
-        case 4:
-          $block['subject'] = t("User Profile Bio");
-          $block['content'] = user_profile_bio();
-          break;
+
         case 5:
           $block['subject'] = t("User Profile Information");
           $block['content'] = user_profile_info();
@@ -411,44 +358,12 @@ function hm_issues_search_count() {
   return $output;
 }
 
-function report_theme() {
-
-  drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
-
-  $form = '<div class="txt_area">
-        <p>Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?</p>
-	        <ul class="creat">
-                                    <li rel="Take pity on the reader – information<br/> should be presented in a non verbose manner. <br/>Pride should be taken from wording things concisely.<br/> This will ensure users can consume and retain<br/> a larger amount of information as well as making technical <br/>features like the translations and search more effective. <br/>Studies also show that more people will stop to read a shorter comment and more likely to pass over longer ones."><input type="radio" name="abuse_type" id="abuse_type" value="Concise" />Concise</li>
-                                    <li rel="No profanity please. Consider all users when choosing your language. <br/>People take the posting more seriously when <br/>it refrains from using harsh and negative words.<br/> Also, abbreviations should be avoided as other users <br/>or the translation feature may not understand."><input type="radio" name="abuse_type" id="abuse_type" value="Clean" />Clean</li>
-                                    <li rel="Pleased do not repeat anything that has been already posted.<br/> Any duplicate content dilutes the overall accuracy of the compiled information.<br/> Any new issue or posting added to Heard Mentality should be<br/> significantly different than existing content. Good practice would be to “agree” <br/>with the posting you may want to reiterate or <br/>voting on the issue that already exists - <br/>this will ultimately draw more attention to it."><input type="radio" name="abuse_type" id="abuse_type" value="Original" />Original</li>
-                                    <li rel="This is the fundamental rule to make any social community work. <br/>Please treat others like you would like to be treated yourself <br/>and you in return will get the same."><input type="radio" name="abuse_type" id="abuse_type" value="Golden Rules" />Golden Rules</li>
-                                    <li rel="Issues should be classifiable into the provided high level sections.<br/> Please do not post issues that could be considered <br/>unimportant, for example: The hairdo of a certain<br/> celebrity or which restaurant or movie is best.<br/> While these may be important questions, these are not the types of issues to be discussed here."><input type="radio" name="abuse_type" id="abuse_type" value="On Point" />On Point</li>
-                                    <li rel="Never post any false information.<br/>Strive to post only what can be backed up by facts.<br/> References and links should always be provided when available."><input type="radio" name="abuse_type" id="abuse_type" value="Truthful" />Truthful</li>
-                                     <li rel="Discussions within the debate are about<br/> issues and questions surrounding those issues.<br/> Postings should never be directed<br/> to other users directly, nor should they<br/> treat any other user disrespectfully.<br/> Please keep personal emotion out of discussion<br/> and consider each person’s<br/> right to their own view."><input type="radio" name="abuse_type" id="abuse_type" value="Considerate" />Considerate</li>
-                                </ul>  <div class="clr"></div>
-
-                               <p>  <input type="submit" name="button" id="submitter"  value="Submit"/></p>
-</div>';
-  return $form;
-}
 
 
 /*
  * Show figure on home page
  */
-function home_facts_figures() {
-  # add js
-  drupal_add_js(drupal_get_path('module', 'profiles') . '/js/tab.js');
-  # collect data
-  $type = 'poll';
-  $count_nodes = db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = '%s' ", $type));
-  $count_users_w_country = db_result(db_query("SELECT COUNT(u.uid) FROM users AS u JOIN user_profile AS up ON u.uid=up.uid WHERE u.status=1 AND up.country REGEXP '[^0-9]'"));
-  $time_period = variable_get('user_block_seconds_online', 900);
-  $count_online_users = db_result(db_query('SELECT COUNT(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period));
-  $count_answers = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} AS a JOIN {node} AS q ON q.nid = a.nid"));
-  # output
-  return theme('show_heat_map', $count_nodes, $count_users_w_country, $count_online_users, $count_answers);
-}
+
 
 function load_bubble($uid = '') {
   global $base_url, $user, $gDocPath, $base_root, $theme;
@@ -479,7 +394,8 @@ function load_bubble($uid = '') {
   $points = up_userpoints_get($details->uid);
 
   $coins = $user->total_coins != '' ? $user->total_coins : 0;
-  $badges = load_badges($uid);
+  $badges = badges_get_userbadges($uid);
+  $badges = $badges['#stat'];
   $output = '<div class="debate-cor-inner">
                 <div>
                 <div class="debate-cor-inner-left">' . UserPicture_small($details->uid) . '</div>
@@ -530,7 +446,8 @@ function load_user_badge($uid='', $search='') {
    */
    $points = up_userpoints_get($details->uid);
   $coins = $user->total_coins != '' ? $user->total_coins : 0;
-  $badges = load_badges($uid);
+  $badges = badges_get_userbadges($uid);
+  $badges = $badges['#stat'];
   if ($search)
     $link = '<a  onclick="get_profile_details(' . $details->uid . ',this);" style="cursor:pointer" > ' . myTruncate($details->name, '10', '..') . '</a>';
   else
@@ -558,56 +475,7 @@ function load_user_badge($uid='', $search='') {
 
 
 
-function load_badges($uid = '') {
-  $sql = "SELECT bid FROM {user_badges} WHERE uid = '" . $uid . "'";
-  $badgeids = ExecuteQuery($sql, 'select');
-  $bcnt = 0;
-  $scnt = 0;
-  $gcnt = 0;
-  foreach ($badgeids as $badgeid) {
-    $bid = $badgeid['bid'];
-    $btype = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
-    if ($btype == 'bronze') {
-      $bcnt++;
-    }
-    if ($btype == 'silver') {
-      $scnt++;
-    }
-    if ($btype == 'gold') {
-      $gcnt++;
-    }
-  }
-  $badges = array("bronze" => $bcnt, "silver" => $scnt, "gold" => $gcnt);
-  return $badges;
-}
 
-function profile_cron() {
-
-  // weekly coin update for all users
-  $sql = db_query("SELECT p.uid,p.daily_todays_date as lost_login, u.rank_id FROM user_profile p JOIN users u ON p.uid = u.uid  WHERE DATE_SUB(NOW(), INTERVAL 1 WEEK) <= p.daily_todays_date");
-  while ($result = db_fetch_object($sql)) {
-    $uid = $result->uid;
-    if ($uid) {
-      $rank_id = $result->rank_id;
-      if ($rank_id == '1') {
-        $coins = 5;
-      }
-      if ($rank_id == '2') {
-        $coins = 10;
-      }
-      if ($rank_id == '3') {
-        $coins = 15;
-      }
-      if ($rank_id == '4') {
-        $coins = 20;
-      }
-      $user = load_user($uid);
-      db_query("INSERT INTO {user_coins} (coin_key, coin_type, coin_count) VALUES('%s','%s','%d')", 'rank', 'earn', $coins);
-      $total_coins = $coins + $user->total_coins;
-      db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
-    }
-  }
-}
 
 function profiles_user($op, $edit, &$account, $category = NULL) {
   // print_r($op);
@@ -948,11 +816,6 @@ Don’t be part of the Herd</strong></p>
 
 function profiles_form($form_state, $step) {
   global $base_url, $user, $apikey, $theme;
-  $data = '
-
-var spath=\'' . $base_url . '/\';
-';
-  drupal_add_js($data, 'inline');
   switch ($step) {
     case '2':
       $query = "select * from {user_profile} where uid='$user->uid'";
@@ -1800,35 +1663,13 @@ function privacy($uid = '') {
     $privacy['name '] = $settings->name;
     $privacy['email '] = $settings->email;
     $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
-    $privacy['real_name '] = $settings->real_name;
   }
 }
 
-function check_follow_unfollow($requester, $requestee) {
 
-  $fid = db_result(db_query("SELECT rid FROM {user_relationships} WHERE requester_id = '%d' AND requestee_id = '%d'", $requester, $requestee));
-  return $fid;
-}
 
 // check whether the user has moderator permission
-function is_moderator($uid = '') {
-  global $user;
-  if (is_array($user->roles) && in_array('administrator', $user->roles)) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
+
 
 function UserPicture_small_src($mid) {
 
@@ -1935,10 +1776,7 @@ function profiles_theme() {
       'template' => 'user-profile-options-alert',
       'arguments' => array('name' => NULL, 'complete_percent' => NULL, 'user_picture' => NULL, 'medal_list' => NULL, 'ranking' => NULL, 'points' => NULL),
     ),
-    'user_profile_bio' => array(
-      'template' => 'user-profile-bio',
-      'arguments' => array('getuser' => NULL, 'ranking' => NULL, 'follow_status' => NULL, 'settings' => NULL),
-    ),
+
     'user_profile_information' => array(
       'template' => 'user-profile-information',
       'arguments' => array('getuser' => NULL, 'badges' => NULL, 'coins' => NULL, 'votes' => NULL, 'comments' => NULL, 'references' => NULL, 'followers' => NULL, 'following' => NULL, 'badgeList' => NULL, 'followerList' => NULL, 'followingList' => NULL, 'settings' => NULL),
@@ -2009,80 +1847,24 @@ function profile_complete_percent_alert() {
 
 function load_user_medal_list($uid = '') {
   $users = load_user($uid);
-  $badges = load_badges($uid);
+  $badges = badges_get_userbadges($uid);
+  $badges = $badges['#stat'];
   $coins = $users->total_coins != '' ? $users->total_coins : 0;
   return theme('user_badge_coins', $badges, $coins);
 }
 
-// user profile bio informations
-function user_profile_bio($uid = '') {
-  global $user, $base_url;
 
-  $path = '<front>';
-  $sitelink = url($path, array('absolute' => TRUE)) . '/';
-
-  $getuser = user_load(array('uid' => $uid));
-
-
-  /*
-  * odyachenko
-  *
-  * These lines refer to working with the ranks the old way
-  */
-  $rank = ranks_user_rank($uid);
-  $ranking = $rank['name'];
-  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$getuser->rank_id'"));
-
-  $profiles = db_query("SELECT * FROM {user_profile} WHERE uid = '$uid'");
-  $profileDetails = db_fetch_object($profiles);
-
-  // get user privacy settings
-  $userSettings = checkPrivacySettings($uid);
-  $settings = get_user_privacy_values($userSettings, $uid);
-  //echo '<pre>'; print_r($settings); exit;
-  // check follow status
-  drupal_add_js(USER_RELATIONSHIPS_UI_PATH . '/user_relationships_ui.js');
-  if ($user->uid == 0) {
-    $status = t('Login to Follow User');
-    $flink = '#';
-    $fClass = '';
-  }
-  else if ($user->uid != $getuser->uid) {
-    $followingid = check_follow_unfollow($user->uid, $getuser->uid);
-    if ($followingid) {
-      // unfollow
-      //$flink='<a class="user_relationships_popup_link linkfol" href="' . $base_url.'/' . 'user/'.$user->uid.'/relationships/'.$followingid.'/remove/?destination=profile/'.$getuser->name.'">Unfollow</a>';
-      $flink = $sitelink . 'user/' . $user->uid . '/relationships/' . $followingid . '/remove/?destination=profile/' . $getuser->name;
-      $status = t('Unfollow User');
-    }
-    else {
-      // follow
-      //$flink='<a class="user_relationships_popup_link linkfol" href="' . $base_url.'/' . 'relationship/'.$getuser->uid.'/request/'.$user->uid.'?destination=profile/'.$getuser->name.'">Follow</a>';
-      $flink = $sitelink . 'relationship/' . $getuser->uid . '/request/' . $user->uid . '?destination=profile/' . $getuser->name;
-      $status = t('Follow');
-    }
-    $fClass = 'user_relationships_popup_link';
-  }
-  else {
-    $flink = $sitelink . 'account/edit';
-    $status = t('Edit Profile');
-    $fClass = '';
-  }
-  $follow_status['status'] = $status;
-  $follow_status['href'] = $flink;
-  $follow_status['fclass'] = $fClass;
-
-  return theme('user_profile_bio', $getuser, $ranking, $follow_status, $settings);
-}
 
 // user profile information
 function user_profile_info() {
   global $user, $base_url;
   // get user profile id for a particular user
-  $uid = get_user_profile_id();
-  $getuser = user_load(array('uid' => $uid));
+  $getuser = _user_profile_get_user(arg(1));
+  $uid = $getuser->uid;
 
-  $badges = load_badges($uid);
+
+  $badges = badges_get_userbadges($uid);
+  $badges = $badges['#stat'];
   $coins = $getuser->total_coins != '' ? $getuser->total_coins : 0;
   $votes = db_result(db_query("SELECT COUNT(nid) FROM {poll_votes} WHERE uid = '$uid'"));
   $comments = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '$uid'"));
@@ -2120,193 +1902,8 @@ function user_profile_info() {
   return theme('user_profile_information', $getuser, $badges, $coins, $votes, $comments, $references, $followers, $following, $badgeList, $followerList, $followingList, $settings);
 }
 
-function get_user_profile_id() {
-  global $user, $base_url;
-  $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-  $uid = '';
-
-  if (!is_numeric($profile_name)) {
-    $profile_name = strtolower($profile_name);
-    $getuser = user_load(array('name' => $profile_name));
-  }
-  else {
-    $getuser = user_load(array('uid' => $profile_name));
-  }
-  if (isset($getuser) && !empty($getuser)) {
-
-    $uid = $getuser->uid;
-  }
-
-  if ($uid == '') {
-    $uid = $user->uid;
-  }
-
-  if ($uid == '') {
-    drupal_not_found();
-    return;
-  }
-
-  return $uid;
-}
-
-function get_user_privacy_values($userSettings, $uid) {
-  global $base_url, $user;
-  $settings = array();
-  //Checking settings and displaying the field
-  $get_cn = db_query("select * from {user_profile} where uid='$uid'");
-  $result = db_fetch_array($get_cn);
-  $getuser = user_load(array('uid' => $result['uid']));
-  $is_follow_follower = checkFollowStatus($user->uid, $uid);
-
-  if (is_array($result))
-    extract($result);
-
-  if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 3 && $is_follow_follower == TRUE) && ($userSettings['real_name'] != 4)) {
-    $settings['real_name'] = $result['real_name'];
-  }
-  else {
-    $settings['real_name'] = '';
-  }
-
-  if (($userSettings['mail'] == 1) || ($userSettings['mail'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['mail'] == 3 && $is_follow_follower == TRUE) && ($userSettings['mail'] != 4)) {
-    $settings['email'] = $getuser->mail;
-  }
-  else {
-    $settings['email'] = '';
-  }
-  if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {
-    $settings['bio'] = $result['bio'];
-  }
-  else {
-    $settings['bio'] = '';
-  }
-  if (($userSettings['zip'] == 1) || ($userSettings['zip'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['zip'] == 3 && $is_follow_follower == TRUE) && ($userSettings['zip'] != 4)) {
-    $country1 .= $result['country'];
-
-    if (!empty($state)) {
-      $country1.='(' . $result['state'] . ',' . $result['city'] . ').';
-    }
-    $settings['location'] = $country1;
-  }
-  else {
-    $settings['location'] = "";
-  }
-  if (($userSettings['religion'] == 1) || ($userSettings['religion'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['religion'] == 3 && $is_follow_follower == TRUE) && ($userSettings['religion'] != 4)) {
-    $settings['religion'] = $result['religion'];
-  }
-  else {
-    $settings['religion'] = "";
-  }
 
 
-
-  if (($userSettings['image'] == 1) || ($userSettings['image'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 3 && $is_follow_follower == TRUE) && ($userSettings['image'] != 4)) {
-    $img_path1 = $base_url . '/' . drupal_get_path('module', 'profiles') . '/snap/' . $result['image'];
-    $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
-  }
-
-  if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 3 && $is_follow_follower == TRUE) && ($userSettings['dob'] != 4)) {
-    $settings['dob'] = $age;
-  }if ($settings['dob'] == 0) {
-    $dob1 = "";
-  }
-  else {
-    $rem_value = $settings['dob'] % 5;
-    $rem_first = $settings['dob'] - $rem_value;
-    $rem_second = $rem_first + 5;
-    $settings['dob'] = $rem_first . ' - ' . $rem_second . ' ' . t('Years Old');
-  }
-  if (($userSettings['sorient'] == 1) || ($userSettings['sorient'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['sorient'] == 3 && $is_follow_follower == TRUE) && ($userSettings['sorient'] != 4)) {
-    $settings['sorient'] = $result['sorient'];
-  }
-  else {
-    $settings['sorient'] = "";
-  }
-  if (($userSettings['edu'] == 1) || ($userSettings['edu'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['edu'] == 3 && $is_follow_follower == TRUE) && ($userSettings['edu'] != 4)) {
-    $settings['edu'] = $result['edu'];
-  }
-  else {
-    $settings['edu'] = "";
-  }
-  if (($userSettings['ethnic'] == 1) || ($userSettings['ethnic'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['ethnic'] == 3 && $is_follow_follower == TRUE) && ($userSettings['ethnic'] != 4)) {
-    $settings['ethnic'] = $result['ethnic'];
-  }
-  else {
-    $settings['ethnic'] = "";
-  }
-
-  if (($userSettings['income'] == 1) || ($userSettings['income'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['income'] == 3 && $is_follow_follower == TRUE) && ($userSettings['income'] != 4)) {
-    $settings['income'] = $result['income'];
-  }
-  else {
-    $settings['income'] = "";
-  }
-  if (($userSettings['marital'] == 1) || ($userSettings['marital'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['marital'] == 3 && $is_follow_follower == TRUE) && ($userSettings['marital'] != 4)) {
-    $settings['marital'] = $result['marital'];
-  }
-  else {
-    $settings['marital'] = "";
-  }
-
-  if (($userSettings['gender'] == 1) || ($userSettings['gender'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['gender'] == 3 && $is_follow_follower == TRUE) && ($userSettings['gender'] != 4)) {
-    $settings['gender'] = $result['gender'];
-    $settings['gender'] = $settings['gender'] == 1 ? 'Male' : 'Female';
-  }
-  else {
-    $settings['gender'] = "";
-  }
-
-
-  if (($userSettings['mywebsite'] == 1) || ($userSettings['mywebsite'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['mywebsite'] == 3 && $is_follow_follower == TRUE) && ($userSettings['mywebsite'] != 4)) {
-    $settings['mywebsite'] = $result['urls'];
-  }
-  else {
-    $settings['mywebsite'] = "";
-  }
-  list($facebook, $twitter) = explode("||", $result['social']);
-  if (($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['facebook'] == 3 && $is_follow_follower == TRUE) && ($userSettings['facebook'] != 4)) {
-    $settings['facebook'] = $facebook;
-  }
-  else {
-    $settings['facebook'] = "";
-  }
-  if (($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['twitter'] == 3 && $is_follow_follower == TRUE) && ($userSettings['twitter'] != 4)) {
-    $settings['twitter'] = $twitter;
-  }
-  else {
-    $settings['twitter'] = "";
-  }
-
-
-  if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 3 && $is_follow_follower == TRUE) && ($userSettings['answers'] != 4)) {
-    $settings['answers'] = $ins_ans;
-  }
-  else {
-    $settings['answers'] = '';
-  }
-  if (($userSettings['questions'] == 1) || ($userSettings['questions'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['questions'] == 3 && $is_follow_follower == TRUE) && ($userSettings['questions'] != 4)) {
-    $settings['questions'] = $inc_qns;
-  }
-  else {
-    $settings['questions'] = '';
-  }
-  // other website links
-  $othQuery = db_query("SELECT name, url FROM {follow_links} WHERE uid = '$uid'");
-  $link_privacies = unserialize($userSettings['personal_links']);
-
-
-  while ($otherLinks = db_fetch_object($othQuery)) {
-    if (($link_privacies[$otherLinks->name] == 1) || ($link_privacies[$otherLinks->name] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($link_privacies[$otherLinks->name] == 3 && $is_follow_follower == TRUE) && ($link_privacies[$otherLinks->name] != 4)) {
-      $others[$otherLinks->name] = $otherLinks->url;
-    }
-    else {
-      $others = array();
-    }
-  }
-  $settings['other_links'] = $others;
-
-  return $settings;
-}
 
 // user following list
 function _following_list($uid = '') {

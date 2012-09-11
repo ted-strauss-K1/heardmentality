@@ -191,7 +191,7 @@ function qlite_view() {
     $voutput = '
         <script type="text/javascript">
 		var qid="' . $qid . '";
-		var spath="' . $gSitePath . '";
+		var spath=Drupal.settings.base_url";
                     var curl="' . url($_GET['q'], array('absolute' => true)) . '";
 		function showdetails(ids)
 		{
@@ -331,6 +331,32 @@ function qlite_view() {
     } else {
         return $voutput;
     }
+}
+
+function insertviews($qid = '') {
+  global $user;
+  //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+  if (user_is_logged_in()) {
+    $ulid = $user->uid;
+    $ipid = $_SERVER['REMOTE_ADDR'];
+    //echo "SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='".$qid."' and view_date='".date("Y-m-d")."' ";
+    $countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='" . $qid . "' and view_date='" . date("Y-m-d") . "' "));
+  }
+  else {
+
+    $ulid = 0;
+    $ipid = $_SERVER['REMOTE_ADDR'];
+
+
+
+    $countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where ip='$ipid'  and qid='" . $qid . "' and view_date='" . date("Y-m-d") . "'"));
+  }
+  //echo  $countret;
+  if ($countret == 0) {
+
+    db_query("INSERT INTO {qviews} (ip,uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'" . date("Y-m-d") . "')");
+  }
 }
 
 function qns_like() {
@@ -877,7 +903,7 @@ function add_resources() {
          <script src="' . $gSitePath . '/misc/jquery.js"></script>
 <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/fileuploader.css" type="text/css" />
             <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/fileuploader.js"></script>
-            <script> var spath="' . $gSitePath . '";</script>
+            <script> var spath=Drupal.settings.base_url;</script>
                    	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
 		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-more.js"></script>
@@ -1696,6 +1722,18 @@ function percent_broken($qid = '', $aid = '', $array = '') {
     return $answer;
 }
 
+
+function get_short_answer($nid = '', $chorder = '') {
+  $short = db_fetch_object(db_query("
+    SELECT short_answer
+    FROM {short_answers}
+    WHERE
+      qid= '%d' AND
+      chorder = '%d'", $nid, $chorder)
+  );
+  return $short->short_answer;
+}
+
 function qlite_percent() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $output = '';
@@ -1744,7 +1782,7 @@ function qlite_percent() {
     $output .= "
 		<script >
 
-		var spath='" . $gSitePath . "';
+		var spath=Drupal.settings.base_url;
 		var chart;
 			$(document).ready(function() {
 				chart = new Highcharts.Chart({
@@ -1824,6 +1862,7 @@ Filter by :
     </div>
 </div>';
 }
+
 
 function get_ans_range($qid='', $range='') {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;

@@ -176,7 +176,7 @@ function get_tag_cat(ids,level){
   var ids=$('cat1').get('value');
   var scat=$('cat2').get('value');
   var sscat=$('cat3').get('value');
-  var url = spath+'question/ajax';
+  var url = Drupal.settings.base_url+'/question/ajax';
   var req = new Request({    
     method: 'get'
     ,

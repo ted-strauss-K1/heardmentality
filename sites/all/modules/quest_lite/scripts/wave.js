@@ -154,7 +154,7 @@ jQuery(document).ready(function(){
 
 jQuery('#dfilt-sup,#dfilt-ans,#dfilt-sort').live('change',function(){
 var qid=jQuery('input[name="mqid"]').val();
-var gurl=spath+'debate/ajax/'+qid;
+var gurl=Drupal.settings.base_url+'/debate/ajax/'+qid;
 var sup=jQuery('#dfilt-sup').val();
 var ans=jQuery('#dfilt-ans').val();
 var sort=jQuery('#dfilt-sort').val();
@@ -176,7 +176,7 @@ var sort=jQuery('#dfilt-sort').val();
 
 jQuery('#rfilt-sup,#rfilt-ans,#rfilt-sort').live('change',function(){
 var qid=jQuery('input[name="mqid"]').val();
-var gurl=spath+'debate/ajax/'+qid;
+var gurl=Drupal.settings.base_url+'/debate/ajax/'+qid;
 var sup=jQuery('#rfilt-sup').val();
 var ans=jQuery('#rfilt-ans').val();
 var sort=jQuery('#rfilt-sort').val();

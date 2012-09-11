@@ -7,7 +7,7 @@ jQuery(document).ready( function() {
     var quest = jQuery('#q_quest').val();
     if(jQuery.trim(quest).length){
       // get_releted_issue(0);
-      var url = spath+"exist_question";
+      var url = Drupal.settings.base_url+"/exist_question";
       jQuery.ajax({
         type: 'POST',
         dataType: "json",
@@ -54,7 +54,7 @@ function get_releted_issue(cat_id)
   var context	 = 	jQuery('#q_context').val();
   jQuery.ajax({
     type: "POST",
-    url: spath+"/question/ajax",
+    url: Drupal.settings.base_url+"/question/ajax",
     data: "code=3&action=3&question="+question+"&cat_id="+cat_id+"&context="+context,
     success: function(msg)
     {
@@ -67,7 +67,7 @@ function get_releted_issue(cat_id)
 
 function question_check(){
   var quest = jQuery('#q_quest').val();
-  var url = spath+"front_dupequestion";
+  var url = Drupal.settings.base_url+"/front_dupequestion";
 
   jQuery.ajax({
     type: "POST",
@@ -247,7 +247,7 @@ function get_tag_cat(ids,level){
   var ids=$('cat1').get('value');
   var scat=$('cat2').get('value');
   var sscat=$('cat3').get('value');
-  var url = spath+'question/ajax';
+  var url = Drupal.settings.base_url+'/question/ajax';
   var req = new Request({
     method: 'get'
     ,

@@ -28,6 +28,14 @@ function save_follow() {
 }
 
 // user following / followers
+
+function check_follow_unfollow($requester, $requestee) {
+
+  $fid = db_result(db_query("SELECT rid FROM {user_relationships} WHERE requester_id = '%d' AND requestee_id = '%d'", $requester, $requestee));
+  return $fid;
+}
+
+
 function _user_follows($uid = '', $fType = ''){
     global $user;
 

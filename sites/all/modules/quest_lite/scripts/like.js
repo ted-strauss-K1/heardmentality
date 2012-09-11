@@ -23,7 +23,7 @@ qns_like(0);
 function qns_like(type,qid){
 
 
-    var url = spath + 'qlite/like';
+    var url = Drupal.settings.base_url + '/qlite/like';
     var req = new Request({
         method: 'get',
         url: url,
@@ -42,7 +42,7 @@ function qns_like(type,qid){
 
 function resource_like(rid,uid,rtype){
 
-		var urr=spath+'qlite/ajax?action=resource';
+		var urr=Drupal.settings.base_url+'/qlite/ajax?action=resource';
 		var req = new Request({    
 			method: 'post',
 			url: urr,

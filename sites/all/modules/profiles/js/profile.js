@@ -143,7 +143,7 @@ function profile_comment(make){
 function get_zip_city(ielem, lock){
   LockPage(lock);
   var result = false;
-  var urr=spath+'qlite/ajax?action=zipcity';
+  var urr=Drupal.settings.base_url+'/qlite/ajax?action=zipcity';
   var code = $(ielem).val();
   add_validate_message(ielem, '<span class="validate-wait">Please wait your zip code is validating...</span>', 'validate-error-wait');
   jQuery.ajax({
@@ -231,7 +231,7 @@ function UnlockPage(lock)
 function chk_uname(ielem, lock){
 
   var val = ielem.val();
-  var urr=spath+'qlite/ajax?action=uname';
+  var urr=Drupal.settings.base_url+'/qlite/ajax?action=uname';
   var result = true;
 
   var ck_uname = /^[A-Za-z0-9_]{5,20}$/;

@@ -423,6 +423,16 @@ function issue_get_votes($nid) {
   return $votes[$nid];
 }
 
+/*
+ * Get vote count
+ */
+function issue_get_uservotes($uid) {
+  static $votes = array();
+  if (!isset($votes[$uid])) {
+    $votes[$uid] = (int)db_result(db_query("SELECT COUNT(*) FROM {poll_votes} WHERE uid = '%d'", $uid));
+  }
+  return $votes[$uid];
+}
 
 
 
@@ -630,7 +640,6 @@ function theme_issue_results_insightview(&$node) {
   return '<span>'.implode('</span></br><span>', $output).'</span></br>';
 }
 
-
 /*
  * Load poll choices
  */
@@ -649,6 +658,48 @@ function issue_choices($nid) {
   }
   return $choices[$nid];
 }
+
+/*
+ * Colors
+ */
+function issue_colors($index = false) {
+  static $i = 0;
+  static $colors = array();
+  if (empty($colors)) {
+    $colors += array(
+      '#934d9e',
+      '#FF7F00',
+      '#50c0ac',
+      '#0c6926',
+      '#ef4c8d',
+      '#362750',
+      '#e1e43c',
+      '#ef3d3b',
+      '#3cc7f4',
+      '#589a1c',
+      '#C2499B',
+      '#f89521',
+      '#CC2027',
+      '#55ba59',
+      '#d5bc29',
+      '#6ccbd5',
+      '#43B649',
+      '#F6EB16'
+    );
+  }
+  if ($index === true) {
+    return $colors;
+  }
+  if ($index !== false && isset($colors[$index])) {
+    return $colors[$index];
+  } else {
+    $color = $colors[$i];
+    $i = ($i+1) % count($colors);
+    return $color;
+  }
+}
+
+
 
 
 
@@ -1021,42 +1072,7 @@ function issue_pundit_tab($qid='') {
   return $output;
 }
 
-function load_taxonomy($nid='') {
 
-  global $user;
-  $arrcategories = taxonomy_node_get_terms($nid);
-  foreach ($arrcategories as $catterm) {
-    $cattermid = $catterm->tid;
-    break;
-  }
-  // get category for node
-  //$terms = get_quest_taxonomy($nid);
-  $terms = get_question_categories($nid);
-  if ($terms) {
-    $category .= $terms;
-  }
-  else {
-    $category.= 'No associated categories.';
-  }
-  //  print render_view_page(2, $cattermid);
-  ///new tech
-  //$node_content = node_view(node_load($nid));
-//$vars['node_content'] = $node_content;
-//print_r($node_content);
-//print drupal_render($node_content->field_tags);
-
-  $node = node_load($nid);
-  if (module_exists('taxonomy')) {
-    $terms = taxonomy_link('taxonomy terms', $node);
-    $html = theme('links', $terms, array('class' => 'node-terms'));
-  }
-  else {
-    $html = 'No associated categories.';
-  }
-
-  //return $html;
-  return $category;
-}
 
 
 
@@ -1838,31 +1854,7 @@ function issue_filter_options() {
 }
 
 // insert node views
-function insertviews($qid = '') {
-  global $user;
-  //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-  if (user_is_logged_in()) {
-    $ulid = $user->uid;
-    $ipid = $_SERVER['REMOTE_ADDR'];
-    //echo "SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='".$qid."' and view_date='".date("Y-m-d")."' ";
-    $countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='" . $qid . "' and view_date='" . date("Y-m-d") . "' "));
-  }
-  else {
-
-    $ulid = 0;
-    $ipid = $_SERVER['REMOTE_ADDR'];
-
-
-
-    $countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where ip='$ipid'  and qid='" . $qid . "' and view_date='" . date("Y-m-d") . "'"));
-  }
-  //echo  $countret;
-  if ($countret == 0) {
-
-    db_query("INSERT INTO {qviews} (ip,uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'" . date("Y-m-d") . "')");
-  }
-}
 
 // rating buttons - agree, disagree
 // popular categories
@@ -1904,193 +1896,4 @@ function __issue_description_trimmer($context) {
     $output['context_remaining'] = str_replace("\r\n", "<br>", $context_remaining);
   }
   return $output;
-}
-
-function _load_colors_array() {
-  $colors = array(
-    '#934d9e',
-    '#FF7F00',
-    '#50c0ac',
-    '#0c6926',
-    '#ef4c8d',
-    '#362750',
-    '#e1e43c',
-    '#ef3d3b',
-    '#3cc7f4',
-    '#589a1c',
-    '#C2499B',
-    '#f89521',
-    '#CC2027',
-    '#55ba59',
-    '#d5bc29',
-    '#6ccbd5',
-    '#43B649',
-    '#F6EB16'
-  );
-  return $colors;
-}
-
-function report_get_ans_range_history($nid='', $range='') {
-  switch ($range) {
-    case 'start':
-      $query = "select date(date_voted) as dat from {poll_votes_history} where nid='" . $nid . "' ORDER BY date_voted ASC LIMIT 0,1 ";
-      $answer = ExecuteQuery($query, "select");
-      break;
-    case 'end':
-      $query = "select date(date_voted) as dat from poll_votes_history where nid='" . $nid . "' ORDER BY date_voted DESC LIMIT 0,1 ";
-      $answer = ExecuteQuery($query, "select");
-      break;
-    default:
-      $query = "select count(*) as cnt from poll_votes_history where nid='" . $nid . "' ";
-      $answer = ExecuteQuery($query, "select");
-      break;
-  }
-  return $answer[0];
-}
-
-function report_answer_details_history($nid = '', $aid = '', $action = '', $date = '') {
-  switch ($action) {
-    case 'percent':
-      if ($_REQUEST['fopt']) {
-        $opt = filter_opt($_REQUEST);
-
-        $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $aid . "' $opt ";
-        $answer = ExecuteQuery($query, "norows");
-      }
-      else {
-
-        $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $aid . "' ";
-        $answer = ExecuteQuery($query, "norows");
-      }
-      return $answer;
-      break;
-    case 'timeline':
-      $query1 = "select count(*) as cnt from {poll_votes_history} where nid='" . $nid . "' and chorder='" . $aid . "'AND date(date_voted)<='" . $date . "' and status=1";
-      $query2 = "select count(*) as cnt from {poll_votes_history} where nid='" . $nid . "' and chorder='" . $aid . "'AND date(date_voted)<='" . $date . "' and status=0";
-      $result1 = db_result(db_query($query1));
-      $result2 = db_result(db_query($query2));
-      if ((!is_null($result1)) and (!is_null($result2))) {
-        $result = $result1 - $result2;
-      }
-      else {
-        $result = 'null';
-      }
-
-      return $result;
-      break;
-  }
-}
-
-/* * *********** */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* * * CUSTOM FUNCTIONS ** */
-
-/*
- * Get short answer for the node
- */
-
-function get_short_answer($nid = '', $chorder = '') {
-  $short = db_fetch_object(db_query("
-    SELECT short_answer
-    FROM {short_answers}
-    WHERE
-      qid= '%d' AND
-      chorder = '%d'", $nid, $chorder)
-  );
-  return $short->short_answer;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- * Colors
- */
-function issue_colors($index = false) {
-  static $i = 0;
-  static $colors = array();
-  if (empty($colors)) {
-    $colors += array(
-      '#934d9e',
-      '#FF7F00',
-      '#50c0ac',
-      '#0c6926',
-      '#ef4c8d',
-      '#362750',
-      '#e1e43c',
-      '#ef3d3b',
-      '#3cc7f4',
-      '#589a1c',
-      '#C2499B',
-      '#f89521',
-      '#CC2027',
-      '#55ba59',
-      '#d5bc29',
-      '#6ccbd5',
-      '#43B649',
-      '#F6EB16'
-    );
-  }
-  if ($index === true) {
-    return $colors;
-  }
-  if ($index !== false && isset($colors[$index])) {
-    return $colors[$index];
-  } else {
-    $color = $colors[$i];
-    $i = ($i+1) % count($colors);
-    return $color;
-  }
 }

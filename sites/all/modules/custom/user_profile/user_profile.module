@@ -1,0 +1,269 @@
+<?php
+
+require_once('user_profile.func.inc');
+
+/*
+ * Implementaton of hook_init()
+ */
+function user_profile_init() {
+  if (user_is_logged_in()) {
+    global $user;
+    $user = user_load($user->uid);
+  }
+}
+
+
+/*
+ * Define permission to edit profile
+ */
+define('USER_PROFILE_EDIT', 'Edit User Profile');
+
+/*
+ * Define permission to view profile
+ */
+define('USER_PROFILE_VIEW', 'View User Profile');
+
+/*
+ * Define permission to update profile
+ */
+define('USER_PROFILE_UPDATE', 'Update User Profile');
+
+/*
+ * Define permission to update profile provacy settings
+ */
+define('USER_PROFILE_PRIVACY', 'Update User Profile Privacy Settings');
+
+/*
+ * Implementation of hook_perm()
+ */
+function user_profile_perm() {
+  return array(USER_PROFILE_EDIT, USER_PROFILE_UPDATE, USER_PROFILE_VIEW, USER_PROFILE_PRIVACY);
+}
+
+/*
+ * Implementation of hook_user()
+ */
+function user_profile_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+    case 'delete' :
+      //
+    break;
+    case 'load' :
+      $user_profile = db_fetch_array(db_query("SELECT * FROM {user_profile} WHERE uid = '%d'", $account->uid));
+      $account = (object)array_merge((array)$account, $user_profile);
+    break;
+  }
+  //var_dump($account);
+}
+
+/*
+ * Implementation of hook_menu()
+ */
+function user_profile_menu() {
+  $menu = array();
+
+  $menu['profile'] = array(
+    'title'             => t('Profile'),
+    'page callback'     => 'theme',
+    'page arguments'    => array('user_profile_view'),
+    'access arguments'  => array(USER_PROFILE_VIEW),
+    'type'              => MENU_CALLBACK,
+  );
+  $menu['account/edit'] = array(
+    'title'             => 'Update Profile',
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('user_profile_edit_form'),
+    'access arguments'  => array('Update Profile'),
+    'type'              => MENU_SUGGESTED_ITEM,
+    'file'              => 'user_profile.pages.inc',
+  );
+
+  return $menu;
+}
+
+/*
+ * user_profile_edit
+ */
+function user_profile_edit() {
+  return drupal_get_form('user_profile_edit_form');
+}
+
+/*
+ * Implementation of hook_theme()
+ */
+function user_profile_theme() {
+  $theme = array();
+
+  $theme['user_profile_view'] = array(
+    'arguments' => array(),
+    'template' => 'user-profile-view',
+    'preprocess functions' => array('user_profile_view_preprocess'),
+  );
+  $theme['user_profile_heatmap'] = array(
+    'arguments' => array(),
+    'template' => 'user-profile-heatmap',
+    'preprocess functions' => array('user_profile_heatmap_preprocess'),
+  );
+  $theme['user_profile_info'] = array(
+    'arguments' => array(
+      'user' => NULL,
+    ),
+    'template' => 'user-profile-info',
+    'preprocess functions' => array('user_profile_info_preprocess'),
+  );
+
+
+
+  return $theme;
+}
+
+/*
+ * Implementation of hook_block()
+ */
+function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      $blocks['user-profile-info'] = array(
+        'info' => t('User Profile Info'),
+      );
+      $blocks['user-profile-heatmap'] = array(
+        'info' => t('Heatmap'),
+      );
+    return $blocks;
+
+    case 'view':
+      switch ($delta) {
+        case 'user-profile-info':
+          $block['subject'] = t("User Profile Info");
+          $block['content'] = theme('user_profile_info', null);
+        break;
+        case 'user-profile-heatmap':
+          $block['subject'] = t("THE HERD");
+          $block['content'] = theme('user_profile_heatmap');
+        break;
+      }
+    return $block;
+  }
+}
+
+/*
+ * Theme user_profile_view preprocess function
+ */
+function user_profile_view_preprocess(&$vars) {
+  $vars['user'] = _user_profile_get_user(arg(1));
+  $rank = ranks_user_rank($vars['user']->uid);
+  $vars['rank'] = $rank['name'];
+  // TODO !!
+  $vars['settings']  = get_user_privacy_settings($vars['user']->uid);
+}
+
+/*
+ * Theme user_profile_heatmap preprocess function
+ */
+function user_profile_heatmap_preprocess(&$vars) {
+  drupal_add_js(drupal_get_path('module', 'user_profile') . '/user-profile-heatmap.js');
+  $vars['count_nodes'] = db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = '%s' ", 'poll'));
+  $vars['count_users'] = db_result(db_query("SELECT COUNT(u.uid) FROM {users} AS u JOIN {user_profile} AS up ON u.uid = up.uid WHERE u.status = 1 AND up.country REGEXP '[^0-9]'"));
+  $time_period = variable_get('user_block_seconds_online', 900);
+  $vars['count_users_online'] = db_result(db_query('SELECT COUNT(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period));
+  $vars['count_votes'] = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} AS pv JOIN {node} AS n ON n.nid = pv.nid"));
+}
+
+/*
+ * Theme user_profile_info preprocess function
+ */
+function user_profile_info_preprocess(&$vars) {
+  if (!isset($vars['user'])) {
+    $vars['user'] = _user_profile_get_user(arg(1));
+  }
+  $uid = $vars['user']->uid;
+
+  $vars['badges'] = badges_get_userbadges($uid);
+  $vars['comments'] = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
+  $vars['votes'] = issue_get_uservotes($uid) + poll_suggest_get_uservotes($uid);
+  $vars['references'] = (int)db_result(db_query("SELECT COUNT(f.nid) FROM {content_type_forum} AS ctf LEFT JOIN {node} AS n ON ctf.nid = n.nid WHERE n.uid = '%d' AND ctf.field_type_value = '%d' AND n.status = '%d'", $uid, TYPE_RESOURCE, 1));
+  $followers = follower_get_followers($uid);
+  $vars['followers_count'] = count($followers);
+  $vars['followers'] = array_slice($followers, 0, 8);
+  $following = follower_get_following($uid);
+  $vars['following_count'] = count($following);
+  $vars['following'] = array_slice($following, 0, 8);
+  $vars['settings'] = get_user_privacy_settings($uid);
+  // TODO add links for following pages
+
+}
+
+/*
+ * Get user by string
+ */
+function _user_profile_get_user($string) {
+  if (empty($string)) {
+    global $user;
+    $tmp = $user;
+  } elseif (!is_numeric($string)) {
+    $string = strtolower($string);
+    $tmp = user_load(array('name' => $string));
+  } else {
+    $tmp = user_load(array('uid' => $string));
+  }
+  if ($tmp === false || !user_is_logged_in()) {
+    drupal_not_found();
+  }
+  return $tmp;
+}
+
+/*
+ * Moderation Rights
+ */
+function user_profile_moderator($uid = '') {
+  global $user;
+  return is_array($user->roles) && in_array('administrator', $user->roles);
+}
+
+/*
+ * Get user profile image
+ */
+function user_profile_image($user, $presetname = false) {
+  static $imgs = array();
+  if (!isset($imgs[$user->uid][$presetname])) {
+    if ($presetname === false || !imagecache_generate_image($presetname, $user->picture)) {
+      $img = $user->picture;
+    } else {
+      $img = imagecache_create_path($presetname, $user->picture);
+    }
+    $imgs[$user->uid][$presetname] = $img;
+  }
+  return $imgs[$user->uid][$presetname];
+}
+
+/*
+ * Callback for "profile/edit" TODO account/edit replace
+ *
+function user_profile_edit_form() {
+  $form = array();
+
+  if (!user_is_logged_in()) {
+    drupal_not_found();
+  }
+
+  global $user;
+
+  $form['#attributes'] = array(
+    'enctype'   => 'multipart/form-data',
+  );
+
+  $form['username'] = array(
+    '#type'           => 'textfield',
+    '#title'          => t('Username'),
+    '#maxlength'      => 20,
+    '#description'    => t(''),
+    '#value'          => $user->name,
+    '#default_value'  => t(''),
+    '#id'             => 'username',
+    '#required'       => 1,
+    '#attributes'     => array('class' => 'info validate validate-username', 'blurtext' => t('Username')),
+  );
+
+  return $form;
+}
+*/
