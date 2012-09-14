@@ -225,7 +225,7 @@ function issue_results_graph_highchart_filter_form() {
       //
     ),
     '#prefix'   => '<div id="contentr1"><div>',
-    '#suffix'   => '</div><div id="chart_div" style="width:300px; min-width:300px; min-height: 280px;"></div></div>',
+    '#suffix'   => '</div><div id="chart_div" style="width:100%; min-height: 280px;"></div></div>',
     '#id'       => 'filter',
   );
   $cat = issue_results_graph_highchart_filter_categories();
@@ -241,13 +241,11 @@ function issue_results_graph_highchart_filter_form() {
  * Graphs' page Legend
  */
 function theme_issue_results_graph_legend($node) {
-  $output = '<dl>';
-  $pattern = '<dd>%s:</dd><dt style="background-color:%s;">color</dt>';
+  $pattern = '<dl><dd>%s:</dd><dt style="background-color:%s;">color</dt></dl>';
   $choices = issue_choices($node->nid);
   foreach ($choices as $index => $answer) {
     $output .= sprintf($pattern, $answer['short_answer'], issue_colors($index));
   }
-  $output .= '</dl>';
   return $output;
 }
 

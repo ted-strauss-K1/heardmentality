@@ -1,6 +1,6 @@
 <div class="linkbox_inner">
   <div class="img-selector">
-    <div class="inner">';
+    <div class="inner">
       <?php for($i = 0; $i < $image_count; $i++) : ?>
         <div class="cur-img">
           <img id="cur_img_<?php print $i ?>" src="<?php print $images[$i] ?>" width="118" height="73" alt="" />

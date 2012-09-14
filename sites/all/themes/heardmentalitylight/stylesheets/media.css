@@ -789,6 +789,19 @@ Mobile Only
 	#argument-add-form .add_button {
 		width: 100%;
 	}
+	
+	#about_us_page_content h3 {
+		font-size: 1.6em;
+		line-height: 1.2em;
+	}
+	
+	.page ul {
+		margin-left: 2em;
+	}
+	
+	.table-bor-form-item-1 ul {
+		margin-left: 1.3em;
+	}
 
 }
 
@@ -856,5 +869,16 @@ END Mobile Only
 						
 		body div:last-child object {
 			display: none;
+		}
+		
+		.table-bor-form-item-1,
+		.table-bor-form-item-1:first-child {
+			float: none;
+			width: 100%;
+			padding: 0;
+		}
+		
+		.table-bor-form-item-1 ul {
+			margin-left: 2em;
 		}
 	}

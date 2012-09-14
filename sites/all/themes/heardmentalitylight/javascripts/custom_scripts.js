@@ -38,13 +38,7 @@ $(document).ready(function() {
 	}
 			
   });
-	
-  // Show/Hide Add argument & Debate statistic
-	
 
-	
-
-  
   
   // Filter show only
   
@@ -74,13 +68,28 @@ $(document).ready(function() {
 		}
 	});
   
-
+// Jumping
   
-// Add references - position
+     /* if (jQuery.browser.mobile == false) {
+		  var top = $('.columns.jumping .special').offset().top - parseFloat($('.columns.jumping .special').css('marginTop').replace(/auto/, 0));
+		  $(window).scroll(function (event) {
+			// what the y position of the scroll is
+			var y = $(this).scrollTop();
+		  
+			// whether that's below the form
+			if (y >= top) {
+			  // if so, ad the fixed class
+			  $('.columns.jumping .special').addClass('fixed');
+			} else {
+			  // otherwise remove it
+			  $('.columns.jumping .special').removeClass('fixed');
+			}
+		  });
+    }
+	else {
+		$('.columns.jumping .special').addClass('mobile');
+	}*/
 
-
-
- 
 });
 
 Drupal.behaviors.fix_circle = function(context) {

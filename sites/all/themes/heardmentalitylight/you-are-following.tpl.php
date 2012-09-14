@@ -1,23 +1,18 @@
 <?php global $user; ?>
-<div class="dark-grey-box ">
-        <div class="following">
-                <label for="following" class="following"><?php print t('You\'re Following'); ?></label>
-                <?php
-                if($requestcount>0){
+<div class="dark-grey-box top clearfix">
+     <label for="following" class="profile profile_page" style="padding-bottom: 8px;"><?php print t('You\'re Following'); ?></label>
+        <div class="following one clearfix">
+
+                <?php if($requestcount>0){
                 foreach ($relationships as $rtid => $relationship) {?>
 
-                <a href="<?php print $front_page.'profile/'.$relationship->requestee->name; ?>"><img class="following-user" src="<?php print UserPicture_small_src($relationship->requestee_id); ?>" alt="<?php print $relationship->requestee->name; ?>" /></a>
+                <a href="<?php print $front_page.'profile/'.$relationship->requestee->name; ?>" class="floatleft"><img class="following-user" src="<?php print UserPicture_small_src($relationship->requestee_id); ?>" alt="<?php print $relationship->requestee->name; ?>" /></a>
                 <?php }?>
-                 <br class="clear">
-                 <a class="more" href="<?php print $front_page.'user/following/'.$user->uid.'/following'; ?>">(<?php print $requestcount; ?>) <?php print t('See All'); ?></a>
+
+                 <a class="more" href="<?php print $front_page.'user/following/'.$user->uid.'/following'; ?>"><?php print t('See All'); ?> (<?php print $requestcount; ?>)</a>
                 <?php }else{
-                    print t('You\'re not following anyone from the Heard yet.
-You can follow users by clicking the \'Follow\' button
-on their profile pages.');
+                    print t('You\'re not following anyone from the Heard yet. You can follow users by clicking the \'Follow\' button on their profile pages.');
                 }?>
-                <br class="clear">
-                <hr class="dark">
 
         </div>
-        <br class="clear">
 </div>

@@ -1,21 +1,21 @@
-<div class="top-grey-box">
-  			<div class="sort-by left20">
-  				<span class="activity"><?php print t('View'); ?> </span> <?php print $filters; ?>
-  			</div>
-			</div>
-			<div class="grey-box">
-				<ul class="action">
-				 <?php print $output; ?>
-			  </ul>
-				<br class="clear">
-				<div class="pagination">
-				  <ul>
-				   
-				    <?php print $pagination; ?>
-				    
-				  </ul>
-			  </div>
+<?php
+global $base_url;
+?>
 
-				<div class="clear"></div>
+<div class="top-grey-box top clearfix">
+  	<div class="sort-by profile left20">
+  		<span class="activity"><?php print t('View'); ?>:</span> <?php print $filters; ?>
+	</div>
+</div>
 
-			</div>
+<div class="grey-box activity_stream clearfix">
+	<ul class="action">
+		<?php print $output; ?>
+	</ul>
+
+	<div class="pagination">
+		<ul>
+			<?php print $pagination; ?>
+		</ul>
+	</div>
+</div>			

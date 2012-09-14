@@ -4,8 +4,8 @@
     <ul>
       <li class="part">
         <div class="space">
-          <p class="result-title dinbold" style="width: auto; padding: 2px 8px 0 0;"><?php #print t('by'); ?></p>
-          <div class="inner filter"><?php print $filter; ?></div>
+          <!--<p class="result-title dinbold" style="width: auto; padding: 2px 8px 0 0;"><?php #print t('by'); ?></p>-->
+          <div class="inner filter clearfix"><?php print $filter; ?></div>
         </div>
       </li>
       <li class="part margin">
