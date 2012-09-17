@@ -64,7 +64,7 @@
             <span><?php print $node->ago; ?></span>
           </span>
           <a class="user-thumb" href="<?php print $userlink; ?>">
-            <img src="<?php print UserPicture_small_src($node->uid); ?>" alt="<?php print $node->name; ?>" class="user-thumb" >
+            <img src="<?php print user_profile_image(user_load(array('uid' => $node->uid))); ?>" alt="<?php print $node->name; ?>" class="user-thumb" >
           </a>
             <span class="name">
               <a href="<?php print $userlink; ?>"><?php print $node->name; ?></a>

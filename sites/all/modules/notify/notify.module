@@ -428,6 +428,216 @@ function notify_theme() {
 }
 
 
+function UserPicture($mid, $profile='') {
+  global $base_url, $user, $base_root, $base_path, $theme;
+  $userslist = user_load(array('uid' => $mid));
+  // $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+  //$rs_image = db_query($selimage);
+  //  $resultimage = db_fetch_object($rs_image);
+  $selected_avatar = $resultimage->avatar;
+  //$default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+  $default = $base_url . '/' . avatar_selection_get_random_image($userslist);
+  if ($profile)
+    $resultimage->image_avatar = 1;
+
+  switch ($resultimage->image_avatar) {
+    case '2':
+      $image_path = file_create_path('avatar_selection');
+
+      $ipath = $base_url . '/' . $image_path . '/' . $selected_avatar;
+
+      if (file_check_location($image_path . '/' . $selected_avatar)) {
+        $PROFILE_IMAGE = '<img src="' . $ipath . '" alt="avatar" ALIGN=ABSMIDDLE width="54" class="uprofile"  height="54" >';
+        //  $PROFILE_IMAGE = theme('image',$ipath);
+      }
+      else {
+        $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" ALIGN=ABSMIDDLE class="uprofile" width="54"  height="54" >';
+      }
+
+      break;
+    default:
+
+      if (!empty($userslist->picture)) {
+        $upload_dir = variable_get('user_picture_path', 'pictures');
+
+        $img_path = $userslist->picture;
+
+        if (file_exists($img_path)) {
+          $PROFILE_IMAGE = theme('user_picture', $userslist, '65x56');
+          // $PROFILE_IMAGE = '<img src="' . $base_url.'/' . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" />';
+        }
+        else {
+
+          $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" class="uprofile" ALIGN=ABSMIDDLE width="65"  height="56" />';
+        }
+      }
+      elseif ($resultimage->image_url != '') {
+
+
+        $PROFILE_IMAGE = '<img src="' . $resultimage->image_url . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
+      }
+      else {
+        //echo $resultimage->image;
+        $img_path = $base_url . '/' . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
+        $PROFILE_IMAGE = '<img src="' . $default . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
+      }
+      break;
+  }
+
+  return $PROFILE_IMAGE;
+}
+
+
+function UserPicture_small($mid) {
+
+  global $base_url, $user, $base_path;
+  //$selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+  //   $rs_image = db_query($selimage);
+  $userslist = user_load(array('uid' => $mid));
+  $default = $base_url . '/' . avatar_selection_get_random_image($userslist);
+  // $resultimage = db_fetch_object($rs_image);
+  $default = $base_url . '/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+  switch ($resultimage->image_avatar) {
+    case '2':
+      $image_path = file_create_path('avatar_selection');
+
+      //  $image_path=file_directory_path().'/avatar_selection';
+      $selected_avatar = $resultimage->avatar;
+      $ipath = $base_url . '/' . $image_path . '/' . $selected_avatar;
+
+      if (file_exists($image_path . '/' . $selected_avatar)) {
+        //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
+        $PROFILE_IMAGE = ' <img src="' . $ipath . '" alt="photo" ALIGN=ABSMIDDLE width="30" class="uprofile"  height="30" >';
+      }
+      else {
+        $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" height="30" class="uprofile" width="30" alt="Photo" >';
+      }
+
+      break;
+    default:
+
+      if (!empty($userslist->picture)) {
+        $upload_dir = variable_get('user_picture_path', 'pictures');
+
+        $img_path = $userslist->picture;
+
+        if (file_exists($img_path)) {
+          //$PROFILE_IMAGE=theme('user_picture', $userslist,'30x30');
+          $PROFILE_IMAGE = '<img src="' . $base_url . '/' . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="30"  height="30" />';
+        }
+        else {
+          $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
+        }
+      }
+      elseif ($resultimage->image_url != '') {
+
+        //echo $resultimage->image_url;
+        if ($resultimage->image_url != '') {
+          $PROFILE_IMAGE = '<img src="' . $resultimage->image_url . '" class="uprofile" align="absmiddle" height="30" width="30" alt="Profile image" >';
+        }
+        else {
+          $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
+        }
+      }
+      else {
+        //echo $resultimage->image;
+        $img_path = $base_url . '/' . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
+
+        if (file_exists($img_path)) {
+          $PROFILE_IMAGE = '<img src="' . $img_path . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Profile image" >';
+        }
+        else {
+          $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
+        }
+      }
+      break;
+  }
+
+  return $PROFILE_IMAGE;
+}
+
+function UserPicture_small_src($mid) {
+
+  global $base_url, $user, $gDocPath, $base_root, $base_path;
+
+  static $userImage = array();
+  if (isset($userImage[$mid])) {
+    return $userImage[$mid];
+  }
+
+  $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+  $rs_image = db_query($selimage);
+  $resultimage = db_fetch_object($rs_image);
+
+  $userslist = user_load(array('uid' => $mid));
+  $default = $base_url . '/' . avatar_selection_get_random_image($userslist);
+
+  //    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+  switch ($resultimage->image_avatar) {
+    case '-2': // hmm, seems smth strange, let's use default option
+      $image_path = file_create_path('avatar_selection');
+
+      //  $image_path=file_directory_path().'/avatar_selection';
+      $selected_avatar = $resultimage->avatar;
+      $ipath = $base_url . '/' . $image_path . '/' . $selected_avatar;
+
+      if (file_exists($image_path . '/' . $selected_avatar)) {
+        //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
+        $PROFILE_IMAGE = $ipath;
+      }
+      /*       * Rallydev:512* */
+      else if (file_exists($resultimage->image)) {
+        $PROFILE_IMAGE = $base_url . '/' . $resultimage->image;
+      }
+      /*       * *********** */
+      else {
+        $PROFILE_IMAGE = $default;
+      }
+
+      break;
+    default:
+
+      if (!empty($userslist->picture)) {
+        $upload_dir = variable_get('user_picture_path', 'pictures');
+
+        $img_path = $userslist->picture;
+
+        if (file_exists($img_path)) {
+          //$PROFILE_IMAGE=theme('user_picture', $userslist,'30x30');
+          $PROFILE_IMAGE = $base_url . '/' . $img_path;
+        }
+        else {
+          $PROFILE_IMAGE = $default;
+        }
+      }
+      elseif ($resultimage->image_url != '') {
+
+        //echo $resultimage->image_url;
+        if ($resultimage->image_url != '') {
+          $PROFILE_IMAGE = $resultimage->image_url;
+        }
+        else {
+          $PROFILE_IMAGE = $default;
+        }
+      }
+      else {
+        //echo $resultimage->image;
+        $img_path = $base_url . '/' . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
+
+        if (file_exists($img_path)) {
+          $PROFILE_IMAGE = $img_path;
+        }
+        else {
+          $PROFILE_IMAGE = $default;
+        }
+      }
+      break;
+  }
+
+  $userImage[$mid] = $PROFILE_IMAGE;
+  return $PROFILE_IMAGE;
+}
+
 
 function _following_activity($uid = '') {
     global $user;

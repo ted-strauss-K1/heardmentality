@@ -1061,7 +1061,67 @@ function issue_pundit_tab($qid='') {
   return $output;
 }
 
+function load_user($uid = '') {
 
+  $query = "select * from {users} as u join {user_profile} as up on u.uid=up.uid  where u.uid='$uid'";
+  $result = db_fetch_object(db_query($query));
+  return $result;
+}
+
+function load_user_badge($uid='', $search='') {
+
+  global $base_url, $user, $theme;
+
+  $medal = updateProfileBadge($uid);
+  $details = load_user($uid);
+
+  $uname = $details->first_name . ' ' . $details->last_name;
+
+  /*
+   * odyachenko
+   *
+   * These lines refer to working with the ranks the old way
+   */
+  $rank = ranks_user_rank($uid);
+  $ranking = $rank['name'];
+  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
+
+  /**
+   * odyachenko
+   *
+   * These lines refer to working with the user points the old way
+   *
+  $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
+  $points = $points != '' ? $points : 0;
+   */
+  $points = up_userpoints_get($details->uid);
+  $coins = $user->total_coins != '' ? $user->total_coins : 0;
+  $badges = badges_get_userbadges($uid);
+  $badges = $badges['#stat'];
+  if ($search)
+    $link = '<a  onclick="get_profile_details(' . $details->uid . ',this);" style="cursor:pointer" > ' . myTruncate($details->name, '10', '..') . '</a>';
+  else
+    $link = '<a href="' . $base_url . '/profile/' . $details->name . '">' . myTruncate($details->name, '10', '..') . '</a>';
+
+  $output = '<div class="profInfo">
+
+                <div class="profInfo-img">' . UserPicture($details->uid) . '</div>
+                    <div class="profInfo-txt">
+                    <span class="profInfo-value" title="' . $points . ' Points">' . $points . '</span>
+                        <div class="profInfo-name">' . $link . '</div>
+                            <div class="profInfo-name2">' . $ranking . '</div>
+                        <ul >
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-gold.jpg" /><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-silver.jpg" /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-gray.jpg" /><span>' . $badges['bronze'] . '</span></li>
+                        </ul>
+                    </div>
+                 </div>
+                           ';
+
+
+  return $output;
+}
 
 
 

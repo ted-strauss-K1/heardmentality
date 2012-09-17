@@ -638,6 +638,85 @@ function userTypes() {
   return $usertypes;
 }
 
+function age($date) {
+
+  $year_diff = '';
+  if (!empty($date)) {
+    //list($day,$month,$year)=explode("/",$date);
+
+    $year_diff = date("Y") - $date;
+    //$month_diff = date("m")-$month;
+    //$day_diff = date("d")- $day;
+    //if ($day_diff < 0 || $month_diff < 0) $year_diff–;
+
+    return $year_diff;
+  }
+  else {
+
+    return '';
+  }
+}
+
+function event_photo_profile(&$form, &$form_state) {
+  global $user;
+  $suc = '';
+  $return = array();
+
+  $validators = array(
+    'file_validate_is_image' => array(),
+    'file_validate_image_resolution' => array('500x500'),
+    'file_validate_size' => array(500 * 1024),
+  );
+  $upload_dir = variable_get('user_picture_path', 'pictures');
+  $filepath = file_directory_path();
+  $dest = $filepath . '/' . $upload_dir;
+  $file = file_save_upload('file_upload', $validators, $dest);
+
+  $owner = $user->uid;
+  $filetype = $file->filemime;
+  $extension = '';
+  switch ($filetype) {
+    case 'image/jpeg':
+      $extension = 'jpg';
+      break;
+    case 'image/png':
+      $extension = 'png';
+      break;
+    case 'image/gif':
+      $extension = 'gif';
+      break;
+  }
+  $dest = variable_get('user_picture_path', 'pictures') . '/picture-' . $owner . '.' . $extension;
+
+  if ($file != 0) {
+    //$dest_path = 'files/upload_directory';
+    $result = file_move($file, $dest, FILE_EXISTS_RENAME);
+    $flag = 0;
+  }
+
+  if ($result == 1) {
+    $insimage = $file->filepath;
+    $_SESSION['filepath'] = $file->filepath;
+    $_SESSION['fid'] = $file->fid;
+    $_SESSION['filetype'] = $file->filemime;
+    $flag = 0;
+  }
+  elseif (!empty($form_state['values']['oldimg'])) {
+    $insimage = $form_state['values']['oldimg'];
+    $flag = 0;
+  }
+  else {
+    $flag = 0;
+    $insimage = avatar_selection_get_random_image($user);
+  }//file up ends
+
+
+  $return['image'] = $insimage;
+  $return['flag'] = $flag;
+  $return['suc'] = $suc;
+  return $return;
+}
+
 function welcome_page() {
 //ob_start();
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
