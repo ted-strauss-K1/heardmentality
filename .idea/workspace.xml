@@ -22,13 +22,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="issue.theme.inc" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="issue.theme.inc" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme.inc">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="167" column="7" selection-start="4821" selection-end="4821" vertical-scroll-proportion="1.6394985">
+            <state line="167" column="7" selection-start="4821" selection-end="4821" vertical-scroll-proportion="-18.88">
               <folding>
                 <marker date="1347878422689" expanded="true" signature="5202:5231" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_profile.pages.inc" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.053291537">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -70,7 +79,6 @@
         <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/user-profile-options.tpl.php" />
         <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/user-profile-options-alert.tpl.php" />
         <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/ugc.module" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/js/filter.js" />
@@ -82,6 +90,7 @@
         <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme-3.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme-1.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme.inc" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc" />
       </list>
     </option>
   </component>
@@ -632,13 +641,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="2" selection-start="1076" selection-end="1076" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile_heatmap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="5" selection-start="474" selection-end="643" vertical-scroll-proportion="0.0">
@@ -732,10 +734,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="7" selection-start="4821" selection-end="4821" vertical-scroll-proportion="1.6394985">
+        <state line="167" column="7" selection-start="4821" selection-end="4821" vertical-scroll-proportion="-18.88">
           <folding>
             <marker date="1347878422689" expanded="true" signature="5202:5231" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.053291537">
+          <folding />
         </state>
       </provider>
     </entry>

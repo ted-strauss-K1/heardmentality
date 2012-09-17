@@ -1,32 +1,5 @@
 <?php
 
-
-/*
- * Privacy values
- */
-function user_profile_privacy_values() {
-  return array(
-    0 => array(
-      '#name' => t('No one'),
-      '#text' => t('No one can see this piece of information about you'),
-    ),
-    1 => array(
-      '#name' => t('Followers'),
-      '#text' => t('Only followers can see this piece of information about you'),
-    ),
-    2 => array(
-      '#name' => t('Logged in'),
-      '#text' => t('All logged in users can see this piece of information about you'),
-    ),
-    3 => array(
-      '#name' => t('Anyone'),
-      '#text' => t('Anyone in the world can see this piece of information about you'),
-    ),
-  );
-
-  #SELECT pf.name, IFNULL(ppv.private, 0) AS privacy FROM `profile_fields` pf INNER JOIN profile_privacy_fields ppf ON ppf.fid = pf.fid LEFT JOIN profile_privacy_values ppv ON ppv.fid = ppf.fid AND ppv.uid = 1 WHERE ppf.privacy = 1
-}
-
 /*
  * Privacy check
  */
