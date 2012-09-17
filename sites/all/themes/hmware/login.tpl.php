@@ -67,7 +67,7 @@ var login_params=
 		
 
 
-                <a href="<?php echo $gSitePath?>account/edit"><?php echo t('Edit Profile');?></a><br>
+                <a href="<?php echo $gSitePath?>user/profile/edit"><?php echo t('Edit Profile');?></a><br>
 		 <a href="<?php echo $gSitePath?>mynotify"> <?php echo t('Notify');?></a><br>
                  <a  href="<?php echo $gSitePath; ?>logout"><?php echo t('Sign Out');?></a>
 	</span>

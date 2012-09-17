@@ -1,0 +1,502 @@
+<?php
+
+/**
+ * @file
+ * Provides options for users to override visibility of their own profile
+ * fields.
+ */
+
+/**
+ * Implementation of hook_menu().
+ */
+function profile_privacy_menu() {
+  $items = array();
+
+  // administrative settings
+  $items['admin/user/profile_privacy'] = array(
+    'title' => 'Profile Privacy',
+    'description' => 'Configure Profile Privacy access settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('profile_privacy_admin_settings_form'),
+    'access arguments' => array('administer search'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'profile_privacy.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function profile_privacy_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'profile_privacy') . '/views',
+  );
+}
+
+/**
+ * Implementation of hook_profile_privacy_access_info().
+ */
+function profile_privacy_profile_privacy_access_info() {
+  return array(
+    'private' => array(
+      'label' => t('Private'),
+      'description' => t('Private to everyone except to the user whose profile the field belongs to.'),
+      'access callback' => 'profile_privacy_access_callback',
+    ),
+    'public' => array(
+      'label' => t('Public'),
+      'description' => t('Public to everyone who has the <em>access user profiles</em> permission.'),
+      'access callback' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Access callback for the "private" setting.
+ *
+ * @param $account
+ *   An object containing the user whose profile is being viewed.
+ * @param $field
+ *   An object containing the profile field being viewed.
+ *
+ * @return
+ *   A boolean flagging whether the user has access to the field.
+ */
+function profile_privacy_access_callback($account, $field) {
+  return (!empty($account->{'private_'. $field->name}) && 'private' != $account->{'private_'. $field->name});
+}
+
+/**
+ *
+ *
+ * @param $account
+ *   An object containing the user whose profile is being viewed.
+ * @param $field
+ *   An object containing the profile field being viewed.
+ *
+ * @return
+ *   A boolean flagging whether the user has access to the field, NULL if the
+ *   access control defers setting access.
+ */
+function profile_privacy_get_field_access($account, $field) {
+  // Gathers the privacy settings and info from access info hooks.
+  $private_fields = profile_privacy_get_user_privacy($account->uid);
+  $info = profile_privacy_get_access_info();
+
+  // Invokes the access callback or returns the boolean.
+  if (isset($private_fields[$field->name]) && isset($info[$private_fields[$field->name]])) {
+    if (isset($info[$private_fields[$field->name]]['access callback'])) {
+      $callback = $info[$private_fields[$field->name]]['access callback'];
+      return (is_bool($callback)) ? $callback : $callback($account, $field);
+    }
+  }
+
+  // Defaults to FALSE.
+  return FALSE;
+}
+
+/**
+ * Implementation of hook_user().
+ */
+function profile_privacy_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+
+    // Adds privacy settings.
+    case 'load':
+      $private_fields = profile_privacy_get_user_privacy($account->uid);
+      foreach ($private_fields as $field_name => $private) {
+        $account->{'private_'. $field_name} = $private;
+      }
+      break;
+
+    // Hides data based on settings.
+    case 'view':
+      global $user;
+      if (!user_access('administer users') && $account->uid != $user->uid) {
+        $private_fields = profile_privacy_get_user_privacy($account->uid);
+        foreach (profile_privacy_get_fields() as $field) {
+          // The user's overridden settings always take precedence.
+          if (isset($account->{'private_'. $field->name}) && $field->privacy) {
+            if (!profile_privacy_get_field_access($account, $field)) {
+              unset($account->{$field->name});
+              unset($account->content[$field->category][$field->name]);
+            }
+          }
+          elseif (PROFILE_PRIVATE == $field->visibility) {
+            unset($account->{$field->name});
+            unset($account->content[$field->category][$field->name]);
+          }
+        }
+      }
+      break;
+
+    // Updates privacy settings.
+    case 'update':
+    case 'insert':
+      $fields = profile_privacy_get_fields();
+      foreach ($fields as $field) {
+        if (isset($edit['private_'. $field->name])) {
+          profile_privacy_set_user_field_privacy($account->uid, $field->name, $edit['private_'. $field->name]);
+          // NODE: set to NULL to prevent user.module from saving in user table
+          $edit['private_'. $field->name] = NULL;
+        }
+      }
+      break;
+
+    // Removes all privacy options from.
+    case 'delete':
+      profile_privacy_delete_user_privacy($account->uid);
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function profile_privacy_form_alter(&$form, &$form_state, $form_id) {
+
+  switch ($form_id) {
+
+    // Adds access options.
+    case 'user_profile_form':
+      if (module_exists('onepageprofile')) {
+        $categories = profile_categories();
+        foreach ( $categories as $category_data ) {
+          if ($category_data['name'] != 'account') {
+            profile_privacy_form_alter_category($category_data['name'], $form['_account']['#value'], $form);
+          }
+        }
+      }
+      else {
+        if ($form['_category']['#value'] != 'account') {
+          profile_privacy_form_alter_category($form['_category']['#value'], $form['_account']['#value'], $form);
+        }
+      }
+      break;
+
+    // Adds access options.
+    case 'user_register':
+      $form_keys = element_children($form);
+      foreach ($form_keys as $form_key) {
+        $fieldset_keys = element_children($form[$form_key]);
+        foreach ($fieldset_keys as $fieldset_key) {
+          if (preg_match('/^profile_/', $fieldset_key)) {
+            profile_privacy_form_alter_category($form_key, NULL, $form);
+          }
+        }
+      }
+      break;
+
+    case 'profile_field_form':
+      $field = profile_privacy_get_field(NULL, $form['fid']['#value']);
+
+      $form['fields']['profile_privacy'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Allow user to override default visibility'),
+        '#default_value' => $field->privacy,
+      );
+
+      // Adds profile checkbox after visibility, nothing has #weight!
+      $new_fields = array();
+      foreach ($form['fields'] as $name => $element) {
+        $new_fields[$name] = $element;
+        if ('visibility' == $name) {
+          $new_fields['profile_privacy'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('Allow user to override default visibility'),
+            '#default_value' => $field->privacy,
+          );
+        }
+      }
+
+      $form['fields'] = $new_fields;
+      $form['#submit'][] = 'profile_privacy_profile_field_submit';
+
+      break;
+  }
+}
+
+/**
+ * Adds the access settings to the form.
+ *
+ * @param $category
+ *   A string containing the profile category.
+ * @param $account
+ *   An object containing the user whose profile is eing modified.
+ * @param &$form
+ *   An array containing the form object.
+ */
+function profile_privacy_form_alter_category($category, $account, &$form) {
+  $form[$category]['#theme'] = 'profile_privacy_category';
+
+  // Iterates over profile fields.
+  $profile_keys = element_children($form[$category]);
+  $profile_fields = profile_privacy_get_fields($category);
+
+  // Gets privacy settings, which are the dropbox options.
+  foreach (profile_privacy_get_access_info() as $name => $info) {
+    $options[$name] = check_plain($info['label']);
+  }
+
+  // Adds the dropbox to the fields.
+  $search = ' '. t('The content of this field is kept private and will not be shown publicly.');
+  foreach ($profile_keys as $key) {
+    if ($profile_fields[$key]->privacy) {
+
+      // Remove descriptions about current privacy rules.
+      $form[$category][$key]['#description'] = str_replace($search, '', $form[$category][$key]['#description']);
+
+      // Formats element name, builds dropbox.
+      $element  = 'private_'. $key;
+      $privacy_dropbox = array(
+        $element => array(
+          '#type' => 'select',
+          '#title' => t('Access settings for %field', array(
+            '%field' => $form[$category][$key]['#title'])
+          ),
+          '#options' => $options,
+        ),
+      );
+
+      // Determines the default value of the dropbox, defaults to 'private'.
+      if (isset($account->$element)) {
+        $privacy_dropbox[$element]['#default_value'] = $account->$element;
+      }
+      else {
+        $visibility = $profile_fields[$key]->visibility;
+        $default_value = ($visibility == PROFILE_PRIVATE || $visibility == PROFILE_HIDDEN) ? 'private' : 'public';
+        $privacy_dropbox[$element]['#default_value'] = $default_value;
+      }
+
+      // Makes sure dropbox is heaver than the field, but not as heavy as the
+      // next element.
+      if (isset($form[$category][$key]['#weight'])) {
+        $privacy_dropbox['#weight'] = $form[$category][$key]['#weight'] + 0.01;
+      }
+
+      // Inserts our new dropbox after the field it references.
+      $category_keys = array_flip(array_keys($form[$category]));
+      $form_first = array_slice($form[$category], 0, $category_keys[$key] + 1);
+      $form_last = array_slice($form[$category], $category_keys[$key] + 1);
+      $form[$category] = array_merge($form_first, $privacy_dropbox, $form_last);
+    }
+  }
+}
+
+/**
+ * Submit handler that adds the override setting.
+ *
+ * @param $form
+ *   A FAPI array modeling the submitted form.
+ * @param &$form_state
+ *   An array containing the current state of the form.
+ */
+function profile_privacy_profile_field_submit($form, &$form_state) {
+  profile_privacy_set_field_privacy($form_state['values']['name'], $form_state['values']['profile_privacy']);
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function profile_privacy_theme() {
+  return array(
+    'profile_privacy_category' => array(
+      'arguments' => array('form' => NULL)
+    ),
+    'profile_privacy_admin_settings_form' => array(
+      'arguments' => array('form' => NULL)
+    )
+  );
+}
+
+/**
+ * Themes the access settings.
+ *
+ * @param $form
+ *   An array containing the form.
+ *
+ * @return
+ *   A string containing the themed form element.
+ */
+function theme_profile_privacy_category($form) {
+  $field_keys = element_children($form);
+  foreach ($field_keys as $field_key) {
+    $form['private_'. $field_key]['#attributes']['class'] = 'profile-privacy-settings';
+    $form[$field_key]['#description'] .= drupal_render($form['private_'. $field_key]);
+  }
+
+  return drupal_render($form);
+}
+
+/**
+ * Sets whether users can override privacy settings for the field.
+ *
+ * @param $field_name
+ *   A string containing the name of the field.
+ * @param $privacy
+ *   A string containing the machine readable name of the privacy option.
+ */
+function profile_privacy_set_field_privacy($field_name, $privacy = 0) {
+  profile_privacy_get_fields(NULL, TRUE);
+  $field = profile_privacy_get_field($field_name);
+  db_query('DELETE FROM {profile_privacy_fields} WHERE fid = %d', $field->fid);
+  return db_query("INSERT INTO {profile_privacy_fields} (fid, privacy) VALUES (%d, %d)", $field->fid, $privacy);
+}
+
+/**
+ * Returns access info in the order set through the admin interface.
+ *
+ * @param $reset
+ *   A boolean flagging whether the static should be reset.
+ *
+ * @return
+ *  An array keyed by setting name to title.
+ */
+function profile_privacy_get_access_info($reset = FALSE) {
+  static $sorted;
+  if (NULL === $sorted || $reset) {
+    $weighted = array();
+
+    // Get from profile_privacy_access_info, sort by weight.
+    $settings = module_invoke_all('profile_privacy_access_info');
+    foreach ($settings as $name => $info) {
+      $variable = sprintf('profile_privacy:%s:weight', $name);
+      $weighted[$name]['#weight'] =  variable_get($variable, 0);
+    }
+    uasort($weighted, 'element_sort');
+
+    // The merge ultimitely sorts the $settings array because it populates the
+    // array keys of $weighted with the titles in $settings.
+    $sorted = array_merge($weighted, $settings);
+  }
+  return $sorted;
+}
+
+/**
+ * Returns a user's field privacy setting.
+ *
+ * @param $uid
+ *   An integer containing the UID of the user whose profile field setting is
+ *   being viewed.
+ * @param $field_name
+ *   A string containing the name of the field.
+ *
+ * @return
+ *   A string containing the iser privacy setting.
+ */
+function profile_privacy_get_user_field_privacy($uid, $field_name) {
+  $user_privacy = profile_privacy_get_user_privacy($uid);
+  return $user_privacy[$field_name];
+}
+
+/**
+ * Returns a users privacy setting.
+ *
+ * @param $uid
+ *   An integer containing the UID of the user whose setting is being retrieved.
+ * @param $reset
+ *   A boolean flagging whether to reset the ststic.
+ *
+ * @return
+ *   An array of privacy settings.
+ */
+function profile_privacy_get_user_privacy($uid, $reset = FALSE) {
+  static $users = array();
+  if (!isset($users[$uid]) || $reset) {
+    $users[$uid] = array();
+    $result = db_query('SELECT ppv.*, pf.name FROM {profile_privacy_values} ppv INNER JOIN {profile_fields} pf ON ppv.fid = pf.fid WHERE uid = %d', $uid);
+    while ($row = db_fetch_object($result)) {
+      $users[$row->uid][$row->name] = $row->private;
+    }
+  }
+  return $users[$uid];
+}
+
+/**
+ * Removes a user's privacy settings form the database.
+ *
+ * @param $uid
+ *   An integer containing the UID of the user whose settings are being deleted.
+ *
+ * @return
+ *   A boolean flagging the success of the operation.
+ */
+function profile_privacy_delete_user_privacy($uid) {
+  return db_query('DELETE FROM {profile_privacy_values} WHERE uid = %d', $uid);
+}
+
+/**
+ * Sets a user's field privacy setting.
+ *
+ * @param $uid
+ *   An integer containing the UID of the user whose profile field setting is
+ *   being altered.
+ * @param $field_name
+ *   A string containing the name of the field.
+ * @param $private
+ *   A string containing the profile setting.
+ */
+function profile_privacy_set_user_field_privacy($uid, $field_name, $private) {
+  $field = profile_privacy_get_field($field_name);
+  db_query('DELETE FROM {profile_privacy_values} WHERE fid = %d AND uid = %d', $field->fid, $uid);
+  // Only allow the the profile field to be hidden if privacy is enabled.
+  if ($field->privacy) {
+    db_query("INSERT INTO {profile_privacy_values} (fid, uid, private) VALUES (%d, %d, '%s')", $field->fid, $uid, $private);
+  }
+}
+
+/**
+ * Returns a field object from a field name.
+ *
+ * @param $field_name
+ *   A string containing the
+ * @param $fid
+ *   An integer containing the field ID.
+ *
+ * @return
+ *   An object containing the field, FALSE on errors.
+ */
+function profile_privacy_get_field($field_name = NULL, $fid = NULL) {
+  $fields = profile_privacy_get_fields();
+  if ($field_name) {
+    return $fields[$field_name];
+  }
+  foreach ($fields as $field) {
+    if ($field->fid == $fid) {
+      return $field;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Returns privacy fields.
+ *
+ * @param $category
+ *   A string containing the profile field category.
+ * @param $reset
+ *   A boolean flagging whether to reset the statics.
+ *
+ * @return
+ *   An array of fields.
+ */
+function profile_privacy_get_fields($category = NULL, $reset = FALSE) {
+  static $fields, $category_fields;
+
+  if (!isset($fields) || $reset) {
+    $fields = array();
+    $result = db_query('SELECT ppf.*, pf.* FROM {profile_fields} pf LEFT JOIN {profile_privacy_fields} ppf ON pf.fid = ppf.fid');
+    while ($field = db_fetch_object($result)) {
+      $fields[$field->name] = $field;
+      $category_fields[$field->category][$field->name] = $field;
+    }
+  }
+
+  if (isset($category)) {
+    return $category_fields[$category];
+  }
+  return $fields;
+}

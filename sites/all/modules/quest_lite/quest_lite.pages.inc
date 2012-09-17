@@ -77,15 +77,7 @@ function qlite_view() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js');
     drupal_add_js(drupal_get_path('theme', $theme) . '/scripts/jbubble.js');
-   // drupal_set_html_head('<script>
-     //       var uid="' . $user->uid . '";
-	//</script>');
-    //if($user->initpop==1&&$user->uid>1){
-     //  drupal_add_js('jQuery(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});','inline');
-       //     $user_data = array('initpop' => 2);
-       // user_save( $user , $user_data);
-        
-    //}
+
     $qid = get_qid();
 
 
@@ -357,6 +349,16 @@ function insertviews($qid = '') {
 
     db_query("INSERT INTO {qviews} (ip,uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'" . date("Y-m-d") . "')");
   }
+}
+
+// To check user points for user privacy settings
+function checkUserPoints($uid = null) {
+  $ques_query = "SELECT points FROM {user_profile} where  uid='" . $uid . "'";
+  $list = ExecuteQuery($ques_query, "select");
+  if (isset($list[0]['points'])) {
+    return $list[0]['points'];
+  }
+  return 0;
 }
 
 function qns_like() {

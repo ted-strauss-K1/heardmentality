@@ -294,22 +294,11 @@ function _issue_view(&$node) {
   drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
   drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
   drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
-  drupal_set_html_head('<script>var uid="' . $user->uid . '";</script>');
-  if ($user->initpop == 1 && $user->uid > 1) {
-    drupal_add_js('$(document).ready(function () {
-      loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");
-    });', 'inline');
-    $user_data = array('initpop' => 2);
-    user_save($user, $user_data);
-  }
   # make changes in node
   $node->context = $node->body;
 
-  # TODO - remove the function
-  # $node->style = drupal_link_color($user->uid, $node->nid);
-
   # replace the content with the special voting form
-  $tnode = issue_get_translated_node($node->nid);
+//  $tnode = issue_get_translated_node($node->nid);
   $node->content['body'] = array(
     '#value' => drupal_get_form('issue_vote_form', $node),
   );
@@ -596,10 +585,10 @@ function theme_issue_results_insightview(&$node) {
 
     switch ($key) {
       case 'age' :
-        $output[] = $percent.'% '.t('of voters are').' '.t($data[$key]['#options'][$optkey]).' '.t('yo');
+        $output[] = $percent.'% '.t('of voters are').' <span class="highlight">'.t($data[$key]['#options'][$optkey]).' '.t('yo') . '</span>';
       break;
       case 'income' :
-        $output[] = $percent.'% '.t('of voters make').' '.t($data[$key]['#options'][$optkey]);
+        $output[] = $percent.'% '.t('of voters make').' <span class="highlight">'.t($data[$key]['#options'][$optkey]) . '</span>';
         break;
       case 'gender' :
       case 'ethnicity' :
@@ -608,7 +597,7 @@ function theme_issue_results_insightview(&$node) {
       case 'education' :
       case 'religion' :
       default :
-        $output[] = $percent.'% '.t('of voters are').' '.t($data[$key]['#options'][$optkey]);
+        $output[] = $percent.'% '.t('of voters are').' <span class="highlight">'.t($data[$key]['#options'][$optkey]) . '</span>';
       break;
     }
     if (++$i > 1) {
@@ -629,7 +618,7 @@ function theme_issue_results_insightview(&$node) {
         $text = $choice['short_answer'];
       }
     }
-    $output[] = $percent.'% '.t('of votes for').' '.t($text).' '.t('are').' '.
+    $output[] = $percent.'% '.t('of votes for').' <span class="highlight">'.t($text).'</span> '.t('are').' '.
 ($data[$key]['#options'][$optkey]);
 
     if (++$i > 3) {

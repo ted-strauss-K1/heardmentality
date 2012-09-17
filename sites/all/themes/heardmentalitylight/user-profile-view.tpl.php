@@ -4,26 +4,32 @@
 <div class="user-info">
   <p><?php print t($rank); ?></p>
 
+  <?php if (module_exists('profile_privacy')) : ?>
 
-  <p class="bio">
-    <?php print $settings['bio']; ?>
-  </p>
-  <?php if($settings['mywebsite']): ?>
-  <span class="URL block"><strong><?php print t('Web'); ?>:</strong> <a href="<?php print $settings['mywebsite']; ?>" target="_blank"><?php print $settings['mywebsite']; ?></a></span>
-  <?php endif; ?>
-  <?php if($settings['email']): ?>
-  <span class="URL block"><strong><?php print t('Email'); ?>:</strong> <?php print $settings['email']; ?></span>
-  <?php endif; ?>
-  <?php if($settings['twitter']): ?>
-  <span class="URL block"><strong><?php print t('Twitter'); ?>:</strong> <a href="<?php print $settings['twitter']; ?>" target="_blank"><?php print $settings['twitter']; ?></a></span>
-  <?php endif; ?>
-  <?php if($settings['facebook']): ?>
-  <span class="URL block"><strong><?php print t('Facebook'); ?>:</strong> <a href="<?php print $settings['facebook']; ?>" target="_blank"><?php print $settings['facebook']; ?></a></span>
-  <?php endif; ?>
-  <?php if($settings['other_links']):
-  foreach($settings['other_links'] as $name => $url) {?>
-    <span class="URL block"><strong><?php print ucwords(t($name)); ?>:</strong> <a href="<?php print $url; ?>" target="_blank"><?php print $url; ?></a></span>
-    <?php }?>
-  <?php endif; ?>
+    <?php $fields = profile_privacy_get_fields(); ?>
+    <?php foreach ($fields as $field) : ?>
+      <?php if (!empty($user->{$field->name}) && profile_privacy_get_field_access($user, $field)) : ?>
+        <span class="URL block">
+          <strong><?php print t($field->title); ?>:</strong>
+          <?php switch ($field->name) :
+            case 'profile_twitter' : ?>
+              <a href="https://twitter.com/<?php print htmlspecialchars($user->{$field->name}); ?>" target="_blank"><?php print $user->{$field->name}; ?></a>
+            <?php break;
+            case 'profile_facebook': ?>
+              <a href="http://www.facebook.com/<?php print htmlspecialchars($user->{$field->name}); ?>" target="_blank"><?php print $user->{$field->name}; ?></a>
+            <?php break;
+            case 'profile_website': ?>
+              <a href="<?php print htmlspecialchars($user->{$field->name}); ?>" target="_blank"><?php print $user->{$field->name}; ?></a>
+            <?php break;
 
+            default : ?>
+              <?php print $user->{$field->name}; ?>
+            <?php break; ?>
+          <?php endswitch; ?>
+        </span>
+      <?php endif; ?>
+    <?php endforeach; ?>
+  <?php endif; ?>
+  <?php #var_dump($user); ?>
 </div>
+

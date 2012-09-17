@@ -314,25 +314,6 @@ function rel_msg(id){
 
 
 
-function deletefollowing(fid){
-  var abc="#show-"+fid;
-  var url =gSitePath+'profile/deletefollow';
-
-
-  jQuery.ajax({
-    type: "POST",
-    url: url,
-    data: {
-      'action':fid,
-      'ids':abc
-    },
-    success: function(msg){
-      jQuery(abc).html(msg);
-      $(abc).delay(2000).fadeOut(400);
-    }
-  });
-
-}
 
 function blockandunblock(fid,divid,blk,show){
   var abcm="#list-"+fid;

@@ -22,18 +22,9 @@ jQuery(document).ready(function () {
 $(document).ready(function(){
 
   $('.profile-close-icon').click(function() {
-    var request_path = Drupal.settings.base_url;
-    var urls = request_path + '/profile/profile_box_session';
-    jQuery.ajax({
-      type: "GET",
-      url: urls,
-      data: {},
-      success: function(msg){
-        $('.profile-status-toggle').remove();
-        // do not show in this session again
-        $.cookie('profile_status', '0');
-      }
-    });
+    $('.profile-status-toggle').remove();
+    // do not show in this session again
+    $.cookie('profile_status', '0');
   });
 
   /****Rallydev:529****/

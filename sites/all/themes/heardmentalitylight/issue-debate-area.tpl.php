@@ -4,7 +4,7 @@
   <div class="inner">
 
     <div class="expanding arg">
-      <h6 value="Reply" id="add-arg" class="button <?php print ugc_loginbox_class(); ?>"><?php print t('Add'); ?></h6>
+      <h6 value="Reply" id="add-arg" class="button <?php print user_profile_login_class(); ?>"><?php print t('Add'); ?></h6>
     </div>
 
     <div class="expanding stat">

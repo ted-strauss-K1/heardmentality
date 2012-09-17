@@ -105,9 +105,26 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
   }
 }
 
+function mtime($text) {
+  static $mtime = false;
+  if ($mtime === false) {
+    $mtime = microtime(true);
+  }
+  $int = round(microtime(true) - $mtime, 4);
+  $mtime = microtime(true);
+  return (strlen((string)$int) < 7 ? str_repeat('0', 7 - strlen((string)$int)) : '') . $int . ' : ' . $text;
+}
+
 function solr_issues_block_form($form_state) {
   $form = array();
+
   ahah_helper_register($form, $form_state);
+
+  $form['block']['mtime'] = array(
+    '#type' => 'markup',
+  );
+  $form['block']['mtime']['#value'] .= mtime('start') . '<br>';
+
   global $user, $base_url;
   drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
   //drupal_add_js(array('base_url' => "$base_url"), 'setting');
@@ -117,12 +134,14 @@ function solr_issues_block_form($form_state) {
   $cck_country = db_query("
     SELECT gc.name, gc.geonameid FROM {geonames_countryinfo} gc ORDER BY gc.name ASC"
   );
-
   while ($ccklist = db_fetch_object($cck_country)) {
     $countries[$ccklist->name] = $ccklist->name;
   }
+
+  $form['block']['mtime']['#value'] .= mtime('geonames') . '<br>';
+
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
-  $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
+  $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '%d'", $vid);
 
   while ($list = db_fetch_object($client_select)) {
     $cnt = taxonomy_term_count_nodes($list->cat_id);
@@ -130,6 +149,9 @@ function solr_issues_block_form($form_state) {
       $options[$list->cat_id] = t(stripslashes($list->cat_name));
     }
   }
+
+  $form['block']['mtime']['#value'] .= mtime('taxonomy') . '<br>';
+
 
   if (!isset($form_state['storage']['block']['subject'])) {
 //  $usage_default_value = t('SUBJECT');
@@ -166,6 +188,9 @@ function solr_issues_block_form($form_state) {
       $detail_opts = array();
     }
   }
+
+  $form['block']['mtime']['#value'] .= mtime('subject') . '<br>';
+
   if (isset($form_state['storage']['block']['country'])) {
     foreach ($form_state['storage']['block']['country'] as $country) {
       $xyz = geonames_countryinfo($country);
@@ -181,6 +206,9 @@ function solr_issues_block_form($form_state) {
       }
     }
   }
+
+  $form['block']['mtime']['#value'] .= mtime('countries') . '<br>';
+
   if (isset($form_state['storage']['block']['defstate'])) {
     foreach ($form_state['storage']['block']['defstate'] as $key => $state) {
       $query = array('geonameid' => $state);
@@ -194,17 +222,24 @@ function solr_issues_block_form($form_state) {
       $return_info .= '<span><input type="hidden" name="#edit-block-defdetail" value="' . $state . '">' . $states[$state] . '<span class="del-item">x</span></span>';
     }
   }
+
+  $form['block']['mtime']['#value'] .= mtime('defstate') . '<br>';
+
   if (isset($form_state['storage']['block']['defcity'])) {
     foreach ($form_state['storage']['block']['defcity'] as $key => $value) {
       $return_info .= '<span><input type="hidden" name="#edit-block-defdetail" value="' . $value . '">' . $cities[$value] . '<span class="del-item">x</span></span>';
     }
   }
-  $form['block'] = array(
+
+  $form['block']['mtime']['#value'] .= mtime('city') . '<br>';
+
+  $form['block'] += array(
     '#type' => 'fieldset',
     '#prefix' => '<div id="block-wrapper">',
     '#suffix' => '</div>',
     '#tree' => TRUE,
   );
+
   $form['block']['results'] = array(
     '#value' => '<span>0</span>' . ' issues',
     '#type' => 'item',
@@ -326,7 +361,7 @@ function solr_issues_block_form($form_state) {
     else {
       $form['my_region'] = array(
         '#type' => 'item',
-        '#value' => l('Add location to your profile', $base_url . '/account/edit'),
+        '#value' => l('Add location to your profile', $base_url . '/user/profile/edit'),
       );
     }
   }
@@ -348,6 +383,9 @@ function solr_issues_block_form($form_state) {
 // unset($form['#submit']);
   $form['#submit'][] = 'solr_issues_block_form_submit';
   unset($form_state['storage']['block']);
+
+  $form['block']['mtime']['#value'] .= mtime('end') . '<br>';
+
   return $form;
 }
 

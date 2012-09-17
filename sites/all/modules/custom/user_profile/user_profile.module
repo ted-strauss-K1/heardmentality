@@ -6,9 +6,14 @@ require_once('user_profile.func.inc');
  * Implementaton of hook_init()
  */
 function user_profile_init() {
+  drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
   if (user_is_logged_in()) {
     global $user;
-    $user = user_load($user->uid);
+    profile_load_profile($user);
+    $private_fields = profile_privacy_get_user_privacy($user->uid);
+    foreach ($private_fields as $field_name => $private) {
+      $user->{'private_'. $field_name} = $private;
+    }
   }
 }
 
@@ -49,11 +54,11 @@ function user_profile_user($op, &$edit, &$account, $category = NULL) {
       //
     break;
     case 'load' :
-      $user_profile = db_fetch_array(db_query("SELECT * FROM {user_profile} WHERE uid = '%d'", $account->uid));
-      $account = (object)array_merge((array)$account, $user_profile);
+//      $user_profile = db_fetch_array(db_query("SELECT * FROM {user_profile} WHERE uid = '%d'", $account->uid));
+//      $account = (object)array_merge((array)$account, $user_profile);
     break;
   }
-  //var_dump($account);
+//  var_dump($account);
 }
 
 /*
@@ -62,20 +67,27 @@ function user_profile_user($op, &$edit, &$account, $category = NULL) {
 function user_profile_menu() {
   $menu = array();
 
-  $menu['profile'] = array(
+  $menu['user/profile/view'] = array(
     'title'             => t('Profile'),
     'page callback'     => 'theme',
     'page arguments'    => array('user_profile_view'),
+    'access callback'   => 'user_profile_access_user_profile',
     'access arguments'  => array(USER_PROFILE_VIEW),
     'type'              => MENU_CALLBACK,
   );
-  $menu['account/edit'] = array(
+  $menu['user/profile/location/%/%'] = array(
+    'page callback'     => 'user_profile_location',
+    'page arguments'    => array(3,4),
+    'access arguments'  => array(USER_PROFILE_VIEW),
+    'type'              => MENU_CALLBACK,
+  );
+  $menu['user/profile/edit'] = array(
     'title'             => 'Update Profile',
     'page callback'     => 'drupal_get_form',
     'page arguments'    => array('user_profile_edit_form'),
-    'access arguments'  => array('Update Profile'),
-    'type'              => MENU_SUGGESTED_ITEM,
+    'access arguments'  => array(USER_PROFILE_EDIT),
     'file'              => 'user_profile.pages.inc',
+    'type'              => MENU_SUGGESTED_ITEM,
   );
 
   return $menu;
@@ -84,8 +96,59 @@ function user_profile_menu() {
 /*
  * user_profile_edit
  */
-function user_profile_edit() {
-  return drupal_get_form('user_profile_edit_form');
+//function user_profile_edit() {
+//  return drupal_get_form('user_profile_edit_form');
+//}
+
+/*
+ *
+ */
+function user_profile_access_user_profile($user_access) {
+  $string = arg(3);
+  if (empty($string) && !user_is_logged_in()) {
+    return false;
+  } else {
+    $user = _user_profile_get_user($string);
+    if ($user === false) {
+      drupal_not_found();
+    } else {
+      return user_access($user_access);
+    }
+  }
+}
+
+/*
+ * user_profile_location
+ */
+function user_profile_location($countrycode, $zip) {
+  $output = user_profile_geocode($countrycode, $zip);
+  if (empty($output)) {
+    drupal_json(array(
+      'status' => false,
+      'message' => '',
+    ));
+  } else {
+    drupal_json(array(
+      'status' => true,
+      'message' => user_profile_location_format($output['city'], $output['state'], $output['country']),
+    ));
+  }
+  exit;
+}
+
+/*
+ * user_profile_location_format
+ */
+function user_profile_location_format($city, $state, $country) {
+  $location = $city;
+  if ($state) {
+    $location .= ($location ? ', ' : '') . $state;
+  }
+  $country = geonames_countryinfo($country);
+  if ($country) {
+    $location .= ($location ? ', ' : '') . t($country['name']);
+  }
+  return $location;
 }
 
 /*
@@ -111,10 +174,74 @@ function user_profile_theme() {
     'template' => 'user-profile-info',
     'preprocess functions' => array('user_profile_info_preprocess'),
   );
-
+  $theme['user_profile_avatar_selection'] = array(
+    'arguments' => array(
+      'user' => NULL,
+    ),
+  );
+  $theme['user_profile_popup'] = array(
+    'arguments' => array(
+      'user' => NULL,
+    ),
+    'template' => 'user-profile-popup',
+    'preprocess functions' => array('user_profile_block_preprocess'),
+  );
+  $theme['user_profile_right'] = array(
+    'arguments' => array(
+      'user' => NULL,
+    ),
+    'template' => 'user-profile-right',
+    'preprocess functions' => array('user_profile_block_preprocess'),
+  );
+  $theme['user_profile_bottom'] = array(
+    'arguments' => array(
+      'user' => NULL,
+    ),
+    'template' => 'user-profile-bottom',
+    'preprocess functions' => array('user_profile_block_preprocess'),
+  );
 
 
   return $theme;
+}
+
+/*
+ *
+ */
+function user_profile_block_preprocess(&$vars) {
+  static $preprocessed = array();
+  if (!user_is_logged_in()) {
+    $vars['denied'] = true;
+    return;
+  }
+  if (empty($preprocessed)) {
+    global $user;
+    $preprocessed['user'] = $user;
+    $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
+    $preprocessed['badges'] = badges_get_userbadges($user->uid);
+    $rank = ranks_user_rank($user->uid);
+    $preprocessed['rank'] = $rank['name'];
+    $preprocessed['points'] = up_userpoints_get($user->uid);
+  }
+  foreach ($preprocessed as $key => $value) {
+    $vars[$key] = $preprocessed[$key];
+  }
+}
+
+# TODO - setup profile fields in /admin/user/pcp
+
+/*
+ * Theme user_profile_avatar_selection
+ */
+function theme_user_profile_avatar_selection($user) {
+  drupal_add_css(drupal_get_path('module', 'user_profile') . '/user_profile.css');
+  $output = '<div id="user_profile_avatar_selection"><p>'.t('Pick a profile photo').'</p>';
+  $avatars = _avatar_selection_image_list($user);
+  foreach ($avatars['avatars'] as $avatar) {
+    $output .= $avatar;
+  }
+  $output .= '</div>';
+  return $output;
 }
 
 /*
@@ -129,18 +256,52 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
       $blocks['user-profile-heatmap'] = array(
         'info' => t('Heatmap'),
       );
+
+      $blocks['user-profile-popup'] = array(
+        'info' => t('User Profile Complete Percent (Popup)'),
+      );
+      $blocks['user-profile-bottom'] = array(
+        'info' => t('User Profile Complete Percent (Bottom)'),
+      );
+      $blocks['user-profile-right'] = array(
+        'info' => t('User Profile Complete Percent (Right)'),
+      );
+
+      $blocks['user-profile-login'] = array(
+        'info' => t('User Profile Login Link'),
+      );
     return $blocks;
 
     case 'view':
       switch ($delta) {
         case 'user-profile-info':
-          $block['subject'] = t("User Profile Info");
+          $block['subject'] = t('');//t("User Profile Info");
           $block['content'] = theme('user_profile_info', null);
         break;
         case 'user-profile-heatmap':
           $block['subject'] = t("THE HERD");
           $block['content'] = theme('user_profile_heatmap');
         break;
+        case 'user-profile-popup' :
+          $block['subject'] = t('');
+          $block['content'] = theme('user_profile_popup');
+        break;
+        case 'user-profile-bottom' :
+          $block['subject'] = t('');
+          $block['content'] = theme('user_profile_bottom');
+        break;
+        case 'user-profile-right' :
+          $block['subject'] = t('');
+          $block['content'] = theme('user_profile_right');
+        break;
+        case 'user-profile-login' :
+          $block['subject'] = t('');
+          $block['content'] = '<p><a href="javascript:void(0)" > ';
+        break;
+
+
+
+
       }
     return $block;
   }
@@ -150,23 +311,76 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
  * Theme user_profile_view preprocess function
  */
 function user_profile_view_preprocess(&$vars) {
-  $vars['user'] = _user_profile_get_user(arg(1));
+  $vars['user'] = _user_profile_get_user(arg(3));
+//  if ($vars['user'] === false) {
+//    drupal_not_found();
+//  }
   $rank = ranks_user_rank($vars['user']->uid);
   $vars['rank'] = $rank['name'];
-  // TODO !!
-  $vars['settings']  = get_user_privacy_settings($vars['user']->uid);
+}
+
+/*
+ * Get loginbox class
+ */
+function user_profile_login_class($force = false) {
+  return !$force && user_is_logged_in() ? '' : 'openlogin_box';
 }
 
 /*
  * Theme user_profile_heatmap preprocess function
  */
 function user_profile_heatmap_preprocess(&$vars) {
-  drupal_add_js(drupal_get_path('module', 'user_profile') . '/user-profile-heatmap.js');
-  $vars['count_nodes'] = db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = '%s' ", 'poll'));
-  $vars['count_users'] = db_result(db_query("SELECT COUNT(u.uid) FROM {users} AS u JOIN {user_profile} AS up ON u.uid = up.uid WHERE u.status = 1 AND up.country REGEXP '[^0-9]'"));
-  $time_period = variable_get('user_block_seconds_online', 900);
-  $vars['count_users_online'] = db_result(db_query('SELECT COUNT(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period));
-  $vars['count_votes'] = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} AS pv JOIN {node} AS n ON n.nid = pv.nid"));
+  drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile_heatmap.js');
+
+  $columns = array();
+  $item = new stdClass();
+  $item->type = 'string';
+  $item->name = 'Country';
+  $columns[] = $item;
+
+  $cases = array();
+  $cases['users'] = array(
+    'name' => t('Users'),
+    'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid INNER JOIN {geonames_countryinfo} gc ON gc.iso_alpha2 = pv.value WHERE pf.name = 'profile_country' GROUP BY gc.iso_alpha2"),
+  );
+
+  # TODO ALTER TABLE  `content_field_issue_country` CHANGE  `field_issue_country_value`  `field_issue_country_value` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL
+  # TODO ALTER TABLE  `content_field_issue_country` ADD INDEX (  `field_issue_country_value` )
+
+  $cases['nodes'] = array(
+    'name' => t('Issues'),
+    'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {content_field_issue_country} cfic INNER JOIN {node} n ON n.nid = cfic.nid AND n.type = '%s' INNER JOIN {geonames_countryinfo} gc ON gc.name = cfic.field_issue_country_value GROUP BY gc.iso_alpha2", 'poll'),
+  );
+
+  $cases['online'] = array(
+    'name' => t('Online'),
+    'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid INNER JOIN {users} u ON u.uid = pv.uid AND u.access >= '%d' INNER JOIN {geonames_countryinfo} gc ON gc.iso_alpha2 = pv.value WHERE pf.name = 'profile_country' GROUP BY gc.iso_alpha2", time() - variable_get('user_block_seconds_online', 900)),
+  );
+
+  $cases['votes'] = array(
+    'name' => t('Votes'),
+    'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {poll_votes} AS pv INNER JOIN {content_field_issue_country} cfic ON cfic.nid = pv.nid INNER JOIN {geonames_countryinfo} gc ON gc.name = cfic.field_issue_country_value GROUP BY gc.iso_alpha2"),
+  );
+
+  foreach ($cases as $key => $case) {
+    $vars['count_'.$key] = 0;
+    $cols = $columns;
+    $item = new stdClass();
+    $item->type = 'number';
+    $item->name = $case['name'];
+    $cols[] = $item;
+    $data = array();
+    while ($row = db_fetch_array($case['result'])) {
+      $data[] = array($row['country'], (int)$row['count']);
+      $vars['count_'.$key] += (int)$row['count'];
+    }
+    drupal_add_js(array('heatmap' => array($key => array(
+      'columns' => $cols,
+      'dataset' => $data,
+    ))), 'setting');
+  }
+
+  drupal_add_js(array('heatmap' => array('current' => 'users')), 'setting');
 }
 
 /*
@@ -174,7 +388,11 @@ function user_profile_heatmap_preprocess(&$vars) {
  */
 function user_profile_info_preprocess(&$vars) {
   if (!isset($vars['user'])) {
-    $vars['user'] = _user_profile_get_user(arg(1));
+    $vars['user'] = _user_profile_get_user(arg(3));
+    if ($vars['user'] === false) {
+      $vars['denied'] = true;
+      return;
+    }
   }
   $uid = $vars['user']->uid;
 
@@ -190,7 +408,6 @@ function user_profile_info_preprocess(&$vars) {
   $vars['following'] = array_slice($following, 0, 8);
   $vars['settings'] = get_user_privacy_settings($uid);
   // TODO add links for following pages
-
 }
 
 /*
@@ -198,18 +415,18 @@ function user_profile_info_preprocess(&$vars) {
  */
 function _user_profile_get_user($string) {
   if (empty($string)) {
-    global $user;
-    $tmp = $user;
+    if (user_is_logged_in()) {
+      global $user;
+      return $user;
+    } else {
+      return false;
+    }
   } elseif (!is_numeric($string)) {
     $string = strtolower($string);
-    $tmp = user_load(array('name' => $string));
+    return user_load(array('name' => $string));
   } else {
-    $tmp = user_load(array('uid' => $string));
+    return user_load(array('uid' => $string));
   }
-  if ($tmp === false || !user_is_logged_in()) {
-    drupal_not_found();
-  }
-  return $tmp;
 }
 
 /*
@@ -231,39 +448,81 @@ function user_profile_image($user, $presetname = false) {
     } else {
       $img = imagecache_create_path($presetname, $user->picture);
     }
+    if (strpos($img, 'http://') !== 0) {
+      global $base_url;
+      $img = $base_url . '/' . $img;
+    }
     $imgs[$user->uid][$presetname] = $img;
   }
   return $imgs[$user->uid][$presetname];
 }
 
 /*
- * Callback for "profile/edit" TODO account/edit replace
- *
-function user_profile_edit_form() {
-  $form = array();
+ * Implementation of hook_profile_privacy_access_info()
+ */
+function user_profile_profile_privacy_access_info() {
+  return array(
+    'authorized' => array(
+      'label' => t('Logged In'),
+      'description' => t('All logged in users can see this piece of information about you'),
+      'access callback' => 'user_is_logged_in',
+    ),
+    'followers' => array(
+      'label' => t('Followers'),
+      'description' => t('Only followers can see this piece of information about you'),
+      'access callback' => 'user_profile_privacy_follower_access_callback',
+    ),
+  );
+}
 
-  if (!user_is_logged_in()) {
-    drupal_not_found();
+/*
+ * Define privacy prefix
+ */
+define('USER_PROFILE_PRIVACY_PREFIX', 'private_');
+
+/*
+ * Profile privacy values
+ */
+function user_profile_profile_privacy_values() {
+  static $values = null;
+  if (is_null($values)) {
+    $values = module_invoke_all('profile_privacy_access_info');
+  }
+  return $values;
+}
+
+function user_profile_privacy_follower_access_callback($account, $field) {
+  static $list = array();
+  if (!isset($list[$account->uid])) {
+    if (module_exists('follower')) {
+      $list[$account->uid] = false !== follower_status($account->uid);
+    } else {
+      $list[$account->uid] = false;
+    }
+  }
+  return $list[$account->uid];
+}
+
+/*
+ * Geocoding
+ */
+function user_profile_geocode($countrycode, $zip) {
+  $output = array();
+  global $user;
+  $query = array('postalcode' => $zip, 'country' => $countrycode, 'maxrows' => 1, 'lang' => $user->language);
+  $result = geonames_query('postalcodesearch', $query);
+  if (isset($result->results[0])) {
+    $result = $result->results[0];
+    $output += array(
+      'city' => preg_replace('/\s\d+$/', '', $result['name']),
+      'state' => $result['adminname1'],
+      'zip' => $result['postalcode'],
+      'lat' => $result['lat'],
+      'lng' => $result['lng'],
+      'lng' => $result['lng'],
+      'country' => $result['countrycode'],
+    );
   }
 
-  global $user;
-
-  $form['#attributes'] = array(
-    'enctype'   => 'multipart/form-data',
-  );
-
-  $form['username'] = array(
-    '#type'           => 'textfield',
-    '#title'          => t('Username'),
-    '#maxlength'      => 20,
-    '#description'    => t(''),
-    '#value'          => $user->name,
-    '#default_value'  => t(''),
-    '#id'             => 'username',
-    '#required'       => 1,
-    '#attributes'     => array('class' => 'info validate validate-username', 'blurtext' => t('Username')),
-  );
-
-  return $form;
+  return $output;
 }
-*/

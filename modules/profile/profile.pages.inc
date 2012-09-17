@@ -14,6 +14,7 @@ function profile_browse() {
 
   $field = db_fetch_object(db_query("SELECT DISTINCT(fid), type, title, page, visibility FROM {profile_fields} WHERE name = '%s'", $name));
 
+
   if ($name && $field->fid) {
     // Only allow browsing of fields that have a page title set.
     if (empty($field->page)) {

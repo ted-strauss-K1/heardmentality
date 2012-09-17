@@ -428,6 +428,11 @@ function get_hot_list($time='') {
     return $output;
 }
 
+function drupal_link_color($uid, $nid) {
+  return false != db_result(db_query("SELECT COUNT(*) AS count FROM {poll_votes} WHERE nid='%d' AND uid='%d'", $uid, $nid)) ? 'font-weight:bold' : '';
+}
+
+
 function get_local_list($time='') {
     global $gSitePath, $user, $gDocPath, $base_root, $language;
     $currLanguage = $language->language;

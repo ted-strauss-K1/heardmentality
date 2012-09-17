@@ -73,7 +73,7 @@ $directoryPath = $base_path . $directory;
 
 		<div class="five columns">
 			<div class="dark-grey-box top clearfix">
-                <?php print $user_profile_information; ?>
+        <?php print $user_profile_information; ?>
 			</div>
 		</div>	
 	</div>

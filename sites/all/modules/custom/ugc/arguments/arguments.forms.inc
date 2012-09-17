@@ -229,7 +229,7 @@ function reply_form($form, $nid) {
     $form['log_in'] = array(
       '#type' => 'markup',
       '#value' => t('Please login to post reply'),
-      '#attributes' => array('class' => ugc_loginbox_class(true)),
+      '#attributes' => array('class' => user_profile_login_class(true)),
     );
     return $form;
   }
