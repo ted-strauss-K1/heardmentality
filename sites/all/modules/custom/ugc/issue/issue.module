@@ -272,10 +272,9 @@ function _issue_delete(&$node) {
  * @see issue_nodeapi()
  */
 function _issue_load(&$node) {
-  // TODO
-
-  // $node->tnode = issue_get_translated_node($node->nid);
-  // $node->tnid = $node->tnode->nid;
+  global $user;
+  $node->uservoted = false != db_result(db_query("SELECT * FROM {poll_votes} WHERE nid = '%d' AND uid = '%d'", $node->nid, $user->uid ));
+  $node->votes = issue_get_votes($node->nid);
 }
 
 /*
@@ -499,6 +498,9 @@ function issue_content_bottom_preprocess(&$vars) {
  * Preprocess function for issue_results_graph
  */
 function issue_results_graph_preprocess(&$vars) {
+  if ($vars['node']->votes['#all'] < 10 || !$vars['node']->uservoted) {
+    return;
+  }
   // drupal_rebuild_theme_registry();
   // die('xx');
   $nid = $vars['node']->nid;
