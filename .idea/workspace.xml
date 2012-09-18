@@ -2,10 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26d768ed-4517-45ea-b52f-09d51316e77a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-resource-preview.tpl.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sites/all/modules/debate/debate.pages.inc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sites/all/modules/debate/scripts/add_resource.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sites/all/modules/debate/scripts/debate_statistic.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sites/all/modules/debate/simple_html_dom.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sites/all/modules/debate/split_url.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sites/all/modules/debate/thumbnail.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sites/all/modules/debate/url_to_absolute.php" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/sites/all/modules/debate/join_url.php" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/includes/join_url.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.module" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.module" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/issue-results-graph.tpl.php" afterPath="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/issue-results-graph.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/default/settings.php" afterPath="$PROJECT_DIR$/sites/default/settings.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.inc" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.js" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.module" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/js/add_new_form.js" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/js/add_new_form.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/ugc/ugc.module" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/ugc.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/debate/debate.module" afterPath="$PROJECT_DIR$/sites/all/modules/debate/debate.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/debate/scripts/debate.js" afterPath="$PROJECT_DIR$/sites/all/modules/debate/scripts/debate.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-item.tpl.php" afterPath="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-item.tpl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css" afterPath="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css" />
     </list>
     <ignored path="heardmentality.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,29 +42,97 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="issue-results-graph.tpl.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/issue-results-graph.tpl.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="32" selection-start="306" selection-end="322" vertical-scroll-proportion="-3.75">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="issue.module" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="issue.module" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="501" column="11" selection-start="13525" selection-end="13525" vertical-scroll-proportion="0.33333334">
+            <state line="919" column="99" selection-start="24861" selection-end="24862" vertical-scroll-proportion="-5.1923075">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="issue.forms.inc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.forms.inc">
+      <file leaf-file-name="fileuploader.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/scripts/fileuploader.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="165" column="11" selection-start="4550" selection-end="4550" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="debate.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/scripts/debate.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="142" column="0" selection-start="3098" selection-end="3098" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arguments-item.tpl.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-item.tpl.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="99" selection-start="1336" selection-end="1336" vertical-scroll-proportion="-17.291666">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3910" column="17" selection-start="81156" selection-end="81156" vertical-scroll-proportion="0.5350701">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="debate.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/debate.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="0" selection-start="8" selection-end="1229" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arguments.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="247" column="36" selection-start="6294" selection-end="6326" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add_new_form.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/js/add_new_form.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="0" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arguments.forms.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="44" column="0" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arguments.forms.inc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.inc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="187" column="14" selection-start="5539" selection-end="5539" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1347965993000" expanded="true" signature="1273:1394" placeholder="..." />
+                <marker date="1347965993000" expanded="true" signature="1310:1394" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -69,22 +152,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/user-profile-popup.tpl.php" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme-2.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme-3.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme-1.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.theme.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc" />
-        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-item.tpl.php" />
-        <option value="$PROJECT_DIR$/sites/all/modules/openids/openids.pages.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/qlite/qlite.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/gurupoints/gurupoints.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/abuse/abuse.module" />
         <option value="$PROJECT_DIR$/sites/all/modules/notify/notify.module" />
         <option value="$PROJECT_DIR$/sites/all/modules/profiles/profiles.module" />
         <option value="$PROJECT_DIR$/sites/default/settings.php" />
         <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/issue-results-graph.tpl.php" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/ugc.module" />
+        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-resource-preview.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.inc" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/js/add_new_form.js" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.js" />
+        <option value="$PROJECT_DIR$/sites/all/modules/debate/debate.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/debate/debate.pages.inc" />
+        <option value="$PROJECT_DIR$/sites/all/modules/debate/scripts/debate.js" />
+        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-item.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css" />
       </list>
     </option>
   </component>
@@ -101,7 +184,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -223,6 +306,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentalitylight" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -275,7 +388,67 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="custom" />
+              <option name="myItemId" value="debate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="debate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="debate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -302,10 +475,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="custom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user_profile" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -369,7 +538,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="issue" />
+              <option name="myItemId" value="arguments" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -400,6 +569,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sites/all/themes/heardmentalitylight" />
       <recent name="D:\dev\vhosts\heardmentality\sites\all\modules\custom\ugc\issue" />
       <recent name="D:\dev\vhosts\heardmentality\sites\all\themes\heardmentalitylight" />
       <recent name="D:\dev\vhosts\heardmentality\sites\all\modules\profiles" />
@@ -511,104 +681,122 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-item.tpl.php">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/ugc.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="88" selection-start="2850" selection-end="2850" vertical-scroll-proportion="-1.4117647" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="47" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/profiles/profiles.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="7" selection-end="7" vertical-scroll-proportion="0.018270401">
+        <state line="23" column="9" selection-start="580" selection-end="580" vertical-scroll-proportion="0.33266532">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/notify/notify.module">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_6.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="489" column="0" selection-start="17075" selection-end="17075" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/openids/openids.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="26" selection-start="136" selection-end="137" vertical-scroll-proportion="0.0">
+        <state line="699" column="9" selection-start="23748" selection-end="23748" vertical-scroll-proportion="0.33266532">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/up/up.module">
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/debate-ajax-url.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="46" selection-start="2049" selection-end="2069" vertical-scroll-proportion="0.0">
+        <state line="13" column="28" selection-start="559" selection-end="559" vertical-scroll-proportion="-8.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/abuse/abuse.module">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="538" column="0" selection-start="17680" selection-end="17680" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/openids/openids.pages.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="717" column="1" selection-start="23654" selection-end="23654" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/default/settings.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="25" selection-start="3016" selection-end="3016" vertical-scroll-proportion="0.65773445">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/qlite/qlite.module">
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-resource-preview.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="0" selection-start="8248" selection-end="8248" vertical-scroll-proportion="0.2557856">
+        <state line="34" column="17" selection-start="1400" selection-end="1400" vertical-scroll-proportion="-7.5">
+          <folding>
+            <marker date="1347965102000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1347965102000" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="187" column="14" selection-start="5539" selection-end="5539" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1347965993000" expanded="true" signature="1273:1394" placeholder="..." />
+            <marker date="1347965993000" expanded="true" signature="1310:1394" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/js/add_new_form.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/avatar_blocks/avatar_blocks.module">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="368" column="18" selection-start="15164" selection-end="15164" vertical-scroll-proportion="0.20097442">
-          <folding />
+        <state line="44" column="0" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/gurupoints/gurupoints.module">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/debate.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="235" column="57" selection-start="8806" selection-end="8925" vertical-scroll-proportion="0.3202847">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.forms.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="11" selection-start="4550" selection-end="4550" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/issue-results-graph.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="32" selection-start="306" selection-end="322" vertical-scroll-proportion="-3.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../xamppfiles/phpmyadmin/libraries/import/sql.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="227" selection-end="227" vertical-scroll-proportion="0.28790787">
+        <state line="3" column="0" selection-start="8" selection-end="1229" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="501" column="11" selection-start="13525" selection-end="13525" vertical-scroll-proportion="0.33333334">
+        <state line="919" column="99" selection-start="24861" selection-end="24862" vertical-scroll-proportion="-5.1923075">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/scripts/fileuploader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/css/answer.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/scripts/debate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="142" column="0" selection-start="3098" selection-end="3098" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="247" column="36" selection-start="6294" selection-end="6326" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-item.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="99" selection-start="1336" selection-end="1336" vertical-scroll-proportion="-17.291666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3910" column="17" selection-start="81156" selection-end="81156" vertical-scroll-proportion="0.5350701">
           <folding />
         </state>
       </provider>

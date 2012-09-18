@@ -12,6 +12,8 @@ function ugc_init() {
   drupal_add_js(array('uid' => user_is_logged_in() ? $user->uid : 0), 'setting');
 
   ugc_translate('confirm_delete', 'Are you sure you want to delete?');
+  ugc_translate('add', 'Add');
+  ugc_translate('attach', 'Attach');
 }
 
 /*

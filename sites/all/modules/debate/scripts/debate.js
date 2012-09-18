@@ -39,64 +39,6 @@ function addComment(ele){
 
 }
 
-function switchdebate(url){
-   
-  var newCaption = '`DEBATE SUMMARY <a href="" onclick="fb.instances[fb.ownerInstance(this)].goBack(); return false;"><b>Go back...</b></a>`';
-  var options = 'type:ajax sameBox:true width:70% height:90% caption: ' + newCaption;
-  parent.fb.start(url, options);
-
-}
-
-function cancelAdd(id){
-
-  if ($('freport').getStyle('display') == 'block') {
-    $('freport').slide('out');
-    $('freport').setStyle('display', 'none');
-  }
-}
-
-function likethis(action, wid, like, ele){
-
-  el = jQuery(ele);
-  if(uid>0){
-  }else{
-
-    jQuery.growlUI('', 'Please Login to do this!');
-    return false;
-  }
-
-  el.empty();
-
-  el.slideDown('slow');
-
-  // $('likelink').empty();
-
-  var url = Drupal.settings.base_url + '/question/forum/savecmt';
-
-  jQuery('#waveerr').html('<b>Saving your like..!</b>');
-  jQuery('#waveerr').slideDown('slow');
-  jQuery.ajax({
-    type: "POST",
-    url: url,
-    data: {
-      'action': action,
-      'like': like,
-      'nodeid': wid
-    },
-    success: function(msg){
-      el.html(msg);
-      var finl = el.find('a');
-      //  el.fade('in');
-
-      finl.unwrap();
-
-      jQuery('#waveerr').slideUp('slow');
-    }
-  });
-  return false;
-//$('waveerr').set('html','<b>Thanks for your like!</b>');
-
-}
 
 
 function toggle(){
@@ -198,17 +140,4 @@ jQuery('#flagform').live('submit', function(e){
 
 
 });
-
-
-
-function report_forum(typ,el){
-
-  var wid = jQuery(el).attr('name');
-
-  var gid = wid.split('-');
-  jQuery('#rtype').val(typ);
-  jQuery('#rwave').val(gid[0]);
-  jQuery('#rwavelet').val(gid[1]);
-
-}
 

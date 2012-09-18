@@ -41,12 +41,12 @@ function arguments_menu() {
     'access arguments'  => array('access content'),
   );
 
-  $menu['arguments'] = array(
-    'title'             => 'Arguments Test',
-    'page callback'     => 'arguments_test',
+  $menu['arguments/resource'] = array(
+    'page callback'     => 'arguments_preview_resource',
     'type'              => MENU_CALLBACK,
     'access arguments'  => array('access content'),
   );
+
 
   return $menu;
 }
@@ -80,6 +80,11 @@ function arguments_theme() {
     'template' => 'arguments-comment',
     # 'file'      => 'arguments.theme.inc',
   );
+  $theme['arguments_resource_preview'] = array(
+    'arguments' => array('node' => NULL),
+    'template' => 'arguments-resource-preview',
+    # 'file'      => 'arguments.theme.inc',
+  );
   $theme['arguments_delete'] = array(
     'arguments' => array(
       'comment_type' => NULL,
@@ -88,20 +93,28 @@ function arguments_theme() {
     'file'      => 'arguments.theme.inc',
   );
 
-
-
   return $theme;
 }
 
 /*
- * Testing function
- *
- * TODO -- remove
+ * arguments_resource_preview
  */
-function arguments_test() {
-  //$node = node_load(36953	);
-  $node = arguments_add_resource(706, 'http://youtube.com/watch?v=WxKC1-zz_5A&feature=related', 1, '');
-  var_dump($node);
+function arguments_preview_resource() {
+  $url = isset($_POST['url']) ? $_POST['url'] : false;
+  $node = arguments_fetch_url($url);
+
+  if ($node === false) {
+    drupal_json(array(
+      'status' => false,
+      'message' => t('No URL provided'),
+    ));
+  } else {
+    drupal_json(array(
+      'status' => true,
+      'message' => theme('arguments_resource_preview', $node),
+    ));
+  }
+  exit();
 }
 
 /*
@@ -169,60 +182,14 @@ function arguments_add_resource($nid, $url, $image) {
   if (empty($nid) || empty($url)) {
     return false;
   }
-  module_load_include('php', 'arguments', 'includes/simple_html_dom');
-  $html = file_get_html($url);
-  if (empty($html)) {
+  $url_p = parse_url($url);
+  $node = arguments_fetch_url($url, $image);
+  if ($node === false) {
     return false;
   }
-  $node = new stdClass();
-  $url_p = parse_url($url);
-  if (false !== strpos($url_p['host'], 'youtube.com')) { # YouTube Video
-
-    $params = explode('&', $url_p['query']);
-    $youtube_id = false;
-    foreach ($params as $param) {
-      $param = explode('=', $param, 2);
-      if ($param[0] == 'v') {
-        $youtube_id = $param[1];
-        break;
-      }
-    }
-    if ($youtube_id === false || strlen($youtube_id) != 11) {
-      return false;
-    }
-    $body = $html->find('#eow-description', 0);
-    $node->body = empty($body) ? '' : ugc_truncate($body->plaintext, 200);
-    $title = $html->find('#eow-title', 0);
-    $node->title = empty($title) ? '' : $title->innertext;
-    $node->field_mtype[0]['value'] = 'video';
-    $node->field_videoid[0]['value'] = $youtube_id;
-    $node->field_filepath[0]['value'] = 'http://img.youtube.com/vi/' . $youtube_id . '/default.jpg';
-
-  } else { # Regular URL
-
-    $tags = get_meta_tags($url);
-    $node->body = empty($tags) ? '' : $tags['description'];
-    $title = $html->find('title', 0);
-    $node->title = empty($title) ? '' : $title->innertext;
-    $node->field_rtype[0]['value'] = 'news';
-    if ($image === false) {
-      $node->field_filepath[0]['value'] = file_create_url(file_directory_path() . '/noimage.jpg');
-    } else {
-      # save image to disk
-      $result = drupal_http_request($image, array(), 'POST', '', 3);
-      if( $result->data ) {
-        $ext = arguments_resource_image_extension($image);
-        $hash = md5($image);
-        $filepath = file_directory_path() . '/resources/res-' . $hash . '.' . $ext;
-        $file = file_save_data($result->data, $filepath, FILE_EXISTS_REPLACE);
-        image_scale($file, $filepath, '110', '70');
-        $node->field_filepath[0]['value'] = file_create_url($file);
-      } else {
-        $node->field_filepath[0]['value'] = file_create_url(file_directory_path() . '/noimage.jpg');
-      }
-    }
-  }
-  $html->clear();
+  unset($node->images);
+  unset($node->noimage);
+  unset($node->domain);
 
   # common values
   $node->type = 'forum';
@@ -247,12 +214,91 @@ function arguments_add_resource($nid, $url, $image) {
 }
 
 /*
+ * Create the core of the resource node by url
+ */
+function arguments_fetch_url($url, $image = false) {
+  module_load_include('php', 'arguments', 'includes/simple_html_dom');
+
+  $html = file_get_html($url);
+  if (empty($html)) {
+    return false;
+  }
+  $node = new stdClass();
+  $url_p = parse_url($url);
+  $node->domain = $url_p['host'];
+  if (false !== strpos($url_p['host'], 'youtube.com')) { # YouTube Video
+
+    $params = explode('&', $url_p['query']);
+    $youtube_id = false;
+    foreach ($params as $param) {
+      $param = explode('=', $param, 2);
+      if ($param[0] == 'v') {
+        $youtube_id = $param[1];
+        break;
+      }
+    }
+    if ($youtube_id === false || strlen($youtube_id) != 11) {
+      return false;
+    }
+    $body = $html->find('#eow-description', 0);
+    $node->body = empty($body) ? '' : ugc_truncate($body->plaintext, 200);
+    $title = $html->find('#eow-title', 0);
+    $node->title = empty($title) ? '' : $title->innertext;
+    $node->field_mtype[0]['value'] = 'video';
+    $node->field_videoid[0]['value'] = $youtube_id;
+    $node->field_filepath[0]['value'] = 'http://img.youtube.com/vi/' . $youtube_id . '/default.jpg';
+
+    $node->images = array($node->field_filepath[0]['value']);
+    $node->noimage = false;
+
+  } else { # Regular URL
+
+    $tags = get_meta_tags($url);
+    $node->body = empty($tags) ? '' : $tags['description'];
+    $title = $html->find('title', 0);
+    $node->title = empty($title) ? '' : $title->innertext;
+    $node->field_rtype[0]['value'] = 'news';
+
+    module_load_include('php', 'arguments', 'includes/url_to_absolute');
+    # get images
+    $images = array();
+    $images_source = $html->find('img');
+    foreach( $images_source as $element ) {
+      # $images[$element->src] = true;
+      $images[] = url_to_absolute($url, $element->src);
+    }
+//    var_dump($images); die();
+    $node->images = arguments_resource_validate_images($images);
+    $node->noimage = true;
+
+    if ($image === false) {
+      $node->field_filepath[0]['value'] = file_create_url(file_directory_path() . '/noimage.jpg');
+    } else {
+      # save image to disk
+      $result = drupal_http_request($image, array(), 'POST', '', 3);
+      if( $result->data ) {
+        $ext = arguments_resource_image_extension($image);
+        $hash = md5($image);
+        $filepath = file_directory_path() . '/resources/res-' . $hash . '.' . $ext;
+        $file = file_save_data($result->data, $filepath, FILE_EXISTS_REPLACE);
+        image_scale($file, $filepath, '110', '70');
+        $node->field_filepath[0]['value'] = file_create_url($file);
+      } else {
+        $node->field_filepath[0]['value'] = file_create_url(file_directory_path() . '/noimage.jpg');
+      }
+    }
+  }
+  $html->clear();
+  return $node;
+}
+
+/*
  * Validate the images
  *
  * @param images - array of image absolute urls
  */
 function arguments_resource_validate_images($images) {
-  $ext_allowed = array('png', 'jpg', 'jpeg');
+  $ext_allowed = array('png', 'jpg', 'jpeg', 'gif');
   $result = array();
   foreach ($images as $image) {
     $ext = arguments_resource_image_extension($image);

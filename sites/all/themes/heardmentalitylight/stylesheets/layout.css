@@ -3907,6 +3907,8 @@ h6#deb-ana:hover a,
 	line-height: 18px;
 	color: #4c4c4c;
 	padding: 0 0 9px;
+    float: left;
+    width: 400px;
 }
 
 #debate_list_area .reply_body {
