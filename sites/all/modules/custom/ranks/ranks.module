@@ -30,13 +30,16 @@ function ranks_menu() {
  * Get the list of ranks
  */
 function ranks_get() {
-  $ranks = array();
-  $result = db_query('SELECT * FROM {module_ranks} ORDER BY points ASC');
-  while( $rank = db_fetch_array($result) ) {
-    $ranks[] = $rank;
-  }
-  if( empty($ranks) ) {
-    $ranks[] = array('id' => 0, 'name' => 'Citizen', 'points' => 0);
+  static $ranks = null;
+  if (is_null($ranks)) {
+    $ranks = array();
+    $result = db_query('SELECT * FROM {module_ranks} ORDER BY points ASC');
+    while( $rank = db_fetch_array($result) ) {
+      $ranks[] = $rank;
+    }
+    if( empty($ranks) ) {
+      $ranks[] = array('id' => 0, 'name' => 'Citizen', 'points' => 0);
+    }
   }
   return $ranks;
 }

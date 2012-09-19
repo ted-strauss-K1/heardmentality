@@ -141,8 +141,6 @@ function badges_add_userbadge($uid, $badge_id) {
   db_query("INSERT INTO {module_badges_userbadges} SET uid = '%d', badge_id = '%d'", $uid, $badge_id);
 }
 
-# TODO UPDATE `module_badges` SET status = 1
-
 /*
  * Get user badges
  */

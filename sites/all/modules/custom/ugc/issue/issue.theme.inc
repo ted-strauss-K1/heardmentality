@@ -82,10 +82,109 @@ function issue_results_graph_highchart_filter_categories() {
 }
 
 /*
+ * Quick facts
+ */
+function theme_issue_results_insightview($node) {
+  # get the data
+  $data = issue_results_graph_highchart_filter_data($node);
+
+  $choices = issue_choices($node->nid);
+
+  $totals_all = 0;
+  $totals = &$data['']['#results'];
+  foreach ($totals as $i => &$total) {
+    $total = $total[$i];
+    $totals_all += $total;
+  }
+
+  $list_total = array();
+  $list_choices = array();
+  foreach ($data as $key => &$dataset) {
+    if ($key == '') {
+      continue;
+    }
+    $results = $dataset['#results'];
+
+    # get "27% of voters make between $150,000 - $299,999"
+    # get "57% of votes for rumor are Hindu"
+    $tmp_total = array();
+    foreach ($results as $chorder => $counts) {
+      foreach ($counts as $optkey => $count) {
+        $tmp_total[$optkey] += $count;
+        if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
+          $list_choices[$chorder.'-'.$optkey.'-'.$key] = round(100*$count/$totals[$chorder], 0);
+        }
+      }
+    }
+
+    foreach ($tmp_total as $optkey => $count) {
+      if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
+        $list_total[$key.'-'.$optkey] = round(100*$count/$totals_all, 0);
+      }
+    }
+  }
+  arsort($list_total);
+  arsort($list_choices);
+
+  # output
+  $output = array();
+  #1
+  $i = 0;
+  foreach ($list_total as $key => $percent) {
+    $key = explode('-', $key);
+    $optkey = $key[1];
+    $key = $key[0];
+
+    switch ($key) {
+      case 'age' :
+        $output[] = $percent.'% '.t('of voters are').' <span class="highlight">'.t($data[$key]['#options'][$optkey]).' '.t('yo') . '</span>';
+        break;
+      case 'income' :
+        $output[] = $percent.'% '.t('of voters make').' <span class="highlight">'.t($data[$key]['#options'][$optkey]) . '</span>';
+        break;
+      case 'gender' :
+      case 'ethnicity' :
+      case 'marital' :
+      case 'sex_orient' :
+      case 'education' :
+      case 'religion' :
+      default :
+        $output[] = $percent.'% '.t('of voters are').' <span class="highlight">'.t($data[$key]['#options'][$optkey]) . '</span>';
+        break;
+    }
+    if (++$i > 1) {
+      break;
+    }
+  }
+
+  $i = 0;
+  foreach ($list_choices as $key => $percent) {
+    $key = explode('-', $key);
+    $chorder = $key[0];
+    $optkey = $key[1];
+    $key = $key[2];
+
+    $text = '';
+    foreach ($choices as $choice) {
+      if ($choice['chorder'] == $chorder) {
+        $text = $choice['short_answer'];
+      }
+    }
+    $output[] = $percent.'% '.t('of votes for').' <span class="highlight">'.t($text).'</span> '.t('are').' '.
+      ($data[$key]['#options'][$optkey]);
+
+    if (++$i > 3) {
+      break;
+    }
+  } # get "57% of votes for rumor are Hindu"
+
+  return '<span>'.implode('</span></br><span>', $output).'</span></br>';
+}
+
+/*
  * Highchart Filter Data Collector
  *
  * @see issue_results_graph_highchart_filter_categories
- * TODO - get back when Profiles module is fixed
  */
 function issue_results_graph_highchart_filter_data($node) {
   static $dataset = array();

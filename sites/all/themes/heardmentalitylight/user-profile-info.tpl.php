@@ -37,7 +37,7 @@
 
       <span class="right_wrapper">
         <span class="user-title"><?php print t('Followers');?>: </span>
-        <span class="user-data"><?php print number_format($follower_count); ?></span>
+        <span class="user-data"><?php print number_format($followers_count); ?></span>
       </span>
     </div>
   </div>
@@ -46,21 +46,21 @@
 
 <?php if (!empty($following)) : ?>
   <div class="following clearfix">
-    <label for="following" class="following"><?php print t('Following'); ?></label>
+    <label for="following" class="following"><?php print user_profile_follow_title('following'); ?></label>
     <?php foreach ($following as $f_user) : ?>
     <a href="/profile/<?php print $f_user->requestee->name; ?>" class="floatleft"><img class="following-user" src="<?php print user_profile_image($f_user->requestee); ?>" /></a>
     <?php endforeach; ?>
-    <a class="more" href="/user/following/<?php print $user->uid ?>/following"><?php print t('See All');?> (<?php print $following_count; ?>)</a>
+    <a class="more" href="/user/profile/follow/<?php print $user->uid ?>/following"><?php print t('See All');?> (<?php print $following_count; ?>)</a>
   </div>
   <?php endif; ?>
 
 <?php if(!empty($followers)) : ?>
   <div class="following clearfix">
-    <label for="following" class="following"><?php print t('Followers'); ?></label>
+    <label for="following" class="following"><?php print user_profile_follow_title('followers'); ?></label>
     <?php foreach($followers as $f_user) : ?>
     <a href="/profile/<?php print $f_user->requestee->name; ?>" class="floatleft"><img class="following-user" src="<?php print user_profile_image($f_user->requestee); ?>" /></a>
     <?php endforeach; ?>
-    <a class="more" href="/user/following/<?php print $user->uid ?>/follower"><?php print t('See All');?> (<?php print $followers_count; ?>)</a>
+    <a class="more" href="/user/profile/follow/<?php print $user->uid ?>/followers"><?php print t('See All');?> (<?php print $followers_count; ?>)</a>
   </div>
   <?php endif; ?>
 

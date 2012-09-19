@@ -162,16 +162,23 @@ function follower_status($follow_uid, $uid = '') {
 /*
  * Get followers
  */
-function follower_get_followers($uid) {
+function follower_get_followers($uid, $count = false, $limit = false) {
   return user_relationships_load(
     array(
-      'approved' => 1,
-      'requestee_id' => $uid,
-      'rtid' => FOLLOWER_RELATION_ID
+      'approved'      => 1,
+      'requestee_id'  => $uid,
+      'rtid'          => FOLLOWER_RELATION_ID,
     ),
     array(
       'include_user_info' => 1,
-      'order' => 1
+      'order' => 1,
+    ) + (
+      $count !== false ?
+        array('count' => true) : (
+        $limit === false ?
+          array() :
+          array('limit' => $limit)
+      )
     )
   );
 }
@@ -179,16 +186,23 @@ function follower_get_followers($uid) {
 /*
  * Get following
  */
-function follower_get_following($uid) {
+function follower_get_following($uid, $count = false, $limit = false) {
   return user_relationships_load(
     array(
-      'approved' => 1,
-      'requester_id' => $uid,
-      'rtid' => FOLLOWER_RELATION_ID
+      'approved'      => 1,
+      'requester_id'  => $uid,
+      'rtid'          => FOLLOWER_RELATION_ID,
     ),
     array(
       'include_user_info' => 1,
-      'order' => 1
+      'order' => 1,
+    ) + (
+    $count !== false ?
+      array('count' => true) : (
+    $limit === false ?
+      array() :
+      array('limit' => $limit)
+    )
     )
   );
 }

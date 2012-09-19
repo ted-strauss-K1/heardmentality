@@ -1,6 +1,5 @@
 <?php
 
-require_once('user_profile.func.inc');
 
 /*
  * Implementaton of hook_init()
@@ -82,23 +81,41 @@ function user_profile_menu() {
     'type'              => MENU_CALLBACK,
   );
   $menu['user/profile/edit'] = array(
-    'title'             => 'Update Profile',
+    'title'             => t('Update Profile'),
     'page callback'     => 'drupal_get_form',
     'page arguments'    => array('user_profile_edit_form'),
     'access arguments'  => array(USER_PROFILE_EDIT),
     'file'              => 'user_profile.pages.inc',
-    'type'              => MENU_SUGGESTED_ITEM,
+    'type'              => MENU_CALLBACK,
   );
+  $menu['user/profile/follow/%/%'] = array(
+    'title callback'    => 'user_profile_follow_title',
+    'title arguments'   => array(4),
+    'page callback'     => 'theme',
+    'page arguments'    => array('user_profile_follow', 3, 4),
+    'access callback'   => 'user_profile_access_user_profile',
+    'access arguments'  => array(USER_PROFILE_VIEW),
+    'type'              => MENU_CALLBACK,
+  );
+//  $menu['user/profile/follow/followers'] = array(
+//    'title'             => t('Followers'),
+//    'page callback'     => 'theme',
+//    'page arguments'    => array('user_profile_follow', 3, 4),
+//    'access arguments'  => array(USER_PROFILE_VIEW),
+//    'type'              => MENU_CALLBACK,
+//  );
+//
+//  $menu['user/profile/x'] = array(
+//    'title'             => t('Followers'),
+//    'page callback'     => 'theme',
+//    'page arguments'    => array('user_profile_follow', 3, 4),
+//    'access arguments'  => array(USER_PROFILE_VIEW),
+//    'type'              => MENU_CALLBACK,
+//  );
 
   return $menu;
 }
 
-/*
- * user_profile_edit
- */
-//function user_profile_edit() {
-//  return drupal_get_form('user_profile_edit_form');
-//}
 
 /*
  *
@@ -200,9 +217,45 @@ function user_profile_theme() {
     'template' => 'user-profile-bottom',
     'preprocess functions' => array('user_profile_block_preprocess'),
   );
-
+  $theme['user_profile_follow'] = array(
+    'arguments' => array(
+      'uid' => NULL,
+      'code' => NULL,
+    ),
+    'template' => 'user-profile-follow',
+    'preprocess functions' => array('user_profile_follow_preprocess'),
+  );
+  $theme['user_profile_edit_form'] = array(
+    'arguments' => array('form' => NULL),
+    'template' => 'user-profile-edit-form',
+  );
 
   return $theme;
+}
+
+/*
+ *
+ */
+function user_profile_follow_title($code) {
+  return $code == 'following' ? t('Following Users') : t('Followers');
+}
+
+/*
+ *
+ */
+function user_profile_follow_preprocess(&$vars) {
+//  var_dump($vars); die();
+
+  switch ($vars['code']) {
+    case 'following' :
+      $vars['users'] = follower_get_following($vars['uid']);
+    break;
+    case 'followers' :
+      $vars['users'] = follower_get_followers($vars['uid']);
+    break;
+  }
+  $vars['followers_count'] = follower_get_followers($vars['uid'], true);
+  $vars['following_count'] = follower_get_following($vars['uid'], true);
 }
 
 /*
@@ -227,8 +280,6 @@ function user_profile_block_preprocess(&$vars) {
     $vars[$key] = $preprocessed[$key];
   }
 }
-
-# TODO - setup profile fields in /admin/user/pcp
 
 /*
  * Theme user_profile_avatar_selection
@@ -344,9 +395,6 @@ function user_profile_heatmap_preprocess(&$vars) {
     'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid INNER JOIN {geonames_countryinfo} gc ON gc.iso_alpha2 = pv.value WHERE pf.name = 'profile_country' GROUP BY gc.iso_alpha2"),
   );
 
-  # TODO ALTER TABLE  `content_field_issue_country` CHANGE  `field_issue_country_value`  `field_issue_country_value` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL
-  # TODO ALTER TABLE  `content_field_issue_country` ADD INDEX (  `field_issue_country_value` )
-
   $cases['nodes'] = array(
     'name' => t('Issues'),
     'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {content_field_issue_country} cfic INNER JOIN {node} n ON n.nid = cfic.nid AND n.type = '%s' INNER JOIN {geonames_countryinfo} gc ON gc.name = cfic.field_issue_country_value GROUP BY gc.iso_alpha2", 'poll'),
@@ -399,15 +447,12 @@ function user_profile_info_preprocess(&$vars) {
   $vars['badges'] = badges_get_userbadges($uid);
   $vars['comments'] = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
   $vars['votes'] = issue_get_uservotes($uid) + poll_suggest_get_uservotes($uid);
-  $vars['references'] = (int)db_result(db_query("SELECT COUNT(f.nid) FROM {content_type_forum} AS ctf LEFT JOIN {node} AS n ON ctf.nid = n.nid WHERE n.uid = '%d' AND ctf.field_type_value = '%d' AND n.status = '%d'", $uid, TYPE_RESOURCE, 1));
-  $followers = follower_get_followers($uid);
-  $vars['followers_count'] = count($followers);
-  $vars['followers'] = array_slice($followers, 0, 8);
-  $following = follower_get_following($uid);
-  $vars['following_count'] = count($following);
-  $vars['following'] = array_slice($following, 0, 8);
-  $vars['settings'] = get_user_privacy_settings($uid);
-  // TODO add links for following pages
+  $vars['references'] = (int)db_result(db_query("SELECT COUNT(*) FROM {content_type_forum} AS ctf LEFT JOIN {node} AS n ON ctf.nid = n.nid WHERE n.uid = '%d' AND ctf.field_type_value = '%d' AND n.status = '%d'", $uid, TYPE_RESOURCE, 1));
+
+  $vars['followers_count'] = follower_get_followers($uid, true);
+  $vars['followers'] = follower_get_followers($uid, false, 8);
+  $vars['following_count'] = follower_get_following($uid, true);
+  $vars['following'] = follower_get_following($uid, false, 8);
 }
 
 /*

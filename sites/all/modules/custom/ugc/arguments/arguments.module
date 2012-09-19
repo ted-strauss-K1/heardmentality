@@ -74,7 +74,6 @@ function arguments_theme() {
     'arguments' => array('node' => NULL),
     'file'      => 'arguments.theme.inc',
   );
-  // TODO
   $theme['arguments_comment'] = array(
     'arguments' => array('comment' => NULL),
     'template' => 'arguments-comment',
@@ -472,9 +471,6 @@ function arguments_tabs($nid, $sort = null, $print = null) {
 /*
  * Get the filtered list of Arguments
  *
- * TODO INSERT INTO arguments_options (`nid`, `chorder`, `val`, `date_added`) (SELECT do.nid, do.chorder, do.ans_val, do.date_added FROM debate_options do)
- * TODO UPDATE arguments_options SET val = -1 WHERE val = 2
- *
  * @param nid   -- Issue Node Id
  * @param sort  -- Sort
  * @param print -- Print/Return parameter
@@ -567,7 +563,6 @@ function arguments_translate_comment($nid, $language = 'en') {
  *
  * @param nid - Argument Node Id
  *
- * TODO UPDATE comments SET STATUS =1
  */
 function arguments_get_comments($id) {
   $items = array();

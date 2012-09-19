@@ -32,39 +32,13 @@ $log['member/index'] = array(
     'file' => 'openids.pages.inc',
   );
   
-  $log['openids/save'] = array(
-    'title' => 'Login',
-    'page callback' => 'openid_login_save',
-    'access arguments' => array('Login'),
-	   'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'openids.pages.inc',
-  );
+
   
   
+
   
-   $log['openids/new'] = array(
-    'title' => 'Login',
-    'page callback' => 'openid_login3',
-    'access arguments' => array('Login'),
-	   'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'openids.pages.inc',
-  );
-  
-  $log['facebook/answers'] = array(
-    'title' => 'Facebook Friends Answered question',
-    'page callback' => 'friends_answers',
-    'access arguments' => array('Facebook Friends'),
-	   'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'openids.pages.inc',
-  );
-  
-   $log['edit'] = array(
-    'title' => 'User',
-    'page callback' => 'welcome_page',
-    'access arguments' => array('Login'),
-	   'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'openids.pages.inc',
-  );
+
+
   
   return $log;
   

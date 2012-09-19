@@ -71,7 +71,7 @@ $directoryPath = $base_path . $directory;
 
 		<div class="five columns">
 			<div class="dark-grey-box top clearfix">
-        <?php print $you_are_following; ?>
+        <?php print $user_profile_information; ?>
 			</div>
 		</div>	
 	</div>
