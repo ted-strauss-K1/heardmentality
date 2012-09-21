@@ -107,15 +107,16 @@ function arguments_form($form, $nid) {
     '#suffix'     => theme('sub_loader', 'display:none; float:left; margin-right:17px; position:relative; top:2px;'),
     '#id'         => 'add_argument',
   );
-  # TODO -- remove this button
-  $form['attach'] = array(
-    '#type'       => 'submit',
-    '#value'      => t('Attach'),
-    '#attributes' => array('class' => 'orange-btn'),
-    '#prefix'     => '<div class="reference-form pic_ref">',
-    '#suffix'     => '</div>',
-    '#id'         => 'lattach',
-  );
+
+//  $form['attach'] = array(
+//    '#type'       => 'submit',
+//    '#value'      => t('Attach'),
+//    '#attributes' => array('class' => 'orange-btn'),
+//    '#prefix'     => '<div class="reference-form pic_ref">',
+//    '#suffix'     => '</div>',
+//    '#id'         => 'lattach',
+//  );
+
   $form['link-arg'] = array(
     '#type'       => 'item',
     '#value'      => l(t('Or post a reference'), '#') . t(' (news, blog, gov, data...)'),
@@ -183,7 +184,8 @@ function arguments_form_submit(&$form, &$form_state) {
 
     case 0 : # Resource
       if (!empty($post['url'])) {
-        $node = arguments_add_resource($post['nid'], $post['url'], $post['image']);
+//        var_dump($post);
+        $node = arguments_add_resource($post['nid'], $post['url'], $post['uimg']);
         if ($node) {
           drupal_json(array(
             'success' => true,
@@ -229,7 +231,7 @@ function reply_form($form, $nid) {
     $form['log_in'] = array(
       '#type' => 'markup',
       '#value' => t('Please login to post reply'),
-      '#attributes' => array('class' => ugc_loginbox_class(true)),
+      '#attributes' => array('class' => user_profile_login_class(true)),
     );
     return $form;
   }

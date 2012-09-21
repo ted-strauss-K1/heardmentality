@@ -40,6 +40,7 @@ function up_share($nid) {
  * Get the number of userpoints
  */
 function up_userpoints_get($uid = '', $operation = '') {
+  // TODO static calls
   if (empty($uid)) {
     global $user;
     $uid = $user->uid;

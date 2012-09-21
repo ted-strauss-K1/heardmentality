@@ -27,9 +27,7 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
           endif;
         }else {
           ?>
-          <div class="foot-empty">
-            <div class="profile-meta footerfloat"><p><?php print t('Please Login to view your profile details'); ?></p></div>
-          </div>
+
 <?php } ?>
       </div>
     </div>
@@ -78,37 +76,8 @@ else {
   <?php print $login_block; ?>
       </div>
 
-      <p><?php //print t('Or login to Heard Mentality using one of your favorite Social network logins');  ?></p>
-
-  <!--       <script type="text/javascript">
-  var conf=
-  {
-        APIKey: '<?php //echo $apikey;  ?>'
-        ,enabledProviders: 'facebook,twitter,yahoo,messenger,google,linkedin,myspace,aol,orkut,wordpress,typepad,verisign,openid,netlog,bloglines,signon,mixi,livedoor'
-  }
-  </script>
-  <script type="text/javascript">
-  var login_params=
-  {
-        useHTML: 'false'
-        ,showTermsLink: 'false'
-        ,height: 50
-        ,width: 280
-        ,containerID: 'componentDiv'
-        ,useFacebookConnect: 'true'
-        , redirectURL:'<?php print $base_url; ?>/openids/save'
-        ,facepilePosition: 'top'
-  }
-  </script>
-  <div id="componentDiv"></div>
-  <script type="text/javascript">
-   gigya.services.socialize.showLoginUI(conf,login_params);
-  </script>  
-      -->
 <?php } ?>
 
-
-    <!--         <div class ="gigya-login"> </div> -->
   </div>
 
   <div id="tabs-2">

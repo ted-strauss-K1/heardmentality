@@ -151,7 +151,7 @@ function badges_get_userbadges($uid) {
       '#stat' => array(),
       '#list' => array(),
     );
-    $result = db_query("SELECT mb.*, mbt.name AS badgetype FROM {module_badges_userbadges} mbu INNER JOIN {module_badges} mb ON mb.id = mbu.badge_id RIGHT OUTER JOIN {module_badges_types} mbt ON mbt.id = mb.type WHERE mb.status = 1 AND mbu.uid = '%d' ORDER BY mbt.id DESC", 1, $uid);
+    $result = db_query("SELECT mb.*, mbt.name AS badgetype FROM {module_badges_userbadges} mbu INNER JOIN {module_badges} mb ON mb.id = mbu.badge_id RIGHT OUTER JOIN {module_badges_types} mbt ON mbt.id = mb.type WHERE mb.status = '%d' AND mbu.uid = '%d' ORDER BY mbt.id DESC", 1, $uid);
     while ($row = db_fetch_array($result)) {
       if (!isset($list['#stat'][$row['badgetype']])) {
         $list['#stat'][$row['badgetype']] = 0;

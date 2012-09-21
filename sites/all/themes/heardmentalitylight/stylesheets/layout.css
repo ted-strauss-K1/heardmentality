@@ -1449,12 +1449,12 @@ ul.subscription  {
 	float:right;
 }
 
-#sub_email-wrapper {
+#subscription_email-wrapper {
 	clear: both;
 	margin: 0;
 }
 
-#sub_email-wrapper input.form-text {
+#subscription_email-wrapper input.form-text {
 	padding: 8px 5px;
     width: 93%;
 	margin: 0.5em 0 1em;
@@ -1641,7 +1641,7 @@ p.choose_pic {
 
 .message.right-message {
 	background:url(../images/ui-bg_diagonals40x40.png);
-	margin: 30px 0px 0px 0;
+	/*margin: 30px 0px 0px 0;*/
 	padding:22px 22px 10px 22px;
 	border: 1px solid #C0C0C0;
     -webkit-border-radius: 4px;
@@ -3044,7 +3044,7 @@ div.avatar-selection-pager-nav a:hover {
 }
 
 .profile-message.poll-box {
-	padding-top: 29px;
+	padding-top: 59px;
 }
 
 h2.page-title {
@@ -3927,6 +3927,8 @@ h6#deb-ana:hover a,
 	line-height: 18px;
 	color: #4c4c4c;
 	padding: 0 0 9px;
+    float: left;
+    width: 400px;
 }
 
 #debate_list_area .reply_body {

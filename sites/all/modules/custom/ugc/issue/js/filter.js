@@ -462,22 +462,6 @@ function loadflagresdeb(url,title)
 
 
 }
-function loadeditquestion(url,title)
-{
-
-
-  //$.nyroModalSettings({ title:'Flag Posts'});
-
-  //$.nyroModalManual({
-  // url: url,width:550,height:450,title:'Flag Posts'
-  //  });
-
-  var options = 'sameBox:true width:78% height:90% caption:' +
-  '`Edit Profile`';
-  parent.fb.start(url, options);
-
-
-}
 
 
 
@@ -597,11 +581,7 @@ $('#abuse-report-form').live('submit', function(e){
   });
 });
 
-$('.openlogin_box').live('click', function(){
-  $('#dialog').tabs();
-  $('#dialog').dialog('open');
-  return false;
-})
+
 
 
 

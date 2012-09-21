@@ -9,7 +9,7 @@ print drupal_render($form['nid']);
 ?>
 <div class="sugg-hide">
       <p class="suggest-answer"><strong><?php print t('Suggested answers'); ?>:</strong><br>
-    <?php print t('The following answers have been suggested by other users.You can vote for one of the suggested answers, or contribute a new answer sug- gestion of your own. When the votes on a suggested answer reach [still working out requirements], that vote joins the list of official answers and will be counted in the results.'); ?>
+    <?php print t('The following answers have been suggested by other users.You can vote for one of the suggested answers, or contribute a new answer suggestion of your own. When the votes on a suggested answer reach [still working out requirements], that vote joins the list of official answers and will be counted in the results.'); ?>
       </p>
             <div class="suggest">
                 <?php if($form['suggested_answer']):?>
