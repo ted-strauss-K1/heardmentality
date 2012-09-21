@@ -82,7 +82,7 @@ function issue_access($op, $node, $account) {
 
 /*
  * Implementation of hook_form()
- * TODO -- chek if it's used somewhare
+ * TODO -- check if it's used somewhare
  *
   $form = array();
 
@@ -227,7 +227,7 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
  * @see issue_nodeapi()
  */
 function _issue_validate(&$node) {
-  // TODO
+  //
 }
 
 /*
@@ -236,7 +236,7 @@ function _issue_validate(&$node) {
  * @see issue_nodeapi()
  */
 function _issue_presave(&$node) {
-  // TODO
+  //
 }
 
 /*
@@ -245,7 +245,7 @@ function _issue_presave(&$node) {
  * @see issue_nodeapi()
  */
 function _issue_insert(&$node) {
-  // TODO
+  //
 }
 
 /*
@@ -254,7 +254,7 @@ function _issue_insert(&$node) {
  * @see issue_nodeapi()
  */
 function _issue_update(&$node) {
-  // TODO
+  //
 }
 
 /*
@@ -272,10 +272,9 @@ function _issue_delete(&$node) {
  * @see issue_nodeapi()
  */
 function _issue_load(&$node) {
-  // TODO
-
-  // $node->tnode = issue_get_translated_node($node->nid);
-  // $node->tnid = $node->tnode->nid;
+  global $user;
+  $node->uservoted = false != db_result(db_query("SELECT * FROM {poll_votes} WHERE nid = '%d' AND uid = '%d'", $node->nid, $user->uid ));
+  $node->votes = issue_get_votes($node->nid);
 }
 
 /*
@@ -294,22 +293,11 @@ function _issue_view(&$node) {
   drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
   drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
   drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
-  drupal_set_html_head('<script>var uid="' . $user->uid . '";</script>');
-  if ($user->initpop == 1 && $user->uid > 1) {
-    drupal_add_js('$(document).ready(function () {
-      loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");
-    });', 'inline');
-    $user_data = array('initpop' => 2);
-    user_save($user, $user_data);
-  }
   # make changes in node
   $node->context = $node->body;
 
-  # TODO - remove the function
-  # $node->style = drupal_link_color($user->uid, $node->nid);
-
   # replace the content with the special voting form
-  $tnode = issue_get_translated_node($node->nid);
+//  $tnode = issue_get_translated_node($node->nid);
   $node->content['body'] = array(
     '#value' => drupal_get_form('issue_vote_form', $node),
   );
@@ -460,7 +448,7 @@ function issue_theme() {
   );
   $theme['issue_results_insightview'] = array(
     'arguments'             => array('node' => NULL),
-    //'file'                  => 'issue.theme.inc',
+    'file'                  => 'issue.theme.inc',
   );
   $theme['issue_results_graph_legend'] = array(
     'arguments'             => array('node' => NULL),
@@ -510,6 +498,9 @@ function issue_content_bottom_preprocess(&$vars) {
  * Preprocess function for issue_results_graph
  */
 function issue_results_graph_preprocess(&$vars) {
+  if ($vars['node']->votes['#all'] < 10 || !$vars['node']->uservoted) {
+    return;
+  }
   // drupal_rebuild_theme_registry();
   // die('xx');
   $nid = $vars['node']->nid;
@@ -527,9 +518,7 @@ function issue_results_graph_preprocess(&$vars) {
   # Highchart Filter
   $vars['filter'] = theme('issue_results_graph_highchart_filter', $vars['node']);
   # Quick facts
-  // TODO
-  $vars['insightview'] = theme_issue_results_insightview($vars['node']);
-  # $vars['insightview'] = theme('issue_results_insightview', $vars['node']);
+  $vars['insightview'] = theme('issue_results_insightview', $vars['node']);
   # Legend
   $vars['legend'] = theme('issue_results_graph_legend', $vars['node']);
   # Highchart History
@@ -538,107 +527,7 @@ function issue_results_graph_preprocess(&$vars) {
   $vars['gmap'] = theme('issue_results_graph_gmap', $vars['node']);
 }
 
-/*
- * Quick facts
- *
- * TODO -
- */
-function theme_issue_results_insightview(&$node) {
-  # get the data
-  $data = issue_results_graph_highchart_filter_data($node);
 
-  $choices = issue_choices($node->nid);
-
-  $totals_all = 0;
-  $totals = &$data['']['#results'];
-  foreach ($totals as $i => &$total) {
-    $total = $total[$i];
-    $totals_all += $total;
-  }
-
-  $list_total = array();
-  $list_choices = array();
-  foreach ($data as $key => &$dataset) {
-    if ($key == '') {
-      continue;
-    }
-    $results = $dataset['#results'];
-
-    # get "27% of voters make between $150,000 - $299,999"
-    # get "57% of votes for rumor are Hindu"
-    $tmp_total = array();
-    foreach ($results as $chorder => $counts) {
-      foreach ($counts as $optkey => $count) {
-        $tmp_total[$optkey] += $count;
-        if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
-          $list_choices[$chorder.'-'.$optkey.'-'.$key] = round(100*$count/$totals[$chorder], 0);
-        }
-      }
-    }
-
-    foreach ($tmp_total as $optkey => $count) {
-      if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
-        $list_total[$key.'-'.$optkey] = round(100*$count/$totals_all, 0);
-      }
-    }
-  }
-  arsort($list_total);
-  arsort($list_choices);
-
-  # output
-  $output = array();
-  #1
-  $i = 0;
-  foreach ($list_total as $key => $percent) {
-    $key = explode('-', $key);
-    $optkey = $key[1];
-    $key = $key[0];
-
-    switch ($key) {
-      case 'age' :
-        $output[] = $percent.'% '.t('of voters are').' '.t($data[$key]['#options'][$optkey]).' '.t('yo');
-      break;
-      case 'income' :
-        $output[] = $percent.'% '.t('of voters make').' '.t($data[$key]['#options'][$optkey]);
-        break;
-      case 'gender' :
-      case 'ethnicity' :
-      case 'marital' :
-      case 'sex_orient' :
-      case 'education' :
-      case 'religion' :
-      default :
-        $output[] = $percent.'% '.t('of voters are').' '.t($data[$key]['#options'][$optkey]);
-      break;
-    }
-    if (++$i > 1) {
-      break;
-    }
-  }
-
-  $i = 0;
-  foreach ($list_choices as $key => $percent) {
-    $key = explode('-', $key);
-    $chorder = $key[0];
-    $optkey = $key[1];
-    $key = $key[2];
-
-    $text = '';
-    foreach ($choices as $choice) {
-      if ($choice['chorder'] == $chorder) {
-        $text = $choice['short_answer'];
-      }
-    }
-    $output[] = $percent.'% '.t('of votes for').' '.t($text).' '.t('are').' '.
-($data[$key]['#options'][$optkey]);
-
-    if (++$i > 3) {
-      break;
-    }
-  } # get "57% of votes for rumor are Hindu"
-
-  return '<span>'.implode('</span></br><span>', $output).'</span></br>';
-}
 
 /*
  * Load poll choices
@@ -1072,7 +961,67 @@ function issue_pundit_tab($qid='') {
   return $output;
 }
 
+function load_user($uid = '') {
 
+  $query = "select * from {users} as u join {user_profile} as up on u.uid=up.uid  where u.uid='$uid'";
+  $result = db_fetch_object(db_query($query));
+  return $result;
+}
+
+function load_user_badge($uid='', $search='') {
+
+  global $base_url, $user, $theme;
+
+  $medal = updateProfileBadge($uid);
+  $details = load_user($uid);
+
+  $uname = $details->first_name . ' ' . $details->last_name;
+
+  /*
+   * odyachenko
+   *
+   * These lines refer to working with the ranks the old way
+   */
+  $rank = ranks_user_rank($uid);
+  $ranking = $rank['name'];
+  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
+
+  /**
+   * odyachenko
+   *
+   * These lines refer to working with the user points the old way
+   *
+  $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
+  $points = $points != '' ? $points : 0;
+   */
+  $points = up_userpoints_get($details->uid);
+  $coins = $user->total_coins != '' ? $user->total_coins : 0;
+  $badges = badges_get_userbadges($uid);
+  $badges = $badges['#stat'];
+  if ($search)
+    $link = '<a  onclick="get_profile_details(' . $details->uid . ',this);" style="cursor:pointer" > ' . myTruncate($details->name, '10', '..') . '</a>';
+  else
+    $link = '<a href="' . $base_url . '/profile/' . $details->name . '">' . myTruncate($details->name, '10', '..') . '</a>';
+
+  $output = '<div class="profInfo">
+
+                <div class="profInfo-img">' . UserPicture($details->uid) . '</div>
+                    <div class="profInfo-txt">
+                    <span class="profInfo-value" title="' . $points . ' Points">' . $points . '</span>
+                        <div class="profInfo-name">' . $link . '</div>
+                            <div class="profInfo-name2">' . $ranking . '</div>
+                        <ul >
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-gold.jpg" /><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-silver.jpg" /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-gray.jpg" /><span>' . $badges['bronze'] . '</span></li>
+                        </ul>
+                    </div>
+                 </div>
+                           ';
+
+
+  return $output;
+}
 
 
 

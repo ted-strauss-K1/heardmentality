@@ -487,6 +487,24 @@ function abuse_forms() {
  * Implementation of hook_form_alter().
  */
 function abuse_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'profile_node_form') {
+    // Add an after_build function to process when everything's complete.
+    drupal_set_title(t('Editing your Profile in 3 steps!'));
+
+    leghist_cck_alter($form);
+  }
+  if ($form_id == 'user_details') {
+    $output = '';
+    foreach (element_children($form) as $child) {
+      if ($form[$child]['#type'] == 'radios') {
+        //  print_r($form[$child]['#options']);
+        foreach (element_children($form[$child]) as $sub) {
+          $form[$sub]['#options']['#attributes'] = array('class' => 'form-wra-4');
+        }
+      }
+    }
+  }
+
   if ('node_type_form' == $form_id) {
     $type = $form['#node_type']->type;
     $form['abuse_settings'] = array(
@@ -504,6 +522,21 @@ function abuse_form_alter(&$form, $form_state, $form_id) {
     $form['#submit'][] = 'abuse_node_type_form_submit';
   }
 }
+
+/**
+ * Adds Element to $form
+ */
+function leghist_cck_alter(&$form) {
+
+  foreach (element_children($form) as $child) {
+
+    if ($form[$child]['#type'] == 'textfield' && $form[$child]['#title'] == 'Title') {
+
+      $form[$child]['#title'] = t('Bio');
+    }
+  }
+}
+
 
 /**
  * Implementation of form_submit().

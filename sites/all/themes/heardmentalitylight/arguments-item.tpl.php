@@ -12,7 +12,7 @@
             $url = $node->field_nlink[0]['value'];
             $source = $node->field_source[0]['value'];
           ?>
-          <?php if (isset($image)) : ?>
+          <?php if (isset($image) && !isset($node->field_videoid[0]['value'])) : ?>
             <span class="pic">
               <a target="_blank" title="reference" href="<?php print $url; ?>">
                 <img src="<?php print $image; ?>" alt=""/>
@@ -21,9 +21,17 @@
           <?php endif; ?>
 
           <?php if ($node->field_type[0]['value'] == TYPE_DEBATE) : ?>
+
             <p><?php print $node->title; ?></p>&nbsp;
             <div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+
           <?php else : ?>
+            <?php if (isset($node->field_videoid[0]['value'])) : ?>
+
+            <iframe id="ytplayer-<?php print $node->nid ?>" type="text/html" width="400" height="250" src="http://www.youtube.com/embed/<?php print $node->field_videoid[0]['value'] ?>?autoplay=0" frameborder="0"/>
+
+            <?php else : ?>
+
             <div class="ref_wrap">
               <h5 class="ref_title">
                 <a target="_blank" title="reference" href="<?php print $url; ?>">
@@ -37,6 +45,8 @@
                 </span>
               <p><?php print $node->body; ?></p>
             </div>
+
+            <?php endif; ?>
           <?php endif; ?>
 
         </div>
@@ -64,7 +74,7 @@
             <span><?php print $node->ago; ?></span>
           </span>
           <a class="user-thumb" href="<?php print $userlink; ?>">
-            <img src="<?php print UserPicture_small_src($node->uid); ?>" alt="<?php print $node->name; ?>" class="user-thumb" >
+            <img src="<?php print user_profile_image(user_load(array('uid' => $node->uid))); ?>" alt="<?php print $node->name; ?>" class="user-thumb" >
           </a>
             <span class="name">
               <a href="<?php print $userlink; ?>"><?php print $node->name; ?></a>

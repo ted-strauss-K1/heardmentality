@@ -288,10 +288,7 @@ function heardmentalitylight_theme($existing, $type, $theme, $path){
   # setting special templates for the pages and forms
 
   return array(
-    'user_profile_edit_form' => array(
-      'arguments' => array('form' => NULL),
-      'template' => 'user-profile-edit-form',
-    ),
+
 
     'issue_search_form' => array(
       'arguments' => array('form' => NULL),

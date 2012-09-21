@@ -20,42 +20,6 @@ jQuery('#add_new_debate').live('click',function() {
     jQuery('#image_value').val(image_value);
 });
 
-/*
- * Attach Submit
- */
-jQuery("#lattach").live('click', function() {
-    jQuery('#deb-err').html('');
-    var attach = jQuery(this);
-    var lbox = jQuery('#linkbox');
-    var url = jQuery('#url').val();
-    if( !url_validate(url) ) {
-        $.hrd.noty({'type':'error', 'text' : '<span>Please enter a valid URL.</span>'});
-        return false;
-    } else {
-        var purl=Drupal.settings.base_url+'/debate/ajax';
-        attach.attr('disabled',true);
-        lbox.slideDown('slow');
-        lbox.html("<span class='load'>Loading...</span>");
-        jQuery.get(purl+"?action=url&url="+url,function(response) {
-            if( response == '' ) {
-                show_msg('#deb-err', '<span>Error loading URL.</span>', 5000, 500);
-                attach.removeAttr('disabled');
-                lbox.slideUp('slow', function(){ lbox.html('') });
-                return false;
-            }
-            lbox.html(response);
-            attach.removeAttr('disabled');
-            if(jQuery('#cur_id_val').val() == jQuery('#end_image').val()){
-                jQuery('#re-sel-next').hide();
-                jQuery('#re-sel-prev').hide();
-            }
-            jQuery('#re-sel-pre').hide();
-        });
-
-    }
-    return false;
-});
-
 
 
 

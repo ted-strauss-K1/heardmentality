@@ -43,6 +43,7 @@ function url_validate(url) {
   return objRE.test(url);
 }
 
+
 $(document).ready(function() {
 
   /*
@@ -53,12 +54,14 @@ $(document).ready(function() {
     $('.reference-form').show();
     $('.argument-form').hide();
     $('#argument_type').val(0);
+    $('#add_argument').val($('#linkbox').html() == '' ? Drupal.settings.t.attach : Drupal.settings.t.add)
     return false;
   });
   $('#link_ref-wrapper a').click(function(){
     $('.reference-form').hide();
     $('.argument-form').show();
     $('#argument_type').val(1);
+    $('#add_argument').val(Drupal.settings.t.add);
     return false;
   });
 
@@ -100,7 +103,7 @@ $(document).ready(function() {
   /*
    * New Argument Form
    */
-  $('#argument-add-form').on('submit', function(e){
+  $('#argument-add-form').live('submit', function(e){
     e.preventDefault();
 
     var form = $('#argument-add-form');
@@ -132,7 +135,43 @@ $(document).ready(function() {
     } else if(!url_validate(nlink) && type == 0) {
       error = 'Please enter a valid URL.';
     } else if(linkbox == '' && type == 0) {
-      error = 'Please press Attach before adding.';
+        var callback_url = Drupal.settings.base_url + '/arguments/resource';
+        var lbox = $('#linkbox');
+        lbox.slideDown('slow');
+        lbox.html("<span class='load'>Loading...</span>");
+
+        $.ajax({
+            type      : 'POST',
+            dataType  : 'json',
+            url       : callback_url,
+            data      : { url : nlink },
+            success   : function(response) {
+                if (!response.status) {
+                    output = false;
+                    lbox.slideUp('slow', function(){ lbox.html('') });
+                    $.hrd.noty({
+                        type  : 'error',
+                        text  :  'Sorry, your URL cannot be attached'
+                    });
+                    return false;
+                }
+                lbox.html(response.message);
+
+                $.hrd.noty({
+                    type  : 'success',
+                    text  :  'You can now submit your resource'
+                });
+                $('#add_argument').val(Drupal.settings.t.add);
+
+                if(jQuery('#cur_id_val').val() == jQuery('#end_image').val()){
+                    jQuery('#re-sel-next').hide();
+                    jQuery('#re-sel-prev').hide();
+                }
+                jQuery('#re-sel-pre').hide();
+            }
+          });
+
+        return false;
     }
     if( error ) {
       $.hrd.noty({

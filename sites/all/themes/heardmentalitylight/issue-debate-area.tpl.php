@@ -4,12 +4,15 @@
   <div class="inner">
 
     <div class="expanding arg">
-      <h6 value="Reply" id="add-arg" class="button <?php print ugc_loginbox_class(); ?>"><?php print t('Add'); ?></h6>
+      <h6 value="Reply" id="add-arg" class="button <?php print user_profile_login_class(); ?>"><?php print t('Add'); ?></h6>
     </div>
 
+    <?php $arguments = arguments_get_list($nid); ?>
+    <?php if ($arguments['#count']['#all']) : ?>
     <div class="expanding stat">
       <h6 class="button" id="deb-ana"><?php print t('Stats'); ?></h6>
-    </div>	
+    </div>
+    <?php endif; ?>
 
     <div id="leave_comment_area" class="leave-a-comment hidden_ar" style="display: none;">
       <?php print $arguments_form; ?>

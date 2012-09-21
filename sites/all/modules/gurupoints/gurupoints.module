@@ -193,6 +193,59 @@ function ajax_pundits() {
   echo $output;
 }
 
+function load_bubble($uid = '') {
+  global $base_url, $user, $gDocPath, $base_root, $theme;
+
+  $medal = updateProfileBadge($uid);
+  $details = load_user($uid);
+
+  $uname = $details->first_name . ' ' . $details->last_name;
+
+  /*
+   * odyachenko
+   *
+   * These lines refer to working with the ranks the old way
+   */
+  $rank = ranks_user_rank($uid);
+  $ranking = $rank['name'];
+  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
+
+
+  /**
+   * odyachenko
+   *
+   * These lines refer to working with the user points the old way
+   *
+  $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
+  $points = $points != '' ? $points : 0;
+   */
+  $points = up_userpoints_get($details->uid);
+
+  $coins = $user->total_coins != '' ? $user->total_coins : 0;
+  $badges = badges_get_userbadges($uid);
+  $badges = $badges['#stat'];
+  $output = '<div class="debate-cor-inner">
+                <div>
+                <div class="debate-cor-inner-left">' . UserPicture_small($details->uid) . '</div>
+                    <div class="debate-cor-inner-right">
+                    <div style="padding-left:10px;text-align:left;"><strong>' . myTruncate($details->name, '10', '..') . ' </strong></div>
+                        <ul style="list-style-type:none">
+
+                        <li style="width:30px">' . t($ranking) . '<br /><span class="profInfo-value" title="' . $points . ' ' . t('Points') . '">' . $points . '</span></li>
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
+                        </ul>
+                    </div>
+                 </div>
+                 <div class="clr"></div>
+                </div>
+                ';
+
+
+  return $output;
+}
+
 function filter_pundits($form) {
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");

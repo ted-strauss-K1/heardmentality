@@ -10,6 +10,10 @@ function ugc_init() {
     drupal_add_js(array('nid' => arg(1)), 'setting');
   }
   drupal_add_js(array('uid' => user_is_logged_in() ? $user->uid : 0), 'setting');
+
+  ugc_translate('confirm_delete', 'Are you sure you want to delete?');
+  ugc_translate('add', 'Add');
+  ugc_translate('attach', 'Attach');
 }
 
 /*
@@ -72,12 +76,6 @@ function ugc_truncate($string, $length, $stopanywhere = false) {
   return $string;
 }
 
-/*
- * TODO - remove
- */
-function drupal_link_color($uid, $nid) {
-  return false != db_result(db_query("SELECT COUNT(*) AS count FROM {poll_votes} WHERE nid='%d' AND uid='%d'", $uid, $nid)) ? 'font-weight:bold' : '';
-}
 
 /*
  * Range of dates - Y-m-d
@@ -96,12 +94,7 @@ function dates_range($date1, $date2) {
   return $range;
 }
 
-/*
- * Get loginbox class
- */
-function ugc_loginbox_class($force = false) {
-  return !$force && user_is_logged_in() ? '' : 'openlogin_box';
-}
+
 
 /*
  * Converts time to string like "3 hour(s) ago"

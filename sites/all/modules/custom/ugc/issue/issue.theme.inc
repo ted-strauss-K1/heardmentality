@@ -17,10 +17,37 @@ function theme_issue_results_graph_highchart_filter($node) {
 }
 
 /*
+ * get default value for field
+ */
+function issue_profile_field_default_value($field) {
+  return $field->type == 'selection' ? '-1' : '';
+}
+
+/*
+ * get the fields for statistics
+ */
+function issue_profile_fields() {
+  return array('profile_yob', 'profile_gender', 'profile_religion', 'profile_ethnicity', 'profile_sorient', 'profile_education', 'profile_income');
+}
+
+/*
  * Highchart Filter Categories
  */
 function issue_results_graph_highchart_filter_categories() {
-  $cat = array();
+  static $cat = array();
+  if (!empty($cat)) {
+    return $cat;
+  }
+
+  $stat_fields = issue_profile_fields();
+  foreach ($stat_fields as &$field) {
+    $field = "'".$field."'";
+  }
+  $fields = array();
+  $result = db_query("SELECT * FROM {profile_fields} WHERE name IN (".implode(',', $stat_fields).")");
+  while ($row = db_fetch_object($result)) {
+    $fields[] = $row;
+  }
 
   $cat[''] = array(
     '#name' => t('Total Votes'),
@@ -28,63 +55,136 @@ function issue_results_graph_highchart_filter_categories() {
       'Total Votes',
     ),
   );
-  $cat['age'] = array(
-    '#name' => t('Age'),
-    '#options' => array(
-      '18-30', '30-50', '50 above', 'undefined',
-    ),
-  );
-  $cat['gender'] = array(
-    '#name' => t('Gender'),
-    '#options' => array(
-      'male', 'female', 'undefined',
-    ),
-  );
-  $cat['religion'] = array(
-    '#name' => t('Religion'),
-    '#options' => array(
-      'Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other', 'undefined',
-    ),
-  );
-  $cat['ethnicity'] = array(
-    '#name' => t('Ethnicity'),
-    '#options' => array(
-      'Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin', 'Aborigines', 'undefined',
-    ),
-  );
-  $cat['income'] = array(
-    '#name' => t('Income'),
-    '#options' => array(
-      '$0-$9,999', '$10,000 - $19,999', '$20,000 - $39,999', '$40,000 - $69,999', '$70,000 - $99,999', '$100,000 - $149,999', '$150,000 - $299,999', '>$300,000', 'undefined',
-    ),
-  );
-  $cat['marital'] = array(
-    '#name' => t('Marital'),
-    '#options' => array(
-      'Single', 'Married', 'Divorced', 'Widow', 'undefined',
-    ),
-  );
-  $cat['sex_orient'] = array(
-    '#name' => t('Sexual Orientation'),
-    '#options' => array(
-      'Straight', 'Gay', 'Bisexual', 'Transgender', 'undefined',
-    ),
-  );
-  $cat['education'] = array(
-    '#name' => t('Education Level'),
-    '#options' => array(
-      'No High School', 'High School', 'Technical College', 'University', 'Masters Degree', 'undefined',
-    ),
-  );
+
+  foreach ($fields as $field) {
+
+    switch ($field->name) {
+      case 'profile_yob' :
+        $cat['age'] = array(
+          '#name' => t('Age'),
+          '#options' => array(
+            '18-30', '30-50', '50 above', 'undefined',
+          ),
+        );
+      break;
+      default:
+        $name = str_replace('profile_', '', $field->name);
+        $cat[$name] = array(
+          '#name' => t($field->title),
+          '#options' => explode("\n", $field->options),
+        );
+        $cat[$name]['#options'][] = 'undefined';
+      break;
+    }
+  }
 
   return $cat;
+}
+
+/*
+ * Quick facts
+ */
+function theme_issue_results_insightview($node) {
+  # get the data
+  $data = issue_results_graph_highchart_filter_data($node);
+
+  $choices = issue_choices($node->nid);
+
+  $totals_all = 0;
+  $totals = &$data['']['#results'];
+  foreach ($totals as $i => &$total) {
+    $total = $total[$i];
+    $totals_all += $total;
+  }
+
+  $list_total = array();
+  $list_choices = array();
+  foreach ($data as $key => &$dataset) {
+    if ($key == '') {
+      continue;
+    }
+    $results = $dataset['#results'];
+
+    # get "27% of voters make between $150,000 - $299,999"
+    # get "57% of votes for rumor are Hindu"
+    $tmp_total = array();
+    foreach ($results as $chorder => $counts) {
+      foreach ($counts as $optkey => $count) {
+        $tmp_total[$optkey] += $count;
+        if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
+          $list_choices[$chorder.'-'.$optkey.'-'.$key] = round(100*$count/$totals[$chorder], 0);
+        }
+      }
+    }
+
+    foreach ($tmp_total as $optkey => $count) {
+      if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
+        $list_total[$key.'-'.$optkey] = round(100*$count/$totals_all, 0);
+      }
+    }
+  }
+  arsort($list_total);
+  arsort($list_choices);
+
+  # output
+  $output = array();
+  #1
+  $i = 0;
+  foreach ($list_total as $key => $percent) {
+    $key = explode('-', $key);
+    $optkey = $key[1];
+    $key = $key[0];
+
+    switch ($key) {
+      case 'age' :
+        $output[] = $percent.'% '.t('of voters are').' <span class="highlight">'.t($data[$key]['#options'][$optkey]).' '.t('yo') . '</span>';
+        break;
+      case 'income' :
+        $output[] = $percent.'% '.t('of voters make').' <span class="highlight">'.t($data[$key]['#options'][$optkey]) . '</span>';
+        break;
+      case 'gender' :
+      case 'ethnicity' :
+      case 'marital' :
+      case 'sex_orient' :
+      case 'education' :
+      case 'religion' :
+      default :
+        $output[] = $percent.'% '.t('of voters are').' <span class="highlight">'.t($data[$key]['#options'][$optkey]) . '</span>';
+        break;
+    }
+    if (++$i > 1) {
+      break;
+    }
+  }
+
+  $i = 0;
+  foreach ($list_choices as $key => $percent) {
+    $key = explode('-', $key);
+    $chorder = $key[0];
+    $optkey = $key[1];
+    $key = $key[2];
+
+    $text = '';
+    foreach ($choices as $choice) {
+      if ($choice['chorder'] == $chorder) {
+        $text = $choice['short_answer'];
+      }
+    }
+    $output[] = $percent.'% '.t('of votes for').' <span class="highlight">'.t($text).'</span> '.t('are').' '.
+      ($data[$key]['#options'][$optkey]);
+
+    if (++$i > 3) {
+      break;
+    }
+  } # get "57% of votes for rumor are Hindu"
+
+  return '<span>'.implode('</span></br><span>', $output).'</span></br>';
 }
 
 /*
  * Highchart Filter Data Collector
  *
  * @see issue_results_graph_highchart_filter_categories
- * TODO - get back when Profiles module is fixed
  */
 function issue_results_graph_highchart_filter_data($node) {
   static $dataset = array();
@@ -92,25 +192,17 @@ function issue_results_graph_highchart_filter_data($node) {
     $nid = $node->nid;
     $choices = issue_choices($nid);
 
+    # Get categories
+    $cat = issue_results_graph_highchart_filter_categories();
+
     # template for vote count
     $pattern = array();
     foreach ($choices as $i => $choice) {
       $pattern[$i] = array();
     }
 
-    # Get votes
-    $votes = array();
-    $result = db_query("SELECT * FROM {poll_votes} AS pv INNER JOIN {user_profile} AS up ON up.uid = pv.uid WHERE  pv.nid='%d'", $nid);
-    while ($row = db_fetch_array($result)) {
-      $votes[] = $row;
-    }
-
-    # Get categories
-    $cat = issue_results_graph_highchart_filter_categories();
-
     # Initialize statistics
     foreach ($cat as $key => &$data) {
-
       if ( $key == '' ) {
         $data['#results'] = array();
         $data['#options'] = array();
@@ -126,84 +218,52 @@ function issue_results_graph_highchart_filter_data($node) {
       }
     }
 
+    # get total votes
+    $counts = &$cat['']['#results'];
+    $result = db_query("SELECT chorder, COUNT(*) count FROM poll_votes WHERE nid = '%d' GROUP BY chorder", $nid);
+    while ($vote = db_fetch_array($result)) {
+      $counts[$vote['chorder']][$vote['chorder']] = (int)$vote['count'];
+    }
+
+    # get other votes
+    $votes = array();
+    $stat_fields = issue_profile_fields();
+    foreach ($stat_fields as &$field) {
+      $field = "'".$field."'";
+    }
+    $result = db_query("SELECT pf.name, pval.value, pv.chorder FROM {poll_votes} AS pv INNER JOIN {profile_values} pval ON pv.uid = pval.uid INNER JOIN {profile_fields} pf ON pf.fid = pval.fid AND pf.name IN (".implode(',', $stat_fields).") WHERE pv.nid = '%d'", $nid);
+    while ($row = db_fetch_array($result)) {
+      $votes[] = $row;
+    }
+
     # Collect statistics
+    $y = date('Y');
     foreach ($votes as $vote) {
-      foreach ($cat as $key => &$data) {
-        $counts = &$data['#results'][$vote['chorder']];
-        // var_dump($results);die();
-        switch ($key) {
-          case '' :
-            $counts[$vote['chorder']]++;
-            break;
-          case 'age' :
-            if ($vote['age'] == 0) {
-              $counts[3]++;
-            } elseif ($vote['age'] >= 51) {
+      switch ($vote['name']) {
+        case 'profile_yob' :
+          $counts = &$cat['age']['#results'][$vote['chorder']];
+          if ($vote['value'] == '') {
+            $counts[3]++;
+          } else {
+            $age = $y - $vote['value'];
+            if ($age >= 51) {
               $counts[2]++;
-            } elseif ($vote['age'] >= 31) {
+            } elseif ($age >= 31) {
               $counts[1]++;
             } else {
               $counts[0]++;
             }
-            break;
-          case 'gender' :
-            if ($vote['gender'] == 1) {
-              $counts[0]++;
-            } elseif ($vote['gender'] == 2) {
-              $counts[1]++;
-            } else {
-              $counts[2]++;
-            }
-            break;
-          case 'religion' :
-            $index = array_search($vote['religion'], $data['#options']);
-            if (false !== $index) {
-              $counts[$index]++;
-            } else {
-              $counts[sizeof($counts)-1]++;
-            }
-            break;
-          case 'ethnicity' :
-            $index = array_search($vote['ethnic'], $data['#options']);
-            if (false !== $index) {
-              $counts[$index]++;
-            } else {
-              $counts[sizeof($counts)-1]++;
-            }
-            break;
-          case 'income' :
-            $index = array_search($vote['income'], $data['#options']);
-            if (false !== $index) {
-              $counts[$index]++;
-            } else {
-              $counts[sizeof($counts)-1]++;
-            }
-            break;
-          case 'marital' :
-            $index = array_search($vote['marital'], $data['#options']);
-            if (false !== $index) {
-              $counts[$index]++;
-            } else {
-              $counts[sizeof($counts)-1]++;
-            }
-            break;
-          case 'sex_orient' :
-            $index = array_search($vote['sorient'], $data['#options']);
-            if (false !== $index) {
-              $counts[$index]++;
-            } else {
-              $counts[sizeof($counts)-1]++;
-            }
-            break;
-          case 'education' :
-            $index = array_search($vote['edu'], $data['#options']);
-            if (false !== $index) {
-              $counts[$index]++;
-            } else {
-              $counts[sizeof($counts)-1]++;
-            }
-            break;
-        }
+          }
+          break;
+        default:
+          $name = str_replace('profile_', '', $vote['name']);
+          $counts = &$cat[$name]['#results'][$vote['chorder']];
+          if (isset($cat[$name]['#options'][$vote['value']])) {
+            $counts[$vote['value']]++;
+          } else {
+            $counts[sizeof($counts)-1]++;
+          }
+        break;
       }
     }
 
@@ -376,7 +436,7 @@ function theme_issue_arguments($node) {
     $arguments_form = drupal_get_form('arguments_form', $node->nid);
   } else {
     $arguments_form =
-      '<div class="'.ugc_loginbox_class(true).'" align="center"><b>' .
+      '<div class="'.user_profile_login_class(true).'" align="center"><b>' .
         t('Please log in to participate in the debate') .
       '</b></div>';
   }
