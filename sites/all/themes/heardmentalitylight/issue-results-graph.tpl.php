@@ -1,6 +1,7 @@
 <div id="results">
   <h2 class="din"><?php print t('Results'); ?></h2>
   <div class="vote-results">
+
     <?php if ($node->votes['#all'] < 10) : ?>
       <?php print t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.'); ?>
     <?php else : ?>
