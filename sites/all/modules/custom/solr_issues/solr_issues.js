@@ -47,7 +47,7 @@ $(document).ready(function() {
     $(this).parent().remove();
     return false;
   });
- 
+
   $('#my_region').change(function(){
     if ($(this).prop('checked')) {
       $('#edit-block-country,#edit-block-defstate,#edit-block-defcity').attr('disabled',true);

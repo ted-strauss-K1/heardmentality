@@ -1,9 +1,10 @@
+
 /**
  * Attaches the autocomplete behavior to all required fields
  */
 Drupal.behaviors.autocomplete = function (context) {
   var acdb = [];
-  $.shell.find('input.autocomplete:not(.autocomplete-processed)', context).each(function () {
+  $('input.autocomplete:not(.autocomplete-processed)', context).each(function () {
     var uri = this.value;
     if (!acdb[uri]) {
       acdb[uri] = new Drupal.ACDB(uri);
@@ -21,7 +22,7 @@ Drupal.behaviors.autocomplete = function (context) {
  * and closes the suggestions popup when doing so.
  */
 Drupal.autocompleteSubmit = function () {
-  return $.shell.find('#autocomplete').each(function () {
+  return $('#autocomplete').each(function () {
     this.owner.hidePopup();
   }).size() == 0;
 };

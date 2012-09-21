@@ -1,9 +1,10 @@
+
 /**
  * Attaches the batch behavior to progress bars.
  */
 Drupal.behaviors.batch = function (context) {
   // This behavior attaches by ID, so is only valid once on a page.
-  if ( $.shell.find('#progress.batch-processed').length) {
+  if ($('#progress.batch-processed').size()) {
     return;
   }
   $('#progress', context).addClass('batch-processed').each(function () {
@@ -25,7 +26,7 @@ Drupal.behaviors.batch = function (context) {
       div.className = 'error';
       $(div).html(errorMessage);
       $(holder).prepend(div);
-      $.shell.find('#wait').hide();
+      $('#wait').hide();
     };
 
     var progress = new Drupal.progressBar('updateprogress', updateCallback, "POST", errorCallback);

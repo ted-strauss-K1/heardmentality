@@ -1,3 +1,4 @@
+
 /**
  * A progressbar object. Initialized with the given id. Must be inserted into
  * the DOM afterwards through progressBar.element.
@@ -93,9 +94,9 @@ Drupal.progressBar.prototype.sendPing = function () {
  * Display errors on the page.
  */
 Drupal.progressBar.prototype.displayError = function (string) {
-  var error = $('<div />');
-  error.addClass('error');
-  error.html(string);
+  var error = document.createElement('div');
+  error.className = 'error';
+  error.innerHTML = string;
 
   $(this.element).before(error).hide();
 
