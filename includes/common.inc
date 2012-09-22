@@ -2620,9 +2620,9 @@ function drupal_to_js($var) {
         "\xe2\x80\xa9" => '\u2029', // U+2029, Paragraph Separator.
       );
  
-      //return '"'. strtr($var, $replace_pairs) .'"';
+      return '"'. strtr($var, $replace_pairs) .'"';
  
-      return '"' . unicode_replacer ( $var, $replace_pairs ) . '"';
+      //return '"' . unicode_replacer ( $var, $replace_pairs ) . '"';
  
     case 'array':
       // Arrays in JSON can't be associative. If the array is empty or if it
