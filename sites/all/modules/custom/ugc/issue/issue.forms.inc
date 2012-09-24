@@ -1,7 +1,5 @@
 <?php
 
-
-
 /*
  * Form for adding/editing the Issues' votes
  */
