@@ -70,7 +70,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/userpoints_invite/userpoints_invite.module" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/moderator/scripts/question.js" />
       <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\.idea\.name" afterPath="" />
-      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\.idea\heardmentality.iml" afterPath="" />
       <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\.idea\scopes\scope_settings.xml" afterPath="" />
       <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\gurupoints\gurupoints.info" afterPath="" />
       <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\gurupoints\gurupoints.install" afterPath="" />
