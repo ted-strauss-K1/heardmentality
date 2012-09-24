@@ -328,7 +328,7 @@ function issue_create_form_submit($form, &$form_state) {
   set_notify_log($user->uid, $node->nid, 'add_question', $variable);
   // New SET NOTIFY LOG
 
-  # add alias
+  # add alias TODO - why the hell do we need pathauto anyway?!
   $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
   $url = 'node/' . $node->nid;
   path_set_alias($url, $dst, '', $language);

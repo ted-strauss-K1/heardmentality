@@ -38,7 +38,6 @@ function issue_init() {
   if (module_exists('jquery_ui')) {
     jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
   }
-  drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
 }
 
 /*
@@ -796,7 +795,6 @@ function issue_form_alter(&$form, $form_state, $form_id) {
     //echo $form_id."<pre>";  print_r($form);exit;
   }
   if ($form_id == 'issue_edit_vote') {
-    // $form['#action'] = 'qlite/view/'.$form['#nid'];
     $form['#submit'][] = 'choice_vote_date_update';
     $form['#submit'][] = 'chk_profile_complete';
   }
@@ -905,7 +903,7 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
           if (arg(0) == 'node' && is_numeric(arg(1))) {
             $nid = arg(1);
           }
-          $nid = $nid != '' ? $nid : get_qid();
+//          $nid = $nid != '' ? $nid : get_qid();
           $block['subject'] = "Issue Details with Category & Location";
           $item = _issue_information($nid);
           if ($item) {
@@ -972,10 +970,10 @@ function load_user_badge($uid='', $search='') {
 
   global $base_url, $user, $theme;
 
-  $medal = updateProfileBadge($uid);
+
   $details = load_user($uid);
 
-  $uname = $details->first_name . ' ' . $details->last_name;
+
 
   /*
    * odyachenko
@@ -995,7 +993,7 @@ function load_user_badge($uid='', $search='') {
   $points = $points != '' ? $points : 0;
    */
   $points = up_userpoints_get($details->uid);
-  $coins = $user->total_coins != '' ? $user->total_coins : 0;
+
   $badges = badges_get_userbadges($uid);
   $badges = $badges['#stat'];
   if ($search)
