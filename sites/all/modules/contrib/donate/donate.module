@@ -1,0 +1,86 @@
+<?php // $Id: donate.module,v 1.2 2010/09/30 22:29:51 jerdavis Exp $
+
+/**
+ * Implementation of hook_menu().
+ */
+function donate_menu() {
+  $items = array();
+
+  // The admin form for Donations, using the existing pay_settings forms.
+  $items['admin/build/donate'] = array(
+    'title' => 'Donation forms',
+    'page callback' => 'donate_admin_overview',
+    'access arguments' => array('administer donations'),
+    'file' => 'donate.admin.inc',
+    'file path' => drupal_get_path('module', 'donate') .'/includes',
+  );
+  $items['admin/build/donate/list'] = array(
+    'title' => 'List',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  $items['admin/build/donate/add'] = array(
+    'title' => 'Add a donation form',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('pay_form_settings', 'donate', 'admin/build/donate'),
+    'access arguments' => array('administer donations'),
+    'file' => 'pay.admin.inc',
+    'file path' => drupal_get_path('module', 'pay') .'/includes',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/build/donate/%pay_form/edit'] = array(
+    'title' => 'Donation forms',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('pay_form_settings', 3),
+    'access arguments' => array('administer donations'),
+    'file' => 'pay.admin.inc',
+    'file path' => drupal_get_path('module', 'pay') .'/includes',
+  );
+
+  if (db_table_exists('pay_form')) {
+    $res = db_query("SELECT * FROM {pay_form} 
+      WHERE status = 1 AND handler = 'donate'");
+
+    while ($row = db_fetch_object($res)) {
+      $pay_form = pay_form_load($row);
+      $items[$pay_form->menu_path] = array(
+        'title' => $pay_form->title,
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('pay_form', $pay_form->pfid, $pay_form->table),
+        'access arguments' => array('make donations'),
+      );
+    }
+  }
+  return $items;
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function donate_perm() {
+  return array('make donations', 'administer donations');
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function donate_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'donate') .'/includes/views',
+  );
+}
+
+/**
+ * Implementation of hook_pay_form_handler_info().
+ */
+function donate_pay_form_handler_info() {
+  return array(
+    'donate' => array(
+      'title' => t('Donations'),
+      'description' => t('A form to handle online donations.'),
+      'handler' => 'donate',
+      'path' => drupal_get_path('module', 'donate') .'/includes'
+    ),
+  );
+}
