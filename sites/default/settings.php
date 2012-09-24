@@ -99,7 +99,6 @@ ini_set('display_startup_errors', TRUE);
 # $db_url = 'mysql://root:H3@rdMDB#2012@localhost/heardmentality';
 //$db_url = 'mysql://root:@localhost/heardmentality';
 $db_url = 'mysql://apache_web_serve:2JTcuJA3mAFwqzXe@107.20.204.83/heardmentality';
-$db_url = 'mysql://root:@localhost/hm';
 $db_prefix = '';
 
 /**
