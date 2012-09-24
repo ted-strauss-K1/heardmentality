@@ -1,7 +1,223 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="26d768ed-4517-45ea-b52f-09d51316e77a" name="Default" comment="" />
+    <list default="true" id="26d768ed-4517-45ea-b52f-09d51316e77a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/arrow-down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/arrow-right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/CHANGELOG.TXT" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/LICENSE.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/README.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite.install" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_admin.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_cancel_account.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_cancel_account.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_stats.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_stats.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_token.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_views/includes/views2/handlers/views_handler_field_invite_accept_link.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_views/includes/views2/handlers/views_handler_field_invite_resend_link.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_views/includes/views2/handlers/views_handler_field_invite_withdraw_link.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_views/includes/views2/invite_views.views.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_views/includes/views2/invite_views.views_default.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_views/invite_views.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/invite/invite_views/invite_views.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/API.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/INSTALL.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/LICENSE.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/README.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/i18n-ascii.example.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto.admin.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto.api.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto.install" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto.test" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto_node.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto_taxonomy.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/pathauto/pathauto_user.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/API.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/LICENSE.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/README.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/jquery.treeTable.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/jquery.treeTable.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/tests/token_test.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/tests/token_test.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.api.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.install" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.pages.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.rules.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token.test" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/tokenSTARTER.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/tokenSTARTER.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token_actions.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token_actions.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token_actions.test" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token_comment.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token_node.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token_taxonomy.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/token/token_user.inc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/userpoints_invite/LICENSE.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/userpoints_invite/userpoints_invite.info" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/userpoints_invite/userpoints_invite.install" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/contrib/userpoints_invite/userpoints_invite.module" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/moderator/scripts/question.js" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\.idea\heardmentality.iml" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\gurupoints\gurupoints.info" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\gurupoints\gurupoints.install" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\gurupoints\gurupoints.module" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\gurupoints\scripts\add.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\css\mostpopular-basic.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\css\mostpopular-full.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\css\skin.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\qlite.info" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\qlite.install" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\qlite.module" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\qlite.pages.inc" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\fade.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\jquery-1.4.2.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\jquery.jcarousel.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\jquery.jcarousel.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\mostpopular.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\page.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\page_jcarousel.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\pagination.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\qlite\scripts\pundits.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\RSSParser.class.php" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\XMLParser.class.php" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\Autocompleter.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\demo.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\jquery-1.1.3.1.pack.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\jquery.tabs.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\jtabs.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\main.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\page.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\subtab.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\tab.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\tabbedContent.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\tabs.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\tabsnew.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\wave.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\css\yahootabs.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\images\arrow.png" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\images\down.jpg" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\images\loader.gif" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\images\up.jpg" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plaxo.html" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.BezierCurveRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.BezierCurveRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.barRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.barRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.blockRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.blockRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.bubbleRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.bubbleRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.canvasAxisLabelRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.canvasAxisLabelRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.canvasAxisTickRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.canvasAxisTickRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.canvasTextRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.canvasTextRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.categoryAxisRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.categoryAxisRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.cursor.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.cursor.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.dateAxisRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.dateAxisRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.donutRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.donutRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.dragable.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.dragable.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.enhancedLegendRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.enhancedLegendRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.funnelRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.funnelRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.highlighter.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.highlighter.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.logAxisRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.logAxisRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.mekkoAxisRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.mekkoAxisRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.mekkoRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.mekkoRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.meterGaugeRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.meterGaugeRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.ohlcRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.ohlcRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.pieRenderer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.pieRenderer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.pointLabels.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.pointLabels.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.trendline.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jqplot.trendline.min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jquery.jqplot.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\plugins\jquery.jqplot.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\quest_lite.info" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\quest_lite.install" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\quest_lite.module" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\quest_lite.pages.inc" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\Autocompleter.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\Observer.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\SpryTabbedPanels.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\SpryTabbedPanels.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\connection-min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\contentdivider.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\element-min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\fabtabulous.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\filter.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\forumwave.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\highcharts.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\highcharts_new.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\highdata.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\highgraph.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\jquery.blockUI.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\jsapi.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\jtab.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\jtabsn.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\jtabsn2.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\like.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\mapiconmaker.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\moo.fx.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\moo.fx.pack.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\prototype.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\prototype.lite.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\sample.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\skies.jpg" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\skies.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\subtab.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\subtabs.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\tabview-min.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\tagging.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\wave.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\quest_lite\scripts\yahoo-dom-event.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\question\question.pages_recent" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\vhosts\heardmentality\sites\all\modules\question\scripts\question.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/avatar_blocks/avatar_blocks.module" afterPath="$PROJECT_DIR$/sites/all/modules/avatar_blocks/avatar_blocks.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.module" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.pages.inc" afterPath="$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/issue.pages.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" afterPath="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/invite/invite.module" afterPath="$PROJECT_DIR$/sites/all/modules/invite/invite.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/moderator/moderator.module" afterPath="$PROJECT_DIR$/sites/all/modules/moderator/moderator.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/moderator/moderator.pages.inc" afterPath="$PROJECT_DIR$/sites/all/modules/moderator/moderator.pages.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/politicaldata/political.pages.inc" afterPath="$PROJECT_DIR$/sites/all/modules/politicaldata/political.pages.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/question/question.module" afterPath="$PROJECT_DIR$/sites/all/modules/question/question.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/question/question.pages.inc" afterPath="$PROJECT_DIR$/sites/all/modules/question/question.pages.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/themes/hmware/login.tpl.php" afterPath="$PROJECT_DIR$/sites/all/themes/hmware/login.tpl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/themes/hmware/node-poll.tpl.php" afterPath="$PROJECT_DIR$/sites/all/themes/hmware/node-poll.tpl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/default/settings.php" afterPath="$PROJECT_DIR$/sites/default/settings.php" />
+    </list>
     <ignored path="heardmentality.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,8 +274,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -87,6 +303,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -95,103 +312,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="all" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="all" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentalitylight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="all" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -234,17 +361,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="1" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28030303" sideWeight="0.63013697" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2882883" sideWeight="0.6312849" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.369863" sideWeight="0.5007587" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36871508" sideWeight="0.5007587" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -329,9 +456,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/scripts/fileuploader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/css/answer.css">
@@ -346,23 +471,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/arguments-item.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="99" selection-start="1336" selection-end="1336" vertical-scroll-proportion="0.034">
-          <folding />
-        </state>
+        <state line="30" column="99" selection-start="1336" selection-end="1336" vertical-scroll-proportion="0.034" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/scripts/debate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="0" selection-start="3098" selection-end="3098" vertical-scroll-proportion="0.78205127">
-          <folding />
-        </state>
+        <state line="142" column="0" selection-start="3098" selection-end="3098" vertical-scroll-proportion="0.78205127" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="247" column="36" selection-start="6294" selection-end="6326" vertical-scroll-proportion="0.03269231">
-          <folding />
-        </state>
+        <state line="247" column="36" selection-start="6294" selection-end="6326" vertical-scroll-proportion="0.03269231" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/issue/js/add_new_form.js">
@@ -372,39 +491,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="0" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.030411448">
-          <folding />
-        </state>
+        <state line="44" column="0" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.030411448" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ugc/arguments/arguments.forms.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="187" column="14" selection-start="5539" selection-end="5539" vertical-scroll-proportion="0.031894933">
-          <folding />
-        </state>
+        <state line="187" column="14" selection-start="5539" selection-end="5539" vertical-scroll-proportion="0.031894933" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/debate/debate.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="19" selection-start="465" selection-end="465" vertical-scroll-proportion="0.4473684">
-          <folding />
-        </state>
+        <state line="10" column="19" selection-start="465" selection-end="465" vertical-scroll-proportion="0.4473684" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="8" selection-start="36" selection-end="36" vertical-scroll-proportion="0.04956268">
-          <folding />
-        </state>
+        <state line="1" column="8" selection-start="36" selection-end="36" vertical-scroll-proportion="0.04956268" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/issue-results-graph.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="581" selection-end="581" vertical-scroll-proportion="0.6971609">
-          <folding>
-            <element signature="n#style#0;n#p#0;n#div#0;n#li#0;n#ul#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
+        <state line="13" column="0" selection-start="581" selection-end="581" vertical-scroll-proportion="0.6971609" />
       </provider>
     </entry>
   </component>

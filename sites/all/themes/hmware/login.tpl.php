@@ -76,7 +76,7 @@ var login_params=
   
             <div class="clr"></div>
          	<?php 
-                echo load_bubble($user->uid);
+                #echo load_bubble($user->uid);
                 $coins = $user->total_coins!=''?$user->total_coins:0;
                 $notification = db_result(db_query("SELECT COUNT(nid) FROM {notification} WHERE uid = '".$user->uid."'"));
                 ?>
