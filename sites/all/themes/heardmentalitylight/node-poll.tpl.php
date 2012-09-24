@@ -1,11 +1,3 @@
-<?php
-global $apikey, $base_path, $theme, $base_url, $user;
-$gSitePath = $base_path.'/';
- $path=$gSitePath.  drupal_get_path('theme',$theme);
-
-
-?>
-
 <div id="new_vote">
 
 <!-- Part 1 -->
@@ -16,16 +8,9 @@ $gSitePath = $base_path.'/';
 
 <div class="qd">
 <p class="description">
-    
-	<!--<span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
-        <?php //print t($context); ?>&nbsp;
-    </span>
-    <?php if(strlen($context)>150) {?><a onclick="showDesc()" id="more-desc">[...]</a><?php }?>
-	-->
-	<!--Rallydev:526-->
-	 <?php $output = __issue_description_trimmer($context); ?>
-	<span><?php print $output['context_initial']; ?></span><span id="extended-issue-description" style="display:none;"><?php print $output['context_remaining']; ?></span>
-	<!---------------->
+  <?php print theme('issue_description', $context); ?>
+
+
 </p>
 </div>
 
