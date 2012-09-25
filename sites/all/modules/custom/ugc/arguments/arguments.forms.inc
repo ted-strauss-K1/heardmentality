@@ -30,7 +30,8 @@ function arguments_form($form, $nid) {
     '#type'   => 'markup',
     '#value'  => '<table><tr><td class="first">',
   );
-  $form['title'] = array('#type' => 'textarea',
+  $form['title'] = array(
+    '#type' => 'textarea',
     '#size'       => 70,
     '#cols'       => 10,
     '#rows'       => 3,
