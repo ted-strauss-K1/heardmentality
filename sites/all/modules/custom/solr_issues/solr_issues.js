@@ -1,24 +1,19 @@
 $(document).ready(function() {
   $(".form-submit.button.vote.floatright").live("click", function(e) {
-
     var options = {
-      //  target: "#issue_edit_form_stream",
       url: "issues_solr2/submit",
       dataType: 'json',
       success: function(data) {
         $('#issue_edit_form_stream').parent().parent().parent().html(data.data);
-        // $("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
-      //    alert("Спасибо за комментарий!");
       }
     };
-    // передаем опции в  ajaxSubmit
-
     $(this).parents('#issue_edit_form_stream').ajaxSubmit(options);    
-
     return false;
-  //    })
+
   });
   
+   var get_par = parseGetParams();
+  // console.log(get_par['tid']);
   get_issues_solr(null, null);  
   
   $('#search-solr-block').click(function(){  
@@ -80,6 +75,7 @@ $(document).ready(function() {
     var city = $('#edit-block-defcity').val();
     var my_region = $('#my_region').prop('checked');
     
+      if (typeof get_par['tid'] == "undefined") {
     if (categ != null) {
       categ.map(function(index, element) {
         tid.push(index);
@@ -95,38 +91,53 @@ $(document).ready(function() {
         }
       }
     }
-    parameters['tid']= tid;
-    if (page) {
-      var pageQ = '?page='+page;
-    }
-    else{
-      pageQ = '';
-    }
-    
-    $.post(Drupal.settings.base_url + '/issues_solr2/ajax/' + text + pageQ,
-    {
-      js: 1,
-      page: page,
-      tid: parameters['tid'],
-      voted: allow_vote,
-      sort: sort,
-      country: country,
-      city:city,
-      myregion: my_region,
-      state:state,
-      all: all,
-      date_filter: date_Filter
-    }, 
-    function(data){
-      //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
-      $('#linkbox').html(data.data);
-      // $("input[name=choice]:checked").parents("div").addClass("staygreen");
-      $('#top_categories-wrapper').html();
-      $('#top_categories-wrapper').html(data.categories);
-      $('#count_results-wrapper span').html(data.count);
-    },
-    'json'
-    );
   }
+  else {
+    tid.push(get_par['tid']);
+  }
+  parameters['tid']= tid;
+  console.log(parameters['tid']);
+  if (page) {
+    var pageQ = '?page='+page;
+  }
+  else{
+    pageQ = '';
+  }
+    
+  $.post(Drupal.settings.base_url + '/issues_solr2/ajax/' + text + pageQ,
+  {
+    js: 1,
+    page: page,
+    tid: parameters['tid'],
+    voted: allow_vote,
+    sort: sort,
+    country: country,
+    city:city,
+    myregion: my_region,
+    state:state,
+    all: all,
+    date_filter: date_Filter
+  }, 
+  function(data){
+    //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
+    $('#linkbox').html(data.data);
+    // $("input[name=choice]:checked").parents("div").addClass("staygreen");
+    $('#top_categories-wrapper').html();
+    $('#top_categories-wrapper').html(data.categories);
+    $('#count_results-wrapper span').html(data.count);
+  },
+  'json'
+);
+}
 
 });
+
+function parseGetParams() { 
+var $_GET = {}; 
+var __GET = window.location.search.substring(1).split("&"); 
+for(var i=0; i<__GET.length; i++) { 
+  var getVar = __GET[i].split("="); 
+  $_GET[getVar[0]] = typeof(getVar[1])=="undefined" ? "" : getVar[1]; 
+} 
+return $_GET; 
+} 
