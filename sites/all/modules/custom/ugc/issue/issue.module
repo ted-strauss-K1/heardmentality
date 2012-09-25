@@ -301,25 +301,6 @@ function _issue_view(&$node) {
     '#value' => drupal_get_form('issue_vote_form', $node),
   );
   /*
-  if (user_is_logged_in()) {
-    $tnode = issue_get_translated_node($node->nid);
-    if ($tnode->allowvotes) {
-      $node->content['body'] = array(
-        '#value' => drupal_get_form('issue_add_vote', $node->nid),
-      );
-    } else {
-      unset($node->content['body']);
-      // suggest answer calculation here
-      suggest_answer_replacement($node->nid);
-      $node->content['body'] = array(
-        '#value' => drupal_get_form('issue_edit_vote', $node->nid),
-      );
-    }
-  } else {
-    $node->content['body'] = array(
-      '#value' => drupal_get_form('issue_add_vote', $node->nid),
-    );
-  }
   $node->allowvotes = $tnode->allowvotes;
   // selected radio button stays green
   if ($node->allowvotes == '' && arg(0)) {
@@ -479,6 +460,14 @@ function issue_theme() {
       'nid' => 0,
     ),
   );
+  $theme['issue_description'] = array(
+    'arguments'             => array('text' => NULL),
+    'file'                  => 'issue.theme.inc',
+  );
+  $theme['issue_popular_categories'] = array(
+    'arguments'             => array(),
+    'file'                  => 'issue.theme.inc',
+  );
 
   $theme += _issue_theme();
 
@@ -601,57 +590,22 @@ function issue_colors($index = false) {
 
 
 
-
+// TODO - remove what is below
 
 
 
 
 function _issue_theme() {
   return array(
-    'like_dislike_bar' => array(
-      'arguments' => array(
-        'pro' => NULL,
-        'con' => NULL,
-      ),
-      'file' => 'issue.theme.inc',
-    ),
 
     'issue_information' => array(
       'template' => 'issue-real-informations',
       'arguments' => array('nid' => NULL, 'created' => NULL, 'postedby' => NULL, 'subject' => NULL, 'area' => NULL, 'detail' => NULL, 'original_nid' => NULL, 'original_language' => NULL, 'orgLangKey' => NULL),
     ),
-    'issue_result_analysis' => array(
-      'arguments' => array('nid' => NULL),
-    ),
 
-    'popular_categories' => array(
-      'template' => 'popular-categories',
-      'arguments' => array('popular' => NULL),
-    )
+
   );
 }
-
-/*
- * Drupal hooks
- * ********************** */
-
-
-
-/* * ************************
- * Load data
- */
-
-
-
-
-
-
-
-
-
-/*
- * Update Comment
- */
 
 
 
@@ -786,20 +740,9 @@ function issue_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'subscriptions_add_form') {
     $form['#submit'][] = 'add_subscription_notify';
   }
-  if ($form_id == 'issue_vote_form') {
-    // echo '<pre>';print_r($form);exit;
-    $form['#submit'][] = 'choice_vote_date_update';
-    $form['#submit'][] = 'add_vote_notify';
-    $form['#submit'][] = 'chk_profile_complete';
-    $form['#validate'][] = 'check_user_anonymous';
-    //echo $form_id."<pre>";  print_r($form);exit;
-  }
-  if ($form_id == 'issue_edit_vote') {
-    $form['#submit'][] = 'choice_vote_date_update';
-    $form['#submit'][] = 'chk_profile_complete';
-  }
+
+
   if ($form_id == 'poll_node_form') {
-    //$form['#after_build'][] = 'issue_after_build';
     $form['field_issue_state']['#access'] = false;
     $form['field_issue_city']['#access'] = false;
 
@@ -810,7 +753,6 @@ function issue_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'abuse_report_form') {
     //  echo "<pre>";
     //print_r($form);
-    //$form['#after_build'][] = 'issue_after_build';
     $form['reason'] = array(
       '#type' => 'radios',
       '#title' => '<small>' . t('Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?') . ' <a href="">' . t('Read Guidelines') . '</a></small>',
@@ -848,26 +790,18 @@ function choice_vote_date_update($form, &$form_state) {
   //update the date that has to be set while adding or editing vote
 }
 
-function check_user_anonymous($form, &$form_state) {
 
-  if (user_is_anonymous())
-    form_set_error('', t('Please login and cast your vote to see the reports of this issue ! '));
-}
 
-function issue_after_build($form, &$form_state) {
-  // allter the form values: Stuff!
 
-  foreach (element_children($form['choice']) as $key) {
-    
-  }
-  return $form;
-}
 
 
 function issue_block($op = 'list', $delta = 0, $edit = array()) {
 
   switch ($op) {
     case 'list':
+      $blocks['issue-popular-categories'] = array(
+        'info' => t('Issue Popular Categories'),
+      );
       $blocks[0] = array(
         'info' => t('Node block'),
       );
@@ -883,14 +817,17 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
       $blocks[4] = array(
         'info' => t('Issue Filter Options'),
       );
-      $blocks[5] = array(
-        'info' => t('Popular Categories'),
-      );
 
       return $blocks;
 
     case 'view':
       switch ($delta) {
+        case 'issue-popular-categories' :
+          $block['subject'] = t('');
+          $block['content'] = theme('issue_popular_categories');
+        break;
+
+
         case '0':
           if (arg(0) == 'node' && is_numeric($nid = arg(1))) {
             $node = node_load($nid);
@@ -927,36 +864,9 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
           $block['subject'] = 'Issue Filter Options';
           $block['content'] = issue_filter_options();
           break;
-        case '5':
-          $block['subject'] = 'Popular Categories';
-          $block['content'] = popular_categories();
-          break;
       }
       return $block;
   }
-}
-
-function issue_pundit_tab($qid='') {
-  global $base_url;
-  //	$output='sample content Gurus';
-  $profileBadges = getAnsweredUsers($qid);
-
-  $output1 = '';
-  if (count($profileBadges) > 0) {
-
-    $pat = $base_url . '/' . drupal_get_path('module', 'profile');
-    foreach ($profileBadges as $profile) {
-      $details = load_user($profile['uid']);
-      $output1.=load_user_badge($profile['uid']);
-      $output1 .= '<div class="clr"></div><br/>';
-    }
-  }
-  else {
-    $output1 = "<div class='messages warning'>" . t('No Pundit(s) found for this issue') . "</div>";
-  }
-  $output = $output1;
-
-  return $output;
 }
 
 function load_user($uid = '') {
@@ -965,65 +875,6 @@ function load_user($uid = '') {
   $result = db_fetch_object(db_query($query));
   return $result;
 }
-
-function load_user_badge($uid='', $search='') {
-
-  global $base_url, $user, $theme;
-
-
-  $details = load_user($uid);
-
-
-
-  /*
-   * odyachenko
-   *
-   * These lines refer to working with the ranks the old way
-   */
-  $rank = ranks_user_rank($uid);
-  $ranking = $rank['name'];
-  # $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
-
-  /**
-   * odyachenko
-   *
-   * These lines refer to working with the user points the old way
-   *
-  $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
-  $points = $points != '' ? $points : 0;
-   */
-  $points = up_userpoints_get($details->uid);
-
-  $badges = badges_get_userbadges($uid);
-  $badges = $badges['#stat'];
-  if ($search)
-    $link = '<a  onclick="get_profile_details(' . $details->uid . ',this);" style="cursor:pointer" > ' . myTruncate($details->name, '10', '..') . '</a>';
-  else
-    $link = '<a href="' . $base_url . '/profile/' . $details->name . '">' . myTruncate($details->name, '10', '..') . '</a>';
-
-  $output = '<div class="profInfo">
-
-                <div class="profInfo-img">' . UserPicture($details->uid) . '</div>
-                    <div class="profInfo-txt">
-                    <span class="profInfo-value" title="' . $points . ' Points">' . $points . '</span>
-                        <div class="profInfo-name">' . $link . '</div>
-                            <div class="profInfo-name2">' . $ranking . '</div>
-                        <ul >
-                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-gold.jpg" /><span>' . $badges['gold'] . '</span></li>
-                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-silver.jpg" /><span>' . $badges['silver'] . '</span></li>
-                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/cor-gray.jpg" /><span>' . $badges['bronze'] . '</span></li>
-                        </ul>
-                    </div>
-                 </div>
-                           ';
-
-
-  return $output;
-}
-
-
-
-
 
 function add_vote_notify($form, &$form_state) {
   global $user;
@@ -1089,314 +940,13 @@ function add_subscription_notify($form, &$form_state) {
   /* New SET NOTIFY LOG */
 }
 
-function chk_profile_complete($form, &$form_state) {
-  global $user;
-  ////////////question search vote added end here
-  //first time vote shows profile update popup
-  $ccnt = user_load(array('uid' => $user->uid));
 
-  if ($ccnt->prompt == 1 && is_null($user->initpop)) {
-    $user_data = array('initpop' => '1');
-    user_save($user, $user_data);
-  }
-}
 
-function getAnsweredUsers($question_id = NULL) {
-  /*   $query = "SELECT pav.uid, sav.uid
-    from suggest_answer_vote sav
-    INNER JOIN possible_answer_vote pav on sav.qid=pav.qid
-    where 1=1 AND pav.qid = '".$question_id."' OR  sav.qid = '".$question_id."'
-    order by  pav.uid"; */
-  $query = "SELECT  sav.uid from suggest_answer_vote sav
-			where  sav.qid ='" . $question_id . "' UNION
-			SELECT pav.uid
-			from poll_votes pav
-			where  pav.nid ='" . $question_id . "'";
 
-  $userids = ExecuteQuery($query, "select");
-  if (count($userids) <= 0) {
-    return $userids;
-  }
-  else {
-    $Ids = array();
-    foreach ($userids as $userid) {
-      $Ids[] = $userid['uid'];
-    }
-    $separated = implode(",", $Ids);
-    $separated = '( ' . $separated . ')';
 
-    /*   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
-      from profile_badges pb
-      INNER JOIN users u on pb.uid=u.uid
-      LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
-      WHERE 1=1 AND u.uid  IN".$separated;
-      $query = "SELECT up.image, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
-      from profile_badges pb
-      INNER JOIN users u on pb.uid=u.uid
-      LEFT JOIN user_profile up on  up.uid = u.uid
-      WHERE 1=1 AND u.uid  IN" . $separated; */
-    $query = "(select ps.uid from {term_node} as qc join  {pundit_section} as ps on ps.cat_id=qc.tid join {users} as u on u.uid=ps.uid where u.status=1 AND qc.nid=$question_id AND ps.uid IN $separated group by ps.uid) union (select ps.uid from {term_node} as qc join  {pundit_section} as ps on ps.cat_id=qc.tid join {users} as u on u.uid=ps.uid where u.status=1 AND qc.nid=$question_id AND ps.uid IN $separated group by ps.uid) ";
-    $profileBadges = ExecuteQuery($query, "select");
-  }
-  return $profileBadges;
-}
 
-function suggest_answer_replacement($qid = '') {
 
-  $query = "SELECT nid, SUM(nid) as possiblevote FROM poll_votes where nid='" . $qid . "' GROUP BY nid";
-  $query_list = db_query($query);
-  $fetvot = db_fetch_object($query_list);
-  $vot1 = $fetvot->possiblevote;
 
-  $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='" . $qid . "' GROUP BY qid";
-  $query_sugestlist = db_query($query_sugest);
-  $fetvotsugest = db_fetch_object($query_sugestlist);
-  $vot2 = $fetvotsugest->suggestv;
-  $totalvotes = $vot1 + $vot2;
-
-  $vSqlsv = "select * from {vote_percent} where id='1' ";
-  $rlistbv = db_query($vSqlsv);
-  $oListquestbv = db_fetch_object($rlistbv);
-
-  $percent = $oListquestbv->percent / 100 * $totalvotes;
-  //echo $percent;
-  $tot = $percent * 100;
-
-
-  $vsans = "select * from {suggest_answer} where  qid=$qid ";
-  $vslist = db_query($vsans);
-
-  while ($vlsistquest = db_fetch_object($vslist)) {
-    $answprcs = $vlsistquest->vote / 100 * $totalvotes;
-
-    $valuss = $answprcs * 100;
-    // $valuss = 2000;
-    if ($valuss > $tot) {
-      $insert_change = "insert into suggest_ans_changeids (qid,ans_id)Values('" . $qid . "','" . $vlsistquest->said . "') ";
-      $listchnge = db_query($insert_change);
-
-      $select_allv = "select * from suggest_answer_vote where answer_id=$vlsistquest->said  ";
-      $listam = db_query($select_allv);
-
-      while ($listamqry = db_fetch_object($listam)) {
-
-        $insert_white = "insert into suggest_ans_tmp (qid,uid,answer_id,vote,vote_date)Values('" . $qid . "','" . $listamqry->uid . "','" . $vlsistquest->said . "','" . $vlsistquest->vote . "','" . $listamqry->vote_date . "') ";
-        $qrylist = db_query($insert_white);
-      }
-      //echo $valuss;
-      //echo $vlsistquest->said;
-    }
-  }
-
-  $mysql_sug_rows = mysql_num_rows(db_query("select distinct(answer_id) from suggest_ans_tmp  "));
-
-
-  //echo $mysql_sug_rows;
-  //$vpans = "select * from {possible_answer} where  qid='" . $qid . "' order by vote desc limit 0,$mysql_sug_rows ";
-  $vpans = "select * from {poll_choices} where  nid='" . $qid . "' order by chvotes desc limit 0,$mysql_sug_rows ";
-
-  $vplist = db_query($vpans);
-
-  while ($vplistquest = db_fetch_object($vplist)) {
-    $insert_list_ids = "insert into possible_answer_changeids (qid,ans_id)Values('" . $qid . "','" . $vplistquest->chorder . "') ";
-    $qrylist_change = db_query($insert_list_ids);
-
-    $select_allvp = "select * from poll_votes where chorder= '$vplistquest->chorder' AND nid = '$qid'  ";
-    $listamp = db_query($select_allvp);
-
-    while ($listamqryamp = db_fetch_object($listamp)) {
-
-      $insert_whited = "insert into possible_answer_tmp (qid,uid,panswer_id,vote,vote_pdate)Values('" . $qid . "','" . $listamqryamp->uid . "','" . $vplistquest->paid . "','" . $vplistquest->vote . "','" . $listamqryamp->vote_pdate . "') ";
-      $qrylist = db_query($insert_whited);
-    }
-  }
-
-  $qry1 = db_query("select * from suggest_ans_changeids where qid ='" . $qid . "'");
-  $array1 = array();
-  while ($row1 = db_fetch_object($qry1)) {
-    $array1[] = $row1->ans_id;
-  }
-
-  $qry2 = db_query("select * from possible_answer_changeids where qid ='" . $qid . "' ");
-  while ($row2 = db_fetch_object($qry2)) {
-    $array2[] = $row2->ans_id;
-  }
-
-  for ($x = 0; $x < sizeof($array1); $x++) {
-    $array[] = $array1[$x] . " - " . $array2[$x];
-
-    $array1[$x] . " - " . $array2[$x];
-
-    $update_idss = db_query("update possible_answer_tmp set  panswer_id='$array1[$x]'  where panswer_id='$array2[$x]' ");
-
-
-    $updateval = db_query("update suggest_ans_tmp set  answer_id='$array2[$x]' where answer_id='$array1[$x]'");
-
-    $deletsug = db_query("delete from suggest_answer_vote where answer_id='$array1[$x]'");
-
-    $deletpos = db_query("delete from poll_votes where chorder='$array2[$x]' AND nid = '$qid'");
-
-    $rechange_list = db_query("select * from {poll_choices} where  chorder='" . $array2[$x] . "' AND nid = '$qid' ");
-
-    $rechg = db_fetch_object($rechange_list);
-    $rechg->chvotes;
-
-    $rechange_list_new = db_query("select * from {suggest_answer} where  said='" . $array1[$x] . "'  ");
-
-    $rechg_new = db_fetch_object($rechange_list_new);
-    $rechg_new->vote;
-    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='3'";
-    $rs_mgmt = db_query($sel_user_cmt);
-    $list_content = db_fetch_object($rs_mgmt);
-
-    $vuser_ownersug = "select * from {users} where  uid='" . $rechg_new->uid . "'";
-    $userown = db_query($vuser_ownersug);
-    $ufet_qwn = db_fetch_object($userown);
-    $ufet_qwn->mail;
-    if ($usert->notify_etype == 1) {
-      $subject_proj = $list_content->subject;
-
-
-      //////////mail for suggest answer owner///////////////
-
-
-      $contentm = str_replace("#uname#", $ufet_qwn->name, $list_content->content);
-      $contentm = str_replace("#quest#", $oListquest->title, $contentm);
-      //echo  $contentm;
-
-      $mail_success = htmlmail_function($ufet_qwn->mail, $subject_proj, $contentm, '');
-    }
-    if ($usert->notify_itype == 1) {
-      $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $rechg_new->uid . "','1','1','" . $qid . "') ");
-    }
-    $update_ids = "update poll_choices set  chtext='$rechg_new->answer', chvotes='$rechg_new->vote'  where chorder='$array2[$x]' AND nid = '$qid' ";
-    $updateqry = db_query($update_ids);
-
-    $update_sug = "update suggest_answer set  answer='$rechg->chtext', vote='$rechg->chvotes',uid='$oListquest->uid' where said='$array1[$x]' ";
-    $updateqrys = db_query($update_sug);
-
-
-    /////////////Mail For question Author///////////
-
-
-    $vuser = "select * from {users} where  uid='" . $oListquest->uid . "'";
-    $username = db_query($vuser);
-    $ufet = db_fetch_object($username);
-    $ufet->mail;
-    if ($ufet->notify_etype == 1) {
-      $subject_projm = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
-
-
-      $contentmown = str_replace("#uname#", $ufet->name, $list_content->content);
-      $contentmown .= str_replace("#quest#", $oListquest->title, $contentmown);
-      //	echo  $contentmown;
-
-      $mail_success = htmlmail_function($ufet->mail, $subject_projm, $contentmown, $from, '');
-
-
-      // $mail_success = htmlmail_function($ufet->mail,$subject_proj,$messpro_list,$from,'');
-    }
-    $delossld = "delete  from possible_answer_changeids where ans_id='" . $array2[$x] . "'";
-    $delssqry = db_query($delossld);
-    $deloldwds = "delete  from suggest_ans_changeids where ans_id='" . $array1[$x] . "'";
-    $delqrysss = db_query($deloldwds);
-    if ($ufet->notify_itype == 1) {
-      $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $ufet->uid . "','1','1','" . $qid . "') ");
-    }
-  }
-
-  $seltmp = db_query("select * from suggest_ans_tmp");
-
-  while ($tmp_rec = db_fetch_object($seltmp)) {
-
-    $insert_dumm = "insert into poll_votes (nid,uid,chorder) values ('" . $tmp_rec->qid . "','" . $tmp_rec->uid . "','" . $tmp_rec->answer_id . "','" . $tmp_rec->vote_date . "')";
-    $dumy_rec = db_query($insert_dumm);
-    //provocateur badge
-    provocateur($tmp_rec->qid, $tmp_rec->answer_id);
-    ///////////////////////mail notification for who voted answers ///////////////////////////////
-    $vusers = "select * from {users} where  uid='" . $tmp_rec->uid . "' ";
-    $usernames = db_query($vusers);
-    $ufets = db_fetch_object($usernames);
-    $ufets->mail;
-    if ($ufets->notify_etype == 1) {
-      $subject_projlist = 'Heard Menatlity-Answer Has Been Replaced ';
-
-
-      $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='3'";
-      $rs_mgmt = db_query($sel_user_cmt);
-      $list_content = db_fetch_object($rs_mgmt);
-      $contentmlist = str_replace("#uname#", $ufets->name, $list_content->content);
-      $contentmlist = str_replace("#quest#", $oListquest->title, $contentmlist);
-      // $contentm;
-
-      $mail_success = htmlmail_function($ufets->mail, $subject_projlist, $contentmlist, '');
-    }
-
-    if ($ufets->notify_itype == 1) {
-
-
-      $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $tmp_rec->uid . "','1','1','" . $qid . "' ");
-    }
-    $deltmp = db_query("delete  from suggest_ans_tmp");
-  }
-
-  $seltmps = db_query("select * from possible_answer_tmp");
-
-  while ($tmp_recs = db_fetch_object($seltmps)) {
-
-    $insert_dumms = "insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('" . $tmp_recs->qid . "','" . $tmp_recs->uid . "','" . $tmp_recs->panswer_id . "','" . $tmp_recs->vote_pdate . "')";
-    $dumy_recs = db_query($insert_dumms);
-
-    $deltmps = db_query("delete  from possible_answer_tmp");
-  }
-}
-
-function get_quest_taxonomy($nid) {
-  $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
-  $result = db_query(db_rewrite_sql('SELECT t.tid, t.* FROM {term_data} t INNER JOIN {term_node} r ON r.tid = t.tid WHERE t.vid = %d AND r.nid = %d ORDER BY weight', 't', 'tid'), $vid, $nid);
-  $terms = array();
-  while ($term = db_fetch_object($result)) {
-    $terms[] = $term;
-  }
-  return $terms;
-}
-
-function get_question_categories($nid) {
-  global $base_url;
-  $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
-  $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
-  while ($cat = db_fetch_object($csql)) {
-    $catVals[] = $cat->tid;
-  }
-  $cat = implode(",", $catVals);
-  $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$nid' AND tid IN($cat)");
-  while ($ncat = db_fetch_object($ncats)) {
-    $cat = $ncat->tid;
-
-    $ctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
-    // parent categories
-    $catPath = 'searchquestion?txt_search=&cid=' . $cat;
-    $category.= '<div class="butb"><div class="butb-left"></div><div class="butb-bg"><a title="' . $ctitle . '" rel="tag" href="' . $base_url . '/' . $catPath . '">' . $ctitle . '</a></div><div class="butb-right"></div></div>';
-    $scats = get_node_tree_child($cat, $nid);
-    foreach ($scats as $scat) {
-
-      $sctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
-      // first level categories
-      $scatPath = 'searchquestion?txt_search=&cid=' . $cat . '&scid=' . $scat;
-      $category.= '<div class="butb"><div class="buty-left"></div><div class="buty-bg"><a title="' . $sctitle . '" rel="tag" href="' . $base_url . '/' . $scatPath . '">' . $sctitle . '</a></div><div class="buty-right"></div></div>';
-      $sscats = get_node_tree_child($scat, $nid);
-      foreach ($sscats as $sscat) {
-
-        $ssctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
-        // second level categories
-        $sscatPath = 'searchquestion?txt_search=&cid=' . $cat . '&scid=' . $scat . '&sscid=' . $sscat;
-        $category.= '<div class="butb"><div class="butg-left"></div><div class="butg-bg"><a title="' . $ssctitle . '" rel="tag" href="' . $base_url . '/' . $sscatPath . '">' . $ssctitle . '</a></div><div class="butg-right"></div></div>';
-      }
-    }
-    $category .= '<br class="clr"/><br class="clr"/>';
-  }
-  return $category;
-}
 
 function get_node_tree_child($tid, $nid) {
   $childrenArray = taxonomy_get_children($tid);
@@ -1802,45 +1352,3 @@ function issue_filter_options() {
 
 // insert node views
 
-
-// rating buttons - agree, disagree
-// popular categories
-function popular_categories() {
-  $sql = db_query("SELECT nid, count(nid) as cnt from {poll_votes} group by nid ORDER BY cnt desc");
-  while ($votes = db_fetch_object($sql)) {
-    $term = db_query("SELECT tn.tid, td.name name FROM {term_node} AS tn LEFT JOIN {term_data} AS td ON tn.tid = td.tid WHERE tn.nid = '%d'", $votes->nid);
-    if ($term != '') {
-      while ($pop = db_fetch_object($term)) {
-        $popular[$pop->tid] = $pop->name;
-      }
-    }
-  }
-
-  // get only 15 elements
-  $popular = array_slice($popular, 0, 15, true);
-  $popular_categories = theme('popular_categories', $popular);
-  return $popular_categories;
-}
-
-/* * Rallydev:526* */
-
-function __issue_description_trimmer($context) {
-
-  $initial_character_count = 2500;
-  $context_initial = "";
-  $context_remaining = "";
-  $output = array();
-  $context = trim($context);
-  $output['actual_length'] = $trimmed_string_length = strlen($context);
-  if ($trimmed_string_length <= $initial_character_count) {
-    $output['context_initial'] = str_replace("\r\n", "<br>", $context);
-    $output['context_remaining'] = "";
-  }
-  else {
-    $context_initial = substr($context, 0, $initial_character_count);
-    $output['context_initial'] = str_replace("\r\n", "<br>", $context_initial) . '<div id="new-ellipse"><a>... more</a></div>';
-    $context_remaining = substr($context, $initial_character_count, $trimmed_string_length);
-    $output['context_remaining'] = str_replace("\r\n", "<br>", $context_remaining);
-  }
-  return $output;
-}
