@@ -300,7 +300,6 @@ function hm_mails($qid='', $nid='', $type='') {
             //$sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
             $sel_wave = db_fetch_object(db_query("select n.title, c.field_ref_qid_nid from {content_type_forum} c join {node} n ON c.nid = n.nid where c.nid='$nid'"));
             
-            //$qdetails = load_question($sel_wave->qid_rid);
             $qdetails = node_load($sel_wave->field_ref_qid_nid);
             $qpath=drupal_get_path_alias('node/'.$sel_wave->field_ref_qid_nid);
             

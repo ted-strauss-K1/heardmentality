@@ -127,7 +127,10 @@ function user_profile_access_user_profile($user_access) {
   } else {
     $user = _user_profile_get_user($string);
     if ($user === false) {
-      drupal_not_found();
+      if (arg(0) == 'user' && arg(1) == 'profile') {
+        drupal_not_found();
+      }
+      return false;
     } else {
       return user_access($user_access);
     }
@@ -363,9 +366,6 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
  */
 function user_profile_view_preprocess(&$vars) {
   $vars['user'] = _user_profile_get_user(arg(3));
-//  if ($vars['user'] === false) {
-//    drupal_not_found();
-//  }
   $rank = ranks_user_rank($vars['user']->uid);
   $vars['rank'] = $rank['name'];
 }

@@ -124,7 +124,7 @@ function moderator_users() {
 
   // drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
 
-  drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+  drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/question.js');
   drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
   drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.js');
   drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.css');
@@ -1096,6 +1096,19 @@ function merge_dupeform($form_state, $qid, $dupeid) {
   return $form;
 }
 
+function load_question($qid='') {
+
+    if (!empty($qid)) {
+
+        $query = "SELECT * FROM question where qid='$qid' LIMIT 0,1";
+        $result = ExecuteQuery($query, "select");
+    }
+    foreach ($result as $final) {
+
+    }
+    return $final;
+}
+
 function merge_dupeform_validate(&$form, $form_state, $form_id) {
   global $user, $base_root;
 //validate form heere
@@ -1235,7 +1248,6 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
 
 
     // merge url alias
-    // $details = load_question($qid);
     $url = 'node/' . $dupeid;
     $dst = 'node/' . $qid;
     db_query("update {url_alias} set src='" . $dst . "' where src='" . $url . "'");
