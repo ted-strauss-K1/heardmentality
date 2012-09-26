@@ -1,6 +1,7 @@
 <?php
 global $user, $apikey;
 $directoryPath = $base_path . $directory;
+
 ?>
 <!doctype html>
 <!--[if lt IE 7 ]><html class="ie ie6" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <![endif]-->
