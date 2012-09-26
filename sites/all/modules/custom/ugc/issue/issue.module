@@ -802,8 +802,6 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
       $blocks['issue-popular-categories'] = array(
         'info' => t('Issue Popular Categories'),
       );
-
-
       $blocks[0] = array(
         'info' => t('Node block'),
       );
@@ -871,19 +869,12 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
   }
 }
 
-
-
 function load_user($uid = '') {
 
   $query = "select * from {users} as u join {user_profile} as up on u.uid=up.uid  where u.uid='$uid'";
   $result = db_fetch_object(db_query($query));
   return $result;
 }
-
-
-
-
-
 
 function add_vote_notify($form, &$form_state) {
   global $user;
