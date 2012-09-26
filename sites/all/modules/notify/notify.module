@@ -489,12 +489,11 @@ function hm_mails($qid='', $nid='', $type='') {
       //$sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
       $sel_wave = db_fetch_object(db_query("select n.title, c.field_ref_qid_nid from {content_type_forum} c join {node} n ON c.nid = n.nid where c.nid='$nid'"));
 
-      $qdetails = node_load($sel_wave->field_ref_qid_nid);
       $qpath=drupal_get_path_alias('node/'.$sel_wave->field_ref_qid_nid);
 
       $sel_wavelet = db_fetch_object(db_query("select * from {forum_wavelets} where wlid='$nid' AND uid='$user->uid'"));
-      $mail_row = db_query("select mail from users where uid='" . $user->uid . "'");
-      $fet_mail = db_fetch_object($mail_row);
+
+
 
       $sel_follow = "select f.*,u.mail,u.notify_etype,u.name from follower as f join users as u on f.uid=u.uid where f.follower_id='" . $user->uid . "' and follower_id!=0 and cat_id=0 and question_id=0";
 
