@@ -21,7 +21,7 @@ $directoryPath = $base_path . $directory;
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <?php print $styles; ?>
-    <?php print $scripts; ?>
+
 
     <link rel="shortcut icon" href="<?php print $directoryPath; ?>/images/favicon.ico">
     <link rel="apple-touch-icon" href="<?php print $directoryPath; ?>/images/apple-touch-icon.png">
@@ -117,6 +117,8 @@ endif; ?>
         </div>
       </div>
     </div>
+
+    <?php print $scripts; ?>
 <?php include 'footer.tpl.php'; ?>
 
   </body>
