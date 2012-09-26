@@ -470,12 +470,7 @@ function issue_search_form(&$form_state) {
   );
 // location
   $countries[''] = t('COUNTRY');
-// $countryList = geonames_query('countryinfo',NULL);
-//foreach($countryList->results as $country){
-//   $countries[$country['countryname']] = $country['countryname'];
-//}
-//list only the country the issue is
-//$cck_country=db_query("select field_issue_country_value from {content_field_issue_country} group by field_issue_country_value ");
+
 
   /*   * Ralldev : 481* */
   global $language;
