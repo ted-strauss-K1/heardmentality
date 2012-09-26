@@ -293,13 +293,13 @@ function _issue_view(&$node) {
   drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
   drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
   # make changes in node
-  $node->context = $node->body;
+//  $node->context = $node->body;
 
   # replace the content with the special voting form
 //  $tnode = issue_get_translated_node($node->nid);
-  $node->content['body'] = array(
-    '#value' => drupal_get_form('issue_vote_form', $node),
-  );
+//  $node->content['body'] = array(
+//    '#value' => drupal_get_form('issue_vote_form', $node),
+//  );
   /*
   $node->allowvotes = $tnode->allowvotes;
   // selected radio button stays green
