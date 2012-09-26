@@ -275,8 +275,7 @@ function user_profile_block_preprocess(&$vars) {
     $preprocessed['user'] = $user;
     $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
     $preprocessed['badges'] = badges_get_userbadges($user->uid);
-    $rank = ranks_user_rank($user->uid);
-    $preprocessed['rank'] = $rank['name'];
+    $preprocessed['rank'] = $user->rank['name'];
     $preprocessed['points'] = up_userpoints_get($user->uid);
   }
   foreach ($preprocessed as $key => $value) {
@@ -366,8 +365,7 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
  */
 function user_profile_view_preprocess(&$vars) {
   $vars['user'] = _user_profile_get_user(arg(3));
-  $rank = ranks_user_rank($vars['user']->uid);
-  $vars['rank'] = $rank['name'];
+  $vars['rank'] = $vars['user']->rank['name'];
 }
 
 /*

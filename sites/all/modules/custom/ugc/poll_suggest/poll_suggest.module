@@ -19,6 +19,10 @@ function poll_suggest_add($nid, $chtext, $uid = '') {
     $uid = $user->uid;
   }
   db_query("INSERT INTO {poll_suggest} SET nid = '%d', uid = '%d', chtext = '%s'", $nid, $uid, $chtext);
+  if (module_exists("rules")) {
+    global $user;
+    rules_invoke_event('poll_suggest_add', $user, node_load($nid));
+  }
   return db_last_insert_id('poll_suggest', 'chid');
 }
 

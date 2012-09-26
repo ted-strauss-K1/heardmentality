@@ -3,27 +3,11 @@
  * This file is to contain only rules' hooks.
  */
 
-/*
+/**
  * Implementation of hook_rules_event_info()
  */
 function up_rules_event_info() {
   return array(
-    'up_user_followed' => array(
-      'label' => t('User Followed Another One'),
-      'arguments' => array(
-        'follower'    => array('type' => 'user', 'label' => t('Follower')),
-        'followed'    => array('type' => 'user', 'label' => t('Followed User')),
-      ),
-      'module' => 'UserPoints Extension',
-    ),
-    'up_user_unfollowed' => array(
-      'label' => t('User Unfollowed Another One'),
-      'arguments' => array(
-        'follower'    => array('type' => 'user', 'label' => t('Follower')),
-        'followed'    => array('type' => 'user', 'label' => t('Followed User')),
-      ),
-      'module' => 'UserPoints Extension',
-    ),
     'up_user_shared' => array(
       'label' => t('User Shared Content'),
       'arguments' => array(
@@ -38,7 +22,7 @@ function up_rules_event_info() {
 
 
 
-/*
+/**
  * Implementation of hook_rules_condition_info()
  */
 function up_rules_condition_info() {
@@ -67,18 +51,6 @@ function up_rules_condition_info() {
     ),
   );
 
-  /*
-  array(
-    'up_user_reputation' => array(
-      'label' => t('Reputation Limit'),
-      'arguments' => array(
-        'user'    => array('type' => 'user', 'label' => t('Acting user')),
-        'action'  => array('type' => 'string', 'label' => t('The type of the purchased package is')),
-      ),
-      'module' => 'up',
-    ),
-  );
-  */
 }
 
 
