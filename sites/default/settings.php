@@ -1,7 +1,5 @@
 <?php
-
-// $Id: default.settings.php,v 1.8.2.4 2009/09/14 12:59:18 goba Exp $
-
+ 
 /**
  * @file
  * Drupal site-specific configuration file.
@@ -43,6 +41,7 @@
  * http://www.drupal.org:8080/mysite/test/ could be loaded from
  * sites/8080.www.drupal.org.mysite.test/.
  */
+
 /**
  * Database settings:
  *
@@ -89,17 +88,29 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-//for local
-error_reporting(E_ALL);
-ini_set('display_errors', TRUE);
-ini_set('display_startup_errors', TRUE);
-//$db_url = 'mysql://root:@localhost/hm';
-//for 10 server 
-//$db_url = 'mysql://heardmentality:H3@rdM3nt@l!ty@localhost/heardmentality';
-# $db_url = 'mysql://root:H3@rdMDB#2012@localhost/heardmentality';
-//$db_url = 'mysql://root:@localhost/heardmentality';
+$db_url = 'mysql://root:@localhost/hm';
 $db_url = 'mysql://apache_web_serve:2JTcuJA3mAFwqzXe@107.20.204.83/heardmentality';
 $db_prefix = '';
+
+/**
+ * Database default collation.
+ *
+ * All data stored in Drupal is in UTF-8. Certain databases, such as MySQL,
+ * support different algorithms for comparing, indexing, and sorting characters;
+ * a so called "collation". The default collation of a database normally works
+ * for many use-cases, but depending on the language(s) of the stored data, it
+ * may be necessary to use a different collation.
+ * Important:
+ * - Only set or change this value BEFORE installing Drupal, unless you know
+ *   what you are doing.
+ * - All database tables and columns should be in the same collation. Otherwise,
+ *   string comparisons performed for table JOINs will be significantly slower.
+ * - Especially when storing data in German or Russian on MySQL 5.1+, you want
+ *   to use the 'utf8_unicode_ci' collation instead.
+ *
+ * @see http://drupal.org/node/772678
+ */
+# $db_collation = 'utf8_general_ci';
 
 /**
  * Access control for update.php script
@@ -110,7 +121,7 @@ $db_prefix = '';
  * check. After finishing the upgrade, be sure to open this file again
  * and change the TRUE back to a FALSE!
  */
-$update_free_access = TRUE;
+$update_free_access = FALSE;
 
 /**
  * Base URL (optional).
@@ -143,44 +154,18 @@ $update_free_access = TRUE;
  * settings are used there. Settings defined here should not be
  * duplicated there so as to avoid conflict issues.
  */
-ini_set('arg_separator.output', '&amp;');
-ini_set('magic_quotes_runtime', 0);
-ini_set('magic_quotes_sybase', 0);
-ini_set('session.cache_expire', 200000);
-ini_set('session.cache_limiter', 'none');
-ini_set('session.cookie_lifetime', 2000000);
-ini_set('session.gc_maxlifetime', 200000);
-ini_set('session.save_handler', 'user');
-ini_set('session.use_cookies', 1);
+ini_set('arg_separator.output',     '&amp;');
+ini_set('magic_quotes_runtime',     0);
+ini_set('magic_quotes_sybase',      0);
+ini_set('session.cache_expire',     200000);
+ini_set('session.cache_limiter',    'none');
+ini_set('session.cookie_lifetime',  2000000);
+ini_set('session.gc_maxlifetime',   200000);
+ini_set('session.save_handler',     'user');
+ini_set('session.use_cookies',      1);
 ini_set('session.use_only_cookies', 1);
-ini_set('session.use_trans_sid', 0);
-ini_set('url_rewriter.tags', '');
-ini_set('memory_limit', '128M');
-global $gSitePath, $gDocPath;
-$gSitePath = "http://" . $_SERVER['HTTP_HOST'] . "/heardmentality/";
-$gDocPath = $_SERVER['DOCUMENT_ROOT'] . "/heardmentality/";
-
-
-/*
-if ($_SERVER['HTTP_HOST'] == 'localhost') {
-  $googlekey = 'ABQIAAAAEMg4Uz3iFHKezP9YxK2-ORR7UzrUHPdQNxgEPYCZovH3YmNejBTEtAzCPaOdTMO81lgtU_7mcQ8gnA';
-  $apikey = '2_A2ZGtCslkMZbTagqZRUFg6laSGONdDewofnvzXu96J3-nKIrOZGIusR2wpfQIEdC';
-//$apikey='2_q5kciTWSPC5FLEmzQ2RIFdQcKdiWj88IQGEZsGgFIIqLpKsCgXsUdyGOVYoJme2R';
-}
-elseif ($_SERVER['HTTP_HOST'] == '58.68.27.117') {
-
-  $apikey = '2_A2ZGtCslkMZbTagqZRUFg6laSGONdDewofnvzXu96J3-nKIrOZGIusR2wpfQIEdC';
-}
-elseif ($_SERVER['HTTP_HOST'] == 'openwaveprojects.com') {
-
-  $apikey = '2_A2ZGtCslkMZbTagqZRUFg6laSGONdDewofnvzXu96J3-nKIrOZGIusR2wpfQIEdC';
-  $googlekey = 'ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
-}
-else {
-  $apikey = '2_A2ZGtCslkMZbTagqZRUFg6laSGONdDewofnvzXu96J3-nKIrOZGIusR2wpfQIEdC';
-  $googlekey = 'ABQIAAAAEMg4Uz3iFHKezP9YxK2-ORR7UzrUHPdQNxgEPYCZovH3YmNejBTEtAzCPaOdTMO81lgtU_7mcQ8gnA';
-}
-*/
+ini_set('session.use_trans_sid',    0);
+ini_set('url_rewriter.tags',        '');
 
 /**
  * If you encounter a situation where users post a large amount of text, and
@@ -201,7 +186,7 @@ else {
  * shared base domain. Doing so assures that users remain logged in as they
  * cross between your various domains.
  */
- # Just test $cookie_domain = 'example.com';
+# $cookie_domain = 'example.com';
 
 /**
  * Variable overrides:

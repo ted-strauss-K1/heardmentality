@@ -1,15 +1,11 @@
-<?php
-// root path
-/* * Rallydev:503* */
-global $base_url;
-/**/
-$path = '<front>';
-$sitelink = url($path, array('absolute' => TRUE)) . '/';
-?>
 <br class="clear"><br><br>
+
 <div class="line-bottom2"></div>
+
 <div id="footer">
+
   <div class="container">
+
     <div class="four columns">
       <div class="black-box">
         <p class="blurb ryde"><?php print t('Be Heard. Don\'t Be Part of the Herd!'); ?></p>
@@ -19,50 +15,45 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
         <div class="clear"></div>
       </div>
     </div>
+
     <div class="seven columns">
       <div class="black-box clearfix">
-        <?php
-        if ($user->uid != '' || $user->uid != '0') {
-          if ($profile_options_bottom): print $profile_options_bottom;
-          endif;
-        }else {
-          ?>
-
-<?php } ?>
+        <?php if ($profile_options_bottom) print $profile_options_bottom; ?>
       </div>
     </div>
 
     <div class="five columns">
       <div class="black-box">
-        <a href="<?php print $front_page; ?>"><img src="<?php print $directoryPath; ?>/images/dark_logo.png" class="dark-logo"></a>
+        <a href="/"><img src="<?php print $directoryPath; ?>/images/dark_logo.png" class="dark-logo"></a>
         <ul class="din foot-link">
-          <li><a href="<?php print $sitelink; ?>aboutus"><?php print t('ABOUT'); ?></a></li>
-          <li><a href="<?php print $sitelink; ?>node/305"><?php print t('CONTACT'); ?></a></li>
-          <li><a href="<?php print $sitelink; ?>donation"><?php print t('DONATE'); ?></a></li>
-          <li><a href=""><?php print t('VOLUNTEER'); ?></a></li>
-
+          <li><a href="/aboutus"><?php print t('ABOUT'); ?></a></li>
+          <li><a href="/node/305"><?php print t('CONTACT'); ?></a></li>
+          <li><a href="/donate"><?php print t('DONATE'); ?></a></li>
+<!--          <li><a href="">--><?php //print t('VOLUNTEER'); ?><!--</a></li>-->
         </ul>
-
       </div>
-
     </div>
-    <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/" style="float:right;margin:0px 10px 0px 10px"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" /></a>
-    <p class="policy"> <?php print t('HEARD MENTALITY'); ?> &copy; 2011<br><a><?php print t('Legal'); ?></a><a><?php print t('Privacy'); ?></a><a><?php print t('User Agreement'); ?></a></p>
+
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/" style="float:right;margin:0px 10px 0px 10px">
+      <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" />
+    </a>
+    <p class="policy">
+      <?php print t('HEARD MENTALITY'); ?> &copy; <?php print date('Y') ?><br>
+      <a><?php print t('Legal'); ?></a>
+      <a><?php print t('Privacy'); ?></a>
+      <a><?php print t('User Agreement'); ?></a>
+    </p>
+
   </div>
 
 </div>
 
-<!-- gigya login / logout -->
-<!-- ui-dialog -->
-<?php
-if ($user->uid != '' || $user->uid != '0') {
-  print $profile_option_block;
-}
-else {
-  ?>
+<!-- user popups -->
+<?php if (user_is_logged_in()) : ?>
 
+  <?php print $profile_option_block; ?>
 
-
+<?php else : ?>
 
   <div id="dialog">
     <ul>
@@ -71,39 +62,22 @@ else {
     </ul>
 
     <div id="tabs-1" title="Login" class="dialog">
-
       <div id="user-login">
-  <?php print $login_block; ?>
+        <?php print $login_block; ?>
       </div>
-
-<?php } ?>
-
-  </div>
-
-  <div id="tabs-2">
-    <div id ="user-register"> 
-<?php print $login_register; ?>
     </div>
 
-    <!--     <div class ="gigya-login"></div>    -->
+    <div id="tabs-2">
+      <div id ="user-register">
+        <?php print $login_register; ?>
+      </div>
+    </div>
   </div>
 
-</div>
+<?php endif; ?>
+
+
+
+<!-- closure -->
 <?php print $closure; ?>
-<!-- gigya login / logout ends -->
-<!-- JS
-================================================== -->
-
-<script src="<?php echo $directoryPath; ?>/javascripts/app.js"></script>
-<script>        
-
-</script>
-<!--
-<script src="//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=auto"></script>
--->
-
-<div id="permalink_text" style="display:none;">
-  <span>share a link to this post</span>
-  <input type="text" style="display: block; width: 320px;" value="">
-  <!--<a href="" style="float: right;" class="close-permalink">close</a>-->
-</div>
+<!-- closure -->

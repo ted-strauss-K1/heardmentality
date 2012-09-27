@@ -484,13 +484,6 @@ $(function(){
     $('#dialog-flag').dialog('open');
     return false;
   });
-
-  $('#permalink_text').dialog({
-    autoOpen: false,
-    modal: true,
-    minWidth: 360,
-    resizable:false
-  });
   
   // Dialog			
   $('#dialog-profile-pic').dialog({

@@ -106,7 +106,7 @@ global $apikey, $gSitePath, $theme;
 		}
 		if(mtype==4)
 		{
-		loadsuggest('<?php print $gSitePath; ?>qlite/suggest/'+ids,'Answers ');
+<!--		loadsuggest('--><?php //print $gSitePath; ?><!--qlite / suggest/'+ids,'Answers ');-->
 
 		}
 		if(mtype==5)
@@ -131,7 +131,7 @@ global $apikey, $gSitePath, $theme;
     <?php print $picture ?>
 
 <?php if (!$page): ?>
-      <div class="titl"> <a style="<?php print $style; ?>" href="<?php print $gSitePath; ?>qlite/view/<?php print $nid ?>?ajax=1" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
+      <div class="titl"> <a style="<?php print $style; ?>" href="<?php print $gSitePath; ?>qlite / view/<?php print $nid ?>?ajax=1" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
 <?php endif; ?>
 <?php if($page): ?>
         <div class="flag-issue"><div class="but-left"><img src="<?php print $path; ?>/images/but-left.jpg"></div>

@@ -25,7 +25,7 @@ function node_configure() {
 
   $form['default_nodes_main'] = array(
     '#type' => 'select', '#title' => t('Number of posts on main page'), '#default_value' => variable_get('default_nodes_main', 10),
-    '#options' => drupal_map_assoc(array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30)),
+    '#options' => drupal_map_assoc(array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30)),
     '#description' => t('The default maximum number of posts to display per page on overview pages such as the main page.')
   );
   $form['teaser_length'] = array(

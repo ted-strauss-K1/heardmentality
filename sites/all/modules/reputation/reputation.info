@@ -1,6 +1,0 @@
-name = Reputation
-description = User Reputation
-package = Reputation
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "ranks"

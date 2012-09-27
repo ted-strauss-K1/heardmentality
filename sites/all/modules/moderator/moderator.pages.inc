@@ -1,5 +1,28 @@
 <?php
 
+function flag_user_mail($uids = '', $days='') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Account Blocked';
+    $msg = $_REQUEST['reporttext'];
+    $msg.="<br/> <div >Account has been blocked for $days days </div>";
+    foreach ($uids as $id) {
+
+        $query = db_query("select mail  from {users} where uid='$id' ");
+        $det = db_fetch_object($query);
+
+        $to = $det->mail;
+
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}
+
 function moderater_user_mail($array='', $type='', $action='') {
   global $base_url, $user;
   $days_from_now = 10; //10 days from now
@@ -288,7 +311,7 @@ function question_merge_mail($toissue='', $dupeissue='') {
 
   global $base_url, $user;
 
-  $from = variable_get('site_mail');
+  $from = variable_get('site_mail', '');
   $subject = 'Heardmentality Issue you voted has been Merged ';
 
   $finalissue = load_question($toissue);

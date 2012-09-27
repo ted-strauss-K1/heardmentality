@@ -105,6 +105,7 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
   }
 }
 
+/*
 function mtime($text) {
   static $mtime = false;
   if ($mtime === false) {
@@ -114,17 +115,18 @@ function mtime($text) {
   $mtime = microtime(true);
   return (strlen((string)$int) < 7 ? str_repeat('0', 7 - strlen((string)$int)) : '') . $int . ' : ' . $text;
 }
+*/
 
 function solr_issues_block_form($form_state) {
   $form = array();
 
   ahah_helper_register($form, $form_state);
-
+/*
   $form['block']['mtime'] = array(
     '#type' => 'markup',
   );
   $form['block']['mtime']['#value'] .= mtime('start') . '<br>';
-
+*/
   global $user, $base_url;
   drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
   //drupal_add_js(array('base_url' => "$base_url"), 'setting');
@@ -138,7 +140,7 @@ function solr_issues_block_form($form_state) {
     $countries[$ccklist->name] = $ccklist->name;
   }
 
-  $form['block']['mtime']['#value'] .= mtime('geonames') . '<br>';
+  //$form['block']['mtime']['#value'] .= mtime('geonames') . '<br>';
 
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '%d'", $vid);
@@ -150,7 +152,7 @@ function solr_issues_block_form($form_state) {
     }
   }
 
-  $form['block']['mtime']['#value'] .= mtime('taxonomy') . '<br>';
+  //$form['block']['mtime']['#value'] .= mtime('taxonomy') . '<br>';
 
 
   if (!isset($form_state['storage']['block']['subject'])) {
@@ -189,7 +191,7 @@ function solr_issues_block_form($form_state) {
     }
   }
 
-  $form['block']['mtime']['#value'] .= mtime('subject') . '<br>';
+  //$form['block']['mtime']['#value'] .= mtime('subject') . '<br>';
 
   if (isset($form_state['storage']['block']['country'])) {
     foreach ($form_state['storage']['block']['country'] as $country) {
@@ -207,7 +209,7 @@ function solr_issues_block_form($form_state) {
     }
   }
 
-  $form['block']['mtime']['#value'] .= mtime('countries') . '<br>';
+ // $form['block']['mtime']['#value'] .= mtime('countries') . '<br>';
 
   if (isset($form_state['storage']['block']['defstate'])) {
     foreach ($form_state['storage']['block']['defstate'] as $key => $state) {
@@ -223,7 +225,7 @@ function solr_issues_block_form($form_state) {
     }
   }
 
-  $form['block']['mtime']['#value'] .= mtime('defstate') . '<br>';
+  //$form['block']['mtime']['#value'] .= mtime('defstate') . '<br>';
 
   if (isset($form_state['storage']['block']['defcity'])) {
     foreach ($form_state['storage']['block']['defcity'] as $key => $value) {
@@ -231,15 +233,14 @@ function solr_issues_block_form($form_state) {
     }
   }
 
-  $form['block']['mtime']['#value'] .= mtime('city') . '<br>';
+  //$form['block']['mtime']['#value'] .= mtime('city') . '<br>';
 
-  $form['block'] += array(
+  $form['block'] = array(
     '#type' => 'fieldset',
     '#prefix' => '<div id="block-wrapper">',
     '#suffix' => '</div>',
     '#tree' => TRUE,
   );
-
   $form['block']['results'] = array(
     '#value' => '<span>0</span>' . ' issues',
     '#type' => 'item',
@@ -384,7 +385,7 @@ function solr_issues_block_form($form_state) {
   $form['#submit'][] = 'solr_issues_block_form_submit';
   unset($form_state['storage']['block']);
 
-  $form['block']['mtime']['#value'] .= mtime('end') . '<br>';
+ // $form['block']['mtime']['#value'] .= mtime('end') . '<br>';
 
   return $form;
 }

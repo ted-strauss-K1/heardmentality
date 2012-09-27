@@ -89,8 +89,9 @@ function phptemplate_breadcrumb($breadcrumb) {
  * Override or insert PHPTemplate variables into the templates.
  */
 function phptemplate_preprocess_page(&$vars) {
-    global $user;
-    $vars['styles'] = drupal_get_css();
+  global $user;
+  $vars['styles'] = drupal_get_css();
+
 	//echo '<pre>';
 //print_r($vars);exit;
     if ((arg(1) == 'block')) {
@@ -121,46 +122,10 @@ function heardmentalitylight_preprocess_node(&$vars) {
 }
 
 function heardmentalitylight_preprocess_page(&$vars) {
-    // there's also a $theme_path global
-    global $theme, $theme_path;
-    $path = drupal_get_path('theme', $theme);
-
-if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $vars['node']->type == 'webform'){
-    $suggestions = array(
-      'page-static-pages'
-    );
+  if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $vars['node']->type == 'webform'){
+    $suggestions = array('page-static-pages');
     $vars['template_files'] = array_merge($vars['template_files'], $suggestions);
-}
-
-//echo '<pre>';
-//print_r($vars);exit;
-//overide default jquery
-
-/*Rally dev 481 - jQuery problem disable following jquery (k=jQuery 1,4 no need to enable in new theme) */ 
-   // if($vars['template_files'][1]=='page-account-edit' || $vars['template_files'][1] == 'page-front'){
-     //   drupal_add_js($path . "/javascripts/jquery1.4.js", 'core'); //where you store your jque 
-   // }
-/*Rally dev 481 - jQuery problem*/
-    
-
- //   $js = drupal_add_js(NULL, NULL, 'header'); //get header js files in an array
-   
-   // unset($js['core']['misc/jquery.js']); //unset default drupal jquery js
-  //  $js['core'] = array_reverse($js['core'], 1); //make our own jquery file first (see note)
-
- //   if($vars['template_files'][1]=='page-issue-create'){
- //   unset($js['theme']['sites/all/themes/heardmentalitylight/javascripts/jquery-1.5.1.min.js']); //unset default drupal jquery js
-    //echo '<pre>';    print_r($js);exit;
- //   }
-    
-    /*
-      if ($vars['content'] && $vars['node']->type != 'forum') {
-      $vars['content'] = '<h2 class="comments">'. t('Comments') .'</h2>'.  $vars['content'];
-      }
-
-     */
-// $vars['scripts'] = drupal_get_js('header', $js); //create script tags and set them to $scripts
-   
+  }
 }
 
 /**

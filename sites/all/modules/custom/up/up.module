@@ -39,17 +39,35 @@ function up_share($nid) {
 /*
  * Get the number of userpoints
  */
-function up_userpoints_get($uid = '', $operation = '') {
-  // TODO static calls
+function up_userpoints_get($uid = '', $operation = '', $reset = false) {
+  static $data = array();
   if (empty($uid)) {
     global $user;
     $uid = $user->uid;
   }
-  if (empty($operation)) {
-    return userpoints_get_current_points($uid, 'all');
+  if (is_array($uid)) {
+    foreach ($uid as &$id) {
+      $id = "'".addslashes($id)."'";
+    }
+    $query = "SELECT uid, SUM(points) AS count FROM {userpoints_txn} WHERE uid IN (".implode(',',$uid).")";
+    if (!empty($operation)) {
+      $query .= " AND operation = '%s'";
+    }
+    $result = db_query($query, $operation);
+    while ($row = db_fetch_array($result)) {
+      $data[$row['uid']][$operation] = $row['count'];
+    }
   } else {
-    return (int)db_result(db_query("SELECT SUM(points) FROM {userpoints_txn} WHERE uid = '%d' AND operation = '%s'", $uid, $operation));
+    if (!isset($data[$uid][$operation]) || $reset) {
+      if (empty($operation)) {
+        $data[$uid][$operation] = userpoints_get_current_points($uid, 'all');
+      } else {
+        $data[$uid][$operation] = (int)db_result(db_query("SELECT SUM(points) FROM {userpoints_txn} WHERE uid = '%d' AND operation = '%s'", $uid, $operation));
+      }
+    }
+    return $data[$uid][$operation];
   }
+  return true;
 }
 
 /*
