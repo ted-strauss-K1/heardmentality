@@ -26,6 +26,7 @@ scripts[] = javascripts/noty/default.js
 scripts[] = javascripts/noty/topRight.js
 scripts[] = javascripts/noty/center.js
 scripts[] = javascripts/noty/noty.js
+scripts[] = javascripts/app.js
 
 
 ;regions[left] = Left sidebar
