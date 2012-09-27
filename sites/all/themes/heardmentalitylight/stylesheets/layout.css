@@ -1894,7 +1894,7 @@ p.profile.action-comment-ref {padding:0px 10px 0px 10px;margin:10px 0px 0px 20px
     text-align: right;
 }	
 	
-img.following-user, img.user-thumb {width:44px;height:44px;margin:3px 3px 0px; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
+img.following-user, img.user-thumb {width:44px;height:44px;margin:5px 2px 0; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
 img.following-user-2 {float:left;width:60px;height:60px;margin:8px 10px 0px 2px; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
 img.user-thumb {margin:5px 10px 0px 2px; }
 
@@ -1902,7 +1902,13 @@ img.reference-thumb{width:44px;height:44px;margin:5px 10px 0px 60px; border-widt
 
 img.following-user.listed {width:44px;height:44px;margin:5px 13px 0px 2px; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;float:left}
 
-.following a.more, .following a.find  {font-size:12px;}
+.following a.more, .following a.find  {
+    display: inline-block;
+    float: right;
+    font-size: 12px;
+    padding-top: 7px;
+}
+
 a.more:hover, a.find:hover  {color:#000;font-size:12px;}
 
 .badge {
@@ -3322,19 +3328,32 @@ h2.page-title {
 }
 
 #solr-issues-search-form .item-list {
-	padding: 18px 0 0;
+	padding: 18px 20px 0;
 }
 
 #solr-issues-search-form ul.pager {
 	margin: 0;
 }
 
-ul.pager a:hover {
-	text-decoration: none;
+/*Pager*/
+
+.item-list {
+	padding: 0 20px;
+}
+
+.item-list .pager {
+    margin: 0 0 0.25em 0;	
 }
 
 .item-list .pager li {
-	margin: 0 0 0 1em;
+	background: none repeat scroll 0 0 transparent;
+    margin: 0 0 0 0.5em;
+    padding: 0;
+	display: inline;
+	list-style-type: none;
+	font-size: 12px;
+	line-height: 14px;
+    font-weight: normal;
 }
 
 .item-list .pager li:first-child {
@@ -3342,18 +3361,81 @@ ul.pager a:hover {
 }
 
 .item-list .pager li a {
-	margin: 0 0 0.25em 0;
 	display: inline-block;
 	color: #777;
+	background: none repeat scroll 0 center transparent;
+    font-size: 12px;
+    height: auto;
+    line-height: 14px;
+    margin: 0 0 0.25em;
+    padding: 2px 5px;
+	text-decoration: underline;
+	vertical-align: top;
 }
 
 .item-list .pager li a:hover {
-	text-decoration: underline;
-	color: #ef3d3b;
+	text-decoration: none;
+	background-color: #ef3d3b;
+	-o-border-radius: 4px 4px 4px 4px;
+	-khtml-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
 }	
 
-.pager-current {
-	color: #ef3d3b;
+.item-list .pager .pager-current {
+	background-color: #ef3d3b;
+	-o-border-radius: 4px 4px 4px 4px;
+	-khtml-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 2px 5px;
+    position: relative;
+	display: inline-block;
+}
+
+.item-list .pager .pager-last a,
+.item-list .pager .pager-first a,
+.item-list .pager .pager-next a,
+.item-list .pager .pager-previous a {
+	text-indent: -9999em;
+	background:url(../images/pager.png) no-repeat 0 6px;
+	width: 7px;
+	height: 9px;
+	padding: 6px 0 5px;
+	margin: 0;
+}
+
+.item-list .pager .pager-last a {
+	width: 13px;
+	background-position: -14px 6px;
+}
+
+.item-list .pager .pager-first a {
+	width: 13px;
+	background-position: -27px 6px;
+}
+
+.item-list .pager .pager-previous a {
+	width: 7px;
+	background-position: -7px 6px;
+}
+
+.item-list .pager .pager-last a:hover,
+.item-list .pager .pager-first a:hover,
+.item-list .pager .pager-next a:hover,
+.item-list .pager .pager-previous a:hover {
+	background-color: transparent;
+	-o-border-radius: 0;
+	-khtml-border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+    border-radius: 0;
 }
 
 #issue-edit-vote  .button.vote {
