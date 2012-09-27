@@ -297,6 +297,7 @@
 	border-radius: 10px;
 }
 
-.ie7 .item-list .pager li a {
+.ie7 .item-list .pager .pager-current {
 	display: inline;
+	zoom: 1;
 }
