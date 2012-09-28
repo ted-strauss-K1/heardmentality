@@ -10,8 +10,9 @@
       <div class="black-box">
         <p class="blurb ryde"><?php print t('Be Heard. Don\'t Be Part of the Herd!'); ?></p>
         <hr class="dark">
-        <div class="floatleft"><a class="twitter" href=""></a></div>
-        <div class="floatleft"><a class="facebook" href=""></a>	</div>
+        <div class="floatleft"><a class="twitter" href="http://twitter.com/HeardMentality"></a></div>
+        <div class="floatleft"><a class="facebook" href="http://www.facebook.com/pages/Heard-Mentality/253846777970342?ref=ts"></a>	</div>
+<!--        <div class="floatleft"><a class="gplus" href="https://plus.google.com/102365576412479164048"></a>	</div>-->
         <div class="clear"></div>
       </div>
     </div>
