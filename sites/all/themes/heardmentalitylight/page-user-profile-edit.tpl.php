@@ -17,11 +17,10 @@ $directoryPath = $base_path . $directory;
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-
-
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <?php print $styles; ?>
-	<?php print $scripts; ?>
+
+  <?php print $styles; ?>
+
 	<link rel="shortcut icon" href="<?php print $directoryPath;?>/images/favicon.ico">
 	<link rel="apple-touch-icon" href="<?php print $directoryPath;?>/images/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="<?php print $directoryPath;?>/images/apple-touch-icon-72x72.png" />
@@ -29,12 +28,11 @@ $directoryPath = $base_path . $directory;
 
   <!-- socialize.js script should only be included once -->
   <script type="text/javascript">
-  var conf=
-  {
-  	enabledProviders: 'facebook,twitter,yahoo,messenger,google,linkedin,myspace,aol,foursquare,orkut,vkontakte,renren'
-  }
+    var conf={	enabledProviders: 'facebook,twitter,yahoo,messenger,google,linkedin,myspace,aol,foursquare,orkut,vkontakte,renren' }
   </script>
+
   </head>
+
 <body class="<?php print $classes; ?>">
 
 	<div class="header">
@@ -42,31 +40,15 @@ $directoryPath = $base_path . $directory;
 	</div>
 
     <div class="container">
-	
-		<?php if ($tabs): ?>
-			<div class="tabs"><?php print $tabs; ?></div>
-		<?php endif; ?>
-		<?php if($messages):?>
-			<div class="toggler profile-message">
-        
-	    	<div id="effect" class="">
+	    <?php if ($tabs): ?>
+        <div class="tabs"><?php print $tabs; ?></div>
+      <?php endif; ?>
 
-						<div class="message top-message">
-							<p class="double" style="disply:block">
-                                 <?php print $messages; ?>
-                            </p>
-						</div>
-                        <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick"><?php print t('Hide'); ?></span></a>
-	    	</div>
-			</div>
-		<?php endif; ?>
-		
-		<?php print $content; ?>
+      <?php print $content; ?>
     </div>
 
-      <!-- container -->
-
 	<?php include 'footer.tpl.php';?>
+  <?php print $scripts; ?>
 
 </body>
 </html>

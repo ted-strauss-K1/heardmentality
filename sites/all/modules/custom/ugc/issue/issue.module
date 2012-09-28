@@ -297,9 +297,9 @@ function _issue_view(&$node) {
 
   # replace the content with the special voting form
 //  $tnode = issue_get_translated_node($node->nid);
-//  $node->content['body'] = array(
-//    '#value' => drupal_get_form('issue_vote_form', $node),
-//  );
+  $node->content['body'] = array(
+    '#value' => drupal_get_form('issue_vote_form', $node),
+  );
   /*
   $node->allowvotes = $tnode->allowvotes;
   // selected radio button stays green
