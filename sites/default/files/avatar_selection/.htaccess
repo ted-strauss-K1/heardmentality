@@ -1,4 +1,5 @@
 # 1 WEEK - possible to be changed, unlikely
-<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
-ExpiresDefault A604800
-</FilesMatch>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresDefault "access plus 1 week"
+</IfModule>
