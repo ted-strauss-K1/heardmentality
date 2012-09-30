@@ -106,27 +106,27 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
 }
 
 /*
-function mtime($text) {
+  function mtime($text) {
   static $mtime = false;
   if ($mtime === false) {
-    $mtime = microtime(true);
+  $mtime = microtime(true);
   }
   $int = round(microtime(true) - $mtime, 4);
   $mtime = microtime(true);
   return (strlen((string)$int) < 7 ? str_repeat('0', 7 - strlen((string)$int)) : '') . $int . ' : ' . $text;
-}
-*/
+  }
+ */
 
 function solr_issues_block_form($form_state) {
   $form = array();
 
   ahah_helper_register($form, $form_state);
-/*
-  $form['block']['mtime'] = array(
+  /*
+    $form['block']['mtime'] = array(
     '#type' => 'markup',
-  );
-  $form['block']['mtime']['#value'] .= mtime('start') . '<br>';
-*/
+    );
+    $form['block']['mtime']['#value'] .= mtime('start') . '<br>';
+   */
   global $user, $base_url;
   drupal_add_js(drupal_get_path('module', 'solr_issues') . '/solr_issues.js');
   //drupal_add_js(array('base_url' => "$base_url"), 'setting');
@@ -209,7 +209,7 @@ function solr_issues_block_form($form_state) {
     }
   }
 
- // $form['block']['mtime']['#value'] .= mtime('countries') . '<br>';
+  // $form['block']['mtime']['#value'] .= mtime('countries') . '<br>';
 
   if (isset($form_state['storage']['block']['defstate'])) {
     foreach ($form_state['storage']['block']['defstate'] as $key => $state) {
@@ -385,7 +385,7 @@ function solr_issues_block_form($form_state) {
   $form['#submit'][] = 'solr_issues_block_form_submit';
   unset($form_state['storage']['block']);
 
- // $form['block']['mtime']['#value'] .= mtime('end') . '<br>';
+  // $form['block']['mtime']['#value'] .= mtime('end') . '<br>';
 
   return $form;
 }
@@ -520,18 +520,18 @@ function solr_issues_search_output($results) {
 
       if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
 
-        $output .= node_view($node);
+        $output .= solr_issues_node_output($node);
       }
       else if ($_POST['voted'] == 'false') {
 
-        $output .= node_view($node);
+        $output .= solr_issues_node_output($node);
       }
     }
   }
   else {
     foreach ($results as $result) {
       $node = node_load($result['nid']);
-      $output .= node_view($node);
+      $output.= solr_issues_node_output($node);
     }
   }
 
@@ -629,8 +629,8 @@ function solr_issues_form_submit($form_state) {
       $date_time = date("y-m-d H:i:s", time());
       db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $_POST['nid_val'], $_POST['choice'], $_POST['check_login'], $date_time, 1);
       db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $_POST['nid_val'], $_POST['choice'], $_POST['check_login']);
-$node= node_load($_POST['nid_val']);  
-$message = node_view($node);
+      $node = node_load($_POST['nid_val']);
+      $message = node_view($node);
     }
     else {
       
@@ -641,3 +641,11 @@ $message = node_view($node);
             'data' => $message));
 }
 
+function solr_issues_node_output($node) {
+  $node = node_build_content($node, $teaser, $page);
+  $content = drupal_render($node->content);
+  $node->body = $content;
+  //unset($node->teaser);
+  // node_invoke_nodeapi($node, 'alter', $teaser, $page);
+ return theme('node', $node, $teaser, $page);
+}
