@@ -29,15 +29,6 @@ function solr_issues_menu() {
   return $items;
 }
 
-/*
-  function solr_issues_init() {
-  $query = db_query('select nid from {node}
-  where type = "poll" and created between 1338386655 and 1338576169');
-  while ($nid = db_fetch_object($query)) {
-  node_delete($nid->nid);
-  }
-  }
- */
 
 function solr_issues_search_form($form_state) {
   $form['date_filters'] = array(
@@ -523,7 +514,6 @@ function solr_issues_search_output($results) {
         $output .= solr_issues_node_output($node);
       }
       else if ($_POST['voted'] == 'false') {
-
         $output .= solr_issues_node_output($node);
       }
     }

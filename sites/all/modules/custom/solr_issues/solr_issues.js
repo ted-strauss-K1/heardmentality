@@ -49,10 +49,20 @@ $(document).ready(function() {
       $('#edit-block-country,#edit-block-defstate,#edit-block-defcity').attr('disabled',false);
     }
   });
+  
   $('.pager-item a.active').live('click', function(){
     var page= $(this).html()- 1;
     get_issues_solr(page);
  
+    return false;
+  });
+  
+  $('.pager-last a.active, .pager-next a.active,.pager-previous a.active,.pager-first a.active').live('click', function(){
+    var href = $(this).attr('href');
+    var strstart= href.indexOf('page=');
+    var strend = href.indexOf('&',strstart);
+    var page =$(this).attr('href').substring(strstart+5,strend);
+    get_issues_solr(page);
     return false;
   });
   
