@@ -2974,15 +2974,6 @@ ul.menu.second li:first-child a.add:hover {
 #user-register span.password-confirm div.inner_confirm  {
 	padding-right: 0;
 }
- 
-#permalink_text {
-	font-family: Arial, sans-serif;
-}
-
-#permalink_text span {
-	display: inline-block;
-	padding-bottom: 15px;
-}
 
 #dialog-profile-pic {
 	margin: 0 0.5em 0 1em;

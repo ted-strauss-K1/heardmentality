@@ -127,7 +127,10 @@ function user_profile_access_user_profile($user_access) {
   } else {
     $user = _user_profile_get_user($string);
     if ($user === false) {
-      drupal_not_found();
+      if (arg(0) == 'user' && arg(1) == 'profile') {
+        drupal_not_found();
+      }
+      return false;
     } else {
       return user_access($user_access);
     }
@@ -272,8 +275,7 @@ function user_profile_block_preprocess(&$vars) {
     $preprocessed['user'] = $user;
     $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
     $preprocessed['badges'] = badges_get_userbadges($user->uid);
-    $rank = ranks_user_rank($user->uid);
-    $preprocessed['rank'] = $rank['name'];
+    $preprocessed['rank'] = $user->rank['name'];
     $preprocessed['points'] = up_userpoints_get($user->uid);
   }
   foreach ($preprocessed as $key => $value) {
@@ -363,11 +365,7 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
  */
 function user_profile_view_preprocess(&$vars) {
   $vars['user'] = _user_profile_get_user(arg(3));
-//  if ($vars['user'] === false) {
-//    drupal_not_found();
-//  }
-  $rank = ranks_user_rank($vars['user']->uid);
-  $vars['rank'] = $rank['name'];
+  $vars['rank'] = $vars['user']->rank['name'];
 }
 
 /*
@@ -397,7 +395,8 @@ function user_profile_heatmap_preprocess(&$vars) {
 
   $cases['nodes'] = array(
     'name' => t('Issues'),
-    'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {content_field_issue_country} cfic INNER JOIN {node} n ON n.nid = cfic.nid AND n.type = '%s' INNER JOIN {geonames_countryinfo} gc ON gc.name = cfic.field_issue_country_value GROUP BY gc.iso_alpha2", 'poll'),
+//    'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {content_field_issue_country} cfic INNER JOIN {node} n ON n.nid = cfic.nid AND n.type = '%s' INNER JOIN {geonames_countryinfo} gc ON gc.name = cfic.field_issue_country_value GROUP BY gc.iso_alpha2", 'poll'),
+    'result' => db_query("SELECT cfic.field_issue_country_value AS country, COUNT(*) AS count FROM {content_field_issue_country} cfic WHERE cfic.field_issue_country_value IS NOT NULL GROUP BY cfic.field_issue_country_value"),
   );
 
   $cases['online'] = array(
@@ -407,7 +406,8 @@ function user_profile_heatmap_preprocess(&$vars) {
 
   $cases['votes'] = array(
     'name' => t('Votes'),
-    'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {poll_votes} AS pv INNER JOIN {content_field_issue_country} cfic ON cfic.nid = pv.nid INNER JOIN {geonames_countryinfo} gc ON gc.name = cfic.field_issue_country_value GROUP BY gc.iso_alpha2"),
+//    'result' => db_query("SELECT gc.name AS country, COUNT(*) AS count FROM {poll_votes} AS pv INNER JOIN {content_field_issue_country} cfic ON cfic.nid = pv.nid INNER JOIN {geonames_countryinfo} gc ON gc.name = cfic.field_issue_country_value GROUP BY gc.iso_alpha2"),
+    'result' => db_query("SELECT cfic.field_issue_country_value AS country, COUNT(*) AS count FROM {poll_votes} AS pv INNER JOIN {content_field_issue_country} cfic ON cfic.nid = pv.nid WHERE cfic.field_issue_country_value IS NOT NULL GROUP BY cfic.field_issue_country_value"),
   );
 
   foreach ($cases as $key => $case) {

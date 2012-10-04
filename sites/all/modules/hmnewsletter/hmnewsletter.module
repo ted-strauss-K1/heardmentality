@@ -30,21 +30,6 @@ function getFollowers($follwerQ='', $subject='') {
 
     $path = drupal_get_path('theme', $theme);
 
-//    if (findtask() <= 3) {
-//        $follwerQ = db_query("
-//								SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
-//								INNER JOIN {users} AS u ON u.uid = f.uid
-//								WHERE u.`notify_etype` = 2
-//								ORDER BY f.`uid`
-//						");
-//    } else {
-//        $follwerQ = db_query("
-//								SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
-//								INNER JOIN {users} AS u ON u.uid = f.uid
-//								WHERE u.`notify_etype` = 1
-//								ORDER BY f.`uid`
-//						");
-//    }
 
     $follwers = array();
     $allfollwers = array();

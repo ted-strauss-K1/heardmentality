@@ -1,24 +1,17 @@
 $(document).ready(function() {
   $(".form-submit.button.vote.floatright").live("click", function(e) {
-
     var options = {
-      //  target: "#issue_edit_form_stream",
       url: "issues_solr2/submit",
       dataType: 'json',
       success: function(data) {
         $('#issue_edit_form_stream').parent().parent().parent().html(data.data);
-        // $("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
-      //    alert("Спасибо за комментарий!");
       }
     };
-    // передаем опции в  ajaxSubmit
-
     $(this).parents('#issue_edit_form_stream').ajaxSubmit(options);    
-
     return false;
-  //    })
+
   });
-  
+  var get_par = parseGetParams();
   get_issues_solr(null, null);  
   
   $('#search-solr-block').click(function(){  
@@ -56,10 +49,20 @@ $(document).ready(function() {
       $('#edit-block-country,#edit-block-defstate,#edit-block-defcity').attr('disabled',false);
     }
   });
+  
   $('.pager-item a.active').live('click', function(){
     var page= $(this).html()- 1;
     get_issues_solr(page);
  
+    return false;
+  });
+  
+  $('.pager-last a.active, .pager-next a.active,.pager-previous a.active,.pager-first a.active').live('click', function(){
+    var href = $(this).attr('href');
+    var strstart= href.indexOf('page=');
+    var strend = href.indexOf('&',strstart);
+    var page =$(this).attr('href').substring(strstart+5,strend);
+    get_issues_solr(page);
     return false;
   });
   
@@ -80,20 +83,25 @@ $(document).ready(function() {
     var city = $('#edit-block-defcity').val();
     var my_region = $('#my_region').prop('checked');
     
-    if (categ != null) {
-      categ.map(function(index, element) {
-        tid.push(index);
-      });
-      if (defarea != null) {
-        defarea.map(function(index, element) {
+    if (typeof get_par['tid'] == "undefined") {
+      if (categ != null) {
+        categ.map(function(index, element) {
           tid.push(index);
         });
-        if (defdetail != null) {
-          defdetail.map(function(index, element) {
+        if (defarea != null) {
+          defarea.map(function(index, element) {
             tid.push(index);
           });
+          if (defdetail != null) {
+            defdetail.map(function(index, element) {
+              tid.push(index);
+            });
+          }
         }
       }
+    }
+    else {
+      tid.push(get_par['tid']);
     }
     parameters['tid']= tid;
     if (page) {
@@ -130,3 +138,13 @@ $(document).ready(function() {
   }
 
 });
+
+function parseGetParams() { 
+  var $_GET = {}; 
+  var __GET = window.location.search.substring(1).split("&"); 
+  for(var i=0; i<__GET.length; i++) { 
+    var getVar = __GET[i].split("="); 
+    $_GET[getVar[0]] = typeof(getVar[1])=="undefined" ? "" : getVar[1]; 
+  } 
+  return $_GET; 
+} 

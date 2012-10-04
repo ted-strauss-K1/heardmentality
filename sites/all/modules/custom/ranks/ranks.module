@@ -44,7 +44,27 @@ function ranks_get() {
   return $ranks;
 }
 
-/*
+/**
+ * Implementation of hook_user()
+ */
+function ranks_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+    case 'load' :
+      $account->rank = ranks_user_rank($account->uid);
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_init()
+ */
+function ranks_init() {
+  global $user;
+  $edit = array();
+  ranks_user('load', $edit, $user);
+}
+
+/**
  * Get the user's rank
  */
 function ranks_user_rank($uid) {
@@ -58,5 +78,6 @@ function ranks_user_rank($uid) {
       break;
     }
   }
-  return $rank;
+  # rules event to see if user got new rank
+  return $rank + array('up' => $up);
 }
