@@ -119,7 +119,8 @@ function arguments_form($form, $nid) {
 
   $form['link-arg'] = array(
     '#type'       => 'item',
-    '#value'      => l(t('Or post a reference'), '#') . t(' (news, blog, gov, data...)'),
+    '#value'      => l(t('Or post a reference'), '#'),
+	//'#value'      => l(t('Or post a reference'), '#') . t(' (news, blog, gov, data...)'),
     '#prefix'     => '<div class="argument-form">',
     '#suffix'     => '</div>',
     '#id'         => 'link_arg',

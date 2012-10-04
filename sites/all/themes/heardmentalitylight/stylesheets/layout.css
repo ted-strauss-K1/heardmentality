@@ -88,19 +88,21 @@
 	}
 	
 	.top-right.blue h6{ 
-		color:white;
+		color:#444;
+		text-transform:uppercase;
 		font-size:13px;
 		letter-spacing:0.15em;
 		margin:4px 0 2px /*7px*/ 0;
 		line-height:15px; 
 		font-weight:normal;
 		text-align:right;
-		min-width: 101px;
+		min-width: 81px;
 		float: right;
+		padding-right: 20px;
 		}	
 	.top-right.blue h6 a{ 
 		font-weight:normal;
-		padding:8px 15px 0px 10px;
+		padding: 0;
 		text-shadow:none;
 		color:#444;text-transform:uppercase;
 		}
@@ -479,6 +481,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	
 	.grey-box-cat ul.tags {
 		margin: 0;
+		padding: 0;
 	}
 	
 	ul.tags li {
@@ -1519,6 +1522,10 @@ form#user-details {
 	margin: 0;
 }
 
+form#user-profile-edit-form {
+	margin: 0;
+}
+
 #edit_profile h2.din {
 	float: left;
 	width: 50%;
@@ -2045,18 +2052,26 @@ p.profile-status {
 }
 
 a.facebook, a.twitter {
-	background: url(../images/facebook.png) left center no-repeat;
+	background: url(../images/sm_icons.png) -69px 0 no-repeat;
 	border-radius: 3px;
-	display:block;
-	width:35px;
-	height:40px;
-	margin:0px 0px 10px 0px ;
+	display: block;
+	width: 18px;
+	height: 39px;
+	margin: 1px 21px 16px 0;
 }
+
 a.twitter {
-	background: url(../images/twitter.png) left center no-repeat;
-	width:39px;
-	height:40px;
-	margin:-2px 5px 20px -10px ;
+	background-position: 0 0;
+	width: 25px;
+	height: 34px;
+	margin: 4px 23px 16px 3px;
+}
+
+a.facebook.google {
+	background-position: -132px 0;
+	width: 43px;
+	height: 37px;
+	margin: 3px 0 16px;
 }
 
 p.policy {
@@ -2668,9 +2683,9 @@ ul.menu.second li:first-child a.add:hover {
   clear:both;
 }
 
-body.admin-menu {
+/*body.admin-menu {
     margin-top: 52px !important;
-}
+}*/
 
 .sixteen .border-bottom {
     margin: 52px 0 0 0;
@@ -3030,6 +3045,10 @@ div.avatar-selection-pager-nav a:hover {
 	margin: 0;
 }
 
+#block-user_profile-user-profile-right .profile-status-toggle {
+	margin-bottom: 30px;
+}
+
 .grey-box.poll-box {
 	background: url(../images/white_50.png) repeat scroll 0 0 transparent;
     border: 1px solid #C0C0C0;
@@ -3040,7 +3059,7 @@ div.avatar-selection-pager-nav a:hover {
 	-o-border-radius: 4px;
     margin: 0;
 	position: relative;
-	top: 30px;
+	top: 0px;
     padding: 20px 20px 14px 14px;
 }
 
@@ -3279,8 +3298,8 @@ h2.page-title {
 	width: 100%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .form-item #edit-add-vote-new-suggest-answer,
-.search_list .poll-vote-area .fieldset-wrapper .form-item #edit-add-vote-new-suggest-answer{
+#new_vote .poll-vote-area .fieldset-wrapper .form-item input.form-text,
+.search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text{
 	float: left;
 	border: 1px solid #b3b3b3;
 	color: #4c4c4c;
@@ -3289,8 +3308,8 @@ h2.page-title {
 	width: 97%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .form-item #edit-add-vote-new-suggest-answer:focus,
-.search_list .poll-vote-area .fieldset-wrapper .form-item #edit-add-vote-new-suggest-answer:focus {
+#new_vote .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus,
+.search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus {
 	border: 1px solid #9c9c9c;
  	-moz-box-shadow: 0 0 3px rgba(0,0,0,0.3);
 	-webkit-box-shadow: 0 0 3px rgba(0,0,0,0.3);
@@ -4004,13 +4023,18 @@ h6#deb-ana:hover a,
 
 #debate_list_area .arg .argument_body,
 #debate_list_area .reply_body {
-	margin: 0;
+	/*margin: 0;
 	font-size: 12px;
 	line-height: 18px;
 	color: #4c4c4c;
 	padding: 0 0 9px;
     float: left;
-    width: 400px;
+    width: 400px;*/
+	margin: 0;
+	font-size: 12px;
+	line-height: 18px;
+	color: #4c4c4c;
+	padding: 0 0 9px;
 }
 
 #debate_list_area .reply_body {
@@ -4812,6 +4836,12 @@ p.result-title {
 .vote-results span.highlight {
 	padding: 0 5px;
 	color: #fff;
+}
+
+span.no_show {
+	padding: 0 17px;
+	color: #ef3d3b;
+	font-style: italic;
 }
 
 /*Small circle*/

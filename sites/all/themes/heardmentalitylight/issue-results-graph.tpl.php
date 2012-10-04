@@ -2,14 +2,13 @@
   <h2 class="din"><?php print t('Results'); ?></h2>
   <div class="vote-results">
     <?php if ($node->votes['#all'] < 10) : ?>
-      <?php print t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.'); ?>
+      <span class="no_show"><?php print t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.'); ?></span>
     <?php else : ?>
       <?php if ($node->uservoted) : ?>
 
       <ul>
         <li class="part">
           <div class="space">
-            <p class="result-title dinbold" style="width: auto; padding: 2px 8px 0 0;"><?php #print t('by'); ?></p>
             <div class="inner filter"><?php print $filter; ?></div>
           </div>
         </li>
