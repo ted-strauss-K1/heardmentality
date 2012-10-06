@@ -227,7 +227,7 @@
 	a.button.lighter,  input.lighter,
 	.ui-dialog .ui-tabs-panel #user-login .form-submit,
 	.ui-dialog .ui-tabs-panel #user-register .form-submit{
-		background: none #d4d4d4;
+		background: none #dfdfdf;
 		background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c3c3c3));
 		background: -webkit-linear-gradient(top, #efefef, #c3c3c3);
 		background:    -moz-linear-gradient(top, #efefef, #c3c3c3);
@@ -248,7 +248,7 @@
 	a.button.lighter:hover,  input.lighter:hover,
 	.ui-dialog .ui-tabs-panel #user-login .form-submit:hover,
 	.ui-dialog .ui-tabs-panel #user-register .form-submit:hover {
-		background: none #555;
+		background: none #d6d6d6;
 		background: -webkit-gradient(linear, left top, left bottom, from(#e9e9e9), to(#b3b3b3));
 		background: -webkit-linear-gradient(top, #e9e9e9, #b3b3b3);
 		background:    -moz-linear-gradient(top, #e9e9e9, #b3b3b3);
