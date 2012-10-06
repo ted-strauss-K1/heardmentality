@@ -293,8 +293,10 @@
 		#edit_profile .user-info-inputs > li {
 			margin-bottom: 15px;
 		}
-	
-	}
+		
+		#user-profile-location div {
+			margin: 0 0 15px;
+		}
 	
 /*******************************
 Mobile Only 
@@ -609,6 +611,10 @@ Mobile Only
 		#cit-stat {
 			display: block;
 			clear: left;
+		}
+		
+		#user-profile-location div {
+			margin: 0 0 15px;
 		}
 		
 	/*Issues search*/

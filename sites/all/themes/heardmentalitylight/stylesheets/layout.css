@@ -1617,7 +1617,7 @@ select#edit-language {
 #edit_profile .country-info .validate-error,
 #edit_profile .country-info .validate-error-wait {
 	padding: 8px 0 0;
-	width: auto;	
+	width: auto;
 }
 
 #edit_profile .validate-error-wait {
@@ -1912,7 +1912,7 @@ p.profile.action-comment-ref {padding:0px 10px 0px 10px;margin:10px 0px 0px 20px
     text-align: right;
 }	
 	
-img.fo	llowing-user, img.user-thumb {width:44px;height:44px;margin:5px 2px 0; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
+img.following-user, img.user-thumb {width:44px;height:44px;margin:5px 2px 0; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
 img.following-user-2 {float:left;width:60px;height:60px;margin:8px 10px 0px 2px; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;}
 img.user-thumb {margin:5px 10px 0px 2px; }
 
@@ -2049,8 +2049,13 @@ p.profile-status {
 
 .following_page .one_person {
 	border-top: 1px dotted #888888;
-    margin: 7px 0 0;
-    padding: 15px 0 0;
+    margin: 12px 0 0;
+    padding: 0;
+}
+
+.following_page .one_person:first-child {
+	margin: 0;
+	border: 0 none;
 }
 
 .following_page a.button {
@@ -2062,14 +2067,15 @@ p.profile-status {
 }
 
 .following_page img.following-user-2 {
-	margin: 0 10px 0 0;
+	margin: 0 10px 15px 0;
 	float: none;
 	vertical-align: top;
 }
 
 .following_page span.name {
-	font-size: 20px;
-	color: #181818;
+	font-size: 22px;
+	display: inline-block;
+	padding-bottom: 15px;
 }
 
 /* #Footer
@@ -5581,4 +5587,8 @@ ul.sub-pages-menu a:hover {
 	position: fixed;
 	top: 0;
 	margin-top: 10px;
+}
+
+#visualization > div {
+	margin: 0 auto;
 }
