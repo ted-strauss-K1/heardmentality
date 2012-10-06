@@ -1,22 +1,22 @@
-<div class="following">
+<div class="following_page">
   <?php if ($users) : ?>
     <?php $param = $code == 'following' ? 'requestee' : 'requester'; ?>
 
     <?php foreach ($users as $item) : ?>
       <?php $user = $item->{$param}; ?>
       
-      <div>
-        <div>
-          <?php print theme('follower_button', $user); ?>
-        </div>
-        <a href="/user/profile/view/<?php print $user->name; ?>">
-          <img class="following-user-2" src="<?php print user_profile_image($user); ?>" alt="">
-        </a>
-        <h2 class="din">
-          <span class=""><a href="/user/profile/view/<?php print $user->name; ?>"><?php print $user->name; ?></a></span>
-        </h2>
+      <div class="one_person clearfix">
+        <?php print theme('follower_button', $user); ?>
+		
+		<div class="name_wrapper">
+			<a href="/user/profile/view/<?php print $user->name; ?>">
+			  <img class="following-user-2" src="<?php print user_profile_image($user); ?>" alt="">
+			</a>
+			<span class="name din">
+			  <a href="/user/profile/view/<?php print $user->name; ?>"><?php print $user->name; ?></a>
+			</span>
+		</div>
       </div>
-      <hr class="short">
 
     <?php endforeach; ?>
 
@@ -36,4 +36,3 @@
   <?php endif; ?>
 
 </div>
-<br class="clear">

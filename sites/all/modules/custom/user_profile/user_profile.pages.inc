@@ -208,7 +208,7 @@ function user_profile_edit_form(&$form_state) {
   );
   $form['subscription_submit'] = array(
     '#type'           => 'submit',
-    '#value'          => t('Subimt'),
+    '#value'          => t('Submit'),
     '#id'             => 'subscription_submit',
     '#name'           => 'subscription_submit',
     '#attributes'     => array('class' => 'submit-issue leftfloat'),
@@ -224,7 +224,7 @@ function user_profile_edit_form(&$form_state) {
   );
   $form['language_submit'] = array(
     '#type'           => 'submit',
-    '#value'          => t('Subimt'),
+    '#value'          => t('Submit'),
     '#id'             => 'language_submit',
     '#attributes'     => array('class' => 'submit-issue leftfloat'),
     '#submit'         => array('user_profile_edit_form_submit_language'),

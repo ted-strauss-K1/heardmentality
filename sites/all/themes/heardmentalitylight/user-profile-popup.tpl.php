@@ -4,7 +4,7 @@
 
 <?php else : ?>
 
-<div id="dialog" title="<?php print $name; ?>" class="dialog">
+<div id="dialog" title="<?php print $name; ?>" class="dialog vcard">
 
   <label for="profile" class="profile"></label>
   <a href="/user/profile/view" title="<?php print t('View Profile');?>">
