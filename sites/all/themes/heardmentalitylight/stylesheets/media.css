@@ -55,6 +55,10 @@
 		input.add-answer {
 			margin:0px 5px 5px 0px;
 		}
+		
+		#issue-create-form input.add-answer {
+			margin: 0;
+		}
 
 		.button.participate {
 			margin:2px 0px 0px 0px;
@@ -118,6 +122,10 @@
 		
 		#argument-add-form .add_button {
 			width: 62%;
+		}
+		
+		#issue-create-form label span.title, #issue-create-form label span.guides {
+			margin: 0;
 		}
 		
 	}
@@ -591,7 +599,8 @@ Mobile Only
 		}
 		
 		.dark-grey-box.top,
-		.filter_search.issues_search {
+		.filter_search.issues_search,
+		#guidelines		{
 			margin-top: 30px;
 		}
 		
@@ -807,6 +816,29 @@ Mobile Only
 	
 	.table-bor-form-item-1 ul {
 		margin-left: 1.3em;
+	}
+	
+	#issue-create-form label.add-on {
+		margin: 0 0 20px 0;
+		width: 100%;
+	}
+	
+	#issue-create-form .form-item {
+		clear: both;
+		margin: 0;
+	}
+	
+	.new-issue .number {
+		float: left;
+		margin: 0;
+	}
+		
+	#issue-create-form label span.title, #issue-create-form label span.guides {
+		margin: 0 0 0 35px;
+	}
+	
+	#issue-create-form label span.title {
+		margin-top: -12px;
 	}
 
 }

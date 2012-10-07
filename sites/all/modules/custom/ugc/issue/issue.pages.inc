@@ -19,9 +19,9 @@ function issue_create_form(&$form_state) {
   $form['issue_cont'] = array(
     '#type' => 'markup',
     '#value' => '
-      <div class="grey-box">
+      <div class="grey-box full" id="create_box">
         <h2 class="din">' . t('Add an Issue') . '</h2>
-        <div class="new-issue">
+        <div class="new-issue clearfix">
           <hr class="short2">
     '
   );
@@ -31,7 +31,6 @@ function issue_create_form(&$form_state) {
       <label for="" class="add-on">
         <div class="number dinbold">1</div>
         <span class="title ">' . t('Question') . '</span>
-        <br>
         <span class="guides">' . t('Max 140 chars.') . '</span>
       </label>
     '
@@ -53,7 +52,6 @@ function issue_create_form(&$form_state) {
       <label for="" class="add-on">
         <div class="number dinbold">2</div>
         <span class="title ">' . t('Context') . '</span>
-        <br>
         <span class="guides">' . t('Enter a brief description or backstory to provide context. You may include links.') . '</span>
       </label>
     '
@@ -81,7 +79,6 @@ function issue_create_form(&$form_state) {
         <label for="" class="add-on">
           <div class="number dinbold">3</div>
           <span class="title ">' . t('Answers') . '</span>
-          <br>
           <span class="guides">' . t('Enter at least two answers.') . '</span>
         </label>
     ',

@@ -1246,7 +1246,7 @@ ul.map-stats li{
   float:left;
   color:#999;
   font-size:30px;
-  margin:10px 6px 70px 0px;
+  margin:10px 6px 0 0;
   text-shadow: #fff 0px 1px;
 }
 
@@ -1408,12 +1408,12 @@ label span.guides {
 }
 
 input.add-answer {
-	opacity:0.8;
 	float:right;
 	margin:-15px 2px 5px 0px;
 }
-input.add-answer:hover {
-	opacity:1.0;
+
+#issue-create-form input.add-answer {
+	margin: 0;
 }
 
 label.before-submit {
@@ -1518,7 +1518,8 @@ form#user-details {
 }
 
 #edit_profile,
-#profile_overview {
+#profile_overview,
+#create_box {
 	margin: 0;
 }
 
@@ -2049,8 +2050,8 @@ p.profile-status {
 
 .following_page .one_person {
 	border-top: 1px dotted #888888;
-    margin: 12px 0 0;
-    padding: 0;
+    margin: 0;
+    padding: 15px 0 0;
 }
 
 .following_page .one_person:first-child {
@@ -2060,6 +2061,7 @@ p.profile-status {
 
 .following_page a.button {
 	float: right;
+	margin-bottom: 12px;
 }
 
 .following_page .name_wrapper {
@@ -2067,7 +2069,7 @@ p.profile-status {
 }
 
 .following_page img.following-user-2 {
-	margin: 0 10px 15px 0;
+	margin: 0 10px 12px 0;
 	float: none;
 	vertical-align: top;
 }
@@ -2075,7 +2077,7 @@ p.profile-status {
 .following_page span.name {
 	font-size: 22px;
 	display: inline-block;
-	padding-bottom: 15px;
+	padding-bottom: 12px;
 }
 
 /* #Footer
@@ -5581,7 +5583,7 @@ ul.sub-pages-menu a:hover {
 	position: absolute;
 	top: 0;
 	z-index: 99;
-}
+}	
 
 .columns.jumping .special.fixed {
 	position: fixed;
@@ -5591,4 +5593,70 @@ ul.sub-pages-menu a:hover {
 
 #visualization > div {
 	margin: 0 auto;
+}
+
+/*Create Issue*/
+
+#issue-create-form {
+	margin: 0;
+}
+
+#issue-create-form .form-item {
+	margin: 0 0 0 35%;
+}
+
+#issue-create-form label span.title,
+#issue-create-form label span.guides {
+	display: block;
+	margin-left: 36px;
+}
+
+#issue-create-form textarea {
+	margin: 0 0 23px;
+	padding: 5px;
+	width: 95%;
+	height: 60px;
+	overflow-y: auto;
+	float: right;
+}
+
+#issue-create-form .resizable-textarea {
+	width: 100%;
+}
+
+#issue-create-form .grippie {
+	margin: 0 0 0 -10px !important;
+	float: right;
+	clear: right;
+	width: 100%;
+	display: none;
+}
+
+#issue-create-form label.add-on {
+	margin: 7px 3% 20px 0;
+}
+
+#issue-create-form input.form-text {
+    float: right;
+    padding: 8px 5px;
+    width: 95%;
+}
+
+#guidelines {
+	margin-top: 59px;
+	padding: 15px 14px;
+}
+
+#guidelines label.tags-on {
+	background: url(../images/icons/187-pencil.png) no-repeat right top transparent;
+	padding: 5px 0 18px;
+	width: 100%;
+	font-size: 12px;
+    line-height: 1em;
+    text-transform: uppercase;
+	margin: 0;
+}
+
+#guidelines p.issue-meta {
+	margin-top: 0;
 }

@@ -6,7 +6,7 @@ exit;
  */
 
 ?>
-<div class="grey-box">
+<div class="grey-box full" id="create_box">
                 <h2 class="din">Add an Issue</h2>
                 <div class="new-issue">
                 <form action="">
