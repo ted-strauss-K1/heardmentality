@@ -93,7 +93,7 @@ function flagger_form(&$form,$content_id, $content_type) {
 
   $form['title'] = array(
     '#type'  => 'markup',
-    "#value" => t('Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?'),
+    "#value" => t('Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing? '),
   );
   $form['guide'] = array(
     '#type'  => 'markup',

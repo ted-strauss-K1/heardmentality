@@ -5660,3 +5660,8 @@ ul.sub-pages-menu a:hover {
 #guidelines p.issue-meta {
 	margin-top: 0;
 }
+
+#flagger-form input.form-checkbox {
+	position: relative;
+	top: 2px;
+}
