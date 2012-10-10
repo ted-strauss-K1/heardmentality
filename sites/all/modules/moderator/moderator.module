@@ -649,7 +649,7 @@ function moderator_edit_issue_form($form_state, $qid) {
       $secondChildren[$ctid] = $scat->name;
     }
   }
-  //echo '<pre>'; print_r($firstChildren);
+
   $form['sub_categories'] = array('#type' => 'markup',
     '#value' => '<div id="sub-cat-wrapper" style="padding-left:5px; float:left"></div>',
   );
@@ -659,9 +659,14 @@ function moderator_edit_issue_form($form_state, $qid) {
     '#suffix' => '<br /><div class="clear"></div>');
   $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label class="cat">' . t('Location') . '</label>');
 
+
+
   $options = array(
     'sortby' => 'countryname',
   );
+
+
+
   $countryList = geonames_query('countryinfo', NULL, $options);
   //print_r($countryList);
   foreach ($countryList->results as $country) {
@@ -671,6 +676,8 @@ function moderator_edit_issue_form($form_state, $qid) {
   while ($country = db_fetch_object($qcountries)) {
     $countriesSelected[] = $country->country;
   }
+
+
   $form['q_country'] = array(
     '#type' => 'select',
     '#options' => $countries,
@@ -691,6 +698,10 @@ function moderator_edit_issue_form($form_state, $qid) {
   $form['city_div'] = array('#type' => 'markup',
     '#value' => '<div id="city-wrapper" style="padding-left:5px; float:left"></div>',
     '#suffix' => '<br /><div class="clear"></div>');
+
+
+
+
   $form['bottom_line'] = array('#type' => 'markup',
     '#value' => '<hr class="bottom">');
   $form['qid'] = array('#type' => 'hidden',
@@ -1052,8 +1063,6 @@ function get_dupe_query($qid='') {
   return array('query' => $final, 'count' => $count);
 }
 
-
-
 function merge_dupeform($form_state, $qid, $dupeid) {
   // Access log settings:
   global $base_url, $user, $base_root;
@@ -1098,15 +1107,15 @@ function merge_dupeform($form_state, $qid, $dupeid) {
 
 function load_question($qid='') {
 
-    if (!empty($qid)) {
+  if (!empty($qid)) {
 
-        $query = "SELECT * FROM question where qid='$qid' LIMIT 0,1";
-        $result = ExecuteQuery($query, "select");
-    }
-    foreach ($result as $final) {
-
-    }
-    return $final;
+    $query = "SELECT * FROM question where qid='$qid' LIMIT 0,1";
+    $result = ExecuteQuery($query, "select");
+  }
+  foreach ($result as $final) {
+    
+  }
+  return $final;
 }
 
 function merge_dupeform_validate(&$form, $form_state, $form_id) {
@@ -1239,7 +1248,6 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
         db_query("UPDATE {poll_choices} SET chvotes =%d WHERE nid = %d AND chorder = %d", $totcnt, $qid, $set_order);
     }
     //merge answers ends
-
     //merge suggest answers
     issue_sa_merge($qid, $dupeid);
 
@@ -1269,7 +1277,6 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
      * odyachenko - old way the user points are updated
      */
 //    db_query("update {tbl_user_points} set qid='$qid' where qid='$dupeid'");
-
     //badges table
     db_query("update {user_badges} set qid='$qid' where qid='$dupeid'");
 
@@ -1512,7 +1519,6 @@ function moderator_flag_save() {
   return $msg;
 }
 
-
 function htmlmail($to, $subject, $message, $from='', $headers = NULL) {
   global $gSitePath, $user, $gDocPath, $base_root, $base_path;
   $from = variable_get('site_mail');
@@ -1523,12 +1529,12 @@ function htmlmail($to, $subject, $message, $from='', $headers = NULL) {
 }
 
 function htmlmail_function($to, $subject, $message, $headers = NULL) {
-  global $gSitePath, $user, $gDocPath, $base_root, $base_path,$base_url, $theme_path, $theme, $conf;
+  global $gSitePath, $user, $gDocPath, $base_root, $base_path, $base_url, $theme_path, $theme, $conf;
 
 
   $from = variable_get('site_mail');
 // To send HTML mail, the Content-type header must be set
-  $path =$base_url.'/'.drupal_get_path('theme', $theme);
+  $path = $base_url . '/' . drupal_get_path('theme', $theme);
 
   $newmessage = '';
 
@@ -1553,7 +1559,7 @@ function htmlmail_function($to, $subject, $message, $headers = NULL) {
 
 					#email-main{ width:622px; margin:0 auto; min-height:200px; height:auto !important; height:200px; border:2px #8f8c8c solid;}
 					#email-main #header{ background:#8f8c8c; padding:7px 0px; padding-left:10px;}
-					#email-main #header .email-logo{ background:url('.$path . '/images/email-logo.jpg) no-repeat; width:229px; height:27px;}
+					#email-main #header .email-logo{ background:url(' . $path . '/images/email-logo.jpg) no-repeat; width:229px; height:27px;}
 					#email-main #content{ margin:0px; padding:10px;}
 					#email-main #content h1{ font:normal 22px Arial, Helvetica, sans-serif; color:#000; text-decoration:none;}
 					#email-main #content h1 a{ font:normal 22px Arial, Helvetica, sans-serif; color:#000; text-decoration:none;}
@@ -1588,14 +1594,14 @@ function htmlmail_function($to, $subject, $message, $headers = NULL) {
 				<body>
 				<div id="email-main" style="width:622px; margin:0 auto; min-height:200px; height:auto !important; height:200px; border:2px #8f8c8c solid;">
 				 <div id="header" style="background:#8f8c8c; padding:7px 0px; padding-left:10px;">
-				  <div class="email-logo" style="width:229px; height:27px;"><img src="'.$path . '/images/email-logo.jpg" width="229" height="27" border="0"/></div>
+				  <div class="email-logo" style="width:229px; height:27px;"><img src="' . $path . '/images/email-logo.jpg" width="229" height="27" border="0"/></div>
 				  <div class="clr" style="clear:both;"></div>
 				 </div>
 				<div class="clr" style="clear:both;"></div>
 				<div id="content" style="margin:0px; padding:10px;">';
   $newmessage .= $message;
   $newmessage .='<div class="clr"></div><div align="left">
-              Visit our website <a title="Heardmentality.org" href="'.$base_url.'" target="_blank">Heardmentality.com</a> <br />
+              Visit our website <a title="Heardmentality.org" href="' . $base_url . '" target="_blank">Heardmentality.com</a> <br />
               <br />Thanks, <br />Heardmentality Team. </div>
 							 <div align="center"><a href="' . $base_url . '"><input name="" type="button" value="View All Updates" class="email-btn"/></a></div>
 							 <div class="clr"  style="clear:both;"></div>
@@ -1912,7 +1918,8 @@ function moderator_ahah_callback($type = '', $key = '') {
         $states[] = t('No countries selected');
       }
 
-      $fields['q_state'] = array('#type' => 'select', '#options' => $states,
+      $fields['q_state'] = array('#type' => 'select',
+        '#options' => $states,
         '#multiple' => 'multiple',
         '#ahah' => array('wrapper' => 'city-wrapper',
           'path' => 'moderator/issue/ahah/location/city',
@@ -1935,7 +1942,6 @@ function moderator_ahah_callback($type = '', $key = '') {
       // print_r($selectedCities);
 
 
-
       $steateIds = $_POST['q_state'];
       $fieldNameCity = 'q_city';
 
@@ -1944,6 +1950,7 @@ function moderator_ahah_callback($type = '', $key = '') {
           $explode = explode(',', $code);
           $query = array('geonameid' => $explode[0]);
           $result = geonames_query('children', $query);
+
           foreach ($result->results as $state) {
             $cities[$state['geonameid'] . $explode[0] . $explode[1]] = $state['name'];
           }
@@ -2083,6 +2090,16 @@ function moderator_edit_issue_form_submit($form, &$form_state) {
     $city = explode(",", $q_city[$i]);
     $node->field_issue_city[$i]['value'] = $cities[$i];
   }
+
+  if ((!is_null($node->field_issue_state[0]['value'])) && (isset($node->field_location))) {
+    $query = array('geonameid' => $node->field_issue_state[0]['value'], 'maxrows' => 5);
+    $options = array('columns' => array('lat', 'lng'));
+    $results = geonames_query('get', $query);
+    $node->field_location[0]['lat'] = $results->results[0]['lat'];
+    $node->field_location[0]['lng'] = $results->results[0]['lng'];
+  }
+
+
 
   node_save($node);
   taxonomy_node_delete($node);

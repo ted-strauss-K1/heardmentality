@@ -517,6 +517,9 @@ function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $documen
   if (!empty($entity->votecount)) {
     $document->votecount = (int) $entity->votecount;
   }
+  if (!empty($entity->field_location[0]['lat']) || empty($entity->field_location[0]['lng'])) {
+    $document->coordinates = $node->field_location[0]['lat'] . ',' . $node->field_location[0]['lng'];
+  }
 }
 
 function profile_get_user_region($uid) {
@@ -550,7 +553,7 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     unset($node->field_issue_city);
     $xyz = geonames_countryinfo($node->field_issue_country[0]['value']);
     $query = array('geonameid' => $xyz['geonameid']);
-    $results = geonames_query('children', $query);
+    $results = geonames_query('extendedFindNearby', $query);
     $state_id = mt_rand(0, 6);
     $node->field_issue_state[0]['value'] = $results->results[$state_id]['geonameid'];
     $node->field_issue_state_text[0]['value'] = $results->results[$state_id]['name'];
