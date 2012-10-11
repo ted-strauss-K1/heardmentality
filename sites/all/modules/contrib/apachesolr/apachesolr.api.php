@@ -1,9 +1,19 @@
 <?php
 /**
  * @file
- *   Exposed Hooks in 7.x:
+ *   Exposed Hooks in 6.x-3.x:
  */
 
+/**
+ * Lets modules know when the default environment is changed.
+ */
+function hook_apachesolr_default_environment($env_id, $old_env_id) {
+  $page = apachesolr_search_page_load('core_search');
+  if ($page && $page['env_id'] != $env_id) {
+    $page['env_id'] = $env_id;
+    apachesolr_search_page_save($page);
+  }
+}
 
 /**
  * Add index mappings for Field API types. The default mappings array
@@ -241,7 +251,7 @@ function hook_apachesolr_ENTITY_TYPE_exclude($entity_id, $row, $env_id) {
 /**
  * Add information to index other entities.
  * There are some modules in http://drupal.org that can give a good example of
- * custom entity indexing such as apachesolr_user_indexer, apachesolr_term
+ * custom entity indexing such as apachesolr_user, apachesolr_term
  *
  * @param array $entity_info
  */

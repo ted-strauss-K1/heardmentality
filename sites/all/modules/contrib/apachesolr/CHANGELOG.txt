@@ -1,5 +1,64 @@
 Apache Solr integration 6.x-3.x, xxxx-xx-xx
 ------------------------------
+
+Apache Solr integration 6.x-3.0-beta3, 2012-10-01
+------------------------------
+#1691208 by killua99, pwolanin: fix for When you edit an environment it creates a duplicate if you edit the label.
+#1698050 by duellj: fix for apachesolr_clean_text() should strip extra spaces.
+#1764450 by cpliakas: Improve the docblocks in apachesolr.index.inc.
+#1799330 by pwolanin: fix for Stats table missing t() calls.
+#1800324 by pwolanin: Clean up and align node access tests.
+#1790590 by pwolanin: Fix DrupalSolrOnlineWebTestCase so it works with any multicore setup.
+#1799340 by pwolanin: Put a PHP version requirement in apachesolr.info.
+#1793610 by zengenuity: Fix for regession - spelling suggestions missing.
+#1787370 by pwolanin: Don't complain about schema version if it doesn't match expected naming pattern.
+#1799032 by pwolanin: Remove uneeded object reference in indexing function.
+#1793002 by Nick_vh: Fixed Geo query type in 6.x-3.x causes notices due to lack of context.
+#1792224 by Nick_vh: Fixed Sort block missing.
+#1790894 by pwolanin: fix for Cloning an environment doesn't clone the bundles to be indexed.
+#1668454 by killua99: fix for block_search redirect wrong when Drupal is a dubdirectory.
+#1778266 by mkalkbrenner, Nick_vh: Refactoring of DrupalSolrOnlineWebTestCase to be used by Others.
+#1765938 by cpliakas: Added Move the variable_get() for 'apachesolr_environments()" after the cache_set() so that URLs can be modified dynamically.
+#1789526 by pwolanin: Clarify lack of upgrade path from 6.x-1.x.
+#1650096 by Nick_vh, killua99 | cappadona: Fixed addParam() creates duplicate filters when dealing with fq.
+#1677050 by Nick_vh, cpliakas: Fixed Cancel link redirects to a different page than the user came from when creating a new environment.
+#1787386 by pwolanin: Fixed 6.x-3.x indexing doesn't give the right number to index.
+#1781040 by Nick_vh, mkalkbrenner: Fixed Switch 'Enable spell check" does not work - spell check is allways on.
+#1743138 by mundanity: Fixed Invalid argument when running Drush.
+#1751640 by cpliakas: Added drush commands to see the ID of the last item indexes as well as the next item queued for indexing.
+#1759110 by Nick_vh: Fixed process response fails if variable was set but never removed.
+#1708212 by ianmthomasuk, Nick_vh: Fixed Duplicate field error when indexing single value fields.
+#1741066 by Nick_vh: Added geo query type to make contrib's modules life easier.
+#1717628 by Nick_vh, pwolanin | cpliakas: Added 'Save and Edit" functionality for configuration pages.
+#1719302 by Nick_vh, msti: Fixed Running an empty facet query so the facet blocks can be displayed.
+#1722966 by greggles: Fixed make apachesolr_index_batch_index_finished() message more translateable.
+#1682004 by Nick_vh, cpliakas: Added template hints for search results based on search page.
+#1722012 by Nick_vh, pwolanin | xurubo93: Fixed Warning: Missing argument 4 for apachesolr_multilingual_apachesolr_index_documents_alter().
+#1717490 by pwolanin, Nick_vh: Fixed Search result template suggestions relies on non-required fields.
+#1786450 by Nick_vh, pwolanin: Fixed apachesolr.interface.inc is not always loaded. - Follow up
+#1778050 by Nick_vh, pwolanin: fix for stale cache when CTools is already enabled.
+#1708150 by ianmthomasuk, Nick_vh, pwolanin: Added additional typing to function definitions.
+#1786450 by Nick_vh, pwolanin: Fixed apachesolr.interface.inc is not always loaded.
+#1760592 by cpliakas, pwolanin: fix for core_search page does not use the current default search environment.
+#1732900 by cpliakas: Added Change the wording of the generic 'Apache Solr server unavailable" error message.
+#1778150 by cpliakas, pwolanin: fix for SQL error in apachesolr_environment_load_subrecords().
+#1782436 by cspitzlay: Fixed Error and obsolete hint in code comment.
+#1759004 by mkalkbrenner, pwolanin: fix for apachesolr_search_custom_page_search_form_submit() kills all  parameters.
+#1730840 by pwolanin: Normalize boolean and other values for parameters like hl.
+#1729836 by pwolanin: fix for 'Results per page' option for a search page is broken.
+#1708166 by ianmthomasuk: Fixed Thow exception if asked for invalid solr environment.
+#1708538 by Nick_vh: Fixed Move the start param above the query alter.
+#1718172 by Nick_vh, pwolanin: Fixed Move search result alter hook earlier, and make sure needed data is set.
+#1717958 by pwolanin: Fix for text_und fields should be exposed for searching in the admin section.
+#1706322 by Nick_vh: Fixed Override from settings.php in 6.x-3.x fails due to drupal_array_merge_deep_array() not being available.
+#1439564 by recidive, Nick_vh, neochief, dawehner, jhedstrom: Added Index bundles Export/Import.
+#1670198 by alanmackenzie, killua99 | ruedu: Fixed Unable to export/import settings using features module.
+#1568126 by fearlsgroove, pwolanin, basvredeling: Fixed Apachesolr causes all simpletests to fail.
+#1700472 by pwolanin: Make 'apachesolr_search_process_response_callback' a search environment variable.
+#1698668 by Nick_vh: Fixed Caching issues in Drupal 6 apachesolr.
+
+Apache Solr integration 6.x-3.0-beta2, 2012-07-17
+------------------------------
 #1679346 by Nick_vh: Fixed Service Class is badly defined in 6.x-3.x.
 #1673086 by pwolanin: Add drush commands to get, set, del environment variables.
 #1672738 by Nick_vh: Added Allow a dynamic apachesolr_process_results() function.
@@ -13,7 +72,7 @@ Apache Solr integration 6.x-3.x, xxxx-xx-xx
 #1518108 by killua99, grendzy: Added Devel interface for inspecting solr documents.
 #1658252 by pwolanin: Sync rc2 configs.
 
-Apache Solr integration 6.x-3.0-beta1, 06-20-2012
+Apache Solr integration 6.x-3.0-beta1, 2012-06-20
 ------------------------------
 #1593580 by Nick_vh | jutulen: Fixed Testing connection erases form entries.
 #1547712 by Nick_vh | xeconsulting: Fixed fatal error: Call to undefined function taxonomy_term_load() in apachesolr_search().module line 258.
