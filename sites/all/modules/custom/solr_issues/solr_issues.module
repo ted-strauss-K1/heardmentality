@@ -375,7 +375,6 @@ function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   if ($_POST['all'] == TRUE) {
     $keys = '*:*';
   }
-
   $search_page = apachesolr_search_page_load($page_id);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
   $search_page->settings['apachesolr_search_browse'] = 'results';
@@ -518,8 +517,17 @@ function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $documen
     $document->votecount = (int) $entity->votecount;
   }
   if (!empty($entity->field_location[0]['lat']) || empty($entity->field_location[0]['lng'])) {
-    $document->coordinates = $node->field_location[0]['lat'] . ',' . $node->field_location[0]['lng'];
+    $document->coordinates = $entity->field_location[0]['lat'] . ',' . $entity->field_location[0]['lng'];
   }
+  /*
+  krumo($document);
+  krumo($entity);
+  print '<pre>';
+  print_r($document);
+  print_r($entity);
+  print '</pre>';
+  exit;
+   * */
 }
 
 function profile_get_user_region($uid) {
