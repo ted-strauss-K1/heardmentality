@@ -450,7 +450,7 @@ function user_profile_edit_form_submit($form, &$form_state) {
   }
 
   # additional fields
-  $output = user_profile_geocode('RU', 630090);
+  $output = user_profile_geocode($user->profile_country, $user->profile_zip);
   if (!empty($output)) {
     foreach (array('city', 'state', 'lat', 'lng') as $code) {
       $edit['profile_'.$code] = $output[$code];
