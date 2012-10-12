@@ -625,9 +625,7 @@ function solr_issues_apachesolr_query_prepare($query) {
       $query->setSolrsort('ds_created', 'desc');
       break;
     case 'Views':
-      //   $query->setSolrsort('itm_field_visits_count', 'desc');
-      $query->setSolrsort('itm_field_votes_count', 'asc');
-      //  $query->setSolrsort('ds_created', 'asc');
+      $query->setSolrsort('itm_field_visits_count', 'desc');
       break;
 
     default:
