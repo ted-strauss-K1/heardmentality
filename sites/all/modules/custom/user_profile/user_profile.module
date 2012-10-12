@@ -364,8 +364,8 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
  * Theme user_profile_view preprocess function
  */
 function user_profile_view_preprocess(&$vars) {
-  $vars['user'] = _user_profile_get_user(arg(3));
-  $vars['rank'] = $vars['user']->rank['name'];
+  $vars['account'] = _user_profile_get_user(arg(3));
+  $vars['rank'] = $vars['account']->rank['name'];
 }
 
 /*
@@ -435,14 +435,14 @@ function user_profile_heatmap_preprocess(&$vars) {
  * Theme user_profile_info preprocess function
  */
 function user_profile_info_preprocess(&$vars) {
-  if (!isset($vars['user'])) {
-    $vars['user'] = _user_profile_get_user(arg(3));
-    if ($vars['user'] === false) {
+  if (!isset($vars['account'])) {
+    $vars['account'] = _user_profile_get_user(arg(3));
+    if ($vars['account'] === false) {
       $vars['denied'] = true;
       return;
     }
   }
-  $uid = $vars['user']->uid;
+  $uid = $vars['account']->uid;
 
   $vars['badges'] = badges_get_userbadges($uid);
   $vars['comments'] = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
