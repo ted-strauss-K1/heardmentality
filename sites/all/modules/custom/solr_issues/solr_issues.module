@@ -510,24 +510,7 @@ function solr_issues_search_output($results) {
 }
 
 function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
-  if (!empty($entity->views_count)) {
-    $document->views_count = (int) $entity->views_count;
-  }
-  if (!empty($entity->votecount)) {
-    $document->votecount = (int) $entity->votecount;
-  }
-  if (!empty($entity->field_location[0]['lat']) || empty($entity->field_location[0]['lng'])) {
-    $document->coordinates = $entity->field_location[0]['lat'] . ',' . $entity->field_location[0]['lng'];
-  }
-  /*
-  krumo($document);
-  krumo($entity);
-  print '<pre>';
-  print_r($document);
-  print_r($entity);
-  print '</pre>';
-  exit;
-   * */
+  
 }
 
 function profile_get_user_region($uid) {
@@ -650,5 +633,17 @@ function solr_issues_apachesolr_query_prepare($query) {
     default:
       $query->setSolrsort('itm_field_votes_count', 'asc');
       break;
+  }
+}
+
+function solr_issues_apachesolr_index_documents_alter(array &$documents, $entity, $entity_type, $env_id) {
+  if (!empty($entity->views_count)) {
+    $document->views_count = (int)  $node->field_visits_count[0]['value'];
+  }
+  if (!empty($entity->votecount)) {
+    $document->votecount = (int)  $node->field_votes_count[0]['value'];
+  }
+  if (!empty($entity->field_location[0]['lat']) || empty($entity->field_location[0]['lng'])) {
+    $document->coordinates = $entity->field_location[0]['lat'] . ',' . $entity->field_location[0]['lng'];
   }
 }
