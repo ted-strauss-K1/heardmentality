@@ -509,10 +509,6 @@ function solr_issues_search_output($results) {
   return $output;
 }
 
-function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
-  
-}
-
 function profile_get_user_region($uid) {
   $result = db_query("SELECT up.state from {user_profile} up where up.uid ='%d'", $uid);
   return db_result($result);
@@ -525,6 +521,7 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     $node->field_visits_count[0]['value'] = db_result($result);
     $votes = issue_get_votes($node->nid);
     $node->field_votes_count[0]['value'] = $votes['#all'];
+    $node->location = $node->field_location[0]['lat'] . ',' . $node->field_location[0]['lng'];
   }
 
   if ($op == 'view' && $node->field_issue_country) {
@@ -629,19 +626,7 @@ function solr_issues_apachesolr_query_prepare($query) {
       break;
 
     default:
-      $query->setSolrsort('itm_field_votes_count', 'asc');
+      $query->setSolrsort('itm_field_votes_count', 'desc');
       break;
-  }
-}
-
-function solr_issues_apachesolr_index_documents_alter(array &$documents, $entity, $entity_type, $env_id) {
-  if (!empty($entity->views_count)) {
-    $document->views_count = (int)  $node->field_visits_count[0]['value'];
-  }
-  if (!empty($entity->votecount)) {
-    $document->votecount = (int)  $node->field_votes_count[0]['value'];
-  }
-  if (!empty($entity->field_location[0]['lat']) || empty($entity->field_location[0]['lng'])) {
-    $document->coordinates = $entity->field_location[0]['lat'] . ',' . $entity->field_location[0]['lng'];
   }
 }
