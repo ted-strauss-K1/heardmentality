@@ -29,7 +29,6 @@ function solr_issues_menu() {
   return $items;
 }
 
-
 function solr_issues_search_form($form_state) {
   $form['date_filters'] = array(
     '#type' => 'item',
@@ -95,18 +94,6 @@ function solr_issues_block($op = 'list', $delta = 0, $edit = array()) {
       return $block;
   }
 }
-
-/*
-  function mtime($text) {
-  static $mtime = false;
-  if ($mtime === false) {
-  $mtime = microtime(true);
-  }
-  $int = round(microtime(true) - $mtime, 4);
-  $mtime = microtime(true);
-  return (strlen((string)$int) < 7 ? str_repeat('0', 7 - strlen((string)$int)) : '') . $int . ' : ' . $text;
-  }
- */
 
 function solr_issues_block_form($form_state) {
   $form = array();
@@ -189,7 +176,6 @@ function solr_issues_block_form($form_state) {
       $xyz = geonames_countryinfo($country);
       $query = array('geonameid' => $xyz['geonameid']);
       $results = geonames_query('children', $query);
-      // krumo($results);
       $return_info .= '<span><input type="hidden" name="#edit-block-country" value="' . $country . '">' . $countries[$country] . '<span class="del-item">x</span></span>';
       foreach ($results->results as $state) {
         //  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
@@ -387,14 +373,8 @@ function solr_issues_block_form_submit($form, &$form_state) {
 
 function solr_issues_ajax_response2($page_id, $keys, $path_replacer = NULL) {
   if ($_POST['all'] == TRUE) {
-    $keys = ' ';
+    $keys = '*:*';
   }
-  //print_r($_POST);
-  /* krumo($_POST);
-    exit;
-    print drupal_json(array(
-    'data' => $_POST, 'count' => $count, 'categories' => $output));exit;
-   */
   $search_page = apachesolr_search_page_load($page_id);
   $search_page->search_path = str_replace('%', $path_replacer, $search_page->search_path);
   $search_page->settings['apachesolr_search_browse'] = 'results';
@@ -441,6 +421,7 @@ function solr_issues_apachesolr_query_alter($query) {
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
+
   if (count($_POST['country'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['country'] as $key => $value) {
@@ -452,6 +433,7 @@ function solr_issues_apachesolr_query_alter($query) {
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
+
   if (count($_POST['state'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['state'] as $key => $value) {
@@ -459,15 +441,12 @@ function solr_issues_apachesolr_query_alter($query) {
     }
     $query->addFilterSubQuery($query2, 'OR', 'AND');
   }
+
   if ($_POST['myregion']) {
     global $user;
     $user_region = profile_get_user_region($user->uid);
-    //  $query->addFilter('sm_field_issue_state_text', $user_region);
   }
-  /*  if ($_POST['date_filter']) {
-    $query->addFilter('sm_field_issue_state_text', $user_region);
-    }
-   */
+
 
   switch ($_POST['date_filter']) {
     case 'This Week':
@@ -479,6 +458,8 @@ function solr_issues_apachesolr_query_alter($query) {
     default:
       break;
   }
+
+
   if (count($_POST['city'])) {
     $query2 = apachesolr_drupal_query();
     foreach ($_POST['city'] as $key => $value) {
@@ -528,16 +509,6 @@ function solr_issues_search_output($results) {
   return $output;
 }
 
-function solr_issues_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
-  if (!empty($entity->views_count)) {
-    $document->views_count = (int) $entity->views_count;
-  }
-  if (!empty($entity->votecount)) {
-    $document->votecount = (int) $entity->votecount;
-  }
-  //exit;
-}
-
 function profile_get_user_region($uid) {
   $result = db_query("SELECT up.state from {user_profile} up where up.uid ='%d'", $uid);
   return db_result($result);
@@ -550,7 +521,9 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     $node->field_visits_count[0]['value'] = db_result($result);
     $votes = issue_get_votes($node->nid);
     $node->field_votes_count[0]['value'] = $votes['#all'];
+    $node->location = $node->field_location[0]['lat'] . ',' . $node->field_location[0]['lng'];
   }
+
   if ($op == 'view' && $node->field_issue_country) {
     // remove tags <p> from country name
     foreach ($node->field_issue_country as &$country) {
@@ -568,7 +541,7 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     unset($node->field_issue_city);
     $xyz = geonames_countryinfo($node->field_issue_country[0]['value']);
     $query = array('geonameid' => $xyz['geonameid']);
-    $results = geonames_query('children', $query);
+    $results = geonames_query('extendedFindNearby', $query);
     $state_id = mt_rand(0, 6);
     $node->field_issue_state[0]['value'] = $results->results[$state_id]['geonameid'];
     $node->field_issue_state_text[0]['value'] = $results->results[$state_id]['name'];
@@ -637,5 +610,23 @@ function solr_issues_node_output($node) {
   $node->body = $content;
   //unset($node->teaser);
   // node_invoke_nodeapi($node, 'alter', $teaser, $page);
- return theme('node', $node, $teaser, $page);
+  return theme('node', $node, $teaser, $page);
+}
+
+function solr_issues_apachesolr_query_prepare($query) {
+  switch ($_POST['sort']) {
+    case 'Votes':
+      $query->setSolrsort('itm_field_votes_count', 'desc');
+      break;
+    case 'Latest':
+      $query->setSolrsort('ds_created', 'desc');
+      break;
+    case 'Views':
+      $query->setSolrsort('itm_field_visits_count', 'desc');
+      break;
+
+    default:
+      $query->setSolrsort('itm_field_votes_count', 'desc');
+      break;
+  }
 }
