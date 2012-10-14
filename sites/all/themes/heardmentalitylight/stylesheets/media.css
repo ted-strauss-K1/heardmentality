@@ -128,6 +128,30 @@
 			margin: 0;
 		}
 		
+		a.twitter {
+			margin-right: 16px;
+		}
+		
+		a.facebook {
+			margin-right: 14px;
+		}
+		
+		a.facebook.google {
+			margin-right: 0;
+		}
+		
+		.black-box {
+			position: relative;
+		}
+		
+		img.dark-logo {
+			position: absolute;
+			right: 5px;
+			top: 5px;
+			z-index: 1;
+			margin: 0;
+		}
+		
 	}
 
 /* iPad Portrait/Browser */
@@ -754,7 +778,7 @@ Mobile Only
 	}
 	
 	.profile-message.poll-box {
-		padding: 0;
+		padding: 30px 0 0;
 	}
 			
 	.userinfo-debate {
@@ -840,7 +864,30 @@ Mobile Only
 	#issue-create-form label span.title {
 		margin-top: -12px;
 	}
+	
+		a.twitter {
+			margin-right: 23px;
+		}
+		
+		a.facebook {
+			margin-right: 21px;
+		}
+		
+		a.facebook.google {
+			margin-right: 0;
+		}
+		
+		#url-wrapper input.form-text {
+			width: 94%;
+		}
 
+		.reference-form > label span {
+			display: none;
+		}
+		
+		#deb_title-wrapper, #url-wrapper {
+			padding: 0;
+		}
 }
 
 /*******************************
@@ -903,9 +950,9 @@ END Mobile Only
 		
 		#debate_work_area {
 			clear: both;
-		}
-						
-		body div:last-child object {
+		}		
+		
+		body > div > object {
 			display: none;
 		}
 		
@@ -918,5 +965,46 @@ END Mobile Only
 		
 		.table-bor-form-item-1 ul {
 			margin-left: 2em;
+		}
+		
+		/*Add argument*/
+		
+		#debate_work_area {
+			padding: 0 10px 22px;
+		}
+		
+		.argument-form td {
+			display: block;
+		}
+		
+		#url-wrapper input.form-text {
+			width: 92%;
+		}
+		
+		#argument-add-form .assign span.label {
+			float: right;
+			display: block;
+			margin: 0 0 0 5px;
+		}
+		
+		.argument-form > label, .reference-form > label {
+			text-transform: none;
+		}
+		
+		#argument-add-form .assign span.small_neg, #argument-add-form .assign span.small_pos {
+			margin-top: 8px;
+		}
+		
+		#argument-add-form .assign span.small_pos {
+			float: left;
+			margin: 8px	 0 0 16px;
+		}
+		
+		.req_assign {
+			display: none;
+		}
+		
+		.value-select label {
+			 margin: 4px 0 7px 16px;
 		}
 	}

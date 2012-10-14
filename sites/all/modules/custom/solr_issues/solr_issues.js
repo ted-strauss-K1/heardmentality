@@ -128,7 +128,7 @@ $(document).ready(function() {
     function(data){
       //  $('#linkbox').html(data.data.regions.apachesolr_ajax);
       $('#linkbox').html(data.data);
-      // $("input[name=choice]:checked").parents("div").addClass("staygreen");
+      // $("input[name=choice]:checked").parents("div.form-item").addClass("staygreen");
       $('#top_categories-wrapper').html();
       $('#top_categories-wrapper').html(data.categories);
       $('#count_results-wrapper span').html(data.count);

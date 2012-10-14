@@ -41,7 +41,7 @@
       </ul>
 
       <?php else : ?>
-        <?php print t('Vote now to show results'); ?>
+        <span class="no_show"><?php print t('Vote now to show results.'); ?></span>
       <?php endif; ?>
     <?php endif; ?>
   </div>

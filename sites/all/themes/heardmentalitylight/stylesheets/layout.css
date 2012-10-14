@@ -3229,6 +3229,7 @@ h2.page-title {
 	font: 18px/1 'DINLightRegular', Arial, sans-serif;
 	color: #362750;
 	padding: 9px 15px 4px 0;
+	text-align: center;
 }
 
 #new_vote .poll-vote-area .form-radios span.teaser_count_vote span,
@@ -3551,7 +3552,7 @@ h2.page-title {
 /*Add Argument*/
 
 #debate_work_area {
-	padding: 0 30px 26px;
+	padding: 0 30px 22px;
 	direction: ltr;
 }
 
@@ -4884,6 +4885,7 @@ span.no_show {
 	padding: 0 17px;
 	color: #ef3d3b;
 	font-style: italic;
+	display: inline-block;
 }
 
 /*Small circle*/

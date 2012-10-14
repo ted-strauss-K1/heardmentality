@@ -71,15 +71,15 @@ $(document).ready(function(){
   var s2 = '.choices.suggested input[type="radio"]';
   function choices(s1,s2) {
     $(s1).change(function() {
-      $(s1).parents('div').removeClass('staygreen');
-      $(s1+':checked').parents('div').addClass('staygreen');
+      $(s1).parents('div.form-item').removeClass('staygreen');
+      $(s1+':checked').parents('div.form-item').addClass('staygreen');
       $(s2).each(function(i,e) {
         $(e).removeAttr("checked")
-        $(e).parents('div').removeClass('staygreen');
+        $(e).parents('div.form-item').removeClass('staygreen');
       });
     });
     $(s1+':checked').each(function(i,e){
-      $(e).parents('div').addClass('staygreen');
+      $(e).parents('div.form-item').addClass('staygreen');
     });
   }
   choices(s1,s2);
