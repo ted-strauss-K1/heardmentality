@@ -1,5 +1,5 @@
 <?php
- 
+
 /**
  * @file
  * Drupal site-specific configuration file.
@@ -88,8 +88,7 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-$db_url = 'mysql://root:@localhost/hm';
-$db_url = 'mysql://apache_web_serve:2JTcuJA3mAFwqzXe@107.20.204.83/heardmentality';
+$db_url = 'mysql://root:guamoko@localhost/hm5';
 $db_prefix = '';
 
 /**
@@ -121,7 +120,7 @@ $db_prefix = '';
  * check. After finishing the upgrade, be sure to open this file again
  * and change the TRUE back to a FALSE!
  */
-$update_free_access = FALSE;
+$update_free_access = TRUE;
 
 /**
  * Base URL (optional).
