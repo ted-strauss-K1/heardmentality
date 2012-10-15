@@ -477,12 +477,12 @@ function arguments_tabs($nid, $sort = null, $print = null) {
  */
 function arguments_filter($nid, $sort = null, $class = null, $chorder = null) {
   $argnids = array();
-  if (!empty($class) && !empty($chorder)) {
+  if (!is_null($class) && !is_null($chorder)) {
     # filter arguments
     switch ($class) {
       case 'neutral' : $val = 0; break;
       case 'positive' : $val = 1; break;
-      case 'negative' : $val = 2; break;
+      case 'negative' : $val = -1; break;
       default : $val = 0; break;
     }
     $result = db_query("SELECT DISTINCT(n.nid) FROM {node} n INNER JOIN {content_type_forum} ctf ON ctf.nid = n.nid LEFT JOIN {arguments_options} ao ON ao.nid = n.nid WHERE n.status = 1 AND n.type = 'forum' AND ctf.field_ref_qid_nid = '%d' AND ( (ctf.field_type_value = '%d' AND ao.val = '%d' AND ao.chorder = '%d') OR (ctf.field_type_value = '%d')) ORDER BY n.nid DESC", $nid, TYPE_DEBATE, $val, $chorder, TYPE_RESOURCE);
