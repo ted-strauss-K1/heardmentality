@@ -155,6 +155,12 @@ function issue_menu() {
     'type'              => MENU_SUGGESTED_ITEM,
     'file'              => 'issue.pages.inc'
   );
+  $menu['issue/vote'] = array(
+    'page callback'     => 'issue_vote_ajax',
+    'access arguments'  => array(ISSUE_CREATE),
+    'type'              => MENU_SUGGESTED_ITEM,
+    'file'              => 'issue.pages.inc'
+  );
 
 
 
@@ -576,7 +582,32 @@ function issue_colors($index = false) {
   }
 }
 
-
+/**
+ * Poll vote change
+ */
+function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old = -1) {
+  if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return;
+  global $user;
+  if ($vote_r_old != -1) {
+    db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = '%d' AND chorder = '%d'", $nid, $vote_r_old);
+    db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $vote_r_old, $user->uid);
+    db_query("UPDATE {poll_votes_history} SET status = 0 WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $vote_r_old, $user->uid);
+  }
+  if ($vote_s_old != -1) {
+    poll_suggest_vote_remove($vote_s_old, $user->uid);
+  }
+  # add new values
+  if ($vote_r != -1) {
+    db_query("UPDATE {poll_choices} SET chvotes = chvotes+1 WHERE nid = '%d' AND chorder = '%d'", $nid, $vote_r);
+    db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $vote_r, $user->uid);
+    db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $vote_r, $user->uid, date("y-m-d H:i:s"), 1);
+  }
+  if ($vote_s != -1) {
+    poll_suggest_vote_add($vote_s, $user->uid);
+    # convert
+    issue_sa_convert($nid, $vote_s);
+  }
+}
 
 
 

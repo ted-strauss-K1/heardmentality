@@ -30,14 +30,14 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
 <div class="poll-vote-area">
 <?php if($allowvotes == '' ): ?>
    <div class="vote-count-poll">
-       <?php foreach($indVoteCounts as $chorder => $vcount){?>
-       <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br /><span class="vote-count-title din">votes</span></div>
-       <?php }?>
+       <?php foreach($indVoteCounts as $chorder => $vcount) {?>
+        <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br /><span class="vote-count-title din">votes</span></div>
+       <?php } ?>
    </div>
 <?php endif; ?>
 <div class="voting-pane"><?php print $content;?></div>
 
-<?php if ($allowvotes != 1 && $user->uid > 0) { ?>
+  <?php if ($allowvotes != 1 && user_is_logged_in()) { ?>
 
   <a class="button stats stats-quick" title="See the Debate Statistics" href="<?php print $node_url; ?>#results"><span class="icon stats "></span></a>
 <?php } ?>

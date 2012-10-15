@@ -238,42 +238,22 @@ function issue_vote_form_submit($form, &$form_state) {
       break;
     case 'vote-add' :
     case 'vote-change' :
-      $vote_regular = $post['choice'];
+      $vote_r = $post['choice'];
       $vote_suggested = $post['add_vote']['suggested_answers'];
-      $vote_suggested = empty($vote_suggested) ? -1 : $vote_suggested;
+      $vote_s = empty($vote_suggested) ? -1 : $vote_suggested;
+      $vote_r_old = $post['vote_regular'];
+      $vote_s_old = $post['vote_suggested'];
 
       # @warning
       # since we're so cool to use two sets of radiobuttons with only one resulting vote let's clean values up
-      if ($post['vote_regular'] == $vote_regular && $vote_regular != -1) {
-        $vote_regular = -1;
+      if ($vote_r_old == $vote_r && $vote_r != -1) {
+        $vote_r = -1;
       }
-      if ($post['vote_suggested'] == $vote_suggested && $vote_suggested != -1) {
-        $vote_suggested = -1;
+      if ($vote_s_old == $vote_s && $vote_s != -1) {
+        $vote_s = -1;
       }
 
-      # check if there were changes in form
-      if ($post['vote_suggested'] != $vote_suggested || $post['vote_regular'] != $vote_regular) {
-        # remove previous values if any
-        if ($post['vote_regular'] != -1) {
-          db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = '%d' AND chorder = '%d'", $nid, $post['vote_regular']);
-          db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $post['vote_regular'], $user->uid);
-          db_query("UPDATE {poll_votes_history} SET status = 0 WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $post['vote_regular'], $user->uid);
-        }
-        if ($post['vote_suggested'] != -1) {
-          poll_suggest_vote_remove($post['vote_suggested'], $user->uid);
-        }
-        # add new values
-        if ($vote_regular != -1) {
-          db_query("UPDATE {poll_choices} SET chvotes = chvotes+1 WHERE nid = '%d' AND chorder = '%d'", $nid, $vote_regular);
-          db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $vote_regular, $user->uid);
-          db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $vote_regular, $user->uid, date("y-m-d H:i:s"), 1);
-        }
-        if ($vote_suggested != -1) {
-          poll_suggest_vote_add($vote_suggested, $user->uid);
-          # convert
-          issue_sa_convert($nid, $vote_suggested);
-        }
-      }
+      issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s, $vote_s_old);
       drupal_set_message(t('Your vote was recorded.'));
     break;
     case 'vote-login' :
@@ -284,6 +264,9 @@ function issue_vote_form_submit($form, &$form_state) {
     break;
   }
 }
+
+
+
 
 /*
  * Suggested answer conversion
