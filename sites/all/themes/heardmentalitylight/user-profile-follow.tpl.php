@@ -9,11 +9,11 @@
         <?php print theme('follower_button', $user); ?>
 		
 		<div class="name_wrapper">
-			<a href="/user/profile/view/<?php print $user->name; ?>">
+			<a href="/<?php print $user->viewlink; ?>">
 			  <img class="following-user-2" src="<?php print user_profile_image($user); ?>" alt="">
 			</a>
 			<span class="name din">
-			  <a href="/user/profile/view/<?php print $user->name; ?>"><?php print $user->name; ?></a>
+			  <a href="/<?php print $user->viewlink; ?>"><?php print $user->name; ?></a>
 			</span>
 		</div>
       </div>

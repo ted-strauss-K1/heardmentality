@@ -1,0 +1,5 @@
+name = Activity Stream
+description = Provides the API for Activity Stream
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x

@@ -1,8 +1,8 @@
 <?php global $base_url; ?>
 
 <li id="reply-block-<?php print $comment->cid; ?>" class="one_reply">
-  <span class=<?php print $node->str_wk == 1 ? 'positive' : 'negative'; ?>>
-    <?php print $node->str_wk == 1 ? '+' : '-'; ?>
+  <span class=<?php print $comment->str_wk == 1 ? 'positive' : 'negative'; ?>>
+    <?php print $comment->str_wk == 1 ? '+' : '-'; ?>
   </span>
   <div class="goog-trans-section reply_body">
     <p><?php print $comment->comment; ?></p>&nbsp;
