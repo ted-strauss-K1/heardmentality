@@ -68,7 +68,7 @@
         <!-- User Debate Options: END -->
 
         <!-- User Info -->
-        <?php $userlink = url('<front>', array('absolute' => TRUE)) . '/profile/' . $node->name; ?>
+        <?php $userlink = url('<front>', array('absolute' => TRUE)) . '/user/profile/view/' . $node->name; ?>
         <div class="userinfo-debate">
           <span class="date"><?php print t('posted '); ?>
             <span><?php print $node->ago; ?></span>

@@ -18,20 +18,25 @@
 		<div class="navigation">
 			<div class="top-left user-menu">
 				<ul class="menu">
-          <?php foreach ($primary_links as $mainMenu) : ?>
-            <li><?php print l(t($mainMenu['title']), $mainMenu['href'], array('attributes' => array('class'=>'issues'))); ?></li>
-          <?php endforeach; ?>
+          <li><?php print l(t('Issues'), 'issues', array('attributes' => array('class'=>'issues'))); ?></li>
+          <li><?php print l(t('Analysis'), $_GET['q'], array('attributes' => array('class'=>'analysis'))); ?></li>
 				</ul>
 				<ul class="menu second">
-          <?php foreach ($secondary_links as $subMenu) : ?>
-            <li><?php print l(t($subMenu['title']), $subMenu['href'], array('attributes' => array('class'=>'add'))); ?></li>
-          <?php endforeach; ?>
+          <li><?php print l(t('Add an Issue'), 'issue/create', array('attributes' => array('class'=>'add'))); ?></li>
+          <?php if (user_is_logged_in()) : ?>
+            <li><?php print l(t('Following'), 'following', array('attributes' => array('class'=>'following'))); ?></li>
+          <?php endif; ?>
+          <?php
+          // TODO
+          if ( false ) : ?>
+            <li><?php print l(t('Moderator'), 'issues/list/all', array('attributes' => array('class'=>'moderator add'))); ?></li>
+          <?php endif; ?>
 				</ul>
 			</div>
 			<div class="top-right blue">
 				<div class="expanding">
 					<h6 class="inactive"><?php print t('Language'); ?></h6>
-					<ul class="lang">
+					<ul class="lang" style="display:none;" aria-hidden="true">
 						<?php if($multilanguage_area): print $multilanguage_area; endif; ?>
 					</ul>
 				</div>

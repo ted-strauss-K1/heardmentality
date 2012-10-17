@@ -231,7 +231,7 @@ function phptemplate_user_picture($account, $size = '65x56') {
     $attr=array('width'=>$maxsize_icon['w'],'height'=>$maxsize_icon['h']);
     $picture = theme('image', $picture, $alt, $alt,$attr, false);
     if (!empty($account->uid) && user_access('access user profiles')) {
-      $picture = l($picture, "profile/$account->name", array('html' => TRUE));
+      $picture = l($picture, "user/profile/view/$account->name", array('html' => TRUE));
     }
 
     return $picture;

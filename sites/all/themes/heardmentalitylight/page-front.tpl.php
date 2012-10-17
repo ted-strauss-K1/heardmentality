@@ -40,22 +40,22 @@
       <div class="main-banner-display clearfix">
         <div class="one-third column">
           <div class="circle-box">
-            <div class="see-banner">
-              <a class="see" href=""><span class="hover"></span></a>
+            <div class="see-banner circle-wrapper" id="circle0">
+              <a class="see" href=""><span class="hover" style="display:none"></span></a>
             </div>
           </div>
         </div>
         <div class="one-third column">
           <div class="circle-box">
-            <div class="vote-banner">
-              <a class="vote-now" href=""><span class="hover"></span></a>
+            <div class="vote-banner circle-wrapper" id="circle1">
+              <a class="vote-now" href=""><span class="hover" style="display:none"></span></a>
             </div>
           </div>
         </div>
         <div class="one-third column ">
           <div class="circle-box">
-            <div class="share-banner">
-              <a class="share-now" href=""><span class="hover"></span></a>
+            <div class="share-banner circle-wrapper" id="circle2">
+              <a class="share-now" href=""><span class="hover" style="display:none"></span></a>
             </div>
           </div>
         </div>

@@ -875,7 +875,7 @@ function moderator_ajax($action='') {
       while ($coupon = db_fetch_object($result)) {
         $rows[] = array(
           array('data' => $coupon->abuse_type),
-          array('data' => l($coupon->name, $base_url . '/profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+          array('data' => l($coupon->name, $base_url . '/user/profile/view/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
           array('data' => ago($coupon->flag_date))
         );
       }
@@ -900,7 +900,7 @@ function moderator_ajax($action='') {
       while ($coupon = db_fetch_object($result)) {
         $rows[] = array(
           array('data' => $coupon->abuse_type),
-          array('data' => l($coupon->name, $base_url . '/profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+          array('data' => l($coupon->name, $base_url . '/user/profile/view/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
           array('data' => ago($coupon->flag_date))
         );
       }
@@ -926,7 +926,7 @@ function moderator_ajax($action='') {
         $url = drupal_get_path_alias('node/' . $coupon->nid);
         $rows[] = array(
           array('data' => l($coupon->title, $url, array('attributes' => array('title' => t($coupon->body), 'class' => 'floatbox')))),
-          array('data' => l($coupon->name, 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+          array('data' => l($coupon->name, 'user/profile/view/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
           array('data' => $coupon->created),
           array('data' => '<input type="radio" checked="checked" name="dupeq[]" value="' . $coupon->nid . '"/>'),
         );

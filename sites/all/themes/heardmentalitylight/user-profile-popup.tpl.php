@@ -47,7 +47,7 @@
     <a href="/user/profile/edit"><?php print t('Edit Profile');?></a>
   </p>
 
-  <a href="/logout" title="<?php print t('Log out');?>" class="button lighter" ><?php print t('Logout'); ?></a>
+  <a href="/logout?<?php print drupal_get_destination(); ?>" title="<?php print t('Log out');?>" class="button lighter" ><?php print t('Logout'); ?></a>
 </div>
 
 <?php endif; ?>

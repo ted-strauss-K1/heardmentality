@@ -600,7 +600,7 @@ function notiflymailContent($activities){
       $uid_target_details = user_load($data['target_id']);
       $mail .= '
                                     <h2 style="font:bold 13px Arial, Helvetica, sans-serif; color:#000; padding-bottom:10px; text-decoration:none;">You are following
-                                            <a style="{ font:bold 13px Arial, Helvetica, sans-serif; color:#000; padding-bottom:10px; text-decoration:underline;}:hover{text-decoration:none}"    href="' . $base_url . '/profile/' . $uid_target_details->name . '">';
+                                            <a style="{ font:bold 13px Arial, Helvetica, sans-serif; color:#000; padding-bottom:10px; text-decoration:underline;}:hover{text-decoration:none}"    href="' . $base_url . '/user/profile/view/' . $uid_target_details->name . '">';
       // $mail .= UserPicture_small($data['target_id']);
       $mail .= '	</a>
                                     </h2>

@@ -15,17 +15,19 @@ stylesheets[all][] = stylesheets/scrollpane/jquery.jscrollpane.css
 stylesheets[all][] = stylesheets/ie.css
 
 scripts[] = javascripts/jquery-ui-1.8.16.custom.min.js
-;scripts[] = javascripts/jquery-ui-1.7.3.custom.min.js
 scripts[] = javascripts/ui/minified/jquery.ui.slider.min.js
-;scripts[] = javascripts/jquery.ba-resize.min.js
 scripts[] = javascripts/jquery.jscrollpane.min.js
 scripts[] = javascripts/jquery.mousewheel.js
-scripts[] = javascripts/custom_scripts.js
 scripts[] = javascripts/noty/jquery.noty.js
+scripts[] = javascripts/noty/noty.js
 scripts[] = javascripts/noty/default.js
 scripts[] = javascripts/noty/topRight.js
 scripts[] = javascripts/noty/center.js
-scripts[] = javascripts/noty/noty.js
+scripts[] = javascripts/effects.js
+
+;scripts[] = javascripts/jquery-ui-1.7.3.custom.min.js
+;scripts[] = javascripts/jquery.ba-resize.min.js
+scripts[] = javascripts/custom_scripts.js
 scripts[] = javascripts/app.js
 
 

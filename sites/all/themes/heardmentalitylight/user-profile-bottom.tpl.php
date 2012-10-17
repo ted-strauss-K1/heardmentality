@@ -1,7 +1,10 @@
 <?php if ($denied) : ?>
 
 <div class="foot-empty">
-  <div class="profile-meta footerfloat"><p><?php print t('Please Login to view your profile details'); ?></p></div>
+  <div class="profile-meta footerfloat">
+    <p><?php print t('Please Login to view your profile details'); ?></p>
+    <?php print drupal_get_form('user_login'); ?>
+  </div>
 </div>
 
 <?php else : ?>

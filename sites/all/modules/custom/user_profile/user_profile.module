@@ -53,6 +53,8 @@ function user_profile_user($op, &$edit, &$account, $category = NULL) {
       //
     break;
     case 'load' :
+      $account->viewlink = 'user/profile/view/' . $account->name;
+
 //      $user_profile = db_fetch_array(db_query("SELECT * FROM {user_profile} WHERE uid = '%d'", $account->uid));
 //      $account = (object)array_merge((array)$account, $user_profile);
     break;
