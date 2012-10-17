@@ -176,6 +176,11 @@ function arguments_form_submit(&$form, &$form_state) {
           'success' => true,
           'message' => '<span class="posted">Your argument posted successfully!</span>',
         ));
+
+        if (module_exists('activity_stream')) {
+          activity_stream_add_activity(ACTIVITY_STREAM_ARGUMENT_CREATE, array('nid' => $post['nid'], 'nid_arg' => $node->nid));
+        }
+
       } else {
         drupal_json(array(
           'success' => false,
@@ -194,6 +199,11 @@ function arguments_form_submit(&$form, &$form_state) {
             'message' => '<span class="posted">Your argument posted successfully!</span>',
             'node' => $node,
           ));
+
+          if (module_exists('activity_stream')) {
+            activity_stream_add_activity(ACTIVITY_STREAM_ARGUMENT_CREATE, array('nid' => $post['nid'], 'nid_arg' => $node->nid));
+          }
+
         } else {
           $url = parse_url($post['url']);
           if (false !== strpos($url['host'], 'youtube.com')) {

@@ -7,11 +7,11 @@ $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)) . '/';
 
 $username = '<span class="name">
-        <a href="' . $sitelink . 'profile/' . $udetails->name . '" title="' . t($udetails->name) . '">' . ucwords($udetails->name) . '</a>
+        <a href="' . $sitelink . 'user/profile/view/' . $udetails->name . '" title="' . t($udetails->name) . '">' . ucwords($udetails->name) . '</a>
     </span>';
 ?>
 <li class="clearfix">
-  <a href="<?php print $sitelink . 'profile/' . $udetails->name; ?>"><img class="following-user listed"
+  <a href="<?php print $sitelink . 'user/profile/view/' . $udetails->name; ?>"><img class="following-user listed"
                                                                           src="<?php print $userPicture;?>" alt=""/></a>
 
   <?php if ($message_id == 'add_question') { ?>
@@ -131,7 +131,7 @@ $username = '<span class="name">
 
     <div class="foll-user-area">
 
-      <a href="<?php print $sitelink . 'profile/' . $target->name; ?>"><?php print $target->name; ?><br/><img
+      <a href="<?php print $sitelink . 'user/profile/view/' . $target->name; ?>"><?php print $target->name; ?><br/><img
         alt="<?php print $target->name; ?>" src="<?php print UserPicture_small_src($data['target_id']);?>" width="44"
         height="44"/></a>
     </div>

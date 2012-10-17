@@ -94,7 +94,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 
         <div class="profile action-item">
             <span class="now-foll-txt"><?php print t('now following'); ?>: </span>
-            <div class="foll-user-area"><a href="<?php print $sitelink.'profile/'.$target->name; ?>"><?php print $target->name; ?><br /><img alt="<?php print $target->name; ?>" src="<?php print UserPicture_small_src($data['target_id']);?>" width="44" height="44" /></a></div></div>
+            <div class="foll-user-area"><a href="<?php print $sitelink.'user/profile/view/'.$target->name; ?>"><?php print $target->name; ?><br /><img alt="<?php print $target->name; ?>" src="<?php print UserPicture_small_src($data['target_id']);?>" width="44" height="44" /></a></div></div>
         <?php }?>
 </li>
 

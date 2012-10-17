@@ -325,6 +325,11 @@ function user_profile_edit_form_submit_image(&$form, &$form_state) {
 //  var_Dump($dest); die();
   $user->picture = $dest;
   user_save($user, array('picture' => $dest));
+
+  if (module_exists('activity_stream')) {
+    activity_stream_add_activity(ACTIVITY_STREAM_PROFILE_UPDATE, array());
+  }
+
 }
 
 /*
@@ -461,6 +466,10 @@ function user_profile_edit_form_submit($form, &$form_state) {
   user_save($user, $edit);
   user_save($user, $edit, 'profile');
   user_save($user, $edit, 'links');
+
+  if (module_exists('activity_stream')) {
+    activity_stream_add_activity(ACTIVITY_STREAM_PROFILE_UPDATE, array());
+  }
 }
 
 

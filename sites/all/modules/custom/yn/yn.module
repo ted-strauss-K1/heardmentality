@@ -80,6 +80,33 @@ function yn_vote( $content_id, $value, $content_type, $vote_source = '', $uid = 
   if ($vote['vote_source'] != VOTE_AUTOADD) {
     yn_invoke_event($value, $content_id, $content_type);
   }
+  if (module_exists('activity_stream')) {
+    switch ($content_type) {
+      case 'node' :
+        $argument = node_load($content_id);
+        activity_stream_add_activity(ACTIVITY_STREAM_ARGUMENT_VOTE, array(
+          'nid' => $argument->parent_issue,
+          'nid_arg' => $argument->nid,
+          'vote' => $value,
+        ));
+      break;
+      case 'comment' :
+        $comment = _comment_load($content_id);
+        $argument = node_load($comment->nid);
+        activity_stream_add_activity(ACTIVITY_STREAM_ARGUMENT_REPLY_VOTE, array(
+          'nid' => $argument->parent_issue,
+          'nid_arg' => $argument->nid,
+          'cid' => $content_id,
+          'vote' => $value,
+        ));
+      break;
+    }
+
+
+
+
+  }
+
   return votingapi_add_votes($vote);
 }
 

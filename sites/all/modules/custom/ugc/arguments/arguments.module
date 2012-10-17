@@ -390,6 +390,7 @@ function _arguments_load(&$node) {
     }
     # choices
     $issue_nid = $node->field_ref_qid[0]['nid'];
+    $node->parent_issue = $issue_nid;
     $choices = issue_choices($issue_nid);
     # node options
     foreach ($choices as $index => &$choice) {
@@ -638,6 +639,12 @@ function arguments_comment() {
     'message' => t('Thanks, Your reply posted!'),
     'content' => theme('arguments_comment', $comment),
   ));
+
+  if (module_exists('activity_stream')) {
+    $node = node_load($comment->nid);
+    activity_stream_add_activity(ACTIVITY_STREAM_ARGUMENT_REPLY, array('nid' => $node->parent_issue, 'nid_arg' => $comment->nid, 'cid' => $comment->cid));
+  }
+
   exit();
 }
 

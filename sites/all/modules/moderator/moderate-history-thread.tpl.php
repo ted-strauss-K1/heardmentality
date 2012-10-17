@@ -9,5 +9,5 @@ if($replace_count) {
 }
 /**/
 ?>
-<p class="issue-meta"><?php print t($operation); ?> <a class="username" href="<?php print $sitelink.'profile/'.$modName; ?>"><?php print $modName; ?></a> <?php print t('on'); ?> <?php print $updatedOn;?>.</p>
+<p class="issue-meta"><?php print t($operation); ?> <a class="username" href="<?php print $sitelink.'user/profile/view/'.$modName; ?>"><?php print $modName; ?></a> <?php print t('on'); ?> <?php print $updatedOn;?>.</p>
 <hr>

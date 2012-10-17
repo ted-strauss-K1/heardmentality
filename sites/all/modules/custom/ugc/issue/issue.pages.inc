@@ -372,7 +372,7 @@ function issue_create_form_submit($form, &$form_state) {
     );
     issue_noderecommendation($node->nid, $related);
   }
-  cache_clear_all();
+//  cache_clear_all();
 
   /*
   drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
@@ -385,6 +385,10 @@ function issue_create_form_submit($form, &$form_state) {
   $path = drupal_lookup_path('alias', 'node/'.$node->nid, $language);
   if ($path === false) {
     $path = 'node/'.$node->nid;
+  }
+
+  if (module_exists('activity_stream')) {
+    activity_stream_add_activity(ACTIVITY_STREAM_ISSUE_CREATE, array('nid' => $node->nid));
   }
 
   drupal_goto($base_url . '/' . $language . '/' . $path);

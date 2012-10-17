@@ -136,10 +136,11 @@ function follower_page_save() {
     $relationship->requestee = user_load($post['follow_uid']);
     $relationship->type = user_relationships_type_load($post['rtid']);
     user_relationships_request_relationship($relationship);
-    if (module_exists("notifications")) {
-      # TODO -- add notification
-      # @see add_follow_notify
+
+    if (module_exists('activity_stream')) {
+      activity_stream_add_activity(ACTIVITY_STREAM_FOLLOW, array('uid' => $relationship->requestee->uid));
     }
+
   } else {
     $relationship = user_relationships_load($rid);
     user_relationships_delete_relationship($relationship, $user);

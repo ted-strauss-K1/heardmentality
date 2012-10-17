@@ -607,6 +607,11 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
     # convert
     issue_sa_convert($nid, $vote_s);
   }
+
+  if (module_exists('activity_stream')) {
+    activity_stream_add_activity(ACTIVITY_STREAM_ISSUE_VOTE, array('nid' => $nid));
+  }
+
 }
 
 
@@ -1284,7 +1289,7 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
   $info .= '<div id="issue_information">';
   // created details
   $info .= '<div class="post-by">' . t('Issue posted on ') . $created . '&nbsp;'
-          . t('By') . '&nbsp;' . l($postedby, 'profile/' . $postedby) . '</div>';
+          . t('By') . '&nbsp;' . l($postedby, 'user/profile/view/' . $postedby) . '</div>';
   //category details
   $info .= '<div class="catarea">';
   $info .= '<div class="cat-title">SUBJECT</div>';

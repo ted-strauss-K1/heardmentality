@@ -10,7 +10,7 @@
   </div>
   <span class="userinfo-reply">&nbsp;-&nbsp;
     <span class="name">
-      <a href="<?php print $base_url . '/profile/' . $comment->name; ?>">
+      <a href="<?php print $base_url . '/user/profile/view/' . $comment->name; ?>">
         <?php print $comment->name; ?>
       </a>
     </span>&nbsp;
