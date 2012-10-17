@@ -24,20 +24,15 @@
 </script>
 <div id="visualization" style="cursor:pointer;"></div>
 <ul class="map-stats">
-  <li>
-    <span class="count"><?php print number_format($count_users); ?></span>
-    <span class="count-title"><a href="javascript:void(0);" name="users"><?php print t('Users'); ?></a></span>
-  </li>
-  <li>
-    <span class="count"><?php print number_format($count_nodes); ?></span>
-    <span class="count-title"><a href="javascript:void(0);" name="nodes"><?php print t('Issues'); ?></a></span>
-  </li>
-  <li>
-    <span class="count"><?php print number_format($count_votes); ?></span>
-    <span class="count-title"><a href="javascript:void(0);" name="votes"><?php print t('Votes'); ?></a></span>
-  </li>
-  <li>
-    <span class="count"><?php print number_format($count_online); ?></span>
-    <span class="count-title"><a href="javascript:void(0);" name="online"><?php print t('Online'); ?></a></span>
-  </li>
+  <?php
+    $list = array('users' => 'Users', 'nodes' => 'Issues', 'votes' => 'Votes', 'online' => 'Online');
+    foreach ($list as $type => $title) : ?>
+      <li>
+        <span class="count" id="count_<?php print $type; ?>">0</span>
+        <span class="count-title"><a href="javascript:void(0);" name="<?php print $type; ?>"><?php print($title); ?></a></span>
+        <span class="fast_counter" id="fast_counter_count_<?php print $type; ?>" style="display:none;"><?php
+          $name = 'count_' . $type; print $$name; ?>
+        </span>
+      </li>
+  <?php endforeach; ?>
 </ul>
