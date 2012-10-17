@@ -992,12 +992,12 @@ END Mobile Only
 		}
 		
 		#argument-add-form .assign span.small_neg, #argument-add-form .assign span.small_pos {
-			margin-top: 8px;
+			margin-top: 4px;
 		}
 		
 		#argument-add-form .assign span.small_pos {
 			float: left;
-			margin: 8px	 0 0 16px;
+			margin: 4px 0 0 16px;
 		}
 		
 		.req_assign {
@@ -1005,6 +1005,15 @@ END Mobile Only
 		}
 		
 		.value-select label {
-			 margin: 4px 0 7px 16px;
+			 margin: 2px 0 4px 16px;
+		}
+		
+		#new_vote .poll-vote-area .form-radios span.teaser_count_vote, .search_list .poll-vote-area .form-radios span.teaser_count_vote {
+			font: 16px/1 'DINLightRegular',Arial,sans-serif;
+			width: 40px;
+		}
+		
+		.choices .form-radios span.teaser_count_vote + .form-item, #new_vote .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item, #solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
+			margin-left: 55px !important;
 		}
 	}

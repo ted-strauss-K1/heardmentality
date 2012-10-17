@@ -2331,6 +2331,10 @@ textarea#q_quest  {
 	width: 85%;
 }
 
+#new_vote fieldset .choices.suggested .form-radios {
+	width: 100%;
+}
+
 /*.pagination .pager a{
     font-weight: normal;
 }
@@ -4725,6 +4729,10 @@ h5.ref_title {
 	height: auto;
 }
 
+.argument_body  iframe {
+	max-width: 100%;
+}
+
 h5.ref_title {
 	overflow: hidden;
 }
@@ -5666,4 +5674,30 @@ ul.sub-pages-menu a:hover {
 #flagger-form input.form-checkbox {
 	position: relative;
 	top: 2px;
+}
+
+/*Feedback*/
+
+#block-feedback-form .feedback-link {
+	color: #515151;
+}
+
+#feedback-form .form-item {
+	margin-top: 0.6em;
+}
+
+#block-feedback-form #feedback-throbber {
+	height: auto;
+}
+
+#block-feedback-form form {
+	padding: 10px;
+}
+
+#block-feedback-form form {
+	overflow-y: auto;
+}
+
+#block-feedback-form .grippie {
+	display: none;
 }
