@@ -128,7 +128,6 @@
 		}
 		
 		ul.menu li a{
-			color:white;
 			text-decoration:none;
 			padding: 9px 10px 8px 12px;
 			line-height:15px;
@@ -146,7 +145,7 @@
 			-moz-transition-delay: initial, initial
 		}
 		
-		ul.menu li {background-color: #D81A29; color:white;}
+		/*ul.menu li {background-color: #D81A29; color:white;}
 		ul.menu li:nth-child(even), ul.menu li + li{background-color: #ef3d3b; color:white;}
 		ul.menu li + li + li {background-color: #CC2027; color:white;}
 		
@@ -163,7 +162,7 @@
 		ul.menu li a:hover, ul.menu li a:active, ul.menu li a.active{
 			background:#3cc7f4;
 			color:#222;
-		} 
+		} */
     ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 18px 0 0; clear: both; max-width: 412px; float: right; text-align: right;}
     ul.lang li{display: inline-block; vertical-align: top;margin:2px 5px 12px 10px;text-transform:uppercase;color:#333;font-size:11px;line-height:11px;letter-spacing:0.1em;}
     ul.lang li a{color:#222; text-decoration: none;}
@@ -1716,6 +1715,7 @@ p.choose_pic {
 	font-size:13px;
 	color:#999;
 	text-shadow:0px -1px #111;
+	margin-bottom: 18px;
 
 }
 .profile-meta-2 p{
@@ -2694,22 +2694,29 @@ ul.lang:after {
 
 /*New styles*/
 
-ul.menu li:last-child a {
+ul.menu li a {
 	background-color: #cc2027;
 	color: #fff;	
 }
 
-ul.menu li:last-child a:hover {
+ul.menu li a.analysis {
+	background-color: #ef3d3b;
+	color: #fff;	
+}
+
+ul.menu li a:hover,
+ul.menu li a:active,
+ul.menu li a.active {
 	background-color: #3cc7f4;
 	color: #222;
 }
 
-ul.menu.second li:last-child a.add {
+ul.menu.second li a.moderator {
 	background-color: #ccc;
 	color: #000;	
 }
 
-ul.menu.second li:last-child a.add:hover {
+ul.menu.second li a.moderator:hover {
 	background-color: #362750;
 	color: #fff;	
 }
@@ -2719,12 +2726,12 @@ ul.menu.second li:first-child {
     right: 119px;
 }
 
-ul.menu.second li:first-child a.add {
+ul.menu.second li a.add {
 	background-color: #f6eb16;
 	color: #000;
 }
 
-ul.menu.second li:first-child a.add:hover {
+ul.menu.second li a.add:hover {
 	background-color: #362750;
 	color: #fff;
 }
@@ -2858,12 +2865,15 @@ ul.menu.second li:first-child a.add:hover {
 }
 
 .ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin_page,
-.ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin-1_page {
+.ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin-1_page,
+#footer .gigya-login #divGigyaLogin_page {
 	padding-top: 10px !important;
 }
 
-.ui-dialog .ui-tabs-panel .gigya-login img {
-	margin-top: 10px !important;
+.ui-dialog .ui-tabs-panel .gigya-login img,
+#footer .gigya-login img {
+	margin-top: 12px !important;
+	height: auto;
 }
 
 .ui-dialog .ui-tabs-panel #user-login,
@@ -3075,6 +3085,55 @@ div.avatar-selection-pager-nav strong.pager-current {
 div.avatar-selection-pager-nav a:hover {
 	text-decoration: underline;
 	color: #ef3d3b;
+}
+
+/*Login form in footer*/
+
+#footer #user-login {
+	margin: 0;
+}
+
+#footer #user-login .form-item {
+	margin: 0;
+	float: left;
+	width: 49%;
+}
+
+#footer #user-login #edit-name-wrapper {
+	margin-right: 2%;
+}
+
+#footer #user-login label {
+	color: #999999;
+    font-size: 13px;
+    line-height: 1em;
+    text-shadow: 0 -1px #111111;
+	font-weight: normal;
+	padding-bottom: 8px;
+}
+
+#footer #user-login input.form-text {
+    padding: 8px 5px;
+    width: 90%;
+	background-color: #999;
+	color: #555;
+}
+
+#footer #user-login input.form-text:focus {
+	color: #333;
+}
+
+#footer .gigya-login {
+	float: left;
+	color: #999999;
+}
+
+#footer .gigya-login div {
+	color: #999999 !important;	
+}
+
+#footer #user-login .form-submit {
+	margin-top: 36px;
 }
 
 /*Vote/Debate page*/
@@ -3485,7 +3544,7 @@ h2.page-title {
 	width: 7px;
 	height: 9px;
 	padding: 6px 0 5px;
-	margin: 0;
+	margin: -1px 0 0;
 }
 
 .item-list .pager .pager-last a {

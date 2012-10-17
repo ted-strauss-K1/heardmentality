@@ -259,7 +259,7 @@
 		border-color: #b5b5b5 #9c9c9c #9c9c9c;
 	}
 	
-	a.button.darker,  input.darker{
+	a.button.darker,  input.darker, .foot-empty .form-submit, .foot-empty .form-submit:hover{
 		background: none #626262;
 		background: -webkit-gradient(linear, left top, left bottom, from(#626262), to(#555));
 		background: -webkit-linear-gradient(top, #626262, #555);
@@ -277,7 +277,7 @@
 		-khtml-box-shadow: 0 0 0 transparent;
 		box-shadow: 0 0 0 transparent;
 	}
-	a.button.darker:hover,  input.darker:hover{
+	a.button.darker:hover,  input.darker:hover, .foot-empty .form-submit:hover {
 		color: #b4b4b4 !important;
 	}
 	  

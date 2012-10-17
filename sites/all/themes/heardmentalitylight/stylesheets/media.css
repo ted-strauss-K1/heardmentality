@@ -152,6 +152,20 @@
 			margin: 0;
 		}
 		
+		#footer #user-login .form-submit {
+			margin: 0 0 15px;
+		}
+		
+		#footer .gigya-login {
+			float: none;
+			clear: both;
+		}
+		
+		#footer #divGigyaLogin {
+			height: auto !important;
+			left: -10px;
+			position: relative;
+		}
 	}
 
 /* iPad Portrait/Browser */
@@ -888,6 +902,19 @@ Mobile Only
 		#deb_title-wrapper, #url-wrapper {
 			padding: 0;
 		}
+		
+		#footer #user-login .form-submit {
+			margin: 36px 0 0;
+		}
+		
+		#footer .gigya-login {
+			float: left;
+			clear: none;
+		}
+		
+		#footer #divGigyaLogin {
+			position: static;
+		}
 }
 
 /*******************************
@@ -1015,5 +1042,20 @@ END Mobile Only
 		
 		.choices .form-radios span.teaser_count_vote + .form-item, #new_vote .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item, #solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
 			margin-left: 55px !important;
+		}
+		
+		#footer #user-login .form-submit {
+			margin: 0 0 15px;
+		}
+		
+		#footer .gigya-login {
+			float: none;
+			clear: both;
+		}
+		
+		#footer #divGigyaLogin {
+			height: auto !important;
+			left: -17px;
+			position: relative;
 		}
 	}
