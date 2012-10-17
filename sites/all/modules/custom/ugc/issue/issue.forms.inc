@@ -80,9 +80,9 @@ function issue_vote_form($form, $node) {
   if (!$is_search) {
     $form['add_vote'] = array(
       '#type' => 'fieldset',
-      '#title' => t('...Or submit a different answer'),
+      '#title' => $sa_added ? t('') : t('...Or submit a different answer'),
       '#collapsible' => TRUE,
-      '#collapsed' => $vote_suggested == -1,
+      '#collapsed' => empty($sa),// $vote_suggested == -1,
       '#tree' => TRUE,
     );
 
@@ -235,6 +235,15 @@ function issue_vote_form_submit($form, &$form_state) {
     case 'answer-add' :
       $chid = poll_suggest_add($nid, $post['add_vote']['new_suggest_answer']);
       poll_suggest_vote_add($chid, $user->uid);
+
+      # find old regular vote
+      $chorder = db_result(db_query("SELECT chorder FROM {poll_votes} WHERE nid = '%d' AND uid = '%d'", $nid, $user->uid));
+      if ($chorder) {
+        db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = '%d' AND chorder = '%d'", $nid, $chorder);
+        db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $chorder, $user->uid);
+        db_query("UPDATE {poll_votes_history} SET status = 0 WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $chorder, $user->uid);
+      }
+
       break;
     case 'vote-add' :
     case 'vote-change' :
