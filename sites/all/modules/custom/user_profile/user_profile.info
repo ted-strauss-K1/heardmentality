@@ -5,3 +5,4 @@ version = "6.x-1.6"
 core = 6.x
 dependencies[] = 'profile_privacy'
 dependencies[] = 'profile'
+dependencies[] = 'avatar_selection'

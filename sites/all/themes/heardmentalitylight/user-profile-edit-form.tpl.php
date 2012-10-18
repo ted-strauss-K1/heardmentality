@@ -41,14 +41,14 @@ $privacy = user_profile_profile_privacy_values();
       <ul class="user-info-inputs clearfix">
 
       <li class="username">
-        <label for="" class="add-on-2"><span class="title-2">
+        <label for="" class="add-on-2 small"><span class="title-2">
           <?php print t('Username'); ?> <small class="red">*</small></span>
         </label>
         <?php print drupal_render($form['username']); ?>
       </li>
 
       <li class="email">
-        <label for="" class="add-on-2"><span class="title-2">
+        <label for="" class="add-on-2 small"><span class="title-2">
           <?php print t('Email'); ?> <small class="red">*</small></span>
         </label>
         <?php print drupal_render($form['email']); ?>
@@ -70,7 +70,7 @@ $privacy = user_profile_profile_privacy_values();
 
       <?php $result = _profile_get_fields('profile'); while ($field = db_fetch_object($result)) : ?>
       <li>
-        <label for="" class="add-on-2"><span class="title-2"><?php print t($field->title); ?></span></label>
+        <label for="" class="add-on-2 small"><span class="title-2"><?php print t($field->title); ?></span></label>
         <?php print drupal_render($form[$field->name]); ?>
 
         <?php if ($privacy) : ?>
@@ -101,7 +101,7 @@ $privacy = user_profile_profile_privacy_values();
 
       <?php $result = _profile_get_fields('links'); while ($field = db_fetch_object($result)) : ?>
       <li>
-        <label for="" class="add-on-2"><span class="title-2"><?php print t($field->title); ?></span></label>
+        <label for="" class="add-on-2 small"><span class="title-2"><?php print t($field->title); ?></span></label>
         <?php print drupal_render($form[$field->name]); ?>
 
         <?php if ($privacy) : ?>
