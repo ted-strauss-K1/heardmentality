@@ -8,9 +8,241 @@
  * @return - TRUE/FALSE
  */
 
-/*
- * Completed all user profile fields
+/**
+ * Helper for
+ *  badge_process_generalist()
+ *  badge_process_well_read()
+ *  badge_process_scholar()
  */
+function _badge_voted_in_many_blc($uid, $count_vote, $count_blc) {
+  # bottom-level categories
+  $vid = _badge_get_vid_by_name('Sections');
+  $blc = _badge_bottom_level_terms($vid);
+  $blc_implode = implode(',', $blc);
+  if( $blc == '' ) {
+    return false;
+  }
+  # check
+  $data = db_fetch_array(db_query("
+    SELECT COUNT(DISTINCT(tn.nid)) AS nids, COUNT(DISTINCT(tn.tid)) AS tids
+    FROM {poll_votes} pv INNER JOIN {term_node} tn ON tn.nid = pv.nid
+    WHERE pv.uid = '%d' AND tn.tid IN (%s)",
+    $uid, $blc_implode
+  ));
+  return $data['nids'] >= $count_vote && $data['tids'] >= $count_blc;
+}
+
+/**
+ * User has voted on at least 20 issues in 30 topics
+ *
+ * Group: poll vote
+ */
+function badge_process_scholar($uid) {
+  return _badge_voted_in_many_blc($uid, 20, 30);
+}
+
+/**
+ * Issue you added is voted on 1000 times
+ *
+ * @param $uid
+ * @return bool
+ */
+function badge_process_provocative_question($uid) {
+  $count = 1000;
+  return $count <= (int) db_result(db_query("SELECT COUNT(*) FROM {node} n INNER JOIN {poll_votes} pv ON pv.nid = n.nid WHERE n.uid = '%d' AND n.type = 'poll' GROUP BY n.nid ORDER BY COUNT(*) DESC", $uid));
+}
+
+/**
+ * Helper function for
+ *  badge_process_supporter()
+ *  badge_process_seer()
+ *  badge_process_oracle()
+ */
+function _badge_first_vote_supernode($uid, $count) {
+  $result = db_query("SELECT uid FROM {votingapi_vote} WHERE value = %d GROUP BY content_type, content_id HAVING COUNT(*) >= %d ORDER BY timestamp", VOTE_AGREE, $count);
+  while( $row = db_fetch_object($result) ) {
+    if( $row->uid == $uid ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * First agree on a post or resource that eventually gets 100 agrees
+ */
+function badge_process_oracle($uid) {
+  return _badge_first_vote_supernode($uid, 100);
+}
+
+/**
+ * First agree on a post or resource that eventually gets 50 agrees
+ */
+function badge_process_seer($uid) {
+  return _badge_first_vote_supernode($uid, 50);
+}
+
+/**
+ * Helper for
+ *  badge_process_notable_issue()
+ *  badge_process_provocative_issue()
+ *  badge_process_household_issue()
+ */
+function _badge_issue_views($uid, $count) {
+  return $count <= (int) db_result(db_query("SELECT totalcount FROM {node} n INNER JOIN {node_counter} nc ON n.nid = nc.nid WHERE n.uid = '%d' AND n.type = 'poll' ORDER BY totalcount DESC", $uid));
+}
+
+/**
+ * Posted an Issue with 10,000 views
+ */
+function badge_process_provocative_issue($uid) {
+  return _badge_issue_views($uid, 10000);
+}
+
+/**
+ * Helper for
+ *  badge_process_senator()
+ *  badge_process_pamphleteer()
+ */
+function _badge_posted_agreed_comments($uid, $count) {
+  return $count <= (int) db_result(db_query("
+    SELECT COUNT(DISTINCT(c.cid))
+    FROM {comments} c INNER JOIN {votingapi_vote} vv ON vv.content_id = c.cid
+    WHERE c.uid = %d AND vv.content_type = 'comment' AND vv.value = %d",
+    $uid, VOTE_AGREE
+  ));
+}
+
+/**
+ * Left 500 comments that got a minimum of one agree.
+ */
+function badge_process_senator($uid) {
+  return _badge_posted_agreed_comments($uid, 500);
+}
+
+/**
+ * Left 10 comments that got a minimum of 1 agree.
+ */
+function badge_process_pamphleteer($uid) {
+  return _badge_posted_agreed_comments($uid, 10);
+}
+
+/**
+ * Helper for
+ *  badge_process_patriotic_citizen()
+ */
+function _badge_user_votes($uid, $count) {
+  # count different types of votes
+  $count_pv = issue_get_uservotes($uid);
+  $count_sa = issue_sa_count($uid);
+  $count_ud = yn_user_vote_count($uid);
+  return $count_pv + $count_sa + $count_ud >= $count;
+}
+
+/**
+ * Voted 1000 times
+ *
+ * @param $uid
+ * @return bool
+ */
+function badge_process_patriotic_citizen($uid) {
+  return _badge_user_votes($uid, 1000);
+}
+
+/**
+ * Flags post, that eventually results in a change or removal
+ */
+function badge_process_scrutineer($uid) {
+  return (bool) db_result(db_query("SELECT * FROM {node} n INNER JOIN {flag_content} fc ON fc.content_id = n.nid WHERE n.status = 0 AND n.type = 'forum' AND fc.uid = '%d'", $uid));
+}
+
+/**
+ * Active member for a year, earning at least 200 reputation
+ */
+function badge_process_yearling($uid) {
+  $count_points = 200;
+  if( $count_points <= up_userpoints_get($uid) ) {
+    return false != db_result(db_query("SELECT * FROM {users} WHERE created < ADDDATE(CURDATE(), INTERVAL -1 YEAR) AND uid = '%d'", $uid));
+  }
+  return false;
+}
+
+/**
+ * Helper for
+ *  badge_process_paperboy()
+ */
+function _badge_resource_has_votes($uid, $count) {
+  return $count <= db_result(db_query("SELECT COUNT(*) FROM {node} n INNER JOIN {content_type_forum} ctf ON ctf.nid = n.nid INNER JOIN {votingapi_vote} vv ON vv.content_id = n.nid WHERE n.uid = '%d' AND n.type = 'forum' AND ctf.field_type_value = '%d' AND vv.value = '%d' AND vv.content_type = 'node' GROUP BY (n.nid) ORDER BY COUNT(*) DESC", $uid, TYPE_RESOURCE, VOTE_AGREE));
+}
+
+/**
+ * Resource Posted by user gets 5 agrees
+ */
+function badge_process_paperboy($uid) {
+  return _badge_resource_has_votes($uid, 5);
+}
+
+/**
+ * Resource Posted by user gets 20 agrees
+ */
+function badge_process_newsstand($uid) {
+  return _badge_resource_has_votes($uid, 20);
+}
+
+/**
+ * Resource Posted by user gets 50 agrees
+ */
+function badge_process_librarian($uid) {
+  return _badge_resource_has_votes($uid, 50);
+}
+
+/**
+ * User has voted on at least 10 issues in 20 topics
+ */
+function badge_process_well_read($uid) {
+  return _badge_voted_in_many_blc($uid, 10, 20);
+}
+
+/**
+ * First to suggest answers that eventually gets approved
+ *
+ * TODO
+ */
+function badge_process_provocateur($uid) {
+  return false;
+}
+
+/**
+ * Philosopher
+ * Becoming a Top 5 Pundit in a top level category
+ *
+ * @param $uid
+ * @return bool
+ */
+
+/**
+ * Created a question that resulted in 100 debate posts or resource posts (including replies)
+ *
+ * @param $uid
+ * @return bool
+ */
+function badge_process_healthy_debate($uid) {
+  
+}
+
+
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+
+
+/*
+* Completed all user profile fields
+*/
 function badge_process_autobiographer($uid) {
   $user = user_load(array('uid' => $uid));
   $complete_data = pcp_get_complete_percentage_data($user);
@@ -21,7 +253,7 @@ function badge_process_autobiographer($uid) {
  * First flagged post
  */
 function badge_process_citizen_patrol($uid) {
-  $result = db_query("SELECT uid FROM {flag_content} fc WHERE 1 GROUP BY content_type, content_id ORDER BY timestamp DESC");
+  $result = db_query("SELECT uid FROM {flag_content} fc GROUP BY content_type, content_id ORDER BY timestamp DESC");
   while ($row = db_result($result)) {
     if ($uid == $row) {
       return true;
@@ -44,19 +276,7 @@ function badge_process_active_citizen($uid) {
   return _badge_user_votes($uid, 1000);
 }
 
-/*
- * Helper for
- *  badge_process_citizen()
- *  badge_process_active_citizen()
- */
-function _badge_user_votes($uid, $count) {
-  // TODO
-  # count different types of votes
-  $count_pv = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} WHERE uid = '%d'", $uid));
-  $count_sa = issue_sa_count($uid);
-  $count_ud = yn_user_vote_count($uid);
-  return $count_pv + $count_sa + $count_ud >= $count;
-}
+
 
 
 /*
@@ -68,6 +288,8 @@ function badge_process_commentator($uid) {
   return $comments >= $comment_count;
 }
 */
+
+
 
 /*
  * Voted on 600 questions and 25% or more of total votes are on questions
@@ -250,39 +472,12 @@ function badge_process_tumbleweed($uid) {
   return false;
 }
 
-/*
- * Active member for a year, earning at least 200 reputation
- */
-function badge_process_yearling($uid) {
-  $count_points = 200;
-  if( $count_points <= up_userpoints_get($uid) ) {
-    return false != db_result(db_query("SELECT * FROM {users} WHERE created < ADDDATE(CURDATE(), INTERVAL -1 YEAR) AND uid = '%d'", $uid));
-  }
-  return false;
-}
 
-/*
- * Flags post, that eventually results in a change or removal
- */
-function badge_process_scrutineer($uid) {
-  // TODO
-  return false;
-}
 
-/*
- * First to suggest answers that eventually gets approved
- */
-function badge_process_provocateur($uid) {
-  // TODO
-  return false;
-}
 
-/*
- * Left 10 comments that got a minimum of 1 agree.
- */
-function badge_process_pamphleteer($uid) {
-  return _badge_posted_agreed_comments($uid, 10);
-}
+
+
+
 
 
 /*
@@ -301,21 +496,7 @@ function badge_process_pundit($uid) {
 }
 
 
-/*
- * Helper for
- *  badge_process_pamphleteer()
- *  badge_process_commentator()
- *  badge_process_pundit()
- */
-function _badge_posted_agreed_comments($uid, $count) {
-  $comments = db_result(db_query("
-    SELECT COUNT(DISTINCT(c.cid))
-    FROM {comments} c INNER JOIN {votingapi_vote} vv ON vv.content_id = c.cid
-    WHERE c.uid = %d AND vv.content_type = 'comment' AND vv.value = %d",
-    $uid, VOTE_AGREE
-  ));
-  return $comments >= $count;
-}
+
 
 /*
  * Posted an Issue with 1,000 views
@@ -324,12 +505,7 @@ function badge_process_notable_issue($uid) {
   return _badge_issue_views($uid, 1000);
 }
 
-/*
- * Posted an Issue with 10,000 views
- */
-function badge_process_provocative_issue($uid) {
-  return _badge_issue_views($uid, 10000);
-}
+
 
 /*
  * Posted an Issue with 50,000 views
@@ -338,16 +514,7 @@ function badge_process_household_issue($uid) {
   return _badge_issue_views($uid, 50000);
 }
 
-/*
- * Helper for
- *  badge_process_notable_issue()
- *  badge_process_provocative_issue()
- *  badge_process_household_issue()
- */
-function _badge_issue_views($uid, $count) {
-  // TODO
-  return false;
-}
+
 
 /*
  * User has voted on at least 5 issues in 10 topics
@@ -356,43 +523,11 @@ function badge_process_generalist($uid) {
   return _badge_voted_in_many_blc($uid, 5, 10);
 }
 
-/*
- * User has voted on at least 10 issues in 20 topics
- */
-function badge_process_well_read($uid) {
-  return _badge_voted_in_many_blc($uid, 10, 20);
-}
 
-/*
- * User has voted on at least 20 issues in 30 topics
- */
-function badge_process_scholar($uid) {
-  return _badge_voted_in_many_blc($uid, 20, 30);
-}
 
-/*
- * Helper for
- *  badge_process_generalist()
- *  badge_process_well_read()
- *  badge_process_scholar()
- */
-function _badge_voted_in_many_blc($uid, $count_vote, $count_blc) {
-  # bottom-level categories
-  $vid = _badge_get_vid_by_name('Sections');
-  $blc = _badge_bottom_level_terms($vid);
-  $blc_implode = implode(',', $blc);
-  if( $blc == '' ) {
-    return false;
-  }
-  # check
-  $data = db_fetch_array(db_query("
-    SELECT COUNT(DISTINCT(tn.nid)) AS nids, COUNT(DISTINCT(tn.tid)) AS tids
-    FROM {poll_votes} pv INNER JOIN {term_node} tn ON tn.nid = pv.nid
-    WHERE pv.uid = '%d' AND tn.tid IN (%s)",
-    $uid, $blc_implode
-  ));
-  return $data['nids'] >= $count_vote && $data['tids'] >= $count_blc;
-}
+
+
+
 
 /*
  * Helper function for
@@ -429,51 +564,12 @@ function _badge_bottom_level_terms($vid) {
   return $_list[$vid];
 }
 
-/*
- * Resource Posted by user gets 5 agrees
- */
-function badge_process_paperboy($uid) {
-  return _badge_resource_has_votes($uid, 5);
-}
 
-/*
- * Resource Posted by user gets 20 agrees
- */
-function badge_process_newsstand($uid) {
-  return _badge_resource_has_votes($uid, 20);
-}
 
-/*
- * Resource Posted by user gets 50 agrees
- */
-function badge_process_librarian($uid) {
-  return _badge_resource_has_votes($uid, 50);
-}
 
-/*
- * Helper for
- *  badge_process_paperboy()
- *  badge_process_newsstand()
- *  badge_process_librarian()
- */
-function _badge_resource_has_votes($uid, $count) {
-  // TODO
-  $resource_tid = ugc_taxonomy_term_id('Resource', 'forum');
-  return false != db_result(db_query("
-    SELECT n.nid
-    FROM {node} n
-      INNER JOIN {votingapi_vote} vv ON vv.content_id = n.nid
-      LEFT JOIN {term_node} tn ON n.nid = tn.nid
-    WHERE
-      n.type = 'forum' AND
-      vv.content_type = 'node' AND
-      tn.tid = '%d' AND
-      n.uid = %d AND
-      vv.value = 1
-    GROUP BY n.nid HAVING COUNT(*) > %d",
-    $resource_tid, $uid, $count
-  ));
-}
+
+
+
 
 /*
  * Argument Posted by user gets 5 agrees
@@ -514,35 +610,10 @@ function badge_process_supporter($uid) {
   return _badge_first_vote_supernode($uid, 10);
 }
 
-/*
- * First agree on a post or resource that eventually gets 50 agrees
- */
-function badge_process_seer($uid) {
-  return _badge_first_vote_supernode($uid, 50);
-}
 
-/*
- * First agree on a post or resource that eventually gets 100 agrees
- */
-function badge_process_oracle($uid) {
-  return _badge_first_vote_supernode($uid, 100);
-}
 
-/*
- * Helper function for
- *  badge_process_supporter()
- *  badge_process_seer()
- *  badge_process_oracle()
- */
-function _badge_first_vote_supernode($uid, $count) {
-  $result = db_query("SELECT uid FROM {votingapi_vote} WHERE value = %d GROUP BY content_type, content_id HAVING COUNT(*) >= %d ORDER BY timestamp", VOTE_AGREE, $count);
-  while( $row = db_fetch_object($result) ) {
-    if( $row->uid == $uid ) {
-      return true;
-    }
-  }
-  return false;
-}
+
+
 
 /*
  * Created an issue that resulted in 20 debate posts or resource posts
@@ -608,12 +679,7 @@ function badge_process_provocative_question($uid) {
   ));
 }
 
-/*
- * Left 500 comments that got a minimum of one agree.
- *
-function badge_process_senator($uid) {
-  return _badge_posted_agreed_comments($uid, 500);
-}
+
 
 */
 

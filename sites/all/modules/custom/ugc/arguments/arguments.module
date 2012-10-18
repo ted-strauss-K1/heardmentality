@@ -299,16 +299,26 @@ function arguments_fetch_url($url, $image = false) {
 function arguments_resource_validate_images($images) {
   $ext_allowed = array('png', 'jpg', 'jpeg', 'gif');
   $result = array();
+  $sizes = array();
   foreach ($images as $image) {
     $ext = arguments_resource_image_extension($image);
     if (in_array($ext, $ext_allowed)) {
       list($width, $height, $type, $attr) = getimagesize($image);
       if ($width > 30 && $height > 30) {
-        $result[] = $image;
+        $size_coeff = $width * $height;
+        $result[$size_coeff][] = $image;
       }
     }
   }
-  return $result;
+  // sort by size
+  krsort($result, SORT_NUMERIC);
+  $output = array();
+  foreach ($result as $items) {
+    foreach ($items as $item) {
+      $output[] = $item;
+    }
+  }
+  return $output;
 }
 
 /*
