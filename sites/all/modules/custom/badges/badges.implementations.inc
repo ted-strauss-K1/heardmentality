@@ -227,7 +227,7 @@ function badge_process_provocateur($uid) {
  * @return bool
  */
 function badge_process_healthy_debate($uid) {
-  
+
 }
 
 
