@@ -59,8 +59,12 @@ function user_profile_user($op, &$edit, &$account, $category = NULL) {
 //      $account = (object)array_merge((array)$account, $user_profile);
     break;
     case 'insert' :
-      $account->picture = avatar_selection_get_random_image($account);
-    break;
+      $account->picture = file_directory_path() . '/' . avatar_selection_get_random_image($account);
+      db_query();
+
+
+      user_save($account);
+      break;
   }
 //  var_dump($account);
 }
