@@ -58,6 +58,9 @@ function user_profile_user($op, &$edit, &$account, $category = NULL) {
 //      $user_profile = db_fetch_array(db_query("SELECT * FROM {user_profile} WHERE uid = '%d'", $account->uid));
 //      $account = (object)array_merge((array)$account, $user_profile);
     break;
+    case 'insert' :
+      $account->picture = avatar_selection_get_random_image($account);
+    break;
   }
 //  var_dump($account);
 }

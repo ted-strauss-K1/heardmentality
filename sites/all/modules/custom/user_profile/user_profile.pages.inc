@@ -96,7 +96,7 @@ function user_profile_edit_form(&$form_state) {
         $form[$field->name] = array(
           '#type'           => 'textfield',
           '#title'          => t(''),
-          '#maxlength'      => 30,
+          '#maxlength'      => 64,
           '#description'    => t(' '),
           '#value'          => $user->{$field->name},
           '#default_value'  => t($field->title),
@@ -148,7 +148,7 @@ function user_profile_edit_form(&$form_state) {
         $form[$field->name] = array(
           '#type'           => 'textfield',
           '#title'          => t(''),
-          '#maxlength'      => 30,
+          '#maxlength'      => 64,
           '#description'    => t(' '),
           '#value'          => $user->{$field->name},
           '#default_value'  => t($field->title),
