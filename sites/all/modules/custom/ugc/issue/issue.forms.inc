@@ -77,7 +77,7 @@ function issue_vote_form($form, $node) {
   }
 
   # add suggested answers
-  if (!$is_search) {
+  if (!$is_search && user_is_logged_in()) {
     $form['add_vote'] = array(
       '#type' => 'fieldset',
       '#title' => $sa_added ? t('') : t('...Or submit a different answer'),

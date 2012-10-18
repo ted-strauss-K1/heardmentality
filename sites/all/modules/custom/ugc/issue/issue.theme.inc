@@ -151,7 +151,7 @@ function theme_issue_results_insightview($node) {
       case 'gender' :
       case 'ethnicity' :
       case 'marital' :
-      case 'sex_orient' :
+      case 'sorient' :
       case 'education' :
       case 'religion' :
       default :
@@ -233,50 +233,102 @@ function issue_results_graph_highchart_filter_data($node) {
     }
 
     # get other votes
-    $votes = array();
-    $stat_fields = issue_profile_fields();
-    foreach ($stat_fields as &$field) {
-      $field = "'" . $field . "'";
-    }
-    $result = db_query("SELECT pf.name, pval.value, pv.chorder FROM {poll_votes} AS pv INNER JOIN {profile_values} pval ON pv.uid = pval.uid INNER JOIN {profile_fields} pf ON pf.fid = pval.fid AND pf.name IN (" . implode(',', $stat_fields) . ") WHERE pv.nid = '%d'", $nid);
-    while ($row = db_fetch_array($result)) {
-      $votes[] = $row;
-    }
+//    $votes = array();
+//    $stat_fields = issue_profile_fields();
+//    foreach ($stat_fields as &$field) {
+//      $field = "'" . $field . "'";
+//    }
+//    $result = db_query("SELECT pf.name, pval.value, pv.chorder FROM {poll_votes} AS pv INNER JOIN {profile_values} pval ON pv.uid = pval.uid INNER JOIN {profile_fields} pf ON pf.fid = pval.fid AND pf.name IN (" . implode(',', $stat_fields) . ") WHERE pv.nid = '%d'", $nid);
+//    while ($row = db_fetch_array($result)) {
+//      $votes[] = $row;
+//    }
 
     # Collect statistics
     $y = date('Y');
-    foreach ($votes as $vote) {
-      switch ($vote['name']) {
-        case 'profile_yob' :
-          $counts = &$cat['age']['#results'][$vote['chorder']];
-          if ($vote['value'] == '') {
-            $counts[3]++;
-          }
-          else {
-            $age = $y - $vote['value'];
-            if ($age >= 51) {
-              $counts[2]++;
-            }
-            elseif ($age >= 31) {
-              $counts[1]++;
+    $stat_fields = issue_profile_fields();
+    foreach ($stat_fields as $field) {
+      $result = db_query("SELECT pval.value, pv.chorder FROM {poll_votes} pv LEFT JOIN {profile_values} pval ON pv.uid = pval.uid AND pval.fid = (SELECT fid FROM {profile_fields} WHERE name = '%s') WHERE pv.nid = '%d'", $field, $nid);
+      while ($vote = db_fetch_array($result)) {
+        switch ($field) {
+          case 'profile_yob' :
+            $counts = &$cat['age']['#results'][$vote['chorder']];
+            if ($vote['value'] == '') {
+              $counts[3]++;
             }
             else {
-              $counts[0]++;
+              $age = $y - $vote['value'];
+              if ($age >= 51) {
+                $counts[2]++;
+              }
+              elseif ($age >= 31) {
+                $counts[1]++;
+              }
+              else {
+                $counts[0]++;
+              }
             }
-          }
           break;
-        default:
-          $name = str_replace('profile_', '', $vote['name']);
-          $counts = &$cat[$name]['#results'][$vote['chorder']];
-          if (isset($cat[$name]['#options'][$vote['value']])) {
-            $counts[$vote['value']]++;
-          }
-          else {
-            $counts[sizeof($counts) - 1]++;
-          }
+          default:
+            $name = str_replace('profile_', '', $field);
+            $counts = &$cat[$name]['#results'][$vote['chorder']];
+            if (isset($cat[$name]['#options'][$vote['value']])) {
+              $counts[$vote['value']]++;
+            }
+            else {
+              $counts[sizeof($counts) - 1]++;
+            }
           break;
+        }
       }
     }
+
+//    foreach ($votes as $vote) {
+//      $totals[$vote['name']]++;
+//      switch ($vote['name']) {
+//        case 'profile_yob' :
+//          $counts = &$cat['age']['#results'][$vote['chorder']];
+//          if ($vote['value'] == '') {
+//            $counts[3]++;
+//          }
+//          else {
+//            $age = $y - $vote['value'];
+//            if ($age >= 51) {
+//              $counts[2]++;
+//            }
+//            elseif ($age >= 31) {
+//              $counts[1]++;
+//            }
+//            else {
+//              $counts[0]++;
+//            }
+//          }
+//          break;
+//        default:
+//          $name = str_replace('profile_', '', $vote['name']);
+//          $counts = &$cat[$name]['#results'][$vote['chorder']];
+//          if (isset($cat[$name]['#options'][$vote['value']])) {
+//            $counts[$vote['value']]++;
+//          }
+//          else {
+//            $counts[sizeof($counts) - 1]++;
+//          }
+//        break;
+//      }
+//    }
+
+//    foreach (issue_profile_fields() as $key) {
+//      switch ($key) {
+//        case 'profile_yob' :
+//          $counts = &$cat['age']['#results'][$vote['chorder']];
+//          $counts[3] = $totals['#all'] - $totals[$key];
+//        break;
+//        default:
+//          $name = str_replace('profile_', '', $vote['name']);
+//          $counts = &$cat[$name]['#results'][$vote['chorder']];
+//          $counts[sizeof($counts) - 1] = $totals['#all'] - $totals[$key];
+//          break;
+//      }
+//    }
 
     drupal_add_js(array('charts' => array('highchart' => $cat)), 'setting');
     $dataset = $cat;
@@ -397,6 +449,17 @@ function issue_results_graph_highstock_history_data($node) {
     $m = $vote['status'] == 1 ? 1 : -1;
     $stats[$cdate][$vote['chorder']] += $m;
   }
+
+  // fix the lail of data
+  $stats_last = $stats[$cdate];
+  while ($ctime < time()) {
+    $ctime = strtotime('+1 day', $ctime);
+    $cdate = date('Y-m-d', $ctime);
+    $stats[$cdate] = $stats_last;
+  }
+
+
+
   # Create a response arrays
   $list = array();
   foreach ($stats as $stat) {
@@ -408,9 +471,12 @@ function issue_results_graph_highstock_history_data($node) {
   # Put the data to Drupal.settings
   drupal_add_js(array('charts' => array('highstock' => array(
         'date' => $mindate,
+        'stats' => $stats,
+        'cdate' => $cdate,
     ))), 'setting');
   foreach ($choices as $i => $choice) {
     drupal_add_js(array('charts' => array('highstock' => array(
+
           'choice' . $i => array(
             'name' => $choices[$i]['short_answer'],
             'data' => $list[$i],

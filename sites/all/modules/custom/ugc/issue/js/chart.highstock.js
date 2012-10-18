@@ -41,6 +41,7 @@ function initialize_highstock(seriesOptions, sdate) {
       }
     },
     yAxis: {
+      min : 0,
       labels: {
         formatter: function() {
           return this.value;
