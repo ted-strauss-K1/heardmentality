@@ -94,12 +94,26 @@ $(document).ready(function(){
 
 });
 
-
+$('#answer-add').live('click', function() {
+  $(this).parents('#issue-vote-form').find('input[name=action]').val('suggest')
+});
+$('#vote-add, #vote-change').live('click', function() {
+  $(this).parents('#issue-vote-form').find('input[name=action]').val('vote')
+});
 
 $('#issue-vote-form').live('submit', function(e) {
+  var form = $(this);
   e.preventDefault();
-  console.log(e);
+  var callback_url = Drupal.settings.base_url + '/issue/ajax';
+  $.ajax({
+    type      : 'POST',
+    dataType  : 'json',
+    url       : callback_url,
+    data      : form.serialize(),
+    success   : function(response) {
 
+    }
+  });
 
 });
 
