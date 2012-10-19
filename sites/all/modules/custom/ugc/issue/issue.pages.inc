@@ -1,8 +1,43 @@
 <?php
 
-/*
- * "issue/vote" page callback
+/**
+ * Function to handle "issue/ajax" calls
+ *
+ * @warning Not to mix things up - use it only for poll votes, answer suggestions
  */
+function issue_ajax() {
+  $post = $_POST;
+
+  switch ($post['action']) {
+    case 'vote' :
+      return _issue_ajax_vote($post);
+    case 'suggest' :
+      return _issue_ajax_suggest($post);
+    default :
+      drupal_json(array(
+        'status' => false,
+      ));
+      exit;
+  }
+}
+
+/**
+ * Function to handle "issue/ajax" poll votes
+ */
+function _issue_ajax_vote($vars) {
+  // TODO
+}
+
+/**
+ * Function to handle "issue/ajax" answer suggestions
+ */
+function _issue_ajax_suggest($vars) {
+  // TODO
+}
+
+/*
+* "issue/vote" page callback
+*/
 function issue_vote_ajax() {
   $post = $_POST;
   if (empty($post['nid'])) {
@@ -581,7 +616,7 @@ function issue_search_form_submit($form, &$form_state) {
   drupal_goto($path);
 }
 
-function issue_ajax($task = '', $nid = '') {
+function issue_ajax_($task = '', $nid = '') {
   global $base_url, $user;
   switch ($task) {
     case 'debate_statistics':

@@ -28,6 +28,9 @@
         }
 
         switch ($type) {
+          case ACTIVITY_STREAM_BADGE :
+            $text = 'got the badge';
+          break;
           case ACTIVITY_STREAM_FOLLOW :
             $text = 'now following';
           break;
@@ -97,6 +100,19 @@
           case ACTIVITY_STREAM_ARGUMENT_REPLY_VOTE :
           case ACTIVITY_STREAM_ARGUMENT_REPLY :
             $text2 = $comment->comment;
+          break;
+          case ACTIVITY_STREAM_BADGE :
+            if (module_exists("badges")) {
+              $badges = badges_get();
+              $badges_types = badges_types();
+              foreach ($badges as $badge) {
+                if (($badge['status'] == 1) && ($vars['badge_id'] == $badge['id'])) {
+                  $text2 = sprintf('<span class="medal"><span class="%s" id="medal1" title="%s Medal">&nbsp;</span>&nbsp;%s</span>',
+                    $badges_types[$badge['type']], ucfirst($badges_types[$badge['type']]), $badge['name']);
+                  break;
+                }
+              }
+            }
           break;
           case ACTIVITY_STREAM_FOLLOW :
             $text2 = l(

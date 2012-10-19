@@ -150,6 +150,12 @@ function issue_vote_form($form, $node) {
     );
   }
 
+  // for ajax callbacks
+  $form['action'] = array(
+    '#type' => 'hidden',
+    '#value' => 'vote',
+  );
+
   $form['#cache'] = TRUE;
   $form['#theme'] = 'poll_vote';
   return $form;

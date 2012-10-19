@@ -36,7 +36,7 @@ function badges_form() {
   $form = array();
 
   $badges = badges_get();
-  $badge_types = badge_types();
+  $badge_types = badges_types();
 
   $badges[] = array();
 

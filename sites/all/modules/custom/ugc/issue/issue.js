@@ -92,9 +92,15 @@ $(document).ready(function(){
     $('.resources').toggle();
   });
 
-
 });
 
 
+
+$('#issue-vote-form').live('submit', function(e) {
+  e.preventDefault();
+  console.log(e);
+
+
+});
 
 

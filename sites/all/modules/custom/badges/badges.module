@@ -61,7 +61,29 @@ function badges_menu() {
     'file'             => 'badges.admin.inc',
   );
 
+  $menu['badges'] = array(
+    'title'            => t('Badges'),
+    'page callback'    => 'theme',
+    'page arguments'   => array('badges_list'),
+    'access callback'  => true,
+  );
+
   return $menu;
+}
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function badges_theme() {
+  $theme = array();
+
+  $theme['badges_list'] = array(
+    'arguments' => array(),
+  );
+
+  return $theme;
 }
 
 /*
@@ -123,11 +145,13 @@ function badges_get() {
 /*
  * Badge types
  */
-function badge_types() {
-  $types = array();
-  $result = db_query("SELECT * FROM {module_badges_types}");
-  while( $row = db_fetch_object($result) ) {
-    $types[$row->id] = $row->name;
+function badges_types() {
+  static $types = array();
+  if (empty($types)) {
+    $result = db_query("SELECT * FROM {module_badges_types}");
+    while( $row = db_fetch_object($result) ) {
+      $types[$row->id] = $row->name;
+    }
   }
   return $types;
 }
@@ -139,6 +163,11 @@ function badge_types() {
  */
 function badges_add_userbadge($uid, $badge_id) {
   db_query("INSERT INTO {module_badges_userbadges} SET uid = '%d', badge_id = '%d'", $uid, $badge_id);
+  if (module_exists('activity_stream')) {
+    activity_stream_add_activity(ACTIVITY_STREAM_BADGE, array(
+      'badge_id' => $badge_id,
+    ));
+  }
 }
 
 /*
@@ -166,4 +195,26 @@ function badges_get_userbadges($uid) {
     $values[$uid] = $list;
   }
   return $values[$uid];
+}
+
+/**
+ * Callback for "badges"
+ */
+function theme_badges_list() {
+  $output = '<div class="badges">';
+  $result = db_query("
+    SELECT mb.info, mb.name AS badge_name, mbt.name, COUNT(mbu.id) AS count
+    FROM {module_badges} mb
+    INNER JOIN {module_badges_types} mbt ON mb.type = mbt.id
+    LEFT JOIN {module_badges_userbadges} mbu ON mb.id = mbu.badge_id
+    WHERE mb.status = '%d'
+    GROUP BY mb.id ORDER BY count DESC, mbt.id DESC", 1);
+  while ($badge = db_fetch_array($result)) {
+    $output .= sprintf('<div class="medal"><span class="%s" id="medal1" title="%s Medal">&nbsp;</span>&nbsp;x&nbsp;%d&nbsp;&nbsp;%s <p>%s</p></div>',
+      $badge['name'], ucfirst($badge['name']), $badge['count'], $badge['badge_name'], $badge['info']);
+
+
+  }
+  $output .= '</div>';
+  return $output;
 }

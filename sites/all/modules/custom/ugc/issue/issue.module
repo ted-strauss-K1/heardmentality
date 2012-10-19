@@ -155,6 +155,15 @@ function issue_menu() {
     'type'              => MENU_SUGGESTED_ITEM,
     'file'              => 'issue.pages.inc'
   );
+
+  $menu['issue/ajax'] = array(
+    'page callback'     => 'issue_ajax',
+    'access arguments'  => array(ISSUE_VIEW),
+    'type'              => MENU_CALLBACK,
+    'file'              => 'issue.pages.inc'
+  );
+
+
   $menu['issue/vote'] = array(
     'page callback'     => 'issue_vote_ajax',
     'access arguments'  => array(ISSUE_CREATE),

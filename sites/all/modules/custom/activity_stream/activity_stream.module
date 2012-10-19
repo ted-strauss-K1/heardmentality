@@ -10,6 +10,7 @@ define('ACTIVITY_STREAM_ARGUMENT_REPLY', 'argument_reply');
 define('ACTIVITY_STREAM_ARGUMENT_VOTE', 'argument_vote');
 define('ACTIVITY_STREAM_ARGUMENT_REPLY_VOTE', 'argument_reply_vote');
 define('ACTIVITY_STREAM_PROFILE_UPDATE', 'user_profile_update');
+define('ACTIVITY_STREAM_BADGE', 'user_badge');
 define('ACTIVITY_STREAM_FOLLOW', 'user_follow');
 
 /**

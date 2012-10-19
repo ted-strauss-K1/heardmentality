@@ -101,10 +101,6 @@ function yn_vote( $content_id, $value, $content_type, $vote_source = '', $uid = 
         ));
       break;
     }
-
-
-
-
   }
 
   return votingapi_add_votes($vote);

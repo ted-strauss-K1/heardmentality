@@ -13,7 +13,7 @@
         <?php endforeach; ?>
       </div>
       <?php endif; ?>
-      <div class="voting-pane"><?php print drupal_get_form('issue_vote_form', $node) #$content;?></div>
+      <div class="voting-pane"><?php print $content;?></div>
     </div>
   </div><!-- /div.part1 -->
 
