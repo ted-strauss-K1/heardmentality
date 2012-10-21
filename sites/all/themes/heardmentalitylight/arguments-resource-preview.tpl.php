@@ -35,8 +35,9 @@ $image_path = $base_url . '/' . drupal_get_path('theme', 'heardmentalitylight') 
     <?php endif; ?>
   </div>
   <div class="rightfm">
+	<a href="javascript:void(0)" class="del_ref" onclick="$('#argument-add-form').reset(); $('#linkbox').html(''); $('#add_argument').val(Drupal.settings.t.attach);"><span>x</span></a>
     <em><?php print $node->title ?></em>
-    source:&nbsp;<strong><?php print $node->domain ?></strong> <a href="javascript:void(0)" onclick="$('#argument-add-form').reset(); $('#linkbox').html(''); $('#add_argument').val(Drupal.settings.t.attach);">x</a>
+    source:&nbsp;<strong><?php print $node->domain ?></strong>
     <span><?php print $node->body ?></span>
     <span class="no_thumb">
       <?php if ($node->noimage) : ?>
