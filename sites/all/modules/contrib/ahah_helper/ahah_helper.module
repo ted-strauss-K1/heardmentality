@@ -106,7 +106,8 @@ function ahah_helper_register(&$form, &$form_state) {
 
   // Add our JS file, which has some Drupal core JS overrides.
   if (!isset($js_file_added)) {
-    drupal_add_js(drupal_get_path('module', 'ahah_helper') . '/ahah_helper.js', 'module', 'footer');
+    drupal_add_js(drupal_get_path('module', 'ahah_helper') . '/ahah_helper.js', 'module');
+//    drupal_add_js(drupal_get_path('module', 'ahah_helper') . '/ahah_helper.js', 'module', 'footer');
     $js_file_added = TRUE;
   }
 

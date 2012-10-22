@@ -712,7 +712,7 @@ Mobile Only
 		display: none;
 	}
 	
-	#new_vote .poll-vote-area fieldset legend a, #solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
+	.issue-vote-wrapper .poll-vote-area fieldset legend a, #solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
 		text-transform: none;
 	}
 	
@@ -1035,12 +1035,12 @@ END Mobile Only
 			 margin: 2px 0 4px 16px;
 		}
 		
-		#new_vote .poll-vote-area .form-radios span.teaser_count_vote, .search_list .poll-vote-area .form-radios span.teaser_count_vote {
+		.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote, .search_list .poll-vote-area .form-radios span.teaser_count_vote {
 			font: 16px/1 'DINLightRegular',Arial,sans-serif;
 			width: 40px;
 		}
 		
-		.choices .form-radios span.teaser_count_vote + .form-item, #new_vote .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item, #solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
+		.choices .form-radios span.teaser_count_vote + .form-item, .issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item, #solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
 			margin-left: 55px !important;
 		}
 		

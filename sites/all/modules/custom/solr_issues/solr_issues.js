@@ -1,16 +1,16 @@
 $(document).ready(function() {
-  $(".form-submit.button.vote.floatright").live("click", function(e) {
-    var options = {
-      url: "issues_solr2/submit",
-      dataType: 'json',
-      success: function(data) {
-        $('#issue_edit_form_stream').parent().parent().parent().html(data.data);
-      }
-    };
-    $(this).parents('#issue_edit_form_stream').ajaxSubmit(options);    
-    return false;
-
-  });
+//  $(".form-submit.button.vote.floatright").live("click", function(e) {
+//    var options = {
+//      url: "issues_solr2/submit",
+//      dataType: 'json',
+//      success: function(data) {
+//        $('#issue_edit_form_stream').parent().parent().parent().html(data.data);
+//      }
+//    };
+//    $(this).parents('#issue_edit_form_stream').ajaxSubmit(options);
+//    return false;
+//
+//  });
   var get_par = parseGetParams();
   get_issues_solr(null, null);  
   

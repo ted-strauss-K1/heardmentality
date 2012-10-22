@@ -62,6 +62,19 @@ function issue_create_ahah_answer_error() {
   });
 }
 
+function choices(s1,s2) {
+  $(s1).live('change', function() {
+    $(s1).parents('div.form-item').removeClass('staygreen');
+    $(s1+':checked').parents('div.form-item').addClass('staygreen');
+    $(s2).each(function(i,e) {
+      $(e).removeAttr("checked")
+      $(e).parents('div.form-item').removeClass('staygreen');
+    });
+  });
+  $(s1+':checked').each(function(i,e){
+    $(e).parents('div.form-item').addClass('staygreen');
+  });
+}
 
 $(document).ready(function(){
   /*
@@ -69,19 +82,6 @@ $(document).ready(function(){
    */
   var s1 = '.choices.regular input[type="radio"]';
   var s2 = '.choices.suggested input[type="radio"]';
-  function choices(s1,s2) {
-    $(s1).change(function() {
-      $(s1).parents('div.form-item').removeClass('staygreen');
-      $(s1+':checked').parents('div.form-item').addClass('staygreen');
-      $(s2).each(function(i,e) {
-        $(e).removeAttr("checked")
-        $(e).parents('div.form-item').removeClass('staygreen');
-      });
-    });
-    $(s1+':checked').each(function(i,e){
-      $(e).parents('div.form-item').addClass('staygreen');
-    });
-  }
   choices(s1,s2);
   choices(s2,s1);
 
@@ -95,26 +95,38 @@ $(document).ready(function(){
 });
 
 $('#answer-add').live('click', function() {
-  $(this).parents('#issue-vote-form').find('input[name=action]').val('suggest')
+  $(this).parents('.issue-vote-form').find('input[name=action]').val('suggest')
 });
 $('#vote-add, #vote-change').live('click', function() {
-  $(this).parents('#issue-vote-form').find('input[name=action]').val('vote')
+  $(this).parents('.issue-vote-form').find('input[name=action]').val('vote')
 });
 
-$('#issue-vote-form').live('submit', function(e) {
-  var form = $(this);
+$('.issue-vote-form').live('submit', function(e) {
   e.preventDefault();
-  var callback_url = Drupal.settings.base_url + '/issue/ajax';
+  var form = $(this);
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : callback_url,
+    url       : Drupal.settings.base_url + '/issue/ajax',
     data      : form.serialize(),
     success   : function(response) {
-
+      if (!response.status) {
+        $.hrd.noty({
+          type  : 'error',
+          text  : response.message
+        });
+        return false;
+      }
+      $.hrd.noty({
+        type  : 'success',
+        text  : response.message
+      });
+      form.parents('.voteform').html(response.content);
+      //
+      Drupal.attachBehaviors();
     }
   });
-
+  return false;
 });
 
 

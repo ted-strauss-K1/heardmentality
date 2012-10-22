@@ -41,10 +41,12 @@ function solr_issues_search_form($form_state) {
     '#suffix' => '</div>',
   );
 
-  $form['linkbox'] = array(
-    '#type' => 'item',
-    '#value' => '<div id="linkbox"></div>',
-  );
+//  $form['linkbox'] = array(
+//    '#type' => 'item',
+//    '#value' => '<div id="linkbox"></div>',
+//  );
+
+  $form['#suffix'] = '<div id="linkbox"></div>';
   return $form;
 }
 
@@ -485,26 +487,38 @@ function solr_issues_apachesolr_process_results(&$results, DrupalSolrQueryInterf
 }
 
 function solr_issues_search_output($results) {
-  global $user;
-  if ($user->uid) {
-    foreach ($results as $result) {
-      $node = node_load($result['nid']);
+  $results = array(array('nid' => 995), array('nid' => 995));
 
-      if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
+  $output = '';
+  foreach ($results as $result) {
+    $node = node_load($result['nid']);
+//    $output .= solr_issues_node_output($node);
+//    $output .= drupal_get_form('issue_vote_form', $node);
+    $output .= node_view($node, true);
+  }
 
-        $output .= solr_issues_node_output($node);
-      }
-      else if ($_POST['voted'] == 'false') {
-        $output .= solr_issues_node_output($node);
-      }
-    }
-  }
-  else {
-    foreach ($results as $result) {
-      $node = node_load($result['nid']);
-      $output.= solr_issues_node_output($node);
-    }
-  }
+//  if (user_is_logged
+//
+//  global $user;
+//  if ($user->uid) {
+//    foreach ($results as $result) {
+//      $node = node_load($result['nid']);
+//
+//      if ($_POST['voted'] == 'true' && $node->allowvotes == TRUE) {
+//
+//        $output .= solr_issues_node_output($node);
+//      }
+//      else if ($_POST['voted'] == 'false') {
+//        $output .= solr_issues_node_output($node);
+//      }
+//    }
+//  }
+//  else {
+//    foreach ($results as $result) {
+//      $node = node_load($result['nid']);
+//      $output.= solr_issues_node_output($node);
+//    }
+//  }
 
   return $output;
 }

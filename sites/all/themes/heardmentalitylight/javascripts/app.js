@@ -100,28 +100,28 @@ $(function(){
     
   $.fn.extend({
     collapse: function(options) {
-            
+
       var defaults = {
         head : "h6",
         group : "div, ul",
         cookieName : "collapse",
         // Default function for showing content
-        show: function() { 
+        show: function() {
           this.show();
         },
         // Default function for hiding content
-        hide: function() { 
+        hide: function() {
           this.hide();
         }
       };
       var op = $.extend(defaults, options);
-            
+
       // Default CSS classes
       var active = "active",
       inactive = "inactive";
-            
+
       return this.each(function() {
-                
+
         // Increment coookie counter to ensure cookie name integrity
         cookieCounter++;
         var obj = $(this),
@@ -137,7 +137,7 @@ $(function(){
           }
           return head.next(op.group)[0];
         });
-    
+
         // Bind event for showing content
         obj.bind("show", function(e, bypass) {
           var obj = $(e.target);
@@ -167,7 +167,7 @@ $(function(){
             op.hide.call(obj);
           }
         });
-                
+
         // Look for existing cookies
         if(cookieSupport) {
           for (var c=0;c<=l;c++) {
@@ -181,7 +181,7 @@ $(function(){
             }
           }
         }
-                
+
         // Delegate click event to show/hide content.
         obj.bind("click", function(e) {
           var t = $(e.target);
@@ -206,7 +206,7 @@ $(function(){
             cookieVal += 'closed';
             if(cookieSupport) {
               $.cookie(cookieName, cookieVal, {
-                path: '/', 
+                path: '/',
                 expires: 10
               });
             }
@@ -217,7 +217,7 @@ $(function(){
           cookieVal += 'open';
           if(cookieSupport) {
             $.cookie(cookieName, cookieVal, {
-              path: '/', 
+              path: '/',
               expires: 10
             });
           }

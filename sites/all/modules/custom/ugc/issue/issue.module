@@ -174,29 +174,29 @@ function issue_menu() {
 
 
 
-
-
-  $menu['issue/ahah/%/%'] = array(
-    'title' => 'Issue Ahah Control',
-    'page callback' => 'issue_ahah_callback',
-    'access arguments' => array('issue list'),
-    'page arguments' => array(2, 3),
-  );
-  $menu['issue/ajax/%/%'] = array(
-    'title' => 'Insight View',
-    'page callback' => 'issue_ajax',
-    'type' => MENU_LOCAL_TASK,
-    'page arguments' => array(2, 3),
-    'access callback' => true,
-    'file' => 'issue.pages.inc',
-  );
-
-  $menu['issue/vote/ajax/submit/%'] = array(
-    'page callback' => 'issue_vote_submit_ajax',
-    'access arguments' => array('create issue'),
-    'page arguments' => array(4),
-    'type' => MENU_SUGGESTED_ITEM,
-  );
+//
+//
+//  $menu['issue/ahah/%/%'] = array(
+//    'title' => 'Issue Ahah Control',
+//    'page callback' => 'issue_ahah_callback',
+//    'access arguments' => array('issue list'),
+//    'page arguments' => array(2, 3),
+//  );
+//  $menu['issue/ajax/%/%'] = array(
+//    'title' => 'Insight View',
+//    'page callback' => 'issue_ajax',
+//    'type' => MENU_LOCAL_TASK,
+//    'page arguments' => array(2, 3),
+//    'access callback' => true,
+//    'file' => 'issue.pages.inc',
+//  );
+//
+//  $menu['issue/vote/ajax/submit/%'] = array(
+//    'page callback' => 'issue_vote_submit_ajax',
+//    'access arguments' => array('create issue'),
+//    'page arguments' => array(4),
+//    'type' => MENU_SUGGESTED_ITEM,
+//  );
 
 
 
@@ -312,9 +312,10 @@ function _issue_view(&$node) {
 
   # replace the content with the special voting form
 //  $tnode = issue_get_translated_node($node->nid);
-  $node->content['body'] = array(
-    '#value' => drupal_get_form('issue_vote_form', $node),
-  );
+//  TODO
+//  $node->content['body'] = array(
+//    '#value' => drupal_get_form('issue_vote_form', $node),
+//  );
   /*
   $node->allowvotes = $tnode->allowvotes;
   // selected radio button stays green
@@ -595,12 +596,13 @@ function issue_colors($index = false) {
  * Poll vote change
  */
 function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old = -1) {
-  if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return;
+  //var_dump(func_get_args()); die();
+  if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return false;
   global $user;
   if ($vote_r_old != -1) {
     db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = '%d' AND chorder = '%d'", $nid, $vote_r_old);
-    db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $vote_r_old, $user->uid);
-    db_query("UPDATE {poll_votes_history} SET status = 0 WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $vote_r_old, $user->uid);
+    db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND uid = '%d'", $nid, $user->uid);
+    db_query("UPDATE {poll_votes_history} SET status = 0 WHERE nid = '%d' AND uid = '%d'", $nid, $user->uid);
   }
   if ($vote_s_old != -1) {
     poll_suggest_vote_remove($vote_s_old, $user->uid);
@@ -621,6 +623,7 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
     activity_stream_add_activity(ACTIVITY_STREAM_ISSUE_VOTE, array('nid' => $nid));
   }
 
+  return true;
 }
 
 

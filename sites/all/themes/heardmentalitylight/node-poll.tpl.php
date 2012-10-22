@@ -1,22 +1,18 @@
-<div id="new_vote">
+<div class="<?php if($teaser) : ?>search_item<?php endif; ?> issue-vote-wrapper" <?php if($page) : ?>id="new_vote"<?php else : ?> <?php endif; ?>>
   <!-- Part 1 -->
-  <div class="part part1">
-    <h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
+  <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">
+    <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print t(rtrim($title, "?")); ?>?</h2>
+    <?php if($page) : ?>
     <div class="qd">
       <p class="description"><?php print theme('issue_description', $context); ?></p>
     </div>
+    <?php endif; ?>
     <div class="poll-vote-area">
-      <?php if($allowvotes == '' ) : ?>
-      <div class="vote-count-poll">
-        <?php foreach($indVoteCounts as $chorder => $vcount) : ?>
-          <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br /><span class="vote-count-title din">votes</span></div>
-        <?php endforeach; ?>
-      </div>
-      <?php endif; ?>
-      <div class="voting-pane"><?php print $content;?></div>
+      <div class="voting-pane"><?php print drupal_get_form('issue_vote_form', $node, $page) # $content;?></div>
     </div>
   </div><!-- /div.part1 -->
 
+  <?php if($page) : ?>
   <!-- Part 2 -->
   <div class="part part2">
     <div id="shareDiv" class="clearfix"></div>
@@ -52,5 +48,6 @@
        jQuery('#more-desc').hide();
     }
   </script>
+  <?php endif; ?>
 </div>
         

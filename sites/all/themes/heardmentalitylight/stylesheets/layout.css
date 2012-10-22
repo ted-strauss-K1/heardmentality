@@ -1130,7 +1130,6 @@ input.re-submit {
 	color:#ccc;
 }
 
-float:left;
 .sort-by.queued a{
 	color:#555;
 	text-shadow: 0 1px #fff;
@@ -2271,7 +2270,7 @@ textarea#q_quest  {
 }
 
 .choices .form-radios .form-item,
-#new_vote .fieldset-wrapper .form-radios .form-item,
+ .fieldset-wrapper .form-radios .form-item,
 #solr-issues-search-form .search_list .fieldset-wrapper .form-radios .form-item  {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
@@ -2281,9 +2280,13 @@ textarea#q_quest  {
 	cursor: pointer;
 }
 
+.search_item {
+  margin-bottom: 15px;
+}
+
 .choices .form-radios span.teaser_count_vote + .form-item,
-#new_vote .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item,
-#solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
+.issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item,
+#linkbox .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
 	margin-left: 65px !important;	
 }
 
@@ -2294,8 +2297,8 @@ textarea#q_quest  {
 
 .choices .form-radios .form-item:hover,
 .choices .form-radios .form-item.staygreen,
-#new_vote .fieldset-wrapper .form-radios .form-item:hover,
-#new_vote .fieldset-wrapper .form-radios .form-item.staygreen {
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item:hover,
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item.staygreen {
     background-color: #c2fcc4;
     border: 1px solid #bce0bd;
 	-webkit-box-shadow: inset 0px 0px 5px 0px #fff;
@@ -2307,8 +2310,8 @@ textarea#q_quest  {
 
 .choices .form-radios .form-item label.option,
 .choices .form-radios .form-item label.option span,
-#new_vote .fieldset-wrapper .form-radios .form-item label.option,
-#new_vote .fieldset-wrapper .form-radios .form-item label.option span {
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option,
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
 	color: #4c4c4c;
 	font: 18px/1.2 'DINLightRegular', Arial, sans-serif;
 	display: block;
@@ -2316,14 +2319,14 @@ textarea#q_quest  {
 }
 
 .choices .form-radios .form-item label.option span,
-#new_vote .fieldset-wrapper .form-radios .form-item label.option span {
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
     margin-left: 25px;
     overflow: hidden;
 	display: block;
 }
 
 .choices .form-radios .form-item label.option input.form-radio,
-#new_vote .fieldset-wrapper .form-radios .form-item label.option input.form-radio {
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option input.form-radio {
 	margin: 0;
 	float: left;
 	position: relative;
@@ -2332,11 +2335,11 @@ textarea#q_quest  {
 	padding: 0;
 }
 
-#new_vote fieldset .form-radios {
+.issue-vote-wrapper fieldset .form-radios {
 	width: 85%;
 }
 
-#new_vote fieldset .choices.suggested .form-radios {
+.issue-vote-wrapper fieldset .choices.suggested .form-radios {
 	width: 100%;
 }
 
@@ -3223,7 +3226,7 @@ h2.page-title {
 	-ms-border-radius: 4px 4px 0 0;
 }
 
-#new_vote .qd {
+.issue-vote-wrapper .qd {
 	padding: 0;
     margin: 18px 10px 17px 30px;
 	width: 88%;
@@ -3231,7 +3234,7 @@ h2.page-title {
 	font: 14px/19px Arial,"Lucida Grande",sans-serif;
 }
 
-#new_vote .qd p.description {
+.issue-vote-wrapper .qd p.description {
 	display: inline;
 	margin: 0;
 	padding: 0;
@@ -3239,25 +3242,25 @@ h2.page-title {
 	font: 14px/19px Arial,"Lucida Grande",sans-serif;
 }
 
-#new_vote #new-ellipse {
+.issue-vote-wrapper #new-ellipse {
 	display: inline;
 }
 
-#new_vote #new-ellipse a {
+.issue-vote-wrapper #new-ellipse a {
 	color: #55ba59;
 	cursor: pointer;
 }
 
-#new_vote #new-ellipse a:hover {
+.issue-vote-wrapper #new-ellipse a:hover {
 	color: #0c6926;
 }
 
-#new_vote span#extended-issue-description + p {
+.issue-vote-wrapper span#extended-issue-description + p {
 	display: none;
 }
 
-#new_vote .poll-vote-area .vote-form,
-#new_vote .poll-vote-area fieldset  {
+.issue-vote-wrapper .poll-vote-area .vote-form,
+.issue-vote-wrapper .poll-vote-area fieldset  {
 	background:url(../images/light_dotted.gif) repeat-x 0 0;
 	padding: 18px 10px 2px 30px;
 }
@@ -3267,30 +3270,30 @@ h2.page-title {
 	color: #CD2027;
 }
 
-#new_vote .poll-vote-area .voting-pane .choices {
+.issue-vote-wrapper .poll-vote-area .voting-pane .choices {
 	width: 85%;
 	margin: 0;
 }
 
-#new_vote .poll-vote-area .voting-pane .choices .choices.regular {
+.issue-vote-wrapper .poll-vote-area .voting-pane .choices .choices.regular {
 	width: 100%;
 }
 
 .search_list .poll-vote-area .voting-pane .choices {
-	width: auto;
-	margin: 0 12% 0 30px;
+	/*width: auto;*/
+	/*margin: 0 12% 0 30px;*/
 }
 
 .search_list .poll-vote-area .voting-pane .choices .choices.regular {
 	margin: 0;
 }
 
-#new_vote .poll-vote-area .form-radios,
+.issue-vote-wrapper .poll-vote-area .form-radios,
 .search_list .poll-vote-area .form-radios {
     margin: 0;
 }
 
-#new_vote .poll-vote-area .form-radios span.teaser_count_vote,
+.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote,
 .search_list .poll-vote-area .form-radios span.teaser_count_vote {
 	float: left;
 	width: 50px;
@@ -3309,27 +3312,27 @@ h2.page-title {
 	border: 1px solid #d1d41b;
 }
 
-#new_vote .poll-vote-area .form-radios span.teaser_count_vote span,
+.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote span,
 .search_list .poll-vote-area .form-radios span.teaser_count_vote span {
 	display: block;
 	font: 20px/1 'DINLightRegular', Arial, sans-serif;
 }
 
-#new_vote .poll-vote-area fieldset {
+.issue-vote-wrapper .poll-vote-area fieldset {
 	margin: 0;
 }
 
 .search_list .poll-vote-area fieldset {
-	margin: 0 30px 2px !important;
+	/*margin: 0 30px 2px !important;*/
 }
 
-#new_vote .poll-vote-area fieldset legend,
+.issue-vote-wrapper .poll-vote-area fieldset legend,
 .search_list .poll-vote-area fieldset legend {
 	width: 100%;
 	display: block;
 }
 
-#new_vote .poll-vote-area fieldset legend a,
+.issue-vote-wrapper .poll-vote-area fieldset legend a,
 #solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
 	color: #924c9d;
 	display: inline-block;
@@ -3349,22 +3352,22 @@ h2.page-title {
 	padding-left: 0 !important;
 }
 
-#new_vote .poll-vote-area fieldset.collapsible legend a,
+.issue-vote-wrapper .poll-vote-area fieldset.collapsible legend a,
 .search_list .poll-vote-area fieldset.collapsible legend a {
 	background:url(../images/s_arrow.png) no-repeat 100% -102px;
 }
 
-#new_vote .poll-vote-area fieldset.collapsible.collapsed legend a,
+.issue-vote-wrapper .poll-vote-area fieldset.collapsible.collapsed legend a,
 .search_list .poll-vote-area fieldset.collapsible.collapsed legend a {
 	background:url(../images/s_arrow.png) no-repeat 100% 0;
 }
 
-#new_vote .poll-vote-area fieldset legend a:hover,
+.issue-vote-wrapper .poll-vote-area fieldset legend a:hover,
 .search_list .poll-vote-area fieldset legend a:hover {
 	text-decoration: underline;	
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper,
 .search_list .poll-vote-area .fieldset-wrapper {
 	padding: 22px 0 0;
 	z-index: 12;
@@ -3373,7 +3376,7 @@ h2.page-title {
 	overflow: visible;
 }
 
-#new_vote .suggest-error,
+.issue-vote-wrapper .suggest-error,
 .search_list .suggest-error {
 	color: #cd2027;
 	font: 11px/14px Arial,"Lucida Grande",sans-serif;
@@ -3382,7 +3385,7 @@ h2.page-title {
 	margin: 0 0 -4px 30px;
 }
 
-#new_vote fieldset.collapsible.collapsed + .suggest-error,
+.issue-vote-wrapper fieldset.collapsible.collapsed + .suggest-error,
 .search_list fieldset.collapsible.collapsed + .suggest-error {
 	margin: 16px 0 -4px 30px;
 }
@@ -3392,33 +3395,33 @@ h2.page-title {
 	display: none;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .form-item,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item,
 .search_list .poll-vote-area .fieldset-wrapper .form-item {
 	margin: 3px 0 10px;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper,
 .search_list .poll-vote-area .fieldset-wrapper .nsa-wrapper {
 	width: 85%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper table,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table,
 .search_list .poll-vote-area .fieldset-wrapper table {
 	width: 100%;
 	margin-bottom: -14px;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper table td,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table td,
 .search_list .poll-vote-area .fieldset-wrapper table td {
 	vertical-align: top;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper table td.first,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table td.first,
 .search_list .poll-vote-area .fieldset-wrapper table td.first {
 	width: 100%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .form-item input.form-text,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item input.form-text,
 .search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text{
 	float: left;
 	border: 1px solid #b3b3b3;
@@ -3428,7 +3431,7 @@ h2.page-title {
 	width: 97%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus,
 .search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus {
 	border: 1px solid #9c9c9c;
  	-moz-box-shadow: 0 0 3px rgba(0,0,0,0.3);
@@ -3438,7 +3441,7 @@ h2.page-title {
 	-khtml-box-shadow:  0 0 3px rgba(0,0,0,0.3);
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .form-item .description,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item .description,
 .search_list .poll-vote-area .fieldset-wrapper .form-item .description {
 	clear: left;
 	float: left;
@@ -3448,14 +3451,14 @@ h2.page-title {
 	width: 100%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper input.form-submit,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper input.form-submit,
 .search_list .poll-vote-area .fieldset-wrapper input.form-submit {
 	display: inline-block;
 	margin: 2px 0 0 23px;
 	padding: 8px 12px 6px;
 }
 
-#new_vote .button.vote,
+.issue-vote-wrapper .button.vote,
 .search_list .button.vote {
 	clear: both;
     float: left;
@@ -3468,9 +3471,9 @@ h2.page-title {
 	clear: none;
 }
 
-#new_vote .button.vote:hover,
+.issue-vote-wrapper .button.vote:hover,
 .search_list .button.vote:hover,
-#new_vote .button.vote:focus,
+.issue-vote-wrapper .button.vote:focus,
 .search_list .button.vote:focus {
 	top: 21px;	
 }
@@ -3622,7 +3625,7 @@ h2.page-title {
 	
 }*/
 
-#new_vote + .icon.share.text {
+.issue-vote-wrapper + .icon.share.text {
 	display: none;
 }
 
@@ -5482,10 +5485,10 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 .ui-dialog .ui-tabs-panel #user-login:after,
 .ui-dialog .ui-tabs-panel #user-register:after,
-#new_vote .part:after,
+.issue-vote-wrapper .part:after,
 .poll-vote-area:after,
-#new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper:after,
-#new_vote .poll-vote-area .fieldset-wrapper .form-item:after,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper:after,
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item:after,
 #debate_work_area:after,
 #argument-add-form .value-select:after,
 #argument-add-form .assign:after,
@@ -5817,4 +5820,9 @@ span.beta {
 	font-style: italic;
 	font-weight: bold;
 	color: #3cc7f4;
+}
+
+/* NOTY */
+#noty_topRight_layout_container li, #noty_center_layout_container li {
+  margin-bottom: 0px;
 }

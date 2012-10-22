@@ -6,7 +6,6 @@
  * Implementation of hook_init()
  */
 function arguments_init() {
-  drupal_add_js(drupal_get_path('module', 'arguments') . '/arguments.js');
   drupal_add_js(drupal_get_path('module', 'arguments') . '/arguments.forms.js');
 }
 
