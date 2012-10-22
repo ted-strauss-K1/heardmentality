@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="navigation">
 			<div class="top-left">
-				<a class="logo" href="/"><img src="<?php print $directoryPath;?>/images/tiny_logo.png" class="logo-img" /> <?php print t('Heard Mentality'); ?></a>
+				<a class="logo" href="/"><img src="<?php print $directoryPath;?>/images/tiny_logo.png" class="logo-img" /> <?php print t('Heard Mentality'); ?><span class="beta"><?php print t('Beta'); ?></span></a>
 			</div>
 			
 			<div class="top-right login">

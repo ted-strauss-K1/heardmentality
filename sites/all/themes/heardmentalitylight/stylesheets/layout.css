@@ -418,6 +418,9 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		text-transform:uppercase;
 		font-size:40px;
 		padding:110px 0px 0px 28px;
+		
+		/*banner images need to be convert to text*/
+		direction: ltr;
 	}
 	.error-banner {
 		text-align:center;
@@ -2754,7 +2757,7 @@ ul.menu.second li a.add:hover {
 
 .banner-text {
 	float: left;
-	width: 77%;
+	width: 75%;
 	padding-top: 4px;
 	line-height: 1.1;
 }
@@ -3291,10 +3294,19 @@ h2.page-title {
 .search_list .poll-vote-area .form-radios span.teaser_count_vote {
 	float: left;
 	width: 50px;
-	font: 18px/1 'DINLightRegular', Arial, sans-serif;
-	color: #362750;
-	padding: 9px 15px 4px 0;
+	font: 17px/1 'DINLightRegular', Arial, sans-serif;
+	color: #7b7d01;
+	padding: 5px 3px 2px;
+	margin: 3px 0 0;
 	text-align: center;
+	background-color: #e1e43c;
+    -moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-o-border-radius: 3px 3px 3px 3px;
+	-khtml-border-radius: 3px 3px 3px 3px;    
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 0 5px 0 #FFFFFF inset;
+	border: 1px solid #d1d41b;
 }
 
 #new_vote .poll-vote-area .form-radios span.teaser_count_vote span,
@@ -3678,6 +3690,7 @@ h6#deb-ana:hover a,
 
 #leave_comment_area b {
 	color: #CD2027;
+	font-style: italic;
 }
 
 #argument-add-form {
@@ -4475,7 +4488,7 @@ ul.control_links h6#reply:hover {
 }
 
 #debate_list_area  fieldset.collapsible legend {
-	display: none;
+	display: block;
 }
 #debate_list_area  fieldset.collapsible.collapsed legend {
 	display: block;
@@ -5106,6 +5119,34 @@ span.small_pos.fixes,
 	overflow:hidden;
 }
 
+#linkbox .rightfm a.del_ref {
+    padding: 4px 6px 4px 4px;
+	border: 1px solid #CCCCCC;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-o-border-radius: 3px 3px 3px 3px;
+	-khtml-border-radius: 3px 3px 3px 3px;
+	border-radius: 3px 3px 3px 3px;
+	text-decoration: none;
+	display: block;
+	float: right;
+}
+
+#linkbox .rightfm a.del_ref span {
+	background-image: url(images/ui-icons_222222_256x240.png);
+    height: 16px;
+    width: 16px;
+	background-repeat: no-repeat;
+    display: block;
+    overflow: hidden;
+    text-indent: -99999em;
+	background-position: -96px -128px;
+}
+
+#linkbox .rightfm a.del_ref:hover {
+	border: 1px solid #999;
+}
+
 #linkbox .rightfm em {
 	color: #924C9D;
     font-weight: bold;
@@ -5113,11 +5154,13 @@ span.small_pos.fixes,
 	font-style: normal;
 	font-size: 12px;
 	line-height: 18px;
+	margin-right: 40px;
 }
 
 #linkbox .rightfm strong {
 	font-weight: bold;
 	color: #222;
+	margin-right: 34px;
 }
 
 #linkbox .rightfm span {
@@ -5761,4 +5804,17 @@ ul.sub-pages-menu a:hover {
 
 #block-feedback-form .grippie {
 	display: none;
+}
+
+span.beta {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: normal;
+    line-height: 14px;
+    margin: -2px 0 0 3px;
+    text-transform: lowercase;
+    vertical-align: top;
+	font-style: italic;
+	font-weight: bold;
+	color: #3cc7f4;
 }
