@@ -1,0 +1,132 @@
+<?php
+
+/**
+ * Define permission
+ */
+define('MODERATION_ADMIN', 'Administer Moderation module');
+
+/**
+ * Define variable name to store uids of moderators
+ */
+define('MODERATION_USERS', 'moderation_users');
+
+/**
+ * Implementation of hook_perm()
+ *
+ * @return array
+ */
+function moderation_perm() {
+  return array(MODERATION_ADMIN);
+}
+
+
+function moderation_menu() {
+  $menu = array();
+
+  $menu['moderation'] = array(
+    'title'             => t('Moderation'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('moderation_issues_form'),
+    'access callback'   => 'moderation_check_perm',
+    'type'              => MENU_CALLBACK,
+    'file'              => 'moderation.admin.inc',
+  );
+  $menu['moderation/issues'] = array(
+    'title'             => t('Issues'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('moderation_issues_form'),
+    'access callback'   => 'moderation_check_perm',
+    'type'              => MENU_CALLBACK,
+    'weight'            => -2,
+    'file'              => 'moderation.admin.inc',
+  );
+  $menu['moderation/arguments'] = array(
+    'title'             => t('Arguments'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('moderation_arguments_form'),
+    'access callback'   => 'moderation_check_perm',
+    'type'              => MENU_CALLBACK,
+    'weight'            => -1,
+    'file'              => 'moderation.admin.inc',
+  );
+  $menu['moderation/comments'] = array(
+    'title'             => t('Comments'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('moderation_comments_form'),
+    'access callback'   => 'moderation_check_perm',
+    'type'              => MENU_CALLBACK,
+    'weight'            => 0,
+    'file'              => 'moderation.admin.inc',
+  );
+  $menu['moderation/users'] = array(
+    'title'             => t('Moderators'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('moderation_users_form'),
+    'access arguments'  => array(MODERATION_ADMIN),
+    'type'              => MENU_CALLBACK,
+    'weight'            => 1,
+    'file'              => 'moderation.admin.inc',
+  );
+
+  $menu['moderation/issue/%'] = array(
+    'title'             => t('Issue'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('moderation_issue_view_form'),
+    'access callback'   => 'moderation_check_perm',
+    'type'              => MENU_CALLBACK,
+    'file'              => 'moderation.admin.inc',
+  );
+  $menu['moderation/argument/%'] = array(
+    'title'             => t('Argument'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('moderation_argument_view_form'),
+    'access callback'   => 'moderation_check_perm',
+    'type'              => MENU_CALLBACK,
+    'file'              => 'moderation.admin.inc',
+  );
+  $menu['moderation/comment/%'] = array(
+    'title'             => t('Argument'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('moderation_comment_view_form'),
+    'access callback'   => 'moderation_check_perm',
+    'type'              => MENU_CALLBACK,
+    'file'              => 'moderation.admin.inc',
+  );
+
+  return $menu;
+}
+
+/**
+ * Check if user has the moderation permissions
+ *
+ * @param string $uid
+ * @return bool
+ */
+function moderation_check_perm($uid = false) {
+  if ($uid === false) {
+    global $user;
+  } else {
+    $user = user_load($uid);
+  }
+  return user_access(MODERATION_ADMIN, $user) || in_array($user->uid, variable_get(MODERATION_USERS, array()));
+}
+
+
+function moderation_theme() {
+  $theme = array();
+
+  $theme['moderation_main'] = array(
+    'arguments'     => array('page' => 'issues'),
+    'template'      => 'moderation-main',
+  );
+  $theme['moderation_pager'] = array(
+    'arguments'     => array(
+      'page' => 1,
+      'pages' => 1,
+      'pattern' => NULL,
+    ),
+    'file'              => 'moderation.admin.inc',
+  );
+
+  return $theme;
+}

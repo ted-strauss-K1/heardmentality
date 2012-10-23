@@ -5220,7 +5220,7 @@ form#solr-issues-search-form {
 	padding: 0;
 }
 
-.search_top_filters {
+.search_top_filters, .moderation_header {
 	padding: 0 10px 15px;
 	border-bottom: 1px solid #C0C0C0;
 	margin: 0 20px 15px;	
@@ -5809,6 +5809,7 @@ ul.sub-pages-menu a:hover {
 	display: none;
 }
 
+
 span.beta {
     display: inline-block;
     font-size: 12px;
@@ -5825,4 +5826,54 @@ span.beta {
 /* NOTY */
 #noty_topRight_layout_container li, #noty_center_layout_container li {
   margin-bottom: 0px;
+}
+
+/* Moderation page pager */
+.mod-pager {
+  padding: 10px 10px 15px;
+  border-top: 1px solid silver;
+  margin: 0 20px 15px;
+}
+
+.mod-text {
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  color: #999;
+  text-shadow: 0 1px white;
+  font-size: 11px;
+  padding: 0px 3px 0px 3px;
+}
+
+.mod-pager a {
+  font-weight: bold;
+  color: #444;
+  text-shadow: 0 1px white;
+  padding: 3px 9px 3px 9px;
+  margin: 3px 6px 3px 0px;
+  font-size: 12px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  border-color: #AAA;
+  width: auto;
+}
+
+.mod-pager a.mod-active, .mod-pager a:hover {
+  text-shadow: 0 -1px #666;
+  color: white;
+  border-color: #666;
+}
+.mod-pager a.mod-active {
+  background: #777;
+}
+
+.mod-pager a:hover {
+  background: #AAA;
+}
+.mod-spacer {
+  border-bottom: 2px #666 dotted;
+  width: 22px;
+  display: inline-block;
+  margin-right: 3px;
 }

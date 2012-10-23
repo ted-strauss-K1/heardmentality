@@ -1,0 +1,6 @@
+name = Moderation module for UGC
+description = Provides common way for moderation: Issues, Debates, Resources and their Replies
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
+dependencies[] = "issue"
