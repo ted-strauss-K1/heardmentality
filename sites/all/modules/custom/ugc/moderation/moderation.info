@@ -4,3 +4,4 @@ package = Custom Modules
 version = "6.x-1.6"
 core = 6.x
 dependencies[] = "issue"
+dependencies[] = "i18n"
