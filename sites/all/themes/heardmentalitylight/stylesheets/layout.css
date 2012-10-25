@@ -5887,4 +5887,5 @@ span.beta {
 }
 .mod-buttons a {
   margin-left: 15px;
+  display: inline-block;
 }

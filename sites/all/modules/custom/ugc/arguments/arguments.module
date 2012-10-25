@@ -382,6 +382,10 @@ function arguments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 function _arguments_load(&$node) {
   $node->content_id = $node->nid;
   $node->content_type = 'node';
+
+  $issue_nid = $node->field_ref_qid[0]['nid'];
+  $node->parent_issue = $issue_nid;
+
   # only for the debates
   if ($node->field_type[0]['value'] == TYPE_DEBATE) {
     # translate
@@ -398,8 +402,6 @@ function _arguments_load(&$node) {
       $options[$row['chorder']] = $row['val'];
     }
     # choices
-    $issue_nid = $node->field_ref_qid[0]['nid'];
-    $node->parent_issue = $issue_nid;
     $choices = issue_choices($issue_nid);
     # node options
     foreach ($choices as $index => &$choice) {
@@ -581,11 +583,11 @@ function arguments_get_comments($id) {
     FROM {comments} AS c
     WHERE
       c.nid     = '%d' AND
-      c.status  = '1' AND
+      c.status  = '%d' AND
       c.comment <> '' AND
       (c.cid = c.tcid OR c.tcid = 0)
     ORDER BY c.cid DESC";
-  $result = db_query($query, $id);
+  $result = db_query($query, $id, COMMENT_PUBLISHED);
   while ($row = db_fetch_object($result)) {
     _arguments_load_comment($row);
     if ($row !== false) {
@@ -623,7 +625,7 @@ function arguments_comment() {
   $comment->comment     = $text;
   $comment->hostname    = ip_address();
   $comment->timestamp   = time();
-  $comment->status      = 1;
+  $comment->status      = COMMENT_PUBLISHED;
   $comment->format      = '';
   $comment->thread      = '';
   $comment->name        = $user->name;
