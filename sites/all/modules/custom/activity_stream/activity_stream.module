@@ -25,6 +25,61 @@ function activity_stream_add_activity($type, $variables, $uid = false) {
 }
 
 /**
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function activity_stream_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case 'delete' :
+      activity_stream_cleanup($node->nid);
+    break;
+  }
+}
+
+/**
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function activity_stream_comment(&$a1, $op) {
+  switch ($op) {
+    case 'delete' :
+      activity_stream_cleanup($a1->cid, 'comment');
+    break;
+  }
+}
+
+/**
+ * @param $content_id
+ * @param string $content_type
+ */
+function activity_stream_cleanup($content_id, $content_type = 'node') {
+  $delete = array();
+  $result = db_query("SELECT * FROM {activity_stream}");
+  while ($row = db_fetch_array($result)) {
+    $vars = unserialize($row['variables']);
+    switch ($content_type) {
+      case 'node' :
+        if ($vars['nid'] == $content_id || $vars['nid_arg'] == $content_id) {
+          $delete[] = $row['id'];
+        }
+      break;
+      case 'comment' :
+        if ($vars['cid'] == $content_id) {
+          $delete[] = $row['id'];
+        }
+      break;
+    }
+  }
+  db_query("DELETE FROM {activity_stream} WHERE id IN (" . db_placeholders($delete) . ")");
+}
+
+/**
  * Implementation of hook_theme
  */
 function activity_stream_theme() {

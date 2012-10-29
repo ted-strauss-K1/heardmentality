@@ -278,6 +278,18 @@ function _issue_update(&$node) {
  */
 function _issue_delete(&$node) {
   // TODO
+
+  $nid = $node->nid;
+
+  # delete arguments
+  $result = db_query("SELECT nid FROM {content_type_forum} WHERE field_ref_qid_nid = '%d'", $nid);
+  while ($arg_nid = db_result($result)) {
+    node_delete($arg_nid);
+  }
+
+  # delete poll votes history
+  db_query("DELETE FROM {poll_votes_history} WHERE nid = '%d'", $nid);
+
 }
 
 /*

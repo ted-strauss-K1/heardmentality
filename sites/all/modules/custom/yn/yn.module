@@ -12,17 +12,58 @@ function yn_init() {
   drupal_add_js(drupal_get_path('module', 'yn') . '/yn.js');
 }
 
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function yn_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case 'delete' :
+      yn_cleanup($node->nid, 'node');
+    break;
+    case 'load'   :
+      list($node->vote_up, $node->vote_dn, $node->vote_sum) = yn_votes($node->nid, 'node');
+    break;
+  }
+}
+
+/**
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function yn_comment(&$a1, $op) {
+  switch ($op) {
+    case 'delete' :
+      yn_cleanup($a1->cid, 'comment');
+    break;
+    case 'view' :
+      list($a1->vote_up, $a1->vote_dn, $a1->vote_sum) = yn_votes($a1->cid, 'comment');
+    break;
+  }
+}
+
+/**
+ * Remove all the votes
+ *
+ * @param $content_id
+ * @param $content_type
+ */
+function yn_cleanup($content_id, $content_type) {
+  db_query("DELETE FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d'", $content_type, $content_id);
+}
+
 /*
  * Implementation of hook_menu()
  */
 function yn_menu() {
   $menu = array();
 
-  $menu['yn_test'] = array(
-    'page callback'    => 'yn_test',
-    'access arguments' => array(UP_ACTIONS_ADMIN),
-    'type'             => MENU_CALLBACK,
-  );
   $menu['yn/%/%/%'] = array(
     'page callback'   => 'yn_ajax',
     'type'            => MENU_CALLBACK,
@@ -31,15 +72,6 @@ function yn_menu() {
   );
 
   return $menu;
-}
-
-/*
- * Debug function
- */
-function yn_test() {
-  global $user;
-  rules_invoke_event('yn_voteup', $user, $user);
-  echo 'time='.time();
 }
 
 /*
