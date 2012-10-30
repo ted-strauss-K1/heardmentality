@@ -369,9 +369,17 @@ function arguments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
       case 'load' :
         _arguments_load($node);
       break;
+      case 'delete' :
+        _arguments_delete($node);
+      break;
     }
   }
   return;
+}
+
+function _arguments_delete(&$node) {
+  # delete arguments options
+  db_query("DELETE FROM {arguments_options} WHERE nid = '%d'", $node->nid);
 }
 
 /*
@@ -415,7 +423,7 @@ function _arguments_load(&$node) {
   }
 
   # get votes
-  list($node->vote_up, $node->vote_dn, $node->vote_sum) = yn_votes($node->nid, 'node');
+//  list($node->vote_up, $node->vote_dn, $node->vote_sum) = yn_votes($node->nid, 'node');
   # comments
   $node->comments = arguments_get_comments($node->nid);
   # posted ago
@@ -441,7 +449,7 @@ function _arguments_load_comment(&$node) {
   $node->content_id = $node->cid;
   $node->content_type = 'comment';
   # get votes
-  list($node->vote_up, $node->vote_dn, $node->vote_sum) = yn_votes($node->nid, 'comment');
+//  list($node->vote_up, $node->vote_dn, $node->vote_sum) = yn_votes($node->nid, 'comment');
   # posted ago
   $node->ago = ugc_time_interval(date("F d Y H:i:s", $node->timestamp));
   # rated

@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function moderation_install() {
+  drupal_install_schema('moderation');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function poll_suggest_schema() {
+  $schema = array();
+
+  $schema['moderation_history'] = array(
+    'description' => 'Moderation history',
+    'fields' => array(
+      'id'    => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier.',
+      ),
+      'uid'      => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid this change is from.',
+      ),
+      'content_id'     => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The content id this change belongs to.',
+      ),
+      'content_type'  => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The content type this change belongs to.',
+      ),
+      'date_added' => array(
+        'type'        => 'datetime',
+        'description' => 'The date of the change.',
+        'not null'    => TRUE
+      ),
+    ),
+    'indexes' => array(
+      'content' => array('content_id', 'content_type')
+    ),
+    'primary key' => array('id'),
+  );
+
+
+  return $schema;
+}
