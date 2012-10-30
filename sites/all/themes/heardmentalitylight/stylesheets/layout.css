@@ -2280,9 +2280,9 @@ textarea#q_quest  {
 	cursor: pointer;
 }
 
-.radio_wrapper .choices .form-radios .form-item,
-.radio_wrapper.fieldset-wrapper .form-radios .form-item,
-.radio_wrapper #solr-issues-search-form .search_list .fieldset-wrapper .form-radios .form-item {
+.choices .form-radios .radio_wrapper .form-item,
+.fieldset-wrapper .form-radios .radio_wrapper .form-item,
+#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .radio_wrapper .form-item {
     margin: 0 0 10px !important;
 }
 
@@ -3311,7 +3311,7 @@ h2.page-title {
 	font: 17px/1 'DINLightRegular', Arial, sans-serif;
 	color: #7b7d01;
 	padding: 5px 3px 2px;
-	margin: 3px 0 0;
+	margin: 0;
 	text-align: center;
 	background-color: #e1e43c;
     -moz-border-radius: 3px 3px 3px 3px;
@@ -5899,8 +5899,4 @@ span.beta {
 .mod-buttons a {
   margin-left: 15px;
   display: inline-block;
-}
-
-.radio_wrapper {
-	border: 1px solid red;
 }
