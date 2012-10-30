@@ -127,11 +127,26 @@ function issue_form() {
   //
 }
 
+function issue_batch_delete() {
+	set_time_limit(0);
+	$result = db_query("SELECT nid FROM {node} WHERE type = 'poll'");
+	while ($nid = db_result($result)) {
+		node_delete($nid);
+		echo $nid . "<br>";
+	}
+}
+
 /*
  * Implementation of hook_menu()
  */
 function issue_menu() {
   $menu = array();
+  
+  $menu['batchdelete'] = array(
+    'page callback'     => 'issue_batch_delete',
+    'access arguments'  => true,
+    'type'              => MENU_CALLBACK,
+  );
   
   $menu['issue/create'] = array(
     'title'             => 'Add an Issue',
