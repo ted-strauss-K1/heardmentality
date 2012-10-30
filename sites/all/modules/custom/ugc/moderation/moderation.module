@@ -28,10 +28,11 @@ function moderation_init() {
 
 
 function batchdelete () {
+//  die('xx');
   set_time_limit(0);
   $result = db_query("SELECT n.nid FROM {node} n WHERE n.type = 'poll'");
   while ($nid = db_result($result)) {
-    node_delete($nid);
+    node_delete($nid); echo $nid . '<br>';
   }
   die('END!');
 }
