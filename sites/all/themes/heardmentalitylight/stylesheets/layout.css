@@ -5495,6 +5495,10 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	padding: 10px 0 0 !important;
 }
 
+.poll .login-error + fieldset {
+	display: none;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
