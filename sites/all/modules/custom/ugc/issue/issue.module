@@ -144,7 +144,7 @@ function issue_menu() {
   
   $menu['batchdelete'] = array(
     'page callback'     => 'issue_batch_delete',
-    'access arguments'  => true,
+    'access callback'	=> true,
     'type'              => MENU_CALLBACK,
   );
   
