@@ -107,47 +107,6 @@ function issue_schema() {
     'primary key' => array('nid'),
   );
 
-
-  $schema['issue_choices'] = array(
-    'description' => t('Stores the settings for an individual choice in a issue.'),
-    'fields' => array(
-      'cid' => array(
-        'description' => t('The unique id of the choice.'),
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
-      'nid' => array(
-        'description' => t('The choice is assigned to this issue node.'),
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'label' => array(
-        'description' => t('A string description of what this choice represents.'),
-        'type' => 'text',
-        'not null' => TRUE,
-      ),
-      'weight' => array(
-        'description' => t('An integer value used to order the display of choices from lowest to highest.'),
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
-      'writein' => array(
-        'description' => t('Whether or not this choice was a write-in vote by a user.'),
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-    ),
-    'indexes' => array(
-      'nid' => array('nid', 'weight'),
-    ),
-    'primary key' => array('cid'),
-  );
-
   $schema['poll_votes_history'] = array(
     'description' => t('Stores the votes.'),
     'fields' => array(

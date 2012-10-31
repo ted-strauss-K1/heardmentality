@@ -10,7 +10,7 @@ function moderation_install() {
 /**
  * Implementation of hook_schema()
  */
-function poll_suggest_schema() {
+function moderation_schema() {
   $schema = array();
 
   $schema['moderation_history'] = array(
