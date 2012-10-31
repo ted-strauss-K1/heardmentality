@@ -29,7 +29,7 @@ function arguments_menu() {
     'access callback' => TRUE,
   );
   $menu['arguments/comment'] = array(
-    'page callback'     => 'arguments_comment',
+    'page callback'     => 'arguments_comments',
     'type'              => MENU_CALLBACK,
     'access arguments'  => array('access content'),
   );
@@ -610,7 +610,7 @@ function arguments_get_comments($id) {
  *
  * Submission
  */
-function arguments_comment() {
+function arguments_comments() {
   if (!user_is_logged_in()) {
     drupal_json(array(
       'status' => false,
