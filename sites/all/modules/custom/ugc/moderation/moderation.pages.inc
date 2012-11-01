@@ -465,6 +465,21 @@ function moderation_issue_view_form($form, $nid) {
     '#value' => $node->body,
   );
 
+  poll_ext_chtext_short($node);
+
+  foreach ($node->choice as $chorder => $choice) {
+    $form['choice-'.$chorder] = array(
+      '#type' => 'textfield',
+      '#title' => t('Choice text').' #'.$chorder,
+      '#value' => $choice['chtext'],
+    );
+    $form['choice-short-'.$chorder] = array(
+      '#type' => 'textfield',
+      '#title' => t('Choice short text').' #'.$chorder,
+      '#value' => $choice['chtext_short'],
+    );
+  }
+
 
 
   $form['save'] = array(

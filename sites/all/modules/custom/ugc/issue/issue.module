@@ -642,8 +642,6 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
   }
   if ($vote_s != -1) {
     poll_suggest_vote_add($vote_s, $user->uid);
-//    # convert
-//    issue_sa_convert($nid, $vote_s);
   }
 
   if (module_exists('activity_stream')) {
