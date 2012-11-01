@@ -478,6 +478,9 @@ function moderation_issue_view_form($form, $nid) {
       '#title' => t('Choice short text').' #'.$chorder,
       '#value' => $choice['chtext_short'],
     );
+
+    # part where we set the
+
   }
 
 
