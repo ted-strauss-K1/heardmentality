@@ -602,7 +602,6 @@ function solr_issues_form_submit($form_state) {
   if (isset($_POST['choice'])) {
     if ($_POST['check_login']) {
       $date_time = date("y-m-d H:i:s", time());
-      db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $_POST['nid_val'], $_POST['choice'], $_POST['check_login'], $date_time, 1);
       db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $_POST['nid_val'], $_POST['choice'], $_POST['check_login']);
       $node = node_load($_POST['nid_val']);
       $message = node_view($node);

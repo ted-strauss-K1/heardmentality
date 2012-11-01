@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Implementation of hook_nodeapi()
+ */
+function poll_ext_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($node->type == 'poll') {
+    if ($op == 'delete') {
+      db_query("DELETE FROM {poll_votes_history} WHERE nid = '%d'", $node->nid);
+    }
+  }
+}
+
+/**
+ * Implementation of hook_user()
+ */
+function poll_ext_user($op, &$edit, &$account, $category = NULL) {
+  if ($op == 'delete') {
+    db_query("DELETE FROM {poll_votes_history} WHERE uid = '%d'", $account->uid);
+  }
+}
+
+/**
+ * Load the short chtext
+ *
+ * @param $poll Node object of type 'poll'
+ */
+function poll_ext_chtext_short($poll) {
+  $result = db_query("SELECT chorder, chtext_short FROM {poll_choices} WHERE nid = '%d'", $poll->nid);
+  while ($choice = db_fetch_array($result)) {
+    $poll->choice[$choice['chorder']]['chtext_short'] = $choice['chtext_short'];
+  }
+}
+
+/**
+ * Set the short chtext
+ *
+ * @param $nid
+ * @param $chorder
+ * @param $chtext_short
+ */
+function poll_ext_chtext_short_set($nid, $chorder, $chtext_short) {
+  db_query("UPDATE {poll_choices} SET chtext_short = '%s' WHERE nid = '%d' AND chorder = '%d'", $chtext_short, $nid, $chorder);
+}

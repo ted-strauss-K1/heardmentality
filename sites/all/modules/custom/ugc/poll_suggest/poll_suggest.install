@@ -1,14 +1,20 @@
 <?php
 
-/*
+/**
  * Implementation of hook_install()
  */
 function poll_suggest_install() {
   drupal_install_schema('poll_suggest');
-  drupal_install_schema('poll_suggest_votes');
 }
 
-/*
+/**
+ * Implementation of hook_uninstall()
+ */
+function poll_suggest_uninstall() {
+  drupal_uninstall_schema('poll_suggest');
+}
+
+/**
  * Implementation of hook_schema()
  */
 function poll_suggest_schema() {
@@ -77,7 +83,7 @@ function poll_suggest_schema() {
         'default' => -1,
         'description' => "The {users}'s vote for this poll.",
       ),
-      'date'      => array(
+      'date_voted'      => array(
         'type' => 'datetime',
         'description' => 'The date of the vote.',
         'not null' => TRUE,

@@ -4,7 +4,6 @@ package = Custom Modules
 version = "6.x-1.6"
 core = 6.x
 dependencies[] = "arguments"
-dependencies[] = "poll_suggest"
 dependencies[] = "ugc"
 
 

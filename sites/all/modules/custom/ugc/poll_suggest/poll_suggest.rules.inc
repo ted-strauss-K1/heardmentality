@@ -6,7 +6,7 @@
 function poll_suggest_rules_event_info() {
   return array(
     'poll_suggest_add' => array(
-      'label' => t('User Suggested an Answer'),
+      'label' => t('User Suggested a Poll Choice'),
       'arguments' => array(
         'user'    => array('type' => 'user', 'label' => t('Acting User')),
         'node'    => array('type' => 'node', 'label' => t('Node')),

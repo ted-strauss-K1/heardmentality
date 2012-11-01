@@ -251,7 +251,7 @@ function _issue_vote_form_submit($form, &$form_state) {
       if ($chorder) {
         db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = '%d' AND chorder = '%d'", $nid, $chorder);
         db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $chorder, $user->uid);
-        db_query("UPDATE {poll_votes_history} SET status = 0 WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $chorder, $user->uid);
+//        db_query("UPDATE {poll_votes_history} SET status = 0 WHERE nid = '%d' AND chorder = '%d' AND uid = '%d'", $nid, $chorder, $user->uid);
       }
 
       break;
@@ -312,7 +312,7 @@ function issue_sa_convert($nid, $chid) {
         # transfer votes
         db_query("INSERT INTO {poll_votes} (nid, uid, chorder, date_voted) SELECT '%d', psv.uid, '%d', psv.date FROM {poll_suggest_votes} psv WHERE psv.chid = '%d'", $nid, $chorder, $chid);
         # transfer vote history
-        db_query("INSERT INTO {poll_votes_history} (nid, uid, chorder, status, date_voted) SELECT '%d', psv.uid, '%d', 1, psv.date FROM {poll_suggest_votes} psv WHERE psv.chid = '%d'", $nid, $chorder, $chid);
+//        db_query("INSERT INTO {poll_votes_history} (nid, uid, chorder, status, date_voted) SELECT '%d', psv.uid, '%d', 1, psv.date FROM {poll_suggest_votes} psv WHERE psv.chid = '%d'", $nid, $chorder, $chid);
         # delete suggested votes
         db_query("DELETE FROM {poll_suggest_votes} WHERE chid = '%d'", $chid);
         # delete suggested answer

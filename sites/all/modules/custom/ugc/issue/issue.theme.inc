@@ -391,6 +391,8 @@ function theme_issue_results_graph_highstock_history($node) {
 
 /*
  * Highstock History Data Collector
+ *
+ * TODO dependency FROM poll_ext
  */
 
 function issue_results_graph_highstock_history_data($node) {

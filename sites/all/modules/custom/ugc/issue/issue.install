@@ -107,52 +107,52 @@ function issue_schema() {
     'primary key' => array('nid'),
   );
 
-  $schema['poll_votes_history'] = array(
-    'description' => t('Stores the votes.'),
-    'fields' => array(
-      'id' => array(
-        'type' => 'serial',
-        'not null' => TRUE,
-        'description' => 'Record ID.',
-      ),
-      'nid' => array(
-        'description' => t('The choice is assigned to this issue node.'),
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'uid' => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'chorder' => array(
-        'type' => 'int',
-        'unsigned' => FALSE,
-        'not null' => FALSE,
-        'default' => -1,
-      ),
-      'hostname' => array(
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-        'default' => ''
-      ),
-      'status' => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => FALSE,
-        'default' => 1,
-      ),
-      'date_voted' => array(
-        'type' => 'datetime',
-        'not null' => TRUE,
-      ),
-    ),
-    'primary key' => array('id'),
-  );
+//  $schema['poll_votes_history'] = array(
+//    'description' => t('Stores the votes.'),
+//    'fields' => array(
+//      'id' => array(
+//        'type' => 'serial',
+//        'not null' => TRUE,
+//        'description' => 'Record ID.',
+//      ),
+//      'nid' => array(
+//        'description' => t('The choice is assigned to this issue node.'),
+//        'type' => 'int',
+//        'unsigned' => TRUE,
+//        'not null' => TRUE,
+//        'default' => 0,
+//      ),
+//      'uid' => array(
+//        'type' => 'int',
+//        'unsigned' => TRUE,
+//        'not null' => TRUE,
+//        'default' => 0,
+//      ),
+//      'chorder' => array(
+//        'type' => 'int',
+//        'unsigned' => FALSE,
+//        'not null' => FALSE,
+//        'default' => -1,
+//      ),
+//      'hostname' => array(
+//        'type' => 'varchar',
+//        'length' => 128,
+//        'not null' => TRUE,
+//        'default' => ''
+//      ),
+//      'status' => array(
+//        'type' => 'int',
+//        'unsigned' => TRUE,
+//        'not null' => FALSE,
+//        'default' => 1,
+//      ),
+//      'date_voted' => array(
+//        'type' => 'datetime',
+//        'not null' => TRUE,
+//      ),
+//    ),
+//    'primary key' => array('id'),
+//  );
 
   return $schema;
 }

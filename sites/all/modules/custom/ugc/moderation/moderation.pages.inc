@@ -446,12 +446,37 @@ function moderation_users_form() {
  *
  * @return array
  */
-function moderation_issue_view_form() {
+function moderation_issue_view_form($form, $nid) {
   $form = array();
 
   $form['#prefix'] = theme('moderation_main', 'issues');
+  $form['#attributes']['class'] = 'mod-form';
 
-  $form['#suffix'] = t('Coming soon');
+  $node = node_load($nid);
+
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#value' => $node->title,
+  );
+  $form['body'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+    '#value' => $node->body,
+  );
+
+
+
+  $form['save'] = array(
+    '#type'         => 'submit',
+    '#value'        => t('Save'),
+    '#submit'       => array('moderation_issue_view_form_save'),
+  );
+  $form['delete'] = array(
+    '#type'         => 'submit',
+    '#value'        => t('Deletion request'),
+    '#submit'       => array('moderation_issue_view_form_delete'),
+  );
 
   return $form;
 }
@@ -461,12 +486,66 @@ function moderation_issue_view_form() {
  *
  * @return array
  */
-function moderation_argument_view_form() {
+function moderation_argument_view_form($form, $nid) {
   $form = array();
 
   $form['#prefix'] = theme('moderation_main', 'arguments');
+  $form['#attributes']['class'] = 'mod-form';
 
-  $form['#suffix'] = t('Coming soon');
+  $node = node_load($nid);
+
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#value' => $node->title,
+  );
+//  $form['body'] = array(
+//    '#type' => 'textarea',
+//    '#title' => t('Description'),
+//    '#value' => $node->body,
+//  );
+  if ($node->field_type[0]['value'] == TYPE_DEBATE) {
+    $choices = issue_choices($node->parent_issue);
+    foreach ($choices as $i => $choice) {
+      $value = $node->options[$choice['chorder']]['value'];
+      $form['option_' . $i] = array(
+        '#type'           => 'select',
+        '#options'        => array('-1' => '-', '0' => '-/+', '1' => '+'),
+        '#attributes'     => array('class' => 'select-value'),
+        '#id'             => 'sup_' . $i,
+        '#default_value'  => is_null($value) ? 0 : $value,
+        '#prefix'         => '
+        <div>
+          <table>
+            <tr>
+              <td class="first">
+                <label class="value floatleft">' . $choice['short_answer'] . '</label>
+              </td>
+              <td>',
+        '#suffix' => '
+              </td>
+            </tr>
+          </table>
+        </div>',
+      );
+      $form['chorder_' . $i] = array(
+        '#type'   => 'hidden',
+        '#value'  => $choice['chorder']
+      );
+    }
+  }
+
+
+  $form['save'] = array(
+    '#type'         => 'submit',
+    '#value'        => t('Save'),
+    '#submit'       => array('moderation_argument_view_form_save'),
+  );
+  $form['delete'] = array(
+    '#type'         => 'submit',
+    '#value'        => t('Deletion request'),
+    '#submit'       => array('moderation_argument_view_form_delete'),
+  );
 
   return $form;
 }
@@ -476,12 +555,48 @@ function moderation_argument_view_form() {
  *
  * @return array
  */
-function moderation_comment_view_form() {
+function moderation_comment_view_form($form, $cid) {
   $form = array();
 
   $form['#prefix'] = theme('moderation_main', 'comments');
+  $form['#attributes']['class'] = 'mod-form';
 
-  $form['#suffix'] = t('Coming soon');
+  $comment = _comment_load($cid);
+
+  $form['comment'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Comment'),
+    '#value' => $comment->comment,
+  );
+  $form['status'] = array(
+    '#type' => 'select',
+    '#title' => t('Status'),
+    '#options' => array(
+      COMMENT_PUBLISHED => t('Published'),
+      COMMENT_NOT_PUBLISHED => t('Not published'),
+    ),
+    '#default_value' => $comment->status,
+  );
+  $form['str_wk'] = array(
+    '#type' => 'select',
+    '#title' => t('Mode'),
+    '#options' => array(
+      1 => t('Strenghten'),
+      0 => t('Weaken'),
+    ),
+    '#default_value' => $comment->str_wk,
+  );
+
+  $form['save'] = array(
+    '#type'         => 'submit',
+    '#value'        => t('Save'),
+    '#submit'       => array('moderation_comment_view_form_save'),
+  );
+  $form['delete'] = array(
+    '#type'         => 'submit',
+    '#value'        => t('Deletion request'),
+    '#submit'       => array('moderation_comment_view_form_delete'),
+  );
 
   return $form;
 }
@@ -509,35 +624,33 @@ function theme_moderation_pager($page, $pages, $pattern) {
   return $output;
 }
 
+function moderation_issue_view_form_save(&$form, &$form_state) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Get nodes according to given filters, page, pages
- *
- * @param $filters
- * @param $page
- * @param $pages
- */
-function moderation_filters_nodes($filters, &$page, &$pages) {
-  $nodes = array();
-
-
-
-  return $nodes;
 }
 
 
+function moderation_argument_view_form_save(&$form, &$form_state) {
+
+}
+
+
+function moderation_comment_view_form_save(&$form, &$form_state) {
+
+}
+
+function moderation_issue_view_form_delete(&$form, &$form_state) {
+
+}
+
+
+function moderation_argument_view_form_delete(&$form, &$form_state) {
+
+}
+
+
+function moderation_comment_view_form_delete(&$form, &$form_state) {
+
+}
 
 
 

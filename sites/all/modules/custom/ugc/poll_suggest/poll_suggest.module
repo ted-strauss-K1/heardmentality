@@ -1,33 +1,6 @@
 <?php
 
-/*
- * Implementation of hook_init()
- */
-function poll_suggest_init() {
-  // drupal_install_schema('poll_suggest');
-  // drupal_install_schema('poll_suggest_votes');
-}
-
 /**
- * Implementation of hook_nodeapi()
- *
- * @param $node
- * @param $op
- * @param null $a3
- * @param null $a4
- */
-function poll_suggest_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-  if ($node->type == 'poll') {
-    switch ($op) {
-      case 'delete' :
-        db_query("DELETE FROM {poll_suggest_votes} WHERE chid IN (SELECT chid FROM {poll_suggest} WHERE nid = '%d')", $node->nid);
-        db_query("DELETE FROM {poll_suggest} WHERE nid = '%d'", $node->nid);
-      break;
-    }
-  }
-}
-
-/*
  * Add poll suggestion
  *
  * @usage poll_suggest_add(1, "Hello world!")
@@ -45,7 +18,7 @@ function poll_suggest_add($nid, $chtext, $uid = '') {
   return db_last_insert_id('poll_suggest', 'chid');
 }
 
-/*
+/**
  * Remove poll suggestion
  *
  * @usage poll_suggest_remove(array('chid' => 13))
@@ -60,7 +33,7 @@ function poll_suggest_remove($params = array()) {
   }
 }
 
-/*
+/**
  * Update poll suggestion text
  *
  * @usage poll_suggest_update_text(array('chtext' => 'Hello world!', 'chid' => 13))
@@ -77,16 +50,17 @@ function poll_suggest_update_text($params = array()) {
   }
 }
 
-/*
+/**
  * Add the poll suggestion vote
  *
  * @usage poll_suggest_vote_add(13, 32)
  */
 function poll_suggest_vote_add($chid, $uid) {
-  db_query("INSERT INTO {poll_suggest_votes} SET chid = '%d', uid = '%d', date = '%d'", $chid, $uid, date("y-m-d H:i:s"));
+  db_query("INSERT INTO {poll_suggest_votes} SET chid = '%d', uid = '%d', date_voted = '%d'", $chid, $uid, date("y-m-d H:i:s"));
+  poll_suggest_choice_convert($chid);
 }
 
-/*
+/**
  * Remove poll suggestion vote
  *
  * @usage poll_suggest_vote_remove(13, 32)
@@ -95,7 +69,7 @@ function poll_suggest_vote_remove($chid, $uid) {
   db_query("DELETE FROM {poll_suggest_votes} WHERE chid = '%d' AND uid = '%d'", $chid, $uid);
 }
 
-/*
+/**
  * Get suggested answers
  *
  * @usage
@@ -113,7 +87,7 @@ function poll_suggest_get($nid, $uid = '') {
   return $list;
 }
 
-/*
+/**
  * Get suggested votes stats
  */
 function poll_suggest_get_votes($nid) {
@@ -131,7 +105,7 @@ function poll_suggest_get_votes($nid) {
   return $votes[$nid];
 }
 
-/*
+/**
  * Get suggested votes stats
  */
 function poll_suggest_get_uservotes($uid) {
@@ -140,4 +114,56 @@ function poll_suggest_get_uservotes($uid) {
     $votes[$uid] = (int)db_result(db_query("SELECT COUNT(*) FROM {poll_suggest_votes} WHERE uid = '%d'", $uid));
   }
   return $votes[$uid];
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ */
+function poll_suggest_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($node->type == 'poll') {
+    switch ($op) {
+      case 'delete' :
+        db_query("DELETE FROM {poll_suggest_votes} WHERE chid IN (SELECT chid FROM {poll_suggest} WHERE nid = '%d')", $node->nid);
+        db_query("DELETE FROM {poll_suggest} WHERE nid = '%d'", $node->nid);
+      break;
+      case 'load' :
+        $node->choice_suggest = poll_suggest_get($node->nid);
+        $node->vote_suggest = $node->choice_suggest[0]['uservote'] ? $node->choice_suggest[0]['chid'] : false;
+      break;
+    }
+  }
+}
+
+/**
+ * Suggested answer conversion
+ */
+function poll_suggest_choice_convert($chid) {
+  $nid = db_result(db_query("SELECT nid FROM {poll_suggest} WHERE chid = '%d'", $chid));
+  $votes_s = poll_suggest_get_votes($nid);
+  if ($votes_s[$chid] >= 10) { # more than 10 votes
+    $votes_r = db_fetch_array(db_query("SELECT COUNT(*) AS count, SUM(chvotes) AS votes FROM {poll_choices} WHERE nid = '%d'", $nid));
+    if ( 2 * $votes_r['count'] * $votes_s[$chid] >= $votes_r['votes'] + $votes_s['#all'] ) {
+      # more than half of average regular answer's votes
+      $sa = poll_suggest_get($nid);
+      $chtext = false;
+      foreach ($sa as $s) {
+        if ($s['chid'] == $chid) {
+          $chtext = $s['chtext'];
+          break;
+        }
+      }
+      if ($chtext !== false) {
+        # new chorder for poll vote
+        $chorder = db_result(db_query("SELECT MAX(pc.chorder) + 1 FROM {poll_choices} pc WHERE pc.nid = '%d'", $nid));
+        # add ne choice
+        db_query("INSERT INTO {poll_choices} SET nid = '%d', chtext = '%s', chvotes = '%d', chorder = '%d'", $nid, $chtext, $votes_s[$chid], $chorder);
+        # transfer votes
+        db_query("INSERT INTO {poll_votes} (nid, uid, chorder) SELECT '%d', psv.uid, '%d' FROM {poll_suggest_votes} psv WHERE psv.chid = '%d'", $nid, $chorder, $chid);
+        # delete suggested votes
+        db_query("DELETE FROM {poll_suggest_votes} WHERE chid = '%d'", $chid);
+        # delete suggested answer
+        poll_suggest_remove(array('chid' => $chid));
+      }
+    }
+  }
 }

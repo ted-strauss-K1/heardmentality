@@ -56,7 +56,7 @@ function moderation_menu() {
     'page arguments'    => array('moderation_issues_form'),
     'access callback'   => 'moderation_check_perm',
     'type'              => MENU_CALLBACK,
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
   $menu['moderation/issues'] = array(
     'title'             => t('Issues'),
@@ -65,7 +65,7 @@ function moderation_menu() {
     'access callback'   => 'moderation_check_perm',
     'type'              => MENU_CALLBACK,
     'weight'            => -2,
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
   $menu['moderation/arguments'] = array(
     'title'             => t('Arguments'),
@@ -74,7 +74,7 @@ function moderation_menu() {
     'access callback'   => 'moderation_check_perm',
     'type'              => MENU_CALLBACK,
     'weight'            => -1,
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
   $menu['moderation/comments'] = array(
     'title'             => t('Comments'),
@@ -83,7 +83,7 @@ function moderation_menu() {
     'access callback'   => 'moderation_check_perm',
     'type'              => MENU_CALLBACK,
     'weight'            => 0,
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
   $menu['moderation/users'] = array(
     'title'             => t('Moderators'),
@@ -92,32 +92,32 @@ function moderation_menu() {
     'access arguments'  => array(MODERATION_ADMIN),
     'type'              => MENU_CALLBACK,
     'weight'            => 1,
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
 
   $menu['moderation/issue/%'] = array(
     'title'             => t('Issue'),
     'page callback'     => 'drupal_get_form',
-    'page arguments'    => array('moderation_issue_view_form'),
+    'page arguments'    => array('moderation_issue_view_form', 2),
     'access callback'   => 'moderation_check_perm',
     'type'              => MENU_CALLBACK,
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
   $menu['moderation/argument/%'] = array(
     'title'             => t('Argument'),
     'page callback'     => 'drupal_get_form',
-    'page arguments'    => array('moderation_argument_view_form'),
+    'page arguments'    => array('moderation_argument_view_form', 2),
     'access callback'   => 'moderation_check_perm',
     'type'              => MENU_CALLBACK,
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
   $menu['moderation/comment/%'] = array(
-    'title'             => t('Argument'),
+    'title'             => t('Comment'),
     'page callback'     => 'drupal_get_form',
-    'page arguments'    => array('moderation_comment_view_form'),
+    'page arguments'    => array('moderation_comment_view_form', 2),
     'access callback'   => 'moderation_check_perm',
     'type'              => MENU_CALLBACK,
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
 
   return $menu;
@@ -152,7 +152,7 @@ function moderation_theme() {
       'pages' => 1,
       'pattern' => NULL,
     ),
-    'file'              => 'moderation.admin.inc',
+    'file'              => 'moderation.pages.inc',
   );
 
   return $theme;
