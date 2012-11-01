@@ -35,6 +35,18 @@ function user_profile_edit_form(&$form_state) {
     '#attributes'     => array('class' => 'info validate validate-username', 'blurtext' => t('Username')),
 //    '#disabled'       => TRUE,
   );
+  $form['password'] = array(
+    '#type'           => 'textfield',
+    '#title'          => t(''),
+    '#maxlength'      => 20,
+    '#description'    => t(' '),
+    '#value'          => '',
+    '#default_value'  => t('Password'),
+    '#id'             => 'username',
+    '#required'       => FALSE,
+    '#attributes'     => array('class' => 'info validate validate-username', 'blurtext' => t('Password')),
+//    '#disabled'       => TRUE,
+  );
   $form['email'] = array(
     '#type'           => 'textfield',
     '#title'          => t(''),
@@ -382,6 +394,8 @@ function user_profile_edit_form_validate($form, &$form_state) {
   global $user;
   $post = $form_state["clicked_button"]["#post"];
 
+//  var_dump($post); die();
+
   # username
   if ($post['username'] != $user->name) {
     if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $post['username'])) {
@@ -391,6 +405,12 @@ function user_profile_edit_form_validate($form, &$form_state) {
       form_set_error('username', t('Sorry username already exists. Try any other combination'));
       $form_state['rebuild'] = TRUE;
     }
+  }
+
+  # password
+  if ($post['password'] == '' || $post['password'] == $form['password']['#default_value']) {
+    form_set_error('password', t('Password cannot be empty'));
+    $form_state['rebuild'] = TRUE;
   }
 
   # Year of Birth
@@ -463,6 +483,9 @@ function user_profile_edit_form_submit($form, &$form_state) {
     }
   }
 
+  if ($post['password'] != '' && $post['password'] != $form['password']['#default_value']) {
+    $edit['pass'] = $post['password'];
+  }
   user_save($user, $edit);
   user_save($user, $edit, 'profile');
   user_save($user, $edit, 'links');

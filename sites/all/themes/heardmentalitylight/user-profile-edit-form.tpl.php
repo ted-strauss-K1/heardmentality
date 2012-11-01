@@ -40,14 +40,22 @@ $privacy = user_profile_profile_privacy_values();
     <div class="user-info">
       <ul class="user-info-inputs clearfix">
 
-      <li class="username">
-        <label for="" class="add-on-2 small"><span class="title-2">
-          <?php print t('Username'); ?> <small class="red">*</small></span>
-        </label>
-        <?php print drupal_render($form['username']); ?>
-      </li>
+        <li class="username">
+          <label for="" class="add-on-2 small"><span class="title-2">
+            <?php print t('Username'); ?> <small class="red">*</small></span>
+          </label>
+          <?php print drupal_render($form['username']); ?>
+        </li>
 
-      <li class="email">
+        <li class="password">
+          <label for="" class="add-on-2 small"><span class="title-2">
+          <?php print t('Password'); ?> </span>
+          </label>
+          <?php print drupal_render($form['password']); ?>
+        </li>
+
+
+        <li class="email">
         <label for="" class="add-on-2 small"><span class="title-2">
           <?php print t('Email'); ?> <small class="red">*</small></span>
         </label>
