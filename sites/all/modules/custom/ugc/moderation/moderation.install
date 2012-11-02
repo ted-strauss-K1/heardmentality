@@ -43,6 +43,17 @@ function moderation_schema() {
         'default' => '',
         'description' => 'The content type this change belongs to.',
       ),
+      'type'  => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => 'edit',
+        'description' => 'The change type.',
+      ),
+      'vars' => array(
+        'description' => 'The action variables.',
+        'type'        => 'text',
+        'default'     => ''),
       'date_added' => array(
         'type'        => 'datetime',
         'description' => 'The date of the change.',

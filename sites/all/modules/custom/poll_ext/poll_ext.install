@@ -4,15 +4,15 @@
  * Implementation of hook_install()
  */
 function poll_ext_install() {
-  $ret = array();
-  $field = array(
-    'type' => 'varchar',
-    'length' => 128,
-    'not null' => TRUE,
-    'default' => '',
-    'description' => 'The short text for this choice.',
-  );
-  db_add_field($ret, 'poll_choices', 'chtext_short', $field);
+//  $ret = array();
+//  $field = array(
+//    'type' => 'varchar',
+//    'length' => 128,
+//    'not null' => TRUE,
+//    'default' => '',
+//    'description' => 'The short text for this choice.',
+//  );
+//  db_add_field($ret, 'poll_choices', 'chtext_short', $field);
 
   drupal_install_schema('poll_ext');
 
@@ -46,8 +46,8 @@ function poll_ext_install() {
  * Implementation of hook_uninstall()
  */
 function poll_ext_uninstall() {
-  $ret = array();
-  db_drop_field($ret, 'poll_choices', 'chtext_short');
+//  $ret = array();
+//  db_drop_field($ret, 'poll_choices', 'chtext_short');
 
   db_query("DROP TRIGGER {poll_vote_add}");
   db_query("DROP TRIGGER {poll_vote_del}");
@@ -107,6 +107,44 @@ function poll_ext_schema() {
     ),
   );
 
+  $schema['poll_choices_short'] = array(
+    'description' => 'Stores information about all choices for all {poll}s.',
+    'fields' => array(
+      'chid'    => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier for a poll choice.',
+      ),
+      'nid'     => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid this choice belongs to.',
+      ),
+      'chtext'  => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The text for this choice.',
+      ),
+      'chorder' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The sort order of this choice among all choices for the same node.',
+      )
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+    'primary key' => array('chid'),
+    'unique keys' => array(
+      'nodechoice' => array('nid', 'chorder'),
+    ),
+  );
 
   return $schema;
 }

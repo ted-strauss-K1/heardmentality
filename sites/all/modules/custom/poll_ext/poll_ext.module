@@ -25,8 +25,8 @@ function poll_ext_user($op, &$edit, &$account, $category = NULL) {
  *
  * @param $poll Node object of type 'poll'
  */
-function poll_ext_chtext_short($poll) {
-  $result = db_query("SELECT chorder, chtext_short FROM {poll_choices} WHERE nid = '%d'", $poll->nid);
+function poll_ext_chtext_short(&$poll) {
+  $result = db_query("SELECT pc.chorder, IFNULL(pch.chtext, pc.chtext) AS chtext_short FROM {poll_choices} pc LEFT JOIN {poll_choices_short} pch ON pc.nid = pch.nid AND pc.chorder = pch.chorder WHERE pc.nid = '%d'", $poll->nid);
   while ($choice = db_fetch_array($result)) {
     $poll->choice[$choice['chorder']]['chtext_short'] = $choice['chtext_short'];
   }
@@ -40,5 +40,5 @@ function poll_ext_chtext_short($poll) {
  * @param $chtext_short
  */
 function poll_ext_chtext_short_set($nid, $chorder, $chtext_short) {
-  db_query("UPDATE {poll_choices} SET chtext_short = '%s' WHERE nid = '%d' AND chorder = '%d'", $chtext_short, $nid, $chorder);
+  db_query("INSERT INTO {poll_choices_short} (nid, chorder, chtext) VALUES ('%d', '%d', '%s') ON DUPLICATE KEY UPDATE chtext = '%s'", $nid, $chorder, $chtext_short, $chtext_short);
 }

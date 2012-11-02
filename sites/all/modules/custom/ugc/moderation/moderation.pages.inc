@@ -449,6 +449,15 @@ function moderation_users_form() {
 function moderation_issue_view_form($form, $nid) {
   $form = array();
 
+  $form['content_id'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+  );
+  $form['content_type'] = array(
+    '#type' => 'hidden',
+    '#value' => 'node',
+  );
+
   $form['#prefix'] = theme('moderation_main', 'issues');
   $form['#attributes']['class'] = 'mod-form';
 
@@ -465,39 +474,62 @@ function moderation_issue_view_form($form, $nid) {
     '#value' => $node->body,
   );
 
+  $form['choice'] = array(
+    '#type' => 'fieldset',
+    '#description' => t('Leave the choice text empty to request its deletion'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#title' => t('Choices'),
+  );
+
   poll_ext_chtext_short($node);
 
+//  var_dump($node->choice); die();
+  $i = 0;
   foreach ($node->choice as $chorder => $choice) {
-    $form['choice-'.$chorder] = array(
+    $form['choice']['choice-'.$chorder] = array(
       '#type' => 'textfield',
       '#title' => t('Choice text').' #'.$chorder,
       '#value' => $choice['chtext'],
     );
-    $form['choice-short-'.$chorder] = array(
+    $form['choice']['choice-short-'.$chorder] = array(
       '#type' => 'textfield',
       '#title' => t('Choice short text').' #'.$chorder,
-      '#value' => $choice['chtext_short'],
+      '#value' => $choice['chtext_short'],// == '' ? $choice['chtext'] : $choice['chtext_short'],
+    );
+    $form['choice']['choice-chorder-'.$i] = array(
+      '#type' => 'hidden',
+      '#value' => $choice['chorder'],
     );
 
-    # part where we set the
+    # TODO part where we set the political data
 
+
+    $i++;
   }
 
+  # TODO part where we add new choices
 
+  # TODO part where we set country
+
+  # TODO part where we set taxonomy ids
 
   $form['save'] = array(
     '#type'         => 'submit',
     '#value'        => t('Save'),
     '#submit'       => array('moderation_issue_view_form_save'),
   );
-  $form['delete'] = array(
-    '#type'         => 'submit',
-    '#value'        => t('Deletion request'),
-    '#submit'       => array('moderation_issue_view_form_delete'),
-  );
+  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
+    $form['delete'] = array(
+      '#type'         => 'submit',
+      '#value'        => t('Deletion request'),
+      '#submit'       => array('moderation_issue_view_form_delete'),
+    );
+  }
 
   return $form;
 }
+
 
 /**
  * Moderation for Arguments (View)
@@ -506,6 +538,15 @@ function moderation_issue_view_form($form, $nid) {
  */
 function moderation_argument_view_form($form, $nid) {
   $form = array();
+
+  $form['content_id'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+  );
+  $form['content_type'] = array(
+    '#type' => 'hidden',
+    '#value' => 'node',
+  );
 
   $form['#prefix'] = theme('moderation_main', 'arguments');
   $form['#attributes']['class'] = 'mod-form';
@@ -548,7 +589,7 @@ function moderation_argument_view_form($form, $nid) {
       );
       $form['chorder_' . $i] = array(
         '#type'   => 'hidden',
-        '#value'  => $choice['chorder']
+        '#value'  => $choice['chorder'],
       );
     }
   }
@@ -559,11 +600,13 @@ function moderation_argument_view_form($form, $nid) {
     '#value'        => t('Save'),
     '#submit'       => array('moderation_argument_view_form_save'),
   );
-  $form['delete'] = array(
-    '#type'         => 'submit',
-    '#value'        => t('Deletion request'),
-    '#submit'       => array('moderation_argument_view_form_delete'),
-  );
+  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
+    $form['delete'] = array(
+      '#type'         => 'submit',
+      '#value'        => t('Deletion request'),
+      '#submit'       => array('moderation_argument_view_form_delete'),
+    );
+  }
 
   return $form;
 }
@@ -575,6 +618,16 @@ function moderation_argument_view_form($form, $nid) {
  */
 function moderation_comment_view_form($form, $cid) {
   $form = array();
+
+  $form['content_id'] = array(
+    '#type' => 'hidden',
+    '#value' => $cid,
+  );
+  $form['content_type'] = array(
+    '#type' => 'hidden',
+    '#value' => 'comment',
+  );
+
 
   $form['#prefix'] = theme('moderation_main', 'comments');
   $form['#attributes']['class'] = 'mod-form';
@@ -610,11 +663,13 @@ function moderation_comment_view_form($form, $cid) {
     '#value'        => t('Save'),
     '#submit'       => array('moderation_comment_view_form_save'),
   );
-  $form['delete'] = array(
-    '#type'         => 'submit',
-    '#value'        => t('Deletion request'),
-    '#submit'       => array('moderation_comment_view_form_delete'),
-  );
+  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
+    $form['delete'] = array(
+      '#type'         => 'submit',
+      '#value'        => t('Deletion request'),
+      '#submit'       => array('moderation_comment_view_form_delete'),
+    );
+  }
 
   return $form;
 }
@@ -643,33 +698,153 @@ function theme_moderation_pager($page, $pages, $pattern) {
 }
 
 function moderation_issue_view_form_save(&$form, &$form_state) {
+  $values = $form_state["clicked_button"]['#post'];
+  $nid = $values['content_id'];
+  $node = node_load($nid);
+  poll_ext_chtext_short($node);
 
+  $changed = array();
+  if ($node->title != $values['title']) {
+    $changed['title'] = $values['title'];
+  }
+  if ($node->body != $values['body']) {
+    $changed['body'] = $values['body'];
+  }
+  for ($i=0; $i>=0; $i++) {
+    if (is_null($values['choice-chorder-'.$i])) break;
+    $chorder = $values['choice-chorder-'.$i];
+    $chtext = $values['choice-'.$chorder];
+    $chtext_short = $values['choice-short-'.$chorder];
+    if ($node->choice[$chorder]['chtext'] != $chtext) {
+      $changed['choices'][$chorder]['chtext'] = $chtext;
+    }
+    if ($node->choice[$chorder]['chtext_short'] != $chtext_short) {
+      $changed['choices'][$chorder]['chtext_short'] = $chtext_short;
+    }
+    if (!empty($changed['choices'][$chorder])) {
+      $changed['choices'][$chorder] += array(
+        'chorder' => $chorder,
+        'chtext_old' => $node->choice[$chorder]['chtext'],
+      );
+    }
+  }
+
+  if (empty($changed)) {
+    // approved
+    moderation_history('del', $nid, 'node', 'approve');
+    moderation_history('set', $nid, 'node', 'approve');
+  } else {
+    $node->title = $changed['title'];
+    $node->body = $changed['body'];
+
+    foreach ($changed['choices'] as $chorder => $case) {
+      $choice = &$node->choice[$chorder];
+      if ($case['chtext_short'] != '') {
+        poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
+      }
+      if (isset($case['chtext'])) {
+        if ($case['chtext'] != '')  {
+          $choice['chtext'] = $case['chtext'];
+        } else {
+          moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+        }
+      }
+    }
+    node_save($node);
+    moderation_history('set', $nid, 'node', 'edit', $changed);
+  }
 }
 
 
 function moderation_argument_view_form_save(&$form, &$form_state) {
+  $values = $form_state["clicked_button"]['#post'];
+  $nid = $values['content_id'];
+  $node = node_load($nid);
+
+  $changed = array();
+  if ($node->title != $values['title']) {
+    $changed['title'] = $values['title'];
+  }
+  if ($node->field_type[0]['value'] == TYPE_DEBATE) {
+    $choices = issue_choices($node->parent_issue);
+    for ($i=0; $i>=0; $i++) {
+      if (is_null($values['chorder_' . $i])) break;
+      $chorder = $values['chorder_' . $i];
+      $option = $values['option_' . $i];
+      foreach ($choices as $choice) {
+        if ($choice['chorder'] == $chorder) {
+          if ($node->options[$choice['chorder']]['value'] != $option) {
+            $changed['options'][] = array('chorder' => $chorder, 'option' => $option, 'chtext' => $choice['chtext']);
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  if (empty($changed)) {
+    // approved
+    moderation_history('del', $nid, 'node', 'approve');
+    moderation_history('set', $nid, 'node', 'approve');
+  } else {
+    $node->title = $changed['title'];
+    node_save($node);
+    foreach ($changed['options'] as $case) {
+      db_query("UPDATE {arguments_options} SET val = '%d' WHERE nid = '%d' AND chorder = '%d'", $case['option'], $nid, $case['chorder']);
+    }
+    moderation_history('set', $nid, 'node', 'edit', $changed);
+  }
 
 }
 
 
 function moderation_comment_view_form_save(&$form, &$form_state) {
+  $cid = $form['content_id']['#value'];
+  $comment = _comment_load($cid);
+  $values = $form_state["clicked_button"]['#post'];
 
+  $changed = array();
+  $sql = "UPDATE {comments} SET";
+  $items = array('comment', 'status', 'str_wk');
+  foreach ($items as $item) {
+    if ($comment->{$item} != $values[$item]) {
+      $changed[$item] = $values[$item];
+    }
+  }
+  if (empty($changed)) {
+    // approved
+    moderation_history('del', $cid, 'comment', 'approve');
+    moderation_history('set', $cid, 'comment', 'approve');
+  } else {
+    $sql2 = array();
+    foreach ($changed as $item => $value) {
+      $sql2[] = ' ' . $item . " = '%s'";
+    }
+    $sql .= implode(',', $sql2) . " WHERE cid = '%d'";
+    $v = array_values($changed);
+    $v[] = $cid;
+    db_query($sql, $v);
+    moderation_history('set', $cid, 'comment', 'edit', $changed);
+  }
 }
 
 function moderation_issue_view_form_delete(&$form, &$form_state) {
-
+  moderation_delete_request($form);
 }
 
 
 function moderation_argument_view_form_delete(&$form, &$form_state) {
-
+  moderation_delete_request($form);
 }
 
 
 function moderation_comment_view_form_delete(&$form, &$form_state) {
-
+  moderation_delete_request($form);
 }
 
+function moderation_delete_request($form) {
+  moderation_history('set', $form['content_id']['#value'], $form['content_type']['#value'], 'delete');
+}
 
 
 

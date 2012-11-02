@@ -157,3 +157,33 @@ function moderation_theme() {
 
   return $theme;
 }
+
+function moderation_history($op, $content_id, $content_type, $change, $vars = array()) {
+  switch ($op) {
+    case 'set' :
+      global $user;
+      db_query("INSERT INTO {moderation_history} SET uid = '%d', content_id = '%d', content_type = '%s', type = '%s', vars = '%s', date_added = '%s'",
+        $user->uid, $content_id, $content_type, $change, serialize($vars), date('Y-m-d H:i:s')
+      );
+    break;
+    case 'get' :
+      $sql = "SELECT * FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s'";
+      $v = array($content_id, $content_type);
+      if ($change != true) {
+        $sql .= " AND type = '%s'";
+        $v[] = $change;
+      }
+      $sql .= " ORDER BY date_added ASC";
+      $result = db_query($sql, $v);
+      $history = array();
+      while ($item = db_fetch_array($result)) {
+        $item['vars'] = unserialize($item['vars']);
+        $history[] = $item;
+      }
+      return $history;
+    break;
+    case 'del' :
+      db_query("DELETE FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s' AND type = '%s'", $content_id, $content_type, $change);
+    break;
+  }
+}
