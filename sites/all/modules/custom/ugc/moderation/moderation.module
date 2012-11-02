@@ -169,7 +169,7 @@ function moderation_history($op, $content_id, $content_type, $change, $vars = ar
     case 'get' :
       $sql = "SELECT * FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s'";
       $v = array($content_id, $content_type);
-      if ($change != true) {
+      if ($change !== true) {
         $sql .= " AND type = '%s'";
         $v[] = $change;
       }
