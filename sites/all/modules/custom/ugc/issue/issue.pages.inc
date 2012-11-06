@@ -309,7 +309,7 @@ function issue_create_form(&$form_state) {
 /*
  * "issue/create/ahah/answer" callback
  */
-function _issue_create_form_answer_textfield($delta, $value = '', $votes = 0) {
+function _issue_create_form_answer_textfield($delta, $value = '') {
   if ($delta < 4) {
     $form = array(
       '#tree' => TRUE,

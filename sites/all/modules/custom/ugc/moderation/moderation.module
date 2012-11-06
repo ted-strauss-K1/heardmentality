@@ -119,6 +119,13 @@ function moderation_menu() {
     'type'              => MENU_CALLBACK,
     'file'              => 'moderation.pages.inc',
   );
+  $menu['moderation/ahah/%'] = array(
+    'page callback'     => 'moderation_ahah',
+    'page arguments'    => array(2),
+    'access callback'   => 'moderation_check_perm',
+    'type'              => MENU_CALLBACK,
+    'file'              => 'moderation.pages.inc',
+  );
 
   return $menu;
 }

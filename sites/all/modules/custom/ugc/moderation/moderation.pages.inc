@@ -446,7 +446,7 @@ function moderation_users_form() {
  *
  * @return array
  */
-function moderation_issue_view_form($form, $nid) {
+function moderation_issue_view_form($form_state, $nid) {
   $form = array();
 
   $form['content_id'] = array(
@@ -462,6 +462,7 @@ function moderation_issue_view_form($form, $nid) {
   $form['#attributes']['class'] = 'mod-form';
 
   $node = node_load($nid);
+  poll_ext_chtext_short($node);
 
   $form['title'] = array(
     '#type' => 'textfield',
@@ -474,45 +475,30 @@ function moderation_issue_view_form($form, $nid) {
     '#value' => $node->body,
   );
 
-  $form['choice'] = array(
+  $form['choices'] = array(
     '#type' => 'fieldset',
-    '#description' => t('Leave the choice text empty to request its deletion'),
+    '#title' => t('Leave the choice text empty to request its deletion'),
+    '#prefix' => '<div id="choices-wrapper">',
+    '#suffix' => '</div>',
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-    '#title' => t('Choices'),
+    '#collapsed' => FALSE,
   );
-
-  poll_ext_chtext_short($node);
-
-//  var_dump($node->choice); die();
-  $i = 0;
-  foreach ($node->choice as $chorder => $choice) {
-    $form['choice']['choice-'.$chorder] = array(
-      '#type' => 'textfield',
-      '#title' => t('Choice text').' #'.$chorder,
-      '#value' => $choice['chtext'],
-    );
-    $form['choice']['choice-short-'.$chorder] = array(
-      '#type' => 'textfield',
-      '#title' => t('Choice short text').' #'.$chorder,
-      '#value' => $choice['chtext_short'],// == '' ? $choice['chtext'] : $choice['chtext_short'],
-    );
-    $form['choice']['choice-chorder-'.$i] = array(
-      '#type' => 'hidden',
-      '#value' => $choice['chorder'],
-    );
-
-    # TODO part where we set the political data
-
-
-    $i++;
+  foreach ($node->choice as $delta => $choice) {
+    $form_element = _moderation_ahah_choice($delta, $choice);
+    $form['choices'][$delta] = $form_element;
   }
 
-  # TODO part where we add new choices
-
-  # TODO part where we set country
-
-  # TODO part where we set taxonomy ids
+  $form['choices']['add_more'] = array(
+    '#type' => 'submit',
+    '#value' => '+ ' . t('Add another choice'),
+    '#weight' => 1,
+    '#ahah' => array(
+      'path' => 'moderation/ahah/choice',
+      'wrapper' => 'choices-wrapper',
+      'method' => 'replace',
+      'effect' => 'fade',
+    ),
+  );
 
   $form['save'] = array(
     '#type'         => 'submit',
@@ -526,6 +512,78 @@ function moderation_issue_view_form($form, $nid) {
       '#submit'       => array('moderation_issue_view_form_delete'),
     );
   }
+
+  # TODO part where we set country
+
+  # TODO part where we set taxonomy ids
+
+  return $form;
+}
+
+function moderation_ahah($type) {
+  # build new form
+  $form_state = array('submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+  if (!$form = form_get_cache($form_build_id, $form_state)) {
+    exit();
+  }
+
+  # change the form parts
+  switch ($type) {
+    case 'choice' :
+      $delta = count($_POST['choices']);
+      $form_element = _moderation_ahah_choice($delta);
+      drupal_alter('form', $form_element, array());
+      $form['choices'][$delta] = $form_element;
+    break;
+  }
+
+  # save the form
+  form_set_cache($form_build_id, $form, $form_state);
+
+  # rebuild new form
+  $form += array(
+    '#post' => $_POST,
+    '#programmed' => FALSE,
+  );
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  $form = form_builder($form_id, $form, $form_state);
+
+  # render the form parts
+  switch ($type) {
+    case 'choice' :
+      $choice_form = $form['choices'];
+      $output = drupal_render($choice_form);
+    break;
+  }
+
+  drupal_json(array('status' => TRUE, 'data' => $output));
+}
+
+function _moderation_ahah_choice($delta, $choice = false) {
+  $form = array(
+    '#tree' => TRUE,
+  );
+  // We'll manually set the #parents property of these fields so that
+  // their values appear in the $form_state['values']['choice'] array.
+  $form['chtext'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Choice @n', array('@n' => ($delta + 1))),
+    '#default_value' => $choice['chtext'],
+    '#parents' => array('choices', $delta, 'chtext'),
+  );
+  $form['chtext-short'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Choice short text @n', array('@n' => ($delta + 1))),
+    '#default_value' => $choice['chtext_short'],
+    '#parents' => array('choices', $delta, 'chtext-short'),
+  );
+  $form['chorder'] = array(
+    '#type' => 'hidden',
+    '#default_value' => is_null($choice['chorder']) ? $delta : $choice['chorder'],
+    '#parents' => array('choices', $delta, 'chorder'),
+  );
 
   return $form;
 }
@@ -698,6 +756,7 @@ function theme_moderation_pager($page, $pages, $pattern) {
 }
 
 function moderation_issue_view_form_save(&$form, &$form_state) {
+
   $values = $form_state["clicked_button"]['#post'];
   $nid = $values['content_id'];
   $node = node_load($nid);
@@ -710,11 +769,11 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
   if ($node->body != $values['body']) {
     $changed['body'] = $values['body'];
   }
-  for ($i=0; $i>=0; $i++) {
-    if (is_null($values['choice-chorder-'.$i])) break;
-    $chorder = $values['choice-chorder-'.$i];
-    $chtext = $values['choice-'.$chorder];
-    $chtext_short = $values['choice-short-'.$chorder];
+
+  foreach ($values['choices'] as $i => $choice) {
+    $chorder = $choice['chorder'];
+    $chtext = $choice['chtext'];
+    $chtext_short = $choice['chtext-short'];
     if ($node->choice[$chorder]['chtext'] != $chtext) {
       $changed['choices'][$chorder]['chtext'] = $chtext;
     }

@@ -4,7 +4,7 @@ function flag_user_mail($uids = '', $days='') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $from = variable_get('site_mail');
+    $from = variable_get('site_mail', '');
     $subject = 'Heardmentality Account Blocked';
     $msg = $_REQUEST['reporttext'];
     $msg.="<br/> <div >Account has been blocked for $days days </div>";
