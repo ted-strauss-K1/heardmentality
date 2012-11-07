@@ -464,7 +464,8 @@ function moderation_issue_view_form($form_state, $nid) {
   $node = node_load($nid);
   poll_ext_chtext_short($node);
 
-  $form['tags'] = array(
+
+  $form['loc'] = array(
     '#type' => 'fieldset',
     '#title' => t('Categories'),
     '#prefix' => '<div id="tags-wrapper">',
@@ -473,51 +474,56 @@ function moderation_issue_view_form($form_state, $nid) {
     '#collapsed' => FALSE,
   );
 
-  $options = issue_get_taxonomy_root();
-  var_dump($options);
+  $countries = geonames_query('countryinfo');
+  $loc1 = array();
+  foreach ($countries->results as $country) {
+    $loc1[$country['countrycode']] = $country['countryname'];
+  }
+  asort($loc1);
+
   $tags = moderation_node_tags($node->nid);
 
-  $cat1 = array();
-  $cat2 = array(-1 => t('No sub categories'));
-  $cat3 = array(-1 => t('No sub categories'));
 
-  $form['tags']['cat1'] = array(
+  $loc2 = array(-1 => t('No regions/states'));
+  $loc3 = array(-1 => t('No cities'));
+
+  $form['loc']['loct1'] = array(
     '#type' => 'select',
-    '#options' => $options,
+    '#options' => $loc1,
     '#value' => $tags,
     '#ahah' => array(
-      'wrapper' => 'tags-wrapper-cat2',
-      'path' => 'moderation/ahah/tags/cat1',
+      'wrapper' => 'loc-wrapper-loc2',
+      'path' => 'moderation/ahah/loc/loc1',
       'effect' => 'fade',
       'event' => 'click',
     ),
     '#size' => 5,
     '#multiple' => 'multiple',
-    '#prefix' => '<div id="tags-wrapper-cat1">',
+    '#prefix' => '<div id="loc-wrapper-loc1">',
     '#suffix' => '</div>',
   );
-  $form['tags']['cat2'] = array(
+  $form['loc']['loc2'] = array(
     '#type' => 'select',
-    '#options' => $cat2,
+    '#options' => $loc2,
     '#value' => $tags,
     '#size' => 5,
     '#multiple' => 'multiple',
     '#ahah' => array(
-      'wrapper' => 'tags-wrapper-cat3',
-      'path' => 'moderation/ahah/tags/cat2',
+      'wrapper' => 'loc-wrapper-loc3',
+      'path' => 'moderation/ahah/loc/loc2',
       'effect' => 'fade',
       'event' => 'click',
     ),
-    '#prefix' => '<div id="tags-wrapper-cat2">',
+    '#prefix' => '<div id="loc-wrapper-loc2">',
     '#suffix' => '</div>',
   );
-  $form['tags']['cat3'] = array(
+  $form['loc']['loc3'] = array(
     '#type' => 'select',
-    '#options' => $cat3,
+    '#options' => $loc3,
     '#value' => $tags,
     '#multiple' => 'multiple',
     '#size' => 5,
-    '#prefix' => '<div id="tags-wrapper-cat3">',
+    '#prefix' => '<div id="loc-wrapper-loc3">',
     '#suffix' => '</div>',
   );
 
@@ -584,9 +590,61 @@ function moderation_issue_view_form($form_state, $nid) {
 
   # TODO part where we set country
 
-  # TODO part where we set taxonomy ids
 
+  $form['tags'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Categories'),
+    '#prefix' => '<div id="tags-wrapper">',
+    '#suffix' => '</div>',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
 
+  $tags = moderation_node_tags($node->nid);
+
+  $cat1 = issue_get_taxonomy_root();
+  $cat2 = array(-1 => t('No sub categories'));
+  $cat3 = array(-1 => t('No sub categories'));
+
+  $form['tags']['cat1'] = array(
+    '#type' => 'select',
+    '#options' => $cat1,
+    '#value' => $tags,
+    '#ahah' => array(
+      'wrapper' => 'tags-wrapper-cat2',
+      'path' => 'moderation/ahah/tags/cat1',
+      'effect' => 'fade',
+      'event' => 'click',
+    ),
+    '#size' => 5,
+    '#multiple' => 'multiple',
+    '#prefix' => '<div id="tags-wrapper-cat1">',
+    '#suffix' => '</div>',
+  );
+  $form['tags']['cat2'] = array(
+    '#type' => 'select',
+    '#options' => $cat2,
+    '#value' => $tags,
+    '#size' => 5,
+    '#multiple' => 'multiple',
+    '#ahah' => array(
+      'wrapper' => 'tags-wrapper-cat3',
+      'path' => 'moderation/ahah/tags/cat2',
+      'effect' => 'fade',
+      'event' => 'click',
+    ),
+    '#prefix' => '<div id="tags-wrapper-cat2">',
+    '#suffix' => '</div>',
+  );
+  $form['tags']['cat3'] = array(
+    '#type' => 'select',
+    '#options' => $cat3,
+    '#value' => $tags,
+    '#multiple' => 'multiple',
+    '#size' => 5,
+    '#prefix' => '<div id="tags-wrapper-cat3">',
+    '#suffix' => '</div>',
+  );
 
 
   return $form;
