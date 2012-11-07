@@ -404,6 +404,17 @@ function _issue_view(&$node) {
   */
 }
 
+function issue_get_taxonomy_root($ptid = 0) {
+  static $terms = null;
+  if (is_null($terms)) {
+    $result = db_query("SELECT td.tid, td.name FROM {term_data} td INNER JOIN {vocabulary} v ON v.vid = td.vid RIGHT JOIN {term_hierarchy} th ON td.tid = th.tid WHERE th.parent = '%d' AND v.name = '%s' AND module = '%s'", $ptid, 'Sections', 'taxonomy');
+    while ($row = db_fetch_array($result)) {
+      $terms[$row['tid']] = $row['name'];
+    }
+  }
+  return $terms;
+}
+
 /*
  * Get translated node
  */

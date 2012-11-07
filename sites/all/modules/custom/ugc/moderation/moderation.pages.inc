@@ -464,6 +464,75 @@ function moderation_issue_view_form($form_state, $nid) {
   $node = node_load($nid);
   poll_ext_chtext_short($node);
 
+  $form['tags'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Categories'),
+    '#prefix' => '<div id="tags-wrapper">',
+    '#suffix' => '</div>',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $options = issue_get_taxonomy_root();
+  var_dump($options);
+  $tags = moderation_node_tags($node->nid);
+
+  $cat1 = array();
+  $cat2 = array(-1 => t('No sub categories'));
+  $cat3 = array(-1 => t('No sub categories'));
+
+  $form['tags']['cat1'] = array(
+    '#type' => 'select',
+    '#options' => $options,
+    '#value' => $tags,
+    '#ahah' => array(
+      'wrapper' => 'tags-wrapper-cat2',
+      'path' => 'moderation/ahah/tags/cat1',
+      'effect' => 'fade',
+      'event' => 'click',
+    ),
+    '#size' => 5,
+    '#multiple' => 'multiple',
+    '#prefix' => '<div id="tags-wrapper-cat1">',
+    '#suffix' => '</div>',
+  );
+  $form['tags']['cat2'] = array(
+    '#type' => 'select',
+    '#options' => $cat2,
+    '#value' => $tags,
+    '#size' => 5,
+    '#multiple' => 'multiple',
+    '#ahah' => array(
+      'wrapper' => 'tags-wrapper-cat3',
+      'path' => 'moderation/ahah/tags/cat2',
+      'effect' => 'fade',
+      'event' => 'click',
+    ),
+    '#prefix' => '<div id="tags-wrapper-cat2">',
+    '#suffix' => '</div>',
+  );
+  $form['tags']['cat3'] = array(
+    '#type' => 'select',
+    '#options' => $cat3,
+    '#value' => $tags,
+    '#multiple' => 'multiple',
+    '#size' => 5,
+    '#prefix' => '<div id="tags-wrapper-cat3">',
+    '#suffix' => '</div>',
+  );
+
+
+
+
+
+
+
+
+
+
+
+
+
   $form['title'] = array(
     '#type' => 'textfield',
     '#title' => t('Title'),
@@ -481,7 +550,7 @@ function moderation_issue_view_form($form_state, $nid) {
     '#prefix' => '<div id="choices-wrapper">',
     '#suffix' => '</div>',
     '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
+    '#collapsed' => TRUE,
   );
   foreach ($node->choice as $delta => $choice) {
     $form_element = _moderation_ahah_choice($delta, $choice);
@@ -517,10 +586,23 @@ function moderation_issue_view_form($form_state, $nid) {
 
   # TODO part where we set taxonomy ids
 
+
+
+
   return $form;
 }
 
+function moderation_node_tags($nid) {
+  $tags = array();
+  $result = db_query("SELECT tid FROM {term_node} WHERE nid = '%d'", $nid);
+  while ($tag_id = db_result($result)) {
+    $tags[] = $tag_id;
+  }
+  return $tags;
+}
+
 function moderation_ahah($type) {
+
   # build new form
   $form_state = array('submitted' => FALSE);
   $form_build_id = $_POST['form_build_id'];
@@ -535,6 +617,57 @@ function moderation_ahah($type) {
       $form_element = _moderation_ahah_choice($delta);
       drupal_alter('form', $form_element, array());
       $form['choices'][$delta] = $form_element;
+    break;
+    case 'tags' :
+      $tags = moderation_node_tags($_POST['content_id']);
+
+      $case = arg(3);
+      $parent_tids = $_POST[$case];
+      $options = array();
+      foreach ($parent_tids as $parent_tid) {
+        $tids = taxonomy_get_children($parent_tid);
+        foreach ($tids as $tid => $term) {
+          $options[$tid] = $term->name;
+        }
+      }
+
+      if (empty($options)) {
+        $options[] = t('No sub categories');
+      }
+
+      if ($case == 'cat1') {
+        if (is_array($_POST['cat2'])) {
+          $tags = array_merge($tags, $_POST['cat2']);
+        }
+        $form['tags']['cat2'] = array(
+          '#type' => 'select',
+          '#options' => $options,
+          '#value' => $tags,
+          '#size' => 5,
+          '#multiple' => 'multiple',
+          '#ahah' => array(
+            'wrapper' => 'tags-wrapper-cat3',
+            'path' => 'moderation/ahah/tags/cat2',
+            'effect' => 'fade',
+            'event' => 'click',
+          ),
+        );
+      }
+      if ($case == 'cat2') {
+        if (is_array($_POST['cat3'])) {
+          $tags = array_merge($tags, $_POST['cat3']);
+        }
+        $form['tags']['cat3'] = array(
+          '#type' => 'select',
+          '#options' => $options,
+          '#value' => $tags,
+          '#multiple' => 'multiple',
+          '#size' => 5,
+          '#prefix' => '<div id="tags-wrapper-cat3">',
+          '#suffix' => '</div>',
+        );
+      }
+
     break;
   }
 
@@ -555,6 +688,10 @@ function moderation_ahah($type) {
     case 'choice' :
       $choice_form = $form['choices'];
       $output = drupal_render($choice_form);
+    break;
+    case 'tags' :
+      $form_element = $case == 'cat1' ? $form['tags']['cat2'] : $form['tags']['cat3'];
+      $output = drupal_render($form_element);
     break;
   }
 
