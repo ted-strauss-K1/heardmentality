@@ -464,81 +464,6 @@ function moderation_issue_view_form($form_state, $nid) {
   $node = node_load($nid);
   poll_ext_chtext_short($node);
 
-
-  $form['loc'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Categories'),
-    '#prefix' => '<div id="tags-wrapper">',
-    '#suffix' => '</div>',
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-  );
-
-  $countries = geonames_query('countryinfo');
-  $loc1 = array();
-  foreach ($countries->results as $country) {
-    $loc1[$country['countrycode']] = $country['countryname'];
-  }
-  asort($loc1);
-
-  $tags = moderation_node_tags($node->nid);
-
-
-  $loc2 = array(-1 => t('No regions/states'));
-  $loc3 = array(-1 => t('No cities'));
-
-  $form['loc']['loct1'] = array(
-    '#type' => 'select',
-    '#options' => $loc1,
-    '#value' => $tags,
-    '#ahah' => array(
-      'wrapper' => 'loc-wrapper-loc2',
-      'path' => 'moderation/ahah/loc/loc1',
-      'effect' => 'fade',
-      'event' => 'click',
-    ),
-    '#size' => 5,
-    '#multiple' => 'multiple',
-    '#prefix' => '<div id="loc-wrapper-loc1">',
-    '#suffix' => '</div>',
-  );
-  $form['loc']['loc2'] = array(
-    '#type' => 'select',
-    '#options' => $loc2,
-    '#value' => $tags,
-    '#size' => 5,
-    '#multiple' => 'multiple',
-    '#ahah' => array(
-      'wrapper' => 'loc-wrapper-loc3',
-      'path' => 'moderation/ahah/loc/loc2',
-      'effect' => 'fade',
-      'event' => 'click',
-    ),
-    '#prefix' => '<div id="loc-wrapper-loc2">',
-    '#suffix' => '</div>',
-  );
-  $form['loc']['loc3'] = array(
-    '#type' => 'select',
-    '#options' => $loc3,
-    '#value' => $tags,
-    '#multiple' => 'multiple',
-    '#size' => 5,
-    '#prefix' => '<div id="loc-wrapper-loc3">',
-    '#suffix' => '</div>',
-  );
-
-
-
-
-
-
-
-
-
-
-
-
-
   $form['title'] = array(
     '#type' => 'textfield',
     '#title' => t('Title'),
@@ -556,7 +481,7 @@ function moderation_issue_view_form($form_state, $nid) {
     '#prefix' => '<div id="choices-wrapper">',
     '#suffix' => '</div>',
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsed' => FALSE,
   );
   foreach ($node->choice as $delta => $choice) {
     $form_element = _moderation_ahah_choice($delta, $choice);
@@ -575,22 +500,82 @@ function moderation_issue_view_form($form_state, $nid) {
     ),
   );
 
-  $form['save'] = array(
-    '#type'         => 'submit',
-    '#value'        => t('Save'),
-    '#submit'       => array('moderation_issue_view_form_save'),
-  );
-  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
-    $form['delete'] = array(
-      '#type'         => 'submit',
-      '#value'        => t('Deletion request'),
-      '#submit'       => array('moderation_issue_view_form_delete'),
-    );
+  $selected1 = array();
+  $selected2 = array();
+  $selected3 = array();
+  foreach ($node->field_issue_country as $item) {
+    $selected1[] = $item['value'];
+  }
+  foreach ($node->field_issue_state as $item) {
+    $selected2[] = $item['value'];
+  }
+  foreach ($node->field_issue_city as $item) {
+    $selected3[] = $item['value'];
   }
 
-  # TODO part where we set country
+  $data = moderation_location(array(
+    'selected1' => $selected1,
+    'selected2' => $selected2,
+    'selected3' => $selected3,
+  ));
+  $loc1 = $data['loc1'];
+  $locs1 = $data['locs1'];
+  $loc2 = $data['loc2'];
+  $locs2 = $data['locs2'];
+  $loc3 = $data['loc3'];
+  $locs3 = $data['locs3'];
 
+  # loc wrapper
+  $form['loc'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Locations'),
+    '#prefix' => '<div id="loc-wrapper">',
+    '#suffix' => '</div>',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
 
+  $form['loc']['loc1'] = array(
+    '#type' => 'select',
+    '#options' => $loc1,
+    '#value' => $locs1,
+    '#ahah' => array(
+      'wrapper' => 'loc-wrapper-loc2',
+      'path' => 'moderation/ahah/loc/loc1',
+      'effect' => 'fade',
+      'event' => 'click',
+    ),
+    '#size' => 5,
+    '#multiple' => 'multiple',
+    '#prefix' => '<div id="loc-wrapper-loc1">',
+    '#suffix' => '</div>',
+  );
+  $form['loc']['loc2'] = array(
+    '#type' => 'select',
+    '#options' => $loc2,
+    '#value' => $locs2,
+    '#size' => 5,
+    '#multiple' => 'multiple',
+    '#ahah' => array(
+      'wrapper' => 'loc-wrapper-loc3',
+      'path' => 'moderation/ahah/loc/loc2',
+      'effect' => 'fade',
+      'event' => 'click',
+    ),
+    '#prefix' => '<div id="loc-wrapper-loc2">',
+    '#suffix' => '</div>',
+  );
+  $form['loc']['loc3'] = array(
+    '#type' => 'select',
+    '#options' => $loc3,
+    '#value' => $locs3,
+    '#multiple' => 'multiple',
+    '#size' => 5,
+    '#prefix' => '<div id="loc-wrapper-loc3">',
+    '#suffix' => '</div>',
+  );
+
+  # Tags fieldset
   $form['tags'] = array(
     '#type' => 'fieldset',
     '#title' => t('Categories'),
@@ -599,17 +584,72 @@ function moderation_issue_view_form($form_state, $nid) {
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
+//  # node tags
+//  $tags = array();
+//  foreach ($node->taxonomy as $tid => $term) {
+//    $tags[] = $tid;
+//  }
+//  # 1-level tags
+//  $cat1 = issue_get_taxonomy_root();
+//  # 1-level selected tags
+//  $tags1 = array();
+//  foreach ($tags as $tag_id) {
+//    if (isset($cat1[$tag_id])) {
+//      $tags1[] = $tag_id;
+//    }
+//  }
+//  # 2-level tags
+//  $cat2 = array();
+//  foreach ($tags1 as $parent_tid) {
+//    $tids = taxonomy_get_children($parent_tid);
+//    foreach ($tids as $tid => $term) {
+//      $cat2[$tid] = $term->name;
+//    }
+//  }
+//  # 2-level selected tags
+//  $tags2 = array();
+//  foreach ($tags as $tag_id) {
+//    if (isset($cat2[$tag_id])) {
+//      $tags2[] = $tag_id;
+//    }
+//  }
+//  if (empty($cat2)) {
+//    $cat2 = array(-1 => t('No sub categories'));
+//  }
+//  # 3-level tags
+//  $cat3 = array();
+//  foreach ($tags2 as $parent_tid) {
+//    $tids = taxonomy_get_children($parent_tid);
+//    foreach ($tids as $tid => $term) {
+//      $cat3[$tid] = $term->name;
+//    }
+//  }
+//  # 3-level selected tags
+//  $tags3 = array();
+//  foreach ($tags as $tag_id) {
+//    if (isset($cat3[$tag_id])) {
+//      $tags3[] = $tag_id;
+//    }
+//  }
+//  if (empty($cat3)) {
+//    $cat3 = array(-1 => t('No sub categories'));
+//  }
 
-  $tags = moderation_node_tags($node->nid);
-
-  $cat1 = issue_get_taxonomy_root();
-  $cat2 = array(-1 => t('No sub categories'));
-  $cat3 = array(-1 => t('No sub categories'));
+  # node tags
+  $tags = array();
+  foreach ($node->taxonomy as $tid => $term) {
+    $tags[] = $tid;
+  }
+  $data = moderation_tags(array(
+    'selected1' => $tags,
+    'selected2' => $tags,
+    'selected3' => $tags,
+  ));
 
   $form['tags']['cat1'] = array(
     '#type' => 'select',
-    '#options' => $cat1,
-    '#value' => $tags,
+    '#options' => $data['tag1'],
+    '#value' => $data['tags1'],
     '#ahah' => array(
       'wrapper' => 'tags-wrapper-cat2',
       'path' => 'moderation/ahah/tags/cat1',
@@ -623,8 +663,8 @@ function moderation_issue_view_form($form_state, $nid) {
   );
   $form['tags']['cat2'] = array(
     '#type' => 'select',
-    '#options' => $cat2,
-    '#value' => $tags,
+    '#options' => $data['tag2'],
+    '#value' => $data['tags2'],
     '#size' => 5,
     '#multiple' => 'multiple',
     '#ahah' => array(
@@ -638,8 +678,8 @@ function moderation_issue_view_form($form_state, $nid) {
   );
   $form['tags']['cat3'] = array(
     '#type' => 'select',
-    '#options' => $cat3,
-    '#value' => $tags,
+    '#options' => $data['tag3'],
+    '#value' => $data['tags3'],
     '#multiple' => 'multiple',
     '#size' => 5,
     '#prefix' => '<div id="tags-wrapper-cat3">',
@@ -647,8 +687,154 @@ function moderation_issue_view_form($form_state, $nid) {
   );
 
 
+  $form['save'] = array(
+    '#type'         => 'submit',
+    '#value'        => t('Save'),
+    '#submit'       => array('moderation_issue_view_form_save'),
+  );
+  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
+    $form['delete'] = array(
+      '#type'         => 'submit',
+      '#value'        => t('Deletion request'),
+      '#submit'       => array('moderation_issue_view_form_delete'),
+    );
+  }
+
+
   return $form;
 }
+
+function moderation_tags($data) {
+  $selected1 = $data['selected1'];
+  $selected2 = $data['selected2'];
+  $selected3 = $data['selected3'];
+
+  # 1-level tags
+  $tag1 = issue_get_taxonomy_root();
+  # 1-level selected tags
+  $tags1 = array();
+  foreach ($selected1 as $tag_id) {
+    if (isset($tag1[$tag_id])) {
+      $tags1[] = $tag_id;
+    }
+  }
+  # 2-level tags
+  $tag2 = array();
+  foreach ($tags1 as $parent_tid) {
+    $tids = taxonomy_get_children($parent_tid);
+    foreach ($tids as $tid => $term) {
+      $tag2[$tid] = $term->name;
+    }
+  }
+  # 2-level selected tags
+  $tags2 = array();
+  foreach ($selected2 as $tag_id) {
+    if (isset($tag2[$tag_id])) {
+      $tags2[] = $tag_id;
+    }
+  }
+  if (empty($tag2)) {
+    $tag2 = array(-1 => t('No sub categories'));
+  }
+  # 3-level tags
+  $tag3 = array();
+  foreach ($tags2 as $parent_tid) {
+    $tids = taxonomy_get_children($parent_tid);
+    foreach ($tids as $tid => $term) {
+      $tag3[$tid] = $term->name;
+    }
+  }
+  # 3-level selected tags
+  $tags3 = array();
+  foreach ($selected3 as $tag_id) {
+    if (isset($tag3[$tag_id])) {
+      $tags3[] = $tag_id;
+    }
+  }
+  if (empty($tag3)) {
+    $tag3 = array(-1 => t('No sub categories'));
+  }
+
+  $output = array(
+    'tag1' => $tag1,
+    'tags1' => $tags1,
+    'tag2' => $tag2,
+    'tags2' => $tags2,
+    'tag3' => $tag3,
+    'tags3' => $tags3,
+  );
+
+  return $output;
+}
+
+function moderation_location($data) {
+  $selected1 = $data['selected1'];
+  $selected2 = $data['selected2'];
+  $selected3 = $data['selected3'];
+  # 1-level locs
+  $countries = geonames_query('countryinfo');
+  $loc1 = array();
+  foreach ($countries->results as $country) {
+    $loc1[$country['countrycode']] = $country['countryname'];
+  }
+  asort($tag1);
+  # 1-level selected locs
+  $locs1 = array();
+  foreach ($selected1 as $country) {
+    if (isset($loc1[$country])) {
+      $locs1[] = $country;
+    }
+  }
+  # 2-level locs
+  $loc2 = array();
+  foreach ($locs1 as $countrycode) {
+    $info = geonames_countryinfo($countrycode);
+    $results = geonames_query('children', array('geonameid' => $info['geonameid']));
+    foreach ($results->results as $state) {
+      $loc2[$state['geonameid']] = $state['name'];
+    }
+  }
+  # 2-level selected locs
+  $locs2 = array();
+  foreach ($selected2 as $statecode) {
+    if (isset($loc2[$statecode])) {
+      $locs2[] = $statecode;
+    }
+  }
+  if (empty($loc2)) {
+    $loc2 = array(-1 => t('No regions/states'));
+  }
+  # 3-level locs
+  $loc3 = array();
+  foreach ($locs2 as $citycode) {
+    $results = geonames_query('children', array('geonameid' => $citycode));
+    foreach ($results->results as $state) {
+      $loc3[$state['geonameid']] = $state['name'];
+    }
+  }
+  # 3-level selected locs
+  $locs3 = array();
+  foreach ($selected3 as $statecode) {
+    if (isset($loc3[$statecode])) {
+      $locs3[] = $statecode;
+    }
+  }
+  if (empty($loc3)) {
+    $loc3 = array(-1 => t('No cities'));
+  }
+
+  $output = array(
+    'loc1' => $loc1,
+    'locs1' => $locs1,
+    'loc2' => $loc2,
+    'locs2' => $locs2,
+    'loc3' => $loc3,
+    'locs3' => $locs3,
+  );
+
+  return $output;
+}
+
 
 function moderation_node_tags($nid) {
   $tags = array();
@@ -677,30 +863,18 @@ function moderation_ahah($type) {
       $form['choices'][$delta] = $form_element;
     break;
     case 'tags' :
-      $tags = moderation_node_tags($_POST['content_id']);
-
+      $data = moderation_tags(array(
+        'selected1' => is_null($_POST['cat1']) ? array() : $_POST['cat1'],
+        'selected2' => is_null($_POST['cat2']) ? array() : $_POST['cat2'],
+        'selected3' => is_null($_POST['cat3']) ? array() : $_POST['cat3'],
+      ));
       $case = arg(3);
-      $parent_tids = $_POST[$case];
-      $options = array();
-      foreach ($parent_tids as $parent_tid) {
-        $tids = taxonomy_get_children($parent_tid);
-        foreach ($tids as $tid => $term) {
-          $options[$tid] = $term->name;
-        }
-      }
-
-      if (empty($options)) {
-        $options[] = t('No sub categories');
-      }
 
       if ($case == 'cat1') {
-        if (is_array($_POST['cat2'])) {
-          $tags = array_merge($tags, $_POST['cat2']);
-        }
         $form['tags']['cat2'] = array(
           '#type' => 'select',
-          '#options' => $options,
-          '#value' => $tags,
+          '#options' => $data['tag2'],
+          '#value' => $data['tags2'],
           '#size' => 5,
           '#multiple' => 'multiple',
           '#ahah' => array(
@@ -712,13 +886,10 @@ function moderation_ahah($type) {
         );
       }
       if ($case == 'cat2') {
-        if (is_array($_POST['cat3'])) {
-          $tags = array_merge($tags, $_POST['cat3']);
-        }
         $form['tags']['cat3'] = array(
           '#type' => 'select',
-          '#options' => $options,
-          '#value' => $tags,
+          '#options' => $data['tag3'],
+          '#value' => $data['tags3'],
           '#multiple' => 'multiple',
           '#size' => 5,
           '#prefix' => '<div id="tags-wrapper-cat3">',
@@ -726,6 +897,38 @@ function moderation_ahah($type) {
         );
       }
 
+    break;
+    case 'loc' :
+      $data = moderation_location(array(
+        'selected1' => is_null($_POST['loc1']) ? array() : $_POST['loc1'],
+        'selected2' => is_null($_POST['loc2']) ? array() : $_POST['loc2'],
+        'selected3' => is_null($_POST['loc3']) ? array() : $_POST['loc3'],
+      ));
+      $case = arg(3);
+      if ($case == 'loc1') {
+        $form['loc']['loc2'] = array(
+          '#type' => 'select',
+          '#options' => $data['loc2'],
+          '#value' => $data['locs2'],
+          '#size' => 5,
+          '#multiple' => 'multiple',
+          '#ahah' => array(
+            'wrapper' => 'loc-wrapper-loc3',
+            'path' => 'moderation/ahah/loc/loc2',
+            'effect' => 'fade',
+            'event' => 'click',
+          ),
+        );
+      }
+      if ($case == 'loc2') {
+        $form['loc']['loc3'] = array(
+          '#type' => 'select',
+          '#options' => $data['loc3'],
+          '#value' => $data['locs3'],
+          '#multiple' => 'multiple',
+          '#size' => 5,
+        );
+      }
     break;
   }
 
@@ -751,9 +954,14 @@ function moderation_ahah($type) {
       $form_element = $case == 'cat1' ? $form['tags']['cat2'] : $form['tags']['cat3'];
       $output = drupal_render($form_element);
     break;
+    case 'loc' :
+      $form_element = $case == 'loc1' ? $form['loc']['loc2'] : $form['loc']['loc3'];
+      $output = drupal_render($form_element);
+    break;
   }
 
-  drupal_json(array('status' => TRUE, 'data' => $output));
+  print json_encode(array('status' => TRUE, 'data' => $output, 'post' => $_POST, 'output' => $data, 'case' => $case));
+  exit;
 }
 
 function _moderation_ahah_choice($delta, $choice = false) {
