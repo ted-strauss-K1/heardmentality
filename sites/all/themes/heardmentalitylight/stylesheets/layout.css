@@ -5911,3 +5911,6 @@ span.beta {
   margin-left: 30px;
   margin-right: 10px;
 }
+a.permission.remove {
+  background: red;
+}

@@ -119,6 +119,13 @@ function moderation_menu() {
     'type'              => MENU_CALLBACK,
     'file'              => 'moderation.pages.inc',
   );
+  $menu['moderation/user/%'] = array(
+    'page callback'     => 'moderation_perms',
+    'page arguments'    => array(2),
+    'access arguments'  => array(MODERATION_ADMIN),
+    'type'              => MENU_CALLBACK,
+    'file'              => 'moderation.pages.inc',
+  );
   $menu['moderation/ahah/%'] = array(
     'page callback'     => 'moderation_ahah',
     'page arguments'    => array(2),
@@ -142,7 +149,8 @@ function moderation_check_perm($uid = false) {
   } else {
     $user = user_load($uid);
   }
-  return user_access(MODERATION_ADMIN, $user) || in_array($user->uid, variable_get(MODERATION_USERS, array()));
+  $perms = variable_get(MODERATION_USERS, array());
+  return user_access(MODERATION_ADMIN, $user) || $perms[$user->uid];
 }
 
 
