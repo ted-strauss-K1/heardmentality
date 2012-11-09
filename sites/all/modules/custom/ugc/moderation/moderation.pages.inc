@@ -388,10 +388,12 @@ function _moderation_filter_comments($filters, &$page, &$pages) {
     break;
   }
 
+  global $user;
+
   # get count and pages
   $once = 1;
-  $query_count = str_replace('%%', 'COUNT(*) AS count', $query, $once);
-  $count = (int)db_result(db_query($query_count, $filters['language']));
+  $query_count = str_replace('%%', 'COUNT(DISTINCT c.cid) AS count', $query, $once);
+  $count = (int)db_result(db_query($query_count, $user->uid, $filters['language']));
   $pages = ceil($count/$filters['perpage']);
   if ($pages == 0) {
     $pages = 1;
@@ -405,8 +407,8 @@ function _moderation_filter_comments($filters, &$page, &$pages) {
 
   # get nodes
   $once = 1;
-  $query = str_replace('%%', 'c.*', $query, $once);
-  $result = db_query_range($query, $filters['language'], $filters['perpage']*($page-1), $filters['perpage']);
+  $query = str_replace('%%', 'DISTINCT c.*', $query, $once);
+  $result = db_query_range($query, $user->uid, $filters['language'], $filters['perpage']*($page-1), $filters['perpage']);
   while ($node = db_fetch_object($result)) {
     _arguments_load_comment($node);
     $items[] = $node;
@@ -1212,8 +1214,8 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
     moderation_history('del', $nid, 'node', 'approve');
     moderation_history('set', $nid, 'node', 'approve');
   } else {
-    $node->title = $changed['title'];
-    $node->body = $changed['body'];
+    if (isset($changed['title'])) $node->title = $changed['title'];
+    if (isset($changed['body'])) $node->body = $changed['body'];
 
     foreach ($changed['choices'] as $chorder => $case) {
       $choice = &$node->choice[$chorder];
@@ -1251,7 +1253,9 @@ function moderation_argument_view_form_save(&$form, &$form_state) {
       $option = $values['option_' . $i];
       foreach ($choices as $choice) {
         if ($choice['chorder'] == $chorder) {
-          if ($node->options[$choice['chorder']]['value'] != $option) {
+          $value = $node->options[$choice['chorder']]['value'];
+          $value = is_null($value) ? 0 : $value;
+          if ($value != $option) {
             $changed['options'][] = array('chorder' => $chorder, 'option' => $option, 'chtext' => $choice['chtext']);
           }
           break;
@@ -1265,8 +1269,10 @@ function moderation_argument_view_form_save(&$form, &$form_state) {
     moderation_history('del', $nid, 'node', 'approve');
     moderation_history('set', $nid, 'node', 'approve');
   } else {
-    $node->title = $changed['title'];
-    node_save($node);
+    if (isset($changed['title'])) {
+      $node->title = $changed['title'];
+      node_save($node);
+    }
     foreach ($changed['options'] as $case) {
       db_query("UPDATE {arguments_options} SET val = '%d' WHERE nid = '%d' AND chorder = '%d'", $case['option'], $nid, $case['chorder']);
     }

@@ -56,7 +56,9 @@
     <div class="four columns">
 
       <?php if($moderation_history):?>
-        <div class="grey-box poll-box">
+        <div class="grey-box">
+          <div class="icon mod-history text"></div>
+          <label for="queue" class="tags-on">Moderation History</label>
           <?php print $moderation_history; ?>
         </div>
       <?php endif; ?>
