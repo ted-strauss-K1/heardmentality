@@ -304,20 +304,18 @@ function _moderation_filter_nodes($filters, &$page, &$pages) {
   }
   switch ($filters['moderation']) {
     case 0 :
-      $query .= " AND SUM(IFNULL(mh.type, 0))";
+      $query .= " AND mh.type IS NULL";
     break;
     case 1 :
-
+      $query .= " AND mh.type IS NOT NULL";
     break;
-
-//    array(0 => t('Not approved by me'), 1 => t('Approved by me')) + array(-1 => t('All')),
   }
 
   global $user;
 
   # get count and pages
   $once = 1;
-  $query_count = str_replace('%%', 'COUNT(*) AS count', $query, $once);
+  $query_count = str_replace('%%', 'COUNT(DISTINCT n.nid) AS count', $query, $once);
   $count = (int)db_result(db_query($query_count, $user->uid, $filters['type'], $filters['language']));
   $pages = ceil($count/$filters['perpage']);
   if ($pages == 0) {
@@ -353,7 +351,11 @@ function _moderation_filter_nodes($filters, &$page, &$pages) {
 function _moderation_filter_comments($filters, &$page, &$pages) {
   $items = array();
 
-  $query = "SELECT %% FROM {comments} c LEFT JOIN {flag_content} fc ON fc.content_id = c.cid AND fc.content_type = 'comment' WHERE 1";
+  $query = "
+    SELECT %%
+    FROM {comments} c
+    LEFT JOIN {moderation_history} mh ON mh.content_type = 'comment' AND mh.type = 'approve' AND mh.content_id = c.cid AND mh.uid = '%s'
+    LEFT JOIN {flag_content} fc ON fc.content_id = c.cid AND fc.content_type = 'comment' WHERE 1";
   $argument_id = arg(3);
   if ($argument_id && is_numeric($argument_id)) {
     $query .= " AND c.nid = '".$argument_id."'";
@@ -375,7 +377,15 @@ function _moderation_filter_comments($filters, &$page, &$pages) {
     case 0 :
     case 1 :
       $query .= " AND n.status = '" . ($filters['status'] == 0 ? COMMENT_NOT_PUBLISHED : COMMENT_PUBLISHED) . "'";
-      break;
+    break;
+  }
+  switch ($filters['moderation']) {
+    case 0 :
+      $query .= " AND mh.type IS NULL";
+    break;
+    case 1 :
+      $query .= " AND mh.type IS NOT NULL";
+    break;
   }
 
   # get count and pages
@@ -548,6 +558,8 @@ function moderation_issue_view_form($form_state, $nid) {
   foreach ($node->field_issue_city as $item) {
     $selected3[] = $item['value'];
   }
+
+//  var_dump($node); die();
 
   $data = moderation_location(array(
     'selected1' => $selected1,
@@ -1076,15 +1088,15 @@ function moderation_comment_view_form($form, $cid) {
     '#title' => t('Comment'),
     '#value' => $comment->comment,
   );
-  $form['status'] = array(
-    '#type' => 'select',
-    '#title' => t('Status'),
-    '#options' => array(
-      COMMENT_PUBLISHED => t('Published'),
-      COMMENT_NOT_PUBLISHED => t('Not published'),
-    ),
-    '#default_value' => $comment->status,
-  );
+//  $form['status'] = array(
+//    '#type' => 'select',
+//    '#title' => t('Status'),
+//    '#options' => array(
+//      COMMENT_PUBLISHED => t('Published'),
+//      COMMENT_NOT_PUBLISHED => t('Not published'),
+//    ),
+//    '#default_value' => $comment->status,
+//  );
   $form['str_wk'] = array(
     '#type' => 'select',
     '#title' => t('Mode'),
@@ -1167,6 +1179,34 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
     }
   }
 
+  # tags
+  $node->taxonomy = array();
+  $tids = array_merge($values['cat1'], $values['cat2'], $values['cat3']);
+  foreach ($tids as $tid) {
+    $node->taxonomy[] = taxonomy_get_term($tid);
+  }
+
+  # locations
+  $data = moderation_location(array(
+    'selected1' => $values['loc1'],
+    'selected2' => $values['loc2'],
+    'selected3' => $values['loc3'],
+  ));
+  $node->field_issue_country = array();
+  foreach ($data['locs1'] as $countrycode) {
+    $node->field_issue_country[] = array('value' => $countrycode);
+  }
+  $node->field_issue_state = array();
+  foreach ($data['locs2'] as $statecode) {
+    $node->field_issue_state[] = array('value' => (int)$statecode);
+  }
+  $node->field_issue_city = array();
+  foreach ($data['locs3'] as $citycode) {
+    $node->field_issue_city[] = array('value' => (int)$citycode);
+  }
+
+//  var_dump($node); die();
+
   if (empty($changed)) {
     // approved
     moderation_history('del', $nid, 'node', 'approve');
@@ -1188,9 +1228,9 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
         }
       }
     }
-    node_save($node);
     moderation_history('set', $nid, 'node', 'edit', $changed);
   }
+  node_save($node);
 }
 
 
@@ -1243,7 +1283,11 @@ function moderation_comment_view_form_save(&$form, &$form_state) {
 
   $changed = array();
   $sql = "UPDATE {comments} SET";
-  $items = array('comment', 'status', 'str_wk');
+  $items = array(
+    'comment',
+//    'status',
+    'str_wk'
+  );
   foreach ($items as $item) {
     if ($comment->{$item} != $values[$item]) {
       $changed[$item] = $values[$item];
@@ -1282,7 +1326,21 @@ function moderation_comment_view_form_delete(&$form, &$form_state) {
 
 function moderation_delete_request($form) {
   moderation_history('set', $form['content_id']['#value'], $form['content_type']['#value'], 'delete');
-
+  $delete_requests = count(moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete'));
+  $required = 3;
+  if ($delete_requests >= $required) {
+    switch ($form['content_type']['#value']) {
+      case 'comment' :
+        db_query("UPDATE comment SET status = '%d' WHERE cid = '%d'", COMMENT_NOT_PUBLISHED, $form['content_id']['#value']);
+      break;
+      case 'node' :
+        db_query("UPDATE node SET status = '%d' WHERE nid = '%d'", 1, $form['content_id']['#value']);
+      break;
+    }
+    drupal_set_message(t('Content deletion approved.'));
+  } else {
+    drupal_set_message(t('Content deletion not approved.') . ' '.($required-$delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
+  }
 }
 
 

@@ -548,18 +548,20 @@ function solr_issues_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     }
   }
   if ($op == 'presave' && $node->type == 'poll') {
-    unset($node->field_issue_state);
-    unset($node->field_issue_state_text);
-    unset($node->field_issue_city);
-    $xyz = geonames_countryinfo($node->field_issue_country[0]['value']);
-    $query = array('geonameid' => $xyz['geonameid']);
-    $results = geonames_query('extendedFindNearby', $query);
-    $state_id = mt_rand(0, 6);
-    $node->field_issue_state[0]['value'] = $results->results[$state_id]['geonameid'];
-    $node->field_issue_state_text[0]['value'] = $results->results[$state_id]['name'];
-    $query = array('geonameid' => $node->field_issue_state[0]['value']);
-    $results = geonames_query('children', $query);
-    $node->field_issue_city[0]['value'] = $results->results[$state_id]['name'];
+    // TODO Dima, why??
+
+//    unset($node->field_issue_state);
+//    unset($node->field_issue_state_text);
+//    unset($node->field_issue_city);
+//    $xyz = geonames_countryinfo($node->field_issue_country[0]['value']);
+//    $query = array('geonameid' => $xyz['geonameid']);
+//    $results = geonames_query('extendedFindNearby', $query);
+//    $state_id = mt_rand(0, 6);
+//    $node->field_issue_state[0]['value'] = $results->results[$state_id]['geonameid'];
+//    $node->field_issue_state_text[0]['value'] = $results->results[$state_id]['name'];
+//    $query = array('geonameid' => $node->field_issue_state[0]['value']);
+//    $results = geonames_query('children', $query);
+//    $node->field_issue_city[0]['value'] = $results->results[$state_id]['name'];
   }
   if ($op == 'view' && $node->type == 'poll') {
     // krumo($node);

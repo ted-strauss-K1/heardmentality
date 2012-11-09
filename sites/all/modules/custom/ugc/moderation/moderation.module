@@ -138,6 +138,15 @@ function moderation_menu() {
 }
 
 /**
+ * Implementation of hook_preprocess_page()
+ */
+function moderation_preprocess_page(&$vars) {
+  if (arg(0) == 'moderation') {
+    $vars['moderation_history'] = theme('moderation_history');
+  }
+}
+
+/**
  * Check if user has the moderation permissions
  *
  * @param string $uid
@@ -169,11 +178,19 @@ function moderation_theme() {
     ),
     'file'              => 'moderation.pages.inc',
   );
+  $theme['moderation_history'] = array(
+    'arguments'     => array(
+      //
+    ),
+    'template'      => 'moderation-history',
+    'file'          => 'moderation.pages.inc',
+  );
+
 
   return $theme;
 }
 
-function moderation_history($op, $content_id, $content_type, $change, $vars = array()) {
+function moderation_history($op, $content_id, $content_type, $change, $vars = array(), $count = false) {
   switch ($op) {
     case 'set' :
       global $user;
@@ -189,6 +206,9 @@ function moderation_history($op, $content_id, $content_type, $change, $vars = ar
         $v[] = $change;
       }
       $sql .= " ORDER BY date_added ASC";
+      if ($count !== false) {
+        $sql .= " LIMIT " . $count;
+      }
       $result = db_query($sql, $v);
       $history = array();
       while ($item = db_fetch_array($result)) {

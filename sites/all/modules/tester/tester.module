@@ -1,0 +1,18 @@
+<?php
+
+function tester_menu() {
+  return array(
+    'tester' => array(
+      'page callback' => 'tester',
+      'type' => MENU_CALLBACK,
+      'access callback' => true,
+    ),
+  );
+}
+
+function tester() {
+  $node = node_load(36977);
+
+
+  exit;
+}

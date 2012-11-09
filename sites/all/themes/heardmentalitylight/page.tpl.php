@@ -55,6 +55,12 @@
 
     <div class="four columns">
 
+      <?php if($moderation_history):?>
+        <div class="grey-box poll-box">
+          <?php print $moderation_history; ?>
+        </div>
+      <?php endif; ?>
+
 			<div class="toggler profile-message poll-box">
   	    <div id="effect3">
 			    <?php
