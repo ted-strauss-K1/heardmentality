@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function poll_charact_install() {
+  drupal_install_schema('poll_charact');
+
+  db_query("ALTER TABLE {poll_charact_values} ADD CONSTRAINT {poll_charact_cid} FOREIGN KEY (cid) REFERENCES {poll_charact}(cid) ON DELETE CASCADE ON UPDATE CASCADE;");
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function poll_charact_uninstall() {
+  db_query("ALTER TABLE {poll_charact_values} DROP FOREIGN KEY {poll_charact_cid}");
+
+  drupal_uninstall_schema('poll_charact');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function poll_charact_schema() {
+  $schema = array();
+
+  $schema['poll_charact'] = array(
+    'description' => 'Stores the list of characteristics for {poll} choices.',
+    'fields' => array(
+      'cid'    => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier for a characteristic.',
+      ),
+      'chtext'  => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The text for this characteristic.',
+      ),
+    ),
+    'indexes' => array(
+      'cid' => array('cid')
+    ),
+    'primary key' => array('cid'),
+  );
+
+  $schema['poll_charact_values'] = array(
+    'description' => 'Stores the values of characteristics for {poll} choices',
+    'fields' => array(
+      'nid'     => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid this choice belongs to.',
+      ),
+      'chorder' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The sort order of this choice among all choices for the same node.',
+      ),
+      'cid'     => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {poll_charact}.cid this value belongs to.',
+      ),
+      'value'      => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Value of characteristic.',
+      ),
+    ),
+    'primary key' => array('chorder', 'nid', 'cid'),
+  );
+
+  return $schema;
+}
