@@ -1,0 +1,6 @@
+name = Content Translation
+description = Provides hook for content translation
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
+dependencies[] = "microsoft_translate"

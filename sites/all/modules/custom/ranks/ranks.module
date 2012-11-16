@@ -51,7 +51,7 @@ function ranks_user($op, &$edit, &$account, $category = NULL) {
   switch ($op) {
     case 'load' :
       $account->rank = ranks_user_rank($account->uid);
-      break;
+    break;
   }
 }
 

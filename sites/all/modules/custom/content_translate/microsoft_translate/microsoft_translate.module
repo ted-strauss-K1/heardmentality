@@ -1,0 +1,46 @@
+<?php
+
+require_once("microsoft_translate.php");
+
+define('MICROSOFT_TRANSLATE_ADMIN', 'administer microsoft translation module');
+
+function microsoft_translate_perm() {
+  return array(MICROSOFT_TRANSLATE_ADMIN);
+}
+
+function microsoft_translate_menu() {
+  $menu = array();
+
+  $menu['admin/settings/mtranslate'] = array(
+    'title'            => t('Microsoft Translate'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('microsoft_translate_form'),
+    'access arguments' => array(MICROSOFT_TRANSLATE_ADMIN),
+    'type'             => MENU_NORMAL_ITEM,
+  );
+
+  return $menu;
+}
+
+function microsoft_translate_form() {
+  $form = array();
+
+  $form['microsoft_translate_clientid'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Client ID',
+    '#default_value' => variable_get('microsoft_translate_clientid', ''),
+  );
+  $form['microsoft_translate_clientsecret'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Client Secret',
+    '#default_value' => variable_get('microsoft_translate_clientsecret', ''),
+  );
+
+//  $mt = new MicrosoftTranslate(variable_get('microsoft_translate_clientid', ''), variable_get('microsoft_translate_clientsecret', ''));
+//  $mt->queue("Glass full of wine");
+//  $mt->queue("Hello");
+//  $mt->queue("Why are you here?");
+//  var_dump($mt->exec('en', 'ru'));
+
+  return system_settings_form($form);
+}

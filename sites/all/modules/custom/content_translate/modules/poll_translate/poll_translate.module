@@ -1,0 +1,129 @@
+<?php
+
+/**
+ * Implementation of hook_enable()
+ */
+function poll_translate_enable() {
+  db_query("UPDATE {system} SET weight = '%d' WHERE name = 'poll_translate'", 100);
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * There we replace some data in SIDE poll with CORE one
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function poll_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($node->type == 'poll') {
+    switch ($op) {
+      case 'load' :
+        if ($node->tnid != 0 && $node->tnid != $node->nid) {
+          $node->origin = node_load($node->tnid);
+          # choices
+          foreach ($node->choice as $chorder => &$choice) {
+            $choice['chvotes'] = $node->origin->choices[$chorder]['chvotes'];
+          }
+          # poll suggestions
+          if (module_exists("poll_suggest")) {
+            $node->vote_suggest = $node->origin->vote_suggest;
+            foreach ($node->choice_suggest as $i => &$choice) {
+              $choice['chid'] = $node->origin->choice_suggest[$i]['chid'];
+            }
+          }
+        } else {
+          $node->tnid = $node->nid;
+        }
+      break;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Implementation of hook_content_translate_node()
+ *
+ * @param $node
+ * @param $language_to
+ */
+function poll_translate_content_translate_node($node, $language_to) {
+  if (!$node) {
+    return;
+  }
+  $language_from = $node->language;
+
+  $mt = new MicrosoftTranslate(variable_get('microsoft_translate_clientid', ''), variable_get('microsoft_translate_clientsecret', ''));
+
+//  var_dump(poll_suggest_get($node->nid));
+//  var_dump($node->choice_suggest); die();
+
+  # Collect data to translate
+//  $mt->dequeue();
+  if ($title = strip_tags($node->title)) {
+    $mt->queue($title);
+  }
+  if ($body = strip_tags($node->body)) {
+    $mt->queue($body);
+  }
+  foreach ($node->choice as $choice) {
+    if (!empty($choice['chtext'])) {
+      $mt->queue($choice['chtext']);
+    }
+    if (!empty($choice['chtext_short'])) {
+      $mt->queue($choice['chtext_short']);
+    }
+  }
+  if (module_exists('poll_suggest')) {
+    foreach ($node->choice_suggest as $choice) {
+      if (!empty($choice['chtext'])) {
+        $mt->queue($choice['chtext']);
+      }
+    }
+  }
+
+  # Translate
+  $translations = $mt->exec($language_from, $language_to);
+
+  # Create new node
+  $node->tnid = $node->nid;
+  $node->language = $language_to;
+  unset($node->nid);
+
+  $node->title = $translations[strip_tags($node->title)];
+  $node->body = $translations[strip_tags($node->body)];
+  foreach ($node->choice as $chorder => &$choice) {
+    $choice['chtext'] = $translations[$choice['chtext']];
+    poll_ext_chtext_short_set($node->nid, $chorder, $translations[$choice['chtext_short']]);
+  }
+  node_save($node);
+
+  if (module_exists('poll_suggest')) {
+    foreach ($node->choice_suggest as $choice) {
+      poll_suggest_add($node->nid, $translations[$choice['chtext']], $choice['uid']);
+    }
+  }
+
+}
+
+
