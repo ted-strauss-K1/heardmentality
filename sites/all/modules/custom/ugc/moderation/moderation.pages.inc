@@ -532,7 +532,7 @@ function moderation_issue_view_form($form_state, $nid) {
     '#collapsed' => FALSE,
   );
   foreach ($node->choice as $delta => $choice) {
-    $form_element = _moderation_ahah_choice($delta, $choice);
+    $form_element = _moderation_ahah_choice($delta, $choice, $nid);
     $form['choices'][$delta] = $form_element;
   }
 
@@ -954,7 +954,7 @@ function moderation_ahah($type) {
   exit;
 }
 
-function _moderation_ahah_choice($delta, $choice = false) {
+function _moderation_ahah_choice($delta, $choice = false, $nid = 0) {
   $form = array(
     '#tree' => TRUE,
   );
@@ -977,7 +977,23 @@ function _moderation_ahah_choice($delta, $choice = false) {
     '#default_value' => is_null($choice['chorder']) ? $delta : $choice['chorder'],
     '#parents' => array('choices', $delta, 'chorder'),
   );
-
+  $form['charact'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Metadata'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $charact = poll_charact_values_get($nid, $choice['chorder']);
+  foreach ($charact as $cid => $char) {
+    $form['charact']['char'.$cid] = array(
+      '#type' => 'select',
+      '#title' => t($char['name']),
+      '#options' => range(1,5),
+      '#value' => $char['value'],
+      '#size' => 5,
+      '#parents' => array('choices', $delta, 'charact', 'char'.$cid),
+    );
+  }
   return $form;
 }
 
