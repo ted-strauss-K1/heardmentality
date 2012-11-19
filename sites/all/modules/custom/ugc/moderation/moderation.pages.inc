@@ -497,6 +497,8 @@ function moderation_users_form() {
 function moderation_issue_view_form($form_state, $nid) {
   $form = array();
 
+
+
   $form['content_id'] = array(
     '#type' => 'hidden',
     '#value' => $nid,
@@ -533,6 +535,7 @@ function moderation_issue_view_form($form_state, $nid) {
   );
   foreach ($node->choice as $delta => $choice) {
     $form_element = _moderation_ahah_choice($delta, $choice, $nid);
+//    $form_element['chtext']['#description'] = json_encode($form_state);
     $form['choices'][$delta] = $form_element;
   }
 
@@ -848,9 +851,21 @@ function moderation_ahah($type) {
   switch ($type) {
     case 'choice' :
       $delta = count($_POST['choices']);
+
       $form_element = _moderation_ahah_choice($delta);
       drupal_alter('form', $form_element, array());
       $form['choices'][$delta] = $form_element;
+
+      $post_choices = $_POST['choices'];
+
+      if (is_array($post_choices)) {
+        foreach ($post_choices as $chorder => $vals) {
+          foreach ($vals['charact'] as $_key => $_val) {
+            $form['choices'][$chorder]['charact'][$_key]['#value'] = $_val;
+          }
+        }
+      }
+
     break;
     case 'tags' :
       $data = moderation_tags(array(
@@ -988,7 +1003,7 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0) {
     $form['charact']['char'.$cid] = array(
       '#type' => 'select',
       '#title' => t($char['name']),
-      '#options' => range(1,5),
+      '#options' => array(1=>1,2=>2,3=>3,4=>4,5=>5),
       '#value' => $char['value'],
       '#size' => 5,
       '#parents' => array('choices', $delta, 'charact', 'char'.$cid),
@@ -1170,6 +1185,8 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
   $nid = $values['content_id'];
   $node = node_load($nid);
   poll_ext_chtext_short($node);
+
+  var_dump($values); die();
 
   $changed = array();
   if ($node->title != $values['title']) {
