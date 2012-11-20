@@ -1,20 +1,14 @@
 <?php
 
-/*
- * Implementation of hook_init()
- */
-function flagger_init() {
-  drupal_add_js( drupal_get_path('module', 'flagger').'/flagger.js' );
-  drupal_add_js( 'misc/jquery.form.js' );
-}
-
-/*
- * Flagger path
+/**
+ * Flagger path - main gateway to pass flagger calls
  */
 define('FLAGGER_PATH', 'flagger');
 
-/*
+/**
  * Implementation of hook_menu()
+ *
+ * @return array
  */
 function flagger_menu() {
   $menu = array();
@@ -35,55 +29,26 @@ function flagger_menu() {
   return $menu;
 }
 
-
-/*
- * Implementation of hook_theme()
- */
-function flagger_theme() {
-  $theme = array();
-
-  $theme['flagger_button'] = array(
-    'arguments' => array(
-      'content_id'    => NULL,
-      'content_type'  => NULL,
-    ),
-  );
-
-  return $theme;
-}
-
-/*
- * Flagger Button theme call
- */
-function theme_flagger_button($content_id, $content_type) {
-  if (user_is_logged_in()) {
-    return l(t('flag'), FLAGGER_PATH.'/'.$content_type.'/'.$content_id,
-      array('attributes' => array(
-        'class' => 'flagger',
-        'name'  => $content_type.'/'.$content_id,
-      ))
-    );
-  } else {
-    return l(t('flag'), '#',
-      array('attributes' => array(
-        'class' => user_profile_login_class(true),
-      ))
-    );
-  }
-}
-
-/*
- * Flagger popup contents
+/**
+ * Callback for FLAGGER_PATH
+ *
+ * @param $content_type
+ * @param $content_id
  */
 function flagger_page($content_type, $content_id) {
   $form = drupal_get_form('flagger_form', $content_id, $content_type);
-  drupal_json(array( 'text' => $form ));
+  print json_encode(array( 'text' => $form ));
 }
 
-/*
+/**
  * Flagger form
+ *
+ * @param $form
+ * @param $content_id
+ * @param $content_type
+ * @return array
  */
-function flagger_form(&$form,$content_id, $content_type) {
+function flagger_form(&$form, $content_id, $content_type) {
   $form = array();
 
   $form['#attributes'] = array(
@@ -100,9 +65,21 @@ function flagger_form(&$form,$content_id, $content_type) {
     "#value" => l(t('Read Guidelines'), '<front>'),
   );
 
-  $flags = flag_get_flags($content_type);
+  switch ($content_type) {
+    case 'comment' :
+      $flags = flag_get_flags($content_type);
+    break;
+    case 'node' :
+      $node = node_load($content_id);
+      $flags = flag_get_flags($content_type, $node->type);
+    break;
+    default :
+      $flags = array();
+    break;
+  }
+
   $i = 0;
-  foreach( $flags as $key => $flag ) {
+  foreach( $flags as $flag ) {
     $form['flag-'.$i] = array(
       '#type'  => 'checkbox',
       '#title' => t($flag->title),
@@ -112,8 +89,18 @@ function flagger_form(&$form,$content_id, $content_type) {
       '#type'  => 'hidden',
       '#value' => $flag->fid,
     );
+    $form['flag-state-'.$i] = array(
+      '#type'  => 'hidden',
+      '#value' => $flag->is_flagged($content_id),
+    );
     $i++;
   }
+
+  $form['note'] = array(
+    '#type'  => 'textarea',
+    '#title'  => t('Note'),
+    "#value" => '',
+  );
 
   $form['flag_count'] = array(
     '#type'  => 'hidden',
@@ -131,14 +118,86 @@ function flagger_form(&$form,$content_id, $content_type) {
   return $form;
 }
 
-/*
+/**
  * Flagger form submit
  */
 function flagger_page_save() {
   $post = $_POST;
+
+  $note = $post['note'];
+  $tid = ($post['tid'] > 0 ? $post['tid'] : NULL);
+
+  global $user;
   for( $i=0; $i<$post['flag_count']; $i++ ) {
     $fid = $post['flag-fid-'.$i];
-    $flag = flag_get_flag(null, $fid);
-    $flag->flag( $post['flag-'.$i] ? 'flag' : 'unflag', $post['content_id'] );
+    $state_old = $post['flag-state-'.$i];
+    $state_new = $post['flag-'.$i];
+    if ($state_old != $state_new) {
+      $flag = flag_get_flag(null, $fid);
+      if ($state_old) {
+        flag_note_remove_notes(array('content_type' => $post['content_type'], 'content_id' => $post['content_id']));
+      }
+      if ($state_new) {
+        $record = $flag;
+        $record->uid  = $user->uid;
+        $record->note = $note;
+        $record->tid = $tid;
+        $record->content_id = $post['content_id'];
+        flag_note_insert_note($record);
+      }
+      $flag->flag( $state_new ? 'flag' : 'unflag', $post['content_id'] );
+    }
   }
+}
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function flagger_theme() {
+  $theme = array();
+
+  $theme['flagger_button'] = array(
+    'arguments' => array(
+      'content_id'    => NULL,
+      'content_type'  => NULL,
+    ),
+  );
+
+  return $theme;
+}
+
+/**
+ * Flagger Button theme call
+ *
+ * @param $content_id
+ * @param $content_type
+ * @return string
+ */
+function theme_flagger_button($content_id, $content_type) {
+  if (user_is_logged_in()) {
+    return l(t('flag'), FLAGGER_PATH.'/'.$content_type.'/'.$content_id,
+      array('attributes' => array(
+        'class' => 'flagger',
+        'name'  => $content_type.'/'.$content_id,
+      ))
+    );
+  } else {
+    return l(t('flag'), '#',
+      array('attributes' => array(
+        'class' => !module_exists('user_login_modal') ? "" : user_login_modal_class(true),
+      ))
+    );
+  }
+}
+
+/**
+ * Add rewquired js
+ *
+ * @param $vars
+ */
+function flagger_preprocess_page(&$vars) {
+  drupal_add_js( drupal_get_path('module', 'flagger').'/flagger.js' );
+  drupal_add_js( 'misc/jquery.form.js' );
 }
