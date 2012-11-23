@@ -6,7 +6,7 @@
 			</div>
 			
 			<div class="top-right login">
-				<?php print $user_login; ?>
+				<?php print $user_login_modal // $user_login; ?>
 			</div>
 			
 		</div>

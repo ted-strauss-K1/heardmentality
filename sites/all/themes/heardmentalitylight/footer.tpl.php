@@ -57,24 +57,7 @@
 
 <?php else : ?>
 
-  <div id="dialog">
-    <ul>
-      <li><a href="#tabs-1">Log in</a></li>
-      <li><a href="#tabs-2">Sign up</a></li>
-    </ul>
-
-    <div id="tabs-1" title="Login" class="dialog">
-      <div id="user-login">
-        <?php print $login_block; ?>
-      </div>
-    </div>
-
-    <div id="tabs-2">
-      <div id ="user-register">
-        <?php print $login_register; ?>
-      </div>
-    </div>
-  </div>
+  <?php print $user_login_modal_popup ?>
 
 <?php endif; ?>
 
