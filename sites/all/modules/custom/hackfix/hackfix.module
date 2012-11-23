@@ -196,14 +196,6 @@ function hackfix_register_form_validate($form, $form_state) {
   }
 }
 
-function hackfix_preprocess_page(&$vars) {
-  if (!user_is_logged_in()) {
-    $vars['login_block'] = drupal_get_form('user_login');
-    $vars['login_register'] = drupal_get_form('user_register');
-//    krumo($vars);
-  }
-}
-
 /**
  * Validate login form ajax
  */

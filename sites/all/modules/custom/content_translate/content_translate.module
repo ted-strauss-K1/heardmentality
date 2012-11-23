@@ -13,4 +13,13 @@ function content_translate($content_type, $content_id, $language_to) {
   }
 }
 
+/**
+ * @param $string
+ * @return string
+ */
+function content_translate_detect_language($string) {
+  // TODO
+  return 'en';
+}
+
 

@@ -408,10 +408,10 @@ function user_profile_edit_form_validate($form, &$form_state) {
   }
 
   # password
-  if ($post['password'] == '' || $post['password'] == $form['password']['#default_value']) {
-    form_set_error('password', t('Password cannot be empty'));
-    $form_state['rebuild'] = TRUE;
-  }
+//  if ($post['password'] == '' || $post['password'] == $form['password']['#default_value']) {
+//    form_set_error('password', t('Password cannot be empty'));
+//    $form_state['rebuild'] = TRUE;
+//  }
 
   # Year of Birth
   if (!empty($post['profile_yob']) && ($post['profile_yob'] != $form['profile_yob']['#default_value']) && !preg_match('/^\d{4}$/i', $post['profile_yob'])) {

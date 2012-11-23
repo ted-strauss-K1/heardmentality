@@ -1,9 +1,12 @@
 <div class="<?php if($teaser) : ?>search_item<?php endif; ?> issue-vote-wrapper" <?php if($page) : ?>id="new_vote"<?php else : ?> <?php endif; ?>>
   <!-- Part 1 -->
   <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">
-    <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print t(rtrim($title, "?")); ?>?</h2>
+    <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>">
+      <?php print t(rtrim($title, "?")); ?>?
+    </h2>
     <?php if($page) : ?>
     <div class="qd">
+      <?php print theme('flagger_button', $nid, 'node'); ?>
       <p class="description"><?php print theme('issue_description', $context); ?></p>
     </div>
     <?php endif; ?>

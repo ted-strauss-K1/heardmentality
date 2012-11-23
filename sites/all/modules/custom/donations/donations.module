@@ -31,7 +31,7 @@ function donations_perm() {
 function donations_menu() {
   $menu = array();
 
-  $menu['admin/donations'] = array(
+  $menu['admin/settings/donations'] = array(
     'title'            => t('Donations'),
     'page callback'    => 'drupal_get_form',
     'page arguments'   => array('donations_admin_form'),

@@ -128,7 +128,7 @@ function poll_suggest_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
       break;
       case 'load' :
         $node->choice_suggest = poll_suggest_get($node->nid);
-        $node->vote_suggest = $node->choice_suggest[0]['uservote'] ? $node->choice_suggest[0]['chid'] : false;
+        $node->vote_suggest = $node->choice_suggest[0]['uservote'] ? $node->choice_suggest[0]['chid'] : -1;
       break;
     }
   }
