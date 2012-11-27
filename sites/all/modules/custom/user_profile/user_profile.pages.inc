@@ -1,27 +1,25 @@
 <?php
 
-/*
- * Privacy check
- */
 
+/**
+ * Define newsletter period values
+ */
 define('SUBSCRIPTION_NEVER', 0);
 define('SUBSCRIPTION_MONTHLY', 1);
 define('SUBSCRIPTION_WEEKLY', 2);
 
+/**
+ * User Profile form
+ *
+ * @param $form_state
+ * @return array
+ */
 function user_profile_edit_form(&$form_state) {
   $form = array();
-  ahah_helper_register($form, $form_state);
-
-//  drupal_add_js(drupal_get_path('module', 'profiles') . '/js/validate.js');
-//  drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
 
   global $user;
 
-//  $options = array('0' => t(''), '2' => t(''), '1' => t(''));
   $form['#attributes']['enctype'] = "multipart/form-data";
-//  $form['#attributes']['onsubmit'] = "return validate_reg();";
-
-//  var_Dump($user); die();
 
   $form['username'] = array(
     '#type'           => 'textfield',
@@ -66,7 +64,6 @@ function user_profile_edit_form(&$form_state) {
   foreach ($privacy as $key => $value) {
     $privacy_options[$key] = '';//$value['label'];
   }
-  //  var_dump($privacy_options); die();
 
   # privacy
   $form['private_profile_email'] = array(
@@ -87,8 +84,10 @@ function user_profile_edit_form(&$form_state) {
         } else {
           $countries = geonames_query('countryinfo');
           $countries_options = array();
-          foreach ($countries->results as $country) {
-            $countries_options[$country['countrycode']] = $country['countryname'];
+          if ($countries) {
+            foreach ($countries->results as $country) {
+              $countries_options[$country['countrycode']] = $country['countryname'];
+            }
           }
           asort($countries_options);
           $options += $countries_options;
@@ -115,17 +114,6 @@ function user_profile_edit_form(&$form_state) {
           '#id'             => $field->name,
           '#attributes'     => array('class' => 'info', 'blurtext' => t($field->title)),
         );
-//        # AHAH is breaking with file upload in form
-//        if ($field->name == 'profile_zip') {
-//          $form[$field->name]['#ahah'] = array(
-//            'event' => 'change',
-//            'path' => ahah_helper_path(array($field->name)),
-//            'wrapper' => 'zip-wrapper',
-//          );
-//          if (isset($form_state[$field->name])) {
-//            $form[$field->name]['#suffix'] = time();
-//          }
-//        }
 
       break;
       case 'textarea' :
@@ -224,8 +212,8 @@ function user_profile_edit_form(&$form_state) {
     '#id'             => 'subscription_submit',
     '#name'           => 'subscription_submit',
     '#attributes'     => array('class' => 'submit-issue leftfloat'),
-    '#validate'       => array('user_profile_edit_form_validate_subscriptions'),
-    '#submit'         => array('user_profile_edit_form_submit_subscriptions'),
+//    '#validate'       => array('user_profile_edit_form_validate_subscriptions'),
+//    '#submit'         => array('user_profile_edit_form_submit_subscriptions'),
   );
 
   $languages = i18n_language_list();
@@ -238,8 +226,9 @@ function user_profile_edit_form(&$form_state) {
     '#type'           => 'submit',
     '#value'          => t('Submit'),
     '#id'             => 'language_submit',
+    '#name'             => 'language_submit',
     '#attributes'     => array('class' => 'submit-issue leftfloat'),
-    '#submit'         => array('user_profile_edit_form_submit_language'),
+//    '#submit'         => array('user_profile_edit_form_submit_language'),
   );
 
   $form['image_upload'] = array(
@@ -256,9 +245,10 @@ function user_profile_edit_form(&$form_state) {
     '#type'           => 'submit',
     '#value'          => t('Submit'),
     '#id'             => 'submit_brow-avat',
+    '#name'             => 'image_submit',
     '#attributes'     => array('class' => 'submit-issue leftfloat'),
-    '#validate'       => array('user_profile_edit_form_validate_image'),
-    '#submit'         => array('user_profile_edit_form_submit_image'),
+//    '#validate'       => array('user_profile_edit_form_validate_image'),
+//    '#submit'         => array('user_profile_edit_form_submit_image'),
   );
   $form['image_avatar'] = array(
     '#type'           => 'hidden',
@@ -270,131 +260,51 @@ function user_profile_edit_form(&$form_state) {
     '#type'           => 'submit',
     '#value'          => t('Save Changes'),
     '#id'             => 'submit',
+    '#name'           => 'submit',
     '#attributes'     => array('class' => 'submit-issue'),
-    '#validate'       => array('user_profile_edit_form_validate'),
-    '#submit'         => array('user_profile_edit_form_submit'),
+//    '#validate'       => array('user_profile_edit_form_validate'),
+//    '#submit'         => array('user_profile_edit_form_submit'),
 );
 
-  $form['#submit'] = array();
+//  $form['#submit'] = array();
 
-//  var_dump(user_profile_geocode('RU', 630090)); die();
   return $form;
 }
 
-/*
- * Validate image
+/**
+ * Common Validation of the form
+ *
+ * @param $form
+ * @param $form_state
  */
-function user_profile_edit_form_validate_image(&$form, &$form_state) {
-  $post = $form_state["clicked_button"]["#post"];
-  $validators = array(
-    'file_validate_is_image' => array(),
-    'file_validate_extensions' => array('png gif jpg jpeg'),
-    'file_validate_size' => array(512 * 1024),
-  );
-  $upload_dir = file_directory_path() . '/userpics';
-  if ($file = file_save_upload('image_upload', $validators, $upload_dir)) {
-    file_set_status($file, FILE_STATUS_PERMANENT);
-    $form_state['values']['image_upload'] = $file;
-  } elseif (empty($post['image_avatar'])) {
-    form_set_error('image_upload', 'File was not uploaded. Either the file extension or the size is incorrect.');
+function user_profile_edit_form_validate(&$form, &$form_state) {
+  $id = $form_state["clicked_button"]["#name"];
+
+  switch ($id) {
+    case 'submit' :
+      user_profile_edit_form_validate_profile($form, $form_state);
+    break;
+    case 'subscrpition_submit' :
+      user_profile_edit_form_validate_subscriptions($form, $form_state);
+    break;
+    case 'language_submit' :
+      //
+    break;
+    case 'image_submit' :
+      user_profile_edit_form_validate_image($form, $form_state);
+    break;
   }
 }
 
-/*
- * Submit image
- */
-function user_profile_edit_form_submit_image(&$form, &$form_state) {
-  global $user;
-  $post = $form_state["clicked_button"]["#post"];
-  $file = $form_state['values']['image_upload'];
-
-  $dest = false;
-  if ($file) {
-    $upload_dir = file_directory_path() . '/userpics';
-    $extension = '';
-    switch ($file->filemime) {
-      case 'image/jpeg':
-        $extension = 'jpg';
-        break;
-      case 'image/png':
-        $extension = 'png';
-        break;
-      case 'image/gif':
-        $extension = 'gif';
-        break;
-    }
-    $dest = $upload_dir . '/picture-' . $user->uid . '.' . $extension;
-  }
-  if ($dest && file_move($file, $dest, FILE_EXISTS_RENAME)) {
-    // images upload
-    if (strpos($dest, 'http://') !== 0) {
-      $dest = '/' . $dest;
-    }
-  } else {
-    // image avatar
-    $dest = $post['image_avatar'];
-  }
-//  var_Dump($dest); die();
-  $user->picture = $dest;
-  user_save($user, array('picture' => $dest));
-
-  if (module_exists('activity_stream')) {
-    activity_stream_add_activity(ACTIVITY_STREAM_PROFILE_UPDATE, array());
-  }
-
-}
-
-/*
- * Validate subscriptions
- */
-function user_profile_edit_form_validate_subscriptions(&$form, &$form_state) {
-  $post = $form_state["clicked_button"]["#post"];
-
-  # email
-  if (!empty($post['subscription_email']) && !filter_var($post['subscription_email'], FILTER_VALIDATE_EMAIL)) {
-    form_set_error('subscription_email', t('Email is not correct'));
-    $form_state['rebuild'] = TRUE;
-  }
-}
-
-/*
- * Submit subscriptions
- */
-function user_profile_edit_form_submit_subscriptions(&$form, &$form_state) {
-  $post = $form_state["clicked_button"]["#post"];
-  global $user;
-
-  $user->subscription_notify = $post['subscription_notify'];
-  $user->subscription_email = $post['subscription_email'];
-  user_save($user, array(
-    'subscription_notify' => $post['subscription_notify'],
-    'subscription_email' => $post['subscription_email'],
-  ));
-}
-
-/*
- * Submit language
- */
-function user_profile_edit_form_submit_language(&$form, &$form_state) {
-  $post = $form_state["clicked_button"]["#post"];
-  global $user;
-
-  $langcode = $post['language'];
-  $user->language = $langcode;
-  user_save($user, array('language' => $langcode));
-
-  global $base_url;
-  drupal_goto($base_url . '/user/profile/edit');
-}
-
-/*
+/**
  * Validate profile
+ *
+ * @param $form
+ * @param $form_state
  */
-function user_profile_edit_form_validate($form, &$form_state) {
+function user_profile_edit_form_validate_profile(&$form, &$form_state) {
   global $user;
   $post = $form_state["clicked_button"]["#post"];
-
-//  var_dump($post); die();
 
   # username
   if ($post['username'] != $user->name) {
@@ -428,17 +338,86 @@ function user_profile_edit_form_validate($form, &$form_state) {
   }
 }
 
-/*
+/**
  * Validate zip
+ *
+ * @param $zip
+ * @param $country
+ * @return bool
  */
 function user_profile_edit_form_validate_zip($zip, $country) {
   return true;
 }
 
-/*
- * Submit profile
+/**
+ * Validate subscriptions
+ *
+ * @param $form
+ * @param $form_state
  */
-function user_profile_edit_form_submit($form, &$form_state) {
+function user_profile_edit_form_validate_subscriptions(&$form, &$form_state) {
+  $post = $form_state["clicked_button"]["#post"];
+
+  # email
+  if (!empty($post['subscription_email']) && !filter_var($post['subscription_email'], FILTER_VALIDATE_EMAIL)) {
+    form_set_error('subscription_email', t('Email is not correct'));
+    $form_state['rebuild'] = TRUE;
+  }
+}
+
+/**
+ * Validate image
+ *
+ * @param $form
+ * @param $form_state
+ */
+function user_profile_edit_form_validate_image(&$form, &$form_state) {
+  $post = $form_state["clicked_button"]["#post"];
+  $validators = array(
+    'file_validate_is_image' => array(),
+    'file_validate_extensions' => array('png gif jpg jpeg'),
+    'file_validate_size' => array(512 * 1024),
+  );
+  $upload_dir = file_directory_path() . '/userpics';
+  if ($file = file_save_upload('image_upload', $validators, $upload_dir)) {
+    file_set_status($file, FILE_STATUS_PERMANENT);
+    $form_state['values']['image_upload'] = $file;
+  } elseif (empty($post['image_avatar'])) {
+    form_set_error('image_upload', 'File was not uploaded. Either the file extension or the size is incorrect.');
+  }
+}
+
+/**
+ * Common Submission of the form
+ *
+ * @param $form
+ * @param $form_state
+ */
+function user_profile_edit_form_submit(&$form, &$form_state) {
+  $id = $form_state["clicked_button"]["#name"];
+  switch ($id) {
+    case 'submit' :
+      user_profile_edit_form_submit_profile($form, $form_state);
+    break;
+    case 'subscrition_submit' :
+      user_profile_edit_form_submit_subscriptions($form, $form_state);
+    break;
+    case 'language_submit' :
+      user_profile_edit_form_submit_language($form, $form_state);
+    break;
+    case 'image_submit' :
+      user_profile_edit_form_submit_image($form, $form_state);
+    break;
+  }
+}
+
+/**
+ * Profile submission
+ *
+ * @param $form
+ * @param $form_state
+ */
+function user_profile_edit_form_submit_profile($form, &$form_state) {
   $post = $form_state["clicked_button"]["#post"];
 
   global $user;
@@ -490,9 +469,103 @@ function user_profile_edit_form_submit($form, &$form_state) {
   user_save($user, $edit, 'profile');
   user_save($user, $edit, 'links');
 
+  // TODO
   if (module_exists('activity_stream')) {
     activity_stream_add_activity(ACTIVITY_STREAM_PROFILE_UPDATE, array());
   }
 }
+
+/**
+ * Submit subscriptions
+ *
+ * @param $form
+ * @param $form_state
+ */
+function user_profile_edit_form_submit_subscriptions(&$form, &$form_state) {
+  $post = $form_state["clicked_button"]["#post"];
+  global $user;
+
+  $user->subscription_notify = $post['subscription_notify'];
+  $user->subscription_email = $post['subscription_email'];
+  user_save($user, array(
+    'subscription_notify' => $post['subscription_notify'],
+    'subscription_email' => $post['subscription_email'],
+  ));
+}
+
+/**
+ * Submit language
+ *
+ * @param $form
+ * @param $form_state
+ */
+function user_profile_edit_form_submit_language(&$form, &$form_state) {
+  $post = $form_state["clicked_button"]["#post"];
+  global $user;
+
+  $langcode = $post['language'];
+  $user->language = $langcode;
+  user_save($user, array('language' => $langcode));
+
+  global $base_url;
+  drupal_goto($base_url . '/user/profile/edit');
+}
+
+/**
+ * Submit image
+ *
+ * @param $form
+ * @param $form_state
+ */
+function user_profile_edit_form_submit_image(&$form, &$form_state) {
+  global $user;
+  $post = $form_state["clicked_button"]["#post"];
+  $file = $form_state['values']['image_upload'];
+
+  $dest = false;
+  if ($file) {
+    $upload_dir = file_directory_path() . '/userpics';
+    $extension = '';
+    switch ($file->filemime) {
+      case 'image/jpeg':
+        $extension = 'jpg';
+        break;
+      case 'image/png':
+        $extension = 'png';
+        break;
+      case 'image/gif':
+        $extension = 'gif';
+        break;
+    }
+    $dest = $upload_dir . '/picture-' . $user->uid . '.' . $extension;
+  }
+  if ($dest && file_move($file, $dest, FILE_EXISTS_RENAME)) {
+    // images upload
+    if (strpos($dest, 'http://') !== 0) {
+      $dest = '/' . $dest;
+    }
+  } else {
+    // image avatar
+    $dest = $post['image_avatar'];
+  }
+//  var_Dump($dest); die();
+  $user->picture = $dest;
+  user_save($user, array('picture' => $dest));
+
+  if (module_exists('activity_stream')) {
+    activity_stream_add_activity(ACTIVITY_STREAM_PROFILE_UPDATE, array());
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
