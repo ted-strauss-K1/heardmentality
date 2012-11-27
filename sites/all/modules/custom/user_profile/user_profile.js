@@ -1,11 +1,5 @@
 $(document).ready(function(){
 
-  $('.openlogin_box').live('click', function(){
-    $('#dialog').tabs();
-    $('#dialog').dialog('open');
-    return false;
-  })
-
   $('.profile-close-icon').click(function() {
     $('.profile-status-toggle').slideUp(400, function() {
       $('.profile-status-toggle').remove();
@@ -57,23 +51,4 @@ $(document).ready(function(){
       }
     });
   });
-});
-
-
-
-
-
-$(document).ready(function(){
-  /*
-   * User Profile Edit Form Validation
-   */
-
-  $('#user-profile-edit-form').submit(function(e){
-
-
-
-    //return false;
-  });
-
-
 });
