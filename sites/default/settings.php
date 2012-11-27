@@ -96,9 +96,9 @@ ini_set('display_startup_errors', TRUE);
 //$db_url = 'mysql://root:@localhost/hm';
 //for 10 server 
 //$db_url = 'mysql://heardmentality:H3@rdM3nt@l!ty@localhost/heardmentality';
-# $db_url = 'mysql://root:H3@rdMDB#2012@localhost/heardmentality';
+$db_url = 'mysql://root:H3@rdMDB#2012@localhost/hm-latest';
 //$db_url = 'mysql://root:@localhost/heardmentality';
-$db_url = 'mysql://apache_web_serve:2JTcuJA3mAFwqzXe@107.20.204.83/heardmentality';
+//$db_url = 'mysql://apache_web_serve:2JTcuJA3mAFwqzXe@107.20.204.83/heardmentality';
 $db_prefix = '';
 
 /**
