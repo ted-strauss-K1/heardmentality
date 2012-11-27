@@ -1,0 +1,5 @@
+name = Alter
+description = Collection of various altering hooks on site
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x

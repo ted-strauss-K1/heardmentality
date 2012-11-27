@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Implementation of hook_form_alter()
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function alter_form_alter(&$form, $form_state, $form_id) {
+
+  # for module "contact_forms"
+  if ($form_id == 'contact_mail_page' && module_exists('contact_forms')) {
+    $info = array(
+      t('Site Suggestion'),
+      t('Site Complaint'),
+      t('Volunteer'),
+      t('General')
+    );
+    $form['info'] = array(
+      '#type' => 'select',
+      '#options' => array_combine($info, $info),
+      '#weight' => -1,
+    );
+    $form['contact_information']['#weight'] = -2;
+    array_unshift($form['#submit'], 'contact_mail_page_form_submit');
+  }
+
+  # for module "user_profile"
+  if ($form_id == 'user_register' && module_exists('user_profile')) {
+    $form['#redirect'] = array("user/profile/edit");
+  }
+  if ($form_id == 'user_login' && module_exists('user_profile')) {
+    $form['#redirect'] = array("user/profile/view");
+  }
+
+}
+
+/**
+ * Submitter for "contact_mail_page" form
+ *
+ * @param $form
+ * @param $form_state
+ */
+function contact_mail_page_form_submit(&$form, &$form_state) {
+  $values = &$form_state['values'];
+  $values['subject'] = '[' . $values['info'] . '] ' . $values['subject'];
+}
