@@ -28,12 +28,11 @@ function alter_form_alter(&$form, $form_state, $form_id) {
 
   # for module "user_profile"
   if ($form_id == 'user_register' && module_exists('user_profile')) {
-    $form['#redirect'] = "user/profile/edit";
+    $form['#redirect'] = array("user/profile/edit");
   }
   if ($form_id == 'user_login' && module_exists('user_profile')) {
-    $form['#redirect'] = "user/profile/view";
+    $form['#redirect'] = array("user/profile/view");
   }
-
 
 }
 
