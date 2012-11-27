@@ -1,0 +1,6 @@
+name = Poll Fix
+description = Core poll module doesn't care at all about the choices' chorders. When new choices are added it just removes all previous, put new ones and fixes chorders in poll votes. That's not a problem when we edit the poll choices. But might be when we delete them in cases we use the chorders to store metadata. This module creates a proper workaround for that case.
+package = Custom Modules
+version = VERSION
+core = 6.x
+dependencies[] = poll
