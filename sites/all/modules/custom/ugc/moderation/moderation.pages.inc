@@ -99,8 +99,10 @@ function moderation_filters()
 {
   $filters = array();
 
-  $filters['flagged'] = is_null($_SESSION['flagged']) ? -1 : $_SESSION['flagged'];
-  $filters['language'] = is_null($_SESSION['language']) ? i18n_get_lang() : $_SESSION['language'];
+//  $filters['flagged'] = is_null($_SESSION['flagged']) ? -1 : $_SESSION['flagged'];
+  $filters['flagged'] = is_null($_SESSION['flagged']) ? 1 : $_SESSION['flagged'];
+//  $filters['language'] = is_null($_SESSION['language']) ? i18n_get_lang() : $_SESSION['language'];
+  $filters['language'] = is_null($_SESSION['language']) ? -1 : $_SESSION['language'];
   $filters['translated'] = is_null($_SESSION['translated']) ? -1 : $_SESSION['translated'];
   $filters['moderation'] = is_null($_SESSION['moderation']) ? -1 : $_SESSION['moderation'];
   $filters['status'] = is_null($_SESSION['status']) ? -1 : $_SESSION['status'];
@@ -515,7 +517,6 @@ function moderation_users_form()
 function moderation_issue_view_form($form_state, $nid)
 {
   $form = array();
-
 
   $form['content_id'] = array(
     '#type' => 'hidden',
@@ -1062,6 +1063,7 @@ function moderation_argument_view_form($form, $nid)
     '#type' => 'textfield',
     '#title' => t('Title'),
     '#value' => $node->title,
+    '#disabled' => TRUE, // don't allow changing
   );
 //  $form['body'] = array(
 //    '#type' => 'textarea',
@@ -1144,6 +1146,7 @@ function moderation_comment_view_form($form, $cid)
     '#type' => 'textarea',
     '#title' => t('Comment'),
     '#value' => $comment->comment,
+    '#disabled' => TRUE, // don't allow changing
   );
 //  $form['status'] = array(
 //    '#type' => 'select',

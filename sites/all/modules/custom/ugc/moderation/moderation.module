@@ -150,6 +150,15 @@ function moderation_preprocess_page(&$vars)
 {
   if (arg(0) == 'moderation') {
     $vars['moderation_history'] = theme('moderation_history');
+    switch (arg(1)) {
+      case 'issue' :
+      case 'argument' :
+        $vars['flags'] = theme('flagger_node_flags', arg(2), 'node');
+        break;
+      case 'comment' :
+        $vars['flags'] = theme('flagger_node_flags', arg(2), 'comment');
+        break;
+    }
   }
 }
 
@@ -188,7 +197,7 @@ function moderation_theme()
     'file' => 'moderation.pages.inc',
   );
   $theme['moderation_history'] = array(
-    'arguments' => array( //
+    'arguments' => array(//
     ),
     'template' => 'moderation-history',
     'file' => 'moderation.pages.inc',
