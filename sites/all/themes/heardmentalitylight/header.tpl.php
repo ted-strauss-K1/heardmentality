@@ -27,9 +27,8 @@
 <!--					<li>--><?php //print l(t('Following'), 'following', array('attributes' => array('class'=>'following'))); ?><!--</li>-->
 				  <?php endif; ?>
 				  <?php
-				  // TODO
-				  if ( false ) : ?>
-					<li><?php print l(t('Moderator'), 'issues/list/all', array('attributes' => array('class'=>'moderator add'))); ?></li>
+				  if ( module_exists('moderation') && moderation_check_perm() ) : ?>
+					<li><?php print l(t('Moderator'), 'moderation', array('attributes' => array('class'=>'moderator add'))); ?></li>
 				  <?php endif; ?>
 				</ul>
 			</div>
