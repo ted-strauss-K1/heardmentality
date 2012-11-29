@@ -347,7 +347,9 @@ function pcp_get_complete_percentage_data($user) {
     shuffle($fields);
     
     foreach ($fields as $key => $value) {
-      if (($user_values[$value['fid']] == '') || ($user_values[$value['fid']] == '0' && $value['type'] == 'selection')) {
+      # odyachenko : Fix as far default value we use is -1
+//      if (($user_values[$value['fid']] == '') || ($user_values[$value['fid']] == '0' && $value['type'] == 'selection')) {
+      if (($user_values[$value['fid']] == '') || ($user_values[$value['fid']] == '-1' && $value['type'] == 'selection')) {
         if ($nextfield_set === FALSE) {
           $nextfield_set = TRUE;
           $fid = $value['fid'];
