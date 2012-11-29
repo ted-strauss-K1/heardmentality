@@ -170,6 +170,13 @@ function flagger_theme()
     ),
   );
 
+  $theme['flagger_node_flags'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+    ),
+  );
+
   return $theme;
 }
 
@@ -199,7 +206,33 @@ function theme_flagger_button($content_id, $content_type)
 }
 
 /**
- * Add rewquired js
+ * Theme for Flags Block
+ *
+ * @param $content_id
+ * @param $content_type
+ * @return string
+ */
+function theme_flagger_node_flags($content_id, $content_type)
+{
+  $flags = flagger_get_counts($content_type, $content_id);
+  if (empty($flags)) {
+    return '';
+  }
+
+  $output = '<div class="icon cat text"></div>';
+  $output .= '<ul class="tags">';
+  $output .= '<label for="" class="tags-on">' . t('FLAGS') . '</label>';
+  foreach ($flags as $fid => $flag) {
+    $output .= '<li>' . $flag['title'] . ' x ' . count($flag['users']) . '</li>';
+  }
+  $output .= '</ul>';
+  $output .= '<div class="clear"></div>';
+
+  return $output;
+}
+
+/**
+ * Add required js
  *
  * @param $vars
  */
@@ -207,4 +240,55 @@ function flagger_preprocess_page(&$vars)
 {
   drupal_add_js(drupal_get_path('module', 'flagger') . '/flagger.js');
   drupal_add_js('misc/jquery.form.js');
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function flagger_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
+  switch ($op) {
+    case 'load' :
+      // let's load the flags used
+      $node->flags = flagger_get_counts('node', $node->nid);
+      break;
+  }
+}
+
+/**
+ * @param $content_type
+ * @param $content_id
+ * @param bool $reset
+ * @return mixed
+ *
+ * @see flag_get_counts()
+ */
+function flagger_get_counts($content_type, $content_id, $reset = FALSE)
+{
+  static $cache = array();
+
+  if ($reset) {
+    $cache = array();
+    if (!isset($content_type)) {
+      return false;
+    }
+  }
+
+  if (!isset($cache[$content_type][$content_id])) {
+    $cache[$content_type][$content_id] = array();
+
+    $result = db_query("SELECT fc.fid, fc.uid, f.name, f.title, u.name AS uname FROM {flag_content} fc INNER JOIN {flags} f ON fc.fid = f.fid INNER JOIN {users} u ON fc.uid = u.uid WHERE fc.content_type = '%s' AND fc.content_id = '%d'", $content_type, $content_id);
+    while ($row = db_fetch_object($result)) {
+      $cache[$content_type][$content_id][$row->fid]['name'] = $row->name;
+      $cache[$content_type][$content_id][$row->fid]['title'] = $row->title;
+      $cache[$content_type][$content_id][$row->fid]['users'][] = array($row->uid => $row->uname);
+    }
+  }
+
+  return $cache[$content_type][$content_id];
 }
