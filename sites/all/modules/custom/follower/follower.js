@@ -1,60 +1,3 @@
-/* confirmation variant
-function follower_exec(follower) {
-  var url = Drupal.settings.base_url + '/follower/' + follower.attr('name')
-  $.ajax({
-    type: "POST",
-    dataType: 'json',
-    url: url,
-    data: {},
-    success: function(response){
-      $.hrd.noty({
-        'layout' : 'center',
-        'type'   : 'alert',
-        'text'   : response.text,
-        'modal'  : true,
-        'timeout': false,
-        'buttons': [
-          {
-            addClass : 'btn btn-primary',
-            text     : 'Yes!',
-            onClick  : function($noty) {
-              $('#follower-form').submit();
-              $noty.close();
-              var successtext = '', buttontext = '';
-              if (follower.html() != response.follow) {
-                successtext = response.unfollowtext;
-                buttontext = response.follow;
-              } else {
-                successtext = response.followtext;
-                buttontext = response.unfollow;
-              }
-              follower.html(buttontext);
-              $.hrd.noty({
-                'layout' : 'center',
-                'type'   : 'success',
-                'text'   : successtext,
-                'modal'  : true
-              });
-
-            }
-          },
-          {
-            addClass: 'btn btn-danger',
-            text: 'Cancel',
-            onClick: function($noty) {
-              $noty.close();
-            }
-          }
-        ]
-      });
-      $('#follower-form').ajaxForm({
-        // target: '#output'
-      });
-    }
-  });
-}
-*/
-
 function follower_exec(follower) {
   var url = Drupal.settings.base_url + '/follower/save/';
   $.ajax({
@@ -92,5 +35,3 @@ $(document).ready(function() {
     return false;
   });
 });
-
-
