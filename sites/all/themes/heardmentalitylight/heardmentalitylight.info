@@ -25,12 +25,11 @@ scripts[] = javascripts/noty/topRight.js
 scripts[] = javascripts/noty/center.js
 scripts[] = javascripts/effects.js
 
+scripts[] = javascripts/behaviours.js
 ;scripts[] = javascripts/jquery-ui-1.7.3.custom.min.js
 ;scripts[] = javascripts/jquery.ba-resize.min.js
 scripts[] = javascripts/custom_scripts.js
 scripts[] = javascripts/app.js
-
-scripts[] = javascripts/behaviours.js
 
 
 ;regions[left] = Left sidebar
