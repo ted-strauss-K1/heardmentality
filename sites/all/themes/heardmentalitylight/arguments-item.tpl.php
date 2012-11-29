@@ -1,4 +1,4 @@
-<?php $nid = $node->nid; ?>
+<?php global $user; $nid = $node->nid; ?>
 <div id="forum-block-<?php print $nid; ?>" class="one-forum<?php print $node->field_type[0]['value'] == TYPE_RESOURCE ? ' resources' : ''; ?>" name="<?php print $nid; ?>">
   <ul class="argument_box">
     <li>
@@ -117,7 +117,7 @@
       <div class="position-question">
         <span class="line"><span>&nbsp;</span></span>
         <?php # print theme('arguments_rating_button', $node); ?>
-        <?php print theme('yn', $node); ?>
+        <?php print theme('yn', $node->nid, 'node', $node->uid == $user->uid); ?>
         <ul class="argument_replybox">
           <div class="reply-comment hidden" style="display:none">
             <?php print drupal_get_form('reply_form', $node->nid); ?>

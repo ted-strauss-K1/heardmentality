@@ -1,4 +1,4 @@
-<?php global $base_url; ?>
+<?php global $base_url, $user; ?>
 
 <li id="reply-block-<?php print $comment->cid; ?>" class="one_reply">
   <span class=<?php print $comment->str_wk == 1 ? 'positive' : 'negative'; ?>>
@@ -18,7 +18,7 @@
   </span>
   <div class="position-question">
     <?php #print theme('arguments_rating_button', $comment); ?>
-    <?php print theme('yn', $comment); ?>
+    <?php print theme('yn', $comment->cid, 'comment', $comment->uid == $user->uid); ?>
     <ul class="control_links">
       <li><?php print theme('flagger_button', $comment->cid, 'comment'); ?></li>
       <?php if ($delete = theme('arguments_delete', 'comment', $comment->content_id)) : ?>

@@ -6,7 +6,9 @@
     </h2>
     <?php if($page) : ?>
     <div class="qd">
-      <?php print theme('flagger_button', $nid, 'node'); ?>
+      <?php
+        print theme('flagger_button', $nid, 'node');
+      ?>
       <p class="description"><?php print theme('issue_description', $context); ?></p>
     </div>
     <?php endif; ?>
