@@ -348,7 +348,7 @@ function issue_results_graph_highchart_filter_form()
 
   $form['filter'] = array(
     '#type' => 'select',
-    '#options' => array(//
+    '#options' => array( //
     ),
     '#prefix' => '<div id="contentr1"><div>',
     '#suffix' => '</div><div id="chart_div" style="width:100%; min-height: 280px;"></div></div>',

@@ -188,7 +188,7 @@ function moderation_theme()
     'file' => 'moderation.pages.inc',
   );
   $theme['moderation_history'] = array(
-    'arguments' => array(//
+    'arguments' => array( //
     ),
     'template' => 'moderation-history',
     'file' => 'moderation.pages.inc',

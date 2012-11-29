@@ -1098,14 +1098,14 @@
               b.setState(fb);
               n.css(m)
             }).on("mouseout",function () {
-              n.css(b.visible ? l : p);
-              b.setState()
-            }).on("click",function () {
-              var a = function () {
-                b.setVisible()
-              };
-              b.firePointEvent ? b.firePointEvent("legendItemClick", null, a) : aa(b, "legendItemClick", null, a)
-            }).attr({align:v ? "left" : "right", zIndex:2}).add(x);
+                n.css(b.visible ? l : p);
+                b.setState()
+              }).on("click",function () {
+                var a = function () {
+                  b.setVisible()
+                };
+                b.firePointEvent ? b.firePointEvent("legendItemClick", null, a) : aa(b, "legendItemClick", null, a)
+              }).attr({align:v ? "left" : "right", zIndex:2}).add(x);
           if (!k && s && s.lineWidth) {
             var z = {"stroke-width":s.lineWidth, zIndex:2};
             if (s.dashStyle)z.dashstyle = s.dashStyle;
@@ -2774,8 +2774,8 @@
       h ? h.attr({d:c}) : a.tracker = f.path(c).attr({isTracker:!0, stroke:Qc, fill:Ka, "stroke-linejoin":"bevel", "stroke-width":b.lineWidth + 2 * g, visibility:a.visible ? $a : Xa}).on(Fa ? "touchstart" : "mouseover",function () {
         if (e.hoverSeries !== a)a.onMouseOver()
       }).on("mouseout",function () {
-        if (!b.stickyTracking)a.onMouseOut()
-      }).css(j).add(i)
+          if (!b.stickyTracking)a.onMouseOut()
+        }).css(j).add(i)
     }};
   w = ea(ia);
   ma.line = w;
@@ -2853,8 +2853,8 @@
           if (b.hoverSeries !== a && $(i, "isTracker") !== f)a.onMouseOver();
           h.onMouseOver()
         }).on("mouseout",function (b) {
-          if (!g.stickyTracking && (i = b.relatedTarget || b.toElement, $(i, "isTracker") !== f))a.onMouseOut()
-        }).css(j).add(h.group || k)
+            if (!g.stickyTracking && (i = b.relatedTarget || b.toElement, $(i, "isTracker") !== f))a.onMouseOut()
+          }).css(j).add(h.group || k)
       })
     }, animate:function (a) {
       var b =

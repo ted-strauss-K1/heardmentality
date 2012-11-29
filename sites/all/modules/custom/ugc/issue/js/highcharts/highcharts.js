@@ -2787,8 +2787,8 @@
     h ? h.attr({d:c}) : a.tracker = f.path(c).attr({isTracker:!0, stroke:Gc, fill:Ka, "stroke-linejoin":"bevel", "stroke-width":b.lineWidth + 2 * g, visibility:a.visible ? cb : Za}).on(Wa ? "touchstart" : "mouseover",function () {
       if (e.hoverSeries !== a)a.onMouseOver()
     }).on("mouseout",function () {
-      if (!b.stickyTracking)a.onMouseOut()
-    }).css(i).add(j)
+        if (!b.stickyTracking)a.onMouseOut()
+      }).css(i).add(j)
   }};
   D = da(M);
   Ha.line = D;
@@ -2867,8 +2867,8 @@
         if (b.hoverSeries !== a && A(j, "isTracker") !== f)a.onMouseOver();
         h.onMouseOver()
       }).on("mouseout",function (b) {
-        if (!g.stickyTracking && (j = b.relatedTarget || b.toElement, A(j, "isTracker") !== f))a.onMouseOut()
-      }).css(i).add(h.group || k)
+          if (!g.stickyTracking && (j = b.relatedTarget || b.toElement, A(j, "isTracker") !== f))a.onMouseOut()
+        }).css(i).add(h.group || k)
     })
   }, animate:function (a) {
     var b = this, c = b.points,
