@@ -30,6 +30,8 @@ scripts[] = javascripts/effects.js
 scripts[] = javascripts/custom_scripts.js
 scripts[] = javascripts/app.js
 
+scripts[] = javascripts/behaviours.js
+
 
 ;regions[left] = Left sidebar
 regions[right] = Right sidebar

@@ -6,7 +6,8 @@
 /*
  * Implementation of hook_rules_event_info()
  */
-function yn_rules_event_info() {
+function yn_rules_event_info()
+{
   return array(
     'yn_voteup' => array(
       'label' => t('User Voted Up'),
@@ -24,7 +25,8 @@ function yn_rules_event_info() {
 /*
  * Helper for yn_rules_event_info()
  */
-function _yn_rules_vote_arguments() {
+function _yn_rules_vote_arguments()
+{
   return array(
     'acting_user' => array(
       'type' => 'user',
@@ -45,10 +47,11 @@ function _yn_rules_vote_arguments() {
   );
 }
 
-  /**
-   * Implementation of hook_rules_condition_info().
-   */
-function yn_rules_condition_info() {
+/**
+ * Implementation of hook_rules_condition_info()
+ */
+function yn_rules_condition_info()
+{
   return array(
     'yn_vote_userpoints' => array(
       'label' => t('Check the points for Yes/No votes'),
@@ -63,14 +66,16 @@ function yn_rules_condition_info() {
 /**
  * Condition: check that user didn't get a lot of points for voting
  */
-function yn_vote_userpoints($author, $settings = array()) {
+function yn_vote_userpoints($author, $settings = array())
+{
   return $settings['number'] == 0 || (up_userpoints_today($author->uid, 'yn_vote') < $settings['number']);
 }
 
 /**
  * Condition: check that user didn't get a lot of points for voting
  */
-function yn_vote_userpoints_form($settings = array(), &$form) {
+function yn_vote_userpoints_form($settings = array(), &$form)
+{
   $form['settings']['number'] = array(
     '#type' => 'textfield',
     '#title' => t('Number of points'),
@@ -82,7 +87,8 @@ function yn_vote_userpoints_form($settings = array(), &$form) {
 /**
  * Condition: check that user didn't get a lot of points for voting
  */
-function yn_vote_userpoints_form_validate(&$form, &$form_state) {
+function yn_vote_userpoints_form_validate(&$form, &$form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
   if (!is_numeric($post['number'])) {
     form_set_error('yn_vote_userpoints_form_numeric', t('Number of points should be numeric'));
@@ -94,7 +100,8 @@ function yn_vote_userpoints_form_validate(&$form, &$form_state) {
  *
  * Update "userpoints_action_grant_points" action to make "entity_type" field evaluated
  */
-function yn_rules_action_info_alter(&$actions) {
+function yn_rules_action_info_alter(&$actions)
+{
   $actions['userpoints_action_grant_points']['eval input'][] = 'entity_type';
 }
 

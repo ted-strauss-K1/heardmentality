@@ -1,15 +1,55 @@
 <?php
 
-/*
- * Implementation of hook_init()
+/**
+ * Implementation of hook_theme()
  *
- * @see
- *  votingapi_add_votes()
- *  votingapi_delete_votes()
- *  _votingapi_delete()
+ * @return array
  */
-function yn_init() {
-  drupal_add_js(drupal_get_path('module', 'yn') . '/yn.js');
+function yn_theme()
+{
+  $theme = array();
+
+  $theme['yn'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => 'node',
+      'owner' => false,
+      'rated' => false,
+    ),
+  );
+
+  return $theme;
+}
+
+/**
+ * Theme "yn"
+ *
+ * @param $node
+ * @return string
+ */
+function theme_yn($content_id, $content_type, $owner = false)
+{
+  $notrated = false;
+  list($vote_up, $vote_dn, $vote_sum, $yn_rated) = yn_votes($content_id, $content_type);
+  if ($owner) {
+    $title1 = t('You are not able to rate your own post!');
+    $title2 = $title1;
+  } elseif ($yn_rated) {
+    $title1 = t('You have rated this!');
+    $title2 = $title1;
+  } else {
+    $title1 = t('Agree this!');
+    $title2 = t('Disagree this!');
+    $notrated = true;
+  }
+
+  return '
+    <span class="comment-agree" id="yn-' . $content_type . '-' . $content_id . '">
+      <strong>' . t('Do you agree') . ($content_type == 'comment' ? '' : ' ' . t('with the argument')) . '?</strong>
+      <a href="javascript:void(0);" class="yn agree ' . ($notrated ? ' yn-a' : '') . ' yn-a-' . $content_id . '" title="' . $title1 . '" name="' . $content_id . '/' . $content_type . '/' . VOTE_AGREE . '">' . t('Yes') . '<span' . ($notrated ? '' : ' class="notvoted"') . '>(' . $vote_up . ')</span></a>&nbsp;|
+      <a href="javascript:void(0);" class="yn disagree ' . ($notrated ? ' yn-d' : '') . ' yn-d-' . $content_id . '" title="' . $title2 . '" name="' . $content_id . '/' . $content_type . '/' . VOTE_DISAGREE . '">' . t('No') . '<span' . ($notrated ? '' : ' class="notvoted"') . '>(' . $vote_dn . ')</span></a>
+      <strong class="motivat">' . t('(Click yes/no to leave support/oppose comment.)') . '</strong>
+    </span>';
 }
 
 /**
@@ -20,14 +60,15 @@ function yn_init() {
  * @param null $a3
  * @param null $a4
  */
-function yn_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+function yn_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
   switch ($op) {
     case 'delete' :
       yn_cleanup($node->nid, 'node');
-    break;
+      break;
     case 'load'   :
-      list($node->vote_up, $node->vote_dn, $node->vote_sum) = yn_votes($node->nid, 'node');
-    break;
+      list($node->vote_up, $node->vote_dn, $node->vote_sum, $node->yn_rated) = yn_votes($node->nid, 'node');
+      break;
   }
 }
 
@@ -37,14 +78,15 @@ function yn_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
  * @param $a1
  * @param $op
  */
-function yn_comment(&$a1, $op) {
+function yn_comment(&$a1, $op)
+{
   switch ($op) {
     case 'delete' :
       yn_cleanup($a1->cid, 'comment');
-    break;
+      break;
     case 'view' :
-      list($a1->vote_up, $a1->vote_dn, $a1->vote_sum) = yn_votes($a1->cid, 'comment');
-    break;
+      list($a1->vote_up, $a1->vote_dn, $a1->vote_sum, $a1->yn_rated) = yn_votes($a1->cid, 'comment');
+      break;
   }
 }
 
@@ -54,64 +96,68 @@ function yn_comment(&$a1, $op) {
  * @param $content_id
  * @param $content_type
  */
-function yn_cleanup($content_id, $content_type) {
+function yn_cleanup($content_id, $content_type)
+{
   db_query("DELETE FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d'", $content_type, $content_id);
 }
 
-/*
- * Implementation of hook_menu()
- */
-function yn_menu() {
-  $menu = array();
-
-  $menu['yn/%/%/%'] = array(
-    'page callback'   => 'yn_ajax',
-    'type'            => MENU_CALLBACK,
-    'page arguments'  => array(1, 2, 3),
-    'access callback' => TRUE,
-  );
-
-  return $menu;
-}
-
-/*
+/**
  * Agree value
  */
 define('VOTE_AGREE', 1);
 
-/*
+/**
  * Disgree Value
  */
 define('VOTE_DISAGREE', -1);
 
-/*
- * Invert vote value
+/**
+ * Special constant to signal auto_added node votes
  */
-function yn_invert_vote_value(&$vote_value) {
-  $vote_value = $vote_value == VOTE_AGREE ? VOTE_DISAGREE : VOTE_AGREE;
-}
+define('VOTE_AUTOADD', 'auto');
 
-/*
- * Basic yes/no voting function.
+/**
+ * Special constant to signal regular Yes/No votes
  */
-function yn_vote( $content_id, $value, $content_type, $vote_source = '', $uid = '' ) {
+define('VOTE_NORMAL', 'yn');
+
+/**
+ * Basic yes/no voting function
+ *
+ * @param $content_id
+ * @param $value
+ * @param $content_type
+ * @param string $vote_source
+ * @param string $uid
+ * @return array|bool
+ */
+function yn_vote($content_id, $value, $content_type, $vote_source = '', $uid = '')
+{
   # check we got some data
-  if( empty($content_id) || empty($value) || empty($content_type) ) {
+  if (empty($content_id) || empty($value) || empty($content_type)) {
     return false;
   }
   $vote = array(
-    'content_id'    => $content_id,
-    'value'         => $value,
-    'content_type'  => $content_type,
-    'vote_source'   => empty($vote_source) ? VOTE_NORMAL : $vote_source,
-    'value_type'    => 'points',
+    'content_id' => $content_id,
+    'value' => $value,
+    'content_type' => $content_type,
+    'vote_source' => empty($vote_source) ? VOTE_NORMAL : $vote_source,
+    'value_type' => 'points',
   );
-  if( !empty($uid) ) {
+  if (!empty($uid)) {
     $vote['uid'] = $uid;
   }
-  if ($vote['vote_source'] != VOTE_AUTOADD) {
-    yn_invoke_event($value, $content_id, $content_type);
+
+  if (module_exists('rules')) {
+    if ($vote['vote_source'] != VOTE_AUTOADD) {
+      # invoke yn_voteup / yn_votedn events
+      global $user;
+      $author = _yn_content_author($content_id, $content_type);
+      rules_invoke_event($value == VOTE_AGREE ? 'yn_voteup' : 'yn_votedn', $user, $author, $content_id, $content_type);
+
+    }
   }
+  // move this to rules
   if (module_exists('activity_stream')) {
     switch ($content_type) {
       case 'node' :
@@ -121,7 +167,7 @@ function yn_vote( $content_id, $value, $content_type, $vote_source = '', $uid = 
           'nid_arg' => $argument->nid,
           'vote' => $value,
         ));
-      break;
+        break;
       case 'comment' :
         $comment = _comment_load($content_id);
         $argument = node_load($comment->nid);
@@ -131,104 +177,146 @@ function yn_vote( $content_id, $value, $content_type, $vote_source = '', $uid = 
           'cid' => $content_id,
           'vote' => $value,
         ));
-      break;
+        break;
     }
   }
 
   return votingapi_add_votes($vote);
 }
 
-/*
- * Fire rule event
+/**
+ * Function to get the user object of content owner
+ *
+ * @param $content_id
+ * @param $content_type
+ * @return bool
  */
-function yn_invoke_event($value, $content_id, $content_type) {
-  if( module_exists('rules') ) {
-    global $user;
-    $author = _yn_content_author($content_id, $content_type);
-    rules_invoke_event($value == VOTE_AGREE ? 'yn_voteup' : 'yn_votedn', $user, $author, $content_id, $content_type);
+function _yn_content_author($content_id, $content_type)
+{
+  $uid = 0;
+  if ($content_type == 'node') {
+    $uid = db_result(db_query("SELECT uid FROM {node} WHERE nid = '%d'", $content_id));
+  } elseif ($content_type == 'comment') {
+    $uid = db_result(db_query("SELECT uid FROM {comments} WHERE cid = '%d'", $content_id));
   }
+  return user_load($uid);
 }
 
-/*
+/**
  * Basic vote deletion
+ *
+ * @param $content_id
+ * @param $value
+ * @param $content_type
+ * @param string $vote_source
+ * @param string $uid
  */
-function yn_vote_delete( $content_id, $value, $content_type, $vote_source = '', $uid = '' ) {
+function yn_vote_delete($content_id, $value, $content_type, $vote_source = '', $uid = '')
+{
   $criteria = array();
-  if( !empty($content_id) ) {
+  if (!empty($content_id)) {
     $criteria['content_id'] = $content_id;
   }
-  if( !empty($value) ) {
+  if (!empty($value)) {
     $criteria['value'] = $value;
   }
-  if( !empty($content_type) ) {
+  if (!empty($content_type)) {
     $criteria['content_type'] = $content_type;
   }
-  if( !empty($vote_source) ) {
+  if (!empty($vote_source)) {
     $criteria['vote_source'] = $vote_source;
   }
-  if( !empty($uid) ) {
+  if (!empty($uid)) {
     $criteria['uid'] = $uid;
   }
   _votingapi_delete('vote', $criteria);
 }
 
-/*
+/**
  * Basic agree function
+ *
+ * @param $content_id
+ * @param $content_type
+ * @param string $vote_source
+ * @param string $uid
+ * @return array|bool
  */
-function yn_agree($content_id, $content_type, $vote_source = '', $uid = '') {
+function yn_agree($content_id, $content_type, $vote_source = '', $uid = '')
+{
   return yn_vote($content_id, VOTE_AGREE, $content_type, $vote_source, $uid);
 }
 
-/*
+/**
  * Basic disagree function
+ *
+ * @param $content_id
+ * @param $content_type
+ * @param string $vote_source
+ * @param string $uid
+ * @return array|bool
  */
-function yn_disagree($content_id, $content_type, $vote_source = '', $uid = '') {
+function yn_disagree($content_id, $content_type, $vote_source = '', $uid = '')
+{
   return yn_vote($content_id, VOTE_DISAGREE, $content_type, $vote_source, $uid);
 }
 
-/*
+/**
  * Agree node
+ *
+ * @param $content_id
+ * @param string $vote_source
+ * @param string $uid
  */
-function yn_agree_node($content_id, $vote_source = '', $uid = '') {
+function yn_agree_node($content_id, $vote_source = '', $uid = '')
+{
   yn_agree($content_id, 'node', $vote_source, $uid);
 }
 
-/*
+/**
  * Disagree node
+ *
+ * @param $content_id
+ * @param string $vote_source
+ * @param string $uid
  */
-function yn_disagree_node($content_id, $vote_source = '', $uid = '') {
+function yn_disagree_node($content_id, $vote_source = '', $uid = '')
+{
   yn_disagree($content_id, 'node', $vote_source, $uid);
 }
 
-/*
- * Special constant to signal auto_added node votes
- */
-define('VOTE_AUTOADD', 'auto');
-
-/*
- * Special constant to signal regular Yes/No votes
- */
-define('VOTE_NORMAL', 'yn');
-
-/*
+/**
  * Agree comment
+ *
+ * @param $content_id
+ * @param string $uid
  */
-function yn_agree_comment($content_id, $uid = '') {
+function yn_agree_comment($content_id, $uid = '')
+{
   yn_agree($content_id, 'comment', '', $uid);
 }
 
-/*
+/**
  * Disagree comment
+ *
+ * @param $content_id
+ * @param string $uid
  */
-function yn_disagree_comment($content_id, $uid = '') {
+function yn_disagree_comment($content_id, $uid = '')
+{
   yn_disagree($content_id, 'comment', '', $uid);
 }
 
-/*
+/**
  * Function to check if user already voted
+ *
+ * @param $content_id
+ * @param $content_type
+ * @param string $uid
+ * @return bool
  */
-function yn_user_voted($content_id, $content_type, $uid = '') {
-  if( empty($uid) ) {
+function yn_user_voted($content_id, $content_type, $uid = '')
+{
+  if (empty($uid)) {
     global $user;
     $uid = $user->uid;
   }
@@ -241,73 +329,110 @@ function yn_user_voted($content_id, $content_type, $uid = '') {
   return 0 != _votingapi_count('vote', $criteria);
 }
 
-/*
+/**
  * Function to get the number of agree/disagree votes, and the sum count
+ *
+ * @param $content_id
+ * @param $content_type
+ * @return array
  */
-function yn_votes($content_id, $content_type) {
-  $votes = array(0,0);
-  $result = db_query("SELECT value, COUNT(*) AS votes FROM {votingapi_vote} WHERE content_id =  '%d' AND content_type = '%s' GROUP BY value", $content_id, $content_type);
-  while( $row = db_fetch_array($result) ) {
-    if( $row['value'] == VOTE_AGREE ) {
-      $votes[0] = $row['votes'];
+function yn_votes($content_id, $content_type, $uid = false, $reset = false)
+{
+  static $cache = array();
+
+  if (!isset($cache[$content_type][$content_id]) || $reset) {
+    $votes = array(0, 0, 0, false);
+
+    if ($uid === false) {
+      global $user;
+      $uid = $user->uid;
     }
-    if( $row['value'] == VOTE_DISAGREE ) {
-      $votes[1] = $row['votes'];
+
+    $result = db_query("
+      SELECT value, COUNT(*) AS votes, SUM(CASE WHEN uid = '%d' THEN 1 ELSE 0 END) AS rated
+      FROM {votingapi_vote}
+      WHERE content_id =  '%d' AND content_type = '%s' GROUP BY value",
+      $uid, $content_id, $content_type);
+    while ($row = db_fetch_array($result)) {
+      if ($row['value'] == VOTE_AGREE) {
+        $votes[0] = $row['votes'];
+      }
+      if ($row['value'] == VOTE_DISAGREE) {
+        $votes[1] = $row['votes'];
+      }
+      $votes[3] = $votes[3] || ($row['rated'] == 1);
     }
+    $votes[2] = $votes[0] - $votes[1];
+
+    $cache[$content_type][$content_id] = $votes;
   }
-  $votes[] = $votes[0] - $votes[1];
-  return $votes;
+
+  return $cache[$content_type][$content_id];
 }
 
-/*
+/**
  * Count user Yes/No votes
+ *
+ * @param string $uid
+ * @param null $value
+ * @return bool
  */
-function yn_user_vote_count($uid = '', $value = null) {
-  if( empty($uid) ) {
+function yn_user_vote_count($uid = '', $value = null)
+{
+  if (empty($uid)) {
     global $user;
     $uid = $user->uid;
   }
   $criteria = array('uid' => $uid, 'vote_source' => VOTE_NORMAL);
-  if( !empty($value) ) {
+  if (!empty($value)) {
     $criteria['value'] = $value;
   }
   return _votingapi_count('vote', $criteria);
 }
 
-
-/*
+/**
  * Internal helper function constructs SELECT COUNT(*) queries. Don't use unless you're me.
+ *
+ * @param string $table
+ * @param array $criteria
+ * @return bool
  */
-function _votingapi_count($table = 'vote', $criteria = array()) {
+function _votingapi_count($table = 'vote', $criteria = array())
+{
   $query = "SELECT IFNULL(COUNT(*),0) FROM {votingapi_" . $table . "} v WHERE 1 = 1";
   $details = _votingapi_query('vote', $criteria);
   $query .= $details['query'];
   return db_result(db_query($query, $details['args']));
 }
 
-/*
- * Function to get the user object of content owner
+/**
+ * Implementation of hook_menu()
  *
- * TODO - This one may be required in other close-to-action modules
+ * @return array
  */
-function _yn_content_author($content_id, $content_type) {
-  $uid = 0;
-  if( $content_type == 'node') {
-    $uid = db_result(db_query("SELECT uid FROM {node} WHERE nid = '%d'", $content_id));
-  } elseif( $content_type == 'comment' ) {
-    $uid = db_result(db_query("SELECT uid FROM {comments} WHERE cid = '%d'", $content_id));
-  }
-  return user_load($uid);
+function yn_menu()
+{
+  $menu = array();
+
+  $menu['yn/%/%/%'] = array(
+    'page callback' => 'yn_ajax',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(1, 2, 3),
+    'access callback' => TRUE,
+  );
+
+  return $menu;
 }
 
-/*
- * "yn" ajax callback
+/**
+ * Menu "yn" callback
  *
- * @param content_id - Argument Node Id or Comment Id
- * @param content_type - 'node' or 'comment'
- * @param vote_value - VOTE_AGREE or
+ * @param $content_id
+ * @param $content_type
+ * @param $vote_value
  */
-function yn_ajax($content_id, $content_type, $vote_value) {
+function yn_ajax($content_id, $content_type, $vote_value)
+{
   if (empty($content_id) || empty($content_type) || !in_array($vote_value, array(VOTE_AGREE, VOTE_DISAGREE))) {
     drupal_json(array(
       'status' => false,
@@ -329,26 +454,27 @@ function yn_ajax($content_id, $content_type, $vote_value) {
     ));
     exit();
   }
-  yn_vote( $content_id, $vote_value, $content_type );
-  if( $content_type == 'comment' ) {
+  yn_vote($content_id, $vote_value, $content_type);
+  if ($content_type == 'comment') {
     $result = db_fetch_array(db_query("SELECT nid, str_wk FROM {comments} WHERE cid = '%d'", $content_id));
     $_vote_value = $vote_value;
-    if( !$result ) {
+    if (!$result) {
       yn_invert_vote_value($_vote_value);
     }
     $parent_id = $result['nid'];
-    yn_vote( $result['nid'], $_vote_value, 'node', VOTE_AUTOADD );
+    yn_vote($result['nid'], $_vote_value, 'node', VOTE_AUTOADD);
   } else {
     $parent_id = $content_id;
   }
 
   $output = array();
-  $votes = yn_votes($content_id, $content_type);
-  list($output['vote_up'],$output['vote_dn'], $output['vote_sum']) = $votes;
+  $votes = yn_votes($content_id, $content_type, false, true);
+
+  list($output['vote_up'], $output['vote_dn'], $output['vote_sum'], $rated) = $votes;
   if ($content_type == 'node') {
-    list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum']) = $votes;
+    list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum'], $rated) = $votes;
   } else {
-    list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum']) = yn_votes($parent_id, 'node');
+    list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum'], $rated) = yn_votes($parent_id, 'node');
   }
   # update the parent
   $node = node_load($parent_id);
@@ -369,42 +495,20 @@ function yn_ajax($content_id, $content_type, $vote_value) {
   exit();
 }
 
-
-/*
- * Implementation of hook_theme()
+/**
+ * Invert vote value
+ *
+ * @param $vote_value
  */
-function yn_theme() {
-  $theme = array();
-
-  $theme['yn'] = array(
-    'arguments' => array(
-      'node'    => null,
-    ),
-  );
-
-  return $theme;
+function yn_invert_vote_value(&$vote_value)
+{
+  $vote_value = $vote_value == VOTE_AGREE ? VOTE_DISAGREE : VOTE_AGREE;
 }
 
-/*
- * "yn" theme
+/**
+ * Implementation of hook_init()
  */
-function theme_yn($node) {
-  if ($node->owner) {
-    $title1 = t('You are not able to rate your own post!');
-    $title2 = $title1;
-  } elseif ($node->rated) {
-    $title1 = t('You have rated this!');
-    $title2 = $title1;
-  } else {
-    $title1 = t('Agree this!');
-    $title2 = t('Disagree this!');
-    $notrated = true;
-  }
-  return '
-    <span class="comment-agree" id="yn-'.$node->content_type.'-'.$node->content_id.'">
-      <strong>'.t('Do you agree').($node->content_type=='comment'?'':' '.t('with the argument')).'?</strong>
-      <a href="javascript:void(0);" class="yn agree '.($notrated?' yn-a':'').' yn-a-'.$node->content_id.'" title="'.$title1.'" name="'.$node->content_id.'/'.$node->content_type.'/'.VOTE_AGREE.'">'.t('Yes').'<span'.($notrated?'':' class="notvoted"').'>('.$node->vote_up.')</span></a>&nbsp;|
-      <a href="javascript:void(0);" class="yn disagree '.($notrated?' yn-d':'').' yn-d-'.$node->content_id.'" title="'.$title2.'" name="'.$node->content_id.'/'.$node->content_type.'/'.VOTE_DISAGREE.'">'.t('No').'<span'.($notrated?'':' class="notvoted"').'>('.$node->vote_dn.')</span></a>
-      <strong class="motivat">'.t('(Click yes/no to leave support/oppose comment.)').'</strong>
-    </span>';
+function yn_init()
+{
+  drupal_add_js(drupal_get_path('module', 'yn') . '/yn.js');
 }
