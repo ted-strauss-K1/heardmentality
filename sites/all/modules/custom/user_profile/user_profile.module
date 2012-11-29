@@ -206,7 +206,21 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
   switch ($op) {
     case 'load' :
       $account->viewlink = 'user/profile/view/' . $account->name;
-      break;
+    break;
+    case 'insert' :
+      if (module_exists('gigya') && ($_gigya_user = GigyaUser::userFromUrl())) {
+        $bio = $_gigya_user->getUserInfo();
+        var_dump($bio); die();
+        switch ($bio['loginProvider']) {
+
+
+          default :
+
+          break;
+        }
+
+      }
+    break;
   }
 }
 
