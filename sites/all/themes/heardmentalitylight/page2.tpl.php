@@ -35,18 +35,18 @@
 	<div class="header">
 		<?php include 'header.tpl.php';?>
 	</div>
-
+	
 	<div class="container">
 		<?php if ($tabs): ?>
 			<div class="tabs"><?php print $tabs; ?></div>
 		<?php endif; ?>
-
+		
 		<div class="twelve columns">
 
       <?php if($node->type=='poll'): ?>
 				<h2 class="dinbold page-title"><?php print t('Issue'); ?></h2>
       <?php endif; ?>
-
+			
 			<div class="white-box <?php if($node->type=='poll'): ?> poll-box <?php endif; ?>">
         <?php print $content; ?>
         <?php print $content_bottom; ?>
@@ -78,7 +78,7 @@
           ?>
 	    	</div>
 			</div>
-
+			
       <?php if($issue_real_info):?>
 			  <div class="grey-box poll-box">
 			    <?php print $issue_real_info; ?>

@@ -99,7 +99,7 @@ function heatmap_block($op = 'list', $delta = 0, $edit = array())
         case 'heatmap':
           $block['subject'] = t("THE HERD");
           $block['content'] = theme('heatmap');
-          break;
+        break;
       }
       return $block;
   }
