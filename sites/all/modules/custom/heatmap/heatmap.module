@@ -12,7 +12,7 @@ function heatmap_theme()
   $theme['heatmap'] = array(
     'arguments' => array(),
     'template' => 'heatmap',
-    'preprocess functions' => array('heatmap_preprocess'),
+    'preprocess functions' => array('theme_heatmap_preprocess'),
   );
 
   return $theme;
