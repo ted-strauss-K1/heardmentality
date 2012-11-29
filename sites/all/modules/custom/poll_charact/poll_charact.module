@@ -6,7 +6,8 @@ define('POLL_CHARACT', 3);
  * @param bool $nid
  * @return array
  */
-function poll_charact_get()  {
+function poll_charact_get()
+{
   static $cache = null;
   if (is_null($cache)) {
     $cache = array();
@@ -21,14 +22,16 @@ function poll_charact_get()  {
 /**
  * @param $chtext
  */
-function poll_charact_add($chtext) {
+function poll_charact_add($chtext)
+{
   db_query("INSERT INTO {poll_charact} SET chtext = '%s'", $chtext);
 }
 
 /**
  * @param $cid
  */
-function poll_charact_delete($cid) {
+function poll_charact_delete($cid)
+{
   db_query("DELETE FROM {poll_charact} WHERE cid = '%d'", $cid);
 //  Don't need this as we have the constraints
 //  db_query("DELETE FROM {poll_charact_values} WHERE cid = '%d'", $cid);
@@ -38,7 +41,8 @@ function poll_charact_delete($cid) {
  * @param $cid
  * @param $chtext
  */
-function poll_charact_edit($cid, $chtext) {
+function poll_charact_edit($cid, $chtext)
+{
   db_query("UPDATE {poll_charact} SET chtext = '%s' WHERE cid = '%d'", $chtext, $cid);
 }
 
@@ -48,11 +52,13 @@ function poll_charact_edit($cid, $chtext) {
  * @param $cid
  * @param $value
  */
-function poll_charact_value_set($nid, $chorder, $cid, $value) {
+function poll_charact_value_set($nid, $chorder, $cid, $value)
+{
   db_query("REPLACE {poll_charact_values} SET value = '%s' WHERE nid = '%d' AND chorder = '%d' AND cid = '%d'", $value, $nid, $chorder, $cid);
 }
 
-function poll_charact_values_get($nid, $chorder, $reset = false) {
+function poll_charact_values_get($nid, $chorder, $reset = false)
+{
   static $cache = null;
   if (is_null($cache[$nid]) || $reset) {
     $cache[$nid] = array();
@@ -73,7 +79,8 @@ function poll_charact_values_get($nid, $chorder, $reset = false) {
  * @param $nid
  * @return mixed
  */
-function poll_charact_values($nid) {
+function poll_charact_values($nid)
+{
   static $cache = array();
 
   if (is_null($cache[$nid])) {
@@ -89,7 +96,8 @@ function poll_charact_values($nid) {
 /**
  * Implementation of hook_nodeapi()
  */
-function poll_charact_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+function poll_charact_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
   if ($node->type == 'poll') {
     if ($op == 'delete') {
       db_query("DELETE FROM {poll_charact_values} WHERE nid = '%d'", $node->nid);

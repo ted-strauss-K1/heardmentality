@@ -5,14 +5,16 @@
 /**
  * Implementation of hook_install()
  */
-function activity_stream_install() {
+function activity_stream_install()
+{
   drupal_install_schema('activity_stream');
 }
 
 /**
  * Implementation of hook_schema().
  */
-function activity_stream_schema() {
+function activity_stream_schema()
+{
   $schema = array();
 
   $schema['activity_stream'] = array(
@@ -20,27 +22,27 @@ function activity_stream_schema() {
     'fields' => array(
       'id' => array(
         'description' => 'The primary identifier.',
-        'type'        => 'serial',
-        'unsigned'    => TRUE,
-        'not null'    => TRUE),
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE),
       'uid' => array(
         'description' => 'The {users}.uid that made an action.',
-        'type'        => 'int',
-        'not null'    => TRUE,
-        'default'     => 0),
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0),
       'type' => array(
         'description' => t('The type of action.'),
-        'type'        => 'varchar',
-        'length'      => 255,
-        'not null'    => TRUE),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE),
       'variables' => array(
         'description' => 'The action variables.',
-        'type'        => 'text',
-        'default'     => ''),
+        'type' => 'text',
+        'default' => ''),
       'date_added' => array(
-        'type'        => 'datetime',
+        'type' => 'datetime',
         'description' => 'The date of the vote.',
-        'not null'    => TRUE),
+        'not null' => TRUE),
     ),
     'primary key' => array('id'),
   );

@@ -5,13 +5,14 @@
  *
  * @param $vars
  */
-function user_login_modal_preprocess_page(&$vars) {
+function user_login_modal_preprocess_page(&$vars)
+{
   if (!user_is_logged_in()) {
     $vars['user_login_modal_popup'] = theme('user_login_modal_popup');
   }
-  drupal_add_js( drupal_get_path('module', 'user_login_modal') . '/user_login_modal.js' );
+  drupal_add_js(drupal_get_path('module', 'user_login_modal') . '/user_login_modal.js');
   $vars['user_login_modal'] = theme('user_login_modal');
-  
+
   if (!user_is_logged_in()) {
     $vars['login_block'] = drupal_get_form('user_login');
     $vars['login_register'] = drupal_get_form('user_register');
@@ -23,7 +24,8 @@ function user_login_modal_preprocess_page(&$vars) {
  *
  * @return array
  */
-function user_login_modal_theme() {
+function user_login_modal_theme()
+{
   $theme = array();
 
   $theme['user_login_modal'] = array(
@@ -41,11 +43,12 @@ function user_login_modal_theme() {
  *
  * @return string
  */
-function theme_user_login_modal() {
+function theme_user_login_modal()
+{
   global $user;
-  return '<p><a id="dialog_link" class="ui-state-default ui-corner-all login '.user_login_modal_class().'" href="#">' .
+  return '<p><a id="dialog_link" class="ui-state-default ui-corner-all login ' . user_login_modal_class() . '" href="#">' .
     (user_is_logged_in() ? $user->name : t('LOGIN')) .
-  '</a></p>';
+    '</a></p>';
 }
 
 /**
@@ -53,7 +56,8 @@ function theme_user_login_modal() {
  *
  * @return string
  */
-function theme_user_login_modal_popup() {
+function theme_user_login_modal_popup()
+{
   return '
   <div id="dialog">
     <ul>
@@ -63,13 +67,13 @@ function theme_user_login_modal_popup() {
 
     <div id="tabs-1" title="Login" class="dialog">
       <div id="user-login">
-        '.drupal_get_form('user_login').'
+        ' . drupal_get_form('user_login') . '
       </div>
     </div>
 
     <div id="tabs-2">
       <div id ="user-register">
-        '.drupal_get_form('user_register').'
+        ' . drupal_get_form('user_register') . '
       </div>
     </div>
   </div>';
@@ -79,6 +83,7 @@ function theme_user_login_modal_popup() {
  * @param bool $force
  * @return string
  */
-function user_login_modal_class($force = false) {
+function user_login_modal_class($force = false)
+{
   return !$force && user_is_logged_in() ? '' : 'openlogin_box';
 }

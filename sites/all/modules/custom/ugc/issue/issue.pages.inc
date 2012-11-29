@@ -5,7 +5,8 @@
  *
  * @warning Not to mix things up - use it only for poll votes, answer suggestions
  */
-function issue_ajax() {
+function issue_ajax()
+{
   $post = &$_POST;
 
   # suppress form submission
@@ -35,10 +36,10 @@ function issue_ajax() {
   switch ($post['action']) {
     case 'vote' :
       _issue_ajax_vote($post);
-    break;
+      break;
     case 'suggest' :
       _issue_ajax_suggest($post);
-    break;
+      break;
     default :
       drupal_json(array(
         'status' => false,
@@ -52,7 +53,8 @@ function issue_ajax() {
 /**
  * Function to handle "issue/ajax" poll votes
  */
-function _issue_ajax_vote($vars) {
+function _issue_ajax_vote($vars)
+{
   $nid = $vars['nid'];
   $vote_r = is_null($vars['choice']) ? -1 : $vars['choice'];
   $vote_r_old = is_null($vars['vote_regular']) ? -1 : $vars['vote_regular'];
@@ -88,7 +90,8 @@ function _issue_ajax_vote($vars) {
 /**
  * Function to handle "issue/ajax" answer suggestions
  */
-function _issue_ajax_suggest($vars) {
+function _issue_ajax_suggest($vars)
+{
   $answer = $vars['suggest']['suggest_answer'];
   $nid = $vars['nid'];
 
@@ -135,7 +138,8 @@ function _issue_ajax_suggest($vars) {
 /*
 * "issue/vote" page callback
 */
-function issue_vote_ajax() {
+function issue_vote_ajax()
+{
   $post = $_POST;
   if (empty($post['nid'])) {
     drupal_json(array(
@@ -156,14 +160,16 @@ function issue_vote_ajax() {
 /*
  * "issue/create" page callback
  */
-function issue_create() {
+function issue_create()
+{
   return drupal_get_form('issue_create_form');
 }
 
 /*
  * "issue/create" form
  */
-function issue_create_form(&$form_state) {
+function issue_create_form(&$form_state)
+{
   $form = array();
 
   if (isset($form_state['action'])) {
@@ -277,7 +283,7 @@ function issue_create_form(&$form_state) {
     } else {
       $options = array();
       foreach ($related as $nid => $title) {
-        $options[$nid] = strlen($title) > 50 ? substr($title, 0, 50).'...' : $title;
+        $options[$nid] = strlen($title) > 50 ? substr($title, 0, 50) . '...' : $title;
       }
       $form['related_issues']['rel_iss_check'] = array(
         '#type' => 'checkboxes',
@@ -309,7 +315,8 @@ function issue_create_form(&$form_state) {
 /*
  * "issue/create/ahah/answer" callback
  */
-function _issue_create_form_answer_textfield($delta, $value = '') {
+function _issue_create_form_answer_textfield($delta, $value = '')
+{
   if ($delta < 4) {
     $form = array(
       '#tree' => TRUE,
@@ -328,7 +335,8 @@ function _issue_create_form_answer_textfield($delta, $value = '') {
 /*
  * "issue/create/ahah/answer" callback
  */
-function issue_create_ahah_answer() {
+function issue_create_ahah_answer()
+{
   $delta = count($_POST['answer']);
   # build form element
   $form_element = _issue_create_form_answer_textfield($delta);
@@ -373,7 +381,8 @@ function issue_create_ahah_answer() {
 /*
  * "issue/related" callback
  */
-function issue_related() {
+function issue_related()
+{
   $form_state = array(
     'storage' => NULL,
     'submitted' => FALSE
@@ -402,7 +411,8 @@ function issue_related() {
  *
  * TODO -- something strange we have here - this search doesn't make sense at all
  */
-function issue_get_related($question) {
+function issue_get_related($question)
+{
   $output = array();
   $language = i18n_get_lang();
   # get words from question
@@ -421,7 +431,7 @@ function issue_get_related($question) {
         AND n.language = '%s'
       GROUP BY n.nid
       ORDER BY n.nid DESC, nr.vid DESC LIMIT 0,10",
-        $question, $language
+      $question, $language
     );
     while ($row = db_fetch_array($result)) {
       $output[] = $row;
@@ -433,7 +443,8 @@ function issue_get_related($question) {
 /*
  * "issue/create" form validation
  */
-function issue_create_form_validate($form, &$form_state) {
+function issue_create_form_validate($form, &$form_state)
+{
   if ($form_state['values']['q_quest'] == '') {
     form_set_error('error', t('Please enter your question'));
   }
@@ -445,20 +456,21 @@ function issue_create_form_validate($form, &$form_state) {
 /*
  * "issue/create" form submission
  */
-function issue_create_form_submit($form, &$form_state) {
+function issue_create_form_submit($form, &$form_state)
+{
   global $user, $base_url;
 
   $node = new StdClass();
-  $node->type       = 'poll';
-  $node->create     = time();
-  $node->title      = $form_state['values']['q_quest'];
-  $node->body       = $form_state['values']['q_context'];
-  $node->uid        = $user->uid;
-  $node->status     = 1;
-  $node->active     = 1;
+  $node->type = 'poll';
+  $node->create = time();
+  $node->title = $form_state['values']['q_quest'];
+  $node->body = $form_state['values']['q_context'];
+  $node->uid = $user->uid;
+  $node->status = 1;
+  $node->active = 1;
   # $node->path       =
-  $language         = ugc_detect_language($form_state['values']['q_quest']);
-  $node->language   = $language;
+  $language = ugc_detect_language($form_state['values']['q_quest']);
+  $node->language = $language;
   $node->field_mod_status[0]['value'] = 0;
   if (!user_access('administer nodes')) {
     # uncomment it if you want to moderate the contents
@@ -466,7 +478,7 @@ function issue_create_form_submit($form, &$form_state) {
   }
   $count = count($form_state['values']['answer']);
   for ($i = 0; $i < $count; $i++) {
-    $node->choice[$i]['chtext']  = $form_state['values']['answer'][$i];
+    $node->choice[$i]['chtext'] = $form_state['values']['answer'][$i];
     $node->choice[$i]['chorder'] = $i;
     $node->choice[$i]['chvotes'] = 0;
   }
@@ -486,10 +498,10 @@ function issue_create_form_submit($form, &$form_state) {
   # related issues
   if (!empty($form_state['values']['rel_iss_check'])) {
     $related = array(
-      'nid'           => $node->nid,
+      'nid' => $node->nid,
       'content_types' => array('content_types' => array('poll' => 'poll')),
-      'taxonomy'      => array(''),
-      'manual'        => array(
+      'taxonomy' => array(''),
+      'manual' => array(
         'enable' => 1,
         'nodes' => array(
           'poll' => array(
@@ -500,7 +512,7 @@ function issue_create_form_submit($form, &$form_state) {
           ),
         ),
       ),
-      'sort'          => array('criteria' => 'none'),
+      'sort' => array('criteria' => 'none'),
     );
     issue_noderecommendation($node->nid, $related);
   }
@@ -514,9 +526,9 @@ function issue_create_form_submit($form, &$form_state) {
   # don't know what this means
   $_SESSION['post'] = '';
 
-  $path = drupal_lookup_path('alias', 'node/'.$node->nid, $language);
+  $path = drupal_lookup_path('alias', 'node/' . $node->nid, $language);
   if ($path === false) {
-    $path = 'node/'.$node->nid;
+    $path = 'node/' . $node->nid;
   }
 
   if (module_exists('activity_stream')) {
@@ -532,30 +544,23 @@ function issue_create_form_submit($form, &$form_state) {
  * @nid     : Node Id
  * @related : Associative array containing
  */
-function issue_noderecommendation($nid, $related) {
+function issue_noderecommendation($nid, $related)
+{
   if (module_exists("noderecommendation")) {
     db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $nid, serialize($related));
   }
 }
 
 
-
-
-
-
-
-
-
-
 /*****************************************
-******************************************
-******************************************
-******************************************/
-
+ ******************************************
+ ******************************************
+ ******************************************/
 
 
 // issue search form
-function issue_search_form(&$form_state) {
+function issue_search_form(&$form_state)
+{
 //$form['#method'] = 'get';
   $key = arg(1) == '0' ? '' : check_plain(arg(1));
   $subject = check_plain(arg(2));
@@ -689,7 +694,8 @@ function issue_search_form(&$form_state) {
 }
 
 // issue search form submit
-function issue_search_form_submit($form, &$form_state) {
+function issue_search_form_submit($form, &$form_state)
+{
 //echo '<pre>';print_r($form_state);exit;
   $key = $form_state['values']['issue_key'];
   $key = $key != "" ? $key : 0;
@@ -713,7 +719,8 @@ function issue_search_form_submit($form, &$form_state) {
   drupal_goto($path);
 }
 
-function issue_ajax_($task = '', $nid = '') {
+function issue_ajax_($task = '', $nid = '')
+{
   global $base_url, $user;
   switch ($task) {
     case 'debate_statistics':

@@ -3,7 +3,8 @@
 /*
  * Implementation of hook_init()
  */
-function ugc_init() {
+function ugc_init()
+{
   global $base_url, $user;
   drupal_add_js(array('base_url' => $base_url), 'setting');
   if (arg(0) == 'node' && is_numeric(arg(1))) {
@@ -21,7 +22,8 @@ function ugc_init() {
  *
  * @warning do not use t()
  */
-function ugc_translate($key, $value) {
+function ugc_translate($key, $value)
+{
   static $t = array();
   if (!isset($t[$key])) {
     $t[$key] = $value;
@@ -30,20 +32,21 @@ function ugc_translate($key, $value) {
 }
 
 
-
 /*
- * Custom filter
- *
- * @see array_filter
- */
-function word_array_filter($word = '') {
-  return !empty($word) && (strlen($word)>=3);
+* Custom filter
+*
+* @see array_filter
+*/
+function word_array_filter($word = '')
+{
+  return !empty($word) && (strlen($word) >= 3);
 }
 
 /*
  * Get taxonomy term id by name and module
  */
-function ugc_taxonomy_term_id($name, $module) {
+function ugc_taxonomy_term_id($name, $module)
+{
   return db_result(db_query("SELECT td.tid FROM {term_data} td INNER JOIN {vocabulary} v ON v.vid = td.vid WHERE LOWER(td.name) = LOWER('%s') AND LOWER(v.module) = LOWER('%s')", $name, $module));
 }
 
@@ -52,7 +55,8 @@ function ugc_taxonomy_term_id($name, $module) {
  *
  * @see issue_translator
  */
-function ugc_detect_language($string) {
+function ugc_detect_language($string)
+{
   module_load_include('inc', 'issue_translator', 'gtranslate-api-php/googletranslate.class');
   $gt = new GoogleTranslateWrapper();
   $language = $gt->detectLanguage($string);
@@ -64,13 +68,14 @@ function ugc_detect_language($string) {
 /*
  * Truncate the string w/ellipsis
  */
-function ugc_truncate($string, $length, $stopanywhere = false) {
+function ugc_truncate($string, $length, $stopanywhere = false)
+{
   if (strlen($string) > $length) {
-    $string = substr($string,0,($length -3));
+    $string = substr($string, 0, ($length - 3));
     if ($stopanywhere) {
       $string .= '...';
-    } else{
-      $string = substr($string,0,strrpos($string,' ')).'...';
+    } else {
+      $string = substr($string, 0, strrpos($string, ' ')) . '...';
     }
   }
   return $string;
@@ -80,7 +85,8 @@ function ugc_truncate($string, $length, $stopanywhere = false) {
 /*
  * Range of dates - Y-m-d
  */
-function dates_range($date1, $date2) {
+function dates_range($date1, $date2)
+{
   $range = array();
   if (!empty($date1) && !empty($date2) && $date1 < $date2) {
     $date1 = strtotime($date1);
@@ -95,11 +101,11 @@ function dates_range($date1, $date2) {
 }
 
 
-
 /*
- * Converts time to string like "3 hour(s) ago"
- */
-function ugc_time_interval($time) {
+* Converts time to string like "3 hour(s) ago"
+*/
+function ugc_time_interval($time)
+{
   # dates/interval
   $date_now = new DateTime("now");
   $date = new DateTime($time);

@@ -5,11 +5,12 @@
  * @param $content_id
  * @param $language_to
  */
-function content_translate($content_type, $content_id, $language_to) {
+function content_translate($content_type, $content_id, $language_to)
+{
   switch ($content_type) {
     case 'node' :
       module_invoke_all("content_translate_node", node_load($content_id), $language_to);
-    break;
+      break;
   }
 }
 
@@ -17,7 +18,8 @@ function content_translate($content_type, $content_id, $language_to) {
  * @param $string
  * @return string
  */
-function content_translate_detect_language($string) {
+function content_translate_detect_language($string)
+{
   // TODO
   return 'en';
 }

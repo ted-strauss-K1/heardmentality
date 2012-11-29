@@ -11,7 +11,8 @@
  * @see issue_results_graph_highchart_filter_form()
  */
 
-function theme_issue_results_graph_highchart_filter($node) {
+function theme_issue_results_graph_highchart_filter($node)
+{
   issue_results_graph_highchart_filter_data($node);
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/chart.highchart.js");
@@ -22,7 +23,8 @@ function theme_issue_results_graph_highchart_filter($node) {
  * get default value for field
  */
 
-function issue_profile_field_default_value($field) {
+function issue_profile_field_default_value($field)
+{
   return $field->type == 'selection' ? '-1' : '';
 }
 
@@ -30,7 +32,8 @@ function issue_profile_field_default_value($field) {
  * get the fields for statistics
  */
 
-function issue_profile_fields() {
+function issue_profile_fields()
+{
   return array('profile_yob', 'profile_gender', 'profile_religion', 'profile_ethnicity', 'profile_sorient', 'profile_education', 'profile_income');
 }
 
@@ -38,7 +41,8 @@ function issue_profile_fields() {
  * Highchart Filter Categories
  */
 
-function issue_results_graph_highchart_filter_categories() {
+function issue_results_graph_highchart_filter_categories()
+{
   static $cat = array();
   if (!empty($cat)) {
     return $cat;
@@ -90,7 +94,8 @@ function issue_results_graph_highchart_filter_categories() {
  * Quick facts
  */
 
-function theme_issue_results_insightview($node) {
+function theme_issue_results_insightview($node)
+{
   # get the data
   $data = issue_results_graph_highchart_filter_data($node);
 
@@ -177,7 +182,7 @@ function theme_issue_results_insightview($node) {
       }
     }
     $output[] = $percent . '% ' . t('of votes for') . ' <span class="highlight">' . t($text) . '</span> ' . t('are') . ' ' .
-            ($data[$key]['#options'][$optkey]);
+      ($data[$key]['#options'][$optkey]);
 
     if (++$i > 3) {
       break;
@@ -193,7 +198,8 @@ function theme_issue_results_insightview($node) {
  * @see issue_results_graph_highchart_filter_categories
  */
 
-function issue_results_graph_highchart_filter_data($node) {
+function issue_results_graph_highchart_filter_data($node)
+{
   static $dataset = array();
   if (empty($dataset)) {
     $nid = $node->nid;
@@ -229,7 +235,7 @@ function issue_results_graph_highchart_filter_data($node) {
     $counts = &$cat['']['#results'];
     $result = db_query("SELECT chorder, COUNT(*) count FROM poll_votes WHERE nid = '%d' GROUP BY chorder", $nid);
     while ($vote = db_fetch_array($result)) {
-      $counts[$vote['chorder']][$vote['chorder']] = (int) $vote['count'];
+      $counts[$vote['chorder']][$vote['chorder']] = (int)$vote['count'];
     }
 
     # get other votes
@@ -254,30 +260,26 @@ function issue_results_graph_highchart_filter_data($node) {
             $counts = &$cat['age']['#results'][$vote['chorder']];
             if ($vote['value'] == '') {
               $counts[3]++;
-            }
-            else {
+            } else {
               $age = $y - $vote['value'];
               if ($age >= 51) {
                 $counts[2]++;
-              }
-              elseif ($age >= 31) {
+              } elseif ($age >= 31) {
                 $counts[1]++;
-              }
-              else {
+              } else {
                 $counts[0]++;
               }
             }
-          break;
+            break;
           default:
             $name = str_replace('profile_', '', $field);
             $counts = &$cat[$name]['#results'][$vote['chorder']];
             if (isset($cat[$name]['#options'][$vote['value']])) {
               $counts[$vote['value']]++;
-            }
-            else {
+            } else {
               $counts[sizeof($counts) - 1]++;
             }
-          break;
+            break;
         }
       }
     }
@@ -340,13 +342,13 @@ function issue_results_graph_highchart_filter_data($node) {
  * Highchart Filter Form
  */
 
-function issue_results_graph_highchart_filter_form() {
+function issue_results_graph_highchart_filter_form()
+{
   $form = array();
 
   $form['filter'] = array(
     '#type' => 'select',
-    '#options' => array(
-    //
+    '#options' => array(//
     ),
     '#prefix' => '<div id="contentr1"><div>',
     '#suffix' => '</div><div id="chart_div" style="width:100%; min-height: 280px;"></div></div>',
@@ -364,7 +366,8 @@ function issue_results_graph_highchart_filter_form() {
  * Graphs' page Legend
  */
 
-function theme_issue_results_graph_legend($node) {
+function theme_issue_results_graph_legend($node)
+{
   $pattern = '<dl><dd>%s:</dd><dt style="background-color:%s;">color</dt></dl>';
   $choices = issue_choices($node->nid);
   foreach ($choices as $index => $answer) {
@@ -379,7 +382,8 @@ function theme_issue_results_graph_legend($node) {
  * @see issue_results_graph_highstock_history_data()
  */
 
-function theme_issue_results_graph_highstock_history($node) {
+function theme_issue_results_graph_highstock_history($node)
+{
   issue_results_graph_highstock_history_data($node);
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/chart.highstock.js");
@@ -395,7 +399,8 @@ function theme_issue_results_graph_highstock_history($node) {
  * TODO dependency FROM poll_ext
  */
 
-function issue_results_graph_highstock_history_data($node) {
+function issue_results_graph_highstock_history_data($node)
+{
   $nid = $node->nid;
   $choices = issue_choices($nid);
 
@@ -461,7 +466,6 @@ function issue_results_graph_highstock_history_data($node) {
   }
 
 
-
   # Create a response arrays
   $list = array();
   foreach ($stats as $stat) {
@@ -472,17 +476,17 @@ function issue_results_graph_highstock_history_data($node) {
 
   # Put the data to Drupal.settings
   drupal_add_js(array('charts' => array('highstock' => array(
-        'date' => $mindate,
-        'stats' => $stats,
-        'cdate' => $cdate,
-    ))), 'setting');
+    'date' => $mindate,
+    'stats' => $stats,
+    'cdate' => $cdate,
+  ))), 'setting');
   foreach ($choices as $i => $choice) {
     drupal_add_js(array('charts' => array('highstock' => array(
 
-          'choice' . $i => array(
-            'name' => $choices[$i]['short_answer'],
-            'data' => $list[$i],
-        )))), 'setting');
+      'choice' . $i => array(
+        'name' => $choices[$i]['short_answer'],
+        'data' => $list[$i],
+      )))), 'setting');
   }
 }
 
@@ -490,7 +494,8 @@ function issue_results_graph_highstock_history_data($node) {
  * Graphs' pages Google Map
  */
 
-function theme_issue_results_graph_gmap($node) {
+function theme_issue_results_graph_gmap($node)
+{
   $gmap = array();
   $result = db_query("
     SELECT up.latitude, up.longitude
@@ -514,15 +519,15 @@ function theme_issue_results_graph_gmap($node) {
  * @see arguments.forms.inc
  */
 
-function theme_issue_arguments($node) {
+function theme_issue_arguments($node)
+{
   if (user_is_logged_in()) {
     $arguments_form = drupal_get_form('arguments_form', $node->nid);
-  }
-  else {
+  } else {
     $arguments_form =
-            '<div class="' . user_profile_login_class(true) . '" align="center"><b>' .
-            t('Please log in to participate in the debate') .
-            '</b></div>';
+      '<div class="' . user_profile_login_class(true) . '" align="center"><b>' .
+        t('Please log in to participate in the debate') .
+        '</b></div>';
   }
   $dr = arguments_get_list($node->nid);
 
@@ -541,7 +546,7 @@ function theme_issue_arguments($node) {
     foreach ($choices as $i => $choice) {
       if ($choice['chorder'] == $row['chorder']) {
         $data[$i]['color'] = $row['value'] > 0 ? '#55BA59' : '#C2499B';
-        $data[$i]['y'] = (float) $row['value'];
+        $data[$i]['y'] = (float)$row['value'];
       }
     }
   }
@@ -556,10 +561,11 @@ function theme_issue_arguments($node) {
  * Sub Loader Image
  */
 
-function theme_sub_loader($styles) {
+function theme_sub_loader($styles)
+{
   global $base_url, $theme;
   return
-          '<span id="sub_loader" style="' . $styles . '">
+    '<span id="sub_loader" style="' . $styles . '">
       <img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading">
     </span>';
 }
@@ -568,13 +574,13 @@ function theme_sub_loader($styles) {
  * Theme issue description
  */
 
-function theme_issue_description($text, $charcount = 2500) {
+function theme_issue_description($text, $charcount = 2500)
+{
   $text = trim($text);
   if (strlen($text) > $charcount) {
     $trimmed = nl2br(substr($text, 0, $charcount)) . '<div id="new-ellipse"><a>... more</a></div>';
     $extended = nl2br(substr($text, $charcount));
-  }
-  else {
+  } else {
     $trimmed = nl2br($text);
     $extended = '';
   }
@@ -585,7 +591,8 @@ function theme_issue_description($text, $charcount = 2500) {
  * Theme issue_popular_categories
  */
 
-function theme_issue_popular_categories() {
+function theme_issue_popular_categories()
+{
   $list = array();
   $result = db_query("
     SELECT
@@ -614,7 +621,7 @@ function theme_issue_popular_categories() {
 //  $pattern = '<li><a href="/issues/0/%d/%d/%d/0/0/0/alltime">%s</a></li>';
   $href = 'issues';
   foreach ($list as $item) {
-    $output.= '<li>' . l($item['name'], $href, array('query' => array('tid' => $item['tid']))) . '</li>';
+    $output .= '<li>' . l($item['name'], $href, array('query' => array('tid' => $item['tid']))) . '</li>';
   }
   $output .= '</ul>';
   return $output;

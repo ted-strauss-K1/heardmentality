@@ -5,21 +5,24 @@
 /*
  * Implementation of hook_init()
  */
-function arguments_init() {
+function arguments_init()
+{
   drupal_add_js(drupal_get_path('module', 'arguments') . '/arguments.forms.js');
 }
 
 /*
  * Implementation of hook_enable()
  */
-function arguments_enable() {
- //
+function arguments_enable()
+{
+  //
 }
 
 /*
  * Implementation of hook_menu()
  */
-function arguments_menu() {
+function arguments_menu()
+{
   $menu = array();
 
   $menu['arguments/tabs/%/%/%'] = array(
@@ -29,21 +32,21 @@ function arguments_menu() {
     'access callback' => TRUE,
   );
   $menu['arguments/comment'] = array(
-    'page callback'     => 'arguments_comments',
-    'type'              => MENU_CALLBACK,
-    'access arguments'  => array('access content'),
+    'page callback' => 'arguments_comments',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
   );
   $menu['arguments/delete/%/%'] = array(
-    'page callback'     => 'arguments_delete',
+    'page callback' => 'arguments_delete',
     'page arguments' => array(2, 3),
-    'type'              => MENU_CALLBACK,
-    'access arguments'  => array('access content'),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
   );
 
   $menu['arguments/resource'] = array(
-    'page callback'     => 'arguments_preview_resource',
-    'type'              => MENU_CALLBACK,
-    'access arguments'  => array('access content'),
+    'page callback' => 'arguments_preview_resource',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
   );
 
 
@@ -53,12 +56,13 @@ function arguments_menu() {
 /*
  * Implementation of hook_theme()
  */
-function arguments_theme() {
+function arguments_theme()
+{
   $theme = array();
 
   $theme['arguments_tabs'] = array(
     'arguments' => array('nodes' => array()),
-    'file'      => 'arguments.theme.inc',
+    'file' => 'arguments.theme.inc',
   );
   $theme['arguments_item'] = array(
     'arguments' => array('node' => null),
@@ -67,11 +71,11 @@ function arguments_theme() {
   );
   $theme['arguments_result_ball'] = array(
     'arguments' => array('vote_sum' => NULL),
-    'file'      => 'arguments.theme.inc',
+    'file' => 'arguments.theme.inc',
   );
   $theme['arguments_rating_button'] = array(
     'arguments' => array('node' => NULL),
-    'file'      => 'arguments.theme.inc',
+    'file' => 'arguments.theme.inc',
   );
   $theme['arguments_comment'] = array(
     'arguments' => array('comment' => NULL),
@@ -88,7 +92,7 @@ function arguments_theme() {
       'comment_type' => NULL,
       'comment_id' => NULL,
     ),
-    'file'      => 'arguments.theme.inc',
+    'file' => 'arguments.theme.inc',
   );
 
   return $theme;
@@ -97,7 +101,8 @@ function arguments_theme() {
 /*
  * arguments_resource_preview
  */
-function arguments_preview_resource() {
+function arguments_preview_resource()
+{
   $url = isset($_POST['url']) ? $_POST['url'] : false;
   $node = arguments_fetch_url($url);
 
@@ -128,7 +133,8 @@ define('TYPE_RESOURCE', 2);
 /*
  * Debate Node creation
  */
-function arguments_add_debate($nid, $title) {
+function arguments_add_debate($nid, $title)
+{
   global $user;
   if (empty($nid) || empty($title)) {
     return false;
@@ -163,7 +169,8 @@ function arguments_add_debate($nid, $title) {
  *
  * @param nid - Argument Node Id
  */
-function arguments_options($nid, $options = array()) {
+function arguments_options($nid, $options = array())
+{
   if (!empty($options)) {
     $replace = array();
     foreach ($options as $option) {
@@ -175,7 +182,8 @@ function arguments_options($nid, $options = array()) {
 /*
  * Resource Node creation
  */
-function arguments_add_resource($nid, $url, $image) {
+function arguments_add_resource($nid, $url, $image)
+{
   global $user;
   if (empty($nid) || empty($url)) {
     return false;
@@ -214,7 +222,8 @@ function arguments_add_resource($nid, $url, $image) {
 /*
  * Create the core of the resource node by url
  */
-function arguments_fetch_url($url, $image = false) {
+function arguments_fetch_url($url, $image = false)
+{
   module_load_include('php', 'arguments', 'includes/simple_html_dom');
 
   $html = file_get_html($url);
@@ -261,7 +270,7 @@ function arguments_fetch_url($url, $image = false) {
     # get images
     $images = array();
     $images_source = $html->find('img');
-    foreach( $images_source as $element ) {
+    foreach ($images_source as $element) {
       # $images[$element->src] = true;
       $images[] = url_to_absolute($url, $element->src);
     }
@@ -274,7 +283,7 @@ function arguments_fetch_url($url, $image = false) {
     } else {
       # save image to disk
       $result = drupal_http_request($image, array(), 'POST', '', 3);
-      if( $result->data ) {
+      if ($result->data) {
         $ext = arguments_resource_image_extension($image);
         $hash = md5($image);
         $filepath = file_directory_path() . '/resources/res-' . $hash . '.' . $ext;
@@ -295,7 +304,8 @@ function arguments_fetch_url($url, $image = false) {
  *
  * @param images - array of image absolute urls
  */
-function arguments_resource_validate_images($images) {
+function arguments_resource_validate_images($images)
+{
   $ext_allowed = array('png', 'jpg', 'jpeg', 'gif');
   $result = array();
   $sizes = array();
@@ -323,7 +333,8 @@ function arguments_resource_validate_images($images) {
 /*
  * Get the image extension
  */
-function arguments_resource_image_extension($image) {
+function arguments_resource_image_extension($image)
+{
   $img = explode("/", $image);
   $img = end($img);
   $ext = explode(".", $img);
@@ -336,7 +347,8 @@ function arguments_resource_image_extension($image) {
  *
  * @param nid - Issue Node Id
  */
-function arguments_get_list($nid) {
+function arguments_get_list($nid)
+{
   static $dr = array();
   if (empty($dr[$nid])) {
     $tmp = array(
@@ -363,21 +375,23 @@ function arguments_get_list($nid) {
 /*
  * Implementation of hook_nodeapi()
  */
-function arguments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+function arguments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
   if ($node->type == 'forum') {
     switch ($op) {
       case 'load' :
         _arguments_load($node);
-      break;
+        break;
       case 'delete' :
         _arguments_delete($node);
-      break;
+        break;
     }
   }
   return;
 }
 
-function _arguments_delete(&$node) {
+function _arguments_delete(&$node)
+{
   # delete arguments options
   db_query("DELETE FROM {arguments_options} WHERE nid = '%d'", $node->nid);
 }
@@ -387,7 +401,8 @@ function _arguments_delete(&$node) {
  *
  * @see arguments_nodeapi()
  */
-function _arguments_load(&$node) {
+function _arguments_load(&$node)
+{
   $node->content_id = $node->nid;
   $node->content_type = 'node';
 
@@ -432,7 +447,7 @@ function _arguments_load(&$node) {
   $node->rated = yn_user_voted($node->content_id, 'node');
   # ownership
   global $user;
-  $node->owner  = $user->uid == $node->uid;
+  $node->owner = $user->uid == $node->uid;
 }
 
 /*
@@ -441,7 +456,8 @@ function _arguments_load(&$node) {
  *
  * @param node - comment object
  */
-function _arguments_load_comment(&$node) {
+function _arguments_load_comment(&$node)
+{
   if ($node === false) {
     return;
   }
@@ -459,7 +475,7 @@ function _arguments_load_comment(&$node) {
     $node->comment = $translated;
   }
   # ownership
-  $node->owner  = $user->uid == $node->uid;
+  $node->owner = $user->uid == $node->uid;
 }
 
 /*
@@ -469,7 +485,8 @@ function _arguments_load_comment(&$node) {
  * @param sort  -- Sort
  * @param print -- Print/Return parameter
  */
-function arguments_tabs($nid, $sort = null, $print = null) {
+function arguments_tabs($nid, $sort = null, $print = null)
+{
   $argnids = arguments_filter($nid, $sort, $_REQUEST['class'], $_REQUEST['chorder']);
   $nodes = array();
   foreach ($argnids as $argnid) {
@@ -480,8 +497,7 @@ function arguments_tabs($nid, $sort = null, $print = null) {
   # print/return
   if ($print == 1) {
     return $output;
-  }
-  else {
+  } else {
     print $output;
   }
   exit();
@@ -495,36 +511,45 @@ function arguments_tabs($nid, $sort = null, $print = null) {
  * @param sort  -- Sort
  * @param print -- Print/Return parameter
  */
-function arguments_filter($nid, $sort = null, $class = null, $chorder = null) {
+function arguments_filter($nid, $sort = null, $class = null, $chorder = null)
+{
   $argnids = array();
   if (!is_null($class) && !is_null($chorder)) {
     # filter arguments
     switch ($class) {
-      case 'neutral' : $val = 0; break;
-      case 'positive' : $val = 1; break;
-      case 'negative' : $val = -1; break;
-      default : $val = 0; break;
+      case 'neutral' :
+        $val = 0;
+        break;
+      case 'positive' :
+        $val = 1;
+        break;
+      case 'negative' :
+        $val = -1;
+        break;
+      default :
+        $val = 0;
+        break;
     }
     $result = db_query("SELECT DISTINCT(n.nid) FROM {node} n INNER JOIN {content_type_forum} ctf ON ctf.nid = n.nid LEFT JOIN {arguments_options} ao ON ao.nid = n.nid WHERE n.status = 1 AND n.type = 'forum' AND ctf.field_ref_qid_nid = '%d' AND ( (ctf.field_type_value = '%d' AND ao.val = '%d' AND ao.chorder = '%d') OR (ctf.field_type_value = '%d')) ORDER BY n.nid DESC", $nid, TYPE_DEBATE, $val, $chorder, TYPE_RESOURCE);
   } else {
     # sort parameters
     switch ($sort) {
       case 0 : # older
-        $order_by   = 'n.created';
+        $order_by = 'n.created';
         $order_sort = 'ASC';
         break;
       case 1 : # recent
-        $order_by   = 'n.created';
+        $order_by = 'n.created';
         $order_sort = 'DESC';
         break;
       case 2 : # supported
-        $order_by   = 'ctf.field_strength_value';
+        $order_by = 'ctf.field_strength_value';
         $order_sort = 'DESC';
         break;
       default : # default
-        $order_by   = 'n.nid';
+        $order_by = 'n.nid';
         $order_sort = 'DESC';
-      break;
+        break;
     }
     $result = db_query("SELECT DISTINCT(n.nid) FROM {node} n INNER JOIN {content_type_forum} ctf ON ctf.nid = n.nid WHERE n.status = 1 AND n.type = 'forum' AND ctf.field_ref_qid_nid = '%d' ORDER BY %s %s", $nid, $order_by, $order_sort);
   }
@@ -540,7 +565,8 @@ function arguments_filter($nid, $sort = null, $class = null, $chorder = null) {
  * @param nid - Argument Node Id
  * @param language - Desired Language, default 'en'
  */
-function arguments_translate($nid, $language = 'en') {
+function arguments_translate($nid, $language = 'en')
+{
   static $translated = array();
   if (empty($language)) {
     $language = 'en';
@@ -562,7 +588,8 @@ function arguments_translate($nid, $language = 'en') {
  * @param nid - Argument Comment Id
  * @param language - Desired Language, default 'en'
  */
-function arguments_translate_comment($nid, $language = 'en') {
+function arguments_translate_comment($nid, $language = 'en')
+{
   static $translated = array();
   if (empty($language)) {
     $language = 'en';
@@ -584,7 +611,8 @@ function arguments_translate_comment($nid, $language = 'en') {
  * @param nid - Argument Node Id
  *
  */
-function arguments_get_comments($id) {
+function arguments_get_comments($id)
+{
   $items = array();
   $query = "
     SELECT *
@@ -610,7 +638,8 @@ function arguments_get_comments($id) {
  *
  * Submission
  */
-function arguments_comments() {
+function arguments_comments()
+{
   if (!user_is_logged_in()) {
     drupal_json(array(
       'status' => false,
@@ -626,21 +655,21 @@ function arguments_comments() {
 
   global $user;
   $comment = new stdClass();
-  $comment->pid         = 0;
-  $comment->nid         = $nid;
-  $comment->uid         = $user->uid;
-  $comment->subject     = $text;
-  $comment->comment     = $text;
-  $comment->hostname    = ip_address();
-  $comment->timestamp   = time();
-  $comment->status      = COMMENT_PUBLISHED;
-  $comment->format      = '';
-  $comment->thread      = '';
-  $comment->name        = $user->name;
-  $comment->mail        = $user->mail;
-  $comment->homepage    = '';
-  $comment->str_wk      = $str_wk;
-  $comment->language    = ugc_detect_language($text);
+  $comment->pid = 0;
+  $comment->nid = $nid;
+  $comment->uid = $user->uid;
+  $comment->subject = $text;
+  $comment->comment = $text;
+  $comment->hostname = ip_address();
+  $comment->timestamp = time();
+  $comment->status = COMMENT_PUBLISHED;
+  $comment->format = '';
+  $comment->thread = '';
+  $comment->name = $user->name;
+  $comment->mail = $user->mail;
+  $comment->homepage = '';
+  $comment->str_wk = $str_wk;
+  $comment->language = ugc_detect_language($text);
 
   # save
   arguments_comment_save($comment);
@@ -675,7 +704,8 @@ function arguments_comments() {
  *
  * @param comment - Comment Object
  */
-function arguments_comment_save(&$comment) {
+function arguments_comment_save(&$comment)
+{
   $result = db_query("INSERT INTO {comments} SET
     pid         = '%d',
     nid         = '%d',
@@ -694,26 +724,27 @@ function arguments_comment_save(&$comment) {
     language    = '%s'",
     $comment->pid, $comment->nid, $comment->uid, $comment->subject, $comment->comment, $comment->hostname, $comment->timestamp, $comment->status, $comment->format, $comment->thread, $comment->name, $comment->mail, $comment->homepage, $comment->str_wk, $comment->language);
 
- if (!$result) {
-   $comment = false;
- } else {
-   $comment->cid = db_last_insert_id('comments', 'cid');
- }
+  if (!$result) {
+    $comment = false;
+  } else {
+    $comment->cid = db_last_insert_id('comments', 'cid');
+  }
 }
 
 /*
  * "arguments/delete" callback
  */
-function arguments_delete($content_type, $content_id) {
+function arguments_delete($content_type, $content_id)
+{
   global $user;
   if (user_access('moderation', $user) || arguments_check_owner($content_type, $content_id)) {
     switch ($content_type) {
       case 'node' :
         db_query("UPDATE {node} SET status = 0 WHERE nid = '%d'", $content_id);
-      break;
+        break;
       case 'comment' :
         db_query("UPDATE {comments} SET status = 0 WHERE cid = '%d'", $content_id);
-      break;
+        break;
     }
     drupal_json(array(
       'status' => true,
@@ -731,15 +762,16 @@ function arguments_delete($content_type, $content_id) {
 /*
  * Check if user is ownew of the content
  */
-function arguments_check_owner($content_type, $content_id) {
+function arguments_check_owner($content_type, $content_id)
+{
   global $user;
   switch ($content_type) {
     case 'node' :
       return false != db_result(db_query("SELECT nid FROM {node} WHERE nid = '%d' AND uid = '%d'", $content_id, $user->uid));
-    break;
+      break;
     case 'comment' :
       return false != db_result(db_query("SELECT cid FROM {comments} WHERE cid = '%d' AND uid = '%d'", $content_id, $user->uid));
-    break;
+      break;
   }
   return false;
 }

@@ -14,7 +14,8 @@ define('SUBSCRIPTION_WEEKLY', 2);
  * @param $form_state
  * @return array
  */
-function user_profile_edit_form(&$form_state) {
+function user_profile_edit_form(&$form_state)
+{
   $form = array();
 
   global $user;
@@ -22,55 +23,55 @@ function user_profile_edit_form(&$form_state) {
   $form['#attributes']['enctype'] = "multipart/form-data";
 
   $form['username'] = array(
-    '#type'           => 'textfield',
-    '#title'          => t(''),
-    '#maxlength'      => 20,
-    '#description'    => t(' '),
-    '#value'          => $user->name,
-    '#default_value'  => t('Username'),
-    '#id'             => 'username',
-    '#required'       => TRUE,
-    '#attributes'     => array('class' => 'info validate validate-username', 'blurtext' => t('Username')),
+    '#type' => 'textfield',
+    '#title' => t(''),
+    '#maxlength' => 20,
+    '#description' => t(' '),
+    '#value' => $user->name,
+    '#default_value' => t('Username'),
+    '#id' => 'username',
+    '#required' => TRUE,
+    '#attributes' => array('class' => 'info validate validate-username', 'blurtext' => t('Username')),
 //    '#disabled'       => TRUE,
   );
   $form['password'] = array(
-    '#type'           => 'textfield',
-    '#title'          => t(''),
-    '#maxlength'      => 20,
-    '#description'    => t(' '),
-    '#value'          => '',
-    '#default_value'  => t('Password'),
-    '#id'             => 'username',
-    '#required'       => FALSE,
-    '#attributes'     => array('class' => 'info validate validate-username', 'blurtext' => t('Password')),
+    '#type' => 'textfield',
+    '#title' => t(''),
+    '#maxlength' => 20,
+    '#description' => t(' '),
+    '#value' => '',
+    '#default_value' => t('Password'),
+    '#id' => 'username',
+    '#required' => FALSE,
+    '#attributes' => array('class' => 'info validate validate-username', 'blurtext' => t('Password')),
 //    '#disabled'       => TRUE,
   );
   $form['email'] = array(
-    '#type'           => 'textfield',
-    '#title'          => t(''),
-    '#maxlength'      => 50,
-    '#description'    => t(' '),
-    '#value'          => $user->mail,
-    '#default_value'  => t('Email'),
-    '#id'             => 'email',
+    '#type' => 'textfield',
+    '#title' => t(''),
+    '#maxlength' => 50,
+    '#description' => t(' '),
+    '#value' => $user->mail,
+    '#default_value' => t('Email'),
+    '#id' => 'email',
 //    '#required'       => 1,
-    '#attributes'     => array('class' => 'info validate validate-email', 'blurtext' => t('Email')),
-    '#disabled'       => TRUE,
+    '#attributes' => array('class' => 'info validate validate-email', 'blurtext' => t('Email')),
+    '#disabled' => TRUE,
   );
 
   # add privacy values
   $privacy = user_profile_profile_privacy_values();
   $privacy_options = array();
   foreach ($privacy as $key => $value) {
-    $privacy_options[$key] = '';//$value['label'];
+    $privacy_options[$key] = ''; //$value['label'];
   }
 
   # privacy
   $form['private_profile_email'] = array(
-    '#type'           => 'radios',
-    '#default_value'  => $user->{'private_profile_email'} ? $user->{'private_profile_email'} : 'private',
-    '#options'        => $privacy_options,
-    '#checked'        => TRUE,
+    '#type' => 'radios',
+    '#default_value' => $user->{'private_profile_email'} ? $user->{'private_profile_email'} : 'private',
+    '#options' => $privacy_options,
+    '#checked' => TRUE,
   );
 
 //  Here the fields defined in Profile Module go
@@ -93,51 +94,51 @@ function user_profile_edit_form(&$form_state) {
           $options += $countries_options;
         }
         $form[$field->name] = array(
-          '#type'           => 'select',
-          '#title'          => t(''),
-          '#options'        => $options,
-          '#description'    => t(' '),
-          '#value'          => $user->{$field->name},
-          '#default_value'  => -1,
-          '#id'             => $field->name,
-          '#attributes'     => array('class' => 'info'),
+          '#type' => 'select',
+          '#title' => t(''),
+          '#options' => $options,
+          '#description' => t(' '),
+          '#value' => $user->{$field->name},
+          '#default_value' => -1,
+          '#id' => $field->name,
+          '#attributes' => array('class' => 'info'),
         );
-      break;
+        break;
       case 'textfield' :
         $form[$field->name] = array(
-          '#type'           => 'textfield',
-          '#title'          => t(''),
-          '#maxlength'      => 64,
-          '#description'    => t(' '),
-          '#value'          => $user->{$field->name},
-          '#default_value'  => t($field->title),
-          '#id'             => $field->name,
-          '#attributes'     => array('class' => 'info', 'blurtext' => t($field->title)),
+          '#type' => 'textfield',
+          '#title' => t(''),
+          '#maxlength' => 64,
+          '#description' => t(' '),
+          '#value' => $user->{$field->name},
+          '#default_value' => t($field->title),
+          '#id' => $field->name,
+          '#attributes' => array('class' => 'info', 'blurtext' => t($field->title)),
         );
 
-      break;
+        break;
       case 'textarea' :
         $form[$field->name] = array(
-          '#type'           => 'textarea',
-          '#title'          => t(''),
-          '#value'          => $user->{$field->name},
-          '#default_value'  => t($field->title),
-          '#cols'           => '',
-          '#rows'           => 1,
-          '#description'    => t(''),
-          '#id'             => $field->name,
-          '#attributes'     => array('class' => 'info', 'blurtext' => t($field->title)),
-          '#resizable'      => FALSE,
+          '#type' => 'textarea',
+          '#title' => t(''),
+          '#value' => $user->{$field->name},
+          '#default_value' => t($field->title),
+          '#cols' => '',
+          '#rows' => 1,
+          '#description' => t(''),
+          '#id' => $field->name,
+          '#attributes' => array('class' => 'info', 'blurtext' => t($field->title)),
+          '#resizable' => FALSE,
         );
-      break;
+        break;
     }
     # privacy
-    $form[USER_PROFILE_PRIVACY_PREFIX.$field->name] = array(
-      '#type'           => 'radios',
-      '#default_value'  => $user->{USER_PROFILE_PRIVACY_PREFIX.$field->name} ?
-        $user->{USER_PROFILE_PRIVACY_PREFIX.$field->name} : 'private',
-      '#options'        => $privacy_options,
-      '#checked'        => TRUE,
+    $form[USER_PROFILE_PRIVACY_PREFIX . $field->name] = array(
+      '#type' => 'radios',
+      '#default_value' => $user->{USER_PROFILE_PRIVACY_PREFIX . $field->name} ?
+        $user->{USER_PROFILE_PRIVACY_PREFIX . $field->name} : 'private',
+      '#options' => $privacy_options,
+      '#checked' => TRUE,
     );
   }
 
@@ -146,95 +147,95 @@ function user_profile_edit_form(&$form_state) {
     switch ($field->type) {
       case 'textfield' :
         $form[$field->name] = array(
-          '#type'           => 'textfield',
-          '#title'          => t(''),
-          '#maxlength'      => 64,
-          '#description'    => t(' '),
-          '#value'          => $user->{$field->name},
-          '#default_value'  => t($field->title),
-          '#id'             => $field->name,
-          '#attributes'     => array('class' => 'info', 'blurtext' => t($field->title)),
+          '#type' => 'textfield',
+          '#title' => t(''),
+          '#maxlength' => 64,
+          '#description' => t(' '),
+          '#value' => $user->{$field->name},
+          '#default_value' => t($field->title),
+          '#id' => $field->name,
+          '#attributes' => array('class' => 'info', 'blurtext' => t($field->title)),
         );
-      break;
+        break;
     }
     # privacy
-    $form[USER_PROFILE_PRIVACY_PREFIX.$field->name] = array(
-      '#type'           => 'radios',
-      '#default_value'  => $user->{USER_PROFILE_PRIVACY_PREFIX.$field->name} ?
-        $user->{USER_PROFILE_PRIVACY_PREFIX.$field->name} : 'private',
-      '#options'        => $privacy_options,
-      '#checked'        => TRUE,
+    $form[USER_PROFILE_PRIVACY_PREFIX . $field->name] = array(
+      '#type' => 'radios',
+      '#default_value' => $user->{USER_PROFILE_PRIVACY_PREFIX . $field->name} ?
+        $user->{USER_PROFILE_PRIVACY_PREFIX . $field->name} : 'private',
+      '#options' => $privacy_options,
+      '#checked' => TRUE,
     );
   }
 
   $result = _profile_get_fields('hidden');
   while ($field = db_fetch_object($result)) {
     $form[$field->name] = array(
-      '#type'           => 'hidden',
-      '#value'          => $user->{$field->name},
-      '#id'             => $field->name,
+      '#type' => 'hidden',
+      '#value' => $user->{$field->name},
+      '#id' => $field->name,
     );
   }
 
   $form['location'] = array(
-    '#type'           => 'markup',
-    '#value'          => user_profile_location_format($user->profile_city, $user->profile_state, $user->profile_country),
+    '#type' => 'markup',
+    '#value' => user_profile_location_format($user->profile_city, $user->profile_state, $user->profile_country),
   );
 
   $form['social'] = array(
-    '#type'       => 'markup',
-    '#value'      => '
+    '#type' => 'markup',
+    '#value' => '
       <div id="divConnect"></div>
       <script type="text/javascript">gigya.services.socialize.showAddConnectionsUI(conf, {height:65, width:175 ,showTermsLink:false, hideGigyaLink:true, useHTML:true, containerID: "divConnect"});</script>
     ',
   );
 
   $form['subscription_notify'] = array(
-    '#type'           => 'radios',
-    '#default_value'  => $user->subscription_notify ? $user->subscription_notify : SUBSCRIPTION_NEVER,
-    '#options'        => array(
+    '#type' => 'radios',
+    '#default_value' => $user->subscription_notify ? $user->subscription_notify : SUBSCRIPTION_NEVER,
+    '#options' => array(
       SUBSCRIPTION_NEVER => '',
       SUBSCRIPTION_MONTHLY => '',
       SUBSCRIPTION_WEEKLY => ''
     ),
   );
   $form['subscription_email'] = array(
-    '#type'           => 'textfield',
-    '#title'          => t(''),
-    '#maxlength'      => 50,
-    '#default_value'  => $user->subscription_email ? $user->subscription_email : $user->mail,
-    '#id'             => 'subscription_email',
-    '#required'       => TRUE,
+    '#type' => 'textfield',
+    '#title' => t(''),
+    '#maxlength' => 50,
+    '#default_value' => $user->subscription_email ? $user->subscription_email : $user->mail,
+    '#id' => 'subscription_email',
+    '#required' => TRUE,
   );
   $form['subscription_submit'] = array(
-    '#type'           => 'submit',
-    '#value'          => t('Submit'),
-    '#id'             => 'subscription_submit',
-    '#name'           => 'subscription_submit',
-    '#attributes'     => array('class' => 'submit-issue leftfloat'),
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+    '#id' => 'subscription_submit',
+    '#name' => 'subscription_submit',
+    '#attributes' => array('class' => 'submit-issue leftfloat'),
 //    '#validate'       => array('user_profile_edit_form_validate_subscriptions'),
 //    '#submit'         => array('user_profile_edit_form_submit_subscriptions'),
   );
 
   $languages = i18n_language_list();
   $form['language'] = array(
-    '#type'           => 'select',
-    '#options'        => $languages,
-    '#default_value'  => $user->language,
+    '#type' => 'select',
+    '#options' => $languages,
+    '#default_value' => $user->language,
   );
   $form['language_submit'] = array(
-    '#type'           => 'submit',
-    '#value'          => t('Submit'),
-    '#id'             => 'language_submit',
-    '#name'             => 'language_submit',
-    '#attributes'     => array('class' => 'submit-issue leftfloat'),
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+    '#id' => 'language_submit',
+    '#name' => 'language_submit',
+    '#attributes' => array('class' => 'submit-issue leftfloat'),
 //    '#submit'         => array('user_profile_edit_form_submit_language'),
   );
 
   $form['image_upload'] = array(
-    '#type'     => 'file',
-    '#size'     => '10',
-    '#prefix'   => '
+    '#type' => 'file',
+    '#size' => '10',
+    '#prefix' => '
       <div id="al-msg"></div>
       <div class="avatar-left">
         <img id="image-avatar-pic" src="' . user_profile_image($user) . '" />
@@ -242,29 +243,29 @@ function user_profile_edit_form(&$form_state) {
     '#suffix' => '</div>',
   );
   $form['image_submit'] = array(
-    '#type'           => 'submit',
-    '#value'          => t('Submit'),
-    '#id'             => 'submit_brow-avat',
-    '#name'             => 'image_submit',
-    '#attributes'     => array('class' => 'submit-issue leftfloat'),
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+    '#id' => 'submit_brow-avat',
+    '#name' => 'image_submit',
+    '#attributes' => array('class' => 'submit-issue leftfloat'),
 //    '#validate'       => array('user_profile_edit_form_validate_image'),
 //    '#submit'         => array('user_profile_edit_form_submit_image'),
   );
   $form['image_avatar'] = array(
-    '#type'           => 'hidden',
-    '#value'          => '',
-    '#id'             => 'image_avatar',
+    '#type' => 'hidden',
+    '#value' => '',
+    '#id' => 'image_avatar',
   );
 
   $form['submit'] = array(
-    '#type'           => 'submit',
-    '#value'          => t('Save Changes'),
-    '#id'             => 'submit',
-    '#name'           => 'submit',
-    '#attributes'     => array('class' => 'submit-issue'),
+    '#type' => 'submit',
+    '#value' => t('Save Changes'),
+    '#id' => 'submit',
+    '#name' => 'submit',
+    '#attributes' => array('class' => 'submit-issue'),
 //    '#validate'       => array('user_profile_edit_form_validate'),
 //    '#submit'         => array('user_profile_edit_form_submit'),
-);
+  );
 
 //  $form['#submit'] = array();
 
@@ -277,22 +278,23 @@ function user_profile_edit_form(&$form_state) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_validate(&$form, &$form_state) {
+function user_profile_edit_form_validate(&$form, &$form_state)
+{
   $id = $form_state["clicked_button"]["#name"];
 
   switch ($id) {
     case 'submit' :
       user_profile_edit_form_validate_profile($form, $form_state);
-    break;
+      break;
     case 'subscrpition_submit' :
       user_profile_edit_form_validate_subscriptions($form, $form_state);
-    break;
+      break;
     case 'language_submit' :
       //
-    break;
+      break;
     case 'image_submit' :
       user_profile_edit_form_validate_image($form, $form_state);
-    break;
+      break;
   }
 }
 
@@ -302,7 +304,8 @@ function user_profile_edit_form_validate(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_validate_profile(&$form, &$form_state) {
+function user_profile_edit_form_validate_profile(&$form, &$form_state)
+{
   global $user;
   $post = $form_state["clicked_button"]["#post"];
 
@@ -311,7 +314,7 @@ function user_profile_edit_form_validate_profile(&$form, &$form_state) {
     if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $post['username'])) {
       form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
       $form_state['rebuild'] = TRUE;
-    } elseif ( false !== db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid != '%d'", $post['username'], $user->uid)) ) {
+    } elseif (false !== db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid != '%d'", $post['username'], $user->uid))) {
       form_set_error('username', t('Sorry username already exists. Try any other combination'));
       $form_state['rebuild'] = TRUE;
     }
@@ -345,7 +348,8 @@ function user_profile_edit_form_validate_profile(&$form, &$form_state) {
  * @param $country
  * @return bool
  */
-function user_profile_edit_form_validate_zip($zip, $country) {
+function user_profile_edit_form_validate_zip($zip, $country)
+{
   return true;
 }
 
@@ -355,7 +359,8 @@ function user_profile_edit_form_validate_zip($zip, $country) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_validate_subscriptions(&$form, &$form_state) {
+function user_profile_edit_form_validate_subscriptions(&$form, &$form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
 
   # email
@@ -371,7 +376,8 @@ function user_profile_edit_form_validate_subscriptions(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_validate_image(&$form, &$form_state) {
+function user_profile_edit_form_validate_image(&$form, &$form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
   $validators = array(
     'file_validate_is_image' => array(),
@@ -393,21 +399,22 @@ function user_profile_edit_form_validate_image(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_submit(&$form, &$form_state) {
+function user_profile_edit_form_submit(&$form, &$form_state)
+{
   $id = $form_state["clicked_button"]["#name"];
   switch ($id) {
     case 'submit' :
       user_profile_edit_form_submit_profile($form, $form_state);
-    break;
+      break;
     case 'subscrition_submit' :
       user_profile_edit_form_submit_subscriptions($form, $form_state);
-    break;
+      break;
     case 'language_submit' :
       user_profile_edit_form_submit_language($form, $form_state);
-    break;
+      break;
     case 'image_submit' :
       user_profile_edit_form_submit_image($form, $form_state);
-    break;
+      break;
   }
 }
 
@@ -417,7 +424,8 @@ function user_profile_edit_form_submit(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_submit_profile($form, &$form_state) {
+function user_profile_edit_form_submit_profile($form, &$form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
 
   global $user;
@@ -457,8 +465,8 @@ function user_profile_edit_form_submit_profile($form, &$form_state) {
   $output = user_profile_geocode($user->profile_country, $user->profile_zip);
   if (!empty($output)) {
     foreach (array('city', 'state', 'lat', 'lng') as $code) {
-      $edit['profile_'.$code] = $output[$code];
-      $user->{'profile_'.$code} = $output[$code];
+      $edit['profile_' . $code] = $output[$code];
+      $user->{'profile_' . $code} = $output[$code];
     }
   }
 
@@ -481,7 +489,8 @@ function user_profile_edit_form_submit_profile($form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_submit_subscriptions(&$form, &$form_state) {
+function user_profile_edit_form_submit_subscriptions(&$form, &$form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
   global $user;
 
@@ -499,7 +508,8 @@ function user_profile_edit_form_submit_subscriptions(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_submit_language(&$form, &$form_state) {
+function user_profile_edit_form_submit_language(&$form, &$form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
   global $user;
 
@@ -517,7 +527,8 @@ function user_profile_edit_form_submit_language(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function user_profile_edit_form_submit_image(&$form, &$form_state) {
+function user_profile_edit_form_submit_image(&$form, &$form_state)
+{
   global $user;
   $post = $form_state["clicked_button"]["#post"];
   $file = $form_state['values']['image_upload'];

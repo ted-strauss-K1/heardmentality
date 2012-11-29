@@ -3,7 +3,8 @@
 /**
  * Implementation of hook_install()
  */
-function poll_ext_install() {
+function poll_ext_install()
+{
 //  $ret = array();
 //  $field = array(
 //    'type' => 'varchar',
@@ -45,7 +46,8 @@ function poll_ext_install() {
 /**
  * Implementation of hook_uninstall()
  */
-function poll_ext_uninstall() {
+function poll_ext_uninstall()
+{
 //  $ret = array();
 //  db_drop_field($ret, 'poll_choices', 'chtext_short');
 
@@ -58,26 +60,27 @@ function poll_ext_uninstall() {
 /**
  * Implementation of hook_schema()
  */
-function poll_ext_schema() {
+function poll_ext_schema()
+{
   $schema = array();
 
   $schema['poll_votes_history'] = array(
     'description' => 'Stores per-{users} votes history for each {poll}.',
     'fields' => array(
-      'nid'      => array(
+      'nid' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'description' => 'The {poll} node this vote is for.',
       ),
-      'uid'      => array(
+      'uid' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
         'description' => 'The {users}.uid this vote is from unless the voter was anonymous.',
       ),
-      'chorder'  => array(
+      'chorder' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => -1,
@@ -103,27 +106,27 @@ function poll_ext_schema() {
     ),
     'indexes' => array(
       'hostname' => array('hostname'),
-      'uid'      => array('uid'),
+      'uid' => array('uid'),
     ),
   );
 
   $schema['poll_choices_short'] = array(
     'description' => 'Stores information about all choices for all {poll}s.',
     'fields' => array(
-      'chid'    => array(
+      'chid' => array(
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'description' => 'Unique identifier for a poll choice.',
       ),
-      'nid'     => array(
+      'nid' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
         'description' => 'The {node}.nid this choice belongs to.',
       ),
-      'chtext'  => array(
+      'chtext' => array(
         'type' => 'varchar',
         'length' => 128,
         'not null' => TRUE,

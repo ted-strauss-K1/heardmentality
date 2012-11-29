@@ -8,32 +8,33 @@
 /*
  * Lose points action type
  */
-define( 'UP_ACTIONS_LOSE', 0 );
+define('UP_ACTIONS_LOSE', 0);
 
 /*
  * Earn points action type
  */
-define( 'UP_ACTIONS_EARN', 1 );
+define('UP_ACTIONS_EARN', 1);
 
 /*
  * Disabled action
  */
-define( 'UP_ACTIONS_DISABLED', 0 );
+define('UP_ACTIONS_DISABLED', 0);
 
 /*
  * Enabled action
  */
-define( 'UP_ACTIONS_ENABLED', 1 );
+define('UP_ACTIONS_ENABLED', 1);
 
 /*
  * Cache variable
  */
-define( 'UP_ACTIONS_CACHE', 'up_actions' );
+define('UP_ACTIONS_CACHE', 'up_actions');
 
 /*
  * Available type options
  */
-function up_actions_types() {
+function up_actions_types()
+{
   return array(
     UP_ACTIONS_LOSE => t('Lose'),
     UP_ACTIONS_EARN => t('Earn')
@@ -43,23 +44,25 @@ function up_actions_types() {
 /*
  * Available status options
  */
-function up_actions_statuses() {
+function up_actions_statuses()
+{
   return array(
     UP_ACTIONS_DISABLED => t('Disabled'),
-    UP_ACTIONS_ENABLED  => t('Enabled')
+    UP_ACTIONS_ENABLED => t('Enabled')
   );
 }
 
 /*
  * Set defaults for action
  */
-function up_actions_default(&$action) {
+function up_actions_default(&$action)
+{
   $action += array(
-    'name'        => '',
-    'reputation'  => 0,
-    'type'        => UP_ACTIONS_LOSE,
-    'points'      => 0,
-    'status'      => UP_ACTIONS_ENABLED,
+    'name' => '',
+    'reputation' => 0,
+    'type' => UP_ACTIONS_LOSE,
+    'points' => 0,
+    'status' => UP_ACTIONS_ENABLED,
   );
   return $action;
 }
@@ -67,25 +70,27 @@ function up_actions_default(&$action) {
 /*
  * Get list of actions reserved by modules
  */
-function up_actions_defined() {
+function up_actions_defined()
+{
   return module_invoke_all('up_actions');
 }
 
 /*
  * Get the complete list of actions
  */
-function up_actions() {
+function up_actions()
+{
   static $actions = null;
-  if( !is_null($actions) ) {
+  if (!is_null($actions)) {
     return $actions;
   }
   $actions = up_actions_defined();
-  foreach( $actions as $mname => &$action ) {
+  foreach ($actions as $mname => &$action) {
     up_actions_default($action);
   }
   $overriden_actions = variable_get('up_actions', array());
-  foreach( $actions as $mname => &$action ) {
-    if( isset($overriden_actions[$mname]) ) {
+  foreach ($actions as $mname => &$action) {
+    if (isset($overriden_actions[$mname])) {
       $action = $overriden_actions[$mname];
     }
   }
@@ -95,7 +100,8 @@ function up_actions() {
 /*
  * Check if action is defined
  */
-function up_actions_exists($mname) {
+function up_actions_exists($mname)
+{
   $actions = up_actions_get();
   return isset($actions[$mname]);
 }
@@ -103,8 +109,9 @@ function up_actions_exists($mname) {
 /*
  * Get action by name
  */
-function up_actions_action($mname) {
-  if( up_actions_exists($mname) ) {
+function up_actions_action($mname)
+{
+  if (up_actions_exists($mname)) {
     $actions = up_actions_get();
     return $actions[$mname];
   }
@@ -114,7 +121,8 @@ function up_actions_action($mname) {
 /*
  * Compare actions
  */
-function up_actions_compare($action1, $action2) {
+function up_actions_compare($action1, $action2)
+{
   up_actions_default($action1);
   up_actions_default($action2);
   $diff = array_diff_assoc($action1, $action2);
@@ -124,8 +132,9 @@ function up_actions_compare($action1, $action2) {
 /*
  * Get cached actions
  */
-function up_actions_cache($value = null) {
-  if( is_null($value) ) {
+function up_actions_cache($value = null)
+{
+  if (is_null($value)) {
     return variable_get(UP_ACTIONS_CACHE, array());
   } else {
     variable_set(UP_ACTIONS_CACHE, $value);
@@ -136,7 +145,8 @@ function up_actions_cache($value = null) {
 /*
  * Update cached action
  */
-function up_actions_cache_update($mname, $action) {
+function up_actions_cache_update($mname, $action)
+{
   $cache = up_actions_cache();
   $cache[$mname] = $action;
   up_actions_cache($cache);
@@ -145,8 +155,9 @@ function up_actions_cache_update($mname, $action) {
 /*
  * Clean cache
  */
-function up_actions_cache_clean($mname = '') {
-  if( !empty($mname) ) {
+function up_actions_cache_clean($mname = '')
+{
+  if (!empty($mname)) {
     $cache = up_actions_cache();
     unset($cache[$mname]);
     up_actions_cache($cache);
@@ -158,7 +169,8 @@ function up_actions_cache_clean($mname = '') {
 /*
  * Override action
  */
-function up_actions_cache_action($mname, &$action) {
+function up_actions_cache_action($mname, &$action)
+{
   $cache = up_actions_cache();
   up_actions_default($action);
   $cache[$mname] = $action;
@@ -168,53 +180,55 @@ function up_actions_cache_action($mname, &$action) {
 /*
  * Define UserPoints Extension Actions Admin Permission
  */
-define( 'UP_ACTIONS_ADMIN', 'Administer UserPoints Extension Actions' );
+define('UP_ACTIONS_ADMIN', 'Administer UserPoints Extension Actions');
 
 /*
  * Impelementation of hook_perm()
  */
-function up_actions_perm() {
+function up_actions_perm()
+{
   return array(UP_ACTIONS_ADMIN);
 }
 
 /*
  * Implementation of hook_menu()
  */
-function up_actions_menu() {
+function up_actions_menu()
+{
   $menu = array();
 
   $menu['admin/settings/up_actions'] = array(
-    'title'            => t('UserPoints Extension Actions settings'),
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('up_actions_admin'),
+    'title' => t('UserPoints Extension Actions settings'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('up_actions_admin'),
     'access arguments' => array(UP_ACTIONS_ADMIN),
-    'type'             => MENU_NORMAL_ITEM,
-    'file'             => 'up_actions.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'up_actions.admin.inc',
   );
   $menu['admin/settings/up_actions/list'] = array(
-    'title'            => t('List'),
+    'title' => t('List'),
     'access arguments' => array(UP_ACTIONS_ADMIN),
-    'type'             => MENU_DEFAULT_LOCAL_TASK,
-    'weight'           => -2,
-    'file'             => 'up_actions.admin.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -2,
+    'file' => 'up_actions.admin.inc',
   );
   $menu['admin/settings/up_actions/import'] = array(
-    'title'            => t('Import'),
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('up_actions_import'),
+    'title' => t('Import'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('up_actions_import'),
     'access arguments' => array(UP_ACTIONS_ADMIN),
-    'type'             => MENU_LOCAL_TASK,
-    'weight'           => -1,
-    'file'             => 'up_actions.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -1,
+    'file' => 'up_actions.admin.inc',
   );
   $menu['admin/settings/up_actions/export'] = array(
-    'title'            => t('Export'),
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('up_actions_export'),
+    'title' => t('Export'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('up_actions_export'),
     'access arguments' => array(UP_ACTIONS_ADMIN),
-    'type'             => MENU_LOCAL_TASK,
-    'weight'           => 0,
-    'file'             => 'up_actions.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 0,
+    'file' => 'up_actions.admin.inc',
   );
 
   return $menu;
@@ -234,7 +248,8 @@ function up_actions_menu() {
  * @mname - Action machine name
  * @uid   - User Id
  */
-function up_actions_user_check_action($mname, $uid, $extra = array()) {
+function up_actions_user_check_action($mname, $uid, $extra = array())
+{
   $actions = up_actions();
   if (isset($actions[$mname])) {
     if ($mname = 'comment' && $uid = $extra['content_owner']) {
@@ -253,17 +268,18 @@ function up_actions_user_check_action($mname, $uid, $extra = array()) {
  * @uid   - User Id
  * @extra  - Associative array with additional info
  */
-function up_actions_execute($mname, $uid, $extra = array()) {
+function up_actions_execute($mname, $uid, $extra = array())
+{
   if (up_actions_user_check_action($mname, $uid, $extra)) {
     $actions = up_actions();
     $action = $actions[$mname];
     $value = $action['points'] * ($action['type'] == 1 ? 1 : -1);
     userpoints_userpointsapi(array(
-      'uid'           => $uid,
-      'points'        => $value,
-      'entity_id'     => isset($extra['content_id']) ? $extra['content_id'] : '',
-      'entity_type'   => isset($extra['content_type']) ? $extra['content_type'] : 'node',
-      'operation'     => $mname,
+      'uid' => $uid,
+      'points' => $value,
+      'entity_id' => isset($extra['content_id']) ? $extra['content_id'] : '',
+      'entity_type' => isset($extra['content_type']) ? $extra['content_type'] : 'node',
+      'operation' => $mname,
     ));
     return $value;
   }

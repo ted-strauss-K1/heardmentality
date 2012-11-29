@@ -5,59 +5,60 @@
  *
  * @param nid - Issue Node Id
  */
-function arguments_form($form, $nid) {
+function arguments_form($form, $nid)
+{
   $form = array();
 
   $form['#id'] = 'argument-add-form';
   $form['nid'] = array(
-    '#type'   => 'hidden',
-    '#value'  => $nid,
+    '#type' => 'hidden',
+    '#value' => $nid,
   );
   $form['image'] = array(
-    '#type'   => 'hidden',
-    '#value'  => '',
-    '#id'     => 'image',
+    '#type' => 'hidden',
+    '#value' => '',
+    '#id' => 'image',
   );
   $form['type'] = array(
-    '#type'   => 'hidden',
-    '#value'  => 1,
-    '#id'     => 'argument_type',
+    '#type' => 'hidden',
+    '#value' => 1,
+    '#id' => 'argument_type',
   );
   $choices = issue_choices($nid);
   drupal_add_js(array('arguments_form' => array('count' => count($choices))), 'setting');
 
   $form['head'] = array(
-    '#type'   => 'markup',
-    '#value'  => '<table><tr><td class="first">',
+    '#type' => 'markup',
+    '#value' => '<table><tr><td class="first">',
   );
   $form['title'] = array(
     '#type' => 'textarea',
-    '#size'       => 70,
-    '#cols'       => 10,
-    '#rows'       => 3,
-    '#resizable'  => false,
-    '#id'         => 'deb_title',
-    '#prefix'     => '<div class="argument-form"><label for="deb_title">What\'s your argument?</label>',
-    '#suffix'     => '</div>',
+    '#size' => 70,
+    '#cols' => 10,
+    '#rows' => 3,
+    '#resizable' => false,
+    '#id' => 'deb_title',
+    '#prefix' => '<div class="argument-form"><label for="deb_title">What\'s your argument?</label>',
+    '#suffix' => '</div>',
   );
   $form['url'] = array(
-    '#type'           => 'textfield',
-    '#default_value'  => 'http://',
-    '#size'           => 60,
-    '#maxlength'      => 256,
-    '#id'             => 'url',
-    '#prefix'         => '
+    '#type' => 'textfield',
+    '#default_value' => 'http://',
+    '#size' => 60,
+    '#maxlength' => 256,
+    '#id' => 'url',
+    '#prefix' => '
       <div class="reference-form">
         <label for="edit-ref-title">Post a reference
           <span>(news, blog, gov, data...).</span>
         </label>',
-    '#suffix'         => '
+    '#suffix' => '
       </div>
       <span class="error-msg" id="deb-err"></span>',
   );
   $form['asgn_val'] = array(
-    '#type'   => 'markup',
-    '#value'  => '
+    '#type' => 'markup',
+    '#value' => '
       </td>
       <td class="argument-form">
         <div class="assign">
@@ -72,12 +73,12 @@ function arguments_form($form, $nid) {
   );
   foreach ($choices as $i => $choice) {
     $form['option_' . $i] = array(
-      '#type'           => 'select',
-      '#options'        => array('-1' => '-', '0' => '-/+', '1' => '+'),
-      '#attributes'     => array('class' => 'select-value'),
-      '#id'             => 'sup_' . $i,
-      '#default_value'  => 0,
-      '#prefix'         => '
+      '#type' => 'select',
+      '#options' => array('-1' => '-', '0' => '-/+', '1' => '+'),
+      '#attributes' => array('class' => 'select-value'),
+      '#id' => 'sup_' . $i,
+      '#default_value' => 0,
+      '#prefix' => '
         <div class="value-select">
           <table>
             <tr>
@@ -92,21 +93,21 @@ function arguments_form($form, $nid) {
         </div>',
     );
     $form['chorder_' . $i] = array(
-      '#type'   => 'hidden',
-      '#value'  => $choice['chorder']
+      '#type' => 'hidden',
+      '#value' => $choice['chorder']
     );
   }
   $form['clr_div'] = array(
-    '#type'   => 'markup',
-    '#value'  => '<div class="clr"></div><span class="req_assign">(Required to set one or more)</span>'
+    '#type' => 'markup',
+    '#value' => '<div class="clr"></div><span class="req_assign">(Required to set one or more)</span>'
   );
   $form['submit'] = array(
-    '#type'       => 'submit',
-    '#value'      => t('Add'),
+    '#type' => 'submit',
+    '#value' => t('Add'),
     '#attributes' => array('class' => 'orange-btn'),
-    '#prefix'     => '</td></tr></table><div class="add_button">',
-    '#suffix'     => theme('sub_loader', 'display:none; float:left; margin-right:17px; position:relative; top:2px;'),
-    '#id'         => 'add_argument',
+    '#prefix' => '</td></tr></table><div class="add_button">',
+    '#suffix' => theme('sub_loader', 'display:none; float:left; margin-right:17px; position:relative; top:2px;'),
+    '#id' => 'add_argument',
   );
 
 //  $form['attach'] = array(
@@ -119,23 +120,23 @@ function arguments_form($form, $nid) {
 //  );
 
   $form['link-arg'] = array(
-    '#type'       => 'item',
-    '#value'      => l(t('Or post a reference'), '#'),
-	//'#value'      => l(t('Or post a reference'), '#') . t(' (news, blog, gov, data...)'),
-    '#prefix'     => '<div class="argument-form">',
-    '#suffix'     => '</div>',
-    '#id'         => 'link_arg',
+    '#type' => 'item',
+    '#value' => l(t('Or post a reference'), '#'),
+    //'#value'      => l(t('Or post a reference'), '#') . t(' (news, blog, gov, data...)'),
+    '#prefix' => '<div class="argument-form">',
+    '#suffix' => '</div>',
+    '#id' => 'link_arg',
   );
   $form['link-ref'] = array(
-    '#type'       => 'item',
-    '#value'      => l(t('Or write an argument'), '#'),
-    '#prefix'     => '<div class="reference-form">',
-    '#suffix'     => '</div></div>',
-    '#id'         => 'link_ref',
+    '#type' => 'item',
+    '#value' => l(t('Or write an argument'), '#'),
+    '#prefix' => '<div class="reference-form">',
+    '#suffix' => '</div></div>',
+    '#id' => 'link_ref',
   );
   $form['linkbox'] = array(
-    '#type'       => 'item',
-    '#value'      => '<div id ="linkbox"></div>',
+    '#type' => 'item',
+    '#value' => '<div id ="linkbox"></div>',
   );
 
   return $form;
@@ -146,7 +147,8 @@ function arguments_form($form, $nid) {
  *
  * Validation
  */
-function arguments_form_validate(&$form, &$form_state) {
+function arguments_form_validate(&$form, &$form_state)
+{
   // don't use this function cause it's ajax-submitted form
 }
 
@@ -155,7 +157,8 @@ function arguments_form_validate(&$form, &$form_state) {
  *
  * Submission
  */
-function arguments_form_submit(&$form, &$form_state) {
+function arguments_form_submit(&$form, &$form_state)
+{
   global $user;
   $post = $form_state['clicked_button']['#post'];
   switch ($post['type']) {
@@ -167,8 +170,8 @@ function arguments_form_submit(&$form, &$form_state) {
         $options = array();
         for ($i = 0; $i < $choices_count; $i++) {
           $options[] = array(
-            'chorder' => $post['chorder_'.$i],
-            'option' => $post['option_'.$i],
+            'chorder' => $post['chorder_' . $i],
+            'option' => $post['option_' . $i],
           );
         }
         arguments_options($node->nid, $options);
@@ -236,7 +239,8 @@ function arguments_form_submit(&$form, &$form_state) {
  *
  * @param nid - Argument Node Id
  */
-function reply_form($form, $nid) {
+function reply_form($form, $nid)
+{
   $form = array();
 
   if (!user_is_logged_in()) {

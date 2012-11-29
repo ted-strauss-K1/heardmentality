@@ -3,7 +3,8 @@
 /*
  * Form for adding/editing the Issues' votes
  */
-function issue_vote_form($form, $node, $full = true, $nowrap = false) {
+function issue_vote_form($form, $node, $full = true, $nowrap = false)
+{
   global $user;
   $form = array();
 
@@ -90,7 +91,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false) {
     '#type' => 'fieldset',
     '#title' => !$full || $sa_added ? t('') : t('...Or submit a different answer'),
     '#collapsible' => TRUE,
-    '#collapsed' => empty($sa),// $vote_suggested == -1,
+    '#collapsed' => empty($sa), // $vote_suggested == -1,
     '#tree' => TRUE,
   );
 
@@ -149,7 +150,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false) {
     $form['main_submit'] = array(
       '#type' => 'button',
       '#value' => t('Login to vote'),
-      '#attributes' => array('class' => 'button vote floatright '.user_profile_login_class(true)),
+      '#attributes' => array('class' => 'button vote floatright ' . user_profile_login_class(true)),
       '#id' => 'vote-login',
     );
   }
@@ -168,7 +169,8 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false) {
 /*
  * Afterbuild for issue_vote_form
  */
-function issue_vote_form_radios($form_element, &$form_state) {
+function issue_vote_form_radios($form_element, &$form_state)
+{
   $nid = $form_state['values']['nid'];
   $count = count($form_element['#options']);
   $votes = issue_get_votes($nid);
@@ -185,7 +187,8 @@ function issue_vote_form_radios($form_element, &$form_state) {
 /*
  * Afterbuild for issue_vote_form
  */
-function issue_vote_form_radios_suggested($form_element, &$form_state) {
+function issue_vote_form_radios_suggested($form_element, &$form_state)
+{
   $nid = $form_state['values']['nid'];
   $votes = poll_suggest_get_votes($nid);
   foreach ($votes as $i => $vote_number) {
@@ -202,14 +205,15 @@ function issue_vote_form_radios_suggested($form_element, &$form_state) {
  *
  * Validation
  */
-function _issue_vote_form_validate($form, &$form_state) {
+function _issue_vote_form_validate($form, &$form_state)
+{
   $post = $form_state['values'];
   switch ($form_state['clicked_button']['#id']) {
     case 'answer-add' :
       if (empty($post['suggest']['suggest_answer'])) {
         form_set_error('suggest_answer', t('Your suggestions should not be empty.'));
       }
-    break;
+      break;
     case 'vote-add' :
     case 'vote-change' :
       $vote_regular = $post['choice'];
@@ -221,13 +225,13 @@ function _issue_vote_form_validate($form, &$form_state) {
       if (!$voted) {
         form_set_error('choice', t('Your vote could not be recorded because you did not select any of the choices.'));
       }
-    break;
+      break;
     case 'vote-login' :
       # nothing
-    break;
+      break;
     default :
       # nothing
-    break;
+      break;
   }
 }
 
@@ -236,7 +240,8 @@ function _issue_vote_form_validate($form, &$form_state) {
  *
  * Submission
  */
-function _issue_vote_form_submit($form, &$form_state) {
+function _issue_vote_form_submit($form, &$form_state)
+{
   global $user;
   $post = $form_state['values'];
   $nid = $post['nid'];
@@ -274,12 +279,12 @@ function _issue_vote_form_submit($form, &$form_state) {
 
       issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s, $vote_s_old);
       drupal_set_message(t('Your vote was recorded.'));
-    break;
+      break;
     case 'vote-login' :
       # nothing
-    break;
+      break;
     default :
       # nothing
-    break;
+      break;
   }
 }

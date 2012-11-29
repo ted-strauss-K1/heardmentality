@@ -4,11 +4,11 @@
 function up_share() {
   var url = Drupal.settings.base_url + '/up_share/' + Drupal.settings.node.nid;
   $.ajax({
-    type      : "POST",
-    dataType  : 'json',
-    url       : url,
-    data      : {},
-    success   : function (response) {
+    type:"POST",
+    dataType:'json',
+    url:url,
+    data:{},
+    success:function (response) {
       //
     }
   });

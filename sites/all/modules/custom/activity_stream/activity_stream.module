@@ -16,7 +16,8 @@ define('ACTIVITY_STREAM_FOLLOW', 'user_follow');
 /**
  * API function
  */
-function activity_stream_add_activity($type, $variables, $uid = false) {
+function activity_stream_add_activity($type, $variables, $uid = false)
+{
   if ($uid === false) {
     global $user;
     $uid = $user->uid;
@@ -32,11 +33,12 @@ function activity_stream_add_activity($type, $variables, $uid = false) {
  * @param null $a3
  * @param null $a4
  */
-function activity_stream_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+function activity_stream_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
   switch ($op) {
     case 'delete' :
       activity_stream_cleanup($node->nid);
-    break;
+      break;
   }
 }
 
@@ -46,11 +48,12 @@ function activity_stream_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
  * @param $a1
  * @param $op
  */
-function activity_stream_comment(&$a1, $op) {
+function activity_stream_comment(&$a1, $op)
+{
   switch ($op) {
     case 'delete' :
       activity_stream_cleanup($a1->cid, 'comment');
-    break;
+      break;
   }
 }
 
@@ -58,7 +61,8 @@ function activity_stream_comment(&$a1, $op) {
  * @param $content_id
  * @param string $content_type
  */
-function activity_stream_cleanup($content_id, $content_type = 'node') {
+function activity_stream_cleanup($content_id, $content_type = 'node')
+{
   $delete = array();
   $result = db_query("SELECT * FROM {activity_stream}");
   while ($row = db_fetch_array($result)) {
@@ -68,12 +72,12 @@ function activity_stream_cleanup($content_id, $content_type = 'node') {
         if ($vars['nid'] == $content_id || $vars['nid_arg'] == $content_id) {
           $delete[] = $row['id'];
         }
-      break;
+        break;
       case 'comment' :
         if ($vars['cid'] == $content_id) {
           $delete[] = $row['id'];
         }
-      break;
+        break;
     }
   }
   db_query("DELETE FROM {activity_stream} WHERE id IN (" . db_placeholders($delete) . ")");
@@ -82,25 +86,26 @@ function activity_stream_cleanup($content_id, $content_type = 'node') {
 /**
  * Implementation of hook_theme
  */
-function activity_stream_theme() {
+function activity_stream_theme()
+{
   $theme = array();
 
   $theme['activity_stream'] = array(
     'arguments' => array(
-      'items'     => array(),
+      'items' => array(),
     ),
-    'template'  => 'activity-stream',
+    'template' => 'activity-stream',
   );
 
   $theme['activity_stream_item'] = array(
     'arguments' => array(
-      'id'        => null,
-      'uid'       => null,
-      'type'      => null,
-      'vars'      => array(),
-      'date'      => null,
+      'id' => null,
+      'uid' => null,
+      'type' => null,
+      'vars' => array(),
+      'date' => null,
     ),
-    'template'  => 'activity-stream-item',
+    'template' => 'activity-stream-item',
   );
 
   return $theme;
@@ -109,7 +114,8 @@ function activity_stream_theme() {
 /**
  * Get latest activities
  */
-function _activity_stream_home($count = 100) {
+function _activity_stream_home($count = 100)
+{
   $items = array();
 
   $result = db_query("SELECT * FROM {activity_stream} ORDER BY date_added DESC LIMIT %d", $count);
@@ -125,7 +131,8 @@ function _activity_stream_home($count = 100) {
 /**
  * Implementation of hook_block
  */
-function activity_stream_block($op = 'list', $delta = 0, $edit = array()) {
+function activity_stream_block($op = 'list', $delta = 0, $edit = array())
+{
   switch ($op) {
     case 'list':
       $blocks['activity-stream-home'] = array(
@@ -137,7 +144,7 @@ function activity_stream_block($op = 'list', $delta = 0, $edit = array()) {
         case 'activity-stream-home' :
           $block['subject'] = t('HAPPENING NOW');
           $block['content'] = theme('activity_stream', _activity_stream_home());
-        break;
+          break;
       }
       return $block;
   }

@@ -2,25 +2,28 @@
 
 define('MICROSOFT_TRANSLATE_ADMIN', 'administer microsoft translation module');
 
-function microsoft_translate_perm() {
+function microsoft_translate_perm()
+{
   return array(MICROSOFT_TRANSLATE_ADMIN);
 }
 
-function microsoft_translate_menu() {
+function microsoft_translate_menu()
+{
   $menu = array();
 
   $menu['admin/settings/mtranslate'] = array(
-    'title'            => t('Microsoft Translate'),
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('microsoft_translate_form'),
+    'title' => t('Microsoft Translate'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('microsoft_translate_form'),
     'access arguments' => array(MICROSOFT_TRANSLATE_ADMIN),
-    'type'             => MENU_NORMAL_ITEM,
+    'type' => MENU_NORMAL_ITEM,
   );
 
   return $menu;
 }
 
-function microsoft_translate_form() {
+function microsoft_translate_form()
+{
   $form = array();
 
   $form['microsoft_translate_clientid'] = array(

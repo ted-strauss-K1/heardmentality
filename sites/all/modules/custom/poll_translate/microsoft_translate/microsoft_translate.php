@@ -131,36 +131,36 @@ class MicrosoftTranslate
   /**
    * Soap WSDL Url
    */
-  protected $_wsdlUrl       = "http://api.microsofttranslator.com/V2/Soap.svc";
+  protected $_wsdlUrl = "http://api.microsofttranslator.com/V2/Soap.svc";
 
   /**
    * Client ID of the application
    *
    * To be set by user
    */
-  protected $_clientID      = "";
+  protected $_clientID = "";
 
   /**
    * Client Secret key of the application
    *
    * To be set by user
    */
-  protected $_clientSecret  = "";
+  protected $_clientSecret = "";
 
   /**
    * OAuth Url
    */
-  protected $_authUrl       = "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13/";
+  protected $_authUrl = "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13/";
 
   /**
    * Application Scope Url
    */
-  protected $_scopeUrl      = "http://api.microsofttranslator.com";
+  protected $_scopeUrl = "http://api.microsofttranslator.com";
 
   /**
    * Application grant type
    */
-  protected $_grantType     = "client_credentials";
+  protected $_grantType = "client_credentials";
 
   /**
    * Store queue for translations
@@ -175,7 +175,8 @@ class MicrosoftTranslate
    * @param $clientID
    * @param $clientSecret
    */
-  public function __construct($clientID, $clientSecret) {
+  public function __construct($clientID, $clientSecret)
+  {
     $this->_clientID = $clientID;
     $this->_clientSecret = $clientSecret;
   }
@@ -185,7 +186,8 @@ class MicrosoftTranslate
    *
    * @param $string
    */
-  public function queue($string) {
+  public function queue($string)
+  {
     $this->_queue[$string] = '';
   }
 
@@ -194,7 +196,8 @@ class MicrosoftTranslate
    *
    * @param bool $string
    */
-  public function dequeue($string = false) {
+  public function dequeue($string = false)
+  {
     if ($string === false) {
       $this->_queue = array();
     } else {
@@ -209,11 +212,12 @@ class MicrosoftTranslate
    * @param $lang_to
    * @return array
    */
-  public function exec($lang_from, $lang_to) {
+  public function exec($lang_from, $lang_to)
+  {
     // Create the Authentication object
-    $authObj      = new AccessTokenAuthentication();
+    $authObj = new AccessTokenAuthentication();
     // Get the Access token
-    $accessToken  = $authObj->getTokens($this->_grantType, $this->_scopeUrl, $this->_clientID, $this->_clientSecret, $this->_authUrl);
+    $accessToken = $authObj->getTokens($this->_grantType, $this->_scopeUrl, $this->_clientID, $this->_clientSecret, $this->_authUrl);
     if ($accessToken === false) {
       return false;
     }
@@ -223,34 +227,34 @@ class MicrosoftTranslate
       return false;
     }
     // Create Option Array.
-    $optionArg = array (
-      'Category'    => "general",
+    $optionArg = array(
+      'Category' => "general",
       'ContentType' => "text/plain",
-      'Uri'         => null,
-      'User'        => 'TestUser'
+      'Uri' => null,
+      'User' => 'TestUser'
     );
     // Input text Array.
     $inputStrArr = array_keys($this->_queue);
     // Request argument list.
-    $requestArg = array (
-      'appId'            => '', // no longer used, but pass it anyway
-      'texts'            => $inputStrArr,
-      'from'            => 'de',
-      'to'                => 'en',
+    $requestArg = array(
+      'appId' => '', // no longer used, but pass it anyway
+      'texts' => $inputStrArr,
+      'from' => 'de',
+      'to' => 'en',
       'maxTranslations' => 5,
-      'options'            => $optionArg
+      'options' => $optionArg
     );
     try {
-      $responseObj          = $soapTranslator->objSoap->GetTranslationsArray($requestArg);
+      $responseObj = $soapTranslator->objSoap->GetTranslationsArray($requestArg);
       $responseTranslation = $responseObj->GetTranslationsArrayResult->GetTranslationsResponse;
-      $i=0;
-      foreach($responseTranslation as $translationArr) {
+      $i = 0;
+      foreach ($responseTranslation as $translationArr) {
         $translationMatchArr = $translationArr->Translations->TranslationMatch;
         echo "Get Translation For <b>$inputStrArr[$i]</b>";
         echo "<table border ='2px'>";
         echo "<tr><td><b>Count</b></td><td><b>MatchDegree</b></td>
         <td><b>Rating</b></td><td><b>TranslatedText</b></td></tr>";
-        foreach($translationMatchArr as $translationMatch) {
+        foreach ($translationMatchArr as $translationMatch) {
           echo "<tr><td>$translationMatch->Count</td><td>$translationMatch->MatchDegree</td><td>$translationMatch->Rating</td>
             <td>$translationMatch->TranslatedText</td></tr>";
         }

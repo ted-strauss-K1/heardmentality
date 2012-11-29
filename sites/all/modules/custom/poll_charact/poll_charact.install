@@ -3,7 +3,8 @@
 /**
  * Implementation of hook_install()
  */
-function poll_charact_install() {
+function poll_charact_install()
+{
   drupal_install_schema('poll_charact');
 
   db_query("ALTER TABLE {poll_charact_values} ADD CONSTRAINT {poll_charact_cid} FOREIGN KEY (cid) REFERENCES {poll_charact}(cid) ON DELETE CASCADE ON UPDATE CASCADE;");
@@ -12,7 +13,8 @@ function poll_charact_install() {
 /**
  * Implementation of hook_uninstall()
  */
-function poll_charact_uninstall() {
+function poll_charact_uninstall()
+{
   db_query("ALTER TABLE {poll_charact_values} DROP FOREIGN KEY {poll_charact_cid}");
 
   drupal_uninstall_schema('poll_charact');
@@ -21,19 +23,20 @@ function poll_charact_uninstall() {
 /**
  * Implementation of hook_schema()
  */
-function poll_charact_schema() {
+function poll_charact_schema()
+{
   $schema = array();
 
   $schema['poll_charact'] = array(
     'description' => 'Stores the list of characteristics for {poll} choices.',
     'fields' => array(
-      'cid'    => array(
+      'cid' => array(
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'description' => 'Unique identifier for a characteristic.',
       ),
-      'chtext'  => array(
+      'chtext' => array(
         'type' => 'varchar',
         'length' => 128,
         'not null' => TRUE,
@@ -50,7 +53,7 @@ function poll_charact_schema() {
   $schema['poll_charact_values'] = array(
     'description' => 'Stores the values of characteristics for {poll} choices',
     'fields' => array(
-      'nid'     => array(
+      'nid' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
@@ -63,14 +66,14 @@ function poll_charact_schema() {
         'default' => 0,
         'description' => 'The sort order of this choice among all choices for the same node.',
       ),
-      'cid'     => array(
+      'cid' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
         'description' => 'The {poll_charact}.cid this value belongs to.',
       ),
-      'value'      => array(
+      'value' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,

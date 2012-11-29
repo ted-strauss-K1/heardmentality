@@ -1,6 +1,7 @@
 <?php
 
-class Paypal {
+class Paypal
+{
   /**
    * Last error message(s)
    * @var array
@@ -13,8 +14,8 @@ class Paypal {
    * @var array
    */
   protected $_credentials = array(
-    'USER'      => '',
-    'PWD'       => '',
+    'USER' => '',
+    'PWD' => '',
     'SIGNATURE' => '',
   );
 
@@ -37,7 +38,8 @@ class Paypal {
    * @param array $credentials Keys USER, PWD, SIGNATURE
    * @param bool $live Sets the endpoint to live or sandbox state
    */
-  public function __construct($credentials, $live = false) {
+  public function __construct($credentials, $live = false)
+  {
     if ($live) {
       $this->_endPoint = "https://api-3t.paypal.com/nvp";
     }
@@ -55,25 +57,26 @@ class Paypal {
    * @param array $params Additional request parameters
    * @return array / boolean Response array / boolean false on failure
    */
-  public function request($method,$params = array()) {
-    $this -> _errors = array();
-    if( empty($method) ) { //Check if API method is not empty
-      $this -> _errors = array('API method is missing');
+  public function request($method, $params = array())
+  {
+    $this->_errors = array();
+    if (empty($method)) { //Check if API method is not empty
+      $this->_errors = array('API method is missing');
       return false;
     }
 
     //Our request parameters
     $requestParams = array(
       'METHOD' => $method,
-      'VERSION' => $this -> _version
-    ) + $this -> _credentials;
+      'VERSION' => $this->_version
+    ) + $this->_credentials;
 
     //Building our NVP string
     $request = http_build_query($requestParams + $params, '', '&');
 
     //cURL settings
-    $curlOptions = array (
-      CURLOPT_URL => $this -> _endPoint,
+    $curlOptions = array(
+      CURLOPT_URL => $this->_endPoint,
       CURLOPT_VERBOSE => 1,
       CURLOPT_SSL_VERIFYPEER => true,
       CURLOPT_SSL_VERIFYHOST => 2,
@@ -93,22 +96,22 @@ class Paypal {
 
 
     $ch = curl_init();
-    curl_setopt_array($ch,$curlOptions);
+    curl_setopt_array($ch, $curlOptions);
 
     //Sending our request - $response will hold the API response
     $response = curl_exec($ch);
 
     //Checking for cURL errors
     if (curl_errno($ch)) {
-      $this -> _errors = curl_error($ch);
+      $this->_errors = curl_error($ch);
       curl_close($ch);
       return false;
       //Handle errors
-    } else  {
+    } else {
       curl_close($ch);
-      $this -> _errors = $this->_endPoint . '?' . $request;
+      $this->_errors = $this->_endPoint . '?' . $request;
       $responseArray = array();
-      parse_str($response,$responseArray); // Break the NVP string to an array
+      parse_str($response, $responseArray); // Break the NVP string to an array
       return $responseArray;
     }
   }

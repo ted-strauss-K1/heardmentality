@@ -3,7 +3,8 @@
 /**
  * Implementation of hook_install()
  */
-function donations_install() {
+function donations_install()
+{
   // Create database tables.
   drupal_install_schema('donations');
 }
@@ -11,7 +12,8 @@ function donations_install() {
 /**
  * Implementation of hook_schema().
  */
-function donations_schema() {
+function donations_schema()
+{
   $schema = array();
   $schema['donations'] = array(
     'description' => t('Stores the donations.'),
@@ -64,11 +66,10 @@ function donations_schema() {
       ),
     ),
     'unique keys' => array(
-      'token'     => array('token')
+      'token' => array('token')
     ),
     'primary key' => array('id'),
   );
-
 
 
   return $schema;

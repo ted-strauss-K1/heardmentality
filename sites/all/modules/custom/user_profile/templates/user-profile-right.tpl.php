@@ -7,11 +7,13 @@
   <a href="#" id="button" class="hide-message2 ui-dialog-titlebar-close profile-close-icon">
     <span class="ui-icon ui-icon-closethick">close</span>
   </a>
+
   <p class="profile-status">
     <strong>
       <?php print t('Your profile is !complete% Complete', array('!complete' => $complete['percent']))?>
     </strong>
   </p>
+
   <div class="profile-complete">
     <div class="progress" style="width: <?php print $complete['percent']; ?>%;"></div>
   </div>

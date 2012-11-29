@@ -3,7 +3,8 @@
 /*
  * Badge add
  */
-function badge_add($name, $info, $type, $status) {
+function badge_add($name, $info, $type, $status)
+{
   db_query("
     INSERT INTO {module_badges}
     SET name = '%s', info = '%s', type = '%d', status = '%d'",
@@ -14,7 +15,8 @@ function badge_add($name, $info, $type, $status) {
 /*
  * Badge update
  */
-function badge_update($id, $name, $info, $type, $status) {
+function badge_update($id, $name, $info, $type, $status)
+{
   db_query("
     UPDATE {module_badges}
     SET name = '%s', info = '%s', type = '%d', status = '%d' WHERE id = '%d'",
@@ -25,14 +27,16 @@ function badge_update($id, $name, $info, $type, $status) {
 /*
  * Badge delete
  */
-function badge_delete($id) {
+function badge_delete($id)
+{
   db_query("DELETE FROM {module_badges} WHERE id = '%d'", $id);
 }
 
 /*
  * Form for badges management
  */
-function badges_form() {
+function badges_form()
+{
   $form = array();
 
   $badges = badges_get();
@@ -40,23 +44,23 @@ function badges_form() {
 
   $badges[] = array();
 
-  foreach( $badges as $i => $badge ) {
-    $form['badge-fname-'.$i] = array(
+  foreach ($badges as $i => $badge) {
+    $form['badge-fname-' . $i] = array(
       "#type" => "markup",
-      "#value" => t('Processing function').": ".($badge['fname']?$badge['fname'].'()':'Not defined'),
+      "#value" => t('Processing function') . ": " . ($badge['fname'] ? $badge['fname'] . '()' : 'Not defined'),
       "#size" => 10,
-      '#prefix' => ($i==0?'<table>':'').'<tr><td>',
+      '#prefix' => ($i == 0 ? '<table>' : '') . '<tr><td>',
       '#suffix' => '</td>'
     );
-    $form['badge-used-'.$i] = array(
+    $form['badge-used-' . $i] = array(
       "#type" => "markup",
       "#value" => $badge['implemented'] ? 'Exists' : 'Doesn\'t exist',
       "#size" => 4,
-      '#prefix' => '<td style="font-weight:bold; color:'.($badge['implemented'] ? 'green' : 'red').'">',
+      '#prefix' => '<td style="font-weight:bold; color:' . ($badge['implemented'] ? 'green' : 'red') . '">',
       '#suffix' => '</td>',
       '#disabled' => true,
     );
-    $form['badge-name-'.$i] = array(
+    $form['badge-name-' . $i] = array(
       "#type" => "textfield",
       "#title" => t("Badge Name"),
       "#value" => $badge['name'],
@@ -64,7 +68,7 @@ function badges_form() {
       '#prefix' => '<td>',
       '#suffix' => '</td>'
     );
-    $form['badge-info-'.$i] = array(
+    $form['badge-info-' . $i] = array(
       "#type" => "textfield",
       "#title" => t("Badge Info"),
       "#value" => $badge['info'],
@@ -72,7 +76,7 @@ function badges_form() {
       '#prefix' => '<td>',
       '#suffix' => '</td>'
     );
-    $form['badge-type-'.$i] = array(
+    $form['badge-type-' . $i] = array(
       '#type' => 'select',
       '#title' => t('Type'),
       '#value' => $badge['type'],
@@ -80,7 +84,7 @@ function badges_form() {
       '#prefix' => '<td>',
       '#suffix' => '</td>'
     );
-    $form['badge-status-'.$i] = array(
+    $form['badge-status-' . $i] = array(
       '#type' => 'select',
       '#title' => t('Status'),
       '#value' => $badge['status'] === 0 ? 0 : 1,
@@ -92,13 +96,13 @@ function badges_form() {
       '#prefix' => '<td>',
       '#suffix' => '</td>'
     );
-    $form['badge-id-'.$i] = array(
+    $form['badge-id-' . $i] = array(
       "#type" => "hidden",
       "#value" => $badge['id'],
       '#prefix' => '<td>',
       '#suffix' => '</td>'
     );
-    if( $i == count($badges)-1 ) {
+    if ($i == count($badges) - 1) {
       $form["add"] = array(
         "#type" => "submit",
         "#value" => t("Add"),
@@ -107,17 +111,17 @@ function badges_form() {
         '#suffix' => '</td></tr></table>'
       );
     } else {
-      $form["badge-update-".$i] = array(
+      $form["badge-update-" . $i] = array(
         "#type" => "submit",
         "#value" => t("Update"),
-        "#name" => "badge-update-".$i,
+        "#name" => "badge-update-" . $i,
         '#prefix' => '<td>',
         '#suffix' => '</td>'
       );
-      $form["badge-delete-".$i] = array(
+      $form["badge-delete-" . $i] = array(
         "#type" => "submit",
         "#value" => t("Delete"),
-        "#name" => "badge-delete-".$i,
+        "#name" => "badge-delete-" . $i,
         '#prefix' => '<td>',
         '#suffix' => '</td></tr>'
       );
@@ -130,31 +134,32 @@ function badges_form() {
 /*
  * Validation of badges_form
  */
-function badges_form_validate($form, $form_state) {
+function badges_form_validate($form, $form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
   $badges = badges_get();
   $fnames = array();
-  foreach($badges as $badge) {
+  foreach ($badges as $badge) {
     $fnames[] = $badge['fname'];
   }
-  if( $form_state["clicked_button"]["#name"] == 'add' ) {
+  if ($form_state["clicked_button"]["#name"] == 'add') {
     $i = count($badges);
-    if( empty($post['badge-name-'.$i]) ) {
+    if (empty($post['badge-name-' . $i])) {
       form_set_error('wrong_name', t('Name should not be empty'));
     }
-    if( in_array($fname = badge_process_fn($post['badge-name-'.$i]), $fnames) ) {
-      form_set_error('wrong_fname', t('Process function name '.$fname.'() cannot be used twice'));
+    if (in_array($fname = badge_process_fn($post['badge-name-' . $i]), $fnames)) {
+      form_set_error('wrong_fname', t('Process function name ' . $fname . '() cannot be used twice'));
     }
   } else {
-    if( preg_match('/-(\w+)-(\d+)$/', $form_state["clicked_button"]["#name"], $m) ) {
+    if (preg_match('/-(\w+)-(\d+)$/', $form_state["clicked_button"]["#name"], $m)) {
       $i = $m[2];
-      if( $m[1] == 'update' ) {
-        if( empty($post['badge-name-'.$i]) ) {
+      if ($m[1] == 'update') {
+        if (empty($post['badge-name-' . $i])) {
           form_set_error('wrong_name', t('Name should not be empty'));
         }
         unset($fnames[$i]);
-        if( in_array($fname = badge_process_fn($post['badge-name-'.$i]), $fnames) ) {
-          form_set_error('wrong_fname', t('Process function name '.$fname.'() cannot be used twice'));
+        if (in_array($fname = badge_process_fn($post['badge-name-' . $i]), $fnames)) {
+          form_set_error('wrong_fname', t('Process function name ' . $fname . '() cannot be used twice'));
         }
       }
     }
@@ -164,19 +169,20 @@ function badges_form_validate($form, $form_state) {
 /*
  * Submission of badges_form
  */
-function badges_form_submit($form, $form_state) {
+function badges_form_submit($form, $form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
-  if( $form_state["clicked_button"]["#name"] == 'add' ) {
+  if ($form_state["clicked_button"]["#name"] == 'add') {
     $badges = badges_get();
     $i = count($badges);
-    badge_add($post['badge-name-'.$i], $post['badge-info-'.$i], $post['badge-type-'.$i], $post['badge-status-'.$i]);
+    badge_add($post['badge-name-' . $i], $post['badge-info-' . $i], $post['badge-type-' . $i], $post['badge-status-' . $i]);
   } else {
-    if( preg_match('/-(\w+)-(\d+)$/', $form_state["clicked_button"]["#name"], $m) ) {
+    if (preg_match('/-(\w+)-(\d+)$/', $form_state["clicked_button"]["#name"], $m)) {
       $i = $m[2];
-      if( $m[1] == 'update' ) {
-        badge_update($post['badge-id-'.$i], $post['badge-name-'.$i], $post['badge-info-'.$i], $post['badge-type-'.$i], $post['badge-status-'.$i]);
+      if ($m[1] == 'update') {
+        badge_update($post['badge-id-' . $i], $post['badge-name-' . $i], $post['badge-info-' . $i], $post['badge-type-' . $i], $post['badge-status-' . $i]);
       } else {
-        badge_delete($post['badge-id-'.$i]);
+        badge_delete($post['badge-id-' . $i]);
       }
     }
   }
@@ -186,7 +192,8 @@ function badges_form_submit($form, $form_state) {
 /*
  * Badges Export Form
  */
-function badges_export() {
+function badges_export()
+{
   $form = array();
 
   $form['export'] = array(
@@ -202,7 +209,8 @@ function badges_export() {
 /*
  * Badges Import Form
  */
-function badges_import() {
+function badges_import()
+{
   $form = array();
 
   $form['import'] = array(
@@ -223,7 +231,8 @@ function badges_import() {
 /*
  * Badges Import Form Validate
  */
-function badges_import_validate($form, $form_state) {
+function badges_import_validate($form, $form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
   $value = $post['import'];
   $data = json_decode($value);
@@ -235,16 +244,17 @@ function badges_import_validate($form, $form_state) {
 /*
  * Badges Import Form Submit
  */
-function badges_import_submit($form, $form_state) {
+function badges_import_submit($form, $form_state)
+{
   $post = $form_state["clicked_button"]["#post"];
   $value = $post['import'];
   $data = json_decode($value);
   # Run inport
   $badges = badges_get();
   foreach ($badges as $badge) {
-     badge_delete($badge['id']);
+    badge_delete($badge['id']);
   }
   foreach ($data as $badge) {
-    badge_add( $badge['name'], $badge['info'], $badge['type'], $badge['status'] );
+    badge_add($badge['name'], $badge['info'], $badge['type'], $badge['status']);
   }
 }

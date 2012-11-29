@@ -11,14 +11,14 @@ $(document).ready(function () {
     }
   });
 
-  $('a.permission').live('click', function(e) {
+  $('a.permission').live('click', function (e) {
     e.preventDefault();
     var el = $(this);
     $.ajax({
-      type      : 'POST',
-      dataType  : 'json',
-      url       : Drupal.settings.base_url + '/' + el.attr('name'),
-      success   : function() {
+      type:'POST',
+      dataType:'json',
+      url:Drupal.settings.base_url + '/' + el.attr('name'),
+      success:function () {
         el.toggleClass('remove');
       }
     });

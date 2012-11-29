@@ -10,7 +10,8 @@
 /**
  * Implementation of hook_install().
  */
-function issue_install() {
+function issue_install()
+{
   // Create database tables.
   drupal_install_schema('issue');
 }
@@ -18,7 +19,8 @@ function issue_install() {
 /**
  * Implementation of hook_schema().
  */
-function issue_schema() {
+function issue_schema()
+{
   $schema = array();
   $schema['issue'] = array(
     'description' => t('Stores the main settings for an advanced issue node.'),
@@ -157,7 +159,8 @@ function issue_schema() {
   return $schema;
 }
 
-function issue_update_6200(&$sandbox = NULL) {
+function issue_update_6200(&$sandbox = NULL)
+{
   $ret = array();
   db_add_field($ret, 'poll_votes', 'status', array('type' => 'text', 'not null' => TRUE));
   $ret[] = update_sql('UPDATE {poll_votes} SET status = "old"');

@@ -5,8 +5,9 @@
  *
  * @param $vars
  */
-function user_profile_preprocess_page(&$vars) {
-  if (arg(0)=='user' && arg(1)=='profile') {
+function user_profile_preprocess_page(&$vars)
+{
+  if (arg(0) == 'user' && arg(1) == 'profile') {
     switch (arg(2)) {
       case 'view' :
       case 'follow' :
@@ -17,12 +18,12 @@ function user_profile_preprocess_page(&$vars) {
           $vars['content_bottom'] = t('Activity stream');
         }
         array_push($vars['template_files'], 'page_user_profile');
-      break;
+        break;
       case 'edit' :
         $vars['lclass'] = 'twelve';
         $vars['rclass'] = 'four';
         array_push($vars['template_files'], 'page_user_profile_edit');
-      break;
+        break;
     }
   }
 }
@@ -32,7 +33,8 @@ function user_profile_preprocess_page(&$vars) {
  *
  * @return array
  */
-function user_profile_theme() {
+function user_profile_theme()
+{
   $theme = array();
 
   # view page
@@ -59,9 +61,9 @@ function user_profile_theme() {
 
   # popups/blocks
   foreach (array('popup', 'right', 'bottom') as $place) {
-    $theme['user_profile_'.$place] = array(
+    $theme['user_profile_' . $place] = array(
       'arguments' => array('user' => NULL,),
-      'template' => 'templates/user-profile-'.$place,
+      'template' => 'templates/user-profile-' . $place,
       'preprocess functions' => array('user_profile_block_preprocess'),
     );
   }
@@ -83,7 +85,8 @@ function user_profile_theme() {
  *
  * @param $vars
  */
-function user_profile_view_preprocess(&$vars) {
+function user_profile_view_preprocess(&$vars)
+{
   $vars['account'] = _user_profile_get_user(arg(3));
   $vars['rank'] = $vars['account']->rank['name'];
 }
@@ -93,7 +96,8 @@ function user_profile_view_preprocess(&$vars) {
  *
  * @param $vars
  */
-function user_profile_info_preprocess(&$vars) {
+function user_profile_info_preprocess(&$vars)
+{
   if (!isset($vars['account'])) {
     $vars['account'] = _user_profile_get_user(arg(3));
     if ($vars['account'] === false) {
@@ -124,7 +128,8 @@ function user_profile_info_preprocess(&$vars) {
  *
  * @param $vars
  */
-function user_profile_block_preprocess(&$vars) {
+function user_profile_block_preprocess(&$vars)
+{
   static $preprocessed = array();
   if (!user_is_logged_in()) {
     $vars['denied'] = true;
@@ -154,7 +159,8 @@ function user_profile_block_preprocess(&$vars) {
  *
  * @param $vars
  */
-function user_profile_follow_preprocess(&$vars) {
+function user_profile_follow_preprocess(&$vars)
+{
   if (module_exists('follower')) {
     switch ($vars['code']) {
       case 'following' :
@@ -175,9 +181,10 @@ function user_profile_follow_preprocess(&$vars) {
  * @param $user
  * @return string
  */
-function theme_user_profile_avatar_selection($user) {
+function theme_user_profile_avatar_selection($user)
+{
   drupal_add_css(drupal_get_path('module', 'user_profile') . '/user_profile.css');
-  $output = '<div id="user_profile_avatar_selection"><p>'.t('Pick a profile photo').'</p>';
+  $output = '<div id="user_profile_avatar_selection"><p>' . t('Pick a profile photo') . '</p>';
   $avatars = _avatar_selection_image_list($user);
   foreach ($avatars['avatars'] as $avatar) {
     $output .= $avatar;
@@ -194,7 +201,8 @@ function theme_user_profile_avatar_selection($user) {
  * @param $account
  * @param null $category
  */
-function user_profile_user($op, &$edit, &$account, $category = NULL) {
+function user_profile_user($op, &$edit, &$account, $category = NULL)
+{
   switch ($op) {
     case 'load' :
       $account->viewlink = 'user/profile/view/' . $account->name;
@@ -217,7 +225,8 @@ define('USER_PROFILE_VIEW', 'View User Profile');
  *
  * @return array
  */
-function user_profile_perm() {
+function user_profile_perm()
+{
   return array(USER_PROFILE_EDIT, USER_PROFILE_VIEW);
 }
 
@@ -226,41 +235,42 @@ function user_profile_perm() {
  *
  * @return array
  */
-function user_profile_menu() {
+function user_profile_menu()
+{
   $menu = array();
 
   $menu['user/profile/view'] = array(
-    'title callback'    => 'drupal_set_subtitle',
-    'title arguments'   => array(t('View Profile')),
-    'page callback'     => 'theme',
-    'page arguments'    => array('user_profile_view'),
-    'access callback'   => 'user_profile_access_user_profile',
-    'access arguments'  => array(USER_PROFILE_VIEW, 3),
-    'type'              => MENU_CALLBACK,
+    'title callback' => 'drupal_set_subtitle',
+    'title arguments' => array(t('View Profile')),
+    'page callback' => 'theme',
+    'page arguments' => array('user_profile_view'),
+    'access callback' => 'user_profile_access_user_profile',
+    'access arguments' => array(USER_PROFILE_VIEW, 3),
+    'type' => MENU_CALLBACK,
   );
   $menu['user/profile/location/%/%'] = array(
-    'page callback'     => 'user_profile_location',
-    'page arguments'    => array(3,4),
-    'access arguments'  => array(USER_PROFILE_VIEW),
-    'type'              => MENU_CALLBACK,
+    'page callback' => 'user_profile_location',
+    'page arguments' => array(3, 4),
+    'access arguments' => array(USER_PROFILE_VIEW),
+    'type' => MENU_CALLBACK,
   );
   $menu['user/profile/edit'] = array(
-    'title callback'    => 'drupal_set_subtitle',
-    'title arguments'   => array(t('Edit Profile')),
-    'page callback'     => 'drupal_get_form',
-    'page arguments'    => array('user_profile_edit_form'),
-    'access arguments'  => array(USER_PROFILE_EDIT),
-    'file'              => 'user_profile.pages.inc',
-    'type'              => MENU_CALLBACK,
+    'title callback' => 'drupal_set_subtitle',
+    'title arguments' => array(t('Edit Profile')),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('user_profile_edit_form'),
+    'access arguments' => array(USER_PROFILE_EDIT),
+    'file' => 'user_profile.pages.inc',
+    'type' => MENU_CALLBACK,
   );
   $menu['user/profile/follow/%/%'] = array(
-    'title callback'    => 'user_profile_follow_title',
-    'title arguments'   => array(4, true),
-    'page callback'     => 'theme',
-    'page arguments'    => array('user_profile_follow', 3, 4),
-    'access callback'   => 'user_profile_access_user_profile',
-    'access arguments'  => array(USER_PROFILE_VIEW, 3),
-    'type'              => MENU_CALLBACK,
+    'title callback' => 'user_profile_follow_title',
+    'title arguments' => array(4, true),
+    'page callback' => 'theme',
+    'page arguments' => array('user_profile_follow', 3, 4),
+    'access callback' => 'user_profile_access_user_profile',
+    'access arguments' => array(USER_PROFILE_VIEW, 3),
+    'type' => MENU_CALLBACK,
   );
 
   return $menu;
@@ -273,7 +283,8 @@ function user_profile_menu() {
  * @param $string
  * @return bool
  */
-function user_profile_access_user_profile($user_access, $string) {
+function user_profile_access_user_profile($user_access, $string)
+{
   if (empty($string) && !user_is_logged_in()) {
     return false;
   } else {
@@ -295,7 +306,8 @@ function user_profile_access_user_profile($user_access, $string) {
  * @param $string
  * @return bool
  */
-function _user_profile_get_user($string) {
+function _user_profile_get_user($string)
+{
   if (empty($string)) {
     if (user_is_logged_in()) {
       global $user;
@@ -315,7 +327,8 @@ function _user_profile_get_user($string) {
  * @param $code
  * @return null|string
  */
-function user_profile_follow_title($code, $set_as_title = false) {
+function user_profile_follow_title($code, $set_as_title = false)
+{
   $title = $code == 'following' ? t('Following Users') : t('Followers');
   return $set_as_title ? drupal_set_subtitle($title) : $title;
 }
@@ -328,13 +341,14 @@ function user_profile_follow_title($code, $set_as_title = false) {
  * @param array $edit
  * @return mixed
  */
-function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
+function user_profile_block($op = 'list', $delta = 0, $edit = array())
+{
   switch ($op) {
     case 'list':
 
       foreach (array('popup', 'right', 'bottom') as $place) {
-        $blocks['user-profile-'.$place] = array(
-          'info' => t('User Profile Complete Percent ('.ucfirst($place).')'),
+        $blocks['user-profile-' . $place] = array(
+          'info' => t('User Profile Complete Percent (' . ucfirst($place) . ')'),
         );
       }
       return $blocks;
@@ -342,9 +356,9 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
     case 'view':
 
       foreach (array('popup', 'right', 'bottom') as $place) {
-        if ($delta == 'user-profile-'.$place) {
+        if ($delta == 'user-profile-' . $place) {
           $block['subject'] = t('');
-          $block['content'] = theme('user_profile_'.$place);
+          $block['content'] = theme('user_profile_' . $place);
         }
       }
 
@@ -358,7 +372,8 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
  * @param $countrycode
  * @param $zip
  */
-function user_profile_location($countrycode, $zip) {
+function user_profile_location($countrycode, $zip)
+{
   $output = user_profile_geocode($countrycode, $zip);
   if (empty($output)) {
     drupal_json(array(
@@ -382,7 +397,8 @@ function user_profile_location($countrycode, $zip) {
  * @param $country
  * @return string
  */
-function user_profile_location_format($city, $state, $country) {
+function user_profile_location_format($city, $state, $country)
+{
   $location = $city;
   if ($state) {
     $location .= ($location ? ', ' : '') . $state;
@@ -401,7 +417,8 @@ function user_profile_location_format($city, $state, $country) {
  * @param $zip
  * @return array
  */
-function user_profile_geocode($countrycode, $zip) {
+function user_profile_geocode($countrycode, $zip)
+{
   $output = array();
 
   global $user;
@@ -429,7 +446,8 @@ function user_profile_geocode($countrycode, $zip) {
  * @param bool $presetname
  * @return mixed
  */
-function user_profile_image($user, $presetname = false) {
+function user_profile_image($user, $presetname = false)
+{
   static $imgs = array();
   if (!isset($imgs[$user->uid][$presetname])) {
     if ($presetname === false || !imagecache_generate_image($presetname, $user->picture)) {
@@ -451,7 +469,8 @@ function user_profile_image($user, $presetname = false) {
  *
  * @return array
  */
-function user_profile_profile_privacy_access_info() {
+function user_profile_profile_privacy_access_info()
+{
   return array(
     'authorized' => array(
       'label' => t('Logged In'),
@@ -476,7 +495,8 @@ define('USER_PROFILE_PRIVACY_PREFIX', 'private_');
  *
  * @return array
  */
-function user_profile_profile_privacy_values() {
+function user_profile_profile_privacy_values()
+{
   static $values = null;
   if (is_null($values)) {
     $values = module_invoke_all('profile_privacy_access_info');
@@ -491,7 +511,8 @@ function user_profile_profile_privacy_values() {
  * @param $field
  * @return mixed
  */
-function user_profile_privacy_follower_access_callback($account, $field) {
+function user_profile_privacy_follower_access_callback($account, $field)
+{
   static $list = array();
   if (!isset($list[$account->uid])) {
     if (module_exists('follower')) {
@@ -506,7 +527,8 @@ function user_profile_privacy_follower_access_callback($account, $field) {
 /**
  * Implementaton of hook_init()
  */
-function user_profile_init() {
+function user_profile_init()
+{
   // TODO - very bad!
   drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
   if (user_is_logged_in()) {
@@ -514,7 +536,7 @@ function user_profile_init() {
     profile_load_profile($user);
     $private_fields = profile_privacy_get_user_privacy($user->uid);
     foreach ($private_fields as $field_name => $private) {
-      $user->{'private_'. $field_name} = $private;
+      $user->{'private_' . $field_name} = $private;
     }
   }
 }

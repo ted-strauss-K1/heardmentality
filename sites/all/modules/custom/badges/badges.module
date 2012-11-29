@@ -5,7 +5,8 @@ include('badges.implementations.inc');
 /*
  * Implementation of hook_init()
  */
-function badges_init() {
+function badges_init()
+{
   //
 }
 
@@ -17,55 +18,57 @@ define('BADGES_ADMIN', 'Administer Badges');
 /*
  * Implementation of hook_perm()
  */
-function badges_perm() {
+function badges_perm()
+{
   return array('Manage Badges');
 }
 
 /*
  * Implementation of hook_menu()
  */
-function badges_menu() {
+function badges_menu()
+{
   $menu = array();
 
   $menu['admin/settings/badges'] = array(
-    'title'            => t('Badges Configuration'),
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('badges_form'),
+    'title' => t('Badges Configuration'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('badges_form'),
     'access arguments' => array(BADGES_ADMIN),
-    'type'             => MENU_NORMAL_ITEM,
-    'file'             => 'badges.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'badges.admin.inc',
   );
   $menu['admin/settings/badges/list'] = array(
-    'title'            => t('List'),
+    'title' => t('List'),
     'access arguments' => array(BADGES_ADMIN),
-    'type'             => MENU_DEFAULT_LOCAL_TASK,
-    'weight'           => -2,
-    'file'             => 'badges.admin.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -2,
+    'file' => 'badges.admin.inc',
   );
   $menu['admin/settings/badges/import'] = array(
-    'title'            => t('Import'),
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('badges_import'),
+    'title' => t('Import'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('badges_import'),
     'access arguments' => array(BADGES_ADMIN),
-    'type'             => MENU_LOCAL_TASK,
-    'weight'           => -1,
-    'file'             => 'badges.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -1,
+    'file' => 'badges.admin.inc',
   );
   $menu['admin/settings/badges/export'] = array(
-    'title'            => t('Export'),
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('badges_export'),
+    'title' => t('Export'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('badges_export'),
     'access arguments' => array(BADGES_ADMIN),
-    'type'             => MENU_LOCAL_TASK,
-    'weight'           => 0,
-    'file'             => 'badges.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 0,
+    'file' => 'badges.admin.inc',
   );
 
   $menu['badges'] = array(
-    'title'            => t('Badges'),
-    'page callback'    => 'theme',
-    'page arguments'   => array('badges_list'),
-    'access callback'  => true,
+    'title' => t('Badges'),
+    'page callback' => 'theme',
+    'page arguments' => array('badges_list'),
+    'access callback' => true,
   );
 
   return $menu;
@@ -76,7 +79,8 @@ function badges_menu() {
  *
  * @return array
  */
-function badges_theme() {
+function badges_theme()
+{
   $theme = array();
 
   $theme['badges_list'] = array(
@@ -89,10 +93,11 @@ function badges_theme() {
 /*
  * Badge machine name
  */
-function badge_machine_name($name) {
-  $name = preg_replace('/[^a-zA-Z\_]/', '_',  $name);
-  $name = preg_replace('/\_+/', '_',  $name);
-  $name = preg_replace('/(^_|_$)/', '',  $name);
+function badge_machine_name($name)
+{
+  $name = preg_replace('/[^a-zA-Z\_]/', '_', $name);
+  $name = preg_replace('/\_+/', '_', $name);
+  $name = preg_replace('/(^_|_$)/', '', $name);
   $name = strtolower($name);
   return $name;
 }
@@ -100,17 +105,19 @@ function badge_machine_name($name) {
 /*
  * Badge process function name
  */
-function badge_process_fn($name) {
-  return 'badge_process_'.badge_machine_name($name);
+function badge_process_fn($name)
+{
+  return 'badge_process_' . badge_machine_name($name);
 }
 
 /*
  * Badge id by process_fn name
  */
-function badge_process_fn_invert($fname) {
+function badge_process_fn_invert($fname)
+{
   $badges = badges_get();
-  foreach( $badges as $badge ) {
-    if( $fname == $badge['fname'] ) {
+  foreach ($badges as $badge) {
+    if ($fname == $badge['fname']) {
       return $badge;
     }
   }
@@ -120,20 +127,22 @@ function badge_process_fn_invert($fname) {
 /*
  * Badge implementation check
  */
-function badge_implemented($name) {
+function badge_implemented($name)
+{
   return function_exists(badge_process_fn($name));
 }
 
 /*
  * Badges get
  */
-function badges_get() {
+function badges_get()
+{
   static $badges = array();
-  if( !empty($badges) ) {
+  if (!empty($badges)) {
     return $badges;
   }
   $result = db_query('SELECT * FROM {module_badges} ORDER BY status ASC');
-  while( $badge = db_fetch_array($result) ) {
+  while ($badge = db_fetch_array($result)) {
     $badge['mname'] = badge_machine_name($badge['name']);
     $badge['fname'] = badge_process_fn($badge['name']);
     $badge['implemented'] = badge_implemented($badge['name']);
@@ -145,11 +154,12 @@ function badges_get() {
 /*
  * Badge types
  */
-function badges_types() {
+function badges_types()
+{
   static $types = array();
   if (empty($types)) {
     $result = db_query("SELECT * FROM {module_badges_types}");
-    while( $row = db_fetch_object($result) ) {
+    while ($row = db_fetch_object($result)) {
       $types[$row->id] = $row->name;
     }
   }
@@ -157,11 +167,11 @@ function badges_types() {
 }
 
 
-
 /*
- * Add user badge
- */
-function badges_add_userbadge($uid, $badge_id) {
+* Add user badge
+*/
+function badges_add_userbadge($uid, $badge_id)
+{
   db_query("INSERT INTO {module_badges_userbadges} SET uid = '%d', badge_id = '%d'", $uid, $badge_id);
   if (module_exists('activity_stream')) {
     activity_stream_add_activity(ACTIVITY_STREAM_BADGE, array(
@@ -173,7 +183,8 @@ function badges_add_userbadge($uid, $badge_id) {
 /*
  * Get user badges
  */
-function badges_get_userbadges($uid) {
+function badges_get_userbadges($uid)
+{
   static $values = array();
   if (!isset($values[$uid])) {
     $list = array(
@@ -200,7 +211,8 @@ function badges_get_userbadges($uid) {
 /**
  * Callback for "badges"
  */
-function theme_badges_list() {
+function theme_badges_list()
+{
   $output = '<div class="badges">';
   $result = db_query("
     SELECT mb.info, mb.name AS badge_name, mbt.name, COUNT(mbu.id) AS count

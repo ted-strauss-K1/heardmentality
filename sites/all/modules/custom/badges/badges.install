@@ -3,7 +3,8 @@
 /*
  * Implementation of hook_install()
  */
-function badges_install() {
+function badges_install()
+{
   db_query("
     CREATE TABLE IF NOT EXISTS {module_badges_types} (
       id INT NOT NULL AUTO_INCREMENT,

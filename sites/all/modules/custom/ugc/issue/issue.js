@@ -1,9 +1,9 @@
 /*
  * Count letters on issue create form
  */
-$(function() {
+$(function () {
   var maxChar = 140;
-  limitChars = function(){
+  limitChars = function () {
     var text = $("#q_quest").val();
     if (text.length > maxChar) {
       text = text.substring(0, maxChar);
@@ -19,12 +19,12 @@ $(function() {
  *
  * @see http://drupal.org/node/1005598
  */
-$(function(){
+$(function () {
   //override ahah success to fire a custom javascript function, if it's in the response object
-  Drupal.ahah.prototype.success = function (response, status){
-    var customCallback = function(){
-      if(!!response.js){ //fire custom javascript callback after AHAH has done its thing
-        eval(response.js['func']+'('+(!!response.js['params'] ? response.js['params'] : '')+');');
+  Drupal.ahah.prototype.success = function (response, status) {
+    var customCallback = function () {
+      if (!!response.js) { //fire custom javascript callback after AHAH has done its thing
+        eval(response.js['func'] + '(' + (!!response.js['params'] ? response.js['params'] : '') + ');');
       }
     };
     var wrapper = $(this.wrapper);
@@ -33,21 +33,38 @@ $(function(){
     form.attr('action', this.form_action);
     this.form_target ? form.attr('target', this.form_target) : form.removeAttr('target');
     this.form_encattr ? form.attr('target', this.form_encattr) : form.removeAttr('encattr');
-    if(this.progress.element){$(this.progress.element).remove();}
-    if(this.progress.object){this.progress.object.stopMonitoring();}
+    if (this.progress.element) {
+      $(this.progress.element).remove();
+    }
+    if (this.progress.object) {
+      this.progress.object.stopMonitoring();
+    }
     $(this.element).removeClass('progress-disabled').attr('disabled', false);
-   // Drupal.freezeHeight();
-    if(this.method == 'replace'){wrapper.empty().append(new_content);}
-    else{wrapper[this.method](new_content);}
-    if(this.showEffect!='show'){new_content.hide();}
-    if(($.browser.safari && $("tr.ahah-new-content", new_content).size()>0)){new_content.show();customCallback();}
-    else if($('.ahah-new-content', new_content).size()>0){
+    // Drupal.freezeHeight();
+    if (this.method == 'replace') {
+      wrapper.empty().append(new_content);
+    }
+    else {
+      wrapper[this.method](new_content);
+    }
+    if (this.showEffect != 'show') {
+      new_content.hide();
+    }
+    if (($.browser.safari && $("tr.ahah-new-content", new_content).size() > 0)) {
+      new_content.show();
+      customCallback();
+    }
+    else if ($('.ahah-new-content', new_content).size() > 0) {
       $('.ahah-new-content', new_content).hide();
       new_content.show();
       $(".ahah-new-content", new_content)[this.showEffect](this.showSpeed, customCallback);
     }
-    else if(this.showEffect != 'show'){new_content[this.showEffect](this.showSpeed, customCallback);}
-    if(new_content.parents('html').length > 0){Drupal.attachBehaviors(new_content);}
+    else if (this.showEffect != 'show') {
+      new_content[this.showEffect](this.showSpeed, customCallback);
+    }
+    if (new_content.parents('html').length > 0) {
+      Drupal.attachBehaviors(new_content);
+    }
     //Drupal.unfreezeHeight();
   };
 });
@@ -57,69 +74,69 @@ $(function(){
  */
 function issue_create_ahah_answer_error() {
   $.hrd.noty({
-    'type'   : 'error',
-    'text'   : 'Maximum fields exceeded'
+    'type':'error',
+    'text':'Maximum fields exceeded'
   });
 }
 
-function choices(s1,s2) {
-  $(s1).live('change', function() {
+function choices(s1, s2) {
+  $(s1).live('change', function () {
     $(s1).parents('div.form-item').removeClass('staygreen');
-    $(s1+':checked').parents('div.form-item').addClass('staygreen');
-    $(s2).each(function(i,e) {
+    $(s1 + ':checked').parents('div.form-item').addClass('staygreen');
+    $(s2).each(function (i, e) {
       $(e).removeAttr("checked")
       $(e).parents('div.form-item').removeClass('staygreen');
     });
   });
-  $(s1+':checked').each(function(i,e){
+  $(s1 + ':checked').each(function (i, e) {
     $(e).parents('div.form-item').addClass('staygreen');
   });
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
   /*
    * Regular and Suggested choices
    */
   var s1 = '.choices.regular input[type="radio"]';
   var s2 = '.choices.suggested input[type="radio"]';
-  choices(s1,s2);
-  choices(s2,s1);
+  choices(s1, s2);
+  choices(s2, s1);
 
   /*
    * Toggle resources
    */
-  $('#inc_ref').change(function(){
+  $('#inc_ref').change(function () {
     $('.resources').toggle();
   });
 
 });
 
-$('#answer-add').live('click', function() {
+$('#answer-add').live('click', function () {
   $(this).parents('.issue-vote-form').find('input[name=action]').val('suggest')
 });
-$('#vote-add, #vote-change').live('click', function() {
+$('#vote-add, #vote-change').live('click', function () {
   $(this).parents('.issue-vote-form').find('input[name=action]').val('vote')
 });
 
-$('.issue-vote-form').live('submit', function(e) {
+$('.issue-vote-form').live('submit', function (e) {
   e.preventDefault();
   var form = $(this);
   $.ajax({
-    type      : 'POST',
-    dataType  : 'json',
-    url       : Drupal.settings.base_url + '/issue/ajax',
-    data      : form.serialize(),
-    success   : function(response) {
+    type:'POST',
+    dataType:'json',
+    url:Drupal.settings.base_url + '/issue/ajax',
+    data:form.serialize(),
+    success:function (response) {
       if (!response.status) {
         $.hrd.noty({
-          type  : 'error',
-          text  : response.message
+          type:'error',
+          text:response.message
         });
         return false;
       }
       $.hrd.noty({
-        type  : 'success',
-        text  : response.message
+        type:'success',
+        text:response.message
       });
       form.parents('.voteform').html(response.content);
       //

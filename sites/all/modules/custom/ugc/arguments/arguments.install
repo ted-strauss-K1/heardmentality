@@ -3,14 +3,16 @@
 /*
  * Implementation of hook_install()
  */
-function arguments_install() {
+function arguments_install()
+{
   drupal_install_schema('arguments');
 }
 
 /*
  * Implementation of hook_schema()
  */
-function arguments_schema() {
+function arguments_schema()
+{
   $schema = array();
 
   $schema['arguments_options'] = array(

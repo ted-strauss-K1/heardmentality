@@ -15,26 +15,28 @@
   <a href="/user/profile/view"><?php print t('View Profile');?></a> |
   <a href="/user/profile/edit"><?php print t('Edit Profile');?></a>
 </p>
-<?php if($complete['percent']<100) : ?>
+<?php if ($complete['percent'] < 100) : ?>
   <div class="profile-meta">
     <div class="profile-meta footerfloat">
       <p><?php print t('Your profile is !complete% Complete', array('!complete' => $complete['percent']))?></p>
+
       <div class="profile-complete">
         <div class="progress" style="width: <?php print $complete['percent']; ?>%;"></div>
       </div>
     </div>
   </div>
-<?php endif; ?>
+  <?php endif; ?>
 <div class="floatleft">
   <a href="/user/profile/view" title="<?php print t('View Profile');?>">
     <img class="user-profile" src="<?php print user_profile_image($user);?>">
   </a>
   <?php foreach ($badges['#stat'] as $type => $badge) : ?>
-    <div class="medal" >
-      <span class="<?php print $type ?>" id="medal1" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
-      <?php print $badge; ?>
-    </div>
+  <div class="medal">
+    <span class="<?php print $type ?>" id="medal1" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
+    <?php print $badge; ?>
+  </div>
   <?php endforeach; ?>
 </div>
-<a type="submit" title="<?php print t('Log out');?>" href="/logout" class="button darker floatright"><?php print t('Logout'); ?></a>
+<a type="submit" title="<?php print t('Log out');?>" href="/logout"
+   class="button darker floatright"><?php print t('Logout'); ?></a>
 <?php endif; ?>

@@ -7,18 +7,18 @@
  * modification, are permitted provided that the following conditions
  * are met:
  *
- *	* Redistributions of source code must retain the above copyright
- *	  notice, this list of conditions and the following disclaimer.
+ *  * Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
  *
- *	* Redistributions in binary form must reproduce the above
- *	  copyright notice, this list of conditions and the following
- *	  disclaimer in the documentation and/or other materials provided
- *	  with the distribution.
+ *  * Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials provided
+ *    with the distribution.
  *
- *	* Neither the names of David R. Nadeau or NadeauSoftware.com, nor
- *	  the names of its contributors may be used to endorse or promote
- *	  products derived from this software without specific prior
- *	  written permission.
+ *  * Neither the names of David R. Nadeau or NadeauSoftware.com, nor
+ *    the names of its contributors may be used to endorse or promote
+ *    products derived from this software without specific prior
+ *    written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -50,14 +50,14 @@
  * The $parts argument is an associative array containing zero or
  * more of the following:
  *
- *	"scheme"	The scheme, such as "http".
- *	"host"		The host name, IPv4, or IPv6 address.
- *	"port"		The port number.
- *	"user"		The user name.
- *	"pass"		The user password.
- *	"path"		The path, such as a file path for "http".
- *	"query"		The query.
- *	"fragment"	The fragment.
+ *  "scheme"  The scheme, such as "http".
+ *  "host"    The host name, IPv4, or IPv6 address.
+ *  "port"    The port number.
+ *  "user"    The user name.
+ *  "pass"    The user password.
+ *  "path"    The path, such as a file path for "http".
+ *  "query"    The query.
+ *  "fragment"  The fragment.
  *
  * The "port", "user", and "pass" values are only used when a "host"
  * is present.
@@ -74,67 +74,65 @@
  * The assembled URL string is returned.
  *
  * Parameters:
- * 	parts		an associative array of strings containing the
- * 			individual parts of a URL.
+ *   parts    an associative array of strings containing the
+ *       individual parts of a URL.
  *
- * 	encode		an optional boolean flag selecting whether
- * 			to do percent encoding or not.  Default = true.
+ *   encode    an optional boolean flag selecting whether
+ *       to do percent encoding or not.  Default = true.
  *
  * Return values:
- * 	Returns the assembled URL string.  The string is an absolute
- * 	URL if a scheme is supplied, and a relative URL if not.  An
- * 	empty string is returned if the $parts array does not contain
- * 	any of the needed values.
+ *   Returns the assembled URL string.  The string is an absolute
+ *   URL if a scheme is supplied, and a relative URL if not.  An
+ *   empty string is returned if the $parts array does not contain
+ *   any of the needed values.
  */
-function join_url( $parts, $encode=TRUE )
+function join_url($parts, $encode = TRUE)
 {
-	if ( $encode )
-	{
-		if ( isset( $parts['user'] ) )
-			$parts['user']     = rawurlencode( $parts['user'] );
-		if ( isset( $parts['pass'] ) )
-			$parts['pass']     = rawurlencode( $parts['pass'] );
-		if ( isset( $parts['host'] ) &&
-			!preg_match( '!^(\[[\da-f.:]+\]])|([\da-f.:]+)$!ui', $parts['host'] ) )
-			$parts['host']     = rawurlencode( $parts['host'] );
-		if ( !empty( $parts['path'] ) )
-			$parts['path']     = preg_replace( '!%2F!ui', '/',
-				rawurlencode( $parts['path'] ) );
-		if ( isset( $parts['query'] ) )
-			$parts['query']    = rawurlencode( $parts['query'] );
-		if ( isset( $parts['fragment'] ) )
-			$parts['fragment'] = rawurlencode( $parts['fragment'] );
-	}
+  if ($encode) {
+    if (isset($parts['user']))
+      $parts['user'] = rawurlencode($parts['user']);
+    if (isset($parts['pass']))
+      $parts['pass'] = rawurlencode($parts['pass']);
+    if (isset($parts['host']) &&
+      !preg_match('!^(\[[\da-f.:]+\]])|([\da-f.:]+)$!ui', $parts['host'])
+    )
+      $parts['host'] = rawurlencode($parts['host']);
+    if (!empty($parts['path']))
+      $parts['path'] = preg_replace('!%2F!ui', '/',
+        rawurlencode($parts['path']));
+    if (isset($parts['query']))
+      $parts['query'] = rawurlencode($parts['query']);
+    if (isset($parts['fragment']))
+      $parts['fragment'] = rawurlencode($parts['fragment']);
+  }
 
-	$url = '';
-	if ( !empty( $parts['scheme'] ) )
-		$url .= $parts['scheme'] . ':';
-	if ( isset( $parts['host'] ) )
-	{
-		$url .= '//';
-		if ( isset( $parts['user'] ) )
-		{
-			$url .= $parts['user'];
-			if ( isset( $parts['pass'] ) )
-				$url .= ':' . $parts['pass'];
-			$url .= '@';
-		}
-		if ( preg_match( '!^[\da-f]*:[\da-f.:]+$!ui', $parts['host'] ) )
-			$url .= '[' . $parts['host'] . ']';	// IPv6
-		else
-			$url .= $parts['host'];			// IPv4 or name
-		if ( isset( $parts['port'] ) )
-			$url .= ':' . $parts['port'];
-		if ( !empty( $parts['path'] ) && $parts['path'][0] != '/' )
-			$url .= '/';
-	}
-	if ( !empty( $parts['path'] ) )
-		$url .= $parts['path'];
-	if ( isset( $parts['query'] ) )
-		$url .= '?' . $parts['query'];
-	if ( isset( $parts['fragment'] ) )
-		$url .= '#' . $parts['fragment'];
-	return $url;
+  $url = '';
+  if (!empty($parts['scheme']))
+    $url .= $parts['scheme'] . ':';
+  if (isset($parts['host'])) {
+    $url .= '//';
+    if (isset($parts['user'])) {
+      $url .= $parts['user'];
+      if (isset($parts['pass']))
+        $url .= ':' . $parts['pass'];
+      $url .= '@';
+    }
+    if (preg_match('!^[\da-f]*:[\da-f.:]+$!ui', $parts['host']))
+      $url .= '[' . $parts['host'] . ']'; // IPv6
+    else
+      $url .= $parts['host']; // IPv4 or name
+    if (isset($parts['port']))
+      $url .= ':' . $parts['port'];
+    if (!empty($parts['path']) && $parts['path'][0] != '/')
+      $url .= '/';
+  }
+  if (!empty($parts['path']))
+    $url .= $parts['path'];
+  if (isset($parts['query']))
+    $url .= '?' . $parts['query'];
+  if (isset($parts['fragment']))
+    $url .= '#' . $parts['fragment'];
+  return $url;
 }
 
 ?>

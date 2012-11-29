@@ -3,47 +3,49 @@
 /**
  * Implementation of hook_install()
  */
-function moderation_install() {
+function moderation_install()
+{
   drupal_install_schema('moderation');
 }
 
 /**
  * Implementation of hook_schema()
  */
-function moderation_schema() {
+function moderation_schema()
+{
   $schema = array();
 
   $schema['moderation_history'] = array(
     'description' => 'Moderation history',
     'fields' => array(
-      'id'    => array(
+      'id' => array(
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'description' => 'Unique identifier.',
       ),
-      'uid'      => array(
+      'uid' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
         'description' => 'The {users}.uid this change is from.',
       ),
-      'content_id'     => array(
+      'content_id' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
         'description' => 'The content id this change belongs to.',
       ),
-      'content_type'  => array(
+      'content_type' => array(
         'type' => 'varchar',
         'length' => 128,
         'not null' => TRUE,
         'default' => '',
         'description' => 'The content type this change belongs to.',
       ),
-      'type'  => array(
+      'type' => array(
         'type' => 'varchar',
         'length' => 128,
         'not null' => TRUE,
@@ -52,12 +54,12 @@ function moderation_schema() {
       ),
       'vars' => array(
         'description' => 'The action variables.',
-        'type'        => 'text',
-        'default'     => ''),
+        'type' => 'text',
+        'default' => ''),
       'date_added' => array(
-        'type'        => 'datetime',
+        'type' => 'datetime',
         'description' => 'The date of the change.',
-        'not null'    => TRUE
+        'not null' => TRUE
       ),
     ),
     'indexes' => array(
