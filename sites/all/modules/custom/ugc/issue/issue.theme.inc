@@ -525,7 +525,7 @@ function theme_issue_arguments($node)
     $arguments_form = drupal_get_form('arguments_form', $node->nid);
   } else {
     $arguments_form =
-      '<div class="' . user_profile_login_class(true) . '" align="center"><b>' .
+      '<div class="' . (!module_exists('user_login_modal') ? "" : user_login_modal_class(true)) . '" align="center"><b>' .
         t('Please log in to participate in the debate') .
         '</b></div>';
   }

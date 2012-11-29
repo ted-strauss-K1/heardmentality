@@ -916,12 +916,12 @@ function issue_block($op = 'list', $delta = 0, $edit = array())
 
 
         case '0':
-//          if (arg(0) == 'node' && is_numeric($nid = arg(1))) {
-//            $node = node_load($nid);
-//            if (!empty($node) && $node->type == 'poll') {
-//              $block['content'] = theme('issue_content_bottom', $node);
-//            }
-//          }
+          if (arg(0) == 'node' && is_numeric($nid = arg(1))) {
+            $node = node_load($nid);
+            if (!empty($node) && $node->type == 'poll') {
+              $block['content'] = theme('issue_content_bottom', $node);
+            }
+          }
           break;
         case '2':
           if (arg(0) == 'node' && is_numeric(arg(1))) {
