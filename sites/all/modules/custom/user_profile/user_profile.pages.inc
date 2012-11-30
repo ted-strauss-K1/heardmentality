@@ -314,10 +314,12 @@ function user_profile_edit_form_validate_profile(&$form, &$form_state)
     if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $post['username'])) {
       form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
       $form_state['rebuild'] = TRUE;
-    } elseif (false !== db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid != '%d'", $post['username'], $user->uid))) {
+    } elseif (0 !== (int)db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid != '%d'", $post['username'], $user->uid))) {
       form_set_error('username', t('Sorry username already exists. Try any other combination'));
       $form_state['rebuild'] = TRUE;
     }
+  } else {
+    unset($post['username']);
   }
 
   # password
@@ -473,6 +475,11 @@ function user_profile_edit_form_submit_profile($form, &$form_state)
   if ($post['password'] != '' && $post['password'] != $form['password']['#default_value']) {
     $edit['pass'] = $post['password'];
   }
+  if ($post['username']) {
+    $edit['name'] = $post['username'];
+  }
+
+
   user_save($user, $edit);
   user_save($user, $edit, 'profile');
   user_save($user, $edit, 'links');

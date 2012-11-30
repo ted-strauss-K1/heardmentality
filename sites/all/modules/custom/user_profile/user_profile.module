@@ -8,6 +8,7 @@
 function user_profile_preprocess_page(&$vars)
 {
   if (arg(0) == 'user' && arg(1) == 'profile') {
+    drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
     switch (arg(2)) {
       case 'view' :
       case 'follow' :
@@ -210,15 +211,34 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
     case 'insert' :
       if (module_exists('gigya') && ($_gigya_user = GigyaUser::userFromUrl())) {
         $bio = $_gigya_user->getUserInfo();
-        var_dump($bio); die();
-        switch ($bio['loginProvider']) {
+        $data = $bio['identities'][0];
+
+        print json_encode ($bio);
+        print "\n";
+        print json_encode ($data);
+        print "\n";
+
+        if (!empty($data)) {
 
 
-          default :
 
-          break;
+          # user name
+          if (!empty($data['nickname'])) {
+            // replace with gigya username
+            if (db_query("UPDATE {users} SET name = '%s' WHERE uid = '%d'", $data['nickname'], $account->uid)) {
+              $edit['name'] = $data['nickname']; // update in the user array for access by other modules
+            }
+          }
+
+
+
         }
 
+
+        $result = db_fetch_object(db_query("SELECT * FROM {users} WHERE uid = '%d'", $account->uid));
+        var_dump($result);
+
+        die;
       }
     break;
   }
@@ -543,8 +563,6 @@ function user_profile_privacy_follower_access_callback($account, $field)
  */
 function user_profile_init()
 {
-  // TODO - very bad!
-  drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
   if (user_is_logged_in()) {
     global $user;
     profile_load_profile($user);
@@ -554,3 +572,12 @@ function user_profile_init()
     }
   }
 }
+
+/**
+ * Implementaton of hook_enable()
+ */
+//function user_profile_enable() {
+//  if (module_exists('email_registration')) {
+//    db_query("UPDATE {system} SET weight = '%d' WHERE name = '%s'", 100, 'user_profile');
+//  }
+//}
