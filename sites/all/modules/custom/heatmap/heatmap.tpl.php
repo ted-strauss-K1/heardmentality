@@ -1,23 +1,23 @@
 <script type='text/javascript' src='http://www.google.com/jsapi'></script>
 <script type="text/javascript">
-function init_heatmap() {
-  var data = new google.visualization.DataTable();
-  var current = Drupal.settings.heatmap.current;
-  var columns = Drupal.settings.heatmap[current].columns;
-  var dataset = Drupal.settings.heatmap[current].dataset;
-  data.addRows((dataset.length + 1) * columns.length);
-  for (var i = 0; i < columns.length; i++) {
-    data.addColumn(columns[i]['type'], columns[i]['name']);
-    for (var j = 0; j < dataset.length; j++) {
-      data.setValue(j, i, dataset[j][i]);
+  function init_heatmap() {
+    var data = new google.visualization.DataTable();
+    var current = Drupal.settings.heatmap.current;
+    var columns = Drupal.settings.heatmap[current].columns;
+    var dataset = Drupal.settings.heatmap[current].dataset;
+    data.addRows((dataset.length + 1) * columns.length);
+    for (var i = 0; i < columns.length; i++) {
+      data.addColumn(columns[i]['type'], columns[i]['name']);
+      for (var j = 0; j < dataset.length; j++) {
+        data.setValue(j, i, dataset[j][i]);
+      }
     }
+    var geomap = new google.visualization.GeoChart(document.getElementById('visualization'));
+    geomap.draw(data, {width:320, height:190, showLegend:true});
   }
-  var geomap = new google.visualization.GeoChart(document.getElementById('visualization'));
-  geomap.draw(data, {width:320, height:190, showLegend:true});
-}
 
-google.load('visualization', '1', {packages:['geochart']});
-google.setOnLoadCallback(init_heatmap);
+  google.load('visualization', '1', {packages:['geochart']});
+  google.setOnLoadCallback(init_heatmap);
 </script>
 <div id="visualization" style="cursor:pointer;"></div>
 <ul class="map-stats">

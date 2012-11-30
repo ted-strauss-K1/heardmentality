@@ -207,19 +207,11 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
   switch ($op) {
     case 'load' :
       $account->viewlink = 'user/profile/view/' . $account->name;
-    break;
+      break;
     case 'insert' :
       if (module_exists('gigya') && ($_gigya_user = GigyaUser::userFromUrl())) {
         $bio = $_gigya_user->getUserInfo();
-
-        $bio = (array)json_decode('{"UID":"186","UIDSig":"8NO1+S6+IuI1+VgeaDlsLN7OOIA=","timestamp":"2012-11-30 07:50:20","UIDSignature":"agMh8QDas\/BdJlXnmqqojtu\/uE8=","signatureTimestamp":"1354261820","isSiteUser":true,"isConnected":true,"isLoggedIn":true,"isTempUser":false,"loginProvider":"facebook","loginProviderUID":"100000771381005","isSiteUID":true,"identities":[{"provider":"facebook","providerUID":"100000771381005","isLoginIdentity":true,"nickname":"Oleg Dyachenko","photoURL":"http:\/\/graph.facebook.com\/100000771381005\/picture?type=large","thumbnailURL":"http:\/\/graph.facebook.com\/100000771381005\/picture?type=square","firstName":"Oleg","lastName":"Dyachenko","gender":"m","age":"23","birthDay":"27","birthMonth":"10","birthYear":"1989","email":"dyachenko.oleg@gmail.com","city":"Novosibirsk, Russia","profileURL":"http:\/\/www.facebook.com\/oleg.dyachenko.14","proxiedEmail":"","allowsLogin":true,"isExpiredSession":false,"missingPermissions":"Actions, Status","lastLoginTime":1354261801,"lastUpdated":"2012-11-30T07:50:02.348Z","lastUpdatedTimestamp":1354261802348,"oldestDataUpdated":"2012-11-30T07:50:01.083Z","oldestDataUpdatedTimestamp":1354261801083},{"provider":"site","providerUID":"186","isLoginIdentity":false,"nickname":"7Ggc3DpGq9","email":"dyachenko2.oleg@gmail.com","proxiedEmail":"","allowsLogin":true,"isExpiredSession":false,"lastLoginTime":1354260975,"lastUpdated":"2012-11-30T07:36:15.081Z","lastUpdatedTimestamp":1354260975081,"oldestDataUpdated":"2012-11-30T07:36:15.081Z","oldestDataUpdatedTimestamp":1354260975081}],"nickname":"7Ggc3DpGq9","photoURL":"http:\/\/graph.facebook.com\/100000771381005\/picture?type=large","thumbnailURL":"http:\/\/graph.facebook.com\/100000771381005\/picture?type=square","firstName":"Oleg","lastName":"Dyachenko","gender":"m","age":"23","birthDay":"27","birthMonth":"10","birthYear":"1989","email":"dyachenko2.oleg@gmail.com","city":"Novosibirsk, Russia","profileURL":"http:\/\/www.facebook.com\/oleg.dyachenko.14","proxiedEmail":"","capabilities":"Login, Friends, Places","providers":"facebook,site","statusCode":200,"errorCode":0,"statusReason":"OK","callId":"669d882a3fe649b497c3d02415ba72fd","oldestDataUpdatedTimestamp":1354260975081,"oldestDataAge":844}');
-
         $bio = (array)$bio['identities'][0];
-
-//        print json_encode ($bio);
-//        print "\n";
-//        print json_encode ($data);
-//        print "\n";
 
         if (!empty($bio)) {
 
@@ -246,11 +238,11 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
           $profile_fields = array();
 
           # real name
-          if (($profile_name = implode(" ", array($bio['firstName'],$bio['lastName'])))) {
-             $profile_fields['profile_name'] = $profile_name;
+          if (($profile_name = implode(" ", array($bio['firstName'], $bio['lastName'])))) {
+            $profile_fields['profile_name'] = $profile_name;
           }
           # gender
-          if (in_array($bio['gender'], array('m','f'))) {
+          if (in_array($bio['gender'], array('m', 'f'))) {
             $profile_fields['profile_gender'] = $bio['gender'] == 'm' ? 0 : 1;
           }
           # year of birth
@@ -272,11 +264,11 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
           }
 
           if ($bio['profileURL']) {
-            switch ($bio['rovider']) {
+            switch ($bio['provider']) {
               case 'facebook':
               case 'twitter':
-                $profile_fields['profile_'.$bio['provider']] = preg_replace('@.*\/@', '', $bio['profileURL']);
-              break;
+                $profile_fields['profile_' . $bio['provider']] = preg_replace('@.*\/@', '', $bio['profileURL']);
+                break;
             }
           }
 
@@ -289,9 +281,8 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
 
         }
 
-
       }
-    break;
+      break;
   }
 }
 
@@ -627,8 +618,9 @@ function user_profile_init()
 /**
  * Implementaton of hook_enable()
  */
-//function user_profile_enable() {
-//  if (module_exists('email_registration')) {
-//    db_query("UPDATE {system} SET weight = '%d' WHERE name = '%s'", 100, 'user_profile');
-//  }
-//}
+function user_profile_enable()
+{
+  if (module_exists('email_registration')) {
+    db_query("UPDATE {system} SET weight = '%d' WHERE name = '%s'", 100, 'user_profile');
+  }
+}
