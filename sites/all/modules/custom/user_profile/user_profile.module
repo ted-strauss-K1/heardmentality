@@ -211,34 +211,85 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
     case 'insert' :
       if (module_exists('gigya') && ($_gigya_user = GigyaUser::userFromUrl())) {
         $bio = $_gigya_user->getUserInfo();
-        $data = $bio['identities'][0];
 
-        print json_encode ($bio);
-        print "\n";
-        print json_encode ($data);
-        print "\n";
+        $bio = (array)json_decode('{"UID":"186","UIDSig":"8NO1+S6+IuI1+VgeaDlsLN7OOIA=","timestamp":"2012-11-30 07:50:20","UIDSignature":"agMh8QDas\/BdJlXnmqqojtu\/uE8=","signatureTimestamp":"1354261820","isSiteUser":true,"isConnected":true,"isLoggedIn":true,"isTempUser":false,"loginProvider":"facebook","loginProviderUID":"100000771381005","isSiteUID":true,"identities":[{"provider":"facebook","providerUID":"100000771381005","isLoginIdentity":true,"nickname":"Oleg Dyachenko","photoURL":"http:\/\/graph.facebook.com\/100000771381005\/picture?type=large","thumbnailURL":"http:\/\/graph.facebook.com\/100000771381005\/picture?type=square","firstName":"Oleg","lastName":"Dyachenko","gender":"m","age":"23","birthDay":"27","birthMonth":"10","birthYear":"1989","email":"dyachenko.oleg@gmail.com","city":"Novosibirsk, Russia","profileURL":"http:\/\/www.facebook.com\/oleg.dyachenko.14","proxiedEmail":"","allowsLogin":true,"isExpiredSession":false,"missingPermissions":"Actions, Status","lastLoginTime":1354261801,"lastUpdated":"2012-11-30T07:50:02.348Z","lastUpdatedTimestamp":1354261802348,"oldestDataUpdated":"2012-11-30T07:50:01.083Z","oldestDataUpdatedTimestamp":1354261801083},{"provider":"site","providerUID":"186","isLoginIdentity":false,"nickname":"7Ggc3DpGq9","email":"dyachenko2.oleg@gmail.com","proxiedEmail":"","allowsLogin":true,"isExpiredSession":false,"lastLoginTime":1354260975,"lastUpdated":"2012-11-30T07:36:15.081Z","lastUpdatedTimestamp":1354260975081,"oldestDataUpdated":"2012-11-30T07:36:15.081Z","oldestDataUpdatedTimestamp":1354260975081}],"nickname":"7Ggc3DpGq9","photoURL":"http:\/\/graph.facebook.com\/100000771381005\/picture?type=large","thumbnailURL":"http:\/\/graph.facebook.com\/100000771381005\/picture?type=square","firstName":"Oleg","lastName":"Dyachenko","gender":"m","age":"23","birthDay":"27","birthMonth":"10","birthYear":"1989","email":"dyachenko2.oleg@gmail.com","city":"Novosibirsk, Russia","profileURL":"http:\/\/www.facebook.com\/oleg.dyachenko.14","proxiedEmail":"","capabilities":"Login, Friends, Places","providers":"facebook,site","statusCode":200,"errorCode":0,"statusReason":"OK","callId":"669d882a3fe649b497c3d02415ba72fd","oldestDataUpdatedTimestamp":1354260975081,"oldestDataAge":844}');
 
-        if (!empty($data)) {
+        $bio = (array)$bio['identities'][0];
 
+//        print json_encode ($bio);
+//        print "\n";
+//        print json_encode ($data);
+//        print "\n";
 
+        if (!empty($bio)) {
 
           # user name
-          if (!empty($data['nickname'])) {
-            // replace with gigya username
-            if (db_query("UPDATE {users} SET name = '%s' WHERE uid = '%d'", $data['nickname'], $account->uid)) {
-              $edit['name'] = $data['nickname']; // update in the user array for access by other modules
+          if (!empty($bio['nickname'])) {
+            if (0 == (int)db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s'", $bio['nickname']))) {
+              if (db_query("UPDATE {users} SET name = '%s' WHERE uid = '%d'", $bio['nickname'], $account->uid)) {
+                $edit['name'] = $bio['nickname']; // update in the user array for access by other modules
+                $account->name = $bio['nickname']; // update in the user array for access by other modules
+              }
             }
           }
 
+          # user picture
+          if (!empty($bio['photoURL'])) {
+            if (db_query("UPDATE {users} SET picture = '%s' WHERE uid = '%d'", $bio['nickname'], $account->uid)) {
+              $edit['picture'] = $bio['photoURL']; // update in the user array for access by other modules
+              $account->picture = $bio['photoURL']; // update in the user array for access by other modules
+            }
+          }
+
+//          var_dump($bio); die;
+
+          $profile_fields = array();
+
+          # real name
+          if (($profile_name = implode(" ", array($bio['firstName'],$bio['lastName'])))) {
+             $profile_fields['profile_name'] = $profile_name;
+          }
+          # gender
+          if (in_array($bio['gender'], array('m','f'))) {
+            $profile_fields['profile_gender'] = $bio['gender'] == 'm' ? 0 : 1;
+          }
+          # year of birth
+          if (!empty($bio['birthYear'])) {
+            $profile_fields['profile_yob'] = $bio['birthYear'];
+          }
+          # attempt to get a country
+          if ($bio['city']) {
+            list($city, $countryname) = explode(", ", $bio['city'], 2);
+            $countries = geonames_query('countryinfo');
+            if ($countries) {
+              foreach ($countries->results as $country) {
+                if ($country['countryname'] == $countryname) {
+                  $profile_fields['profile_country'] = $country['countrycode'];
+                  break;
+                }
+              }
+            }
+          }
+
+          if ($bio['profileURL']) {
+            switch ($bio['rovider']) {
+              case 'facebook':
+              case 'twitter':
+                $profile_fields['profile_'.$bio['provider']] = preg_replace('@.*\/@', '', $bio['profileURL']);
+              break;
+            }
+          }
+
+          foreach ($profile_fields as $key => $value) {
+            db_query("REPLACE INTO {profile_values} (value, fid, uid) SELECT '%s', pf.fid, '%d' FROM {profile_fields} pf WHERE pf.name = '%s'",
+              $value, $account->uid, $key
+            );
+          }
 
 
         }
 
 
-        $result = db_fetch_object(db_query("SELECT * FROM {users} WHERE uid = '%d'", $account->uid));
-        var_dump($result);
-
-        die;
       }
     break;
   }

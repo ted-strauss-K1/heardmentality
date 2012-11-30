@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba894be2-1b4b-45f9-84f3-6c5dc2e1dd6d" name="Default" comment="" />
+    <list default="true" id="ba894be2-1b4b-45f9-84f3-6c5dc2e1dd6d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" afterPath="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/default/settings.php" afterPath="$PROJECT_DIR$/sites/default/settings.php" />
+    </list>
     <ignored path="heardmentality.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,7 +26,7 @@
       <file leaf-file-name="settings.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sites/default/settings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="120" column="62" selection-start="4219" selection-end="4219" vertical-scroll-proportion="-29.375">
+            <state line="93" column="0" selection-start="3334" selection-end="3334" vertical-scroll-proportion="-6.5416665">
               <folding />
             </state>
           </provider>
@@ -32,7 +35,32 @@
       <file leaf-file-name="user_profile.module" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="232" column="0" selection-start="6392" selection-end="6392" vertical-scroll-proportion="-6.82">
+            <state line="277" column="50" selection-start="10536" selection-end="10536" vertical-scroll-proportion="-2.46">
+              <folding>
+                <marker date="1354267583000" expanded="true" signature="10954:10998" placeholder="/** * Define..." />
+                <marker date="1354267583000" expanded="true" signature="11050:11094" placeholder="/** * Define..." />
+                <marker date="1354267583000" expanded="true" signature="11146:11206" placeholder="/** * Implem..." />
+                <marker date="1354267583000" expanded="true" signature="11295:11355" placeholder="/** * Implem..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gigya.module" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/gigya/gigya.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="849" column="16" selection-start="28207" selection-end="28207" vertical-scroll-proportion="0.7048872">
+              <folding>
+                <marker date="1354248434000" expanded="false" signature="36212:36220" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="common.inc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/includes/common.inc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2983" column="9" selection-start="105934" selection-end="105934" vertical-scroll-proportion="9.166667">
               <folding />
             </state>
           </provider>
@@ -75,16 +103,16 @@
       <file leaf-file-name="user_profile.pages.inc" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="479" column="3" selection-start="14500" selection-end="14500" vertical-scroll-proportion="-14.666667">
+            <state line="91" column="11" selection-start="2351" selection-end="2629" vertical-scroll-proportion="129.02">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="9" selection-start="280" selection-end="280" vertical-scroll-proportion="0.43165466">
+            <state line="13" column="20" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -103,12 +131,12 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sites/default/settings.php" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/heatmap/heatmap.js" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/contrib/email_registration/email_registration.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/sites/default/settings.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" />
       </list>
     </option>
   </component>
@@ -193,6 +221,144 @@
               <option name="myItemId" value="sites" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contrib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentality" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contrib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gigya" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -204,6 +370,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -320,15 +493,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/gigya/gigya.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="813" column="31" selection-start="26868" selection-end="26874" vertical-scroll-proportion="-0.3201581">
-          <folding>
-            <marker date="1354248434000" expanded="false" signature="36212:36220" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/libraries/jquery.ui/ui/jquery-ui.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6428" column="41" selection-start="223644" selection-end="223644" vertical-scroll-proportion="0.0">
@@ -348,9 +512,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="20" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sites/default/settings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="62" selection-start="4219" selection-end="4219" vertical-scroll-proportion="-29.375">
+        <state line="93" column="0" selection-start="3334" selection-end="3334" vertical-scroll-proportion="-6.5416665">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="91" column="11" selection-start="2351" selection-end="2629" vertical-scroll-proportion="129.02">
           <folding />
         </state>
       </provider>
@@ -364,22 +542,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="0" selection-start="6392" selection-end="6392" vertical-scroll-proportion="-6.82">
+        <state line="277" column="50" selection-start="10536" selection-end="10536" vertical-scroll-proportion="-2.46">
+          <folding>
+            <marker date="1354267583000" expanded="true" signature="10954:10998" placeholder="/** * Define..." />
+            <marker date="1354267583000" expanded="true" signature="11050:11094" placeholder="/** * Define..." />
+            <marker date="1354267583000" expanded="true" signature="11146:11206" placeholder="/** * Implem..." />
+            <marker date="1354267583000" expanded="true" signature="11295:11355" placeholder="/** * Implem..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/common.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2983" column="9" selection-start="105934" selection-end="105934" vertical-scroll-proportion="9.166667">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.pages.inc">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/gigya/gigya.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="479" column="3" selection-start="14500" selection-end="14500" vertical-scroll-proportion="-14.666667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="9" selection-start="280" selection-end="280" vertical-scroll-proportion="0.43165466">
-          <folding />
+        <state line="849" column="16" selection-start="28207" selection-end="28207" vertical-scroll-proportion="0.7048872">
+          <folding>
+            <marker date="1354248434000" expanded="false" signature="36212:36220" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
