@@ -368,6 +368,7 @@ function issue_results_graph_highchart_filter_form()
 
 function theme_issue_results_graph_legend($node)
 {
+  $output = '';
   $pattern = '<dl><dd>%s:</dd><dt style="background-color:%s;">color</dt></dl>';
   $choices = issue_choices($node->nid);
   foreach ($choices as $index => $answer) {
@@ -527,8 +528,11 @@ function theme_issue_arguments($node)
     $arguments_form =
       '<div class="' . (!module_exists('user_login_modal') ? "" : user_login_modal_class(true)) . '" align="center"><b>' .
         t('Please log in to participate in the debate') .
-        '</b></div>';
+        '</b>
+      </div>';
   }
+
+  # TODO there should be special field for that
   $dr = arguments_get_list($node->nid);
 
   # Prepare the data for the debate analysis
@@ -541,15 +545,27 @@ function theme_issue_arguments($node)
       'y' => 0,
     );
   }
-  $result = db_query("SELECT ao.chorder, (SUM(ao.val)/COUNT(ao.nid)) AS value FROM {content_type_forum} ctf INNER JOIN {arguments_options} ao ON ao.nid = ctf.nid WHERE ctf.field_ref_qid_nid = 706 AND ao.val <> 0 GROUP BY ao.chorder ORDER BY ao.chorder");
+
+  $result = db_query("
+    SELECT ao.chorder, SUM(vv.value)*ao.val AS value
+    FROM {content_type_forum} ctf
+    INNER JOIN {arguments_options} ao ON ao.nid = ctf.nid
+    LEFT JOIN {votingapi_vote} vv ON vv.content_id = ctf.nid AND vv.content_type = 'node'
+    WHERE ctf.field_ref_qid_nid = '%d'
+    GROUP BY ctf.nid, ao.chorder
+    ORDER BY ao.chorder
+  ", $node->nid);
+  $args = array();
   while ($row = db_fetch_array($result)) {
-    foreach ($choices as $i => $choice) {
-      if ($choice['chorder'] == $row['chorder']) {
-        $data[$i]['color'] = $row['value'] > 0 ? '#55BA59' : '#C2499B';
-        $data[$i]['y'] = (float)$row['value'];
-      }
-    }
+    $args[$row['chorder']] += $row['value'];
   }
+  foreach ($choices as $i => $choice) {
+    $value = $args[$choice['chorder']];
+    $data[$i]['color'] = $value > 0 ? '#55BA59' : '#C2499B';
+    $data[$i]['y'] = (float)$value;
+  }
+
+  // SELECT 1 AS str, ctf.*, ao.* FROM `content_type_forum` ctf INNER JOIN arguments_options ao ON ao.nid = ctf.nid WHERE ctf.field_ref_qid_nid = 36981
   drupal_add_js(array('charts' => array('strength' => $data)), 'setting');
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/chart.strength.js");
 
