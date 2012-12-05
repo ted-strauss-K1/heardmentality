@@ -8,6 +8,23 @@
 class AccessTokenAuthentication
 {
   /**
+   * Debug
+   *
+   * @var bool
+   */
+  private $_debug = false;
+
+  /**
+   * Constructor
+   *
+   * @param $debug
+   */
+  public function __construct($debug = false)
+  {
+    $this->_debug = $debug;
+  }
+
+  /**
    * Get the access token.
    *
    * @param $grantType      Grant type
@@ -60,7 +77,9 @@ class AccessTokenAuthentication
       }
       return $objResponse->access_token;
     } catch (Exception $e) {
-      echo "Exception-" . $e->getMessage();
+      if ($this->_debug) {
+        echo "Exception-" . $e->getMessage();
+      }
       return false;
     }
   }
@@ -86,13 +105,21 @@ class SOAPMicrosoftTranslator
   public $objSoap;
 
   /**
+   * Debug
+   *
+   * @var bool
+   */
+  private $_debug = false;
+
+  /**
    * Create the SAOP object
    *
    * @param $accessToken  Access Token string
    * @param $wsdlUrl      WSDL string
    */
-  public function __construct($accessToken, $wsdlUrl)
+  public function __construct($accessToken, $wsdlUrl, $debug = false)
   {
+    $this->_debug = $debug;
     try {
       //Authorization header string.
       $authHeader = "Authorization: Bearer " . $accessToken;
@@ -115,8 +142,10 @@ class SOAPMicrosoftTranslator
       //Call Soap Client.
       $this->objSoap = new SoapClient($wsdlUrl, $optionsArr);
     } catch (Exception $e) {
-      echo "<h2>Exception Error!</h2>";
-      echo $e->getMessage();
+      if ($this->_debug) {
+        echo "<h2>Exception Error!</h2>";
+        echo $e->getMessage();
+      }
       $this->objSoap = false;
     }
   }
@@ -170,25 +199,40 @@ class MicrosoftTranslate
   public $_queue = array();
 
   /**
+   * Debug
+   *
+   * @var bool
+   */
+  private $_debug = false;
+
+  /**
    * Construct object for translation
    *
    * @param $clientID
    * @param $clientSecret
    */
-  public function __construct($clientID, $clientSecret)
+  public function __construct($clientID, $clientSecret, $debug = false)
   {
     $this->_clientID = $clientID;
     $this->_clientSecret = $clientSecret;
+    $this->_debug = $debug;
   }
 
   /**
    * Add the string to queue
    *
-   * @param $string
+   * @param $item
    */
-  public function queue($string)
+  public function queue($item)
   {
-    $this->_queue[$string] = '';
+    if (is_string($item)) {
+      $item = array($item);
+    }
+    if (is_array($item)) {
+      foreach ($item as $string) {
+        $this->_queue[$string] = '';
+      }
+    }
   }
 
   /**
@@ -215,14 +259,14 @@ class MicrosoftTranslate
   public function exec($lang_from, $lang_to)
   {
     // Create the Authentication object
-    $authObj = new AccessTokenAuthentication();
+    $authObj = new AccessTokenAuthentication($this->_debug);
     // Get the Access token
     $accessToken = $authObj->getTokens($this->_grantType, $this->_scopeUrl, $this->_clientID, $this->_clientSecret, $this->_authUrl);
     if ($accessToken === false) {
       return false;
     }
     // Create soap translator Object
-    $soapTranslator = new SOAPMicrosoftTranslator($accessToken, $this->_wsdlUrl);
+    $soapTranslator = new SOAPMicrosoftTranslator($accessToken, $this->_wsdlUrl, $this->_debug);
     if ($soapTranslator->objSoap === false) {
       return false;
     }
@@ -235,6 +279,18 @@ class MicrosoftTranslate
     );
     // Input text Array.
     $inputStrArr = array_keys($this->_queue);
+//      array();
+//    foreach ($this->_queue as $string => &$translation) {
+//      if (isset($translations[$string])) {
+//        $translation = $translations[$string];
+//      } else {
+//        $inputStrArr[] = $string;
+//      }
+//    }
+//    return if empty
+    if (empty($inputStrArr)) {
+      return $this->_queue;
+    }
     // Request argument list.
     $requestArg = array(
       'appId' => '', // no longer used, but pass it anyway
@@ -249,12 +305,18 @@ class MicrosoftTranslate
       $responseObj = $soapTranslator->objSoap->GetTranslationsArray($requestArg);
       $responseTranslation = $responseObj->GetTranslationsArrayResult->GetTranslationsResponse;
 
-      foreach ($responseTranslation as $i => $translationObj) {
-        $this->_queue[$inputStrArr[$i]] = $translationObj->Translations->TranslationMatch->TranslatedText;
+      if (count($inputStrArr) > 1) {
+        foreach ($responseTranslation as $i => $translationObj) {
+          $this->_queue[$inputStrArr[$i]] = $translationObj->Translations->TranslationMatch->TranslatedText;
+        }
+      } else {
+        $this->_queue[$inputStrArr[0]] = $responseTranslation->Translations->TranslationMatch->TranslatedText;
       }
 
     } catch (Exception $e) {
-      echo "Exception: " . $e->getMessage() . "<br/>";
+      if ($this->_debug) {
+        echo "Exception: " . $e->getMessage() . "<br/>";
+      }
       return false;
     }
     return $this->_queue;

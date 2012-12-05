@@ -1,5 +1,5 @@
-name = Microsoft Translate
+name = Microsoft Translator API
 description = Microsoft Translator API
 package = Custom Modules
-version = "6.x-1.6"
+version = "6.x-1.0"
 core = 6.x

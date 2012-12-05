@@ -36,8 +36,6 @@ function poll_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
               $choice['chid'] = $node->origin->choice_suggest[$i]['chid'];
             }
           }
-        } else {
-          $node->tnid = $node->nid;
         }
         break;
     }
@@ -56,59 +54,68 @@ function poll_translate_content_translate_node($node, $language_to)
   if (!$node) {
     return;
   }
+  # check if the node is translated to that language already
+  if (db_result(db_query("SELECT * FROM {node} WHERE tnid = '%d' AND language = '%s'", $node->nid, $language_to))) {
+    return;
+  }
+
   $language_from = $node->language;
 
-  $mt = new MicrosoftTranslate(variable_get('microsoft_translate_clientid', ''), variable_get('microsoft_translate_clientsecret', ''));
-
-//  var_dump(poll_suggest_get($node->nid));
-//  var_dump($node->choice_suggest); die();
-
   # Collect data to translate
-//  $mt->dequeue();
+  $list = array();
   if ($title = strip_tags($node->title)) {
-    $mt->queue($title);
+    $list[] = $title;
   }
   if ($body = strip_tags($node->body)) {
-    $mt->queue($body);
+    $list[] = $body;
   }
   foreach ($node->choice as $choice) {
     if (!empty($choice['chtext'])) {
-      $mt->queue($choice['chtext']);
+      $list[] = $choice['chtext'];
     }
     if (!empty($choice['chtext_short'])) {
-      $mt->queue($choice['chtext_short']);
+      $list[] = $choice['chtext_short'];
     }
   }
   if (module_exists('poll_suggest')) {
     foreach ($node->choice_suggest as $choice) {
       if (!empty($choice['chtext'])) {
-        $mt->queue($choice['chtext']);
+        $list[] = $choice['chtext'];
       }
     }
   }
 
   # Translate
-  $translations = $mt->exec($language_from, $language_to);
+  $translations = mstapi_exec($language_from, $language_to, $list);
 
-  # Create new node
-  $node->tnid = $node->nid;
-  $node->language = $language_to;
-  unset($node->nid);
-
-  $node->title = $translations[strip_tags($node->title)];
-  $node->body = $translations[strip_tags($node->body)];
-  foreach ($node->choice as $chorder => &$choice) {
-    $choice['chtext'] = $translations[$choice['chtext']];
-    poll_ext_chtext_short_set($node->nid, $chorder, $translations[$choice['chtext_short']]);
+  # set the node as translated
+  if ($node->tnid == 0) {
+    db_query("UPDATE {node} SET tnid = '%d' WHERE nid = '%d'", $node->nid, $node->nid);
   }
-  node_save($node);
+
+  # Create new node based on existing
+  $_node = clone($node);
+  $_node->tnid = $node->nid;
+  $_node->language = $language_to;
+  foreach ($_node->choice as $chorder => &$choice) {
+    $choice['chvotes'] = 0;
+  }
+  unset($_node->nid);
+
+  # use translations
+  $_node->title = $translations[strip_tags($_node->title)];
+  $_node->body = $translations[strip_tags($_node->body)];
+  foreach ($_node->choice as $chorder => &$choice) {
+    $choice['chtext'] = $translations[$choice['chtext']];
+    poll_ext_chtext_short_set($_node->nid, $chorder, $translations[$choice['chtext_short']]);
+  }
+  node_save($_node);
 
   if (module_exists('poll_suggest')) {
-    foreach ($node->choice_suggest as $choice) {
-      poll_suggest_add($node->nid, $translations[$choice['chtext']], $choice['uid']);
+    foreach ($_node->choice_suggest as $choice) {
+      poll_suggest_add($_node->nid, $translations[$choice['chtext']], $choice['uid']);
     }
   }
-
 }
 
 
