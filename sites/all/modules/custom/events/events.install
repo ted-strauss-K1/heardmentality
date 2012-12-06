@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function events_install()
+{
+  drupal_install_schema('events');
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function events_uninstall()
+{
+  drupal_uninstall_schema('events');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function events_schema()
+{
+  $schema = array();
+
+  $schema['events'] = array(
+    'description' => t('Event Stream'),
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE),
+      'uid' => array(
+        'description' => 'The {users}.uid that made an action.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0),
+      'type' => array(
+        'description' => t('The type of action.'),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE),
+      'content_type' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => 'node'),
+      'content_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0),
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1),
+      'vars' => array(
+        'description' => 'The action variables.',
+        'type' => 'text',
+        'default' => ''),
+      'date_added' => array(
+        'type' => 'datetime',
+        'description' => 'The date of the vote.',
+        'not null' => TRUE),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}

@@ -1,0 +1,299 @@
+<?php
+
+/**
+ * API function : add event
+ *
+ * @param $type
+ * @param $vars
+ * @param bool $uid
+ */
+function events_add($type, $vars, $uid = false)
+{
+  if ($uid === false) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $query = "INSERT INTO {events} SET uid = '%d', type = '%s', vars = '%s', date_added = '%s'";
+  $params = array(
+    $uid,
+    $type,
+    serialize($vars),
+    date('Y-m-d H:i:s')
+  );
+  foreach (array('content_id', 'content_type') as $pname) {
+    if (isset($vars[$pname])) {
+      $query .= ", " . $pname . " = '%s'";
+      $params[] = $vars[$pname];
+    }
+  }
+  db_query($query, $params);
+}
+
+/**
+ * API function : delete events
+ *
+ * @param array $p
+ */
+function events_del($p = array())
+{
+  $query = "DELETE FROM {events} WHERE 1";
+  $params = array();
+  foreach (array('uid', 'type', 'content_id', 'content_type') as $key) {
+    if (isset($p[$key])) {
+      $query .= " AND " . $key . " = '%s'";
+      $params[] = $p[$key];
+    }
+  }
+  db_query($query, $params);
+}
+
+/**
+ * API function : get events
+ *
+ * @param int $count
+ * @param array $p
+ * @return array
+ */
+function events_get($p = array(), $count = 30)
+{
+  $items = array();
+
+  # build query
+  $query = "SELECT * FROM {events} WHERE 1";
+  $params = array();
+  foreach (array('uid', 'type', 'content_id', 'content_type') as $key) {
+    if (isset($p[$key])) {
+      $query .= " AND " . $key . " = '%s'";
+      $params[] = $p[$key];
+    }
+  }
+  $query .= " ORDER BY date_added DESC LIMIT %d";
+  $params[] = $count;
+  db_query($query, $params);
+
+  # fetch results
+  static $users = array();
+  $result = db_query($query, $params);
+  while ($item = db_fetch_array($result)) {
+    $item['vars'] = unserialize($item['vars']);
+    if (!$users[$item['uid']]) {
+      $users[$item['uid']] = user_load($item['uid']);
+    }
+    $item['account'] = $users[$item['uid']];
+    if (function_exists('time_interval')) {
+      $item['date_added'] = time_interval($item['date_added']);
+    }
+    $items[] = $item;
+  }
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function events_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
+  switch ($op) {
+    case 'delete' :
+      events_del(array(
+        'content_id' => $node->nid,
+        'content_type' => 'node',
+      ));
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function events_comment(&$a1, $op)
+{
+  switch ($op) {
+    case 'delete' :
+      events_del(array(
+        'content_id' => $a1->cid,
+        'content_type' => 'comment',
+      ));
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_user()
+ *
+ * @param $op
+ * @param $edit
+ * @param $account
+ * @param null $category
+ */
+function events_user($op, &$edit, &$account, $category = NULL)
+{
+  switch ($op) {
+    case 'delete' :
+      // delete events created by user
+//      events_del(array(
+//        'uid' => $account->uid,
+//      ));
+      // delete events related to user
+      events_del(array(
+        'content_id' => $account->uid,
+        'content_type' => 'user',
+      ));
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function events_theme()
+{
+  $theme = array();
+
+  $theme['events'] = array(
+    'arguments' => array(
+      'items' => array(),
+    ),
+    'preprocess functions' => array('events_theme_preprocess'),
+    'template' => 'events',
+  );
+  $theme['events_item'] = array(
+    'arguments' => array(
+      'item' => array(),
+    ),
+  );
+
+  return $theme + events_theme_items();
+}
+
+/**
+ * Preprocess for theme "events"
+ *
+ * @param $vars
+ */
+function events_theme_preprocess(&$vars)
+{
+  drupal_add_js(drupal_get_path('module', 'events') . '/events.js');
+}
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function events_preprocess_page(&$vars)
+{
+  //
+}
+
+/**
+ * Implementation of hook_block
+ *
+ * @param string $op
+ * @param int $delta
+ * @param array $edit
+ * @return mixed
+ */
+function events_block($op = 'list', $delta = 0, $edit = array())
+{
+  switch ($op) {
+    case 'list':
+      $blocks['events-front'] = array(
+        'info' => t('Front Events'),
+      );
+      return $blocks;
+    case 'view':
+      switch ($delta) {
+        case 'events-front' :
+          $block['subject'] = t('HAPPENING NOW');
+          $block['content'] = theme('events', events_get());
+          break;
+      }
+      return $block;
+  }
+}
+
+
+/**
+ * @param $item
+ * @return mixed|string
+ */
+function theme_events_item($item)
+{
+  static $themes = null;
+
+  if (is_null($themes)) {
+    $themes = module_invoke_all('events_info');
+  }
+
+  return isset($themes[$item['type']]) ?
+    '<div id="msg-' . $item['id'] . '" class="activity-stream msg msg-' . $item['type'] . '">' .
+      theme($themes[$item['type']], $item) .
+      '</div>'
+    : '';
+}
+
+/**
+ * Function to add the custom themes for item types
+ *
+ * TODO
+ *
+ * @return array
+ */
+function events_theme_items()
+{
+  $theme = array();
+
+  $items = module_invoke_all('events_info');
+
+  foreach ($items as $event => $themename) {
+    $theme[$themename] = array(
+      'arguments' => array(
+        'item' => array(),
+      ),
+      'template' => 'templates/event-'.$event,
+    );
+  }
+
+  return $theme;
+}
+
+function events_events_info() {
+  return array(
+    'poll_create' => 'event_poll_create',
+    'poll_vote' => 'event_poll_vote',
+    'forum_create' => 'event_forum_create',
+    'forum_comment' => 'event_forum_comment',
+    'forum_vote' => 'event_forum_vote',
+    'forum_comment_vote' => 'event_forum_comment_vote',
+    'user_profile' => 'event_user_profile',
+    'user_badge' => 'event_user_badge',
+    'user_follow' => 'event_user_follow',
+  );
+
+  //  to issue module
+//  define('ACTIVITY_STREAM_ISSUE_CREATE', 'issue_create');
+//  define('ACTIVITY_STREAM_ISSUE_VOTE', 'vote');
+
+//  define('ACTIVITY_STREAM_ARGUMENT_CREATE', 'argument_create');
+//  define('ACTIVITY_STREAM_ARGUMENT_REPLY', 'argument_reply');
+
+//  to yn module
+//  define('ACTIVITY_STREAM_ARGUMENT_VOTE', 'argument_vote');
+//  define('ACTIVITY_STREAM_ARGUMENT_REPLY_VOTE', 'argument_reply_vote');
+
+//  define('ACTIVITY_STREAM_PROFILE_UPDATE', 'user_profile_update');
+//  define('ACTIVITY_STREAM_BADGE', 'user_badge');
+//  define('ACTIVITY_STREAM_FOLLOW', 'user_follow');
+}

@@ -32,15 +32,22 @@ scripts[] = javascripts/custom_scripts.js
 scripts[] = javascripts/app.js
 
 
+; common
 ;regions[left] = Left sidebar
 regions[right] = Right sidebar
 regions[content] = Content
 regions[header] = Header
 regions[footer] = Footer
+
+; used only on home page
+regions[front_content] = Front Content
+regions[front_right_first] = Front Right First
+regions[front_right_second] = Front Right Second
+
+
+
+regions[content_bottom] = Content Bottom
 regions[following_activity_stream] = Following Activity Stream
-regions[content_bottom]= Content Bottom
-regions[happening_now] = Happening Now
-regions[front_heat_map] = Front Heat Map
 regions[multilanguage_area] = Multi Language Area
 regions[popular_categories] = Popular Categories
 regions[profile_option_block] = Profile Option Block

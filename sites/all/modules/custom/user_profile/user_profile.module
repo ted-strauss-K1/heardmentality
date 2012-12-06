@@ -15,8 +15,11 @@ function user_profile_preprocess_page(&$vars)
         $vars['lclass'] = 'eleven';
         $vars['rclass'] = 'five';
         $vars['right'] = theme('user_profile_info', null);
-        if (arg(2) == 'view') {
-          $vars['content_bottom'] = t('Activity stream');
+        if (arg(2) == 'view' && module_exists('events')) {
+          $account = _user_profile_get_user(arg(3));
+          if ($account) {
+            $vars['content_bottom'] = theme('events', events_get(array('uid' => $account->uid)));
+          }
         }
         array_push($vars['template_files'], 'page_user_profile');
         break;
@@ -384,19 +387,25 @@ function user_profile_access_user_profile($user_access, $string)
  */
 function _user_profile_get_user($string)
 {
-  if (empty($string)) {
-    if (user_is_logged_in()) {
-      global $user;
-      return $user;
+  static $account = null;
+
+  if (is_null($account)) {
+    if (empty($string)) {
+      if (user_is_logged_in()) {
+        global $user;
+        $account = $user;
+      } else {
+        $account = false;
+      }
+    } elseif (!is_numeric($string)) {
+      $string = strtolower($string);
+      $account = user_load(array('name' => $string));
     } else {
-      return false;
+      $account = user_load(array('uid' => $string));
     }
-  } elseif (!is_numeric($string)) {
-    $string = strtolower($string);
-    return user_load(array('name' => $string));
-  } else {
-    return user_load(array('uid' => $string));
   }
+
+  return $account;
 }
 
 /**

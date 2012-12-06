@@ -4,7 +4,7 @@
   <div class="inner">
 
     <div class="expanding arg">
-      <h6 value="Reply" id="add-arg" class="button <?php print !module_exists('user_login_modal') ? "" : user_login_modal_class(true); ?>"><?php print t('Add'); ?></h6>
+      <h6 value="Reply" id="add-arg" class="button <?php print !module_exists('user_login_modal') ? "" : user_login_modal_class(); ?>"><?php print t('Add'); ?></h6>
     </div>
 
     <?php $arguments = arguments_get_list($nid); ?>

@@ -75,19 +75,20 @@
     <div class="container">
 
       <div class="nine columns">
-        <?php if ($happening_now): ?>
-          <?php print $happening_now; ?>
+        <?php if ($front_content): ?>
+          <?php print $front_content; ?>
         <?php endif; ?>
       </div>
 
       <div class="seven columns">
         <div class="white-box hide-on-mobiles">
-          <?php if ($front_heat_map)  print $front_heat_map; ?>
+          <?php if ($front_right_first) print $front_right_first; ?>
         </div>
         <div class="grey-box-cat clearfix">
-          <ul class="tags">
-            <?php if ($popular_categories) print $popular_categories; ?>
-          </ul>
+          <?php if ($front_right_second) print $front_right_second; ?>
+<!--          <ul class="tags">-->
+<!--            popular categories-->
+<!--          </ul>-->
         </div>
       </div>
 

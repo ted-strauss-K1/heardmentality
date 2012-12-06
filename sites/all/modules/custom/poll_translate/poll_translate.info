@@ -1,7 +1,0 @@
-name = Poll Translation
-description = Provides hooks and functions for sitewide automated Poll translations
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "poll"
-dependencies[] = "content_translate"

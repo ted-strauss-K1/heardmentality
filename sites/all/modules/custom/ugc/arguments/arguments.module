@@ -442,7 +442,7 @@ function _arguments_load(&$node)
   # comments
   $node->comments = arguments_get_comments($node->nid);
   # posted ago
-  $node->ago = ugc_time_interval(date("F d Y H:i:s", $node->created));
+  $node->ago = time_interval(date("F d Y H:i:s", $node->created));
   # rated
   $node->rated = yn_user_voted($node->content_id, 'node');
   # ownership
@@ -467,7 +467,7 @@ function _arguments_load_comment(&$node)
   # get votes
 //  list($node->vote_up, $node->vote_dn, $node->vote_sum) = yn_votes($node->nid, 'comment');
   # posted ago
-  $node->ago = ugc_time_interval(date("F d Y H:i:s", $node->timestamp));
+  $node->ago = time_interval(date("F d Y H:i:s", $node->timestamp));
   # rated
   $node->rated = yn_user_voted($node->content_id, 'comment');
   $translated = arguments_translate_comment($node->cid, $language->language);
