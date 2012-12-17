@@ -1,0 +1,700 @@
+<?php
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function user_profile_preprocess_page(&$vars)
+{
+//  Popup
+  if (user_is_logged_in()) {
+    $vars['user_popups'] = theme('user_profile_popup');
+  }
+
+//  User profile pages
+  if (arg(0) == 'user' && arg(1) == 'profile') {
+    drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
+    switch (arg(2)) {
+      case 'view' :
+      case 'follow' :
+        $vars['right'] = theme('user_profile_info', null);
+        if (arg(2) == 'view' && module_exists('events')) {
+          $account = _user_profile_get_user(arg(3));
+          if ($account) {
+            $vars['content_bottom'] = theme('events', events_get(array('uid' => $account->uid)));
+          }
+        }
+        array_push($vars['template_files'], 'page_11_5');
+        break;
+      case 'edit' :
+        array_push($vars['template_files'], 'page_empty');
+        break;
+    }
+  }
+}
+
+/**
+ * Implementation of hook_form_alter()
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function user_profile_form_alter(&$form, &$form_state, $form_id)
+{
+//  For register form
+  if ($form_id == 'user_register') {
+    $form['account']['#title'] = '';
+    $form['account']['mail']['#title'] = t("What's your email address?");
+    $form['account']['mail']['#description'] = '';
+    $form['account']['pass']['#description'] = '';
+    $form['account']['name']['#description'] = '';
+    $form['submit']['#value'] = t('Sign up');
+    $form['#validate'][] = 'user_profile_register_form_validate';
+    $form['news'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Yes, send me useful news about Heard Mentality.'),
+      '#default_value' => 1,
+    );
+    $form['terms'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('I agree to the') . ' ' .
+        l(t('Terms of use'), 'terms', array('attributes' => array('target' => '_blank')))
+        . ' ' . t('and') . ' ' .
+        l(t('Privacy Policy'), 'privacy', array('attributes' => array('target' => '_blank'))),
+    );
+  }
+//  For login form
+  if ($form_id == 'user_login') {
+    $form['name']['#description'] = '';
+    $form['pass']['#description'] = '';
+  }
+
+  # for redirects
+  if ($form_id == 'user_register') {
+    $form['#redirect'] = array("user/profile/edit");
+    unset($_REQUEST['destination']);
+  }
+  if ($form_id == 'user_login') {
+    $form['#redirect'] = "user/profile/view";
+    unset($_REQUEST['destination']);
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function user_profile_register_form_validate($form, $form_state)
+{
+  $value = $form_state['values']['terms'];
+  if ($value == 0) {
+    form_set_error('terms', t('You must agree with the Terms of use and Privacy Policy to get an account.'));
+  }
+}
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function user_profile_theme()
+{
+  $theme = array();
+
+  # view page
+  $theme['user_profile_view'] = array(
+    'arguments' => array(),
+    'template' => 'templates/user-profile-view',
+    'preprocess functions' => array('user_profile_view_preprocess'),
+  );
+  $theme['user_profile_info'] = array(
+    'arguments' => array('user' => NULL,),
+    'template' => 'templates/user-profile-info',
+    'preprocess functions' => array('user_profile_info_preprocess'),
+  );
+
+  # follow page
+  $theme['user_profile_follow'] = array(
+    'arguments' => array(
+      'uid' => NULL,
+      'code' => NULL,
+    ),
+    'template' => 'templates/user-profile-follow',
+    'preprocess functions' => array('user_profile_follow_preprocess'),
+  );
+
+  # popups/blocks
+  foreach (array('popup', 'right', 'bottom') as $place) {
+    $theme['user_profile_' . $place] = array(
+      'arguments' => array('user' => NULL,),
+      'template' => 'templates/user-profile-' . $place,
+      'preprocess functions' => array('user_profile_block_preprocess'),
+    );
+  }
+
+  # edit form
+  $theme['user_profile_edit_form'] = array(
+    'arguments' => array('form' => NULL),
+    'template' => 'templates/user-profile-edit-form',
+  );
+  $theme['user_profile_avatar_selection'] = array(
+    'arguments' => array('user' => NULL,),
+  );
+
+  return $theme;
+}
+
+/**
+ * Theme "user_profile_view" preprocess function
+ *
+ * @param $vars
+ */
+function user_profile_view_preprocess(&$vars)
+{
+  $vars['account'] = _user_profile_get_user(arg(3));
+  $vars['rank'] = $vars['account']->rank['name'];
+}
+
+/**
+ * Theme "user_profile_info" preprocess function
+ *
+ * @param $vars
+ */
+function user_profile_info_preprocess(&$vars)
+{
+  if (!isset($vars['account'])) {
+    $vars['account'] = _user_profile_get_user(arg(3));
+    if ($vars['account'] === false) {
+      $vars['denied'] = true;
+      return;
+    }
+  }
+  $uid = $vars['account']->uid;
+  if (module_exists('badges')) {
+    $vars['badges'] = badges_get_userbadges($uid);
+  }
+
+  $vars['comments'] = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
+  // TODO
+//  $vars['votes'] = issue_get_uservotes($uid) + poll_suggest_get_uservotes($uid);
+//  $vars['references'] = (int)db_result(db_query("SELECT COUNT(*) FROM {content_type_forum} AS ctf LEFT JOIN {node} AS n ON ctf.nid = n.nid WHERE n.uid = '%d' AND ctf.field_type_value = '%d' AND n.status = '%d'", $uid, TYPE_RESOURCE, 1));
+
+  if (module_exists('follower')) {
+    $vars['followers_count'] = follower_get_followers($uid, true);
+    $vars['followers'] = follower_get_followers($uid, false, 8);
+    $vars['following_count'] = follower_get_following($uid, true);
+    $vars['following'] = follower_get_following($uid, false, 8);
+  }
+}
+
+/**
+ * Theme preprocess function
+ *
+ * @param $vars
+ */
+function user_profile_block_preprocess(&$vars)
+{
+  static $preprocessed = array();
+  if (!user_is_logged_in()) {
+    $vars['denied'] = true;
+    return;
+  }
+  if (empty($preprocessed)) {
+    global $user;
+    $preprocessed['user'] = $user;
+    $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
+    if (module_exists('badges')) {
+      $preprocessed['badges'] = badges_get_userbadges($user->uid);
+    }
+    if (module_exists('ranks')) {
+      $preprocessed['rank'] = $user->rank['name'];
+    }
+    if (module_exists('up')) {
+      $preprocessed['points'] = up_userpoints_get($user->uid);
+    }
+  }
+  foreach ($preprocessed as $key => $value) {
+    $vars[$key] = $preprocessed[$key];
+  }
+}
+
+/**
+ * Theme "user_profile_follow" preprocess function
+ *
+ * @param $vars
+ */
+function user_profile_follow_preprocess(&$vars)
+{
+  if (module_exists('follower')) {
+    switch ($vars['code']) {
+      case 'following' :
+        $vars['users'] = follower_get_following($vars['uid']);
+        break;
+      case 'followers' :
+        $vars['users'] = follower_get_followers($vars['uid']);
+        break;
+    }
+    $vars['followers_count'] = follower_get_followers($vars['uid'], true);
+    $vars['following_count'] = follower_get_following($vars['uid'], true);
+  }
+}
+
+/**
+ * Theme user_profile_avatar_selection
+ *
+ * @param $user
+ * @return string
+ */
+function theme_user_profile_avatar_selection($user)
+{
+  drupal_add_css(drupal_get_path('module', 'user_profile') . '/user_profile.css');
+  $output = '<div id="user_profile_avatar_selection"><p>' . t('Pick a profile photo') . '</p>';
+  $avatars = _avatar_selection_image_list($user);
+  foreach ($avatars['avatars'] as $avatar) {
+    $output .= $avatar;
+  }
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Implementation of hook_user()
+ *
+ * @param $op
+ * @param $edit
+ * @param $account
+ * @param null $category
+ */
+function user_profile_user($op, &$edit, &$account, $category = NULL)
+{
+  switch ($op) {
+    case 'load' :
+      $account->viewlink = 'user/profile/view/' . $account->name;
+      break;
+    case 'insert' :
+      if (module_exists('gigya') && ($_gigya_user = GigyaUser::userFromUrl())) {
+        $bio = $_gigya_user->getUserInfo();
+        $bio = (array)$bio['identities'][0];
+
+        if (!empty($bio)) {
+
+          # user name
+          if (!empty($bio['nickname'])) {
+            if (0 == (int)db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s'", $bio['nickname']))) {
+              if (db_query("UPDATE {users} SET name = '%s' WHERE uid = '%d'", $bio['nickname'], $account->uid)) {
+                $edit['name'] = $bio['nickname']; // update in the user array for access by other modules
+                $account->name = $bio['nickname']; // update in the user array for access by other modules
+              }
+            }
+          }
+
+          # user picture
+          if (!empty($bio['photoURL'])) {
+            if (db_query("UPDATE {users} SET picture = '%s' WHERE uid = '%d'", $bio['nickname'], $account->uid)) {
+              $edit['picture'] = $bio['photoURL']; // update in the user array for access by other modules
+              $account->picture = $bio['photoURL']; // update in the user array for access by other modules
+            }
+          }
+
+          $profile_fields = array();
+
+          # real name
+          if (($profile_name = implode(" ", array($bio['firstName'], $bio['lastName'])))) {
+            $profile_fields['profile_name'] = $profile_name;
+          }
+          # gender
+          if (in_array($bio['gender'], array('m', 'f'))) {
+            $profile_fields['profile_gender'] = $bio['gender'] == 'm' ? 0 : 1;
+          }
+          # year of birth
+          if (!empty($bio['birthYear'])) {
+            $profile_fields['profile_yob'] = $bio['birthYear'];
+          }
+          # attempt to get a country
+          if ($bio['city'] && module_exists('location')) {
+            list($city, $countryname) = explode(", ", $bio['city'], 2);
+            $countries = location_get_iso3166_list();
+            foreach ($countries as $iso => $country) {
+              if ($country == $countryname) {
+                $profile_fields['profile_country'] = $iso;
+                break;
+              }
+            }
+          }
+
+          if ($bio['profileURL']) {
+            switch ($bio['provider']) {
+              case 'facebook':
+              case 'twitter':
+                $profile_fields['profile_' . $bio['provider']] = preg_replace('@.*\/@', '', $bio['profileURL']);
+                break;
+            }
+          }
+
+          foreach ($profile_fields as $key => $value) {
+            db_query("REPLACE INTO {profile_values} (value, fid, uid) SELECT '%s', pf.fid, '%d' FROM {profile_fields} pf WHERE pf.name = '%s'",
+              $value, $account->uid, $key
+            );
+          }
+
+
+        }
+
+      }
+      break;
+  }
+}
+
+/**
+ * Define permission to edit profile
+ */
+define('USER_PROFILE_EDIT', 'Edit User Profile');
+
+/**
+ * Define permission to view profile
+ */
+define('USER_PROFILE_VIEW', 'View User Profile');
+
+/**
+ * Implementation of hook_perm()
+ *
+ * @return array
+ */
+function user_profile_perm()
+{
+  return array(USER_PROFILE_EDIT, USER_PROFILE_VIEW);
+}
+
+/**
+ * Implementation of hook_menu()
+ *
+ * @return array
+ */
+function user_profile_menu()
+{
+  $menu = array();
+
+  $menu['user/profile/view'] = array(
+    'title callback' => 'drupal_set_subtitle',
+    'title arguments' => array(t('View Profile')),
+    'page callback' => 'theme',
+    'page arguments' => array('user_profile_view'),
+    'access callback' => 'user_profile_access_user_profile',
+    'access arguments' => array(USER_PROFILE_VIEW, 3),
+    'type' => MENU_CALLBACK,
+  );
+  $menu['user/profile/location/%/%'] = array(
+    'page callback' => 'user_profile_location',
+    'page arguments' => array(3, 4),
+    'access arguments' => array(USER_PROFILE_VIEW),
+    'type' => MENU_CALLBACK,
+  );
+  $menu['user/profile/edit'] = array(
+    'title callback' => 'drupal_set_subtitle',
+    'title arguments' => array(t('Edit Profile')),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('user_profile_edit_form'),
+    'access arguments' => array(USER_PROFILE_EDIT),
+    'file' => 'user_profile.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $menu['user/profile/follow/%/%'] = array(
+    'title callback' => 'user_profile_follow_title',
+    'title arguments' => array(4, true),
+    'page callback' => 'theme',
+    'page arguments' => array('user_profile_follow', 3, 4),
+    'access callback' => 'user_profile_access_user_profile',
+    'access arguments' => array(USER_PROFILE_VIEW, 3),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * Check permission to view the profile page
+ *
+ * @param $user_access
+ * @param $string
+ * @return bool
+ */
+function user_profile_access_user_profile($user_access, $string)
+{
+  if (empty($string) && !user_is_logged_in()) {
+    return false;
+  } else {
+    $user = _user_profile_get_user($string);
+    if ($user === false) {
+      if (arg(0) == 'user' && arg(1) == 'profile') {
+        drupal_not_found();
+      }
+      return false;
+    } else {
+      return user_access($user_access);
+    }
+  }
+}
+
+/**
+ * Get user by string
+ *
+ * @param $string
+ * @return bool
+ */
+function _user_profile_get_user($string)
+{
+  static $account = null;
+
+  if (is_null($account)) {
+    if (empty($string)) {
+      if (user_is_logged_in()) {
+        global $user;
+        $account = $user;
+      } else {
+        $account = false;
+      }
+    } elseif (!is_numeric($string)) {
+      $string = strtolower($string);
+      $account = user_load(array('name' => $string));
+    } else {
+      $account = user_load(array('uid' => $string));
+    }
+  }
+
+  return $account;
+}
+
+/**
+ * @param $code
+ * @return null|string
+ */
+function user_profile_follow_title($code, $set_as_title = false)
+{
+  $title = $code == 'following' ? t('Following Users') : t('Followers');
+  return $set_as_title ? drupal_set_subtitle($title) : $title;
+}
+
+/**
+ * Implementation of hook_block()
+ *
+ * @param string $op
+ * @param int $delta
+ * @param array $edit
+ * @return mixed
+ */
+function user_profile_block($op = 'list', $delta = 0, $edit = array())
+{
+  switch ($op) {
+    case 'list':
+
+      foreach (array('right', 'bottom') as $place) {
+        $blocks['user-profile-' . $place] = array(
+          'info' => t('User Profile Complete Percent (' . ucfirst($place) . ')'),
+        );
+      }
+      return $blocks;
+
+    case 'view':
+
+      foreach (array('right', 'bottom') as $place) {
+        if ($delta == 'user-profile-' . $place) {
+          $block['subject'] = t('');
+          $block['content'] = theme('user_profile_' . $place);
+        }
+      }
+
+      return $block;
+  }
+}
+
+/**
+ * user_profile_location
+ *
+ * @param $countrycode
+ * @param $zip
+ */
+function user_profile_location($countrycode, $zip)
+{
+  $output = user_profile_geocode($countrycode, $zip);
+  if (empty($output)) {
+    drupal_json(array(
+      'status' => false,
+      'message' => '',
+    ));
+  } else {
+    drupal_json(array(
+      'status' => true,
+      'message' => user_profile_location_format($output['city'], $output['state'], $output['country']),
+    ));
+  }
+  exit;
+}
+
+/**
+ * user_profile_location_format
+ *
+ * @param $city
+ * @param $state
+ * @param $country
+ * @return string
+ */
+function user_profile_location_format($city, $province, $country)
+{
+  $location = array();
+
+  if (!empty($city)) {
+    $location[] = $city;
+  }
+  if (!empty($country)) {
+    $country_name = location_country_name($country);
+    if (!empty($province)) {
+      $location[] = location_province_name($country, $province);
+    }
+    $location[] = $country_name;
+  }
+
+  return implode(', ', $location);
+}
+
+/**
+ * Geocoding
+ *
+ * @param $countrycode
+ * @param $zip
+ * @return array
+ */
+function user_profile_geocode($countrycode, $zip)
+{
+  $output = array();
+
+  if (module_exists("geonames")) {
+    global $user;
+    $query = array('postalcode' => $zip, 'country' => $countrycode, 'maxrows' => 1, 'lang' => $user->language);
+    $result = geonames_query('postalcodesearch', $query);
+    if (isset($result->results[0])) {
+      $result = $result->results[0];
+      $output += array(
+        'city' => preg_replace('/\s\d+$/', '', $result['name']),
+        'state' => $result['adminname1'],
+        'zip' => $result['postalcode'],
+        'lat' => $result['lat'],
+        'lng' => $result['lng'],
+        'country' => $result['countrycode'],
+      );
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Get user profile image
+ *
+ * @param $user
+ * @param bool $presetname
+ * @return mixed
+ */
+function user_profile_image($user, $presetname = false)
+{
+  static $imgs = array();
+  if (!isset($imgs[$user->uid][$presetname])) {
+    if ($presetname === false || !imagecache_generate_image($presetname, $user->picture)) {
+      $img = $user->picture;
+    } else {
+      $img = imagecache_create_path($presetname, $user->picture);
+    }
+    if (strpos($img, 'http://') !== 0) {
+      global $base_url;
+      $img = $base_url . '/' . $img;
+    }
+    $imgs[$user->uid][$presetname] = $img;
+  }
+  return $imgs[$user->uid][$presetname];
+}
+
+/**
+ * Implementation of hook_profile_privacy_access_info()
+ *
+ * @return array
+ */
+function user_profile_profile_privacy_access_info()
+{
+  return array(
+    'authorized' => array(
+      'label' => t('Logged In'),
+      'description' => t('All logged in users can see this piece of information about you'),
+      'access callback' => 'user_is_logged_in',
+    ),
+    'followers' => array(
+      'label' => t('Followers'),
+      'description' => t('Only followers can see this piece of information about you'),
+      'access callback' => 'user_profile_privacy_follower_access_callback',
+    ),
+  );
+}
+
+/**
+ * Define privacy prefix
+ */
+define('USER_PROFILE_PRIVACY_PREFIX', 'private_');
+
+/**
+ * Profile privacy values
+ *
+ * @return array
+ */
+function user_profile_profile_privacy_values()
+{
+  static $values = null;
+  if (is_null($values)) {
+    $values = module_invoke_all('profile_privacy_access_info');
+  }
+  return $values;
+}
+
+/**
+ *
+ *
+ * @param $account
+ * @param $field
+ * @return mixed
+ */
+function user_profile_privacy_follower_access_callback($account, $field)
+{
+  static $list = array();
+  if (!isset($list[$account->uid])) {
+    if (module_exists('follower')) {
+      $list[$account->uid] = false !== follower_status($account->uid);
+    } else {
+      $list[$account->uid] = false;
+    }
+  }
+  return $list[$account->uid];
+}
+
+/**
+ * Implementaton of hook_init()
+ */
+function user_profile_init()
+{
+  if (user_is_logged_in()) {
+    global $user;
+    profile_load_profile($user);
+    $private_fields = profile_privacy_get_user_privacy($user->uid);
+    foreach ($private_fields as $field_name => $private) {
+      $user->{'private_' . $field_name} = $private;
+    }
+  }
+}
+
+/**
+ * Implementaton of hook_enable()
+ */
+function user_profile_enable()
+{
+  if (module_exists('email_registration')) {
+    db_query("UPDATE {system} SET weight = '%d' WHERE name = '%s'", 100, 'user_profile');
+  }
+}

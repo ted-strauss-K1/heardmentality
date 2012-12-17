@@ -1,0 +1,6 @@
+name = Donations
+description = Donations on site
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
+dependencies[] = paypal_api

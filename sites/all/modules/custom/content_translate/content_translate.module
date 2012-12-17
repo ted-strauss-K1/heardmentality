@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @param $content_type
+ * @param $content_id
+ * @param $language_to
+ */
+function content_translate($content_type, $content_id, $language_to)
+{
+  switch ($content_type) {
+    case 'node' :
+      module_invoke_all("content_translate_node", node_load($content_id), $language_to);
+      break;
+    case 'comment' :
+      module_invoke_all("content_translate_comment", _comment_load($content_id), $language_to);
+      break;
+  }
+}
+
+/**
+ * @param $string
+ * @return string
+ */
+function content_translate_detect_language($string)
+{
+  // TODO
+  global $user;
+  return $user->language;
+}
+
+

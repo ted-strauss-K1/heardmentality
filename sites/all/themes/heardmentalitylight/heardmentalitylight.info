@@ -1,0 +1,52 @@
+name = Heard Mentality Light
+description = Openwave Theme.
+version = VERSION
+core = 6.x
+engine = phptemplate
+screenshot = screenshot.gif
+stylesheets[all][] = stylesheets/base.css
+stylesheets[all][] = stylesheets/fonts.css
+stylesheets[all][] = stylesheets/jquery-ui-1.8.16.custom.css
+stylesheets[all][] = stylesheets/layout.css
+stylesheets[all][] = stylesheets/skeleton.css
+stylesheets[all][] = stylesheets/media.css
+stylesheets[all][] = stylesheets/scrollpane/jquery.jscrollpane.css
+
+stylesheets[all][] = stylesheets/ie.css
+
+scripts[] = javascripts/jquery-ui-1.8.16.custom.min.js
+scripts[] = javascripts/ui/minified/jquery.ui.slider.min.js
+scripts[] = javascripts/jquery.jscrollpane.min.js
+scripts[] = javascripts/jquery.mousewheel.js
+scripts[] = javascripts/noty/jquery.noty.js
+scripts[] = javascripts/noty/noty.js
+scripts[] = javascripts/noty/default.js
+scripts[] = javascripts/noty/topRight.js
+scripts[] = javascripts/noty/center.js
+scripts[] = javascripts/effects.js
+
+;scripts[] = javascripts/jquery-ui-1.7.3.custom.min.js
+;scripts[] = javascripts/jquery.ba-resize.min.js
+scripts[] = javascripts/custom_scripts.js
+scripts[] = javascripts/app.js
+
+regions[header] = Header
+regions[footer] = Footer
+regions[footer_inner] = Footer Inner
+regions[multilanguage_area] = Multi Language Area
+regions[content_top] = Content Top
+regions[content] = Content
+regions[content_bottom] = Content Bottom
+;regions[left] = Left Sidebar
+regions[right] = Right Sidebar
+regions[front_activity] = Front Page Content
+regions[front_heatmap] = Front Page Heatmap
+regions[front_right] = Front Page Right Content
+
+; Information added by drupal.org packaging script on 2010-07-16
+version = "1.0"
+project = "drupal"
+datestamp = "1260996916"
+
+
+

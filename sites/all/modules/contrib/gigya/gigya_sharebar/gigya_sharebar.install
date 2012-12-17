@@ -1,0 +1,29 @@
+<?php
+// $Id: $
+
+/**
+ * @file
+ * Update and uninstall functions for the Gigya share bar module.
+ */
+
+/**
+ * Implements hook_uninstall
+ *
+ * Removes variables when module is uninstalled
+ */
+function gigya_sharebar_uninstall(){
+  variable_del('sharebar_user_message');
+  variable_del('sharebar_title');
+  variable_del('sharebar_description');
+  variable_del('sharebar_action_link_title');
+  variable_del('sharebar_action_link_href');
+  variable_del('sharebar_buttons');
+  
+  // Remove all those vars we copied from shareUI.
+  $form = gigya_sharebar_prepare_settings_form();
+  
+  foreach ($form as $key => $element){
+    $newkey = str_replace('shareui_', 'sharebar_', $key);
+    variable_del($newkey); 
+  }
+}

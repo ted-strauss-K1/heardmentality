@@ -1,0 +1,31 @@
+<?php
+
+/*
+ * Implementation of hook_boot()
+ */
+function langfix_boot()
+{
+  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    $http_accept_language = array();
+    $browser_languages = array_filter(array_map('trim', explode(',', strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']))));
+    foreach ($browser_languages as $browser_language) {
+      if (preg_match('!^(?:([a-z]+)([-_a-z]*))(;q=(?:[\.0-9]+))?$!', $browser_language, $found)) {
+        if (!empty($found[1])) {
+          if (!isset($http_accept_language[$found[1]])) {
+            if (!empty($found[2])) {
+              $http_accept_language[$browser_language] = $browser_language;
+              $http_accept_language[$found[1]] = $found[1] . (!empty($found[3]) ? $found[3] : ';q=1.0');
+            } else {
+              $http_accept_language[$found[1]] = $browser_language;
+            }
+          }
+        } else {
+          $http_accept_language[$browser_language] = $browser_language;
+        }
+      } else {
+        $http_accept_language[$browser_language] = $browser_language;
+      }
+    }
+    $_SERVER['HTTP_ACCEPT_LANGUAGE'] = implode(',', $http_accept_language);
+  }
+}

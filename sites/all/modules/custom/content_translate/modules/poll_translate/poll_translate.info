@@ -1,0 +1,8 @@
+name = Poll Translation
+description = Poll Translation: translate polls, manage voting to translated polls
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
+dependencies[] = "poll"
+dependencies[] = "translation"
+dependencies[] = "content_translate"

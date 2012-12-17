@@ -1,0 +1,5 @@
+name = Language Detection Fix
+description = See http://drupal.org/node/221712#comment-2352380
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
