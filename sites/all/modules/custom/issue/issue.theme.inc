@@ -31,5 +31,5 @@ function theme_issue_description($text, $charcount = 2500)
  */
 function issue_arguments_preprocess(&$vars) {
 // TODO $vars['results'] = theme('issue_results_graph', $vars['node']);
-  $vars['content'] = theme('issue_arguments', $vars['node']);
+//  $vars['content'] = theme('issue_arguments', $vars['node']);
 }
