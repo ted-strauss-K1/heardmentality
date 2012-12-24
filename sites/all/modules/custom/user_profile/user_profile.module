@@ -33,6 +33,26 @@ function user_profile_preprocess_page(&$vars)
 }
 
 /**
+ * Implementation of hook_form_alter()
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function user_profile_form_alter(&$form, &$form_state, $form_id)
+{
+  # for redirects
+  if ($form_id == 'user_register') {
+    $form['#redirect'] = array("user/profile/edit");
+    unset($_REQUEST['destination']);
+  }
+  if ($form_id == 'user_login') {
+    $form['#redirect'] = "user/profile/view";
+    unset($_REQUEST['destination']);
+  }
+}
+
+/**
  * Implementation of hook_theme()
  *
  * @return array

@@ -262,14 +262,15 @@ function events_theme_items()
       'arguments' => array(
         'item' => array(),
       ),
-      'template' => 'templates/event-'.$event,
+      'template' => 'templates/event-' . $event,
     );
   }
 
   return $theme;
 }
 
-function events_events_info() {
+function events_events_info()
+{
   return array(
     'poll_create' => 'event_poll_create',
     'poll_vote' => 'event_poll_vote',

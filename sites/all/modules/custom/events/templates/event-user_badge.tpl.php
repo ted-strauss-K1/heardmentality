@@ -1,5 +1,5 @@
 <li class="clearfix">
-<?php
+  <?php
   $account = $item['account'];
   $node = node_load($item['vars']['nid']);
   $text = 'got the badge';
@@ -14,9 +14,9 @@
       }
     }
   }
-?>
+  ?>
 
-<?php print l(
+  <?php print l(
   sprintf('<img class="following-user listed" src="%s" />', user_profile_image($account)),
   $account->viewlink,
   array('html' => true)

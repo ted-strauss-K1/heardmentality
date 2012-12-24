@@ -1,16 +1,16 @@
 <li class="clearfix">
-<?php
+  <?php
   $account = $item['account'];
   $target = user_load($vars['uid']);
   $text = 'now following';
-  $link = '<span class="name"><a href="/'.$target->viewlink.'" title="'.$target->name.'">'.ucwords($target->name).'</a></span>';
+  $link = '<span class="name"><a href="/' . $target->viewlink . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
   $text2 = l(
     sprintf('<img class="following-user listed" src="%s" />', user_profile_image($target)),
     $target->viewlink,
     array('html' => true)
   );
-?>
-<?php print l(
+  ?>
+  <?php print l(
   sprintf('<img class="following-user listed" src="%s" />', user_profile_image($account)),
   $account->viewlink,
   array('html' => true)
@@ -26,7 +26,7 @@
   <?php print $link; ?>
   <?php if ($text2) : ?>
     </p><p class="action-comment-ref"><?php print t($text2) ?>
-    <br clear="both">
+  <br clear="both">
   <?php endif; ?>
 
 </p>
