@@ -1,7 +1,10 @@
-<?php include "old.issue.forms.inc";
+<?php
 
-/*
+/**
  * "issue/create" form
+ *
+ * @param $form_state
+ * @return array
  */
 function issue_create_form(&$form_state)
 {
@@ -95,7 +98,7 @@ function issue_create_form(&$form_state)
     '#attributes' => array('class' => 'submit-issue'),
     '#value' => t('SUBMIT NEW ISSUE'),
     '#id' => 'save_issue',
-    '#prefix' => '<label class="before-submit">'.t('Your issue will go live immediately, but a moderator will edit it soon to assign categories, look for duplicates, or make format changes').'</label>',
+    '#prefix' => '<label class="before-submit">' . t('Your issue will go live immediately, but a moderator will edit it soon to assign categories, look for duplicates, or make format changes') . '</label>',
     '#suffix' => ' <div class="clear"></div>'
   );
   $form['issue_cont_close'] = array(

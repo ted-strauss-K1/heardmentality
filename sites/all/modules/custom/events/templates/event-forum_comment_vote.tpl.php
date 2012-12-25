@@ -4,7 +4,7 @@
   $node = node_load($item['vars']['nid']);
   $argument = node_load($item['vars']['nid_arg']);
   $comment = _comment_load($vars['cid']);
-  if ($comment->str_wk == 0) yn_invert_vote_value($vars['vote']);
+  if (!$comment->support) yn_invert_vote_value($vars['vote']);
   $text = ($vars['vote'] == VOTE_AGREE ? 'strenghtened' : 'weakened') .
     ' an argument on the issue';
   $link = l(

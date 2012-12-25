@@ -2,21 +2,21 @@ $('.issue-vote-form').live('submit', function (e) {
   e.preventDefault();
   var form = $(this);
   $.ajax({
-    type      : 'POST',
-    dataType  : 'json',
-    url       : '/issue/ajax',
-    data      : form.serialize(),
-    success   : function (response) {
+    type:'POST',
+    dataType:'json',
+    url:'/issue/ajax',
+    data:form.serialize(),
+    success:function (response) {
       if (!response.status) {
         $.hrd.noty({
-          type  : 'error',
-          text  : response.message
+          type:'error',
+          text:response.message
         });
         return false;
       }
       $.hrd.noty({
-        type  : 'success',
-        text  : response.message
+        type:'success',
+        text:response.message
       });
       form.parents('.voteform').html(response.content);
       //
@@ -64,3 +64,23 @@ $(document).ready(function () {
   });
 
 });
+
+/**
+ *
+ */
+$('a.permalink').live('click', function (e) {
+  e.preventDefault();
+  var link = window.location.href.replace(/#.*/, '') + '#' + $(this).parents('.one-forum').attr('id');
+  $.hrd.noty({
+    'layout':'center',
+    'type':'alert',
+    'text':'<a href="' + link + '">' + link + '</a>',
+    'modal':true,
+    'timeout':false,
+    'closeWith':['button']
+  });
+});
+
+
+
+

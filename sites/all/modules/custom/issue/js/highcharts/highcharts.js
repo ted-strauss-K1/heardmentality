@@ -844,8 +844,7 @@
         };
         H.onclick = function (a) {
           var d = m.hoverPoint, a = b(a);
-          a.cancelBubble =
-            !0;
+          a.cancelBubble = !0;
           if (!m.cancelClick)if (d && (A(a.target, "isTracker") || A(a.target.parentNode, "isTracker"))) {
             var e = d.plotX, f = d.plotY;
             N(d, {pageX:hb.left + R + (W ? ja - f : e), pageY:hb.top + L + (W ? ha - e : f)});
@@ -2474,8 +2473,7 @@
     this.yData = k;
     for (e = c && c.length || 0; e--;)c[e] && c[e].destroy && c[e].destroy();
     h && h.setMinRange && h.setMinRange();
-    this.isDirty = this.isDirtyData = f.isDirtyBox =
-      !0;
+    this.isDirty = this.isDirtyData = f.isDirtyBox = !0;
     r(b, !0) && f.redraw(!1)
   }, remove:function (a, b) {
     var c = this, d = c.chart, a = r(a, !0);

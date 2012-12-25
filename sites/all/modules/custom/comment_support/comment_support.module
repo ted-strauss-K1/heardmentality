@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function comment_support_comment(&$a1, $op)
+{
+  switch ($op) {
+    case 'update' :
+    case 'insert' :
+      $a1->support = isset($a1->support) &&
+        ($a1->support == 1 || $a1->support == 0)
+        ? $a1->support : 1;
+      db_query("UPDATE comments SET support = '%d'", $a1->support);
+      break;
+  }
+}

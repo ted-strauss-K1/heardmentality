@@ -5464,9 +5464,7 @@
             pos = tick.pos,
             labelOptions = options.labels,
             str,
-            width = (categories && horiz && categories.length &&
-              !labelOptions.step && !labelOptions.staggerLines &&
-              !labelOptions.rotation &&
+            width = (categories && horiz && categories.length && !labelOptions.step && !labelOptions.staggerLines && !labelOptions.rotation &&
               plotWidth / categories.length) ||
               (!horiz && plotWidth / 2),
             isFirst = pos === tickPositions[0],
@@ -7844,8 +7842,7 @@
           i = series.length;
           for (j = 0; j < i; j++) {
             if (series[j].visible &&
-              series[j].options.enableMouseTracking !== false &&
-              !series[j].noSharedTooltip && series[j].tooltipPoints.length) {
+              series[j].options.enableMouseTracking !== false && !series[j].noSharedTooltip && series[j].tooltipPoints.length) {
               point = series[j].tooltipPoints[index];
               point._dist = mathAbs(index - point.plotX);
               distance = mathMin(distance, point._dist);
@@ -7995,9 +7992,8 @@
         washMouseEvent(e);
 
         // If we're outside, hide the tooltip
-        if (chartPosition &&
-          !isInsidePlot(e.pageX - chartPosition.left - plotLeft,
-            e.pageY - chartPosition.top - plotTop)) {
+        if (chartPosition && !isInsidePlot(e.pageX - chartPosition.left - plotLeft,
+          e.pageY - chartPosition.top - plotTop)) {
           resetTracker();
         }
       }

@@ -194,6 +194,7 @@ function theme_flagger_button($content_id, $content_type)
       array('attributes' => array(
         'class' => 'flagger',
         'name' => $content_type . '/' . $content_id,
+        'original-title' => t('flag'),
       ))
     );
   } else {

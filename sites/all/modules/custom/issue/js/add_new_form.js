@@ -19,52 +19,6 @@ jQuery('#add_new_debate').live('click', function () {
 });
 
 
-$(document).ready(function () {
-
-  $("#debate_list_area").tabs({
-    cache:false,
-    load:function (event, ui) {
-      Drupal.attachBehaviors();
-    }
-  });
-});
-
-
-Drupal.behaviors.add_new_form = function (context) {
-
-  /*
-   * Permalink
-   */
-  $('a.permalink').click(function (e) {
-    e.preventDefault();
-    var link = window.location.href.replace(/#.*/, '') + '#' + $(this).parents('.one-forum').attr('id');
-    $.hrd.noty({
-      'layout':'center',
-      'type':'alert',
-      'text':'<a href="' + link + '">' + link + '</a>',
-      'modal':true,
-      'timeout':false,
-      'closeWith':['button']
-    });
-  });
-
-// TODO
-//  translate();
-
-  /*
-   $('.goog-trans-control').html('');
-
-   var lang = $("html").attr("lang");
-   lang = 'auto';
-   var s = document.createElement('script');
-   s.type='text/javascript';
-   s.className = "gt";
-   s.src='//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=' +lang;
-   document.body.appendChild(s);
-   */
-}
-
-
 /*
  * flag/link/delete buttons
  */

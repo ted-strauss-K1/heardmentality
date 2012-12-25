@@ -4,37 +4,6 @@
 
 
 
-/*
-* "issue/vote" page callback
-*/
-function issue_vote_ajax()
-{
-  $post = $_POST;
-  if (empty($post['nid'])) {
-    drupal_json(array(
-      'status' => false,
-    ));
-    exit;
-  }
-
-  $params = array('vote_r', 'vote_r_old', 'vote_s', 'vote_s_old');
-  foreach ($params as $key) {
-    if (empty($post[$key])) {
-      $post[$key] = -1;
-    }
-  }
-  issue_poll_vote($post['nid'], $post['vote_r'], $post['vote_r_old'], $post['vote_s'], $post['vote_s_old']);
-}
-
-
-
-
-
-
-
-
-
-
 
 
 /*****************************************

@@ -95,7 +95,8 @@
 26. Set Up Gigya on /admin/settings/gigya http://pix.am/uriG/ http://pix.am/Etf5/
 27. Put the User Profile Complete Percent (Bottom) to Footer Inner region on /admin/build/block
 28. Set up geonames: /admin/settings/geonames - name "jnavanephp", url "http://api.geonames.org"
-29. x
+29. Put the User Profile Block (Right) to Right Sidebar
+30. Import the content
 
 
 

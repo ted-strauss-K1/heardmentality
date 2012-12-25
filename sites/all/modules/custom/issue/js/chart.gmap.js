@@ -24,8 +24,8 @@ $(document).ready(function () {
         var myLatLng = new google.maps.LatLng(beach[0], beach[1]);
         var marker = new google.maps.Marker({
           position:myLatLng,
-          map : map,
-          icon : '/' + Drupal.settings.google_map_icons + '/' + beach[2].replace('#', '') + '.png'
+          map:map,
+          icon:'/' + Drupal.settings.google_map_icons + '/' + beach[2].replace('#', '') + '.png'
         })
       }
     }

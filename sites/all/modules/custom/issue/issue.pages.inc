@@ -63,7 +63,7 @@ function issue_create_ahah_answer()
  */
 function issue_ajax()
 {
-  $post = &$_POST;
+  $post = & $_POST;
 
   # suppress form submission
   unset($post['form_build_id']);

@@ -1,0 +1,56 @@
+<?php
+
+/*
+ * Get the filtered list of Arguments
+ *
+ * @param nid   -- Issue Node Id
+ * @param sort  -- Sort
+ * @param print -- Print/Return parameter
+ */
+function arguments_filter($nid, $sort = null, $class = null, $chorder = null)
+{
+  $argnids = array();
+  if (!is_null($class) && !is_null($chorder)) {
+    # filter arguments
+    switch ($class) {
+      case 'neutral' :
+        $val = 0;
+        break;
+      case 'positive' :
+        $val = 1;
+        break;
+      case 'negative' :
+        $val = -1;
+        break;
+      default :
+        $val = 0;
+        break;
+    }
+    $result = db_query("SELECT DISTINCT(n.nid) FROM {node} n INNER JOIN {content_type_forum} ctf ON ctf.nid = n.nid LEFT JOIN {arguments_options} ao ON ao.nid = n.nid WHERE n.status = 1 AND n.type = 'forum' AND ctf.field_ref_qid_nid = '%d' AND ( (ctf.field_type_value = '%d' AND ao.val = '%d' AND ao.chorder = '%d') OR (ctf.field_type_value = '%d')) ORDER BY n.nid DESC", $nid, TYPE_DEBATE, $val, $chorder, TYPE_RESOURCE);
+  } else {
+    # sort parameters
+    switch ($sort) {
+      case 0 : # older
+        $order_by = 'n.created';
+        $order_sort = 'ASC';
+        break;
+      case 1 : # recent
+        $order_by = 'n.created';
+        $order_sort = 'DESC';
+        break;
+      case 2 : # supported
+        $order_by = 'ctf.field_strength_value';
+        $order_sort = 'DESC';
+        break;
+      default : # default
+        $order_by = 'n.nid';
+        $order_sort = 'DESC';
+        break;
+    }
+    $result = db_query("SELECT DISTINCT(n.nid) FROM {node} n INNER JOIN {content_type_forum} ctf ON ctf.nid = n.nid WHERE n.status = 1 AND n.type = 'forum' AND ctf.field_ref_qid_nid = '%d' ORDER BY %s %s", $nid, $order_by, $order_sort);
+  }
+  while ($argnid = db_result($result)) {
+    $argnids[] = $argnid;
+  }
+  return $argnids;
+}

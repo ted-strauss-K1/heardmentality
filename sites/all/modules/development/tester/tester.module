@@ -1,0 +1,37 @@
+<?php
+
+function tester_boot() {
+	
+}
+
+function tester_init() {
+	
+	
+}  
+
+
+function tester_menu() {
+  return array(
+    'tester' => array(
+      'page callback' => 'tester',
+      'type' => MENU_CALLBACK,
+      'access callback' => true,
+    ),
+  );
+}
+
+function tester() {
+  votingapi_recalculate_results('node', 21);
+  exit;
+  $node = node_load(21);
+
+  $node = json_decode('{"type":"forum","language":"","uid":"1","status":1,"created":1356085140,"tnid":0,"translate":0,"name":"admin","validated":true,"field_argument_type":[{"value":2}],"forum_tid":1,"field_url":[{"value":"http:\/\/www.favim.ru"}],"field_source":[{"value":"www.favim.ru"}],"field_rtype":[{"value":"url"}],"field_youtube":[{"value":""}],"title":null,"body":null,"teaser":null,"field_image_path":[{"value":"http:\/\/hm2\/sites\/default\/files\/noimage.jpg"}],"images":["http:\/\/www.favim.ru\/mini\/201205\/05\/temnye-volosy-devushka-ruki-fotografiya-95212.jpg","http:\/\/www.favim.ru\/mini\/201205\/05\/krasavica-rassvet-edvard-95211.jpg","http:\/\/www.favim.ru\/mini\/201205\/04\/voshititelno-cherno-beloe-cherno-beloe-milo-les-95210.jpg","http:\/\/www.favim.ru\/mini\/201205\/04\/svetlye-volosy-goluboe-nebo-devushka-lyubov-model-95209.jpg","http:\/\/www.favim.ru\/mini\/201205\/03\/devushka-hipster-lyubov-priroda-fotografiya-95208.jpg","http:\/\/www.favim.ru\/mini\/201205\/03\/devushka-volosy-mikki-maus-95207.jpg","http:\/\/www.favim.ru\/mini\/201205\/02\/pchela-siniy-nogti-95206.jpg","http:\/\/www.favim.ru\/mini\/201205\/02\/devushka-velikolepno-goryachie-priyatnoe-95205.jpg","http:\/\/www.favim.ru\/mini\/201205\/01\/chernyy-cherno-beloe-cherno-beloe-lico-ruka-95204.jpg","http:\/\/www.favim.ru\/mini\/201205\/01\/milo-moda-devushka-schaste-original-95203.jpg","http:\/\/www.favim.ru\/mini\/201204\/30\/pchela-siniy-nogti-95202.jpg","http:\/\/www.favim.ru\/mini\/201204\/30\/odri-hepbern-sumka-chanel-gepard-milo-95201.jpg","http:\/\/www.favim.ru\/mini\/201204\/29\/dary-smerti-garri-potter-germiona-greyndzher-ron-uizli-95200.jpg","http:\/\/www.favim.ru\/mini\/201204\/29\/zadnica-tanec-tancy-goryachie-seksi-95199.jpg","http:\/\/www.favim.ru\/mini\/201204\/28\/moda-devushka-volosy-lyubov-model-95198.jpg","http:\/\/www.favim.ru\/mini\/201204\/28\/den-mechta-dom-osobnyak-idealno-95197.jpg","http:\/\/www.favim.ru\/mini\/201204\/27\/svetlye-volosy-devushka-volosy-model-priyatnoe-95196.jpg","http:\/\/www.favim.ru\/mini\/201204\/27\/stil-garri-liam-payne-luis-tomlinson-niall-horan-v-odnom-napravlenii-95195.jpg"],"noimage":true}');
+
+  echo theme('argument_resource_preview', $node);
+
+//  $node->argument_options[0] = array('value' => 1);
+//  node_save($node);
+
+  var_dump($node);
+  exit;
+}

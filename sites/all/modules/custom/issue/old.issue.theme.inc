@@ -102,7 +102,7 @@ function theme_issue_results_insightview($node)
   $choices = issue_choices($node->nid);
 
   $totals_all = 0;
-  $totals = &$data['']['#results'];
+  $totals = & $data['']['#results'];
   foreach ($totals as $i => &$total) {
     $total = $total[$i];
     $totals_all += $total;
@@ -232,7 +232,7 @@ function issue_results_graph_highchart_filter_data($node)
     }
 
     # get total votes
-    $counts = &$cat['']['#results'];
+    $counts = & $cat['']['#results'];
     $result = db_query("SELECT chorder, COUNT(*) count FROM poll_votes WHERE nid = '%d' GROUP BY chorder", $nid);
     while ($vote = db_fetch_array($result)) {
       $counts[$vote['chorder']][$vote['chorder']] = (int)$vote['count'];
@@ -257,7 +257,7 @@ function issue_results_graph_highchart_filter_data($node)
       while ($vote = db_fetch_array($result)) {
         switch ($field) {
           case 'profile_yob' :
-            $counts = &$cat['age']['#results'][$vote['chorder']];
+            $counts = & $cat['age']['#results'][$vote['chorder']];
             if ($vote['value'] == '') {
               $counts[3]++;
             } else {
@@ -273,7 +273,7 @@ function issue_results_graph_highchart_filter_data($node)
             break;
           default:
             $name = str_replace('profile_', '', $field);
-            $counts = &$cat[$name]['#results'][$vote['chorder']];
+            $counts = & $cat[$name]['#results'][$vote['chorder']];
             if (isset($cat[$name]['#options'][$vote['value']])) {
               $counts[$vote['value']]++;
             } else {
@@ -519,73 +519,6 @@ function theme_issue_results_graph_gmap($node)
  *
  * @see arguments.forms.inc
  */
-
-function theme_issue_arguments($node)
-{
-  if (user_is_logged_in()) {
-    $arguments_form = drupal_get_form('arguments_form', $node->nid);
-  } else {
-    $arguments_form =
-      '<div class="' . (!module_exists('user_login_modal') ? "" : user_login_modal_class(true)) . '" align="center"><b>' .
-        t('Please log in to participate in the debate') .
-        '</b>
-      </div>';
-  }
-
-  # TODO there should be special field for that
-  $dr = arguments_get_list($node->nid);
-
-  # Prepare the data for the debate analysis
-  $data = array();
-  $choices = issue_choices($node->nid);
-  foreach ($choices as $choice) {
-    $data[] = array(
-      'name' => t('Strength'),
-      'color' => '#C2499B',
-      'y' => 0,
-    );
-  }
-
-  $result = db_query("
-    SELECT ao.chorder, SUM(vv.value)*ao.val AS value
-    FROM {content_type_forum} ctf
-    INNER JOIN {arguments_options} ao ON ao.nid = ctf.nid
-    LEFT JOIN {votingapi_vote} vv ON vv.content_id = ctf.nid AND vv.content_type = 'node'
-    WHERE ctf.field_ref_qid_nid = '%d'
-    GROUP BY ctf.nid, ao.chorder
-    ORDER BY ao.chorder
-  ", $node->nid);
-  $args = array();
-  while ($row = db_fetch_array($result)) {
-    $args[$row['chorder']] += $row['value'];
-  }
-  foreach ($choices as $i => $choice) {
-    $value = $args[$choice['chorder']];
-    $data[$i]['color'] = $value > 0 ? '#55BA59' : '#C2499B';
-    $data[$i]['y'] = (float)$value;
-  }
-
-  // SELECT 1 AS str, ctf.*, ao.* FROM `content_type_forum` ctf INNER JOIN arguments_options ao ON ao.nid = ctf.nid WHERE ctf.field_ref_qid_nid = 36981
-  drupal_add_js(array('charts' => array('strength' => $data)), 'setting');
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/chart.strength.js");
-
-  return theme('issue_debate_area', $arguments_form, $dr['#count'][TYPE_DEBATE], $dr['#count'][TYPE_RESOURCE], issue_choices($node->nid), $node->nid
-  );
-}
-
-/*
- * Sub Loader Image
- */
-
-function theme_sub_loader($styles)
-{
-  global $base_url, $theme;
-  return
-    '<span id="sub_loader" style="' . $styles . '">
-      <img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading">
-    </span>';
-}
-
 
 
 /*

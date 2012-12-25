@@ -3,6 +3,13 @@ description = Issue - an extension of Poll content type for HeardMentality
 package = Custom Modules
 version = "6.x-1.6"
 core = 6.x
+dependencies[] = "comment"
+dependencies[] = "poll"
+dependencies[] = "forum"
+dependencies[] = "user_profile"
+; dependencies[] = "argument_options"
+dependencies[] = "comment_support"
+dependencies[] = "comment_language"
 
 
 

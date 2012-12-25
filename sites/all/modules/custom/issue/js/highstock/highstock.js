@@ -582,8 +582,7 @@
         aa(E, "setExtremes", e, function () {
           jb = a;
           P = b;
-          E.isDirtyExtremes =
-            !0;
+          E.isDirtyExtremes = !0;
           c && n.redraw(d)
         })
       }, setScale:function () {
@@ -1446,8 +1445,7 @@
             try {
               b.call(e)
             } catch (c) {
-              a === "preventDefault" && (g =
-                !0)
+              a === "preventDefault" && (g = !0)
             }
           }
         });
@@ -1565,8 +1563,7 @@
       } else c === "isTracker" ? this[c] = d : c === "width" ? d = Z(d) : c === "align" ? (c = "text-anchor", d = {left:"start", center:"middle", right:"end"}[d]) : c === "title" && (e = S.createElementNS("http://www.w3.org/2000/svg", "title"), e.appendChild(S.createTextNode(d)), g.appendChild(e));
       c === "strokeWidth" && (c = "stroke-width");
       Oc && c === "stroke-width" && d === 0 && (d = 1.0E-6);
-      this.symbolName && /^(x|y|r|start|end|innerR|anchorX|anchorY)/.test(c) && (l || (this.symbolAttr(a), l = !0), k =
-        !0);
+      this.symbolName && /^(x|y|r|start|end|innerR|anchorX|anchorY)/.test(c) && (l || (this.symbolAttr(a), l = !0), k = !0);
       if (m && /^(width|height|visibility|x|y|d|transform)$/.test(c))for (e = m.length; e--;)$(m[e], c, d);
       if ((c === "width" || c === "height") && h === "rect" && d < 0)d = 0;
       c === "text" ? (this.textStr = d, this.added && j.buildText(this)) : k || $(g, c, d)
@@ -1673,8 +1670,7 @@
     /^(bottom|middle)$/.test(e) && (g += (c.height - (a.height || 0)) / ({bottom:1, middle:2}[e] || 1));
     h[b ? "translateY" : "y"] = x(g);
     this[this.placed ? "animate" : "attr"](h);
-    this.placed =
-      !0;
+    this.placed = !0;
     this.alignAttr = h;
     return this
   }, getBBox:function (a) {
@@ -2710,8 +2706,7 @@
       a.getAttribs();
       a.drawGraph && a.drawGraph();
       a.drawPoints();
-      a.options.enableMouseTracking !==
-        !1 && a.drawTracker();
+      a.options.enableMouseTracking !== !1 && a.drawTracker();
       b.inverted && a.invertGroups();
       e && !a.hasRendered && (c.clip(h), a.trackerGroup && a.trackerGroup.clip(b.clipRect));
       g && a.animate();
@@ -3337,8 +3332,7 @@
 
     function e(b) {
       var b = a.tracker.normalizeMouseEvent(b), c = b.chartX, d = b.chartY, b = Fa ? 10 : 7;
-      if (d > P && d < P + J + B)(d = !s || d < P + J) && va.abs(c - y - l) < b ? (w = !0, M = G) : d && va.abs(c - G - l) < b ? (p =
-        !0, M = y) : c > l + y && c < l + G ? (A = c, S = K.cursor, K.cursor = "ew-resize", D = c - y) : c > V && c < V + ba && (c = d ? c - l - C / 2 : c < l ? y - wa(10, C) : c > V + ba - B ? y + wa(10, C) : c < l + y ? y - C : G, c < 0 ? c = 0 : c + C > o && (c = o - C), c !== y && a.xAxis[0].setExtremes(F.translate(c, !0), F.translate(c + C, !0), !0, !1))
+      if (d > P && d < P + J + B)(d = !s || d < P + J) && va.abs(c - y - l) < b ? (w = !0, M = G) : d && va.abs(c - G - l) < b ? (p = !0, M = y) : c > l + y && c < l + G ? (A = c, S = K.cursor, K.cursor = "ew-resize", D = c - y) : c > V && c < V + ba && (c = d ? c - l - C / 2 : c < l ? y - wa(10, C) : c > V + ba - B ? y + wa(10, C) : c < l + y ? y - C : G, c < 0 ? c = 0 : c + C > o && (c = o - C), c !== y && a.xAxis[0].setExtremes(F.translate(c, !0), F.translate(c + C, !0), !0, !1))
     }
 
     function f(b) {

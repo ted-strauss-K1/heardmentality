@@ -548,23 +548,3 @@ $(document).ready(function () {
 /**************/
 
 
-$(document).ready(function () {
-  $('.popup a').click(function () {
-    var e = $(this).attr('class');
-    var id = $(this).parents('dl').attr('name');
-    nid = Drupal.settings.nid;
-    var url = Drupal.settings.base_url + '/arguments/tabs/' + nid + '/';
-    $('#debate_list_area').tabs("url", 0, url + 0 + '/0?class=' + e + '&chorder=' + id);
-    $('#debate_list_area').tabs("url", 1, url + 1 + '/0?class=' + e + '&chorder=' + id);
-    $('#debate_list_area').tabs("url", 2, url + 2 + '/0?class=' + e + '&chorder=' + id);
-
-    var selected = $("#debate_list_area").tabs("option", "selected");
-    $('#debate_list_area').tabs("load", selected);
-    $('#debate_list_area').tabs("select", selected);
-
-    var filter = $(this).parents('.show_only').find('.popup');
-    filter.removeClass('visible').addClass('hidden');
-    $('#debate_list_area .show_only span.button').removeClass('active');
-    return false;
-  })
-});

@@ -5,6 +5,16 @@
  * Updates Drupal to use the latest version of jQuery.
  */
 
+function jquery_alter_allowed_path() {
+  if (arg(0) == 'admin') {
+    return false;
+  }
+  if (arg(0) == 'node' && arg(2) == 'edit') {
+    return false;
+  }
+  return true;
+}
+
 /**
  * Implements hook_jquery_update_alter().
  *
@@ -82,7 +92,7 @@ function jquery_update_preprocess_page(&$variables) {
   if (!empty($variables['scripts'])) {
 
     // Perform the logic if either jQuery Update's jquery.js is newer than core's.
-    if (variable_get('jquery_update_replace', TRUE) && arg(0) != 'admin') {
+    if (variable_get('jquery_update_replace', TRUE) && jquery_alter_allowed_path()) {
       // Get an array of all the JavaScript files loaded by Drupal on this page.
       $javascript = drupal_add_js();
 

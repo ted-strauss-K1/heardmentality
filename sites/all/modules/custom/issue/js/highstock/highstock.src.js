@@ -5395,9 +5395,7 @@
             pos = tick.pos,
             labelOptions = options.labels,
             str,
-            width = (categories && horiz && categories.length &&
-              !labelOptions.step && !labelOptions.staggerLines &&
-              !labelOptions.rotation &&
+            width = (categories && horiz && categories.length && !labelOptions.step && !labelOptions.staggerLines && !labelOptions.rotation &&
               plotWidth / categories.length) ||
               (!horiz && plotWidth / 2),
             isFirst = pos === tickPositions[0],
@@ -7761,8 +7759,7 @@
           i = series.length;
           for (j = 0; j < i; j++) {
             if (series[j].visible &&
-              series[j].options.enableMouseTracking !== false &&
-              !series[j].noSharedTooltip && series[j].tooltipPoints.length) {
+              series[j].options.enableMouseTracking !== false && !series[j].noSharedTooltip && series[j].tooltipPoints.length) {
               point = series[j].tooltipPoints[index];
               point._dist = mathAbs(index - point.plotX);
               distance = mathMin(distance, point._dist);
@@ -7892,9 +7889,8 @@
         var pageX = defined(e.pageX) ? e.pageX : e.page.x, // In mootools the event is wrapped and the page x/y position is named e.page.x
           pageY = defined(e.pageX) ? e.pageY : e.page.y; // Ref: http://mootools.net/docs/core/Types/DOMEvent
 
-        if (chartPosition &&
-          !isInsidePlot(pageX - chartPosition.left - plotLeft,
-            pageY - chartPosition.top - plotTop)) {
+        if (chartPosition && !isInsidePlot(pageX - chartPosition.left - plotLeft,
+          pageY - chartPosition.top - plotTop)) {
           resetTracker();
         }
       }

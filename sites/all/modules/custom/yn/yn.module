@@ -27,8 +27,10 @@ function yn_theme()
  * @param $node
  * @return string
  */
-function theme_yn($content_id, $content_type, $owner = false)
+function theme_yn($content_type, $content_id, $owner = false)
 {
+  drupal_add_js(drupal_get_path('module', 'yn') . '/yn.js');
+
   $notrated = false;
   list($vote_up, $vote_dn, $vote_sum, $yn_rated) = yn_votes($content_id, $content_type);
   if ($owner) {
@@ -181,7 +183,13 @@ function yn_vote($content_id, $value, $content_type, $vote_source = '', $uid = '
     }
   }
 
-  return votingapi_add_votes($vote);
+  $output = votingapi_add_votes($vote);
+
+  // aggregate
+  votingapi_recalculate_results($content_type, $content_id);
+
+  return $output;
+
 }
 
 /**
@@ -434,21 +442,21 @@ function yn_menu()
 function yn_ajax($content_id, $content_type, $vote_value)
 {
   if (empty($content_id) || empty($content_type) || !in_array($vote_value, array(VOTE_AGREE, VOTE_DISAGREE))) {
-    drupal_json(array(
+    print json_encode(array(
       'status' => false,
       'message' => t('Error occurred'),
     ));
     exit();
   }
   if (!user_is_logged_in()) {
-    drupal_json(array(
+    print json_encode(array(
       'status' => false,
       'message' => t('You need to log in to join this debate'),
     ));
     exit();
   }
   if (yn_user_voted($content_id, $content_type)) {
-    drupal_json(array(
+    print json_encode(array(
       'status' => false,
       'message' => t('You have already voted'),
     ));
@@ -456,13 +464,13 @@ function yn_ajax($content_id, $content_type, $vote_value)
   }
   yn_vote($content_id, $vote_value, $content_type);
   if ($content_type == 'comment') {
-    $result = db_fetch_array(db_query("SELECT nid, str_wk FROM {comments} WHERE cid = '%d'", $content_id));
+    $comment = _comment_load($content_id);
     $_vote_value = $vote_value;
-    if (!$result) {
+    if (empty($comment->support)) {
       yn_invert_vote_value($_vote_value);
     }
-    $parent_id = $result['nid'];
-    yn_vote($result['nid'], $_vote_value, 'node', VOTE_AUTOADD);
+    $parent_id = $comment->nid;
+    yn_vote($parent_id, $_vote_value, 'node', VOTE_AUTOADD);
   } else {
     $parent_id = $content_id;
   }
@@ -476,10 +484,11 @@ function yn_ajax($content_id, $content_type, $vote_value)
   } else {
     list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum'], $rated) = yn_votes($parent_id, 'node');
   }
+
   # update the parent
-  $node = node_load($parent_id);
-  $node->field_strength[0]['value'] = $output['pvote_sum'];
-  node_save($node);
+//  $node = node_load($parent_id);
+//  $node->field_strength[0]['value'] = $output['pvote_sum'];
+//  node_save($node);
 
   $output['content_id'] = $content_id;
   $output['content_type'] = $content_type;
@@ -487,7 +496,7 @@ function yn_ajax($content_id, $content_type, $vote_value)
   $output['parent_id'] = $parent_id;
 
   $message = $vote_value == VOTE_AGREE ? 'Agreed!' : 'Disagreed!';
-  drupal_json(array(
+  print json_encode(array(
     'status' => true,
     'message' => t($message),
     'data' => $output,
@@ -510,5 +519,5 @@ function yn_invert_vote_value(&$vote_value)
  */
 function yn_init()
 {
-  drupal_add_js(drupal_get_path('module', 'yn') . '/yn.js');
+//  drupal_add_js(drupal_get_path('module', 'yn') . '/yn.js');
 }

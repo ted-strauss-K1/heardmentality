@@ -202,6 +202,7 @@ function user_profile_block_preprocess(&$vars)
     return;
   }
   if (empty($preprocessed)) {
+    drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
     global $user;
     $preprocessed['user'] = $user;
     $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
@@ -519,12 +520,12 @@ function user_profile_location($countrycode, $zip)
 {
   $output = user_profile_geocode($countrycode, $zip);
   if (empty($output)) {
-    drupal_json(array(
+    print json_encode(array(
       'status' => false,
       'message' => '',
     ));
   } else {
-    drupal_json(array(
+    print json_encode(array(
       'status' => true,
       'message' => user_profile_location_format($output['city'], $output['state'], $output['country']),
     ));

@@ -14,16 +14,45 @@ stylesheets[all][] = stylesheets/scrollpane/jquery.jscrollpane.css
 
 stylesheets[all][] = stylesheets/ie.css
 
+; JQuery UI
 scripts[] = javascripts/jquery-ui-1.8.16.custom.min.js
+
+; JQuery UI Slider
 scripts[] = javascripts/ui/minified/jquery.ui.slider.min.js
-scripts[] = javascripts/jquery.jscrollpane.min.js
-scripts[] = javascripts/jquery.mousewheel.js
+
+; JQuery Noty
 scripts[] = javascripts/noty/jquery.noty.js
-scripts[] = javascripts/noty/noty.js
 scripts[] = javascripts/noty/default.js
 scripts[] = javascripts/noty/topRight.js
 scripts[] = javascripts/noty/center.js
-scripts[] = javascripts/effects.js
+scripts[] = javascripts/noty/custom.noty.js
+
+; JQuery Tipsy
+scripts[] = javascripts/tipsy/tipsy.js
+scripts[] = javascripts/tipsy/custom.tipsy.js
+stylesheets[all][] = javascripts/tipsy/custom.tipsy.css
+
+; JQuery Cookie
+scripts[] = javascripts/jquery-plugins/jquery.cookie.js
+
+; JQuery Mobile
+scripts[] = javascripts/jquery-plugins/jquery.mobile.js
+
+; JQuery MouseWheel
+scripts[] = javascripts/jquery-plugins/jquery.mousewheel.js
+
+; JQuery JScrollPane
+scripts[] = javascripts/jquery-plugins/jquery.jscrollpane.min.js
+
+; JQuery Collapse
+scripts[] = javascripts/jquery-plugins/jquery.collapse.js
+
+
+; Custom JS
+scripts[] = javascripts/custom/effects.js
+scripts[] = javascripts/custom/gtranslate.js
+scripts[] = javascripts/custom/homepage.js
+
 
 ;scripts[] = javascripts/jquery-ui-1.7.3.custom.min.js
 ;scripts[] = javascripts/jquery.ba-resize.min.js

@@ -1,13 +1,16 @@
 <?php include "old.issue.module";
 
 require_once "issue.forms.inc";
+require_once "argument.forms.inc";
+require_once "argument.inc";
 
 /**
  * Implementation of hook_preprocess_page()
  *
  * @param $vars
  */
-function issue_preprocess_page(&$vars) {
+function issue_preprocess_page(&$vars)
+{
   //
   if (arg(0) == 'issue' && arg(1) == 'create') {
     drupal_add_js('misc/ahah.js');
@@ -21,8 +24,9 @@ function issue_preprocess_page(&$vars) {
  *
  * @param $vars
  */
-function issue_preprocess_node(&$vars) {
-  $node = &$vars['node'];
+function issue_preprocess_node(&$vars)
+{
+  $node = & $vars['node'];
 
   # page title for poll pages
   if ($node->type == 'poll') {
@@ -36,29 +40,34 @@ function issue_preprocess_node(&$vars) {
  *
  * @return array
  */
-function issue_menu() {
+function issue_menu()
+{
   $menu = array();
 
   $menu['issue/create'] = array(
-    'title'             => t('Add an Issue'),
-    'page callback'     => 'issue_create',
-    'access arguments'  => array('create poll content'),
-    'type'              => MENU_CALLBACK,
-    'file'              => 'issue.pages.inc',
+    'title' => t('Add an Issue'),
+    'page callback' => 'issue_create',
+    'access arguments' => array('create poll content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'issue.pages.inc',
   );
   $menu['issue/create/ahah/answer'] = array(
-    'page callback'     => 'issue_create_ahah_answer',
-    'access arguments'  => array('create poll content'),
-    'type'              => MENU_CALLBACK,
-    'file'              => 'issue.pages.inc',
+    'page callback' => 'issue_create_ahah_answer',
+    'access arguments' => array('create poll content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'issue.pages.inc',
   );
 
   $menu['issue/ajax'] = array(
-    'page callback'     => 'issue_ajax',
-    'access arguments'  => array(ISSUE_VIEW),
-    'type'              => MENU_CALLBACK,
-    'file'              => 'issue.pages.inc',
+    'page callback' => 'issue_ajax',
+    'access arguments' => array(ISSUE_VIEW),
+    'type' => MENU_CALLBACK,
+    'file' => 'issue.pages.inc',
   );
+
+  if (function_exists('argument_menu')) {
+    $menu += argument_menu();
+  }
 
   return $menu;
 }
@@ -68,25 +77,43 @@ function issue_menu() {
  *
  * @return array
  */
-function issue_theme() {
+function issue_theme()
+{
   $theme = array();
 
   $theme['issue_guidelines'] = array(
     'arguments' => array(),
-    'template'  => 'templates/issue-guidelines',
+    'template' => 'templates/issue-guidelines',
   );
   $theme['issue_description'] = array(
     'arguments' => array('text' => NULL),
-    'file'      => 'issue.theme.inc',
+    'file' => 'issue.theme.inc',
   );
   $theme['issue_arguments'] = array(
     'arguments' => array('node' => NULL),
     'template' => 'templates/issue-arguments',
     'preprocess functions' => array('issue_arguments_preprocess'),
   );
+  $theme['issue_arguments_content'] = array(
+    'arguments' => array('node' => NULL),
+    'file' => 'issue.theme.inc',
+  );
+  $theme['issue_arguments_content_wrapper'] = array(
+    'arguments' => array('node' => NULL, 'form' => NULL),
+    'template' => 'templates/issue-arguments-content-wrapper',
+  );
+  // TODO rename
+  $theme['sub_loader'] = array(
+    'arguments' => array('styles' => NULL),
+    'template' => 'templates/issue-loader',
+  );
 
 
 //  issue_arguments_section
+
+  if (function_exists('argument_theme')) {
+    $theme += argument_theme();
+  }
 
   return $theme + _issue_theme();
 }
@@ -99,39 +126,58 @@ function issue_theme() {
  * @param null $a3
  * @param null $a4
  */
-function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
   if ($node->type == 'poll') {
     switch ($op) {
       case 'delete' :
         // TODO delete arguments
-      break;
+        break;
       case 'load' :
         // TODO load
         $node->description = theme('issue_description', $node->field_description[0]['value']);
-      break;
+
+        $node->arguments = array();
+        if (!empty($node->field_arguments)) {
+          $tmp = array(
+            TYPE_DEBATE => 0,
+            TYPE_RESOURCE => 0,
+            '#all' => 0,
+          );
+          $result = db_query("SELECT * FROM {content_type_forum} WHERE field_issue_nid = '%d' ORDER BY nid DESC", $node->nid);
+          while ($row = db_fetch_array($result)) {
+            $tmp['#all']++;
+            $tmp[$row['field_argument_type_value']]++;
+          }
+          $node->arguments = $tmp;
+        }
+        break;
       case 'view' :
         // TODO view
-      break;
+        break;
     }
+  }
+
+  $node->content_id = $node->nid;
+  $node->content_type = 'node';
+
+  if (function_exists('argument_nodeapi')) {
+    argument_nodeapi($node, $op, $a3, $a4);
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function issue_comment(&$a1, $op)
+{
+  if (function_exists('argument_comment')) {
+    argument_comment($a1, $op);
+  }
+}
 
 
 // 'create poll content'

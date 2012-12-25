@@ -8,8 +8,9 @@
 
       <div class="medals">
         <?php if (isset($badges['#stat'])) : ?>
-          <?php foreach ($badges['#stat'] as $type => $badge) : ?>
-          <div class="medal"><span class="<?php print $type ?>" id="medal1" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span><?php print $badge;?>
+        <?php foreach ($badges['#stat'] as $type => $badge) : ?>
+          <div class="medal"><span class="<?php print $type ?>" id="medal1"
+                                   title="<?php print ucfirst($type) ?> Medals">&nbsp;</span><?php print $badge;?>
           </div>
           <?php endforeach; ?>
         <?php endif; ?>
