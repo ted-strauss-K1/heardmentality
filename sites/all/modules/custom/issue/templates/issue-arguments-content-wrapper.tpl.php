@@ -3,7 +3,6 @@
 global $base_url;
 ?>
 
-
 <div id="debate_work_area">
   <div class="inner">
 
@@ -14,9 +13,7 @@ global $base_url;
 
     <?php $arguments = $node->arguments; ?>
     <?php if ($arguments['#all']) : ?>
-    <div class="expanding stat">
-      <h6 class="button" id="deb-ana"><?php print t('Stats'); ?></h6>
-    </div>
+      <?php print theme('issue_charts_strength', $node); ?>
     <?php endif; ?>
 
     <div id="leave_comment_area" class="leave-a-comment hidden_ar" style="display: none;">

@@ -1,9 +1,11 @@
 <li class="clearfix">
   <?php
   $account = $item['account'];
-  $argument = node_load($item['vars']['nid_arg']);
-  $node = node_load($item['vars']['nid']);
-  if (!empty($argument) && $argument->field_type[0]['value'] == TYPE_RESOURCE) {
+  $argument = node_load($item['content_id']);
+  $node = node_load($argument->field_issue[0]['nid']);
+  $vars = $item['vars'];
+
+  if (!empty($argument) && $argument->field_argument_type[0]['value'] == TYPE_RESOURCE) {
     $text = 'posted a reference on the issue';
   } else {
     $text = 'posted an argument on the issue';

@@ -1,7 +1,8 @@
 <li class="clearfix">
   <?php
   $account = $item['account'];
-  $target = user_load($vars['uid']);
+  $target = user_load($item['content_id']);
+
   $text = 'now following';
   $link = '<span class="name"><a href="/' . $target->viewlink . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
   $text2 = l(

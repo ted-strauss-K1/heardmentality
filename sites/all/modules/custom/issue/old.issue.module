@@ -21,9 +21,6 @@ function _issue_init()
 {
   // Hardcode the administration theme onto the blocks page
 
-  drupal_add_css(drupal_get_path('module', 'poll') . '/poll.css');
-  drupal_add_js(drupal_get_path('module', 'issue') . '/issue.js');
-
   // TODO -- refactor
   drupal_add_js(drupal_get_path('module', 'issue') . '/js/filter.js');
 
@@ -54,7 +51,7 @@ function _issue_view(&$node)
 {
   global $user, $base_url;
   # add js
-  drupal_add_js(array('google_map_icons' => drupal_get_path('module', 'issue') . '/icons'), 'setting');
+
 
   # TODO -- refactor javascript
   drupal_add_js(drupal_get_path('module', 'issue') . '/js/add_new_form.js');
@@ -202,31 +199,12 @@ function _issue_theme()
 //    'template' => 'issue-content-bottom',
 //    'preprocess functions' => array('issue_content_bottom_preprocess'),
 //  );
-  $theme['issue_results_graph'] = array(
-    'arguments' => array('node' => NULL),
-    'template' => 'issue-results-graph',
-    'preprocess functions' => array('issue_results_graph_preprocess'),
-  );
-  $theme['issue_results_graph_highchart_filter'] = array(
-    'arguments' => array('node' => NULL),
-    'file' => 'issue.theme.inc',
-  );
-  $theme['issue_results_insightview'] = array(
-    'arguments' => array('node' => NULL),
-    'file' => 'issue.theme.inc',
-  );
-  $theme['issue_results_graph_legend'] = array(
-    'arguments' => array('node' => NULL),
-    'file' => 'issue.theme.inc',
-  );
-  $theme['issue_results_graph_highstock_history'] = array(
-    'arguments' => array('node' => NULL),
-    'file' => 'issue.theme.inc',
-  );
-  $theme['issue_results_graph_gmap'] = array(
-    'arguments' => array('node' => NULL),
-    'file' => 'issue.theme.inc',
-  );
+
+
+
+
+
+
 
 
   $theme['issue_debate_area'] = array(
@@ -259,101 +237,9 @@ function issue_content_bottom_preprocess(&$vars)
   $vars['content'] = theme('issue_arguments', $vars['node']);
 }
 
-/*
- * Preprocess function for issue_results_graph
- */
-function issue_results_graph_preprocess(&$vars)
-{
-  if ($vars['node']->votes['#all'] < 10 || !$vars['node']->uservoted) {
-    return;
-  }
-  // drupal_rebuild_theme_registry();
-  // die('xx');
-  $nid = $vars['node']->nid;
-  $choices = issue_choices($nid);
-
-  # Save choces' settings to js
-  $choices_names = array();
-  foreach ($choices as $choice) {
-    $choices_names[] = $choice['short_answer'];
-  }
-  drupal_add_js(array('charts' => array('choices' => $choices_names)), 'setting');
-  drupal_add_js(array('charts' => array('count' => count($choices))), 'setting');
-  drupal_add_js(array('charts' => array('colors' => issue_colors(true))), 'setting');
-
-  # Highchart Filter
-  $vars['filter'] = theme('issue_results_graph_highchart_filter', $vars['node']);
-  # Quick facts
-  $vars['insightview'] = theme('issue_results_insightview', $vars['node']);
-  # Legend
-  $vars['legend'] = theme('issue_results_graph_legend', $vars['node']);
-  # Highchart History
-  $vars['history'] = theme('issue_results_graph_highstock_history', $vars['node']);
-  # Google map
-  $vars['gmap'] = theme('issue_results_graph_gmap', $vars['node']);
-}
 
 
-/*
-* Load poll choices
-*/
-function issue_choices($nid)
-{
-  static $choices = array();
-  if (!isset($choices[$nid])) {
-    $list = array();
-    $result = db_query("SELECT pc.*, sa.short_answer FROM {poll_choices} pc LEFT JOIN {short_answers} sa ON sa.chorder = pc.chorder AND sa.qid = pc.nid  WHERE pc.nid = '%d' ORDER BY pc.chorder", $nid);
-    while ($row = db_fetch_array($result)) {
-      if (empty($row['short_answer'])) {
-        $row['short_answer'] = $row['chtext'];
-      }
-      $list[] = $row;
-    }
-    $choices[$nid] = $list;
-  }
-  return $choices[$nid];
-}
 
-/*
- * Colors
- */
-function issue_colors($index = false)
-{
-  static $i = 0;
-  static $colors = array();
-  if (empty($colors)) {
-    $colors += array(
-      '#934d9e',
-      '#FF7F00',
-      '#50c0ac',
-      '#0c6926',
-      '#ef4c8d',
-      '#362750',
-      '#e1e43c',
-      '#ef3d3b',
-      '#3cc7f4',
-      '#589a1c',
-      '#C2499B',
-      '#f89521',
-      '#CC2027',
-      '#55ba59',
-      '#d5bc29',
-      '#6ccbd5',
-      '#43B649',
-      '#F6EB16'
-    );
-  }
-  if ($index === true) {
-    return $colors;
-  }
-  if ($index !== false && isset($colors[$index])) {
-    return $colors[$index];
-  } else {
-    $color = $colors[$i];
-    $i = ($i + 1) % count($colors);
-    return $color;
-  }
-}
 
 /**
  * Poll vote change
@@ -376,6 +262,10 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
     db_query("UPDATE {poll_choices} SET chvotes = chvotes+1 WHERE nid = '%d' AND chorder = '%d'", $nid, $vote_r);
     db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $vote_r, $user->uid);
 //    db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $vote_r, $user->uid, date("y-m-d H:i:s"), 1);
+
+    if (module_exists('rules')) {
+      rules_invoke_event('poll_vote', $user, node_load($nid));
+    }
   }
   if ($vote_s != -1) {
     poll_suggest_vote_add($vote_s, $user->uid);

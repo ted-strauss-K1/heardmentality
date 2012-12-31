@@ -33,11 +33,3 @@ function issue_sa_delete($id)
   db_query("DELETE FROM {suggest_answer} WHERE qid = '%d'", $id);
 }
 
-/*
- * Get suggested answers
- */
-function issue_sa_list($id, $uid = '')
-{
-
-
-}

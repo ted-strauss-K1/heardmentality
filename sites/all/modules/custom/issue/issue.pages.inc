@@ -160,9 +160,10 @@ function _issue_ajax_suggest($vars)
     exit;
   }
   # duplicate answer validation
-  $choices = array_merge(issue_choices($nid), poll_suggest_get($nid));
+  $node = node_load($nid);
+  $choices = array_merge($node->choice, poll_suggest_get($nid));
   foreach ($choices as $choice) {
-    if (($choice['chtext'] == $answer) || ($choice['short_answer'] == $answer)) {
+    if (($choice['chtext'] == $answer) || ($choice['chtext_short'] == $answer)) {
       print json_encode(array(
         'status' => false,
         'message' => t('Cannot add duplicate answer'),

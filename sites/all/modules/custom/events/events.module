@@ -44,6 +44,10 @@ function events_del($p = array())
       $params[] = $p[$key];
     }
   }
+  // time in hours
+  if (isset($p['time'])) {
+    $query .= " AND date_added > ADDDATE('".date('Y-m-d H:i:s')."', INTERVAL -".addslashes($p['time'])." HOUR)";
+  }
   db_query($query, $params);
 }
 
@@ -63,8 +67,13 @@ function events_get($p = array(), $count = 30)
   $params = array();
   foreach (array('uid', 'type', 'content_id', 'content_type') as $key) {
     if (isset($p[$key])) {
-      $query .= " AND " . $key . " = '%s'";
-      $params[] = $p[$key];
+      if (is_array($p[$key])) {
+        $query .= " AND " . $key . " IN (".db_placeholders($p[$key], 'varchar').")";
+        $params = array_merge($params, $p[$key]);
+      } else {
+        $query .= " AND " . $key . " = '%s'";
+        $params[] = $p[$key];
+      }
     }
   }
   $query .= " ORDER BY date_added DESC LIMIT %d";
@@ -139,14 +148,12 @@ function events_user($op, &$edit, &$account, $category = NULL)
 {
   switch ($op) {
     case 'delete' :
-      // delete events created by user
-//      events_del(array(
-//        'uid' => $account->uid,
-//      ));
-      // delete events related to user
       events_del(array(
         'content_id' => $account->uid,
         'content_type' => 'user',
+      ));
+      events_del(array(
+        'uid' => $account->uid,
       ));
       break;
   }
@@ -237,8 +244,16 @@ function theme_events_item($item)
     $themes = module_invoke_all('events_info');
   }
 
+  $classes = array();
+  $classes[] = 'activity-stream';
+  $classes[] = 'msg';
+  $classes[] = 'msg-'.$item['type'];
+  $classes[] = 'uid-'.$item['uid'];
+  $classes[] = 'content_id-'.$item['content_id'];
+  $classes[] = 'content_type-'.$item['content_type'];
+
   return isset($themes[$item['type']]) ?
-    '<div id="msg-' . $item['id'] . '" class="activity-stream msg msg-' . $item['type'] . '">' .
+    '<div id="msg-' . $item['id'] . '" class="' . implode(' ', $classes) . '">' .
       theme($themes[$item['type']], $item) .
       '</div>'
     : '';
@@ -282,19 +297,4 @@ function events_events_info()
     'user_badge' => 'event_user_badge',
     'user_follow' => 'event_user_follow',
   );
-
-  //  to issue module
-//  define('ACTIVITY_STREAM_ISSUE_CREATE', 'issue_create');
-//  define('ACTIVITY_STREAM_ISSUE_VOTE', 'vote');
-
-//  define('ACTIVITY_STREAM_ARGUMENT_CREATE', 'argument_create');
-//  define('ACTIVITY_STREAM_ARGUMENT_REPLY', 'argument_reply');
-
-//  to yn module
-//  define('ACTIVITY_STREAM_ARGUMENT_VOTE', 'argument_vote');
-//  define('ACTIVITY_STREAM_ARGUMENT_REPLY_VOTE', 'argument_reply_vote');
-
-//  define('ACTIVITY_STREAM_PROFILE_UPDATE', 'user_profile_update');
-//  define('ACTIVITY_STREAM_BADGE', 'user_badge');
-//  define('ACTIVITY_STREAM_FOLLOW', 'user_follow');
 }

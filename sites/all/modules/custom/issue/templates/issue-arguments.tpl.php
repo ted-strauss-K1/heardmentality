@@ -1,6 +1,5 @@
 <div>
-  Results will be there // TODO
-  <?php print $graphs; ?>
+  <?php print $charts; ?>
 </div>
 <div class="ul_wrapper">
   <h2 class="din">Debate</h2>

@@ -10,7 +10,8 @@
  */
 function heardmentalitylight_status_messages($display = NULL) {
   $noty = array();
-  $noty_pattern = "$.hrd.noty({'text':'%s','type':'%s'});";
+//  $noty_pattern = "$.hrd.noty({'text':'%s','type':'%s'});";
+  $noty_pattern = "$.hrd.noty(%s);";
   foreach (drupal_get_messages($display) as $type => $messages) {
     $noty_type = false;
     switch ($type) {
@@ -26,7 +27,12 @@ function heardmentalitylight_status_messages($display = NULL) {
     }
     if ($noty_type !== false) {
       foreach ($messages as $message) {
-        $noty[] = sprintf($noty_pattern, addslashes($message), $noty_type);
+//        $noty[] = sprintf($noty_pattern, addslashes($message), $noty_type);
+        $noty[] = sprintf($noty_pattern, json_encode(array(
+          'text' => $message,
+          'type' => $noty_type,
+        )));
+
       }
     }
   }

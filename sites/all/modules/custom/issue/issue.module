@@ -1,8 +1,11 @@
-<?php include "old.issue.module";
+<?php
+
+include "old.issue.module";
 
 require_once "issue.forms.inc";
 require_once "argument.forms.inc";
 require_once "argument.inc";
+require_once "issue.charts.inc";
 
 /**
  * Implementation of hook_preprocess_page()
@@ -108,14 +111,7 @@ function issue_theme()
     'template' => 'templates/issue-loader',
   );
 
-
-//  issue_arguments_section
-
-  if (function_exists('argument_theme')) {
-    $theme += argument_theme();
-  }
-
-  return $theme + _issue_theme();
+  return $theme + argument_theme() + charts_theme() + _issue_theme();
 }
 
 /**

@@ -1,12 +1,13 @@
 <li class="clearfix">
   <?php
   $account = $item['account'];
-  $node = node_load($item['vars']['nid']);
-  $text = 'added a new issue';
+  $node = node_load($item['content_id']);
+
+  $text = 'voted on an issue';
   $link = l(
     $node->title . '?',
     $node->path,
-    empty($argument) ? array() : array('fragment' => 'forum-block-' . $argument->nid)
+    array()
   );
   $text2 = '';
   ?>

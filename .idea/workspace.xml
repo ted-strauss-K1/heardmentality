@@ -20,47 +20,96 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="old.issue.pages.inc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.pages.inc">
+      <file leaf-file-name="events_follower.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="26" selection-start="221" selection-end="238" vertical-scroll-proportion="-0.65384614">
-              <folding>
-                <element signature="e#13#188#0" expanded="true" />
-                <marker date="1356424057256" expanded="false" signature="1629:1640" placeholder="..." />
-                <marker date="1356424057256" expanded="false" signature="2284:2294" placeholder="..." />
-                <marker date="1356424057256" expanded="false" signature="2428:2438" placeholder="..." />
-                <marker date="1356424057256" expanded="true" signature="2439:2494" placeholder="..." />
-                <marker date="1356424057256" expanded="false" signature="3381:3392" placeholder="..." />
-                <marker date="1356424057256" expanded="false" signature="4097:4107" placeholder="..." />
-                <marker date="1356424057256" expanded="false" signature="4223:4233" placeholder="..." />
-                <marker date="1356424057256" expanded="true" signature="6091:6320" placeholder="..." />
-                <marker date="1356424057256" expanded="false" signature="6157:6210" placeholder="..." />
-                <marker date="1356424057256" expanded="false" signature="6253:6306" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="old.issue.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.module">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="652" column="22" selection-start="19790" selection-end="19790" vertical-scroll-proportion="-30.846153">
+            <state line="102" column="4" selection-start="2354" selection-end="2355" vertical-scroll-proportion="-5.1372547">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="old.issue.theme.inc" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.theme.inc">
+      <file leaf-file-name="events-follower-content.tpl.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-content.tpl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="17" selection-start="169" selection-end="169" vertical-scroll-proportion="0.4">
+            <state line="15" column="27" selection-start="352" selection-end="352" vertical-scroll-proportion="-9.730769">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="events.module" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="78" column="49" selection-start="1826" selection-end="1826" vertical-scroll-proportion="0.72897196">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gigya.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/gigya/gigya.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="961" column="51" selection-start="31778" selection-end="31803" vertical-scroll-proportion="1.7692307">
               <folding>
-                <marker date="1356336736633" expanded="false" signature="9934:9964" placeholder="..." />
-                <marker date="1356336736633" expanded="false" signature="10324:10344" placeholder="..." />
-                <marker date="1356336736633" expanded="false" signature="10995:11025" placeholder="..." />
-                <marker date="1356336736633" expanded="false" signature="11064:11116" placeholder="..." />
-                <marker date="1356336736633" expanded="false" signature="14557:14587" placeholder="..." />
+                <marker date="1355484852137" expanded="false" signature="36212:36220" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ulogin.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/ulogin/ulogin.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="144" column="42" selection-start="4519" selection-end="4519" vertical-scroll-proportion="-4.769231">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_profile.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="88" column="1" selection-start="2630" selection-end="2630" vertical-scroll-proportion="-3.5882354">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/base.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="702" column="5" selection-start="24271" selection-end="24271" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#22531#24246#2" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3157" column="0" selection-start="65890" selection-end="65890" vertical-scroll-proportion="27.16">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="issue.forms.inc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/issue.forms.inc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="334" column="140" selection-start="9554" selection-end="9554" vertical-scroll-proportion="-2.1538463">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/template.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="67" column="46" selection-start="1917" selection-end="1917" vertical-scroll-proportion="-4.423077">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,22 +124,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/js/add_new_form.js" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/arguments/arguments.theme.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/arguments/arguments.forms.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/argument.forms.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/arguments/arguments.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.info" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-block.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/issue.module" />
+        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/header.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-block-content.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.js" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/issue.forms.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/templates/argument-resource-preview.tpl.php" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/templates/argument-item.tpl.php" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/templates/argument-comment.tpl.php" />
-        <option value="$PROJECT_DIR$/sites/all/modules/development/tester/tester.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/yn/yn.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/js/filter.js" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/templates/issue-arguments-content-wrapper.tpl.php" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/argument.forms.js" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/argument.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.pages.inc" />
+        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/base.css" />
+        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css" />
+        <option value="$PROJECT_DIR$/sites/all/modules/contrib/ulogin/ulogin.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-content.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events.module" />
       </list>
     </option>
   </component>
@@ -226,7 +275,165 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="heardmentalitylight" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stylesheets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="development" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tester" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="development" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -282,7 +489,175 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="issue" />
+              <option name="myItemId" value="follower" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events_follower" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="donations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="profiles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -300,16 +675,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\events\events_follower" />
       <recent name="D:\Dropbox\dev\vhosts\hm2\themes\garland" />
       <recent name="D:\Dropbox\dev\vhosts\hm-clean\sites\all\themes\heardmentalitylight" />
       <recent name="D:\dev\vhosts\hm-clean\sites\all\modules\custom\content_translate" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\issue\charts" />
+      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\issue" />
       <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\issue\includes" />
       <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\themes\heardmentalitylight\javascripts\jquery-plugins" />
       <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\themes\heardmentalitylight\javascripts\custom" />
-      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\themes\heardmentalitylight\javascripts\plugins" />
-      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\themes\heardmentalitylight" />
     </key>
   </component>
   <component name="RunManager">
@@ -377,18 +753,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32933104" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32933104" sideWeight="0.4939394" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32761577" sideWeight="0.46969697" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29090908" sideWeight="0.67066896" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3280303" sideWeight="0.6723842" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32933104" sideWeight="0.5007576" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32761577" sideWeight="0.525" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -449,138 +825,126 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_1.php">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-block-content.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="612" column="9" selection-start="17602" selection-end="17602" vertical-scroll-proportion="-8.346154">
+        <state line="3" column="33" selection-start="198" selection-end="198" vertical-scroll-proportion="-1.9615384">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/issue.view.js">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="6" selection-start="1567" selection-end="1567" vertical-scroll-proportion="0.21387284">
+        <state line="550" column="13" selection-start="16519" selection-end="16519" vertical-scroll-proportion="0.35825545">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="17" selection-start="1330" selection-end="1330" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1356936908044" expanded="true" signature="995:1012" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/poll_ext/poll_ext.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="17" selection-start="430" selection-end="430" vertical-scroll-proportion="-4.423077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="14" selection-start="1180" selection-end="1180" vertical-scroll-proportion="-4.1153846">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/template.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="9475" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/javascripts/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="13" selection-start="1119" selection-end="1119" vertical-scroll-proportion="0.21375465">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/arguments/arguments.forms.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="218" column="33" selection-start="6065" selection-end="6065" vertical-scroll-proportion="0.20609319">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/templates/issue-arguments-content-wrapper.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="83" selection-start="2624" selection-end="2624" vertical-scroll-proportion="0.2650376">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/js/filter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="231" column="28" selection-start="5501" selection-end="5507" vertical-scroll-proportion="-0.110694185">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/argument.forms.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="97" selection-start="4748" selection-end="4817" vertical-scroll-proportion="1.3515037">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/argument.forms.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="508" column="11" selection-start="13380" selection-end="13380" vertical-scroll-proportion="5.392473">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/comment_language/comment_language.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/argument.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="749" column="23" selection-start="19114" selection-end="19114" vertical-scroll-proportion="0.5">
+        <state line="67" column="46" selection-start="1917" selection-end="1917" vertical-scroll-proportion="-4.423077">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/issue.forms.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="334" column="140" selection-start="9554" selection-end="9554" vertical-scroll-proportion="-2.1538463">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/issue.install">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/ulogin/ulogin.admin.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.3">
+        <state line="125" column="44" selection-start="6118" selection-end="6118" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.pages.inc">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/gigya/gigya.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="26" selection-start="221" selection-end="238" vertical-scroll-proportion="-0.65384614">
+        <state line="961" column="51" selection-start="31778" selection-end="31803" vertical-scroll-proportion="1.7692307">
           <folding>
-            <element signature="e#13#188#0" expanded="true" />
-            <marker date="1356424057256" expanded="false" signature="1629:1640" placeholder="..." />
-            <marker date="1356424057256" expanded="false" signature="2284:2294" placeholder="..." />
-            <marker date="1356424057256" expanded="false" signature="2428:2438" placeholder="..." />
-            <marker date="1356424057256" expanded="true" signature="2439:2494" placeholder="..." />
-            <marker date="1356424057256" expanded="false" signature="3381:3392" placeholder="..." />
-            <marker date="1356424057256" expanded="false" signature="4097:4107" placeholder="..." />
-            <marker date="1356424057256" expanded="false" signature="4223:4233" placeholder="..." />
-            <marker date="1356424057256" expanded="true" signature="6091:6320" placeholder="..." />
-            <marker date="1356424057256" expanded="false" signature="6157:6210" placeholder="..." />
-            <marker date="1356424057256" expanded="false" signature="6253:6306" placeholder="..." />
+            <marker date="1355484852137" expanded="false" signature="36212:36220" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.module">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="652" column="22" selection-start="19790" selection-end="19790" vertical-scroll-proportion="-30.846153">
+        <state line="88" column="1" selection-start="2630" selection-end="2630" vertical-scroll-proportion="-3.5882354">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.theme.inc">
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/base.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="17" selection-start="169" selection-end="169" vertical-scroll-proportion="0.4">
+        <state line="702" column="5" selection-start="24271" selection-end="24271" vertical-scroll-proportion="0.0">
           <folding>
-            <marker date="1356336736633" expanded="false" signature="9934:9964" placeholder="..." />
-            <marker date="1356336736633" expanded="false" signature="10324:10344" placeholder="..." />
-            <marker date="1356336736633" expanded="false" signature="10995:11025" placeholder="..." />
-            <marker date="1356336736633" expanded="false" signature="11064:11116" placeholder="..." />
-            <marker date="1356336736633" expanded="false" signature="14557:14587" placeholder="..." />
+            <element signature="e#22531#24246#2" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3157" column="0" selection-start="65890" selection-end="65890" vertical-scroll-proportion="27.16">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/ulogin/ulogin.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="144" column="42" selection-start="4519" selection-end="4519" vertical-scroll-proportion="-4.769231">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-content.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="27" selection-start="352" selection-end="352" vertical-scroll-proportion="-9.730769">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="4" selection-start="2354" selection-end="2355" vertical-scroll-proportion="-5.1372547">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="49" selection-start="1826" selection-end="1826" vertical-scroll-proportion="0.72897196">
+          <folding />
         </state>
       </provider>
     </entry>

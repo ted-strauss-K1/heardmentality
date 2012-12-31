@@ -332,7 +332,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     $form['main_submit'] = array(
       '#type' => 'button',
       '#value' => t('Login to vote'),
-      '#attributes' => array('class' => 'button vote floatright ' . !module_exists('user_login_modal') ? "" : user_login_modal_class(true)),
+      '#attributes' => array('class' => 'button vote floatright ' . (!module_exists('user_login_modal') ? "" : user_login_modal_class(true))),
       '#id' => 'vote-login',
     );
   }

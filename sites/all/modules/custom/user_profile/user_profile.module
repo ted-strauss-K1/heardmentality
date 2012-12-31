@@ -80,6 +80,26 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
     $form['#redirect'] = "user/profile/view";
     unset($_REQUEST['destination']);
   }
+  if ($form_id == 'profile_field_form') {
+    $form['#submit'][] = 'user_profile_cache_fields';
+  }
+  if (isset($form['ulogin'])) {
+    $form['ulogin']['#weight'] = 100;
+  }
+}
+
+define('PROFILE_FIELDMAP', 'profile_fieldmap');
+
+function user_profile_cache_fields() {
+  $result = db_query('SELECT * FROM {profile_fields}');
+  $fields = array();
+  while ($field = db_fetch_object($result)) {
+    if ($field->name == 'profile_lat' || $field->name == 'profile_lng') {
+      $fields[$field->name] = $field;
+    }
+  }
+
+  variable_set(PROFILE_FIELDMAP, $fields);
 }
 
 /**
@@ -273,78 +293,76 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
   switch ($op) {
     case 'load' :
       $account->viewlink = 'user/profile/view/' . $account->name;
-      break;
+    break;
     case 'insert' :
-      if (module_exists('gigya') && ($_gigya_user = GigyaUser::userFromUrl())) {
-        $bio = $_gigya_user->getUserInfo();
-        $bio = (array)$bio['identities'][0];
 
-        if (!empty($bio)) {
+      if (module_exists('ulogin')) {
+        global $ulogin_data;
+        if (!empty($ulogin_data)) {
 
           # user name
-          if (!empty($bio['nickname'])) {
-            if (0 == (int)db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s'", $bio['nickname']))) {
-              if (db_query("UPDATE {users} SET name = '%s' WHERE uid = '%d'", $bio['nickname'], $account->uid)) {
-                $edit['name'] = $bio['nickname']; // update in the user array for access by other modules
-                $account->name = $bio['nickname']; // update in the user array for access by other modules
+          if (!empty($ulogin_data['nickname'])) {
+            if (0 == (int)db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s'", $ulogin_data['nickname']))) {
+              if (db_query("UPDATE {users} SET name = '%s' WHERE uid = '%d'", $ulogin_data['nickname'], $account->uid)) {
+                $edit['name'] = $ulogin_data['nickname']; // update in the user array for access by other modules
+                $account->name = $ulogin_data['nickname']; // update in the user array for access by other modules
               }
             }
           }
 
           # user picture
-          if (!empty($bio['photoURL'])) {
-            if (db_query("UPDATE {users} SET picture = '%s' WHERE uid = '%d'", $bio['nickname'], $account->uid)) {
-              $edit['picture'] = $bio['photoURL']; // update in the user array for access by other modules
-              $account->picture = $bio['photoURL']; // update in the user array for access by other modules
+          if (!empty($ulogin_data['photo_big']) || !empty($ulogin_data['photo'])) {
+            $photo = ($ulogin_data['photo_big']) ? $ulogin_data['photo_big'] : $ulogin_data['photo'];
+            if (db_query("UPDATE {users} SET picture = '%s' WHERE uid = '%d'", $photo, $account->uid)) {
+              $edit['picture'] = $photo; // update in the user array for access by other modules
+              $account->picture = $photo; // update in the user array for access by other modules
             }
           }
 
+          # generic fields
           $profile_fields = array();
 
           # real name
-          if (($profile_name = implode(" ", array($bio['firstName'], $bio['lastName'])))) {
+          if (($profile_name = implode(" ", array($ulogin_data['first_name'], $ulogin_data['last_name'])))) {
             $profile_fields['profile_name'] = $profile_name;
           }
           # gender
-          if (in_array($bio['gender'], array('m', 'f'))) {
-            $profile_fields['profile_gender'] = $bio['gender'] == 'm' ? 0 : 1;
+          if (in_array($ulogin_data['sex'], array(1, 2))) {
+            $profile_fields['profile_gender'] = $ulogin_data['sex'] == 2 ? 0 : 1;
           }
           # year of birth
-          if (!empty($bio['birthYear'])) {
-            $profile_fields['profile_yob'] = $bio['birthYear'];
+          if (!empty($ulogin_data['bdate']) && preg_match('@(\d{2})\.(\d{2})\.(\d{4})@', $ulogin_data['bdate'], $m)) {
+            $profile_fields['profile_yob'] = $m[3];
           }
           # attempt to get a country
-          if ($bio['city'] && module_exists('location')) {
-            list($city, $countryname) = explode(", ", $bio['city'], 2);
+          if (!empty($ulogin_data['country']) && module_exists('location')) {
             $countries = location_get_iso3166_list();
             foreach ($countries as $iso => $country) {
-              if ($country == $countryname) {
+              if ($country == $ulogin_data['country']) {
                 $profile_fields['profile_country'] = $iso;
                 break;
               }
             }
           }
-
-          if ($bio['profileURL']) {
-            switch ($bio['provider']) {
+          if ($ulogin_data['network']) {
+            switch ($ulogin_data['identity']) {
               case 'facebook':
               case 'twitter':
-                $profile_fields['profile_' . $bio['provider']] = preg_replace('@.*\/@', '', $bio['profileURL']);
+                $profile_fields['profile_' . $ulogin_data['network']] = preg_replace('@.*\/@', '', $ulogin_data['identity']);
                 break;
             }
           }
 
+          # save generic fields
           foreach ($profile_fields as $key => $value) {
             db_query("REPLACE INTO {profile_values} (value, fid, uid) SELECT '%s', pf.fid, '%d' FROM {profile_fields} pf WHERE pf.name = '%s'",
               $value, $account->uid, $key
             );
           }
 
-
         }
-
       }
-      break;
+    break;
   }
 }
 
@@ -606,7 +624,7 @@ function user_profile_image($user, $presetname = false)
     } else {
       $img = imagecache_create_path($presetname, $user->picture);
     }
-    if (strpos($img, 'http://') !== 0) {
+    if (!preg_match('/^http(s)?:\/\//', $img)) {
       global $base_url;
       $img = $base_url . '/' . $img;
     }

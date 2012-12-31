@@ -1,9 +1,11 @@
 <li class="clearfix">
   <?php
   $account = $item['account'];
-  $node = node_load($item['vars']['nid']);
-  $argument = node_load($item['vars']['nid_arg']);
-  $comment = _comment_load($vars['cid']);
+  $comment = _comment_load($item['content_id']);
+  $argument = node_load($comment->nid);
+  $node = node_load($argument->field_issue[0]['nid']);
+  $vars = $item['vars'];
+
   if (!$comment->support) yn_invert_vote_value($vars['vote']);
   $text = ($vars['vote'] == VOTE_AGREE ? 'strenghtened' : 'weakened') .
     ' an argument on the issue';

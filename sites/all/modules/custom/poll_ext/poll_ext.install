@@ -29,16 +29,32 @@ function poll_ext_install()
     END;
   ");
 
+//  !! deprecated
+//  db_query("
+//    CREATE TRIGGER poll_vote_del AFTER DELETE ON poll_votes
+//    FOR EACH ROW BEGIN
+//       UPDATE poll_votes_history SET status = 0 WHERE
+//       nid = OLD.nid AND
+//       uid = OLD.uid AND
+//       chorder = OLD.chorder AND
+//       hostname = OLD.hostname;
+//    END;
+//  ");
+
   db_query("
     CREATE TRIGGER poll_vote_del AFTER DELETE ON poll_votes
     FOR EACH ROW BEGIN
-       UPDATE poll_votes_history SET status = 0 WHERE
-       nid = OLD.nid AND
-       uid = OLD.uid AND
-       chorder = OLD.chorder AND
-       hostname = OLD.hostname;
+       INSERT INTO poll_votes_history SET
+       status = 0,
+       nid = OLD.nid,
+       uid = OLD.uid,
+       chorder = OLD.chorder,
+       hostname = OLD.hostname,
+       date_voted = NOW();
     END;
   ");
+
+
 
 
 }

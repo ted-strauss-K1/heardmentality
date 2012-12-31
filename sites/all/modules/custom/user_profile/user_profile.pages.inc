@@ -174,13 +174,14 @@ function user_profile_edit_form()
     '#value' => user_profile_location_format($user->profile_city, $user->profile_state, $user->profile_country),
   );
 
-  $form['social'] = array(
-    '#type' => 'markup',
-    '#value' => '
-      <div id="divConnect"></div>
-      <script type="text/javascript">gigya.services.socialize.showAddConnectionsUI(conf, {height:65, width:175 ,showTermsLink:false, hideGigyaLink:true, useHTML:true, containerID: "divConnect"});</script>
-    ',
-  );
+  // todo what to do with social connections with no gigya?
+//  $form['social'] = array(
+//    '#type' => 'markup',
+//    '#value' => '
+//      <div id="divConnect"></div>
+//      <script type="text/javascript">gigya.services.socialize.showAddConnectionsUI(conf, {height:65, width:175 ,showTermsLink:false, hideGigyaLink:true, useHTML:true, containerID: "divConnect"});</script>
+//    ',
+//  );
 
   $form['subscription_notify'] = array(
     '#type' => 'radios',
@@ -213,7 +214,7 @@ function user_profile_edit_form()
   $form['language'] = array(
     '#type' => 'select',
     '#options' => $languages,
-    '#default_value' => $user->language,
+    '#default_value' => empty($user->language) ? 'en' : $user->language,
   );
   $form['language_submit'] = array(
     '#type' => 'submit',
@@ -474,12 +475,8 @@ function user_profile_edit_form_submit_profile($form, &$form_state)
 
   user_save($user, $edit);
   user_save($user, $edit, 'profile');
+  user_save($user, $edit, 'hidden');
   user_save($user, $edit, 'links');
-
-  // TODO
-  if (module_exists('activity_stream')) {
-    activity_stream_add_activity(ACTIVITY_STREAM_PROFILE_UPDATE, array());
-  }
 }
 
 /**
@@ -561,11 +558,6 @@ function user_profile_edit_form_submit_image(&$form, &$form_state)
 
   $user->picture = $dest;
   user_save($user, array('picture' => $dest));
-
-  if (module_exists('activity_stream')) {
-    activity_stream_add_activity(ACTIVITY_STREAM_PROFILE_UPDATE, array());
-  }
-
 }
 
 

@@ -157,10 +157,6 @@ function follower_form(&$form, $follow)
     '#type' => 'hidden',
     "#value" => $follow->uid,
   );
-  $form['rtid'] = array(
-    '#type' => 'hidden',
-    '#default_value' => FOLLOWER_RELATION_ID,
-  );
 
   return $form;
 }
@@ -176,19 +172,21 @@ function follower_page_save()
     $relationship = new stdClass();
     $relationship->requester = $user;
     $relationship->requestee = user_load($post['follow_uid']);
-    $relationship->type = user_relationships_type_load($post['rtid']);
+    $relationship->type = user_relationships_type_load(FOLLOWER_RELATION_ID);
     user_relationships_request_relationship($relationship);
 
-    // TODO to rules!!!!!
-    if (module_exists('activity_stream')) {
-      activity_stream_add_activity(ACTIVITY_STREAM_FOLLOW, array('uid' => $relationship->requestee->uid));
+    if (module_exists('rules')) {
+      rules_invoke_event('follower_user_followed', $relationship->requester, $relationship->requestee);
     }
-
   } else {
     $relationship = user_relationships_load($rid);
     user_relationships_delete_relationship($relationship, $user);
+
+    if (module_exists('rules')) {
+      rules_invoke_event('follower_user_unfollowed', user_load($relationship->requester_id), user_load($relationship->requestee_id));
+    }
   }
-  $response = follower_strings();
+  $response = follower_strings() + array('rel' => $relationship);
   print json_encode($response);
 }
 

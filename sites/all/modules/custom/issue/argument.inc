@@ -324,17 +324,14 @@ function argument_create_comment()
     exit();
   }
 
+  // fire event
+  comment_invoke_comment($comment, 'insert');
+
   print json_encode(array(
     'status' => true,
     'message' => t('Thanks, Your reply posted!'),
     'content' => theme('argument_comment', $comment),
   ));
-
-  if (module_exists('activity_stream')) {
-    $node = node_load($comment->nid);
-    // TODO  activity stream
-    activity_stream_add_activity(ACTIVITY_STREAM_ARGUMENT_REPLY, array('nid' => $node->parent_issue, 'nid_arg' => $comment->nid, 'cid' => $comment->cid));
-  }
 
   exit();
 }
@@ -433,11 +430,6 @@ function argument_create()
           'message' => '<span class="posted">' . t('Your argument posted successfully') . '!</span>',
         ));
 
-        if (module_exists('activity_stream')) {
-          // TODO activity stream
-          activity_stream_add_activity(ACTIVITY_STREAM_ARGUMENT_CREATE, array('nid' => $post['nid'], 'nid_arg' => $node->nid));
-        }
-
       } else {
         print json_encode(array(
           'success' => false,
@@ -461,11 +453,6 @@ function argument_create()
           'message' => '<span class="posted">Your argument posted successfully!</span>',
           'node' => $node,
         ));
-
-        if (module_exists('activity_stream')) {
-          // TODO activity stream
-          activity_stream_add_activity(ACTIVITY_STREAM_ARGUMENT_CREATE, array('nid' => $post['nid'], 'nid_arg' => $node->nid));
-        }
 
       } else {
         $url = parse_url($post['url']);

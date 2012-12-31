@@ -1,9 +1,10 @@
 <li class="clearfix">
   <?php
   $account = $item['account'];
-  $node = node_load($item['vars']['nid']);
-  $argument = node_load($item['vars']['nid_arg']);
-  $comment = _comment_load($vars['cid']);
+  $comment = _comment_load($item['content_id']);
+  $argument = node_load($comment->nid);
+  $node = node_load($argument->field_issue[0]['nid']);
+
   $text = 'replied to an argument on the issue';
   $link = l(
     $node->title . '?',
