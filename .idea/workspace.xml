@@ -24,7 +24,9 @@
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.module">
           <provider selected="true" editor-type-id="text-editor">
             <state line="102" column="4" selection-start="2354" selection-end="2355" vertical-scroll-proportion="-5.1372547">
-              <folding />
+              <folding>
+                <marker date="1356941249810" expanded="true" signature="2188:2364" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -38,22 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="events.module" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="events.module" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="49" selection-start="1826" selection-end="1826" vertical-scroll-proportion="0.72897196">
+            <state line="78" column="49" selection-start="1826" selection-end="1826" vertical-scroll-proportion="-9.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gigya.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/gigya/gigya.module">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="961" column="51" selection-start="31778" selection-end="31803" vertical-scroll-proportion="1.7692307">
-              <folding>
-                <marker date="1355484852137" expanded="false" signature="36212:36220" placeholder="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -67,10 +58,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_profile.module" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="user_profile.module" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="1" selection-start="2630" selection-end="2630" vertical-scroll-proportion="-3.5882354">
+            <state line="79" column="47" selection-start="2415" selection-end="2415" vertical-scroll-proportion="0.3310811">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="avatar_selection.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/avatar_selection/avatar_selection.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="345" column="82" selection-start="12868" selection-end="12909" vertical-scroll-proportion="0.4117647">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tester.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/development/tester/tester.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="13" selection-start="430" selection-end="430" vertical-scroll-proportion="-6.4615383">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="avatar_selection.admin.inc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/avatar_selection/avatar_selection.admin.inc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="572" column="18" selection-start="21025" selection-end="21025" vertical-scroll-proportion="8.745098">
               <folding />
             </state>
           </provider>
@@ -96,24 +114,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="issue.forms.inc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/issue.forms.inc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="334" column="140" selection-start="9554" selection-end="9554" vertical-scroll-proportion="-2.1538463">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="template.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/template.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="46" selection-start="1917" selection-end="1917" vertical-scroll-proportion="-4.423077">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -124,8 +124,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower.tpl.php" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.info" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-block.tpl.php" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/issue.module" />
@@ -133,13 +131,15 @@
         <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-block-content.tpl.php" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.js" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/issue.forms.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" />
         <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/base.css" />
         <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css" />
         <option value="$PROJECT_DIR$/sites/all/modules/contrib/ulogin/ulogin.module" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-content.tpl.php" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.module" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/events/events.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/development/tester/tester.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/contrib/avatar_selection/avatar_selection.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module" />
       </list>
     </option>
   </component>
@@ -642,6 +642,40 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contrib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contrib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="avatar_selection" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -830,29 +864,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events-follower-block-content.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="33" selection-start="198" selection-end="198" vertical-scroll-proportion="-1.9615384">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/old.issue.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="550" column="13" selection-start="16519" selection-end="16519" vertical-scroll-proportion="0.35825545">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="17" selection-start="1330" selection-end="1330" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1356936908044" expanded="true" signature="995:1012" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/poll_ext/poll_ext.module">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="17" selection-start="430" selection-end="430" vertical-scroll-proportion="-4.423077">
@@ -897,13 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="1" selection-start="2630" selection-end="2630" vertical-scroll-proportion="-3.5882354">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/base.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="702" column="5" selection-start="24271" selection-end="24271" vertical-scroll-proportion="0.0">
@@ -937,13 +941,43 @@
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events_follower/events_follower.module">
       <provider selected="true" editor-type-id="text-editor">
         <state line="102" column="4" selection-start="2354" selection-end="2355" vertical-scroll-proportion="-5.1372547">
-          <folding />
+          <folding>
+            <marker date="1356941249810" expanded="true" signature="2188:2364" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/events/events.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="49" selection-start="1826" selection-end="1826" vertical-scroll-proportion="0.72897196">
+        <state line="78" column="49" selection-start="1826" selection-end="1826" vertical-scroll-proportion="-9.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/avatar_selection/avatar_selection.admin.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="572" column="18" selection-start="21025" selection-end="21025" vertical-scroll-proportion="8.745098">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/development/tester/tester.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="13" selection-start="430" selection-end="430" vertical-scroll-proportion="-6.4615383">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/avatar_selection/avatar_selection.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="345" column="82" selection-start="12868" selection-end="12909" vertical-scroll-proportion="0.4117647">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="47" selection-start="2415" selection-end="2415" vertical-scroll-proportion="0.3310811">
           <folding />
         </state>
       </provider>

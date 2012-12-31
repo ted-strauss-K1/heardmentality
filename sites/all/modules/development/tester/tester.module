@@ -25,8 +25,9 @@ function tester() {
   global $user;
 
 //  $result = _profile_get_fields('hidden');
-  $fields = variable_get(PROFILE_FIELDMAP, array());;
-  var_dump($fields);
+  $user = drupal_anonymous_user();
+  $f = avatar_selection_get_random_image($user);
+  var_dump($f);
 //  rules_invoke_event('user_update', $user);
 
   exit;

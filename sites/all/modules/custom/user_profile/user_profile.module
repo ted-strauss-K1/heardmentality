@@ -77,8 +77,9 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
     unset($_REQUEST['destination']);
   }
   if ($form_id == 'user_login') {
-    $form['#redirect'] = "user/profile/view";
-    unset($_REQUEST['destination']);
+    // todo if we want to redirect to view page
+//    $form['#redirect'] = "user/profile/view";
+//    unset($_REQUEST['destination']);
   }
   if ($form_id == 'profile_field_form') {
     $form['#submit'][] = 'user_profile_cache_fields';
@@ -295,6 +296,15 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
       $account->viewlink = 'user/profile/view/' . $account->name;
     break;
     case 'insert' :
+
+      if (module_exists('avatar_selection')) {
+        if (!$account->picture) {
+          $picture = avatar_selection_get_random_image($account);
+          $account->picture = $picture;
+//          $edit['picture'] = $picture;
+          db_query("UPDATE {users} SET picture = '%s' WHERE uid = '%d'", $picture, $account->uid);
+        }
+      }
 
       if (module_exists('ulogin')) {
         global $ulogin_data;
