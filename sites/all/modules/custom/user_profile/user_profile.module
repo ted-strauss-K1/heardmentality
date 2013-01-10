@@ -26,10 +26,14 @@ function user_profile_preprocess_page(&$vars)
           }
         }
         array_push($vars['template_files'], 'page_11_5');
-        break;
+        if (arg(2) == 'view') {
+          drupal_set_subtitle(t('View Profile'));
+        }
+      break;
       case 'edit' :
         array_push($vars['template_files'], 'page_empty');
-        break;
+        drupal_set_subtitle(t('Edit Profile'));
+      break;
     }
   }
 }
@@ -79,7 +83,8 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
   if ($form_id == 'user_login') {
     // todo if we want to redirect to view page
 //    $form['#redirect'] = "user/profile/view";
-//    unset($_REQUEST['destination']);
+    $form['#redirect'] = $_GET['q'];
+    unset($_REQUEST['destination']);
   }
   if ($form_id == 'profile_field_form') {
     $form['#submit'][] = 'user_profile_cache_fields';
@@ -294,6 +299,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
   switch ($op) {
     case 'load' :
       $account->viewlink = 'user/profile/view/' . $account->name;
+      $account->editlink = 'user/profile/edit/';
     break;
     case 'insert' :
 
@@ -406,8 +412,7 @@ function user_profile_menu()
   $menu = array();
 
   $menu['user/profile/view'] = array(
-    'title callback' => 'drupal_set_subtitle',
-    'title arguments' => array(t('View Profile')),
+    'title' => t('View Profile'),
     'page callback' => 'theme',
     'page arguments' => array('user_profile_view'),
     'access callback' => 'user_profile_access_user_profile',
@@ -421,8 +426,7 @@ function user_profile_menu()
     'type' => MENU_CALLBACK,
   );
   $menu['user/profile/edit'] = array(
-    'title callback' => 'drupal_set_subtitle',
-    'title arguments' => array(t('Edit Profile')),
+    'title' => t('Edit Profile'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('user_profile_edit_form'),
     'access arguments' => array(USER_PROFILE_EDIT),

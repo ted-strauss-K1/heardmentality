@@ -8,7 +8,7 @@ global $base_url;
 
     <div class="expanding arg">
       <h6 value="Reply" id="add-arg"
-          class="button <?php if (module_exists('user_login_modal')) print user_login_modal_class(); ?>"><?php print t('Add'); ?></h6>
+          class="button <?php print theme('user_login_modal_class'); ?>"><?php print t('Add'); ?></h6>
     </div>
 
     <?php $arguments = $node->arguments; ?>

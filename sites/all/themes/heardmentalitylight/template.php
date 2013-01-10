@@ -57,11 +57,21 @@ function heardmentalitylight_preprocess_page(&$vars) {
     array_push($vars['template_files'], 'page-error');
   }
 
-  # set specific page templates
-  if (arg(0) == 'node' && isset($vars['node']) && $vars['node']->type == 'poll') {
-    drupal_set_subtitle(t('Issue'));
-    array_push($vars['template_files'], 'page_12_4');
-    $vars['content_class'] = 'poll-box';
+  if ((arg(0)=='node') && is_numeric(arg(1))) {
+    if ($node = $vars['node']) {
+      switch ($node->type) {
+        case 'poll' :
+          # set specific page templates
+          drupal_set_subtitle(t('Issue'));
+          array_push($vars['template_files'], 'page_12_4');
+          $vars['content_class'] = 'poll-box';
+        break;
+        case 'static' :
+          drupal_set_subtitle(drupal_get_title());
+          array_push($vars['template_files'], 'page_12_4');
+        break;
+      }
+    }
   }
 
   if (arg(0) == 'issue' && arg(1) == 'create') {
@@ -69,7 +79,6 @@ function heardmentalitylight_preprocess_page(&$vars) {
     $vars['content_class'] = 'grey-box';
     $vars['content_nowrap'] = true;
   }
-
 }
 
 /**
@@ -82,6 +91,7 @@ function heardmentalitylight_preprocess_node(&$vars) {
 
   # js setting for all modules to use
   drupal_add_js(array('node' => array('nid' => $node->nid)), 'setting');
+
 }
 
 
@@ -321,10 +331,10 @@ function heardmentalitylight_theme($existing, $type, $theme, $path){
   return array(
 
 
-    'issue_search_form' => array(
-      'arguments' => array('form' => NULL),
-      'template' => 'issue-search-form',
-    ),
+//    'issue_search_form' => array(
+//      'arguments' => array('form' => NULL),
+//      'template' => 'issue-search-form',
+//    ),
     'issue_suggest_form' => array(
       'arguments' => array('form' => NULL),
       'template' => 'issue-suggest-form',

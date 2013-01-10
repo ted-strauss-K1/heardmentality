@@ -5301,11 +5301,11 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	text-decoration: none;
 }
 
-#solr-issues-block-form {
+#issue-search-filter-form {
 	margin: 0;
 }
 
-#solr-issues-block-form .form-item {
+#issue-search-filter-form .form-item {
 	margin: 0 0 1em;
 	position: relative;
 }
@@ -5328,17 +5328,17 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
     font-weight: normal;
 }
 
-#solr-issues-block-form select {
+#issue-search-filter-form select {
 	float: none;
 	margin: 0;
 	width: 100%;
 }
 
-#solr-issues-block-form label {
+#issue-search-filter-form label {
 	padding-bottom: 3px;
 }
 
-#solr-issues-block-form fieldset {
+#issue-search-filter-form fieldset {
 	margin: 0;
 }
 
@@ -5353,13 +5353,13 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	margin: 0 5px 0 0;
 }
 
-#solr-issues-block-form input.form-text  {
+#issue-search-filter-form input.form-text  {
 	padding: 6px 4px;
 	margin: 0;
 	width: 95%;
 }
 
-#solr-issues-block-form .messages {
+#issue-search-filter-form .messages {
 	padding: 5px;
 	margin-bottom: 1em;
 }
@@ -5917,4 +5917,9 @@ span.beta {
 }
 a.permission.remove {
   background: red;
+}
+
+
+#contact-mail-page #edit-name-wrapper {
+  clear: both;
 }

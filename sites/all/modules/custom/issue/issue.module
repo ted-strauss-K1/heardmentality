@@ -63,7 +63,7 @@ function issue_menu()
 
   $menu['issue/ajax'] = array(
     'page callback' => 'issue_ajax',
-    'access arguments' => array(ISSUE_VIEW),
+    'access arguments' => array('vote on polls'),
     'type' => MENU_CALLBACK,
     'file' => 'issue.pages.inc',
   );

@@ -35,6 +35,9 @@ function user_login_modal_theme()
   $theme['user_login_modal_popup'] = array(
     'arguments' => array(),
   );
+  $theme['user_login_modal_class'] = array(
+    'arguments' => array('force' => false),
+  );
 
   return $theme;
 }
@@ -47,7 +50,7 @@ function user_login_modal_theme()
 function theme_user_login_modal()
 {
   global $user;
-  return '<p><a id="dialog_link" class="ui-state-default ui-corner-all login ' . user_login_modal_class() . '" href="#">' .
+  return '<p><a id="dialog_link" class="ui-state-default ui-corner-all login ' . theme('user_login_modal_class') . '" href="#">' .
     (user_is_logged_in() ? $user->name : t('LOGIN')) .
     '</a></p>';
 }
@@ -87,4 +90,12 @@ function theme_user_login_modal_popup()
 function user_login_modal_class($force = false)
 {
   return !$force && user_is_logged_in() ? '' : 'openlogin_box';
+}
+
+/**
+ * @param bool $force
+ * @return string
+ */
+function theme_user_login_modal_class($force = false) {
+  return user_login_modal_class($force);
 }

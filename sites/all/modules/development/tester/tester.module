@@ -22,13 +22,7 @@ function tester_menu() {
 
 function tester() {
 
-  global $user;
-
-//  $result = _profile_get_fields('hidden');
-  $user = drupal_anonymous_user();
-  $f = avatar_selection_get_random_image($user);
-  var_dump($f);
-//  rules_invoke_event('user_update', $user);
+  user_profile_geocode('ru', 630090);
 
   exit;
 }

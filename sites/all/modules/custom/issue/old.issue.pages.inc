@@ -13,7 +13,7 @@
 
 
 // issue search form
-function issue_search_form(&$form_state)
+function _issue_search_form(&$form_state)
 {
 //$form['#method'] = 'get';
   $key = arg(1) == '0' ? '' : check_plain(arg(1));

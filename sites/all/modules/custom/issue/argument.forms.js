@@ -98,9 +98,9 @@ $('.yn').live('click', function () {
 function votes_update(content_type, content_id, agree, count) {
   var selector = '#yn-' + content_type + '-' + content_id + ' .yn-' + (agree ? 'a' : 'd') + ' span';
   var el = $('#yn-' + content_type + '-' + content_id);
-  console.log(el);
+//  console.log(el);
   var el_a = el.children('.yn-' + (agree ? 'a' : 'd'))
-  console.log(el_a);
+//  console.log(el_a);
   var count_before = $(selector);
   var el_span = el_a.children('span');
   count_before = el_span;

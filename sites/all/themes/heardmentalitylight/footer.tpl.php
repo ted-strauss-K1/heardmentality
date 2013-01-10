@@ -29,7 +29,7 @@
         <a href="/"><img src="<?php print $directoryPath; ?>/images/dark_logo.png" class="dark-logo"></a>
         <ul class="din foot-link">
           <li><a href="/aboutus"><?php print t('ABOUT'); ?></a></li>
-          <li><a href="/node/305"><?php print t('CONTACT'); ?></a></li>
+          <li><a href="/contact"><?php print t('CONTACT'); ?></a></li>
           <li><a href="/donate"><?php print t('DONATE'); ?></a></li>
 <!--          <li><a href="">--><?php //print t('VOLUNTEER'); ?><!--</a></li>-->
         </ul>
@@ -41,9 +41,9 @@
     </a>
     <p class="policy">
       <?php print t('HEARD MENTALITY'); ?> &copy; <?php print date('Y') ?><br>
-      <a><?php print t('Legal'); ?></a>
-      <a><?php print t('Privacy'); ?></a>
-      <a><?php print t('User Agreement'); ?></a>
+<!--      <a>--><?php //print t('Legal'); ?><!--</a>-->
+      <a><?php print l(t('Privacy Policy'), 'privacy'); ?></a>
+<!--      <a>--><?php //print t('User Agreement'); ?><!--</a>-->
     </p>
 
   </div>

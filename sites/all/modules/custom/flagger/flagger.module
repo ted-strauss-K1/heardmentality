@@ -200,7 +200,7 @@ function theme_flagger_button($content_id, $content_type)
   } else {
     return l(t('flag'), '#',
       array('attributes' => array(
-        'class' => !module_exists('user_login_modal') ? "" : user_login_modal_class(true),
+        'class' => theme('user_login_modal_class', true),
       ))
     );
   }

@@ -51,5 +51,7 @@
   </script>
   <?php endif; ?>
 </div>
-<?php print theme('issue_arguments', $node); ?>
+<?php if($page) : ?>
+  <?php print theme('issue_arguments', $node); ?>
+<?php endif; ?>
         

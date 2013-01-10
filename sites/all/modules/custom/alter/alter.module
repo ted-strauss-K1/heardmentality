@@ -25,6 +25,8 @@ function alter_form_alter(&$form, $form_state, $form_id)
     );
     $form['contact_information']['#weight'] = -2;
     array_unshift($form['#submit'], 'contact_mail_page_form_submit');
+
+    drupal_set_subtitle(t('Contact'));
   }
 }
 

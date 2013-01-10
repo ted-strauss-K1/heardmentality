@@ -154,7 +154,7 @@ function reply_form($form, $nid)
     $form['log_in'] = array(
       '#type' => 'markup',
       '#value' => t('Please login to post reply'),
-      '#attributes' => array('class' => !module_exists('user_login_modal') ? "" : user_login_modal_class(true)),
+      '#attributes' => array('class' => theme('user_login_modal_class', true)),
     );
     return $form;
   }

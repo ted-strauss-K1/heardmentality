@@ -716,8 +716,8 @@ Mobile Only
 		text-transform: none;
 	}
 	
-	#solr-issues-block-form select,
-	#solr-issues-block-form select option	{
+	#issue-search-filter-form select,
+	#issue-search-filter-form select option	{
 		padding: 0 3px;
 	}
 	

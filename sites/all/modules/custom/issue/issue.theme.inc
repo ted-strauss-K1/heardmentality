@@ -48,7 +48,7 @@ function theme_issue_arguments_content($node)
     $form = drupal_get_form('argument_form', $node);
   } else {
     $form =
-      '<div class="' . (!module_exists('user_login_modal') ? "" : user_login_modal_class(true)) . '" align="center">' .
+      '<div class="' . theme('user_login_modal_class', true) . '" align="center">' .
         '<b>' . t('Please log in to participate in the debate') . '</b>
       </div>';
   }
