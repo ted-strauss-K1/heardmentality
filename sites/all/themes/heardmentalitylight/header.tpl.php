@@ -29,7 +29,7 @@
 					  <li><?php print l(t('Following'), 'following', array('attributes' => array('class'=>'following'))); ?></li>
 				  <?php endif; ?>
 				  <?php
-				  // TODO
+				  // TODO check user perms to see the moderation link
 				  if ( false ) : ?>
 					<li><?php print l(t('Moderator'), 'issues/list/all', array('attributes' => array('class'=>'moderator add'))); ?></li>
 				  <?php endif; ?>

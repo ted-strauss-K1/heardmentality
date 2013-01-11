@@ -12,7 +12,7 @@ function comment_language_comment(&$a1, $op)
     case 'update' :
     case 'insert' :
       $a1->language = isset($a1->language) ? $a1->language : 'en';
-      db_query("UPDATE comments SET language = '%s'", $a1->language);
-      break;
+      db_query("UPDATE comments SET language = '%s' WHERE cid = '%d'", $a1->language, $a1->cid);
+    break;
   }
 }

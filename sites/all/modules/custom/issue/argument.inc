@@ -312,7 +312,9 @@ function argument_create_comment()
   $comment->name = $user->name;
   $comment->mail = $user->mail;
   $comment->homepage = '';
-  $comment->language = $user->language; // TODO language detection
+
+  global $language;
+  $comment->language = $user->language ? $user->language : $language->language; // TODO language detection
 
   $comment->support = $post['support'];
 
@@ -364,6 +366,7 @@ function _comment_save(&$comment)
     $comment = false;
   } else {
     $comment->cid = db_last_insert_id('comments', 'cid');
+    comment_invoke_comment($comment, 'insert');
   }
   return $comment !== false;
 }
@@ -486,7 +489,11 @@ function argument_create_debate($nid, $title)
   $node = new stdClass();
 
   $node->type = 'forum';
-  $node->language = $user->language; // TODO language detection
+
+  // TODO language detection
+  global $language;
+  $node->language = $user->language ? $user->language : $language->language;
+
   $node->uid = $user->uid;
   $node->status = 1;
   $node->created = time();
@@ -573,7 +580,11 @@ function argument_fetch_url($url, $image = false)
   global $user;
   $node = new stdClass();
   $node->type = 'forum';
-  $node->language = $user->language; // TODO language detection
+
+  // TODO language detection
+  global $language;
+  $node->language = $user->language ? $user->language : $language->language;
+
   $node->uid = $user->uid;
   $node->status = 1;
   $node->created = time();
