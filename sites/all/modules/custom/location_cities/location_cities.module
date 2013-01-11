@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * Canonicalize a state/province code.
+ *
+ * @param $province
+ * @return bool
+ */
+function location_standardize_province_code(&$province) {
+  $province = trim($province);
+  $province = strtolower($province);
+
+  return TRUE;
+}
+
+/**
+ * @param $countrycode
+ * @return mixed
+ */
+function _location_supported_provinces($country) {
+  static $supported = array();
+
+  location_standardize_country_code($country);
+
+  // If this function has already been called this request, we can avoid a DB hit.
+  if (!empty($supported[$country])) {
+    return $supported[$country];
+  }
+
+  // Try first to load from cache, it's much faster than the scan below.
+  if ($cache = cache_get('location:supported-provinces:'.$country, 'cache_location')) {
+    $supported[$country] = $cache->data;
+  }
+  else {
+    $iso_list = location_get_provinces();
+    $path = drupal_get_path('module', 'location_cities') .'/supported/location.';
+    foreach ($iso_list as $cc => $name) {
+      if (file_exists($path . $cc .'.inc')) {
+        $supported[$country][$cc] = $name;
+      }
+    }
+    cache_set('location:supported-provinces:'.$country, $supported[$country], 'cache_location');
+  }
+  return $supported;
+}
+
+/**
+ * @param $country
+ * @param $code
+ * @return array
+ */
+function location_get_cities($ccode, $pcode) {
+  static $cities = array();
+  location_standardize_country_code($ccode);
+  location_standardize_province_code($pcode);
+
+  $code = $ccode.'_'.$pcode;
+
+  if (isset($cities[$code])) {
+    return $cities[$code];
+  }
+  if ($cache = cache_get("cities:$code", 'cache_location')) {
+    $cities[$code] = $cache->data;
+    return $cities[$code];
+  }
+  location_load_provinces($ccode);
+  $func = 'location_cities_list_'.$code;
+  if (function_exists($func)) {
+    $cities[$code] = $func();
+    cache_set("cities:$code", $cities[$code], 'cache_location');
+    return $cities[$code];
+  }
+  return array();
+}
+
+/**
+ * Load support for a country provinces.
+ *
+ * This function will load support for a country identified by its two-letter ISO code.
+ *
+ * @param $code
+ *   Two-letter ISO code for country.
+ *
+ * @return
+ *   TRUE if the file was found and loaded, FALSE otherwise.
+ */
+function location_load_provinces($code) {
+  location_standardize_country_code($code);
+
+  $file = drupal_get_path('module', 'location_cities') . '/supported/location.' . $code . '.inc';
+  if (file_exists($file)) {
+    include_once($file);
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implementation of hook_locationapi()
+ *
+ * @param &$location A location object.
+ * @param $op A string containing the name of the locationapi operation.
+ * @param $a3, $a4, $a5 Arguments to pass on to the hook.
+ */
+function location_cities_locationapi(&$location, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
+  switch ($op) {
+    case 'load' :
+      //
+    break;
+    case 'save' :
+      //
+    break;
+    case 'defaults' :
+//      $location->citycode = 0;
+    break;
+  }
+}

@@ -1,0 +1,435 @@
+<?php
+
+/**
+ * @param $vars
+ */
+function issue_search_preprocess_page(&$vars)
+{
+  if (arg(0) == 'issues') {
+    # set page template
+    array_push($vars['template_files'], 'page_12_4');
+
+    drupal_add_js(drupal_get_path('module', 'issue_search') . '/issue_search.js');
+
+    $vars['right'] = theme('issue_search_filter');
+  }
+}
+
+/**
+ * Implementation of hook_menu()
+ *
+ * @return array
+ */
+function issue_search_menu()
+{
+  $menu = array();
+
+  $menu['issues'] = array(
+    'page callback'   => 'drupal_get_form',
+    'title'           => t('Issues'),
+    'page arguments'  => array('issue_search_form'),
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
+  );
+  $menu['issues/ajax'] = array(
+    'page callback'   => 'issue_search_ajax',
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
+  );
+
+
+  return $menu;
+}
+
+/**
+ * @param $form_state
+ * @return array
+ */
+function issue_search_form($form_state)
+{
+  $form = array();
+
+  $form['date_filters'] = array(
+    '#type' => 'item',
+    '#value' => '
+      <ul class="date_filter">
+        <li><a class="date-solr-filter first" href="issues">' . t('This Week') . '</a></li>
+        <li><a class="date-solr-filter" href="issues">' . t('Month') . '</a></li>
+        <li><a class="date-solr-filter last active" href="issues">' . t('All time') . '</a></li>
+      </ul>',
+    '#prefix' => '<div class="search_top_filters clearfix">',
+  );
+  $form['sorting'] = array(
+    '#type' => 'item',
+    '#value' => '
+      <ul class="options_filter">
+        <li><a href="issues" class="solr-sort first active">' . t('Latest') . '</a></li>
+        <li><a href="issues" class="solr-sort">' . t('Views') . '</a></li>
+        <li><a href="issues" class="solr-sort last">' . t('Votes') . '</a></li>
+      </ul>',
+    '#suffix' => '</div>',
+  );
+  $form['#suffix'] =
+    '<div id="loading_wrapper" style="padding: 20px; width: 100%;text-align: center;">'.
+      theme('sub_loader', 'margin-top: 15px auto; display: block; ').
+    '</div>'.
+    '<div id="linkbox"></div>';
+
+  return $form;
+}
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function issue_search_theme()
+{
+  $theme = array();
+
+  $theme['issue_search_filter'] = array(
+    'arguments' => array(),
+//    'template'  => 'templates/user-profile-view',
+//    'preprocess functions' => array('issue_search_filter_preprocess'),
+  );
+  $theme['issue_search_results'] = array(
+    'arguments' => array('nids' => array()),
+  );
+
+  return $theme;
+}
+
+/**
+ * @return string
+ */
+function theme_issue_search_filter()
+{
+  return '<div class="filter_search grey-box poll-box issues_search">' .
+    drupal_get_form('issue_search_filter_form') .
+  '</div>';
+}
+
+function issue_search_filter_form($form_state)
+{
+  $form = array();
+
+  global $user;
+
+  ahah_helper_register($form, $form_state);
+
+  // main container
+  $form['block'] = array(
+    '#type' => 'fieldset',
+    '#prefix' => '<div id="block-wrapper">',
+    '#suffix' => '</div>',
+    '#tree' => TRUE,
+  );
+
+  // container:: count
+  $form['block']['results'] = array(
+    '#value' => '<span>0</span>' . ' issues',
+    '#type' => 'item',
+    '#id' => 'count_results'
+  );
+
+  // data
+  $data = $form_state['storage']['block'];
+  $data2 = $form_state['storage'];
+
+  // gather info
+  $info_items = array();
+
+  // gather info:: taxonomy
+  $tft_codes = array();
+  for ($i = 0; $i >= 0; $i++) {
+    if (empty($data['taxonomy-' . $i])) {
+      break;
+    }
+    foreach ($data['taxonomy-' . $i] as $tid => $tname) {
+      $tft_codes[] = (int)$tid;
+    }
+  }
+  // GET codes
+  if (isset($_GET['tids']) && empty($data['taxonomy-0'])) {
+    $tft_codes = explode(",", $_GET['tids']);
+  }
+
+  $tft = tft_list('poll', $tft_codes);
+
+  // gather info:: location
+  $tfl_codes0 = array();
+  $tfl_codes1 = array();
+  $tfl_codes2 = array();
+  for ($i = 0; $i <= 2; $i++) {
+    $name = 'tfl_codes' . $i;
+    $$name = empty($data['location-' . $i]) ? array() : array_keys($data['location-' . $i]);
+  }
+  // if logged in & country set
+  if (isset($data2['region']) && $data2['region']) {
+    $tfl_codes0 = array($user->profile_country);
+    $tfl_codes1 = array();
+    $tfl_codes2 = array();
+  }
+
+  $tfl = tfl_list($tfl_codes0, $tfl_codes1, $tfl_codes2);
+
+  // gather info:: info_values
+  foreach (array('tft' => 'taxonomy', 'tfl' => 'location') as $varname => $type) {
+    $tf = $$varname;
+    for ($i = 0; $i < count($tf['list']); $i++) {
+      $options = $tf['list'][$i];
+      $checked = $tf['checked'][$i];
+      if (!empty($checked)) {
+        foreach ($checked as $code)
+          $info_items[] = array(
+            'type' => $type . '-' . $i,
+            'value' => $code,
+            'text' => $options[$code],
+          );
+      }
+    }
+  }
+
+  // container:: info
+  $info = t('Issues about') . ':<br />';
+  foreach ($info_items as $item) {
+    $info .= sprintf('<span><input type="hidden" name="#edit-block-%s" value="%s">%s<span class="del-item">x</span></span>', $item['type'], $item['value'], $item['text']);
+  }
+  $form['block']['information'] = array(
+    '#value' => $info,
+    '#type' => 'item',
+    '#id' => 'item_results'
+  );
+
+  // lists:: taxonomy
+  for ($i = 0; $i < count($tft['list']); $i++) {
+    $options = $tft['list'][$i];
+    $checked = $tft['checked'][$i];
+    $form['block']['taxonomy-' . $i] = array(
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#options' => $options,
+      '#default_value' => $checked,
+      '#size' => '4',
+      '#attributes' => array('class' => 'solr-block-form'),
+      '#ahah' => array(
+        'event' => 'change',
+        'path' => ahah_helper_path(array('block')),
+        'wrapper' => 'block-wrapper',
+      ),
+    );
+    if ($i == 0) {
+      $form['block']['taxonomy-' . $i]['#title'] = t('Narrow by');
+    }
+  }
+
+  // lists:: locations
+  if (!isset($data2['region']) || !$data2['region'])
+    for ($i = 0; $i < count($tfl['list']); $i++) {
+      $options = $tfl['list'][$i];
+      $checked = $tfl['checked'][$i];
+
+      if (!empty($options))
+        $form['block']['location-' . $i] = array(
+          '#type' => 'select',
+          '#multiple' => TRUE,
+          '#options' => $options,
+          '#default_value' => $checked,
+          '#size' => '4',
+          '#attributes' => array('class' => 'solr-block-form'),
+          '#ahah' => array(
+            'event' => 'change',
+            'path' => ahah_helper_path(array('block')),
+            'wrapper' => 'block-wrapper',
+          ),
+        );
+//    if (isset($data2['region']) && $data2['region']) {
+//      $form['block']['location-'.$i]['#disabled'] = true;
+//    }
+      if ($i == 0) {
+        $form['block']['location-' . $i]['#title'] = t('Location');
+      }
+    }
+
+  // user region
+  if (user_is_logged_in()) {
+    if (isset($user->profile_country)) {
+      $form['region'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('My region'),
+        '#id' => 'my_region',
+        '#default_value' => FALSE,
+        '#ahah' => array(
+          'event' => 'change',
+          'path' => ahah_helper_path(array('block')),
+          'wrapper' => 'block-wrapper',
+        ),
+      );
+    } else {
+      $form['region'] = array(
+        '#type' => 'item',
+        '#value' => l(t('Add location to your profile'), $user->editlink),
+      );
+    }
+  }
+
+  $form['voted_status'] = array(
+    '#type' => 'checkbox',
+    '#default_value' => TRUE,
+    '#title' => t('Show only not voted'),
+  );
+  $form['search_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Keyword'),
+  );
+  $form['search'] = array(
+    '#type' => 'submit',
+    '#value' => t('Search'),
+    '#id' => 'search-solr-block',
+  );
+
+
+  $form['filter_time'] = array(
+    '#type'   => 'hidden',
+    '#value'  => 0,
+  );
+  $form['filter_type'] = array(
+    '#type'   => 'hidden',
+    '#value'  => 0,
+  );
+  $form['block']['filter_page'] = array(
+    '#type'   => 'hidden',
+    '#value'  => 0,
+  );
+
+  unset($form_state['storage']['block']);
+
+  return $form;
+}
+
+/**
+ * @param array $nids
+ */
+function theme_issue_search_results($nids = array())
+{
+  $output = '';
+
+  foreach ($nids as $nid) {
+    $node = node_load($nid);
+    $output .= node_view($node, true, false);
+  }
+
+  return $output;
+}
+
+/**
+ * Search function
+ */
+function issue_search($params = array()) {
+  $nids = array();
+
+  // todo
+  $result = db_query("SELECT nid FROM node WHERE type = 'poll'");
+  while ($nid = db_result($result)) {
+     $nids[] = $nid;
+  }
+
+
+  return $nids;
+}
+
+/**
+ * @return string
+ */
+function issue_search_ajax() {
+  $message = 'OK';
+
+  $params = array();
+  $message = theme('issue_search_results', issue_search($params));
+
+
+
+  print json_encode(array(
+    'status'     => true,
+    'message'    => $message,
+  ));
+}
+
+///////// Apachesolr Framework Hooks
+
+/**
+ * Implementation of hook_apachesolr_query_alter()
+ *
+ * @param $query
+ */
+function issue_search_apachesolr_query_alter($query) {
+  // todo
+}
+
+/**
+ * Implementation of hook_apachesolr_process_results()
+ *
+ * @param $results
+ * @param DrupalSolrQueryInterface $query
+ */
+function issue_search_apachesolr_process_results(&$results, DrupalSolrQueryInterface $query) {
+  foreach ($results as &$result) {
+    // extract nid from the results
+    $result['nid'] = array_pop(explode('/', $result['fields']['path']));
+  }
+}
+
+/**
+ * Implementation of hook_apachesolr_query_prepare()
+ *
+ * @param $query
+ */
+function issue_search_apachesolr_query_prepare($query) {
+  // todo
+  $sort = 0;
+  switch ($sort) {
+    case 2 : //
+
+    case 'Votes':
+      $query->setSolrsort('itm_field_votes_count', 'desc');
+      break;
+    case 'Latest':
+      $query->setSolrsort('ds_created', 'desc');
+      break;
+    case 'Views':
+      $query->setSolrsort('itm_field_visits_count', 'desc');
+      break;
+
+    default:
+      $query->setSolrsort('itm_field_votes_count', 'desc');
+      break;
+  }
+}
+
+
+
+/**
+ * @param $form
+ * @param $form_state
+ *
+function issue_search_form_submit($form, &$form_state) {
+$search_page = $form['#search_page'];
+$redirect = $search_page->search_path;
+if (strlen($form_state['values']['keys'])) {
+$redirect .= '/' . $form_state['values']['keys'];
+}
+if (isset($form_state['values']['get'])) {
+$get = json_decode($form_state['values']['get'], TRUE);
+}
+if (!empty($form_state['values']['retain-filters'])) {
+// Add our saved value
+$get['retain-filters'] = '1';
+// Add the query values into the redirect.
+$form_state['redirect'] = array($redirect, array('query' => $get));
+}
+else {
+// Redirects to path set in configuration.
+$form_state['redirect'] = $redirect;
+}
+}
+ */
