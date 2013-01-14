@@ -22,7 +22,9 @@ function tester_menu() {
 
 function tester() {
 
-  user_profile_geocode('ru', 630090);
+
+
+//  var_dump($data);
 
   exit;
 }
