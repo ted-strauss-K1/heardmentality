@@ -13,6 +13,10 @@ $(function() {
     gravity: 'e'
   });
 
+  $('.usernote').tipsy({
+    gravity: 'n'
+  });
+
   /// TODO Are these used ??
   $('#nope').tipsy({
     gravity: $.fn.tipsy.autoNS

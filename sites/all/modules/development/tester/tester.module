@@ -22,9 +22,9 @@ function tester_menu() {
 
 function tester() {
 
+  $data = _comment_load(21);
 
-
-//  var_dump($data);
+  var_dump($data);
 
   exit;
 }

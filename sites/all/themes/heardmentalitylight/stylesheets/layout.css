@@ -5866,3 +5866,10 @@ span.beta {
 #contact-mail-page #edit-name-wrapper {
   clear: both;
 }
+
+.mod-form .form-item,
+.mod-form textarea,
+.mod-form input[type=text]
+{
+  margin: 0;
+}

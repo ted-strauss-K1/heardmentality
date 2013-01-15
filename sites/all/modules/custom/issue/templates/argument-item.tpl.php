@@ -67,20 +67,7 @@ $rtype = $node->field_rtype[0]['value'];
 
         <!-- User Debate Options -->
         <?php if ($atype == TYPE_DEBATE) : ?>
-        <div class="position">
-          <?php foreach ($node->argument_options as $option) : ?>
-          <?php if ($option['value'] == 1) : ?>
-            <p class="position-plus"><strong>+</strong>&nbsp;
-              <?php print $option['chtext_short'] ? $option['chtext_short'] : $option['chtext'] ?>
-            </p>
-            <?php endif; ?>
-          <?php if ($option['value'] == -1) : ?>
-            <p class="position-minus"><strong>-</strong>&nbsp;
-              <?php print $option['chtext_short'] ? $option['chtext_short'] : $option['chtext'] ?>
-            </p>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        </div>
+          <?php print theme('argument_options', $node->argument_options); ?>
         <?php endif; ?>
         <!-- User Debate Options: END -->
 

@@ -178,6 +178,13 @@ function moderation_theme() {
     ),
     'file'              => 'moderation.pages.inc',
   );
+  $theme['moderation_flags'] = array(
+    'arguments'     => array(
+      'content_type'  => '',
+      'content_id'    => 0,
+    ),
+    'file'              => 'moderation.pages.inc',
+  );
   $theme['moderation_history'] = array(
     'arguments'     => array(
       //

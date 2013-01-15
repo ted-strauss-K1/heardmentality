@@ -12,7 +12,7 @@ function poll_ext_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         break;
       case 'load' :
         poll_ext_chtext_short($node);
-        break;
+      break;
     }
   }
 }
