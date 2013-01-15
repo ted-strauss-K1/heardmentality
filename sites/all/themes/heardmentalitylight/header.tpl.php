@@ -30,7 +30,7 @@
 				  <?php endif; ?>
 				  <?php
 				  // TODO check user perms to see the moderation link
-				  if ( false ) : ?>
+				  if ( ($router_item = menu_get_item('moderation')) && $router_item['access'] ) : ?>
 					<li><?php print l(t('Moderator'), 'issues/list/all', array('attributes' => array('class'=>'moderator add'))); ?></li>
 				  <?php endif; ?>
 				</ul>

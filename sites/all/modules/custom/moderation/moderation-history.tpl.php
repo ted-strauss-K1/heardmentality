@@ -1,3 +1,4 @@
+<div class="dark-grey-box">
 <?php
   $type = arg(1);
   $content_id = arg(2);
@@ -12,7 +13,8 @@
     default : return;
   }
   $history = moderation_history('get', $content_id, $content_type, true, array(), 10);
-?><?php foreach ($history as $item) : ?>
+?><?php if ($history) : ?>
+<?php foreach ($history as $item) : ?>
   <div style="border-bottom: 1px #ccc dotted; margin-bottom: 5px; padding: 5px 0;">
     <?php
       $account = user_load($item['uid']);
@@ -58,3 +60,7 @@
     <?php endif; ?>
   </div>
 <?php endforeach; ?>
+<?php else : ?>
+  <?php print t('Moderation history is empty'); ?>
+<?php endif; ?>
+</div>

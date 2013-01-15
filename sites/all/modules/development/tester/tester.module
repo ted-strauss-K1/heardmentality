@@ -22,9 +22,18 @@ function tester_menu() {
 
 function tester() {
 
-  $data = _comment_load(21);
+  $data = node_load(18);
 
-  var_dump($data);
+//  $data->locations = array();
+//  $location = location_empty_location(array());
+//  $location['name'] = 'tester';
+//  $data->locations[] = $location;
+
+
+
+//  var_dump($data->locations);
+//  node_save($data);
+
 
   exit;
 }

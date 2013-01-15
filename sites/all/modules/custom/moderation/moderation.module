@@ -24,7 +24,9 @@ function moderation_perm() {
  */
 function moderation_preprocess_page(&$vars) {
   if (arg(0) == 'moderation') {
-    $vars['right'] .= theme('moderation_history');
+    if (in_array(arg(1), array('issue','argument','comment',))) {
+      $vars['right'] .= theme('moderation_history');
+    }
 
     # css/js
     drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.js");
