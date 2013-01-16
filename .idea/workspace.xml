@@ -50,7 +50,7 @@
       <file leaf-file-name="badges.module" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="322" column="0" selection-start="6269" selection-end="6269" vertical-scroll-proportion="0.5025">
+            <state line="330" column="0" selection-start="6520" selection-end="6520" vertical-scroll-proportion="0.885">
               <folding />
             </state>
           </provider>
@@ -806,7 +806,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="322" column="0" selection-start="6269" selection-end="6269" vertical-scroll-proportion="0.5025">
+        <state line="330" column="0" selection-start="6520" selection-end="6520" vertical-scroll-proportion="0.885">
           <folding />
         </state>
       </provider>

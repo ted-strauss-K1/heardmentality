@@ -329,7 +329,6 @@ function theme_badges_list($sort = 2)
       break;
   }
 
-  echo $query;
   $badges = badges_list();
   $result = db_query($query);
   while ($badge = db_fetch_object($result)) {
