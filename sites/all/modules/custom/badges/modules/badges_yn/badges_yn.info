@@ -1,0 +1,6 @@
+name = Badges for YN Votes
+description = Badges for YN Votes
+package = Custom Modules :: Badges
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = 'yn'

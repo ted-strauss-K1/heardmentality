@@ -1,0 +1,57 @@
+<?php
+
+/*
+ * Implementation of hook_install()
+ */
+function log_install()
+{
+  drupal_install_schema('log');
+}
+
+/*
+ * Implementation of hook_install()
+ */
+function log_uninstall()
+{
+  drupal_uninstall_schema('log');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function log_schema()
+{
+  $schema = array();
+
+  $schema['log'] = array(
+    'description' => t('Log.'),
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'type' => array(
+        'description' => t('Action type.'),
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 256,
+        'default' => '',
+      ),
+      'date_added' => array(
+        'type' => 'datetime',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}

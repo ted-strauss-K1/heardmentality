@@ -1,7 +1,7 @@
 /**
  * Changing active state
  */
-$('.sort-wrapper a').live('click', function() {
+$('.sort-wrapper a').live('click', function () {
   var wrap = $(this).parents('.sort-wrapper');
   wrap.children('a').removeClass('active');
   $(this).addClass('active');
@@ -41,11 +41,11 @@ function following_exec(params) {
   el.html('<div style="text-align:center"><div id="loading"></div></div>');
 
   $.ajax({
-    type      : "POST",
-    dataType  : 'json',
-    url       : '/following/ajax',
-    data      : following_params,
-    success   : function (response) {
+    type:"POST",
+    dataType:'json',
+    url:'/following/ajax',
+    data:following_params,
+    success:function (response) {
       if (!response.status) {
         // error
         return false;
@@ -58,7 +58,7 @@ function following_exec(params) {
 /**
  * Changing active state
  */
-$('.sort-wrapper a').live('click', function() {
+$('.sort-wrapper a').live('click', function () {
   var el = $(this);
   following_params = following_params || {};
   following_params['items'] = el.attr('name');
@@ -72,6 +72,6 @@ $('.sort-wrapper a').live('click', function() {
 
 
 
-$('#events_users_more').live('click', function() {
+$('#events_users_more').live('click', function () {
 
 });

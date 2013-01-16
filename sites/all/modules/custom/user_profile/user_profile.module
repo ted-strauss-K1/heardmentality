@@ -29,11 +29,11 @@ function user_profile_preprocess_page(&$vars)
         if (arg(2) == 'view') {
           drupal_set_subtitle(t('View Profile'));
         }
-      break;
+        break;
       case 'edit' :
         array_push($vars['template_files'], 'page_empty');
         drupal_set_subtitle(t('Edit Profile'));
-      break;
+        break;
     }
   }
 }
@@ -96,7 +96,8 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
 
 define('PROFILE_FIELDMAP', 'profile_fieldmap');
 
-function user_profile_cache_fields() {
+function user_profile_cache_fields()
+{
   $result = db_query('SELECT * FROM {profile_fields}');
   $fields = array();
   while ($field = db_fetch_object($result)) {
@@ -302,7 +303,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
     case 'load' :
       $account->viewlink = 'user/profile/view/' . $account->name;
       $account->editlink = 'user/profile/edit/';
-    break;
+      break;
     case 'insert' :
 
       if (module_exists('avatar_selection')) {
@@ -380,7 +381,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
 
         }
       }
-    break;
+      break;
   }
 }
 

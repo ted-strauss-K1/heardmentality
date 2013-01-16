@@ -22,18 +22,9 @@ function tester_menu() {
 
 function tester() {
 
-  $data = node_load(18);
+  $data = badges_list();
 
-//  $data->locations = array();
-//  $location = location_empty_location(array());
-//  $location['name'] = 'tester';
-//  $data->locations[] = $location;
-
-
-
-//  var_dump($data->locations);
-//  node_save($data);
-
+  var_dump($data);
 
   exit;
 }

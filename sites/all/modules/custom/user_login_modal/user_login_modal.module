@@ -96,6 +96,7 @@ function user_login_modal_class($force = false)
  * @param bool $force
  * @return string
  */
-function theme_user_login_modal_class($force = false) {
+function theme_user_login_modal_class($force = false)
+{
   return user_login_modal_class($force);
 }

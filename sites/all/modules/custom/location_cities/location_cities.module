@@ -6,7 +6,8 @@
  * @param $province
  * @return bool
  */
-function location_standardize_province_code(&$province) {
+function location_standardize_province_code(&$province)
+{
   $province = trim($province);
   $province = strtolower($province);
 
@@ -17,7 +18,8 @@ function location_standardize_province_code(&$province) {
  * @param $countrycode
  * @return mixed
  */
-function _location_supported_provinces($country) {
+function _location_supported_provinces($country)
+{
   static $supported = array();
 
   location_standardize_country_code($country);
@@ -28,18 +30,17 @@ function _location_supported_provinces($country) {
   }
 
   // Try first to load from cache, it's much faster than the scan below.
-  if ($cache = cache_get('location:supported-provinces:'.$country, 'cache_location')) {
+  if ($cache = cache_get('location:supported-provinces:' . $country, 'cache_location')) {
     $supported[$country] = $cache->data;
-  }
-  else {
+  } else {
     $iso_list = location_get_provinces();
-    $path = drupal_get_path('module', 'location_cities') .'/supported/location.';
+    $path = drupal_get_path('module', 'location_cities') . '/supported/location.';
     foreach ($iso_list as $cc => $name) {
-      if (file_exists($path . $cc .'.inc')) {
+      if (file_exists($path . $cc . '.inc')) {
         $supported[$country][$cc] = $name;
       }
     }
-    cache_set('location:supported-provinces:'.$country, $supported[$country], 'cache_location');
+    cache_set('location:supported-provinces:' . $country, $supported[$country], 'cache_location');
   }
   return $supported;
 }
@@ -49,12 +50,13 @@ function _location_supported_provinces($country) {
  * @param $code
  * @return array
  */
-function location_get_cities($ccode, $pcode) {
+function location_get_cities($ccode, $pcode)
+{
   static $cities = array();
   location_standardize_country_code($ccode);
   location_standardize_province_code($pcode);
 
-  $code = $ccode.'_'.$pcode;
+  $code = $ccode . '_' . $pcode;
 
   if (isset($cities[$code])) {
     return $cities[$code];
@@ -64,7 +66,7 @@ function location_get_cities($ccode, $pcode) {
     return $cities[$code];
   }
   location_load_provinces($ccode);
-  $func = 'location_cities_list_'.$code;
+  $func = 'location_cities_list_' . $code;
   if (function_exists($func)) {
     $cities[$code] = $func();
     cache_set("cities:$code", $cities[$code], 'cache_location');
@@ -84,7 +86,8 @@ function location_get_cities($ccode, $pcode) {
  * @return
  *   TRUE if the file was found and loaded, FALSE otherwise.
  */
-function location_load_provinces($code) {
+function location_load_provinces($code)
+{
   location_standardize_country_code($code);
 
   $file = drupal_get_path('module', 'location_cities') . '/supported/location.' . $code . '.inc';
@@ -102,16 +105,17 @@ function location_load_provinces($code) {
  * @param $op A string containing the name of the locationapi operation.
  * @param $a3, $a4, $a5 Arguments to pass on to the hook.
  */
-function location_cities_locationapi(&$location, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
+function location_cities_locationapi(&$location, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL)
+{
   switch ($op) {
     case 'load' :
       //
-    break;
+      break;
     case 'save' :
       //
-    break;
+      break;
     case 'defaults' :
 //      $location->citycode = 0;
-    break;
+      break;
   }
 }

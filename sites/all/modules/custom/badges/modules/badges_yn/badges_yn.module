@@ -1,0 +1,327 @@
+<?php
+
+/**
+ * Implementation of hook_badges()
+ *
+ * @return array
+ */
+function badges_yn_badges()
+{
+  $badges = array();
+
+  $badges['yn_node_bronze'] = array(
+    'function' => 'badges_yn_check',
+    'function multiple' => 'badges_yn_check_multiple',
+    'name' => t('Nice Answer'),
+    'info' => t('Answer voted up 10 times'),
+    'type' => 'bronze',
+    'arguments' => array('content_type' => 'node', 'count' => 10),
+  );
+  $badges['yn_node_silver'] = array(
+    'function' => 'badges_yn_check',
+    'function multiple' => 'badges_yn_check_multiple',
+    'name' => t('Good Answer'),
+    'info' => t('Answer voted up 25 times'),
+    'type' => 'silver',
+    'arguments' => array('content_type' => 'node', 'count' => 25),
+  );
+  $badges['yn_node_gold'] = array(
+    'function' => 'badges_yn_check',
+    'function multiple' => 'badges_yn_check_multiple',
+    'name' => t('Great Answer'),
+    'info' => t('Answer voted up 100 times'),
+    'type' => 'gold',
+    'arguments' => array('content_type' => 'node', 'count' => 100),
+  );
+
+  $badges['yn_comment_bronze'] = array(
+    'function' => 'badges_yn_check',
+    'function multiple' => 'badges_yn_check_multiple',
+    'name' => t('Nice Reply'),
+    'info' => t('Reply voted up 10 times'),
+    'type' => 'bronze',
+    'arguments' => array('content_type' => 'comment', 'count' => 10),
+  );
+  $badges['yn_comment_silver'] = array(
+    'function' => 'badges_yn_check',
+    'function multiple' => 'badges_yn_check_multiple',
+    'name' => t('Good Reply'),
+    'info' => t('Reply voted up 25 times'),
+    'type' => 'silver',
+    'arguments' => array('content_type' => 'comment', 'count' => 25),
+  );
+  $badges['yn_comment_gold'] = array(
+    'function' => 'badges_yn_check',
+    'function multiple' => 'badges_yn_check_multiple',
+    'name' => t('Great Reply'),
+    'info' => t('Reply voted up 100 times'),
+    'type' => 'gold',
+    'arguments' => array('content_type' => 'comment', 'count' => 100),
+  );
+
+  $badges['yn_upfirst'] = array(
+    'function' => 'badges_yn_upfirst_check',
+    'function multiple' => 'badges_yn_upfirst_check_multiple',
+    'name' => t('Supporter'),
+    'info' => t('First up vote'),
+    'type' => 'bronze',
+//    'arguments' => array(),
+  );
+
+  $badges['yn_predict_bronze'] = array(
+    'function' => 'badges_yn_predict_check',
+    'function multiple' => 'badges_yn_predict_check_multiple',
+    'name' => t('Seer'),
+    'info' => t('First agree on a post or resource that eventually gets 50 agrees'),
+    'type' => 'bronze',
+    'arguments' => array('votes' => 50),
+  );
+  $badges['yn_predict_silver'] = array(
+    'function' => 'badges_yn_predict_check',
+    'function multiple' => 'badges_yn_predict_check_multiple',
+    'name' => t('Oracle'),
+    'info' => t('First agree on a post or resource that eventually gets 100 agrees'),
+    'type' => 'silver',
+    'arguments' => array('votes' => 100),
+  );
+
+  if (module_exists('issue')) {
+    $badges['yn_argument_agreed_resource_bronze'] = array(
+      'function' => 'badges_yn_argument_agreed_check',
+      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
+      'name' => t('Paperboy'),
+      'info' => t('Resource posted by user gets 5 agrees'),
+      'type' => 'bronze',
+      'arguments' => array('count' => 5, 'argument_type' => TYPE_RESOURCE),
+    );
+    $badges['yn_argument_agreed_resource_silver'] = array(
+      'function' => 'badges_yn_argument_agreed_check',
+      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
+      'name' => t('Newsstand'),
+      'info' => t('Resource posted by user gets 20 agrees'),
+      'type' => 'silver',
+      'arguments' => array('count' => 20, 'argument_type' => TYPE_RESOURCE),
+    );
+    $badges['yn_argument_agreed_resource_gold'] = array(
+      'function' => 'badges_yn_argument_agreed_check',
+      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
+      'name' => t('Librarian'),
+      'info' => t('Resource posted by user gets 50 agrees'),
+      'type' => 'gold',
+      'arguments' => array('count' => 50, 'argument_type' => TYPE_RESOURCE),
+    );
+
+    $badges['yn_argument_agreed_debate_bronze'] = array(
+      'function' => 'badges_yn_argument_agreed_check',
+      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
+      'name' => t('Nice Post'),
+      'info' => t('Debate posted by user gets 5 agrees'),
+      'type' => 'bronze',
+      'arguments' => array('count' => 5, 'argument_type' => TYPE_DEBATE),
+    );
+    $badges['yn_argument_agreed_debate_silver'] = array(
+      'function' => 'badges_yn_argument_agreed_check',
+      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
+      'name' => t('Well Put'),
+      'info' => t('Debate posted by user gets 20 agrees'),
+      'type' => 'silver',
+      'arguments' => array('count' => 20, 'argument_type' => TYPE_DEBATE),
+    );
+    $badges['yn_argument_agreed_debate_gold'] = array(
+      'function' => 'badges_yn_argument_agreed_check',
+      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
+      'name' => t('Consensus Builder'),
+      'info' => t('Debate posted by user gets 50 agrees'),
+      'type' => 'gold',
+      'arguments' => array('count' => 50, 'argument_type' => TYPE_DEBATE),
+    );
+  }
+
+  return $badges;
+}
+
+/**
+ * @param $uid
+ * @param array $arguments
+ * @return bool
+ */
+function badges_yn_check($uid, $arguments = array())
+{
+  static $cache;
+
+  $content_type = $arguments['content_type'];
+
+  if (is_null($cache[$content_type])) {
+    $cache[$content_type] = array();
+
+    switch ($content_type) {
+      case 'comment' :
+        $query = "
+          SELECT c.cid, c.uid, COUNT(*) count
+          FROM {comments} c
+          INNER JOIN {votingapi_vote} vv ON vv.content_id = c.cid AND vv.value = '%d'
+          WHERE vv.content_type = '%s'
+          GROUP BY c.cid, c.uid
+          ORDER BY COUNT(*) ASC";
+        break;
+      case 'node' :
+        $query = "
+          SELECT n.nid, n.uid, COUNT(*) count
+          FROM {node} n
+          INNER JOIN {votingapi_vote} vv ON vv.content_id = n.nid AND vv.value = '%d'
+          WHERE vv.content_type = '%s'
+          GROUP BY n.nid, n.uid
+          ORDER BY COUNT(*) ASC
+        ";
+        break;
+    }
+    if (!empty($query)) {
+      $result = db_query($query, array(VOTE_AGREE, $content_type));
+      while ($row = db_fetch_array($result)) {
+        $cache[$content_type][$row['uid']][] = $row['count'];
+      }
+    }
+  }
+
+  return isset($cache[$content_type][$uid]) ? $cache[$content_type][$uid][0] >= $arguments['count'] : false;
+}
+
+/**
+ * @param array $uids
+ * @param array $arguments
+ * @return array
+ */
+function badges_yn_check_multiple($uids = array(), $arguments = array())
+{
+  $output = array();
+
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_yn_check($uid, $arguments);
+  }
+
+  return $output;
+}
+
+/**
+ * @param $uid
+ * @param array $arguments
+ * @return bool
+ */
+function badges_yn_upfirst_check($uid, $arguments = array())
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("SELECT uid FROM {votingapi_vote} GROUP BY content_type, content_id ORDER BY timestamp ASC");
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['uid']] = true;
+    }
+  }
+
+  return isset($cache[$uid]);
+}
+
+/**
+ * @param array $uids
+ * @param array $arguments
+ * @return array
+ */
+function badges_yn_upfirst_check_multiple($uids = array(), $arguments = array())
+{
+  $output = array();
+
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_yn_upfirst_check($uid, $arguments);
+  }
+
+  return $output;
+}
+
+/**
+ * @param $uid
+ * @param array $arguments
+ * @return bool
+ */
+function badges_yn_predict_check($uid, $arguments = array())
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("SELECT uid, COUNT(*) count FROM {votingapi_vote} vv WHERE vv.value = '%d' GROUP BY content_type, content_id ORDER BY timestamp", VOTE_AGREE);
+    while ($row = db_fetch_array($result)) {
+      if (!isset($cache[$row['uid']]) || ($cache[$row['uid']] < $row['count'])) {
+        $cache[$row['uid']] = $row['count'];
+      }
+      ;
+    }
+  }
+
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['votes'] : false;
+}
+
+/**
+ * @param array $uids
+ * @param array $arguments
+ * @return array
+ */
+function badges_yn_predict_check_multiple($uids = array(), $arguments = array())
+{
+  $output = array();
+
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_yn_predict_check($uid, $arguments);
+  }
+
+  return $output;
+}
+
+/**
+ * @param $uid
+ * @param array $arguments
+ * @return bool
+ */
+function badges_yn_argument_agreed_check($uid, $arguments = array())
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("
+      SELECT n.uid, COUNT(*) count
+      FROM {content_type_forum} ctf
+      INNER JOIN {node} n ON ctf.nid = n.nid
+      INNER JOIN {votingapi_vote} vv ON vv.content_id = n.nid AND vv.content_type = '%s' AND vv.value = '%d'
+      WHERE ctf.field_argument_type_value = '%d'
+      GROUP BY n.nid
+      ORDER BY COUNT(*) DESC", 'node', VOTE_AGREE, $arguments['argument_type']);
+    while ($row = db_fetch_array($result)) {
+      if (!isset($cache[$row['uid']]) || ($cache[$row['uid']] < $row['count'])) {
+        $cache[$row['uid']] = $row['count'];
+      }
+      ;
+    }
+  }
+
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['count'] : false;
+}
+
+/**
+ * @param array $uids
+ * @param array $arguments
+ * @return array
+ */
+function badges_yn_argument_agreed_check_multiple($uids = array(), $arguments = array())
+{
+  $output = array();
+
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_yn_argument_agreed_check($uid, $arguments);
+  }
+
+  return $output;
+}

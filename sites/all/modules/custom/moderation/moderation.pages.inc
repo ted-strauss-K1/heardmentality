@@ -8,14 +8,15 @@
  * @param $pattern
  * @return string
  */
-function theme_moderation_pager($page, $pages, $pattern) {
+function theme_moderation_pager($page, $pages, $pattern)
+{
   if ($pages == 1) return '';
   if ($page > $pages) $page = $pages;
   $output = '<div class="mod-pager"><span class="mod-text">PAGE</span> &nbsp;';
   $a = '<a href="/%s" class="%s">%d</a>';
-  $showpages = array_unique( array(1,2,$page-1,$page,$page+1,$pages-1,$pages) );
+  $showpages = array_unique(array(1, 2, $page - 1, $page, $page + 1, $pages - 1, $pages));
   $flag = true;
-  for ($i=1; $i<=$pages; $i++) {
+  for ($i = 1; $i <= $pages; $i++) {
     if (in_array($i, $showpages)) {
       $output .= sprintf($a, sprintf($pattern, $i), $page == $i ? 'mod-active' : '', $i);
       $flag = true;
@@ -33,7 +34,8 @@ function theme_moderation_pager($page, $pages, $pattern) {
  * @param $content_id
  * @return string
  */
-function theme_moderation_flags($content_type, $content_id) {
+function theme_moderation_flags($content_type, $content_id)
+{
   $flags = '';
   $flag = false;
   $result = db_query("
@@ -62,14 +64,15 @@ function theme_moderation_flags($content_type, $content_id) {
  * @param $node
  * @return string
  */
-function moderation_markup_issue($node) {
+function moderation_markup_issue($node)
+{
   return
-  '<div class="mod-wrapper part part1 search_list">
+    '<div class="mod-wrapper part part1 search_list">
     <h2 class="din half">' . rtrim($node->title) . '?</h2>
-    <div class="mod-buttons">'.
-      sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $node->path, t('View')) .
-      sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/issue/'.$node->nid, t('Edit')) .
-      sprintf('<a href="/%s" target="_blank"><span class="mod-list mod-icon" title="%s"></span></a>', 'moderation/arguments/1/'.$node->nid, t('Arguments')) .
+    <div class="mod-buttons">' .
+    sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $node->path, t('View')) .
+    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/issue/' . $node->nid, t('Edit')) .
+    sprintf('<a href="/%s" target="_blank"><span class="mod-list mod-icon" title="%s"></span></a>', 'moderation/arguments/1/' . $node->nid, t('Arguments')) .
     '</div>
   </div>';
 }
@@ -80,14 +83,15 @@ function moderation_markup_issue($node) {
  * @param $node
  * @return string
  */
-function moderation_markup_argument($node) {
+function moderation_markup_argument($node)
+{
   return
-  '<div class="mod-wrapper part part1 search_list">
+    '<div class="mod-wrapper part part1 search_list">
     <h2 class="din half">' . rtrim($node->title) . '</h2>
-    <div class="mod-buttons">'.
-      sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'node/'.$node->parent_issue, t('View')) .
-      sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/argument/'.$node->nid, t('Edit')) .
-      sprintf('<a href="/%s" target="_blank"><span class="mod-chat mod-icon" title="%s"></span></a>', 'moderation/comments/1/'.$node->nid, t('Replies')) .
+    <div class="mod-buttons">' .
+    sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'node/' . $node->parent_issue, t('View')) .
+    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/argument/' . $node->nid, t('Edit')) .
+    sprintf('<a href="/%s" target="_blank"><span class="mod-chat mod-icon" title="%s"></span></a>', 'moderation/comments/1/' . $node->nid, t('Replies')) .
     '</div>
   </div>';
 }
@@ -98,13 +102,14 @@ function moderation_markup_argument($node) {
  * @param $comment
  * @return string
  */
-function moderation_markup_comment($comment) {
+function moderation_markup_comment($comment)
+{
   return
-  '<div class="mod-wrapper part part1 search_list">
+    '<div class="mod-wrapper part part1 search_list">
     <h2 class="din half">' . rtrim($comment->comment) . '</h2>
-    <div class="mod-buttons">'.
-      sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'moderation/argument/'.$comment->nid, t('Edit parent argument')) .
-      sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/comment/'.$comment->cid, t('Edit')) .
+    <div class="mod-buttons">' .
+    sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'moderation/argument/' . $comment->nid, t('Edit parent argument')) .
+    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/comment/' . $comment->cid, t('Edit')) .
     '</div>
   </div>';
 }
@@ -115,7 +120,8 @@ function moderation_markup_comment($comment) {
  * @param $user
  * @return string
  */
-function moderation_markup_user($user) {
+function moderation_markup_user($user)
+{
   static $perms = array();
 
   if (empty($perms)) {
@@ -123,20 +129,21 @@ function moderation_markup_user($user) {
   }
 
   return user_access(MODERATION_ADMIN, $user) ? '' :
-  '<div class="mod-wrapper part part1 search_list">
+    '<div class="mod-wrapper part part1 search_list">
     <h2 class="din half">' . ucwords($user->name) . '</h2>
-    <div class="mod-buttons">'.
-    sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $user->viewlink, t('View Profile')) .
-    sprintf('<a href="#" class="permission %s" name="%s"><span class="mod-edit mod-icon" title="%s"></span></a>',
-      !moderation_check_perm($user->uid) ? '' : 'remove', 'moderation/user/'.$user->uid, t('Change permissions')) .
-    '</div>
+    <div class="mod-buttons">' .
+      sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $user->viewlink, t('View Profile')) .
+      sprintf('<a href="#" class="permission %s" name="%s"><span class="mod-edit mod-icon" title="%s"></span></a>',
+        !moderation_check_perm($user->uid) ? '' : 'remove', 'moderation/user/' . $user->uid, t('Change permissions')) .
+      '</div>
   </div>';
 }
 
 /**
  * @param $uid
  */
-function moderation_perms($uid) {
+function moderation_perms($uid)
+{
   $perms = variable_get(MODERATION_USERS, array());
   if ($perms[$uid]) {
     unset($perms[$uid]);
@@ -151,7 +158,8 @@ function moderation_perms($uid) {
  *
  * @return array
  */
-function moderation_filters() {
+function moderation_filters()
+{
   $filters = array();
 
   $filters['flagged'] = is_null($_SESSION['flagged']) ? -1 : $_SESSION['flagged'];
@@ -169,57 +177,58 @@ function moderation_filters() {
  *
  * @return array
  */
-function moderation_filters_form_content($filters) {
+function moderation_filters_form_content($filters)
+{
   $form = array();
 
   $form['filters'] = array(
-    '#type'         => 'fieldset',
-    '#title'        => t('Filters'),
-    '#collapsible'  => TRUE,
-    '#collapsed'    => TRUE,
+    '#type' => 'fieldset',
+    '#title' => t('Filters'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
 
   $form['filters']['flagged'] = array(
-    '#type'         => 'select',
-    '#title'        => t('Flagged'),
-    '#options'      => array(0 => t('Not flagged'), 1 => t('Only flagged')) + array(-1 => t('All')),
-    '#default_value'=> $filters['flagged'],
+    '#type' => 'select',
+    '#title' => t('Flagged'),
+    '#options' => array(0 => t('Not flagged'), 1 => t('Only flagged')) + array(-1 => t('All')),
+    '#default_value' => $filters['flagged'],
   );
   $form['filters']['language'] = array(
-    '#type'         => 'select',
-    '#title'        => t('Language'),
-    '#options'      => i18n_language_list() + array('' => t('All languages')),
-    '#default_value'=> $filters['language'],
+    '#type' => 'select',
+    '#title' => t('Language'),
+    '#options' => i18n_language_list() + array('' => t('All languages')),
+    '#default_value' => $filters['language'],
   );
   $form['filters']['translated'] = array(
-    '#type'         => 'select',
-    '#title'        => t('Translation'),
-    '#options'      => array(0 => t('Not translated'), 1 => t('Translated')) + array(-1 => t('All')),
-    '#default_value'=> $filters['translated'],
+    '#type' => 'select',
+    '#title' => t('Translation'),
+    '#options' => array(0 => t('Not translated'), 1 => t('Translated')) + array(-1 => t('All')),
+    '#default_value' => $filters['translated'],
   );
-    $form['filters']['moderation'] = array(
-      '#type'         => 'select',
-      '#title'        => t('Moderation status'),
-      '#options'      => array(0 => t('Not approved by me'), 1 => t('Approved by me')) + array(-1 => t('All')),
-      '#default_value'=> $filters['moderation'],
-    );
+  $form['filters']['moderation'] = array(
+    '#type' => 'select',
+    '#title' => t('Moderation status'),
+    '#options' => array(0 => t('Not approved by me'), 1 => t('Approved by me')) + array(-1 => t('All')),
+    '#default_value' => $filters['moderation'],
+  );
   $form['filters']['status'] = array(
-    '#type'         => 'select',
-    '#title'        => t('Status'),
-    '#options'      => array(1 => t('Active'), 0 => t('Hidden')) + array(-1 => t('All')),
-    '#default_value'=> $filters['status'],
+    '#type' => 'select',
+    '#title' => t('Status'),
+    '#options' => array(1 => t('Active'), 0 => t('Hidden')) + array(-1 => t('All')),
+    '#default_value' => $filters['status'],
   );
   $form['filters']['perpage'] = array(
-    '#type'         => 'select',
-    '#title'        => t('Per page'),
-    '#options'      => array(10 => 10, 15 => 15, 20 => 20, 25 => 25),
-    '#default_value'=> $filters['perpage'],
+    '#type' => 'select',
+    '#title' => t('Per page'),
+    '#options' => array(10 => 10, 15 => 15, 20 => 20, 25 => 25),
+    '#default_value' => $filters['perpage'],
   );
 
   $form['filters']['submit'] = array(
-    '#type'         => 'submit',
-    '#value'        => t('Save'),
-    '#submit'       => array('moderation_filters_form_content_submit'),
+    '#type' => 'submit',
+    '#value' => t('Save'),
+    '#submit' => array('moderation_filters_form_content_submit'),
   );
 
   return $form;
@@ -232,7 +241,8 @@ function moderation_filters_form_content($filters) {
  * @param $form
  * @param $form_state
  */
-function moderation_filters_form_content_submit($form, &$form_state) {
+function moderation_filters_form_content_submit($form, &$form_state)
+{
   foreach (array('flagged', 'language', 'translated', 'status', 'perpage', 'moderation') as $key) {
     $_SESSION[$key] = $form_state['values'][$key];
   }
@@ -241,7 +251,8 @@ function moderation_filters_form_content_submit($form, &$form_state) {
 /**
  * Get page number
  */
-function _moderation_get_page() {
+function _moderation_get_page()
+{
   $page = arg(2);
   return is_null($page) || !is_numeric(arg(2)) || $page <= 0 ? 1 : (int)$page;
 }
@@ -252,7 +263,8 @@ function _moderation_get_page() {
  * @param string $type
  * @return array
  */
-function _moderation_form($type = 'issues') {
+function _moderation_form($type = 'issues')
+{
   $form = array();
 
   $form['#prefix'] = theme('moderation_main', $type);
@@ -269,19 +281,19 @@ function _moderation_form($type = 'issues') {
   switch ($type) {
     case 'issues' :
       $items = _moderation_filter_nodes($filters + array('type' => 'poll'), $page, $pages);
-    break;
+      break;
     case 'arguments' :
       $items = _moderation_filter_nodes($filters + array('type' => 'forum'), $page, $pages);
-    break;
+      break;
     case 'comments' :
       $items = _moderation_filter_comments($filters, $page, $pages);
-    break;
+      break;
     case 'users' :
       $items = _moderation_filter_users($filters, $page, $pages);
-    break;
+      break;
     default:
       $items = array();
-    break;
+      break;
   }
 
   foreach ($items as $index => $item) {
@@ -289,18 +301,18 @@ function _moderation_form($type = 'issues') {
     switch ($type) {
       case 'issues' :
         $value = moderation_markup_issue($item);
-      break;
+        break;
       case 'arguments' :
         $value = moderation_markup_argument($item);
-      break;
+        break;
       case 'comments' :
         $value = moderation_markup_comment($item);
-      break;
+        break;
       case 'users' :
         $value = moderation_markup_user($item);
-      break;
+        break;
     }
-    $form['item-'.$index] = array(
+    $form['item-' . $index] = array(
       '#type' => 'markup',
       '#value' => $value,
     );
@@ -322,7 +334,8 @@ function _moderation_form($type = 'issues') {
  * @param $pages
  * @return array
  */
-function _moderation_filter_nodes($filters, &$page, &$pages) {
+function _moderation_filter_nodes($filters, &$page, &$pages)
+{
   $items = array();
 
   global $user;
@@ -365,10 +378,10 @@ function _moderation_filter_nodes($filters, &$page, &$pages) {
   switch ($filters['translated']) {
     case 0 :
       $query .= " AND n.tnid = 0";
-    break;
+      break;
     case 1 :
       $query .= " AND n.tnid <> 0";
-    break;
+      break;
   }
 
   // status
@@ -376,17 +389,17 @@ function _moderation_filter_nodes($filters, &$page, &$pages) {
     case 0 :
     case 1 :
       $query .= " AND n.status = '" . $filters['status'] . "'";
-    break;
+      break;
   }
 
   // moderation
   switch ($filters['moderation']) {
     case 0 :
       $query .= " AND mh.type IS NULL";
-    break;
+      break;
     case 1 :
       $query .= " AND mh.type IS NOT NULL";
-    break;
+      break;
   }
 
   // todo add flag param filters
@@ -395,7 +408,7 @@ function _moderation_filter_nodes($filters, &$page, &$pages) {
   $once = 1;
   $query_count = str_replace('%%', 'COUNT(DISTINCT n.nid) AS count', $query, $once);
   $count = (int)db_result(db_query($query_count, $params));
-  $pages = ceil($count/$filters['perpage']);
+  $pages = ceil($count / $filters['perpage']);
   if ($pages == 0) {
     $pages = 1;
   }
@@ -403,13 +416,13 @@ function _moderation_filter_nodes($filters, &$page, &$pages) {
     $page = $pages;
   }
 
-  $query .= " GROUP BY n.nid" ;
-  $query .= " ORDER BY n.changed ASC" ;
+  $query .= " GROUP BY n.nid";
+  $query .= " ORDER BY n.changed ASC";
 
   # get nodes
   $once = 1;
   $query = str_replace('%%', 'n.nid', $query, $once);
-  $result = db_query_range($query, $params, $filters['perpage']*($page-1), $filters['perpage']);
+  $result = db_query_range($query, $params, $filters['perpage'] * ($page - 1), $filters['perpage']);
   while ($node = db_fetch_object($result)) {
     $items[] = node_load($node->nid);
   }
@@ -425,7 +438,8 @@ function _moderation_filter_nodes($filters, &$page, &$pages) {
  * @param $pages
  * @return array
  */
-function _moderation_filter_comments($filters, &$page, &$pages) {
+function _moderation_filter_comments($filters, &$page, &$pages)
+{
   $items = array();
 
   global $user;
@@ -466,10 +480,10 @@ function _moderation_filter_comments($filters, &$page, &$pages) {
   switch ($filters['translated']) {
     case 0 :
       $query .= " AND c.tnid = 0";
-    break;
+      break;
     case 1 :
       $query .= " AND c.tnid <> 0";
-    break;
+      break;
   }
 
   // status
@@ -477,17 +491,17 @@ function _moderation_filter_comments($filters, &$page, &$pages) {
     case 0 :
     case 1 :
       $query .= " AND n.status = '" . ($filters['status'] == 0 ? COMMENT_NOT_PUBLISHED : COMMENT_PUBLISHED) . "'";
-    break;
+      break;
   }
 
   // moderation
   switch ($filters['moderation']) {
     case 0 :
       $query .= " AND mh.type IS NULL";
-    break;
+      break;
     case 1 :
       $query .= " AND mh.type IS NOT NULL";
-    break;
+      break;
   }
 
   // todo add flag param filters
@@ -496,7 +510,7 @@ function _moderation_filter_comments($filters, &$page, &$pages) {
   $once = 1;
   $query_count = str_replace('%%', 'COUNT(DISTINCT c.cid) AS count', $query, $once);
   $count = (int)db_result(db_query($query_count, $params));
-  $pages = ceil($count/$filters['perpage']);
+  $pages = ceil($count / $filters['perpage']);
   if ($pages == 0) {
     $pages = 1;
   }
@@ -504,13 +518,13 @@ function _moderation_filter_comments($filters, &$page, &$pages) {
     $page = $pages;
   }
 
-  $query .= " GROUP BY c.cid" ;
-  $query .= " ORDER BY c.timestamp ASC" ;
+  $query .= " GROUP BY c.cid";
+  $query .= " ORDER BY c.timestamp ASC";
 
   # get nodes
   $once = 1;
   $query = str_replace('%%', 'DISTINCT c.*', $query, $once);
-  $result = db_query_range($query, $params, $filters['perpage']*($page-1), $filters['perpage']);
+  $result = db_query_range($query, $params, $filters['perpage'] * ($page - 1), $filters['perpage']);
   while ($node = db_fetch_object($result)) {
     $items[] = $node;
   }
@@ -526,7 +540,8 @@ function _moderation_filter_comments($filters, &$page, &$pages) {
  * @param $pages
  * @return array
  */
-function _moderation_filter_users($filters, &$page, &$pages) {
+function _moderation_filter_users($filters, &$page, &$pages)
+{
   $items = array();
 
   $query = "SELECT %% FROM {users} u WHERE 1";
@@ -535,7 +550,7 @@ function _moderation_filter_users($filters, &$page, &$pages) {
   $once = 1;
   $query_count = str_replace('%%', 'COUNT(*) AS count', $query, $once);
   $count = (int)db_result(db_query($query_count));
-  $pages = ceil($count/$filters['perpage']);
+  $pages = ceil($count / $filters['perpage']);
   if ($pages == 0) {
     $pages = 1;
   }
@@ -546,7 +561,7 @@ function _moderation_filter_users($filters, &$page, &$pages) {
   # get nodes
   $once = 1;
   $query = str_replace('%%', 'u.uid', $query, $once);
-  $result = db_query_range($query, $filters['perpage']*($page-1), $filters['perpage']);
+  $result = db_query_range($query, $filters['perpage'] * ($page - 1), $filters['perpage']);
   while ($user = db_fetch_object($result)) {
     $items[] = user_load($user->uid);
   }
@@ -559,7 +574,8 @@ function _moderation_filter_users($filters, &$page, &$pages) {
  *
  * @return array
  */
-function moderation_issues_form() {
+function moderation_issues_form()
+{
   return _moderation_form('issues');
 }
 
@@ -568,7 +584,8 @@ function moderation_issues_form() {
  *
  * @return array
  */
-function moderation_arguments_form() {
+function moderation_arguments_form()
+{
   return _moderation_form('arguments');
 }
 
@@ -577,7 +594,8 @@ function moderation_arguments_form() {
  *
  * @return array
  */
-function moderation_comments_form() {
+function moderation_comments_form()
+{
   return _moderation_form('comments');
 }
 
@@ -586,7 +604,8 @@ function moderation_comments_form() {
  *
  * @return array
  */
-function moderation_users_form() {
+function moderation_users_form()
+{
   return _moderation_form('users');
 }
 
@@ -599,7 +618,8 @@ function moderation_users_form() {
  *
  * @return array
  */
-function moderation_comment_view_form($form, $cid) {
+function moderation_comment_view_form($form, $cid)
+{
   $form = array();
 
   $form['content_id'] = array(
@@ -623,10 +643,10 @@ function moderation_comment_view_form($form, $cid) {
 //    '#disabled' => true,
 //  );
   $form['comment'] = array(
-    '#type'     => 'markup',
-    '#value'    => $comment->comment,
-    '#prefix'   => sprintf('<b>%s</b><div class="dark-grey-box" style="margin:10px 0; width: 90%%">', t('Comment')),
-    '#suffix'   => '</div>',
+    '#type' => 'markup',
+    '#value' => $comment->comment,
+    '#prefix' => sprintf('<b>%s</b><div class="dark-grey-box" style="margin:10px 0; width: 90%%">', t('Comment')),
+    '#suffix' => '</div>',
   );
 
   if (module_exists('comment_support')) {
@@ -641,31 +661,31 @@ function moderation_comment_view_form($form, $cid) {
 //      '#disabled'       => true,
 //    );
     $form['support'] = array(
-      '#type'     => 'markup',
-      '#value'    => sprintf('<b>%s</b>: %s<br>', t('Supporting'), $comment->support ? t('yes') : t('no')),
-      '#prefix'   => '<div style="margin: 10px 0">',
-      '#suffix'   => '</div>',
+      '#type' => 'markup',
+      '#value' => sprintf('<b>%s</b>: %s<br>', t('Supporting'), $comment->support ? t('yes') : t('no')),
+      '#prefix' => '<div style="margin: 10px 0">',
+      '#suffix' => '</div>',
     );
   }
 
   // flags
   $form['flags'] = array(
-    '#type'         => 'markup',
-    '#value'        => theme('moderation_flags', $form['content_id']['#value'], $form['content_type']['#value']),
-    '#suffix'       => '<div style="margin: 10px 0">',
-    '#prefix'       => '</div>',
+    '#type' => 'markup',
+    '#value' => theme('moderation_flags', $form['content_id']['#value'], $form['content_type']['#value']),
+    '#suffix' => '<div style="margin: 10px 0">',
+    '#prefix' => '</div>',
   );
 
   $form['save'] = array(
-    '#type'         => 'submit',
-    '#value'        => t('Approve'),
-    '#submit'       => array('moderation_comment_view_form_save'),
+    '#type' => 'submit',
+    '#value' => t('Approve'),
+    '#submit' => array('moderation_comment_view_form_save'),
   );
   if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
     $form['delete'] = array(
-      '#type'         => 'submit',
-      '#value'        => t('Deletion request'),
-      '#submit'       => array('moderation_comment_view_form_delete'),
+      '#type' => 'submit',
+      '#value' => t('Deletion request'),
+      '#submit' => array('moderation_comment_view_form_delete'),
     );
   }
 
@@ -677,7 +697,8 @@ function moderation_comment_view_form($form, $cid) {
  *
  * @return array
  */
-function moderation_comment_view_form_save(&$form, &$form_state) {
+function moderation_comment_view_form_save(&$form, &$form_state)
+{
   $cid = $form['content_id']['#value'];
 
   // approved
@@ -692,7 +713,8 @@ function moderation_comment_view_form_save(&$form, &$form_state) {
  *
  * @return array
  */
-function moderation_argument_view_form($form, $nid) {
+function moderation_argument_view_form($form, $nid)
+{
   $form = array();
 
   $form['content_id'] = array(
@@ -715,10 +737,10 @@ function moderation_argument_view_form($form, $nid) {
 //    '#value' => $node->title,
 //  );
   $form['title'] = array(
-    '#type'     => 'markup',
-    '#value'    => $node->title,
-    '#prefix'   => sprintf('<b>%s</b><div class="dark-grey-box" style="margin:10px 0; width: 90%%">', t('Argument')),
-    '#suffix'   => '</div>',
+    '#type' => 'markup',
+    '#value' => $node->title,
+    '#prefix' => sprintf('<b>%s</b><div class="dark-grey-box" style="margin:10px 0; width: 90%%">', t('Argument')),
+    '#suffix' => '</div>',
   );
 
 //  $form['body'] = array(
@@ -728,23 +750,23 @@ function moderation_argument_view_form($form, $nid) {
 //  );
   if ($node->field_argument_type[0]['value'] == TYPE_DEBATE) {
     $form['argument_options'] = array(
-      '#type'     => 'markup',
-      '#value'    => theme('argument_options', $node->argument_options),
-      '#prefix'   => sprintf('<b>%s</b><div style="margin:10px 0;" id="debate_list_area"><div class="arg">', t('Argument options')),
-      '#suffix'   => '</div></div>',
+      '#type' => 'markup',
+      '#value' => theme('argument_options', $node->argument_options),
+      '#prefix' => sprintf('<b>%s</b><div style="margin:10px 0;" id="debate_list_area"><div class="arg">', t('Argument options')),
+      '#suffix' => '</div></div>',
     );
   }
 
   $form['save'] = array(
-    '#type'         => 'submit',
-    '#value'        => t('Save'),
-    '#submit'       => array('moderation_argument_view_form_save'),
+    '#type' => 'submit',
+    '#value' => t('Save'),
+    '#submit' => array('moderation_argument_view_form_save'),
   );
   if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
     $form['delete'] = array(
-      '#type'         => 'submit',
-      '#value'        => t('Deletion request'),
-      '#submit'       => array('moderation_argument_view_form_delete'),
+      '#type' => 'submit',
+      '#value' => t('Deletion request'),
+      '#submit' => array('moderation_argument_view_form_delete'),
     );
   }
 
@@ -755,7 +777,8 @@ function moderation_argument_view_form($form, $nid) {
  * @param $form
  * @param $form_state
  */
-function moderation_argument_view_form_save(&$form, &$form_state) {
+function moderation_argument_view_form_save(&$form, &$form_state)
+{
   $values = $form_state["clicked_button"]['#post'];
   $nid = $values['content_id'];
 
@@ -771,7 +794,8 @@ function moderation_argument_view_form_save(&$form, &$form_state) {
  *
  * @return array
  */
-function moderation_issue_view_form($form_state, $nid) {
+function moderation_issue_view_form($form_state, $nid)
+{
   $form = array();
 
   $form['content_id'] = array(
@@ -790,17 +814,17 @@ function moderation_issue_view_form($form_state, $nid) {
 
   $form['title'] = array(
     '#type' => 'textfield',
-    '#title'    => t('Title'),
-    '#value'    => $node->title,
-    '#prefix'   => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
-    '#suffix'   => '</div>',
+    '#title' => t('Title'),
+    '#value' => $node->title,
+    '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
+    '#suffix' => '</div>',
   );
   $form['body'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
     '#value' => $node->body,
-    '#prefix'   => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
-    '#suffix'   => '</div>',
+    '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
+    '#suffix' => '</div>',
   );
 
   $form['choices'] = array(
@@ -834,15 +858,15 @@ function moderation_issue_view_form($form_state, $nid) {
   $tft_codes = empty($node->taxonomy) ? array() : array_keys($node->taxonomy);
   moderation_issue_view_form_taxonomy($form, $tft_codes);
 
-  $tfl_codes = array(0=>array(),1=>array(),2=>array());
+  $tfl_codes = array(0 => array(), 1 => array(), 2 => array());
   if (!empty($node->locations)) {
     foreach ($node->locations as $location) {
       if (!empty($location['country'])) {
         $tfl_codes[0][] = $location['country'];
         if (!empty($location['province'])) {
-          $tfl_codes[1][] = $location['country'].'_'.$location['province'];
+          $tfl_codes[1][] = $location['country'] . '_' . $location['province'];
           if (!empty($location['city'])) {
-            $tfl_codes[2][] = $location['country'].'_'.$location['province'].'_'.$location['city'];
+            $tfl_codes[2][] = $location['country'] . '_' . $location['province'] . '_' . $location['city'];
           }
         }
       }
@@ -851,15 +875,15 @@ function moderation_issue_view_form($form_state, $nid) {
   moderation_issue_view_form_location($form, $tfl_codes);
 
   $form['save'] = array(
-    '#type'         => 'submit',
-    '#value'        => t('Save and Approve'),
-    '#submit'       => array('moderation_issue_view_form_save'),
+    '#type' => 'submit',
+    '#value' => t('Save and Approve'),
+    '#submit' => array('moderation_issue_view_form_save'),
   );
   if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
     $form['delete'] = array(
-      '#type'         => 'submit',
-      '#value'        => t('Deletion request'),
-      '#submit'       => array('moderation_issue_view_form_delete'),
+      '#type' => 'submit',
+      '#value' => t('Deletion request'),
+      '#submit' => array('moderation_issue_view_form_delete'),
     );
   }
 
@@ -870,14 +894,15 @@ function moderation_issue_view_form($form_state, $nid) {
  * @param $form
  * @param array $tft_codes
  */
-function moderation_issue_view_form_taxonomy(&$form, $tft_codes = false) {
+function moderation_issue_view_form_taxonomy(&$form, $tft_codes = false)
+{
   // taxonomy container
   $form['taxonomy'] = array(
-    '#type'     => 'fieldset',
-    '#title'    => t('Categories'),
-    '#prefix'   => '<div id="taxonomy-wrapper">',
-    '#suffix'   => '</div>',
-    '#tree'     => TRUE,
+    '#type' => 'fieldset',
+    '#title' => t('Categories'),
+    '#prefix' => '<div id="taxonomy-wrapper">',
+    '#suffix' => '</div>',
+    '#tree' => TRUE,
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
@@ -921,17 +946,17 @@ function moderation_issue_view_form_taxonomy(&$form, $tft_codes = false) {
     }
 
     $form['taxonomy']['taxonomy-' . $i] = array(
-      '#type'           => 'select',
-      '#multiple'       => TRUE,
-      '#options'        => $options,
-      '#default_value'  => $checked,
-      '#size'           => '4',
-      '#attributes'     => array(),//'class' => 'solr-block-form'),
-      '#ahah'           => array(
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#options' => $options,
+      '#default_value' => $checked,
+      '#size' => '4',
+      '#attributes' => array(), //'class' => 'solr-block-form'),
+      '#ahah' => array(
         'wrapper' => 'taxonomy-wrapper',
-        'path'    => 'moderation/ahah/taxonomy/',
-        'effect'  => 'fade',
-        'event'   => 'change',
+        'path' => 'moderation/ahah/taxonomy/',
+        'effect' => 'fade',
+        'event' => 'change',
       ),
     );
     if (isset($options[-1])) {
@@ -947,14 +972,15 @@ function moderation_issue_view_form_taxonomy(&$form, $tft_codes = false) {
  * @param $form
  * @param array $tft_codes
  */
-function moderation_issue_view_form_location(&$form, $tfl_codes = false) {
+function moderation_issue_view_form_location(&$form, $tfl_codes = false)
+{
   // location container
   $form['location'] = array(
-    '#type'     => 'fieldset',
-    '#title'    => t('Location'),
-    '#prefix'   => '<div id="location-wrapper">',
-    '#suffix'   => '</div>',
-    '#tree'     => TRUE,
+    '#type' => 'fieldset',
+    '#title' => t('Location'),
+    '#prefix' => '<div id="location-wrapper">',
+    '#suffix' => '</div>',
+    '#tree' => TRUE,
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
@@ -975,17 +1001,17 @@ function moderation_issue_view_form_location(&$form, $tfl_codes = false) {
     $checked = $tfl['checked'][$i];
 
     $form['location']['location-' . $i] = array(
-      '#type'       => 'select',
-      '#multiple'   => TRUE,
-      '#options'    => $options,
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#options' => $options,
       '#default_value' => $checked,
-      '#size'       => '4',
-      '#attributes' => array(),//'class' => 'solr-block-form'),
+      '#size' => '4',
+      '#attributes' => array(), //'class' => 'solr-block-form'),
       '#ahah' => array(
         'wrapper' => 'location-wrapper',
-        'path'    => 'moderation/ahah/location',
-        'effect'  => 'fade',
-        'event'   => 'change',
+        'path' => 'moderation/ahah/location',
+        'effect' => 'fade',
+        'event' => 'change',
       ),
     );
 
@@ -1017,7 +1043,8 @@ function moderation_issue_view_form_location(&$form, $tfl_codes = false) {
  *
  * @param $type
  */
-function moderation_ahah($type, $page = 0) {
+function moderation_ahah($type, $page = 0)
+{
   # build new form
   $form_state = array('submitted' => FALSE);
   $form_build_id = $_POST['form_build_id'];
@@ -1029,10 +1056,10 @@ function moderation_ahah($type, $page = 0) {
   switch ($type) {
     case 'taxonomy' :
       moderation_issue_view_form_taxonomy($form, false, true);
-    break;
+      break;
     case 'location' :
       moderation_issue_view_form_location($form, false, true);
-    break;
+      break;
     case 'choices' :
       $delta = count($_POST['choices']);
 
@@ -1058,12 +1085,12 @@ function moderation_ahah($type, $page = 0) {
 
   # rebuild new form
   $form += array(
-    '#post'       => $_POST,
+    '#post' => $_POST,
     '#programmed' => FALSE,
   );
-  $args     = $form['#parameters'];
-  $form_id  = array_shift($args);
-  $form     = form_builder($form_id, $form, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  $form = form_builder($form_id, $form, $form_state);
 
   # render the form parts
   switch ($type) {
@@ -1073,7 +1100,7 @@ function moderation_ahah($type, $page = 0) {
       unset($form_element['#prefix']);
       unset($form_element['#suffix']);
       $output = drupal_render($form_element);
-    break;
+      break;
     case 'choices' :
       $choice_form = $form['choices'];
       $output = drupal_render($choice_form);
@@ -1090,7 +1117,8 @@ function moderation_ahah($type, $page = 0) {
  * @param int $nid
  * @return array
  */
-function _moderation_ahah_choice($delta, $choice = false, $nid = 0) {
+function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
+{
   $form = array(
     '#tree' => TRUE,
   );
@@ -1123,13 +1151,13 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0) {
     );
     $charact = poll_charact_values_get($nid, $choice['chorder']);
     foreach ($charact as $cid => $char) {
-      $form['charact']['char'.$cid] = array(
+      $form['charact']['char' . $cid] = array(
         '#type' => 'select',
         '#title' => t($char['name']),
-        '#options' => array(1=>1,2=>2,3=>3,4=>4,5=>5),
+        '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
         '#value' => $char['value'],
         '#size' => 5,
-        '#parents' => array('choices', $delta, 'charact', 'char'.$cid),
+        '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
       );
     }
   }
@@ -1142,7 +1170,8 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0) {
  * @param $form
  * @param $form_state
  */
-function moderation_issue_view_form_save(&$form, &$form_state) {
+function moderation_issue_view_form_save(&$form, &$form_state)
+{
   $values = $form_state["clicked_button"]['#post'];
   $nid = $values['content_id'];
   $node = node_load($nid);
@@ -1177,9 +1206,9 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
 
   # taxonomy
   $node->taxonomy = array();
-  for ($i=0; $i>=0; $i++) {
-    if (!empty($values['taxonomy-'.$i])) {
-      foreach ($values['taxonomy-'.$i] as $tid) {
+  for ($i = 0; $i >= 0; $i++) {
+    if (!empty($values['taxonomy-' . $i])) {
+      foreach ($values['taxonomy-' . $i] as $tid) {
         $node->taxonomy[] = taxonomy_get_term($tid);
       }
     } else break;
@@ -1195,19 +1224,19 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
     $provinces = false;
     // through country's provinces
     foreach (location_get_provinces($country) as $pcode => $pname) {
-      if (in_array($location['name'].'_'.$pcode, $values['location']['location-1'])) {
+      if (in_array($location['name'] . '_' . $pcode, $values['location']['location-1'])) {
         $provinces = true;
         $location2 = $location;
         $location2['province'] = $pcode;
-        $location2['name'] .= '_'.$pcode;
+        $location2['name'] .= '_' . $pcode;
         $cities = false;
         // through province's cities
         foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
-          if (in_array($location2['name'].'_'.$pcode, $values['location']['location-2'])) {
+          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
             $cities = true;
             $location3 = $location2;
             $location3['city'] = $ccode;
-            $location3['name'] .= '_'.$ccode;
+            $location3['name'] .= '_' . $ccode;
             $node->locations[] = $location3;
           }
         }
@@ -1229,12 +1258,12 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
     if (isset($changed['body'])) $node->body = $changed['body'];
 
     foreach ($changed['choices'] as $chorder => $case) {
-      $choice = &$node->choice[$chorder];
+      $choice = & $node->choice[$chorder];
       if ($case['chtext_short'] != '') {
         poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
       }
       if (isset($case['chtext'])) {
-        if ($case['chtext'] != '')  {
+        if ($case['chtext'] != '') {
           $choice['chtext'] = $case['chtext'];
         } else {
           moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
@@ -1257,7 +1286,8 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function moderation_issue_view_form_delete(&$form, &$form_state) {
+function moderation_issue_view_form_delete(&$form, &$form_state)
+{
   moderation_delete_request($form);
 }
 
@@ -1265,7 +1295,8 @@ function moderation_issue_view_form_delete(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function moderation_argument_view_form_delete(&$form, &$form_state) {
+function moderation_argument_view_form_delete(&$form, &$form_state)
+{
   moderation_delete_request($form);
 }
 
@@ -1273,14 +1304,16 @@ function moderation_argument_view_form_delete(&$form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function moderation_comment_view_form_delete(&$form, &$form_state) {
+function moderation_comment_view_form_delete(&$form, &$form_state)
+{
   moderation_delete_request($form);
 }
 
 /**
  * @param $form
  */
-function moderation_delete_request($form) {
+function moderation_delete_request($form)
+{
   moderation_history('set', $form['content_id']['#value'], $form['content_type']['#value'], 'delete');
   $delete_requests = count(moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete'));
 
@@ -1291,13 +1324,13 @@ function moderation_delete_request($form) {
     switch ($form['content_type']['#value']) {
       case 'comment' :
         db_query("UPDATE comment SET status = '%d' WHERE cid = '%d'", COMMENT_NOT_PUBLISHED, $form['content_id']['#value']);
-      break;
+        break;
       case 'node' :
         db_query("UPDATE node SET status = '%d' WHERE nid = '%d'", 1, $form['content_id']['#value']);
-      break;
+        break;
     }
     drupal_set_message(t('Content deletion approved.'));
   } else {
-    drupal_set_message(t('Content deletion not approved.') . ' '.($required-$delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
+    drupal_set_message(t('Content deletion not approved.') . ' ' . ($required - $delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
   }
 }

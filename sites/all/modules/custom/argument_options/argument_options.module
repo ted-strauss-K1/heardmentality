@@ -64,12 +64,13 @@ function argument_options_load(&$node)
   }
 }
 
-function argument_options_theme() {
+function argument_options_theme()
+{
   $theme = array();
 
   $theme['argument_options'] = array(
-    'arguments'   => array('options' => array()),
-    'template'    => 'argument-options',
+    'arguments' => array('options' => array()),
+    'template' => 'argument-options',
   );
 
   return $theme;

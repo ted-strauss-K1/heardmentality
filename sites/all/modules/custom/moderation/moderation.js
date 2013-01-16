@@ -11,15 +11,14 @@ $(document).ready(function () {
     }
   });
 
-  $('a.permission').live('click', function(e) {
+  $('a.permission').live('click', function (e) {
     e.preventDefault();
     var el = $(this);
     $.ajax({
-      type      : 'POST',
-      dataType  : 'json',
-      url       : '/' + el.attr('name'),
-      success   : function(response) {
-
+      type:'POST',
+      dataType:'json',
+      url:'/' + el.attr('name'),
+      success:function (response) {
 
 
         el.toggleClass('remove');

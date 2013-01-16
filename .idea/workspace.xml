@@ -20,104 +20,91 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="moderation.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.module">
+      <file leaf-file-name="badges_profile.info" pinned="true" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_profile/badges_profile.info">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="58" selection-start="521" selection-end="521" vertical-scroll-proportion="-3.2692308">
+            <state line="5" column="21" selection-start="0" selection-end="157" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="moderation.pages.inc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.pages.inc">
+      <file leaf-file-name="badges_profile.module" pinned="true" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_profile/badges_profile.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="836" column="24" selection-start="22637" selection-end="22637" vertical-scroll-proportion="0.84313726">
-              <folding>
-                <marker date="1358247690231" expanded="true" signature="16765:16791" placeholder="..." />
-                <marker date="1358247690231" expanded="true" signature="17404:17418" placeholder="..." />
-                <marker date="1358247690231" expanded="true" signature="17686:17700" placeholder="..." />
-                <marker date="1358247690231" expanded="true" signature="19286:19312" placeholder="..." />
-                <marker date="1358247690231" expanded="true" signature="19755:19769" placeholder="..." />
-                <marker date="1358247690231" expanded="true" signature="21331:21357" placeholder="..." />
-                <marker date="1358247690231" expanded="true" signature="21574:21600" placeholder="..." />
-                <element signature="n#moderation_issue_view_form_taxonomy#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="moderation-history.tpl.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation-history.tpl.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="8" selection-start="363" selection-end="363" vertical-scroll-proportion="0.71629214">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="moderation.install" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.install">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="26" column="47" selection-start="546" selection-end="546" vertical-scroll-proportion="2.3076923">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="moderation.info" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.info">
+      <file leaf-file-name="badges_yn.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_yn/badges_yn.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="26" selection-start="262" selection-end="262" vertical-scroll-proportion="0.0">
+            <state line="141" column="76" selection-start="5246" selection-end="5246" vertical-scroll-proportion="-6.5384617">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="location_cities.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/location_cities/location_cities.module">
+      <file leaf-file-name="badges.module" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="1" selection-start="2915" selection-end="2915" vertical-scroll-proportion="-10.538462">
+            <state line="322" column="0" selection-start="6269" selection-end="6269" vertical-scroll-proportion="0.5025">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tfl.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/tree_filter/tfl.module">
+      <file leaf-file-name="log.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/log/log.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="9" selection-start="113" selection-end="113" vertical-scroll-proportion="-4.5384617">
+            <state line="19" column="43" selection-start="298" selection-end="298" vertical-scroll-proportion="-6.5384617">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="location.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/location/location.module">
+      <file leaf-file-name="badges.install" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.install">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1349" column="35" selection-start="47390" selection-end="47416" vertical-scroll-proportion="9.153846">
-              <folding>
-                <marker date="1358243238942" expanded="true" signature="4265:4753" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tester.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/development/tester/tester.module">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="0" selection-start="506" selection-end="506" vertical-scroll-proportion="-7.8076925">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="15.692307">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.tpl.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/header.tpl.php">
+      <file leaf-file-name="system.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/system/system.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="85" selection-start="1322" selection-end="1322" vertical-scroll-proportion="-20.923077">
+            <state line="1332" column="30" selection-start="57259" selection-end="57259" vertical-scroll-proportion="62.53846">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin_menu.inc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/admin_menu/admin_menu.inc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="533" column="34" selection-start="19649" selection-end="19649" vertical-scroll-proportion="18.076923">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="badges_issue.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_issue/badges_issue.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="60" column="3" selection-start="1805" selection-end="1805" vertical-scroll-proportion="2.3076923">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="badges.implementations.inc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.implementations.inc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="348" column="346" selection-start="8263" selection-end="8263" vertical-scroll-proportion="-4.3333335">
               <folding />
             </state>
           </provider>
@@ -133,22 +120,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/argument_options/argument_options.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/templates/argument-item.tpl.php" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/poll_ext/poll_ext.module" />
-        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue_search/issue_search.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/contrib/ahah_helper/ahah_helper.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/contrib/location/location_node.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/contrib/location/location.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue_search/issue_search.info" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.info" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/location_cities/location_cities.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.pages.inc" />
-        <option value="$PROJECT_DIR$/sites/all/modules/development/tester/tester.module" />
-        <option value="$PROJECT_DIR$/sites/all/themes/heardmentalitylight/header.tpl.php" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.module" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation-history.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/badges.rules.inc" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_yn/badges_yn.info" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_statistics/badges_statistics.info" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_statistics/badges_statistics.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_poll_suggest/badges_poll_suggest.info" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_poll_suggest/badges_poll_suggest.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_visits/badges_visits.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_flag/badges_flag.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/badges.implementations.inc" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_comment/badges_comment.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_poll/badges_poll.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_issue/badges_issue.info" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_issue/badges_issue.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_yn/badges_yn.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/log/log.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/badges.module" />
       </list>
     </option>
   </component>
@@ -257,130 +244,6 @@
               <option name="myItemId" value="all" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm-clean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="all" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentalitylight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm-clean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="all" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentalitylight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stylesheets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm-clean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="all" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentalitylight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm-clean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="all" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heardmentalitylight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tipsy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -463,34 +326,8 @@
               <option name="myItemId" value="custom" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hm-clean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hm2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="all" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="custom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tree_filter" />
+              <option name="myItemId" value="yn" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -517,10 +354,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="custom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="moderation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -550,7 +383,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="location_cities" />
+              <option name="myItemId" value="poll_suggest" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -580,7 +413,97 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="issue_search" />
+              <option name="myItemId" value="log" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="issue" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm-clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hm2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="badges" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -613,7 +536,7 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="preferences.fileTypes" />
+    <property name="options.lastSelected" value="preferences.keymap" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../heardmentality" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -627,11 +550,11 @@
       <recent name="D:\Dropbox\dev\vhosts\hm-clean\sites\all\themes\heardmentalitylight" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\badges\modules\badges_comment" />
+      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\badges\modules\badges_profile" />
       <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\argument_options" />
       <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\issue\charts" />
       <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\issue" />
-      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\modules\custom\issue\includes" />
-      <recent name="D:\Dropbox\dev\vhosts\hm2\sites\all\themes\heardmentalitylight\javascripts\jquery-plugins" />
     </key>
   </component>
   <component name="RunManager">
@@ -776,128 +699,115 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/ahah_helper/ahah_helper.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="2" selection-start="5936" selection-end="6023" vertical-scroll-proportion="-17.923077">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/includes/form.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="406" column="9" selection-start="17084" selection-end="17084" vertical-scroll-proportion="0.5838509">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/location/location_node.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="11" selection-start="1362" selection-end="1362" vertical-scroll-proportion="-6.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/tree_filter/tft.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="17" selection-start="149" selection-end="157" vertical-scroll-proportion="0.045212764">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/location/location.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1349" column="35" selection-start="47390" selection-end="47416" vertical-scroll-proportion="9.153846">
-          <folding>
-            <marker date="1358243238942" expanded="true" signature="4265:4753" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.install">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/argument.inc">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_yn/badges_yn.info">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_poll/badges_poll.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="3" selection-start="2073" selection-end="2073" vertical-scroll-proportion="2.3076923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_comment/badges_comment.info">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="153" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/issue.info">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="7" column="19" selection-start="221" selection-end="221" vertical-scroll-proportion="0.2793427">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue_search/issue_search.info">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_comment/badges_comment.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="246" selection-end="280" vertical-scroll-proportion="0.40052357">
+        <state line="40" column="1" selection-start="0" selection-end="2736" vertical-scroll-proportion="2.3076923">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.info">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_issue/badges_issue.info">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="26" selection-start="262" selection-end="262" vertical-scroll-proportion="0.0">
+        <state line="5" column="23" selection-start="168" selection-end="168" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/location_cities/location_cities.module">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_issue/badges_issue.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="1" selection-start="2915" selection-end="2915" vertical-scroll-proportion="-10.538462">
+        <state line="60" column="3" selection-start="1805" selection-end="1805" vertical-scroll-proportion="2.3076923">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/tree_filter/tfl.module">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/modules/badges_yn/badges_yn.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="9" selection-start="113" selection-end="113" vertical-scroll-proportion="-4.5384617">
+        <state line="141" column="76" selection-start="5246" selection-end="5246" vertical-scroll-proportion="-6.5384617">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.pages.inc">
+    <entry file="file://$PROJECT_DIR$/modules/system/system.module">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="836" column="24" selection-start="22637" selection-end="22637" vertical-scroll-proportion="0.84313726">
-          <folding>
-            <marker date="1358247690231" expanded="true" signature="16765:16791" placeholder="..." />
-            <marker date="1358247690231" expanded="true" signature="17404:17418" placeholder="..." />
-            <marker date="1358247690231" expanded="true" signature="17686:17700" placeholder="..." />
-            <marker date="1358247690231" expanded="true" signature="19286:19312" placeholder="..." />
-            <marker date="1358247690231" expanded="true" signature="19755:19769" placeholder="..." />
-            <marker date="1358247690231" expanded="true" signature="21331:21357" placeholder="..." />
-            <marker date="1358247690231" expanded="true" signature="21574:21600" placeholder="..." />
-            <element signature="n#moderation_issue_view_form_taxonomy#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/development/tester/tester.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="506" selection-end="506" vertical-scroll-proportion="-7.8076925">
+        <state line="1332" column="30" selection-start="57259" selection-end="57259" vertical-scroll-proportion="62.53846">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/header.tpl.php">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/contrib/admin_menu/admin_menu.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="85" selection-start="1322" selection-end="1322" vertical-scroll-proportion="-20.923077">
+        <state line="533" column="34" selection-start="19649" selection-end="19649" vertical-scroll-proportion="18.076923">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.module">
+    <entry file="file://$PROJECT_DIR$/includes/common.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="58" selection-start="521" selection-end="521" vertical-scroll-proportion="-3.2692308">
+        <state line="3815" column="63" selection-start="131962" selection-end="131995" vertical-scroll-proportion="0.4025">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation-history.tpl.php">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.implementations.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="8" selection-start="363" selection-end="363" vertical-scroll-proportion="0.71629214">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="348" column="346" selection-start="8263" selection-end="8263" vertical-scroll-proportion="-4.3333335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.install">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="15.692307">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/log/log.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="43" selection-start="298" selection-end="298" vertical-scroll-proportion="-6.5384617">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="322" column="0" selection-start="6269" selection-end="6269" vertical-scroll-proportion="0.5025">
+          <folding />
         </state>
       </provider>
     </entry>

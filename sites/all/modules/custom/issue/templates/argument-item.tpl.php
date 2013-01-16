@@ -67,7 +67,7 @@ $rtype = $node->field_rtype[0]['value'];
 
         <!-- User Debate Options -->
         <?php if ($atype == TYPE_DEBATE) : ?>
-          <?php print theme('argument_options', $node->argument_options); ?>
+        <?php print theme('argument_options', $node->argument_options); ?>
         <?php endif; ?>
         <!-- User Debate Options: END -->
 

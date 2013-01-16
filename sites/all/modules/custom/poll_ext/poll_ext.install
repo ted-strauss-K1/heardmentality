@@ -55,8 +55,6 @@ function poll_ext_install()
   ");
 
 
-
-
 }
 
 /**

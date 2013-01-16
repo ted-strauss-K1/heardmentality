@@ -114,7 +114,7 @@ function issue_charts_preprocess(&$vars)
   if (!$voted) {
     $vars['charts'] = '<span class="no_show">' . t('Vote now to show results.') . '</span>';
   } elseif ($count < 10) {
-      $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
+    $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
   } else {
     $vars['charts'] = theme('issue_charts_inner', $node);
   }
@@ -453,7 +453,6 @@ function theme_issue_charts_quickfacts($node)
 }
 
 
-
 /**
  * Graphs' page Legend
  *
@@ -648,7 +647,8 @@ function theme_issue_charts_gmap($node)
  * @param $node
  * @return string
  */
-function theme_issue_charts_strength($node) {
+function theme_issue_charts_strength($node)
+{
 # Prepare the data for the debate analysis
   $data = array();
   $choices = ($node->choice) ? $node->choice : array();

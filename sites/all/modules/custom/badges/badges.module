@@ -5,7 +5,8 @@
  *
  * @return array
  */
-function badges_types($type = false) {
+function badges_types($type = false)
+{
   static $types = null;
 
   if (is_null($types)) {
@@ -24,11 +25,12 @@ function badges_types($type = false) {
  *
  * @return array
  */
-function badges_badges_types() {
+function badges_badges_types()
+{
   return array(
-    'bronze'  => t('Bronze'),
-    'silver'  => t('Silver'),
-    'gold'    => t('Gold'),
+    'bronze' => t('Bronze'),
+    'silver' => t('Silver'),
+    'gold' => t('Gold'),
   );
 }
 
@@ -37,7 +39,8 @@ function badges_badges_types() {
  *
  * @return array
  */
-function badges_list($badge = false) {
+function badges_list($badge = false)
+{
   static $badges = null;
 
   if (is_null($badges)) {
@@ -49,10 +52,11 @@ function badges_list($badge = false) {
 
     foreach (module_invoke_all('badges') as $name => $info) {
       $badges[$name] = $info + array(
-        'function'          => '_badges_check',
+        'function' => '_badges_check',
         'function multiple' => '_badges_check_multiple',
-        'count'             => 1,
-        'info'              => '',
+        'count' => 1,
+        'info' => '',
+        'arguments' => array(),
       );
       // name
       if (!isset($info['name']) || empty($info['name'])) {
@@ -80,7 +84,8 @@ function badges_list($badge = false) {
  * @param int $uid
  * @return bool
  */
-function _badges_check($uid = 0) {
+function _badges_check($uid = 0)
+{
   return false;
 }
 
@@ -90,7 +95,8 @@ function _badges_check($uid = 0) {
  * @param array $uids
  * @return array
  */
-function _badges_check_multiple($uids = array()) {
+function _badges_check_multiple($uids = array())
+{
   $output = array();
 
   foreach ($uids as $uid) {
@@ -106,7 +112,8 @@ function _badges_check_multiple($uids = array()) {
  * @param $uid
  * @param $badge
  */
-function badges_add($uid, $badge) {
+function badges_add($uid, $badge)
+{
   db_query("INSERT INTO {badges} SET uid = '%d', badge = '%s', date_added = '%s'", $uid, $badge, date("y-m-d H:i:s"));
   if (module_exists('rules')) {
     rules_invoke_event('badges_grant', user_load($uid), $badge);
@@ -116,7 +123,8 @@ function badges_add($uid, $badge) {
 /**
  * @param array $p
  */
-function badges_del($p = array()) {
+function badges_del($p = array())
+{
   if (empty($p)) {
     return;
   }
@@ -125,7 +133,7 @@ function badges_del($p = array()) {
 
   foreach ($p as $key => $val) {
     if (in_array($key, array('id', 'uid', 'badge'))) {
-      $query .= " AND ".$key." = '%s'";
+      $query .= " AND " . $key . " = '%s'";
       $params[] = $val;
     }
   }
@@ -138,7 +146,8 @@ function badges_del($p = array()) {
  *
  * @param $badge
  */
-function badges_count($badge, $uid = false) {
+function badges_count($badge, $uid = false)
+{
   static $counts = array();
 
   if (!isset($counts[$badge])) {
@@ -162,7 +171,8 @@ function badges_count($badge, $uid = false) {
  * @param $badge
  * @return bool
  */
-function badges_grant($item, $badge) {
+function badges_grant($item, $badge)
+{
   // get badge
   $badge_data = badges_list($badge);
   if ($badge_data === false) {
@@ -171,7 +181,8 @@ function badges_grant($item, $badge) {
 
   if (is_array($item)) {
     $function = $badge_data['function multiple'];
-    $results = $function($item);
+    $arguments = $badge_data['arguments'];
+    $results = $function($item, $arguments);
     foreach ($results as $uid => $result) {
       if ($result && (($badge_data['count'] === true) || ($badge_data['count'] > badges_count($badge, $uid)))) {
         badges_add($uid, $badge);
@@ -179,28 +190,14 @@ function badges_grant($item, $badge) {
     }
   } else {
     $function = $badge_data['function'];
-    $result = $function($item);
+    $arguments = $badge_data['arguments'];
+    $result = $function($item, $arguments);
     $uid = $item;
     if ($result && (($badge_data['count'] === true) || ($badge_data['count'] > badges_count($badge, $uid)))) {
       badges_add($uid, $badge);
     }
   }
 }
-
-
- // todo test
-function badges_badges() {
-  return array(
-//    'coolbadge' => array(
-//      'function' => 'coolbadge_check',
-//    ),
-  );
-}
-
-function coolbadge_check($uid) {
-  return true;
-}
-
 
 /**
  * Define a permission name
@@ -212,7 +209,8 @@ define('BADGES_ADMIN', 'Administer Badges');
  *
  * @return array
  */
-function badges_perm() {
+function badges_perm()
+{
   return array(BADGES_ADMIN);
 }
 
@@ -221,26 +219,56 @@ function badges_perm() {
  *
  * @return array
  */
-function badges_menu() {
+function badges_menu()
+{
   $menu = array();
 
   $menu['badges'] = array(
-    'title'            => t('Badges'),
-    'page callback'    => 'theme',
-    'page arguments'   => array('badges_list'),
-    'access callback'  => true,
+    'title' => t('Badges'),
+    'page callback' => 'theme',
+    'page arguments' => array('badges_list'),
+    'access callback' => true,
+  );
+  $menu['admin/settings/badges'] = array(
+    'title'           => t('Badges'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('badges_form'),
+    'access arguments'=> array(BADGES_ADMIN),
   );
 
   return $menu;
 }
 
 /**
+ * @return array
+ */
+function badges_form() {
+  return array(
+    'submit' => array(
+      '#type'     => 'submit',
+      '#value'    => t('Rebuild Badges List'),
+    ),
+  );
+}
+
+/**
+ *
+ */
+function badges_form_submit() {
+  db_query("DELETE FROM {badges} WHERE uid <= 0");
+  foreach (badges_list() as $name => $info) {
+    badges_add(-1, $name);
+  }
+
+}
+/**
  * Implementation of hook_preprocess_page()
  *
  * @param $vars
  */
-function badges_preprocess_page(&$vars) {
-
+function badges_preprocess_page(&$vars)
+{
+  //
 }
 
 /**
@@ -248,7 +276,8 @@ function badges_preprocess_page(&$vars) {
  *
  * @return array
  */
-function badges_theme() {
+function badges_theme()
+{
   $theme = array();
 
   $theme['badges_list'] = array(
@@ -271,34 +300,36 @@ function badges_theme() {
  *
  * @return string
  */
-function theme_badges_list($sort = 0) {
+function theme_badges_list($sort = 2)
+{
   $output = '<div class="badges">';
 
   $query = "SELECT badge name, COUNT(*) count FROM {badges} GROUP BY badge ";
 
+//  $sort = 2;
   switch ($sort) {
     case 0:
       $query .= "ORDER BY COUNT(*) DESC";
-    break;
+      break;
     case 1:
       $query .= "ORDER BY COUNT(*) ASC";
-    break;
+      break;
     case 2:
     case 3:
       $keys = array_keys(badges_types());
+      $keys = array_flip($keys);
       $query .= 'ORDER BY (CASE badge ';
-      if ($sort == 2) {
-        krsort($keys);
-      }
-      $i=-1;
-      foreach ($keys as $key) {
+      $i = -1;
+
+      foreach (badges_list() as $name => $info) {
         $i++;
-        $query .= sprintf("WHEN '%s' THEN %d ", $key, $i);
+        $query .= sprintf("WHEN '%s' THEN %d ", $name, ($sort == 2 ? -1 : 1) * $keys[$info['type']]);
       }
-      $query .= 'ELSE '.$i.' END) ASC, COUNT(*) DESC';
-    break;
+      $query .= 'ELSE ' . $i . ' END) ASC, COUNT(*) DESC';
+      break;
   }
 
+  echo $query;
   $badges = badges_list();
   $result = db_query($query);
   while ($badge = db_fetch_object($result)) {
@@ -308,7 +339,7 @@ function theme_badges_list($sort = 0) {
     }
     $output .= sprintf('
       <div class="medal"><span class="badge-circle %s %s" id="medal1" title="%s Medal">&nbsp;</span>&nbsp;x&nbsp;%d&nbsp;&nbsp;%s <p>%s</p></div>',
-      $badge->name, $badge_item['type'], badges_types($badge_item['type']), $badge->count, $badge_item['name'], $badge_item['info']
+      $badge->name, $badge_item['type'], badges_types($badge_item['type']), $badge->count-1, $badge_item['name'], $badge_item['info']
     );
   }
   $output .= '</div>';
@@ -319,19 +350,11 @@ function theme_badges_list($sort = 0) {
 return;
 
 
-
-
-
-
-
-
-
-
-
 /*
  * Get user badges
  */
-function badges_get_userbadges($uid) {
+function badges_get_userbadges($uid)
+{
   static $values = array();
   if (!isset($values[$uid])) {
     $list = array(

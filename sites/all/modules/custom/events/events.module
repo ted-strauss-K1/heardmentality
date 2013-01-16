@@ -46,7 +46,7 @@ function events_del($p = array())
   }
   // time in hours
   if (isset($p['time'])) {
-    $query .= " AND date_added > ADDDATE('".date('Y-m-d H:i:s')."', INTERVAL -".addslashes($p['time'])." HOUR)";
+    $query .= " AND date_added > ADDDATE('" . date('Y-m-d H:i:s') . "', INTERVAL -" . addslashes($p['time']) . " HOUR)";
   }
   db_query($query, $params);
 }
@@ -68,7 +68,7 @@ function events_get($p = array(), $count = 30)
   foreach (array('uid', 'type', 'content_id', 'content_type') as $key) {
     if (isset($p[$key])) {
       if (is_array($p[$key])) {
-        $query .= " AND " . $key . " IN (".db_placeholders($p[$key], 'varchar').")";
+        $query .= " AND " . $key . " IN (" . db_placeholders($p[$key], 'varchar') . ")";
         $params = array_merge($params, $p[$key]);
       } else {
         $query .= " AND " . $key . " = '%s'";
@@ -247,10 +247,10 @@ function theme_events_item($item)
   $classes = array();
   $classes[] = 'activity-stream';
   $classes[] = 'msg';
-  $classes[] = 'msg-'.$item['type'];
-  $classes[] = 'uid-'.$item['uid'];
-  $classes[] = 'content_id-'.$item['content_id'];
-  $classes[] = 'content_type-'.$item['content_type'];
+  $classes[] = 'msg-' . $item['type'];
+  $classes[] = 'uid-' . $item['uid'];
+  $classes[] = 'content_id-' . $item['content_id'];
+  $classes[] = 'content_type-' . $item['content_type'];
 
   return isset($themes[$item['type']]) ?
     '<div id="msg-' . $item['id'] . '" class="' . implode(' ', $classes) . '">' .

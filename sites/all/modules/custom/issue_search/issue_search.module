@@ -25,16 +25,16 @@ function issue_search_menu()
   $menu = array();
 
   $menu['issues'] = array(
-    'page callback'   => 'drupal_get_form',
-    'title'           => t('Issues'),
-    'page arguments'  => array('issue_search_form'),
+    'page callback' => 'drupal_get_form',
+    'title' => t('Issues'),
+    'page arguments' => array('issue_search_form'),
     'access callback' => TRUE,
-    'type'            => MENU_CALLBACK,
+    'type' => MENU_CALLBACK,
   );
   $menu['issues/ajax'] = array(
-    'page callback'   => 'issue_search_ajax',
+    'page callback' => 'issue_search_ajax',
     'access callback' => TRUE,
-    'type'            => MENU_CALLBACK,
+    'type' => MENU_CALLBACK,
   );
 
 
@@ -70,10 +70,10 @@ function issue_search_form($form_state)
     '#suffix' => '</div>',
   );
   $form['#suffix'] =
-    '<div id="loading_wrapper" style="padding: 20px; width: 100%;text-align: center;">'.
-      theme('sub_loader', 'margin-top: 15px auto; display: block; ').
-    '</div>'.
-    '<div id="linkbox"></div>';
+    '<div id="loading_wrapper" style="padding: 20px; width: 100%;text-align: center;">' .
+      theme('sub_loader', 'margin-top: 15px auto; display: block; ') .
+      '</div>' .
+      '<div id="linkbox"></div>';
 
   return $form;
 }
@@ -106,7 +106,7 @@ function theme_issue_search_filter()
 {
   return '<div class="filter_search grey-box poll-box issues_search">' .
     drupal_get_form('issue_search_filter_form') .
-  '</div>';
+    '</div>';
 }
 
 function issue_search_filter_form($form_state)
@@ -290,16 +290,16 @@ function issue_search_filter_form($form_state)
 
 
   $form['filter_time'] = array(
-    '#type'   => 'hidden',
-    '#value'  => 0,
+    '#type' => 'hidden',
+    '#value' => 0,
   );
   $form['filter_type'] = array(
-    '#type'   => 'hidden',
-    '#value'  => 0,
+    '#type' => 'hidden',
+    '#value' => 0,
   );
   $form['block']['filter_page'] = array(
-    '#type'   => 'hidden',
-    '#value'  => 0,
+    '#type' => 'hidden',
+    '#value' => 0,
   );
 
   unset($form_state['storage']['block']);
@@ -325,13 +325,14 @@ function theme_issue_search_results($nids = array())
 /**
  * Search function
  */
-function issue_search($params = array()) {
+function issue_search($params = array())
+{
   $nids = array();
 
   // todo
   $result = db_query("SELECT nid FROM node WHERE type = 'poll'");
   while ($nid = db_result($result)) {
-     $nids[] = $nid;
+    $nids[] = $nid;
   }
 
 
@@ -341,17 +342,17 @@ function issue_search($params = array()) {
 /**
  * @return string
  */
-function issue_search_ajax() {
+function issue_search_ajax()
+{
   $message = 'OK';
 
   $params = array();
   $message = theme('issue_search_results', issue_search($params));
 
 
-
   print json_encode(array(
-    'status'     => true,
-    'message'    => $message,
+    'status' => true,
+    'message' => $message,
   ));
 }
 
@@ -362,7 +363,8 @@ function issue_search_ajax() {
  *
  * @param $query
  */
-function issue_search_apachesolr_query_alter($query) {
+function issue_search_apachesolr_query_alter($query)
+{
   // todo
 }
 
@@ -372,7 +374,8 @@ function issue_search_apachesolr_query_alter($query) {
  * @param $results
  * @param DrupalSolrQueryInterface $query
  */
-function issue_search_apachesolr_process_results(&$results, DrupalSolrQueryInterface $query) {
+function issue_search_apachesolr_process_results(&$results, DrupalSolrQueryInterface $query)
+{
   foreach ($results as &$result) {
     // extract nid from the results
     $result['nid'] = array_pop(explode('/', $result['fields']['path']));
@@ -384,7 +387,8 @@ function issue_search_apachesolr_process_results(&$results, DrupalSolrQueryInter
  *
  * @param $query
  */
-function issue_search_apachesolr_query_prepare($query) {
+function issue_search_apachesolr_query_prepare($query)
+{
   // todo
   $sort = 0;
   switch ($sort) {

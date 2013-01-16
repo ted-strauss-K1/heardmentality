@@ -13,7 +13,7 @@ global $base_url;
 
     <?php $arguments = $node->arguments; ?>
     <?php if ($arguments['#all']) : ?>
-      <?php print theme('issue_charts_strength', $node); ?>
+    <?php print theme('issue_charts_strength', $node); ?>
     <?php endif; ?>
 
     <div id="leave_comment_area" class="leave-a-comment hidden_ar" style="display: none;">

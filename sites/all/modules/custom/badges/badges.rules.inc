@@ -9,16 +9,16 @@ function badges_rules_event_info()
 {
   return array(
     'badges_grant' => array(
-      'label'       => t('User got the badge'),
-      'module'      => 'Badges Module',
-      'arguments'   => array(
+      'label' => t('User got the badge'),
+      'module' => 'Badges Module',
+      'arguments' => array(
         'user' => array(
-          'type'    => 'user',
-          'label'   => t('User')
+          'type' => 'user',
+          'label' => t('User')
         ),
         'badge' => array(
-          'type'    => 'string',
-          'label'   => t('Badge machine name')
+          'type' => 'string',
+          'label' => t('Badge machine name')
         ),
       ),
     ),
@@ -37,8 +37,8 @@ function badges_rules_action_info()
       'label' => t('Grant a badge to user'),
       'arguments' => array(
         'user' => array(
-          'type'      => 'user',
-          'label'     => t('User')
+          'type' => 'user',
+          'label' => t('User')
         ),
       ),
       'module' => 'Badges Module',
@@ -66,13 +66,13 @@ function badges_grant_badge_rules_action_form($settings = array(), &$form)
   $options = array();
 
   foreach ($badges as $name => $info) {
-    $options[$name] = $info['name'];
+    $options[$name] = $info['name'] . ' (' . $info['info'] . ')';
   }
 
   $form['settings']['badge'] = array(
-    '#type'           => 'select',
-    '#options'        => $options,
-    '#title'          => t('Badges'),
-    '#default_value'  => '',
+    '#type' => 'select',
+    '#options' => $options,
+    '#title' => t('Badges'),
+    '#default_value' => '',
   );
 }

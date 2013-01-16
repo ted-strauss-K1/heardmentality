@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * Implementation of hook_badges()
+ *
+ * @return array
+ */
+function badges_flag_badges()
+{
+  $badges = array();
+
+  $badges['flag_first'] = array(
+    'function' => 'badges_flag_check',
+    'function multiple' => 'badges_flag_check_multiple',
+    'name' => t('Citizen Patrol'),
+    'info' => t('First flagged post'),
+  );
+  $badges['flag_success'] = array(
+    'function' => 'badges_flag_success_check',
+    'function multiple' => 'badges_flag_success_check_multiple',
+    'name' => t('Scrutineer'),
+    'info' => t('Flags post, that eventually results in a change or removal'),
+  );
+
+  return $badges;
+
+  // Scrutineer
+}
+
+/**
+ * @param $uid
+ * @return bool
+ */
+function badges_flag_check($uid)
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $result = db_query("SELECT uid FROM {flag_content} fc GROUP BY content_type, content_id ORDER BY timestamp DESC");
+    while ($uid = db_result($result)) {
+      $cache[$uid] = true;
+    }
+  }
+
+  return isset($cache[$uid]);
+}
+
+/**
+ * @param array $uids
+ * @return array
+ */
+function badges_flag_check_multiple($uids = array())
+{
+  $output = array();
+
+  // default values
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_flag_check($uid);
+  }
+
+  return $output;
+}
+
+/**
+ * @param $uid
+ * @return bool
+ */
+function badges_flag_success_check($uid)
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $result = db_query("
+      SELECT fc.uid FROM {flag_content} fc
+      INNER JOIN (
+        (SELECT 'node' content_type, nid content_id, status FROM {node}) UNION
+        (SELECT 'comment' content_type, cid content_id, 1-status FROM {comments})) c
+      ON c.content_type = fc.content_type AND c.content_id = fc.content_id WHERE c.status = '%d'", 0);
+    while ($uid = db_result($result)) {
+      $cache[$uid] = true;
+    }
+  }
+
+  return isset($cache[$uid]);
+}
+
+/**
+ * @param array $uids
+ * @return array
+ */
+function badges_flag_success_check_multiple($uids = array())
+{
+  $output = array();
+
+  // default values
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_flag_success_check($uid);
+  }
+
+  return $output;
+}

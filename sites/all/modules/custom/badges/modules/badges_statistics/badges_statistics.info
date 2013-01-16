@@ -1,0 +1,6 @@
+name = Badges for Node Views
+description = Badges for Node Views
+package = Custom Modules :: Badges
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = 'statistics'

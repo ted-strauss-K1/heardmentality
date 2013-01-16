@@ -5,10 +5,11 @@
  * @param array $tids           - List of selected taxonomy ids
  * @return array
  */
-function tft_list($node_type, $tids = array()) {
+function tft_list($node_type, $tids = array())
+{
   $tft = array(
-    'list'      => array(),
-    'checked'   => array(),
+    'list' => array(),
+    'checked' => array(),
   );
 
   // select core tids
@@ -42,7 +43,7 @@ function tft_list($node_type, $tids = array()) {
         SELECT td.tid, td.name
         FROM term_data td
         INNER JOIN term_hierarchy th ON th.tid = td.tid
-        WHERE th.parent IN (".db_placeholders($checked).")", $checked);
+        WHERE th.parent IN (" . db_placeholders($checked) . ")", $checked);
       while ($row = db_fetch_object($result)) {
         $tmp[$row->tid] = $row->name;
       }
@@ -58,7 +59,8 @@ function tft_list($node_type, $tids = array()) {
  * @param $tids
  * @return array
  */
-function _tft_children($tids) {
+function _tft_children($tids)
+{
   $list = array();
   if (!is_array($tids) || empty($tids)) {
     return $list;

@@ -12,7 +12,8 @@
  * Helper function for
  *  _badge_voted_in_many_blc()
  */
-function _badge_get_vid_by_name($name) {
+function _badge_get_vid_by_name($name)
+{
   $name = str_replace('-', ' ', $name);
   $object = db_fetch_object(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s'", $name));
   return $object ? $object->vid : 0;
@@ -24,17 +25,18 @@ function _badge_get_vid_by_name($name) {
  *
  * Get Bottom-level Categories
  */
-function _badge_bottom_level_terms($vid) {
+function _badge_bottom_level_terms($vid)
+{
   static $_list = array();
-  if( isset($list[$vid]) ) {
+  if (isset($list[$vid])) {
     return $list[$vid];
   }
   $list = array();
   $terms = taxonomy_get_tree($vid);
-  foreach( $terms as $term ) {
+  foreach ($terms as $term) {
     $list[$term->tid] = $term;
-    foreach($term->parents as $parent) {
-      if( $parent != 0 ) {
+    foreach ($term->parents as $parent) {
+      if ($parent != 0) {
         unset($list[$parent]);
       }
     }
@@ -49,12 +51,13 @@ function _badge_bottom_level_terms($vid) {
  *  badge_process_well_read()
  *  badge_process_scholar()
  */
-function _badge_voted_in_many_blc($uid, $count_vote, $count_blc) {
+function _badge_voted_in_many_blc($uid, $count_vote, $count_blc)
+{
   # bottom-level categories
   $vid = _badge_get_vid_by_name('Sections');
   $blc = _badge_bottom_level_terms($vid);
   $blc_implode = implode(',', $blc);
-  if( $blc == '' ) {
+  if ($blc == '') {
     return false;
   }
   # check
@@ -72,7 +75,8 @@ function _badge_voted_in_many_blc($uid, $count_vote, $count_blc) {
  *
  * Group: poll vote
  */
-function badge_process_scholar($uid) {
+function badge_process_scholar($uid)
+{
   return _badge_voted_in_many_blc($uid, 20, 30);
 }
 
@@ -82,8 +86,9 @@ function badge_process_scholar($uid) {
  *  badge_process_great_question()
  *  badge_process_nice_question()
  */
-function _badge_issue_voted($uid, $count) {
-  return $count <= (int) db_result(db_query("SELECT COUNT(*) FROM {node} n INNER JOIN {poll_votes} pv ON pv.nid = n.nid WHERE n.uid = '%d' AND n.type = 'poll' GROUP BY n.nid ORDER BY COUNT(*) DESC", $uid));
+function _badge_issue_voted($uid, $count)
+{
+  return $count <= (int)db_result(db_query("SELECT COUNT(*) FROM {node} n INNER JOIN {poll_votes} pv ON pv.nid = n.nid WHERE n.uid = '%d' AND n.type = 'poll' GROUP BY n.nid ORDER BY COUNT(*) DESC", $uid));
 }
 
 /**
@@ -94,7 +99,8 @@ function _badge_issue_voted($uid, $count) {
  *
  * Group: poll vote
  */
-function badge_process_provocative_question($uid) {
+function badge_process_provocative_question($uid)
+{
   _badge_issue_voted($uid, 1000);
 }
 
@@ -103,7 +109,8 @@ function badge_process_provocative_question($uid) {
  *
  * Group: yn vote
  */
-function badge_process_oracle($uid) {
+function badge_process_oracle($uid)
+{
   return _badge_first_vote_supernode($uid, 100);
 }
 
@@ -112,7 +119,8 @@ function badge_process_oracle($uid) {
  *
  * Group: yn vote
  */
-function badge_process_seer($uid) {
+function badge_process_seer($uid)
+{
   return _badge_first_vote_supernode($uid, 50);
 }
 
@@ -122,8 +130,9 @@ function badge_process_seer($uid) {
  *  badge_process_popular_question()
  *  badge_process_notable_issue()
  */
-function _badge_issue_views($uid, $count) {
-  return $count <= (int) db_result(db_query("SELECT totalcount FROM {node} n INNER JOIN {node_counter} nc ON n.nid = nc.nid WHERE n.uid = '%d' AND n.type = 'poll' ORDER BY totalcount DESC", $uid));
+function _badge_issue_views($uid, $count)
+{
+  return $count <= (int)db_result(db_query("SELECT totalcount FROM {node} n INNER JOIN {node_counter} nc ON n.nid = nc.nid WHERE n.uid = '%d' AND n.type = 'poll' ORDER BY totalcount DESC", $uid));
 }
 
 /**
@@ -131,7 +140,8 @@ function _badge_issue_views($uid, $count) {
  *
  * Group: page visit
  */
-function badge_process_provocative_issue($uid) {
+function badge_process_provocative_issue($uid)
+{
   return _badge_issue_views($uid, 10000);
 }
 
@@ -141,8 +151,9 @@ function badge_process_provocative_issue($uid) {
  *  badge_process_pamphleteer()
  *  badge_process_pundit()
  */
-function _badge_posted_agreed_comments($uid, $count) {
-  return $count <= (int) db_result(db_query("
+function _badge_posted_agreed_comments($uid, $count)
+{
+  return $count <= (int)db_result(db_query("
     SELECT COUNT(DISTINCT(c.cid))
     FROM {comments} c INNER JOIN {votingapi_vote} vv ON vv.content_id = c.cid
     WHERE c.uid = %d AND vv.content_type = 'comment' AND vv.value = %d",
@@ -155,7 +166,8 @@ function _badge_posted_agreed_comments($uid, $count) {
  *
  * Group: yn vote
  */
-function badge_process_senator($uid) {
+function badge_process_senator($uid)
+{
   return _badge_posted_agreed_comments($uid, 500);
 }
 
@@ -164,7 +176,8 @@ function badge_process_senator($uid) {
  *
  * Group: yn vote
  */
-function badge_process_pamphleteer($uid) {
+function badge_process_pamphleteer($uid)
+{
   return _badge_posted_agreed_comments($uid, 10);
 }
 
@@ -173,7 +186,8 @@ function badge_process_pamphleteer($uid) {
  *  badge_process_patriotic_citizen()
  *  badge_process_civic_duty()
  */
-function _badge_user_votes($uid, $count) {
+function _badge_user_votes($uid, $count)
+{
   # count different types of votes
   $count_pv = issue_get_uservotes($uid);
   $count_sa = issue_sa_count($uid);
@@ -189,7 +203,8 @@ function _badge_user_votes($uid, $count) {
  *
  * Group: poll vote, yn vote
  */
-function badge_process_patriotic_citizen($uid) {
+function badge_process_patriotic_citizen($uid)
+{
   return _badge_user_votes($uid, 1000);
 }
 
@@ -198,8 +213,9 @@ function badge_process_patriotic_citizen($uid) {
  *
  * Group: node hide
  */
-function badge_process_scrutineer($uid) {
-  return (bool) db_result(db_query("SELECT * FROM {node} n INNER JOIN {flag_content} fc ON fc.content_id = n.nid WHERE n.status = 0 AND n.type = 'forum' AND fc.uid = '%d'", $uid));
+function badge_process_scrutineer($uid)
+{
+  return (bool)db_result(db_query("SELECT * FROM {node} n INNER JOIN {flag_content} fc ON fc.content_id = n.nid WHERE n.status = 0 AND n.type = 'forum' AND fc.uid = '%d'", $uid));
 }
 
 /**
@@ -207,9 +223,10 @@ function badge_process_scrutineer($uid) {
  *
  * Group: cron
  */
-function badge_process_yearling($uid) {
+function badge_process_yearling($uid)
+{
   $count_points = 200;
-  if( $count_points <= up_userpoints_get($uid) ) {
+  if ($count_points <= up_userpoints_get($uid)) {
     return false != db_result(db_query("SELECT * FROM {users} WHERE created < ADDDATE(CURDATE(), INTERVAL -1 YEAR) AND uid = '%d'", $uid));
   }
   return false;
@@ -219,7 +236,8 @@ function badge_process_yearling($uid) {
  * Helper for
  *  badge_process_paperboy()
  */
-function _badge_resource_has_votes($uid, $count) {
+function _badge_resource_has_votes($uid, $count)
+{
   return $count <= db_result(db_query("SELECT COUNT(*) FROM {node} n INNER JOIN {content_type_forum} ctf ON ctf.nid = n.nid INNER JOIN {votingapi_vote} vv ON vv.content_id = n.nid WHERE n.uid = '%d' AND n.type = 'forum' AND ctf.field_type_value = '%d' AND vv.value = '%d' AND vv.content_type = 'node' GROUP BY (n.nid) ORDER BY COUNT(*) DESC", $uid, TYPE_RESOURCE, VOTE_AGREE));
 }
 
@@ -228,7 +246,8 @@ function _badge_resource_has_votes($uid, $count) {
  *
  * Group: yn vote
  */
-function badge_process_paperboy($uid) {
+function badge_process_paperboy($uid)
+{
   return _badge_resource_has_votes($uid, 5);
 }
 
@@ -237,10 +256,10 @@ function badge_process_paperboy($uid) {
  *
  * Group: yn vote
  */
-function badge_process_newsstand($uid) {
+function badge_process_newsstand($uid)
+{
   return _badge_resource_has_votes($uid, 20);
 }
-
 
 
 /**
@@ -248,7 +267,8 @@ function badge_process_newsstand($uid) {
  *
  * Group: poll vote
  */
-function badge_process_well_read($uid) {
+function badge_process_well_read($uid)
+{
   return _badge_voted_in_many_blc($uid, 10, 20);
 }
 
@@ -259,7 +279,8 @@ function badge_process_well_read($uid) {
  *
  * TODO
  */
-function ___badge_process_provocateur($uid) {
+function ___badge_process_provocateur($uid)
+{
   return false;
 }
 
@@ -276,9 +297,11 @@ function ___badge_process_provocateur($uid) {
  *  badge_process_healthy_debate()
  *  badge_process_cocktail_party()
  */
-function _badge_issue_arguments($uid, $count) {
-  return $count <= (int) db_result(db_query("SELECT COUNT(DISTINCT ctf.nid) + COUNT(*) FROM {content_type_forum} ctf INNER JOIN {node} n ON n.nid = ctf.field_ref_qid_nid INNER JOIN {comments} c ON c.nid = ctf.nid WHERE n.uid = '%d' AND c.cid = c.tcid", $uid));
+function _badge_issue_arguments($uid, $count)
+{
+  return $count <= (int)db_result(db_query("SELECT COUNT(DISTINCT ctf.nid) + COUNT(*) FROM {content_type_forum} ctf INNER JOIN {node} n ON n.nid = ctf.field_ref_qid_nid INNER JOIN {comments} c ON c.nid = ctf.nid WHERE n.uid = '%d' AND c.cid = c.tcid", $uid));
 }
+
 /**
  * Created a question that resulted in 100 debate posts or resource posts (including replies)
  *
@@ -287,7 +310,8 @@ function _badge_issue_arguments($uid, $count) {
  *
  * Group: argument create, comment create
  */
-function badge_process_healthy_debate($uid) {
+function badge_process_healthy_debate($uid)
+{
   return _badge_issue_arguments($uid, 100);
 }
 
@@ -299,7 +323,8 @@ function badge_process_healthy_debate($uid) {
  *
  * Group: argument create, comment create
  */
-function badge_process_cocktail_party($uid) {
+function badge_process_cocktail_party($uid)
+{
   return _badge_issue_arguments($uid, 50);
 }
 
@@ -308,7 +333,8 @@ function badge_process_cocktail_party($uid) {
  *
  * Group: argument create, comment create
  */
-function badge_process_conversation_piece($uid) {
+function badge_process_conversation_piece($uid)
+{
   return _badge_issue_arguments($uid, 20);
 }
 
@@ -318,7 +344,8 @@ function badge_process_conversation_piece($uid) {
  *  badge_process_well_put()
  *  badge_process_nice_post)
  */
-function _badge_argument_has_votes($uid, $count, $type) {
+function _badge_argument_has_votes($uid, $count, $type)
+{
   return $count <= db_result(db_query("SELECT n.nid, COUNT(*)FROM node n INNER JOIN content_type_forum ctf ON ctf.nid = n.nid INNER JOIN votingapi_vote vv ON vv.content_id = n.nid WHERE n.uid = '%d' AND ctf.field_type_value = '%d' AND vv.value = '%d' AND vv.content_type = 'node' GROUP BY n.nid ORDER BY COUNT(*) DESC", $uid, $type, VOTE_AGREE));
 }
 
@@ -327,7 +354,8 @@ function _badge_argument_has_votes($uid, $count, $type) {
  *
  * Group: yn vote
  */
-function badge_process_consensus_builder($uid) {
+function badge_process_consensus_builder($uid)
+{
   return _badge_argument_has_votes($uid, 50, TYPE_DEBATE);
 }
 
@@ -336,7 +364,8 @@ function badge_process_consensus_builder($uid) {
  *
  * Group: yn vote
  */
-function badge_process_well_put($uid) {
+function badge_process_well_put($uid)
+{
   return _badge_argument_has_votes($uid, 20, TYPE_DEBATE);
 }
 
@@ -345,7 +374,8 @@ function badge_process_well_put($uid) {
  *
  * Group: yn vote
  */
-function badge_process_nice_post($uid) {
+function badge_process_nice_post($uid)
+{
   return _badge_argument_has_votes($uid, 5, TYPE_DEBATE);
 }
 
@@ -354,7 +384,8 @@ function badge_process_nice_post($uid) {
  *
  * Group: yn vote
  */
-function badge_process_librarian($uid) {
+function badge_process_librarian($uid)
+{
   return _badge_argument_has_votes($uid, 50, TYPE_RESOURCE);
 }
 
@@ -363,7 +394,8 @@ function badge_process_librarian($uid) {
  *
  * TODO
  */
-function ___badge_process_taxonomist($uid) {
+function ___badge_process_taxonomist($uid)
+{
   return false;
 }
 
@@ -373,10 +405,11 @@ function ___badge_process_taxonomist($uid) {
  *  badge_process_seer()
  *  badge_process_oracle()
  */
-function _badge_first_vote_supernode($uid, $count) {
+function _badge_first_vote_supernode($uid, $count)
+{
   $result = db_query("SELECT uid FROM {votingapi_vote} WHERE value = '%d' GROUP BY content_type, content_id HAVING COUNT(*) >= %d ORDER BY timestamp", VOTE_AGREE, $count);
-  while( $row = db_fetch_object($result) ) {
-    if( $row->uid == $uid ) {
+  while ($row = db_fetch_object($result)) {
+    if ($row->uid == $uid) {
       return true;
     }
   }
@@ -388,7 +421,8 @@ function _badge_first_vote_supernode($uid, $count) {
  *
  * Group: yn vote
  */
-function badge_process_supporter($uid) {
+function badge_process_supporter($uid)
+{
   return _badge_first_vote_supernode($uid, 10);
 }
 
@@ -396,7 +430,8 @@ function badge_process_supporter($uid) {
  * Helper for
  *  badge_process_good_answer()
  */
-function _badge_answer_voteups($uid, $count) {
+function _badge_answer_voteups($uid, $count)
+{
   return false != db_result(db_query("SELECT * FROM {comments} c LEFT JOIN {votingapi_vote} vv ON vv.content_id = c.cid WHERE c.uid = %d AND vv.content_type = 'comment' GROUP BY c.cid HAVING COUNT(*) > %d", $uid, $count));
 }
 
@@ -405,7 +440,8 @@ function _badge_answer_voteups($uid, $count) {
  *
  * Group: yn vote
  */
-function badge_process_good_answer($uid) {
+function badge_process_good_answer($uid)
+{
   return _badge_answer_voteups($uid, 25);
 }
 
@@ -414,7 +450,8 @@ function badge_process_good_answer($uid) {
  *
  * Group: poll vote
  */
-function badge_process_generalist($uid) {
+function badge_process_generalist($uid)
+{
   return _badge_voted_in_many_blc($uid, 5, 10);
 }
 
@@ -425,21 +462,24 @@ function badge_process_generalist($uid) {
  *
  * TODO
  */
-function _badge_consecutive_visits($uid, $count) {
+function _badge_consecutive_visits($uid, $count)
+{
   return false;
 }
 
 /**
  * Visited the site each day for 100 consecutive days
  */
-function ___badge_process_fanatic($uid) {
+function ___badge_process_fanatic($uid)
+{
   return _badge_consecutive_visits($uid, 100);
 }
 
 /**
  * Visited the site each day for 30 consecutive days
  */
-function ___badge_process_enthusiast($uid) {
+function ___badge_process_enthusiast($uid)
+{
   return _badge_consecutive_visits($uid, 30);
 }
 
@@ -448,14 +488,15 @@ function ___badge_process_enthusiast($uid) {
  *
  * Group: poll vote, yn vote
  */
-function badge_process_electorate($uid) {
+function badge_process_electorate($uid)
+{
   $count_vote = 600;
   $count_pv_part = 4;
   # count different types of votes
   $count_pv = issue_get_uservotes($uid);
   $count_sa = issue_sa_count($uid);
   $count_ud = yn_user_vote_count($uid);
-  return ($count_pv + $count_sa + $count_ud >= $count_vote) && ($count_pv_part*$count_pv >= $count_vote);
+  return ($count_pv + $count_sa + $count_ud >= $count_vote) && ($count_pv_part * $count_pv >= $count_vote);
 }
 
 /**
@@ -463,9 +504,10 @@ function badge_process_electorate($uid) {
  *
  * Group: comment create
  */
-function badge_process_commentator($uid) {
+function badge_process_commentator($uid)
+{
   $count = 10;
-  return $count <= (int) db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE uid = '%d' AND cid != tcid", $uid));
+  return $count <= (int)db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE uid = '%d' AND cid != tcid", $uid));
 }
 
 /**
@@ -476,7 +518,8 @@ function badge_process_commentator($uid) {
  *
  * Group: poll vote, yn vote
  */
-function badge_process_civic_duty($uid) {
+function badge_process_civic_duty($uid)
+{
   return _badge_user_votes($uid, 300);
 }
 
@@ -485,7 +528,8 @@ function badge_process_civic_duty($uid) {
  *
  * Group: flag
  */
-function badge_process_citizen_patrol($uid) {
+function badge_process_citizen_patrol($uid)
+{
   $result = db_query("SELECT uid FROM {flag_content} fc GROUP BY content_type, content_id ORDER BY timestamp DESC");
   while ($row = db_result($result)) {
     if ($uid == $row) {
@@ -500,7 +544,8 @@ function badge_process_citizen_patrol($uid) {
  *
  * Group: yn vote
  */
-function badge_process_great_answer($uid) {
+function badge_process_great_answer($uid)
+{
   return _badge_answer_voteups($uid, 100);
 }
 
@@ -509,7 +554,8 @@ function badge_process_great_answer($uid) {
  *
  * Group: poll vote
  */
-function badge_process_great_question($uid) {
+function badge_process_great_question($uid)
+{
   return _badge_issue_voted($uid, 200);
 }
 
@@ -519,8 +565,9 @@ function badge_process_great_question($uid) {
  * @param $uid
  * @return bool
  */
-function badge_process_suggest_answer($uid) {
-  return (bool) db_result(db_query("SELECT COUNT(*) FROM {poll_suggest} WHERE uid = '%d'", $uid));
+function badge_process_suggest_answer($uid)
+{
+  return (bool)db_result(db_query("SELECT COUNT(*) FROM {poll_suggest} WHERE uid = '%d'", $uid));
 }
 
 /**
@@ -529,7 +576,8 @@ function badge_process_suggest_answer($uid) {
  * @param $uid
  * @return bool
  */
-function ___badge_process_recruiter($uid) {
+function ___badge_process_recruiter($uid)
+{
   return false;
 }
 
@@ -544,7 +592,8 @@ function ___badge_process_recruiter($uid) {
 /**
  * Asked an issue with 1,000 views
  */
-function badge_process_popular_question($uid) {
+function badge_process_popular_question($uid)
+{
   return _badge_issue_views($uid, 1000);
 }
 
@@ -553,28 +602,32 @@ function badge_process_popular_question($uid) {
  *
  * TODO
  */
-function ___badge_process_organizer($uid) {
+function ___badge_process_organizer($uid)
+{
   return false;
 }
 
 /*
  * Posted an Issue with 2,500 views
  */
-function badge_process_notable_issue($uid) {
+function badge_process_notable_issue($uid)
+{
   return _badge_issue_views($uid, 2500);
 }
 
 /**
  * Issue you added is voted on 1000 times
  */
-function badge_process_nice_question($uid) {
+function badge_process_nice_question($uid)
+{
   return _badge_issue_voted($uid, 1000);
 }
 
 /**
  * Answer voted up 10 times
  */
-function badge_process_nice_answer($uid) {
+function badge_process_nice_answer($uid)
+{
   return _badge_answer_voteups($uid, 10);
 }
 
@@ -583,14 +636,16 @@ function badge_process_nice_answer($uid) {
  *
  * TODO
  */
-function ___badge_process_legendary($uid) {
+function ___badge_process_legendary($uid)
+{
   return false;
 }
 
 /**
  * Completed all user profile fields
  */
-function badge_process_autobiographer($uid) {
+function badge_process_autobiographer($uid)
+{
   $user = user_load(array('uid' => $uid));
   $complete_data = pcp_get_complete_percentage_data($user);
   return $complete_data['percent'] == 100;

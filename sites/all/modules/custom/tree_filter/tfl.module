@@ -6,10 +6,11 @@
  * @param array $codes3
  * @return array
  */
-function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array()) {
+function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array())
+{
   $tfl = array(
-    'list'      => array(),
-    'checked'   => array(),
+    'list' => array(),
+    'checked' => array(),
   );
 
   // countries
@@ -29,7 +30,7 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array()) {
   $provinces = array();
   foreach ($checked as $code) {
     foreach (location_get_provinces($code) as $pcode => $pname) {
-      $provinces[$code.'_'.$pcode] = $pname;
+      $provinces[$code . '_' . $pcode] = $pname;
     }
 //    $provinces = array_merge($provinces, location_get_provinces($code));
   }
@@ -46,7 +47,7 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array()) {
 
   // cities
   if (module_exists('location_cities')) {
-  // cities
+    // cities
     $cities = array();
     foreach ($checked as $code) {
       list($ccode, $pcode) = explode("_", $code, 2);

@@ -201,12 +201,6 @@ function _issue_theme()
 //  );
 
 
-
-
-
-
-
-
   $theme['issue_debate_area'] = array(
     'template' => 'issue-debate-area',
     'arguments' => array(
@@ -236,9 +230,6 @@ function issue_content_bottom_preprocess(&$vars)
   $vars['results'] = theme('issue_results_graph', $vars['node']);
   $vars['content'] = theme('issue_arguments', $vars['node']);
 }
-
-
-
 
 
 /**
