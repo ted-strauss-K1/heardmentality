@@ -9,30 +9,30 @@ function badges_yn_badges()
 {
   $badges = array();
 
-  $badges['yn_node_bronze'] = array(
-    'function' => 'badges_yn_check',
-    'function multiple' => 'badges_yn_check_multiple',
-    'name' => t('Nice Answer'),
-    'info' => t('Answer voted up 10 times'),
-    'type' => 'bronze',
-    'arguments' => array('content_type' => 'node', 'count' => 10),
-  );
-  $badges['yn_node_silver'] = array(
-    'function' => 'badges_yn_check',
-    'function multiple' => 'badges_yn_check_multiple',
-    'name' => t('Good Answer'),
-    'info' => t('Answer voted up 25 times'),
-    'type' => 'silver',
-    'arguments' => array('content_type' => 'node', 'count' => 25),
-  );
-  $badges['yn_node_gold'] = array(
-    'function' => 'badges_yn_check',
-    'function multiple' => 'badges_yn_check_multiple',
-    'name' => t('Great Answer'),
-    'info' => t('Answer voted up 100 times'),
-    'type' => 'gold',
-    'arguments' => array('content_type' => 'node', 'count' => 100),
-  );
+//  $badges['yn_node_bronze'] = array(
+//    'function' => 'badges_yn_check',
+//    'function multiple' => 'badges_yn_check_multiple',
+//    'name' => t('Nice Answer'),
+//    'info' => t('Answer voted up 10 times'),
+//    'type' => 'bronze',
+//    'arguments' => array('content_type' => 'node', 'count' => 10),
+//  );
+//  $badges['yn_node_silver'] = array(
+//    'function' => 'badges_yn_check',
+//    'function multiple' => 'badges_yn_check_multiple',
+//    'name' => t('Good Answer'),
+//    'info' => t('Answer voted up 25 times'),
+//    'type' => 'silver',
+//    'arguments' => array('content_type' => 'node', 'count' => 25),
+//  );
+//  $badges['yn_node_gold'] = array(
+//    'function' => 'badges_yn_check',
+//    'function multiple' => 'badges_yn_check_multiple',
+//    'name' => t('Great Answer'),
+//    'info' => t('Answer voted up 100 times'),
+//    'type' => 'gold',
+//    'arguments' => array('content_type' => 'node', 'count' => 100),
+//  );
 
   $badges['yn_comment_bronze'] = array(
     'function' => 'badges_yn_check',

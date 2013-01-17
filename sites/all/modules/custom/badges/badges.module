@@ -348,32 +348,48 @@ function theme_badges_list($sort = 2)
 
 return;
 
+/**
+ * Implementation of hook_user()
+ *
+ * @param $op
+ * @param $edit
+ * @param $account
+ * @param null $category
+ */
+function badges_user($op, &$edit, &$account, $category = NULL)
+{
+  switch ($op) {
+    case 'load' :
+      $account->badges = badges_userbadges($account->uid);
+      global $user;
+      if (!isset($user->badges)) {
+        $user->badges = badges_userbadges($user->uid);
+      }
+    break;
+  }
+}
 
-/*
+
+/**
  * Get user badges
  */
-function badges_get_userbadges($uid)
+function badges_userbadges($uid)
 {
-  static $values = array();
-  if (!isset($values[$uid])) {
-    $list = array(
-      '#stat' => array(),
-      '#list' => array(),
-    );
-    $result = db_query("SELECT mb.*, mbt.name AS badgetype FROM {module_badges_userbadges} mbu INNER JOIN {module_badges} mb ON mb.id = mbu.badge_id RIGHT OUTER JOIN {module_badges_types} mbt ON mbt.id = mb.type WHERE mb.status = '%d' AND mbu.uid = '%d' ORDER BY mbt.id DESC", 1, $uid);
-    while ($row = db_fetch_array($result)) {
-      if (!isset($list['#stat'][$row['badgetype']])) {
-        $list['#stat'][$row['badgetype']] = 0;
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $badges = badges_list();
+    $result = db_query("SELECT uid, badge, COUNT(*) count FROM {badges} WHERE uid > 0 GROUP BY uid, badge");
+    while ($row = db_fetch_object($result)) {
+      if (isset($badges[$row->badge])) {
+        $cache[$uid]['#stat'][$badges[$row->badge]['type']] += $row->count;
+        $cache[$uid]['#list'][$row->badge] = $badges[$row->badge] + array('#count' => $row->count);
       }
-      $list['#stat'][$row['badgetype']]++;
-      if (!isset($list['#list'][$row['id']])) {
-        $list['#list'][$row['id']] = $row;
-        $list['#list'][$row['id']]['#count'] = 0;
-      }
-      $list['#list'][$row['id']]['#count']++;
     }
-    $values[$uid] = $list;
   }
-  return $values[$uid];
+
+  return $cache[$uid];
 }
 

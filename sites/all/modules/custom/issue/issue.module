@@ -150,7 +150,7 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         break;
       case 'view' :
         // TODO view
-        break;
+      break;
     }
   }
 

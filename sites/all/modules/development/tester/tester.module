@@ -22,7 +22,9 @@ function tester_menu() {
 
 function tester() {
 
-  $data = badges_list();
+  badges_grant(1, 'flag_success');
+   exit;
+  $data = flag_get_content_flags('node', 18);
 
   var_dump($data);
 

@@ -200,8 +200,7 @@ function user_profile_info_preprocess(&$vars)
   }
   $uid = $vars['account']->uid;
   if (module_exists('badges')) {
-//    todo BADGES
-//    $vars['badges'] = badges_get_userbadges($uid);
+    $vars['badges'] = $vars['account']->badges;
   }
 
   $vars['comments'] = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
@@ -235,8 +234,7 @@ function user_profile_block_preprocess(&$vars)
     $preprocessed['user'] = $user;
     $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
     if (module_exists('badges')) {
-//      todo BADGES
-//      $preprocessed['badges'] = badges_get_userbadges($user->uid);
+      $preprocessed['badges'] = $user->badges;
     }
     if (module_exists('ranks')) {
       $preprocessed['rank'] = $user->rank['name'];

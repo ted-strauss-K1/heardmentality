@@ -75,10 +75,10 @@
   <?php if ($badges['#list']) : ?>
   <ul class="badges profile clearfix">
     <label for="badges" class="badges"><?php print t('Badges'); ?></label>
-    <?php foreach ($badges['#list'] as $badge) : ?>
+    <?php foreach ($badges['#list'] as $name => $info) : ?>
     <li>
-      <span class="badge <?php print $badge['badgetype'];?>"></span>
-      <?php print $badge['name'];?> x <?php print $badge['#count'];?>
+      <span class="badge <?php print $info['type'];?>"></span>
+      <?php print $name;?> x <?php print $info['#count'];?>
     </li>
     <?php endforeach; ?>
   </ul>

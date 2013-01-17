@@ -34,7 +34,7 @@ function badges_rules_action_info()
 {
   return array(
     'badges_grant_badge_rules_action' => array(
-      'label' => t('Grant a badge to user'),
+      'label' => t('Grant the badges to user'),
       'arguments' => array(
         'user' => array(
           'type' => 'user',
@@ -54,7 +54,11 @@ function badges_rules_action_info()
  */
 function badges_grant_badge_rules_action($user, $settings = array())
 {
-  badges_grant($user->uid, $settings['badge']);
+  foreach ($settings['badges'] as $badge => $status) {
+    if ($status !== 0) {
+      badges_grant($user->uid, $badge);
+    }
+  }
 }
 
 /**
@@ -69,10 +73,10 @@ function badges_grant_badge_rules_action_form($settings = array(), &$form)
     $options[$name] = $info['name'] . ' (' . $info['info'] . ')';
   }
 
-  $form['settings']['badge'] = array(
-    '#type' => 'select',
+  $form['settings']['badges'] = array(
+    '#type' => 'checkboxes',
     '#options' => $options,
     '#title' => t('Badges'),
-    '#default_value' => '',
+    '#default_value' => isset($settings['badges']) ? $settings['badges'] : array(),
   );
 }

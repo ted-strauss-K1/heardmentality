@@ -1323,10 +1323,12 @@ function moderation_delete_request($form)
   if ($delete_requests >= $required) {
     switch ($form['content_type']['#value']) {
       case 'comment' :
-        db_query("UPDATE comment SET status = '%d' WHERE cid = '%d'", COMMENT_NOT_PUBLISHED, $form['content_id']['#value']);
-        break;
+        $comment = _comment_load($form['content_id']['#value']);
+        comment_unpublish_action($comment);
+        rules_invoke_event('comment_unpublish', $comment);
+      break;
       case 'node' :
-        db_query("UPDATE node SET status = '%d' WHERE nid = '%d'", 1, $form['content_id']['#value']);
+        db_query("UPDATE node SET status = '%d' WHERE nid = '%d'", 0, $form['content_id']['#value']);
         break;
     }
     drupal_set_message(t('Content deletion approved.'));

@@ -37,8 +37,8 @@ function badges_flag_check($uid)
 
   if (is_null($cache)) {
     $result = db_query("SELECT uid FROM {flag_content} fc GROUP BY content_type, content_id ORDER BY timestamp DESC");
-    while ($uid = db_result($result)) {
-      $cache[$uid] = true;
+    while ($_ = db_result($result)) {
+      $cache[$_] = true;
     }
   }
 
@@ -76,8 +76,8 @@ function badges_flag_success_check($uid)
         (SELECT 'node' content_type, nid content_id, status FROM {node}) UNION
         (SELECT 'comment' content_type, cid content_id, 1-status FROM {comments})) c
       ON c.content_type = fc.content_type AND c.content_id = fc.content_id WHERE c.status = '%d'", 0);
-    while ($uid = db_result($result)) {
-      $cache[$uid] = true;
+    while ($_ = db_result($result)) {
+      $cache[$_] = true;
     }
   }
 
