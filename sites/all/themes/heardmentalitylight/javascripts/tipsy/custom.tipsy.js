@@ -1,6 +1,6 @@
 $(function() {
 
-  $('#medal1, #medal2, #medal3,  img.coin2, .disagree, .agree, #badges .medal3').tipsy({
+  $('#medal1, #medal2, #medal3,  img.coin2, .disagree, .agree, #badges .medal3, #badgeslist .medal3').tipsy({
     gravity: 'nw'
   });
   $('.flag, .flag2, .heart, a.stats-quick').tipsy({

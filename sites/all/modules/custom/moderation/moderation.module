@@ -173,6 +173,9 @@ function moderation_theme()
 {
   $theme = array();
 
+  $theme['moderators'] = array(
+    'arguments' => array(),
+  );
   $theme['moderation_main'] = array(
     'arguments' => array('page' => 'issues'),
     'template' => 'moderation-main',
@@ -200,6 +203,24 @@ function moderation_theme()
   );
 
   return $theme;
+}
+
+/**
+ *
+ */
+function theme_moderators() {
+  $uids = array();
+  foreach (variable_get(MODERATION_USERS, array()) as $uid => $perm) {
+    if ($perm) {
+      $uids[] = $uid;
+    }
+  }
+  $items = array();
+  $result = db_query("SELECT uid, name FROM {users} WHERE uid IN (".db_placeholders($uids).")", $uids);
+  while ($row = db_fetch_object($result)) {
+    $items[] = sprintf('<a href="/user/profile/view/%d">%s</a>', $row->uid, $row->name);
+  }
+  return implode(', ', $items);
 }
 
 /**

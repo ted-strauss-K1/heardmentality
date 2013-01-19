@@ -10,7 +10,7 @@
  */
 function rank_add($name, $points)
 {
-  db_query("INSERT INTO {module_ranks} SET name = '%s', points = '%d'", $name, $points);
+  db_query("INSERT INTO {ranks} SET name = '%s', points = '%d'", $name, $points);
 }
 
 /**
@@ -20,7 +20,7 @@ function rank_add($name, $points)
  */
 function rank_delele($id)
 {
-  db_query("DELETE FROM {module_ranks} WHERE id = '%d'", $id);
+  db_query("DELETE FROM {ranks} WHERE id = '%d'", $id);
 }
 
 /**
@@ -32,7 +32,7 @@ function rank_delele($id)
  */
 function rank_update($id, $name, $points)
 {
-  db_query("UPDATE {module_ranks} SET name = '%s', points = '%d' WHERE id = '%d'", $name, $points, $id);
+  db_query("UPDATE {ranks} SET name = '%s', points = '%d' WHERE id = '%d'", $name, $points, $id);
 }
 
 

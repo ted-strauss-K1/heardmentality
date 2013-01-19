@@ -23,7 +23,7 @@ function ranks_schema()
 {
   $schema = array();
 
-  $schema['module_ranks'] = array(
+  $schema['ranks'] = array(
     'description' => t('Stores the ranks.'),
     'fields' => array(
       'id' => array(

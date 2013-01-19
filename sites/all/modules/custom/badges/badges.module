@@ -229,6 +229,12 @@ function badges_menu()
     'page arguments' => array('badges_list'),
     'access callback' => true,
   );
+  $menu['badges/users'] = array(
+    'title' => t('Badges'),
+    'page callback' => 'theme',
+    'page arguments' => array('badges_list_users'),
+    'access callback' => true,
+  );
   $menu['admin/settings/badges'] = array(
     'title'           => t('Badges'),
     'page callback'   => 'drupal_get_form',
@@ -268,7 +274,9 @@ function badges_form_submit() {
  */
 function badges_preprocess_page(&$vars)
 {
-  //
+  if (arg(0) == 'badges') {
+    drupal_set_subtitle(t('Badges'));
+  }
 }
 
 /**
@@ -282,6 +290,9 @@ function badges_theme()
 
   $theme['badges_list'] = array(
     'arguments' => array('sort' => 0),
+  );
+  $theme['badges_list_users'] = array(
+    'arguments' => array(),
   );
 
   return $theme;
@@ -302,7 +313,17 @@ function badges_theme()
  */
 function theme_badges_list($sort = 2)
 {
-  $output = '<div class="badges">';
+//  $output = '<div class="badges">';
+  $output = '<div id="about_us_page_content"><div id="badges">
+    <table border="0" cellspacing="0" cellpadding="0" id="badgeslist">
+      <thead>
+        <tr>
+          <th class="small">'.t('Type').'/'.t('Count').'</th>
+          <th class="medium">'.t('Name').'</th>
+          <th class="large">'.t('Description').'</th>
+        </tr>
+      </thead>
+      <tbody>';
 
   $query = "SELECT badge name, COUNT(*) count FROM {badges} GROUP BY badge ";
 
@@ -336,17 +357,53 @@ function theme_badges_list($sort = 2)
     if (!$badge_item) {
       continue;
     }
-    $output .= sprintf('
-      <div class="medal"><span class="badge-circle %s %s" id="medal1" title="%s Medal">&nbsp;</span>&nbsp;x&nbsp;%d&nbsp;&nbsp;%s <p>%s</p></div>',
-      $badge->name, $badge_item['type'], badges_types($badge_item['type']), $badge->count-1, $badge_item['name'], $badge_item['info']
-    );
+//    $output .= sprintf('
+//      <div class="medal"><span class="badge-circle %s %s" id="medal1" title="%s Medal">&nbsp;</span>&nbsp;x&nbsp;%d&nbsp;&nbsp;%s <p>%s</p></div>',
+//      $badge->name, $badge_item['type'], badges_types($badge_item['type']), $badge->count-1, $badge_item['name'], $badge_item['info']
+//    );
+      $output .= sprintf('
+        <tr>
+          <td><span class="%s medal3" title="%s">&nbsp;</span> x %d</td>
+          <td>%s</td>
+          <td>%s</td>
+        </tr>
+      ', $badge_item['type'], badges_types($badge_item['type']).' '.t('Medal'), $badge->count-1, $badge_item['name'], $badge_item['info']
+      );
   }
-  $output .= '</div>';
+//  $output .= '</div>';
+  $output .= '</tbody></table></div></div>';
   return $output;
 }
 
+/**
+ * Theme for badges list for users
+ *
+ * @return string
+ */
+function theme_badges_list_users()
+{
+  $output = '<div id="badges_list_userbadges"><ul>';
 
-return;
+  $badges_userbadges = badges_userbadges(false);
+
+//  var_dump($badges_userbadges);
+
+  foreach ($badges_userbadges as $uid => $data) {
+    $output .= '<li><a href="/user/profile/view/'.$uid.'">' . $data['#name'] . '</a>:&nbsp;';
+
+    foreach ($data['#list'] as $name => $info) {
+      $output .= sprintf('<span class="selected-item %s">%s<span class="count-item">x</span><span class="number-item">%d</span></span>',
+        $info['type'], $info['name'], $info['#count']
+      );
+    }
+
+    $output .= '</li>';
+  }
+
+  $output .= '</ul></div>';
+  return $output;
+}
+
 
 /**
  * Implementation of hook_user()
@@ -381,15 +438,19 @@ function badges_userbadges($uid)
     $cache = array();
 
     $badges = badges_list();
-    $result = db_query("SELECT uid, badge, COUNT(*) count FROM {badges} WHERE uid > 0 GROUP BY uid, badge");
+    $result = db_query("SELECT b.uid, b.badge, COUNT(*) count, u.name FROM {badges} b INNER JOIN {users} u ON u.uid = b.uid WHERE b.uid > 0 GROUP BY b.uid, b.badge ORDER BY (SELECT COUNT(*) FROM {badges} b2 WHERE b2.uid = b.uid) DESC");
     while ($row = db_fetch_object($result)) {
       if (isset($badges[$row->badge])) {
-        $cache[$uid]['#stat'][$badges[$row->badge]['type']] += $row->count;
-        $cache[$uid]['#list'][$row->badge] = $badges[$row->badge] + array('#count' => $row->count);
+        $cache[$row->uid]['#stat'][$badges[$row->badge]['type']] += $row->count;
+        $cache[$row->uid]['#name'] = $row->name;
+        $cache[$row->uid]['#list'][$row->badge] = $badges[$row->badge] + array('#count' => $row->count);
       }
     }
   }
 
+  if ($uid === false) {
+    return $cache;
+  }
+
   return $cache[$uid];
 }
-

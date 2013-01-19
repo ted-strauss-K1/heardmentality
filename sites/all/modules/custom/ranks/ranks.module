@@ -38,6 +38,22 @@ function ranks_menu()
 }
 
 /**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function ranks_theme()
+{
+  $theme = array();
+
+  $theme['ranks'] = array(
+    'arguments' => array(),
+  );
+
+  return $theme;
+}
+
+/**
  * Get the list of ranks
  *
  * @return array
@@ -48,7 +64,7 @@ function ranks_get()
 
   if (is_null($ranks)) {
     $ranks = array();
-    $result = db_query('SELECT * FROM {module_ranks} ORDER BY points ASC');
+    $result = db_query('SELECT * FROM {ranks} ORDER BY points ASC');
     while ($rank = db_fetch_array($result)) {
       $ranks[] = $rank;
     }
@@ -57,6 +73,20 @@ function ranks_get()
     }
   }
   return $ranks;
+}
+
+/**
+ *
+ */
+function theme_ranks() {
+  $output = '<ul>';
+
+  foreach (ranks_get() as $rank) {
+    $output .= sprintf('<li>%s - %d</li>', $rank['name'], $rank['points']);
+  }
+
+  $output .= '</ul>';
+  return $output;
 }
 
 /**
