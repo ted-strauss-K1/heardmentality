@@ -61,7 +61,7 @@ function charts_theme()
   $theme['issue_charts_inner'] = array(
     'arguments' => array('node' => NULL),
     'template' => 'templates/issue-charts-inner',
-    'preprocess functions' => array('issue_charts_inner_preprocess'),
+    'preprocess functions' => array('issue_charts_common_preprocess', 'issue_charts_inner_preprocess'),
   );
 
   # chart parts
@@ -83,6 +83,7 @@ function charts_theme()
 
   $theme['issue_charts_strength'] = array(
     'arguments' => array('node' => NULL),
+    'preprocess functions' => array('issue_charts_common_preprocess'),
   );
 
   return $theme;
@@ -136,6 +137,30 @@ function issue_charts_chtexts($node)
   return $chtexts;
 }
 
+  /**
+   * Preprocess function for issue_charts_inner
+   *
+   * @param $vars
+   */
+function issue_charts_common_preprocess(&$vars)
+{
+  // run once
+  static $js;
+  if (!is_null($js)) {
+    return;
+  }
+  $js = true;
+
+  $node = $vars['node'];
+  # short names for choices
+  $chtexts = issue_charts_chtexts($node);
+  # save to js settings
+  drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
+  drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
+  drupal_add_js(array('charts' => array('colors' => charts_colors(true))), 'setting');
+
+}
+
 /**
  * Preprocess function for issue_charts_inner
  *
@@ -147,21 +172,17 @@ function issue_charts_inner_preprocess(&$vars)
 
   # short names for choices
   $chtexts = issue_charts_chtexts($node);
-  # save to js settings
-  drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
-  drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
-  drupal_add_js(array('charts' => array('colors' => charts_colors(true))), 'setting');
 
   # Highchart Filter
-  $vars['filter'] = theme('issue_charts_filter', $vars['node']);
+  $vars['filter'] = theme('issue_charts_filter', $node);
   # Quick facts
-  $vars['quickfacts'] = theme('issue_charts_quickfacts', $vars['node']);
+  $vars['quickfacts'] = theme('issue_charts_quickfacts', $node);
   # Legend
   $vars['legend'] = theme('issue_charts_legend', $chtexts);
   # Highchart History
   $vars['history'] = theme('issue_charts_history', $node);
   # Google map
-  $vars['gmap'] = theme('issue_charts_gmap', $vars['node']);
+  $vars['gmap'] = theme('issue_charts_gmap', $node);
 }
 
 /**

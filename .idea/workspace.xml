@@ -20,78 +20,26 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="test.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.html">
+      <file leaf-file-name="chart.strength.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/charts/chart.strength.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="31" selection-start="0" selection-end="946" vertical-scroll-proportion="-8.5">
+            <state line="1" column="79" selection-start="91" selection-end="121" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test2.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test2.html">
+      <file leaf-file-name="issue.charts.inc" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/issue.charts.inc">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="34" selection-start="0" selection-end="14727" vertical-scroll-proportion="0.5335968">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="moderation.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.module">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="210" column="25" selection-start="5216" selection-end="5232" vertical-scroll-proportion="-0.33333334">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="badges.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.module">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="445" column="21" selection-start="9902" selection-end="9902" vertical-scroll-proportion="-4.923077">
+            <state line="195" column="15" selection-start="4362" selection-end="4362" vertical-scroll-proportion="0.9752907">
               <folding>
-                <marker date="1358602472337" expanded="true" signature="7761:7892" placeholder="..." />
+                <marker date="1358766012116" expanded="false" signature="7458:7488" placeholder="..." />
+                <marker date="1358766012116" expanded="false" signature="12058:12078" placeholder="..." />
+                <marker date="1358766012116" expanded="false" signature="12691:12721" placeholder="..." />
+                <marker date="1358766012116" expanded="false" signature="12760:12812" placeholder="..." />
+                <marker date="1358766012116" expanded="false" signature="17097:17127" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ranks.admin.inc" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.admin.inc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="25" selection-start="168" selection-end="168" vertical-scroll-proportion="-3.8846154">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ranks.install" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.install">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="11" selection-start="330" selection-end="330" vertical-scroll-proportion="-3.8846154">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layout.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5904" column="16" selection-start="119586" selection-end="119586" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#120121#124004#1" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ranks.module" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.module">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="14" selection-start="1439" selection-end="1439" vertical-scroll-proportion="-8.5">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -106,7 +54,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.pages.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/flagger/flagger.rules.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/badges/badges.rules.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/development/tester/tester.module" />
@@ -122,6 +69,7 @@
         <option value="$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.module" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.module" />
         <option value="$PROJECT_DIR$/test2.html" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/issue/issue.charts.inc" />
       </list>
     </option>
   </component>
@@ -129,8 +77,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -180,7 +128,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -305,7 +252,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ranks" />
+              <option name="myItemId" value="issue" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -335,12 +282,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="moderation" />
+              <option name="myItemId" value="issue" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="charts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -349,8 +301,8 @@
     <property name="options.lastSelected" value="preferences.keymap" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../mh" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -433,15 +385,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.497426" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40137222" sideWeight="0.46203345" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3128788" sideWeight="0.5986278" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3172458" sideWeight="0.5986278" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4027972" sideWeight="0.53346205" order="8" side_tool="true" content_ui="tabs" />
@@ -450,6 +401,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40137222" sideWeight="0.46203345" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -510,20 +462,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="235" column="34" selection-start="6816" selection-end="6816" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="0" selection-start="1048" selection-end="1338" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/statistics/statistics.module">
       <provider selected="true" editor-type-id="text-editor">
         <state line="125" column="9" selection-start="8429" selection-end="8429" vertical-scroll-proportion="1.7252907" />
@@ -531,30 +469,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/templates/user-profile-info.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="0" selection-start="3748" selection-end="3748" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="85" column="0" selection-start="3748" selection-end="3748" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/templates/user-profile-bottom.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="13" selection-start="1172" selection-end="1172" vertical-scroll-proportion="-9.884615">
-          <folding />
-        </state>
+        <state line="32" column="13" selection-start="1172" selection-end="1172" vertical-scroll-proportion="-9.884615" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/javascripts/tipsy/custom.tipsy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="99" selection-start="115" selection-end="115" vertical-scroll-proportion="0.1118421">
-          <folding />
-        </state>
+        <state line="2" column="99" selection-start="115" selection-end="115" vertical-scroll-proportion="0.1118421" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.rules.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="0" selection-start="1195" selection-end="1195" vertical-scroll-proportion="1.4648438">
-          <folding />
-        </state>
+        <state line="62" column="0" selection-start="1195" selection-end="1195" vertical-scroll-proportion="1.4648438" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/user_profile/user_profile.module">
@@ -564,63 +494,79 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="31" selection-start="0" selection-end="946" vertical-scroll-proportion="-8.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.admin.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="25" selection-start="168" selection-end="168" vertical-scroll-proportion="-3.8846154">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.install">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="11" selection-start="330" selection-end="330" vertical-scroll-proportion="-3.8846154">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/themes/heardmentalitylight/stylesheets/layout.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5904" column="16" selection-start="119586" selection-end="119586" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#120121#124004#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="445" column="21" selection-start="9902" selection-end="9902" vertical-scroll-proportion="-4.923077">
-          <folding>
-            <marker date="1358602472337" expanded="true" signature="7761:7892" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="210" column="25" selection-start="5216" selection-end="5232" vertical-scroll-proportion="-0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="14" selection-start="1439" selection-end="1439" vertical-scroll-proportion="-8.5">
+        <state line="5904" column="1" selection-start="119586" selection-end="119586" vertical-scroll-proportion="0.93417364">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="34" selection-start="0" selection-end="14727" vertical-scroll-proportion="0.5335968">
+        <state line="91" column="40" selection-start="4897" selection-end="4897" vertical-scroll-proportion="2.2732558">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="31" selection-start="0" selection-end="946" vertical-scroll-proportion="0.32122093">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/moderation/moderation.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="210" column="25" selection-start="5216" selection-end="5232" vertical-scroll-proportion="0.024709303">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/badges/badges.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="445" column="21" selection-start="9902" selection-end="9902" vertical-scroll-proportion="0.60465115">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.admin.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="25" selection-start="168" selection-end="168" vertical-scroll-proportion="0.024709303">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.install">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="11" selection-start="330" selection-end="330" vertical-scroll-proportion="0.18459302">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/ranks/ranks.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="14" selection-start="1439" selection-end="1439" vertical-scroll-proportion="0.024709303">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/charts/chart.strength.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="79" selection-start="91" selection-end="121" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/issue/issue.charts.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="195" column="15" selection-start="4362" selection-end="4362" vertical-scroll-proportion="0.9752907">
+          <folding>
+            <marker date="1358766012116" expanded="false" signature="7458:7488" placeholder="..." />
+            <marker date="1358766012116" expanded="false" signature="12058:12078" placeholder="..." />
+            <marker date="1358766012116" expanded="false" signature="12691:12721" placeholder="..." />
+            <marker date="1358766012116" expanded="false" signature="12760:12812" placeholder="..." />
+            <marker date="1358766012116" expanded="false" signature="17097:17127" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
