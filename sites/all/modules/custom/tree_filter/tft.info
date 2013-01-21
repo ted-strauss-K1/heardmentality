@@ -1,0 +1,6 @@
+name = Tree Filter for Taxonomy
+description = Tree Filter for Taxonomy
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = "taxonomy"

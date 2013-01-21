@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @return array
+ */
+function log_perm()
+{
+  return array('Clean log');
+}
+
+/**
+ * @return array
+ */
+function log_menu()
+{
+  return array(
+    'admin/settings/log' => array(
+      'title' => t('Log'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('log_form'),
+      'access arguments' => array('Clean log'),
+    ),
+  );
+}
+
+/**
+ * @return array
+ */
+function log_form()
+{
+  return array(
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Clean log'),
+    ),
+  );
+}
+
+/**
+ *
+ */
+function log_form_submit()
+{
+  db_query("TRUNCATE TABLE {log}");
+}
+
+/**
+ * @param $uid
+ * @param string $type
+ */
+function log_add($uid, $type = '')
+{
+  db_query("INSERT INTO {log} SET uid = '%d', type = '%s', date_added = '%s'", $uid, $type, date('Y-m-d H:i:s'));
+}

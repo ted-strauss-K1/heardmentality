@@ -1,0 +1,10 @@
+name = Issues Search Page
+description = Issues Search Page
+package = Custom Modules
+core = "6.x"
+dependencies[] = "apachesolr_search"
+dependencies[] = "facetapi"
+dependencies[] = "ahah_helper"
+dependencies[] = "issue"
+dependencies[] = "location"
+dependencies[] = "location_cities"

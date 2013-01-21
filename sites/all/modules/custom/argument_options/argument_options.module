@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function argument_options_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
+  if ($node->type == 'forum') {
+    switch ($op) {
+      case 'insert' :
+      case 'update' :
+        argument_options_update($node);
+        break;
+      case 'load' :
+        argument_options_load($node);
+        break;
+      case 'delete' :
+        // delete records
+        db_query("DELETE FROM {argument_options} WHERE nid = '%d'", $node->nid);
+        break;
+    }
+  }
+
+//  if ()
+}
+
+/**
+ * Main function to load the argument_options
+ *
+ * @param $node
+ */
+function argument_options_load(&$node)
+{
+  if (isset($node->argument_options)) {
+    return;
+  }
+  if (isset($node->field_issue)) {
+    $iid = $node->field_issue[0]['nid'];
+  }
+  if (empty($iid)) {
+    return;
+  }
+  $node->argument_options = array();
+  $issue = node_load($iid);
+  if ($issue->type == 'poll') {
+    $result = db_query("SELECT chorder, val FROM {argument_options} WHERE nid = '%d' AND val <> 0 ORDER BY chorder ASC", $node->nid);
+    while ($row = db_fetch_array($result)) {
+      $node->argument_options[$row['chorder']] = $row['val'];
+    }
+    $choices = $issue->choice;
+    foreach ($choices as $index => &$choice) {
+      if (isset($node->argument_options[$choice['chorder']])) {
+        $choice['value'] = $node->argument_options[$choice['chorder']];
+      } else {
+        unset($choices[$index]);
+      }
+    }
+    $node->argument_options = $choices;
+  }
+}
+
+function argument_options_theme()
+{
+  $theme = array();
+
+  $theme['argument_options'] = array(
+    'arguments' => array('options' => array()),
+    'template' => 'argument-options',
+  );
+
+  return $theme;
+}
+
+/**
+ * Main function to load the argument_options
+ *
+ * @param $node
+ */
+function argument_options_update($node, $issue = null)
+{
+  // get issue element
+  if (is_null($issue)) {
+    if (isset($node->field_issue)) {
+      $iid = $node->field_issue[0]['nid'];
+    }
+    if (empty($iid)) {
+      return;
+    }
+    $issue = node_load($iid);
+  }
+  if (empty($issue->type) || $issue->type != 'poll') {
+    return;
+  }
+  // preload options
+  argument_options_load($node);
+  // perform update
+  $iid = $issue->nid;
+  $choices = $issue->choice;
+  foreach ($choices as $index => &$choice) {
+    if (isset($node->argument_options[$choice['chorder']])) {
+      $choice['value'] = $node->argument_options[$choice['chorder']]['value'];
+    } else {
+      $choice['value'] = 0;
+    }
+    db_query("REPLACE INTO {argument_options} SET val = '%d', nid = '%d', iid = '%d', chorder = '%d', date_added = '%s'",
+      $choice['value'], $node->nid, $iid, $choice['chorder'], date('Y-m-d h:i:s')
+    );
+  }
+}
+
+/**
+ * Implementation of hook_pollfix()
+ *
+ * @param $nid
+ * @param $map
+ */
+function argument_options_pollfix($nid, $map)
+{
+  foreach ($map as $key => $data) {
+    switch ($data['status']) {
+      case 'deleted' :
+        db_query("DELETE FROM {argument_options} WHERE iid = '%d' AND chorder = '%d'", $nid, $key);
+        break;
+      case 'inserted' :
+        db_query("INSERT INTO {argument_options} (nid, iid, chorder, val, date_added) (SELECT DISTINCT ao.nid, ao.iid, '%d' AS chorder, 0 AS val, NOW() AS date_added FROM {argument_options} ao WHERE ao.iid = '%d')", $data['index'], $nid);
+        break;
+      case 'updated' :
+        db_query("UPDATE {argument_options} SET chorder = '%d' WHERE iid = '%d' AND chorder = '%d'", $data['index'], $nid, $key);
+        break;
+    }
+  }
+}

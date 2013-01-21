@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Implementation of hook_badges()
+ *
+ * @return array
+ */
+function badges_profile_badges()
+{
+  return array(
+    'user_profile' => array(
+      'function' => 'badges_user_profile_check',
+      'function multiple' => 'badges_user_profile_check_multiple',
+      'name' => t('Autobiographer'),
+      'info' => t('Completed all user profile fields'),
+    ),
+  );
+}
+
+/**
+ * @param $uid
+ * @return bool
+ */
+function badges_user_profile_check($uid)
+{
+  $user = user_load(array('uid' => $uid));
+  $complete_data = pcp_get_complete_percentage_data($user);
+  return $complete_data['percent'] == 100;
+}
+
+/**
+ * @param array $uids
+ * @return array
+ */
+function badges_user_profile_check_multiple($uids = array())
+{
+  $output = array();
+
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_user_profile_check($uid);
+  }
+
+  return $output;
+}

@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * @param string $node_type     - Node type
+ * @param array $tids           - List of selected taxonomy ids
+ * @return array
+ */
+function tft_list($node_type, $tids = array())
+{
+  $tft = array(
+    'list' => array(),
+    'checked' => array(),
+  );
+
+  // select core tids
+  $tmp = array();
+  $result = db_query("
+    SELECT td.tid, td.name
+    FROM {vocabulary_node_types} vnt
+    INNER JOIN {term_data} td ON td.vid = vnt.vid
+    INNER JOIN {term_hierarchy} th ON th.tid = td.tid
+    WHERE vnt.type = '%s' AND th.parent = '%d'", $node_type, 0);
+  while ($row = db_fetch_object($result)) {
+    $tmp[$row->tid] = $row->name;
+  }
+
+  while (!empty($tmp)) {
+    $tft['list'][] = $tmp;
+    // save old values
+    $prev = $tmp;
+    // check selected
+    $checked = array();
+    foreach ($prev as $tid => $name) {
+      if (in_array($tid, $tids)) {
+        $checked[] = $tid;
+      }
+    }
+    $tft['checked'][] = $checked;
+    // reselect
+    $tmp = array();
+    if ($checked) {
+      $result = db_query("
+        SELECT td.tid, td.name
+        FROM term_data td
+        INNER JOIN term_hierarchy th ON th.tid = td.tid
+        WHERE th.parent IN (" . db_placeholders($checked) . ")", $checked);
+      while ($row = db_fetch_object($result)) {
+        $tmp[$row->tid] = $row->name;
+      }
+    }
+  }
+
+  return $tft;
+}
+
+/**
+ * Helper for tft_list()
+ *
+ * @param $tids
+ * @return array
+ */
+function _tft_children($tids)
+{
+  $list = array();
+  if (!is_array($tids) || empty($tids)) {
+    return $list;
+  }
+  foreach ($tids as $tid) {
+    $children = taxonomy_get_children($tid);
+    foreach ($children as $child_tid => $child) {
+      $list[$child_tid] = $child->name;
+    }
+  }
+  return $list;
+}

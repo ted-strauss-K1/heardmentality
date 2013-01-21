@@ -1,0 +1,32 @@
+<?php
+
+function tester_boot() {
+	
+}
+
+function tester_init() {
+	
+	
+}  
+
+
+function tester_menu() {
+  return array(
+    'tester' => array(
+      'page callback' => 'tester',
+      'type' => MENU_CALLBACK,
+      'access callback' => true,
+    ),
+  );
+}
+
+function tester() {
+
+  badges_grant(1, 'flag_success');
+   exit;
+  $data = flag_get_content_flags('node', 18);
+
+  var_dump($data);
+
+  exit;
+}

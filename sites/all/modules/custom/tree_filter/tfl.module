@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @param array $codes1
+ * @param array $codes2
+ * @param array $codes3
+ * @return array
+ */
+function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array())
+{
+  $tfl = array(
+    'list' => array(),
+    'checked' => array(),
+  );
+
+  // countries
+  $countries = location_get_iso3166_list();
+  $tfl['list'][] = $countries;
+
+  // countries checked
+  $checked = array();
+  foreach ($countries as $code => $name) {
+    if (in_array($code, $codes1)) {
+      $checked[] = $code;
+    }
+  }
+  $tfl['checked'][] = $checked;
+
+  // states/provinces
+  $provinces = array();
+  foreach ($checked as $code) {
+    foreach (location_get_provinces($code) as $pcode => $pname) {
+      $provinces[$code . '_' . $pcode] = $pname;
+    }
+//    $provinces = array_merge($provinces, location_get_provinces($code));
+  }
+  $tfl['list'][] = $provinces;
+
+  // states/provinces checked
+  $checked = array();
+  foreach ($provinces as $code => $name) {
+    if (in_array($code, $codes2)) {
+      $checked[] = $code;
+    }
+  }
+  $tfl['checked'][] = $checked;
+
+  // cities
+  if (module_exists('location_cities')) {
+    // cities
+    $cities = array();
+    foreach ($checked as $code) {
+      list($ccode, $pcode) = explode("_", $code, 2);
+      $cities = array_merge($cities, location_get_cities($ccode, $pcode));
+    }
+    $tfl['list'][] = $cities;
+
+    // cities checked
+    $checked = array();
+    foreach ($cities as $code => $name) {
+      if (in_array($code, $codes3)) {
+        $checked[] = $code;
+      }
+    }
+    $tfl['checked'][] = $checked;
+  }
+
+  return $tfl;
+}

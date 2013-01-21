@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * Implementation of hook_badges()
+ *
+ * @return array
+ */
+function badges_comment_badges()
+{
+  $badges = array();
+
+  $badges['comment_bronze'] = array(
+    'function' => 'badges_comment_check',
+    'function multiple' => 'badges_comment_check_multiple',
+    'name' => t('Commentator'),
+    'info' => t('Left 10 comments'),
+    'type' => 'bronze',
+    'arguments' => array('comment_count' => 10),
+  );
+
+  if (module_exists('yn')) {
+    $badges['comment_agreed_bronze'] = array(
+      'function' => 'badges_comment_agreed_check',
+      'function multiple' => 'badges_comment_agreed_check_multiple',
+      'name' => t('Pamphleteer'),
+      'info' => t('Left 10 comments that got a minimum of one agree.'),
+      'type' => 'bronze',
+      'arguments' => array('comment_count' => 10),
+    );
+    $badges['comment_agreed_gold'] = array(
+      'function' => 'badges_comment_agreed_check',
+      'function multiple' => 'badges_comment_agreed_check_multiple',
+      'name' => t('Senator'),
+      'info' => t('Left 500 comments that got a minimum of one agree.'),
+      'type' => 'bronze',
+      'arguments' => array('comment_count' => 500),
+    );
+  }
+
+  return $badges;
+}
+
+/**
+ * @param $uid
+ * @return bool
+ */
+function badges_comment_check($uid, $arguments = array())
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("SELECT uid, COUNT(*) count FROM {comments} GROUP BY uid");
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['uid']] = $row['count'];
+    }
+  }
+
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : false;
+}
+
+/**
+ * @param array $uids
+ * @return array
+ */
+function badges_comment_check_multiple($uids = array(), $arguments = array())
+{
+  $output = array();
+
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_comment_check($uid, $arguments);
+  }
+
+  return $output;
+}
+
+/**
+ * @param $uid
+ * @return bool
+ */
+function badges_comment_agreed_check($uid, $arguments = array())
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("SELECT c.uid, COUNT(DISTINCT(cid)) count FROM {comments} c INNER JOIN {votingapi_vote} vv ON vv.content_id = c.cid WHERE vv.content_type = '%s' AND vv.value = '%d' GROUP BY c.uid", 'comment', VOTE_AGREE);
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['uid']] = $row['count'];
+    }
+  }
+
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : false;
+}
+
+/**
+ * @param array $uids
+ * @return array
+ */
+function badges_comment_agreed_heck_multiple($uids = array(), $arguments = array())
+{
+  $output = array();
+
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_comment_agreed_check($uid, $arguments);
+  }
+
+  return $output;
+}

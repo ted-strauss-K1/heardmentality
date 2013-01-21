@@ -1,0 +1,5 @@
+name = Event Stream
+description = Provides the API for Event Stream
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x

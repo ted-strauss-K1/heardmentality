@@ -1,0 +1,6 @@
+name = Follow Button
+description = Provides Follow Buttons for Profile Pages
+package = Custom Modules
+version = "6.x-1.6"
+core = 6.x
+dependencies[] = "user_relationships_api"

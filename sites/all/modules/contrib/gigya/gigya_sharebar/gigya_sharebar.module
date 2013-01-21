@@ -1,0 +1,340 @@
+<?php
+// $Id: $
+
+/**
+ * @file
+ * Adds support for the Gigya share bar on node pages.
+ */
+
+/**
+ * Implments hook_nodeapi
+ */
+function gigya_sharebar_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case 'view':
+
+      $types = variable_get('sharebar_nodetypes', array());
+      if (!empty($types[$node->type])) {
+        $node->content['gigya_sharebar'] = array(
+          '#value' => theme('gigya_sharebar'),
+          '#weight' => 10,
+        );
+
+
+        // Get the Link Back.
+        $linkback = url($_GET['q'], array('absolute' => TRUE));
+
+        // Get the user message.
+        $user_message = variable_get('sharebar_user_message', '');
+        $user_message = token_replace($user_message, 'node', $node);
+
+        // Get the title.
+        $title = variable_get('sharebar_title', '');
+        $title = token_replace($title, 'node', $node);
+
+        // TODO Get the teaser.
+        $teaser = variable_get('sharebar_description', '');
+        $teaser = token_replace($teaser, 'node', $node);
+
+        // Get the action link title.
+        $action_link_title = variable_get('sharebar_action_link_title', '');
+        $action_link_title = token_replace($action_link_title, 'node', $node);
+
+        // Get the action link href.
+        $action_link_href = variable_get('sharebar_action_link_href', '');
+        $action_link_href = token_replace($action_link_href, 'node', $node);
+
+        //Get show counts
+        $show_counts = variable_get('sharebar_showcounts', 'right');
+
+        // Get the buttons (networks) used for Gigya Sharebar.
+        $buttons = variable_get('sharebar_buttons', gigya_sharebar_button_defaults());
+        $buttons = array_flip($buttons);
+        unset($buttons[0]);
+
+        // Facebook like is special.
+        if (in_array('facebook_like', $buttons)) {
+          drupal_add_js(array('gigya_sharebar' => array('facebookLikeButton' => array('action' => 'Like', 'position' => 'first'))), 'setting');
+          unset($buttons['facebook_like']);
+        }
+
+        $share_buttons = implode($buttons, ',');
+
+        // Set all the above as Drupal settings.
+        $settings = array('gigya_sharebar' => array(
+            'linkBack' => $linkback,
+            'userMessage' => $user_message,
+            'title' => $title,
+            'description' => $teaser,
+            'actionLinkTitle' => $action_link_title,
+            'actionLinkHREF' => $action_link_href,
+            'shareButtons' => $share_buttons,
+            'showCounts' => $show_counts,
+            )
+          );
+        }
+     // Allow modules to alter the object before adding the JS to the page.
+      drupal_alter('gigya_sharebar', $settings, $node, $a3, $a4);
+      drupal_add_js($settings, 'setting');
+      break;
+  }
+}
+
+/**
+ * Implements hook_theme
+ */
+function gigya_sharebar_theme(){
+  return array(
+    'gigya_sharebar' => array(
+          'arguments' => array(),
+        ),
+  );
+}
+
+/**
+ * Implements hook_theme
+ */
+function theme_gigya_sharebar(){
+  $output .= '<div id="gigya-sharebar"></div>';
+  return $output;
+}
+
+/**
+ * Implements hook_content_extra_fields
+ *
+ * Adds the sharebar into the drag and drop field order form.
+ */
+function gigya_sharebar_content_extra_fields(){
+  $extra = array();
+  $extra['gigya_sharebar'] = array(
+      'label' => t('Share Bar'),
+      'description' => t('Gigya Share Bar.'),
+      'weight' => 10,
+    );
+  return $extra;
+}
+
+/**
+ * Implements hook_menu_alter
+ *
+ * Adds a menu local task for the gigya settings page.
+ */
+function gigya_sharebar_menu_alter(&$items){
+  if (isset($items['admin/settings/gigya'])){
+    $items['admin/settings/gigya/socalize'] = array(
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+      'title' => 'Socialize',
+      'access arguments' => array('administer gigya'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('gigya_admin_form'),
+      'description' => 'Gigya socialize configuration.',
+      'file' => 'gigya.admin.inc',
+      'file path' => drupal_get_path('module', 'gigya'),
+      'weight' => -1,
+    );
+  }
+}
+
+/**
+ * Implements hook_menu
+ *
+ * Adds a settings page for sharebar.
+ */
+function gigya_sharebar_menu() {
+  $items['admin/settings/gigya/sharebar'] = array(
+    'title' => 'Sharebar',
+    'description' => 'Gigya Sharebar settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('gigya_sharebar_settings_form'),
+    'access arguments' => array('administer gigya'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+  );
+
+  return $items;
+}
+
+function gigya_sharebar_settings_form(){
+  $form = gigya_sharebar_prepare_settings_form();
+
+  // Set defaults for the settings form
+  $default_vals = array(
+    'sharebar_title' => '[title]',
+    'sharebar_user_message' => 'Shared an article',
+    //'sharebar_description' => '!teaser', // TODO needs a real token here.
+    'sharebar_action_link_title' => variable_get('site_name', ''),
+    'sharebar_action_link_href' => url('<front>', array('absolute' => TRUE)),
+  );
+
+  foreach ($form as $key => $element){
+    // Remove the old key.
+    unset($form[$key]);
+
+    // Rename the key for sharebar.
+    $newkey = str_replace('shareui_', 'sharebar_', $key);
+
+    // Update the default value to use a new key, and new default.
+    $element['#default_value'] = variable_get($newkey, $default_vals[$newkey]);
+
+    // Add the element back with a new key.
+    $form[$newkey] = $element;
+  }
+
+  $networks = gigya_sharebar_selected_networks();
+  if (in_array('facebook', $networks)) {
+    $networks['facebook_like'] = 'Facebook like button';
+  }
+  if (in_array('google', $networks)) {
+    $networks['google-plusone'] = 'Google +1 button';
+  }
+
+  // Add choice of buttons.
+  $button_options = array('share' => t('Share (a single button for all other services)')) + $networks + array('email' => t('Email (Allows users to optionally share via email.)'));
+  $button_defaults = gigya_sharebar_button_defaults();
+  $form['sharebar_buttons'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Buttons to show in sharebar'),
+    '#options' => $button_options,
+    '#default_value' => variable_get('sharebar_buttons', $button_defaults),
+    '#weight' => -10,
+    '#description' => t('Networks must be selected on the Socialize settings page to appear here.'),
+  );
+  $form['sharebar_nodetypes'] = array(
+    '#type'          => 'checkboxes',
+    '#title'         => t('Node Types'),
+    '#description'   => t('Display the Sharebar on these node types.'),
+    '#default_value' => variable_get('sharebar_nodetypes', array('page', 'story')),
+    '#options'       => node_get_types('names'),
+    '#weight' => -9,
+  );
+  $form['sharebar_uiconf'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Parameters for Share bar UIConfig'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => -8,
+  );
+  $form['sharebar_uiconf']['sharebar_showcounts'] = array(
+    '#type' => 'select',
+    '#title' => t('Show counts'),
+    '#description' => t('Where to display the share counts in relation to the share button'),
+    '#options' => array(
+      'right' => t('Right'),
+      'top' => t('Top'),
+      'none' => t('none'),
+    ),
+    '#default_value' => 'right',
+  );
+  //this is just the form if uncommented doesn't do anything
+  /*
+   *$form['sharebar_uiconf']['sharebar_layout'] = array(
+   *  '#type' => 'select',
+   *  '#title' => t('Layout'),
+   *  '#description' => t('The Share Bar arrangement of buttons in the bar'),
+   *  '#options' => array(
+   *    'horizontal' => t('Horizontal'),
+   *    'vertical' => t('Vertical'),
+   *  ),
+   *  '#default_value' => 'horizontal',
+   *);
+   *$form['sharebar_uiconf']['sharebar_nobuttonborders'] = array(
+   *  '#type' => 'checkbox',
+   *  '#title' => t('Do not dispaly borders around buttons'),
+   *  '#weight' => 10,
+   *);
+   *$form['sharebar_uiconf']['sharebar_operationmode'] = array(
+   *  '#type' => 'select',
+   *  '#title' => t('Operation mode'),
+   *  '#description' => t('Multiple Selection Share mode, Simple Share mode or auto detect that Automatically opens the Share Plugin according to the user\'s connection status'),
+   *  '#options' => array(
+   *    'simpleShare' => t('Simple share'),
+   *    'multiSelect' => t('Multi select'),
+   *    'autoDetect' => t('Auto detect'),
+   *  ),
+   *  '#default_value' => 'simpleShare',
+   *);
+   *$form['sharebar_uiconf']['sharebar_shorturl'] = array(
+   *  '#type' => 'select',
+   *  '#title' => t('Use short urls'),
+   *  '#description' => t('whether to use Gigya\'s URL shortening service for URLs, which are published'),
+   *  '#options' => array(
+   *    'always' => t('Always'),
+   *    'When required' => t('When required'),
+   *    'never' => t('Never')
+   *  ),
+   *  '#default_value' => 'always',
+   *);
+   */
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_init
+ *
+ * Add all the js here, to speed page load w/ aggregation enabled.
+ */
+function gigya_sharebar_init(){
+  drupal_add_js(drupal_get_path('module', 'gigya_sharebar') . '/gigya_sharebar.js', 'module', 'footer');
+}
+
+/**
+ * Helper function
+ *
+ * Returns a list of default sharebar buttons.
+ */
+function gigya_sharebar_button_defaults(){
+  $defaults = array('share', 'email');
+  $networks = gigya_sharebar_selected_networks();
+  if (in_array('facebook', $networks)){
+    $defaults[] = 'facebook';
+  }
+  if (in_array('twitter', $networks)){
+    $defaults[] = 'twitter';
+  }
+  return $defaults;
+}
+
+/**
+ * Helper function
+ *
+ * Returns the list of networks selected for use with Gigya.
+ */
+function gigya_sharebar_selected_networks(){
+  // Retrieve selected networks
+  $networks = variable_get('gigya_selected_networks', array());
+  // Transform into selected network string.
+  $networks = array_flip($networks);
+  // Unset the last unselected network.
+  unset($networks[0]);
+  return $networks;
+}
+
+/**
+ * Helper function
+ *
+ * Prepares the share UI form for share bar instead.
+ */
+function gigya_sharebar_prepare_settings_form() {
+  $form = gigya_shareui_general_action_form('node', array());
+
+  // Template is deprecated, remove.
+  unset($form['shareui_template']);
+
+  // Remove email checkbox, handled in buttons.
+  unset($form['shareui_show_email_button']);
+
+  // Remove url option - automatic.
+  unset($form['shareui_linkback']);
+
+  // TODO Remove flash widget option - not currently supported.
+  unset($form['shareui_useFlash']);
+
+  // TODO Remove more link option - not currently supported.
+  unset($form['shareui_show_more_button']);
+
+  // TODO Remove the teaser option - not currently supported.
+  unset($form['shareui_description']);
+
+  return $form;
+}

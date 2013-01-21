@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * Implementation of hook_menu()
+ *
+ * @return array
+ */
+function events_follower_menu()
+{
+  $menu = array();
+
+  $menu['following'] = array(
+    'title' => t('Following'),
+    'page callback' => 'theme',
+    'page arguments' => array('events_follower_content'),
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK,
+  );
+
+  $menu['following/ajax'] = array(
+    'page callback' => 'events_follower_ajax',
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function events_follower_theme()
+{
+  $theme = array();
+
+  $theme['events_follower_content'] = array(
+    'arguments' => array(),
+    'template' => 'events-follower-content',
+    'preprocess functions' => array('events_follower_content_preprocess'),
+  );
+  $theme['events_follower_block'] = array(
+    'arguments' => array(),
+    'template' => 'events-follower-block',
+    'preprocess functions' => array('events_follower_block_preprocess'),
+  );
+  $theme['events_follower_block_content'] = array(
+    'arguments' => array('users' => array()),
+    'template' => 'events-follower-block-content',
+  );
+
+  return $theme;
+}
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function events_follower_preprocess_page(&$vars)
+{
+  if (arg(0) == 'following') {
+    # set page template
+    array_push($vars['template_files'], 'page_11_5');
+
+    $vars['right'] = theme('events_follower_block');
+
+    drupal_set_subtitle(t('Following'));
+  }
+}
+
+/**
+ * Preprocess function for events_follower_content theme
+ *
+ * @param $vars
+ */
+function events_follower_content_preprocess(&$vars)
+{
+  global $user;
+}
+
+/**
+ * Preprocess function for events_follower_block theme
+ *
+ * @param $vars
+ */
+function events_follower_block_preprocess(&$vars)
+{
+  drupal_add_js(drupal_get_path('module', 'events_follower') . '/events_follower.js');
+
+  global $user;
+
+  $limit = 10;
+
+  $vars['users'] = follower_get_following($user->uid, false, $limit);
+  $vars['users_count'] = follower_get_following($user->uid, true);
+}
+
+function events_follower_uids()
+{
+  $p = array();
+
+  global $user;
+  $uids = follower_get_following($user->uid, false, 1000);
+  foreach ($uids as $f_user) {
+    $p[] = $f_user->requestee_id;
+  }
+
+  return $p;
+}
+
+/**
+ *
+ */
+function events_follower_ajax()
+{
+  $post = $_POST;
+
+  $p = array();
+
+  $p['uid'] = events_follower_uids();
+
+  switch ($post['items']) {
+    case 'arguments' :
+      $p['type'] = array('forum_create', 'forum_comment');
+      break;
+    case 'issues' :
+      $p['type'] = array('poll_create');
+      break;
+    case 'votes' :
+      $p['type'] = array('poll_vote', 'forum_vote', 'forum_comment_vote');
+      break;
+  }
+
+  print json_encode(array(
+    'status' => true,
+    'message' => theme('events', events_get($p)),
+  ));
+  exit;
+}

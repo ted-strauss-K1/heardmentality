@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function argument_options_install()
+{
+  drupal_install_schema('argument_options');
+
+  //
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function argument_options_uninstall()
+{
+  drupal_uninstall_schema('argument_options');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function argument_options_schema()
+{
+  $schema = array();
+
+  $schema['argument_options'] = array(
+    'description' => t('Stores the argument options.'),
+    'fields' => array(
+      'nid' => array(
+        'description' => t("The forum {node}.nid"),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'iid' => array(
+        'description' => t("The poll {node}.nid"),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'chorder' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The sort order of this choice among all choices for the same node.',
+      ),
+      'val' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => FALSE,
+        'default' => 0,
+        'description' => 'User option',
+      ),
+      'date_added' => array(
+        'description' => 'Date the option was added',
+        'type' => 'datetime',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('nid', 'iid', 'chorder'),
+  );
+
+  return $schema;
+}

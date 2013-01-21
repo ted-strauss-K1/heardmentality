@@ -1,0 +1,7 @@
+name = Event Stream - Followed Users' Stream
+description = Following Events Stream
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = 'follower'
+dependencies[] = 'events'

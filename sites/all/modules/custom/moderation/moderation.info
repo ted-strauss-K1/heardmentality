@@ -1,0 +1,9 @@
+name = Moderation module for Issues
+description = Provides common way for moderation: Issues, Debates, Resources and their Replies
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = "issue"
+dependencies[] = "i18n"
+dependencies[] = "location"
+dependencies[] = "location_cities"
