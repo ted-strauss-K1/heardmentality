@@ -152,7 +152,7 @@ function badges_poll_votes_taxonomy_check($uid, $arguments = array())
       $tblt = array_merge($tblt, taxonomy_bottom_level_terms($vid));
     }
 
-    $result = db_query("SELECT pv.uid, COUNT(DISTINCT(tn.nid)) AS nids, COUNT(DISTINCT(tn.tid)) AS tids FROM {poll_votes} pv INNER JOIN {term_node} tn ON tn.nid = pv.nid GROUP BY pv.uid ORDER BY pv.uid WHERE tn.tid IN (" . db_placeholders($tblt) . ")", $tblt);
+    $result = db_query("SELECT pv.uid, COUNT(DISTINCT(tn.nid)) AS nids, COUNT(DISTINCT(tn.tid)) AS tids FROM {poll_votes} pv INNER JOIN {term_node} tn ON tn.nid = pv.nid WHERE tn.tid IN (" . db_placeholders($tblt) . ") GROUP BY pv.uid ORDER BY pv.uid", $tblt);
     while ($row = db_fetch_array($result)) {
       $cache[$row['uid']] = array('nids' => $row['nids'], 'tids' => $row['tids']);
     }
