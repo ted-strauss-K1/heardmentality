@@ -1,6 +1,0 @@
-name = Poll Choice Suggestions
-description = Poll Choice Suggestions
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "poll"

@@ -1,6 +1,0 @@
-name = Contact Forms Extension
-description = Contact Forms Extension
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "contact_forms"

@@ -1,6 +1,0 @@
-name = Yes/No Voting
-description = Module provides simple way of handling the yes/no voting for nodes and comments.
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "votingapi"

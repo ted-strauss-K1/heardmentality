@@ -1,5 +1,0 @@
-# 1 WEEK - possible to be changed, unlikely
-<IfModule mod_expires.c>
-ExpiresActive On
-ExpiresDefault "access plus 1 week"
-</IfModule>

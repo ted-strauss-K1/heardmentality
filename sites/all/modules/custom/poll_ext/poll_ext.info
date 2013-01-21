@@ -1,6 +1,0 @@
-name = Poll Extension
-description = Short Text for poll choices and Poll Vote History tracking
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "poll"

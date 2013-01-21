@@ -1,6 +1,0 @@
-name = Issues Solr
-description = Issues Solr search page
-package = custom
-core = "6.x"
-
-

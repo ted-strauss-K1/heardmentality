@@ -1,5 +1,0 @@
-name = Microsoft Translate
-description = Microsoft Translator API
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
