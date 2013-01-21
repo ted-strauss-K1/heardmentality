@@ -83,7 +83,6 @@ function charts_theme()
 
   $theme['issue_charts_strength'] = array(
     'arguments' => array('node' => NULL),
-    'preprocess functions' => array('issue_charts_common_preprocess'),
   );
 
   return $theme;
@@ -142,7 +141,7 @@ function issue_charts_chtexts($node)
    *
    * @param $vars
    */
-function issue_charts_common_preprocess(&$vars)
+function issue_charts_common_preprocess($vars)
 {
   // run once
   static $js;
@@ -158,7 +157,6 @@ function issue_charts_common_preprocess(&$vars)
   drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
   drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
   drupal_add_js(array('charts' => array('colors' => charts_colors(true))), 'setting');
-
 }
 
 /**
@@ -670,7 +668,10 @@ function theme_issue_charts_gmap($node)
  */
 function theme_issue_charts_strength($node)
 {
-# Prepare the data for the debate analysis
+  // preprocess
+  issue_charts_common_preprocess(array('node' => $node));
+
+  # Prepare the data for the debate analysis
   $data = array();
   $choices = ($node->choice) ? $node->choice : array();
   foreach ($node->choice as $choice) {
