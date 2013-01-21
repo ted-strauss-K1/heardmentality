@@ -91,7 +91,11 @@
 
 /**
  * Debugging
+<<<<<<< HEAD
  */
+=======
+ */ 
+>>>>>>> 878120cefd836ae9e372efbea20f85684d01b708
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
@@ -100,8 +104,8 @@ ini_set('display_startup_errors', TRUE);
  * Mysql Setups
  */
 #$db_url = 'mysql://heardmentality:H3@rdM3nt@l!ty@localhost/heardmentality';
-#$db_url = 'mysql://root:H3@rdMDB#2012@localhost/hm-latest';
-$db_url = 'mysql://root:@localhost/hm2';
+$db_url = 'mysql://root:H3@rdMDB#2012@localhost/hm-latest';
+#$db_url = 'mysql://root:@localhost/hm2';
 
 $db_prefix = '';
 
