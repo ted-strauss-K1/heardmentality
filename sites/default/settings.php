@@ -91,11 +91,7 @@
 
 /**
  * Debugging
-<<<<<<< HEAD
  */
-=======
- */ 
->>>>>>> 878120cefd836ae9e372efbea20f85684d01b708
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
