@@ -31,7 +31,7 @@
 				  <?php
 				  // TODO check user perms to see the moderation link
 				  if ( ($router_item = menu_get_item('moderation')) && $router_item['access'] ) : ?>
-					<li><?php print l(t('Moderator'), 'issues/list/all', array('attributes' => array('class'=>'moderator add'))); ?></li>
+					<li><?php print l(t('Moderator'), 'moderation', array('attributes' => array('class'=>'moderator add'))); ?></li>
 				  <?php endif; ?>
 				</ul>
 			</div>

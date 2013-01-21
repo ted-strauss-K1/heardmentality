@@ -88,7 +88,21 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-$db_url = 'mysqli://root@localhost/hm2';
+
+/**
+ * Debugging
+ */
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+
+/**
+ * Mysql Setups
+ */
+#$db_url = 'mysql://heardmentality:H3@rdM3nt@l!ty@localhost/heardmentality';
+#$db_url = 'mysql://root:H3@rdMDB#2012@localhost/hm-latest';
+$db_url = 'mysql://root:@localhost/hm2';
+
 $db_prefix = '';
 
 /**
