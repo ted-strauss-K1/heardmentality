@@ -453,7 +453,7 @@ function argument_create()
       if ($node) {
         print json_encode(array(
           'success' => true,
-          'message' => '<span class="posted">Your argument posted successfully!</span>',
+          'message' => '<span class="posted">'.t('Your argument was posted successfully!').'</span>',
           'node' => $node,
         ));
 
@@ -641,7 +641,7 @@ function argument_fetch_url($url, $image = false)
     $node->body = empty($tags) ? '' : $tags['description'];
 
     # get images
-    $node->field_image_path[0]['value'] = file_create_url(file_directory_path() . '/noimage.jpg');
+    $node->field_image_path[0]['value'] = file_directory_path() . '/noimage.jpg';
     module_load_include('php', 'issue', 'includes/url_to_absolute');
     $images = array();
     $images_source = $html->find('img');
@@ -655,14 +655,20 @@ function argument_fetch_url($url, $image = false)
 
     if ($image !== false) {
       # save image to disk
-      $result = drupal_http_request($image, array(), 'POST', '', 3);
-      if ($result->data) {
-        $ext = argument_create_resource_image_extension($image);
-        $hash = md5($image);
-        $filepath = file_directory_path() . '/resources/res-' . $hash . '.' . $ext;
-        $file = file_save_data($result->data, $filepath, FILE_EXISTS_REPLACE);
-        image_scale($file, $filepath, '110', '70');
-        $node->field_image_path[0]['value'] = file_create_url($file);
+      // old code
+//      $result = drupal_http_request($image, array(), 'POST', '', 3);
+//      if ($result->data) {
+//        $ext = argument_create_resource_image_extension($image);
+//        $hash = md5($image);
+//        $filepath = file_directory_path() . '/resources/res-' . $hash . '.' . $ext;
+//        $file = file_save_data($result->data, $filepath, FILE_EXISTS_REPLACE);
+//        image_scale($file, $filepath, '110', '70');
+//        $node->field_image_path[0]['value'] = file_create_url($file);
+//      }
+
+      module_load_include('php', 'issue', 'includes/download_image');
+      if ($file = download_image($image, 'resources')) {
+        $node->field_image_path[0]['value'] = $file->filepath;
       }
     }
   }
@@ -747,6 +753,11 @@ function arguments_create_resource($nid, $url, $image)
   $node->field_issue[0]['nid'] = $nid;
 
   node_save($node);
+
+  // delete permanent cache with no extra fields
+  $cid = 'content:'. $node->nid .':'. $node->vid;
+  cache_clear_all($cid, content_cache_tablename());
+  $node = node_load($node->nid, null, true);
 
   return $node;
 }
