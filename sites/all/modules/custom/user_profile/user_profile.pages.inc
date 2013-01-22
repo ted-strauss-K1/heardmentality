@@ -547,6 +547,7 @@ function user_profile_edit_form_submit_image(&$form, &$form_state)
     $dest = $upload_dir . '/picture-' . $user->uid . '.' . $extension;
   }
   if ($dest && file_move($file, $dest, FILE_EXISTS_RENAME)) {
+    $dest = $file->filepath;
     // images upload
     if (strpos($dest, 'http://') !== 0) {
       $dest = '/' . $dest;
