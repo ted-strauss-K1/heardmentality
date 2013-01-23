@@ -246,7 +246,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     $vote = $vote || ($vote_s != -1);
   }
 
-  if ($vote) {
+  if ($vote != -1) {
     $form['choice']['#after_build'] = array('issue_vote_form_radios');
   }
 
@@ -286,7 +286,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
         '#prefix' => '<div class="choices suggested">',
         '#suffix' => '</div>'
       );
-      if ($vote) {
+      if ($vote != -1) {
         $form['suggest']['suggest_choice']['#after_build'] = array('issue_vote_form_radios_suggested');
       }
     }
