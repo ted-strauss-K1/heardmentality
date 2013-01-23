@@ -19,7 +19,7 @@
 			<div class="top-left user-menu">
 				<ul class="menu">
 				  <li><?php print l(t('Issues'), 'issues', array('attributes' => array('class'=>'issues'))); ?></li>
-				  <li><?php print l(t('Analysis'), $_GET['q'], array('attributes' => array('class'=>'analysis'))); ?></li>
+<!--				  <li>--><?php //print l(t('Analysis'), $_GET['q'], array('attributes' => array('class'=>'analysis'))); ?><!--</li>-->
 				</ul>
 				<ul class="menu second">
 				  <li><?php print l(t('Add an Issue'), 'issue/create', array('attributes' => array(
