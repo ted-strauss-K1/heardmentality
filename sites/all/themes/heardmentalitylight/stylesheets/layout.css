@@ -5960,3 +5960,9 @@ span.beta {
 .selected-item.silver:hover { background: #ECECEC }
 .selected-item.gold { background: #F7DB07 }
 .selected-item.gold:hover { background: #F7DB07 }
+
+
+
+#debate_list_area div.warning {
+  margin-top: 12px;
+}
