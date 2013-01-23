@@ -195,17 +195,7 @@ function _badge_user_votes($uid, $count)
   return $count_pv + $count_sa + $count_ud >= $count;
 }
 
-/*
- * Get vote count
- */
-function issue_get_uservotes($uid)
-{
-  static $votes = array();
-  if (!isset($votes[$uid])) {
-    $votes[$uid] = (int)db_result(db_query("SELECT COUNT(*) FROM {poll_votes} WHERE uid = '%d'", $uid));
-  }
-  return $votes[$uid];
-}
+
 
 /**
  * Voted 1000 times

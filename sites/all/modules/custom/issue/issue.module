@@ -175,34 +175,21 @@ function issue_comment(&$a1, $op)
   }
 }
 
-
-// 'create poll content'
-// 'vote on polls'
-
-/*
- * Permission to view an issue
+/**
+ * @param $uid
+ * @return int
  */
-define('ISSUE_VIEW', 'View Issue');
-
-/*
- * Permission to edit an issue
- */
-define('ISSUE_EDIT', 'Edit Issue');
-
-/*
- * Permission to edit own issue
- */
-define('ISSUE_EDIT_OWN', 'Edit Own Issue');
-
-/*
- * Permission to create an issue
- */
-define('ISSUE_CREATE', 'Create Issue');
-
-/*
- * Implementation of hook_perm()
- */
-function issue_perm()
+function issue_get_uservotes($uid)
 {
-  return array(ISSUE_VIEW, ISSUE_EDIT, ISSUE_EDIT_OWN, ISSUE_CREATE);
+  static $votes;
+
+  if (is_null($votes)) {
+    $votes = array();
+    $result = db_query("SELECT uid, COUNT(*) count FROM {poll_votes} GROUP BY uid");
+    while ($row = db_fetch_object($result)) {
+      $votes[$row->uid] = $row->count;
+    }
+  }
+
+  return (int)$votes[$uid];
 }

@@ -214,7 +214,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
   );
 
   # votes
-  $vote_r = $node->vote;
+  $vote_r = is_null($node->vote) ? -1 : $node->vote;
   $form['vote_regular'] = array(
     '#type' => 'hidden',
     '#value' => $vote_r,
@@ -235,7 +235,6 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
   }
 
   $vote = $vote_r != -1;
-
   if (module_exists('poll_suggest')) {
     $vote_s = $node->vote_suggest;
     $form['vote_suggested'] = array(
@@ -246,7 +245,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     $vote = $vote || ($vote_s != -1);
   }
 
-  if ($vote != -1) {
+  if ($vote) {
     $form['choice']['#after_build'] = array('issue_vote_form_radios');
   }
 
@@ -286,7 +285,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
         '#prefix' => '<div class="choices suggested">',
         '#suffix' => '</div>'
       );
-      if ($vote != -1) {
+      if ($vote) {
         $form['suggest']['suggest_choice']['#after_build'] = array('issue_vote_form_radios_suggested');
       }
     }
