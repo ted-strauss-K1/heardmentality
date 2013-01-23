@@ -329,23 +329,9 @@ function heardmentalitylight_theme($existing, $type, $theme, $path){
   # setting special templates for the pages and forms
 
   return array(
-
-
-//    'issue_search_form' => array(
-//      'arguments' => array('form' => NULL),
-//      'template' => 'issue-search-form',
-//    ),
     'issue_suggest_form' => array(
       'arguments' => array('form' => NULL),
       'template' => 'issue-suggest-form',
-    ),
-//    'user_details' => array(
-//      'arguments' => array('form' => NULL),
-//      'template' => 'profile-edit-form',
-//    ),
-    'abuse_report_form' => array(
-      'arguments' => array('form' => NULL),
-      'template' => 'issue-flag-form',
     ),
   );
 }

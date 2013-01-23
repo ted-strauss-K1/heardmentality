@@ -1,9 +1,3 @@
-function show_msg(element, message, delayTimeout, slideTimeout) {
-  jQuery(element).html(message).delay(delayTimeout).slideUp(slideTimeout, function () {
-    jQuery(this).html('').show();
-  });
-}
-
 /*
  * Image Value Preprocess when submitting new resource
  */

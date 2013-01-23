@@ -354,16 +354,23 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
  */
 function issue_vote_form_radios($form_element, &$form_state)
 {
-  $nid = $form_state['values']['nid'];
+  $node = node_load($form_state['values']['nid']);
   $count = count($form_element['#options']);
-  $votes = issue_get_votes($nid);
-  for ($i = 0; $i < $count; $i++) {
-    $vote_number = ($votes[$i] ? $votes[$i] : 0);
-    $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
-    $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
-<span>' . $vote_number . '</span>' . $vote_string . '</span>';
-    $form_element[$i]['#suffix'] = '</div>';
+
+  if ($count != count($node->choice)) {
+    return $form_element;
   }
+
+  if ($node->choice) {
+    foreach ($node->choice as $i => $choice) {
+      $vote_number = ($choice['chvotes'] ? $choice['chvotes'] : 0);
+      $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
+      $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
+<span>' . $vote_number . '</span>' . $vote_string . '</span>';
+      $form_element[$i]['#suffix'] = '</div>';
+    }
+  }
+
   return $form_element;
 }
 

@@ -191,3 +191,33 @@ function _issue_ajax_suggest($vars)
     exit;
   }
 }
+
+/**
+ * Poll vote change
+ */
+function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old = -1)
+{
+  if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return false;
+  global $user;
+  if ($vote_r_old != -1) {
+    db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = '%d' AND chorder = '%d'", $nid, $vote_r_old);
+    db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND uid = '%d'", $nid, $user->uid);
+  }
+  if ($vote_s_old != -1) {
+    poll_suggest_vote_remove($vote_s_old, $user->uid);
+  }
+  # add new values
+  if ($vote_r != -1) {
+    db_query("UPDATE {poll_choices} SET chvotes = chvotes+1 WHERE nid = '%d' AND chorder = '%d'", $nid, $vote_r);
+    db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $vote_r, $user->uid);
+
+    if (module_exists('rules')) {
+      rules_invoke_event('poll_vote', $user, node_load($nid));
+    }
+  }
+  if ($vote_s != -1) {
+    poll_suggest_vote_add($vote_s, $user->uid);
+  }
+
+  return true;
+}
