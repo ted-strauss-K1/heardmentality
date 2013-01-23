@@ -299,6 +299,11 @@ Drupal.behaviors.translate = function (context) {
   if (typeof tipsy_attach == 'function') {
     tipsy_attach();
   }
+
+  if (typeof toggle_resources == 'function') {
+    toggle_resources();
+  }
+
 }
 
 /**

@@ -47,6 +47,14 @@ function choices(s1, s2) {
   });
 }
 
+function toggle_resources() {
+  if ($('#inc_check').attr('checked')) {
+    $('.resources').show();
+  } else {
+    $('.resources').hide();
+  }
+}
+
 $(document).ready(function () {
   /*
    * Regular and Suggested choices
@@ -59,8 +67,8 @@ $(document).ready(function () {
   /*
    * Toggle resources
    */
-  $('#inc_ref').change(function () {
-    $('.resources').toggle();
+  $('#inc_check').change(function () {
+    toggle_resources();
   });
 
 });
@@ -80,7 +88,3 @@ $('a.permalink').live('click', function (e) {
     'closeWith':['button']
   });
 });
-
-
-
-
