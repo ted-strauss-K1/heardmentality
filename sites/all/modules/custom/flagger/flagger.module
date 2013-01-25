@@ -240,6 +240,10 @@ function flagger_theme()
     ),
   );
 
+  $theme['flagger_flags'] = array(
+    'arguments' => array(),
+  );
+
   return $theme;
 }
 
@@ -296,6 +300,74 @@ function theme_flagger_node_flags($content_id, $content_type)
 }
 
 /**
+ * @return string
+ */
+function theme_flagges_flags() {
+  $output = '<div class="table-bor-form clearfix">';
+
+  // collect info
+  $flags = array();
+  foreach (flag_get_flags('node') as $flag) {
+    if (in_array('poll', $flag->types)) {
+      $flags['poll'][str_replace('node_', '', $flag->name)] = $flag->title;
+    }
+    if (in_array('forum', $flag->types)) {
+      $flags['post'][str_replace('node_', '', $flag->name)] = $flag->title;
+    }
+  }
+  foreach (flag_get_flags('comment') as $flag) {
+    if (in_array('forum', $flag->types)) {
+      $flags['post'][str_replace('comment_', '', $flag->name)] = $flag->title;
+    }
+  }
+
+  // All-user interaction
+  $output .= '
+    <div class="table-bor-form-item-1">
+      <div class="table-bor-form-item-1-title"><h6>'.t('In all user interaction').':</h6></div>
+      <ul>';
+  foreach ($flags['poll'] as $name => $title) {
+    if (isset($flags['post'][$name])) {
+      $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($name));
+    }
+  }
+  $output .= '
+      </ul>
+    </div>';
+
+  // Issues
+  $output .= '
+    <div class="table-bor-form-item-1">
+      <div class="table-bor-form-item-1-title"><h6>'.t('Issues').':</h6></div>
+      <ul>';
+  foreach ($flags['poll'] as $name => $title) {
+//    if (!isset($flags['post'][$name])) {
+      $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($name));
+//    }
+  }
+  $output .= '
+      </ul>
+    </div>';
+
+  // Posts
+  $output .= '
+    <div class="table-bor-form-item-1">
+      <div class="table-bor-form-item-1-title"><h6>'.t('Posts').':</h6></div>
+      <ul>';
+  foreach ($flags['post'] as $name => $title) {
+//    if (!isset($flags['poll'][$name])) {
+    $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($name));
+//    }
+  }
+  $output .= '
+      </ul>
+    </div>';
+
+  $output .= '</div>';
+  return $output;
+}
+
+/**
  * Add required js
  *
  * @param $vars
@@ -320,7 +392,7 @@ function flagger_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
     case 'load' :
       // let's load the flags used
       $node->flags = flagger_get_counts('node', $node->nid);
-      break;
+    break;
   }
 }
 
