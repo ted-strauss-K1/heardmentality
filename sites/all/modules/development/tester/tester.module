@@ -22,7 +22,7 @@ function tester_menu() {
 
 function tester() {
 
-  $data = theme('issue_charts_strength');
+  $data = node_load(18);
 //  $data = _theme_build_registry();
 
   var_dump($data);
