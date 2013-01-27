@@ -328,7 +328,7 @@ function theme_flagger_flags() {
       <ul>';
   foreach ($flags['poll'] as $name => $title) {
     if (isset($flags['post'][$name])) {
-      $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($name));
+      $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($title));
     }
   }
   $output .= '
@@ -342,7 +342,7 @@ function theme_flagger_flags() {
       <ul>';
   foreach ($flags['poll'] as $name => $title) {
 //    if (!isset($flags['post'][$name])) {
-      $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($name));
+      $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($title));
 //    }
   }
   $output .= '
@@ -356,7 +356,7 @@ function theme_flagger_flags() {
       <ul>';
   foreach ($flags['post'] as $name => $title) {
 //    if (!isset($flags['poll'][$name])) {
-    $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($name));
+    $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($title));
 //    }
   }
   $output .= '
