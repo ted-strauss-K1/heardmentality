@@ -276,7 +276,7 @@ function moderation_history($op, $content_id, $content_type, $change, $vars = ar
   }
 }
 
-function moderation_flags($content_type, $content_id) {
+function moderation_flags($content_type = '', $content_id = '') {
   static $cache = array();
 
   if (is_null($cache[$content_type][$content_id])) {
