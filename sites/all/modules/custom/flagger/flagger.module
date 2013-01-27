@@ -302,7 +302,7 @@ function theme_flagger_node_flags($content_id, $content_type)
 /**
  * @return string
  */
-function theme_flagges_flags() {
+function theme_flagger_flags() {
   $output = '<div class="table-bor-form clearfix">';
 
   // collect info
