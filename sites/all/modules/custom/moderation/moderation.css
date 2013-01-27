@@ -1,3 +1,12 @@
+.mod-wrapper h2 .open {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAX5JREFUSEvdlUFqwkAUho0iEpfeoJRSKPQELoNuo668hYtCA4VKunAliufwIuYA6kpBVHCX0JISA8HX94eQdkyEOAoFf/hg5iXvfZlxYe62QkQPzBvTlwS999E4MfwAw7/W6zVZliUFejmfzF009jdcfF+tVqSqKmErQ7lcpt1uB8kL78VwsY+vwPISptMpBCavxaQJKpUKdTodyufzQh20221SFCVRzyzA8MlkgpdpOBwmJBjU7XYTkswCTdNov9/j5TDHktlsRofDgQzDiGvgrCtqNBrkeR4awoxGo/iLIUCOe84SAEj+nmQwGIQnuZoANJvNhGQ+n4frqwiAruvCdeH+EWkBrqFQKAi0Wi3yfR8D4kgLqtUqbbdbchwnxrZtCoIAA+JIC0C9XifXddFwMhcJQK1Wo/F4fJJerye8L/0jZ+VfBeZisaBisZjamIVSqUSbzQaCV96L4eIz40GCk8iwXC4x/Jt5jMaKiSQfTNrfYRZM5ikadxPJ5X4AK7mm2lcfLpwAAAAASUVORK5CYII=);
+  width: 24px;
+  height: 24px;
+  position: relative;
+  display: inline-block;
+  top: 5px;
+}
+
 .mod-icon {
   width: 32px;
   height: 32px;
@@ -81,7 +90,7 @@
   display: none;
 }
 
-.mod-wrapper h2:hover {
+.mod-wrapper h2 a:hover {
   text-decoration: underline;
   cursor: pointer;
 }

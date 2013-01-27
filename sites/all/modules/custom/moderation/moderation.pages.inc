@@ -68,10 +68,10 @@ function moderation_markup_issue($node)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . rtrim($node->title) . '?</h2>
+    <h2 class="din half">' . l(rtrim($node->title), 'moderation/issue/' . $node->nid) . '? <div class="open"></div> </h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $node->path, t('View')) .
-    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/issue/' . $node->nid, t('Edit')) .
+//    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/issue/' . $node->nid, t('Edit')) .
     sprintf('<a href="/%s" target="_blank"><span class="mod-list mod-icon" title="%s"></span></a>', 'moderation/arguments/1/' . $node->nid, t('Arguments')) .
     '</div>
   </div>';
@@ -87,10 +87,10 @@ function moderation_markup_argument($node)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . rtrim($node->title) . '</h2>
+    <h2 class="din half">' . l(rtrim($node->title), 'moderation/argument/' . $node->nid) . ' <div class="open"></div> </h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'node/' . $node->parent_issue, t('View')) .
-    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/argument/' . $node->nid, t('Edit')) .
+//    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/argument/' . $node->nid, t('Edit')) .
     sprintf('<a href="/%s" target="_blank"><span class="mod-chat mod-icon" title="%s"></span></a>', 'moderation/comments/1/' . $node->nid, t('Replies')) .
     '</div>
   </div>';
@@ -106,10 +106,10 @@ function moderation_markup_comment($comment)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . rtrim($comment->comment) . '</h2>
+    <h2 class="din half">' . l(rtrim($comment->comment), 'moderation/comment/' . $comment->cid) . ' <div class="open"></div> </h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'moderation/argument/' . $comment->nid, t('Edit parent argument')) .
-    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/comment/' . $comment->cid, t('Edit')) .
+//    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/comment/' . $comment->cid, t('Edit')) .
     '</div>
   </div>';
 }
@@ -130,7 +130,7 @@ function moderation_markup_user($user)
 
   return user_access(MODERATION_ADMIN, $user) ? '' :
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . ucwords($user->name) . '</h2>
+    <h2 class="din half">' . ucwords($user->name) . ' <div class="open"></div> </h2>
     <div class="mod-buttons">' .
       sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $user->viewlink, t('View Profile')) .
       sprintf('<a href="#" class="permission %s" name="%s"><span class="mod-edit mod-icon" title="%s"></span></a>',
@@ -759,7 +759,7 @@ function moderation_argument_view_form($form, $nid)
 
   $form['save'] = array(
     '#type' => 'submit',
-    '#value' => t('Save'),
+    '#value' => t('Approve'),
     '#submit' => array('moderation_argument_view_form_save'),
   );
   if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
