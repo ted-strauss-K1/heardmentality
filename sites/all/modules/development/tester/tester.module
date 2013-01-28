@@ -22,7 +22,7 @@ function tester_menu() {
 
 function tester() {
 
-  $data = node_load(18);
+  $data = taxonomy_node_type_terms();
 //  $data = _theme_build_registry();
 
   var_dump($data);

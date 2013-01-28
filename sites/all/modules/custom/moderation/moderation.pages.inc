@@ -923,7 +923,7 @@ function moderation_issue_view_form_taxonomy(&$form, $tft_codes = false)
   $tft = tft_list('poll', $tft_codes);
 
   // taxonomy depth::
-  $tree = taxonomy_get_tree(3);
+  $tree = taxonomy_node_type_terms();
   $depth = 0;
   foreach ($tree as $leaf) {
     if ($depth < $leaf->depth) {
