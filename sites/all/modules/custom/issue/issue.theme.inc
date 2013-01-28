@@ -84,7 +84,7 @@ function issue_block_categories_preprocess(&$vars) {
 
 function issue_term_parents($term) {
   $h = $term->tid;
-  taxonomy_get_tree()
+//  taxonomy_get_tree()
 
 
 }
