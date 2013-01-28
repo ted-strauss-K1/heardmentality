@@ -68,7 +68,9 @@ function moderation_markup_issue($node)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . l(rtrim($node->title), 'moderation/issue/' . $node->nid) . '? <div class="open"></div> </h2>
+    <h2 class="din half">' . l(rtrim($node->title), 'moderation/issue/' . $node->nid) . '? '.
+//    '<div class="open"></div>' .
+    '</h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $node->path, t('View')) .
 //    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/issue/' . $node->nid, t('Edit')) .
@@ -87,7 +89,9 @@ function moderation_markup_argument($node)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . l(rtrim($node->title), 'moderation/argument/' . $node->nid) . ' <div class="open"></div> </h2>
+    <h2 class="din half">' . l(rtrim($node->title), 'moderation/argument/' . $node->nid) .
+//    ' <div class="open"></div>'.
+    ' </h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'node/' . $node->parent_issue, t('View')) .
 //    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/argument/' . $node->nid, t('Edit')) .
@@ -106,7 +110,9 @@ function moderation_markup_comment($comment)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . l(rtrim($comment->comment), 'moderation/comment/' . $comment->cid) . ' <div class="open"></div> </h2>
+    <h2 class="din half">' . l(rtrim($comment->comment), 'moderation/comment/' . $comment->cid) .
+//    ' <div class="open"></div> '.
+    '</h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'moderation/argument/' . $comment->nid, t('Edit parent argument')) .
 //    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/comment/' . $comment->cid, t('Edit')) .
@@ -816,8 +822,14 @@ function moderation_issue_view_form($form_state, $nid)
     '#type' => 'textfield',
     '#title' => t('Title'),
     '#value' => $node->title,
-    '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
-    '#suffix' => '</div>',
+    '#prefix' =>
+      sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
+        sprintf('
+        <div style="float:right;margin-right: 30px;"><a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a></div>',
+          $node->path, t('View')),
+    '#suffix' =>
+
+      '</div>',
   );
   $form['body'] = array(
     '#type' => 'textarea',
@@ -1146,8 +1158,8 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
     $form['charact'] = array(
       '#type' => 'fieldset',
       '#title' => t('Metadata'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#collapsible' => FALSE,
+      '#collapsed' => FALSE,
     );
     $charact = poll_charact_values_get($nid, $choice['chorder']);
     foreach ($charact as $cid => $char) {
