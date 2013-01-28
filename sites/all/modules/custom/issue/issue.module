@@ -96,6 +96,7 @@ function issue_theme()
     'arguments' => array('node' => NULL),
     'template' => 'templates/issue-arguments',
     'preprocess functions' => array('issue_arguments_preprocess'),
+    'file' => 'issue.theme.inc',
   );
   $theme['issue_arguments_content'] = array(
     'arguments' => array('node' => NULL),
@@ -111,7 +112,56 @@ function issue_theme()
     'template' => 'templates/issue-loader',
   );
 
+  // blocks
+  $theme['issue_block_categories'] = array(
+    'arguments'             => array('nid' => NULL),
+    'template'              => 'templates/issue-block-categories',
+    'preprocess functions'  => array('issue_block_categories_preprocess'),
+    'file' => 'issue.theme.inc',
+  );
+
+
   return $theme + argument_theme() + charts_theme() + _issue_theme();
+}
+
+/**
+ * Implementation of hook_block()
+ *
+ * @param string $op
+ * @param int $delta
+ * @param array $edit
+ * @return mixed
+ */
+function issue_block($op = 'list', $delta = 0, $edit = array())
+{
+  switch ($op) {
+    case 'list' :
+      $blocks = array();
+
+      $blocks['issue-categories'] = array(
+        'info'  => t('Active Categories'),
+      );
+      $blocks['issue-categories-popular'] = array(
+        'info'  => t('Popular Categories'),
+      );
+
+      return $blocks;
+    case 'view' :
+      $block = array();
+
+      switch ($delta) {
+        case 'issue-categories' :
+          $block['subject'] = t('');
+          $block['content'] = theme('issue_block_categories');
+        break;
+        case 'issue-categories-popular' :
+          $block['subject'] = t('');
+          $block['content'] = theme('issue_block_categories_popular');
+        break;
+      }
+
+      return $block;
+  }
 }
 
 /**

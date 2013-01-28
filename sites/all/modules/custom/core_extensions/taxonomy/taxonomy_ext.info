@@ -1,0 +1,6 @@
+name = Taxonomy Extension
+description = Provides handy functions for Taxonomy module
+package = Custom Modules:: Core Modules' Extensions
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = "taxonomy"

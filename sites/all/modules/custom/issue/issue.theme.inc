@@ -54,3 +54,37 @@ function theme_issue_arguments_content($node)
   }
   return theme('issue_arguments_content_wrapper', $node, $form);
 }
+
+/**
+ * @param $vars
+ */
+function issue_block_categories_preprocess(&$vars) {
+  $nid = $vars['nid'];
+  if (empty($nid)) {
+    $vars['nid'] = $nid = arg(1);
+  }
+
+  if (!is_numeric($nid) || !($node = node_load($nid))) {
+    unset($vars['nid']);
+    return;
+  }
+  // collecting info  todo
+  $vars['node'] = $node;
+  foreach ($node->taxonomy as $tid => $term) {
+    $vars['categories'][issue_term_parents($term)] = $term->name;
+  }
+
+
+  $vars['original_language'] = 'ru';
+  $vars['original_path'] = 'node/19';
+
+
+}
+
+
+function issue_term_parents($term) {
+  $h = $term->tid;
+  taxonomy_get_tree()
+
+
+}
