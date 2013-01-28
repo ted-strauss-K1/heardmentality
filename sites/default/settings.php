@@ -100,8 +100,9 @@ ini_set('display_startup_errors', TRUE);
  * Mysql Setups
  */
 #$db_url = 'mysql://heardmentality:H3@rdM3nt@l!ty@localhost/heardmentality';
-$db_url = 'mysql://root:H3@rdMDB#2012@localhost/hm-latest';
+#$db_url = 'mysql://root:H3@rdMDB#2012@localhost/hm-latest';
 #$db_url = 'mysql://root:@localhost/hm2';
+$db_url = 'mysql://const:t6EwDfzbJl@localhost/const';
 
 $db_prefix = '';
 
