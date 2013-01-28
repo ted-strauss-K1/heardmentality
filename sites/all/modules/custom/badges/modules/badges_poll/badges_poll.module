@@ -26,7 +26,7 @@ function badges_poll_badges()
     'arguments' => array('vote_count' => 1000),
   );
 
-  if (module_exists("taxonomy")) {
+  if (module_exists("taxonomy_ext")) {
     $badges['poll_votes_taxonomy_bronze'] = array(
       'function' => 'badges_poll_votes_taxonomy_check',
       'function multiple' => 'badges_poll_votes_taxonomy_check_multiple',
@@ -89,49 +89,6 @@ function badges_poll_votes_check_multiple($uids = array(), $arguments = array())
   }
 
   return $output;
-}
-
-/**
- * Get Bottom-level Categories
- */
-function taxonomy_bottom_level_terms($vid)
-{
-  static $_list = array();
-
-  if (isset($list[$vid])) {
-    return $list[$vid];
-  }
-  $list = array();
-  $terms = taxonomy_get_tree($vid);
-  foreach ($terms as $term) {
-    $list[$term->tid] = $term;
-    foreach ($term->parents as $parent) {
-      if ($parent != 0) {
-        unset($list[$parent]);
-      }
-    }
-  }
-  $_list[$vid] = array_keys($list);
-
-  return $_list[$vid];
-}
-
-/**
- * @param string $type
- */
-function taxonomy_node_type_vocabularies($type = 'poll')
-{
-  static $vids = array();
-
-  if (is_null($vids[$type])) {
-    $vids[$type] = array();
-    $result = db_query("SELECT vid FROM {vocabulary_node_types} WHERE type = '%s'", $type);
-    while ($vid = db_result($result)) {
-      $vids[$type][] = $vid;
-    }
-  }
-
-  return $vids[$type];
 }
 
 /**
