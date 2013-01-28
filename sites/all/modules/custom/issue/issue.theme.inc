@@ -70,23 +70,43 @@ function issue_block_categories_preprocess(&$vars) {
   }
   // collecting info  todo
   $vars['node'] = $node;
-  foreach ($node->taxonomy as $tid => $term) {
+  foreach ($node->taxonomy as $term) {
     $vars['categories'][issue_term_parents($term)] = $term->name;
   }
 
-
-  $vars['original_language'] = 'ru';
-  $vars['original_path'] = 'node/19';
+  $languages = i18n_language_list();
+  $vars['original_langcode'] = $node->language;
+  $vars['original_path'] = $node->path;
+  if (isset($node->origin)) {
+    $vars['original_language'] = $languages[$node->origin->language];
+    $vars['original_langcode'] = $node->origin->language;
+    $vars['original_path'] = $node->origin->path;
+  }
 
 
 }
 
-
+/**
+ * @param $term
+ * @return string
+ */
 function issue_term_parents($term) {
-  $h = $term->tid;
+  $list = array();
 
-  $vids = taxonomy_node_type_vocabularies();
+  $terms = taxonomy_node_type_terms();
 
+  $tmp = array();
+  $tmp[] = $term->tid;
 
+  while (!empty($tmp)) {
+    $tid = array_shift($tmp);
+    foreach ($terms[$tid]->parents as $ptid) {
+      if (!empty($ptid)) {
+        $tmp[] = $ptid;
+      }
+    }
+    $list[] = $tid;
+  }
 
+  return implode('-', $list);
 }
