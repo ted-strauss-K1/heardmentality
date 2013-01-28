@@ -12,7 +12,8 @@ function issue_search_preprocess_page(&$vars)
     drupal_add_js(drupal_get_path('module', 'issue_search') . '/issue_search.js');
     drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
 
-    $vars['right'] = theme('issue_search_filter');
+    $vars['right'] = theme('issue_search_filter') .
+      $vars['right'];
   }
 }
 

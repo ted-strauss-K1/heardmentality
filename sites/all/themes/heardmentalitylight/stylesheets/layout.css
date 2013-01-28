@@ -5970,3 +5970,12 @@ span.beta {
 
   /*margin-top: 59px;*/
 /*}*/
+
+#block-issue-issue-categories-popular {
+  margin-top: 20px;
+}
+#block-issue-issue-categories,
+#block-user_profile-user-profile-right
+{
+  margin-top: 30px;
+}

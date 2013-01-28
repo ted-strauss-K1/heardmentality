@@ -22,10 +22,14 @@ function tester_menu() {
 
 function tester() {
 
-  $data = taxonomy_node_type_terms();
+  $term = (object)array('tid' => 20);
+
+  $data = node_load(55);
+  $data = i18n_language_list();;
 //  $data = _theme_build_registry();
 
   var_dump($data);
 
   exit;
 }
+

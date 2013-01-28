@@ -110,3 +110,20 @@ function issue_term_parents($term) {
 
   return implode('-', $list);
 }
+
+/**
+ * @param $vars
+ */
+function issue_block_categories_popular_preprocess(&$vars) {
+  $result = db_query_range("
+    SELECT COUNT(*) count, td.* FROM poll_votes pv
+    INNER JOIN term_node tn ON tn.nid = pv.nid
+    INNER JOIN term_data AS td ON td.tid = tn.tid
+    GROUP BY tn.tid
+    HAVING COUNT(*) <> 0
+    ORDER BY count DESC
+  ", 0, 15);
+  while ($term = db_fetch_object($result)) {
+    $vars['categories'][issue_term_parents($term)] = $term->name;
+  }
+}

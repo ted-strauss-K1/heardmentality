@@ -119,6 +119,12 @@ function issue_theme()
     'preprocess functions'  => array('issue_block_categories_preprocess'),
     'file' => 'issue.theme.inc',
   );
+  $theme['issue_block_categories_popular'] = array(
+    'arguments'             => array(),
+    'template'              => 'templates/issue-block-categories-popular',
+    'preprocess functions'  => array('issue_block_categories_popular_preprocess'),
+    'file' => 'issue.theme.inc',
+  );
 
 
   return $theme + argument_theme() + charts_theme() + _issue_theme();

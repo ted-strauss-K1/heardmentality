@@ -52,11 +52,17 @@
       <?php if ($front_heatmap) print $front_heatmap; ?>
     </div>
 
-    <div class="grey-box-cat clearfix">
-      <ul class="tags">
-        <?php if ($front_right) print $front_right; ?>
-      </ul>
-    </div>
+    <?php if ($front_right) : ?>
+      <div class="grey-box-cat clearfix">
+        <ul class="tags">
+          <?php print $front_right; ?>
+        </ul>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($right) : ?>
+      <?php print $right; ?>
+    <?php endif; ?>
 
   </div>
 </div>
