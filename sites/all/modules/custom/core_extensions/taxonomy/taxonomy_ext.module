@@ -63,7 +63,9 @@ function taxonomy_node_type_terms($type = 'poll') {
 
     $vids = taxonomy_node_type_vocabularies($type);
     foreach ($vids as $vid) {
-      $terms[$type] = array_merge($terms[$type], taxonomy_get_tree($vid));
+      foreach (taxonomy_get_tree($vid) as $term) {
+        $terms[$type][$term->tid] = $term;
+      }
     }
 
   }
