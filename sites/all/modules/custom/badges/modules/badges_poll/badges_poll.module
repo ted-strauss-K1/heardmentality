@@ -20,11 +20,29 @@ function badges_poll_badges()
   $badges['poll_votes_silver'] = array(
     'function' => 'badges_poll_votes_check',
     'function multiple' => 'badges_poll_votes_check_multiple',
+    'name' => t('Electorate'),
+    'info' => t('Voted 600 times'),
+    'type' => 'silver',
+    'arguments' => array('vote_count' => 600),
+  );
+  $badges['poll_votes_gold'] = array(
+    'function' => 'badges_poll_votes_check',
+    'function multiple' => 'badges_poll_votes_check_multiple',
     'name' => t('Patriotic Citizen'),
     'info' => t('Voted 1000 times'),
-    'type' => 'silver',
+    'type' => 'gold',
     'arguments' => array('vote_count' => 1000),
   );
+
+  $badges['poll_votes_count_bronze'] = array(
+    'function' => 'badges_poll_votes_count_check',
+    'function multiple' => 'badges_poll_votes_count_check_multiple',
+    'name' => t('Nice Question'),
+    'info' => t('Created an issue voted on 10 times'),
+    'type' => 'bronze',
+    'arguments' => array('vote_count' => 10),
+  );
+
 
   if (module_exists("taxonomy_ext")) {
     $badges['poll_votes_taxonomy_bronze'] = array(
@@ -90,6 +108,39 @@ function badges_poll_votes_check_multiple($uids = array(), $arguments = array())
 
   return $output;
 }
+
+/**
+ * @param $uid
+ * @return bool
+ */
+function badges_poll_votes_count_check($uid, $arguments = array())
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    // todo
+  }
+
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['vote_count'] : false;
+}
+
+/**
+ * @param array $uids
+ * @return array
+ */
+function badges_poll_votes_count_check_multiple($uids = array(), $arguments = array())
+{
+  $output = array();
+
+  foreach ($uids as $uid) {
+    $output[$uid] = badges_poll_votes_count_check($uid, $arguments);
+  }
+
+  return $output;
+}
+
 
 /**
  * @param $uid
