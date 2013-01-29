@@ -53,7 +53,6 @@ function badges_list($badge = false)
     foreach (module_invoke_all('badges') as $name => $info) {
       $badges[$name] = $info + array(
         'function' => '_badges_check',
-        //'function multiple' => '_badges_check_multiple',
         'count' => 1,
         'info' => '',
         'arguments' => array(),

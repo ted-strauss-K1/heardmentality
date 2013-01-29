@@ -11,7 +11,6 @@ function badges_comment_badges()
 
   $badges['comment_bronze'] = array(
     'function' => 'badges_comment_check',
-    'function multiple' => 'badges_comment_check_multiple',
     'name' => t('Commentator'),
     'info' => t('Left 10 comments'),
     'type' => 'bronze',
@@ -21,7 +20,6 @@ function badges_comment_badges()
   if (module_exists('yn')) {
     $badges['comment_agreed_bronze'] = array(
       'function' => 'badges_comment_agreed_check',
-      'function multiple' => 'badges_comment_agreed_check_multiple',
       'name' => t('Pamphleteer'),
       'info' => t('Left 10 comments that got a minimum of one agree.'),
       'type' => 'bronze',
@@ -29,7 +27,6 @@ function badges_comment_badges()
     );
     $badges['comment_agreed_gold'] = array(
       'function' => 'badges_comment_agreed_check',
-      'function multiple' => 'badges_comment_agreed_check_multiple',
       'name' => t('Senator'),
       'info' => t('Left 500 comments that got a minimum of one agree.'),
       'type' => 'bronze',

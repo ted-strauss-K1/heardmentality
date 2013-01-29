@@ -10,7 +10,6 @@ function badges_profile_badges()
   return array(
     'user_profile' => array(
       'function' => 'badges_user_profile_check',
-      'function multiple' => 'badges_user_profile_check_multiple',
       'name' => t('Autobiographer'),
       'info' => t('Completed all user profile fields'),
     ),

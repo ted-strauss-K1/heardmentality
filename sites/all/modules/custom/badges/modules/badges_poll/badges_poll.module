@@ -11,7 +11,6 @@ function badges_poll_badges()
 
   $badges['poll_votes_bronze'] = array(
     'function' => 'badges_poll_votes_check',
-    'function multiple' => 'badges_poll_votes_check_multiple',
     'name' => t('Civic Duty'),
     'info' => t('Voted 300 times'),
     'type' => 'bronze',
@@ -19,7 +18,6 @@ function badges_poll_badges()
   );
   $badges['poll_votes_silver'] = array(
     'function' => 'badges_poll_votes_check',
-    'function multiple' => 'badges_poll_votes_check_multiple',
     'name' => t('Electorate'),
     'info' => t('Voted 600 times'),
     'type' => 'silver',
@@ -27,7 +25,6 @@ function badges_poll_badges()
   );
   $badges['poll_votes_gold'] = array(
     'function' => 'badges_poll_votes_check',
-    'function multiple' => 'badges_poll_votes_check_multiple',
     'name' => t('Patriotic Citizen'),
     'info' => t('Voted 1000 times'),
     'type' => 'gold',
@@ -36,7 +33,6 @@ function badges_poll_badges()
 
   $badges['poll_votes_count_bronze'] = array(
     'function' => 'badges_poll_votes_count_check',
-//    'function multiple' => 'badges_poll_votes_count_check_multiple',
     'name' => t('Nice Question'),
     'info' => t('Created an issue voted on 10 times'),
     'type' => 'bronze',
@@ -47,7 +43,6 @@ function badges_poll_badges()
   if (module_exists("taxonomy_ext")) {
     $badges['poll_votes_taxonomy_bronze'] = array(
       'function' => 'badges_poll_votes_taxonomy_check',
-      'function multiple' => 'badges_poll_votes_taxonomy_check_multiple',
       'name' => t('Generalist'),
       'info' => t('User has voted on at least 5 questions in 10 bottom level categories (i.e categories without children subcategories)'),
       'type' => 'bronze',
@@ -55,7 +50,6 @@ function badges_poll_badges()
     );
     $badges['poll_votes_taxonomy_silver'] = array(
       'function' => 'badges_poll_votes_taxonomy_check',
-      'function multiple' => 'badges_poll_votes_taxonomy_check_multiple',
       'name' => t('Well Read'),
       'info' => t('User has voted on at least 10 questions in 20 bottom level categories (i.e categories without children subcategories)'),
       'type' => 'silver',
@@ -63,7 +57,6 @@ function badges_poll_badges()
     );
     $badges['poll_votes_taxonomy_gold'] = array(
       'function' => 'badges_poll_votes_taxonomy_check',
-      'function multiple' => 'badges_poll_votes_taxonomy_check_multiple',
       'name' => t('Scholar'),
       'info' => t('User has voted on at least 20 questions in 30 bottom level categories (i.e categories without children subcategories)'),
       'type' => 'gold',
