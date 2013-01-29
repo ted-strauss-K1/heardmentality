@@ -31,12 +31,27 @@ function badges_poll_badges()
     'arguments' => array('vote_count' => 1000),
   );
 
+
   $badges['poll_votes_count_bronze'] = array(
     'function' => 'badges_poll_votes_count_check',
     'name' => t('Nice Question'),
     'info' => t('Created an issue voted on 10 times'),
     'type' => 'bronze',
     'arguments' => array('vote_count' => 10),
+  );
+  $badges['poll_votes_count_silver'] = array(
+    'function' => 'badges_poll_votes_count_check',
+    'name' => t('Good Question'),
+    'info' => t('Created an issue voted on 25 times'),
+    'type' => 'silver',
+    'arguments' => array('vote_count' => 25),
+  );
+  $badges['poll_votes_count_gold'] = array(
+    'function' => 'badges_poll_votes_count_check',
+    'name' => t('Great Question'),
+    'info' => t('Created an issue voted on 100 times'),
+    'type' => 'gold',
+    'arguments' => array('vote_count' => 100),
   );
 
 
@@ -98,7 +113,19 @@ function badges_poll_votes_count_check($uid, $arguments = array())
   if (is_null($cache)) {
     $cache = array();
 
-    // todo
+    $result = db_query("
+      SELECT n.uid, COUNT(*) count
+      FROM node n
+      INNER JOIN poll_votes pv ON pv.nid = n.nid
+      WHERE n.type = '%s'
+      GROUP BY (CASE n.tnid WHEN 0 THEN n.nid ELSE n.tnid END)
+      ORDER BY COUNT(*) DESC
+    ", 'poll');
+    while ($row = db_fetch_array($result)) {
+      if (!isset($cache[$row['uid']])) {
+        $cache[$row['uid']] = $row['count'];
+      }
+    }
   }
 
   return isset($cache[$uid]) ? $cache[$uid] >= $arguments['vote_count'] : false;

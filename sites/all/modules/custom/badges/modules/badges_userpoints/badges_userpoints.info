@@ -1,0 +1,6 @@
+name = Badges for Userpoints
+description = Badges for Userpoints
+package = Custom Modules :: Badges
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = 'userpoints'

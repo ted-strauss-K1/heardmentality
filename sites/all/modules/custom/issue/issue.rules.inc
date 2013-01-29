@@ -22,6 +22,20 @@ function issue_rules_event_info()
         ),
       ),
     ),
+    'poll_voted' => array(
+      'label' => t('Poll is Voted'),
+      'module' => 'Poll',
+      'arguments' => array(
+        'acting_user' => array(
+          'type' => 'user',
+          'label' => t('Poll owner')
+        ),
+        'node' => array(
+          'type' => 'node',
+          'label' => t('Node')
+        ),
+      ),
+    ),
     'poll_content' => array(
       'label' => t('Issue got new Argument/Comment'),
       'module' => 'Issue',

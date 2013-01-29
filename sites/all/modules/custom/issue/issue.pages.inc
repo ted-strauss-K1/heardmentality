@@ -212,7 +212,9 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
     db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $vote_r, $user->uid);
 
     if (module_exists('rules')) {
-      rules_invoke_event('poll_vote', $user, node_load($nid));
+      $node = node_load($nid);
+      rules_invoke_event('poll_vote', $user, $node);
+      rules_invoke_event('poll_voted', user_load($node->uid), $node);
     }
   }
   if ($vote_s != -1) {
