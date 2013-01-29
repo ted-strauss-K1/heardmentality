@@ -223,3 +223,13 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
 
   return true;
 }
+
+/**
+ *
+ */
+function issue_share($nid) {
+  if (user_is_logged_in() && module_exists('rules')) {
+    global $user;
+    rules_invoke_event('poll_share', $user, node_load($nid));
+  }
+}

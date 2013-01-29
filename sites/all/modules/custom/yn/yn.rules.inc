@@ -52,15 +52,17 @@ function _yn_rules_vote_arguments()
  */
 function yn_rules_condition_info()
 {
-  return array(
-    'yn_vote_userpoints' => array(
-      'label' => t('Check the points for Yes/No votes'),
-      'arguments' => array(
-        'author' => array('type' => 'user', 'label' => t('Content author'))
-      ),
-      'module' => 'Yes/No Module',
-    ),
-  );
+  return array();
+  // todo This is not used
+//  return array(
+//    'yn_vote_userpoints' => array(
+//      'label' => t('Check the points for Yes/No votes'),
+//      'arguments' => array(
+//        'author' => array('type' => 'user', 'label' => t('Content author'))
+//      ),
+//      'module' => 'Yes/No Module',
+//    ),
+//  );
 }
 
 /**

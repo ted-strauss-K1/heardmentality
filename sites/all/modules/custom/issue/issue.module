@@ -14,6 +14,11 @@ require_once "issue.charts.inc";
  */
 function issue_preprocess_page(&$vars)
 {
+  if (module_exists('rules')) {
+    global $user;
+    rules_invoke_event('page_view', $user);
+  }
+
   //
   if (arg(0) == 'issue' && arg(1) == 'create') {
     drupal_add_js('misc/ahah.js');
@@ -71,6 +76,14 @@ function issue_menu()
   if (function_exists('argument_menu')) {
     $menu += argument_menu();
   }
+
+  $menu['issue/share/%'] = array(
+    'page callback'   => 'issue_share',
+    'page arguments'  => array(2),
+    'access callback' => true,
+    'type'            => MENU_CALLBACK,
+    'file'            => 'issue.pages.inc',
+  );
 
   return $menu;
 }
