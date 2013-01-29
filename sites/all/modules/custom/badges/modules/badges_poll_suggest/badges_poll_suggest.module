@@ -39,18 +39,3 @@ function badges_poll_suggest_check($uid, $arguments = array())
 
   return isset($cache[$uid]) ? $cache[$uid] > 0 : false;
 }
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_poll_suggest_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_poll_suggest_check($uid, $arguments);
-  }
-
-  return $output;
-}

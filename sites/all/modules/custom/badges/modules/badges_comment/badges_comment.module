@@ -60,20 +60,6 @@ function badges_comment_check($uid, $arguments = array())
   return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : false;
 }
 
-/**
- * @param array $uids
- * @return array
- */
-function badges_comment_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_comment_check($uid, $arguments);
-  }
-
-  return $output;
-}
 
 /**
  * @param $uid
@@ -93,19 +79,4 @@ function badges_comment_agreed_check($uid, $arguments = array())
   }
 
   return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : false;
-}
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_comment_agreed_heck_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_comment_agreed_check($uid, $arguments);
-  }
-
-  return $output;
 }

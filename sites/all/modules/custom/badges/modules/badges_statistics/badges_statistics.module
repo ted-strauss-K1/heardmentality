@@ -56,18 +56,3 @@ function badges_statistics_check($uid, $arguments = array())
 
   return isset($cache[$uid]) ? $cache[$uid] >= $arguments['views'] : false;
 }
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_statistics_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_statistics_check($uid, $arguments);
-  }
-
-  return $output;
-}

@@ -36,7 +36,7 @@ function badges_poll_badges()
 
   $badges['poll_votes_count_bronze'] = array(
     'function' => 'badges_poll_votes_count_check',
-    'function multiple' => 'badges_poll_votes_count_check_multiple',
+//    'function multiple' => 'badges_poll_votes_count_check_multiple',
     'name' => t('Nice Question'),
     'info' => t('Created an issue voted on 10 times'),
     'type' => 'bronze',
@@ -95,21 +95,6 @@ function badges_poll_votes_check($uid, $arguments = array())
 }
 
 /**
- * @param array $uids
- * @return array
- */
-function badges_poll_votes_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_poll_votes_check($uid, $arguments);
-  }
-
-  return $output;
-}
-
-/**
  * @param $uid
  * @return bool
  */
@@ -125,22 +110,6 @@ function badges_poll_votes_count_check($uid, $arguments = array())
 
   return isset($cache[$uid]) ? $cache[$uid] >= $arguments['vote_count'] : false;
 }
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_poll_votes_count_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_poll_votes_count_check($uid, $arguments);
-  }
-
-  return $output;
-}
-
 
 /**
  * @param $uid
@@ -169,19 +138,4 @@ function badges_poll_votes_taxonomy_check($uid, $arguments = array())
   return isset($cache[$uid]) ?
     ($cache[$uid]['nids'] >= $arguments['nids']) &&
       ($cache[$uid]['tids'] >= $arguments['tids']) : false;
-}
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_poll_votes_taxonomy_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_poll_votes_taxonomy_check($uid, $arguments);
-  }
-
-  return $output;
 }

@@ -27,18 +27,3 @@ function badges_user_profile_check($uid)
   $complete_data = pcp_get_complete_percentage_data($user);
   return $complete_data['percent'] == 100;
 }
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_user_profile_check_multiple($uids = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_user_profile_check($uid);
-  }
-
-  return $output;
-}

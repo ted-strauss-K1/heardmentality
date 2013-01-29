@@ -53,7 +53,7 @@ function badges_list($badge = false)
     foreach (module_invoke_all('badges') as $name => $info) {
       $badges[$name] = $info + array(
         'function' => '_badges_check',
-        'function multiple' => '_badges_check_multiple',
+        //'function multiple' => '_badges_check_multiple',
         'count' => 1,
         'info' => '',
         'arguments' => array(),
@@ -95,12 +95,14 @@ function _badges_check($uid = 0)
  * @param array $uids
  * @return array
  */
-function _badges_check_multiple($uids = array())
+function _badges_check_multiple($uids = array(), $arguments = array())
 {
   $output = array();
 
+  $function = isset($arguments['function']) && function_exists($arguments['function']) ? $arguments['function'] : '_badges_check';
+
   foreach ($uids as $uid) {
-    $output[$uid] = false;
+    $output[$uid] = $function($uid);
   }
 
   return $output;
@@ -182,6 +184,10 @@ function badges_grant($item, $badge)
   if (is_array($item)) {
     $function = $badge_data['function multiple'];
     $arguments = $badge_data['arguments'];
+    if (!$function || !function_exists($function)) {
+      $function = '_badges_check_multiple';
+      $arguments['function'] = $badge_data['function'];
+    }
     $results = $function($item, $arguments);
     foreach ($results as $uid => $result) {
       if ($result && (($badge_data['count'] === true) || ($badge_data['count'] > badges_count($badge, $uid)))) {
@@ -191,7 +197,7 @@ function badges_grant($item, $badge)
   } else {
     $function = $badge_data['function'];
     $arguments = $badge_data['arguments'];
-    $result = $function($item, $arguments);
+    $result = !function_exists($function) ? false : $function($item, $arguments);
     $uid = $item;
     if ($result && (($badge_data['count'] === true) || ($badge_data['count'] > badges_count($badge, $uid)))) {
       badges_add($uid, $badge);

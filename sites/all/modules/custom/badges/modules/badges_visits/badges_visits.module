@@ -48,18 +48,3 @@ function badges_visits_check($uid, $arguments = array())
 
   return isset($cache[$arguments['days']][$uid]) ? $cache[$arguments['days']][$uid] == $arguments['days'] : false;
 }
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_visits_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_visits_check($uid, $arguments);
-  }
-
-  return $output;
-}

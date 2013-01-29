@@ -46,22 +46,6 @@ function badges_flag_check($uid)
 }
 
 /**
- * @param array $uids
- * @return array
- */
-function badges_flag_check_multiple($uids = array())
-{
-  $output = array();
-
-  // default values
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_flag_check($uid);
-  }
-
-  return $output;
-}
-
-/**
  * @param $uid
  * @return bool
  */
@@ -82,20 +66,4 @@ function badges_flag_success_check($uid)
   }
 
   return isset($cache[$uid]);
-}
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_flag_success_check_multiple($uids = array())
-{
-  $output = array();
-
-  // default values
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_flag_success_check($uid);
-  }
-
-  return $output;
 }
