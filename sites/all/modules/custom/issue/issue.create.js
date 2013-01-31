@@ -2,15 +2,27 @@
  * Count letters on issue create form
  */
 $(function () {
+  var question = $("#q_quest");
+
   var maxChar = 140;
-  limitChars = function () {
-    var el = $("#q_quest");
-    var text = el.val();
-    if (text.length > maxChar) {
-      text = text.substring(0, maxChar);
-      el.val(text);
+  limitChars = function (popup) {
+    var count = maxChar - question.val().length;
+    var counter = $('#q_counter');
+    counter.html(count);
+    if (count <= 0) {
+      counter.addClass('over_limit');
+    } else {
+      counter.removeClass('over_limit');
+    }
+
+    if (count >= 0) {
+      return true;
+    } else {
+      if (popup) $.hrd.noty({'type':'error', 'text':'The question is too long'});
+      return false;
     }
   }
+  limitChars();
 });
 
 /*

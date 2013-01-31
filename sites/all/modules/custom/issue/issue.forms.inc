@@ -10,6 +10,8 @@ function issue_create_form(&$form_state)
 {
   $form = array();
 
+  $form['#attributes'] = array('onsubmit' => 'return limitChars(true)');
+
   if (isset($form_state['action'])) {
     $form['#action'] = $form_state['action'];
   }
@@ -28,14 +30,14 @@ function issue_create_form(&$form_state)
       <label for="" class="add-on">
         <div class="number dinbold">1</div>
         <span class="title ">' . t('Question') . '</span>
-        <span class="guides">' . t('Max 140 chars.') . '</span>
+        <span class="guides"><span id="q_counter"></span> ' . t('chars left.') . '</span>
       </label>
     '
   );
   $form['q_quest'] = array(
     '#type' => 'textarea',
     '#id' => 'q_quest',
-    '#attributes' => array('onkeyup' => 'limitChars()', 'rows' => 0, 'cols' => 0),
+    '#attributes' => array('onkeyup' => 'limitChars(false)', 'rows' => 0, 'cols' => 0),
     '#suffix' => '<hr class="short2">',
   );
   $form['desc_div'] = array(
