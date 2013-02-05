@@ -165,7 +165,7 @@ function poll_suggest_choice_convert($chid)
       if ($chtext !== false) {
         # new chorder for poll vote
         $chorder = db_result(db_query("SELECT MAX(pc.chorder) + 1 FROM {poll_choices} pc WHERE pc.nid = '%d'", $nid));
-        # add ne choice
+        # add the choice
         db_query("INSERT INTO {poll_choices} SET nid = '%d', chtext = '%s', chvotes = '%d', chorder = '%d'", $nid, $chtext, $votes_s[$chid], $chorder);
         # transfer votes
         db_query("INSERT INTO {poll_votes} (nid, uid, chorder) SELECT '%d', psv.uid, '%d' FROM {poll_suggest_votes} psv WHERE psv.chid = '%d'", $nid, $chorder, $chid);
