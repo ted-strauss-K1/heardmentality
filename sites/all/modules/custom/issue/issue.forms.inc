@@ -364,7 +364,7 @@ function issue_vote_form_radios($form_element, &$form_state)
 
   if ($node->choice) {
     foreach ($node->choice as $i => $choice) {
-      $vote_number = ($choice['chvotes'] ? $choice['chvotes'] : 0);
+      $vote_number = (int)$choice['chvotes'];
       $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
       $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
 <span>' . $vote_number . '</span>' . $vote_string . '</span>';
