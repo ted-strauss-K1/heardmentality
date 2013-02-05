@@ -262,3 +262,37 @@ function issue_get_uservotes($uid)
 
   return (int)$votes[$uid];
 }
+
+/**
+ * @param bool $nid
+ * @return array
+ *  'nid' - node id
+ *    'r' -- regular votes
+ *      pairs: uid >> vote value
+ *    's' -- suggested votes
+ *      pairs: uid >> vote value
+ *    'u' -- list of users voted
+ *      hash: uid >> vote data
+ */
+function issue_get_vote_status($nid = false) {
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $query = "
+    (SELECT nid, uid, chorder cid, 'r' type FROM poll_votes)
+      UNION
+    (SELECT ps.nid, psv.uid, psv.chid cid, 's' type FROM poll_suggest_votes psv, poll_suggest ps WHERE psv.chid = ps.chid)";
+    $result = db_query($query);
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['nid']][$row['type']][$row['uid']] = $row['cid'];
+      $cache[$row['nid']]['u'][$row['uid']] = $row;
+    }
+
+    // todo maybe we could store the cache to db
+
+  }
+
+  return $nid === false ? $cache : $cache[$nid];
+}
