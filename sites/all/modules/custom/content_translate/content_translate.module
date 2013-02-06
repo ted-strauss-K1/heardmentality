@@ -48,17 +48,18 @@ function content_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
  * @param $text
  * @param int $field_order
  */
-function content_translate_add($content_type, $content_id, $field, $text, $field_order = 0) {
+function content_translate_add($content_type, $content_id, $language, $field, $text, $field_order = 0) {
   db_query("
     REPLACE INTO {content_translate}
     SET
       content_type = '%s',
       content_id = '%d',
+      language = '%s',
       field = '%s',
       field_order = '%d',
       text = '%s',
       date_added = '%s'
       ",
-      $content_type, $content_id, $field, $field_order, $text, date('Y-m-d H:i:s')
+      $content_type, $content_id, $language, $field, $field_order, $text, date('Y-m-d H:i:s')
     );
 }

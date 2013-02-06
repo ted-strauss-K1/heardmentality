@@ -41,6 +41,11 @@ function content_translate_schema()
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0),
+      'language' => array(
+        'description' => 'The {languages}.language of this node.',
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE),
       'field' => array(
         'description' => t('The field name.'),
         'type' => 'varchar',
