@@ -215,6 +215,11 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     '#value' => $full ? 1 : 0,
   );
 
+  # display language & translation
+  global $language;
+  $translate = ($node->language != $language->language) && !empty($node->t[$language->language]);
+  $translation = !empty($node->t[$language->language]) ? $node->t[$language->language] : array();
+
   # votes
   $vote_r = is_null($node->vote) ? -1 : $node->vote;
   $form['vote_regular'] = array(
@@ -225,7 +230,13 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
   if ($node->choice) {
     $list = array();
     foreach ($node->choice as $i => $choice) {
-      $list[$i] = '<span class="ch">' . check_plain($choice['chtext']) . '</span>';
+      $list[$i] = '<span class="ch">' .
+        check_plain(
+          $translate && !empty($translation['choice'][$choice['chorder']]) ?
+          $translation['choice'][$choice['chorder']] :
+          $choice['chtext']
+        ) .
+        '</span>';
     }
     $form['choice'] = array(
       '#type' => 'radios',
@@ -265,7 +276,13 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     $sa_added = false;
     $sa_options = array();
     foreach ($node->choice_suggest as $s) {
-      $sa_options[$s['chid']] = '<span class="ch">' . $s['chtext'] . '</span>';
+      $sa_options[$s['chid']] = '<span class="ch">' .
+        check_plain(
+          $translate && !empty($translation['choice_suggest'][$s['chid']]) ?
+            $translation['choice_suggest'][$s['chid']] :
+          $s['chtext']
+        )
+        . '</span>';
       if ($s['uid']) {
         $sa_added = true;
       }
