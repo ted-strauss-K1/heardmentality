@@ -79,6 +79,11 @@ function heardmentalitylight_preprocess_page(&$vars) {
     $vars['content_class'] = 'grey-box';
     $vars['content_nowrap'] = true;
   }
+
+  # js setting for all modules to use
+  global $language;
+  drupal_add_js(array('language' => $language->language), 'setting');
+
 }
 
 /**
