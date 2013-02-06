@@ -81,7 +81,7 @@ function poll_translate_content_translate_node($node, $language_to)
   if ($title = strip_tags($node->title)) {
     $list[] = $title;
   }
-  if ($body = strip_tags($node->body)) {
+  if ($body = strip_tags($node->field_description[0]['value'])) {
     $list[] = $body;
   }
   foreach ($node->choice as $choice) {
@@ -105,7 +105,7 @@ function poll_translate_content_translate_node($node, $language_to)
 
   # put the translations to node
   $t['title'] = $translations[strip_tags($node->title)];
-  $t['body'] = $translations[strip_tags($node->body)];
+  $t['body'] = $translations[strip_tags($node->field_description[0]['value'])];
   foreach ($node->choice as $choice) {
     $t['choice'][$choice['chorder']] = $translations[$choice['chtext']];
     $t['choice_short'][$choice['chorder']] = $translations[$choice['chtext_short']];
