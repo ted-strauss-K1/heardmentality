@@ -1200,27 +1200,34 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 //  var_dump($values); die();
 
   $changed = array();
-  if ($node->title != $values['title']) {
+
+  $translation = issue_get_translation($node);
+
+  $title = !empty($translation['title'][0]) ? $translation['title'][0] : $node->title;
+  if ($title != $values['title']) {
     $changed['title'] = $values['title'];
   }
-  if ($node->body != $values['body']) {
+
+  $body = !empty($translation['body'][0]) ? $translation['body'][0] :  $node->field_description[0]['value'];
+  if ($body != $values['body']) {
     $changed['body'] = $values['body'];
   }
 
   foreach ($values['choices'] as $i => $choice) {
     $chorder = $choice['chorder'];
-    $chtext = $choice['chtext'];
-    $chtext_short = $choice['chtext-short'];
-    if ($node->choice[$chorder]['chtext'] != $chtext) {
-      $changed['choices'][$chorder]['chtext'] = $chtext;
+    # chtext
+    $chtext = !empty($translation['choice'][$choice['chorder']]) ? $translation['choice'][$choice['chorder']] : $node->choice[$chorder]['chtext'];
+    $chtext_short = !empty($translation['choice_short'][$choice['chorder']]) ? $translation['choice_short'][$choice['chorder']] : $node->choice[$chorder]['chtext_short'];
+    if ($choice['chtext'] != $chtext) {
+      $changed['choices'][$chorder]['chtext'] = $choice['chtext'];
     }
-    if ($node->choice[$chorder]['chtext_short'] != $chtext_short) {
-      $changed['choices'][$chorder]['chtext_short'] = $chtext_short;
+    if ($choice['chtext_short'] != $chtext_short) {
+      $changed['choices'][$chorder]['chtext_short'] = $choice['chtext_short'];
     }
     if (!empty($changed['choices'][$chorder])) {
       $changed['choices'][$chorder] += array(
         'chorder' => $chorder,
-        'chtext_old' => $node->choice[$chorder]['chtext'],
+        'chtext_old' => $chtext,
       );
     }
   }
@@ -1275,19 +1282,27 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 
   // track changes
   if (!empty($changed)) {
-    if (isset($changed['title'])) $node->title = $changed['title'];
-    if (isset($changed['body'])) $node->body = $changed['body'];
+    global $language;
 
-    foreach ($changed['choices'] as $chorder => $case) {
-      $choice = & $node->choice[$chorder];
-      if ($case['chtext_short'] != '') {
-        poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
-      }
-      if (isset($case['chtext'])) {
-        if ($case['chtext'] != '') {
-          $choice['chtext'] = $case['chtext'];
-        } else {
-          moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+    if ($node->language != $language->language) {
+      // todo update translations
+
+
+    } else {
+      if (isset($changed['title'])) $node->title = $changed['title'];
+      if (isset($changed['body'])) $node->field_description[0]['value'] = $changed['body'];
+
+      foreach ($changed['choices'] as $chorder => $case) {
+        $choice = &$node->choice[$chorder];
+        if ($case['chtext_short'] != '') {
+          poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
+        }
+        if (isset($case['chtext'])) {
+          if ($case['chtext'] != '') {
+            $choice['chtext'] = $case['chtext'];
+          } else {
+            moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+          }
         }
       }
     }
