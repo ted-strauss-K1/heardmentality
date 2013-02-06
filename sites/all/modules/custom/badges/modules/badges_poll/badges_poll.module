@@ -118,7 +118,7 @@ function badges_poll_votes_count_check($uid, $arguments = array())
       FROM node n
       INNER JOIN poll_votes pv ON pv.nid = n.nid
       WHERE n.type = '%s'
-      GROUP BY (CASE n.tnid WHEN 0 THEN n.nid ELSE n.tnid END)
+      GROUP BY n.nid
       ORDER BY COUNT(*) DESC
     ", 'poll');
     while ($row = db_fetch_array($result)) {
