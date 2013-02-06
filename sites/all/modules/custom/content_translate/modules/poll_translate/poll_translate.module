@@ -23,9 +23,23 @@ function poll_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   if ($node->type == 'poll') {
     switch ($op) {
       case 'presave' :
-        // parse $node->t
-        // todo TRANSLATION
-
+        if ($node->t) {
+          foreach ($node->t as $language => $data) {
+            foreach ($data as $field => $list) {
+              if (is_array($list)) {
+                foreach ($list as $field_order => $text) {
+                  content_translate_add('node', $node->nid, $language, $field, $text, $field_order);
+                }
+              } else {
+                content_translate_add('node', $node->nid, $language, $field, $list);
+              }
+            }
+          }
+          unset($node->t);
+        }
+      break;
+      case 'load' :
+        $node->t = content_translate_get('node', $node->nid);
       break;
     }
   }
@@ -93,12 +107,12 @@ function poll_translate_content_translate_node($node, $language_to)
   $t['title'] = $translations[strip_tags($node->title)];
   $t['body'] = $translations[strip_tags($node->body)];
   foreach ($node->choice as $choice) {
-    $t['choice'][$choice['chorder']]['chtext'] = $translations[$choice['chtext']];
-    $t['choice'][$choice['chorder']]['chtext_short'] = $translations[$choice['chtext_short']];
+    $t['choice'][$choice['chorder']] = $translations[$choice['chtext']];
+    $t['choice_short'][$choice['chorder']] = $translations[$choice['chtext_short']];
   }
   if (module_exists('poll_suggest')) {
     foreach ($node->choice_suggest as $choice) {
-      $t['choice_suggest'][$choice['chid']]['chtext'] = $translations[$choice['chtext']];
+      $t['choice_suggest'][$choice['chid']] = $translations[$choice['chtext']];
     }
   }
 
