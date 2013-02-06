@@ -4,7 +4,7 @@ $('.issue-vote-form').live('submit', function (e) {
   $.ajax({
     type:'POST',
     dataType:'json',
-    url:'/issue/ajax',
+    url:'/'+Drupal.settings.language+'/issue/ajax',
     data:form.serialize(),
     success:function (response) {
       if (!response.status) {
