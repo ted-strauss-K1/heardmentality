@@ -216,9 +216,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
   );
 
   # display language & translation
-  global $language;
-  $translate = ($node->language != $language->language) && !empty($node->t[$language->language]);
-  $translation = !empty($node->t[$language->language]) ? $node->t[$language->language] : array();
+  $translation = issue_get_translation($node);
 
   # votes
   $vote_r = is_null($node->vote) ? -1 : $node->vote;
@@ -232,7 +230,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     foreach ($node->choice as $i => $choice) {
       $list[$i] = '<span class="ch">' .
         check_plain(
-          $translate && !empty($translation['choice'][$choice['chorder']]) ?
+          !empty($translation['choice'][$choice['chorder']]) ?
           $translation['choice'][$choice['chorder']] :
           $choice['chtext']
         ) .
@@ -278,8 +276,8 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     foreach ($node->choice_suggest as $s) {
       $sa_options[$s['chid']] = '<span class="ch">' .
         check_plain(
-          $translate && !empty($translation['choice_suggest'][$s['chid']]) ?
-            $translation['choice_suggest'][$s['chid']] :
+          !empty($translation['choice_suggest'][$s['chid']]) ?
+          $translation['choice_suggest'][$s['chid']] :
           $s['chtext']
         )
         . '</span>';
