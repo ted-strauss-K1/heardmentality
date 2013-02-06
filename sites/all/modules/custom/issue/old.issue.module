@@ -8,17 +8,6 @@ function _issue_theme()
   $theme = array();
 
 
-  $theme['issue_debate_area'] = array(
-    'template' => 'issue-debate-area',
-    'arguments' => array(
-      'arguments_form' => NULL,
-      'debate_count' => 0,
-      'resource_count' => 0,
-      'choices' => array(),
-      'nid' => 0,
-    ),
-  );
-
   $theme['issue_popular_categories'] = array(
     'arguments' => array(),
     'file' => 'issue.theme.inc',

@@ -1,7 +1,4 @@
-<?php
-// TODO remove issue_debate_area template
-global $base_url;
-?>
+<?php global $base_url; ?>
 
 <div id="debate_work_area">
   <div class="inner">
