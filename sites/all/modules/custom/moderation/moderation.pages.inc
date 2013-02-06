@@ -376,6 +376,7 @@ function _moderation_filter_nodes($filters, &$page, &$pages)
 
   // language
   if ($filters['language'] != '') {
+    // todo
     $query .= " AND n.language = '%s'";
     $params[] = $filters['language'];
   }
@@ -818,10 +819,12 @@ function moderation_issue_view_form($form_state, $nid)
 
   $node = node_load($nid);
 
+  $translation = issue_get_translation($node);
+
   $form['title'] = array(
     '#type' => 'textfield',
     '#title' => t('Title'),
-    '#value' => $node->title,
+    '#value' => !empty($translation['title'][0]) ? $translation['title'][0] : $node->title,
     '#prefix' =>
       sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
         sprintf('
@@ -834,7 +837,7 @@ function moderation_issue_view_form($form_state, $nid)
   $form['body'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
-    '#value' => $node->body,
+    '#value' => !empty($translation['body'][0]) ? $translation['body'][0] :  $node->field_description[0]['value'],
     '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
     '#suffix' => '</div>',
   );
@@ -848,6 +851,12 @@ function moderation_issue_view_form($form_state, $nid)
     '#collapsed' => FALSE,
   );
   foreach ($node->choice as $delta => $choice) {
+    if (!empty($translation['choice'][$choice['chorder']])) {
+      $choice['chtext'] = $translation['choice'][$choice['chorder']];
+    }
+    if (!empty($translation['choice_short'][$choice['chorder']])) {
+      $choice['chtext_short'] = $translation['choice_short'][$choice['chorder']];
+    }
     $form_element = _moderation_ahah_choice($delta, $choice, $nid);
     $form['choices'][$delta] = $form_element;
   }
