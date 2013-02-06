@@ -119,4 +119,30 @@ function poll_translate_content_translate_node($node, $language_to)
   node_save($node);
 }
 
-
+/**
+ * @param $nid
+ * @param $map
+ */
+function poll_translate_pollfix($nid, $map) {
+  foreach ($map as $chorder => $data) {
+    switch ($data['status']) {
+      case 'deleted' :
+        $query = "
+          DELETE FROM {content_translate}
+          WHERE content_type = '%s' AND content_id = '%d' AND field = '%s' AND field_order = '%d'
+        ";
+        db_query($query, 'node', $nid, 'choice', $chorder);
+        db_query($query, 'node', $nid, 'choice_short', $chorder);
+      break;
+      case 'updated' :
+        $query = "
+          UPDATE {content_translate}
+          SET field_order = '%d'
+          WHERE content_type = '%s' AND content_id = '%d' AND field = '%s' AND field_order = '%d'
+        ";
+        db_query($query, $data['index'], 'node', $nid, 'choice', $chorder);
+        db_query($query, $data['index'], 'node', $nid, 'choice_short', $chorder);
+      break;
+    }
+  }
+}
