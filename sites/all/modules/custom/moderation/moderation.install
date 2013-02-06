@@ -45,6 +45,12 @@ function moderation_schema()
         'default' => '',
         'description' => 'The content type this change belongs to.',
       ),
+      'language' => array(
+        'description' => 'The {languages}.language.',
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE
+      ),
       'type' => array(
         'type' => 'varchar',
         'length' => 128,

@@ -45,7 +45,6 @@ function poll_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   }
 }
 
-
 /**
  * Implementation of hook_content_translate_node()
  *

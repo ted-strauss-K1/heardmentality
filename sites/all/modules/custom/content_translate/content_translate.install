@@ -42,7 +42,7 @@ function content_translate_schema()
         'not null' => TRUE,
         'default' => 0),
       'language' => array(
-        'description' => 'The {languages}.language of this node.',
+        'description' => 'The {languages}.language.',
         'type' => 'varchar',
         'length' => 12,
         'not null' => TRUE),
