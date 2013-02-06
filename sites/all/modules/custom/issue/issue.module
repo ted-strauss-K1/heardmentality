@@ -1,7 +1,5 @@
 <?php
 
-include "old.issue.module";
-
 require_once "issue.forms.inc";
 require_once "argument.forms.inc";
 require_once "argument.inc";
@@ -140,7 +138,7 @@ function issue_theme()
   );
 
 
-  return $theme + argument_theme() + charts_theme() + _issue_theme();
+  return $theme + argument_theme() + charts_theme();
 }
 
 /**

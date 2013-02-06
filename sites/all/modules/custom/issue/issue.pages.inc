@@ -1,4 +1,4 @@
-<?php include "old.issue.pages.inc";
+<?php
 
 /**
  * "issue/create" menu callback

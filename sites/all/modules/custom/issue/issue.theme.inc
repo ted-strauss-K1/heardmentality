@@ -1,4 +1,4 @@
-<?php include "old.issue.theme.inc";
+<?php
 
 /*
  *
