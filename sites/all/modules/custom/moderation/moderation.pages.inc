@@ -1151,11 +1151,11 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
     '#default_value' => $choice['chtext'],
     '#parents' => array('choices', $delta, 'chtext'),
   );
-  $form['chtext-short'] = array(
+  $form['chtext_short'] = array(
     '#type' => 'textfield',
     '#title' => t('Choice short text @n', array('@n' => ($delta + 1))),
     '#default_value' => $choice['chtext_short'],
-    '#parents' => array('choices', $delta, 'chtext-short'),
+    '#parents' => array('choices', $delta, 'chtext_short'),
   );
   $form['chorder'] = array(
     '#type' => 'hidden',
@@ -1171,6 +1171,7 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
       '#collapsed' => FALSE,
     );
     $charact = poll_charact_values_get($nid, $choice['chorder']);
+    if ($charact)
     foreach ($charact as $cid => $char) {
       $form['charact']['char' . $cid] = array(
         '#type' => 'select',
@@ -1228,9 +1229,23 @@ function moderation_issue_view_form_save(&$form, &$form_state)
       $changed['choices'][$chorder] += array(
         'chorder' => $chorder,
         'chtext_old' => $chtext,
+        'chtext_short_old' => $chtext_short,
       );
     }
   }
+
+  # characteristics
+  if (module_exists('poll_charact'))
+    $char = poll_charact_get();
+    $char_values = poll_charact_values($node->nid);
+    foreach ($values['choices'] as $i => $choice) {
+      foreach ($char as $cid => $name) {
+//      foreach ($char_values[$choice['chorder']] as $cid => $data) {
+        if ($char_values[$choice['chorder']][$cid]['value'] != $choice['charact']['char'.$cid]) {
+          poll_charact_value_set($node->nid, $choice['chorder'], $cid, $choice['charact']['char'.$cid]);
+        }
+      }
+    }
 
   # taxonomy
   $node->taxonomy = array();
@@ -1284,27 +1299,69 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   if (!empty($changed)) {
     global $language;
 
+    // todo charact values to node
+    //////////////////////////////
+    if ($changed['charact']) {
+//      foreach ()
+    }
+
+
     if ($node->language != $language->language) {
-      // todo update translations
+      if (!$node->t) {
+        $node->t = array();
+      }
+      if (!$node->t[$language->language]) {
+        $node->t[$language->language] = array();
+      }
+      $t = &$node->t[$language->language];
+      if (isset($changed['title'])) $t['title'][0] = $changed['title'];
+      if (isset($changed['body'])) $t['body'][0] = $changed['body'];
 
-
+      if ($changed['choices'])
+        foreach ($changed['choices'] as $chorder => $case) {
+          if ($case['chtext_short'] != '') {
+            $t['choice_short'][$chorder] = $case['chtext_short'];
+          } else {
+            unset($t['choice_short'][$chorder]);
+          }
+          if (isset($case['chtext'])) {
+            if ($case['chtext'] != '') {
+              $t['choice'][$chorder] = $case['chtext'];
+              // add poll choice to original node
+              if (!isset($node->choice[$chorder])) {
+                $node->choice[$chorder]['chtext'] = $case['chtext'];
+                if (module_exists('mstapi')) {
+                  $translations = mstapi_exec($language->language, $node->language, array(strip_tags($case['chtext'])));
+                  $translated = $translations[strip_tags($case['chtext'])];
+                  if ($translated != '') {
+                    $node->choice[$chorder]['chtext'] = $translated;
+                  }
+                }
+              }
+            } else {
+              unset($t['choice'][$chorder]);
+              moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+            }
+          }
+        }
     } else {
       if (isset($changed['title'])) $node->title = $changed['title'];
       if (isset($changed['body'])) $node->field_description[0]['value'] = $changed['body'];
 
-      foreach ($changed['choices'] as $chorder => $case) {
-        $choice = &$node->choice[$chorder];
-        if ($case['chtext_short'] != '') {
-          poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
-        }
-        if (isset($case['chtext'])) {
-          if ($case['chtext'] != '') {
-            $choice['chtext'] = $case['chtext'];
-          } else {
-            moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+      if ($changed['choices'])
+        foreach ($changed['choices'] as $chorder => $case) {
+          $choice = &$node->choice[$chorder];
+          if ($case['chtext_short'] != '') {
+            poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
+          }
+          if (isset($case['chtext'])) {
+            if ($case['chtext'] != '') {
+              $choice['chtext'] = $case['chtext'];
+            } else {
+              moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+            }
           }
         }
-      }
     }
     moderation_history('set', $nid, 'node', 'edit', $changed);
   }

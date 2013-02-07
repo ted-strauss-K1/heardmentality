@@ -23,6 +23,10 @@ function poll_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   if ($node->type == 'poll') {
     switch ($op) {
       case 'presave' :
+        content_translate_del(array(
+          'content_type' => 'node',
+          'content_id' => $node->nid,
+        ));
         if ($node->t) {
           foreach ($node->t as $language => $data) {
             foreach ($data as $field => $list) {
@@ -126,12 +130,18 @@ function poll_translate_pollfix($nid, $map) {
   foreach ($map as $chorder => $data) {
     switch ($data['status']) {
       case 'deleted' :
-        $query = "
-          DELETE FROM {content_translate}
-          WHERE content_type = '%s' AND content_id = '%d' AND field = '%s' AND field_order = '%d'
-        ";
-        db_query($query, 'node', $nid, 'choice', $chorder);
-        db_query($query, 'node', $nid, 'choice_short', $chorder);
+        content_translate_del(array(
+          'content_type' => 'node',
+          'content_id' => $nid,
+          'field' => 'choice',
+          'field_order' => $chorder,
+        ));
+        content_translate_del(array(
+          'content_type' => 'node',
+          'content_id' => $nid,
+          'field' => 'choice_short',
+          'field_order' => $chorder,
+        ));
       break;
       case 'updated' :
         $query = "
