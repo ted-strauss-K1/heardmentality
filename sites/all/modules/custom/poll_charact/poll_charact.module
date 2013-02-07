@@ -54,7 +54,7 @@ function poll_charact_edit($cid, $chtext)
  */
 function poll_charact_value_set($nid, $chorder, $cid, $value)
 {
-  db_query("REPLACE {poll_charact_values} SET value = '%s' WHERE nid = '%d' AND chorder = '%d' AND cid = '%d'", $value, $nid, $chorder, $cid);
+  db_query("REPLACE {poll_charact_values} SET value = '%s', nid = '%d', chorder = '%d', cid = '%d'", $value, $nid, $chorder, $cid);
 }
 
 function poll_charact_values_get($nid, $chorder, $reset = false)
@@ -84,7 +84,8 @@ function poll_charact_values($nid)
   static $cache = array();
 
   if (is_null($cache[$nid])) {
-    $result = db_query("SELECT pc.cid, pch.chorder, pc.chtext, IFNULL(pcv.value, '%d') AS chval FROM {poll_choices} pch, {poll_charact} pc LEFT JOIN {poll_charact_values} pcv ON pc.cid = pcv.cid AND pcv.nid = pch.nid AND pcv.chorder = pch.chorder WHERE pch.nid =  '%d'", POLL_CHARACT, $nid);
+    $cache[$nid] = array();
+    $result = db_query("SELECT pc.cid, pch.chorder, pc.chtext, IFNULL(pcv.value, '%d') AS chval FROM {poll_choices} pch, {poll_charact} pc LEFT JOIN {poll_charact_values} pcv ON pc.cid = pcv.cid WHERE pch.nid =  '%d' AND pcv.nid = pch.nid AND pcv.chorder = pch.chorder", POLL_CHARACT, $nid);
     while ($row = db_fetch_array($result)) {
       $cache[$nid][$row['chorder']][$row['cid']] = $row;
     }
@@ -99,8 +100,10 @@ function poll_charact_values($nid)
 function poll_charact_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 {
   if ($node->type == 'poll') {
-    if ($op == 'delete') {
-      db_query("DELETE FROM {poll_charact_values} WHERE nid = '%d'", $node->nid);
+    switch ($op) {
+      case 'delete' :
+        db_query("DELETE FROM {poll_charact_values} WHERE nid = '%d'", $node->nid);
+      break;
     }
   }
 }
