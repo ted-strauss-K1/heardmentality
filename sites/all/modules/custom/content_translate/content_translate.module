@@ -36,7 +36,10 @@ function content_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 {
   switch ($op) {
     case 'delete' :
-      db_query("DELETE FROM {content_translate} WHERE content_type = '%s' AND content_id = '%d'", 'node', $node->nid);
+      content_translate_del(array(
+        'content_type' => 'node',
+        'content_id' => $node->nid,
+      ));
     break;
   }
 }
@@ -65,6 +68,12 @@ function content_translate_add($content_type, $content_id, $language, $field, $t
     );
 }
 
+/**
+ * @param $content_type
+ * @param $content_id
+ * @param bool $language
+ * @return array
+ */
 function content_translate_get($content_type, $content_id, $language = false) {
   static $cache = array();
 
@@ -78,4 +87,21 @@ function content_translate_get($content_type, $content_id, $language = false) {
   }
   $output = $language ? $cache[$content_type][$content_id][$language] : $cache[$content_type][$content_id];
   return $output ? $output : array();
+}
+
+/**
+ * @param array $p
+ */
+function content_translate_del($p = array()) {
+  $query = "DELETE FROM {content_translate} WHERE 1";
+  $params = array();
+  foreach (array('content_type', 'content_id', 'language', 'field', 'field_order') as $pname) {
+    if (isset($p[$pname])) {
+      $query .= " AND ".$pname." = '%s'";
+      $params[] = $p[$pname];
+    }
+  }
+  if ($params) {
+    db_query($query, $params);
+  }
 }
