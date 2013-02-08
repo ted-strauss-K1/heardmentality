@@ -1,4 +1,4 @@
-<?php include "old.issue.theme.inc";
+<?php
 
 /*
  *
@@ -68,20 +68,19 @@ function issue_block_categories_preprocess(&$vars) {
     unset($vars['nid']);
     return;
   }
-  // collecting info  todo
+  // collecting info
   $vars['node'] = $node;
   foreach ($node->taxonomy as $term) {
     $vars['categories'][issue_term_parents($term)] = $term->name;
   }
 
   $languages = i18n_language_list();
-  $vars['original_langcode'] = $node->language;
-  $vars['original_path'] = $node->path;
-  if (isset($node->origin)) {
-    $vars['original_language'] = $languages[$node->origin->language];
-    $vars['original_langcode'] = $node->origin->language;
-    $vars['original_path'] = $node->origin->path;
-  }
+
+  global $language;
+  $vars['disp_langcode'] = $language->language;
+  $vars['orig_langcode'] = $node->language;
+  $vars['orig_path'] = $node->path;
+  $vars['orig_language'] = $languages[$node->language];
 
 
 }

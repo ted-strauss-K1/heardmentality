@@ -10,6 +10,8 @@ dependencies[] = "user_profile"
 dependencies[] = "taxonomy_ext"
 dependencies[] = "comment_support"
 dependencies[] = "comment_language"
+dependencies[] = "poll_suggest"
+dependencies[] = "poll_translate"
 
 
 

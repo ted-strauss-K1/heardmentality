@@ -12,7 +12,7 @@ function issue_search() {
   $.ajax({
     type:'POST',
     dataType:'json',
-    url:'/issues/ajax',
+    url:'/'+Drupal.settings.language+'/issues/ajax',
     data:form.serialize(),
     success:function (response) {
       if (!response.status) {

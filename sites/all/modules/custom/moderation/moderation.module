@@ -189,13 +189,13 @@ function moderation_theme()
     ),
     'file' => 'moderation.pages.inc',
   );
-  $theme['moderation_flags'] = array(
-    'arguments' => array(
-      'content_type' => '',
-      'content_id' => 0,
-    ),
-    'file' => 'moderation.pages.inc',
-  );
+//  $theme['moderation_flags'] = array(
+//    'arguments' => array(
+//      'content_type' => '',
+//      'content_id' => 0,
+//    ),
+//    'file' => 'moderation.pages.inc',
+//  );
   $theme['moderation_history'] = array(
     'arguments' => array( //
     ),
@@ -244,16 +244,17 @@ function theme_moderators() {
  */
 function moderation_history($op, $content_id, $content_type, $change, $vars = array(), $count = false)
 {
+  global $language;
   switch ($op) {
     case 'set' :
       global $user;
-      db_query("INSERT INTO {moderation_history} SET uid = '%d', content_id = '%d', content_type = '%s', type = '%s', vars = '%s', date_added = '%s'",
-        $user->uid, $content_id, $content_type, $change, serialize($vars), date('Y-m-d H:i:s')
+      db_query("INSERT INTO {moderation_history} SET uid = '%d', content_id = '%d', content_type = '%s', language = '%s', type = '%s', vars = '%s', date_added = '%s'",
+        $user->uid, $content_id, $content_type, $language->language, $change, serialize($vars), date('Y-m-d H:i:s')
       );
       break;
     case 'get' :
-      $sql = "SELECT * FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s'";
-      $v = array($content_id, $content_type);
+      $sql = "SELECT * FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s' AND language = '%s'";
+      $v = array($content_id, $content_type, $language->language);
       if ($change !== true) {
         $sql .= " AND type = '%s'";
         $v[] = $change;

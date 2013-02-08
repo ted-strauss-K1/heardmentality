@@ -5979,3 +5979,10 @@ span.beta {
 {
   margin-top: 30px;
 }
+
+#q_counter.over_limit {
+  color: red;
+  font-weight: bold;
+}
+
+

@@ -93,8 +93,9 @@ function flagger_rules_action_info()
  */
 function flagger_rules_action($content_type, $content_id, $settings = array())
 {
-  $flags = flag_get_content_flags($content_type, $content_id);
-  foreach (array_keys($flags) as $uid) {
-    rules_invoke_event('flagger_user_flags', user_load($uid), $content_type, $content_id);
+  if ($flags = flag_get_content_flags($content_type, $content_id)) {
+    foreach (array_keys($flags) as $uid) {
+      rules_invoke_event('flagger_user_flags', user_load($uid), $content_type, $content_id);
+    }
   }
 }

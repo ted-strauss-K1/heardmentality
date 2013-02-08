@@ -8,6 +8,30 @@
 function issue_rules_event_info()
 {
   return array(
+    'page_view' => array(
+      'label' => t('Page is Viewed'),
+      'module' => 'Poll',
+      'arguments' => array(
+        'acting_user' => array(
+          'type' => 'user',
+          'label' => t('User')
+        ),
+      ),
+    ),
+    'poll_share' => array(
+      'label' => t('Poll was shared'),
+      'module' => 'Poll',
+      'arguments' => array(
+        'acting_user' => array(
+          'type' => 'user',
+          'label' => t('User')
+        ),
+        'node' => array(
+          'type' => 'node',
+          'label' => t('Poll')
+        ),
+      ),
+    ),
     'poll_vote' => array(
       'label' => t('User Voted on Poll'),
       'module' => 'Poll',
@@ -15,6 +39,20 @@ function issue_rules_event_info()
         'acting_user' => array(
           'type' => 'user',
           'label' => t('Acting user')
+        ),
+        'node' => array(
+          'type' => 'node',
+          'label' => t('Node')
+        ),
+      ),
+    ),
+    'poll_voted' => array(
+      'label' => t('Poll is Voted'),
+      'module' => 'Poll',
+      'arguments' => array(
+        'acting_user' => array(
+          'type' => 'user',
+          'label' => t('Poll owner')
         ),
         'node' => array(
           'type' => 'node',

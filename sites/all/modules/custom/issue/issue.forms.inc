@@ -10,6 +10,8 @@ function issue_create_form(&$form_state)
 {
   $form = array();
 
+  $form['#attributes'] = array('onsubmit' => 'return limitChars(true)');
+
   if (isset($form_state['action'])) {
     $form['#action'] = $form_state['action'];
   }
@@ -28,14 +30,14 @@ function issue_create_form(&$form_state)
       <label for="" class="add-on">
         <div class="number dinbold">1</div>
         <span class="title ">' . t('Question') . '</span>
-        <span class="guides">' . t('Max 140 chars.') . '</span>
+        <span class="guides"><span id="q_counter"></span> ' . t('chars left.') . '</span>
       </label>
     '
   );
   $form['q_quest'] = array(
     '#type' => 'textarea',
     '#id' => 'q_quest',
-    '#attributes' => array('onkeyup' => 'limitChars()', 'rows' => 0, 'cols' => 0),
+    '#attributes' => array('onkeyup' => 'limitChars(false)', 'rows' => 0, 'cols' => 0),
     '#suffix' => '<hr class="short2">',
   );
   $form['desc_div'] = array(
@@ -213,6 +215,9 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     '#value' => $full ? 1 : 0,
   );
 
+  # display language & translation
+  $translation = issue_get_translation($node);
+
   # votes
   $vote_r = is_null($node->vote) ? -1 : $node->vote;
   $form['vote_regular'] = array(
@@ -223,7 +228,13 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
   if ($node->choice) {
     $list = array();
     foreach ($node->choice as $i => $choice) {
-      $list[$i] = '<span class="ch">' . check_plain($choice['chtext']) . '</span>';
+      $list[$i] = '<span class="ch">' .
+        check_plain(
+          !empty($translation['choice'][$choice['chorder']]) ?
+          $translation['choice'][$choice['chorder']] :
+          $choice['chtext']
+        ) .
+        '</span>';
     }
     $form['choice'] = array(
       '#type' => 'radios',
@@ -263,7 +274,13 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
     $sa_added = false;
     $sa_options = array();
     foreach ($node->choice_suggest as $s) {
-      $sa_options[$s['chid']] = '<span class="ch">' . $s['chtext'] . '</span>';
+      $sa_options[$s['chid']] = '<span class="ch">' .
+        check_plain(
+          !empty($translation['choice_suggest'][$s['chid']]) ?
+          $translation['choice_suggest'][$s['chid']] :
+          $s['chtext']
+        )
+        . '</span>';
       if ($s['uid']) {
         $sa_added = true;
       }
@@ -362,7 +379,7 @@ function issue_vote_form_radios($form_element, &$form_state)
 
   if ($node->choice) {
     foreach ($node->choice as $i => $choice) {
-      $vote_number = ($choice['chvotes'] ? $choice['chvotes'] : 0);
+      $vote_number = (int)$choice['chvotes'];
       $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
       $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
 <span>' . $vote_number . '</span>' . $vote_string . '</span>';

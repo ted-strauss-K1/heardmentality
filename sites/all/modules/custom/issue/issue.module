@@ -1,7 +1,5 @@
 <?php
 
-include "old.issue.module";
-
 require_once "issue.forms.inc";
 require_once "argument.forms.inc";
 require_once "argument.inc";
@@ -14,6 +12,11 @@ require_once "issue.charts.inc";
  */
 function issue_preprocess_page(&$vars)
 {
+  if (module_exists('rules')) {
+    global $user;
+    rules_invoke_event('page_view', $user);
+  }
+
   //
   if (arg(0) == 'issue' && arg(1) == 'create') {
     drupal_add_js('misc/ahah.js');
@@ -72,6 +75,14 @@ function issue_menu()
     $menu += argument_menu();
   }
 
+  $menu['issue/share/%'] = array(
+    'page callback'   => 'issue_share',
+    'page arguments'  => array(2),
+    'access callback' => true,
+    'type'            => MENU_CALLBACK,
+    'file'            => 'issue.pages.inc',
+  );
+
   return $menu;
 }
 
@@ -127,7 +138,7 @@ function issue_theme()
   );
 
 
-  return $theme + argument_theme() + charts_theme() + _issue_theme();
+  return $theme + argument_theme() + charts_theme();
 }
 
 /**
@@ -183,12 +194,11 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   if ($node->type == 'poll') {
     switch ($op) {
       case 'delete' :
-        // TODO delete arguments
-        break;
+        foreach ($node->field_arguments as $arg) {
+          node_delete($arg['nid']);
+        }
+      break;
       case 'load' :
-        // TODO load
-        $node->description = theme('issue_description', $node->field_description[0]['value']);
-
         $node->arguments = array();
         if (!empty($node->field_arguments)) {
           $tmp = array(
@@ -205,7 +215,11 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         }
         break;
       case 'view' :
-        // TODO view
+        $translation = issue_get_translation($node);
+        $node->description = theme('issue_description',
+          !empty($translation['body'][0]) ?
+            $translation['body'][0] :
+            $node->field_description[0]['value']);
       break;
     }
   }
@@ -248,4 +262,49 @@ function issue_get_uservotes($uid)
   }
 
   return (int)$votes[$uid];
+}
+
+/**
+ * @param bool $nid
+ * @return array
+ *  'nid' - node id
+ *    'r' -- regular votes
+ *      pairs: uid >> vote value
+ *    's' -- suggested votes
+ *      pairs: uid >> vote value
+ *    'u' -- list of users voted
+ *      hash: uid >> vote data
+ */
+function issue_get_vote_status($nid = false) {
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $query = "
+    (SELECT nid, uid, chorder cid, 'r' type FROM poll_votes)
+      UNION
+    (SELECT ps.nid, psv.uid, psv.chid cid, 's' type FROM poll_suggest_votes psv, poll_suggest ps WHERE psv.chid = ps.chid)";
+    $result = db_query($query);
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['nid']][$row['type']][$row['uid']] = $row['cid'];
+      $cache[$row['nid']]['u'][$row['uid']] = $row;
+    }
+
+    // todo maybe we could store the cache to db
+
+  }
+
+  return $nid === false ? $cache : $cache[$nid];
+}
+
+/**
+ * @param $node
+ * @return array
+ */
+function issue_get_translation($node) {
+  # display language & translation
+  global $language;
+  return !empty($node->t[$language->language]) ? $node->t[$language->language] : array();
+
 }

@@ -11,7 +11,6 @@ function badges_statistics_badges()
 
   $badges['statistics_bronze'] = array(
     'function' => 'badges_statistics_check',
-    'function multiple' => 'badges_statistics_check_multiple',
     'name' => t('Notable Issue'),
     'info' => t('Posted issue with 1,000 views'),
     'type' => 'bronze',
@@ -19,7 +18,6 @@ function badges_statistics_badges()
   );
   $badges['statistics_silver'] = array(
     'function' => 'badges_statistics_check',
-    'function multiple' => 'badges_statistics_check_multiple',
     'name' => t('Popular Issue'),
     'info' => t('Posted issue with 2,500 views'),
     'type' => 'silver',
@@ -27,11 +25,17 @@ function badges_statistics_badges()
   );
   $badges['statistics_gold'] = array(
     'function' => 'badges_statistics_check',
-    'function multiple' => 'badges_statistics_check_multiple',
     'name' => t('Provocative Issue'),
     'info' => t('Posted issue with 10,000 views'),
     'type' => 'gold',
     'arguments' => array('views' => 10000),
+  );
+
+  $badges['statistics_tumbleweed'] = array(
+    'function' => 'badges_statistics_tumbleweed_check',
+    'name' => t('Tumbleweed'),
+    'info' => t('Asked a question with no answers, no comments, and low views for a week'),
+    'arguments' => array('views' => 10, 'days' => 7),
   );
 
   return $badges;
@@ -58,16 +62,29 @@ function badges_statistics_check($uid, $arguments = array())
 }
 
 /**
- * @param array $uids
- * @return array
+ * @param $uid
+ * @return bool
  */
-function badges_statistics_check_multiple($uids = array(), $arguments = array())
+function badges_statistics_tumbleweed_check($uid, $arguments = array())
 {
-  $output = array();
+  static $cache;
 
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_statistics_check($uid, $arguments);
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("SELECT n.uid, DATEDIFF(CURDATE(), FROM_UNIXTIME(n.created, '%Y-%m-%d')) days, IFNULL(nc.totalcount, 0) views FROM {node} n LEFT JOIN {node_counter} nc ON n.nid = nc.nid WHERE n.type = '%s'", 'poll');
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['uid']][] = array('days' => $row['days'], 'views' => $row['views']);
+    }
   }
 
-  return $output;
+  if (isset($cache[$uid])) {
+    foreach (isset($cache[$uid]) as $data) {
+      if (($data['views'] <= $arguments['views']) && ($data['days'] >= $arguments['days'])) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }

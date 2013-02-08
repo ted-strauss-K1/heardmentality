@@ -4,7 +4,7 @@ $('.issue-vote-form').live('submit', function (e) {
   $.ajax({
     type:'POST',
     dataType:'json',
-    url:'/issue/ajax',
+    url:'/'+Drupal.settings.language+'/issue/ajax',
     data:form.serialize(),
     success:function (response) {
       if (!response.status) {
@@ -87,4 +87,14 @@ $('a.permalink').live('click', function (e) {
     'timeout':false,
     'closeWith':['button']
   });
+});
+
+$('#shareDiv-reaction0, #shareDiv-reaction1, #shareDiv-reaction2, #shareDiv-reaction3').live('click', function() {
+  $.ajax({
+    type      : 'POST',
+    dataType  : 'json',
+    url       : '/issue/share/' + Drupal.settings.node.nid
+  });
+
+
 });
