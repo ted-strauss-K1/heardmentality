@@ -20,6 +20,11 @@ function issue_search_apachesolr_field_mappings() {
     $mappings['has_votes'] = array(
         'indexing_callback' => 'issue_search_extra_fields_indexing_callback',
         'index_type' => 'boolean',
+        'multiple' => FALSE,
+    );
+    $mappings['user_votes'] = array(
+        'indexing_callback' => 'issue_search_extra_fields_indexing_callback',
+        'index_type' => 'integer',
         'multiple' => TRUE,
     );
 
@@ -78,7 +83,7 @@ function issue_search_apachesolr_index_document_build(ApacheSolrDocument $docume
                 if ($function && function_exists($function)) {
 
                     // NOTE: This function should always return an array. One entity field may be indexed to multiple Solr fields.
-                    $fields = array_merge($fields, $function($entity, $field_name, $index_key, $field_info));
+                    $fields = $function($entity, $field_name, $index_key, $field_info);
                 }
             }
         }

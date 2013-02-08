@@ -71,6 +71,19 @@ function issue_search_additional_fields($entity_type = 'node') {
         $fields[$entity_type][apachesolr_index_key($field)] = array($field);
     }
 
+    // Construct pseudo-field for node having votes check.
+    $field = $mappings['has_votes'];
+    $field['name'] = 'has_votes';
+    $field['module_name'] = 'apachesolr';
+    $field['display_name'] = t('User Votes');
+    $field['bundles'] = array('poll');
+    $field['multiple'] = FALSE;
+    $field['field'] = array();
+    $field['field']['field_name'] = 'user_votes';
+    if (!empty($field['bundles'])) {
+        $fields[$entity_type][apachesolr_index_key($field)] = array($field);
+    }
+    
     return $fields[$entity_type];
 }
 
@@ -202,6 +215,13 @@ function issue_search_extra_fields_indexing_callback($entity, $field_name, $inde
             );
             break;
 
+        case 'has_votes':
+            $fields[] = array(
+                'key' => $index_key,
+                'value' => issue_search_extra_fields_indexing_user_votes($entity, $field_info),
+            );
+            break;
+
         default:
             break;
     }
@@ -218,6 +238,21 @@ function issue_search_extra_fields_indexing_callback($entity, $field_name, $inde
  * @return boolean
  *      FALSE if no votes, TRUE otherwise
  */
-function issue_search_extra_fields_indexing_has_votes($node, $field_info) {
+function issue_search_extra_fields_indexing_has_votes($node, $field_name, $index_key, $field_info) {
     return FALSE;
+}
+
+/**
+ * Lists users voted on the issue.
+ *
+ * @param type $node
+ * @param type $field_info
+ *
+ * @return array
+ *      An array of fields with user IDs of users voted.
+ */
+function issue_search_extra_fields_indexing_user_votes($node, $field_name, $index_key, $field_info) {
+    $fields = array();
+
+    return $fields;
 }
