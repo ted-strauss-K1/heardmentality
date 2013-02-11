@@ -8,6 +8,14 @@
     <?php if($page) : ?>
     <div class="qd">
       <?php print theme('flagger_button', $nid, 'node'); ?>
+      <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
+        <?php print l(t('moderation'), 'moderation/issue/'.$node->nid,
+          array('attributes' => array(
+            'class' => 'moderation',
+            'original-title' => t('moderation'),
+          ))
+        ); ?>
+      <?php endif; ?>
       <p class="description"><?php print $node->description; ?></p>
     </div>
     <?php endif; ?>

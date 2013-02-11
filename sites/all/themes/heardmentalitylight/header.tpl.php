@@ -28,10 +28,8 @@
 				  <?php if (user_is_logged_in()) : ?>
 					  <li><?php print l(t('Following'), 'following', array('attributes' => array('class'=>'following'))); ?></li>
 				  <?php endif; ?>
-				  <?php
-				  // TODO check user perms to see the moderation link
-				  if ( ($router_item = menu_get_item('moderation')) && $router_item['access'] ) : ?>
-					<li><?php print l(t('Moderator'), 'moderation', array('attributes' => array('class'=>'moderator add'))); ?></li>
+				  <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
+					  <li><?php print l(t('Moderator'), 'moderation', array('attributes' => array('class'=>'moderator add'))); ?></li>
 				  <?php endif; ?>
 				</ul>
 			</div>

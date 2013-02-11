@@ -115,7 +115,7 @@ function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       case 'load' :
         $node->creation_time = ($_ = theme('time_interval', $node->created)) ? $_ : date("F d Y H:i:s", $node->created);
         $node->comments = argument_recent_comments($node->nid);
-        break;
+      break;
     }
   }
 }
@@ -379,8 +379,7 @@ function _comment_save(&$comment)
  */
 function argument_delete($content_type, $content_id)
 {
-  global $user;
-  if (!user_access('moderation', $user) && !argument_check_owner($content_type, $content_id)) {
+  if (!(module_exists('moderation') && moderation_check_perm()) && !argument_check_owner($content_type, $content_id)) {
     print json_encode(array(
       'status' => false,
       'message' => t('Sorry, you have no permissions to delete the content'),
@@ -395,6 +394,9 @@ function argument_delete($content_type, $content_id)
     case 'comment' :
       db_query("UPDATE {comments} SET status = '%d' WHERE cid = '%d'", COMMENT_NOT_PUBLISHED, $content_id);
       break;
+  }
+  if (module_exists('moderation')) {
+    moderation_history('set', $content_type, $content_id, 'delete');
   }
   print json_encode(array(
     'status' => true,
