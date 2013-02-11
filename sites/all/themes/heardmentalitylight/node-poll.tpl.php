@@ -1,6 +1,6 @@
 <div class="<?php if($teaser) : ?>search_item<?php endif; ?> issue-vote-wrapper" <?php if($page) : ?>id="new_vote"<?php else : ?> <?php endif; ?>>
   <!-- Part 1 -->
-  <?php $translation = issue_get_translation($node); ?>
+  <?php $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array(); ?>
   <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">
     <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print
       l( t(rtrim(!empty($translation['title'][0]) ? $translation['title'][0] : $title, "?")), $node->path);

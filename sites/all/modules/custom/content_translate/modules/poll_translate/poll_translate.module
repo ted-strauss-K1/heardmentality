@@ -155,3 +155,13 @@ function poll_translate_pollfix($nid, $map) {
     }
   }
 }
+
+/**
+ * @param $node
+ * @return array
+ */
+function poll_translate_translation($node) {
+  # display language & translation
+  global $language;
+  return !empty($node->t[$language->language]) ? $node->t[$language->language] : array();
+}

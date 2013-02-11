@@ -215,7 +215,7 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         }
         break;
       case 'view' :
-        $translation = issue_get_translation($node);
+        $translation = poll_translate_translation($node);
         $node->description = theme('issue_description',
           !empty($translation['body'][0]) ?
             $translation['body'][0] :
@@ -296,15 +296,4 @@ function issue_get_vote_status($nid = false) {
   }
 
   return $nid === false ? $cache : $cache[$nid];
-}
-
-/**
- * @param $node
- * @return array
- */
-function issue_get_translation($node) {
-  # display language & translation
-  global $language;
-  return !empty($node->t[$language->language]) ? $node->t[$language->language] : array();
-
 }
