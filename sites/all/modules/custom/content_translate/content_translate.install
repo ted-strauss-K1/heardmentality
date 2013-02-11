@@ -71,7 +71,7 @@ function content_translate_schema()
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-      'content_translate' => array('content_type', 'content_id', 'field', 'field_order')
+      'content_translate' => array('content_type', 'content_id', 'language', 'field', 'field_order')
     ),
 
   );
