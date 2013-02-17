@@ -2,17 +2,17 @@
 
 /**
  * @file
- *
- * Functions related to Apache Solr indexing operations.
+ *  Functions related to Apache Solr indexing operations.
  */
 
 /**
  * Returns array containing information about fields that should be indexed.
  *
- * @param type $env_id
- * @param type $entity_type
+ * @param string $entity_type
+ *  Entity type.
  *
  * @return array
+ *  Additional Fields.
  */
 function issue_search_additional_fields($entity_type = 'node') {
     $fields[$entity_type] = array();
@@ -60,30 +60,28 @@ function issue_search_additional_fields($entity_type = 'node') {
 
     // Construct pseudo-field for node having votes check.
     $field = $mappings['has_votes'];
-    $field['name'] = 'has_votes';
-    $field['module_name'] = 'apachesolr';
-    $field['display_name'] = t('Has Votes');
-    $field['bundles'] = array('poll');
-    $field['multiple'] = FALSE;
-    $field['field'] = array();
-    $field['field']['field_name'] = 'has_votes';
     if (!empty($field['bundles'])) {
         $fields[$entity_type][apachesolr_index_key($field)] = array($field);
     }
 
-    // Construct pseudo-field for node having votes check.
-    $field = $mappings['has_votes'];
-    $field['name'] = 'has_votes';
-    $field['module_name'] = 'apachesolr';
-    $field['display_name'] = t('User Votes');
-    $field['bundles'] = array('poll');
-    $field['multiple'] = FALSE;
-    $field['field'] = array();
-    $field['field']['field_name'] = 'user_votes';
+    // Construct pseudo-field for registering node's voters.
+    $field = $mappings['user_votes'];
     if (!empty($field['bundles'])) {
         $fields[$entity_type][apachesolr_index_key($field)] = array($field);
     }
-    
+
+    // Construct pseudo-field for node votes count.
+    $field = $mappings['votes_count'];
+    if (!empty($field['bundles'])) {
+        $fields[$entity_type][apachesolr_index_key($field)] = array($field);
+    }
+
+    // Construct pseudo-field for node views count.
+    $field = $mappings['views_count'];
+    if (!empty($field['bundles'])) {
+        $fields[$entity_type][apachesolr_index_key($field)] = array($field);
+    }
+
     return $fields[$entity_type];
 }
 
@@ -97,10 +95,10 @@ function issue_search_additional_fields($entity_type = 'node') {
  * @param string $index_key
  *   A string containing the solr index field name.
  * @param array $field_info
- *   Array.
+ *   Field information.
  *
  * @return array
- *   An array containing all the fields that needs to be indexed.
+ *   An array containing all the fields that need to be indexed.
  */
 function issue_search_locations_indexing_callback($entity, $field_name, $index_key, $field_info) {
     $fields = array();
@@ -167,6 +165,16 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
                     );
                 }
 
+                // Country-Province code.
+                if ((!empty($item['country'])) && (!empty($item['province']))) {
+                    $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'country_province');
+                    $field_index_key = apachesolr_index_key($field);
+                    $fields[] = array(
+                        'key' => $field_index_key,
+                        'value' => $item['country'] . '_' . $item['province'],
+                    );
+                }
+
                 // City Code.
                 if (!empty($item['city_code'])) {
                     $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'city_code');
@@ -194,15 +202,19 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
 }
 
 /**
- * Takes extra node values tells the module where to put them.
+ * Takes extra node values, tells the module where to put them.
  *
+ * @param object $entity
+ *   An object containing the entity that will get indexed.
  * @param string $field_name
- *   A string containing the name of the field.
+ *   A string containing the name of the location field.
  * @param string $index_key
  *   A string containing the solr index field name.
+ * @param array $field_info
+ *   Field information.
  *
  * @return array
- *   An array containing all the fields that needs to be indexed.
+ *   An array containing all the fields that need to be indexed.
  */
 function issue_search_extra_fields_indexing_callback($entity, $field_name, $index_key, $field_info) {
     $fields = array();
@@ -211,14 +223,25 @@ function issue_search_extra_fields_indexing_callback($entity, $field_name, $inde
         case 'has_votes':
             $fields[] = array(
                 'key' => $index_key,
-                'value' => issue_search_extra_fields_indexing_has_votes($entity, $field_info),
+                'value' => issue_search_extra_fields_indexing_has_votes($entity, $field_name, $index_key, $field_info),
             );
             break;
 
-        case 'has_votes':
+        case 'user_votes':
+            $fields = issue_search_extra_fields_indexing_user_votes($entity, $field_name, $index_key, $field_info);
+            break;
+
+        case 'votes_count':
             $fields[] = array(
                 'key' => $index_key,
-                'value' => issue_search_extra_fields_indexing_user_votes($entity, $field_info),
+                'value' => issue_search_extra_fields_indexing_votes_count($entity, $field_name, $index_key, $field_info)
+            );
+            break;
+
+        case 'views_count':
+            $fields[] = array(
+                'key' => $index_key,
+                'value' => issue_search_extra_fields_indexing_views_count($entity, $field_name, $index_key, $field_info)
             );
             break;
 
@@ -232,27 +255,96 @@ function issue_search_extra_fields_indexing_callback($entity, $field_name, $inde
 /**
  * Checks if $node has votes or not.
  *
- * @param type $node
- * @param type $field_info
+ * @param object $node
+ *   An object containing the node that will get indexed.
+ * @param string $field_name
+ *   A string containing the name of field.
+ * @param string $index_key
+ *   A string containing the solr index field name.
+ * @param array $field_info
+ *   Field information.
  *
  * @return boolean
- *      FALSE if no votes, TRUE otherwise
+ *      FALSE if no votes, TRUE otherwise.
  */
 function issue_search_extra_fields_indexing_has_votes($node, $field_name, $index_key, $field_info) {
-    return FALSE;
+    $list = issue_get_vote_status($node->nid);
+    $result = (isset($list['u']) && !empty($list['u'])) ? TRUE : FALSE;
+
+    return $result;
 }
 
 /**
  * Lists users voted on the issue.
  *
- * @param type $node
- * @param type $field_info
- *
+ * @param object $node
+ *   An object containing the node that will get indexed.
+ * @param string $field_name
+ *   A string containing the name of field.
+ * @param string $index_key
+ *   A string containing the solr index field name.
+ * @param array $field_info
+ *   Field information.
+ * 
  * @return array
- *      An array of fields with user IDs of users voted.
+ *  An array of fields with user IDs of users voted.
  */
 function issue_search_extra_fields_indexing_user_votes($node, $field_name, $index_key, $field_info) {
     $fields = array();
 
+    $list = issue_get_vote_status($node->nid);
+    $uids = (isset($list['u']) && !empty($list['u'])) ? array_keys($list['u']) : array();
+    foreach ($uids as $uid) {
+        $fields[] = array(
+            'key' => $index_key,
+            'value' => $uid,
+        );
+    }
+
     return $fields;
+}
+
+/**
+ * Votes amount indexer.
+ * 
+ * @param object $node
+ *   An object containing the node that will get indexed.
+ * @param string $field_name
+ *   A string containing the name of field.
+ * @param string $index_key
+ *   A string containing the solr index field name.
+ * @param array $field_info
+ *   Field information.
+ * 
+ * @return integer
+ *  Votes amount info.
+ */
+function issue_search_extra_fields_indexing_votes_count($node, $field_name, $index_key, $field_info) {
+    $list = issue_get_vote_status($node->nid);
+    $uids = (isset($list['u']) && !empty($list['u'])) ? array_keys($list['u']) : array();
+
+    $value = count($uids);
+
+    return $value;
+}
+
+/**
+ * Views amount indexer.
+ * 
+ * @param object $node
+ *   An object containing the node that will get indexed.
+ * @param string $field_name
+ *   A string containing the name of field.
+ * @param string $index_key
+ *   A string containing the solr index field name.
+ * @param array $field_info
+ *   Field information.
+ * 
+ * @return integer
+ *  Views amount info.
+ */
+function issue_search_extra_fields_indexing_views_count($node, $field_name, $index_key, $field_info) {
+    $value = (int)db_result(db_query('SELECT t.totalcount AS views FROM {node_counter} t WHERE t.nid = %d LIMIT 1', $node->nid));
+
+    return $value;
 }

@@ -1,351 +1,215 @@
 <?php
 
+/**
+ * @file
+ *  Issue search module: hooks and core functions.
+ */
 require_once 'includes/issue_search.apachesolr.inc';
+require_once 'includes/issue_search.theme.inc';
 
 /**
- * @param $vars
+ * Implementation of hook_init().
+ * Perform setup tasks.
+ * 
+ * @global object $user
+ *  Current Drupal user.
+ * @global object $_issue_search_user
+ *  Copy of real user for this module.
  */
-function issue_search_preprocess_page(&$vars) {
-    if (arg(0) == 'issues') {
-        # set page template
-        array_push($vars['template_files'], 'page_12_4');
-
-        drupal_add_js(drupal_get_path('module', 'issue_search') . '/issue_search.js');
-        drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
-
-        $vars['right'] = theme('issue_search_filter');
-    }
+function issue_search_init() {
+    global $user, $_issue_search_user;
+    $_issue_search_user = $user;
 }
 
 /**
- * Implementation of hook_menu()
+ * Implementation of hook_menu().
+ * Define menu items and page callbacks.
  *
  * @return array
+ *  An associative array whose keys define paths and whose values are an associative array of properties for each path.
  */
 function issue_search_menu() {
     $menu = array();
 
+    // Issues list.
     $menu['issues'] = array(
         'page callback' => 'drupal_get_form',
         'title' => t('Issues'),
         'page arguments' => array('issue_search_form'),
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
+        'file' => 'includes/issue_search.pages.inc',
     );
+
+    // AJAX callback for processing a search.
     $menu['issues/ajax'] = array(
         'page callback' => 'issue_search_ajax',
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
+        'file' => 'includes/issue_search.pages.inc',
     );
-
 
     return $menu;
 }
 
 /**
- * @param $form_state
- * @return array
+ * Implementation of hook_nodeapi().
+ * Act on nodes defined by other modules.
+ * 
+ * @global object $user
+ *  Current Drupal user.
+ * 
+ * @param object $node
+ *  The node the action is being performed on
+ * @param type $op
+ *  What kind of action is being performed. Possible values:
+ *    "alter": the $node->content array has been rendered, so the node body or teaser is filtered and now contains HTML. This op should only be used when text substitution, filtering, or other raw text operations are necessary.
+ *    "delete": The node is being deleted.
+ *    "delete revision": The revision of the node is deleted. You can delete data associated with that revision.
+ *    "insert": The node has just been created (inserted in the database).
+ *    "load": The node is about to be loaded from the database. This hook can be used to load additional data at this time.
+ *    "prepare": The node is about to be shown on the add/edit form.
+ *    "prepare translation": The node is being cloned for translation. Load additional data or copy values from $node->translation_source.
+ *    "print": Prepare a node view for printing. Used for printer-friendly view in book_module
+ *    "rss item": An RSS feed is generated. The module can return properties to be added to the RSS item generated for this node. See comment_nodeapi() and upload_nodeapi() for examples. The $node passed can also be modified to add or remove contents to the feed item.
+ *    "search result": The node is displayed as a search result. If you want to display extra information with the result, return it.
+ *    "presave": The node passed validation and is about to be saved. Modules may use this to make changes to the node before it is saved to the database.
+ *    "update": The node has just been updated in the database.
+ *    "update index": The node is being indexed. If you want additional information to be indexed which is not already visible through nodeapi "view", then you should return it here.
+ *    "validate": The user has just finished editing the node and is trying to preview or submit it. This hook can be used to check the node data. Errors should be set with form_set_error().
+ *    "view": The node content is being assembled before rendering. The module may add elements $node->content prior to rendering. This hook will be called after hook_view(). The format of $node->content is the same as used by Forms API.
+ * @param type $a3
+ *  For "view" and "alter", passes in the $teaser parameter from node_view().
+ *  For "validate", passes in the $form parameter from node_validate().
+ * @param type $a4
+ *  For "view" and "alter", passes in the $page parameter from node_view().
+ * 
+ * @return array 
+ *  The "presave", "insert", "update", "delete", "print" and "view" operations have no return value.
+ *  The "load" operation should return an array containing pairs of fields => values to be merged into the node object.
  */
-function issue_search_form($form_state) {
-    $form = array();
-
-    $form['date_filters'] = array(
-        '#type' => 'item',
-        '#value' => '
-      <ul class="date_filter">
-        <li><a class="date-solr-filter first" href="issues">' . t('This Week') . '</a></li>
-        <li><a class="date-solr-filter" href="issues">' . t('Month') . '</a></li>
-        <li><a class="date-solr-filter last active" href="issues">' . t('All time') . '</a></li>
-      </ul>',
-        '#prefix' => '<div class="search_top_filters clearfix">',
-    );
-    $form['sorting'] = array(
-        '#type' => 'item',
-        '#value' => '
-      <ul class="options_filter">
-        <li><a href="issues" class="solr-sort first active">' . t('Latest') . '</a></li>
-        <li><a href="issues" class="solr-sort">' . t('Views') . '</a></li>
-        <li><a href="issues" class="solr-sort last">' . t('Votes') . '</a></li>
-      </ul>',
-        '#suffix' => '</div>',
-    );
-    $form['#suffix'] =
-            '<div id="loading_wrapper" style="padding: 20px; width: 100%;text-align: center;">' .
-            theme('sub_loader', 'margin-top: 15px auto; display: block; ') .
-            '</div>' .
-            '<div id="linkbox"></div>';
-
-    return $form;
-}
-
-/**
- * Implementation of hook_theme()
- *
- * @return array
- */
-function issue_search_theme() {
-    $theme = array();
-
-    $theme['issue_search_filter'] = array(
-        'arguments' => array(),
-//    'template'  => 'templates/user-profile-view',
-//    'preprocess functions' => array('issue_search_filter_preprocess'),
-    );
-    $theme['issue_search_results'] = array(
-        'arguments' => array('nids' => array()),
-    );
-
-    return $theme;
-}
-
-/**
- * @return string
- */
-function theme_issue_search_filter() {
-    return '<div class="filter_search grey-box poll-box issues_search">' .
-            drupal_get_form('issue_search_filter_form') .
-            '</div>';
-}
-
-function issue_search_filter_form($form_state) {
-    $form = array();
-
+function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     global $user;
 
-    ahah_helper_register($form, $form_state);
-
-    // main container
-    $form['block'] = array(
-        '#type' => 'fieldset',
-        '#prefix' => '<div id="block-wrapper">',
-        '#suffix' => '</div>',
-        '#tree' => TRUE,
-    );
-
-    // container:: count
-    $form['block']['results'] = array(
-        '#value' => '<span>0</span>' . ' issues',
-        '#type' => 'item',
-        '#id' => 'count_results'
-    );
-
-    // data
-    $data = $form_state['storage']['block'];
-    $data2 = $form_state['storage'];
-
-    // gather info
-    $info_items = array();
-
-    // gather info:: taxonomy
-    $tft_codes = array();
-    for ($i = 0; $i >= 0; $i++) {
-        if (empty($data['taxonomy-' . $i])) {
-            break;
-        }
-        foreach ($data['taxonomy-' . $i] as $tid => $tname) {
-            $tft_codes[] = (int) $tid;
-        }
-    }
-    // GET codes
-    if (isset($_GET['tids']) && empty($data['taxonomy-0'])) {
-        $tft_codes = explode(",", $_GET['tids']);
-    }
-
-    $tft = tft_list('poll', $tft_codes);
-
-    // gather info:: location
-    $tfl_codes0 = array();
-    $tfl_codes1 = array();
-    $tfl_codes2 = array();
-    for ($i = 0; $i <= 2; $i++) {
-        $name = 'tfl_codes' . $i;
-        $$name = empty($data['location-' . $i]) ? array() : array_keys($data['location-' . $i]);
-    }
-    // if logged in & country set
-    if (isset($data2['region']) && $data2['region']) {
-        $tfl_codes0 = array($user->profile_country);
-        $tfl_codes1 = array();
-        $tfl_codes2 = array();
-    }
-
-    $tfl = tfl_list($tfl_codes0, $tfl_codes1, $tfl_codes2);
-
-    // gather info:: info_values
-    foreach (array('tft' => 'taxonomy', 'tfl' => 'location') as $varname => $type) {
-        $tf = $$varname;
-        for ($i = 0; $i < count($tf['list']); $i++) {
-            $options = $tf['list'][$i];
-            $checked = $tf['checked'][$i];
-            if (!empty($checked)) {
-                foreach ($checked as $code)
-                    $info_items[] = array(
-                        'type' => $type . '-' . $i,
-                        'value' => $code,
-                        'text' => $options[$code],
-                    );
+    // Enqueue a node into apachesolr node queue for indexing a new amount of views.
+    if ($op == 'view') {
+        if ($node->type == 'poll') {
+            $is_admin = (in_array('administrator', $user->roles) || ($user->uid == 1) || ($user->uid == $node->uid));
+            if (!$is_admin) {
+                if (!((strpos(request_uri(), "/cron.php") === 0) && ($user->uid == 0))) {
+                    db_query("UPDATE {apachesolr_search_node} SET changed = %d WHERE nid = %d", time(), $node->nid);
+                }
             }
         }
     }
+}
 
-    // container:: info
-    $info = t('Issues about') . ':<br />';
-    foreach ($info_items as $item) {
-        $info .= sprintf('<span><input type="hidden" name="#edit-block-%s" value="%s">%s<span class="del-item">x</span></span>', $item['type'], $item['value'], $item['text']);
-    }
-    $form['block']['information'] = array(
-        '#value' => $info,
-        '#type' => 'item',
-        '#id' => 'item_results'
+/**
+ * Implementation of hook_theme().
+ * Register a module (or theme's) theme implementations.
+ * 
+ * @param array $existing 
+ *  An array of existing implementations that may be used for override purposes. This is primarily useful for themes that may wish to examine existing implementations to extract data (such as arguments) so that it may properly register its own, higher priority implementations.
+ * @param string $type
+ *  What 'type' is being processed. This is primarily useful so that themes tell if they are the actual theme being called or a parent theme. May be one of:
+ *    - module: A module is being checked for theme implementations.
+ *    - base_theme_engine: A theme engine is being checked for a theme which is a parent of the actual theme being used.
+ *    - theme_engine: A theme engine is being checked for the actual theme being used.
+ *    - base_theme: A base theme is being checked for theme implementations.
+ *    - theme: The actual theme in use is being checked.
+ * @param string $theme
+ *  The actual name of theme that is being being checked (mostly only useful for theme engine).
+ * @param string $path
+ *  The directory path of the theme or module, so that it doesn't need to be looked up.
+ * 
+ * @return array
+ *  A keyed array of theme hooks.
+ */
+function issue_search_theme($existing = array(), $type = '', $theme = '', $path = '') {
+    $functions = array();
+
+    $functions['issue_search_results'] = array(
+        'arguments' => array(
+            'results' => array()
+        ),
+        'file' => 'includes/issue_search.theme.inc',
+    );
+    $functions['issue_search_filter'] = array(
+        'arguments' => array(),
+        'file' => 'includes/issue_search.theme.inc',
     );
 
-    // lists:: taxonomy
-    for ($i = 0; $i < count($tft['list']); $i++) {
-        $options = $tft['list'][$i];
-        $checked = $tft['checked'][$i];
-        $form['block']['taxonomy-' . $i] = array(
-            '#type' => 'select',
-            '#multiple' => TRUE,
-            '#options' => $options,
-            '#default_value' => $checked,
-            '#size' => '4',
-            '#attributes' => array('class' => 'solr-block-form'),
-            '#ahah' => array(
-                'event' => 'change',
-                'path' => ahah_helper_path(array('block')),
-                'wrapper' => 'block-wrapper',
-            ),
-        );
-        if ($i == 0) {
-            $form['block']['taxonomy-' . $i]['#title'] = t('Narrow by');
-        }
+    return $functions;
+}
+
+/**
+ * Implementation of hook_preprocess_page().
+ * Preprocess theme variables for a page theming function or template.
+ * 
+ * @param type $variables
+ *  The variables array (modify in place).
+ */
+function issue_search_preprocess_page(&$variables) {
+
+    // Case Issues search page.
+    if (arg(0) == 'issues') {
+
+        // Set page template.
+        array_push($variables['template_files'], 'page_12_4');
+
+        // Javascripts.
+        drupal_add_js(drupal_get_path('module', 'issue_search') . '/js/issue_search.js');
+        drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
+
+        // Filters sidebar.
+        $variables['right'] = theme('issue_search_filter');
     }
+}
 
-    // lists:: locations
-    if (!isset($data2['region']) || !$data2['region'])
-        for ($i = 0; $i < count($tfl['list']); $i++) {
-            $options = $tfl['list'][$i];
-            $checked = $tfl['checked'][$i];
+/**
+ * Implementation of hook_exit().
+ * Perform cleanup tasks.
+ * 
+ * @global object $user
+ *  Current Drupal user.
+ * 
+ * @param string $destination
+ *  If this hook is invoked as part of a drupal_goto() call, then this argument will be a fully-qualified URL that is the destination of the redirect.
+ */
+function issue_search_exit($destination = NULL) {
+    global $user;
 
-            if (!empty($options))
-                $form['block']['location-' . $i] = array(
-                    '#type' => 'select',
-                    '#multiple' => TRUE,
-                    '#options' => $options,
-                    '#default_value' => $checked,
-                    '#size' => '4',
-                    '#attributes' => array('class' => 'solr-block-form'),
-                    '#ahah' => array(
-                        'event' => 'change',
-                        'path' => ahah_helper_path(array('block')),
-                        'wrapper' => 'block-wrapper',
-                    ),
-                );
-//    if (isset($data2['region']) && $data2['region']) {
-//      $form['block']['location-'.$i]['#disabled'] = true;
-//    }
-            if ($i == 0) {
-                $form['block']['location-' . $i]['#title'] = t('Location');
+    // Check if we are counting views.
+    if (variable_get('statistics_count_content_views', 0)) {
+
+        // Check if current page displays a node in viewing mode.
+        if ((arg(0) == 'node') && is_numeric(arg(1)) && arg(2) == '') {
+
+            // Check if the user is admin or author.
+            $is_admin = (in_array('administrator', $user->roles) || ($user->uid == 1) || ($user->uid == node_load(arg(1))->uid));
+            if ($is_admin) {
+
+                // Decrement total view count and day view count of current node.
+                db_query('UPDATE {node_counter} SET daycount = daycount - 1, totalcount = totalcount - 1, timestamp = %d WHERE nid = %d', time(), arg(1));
             }
         }
-
-    // user region
-    if (user_is_logged_in()) {
-        if (isset($user->profile_country)) {
-            $form['region'] = array(
-                '#type' => 'checkbox',
-                '#title' => t('My region'),
-                '#id' => 'my_region',
-                '#default_value' => FALSE,
-                '#ahah' => array(
-                    'event' => 'change',
-                    'path' => ahah_helper_path(array('block')),
-                    'wrapper' => 'block-wrapper',
-                ),
-            );
-        } else {
-            $form['region'] = array(
-                '#type' => 'item',
-                '#value' => l(t('Add location to your profile'), $user->editlink),
-            );
-        }
     }
-
-    $form['voted_status'] = array(
-        '#type' => 'checkbox',
-        '#default_value' => TRUE,
-        '#title' => t('Show only not voted'),
-    );
-    $form['search_text'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Keyword'),
-    );
-    $form['search'] = array(
-        '#type' => 'submit',
-        '#value' => t('Search'),
-        '#id' => 'search-solr-block',
-    );
-
-
-    $form['filter_time'] = array(
-        '#type' => 'hidden',
-        '#value' => 0,
-    );
-    $form['filter_type'] = array(
-        '#type' => 'hidden',
-        '#value' => 0,
-    );
-    $form['block']['filter_page'] = array(
-        '#type' => 'hidden',
-        '#value' => 0,
-    );
-
-    unset($form_state['storage']['block']);
-
-    return $form;
 }
 
 /**
- * @param array $nids
+ * Search function.
+ * 
+ * @return array
+ *  Search results.
  */
-function theme_issue_search_results($nids = array()) {
-    $output = '';
+function issue_search() {
 
-    foreach ($nids as $nid) {
-        $node = node_load($nid);
-        $output .= node_view($node, true, false);
-    }
+    $keywords = $_POST['keywords'];
+    $params = array(
+        'q' => $keywords,
+    );
 
-    return $output;
-}
+    $results = apachesolr_search_run('apachesolr', $params);
 
-/**
- * Search function
- */
-function issue_search($params = array()) {
-    $nids = array();
-    apachesolr_search_run('apachesolr');
-    // todo
-    $result = db_query("SELECT nid FROM node WHERE type = 'poll'");
-    while ($nid = db_result($result)) {
-        $nids[] = $nid;
-    }
-
-
-    return $nids;
-}
-
-/**
- * @return string
- */
-function issue_search_ajax() {
-    $message = 'OK';
-
-    $params = array();
-    $message = theme('issue_search_results', issue_search($params));
-
-
-    print json_encode(array(
-                'status' => true,
-                'message' => $message,
-            ));
+    return $results;
 }
