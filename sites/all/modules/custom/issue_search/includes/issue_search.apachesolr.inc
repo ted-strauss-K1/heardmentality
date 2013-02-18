@@ -272,22 +272,7 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query) {
  *  Rsultset.
  * @param DrupalSolrQueryInterface $query
  *  Query.
- *//*
+ */
 function issue_search_apachesolr_process_results(&$results, DrupalSolrQueryInterface $query) {
-
-}*/
-
-/**
- * Implementation of hook_apachesolr_search_result_alter().
- * The is invoked by apachesolr_search.module for each document returned in a search.
- *
- * @param object $document
- *  The ApacheSolrDocument instance
- * @param $extra
- *  Extra.
- * @param DrupalSolrQueryInterface $query
- *  Query.
- *//*
-function issue_search_apachesolr_search_result_alter($document, &$extra, DrupalSolrQueryInterface $query) {
-
-}*/
+    // TODO: Process all resultset if necessary.
+}
