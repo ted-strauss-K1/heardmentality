@@ -47,7 +47,7 @@ function ulogin_callback() {
       drupal_goto($destination['destination']);
     }
   }
-  
+
   if ($identity = _ulogin_identity_load($data)) {
     user_external_login(user_load($identity['uid']));
   }
@@ -101,7 +101,7 @@ function ulogin_callback() {
       user_save($user, $edit);
     }
   }
-  
+
   $destination = drupal_get_destination();
   drupal_goto($destination['destination']);
 }
