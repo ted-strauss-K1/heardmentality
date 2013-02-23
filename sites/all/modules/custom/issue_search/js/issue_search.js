@@ -82,6 +82,9 @@ function getSearchArguments() {
     var cityCodes = codes.join(';');
     var myRegion = ($('#my_region').attr('checked') == 'checked') ? 'true' : 'false';
 
+    // Language.
+    var myLanguage = ($('#edit-my-language').attr('checked') == 'checked') ? 'true' : 'false';
+
     // Has votes.
     var onlyNotVoted = ($('#edit-voted-status').attr('checked') == 'checked') ? 'true' : 'false';
 
@@ -97,6 +100,7 @@ function getSearchArguments() {
         'provincecodes': provinceCodes,
         'countrycodes': countryCodes,
         'my_region': myRegion,
+        'my_language': myLanguage,
         'not_voted': onlyNotVoted,
         'keywords': keywords
     };

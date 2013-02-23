@@ -196,10 +196,12 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query) 
     $query->addFilter('entity_type', 'node');
     $query->addFilter('bundle', 'poll');
     $query->addFilter('bundle_name', 'Issue');
-    # $subquery = apachesolr_drupal_query('apachesolr');
-    # $subquery->addFilter('ss_language', $language->language);
-    # $subquery->addFilter('ss_language', 'und');
-    # $query->addFilterSubQuery($subquery, 'OR', 'AND');
+    if ($_POST['my_language'] == 'true') {
+        $subquery = apachesolr_drupal_query('apachesolr');
+        $subquery->addFilter('ss_language', $language->language);
+        $subquery->addFilter('ss_language', 'und');
+        $query->addFilterSubQuery($subquery, 'OR', 'AND');
+    }
 }
 
 /**
