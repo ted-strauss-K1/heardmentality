@@ -80,6 +80,7 @@ function getSearchArguments() {
         codes.push($(this).val());
     });
     var cityCodes = codes.join(';');
+    var myRegion = ($('#my_region').attr('checked') == 'checked') ? 'true' : 'false';
 
     // Has votes.
     var onlyNotVoted = ($('#edit-voted-status').attr('checked') == 'checked') ? 'true' : 'false';
@@ -95,6 +96,7 @@ function getSearchArguments() {
         'citycodes': cityCodes,
         'provincecodes': provinceCodes,
         'countrycodes': countryCodes,
+        'my_region': myRegion,
         'not_voted': onlyNotVoted,
         'keywords': keywords
     };
@@ -108,6 +110,7 @@ function getSearchArguments() {
 function issue_search() {
     var loader = $('#loading_wrapper');
     var linkbox = $('#linkbox');
+    var issuesAmount = $('#count_results-wrapper span');
 
     // Show loader.
     linkbox.slideUp(500, function () {
@@ -129,6 +132,7 @@ function issue_search() {
                 return false;
             }
             linkbox.html(data.message);
+            issuesAmount.html(data.rows);
 
             return true;
         },

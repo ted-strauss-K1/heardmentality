@@ -21,7 +21,7 @@ function issue_search_form($form_state) {
     $form['date_filters'] = array(
         '#type' => 'item',
         '#value' => '
-            <ul class="date-filter date_filter">
+            <ul class="date-filter">
                 <li><a class="date-solr-filter first" href="issues" interval="week">' . t('This Week') . '</a></li>
                 <li><a class="date-solr-filter" href="issues" interval="month">' . t('Month') . '</a></li>
                 <li><a class="date-solr-filter last active" href="issues" interval="all">' . t('All time') . '</a></li>
@@ -34,7 +34,7 @@ function issue_search_form($form_state) {
     $form['sorting'] = array(
         '#type' => 'item',
         '#value' => '
-            <ul class="sort-filter options_filter">
+            <ul class="sort-filter">
                 <li><a href="issues" class="solr-sort first active" solrsort="ds_changed" direction="desc">' . t('Latest') . '</a></li>
                 <li><a href="issues" class="solr-sort" solrsort="is_views_count" direction="desc">' . t('Views') . '</a></li>
                 <li><a href="issues" class="solr-sort last" solrsort="is_votes_count" direction="desc">' . t('Votes') . '</a></li>
@@ -63,12 +63,15 @@ function issue_search_form($form_state) {
 function issue_search_ajax() {
     
     // Search results.
-    $message = theme('issue_search_results', issue_search());
+    $results = issue_search();
+    $rows = count($results);
+    $message = theme('issue_search_results', $results);
 
     // JSON params.
     $json = array(
         'status' => true,
         'message' => $message,
+        'rows' => $rows,
     );
 
     print json_encode($json);
