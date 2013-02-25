@@ -92,6 +92,18 @@ function issue_search_filter_form($form_state) {
     }
     $tft = tft_list('poll', $tft_codes);
 
+    // Gather info: taxonomy. Show only terms having nodes listed under
+    $tft_exist = array();
+    $result = db_query("SELECT DISTINCT tn.tid, td.name FROM {term_node} tn INNER JOIN {term_data} td ON td.tid = tn.tid");
+    while ($row = db_fetch_array($result)) {
+      $tft_exist[$row['tid']] = $row['name'];
+    }
+    //
+    $tft_count = count($tft['list']);
+    for ($i = 0; $i < $tft_count; $i++) {
+      $tft['list'][$i] = array_intersect_assoc($tft['list'][$i], $tft_exist);
+    }
+
     // Gather info: location.
     $tfl_codes0 = array();
     $tfl_codes1 = array();
@@ -158,6 +170,7 @@ function issue_search_filter_form($form_state) {
         );
         if ($i == 0) {
             $form['block']['taxonomy-' . $i]['#title'] = t('Narrow by');
+            $form['block']['taxonomy-' . $i]['#size'] = count($options);
         }
     }
 
