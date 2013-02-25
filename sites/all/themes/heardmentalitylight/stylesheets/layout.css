@@ -1007,7 +1007,7 @@ p.comment-meta {
 .comment-agree a.disagree:active,
 .comment-agree a:active,
 .comment-agree a:active {
-	background-color: #ccc;
+	background-color: #aaa;
 	color: #fff !important;
 }
 
