@@ -177,7 +177,9 @@ function ulogin_elements() {
     '#ulogin_id' => 'uLogin',
     '#ulogin_display' => variable_get('ulogin_display', 'panel'),
     '#ulogin_fields' => implode(',', array_filter(variable_get('ulogin_fields', array('first_name', 'last_name', 'email', 'nickname', 'bdate', 'sex', 'photo', 'photo_big', 'country', 'city')))),
-    '#ulogin_optional' => '',
+    // odyachenko
+//    '#ulogin_optional' => '',
+    '#ulogin_optional' => implode(',', array_filter(variable_get('ulogin_fields_optional', array('first_name', 'last_name', 'email', 'nickname', 'bdate', 'sex', 'photo', 'photo_big', 'country', 'city')))),
     '#ulogin_providers' => variable_get('ulogin_adv_providers', '') ? variable_get('ulogin_adv_providers', '') : implode(',', array_filter(variable_get('ulogin_providers', array('vkontakte', 'odnoklassniki', 'mailru', 'facebook')))),
     '#ulogin_hidden' => variable_get('ulogin_adv_hidden', '') ? variable_get('ulogin_adv_hidden', '') : implode(',', array_filter(variable_get('ulogin_hidden', array('twitter', 'google', 'yandex', 'livejournal', 'openid')))),
     '#ulogin_destination' => variable_get('ulogin_destination', ''),
