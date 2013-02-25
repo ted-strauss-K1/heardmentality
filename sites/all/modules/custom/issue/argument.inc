@@ -232,19 +232,22 @@ function argument_filter($nid, $sort = null, $class = null, $chorder = null)
     $params[] = $chorder;
 
     # filter arguments
-    $query .= " AND ao.val = '%d'";
     switch ($class) {
       case 'neutral' :
         $params[] = 0;
+        $query .= " AND ao.val <> '%d'";
         break;
       case 'positive' :
         $params[] = 1;
+        $query .= " AND ao.val = '%d'";
         break;
       case 'negative' :
         $params[] = -1;
+        $query .= " AND ao.val = '%d'";
         break;
       default :
         $params[] = 0;
+        $query .= " AND ao.val = '%d'";
         break;
     }
   }
