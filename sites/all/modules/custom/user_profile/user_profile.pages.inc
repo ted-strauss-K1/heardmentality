@@ -463,6 +463,11 @@ function user_profile_edit_form_submit_profile($form, &$form_state)
       $edit['profile_' . $code] = $output[$code];
       $user->{'profile_' . $code} = $output[$code];
     }
+  } else {
+    foreach (array('city', 'state', 'lat', 'lng') as $code) {
+      $edit['profile_' . $code] = '';
+      $user->{'profile_' . $code} = '';
+    }
   }
 
   if ($post['password'] != '' && $post['password'] != $form['password']['#default_value']) {
