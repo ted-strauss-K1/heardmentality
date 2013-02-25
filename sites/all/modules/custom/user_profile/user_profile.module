@@ -369,7 +369,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
             }
           }
           if ($ulogin_data['network']) {
-            switch ($ulogin_data['identity']) {
+            switch ($ulogin_data['network']) {
               case 'facebook':
               case 'twitter':
                 $profile_fields['profile_' . $ulogin_data['network']] = preg_replace('@.*\/@', '', $ulogin_data['identity']);
