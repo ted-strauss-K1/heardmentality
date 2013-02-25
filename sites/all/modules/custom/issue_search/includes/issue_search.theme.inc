@@ -206,7 +206,7 @@ function issue_search_filter_form($form_state) {
         } else {
             $form['region'] = array(
                 '#type' => 'item',
-                '#value' => l(t('Add location to your profile'), 'user/profile/edit/'),
+                '#value' => l(t('Add location to your profile'), 'user/profile/edit/', array('fragment' => 'profile-country-wrapper')),
             );
         }
     }
