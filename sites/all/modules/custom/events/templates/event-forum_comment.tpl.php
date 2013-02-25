@@ -5,9 +5,11 @@
   $argument = node_load($comment->nid);
   $node = node_load($argument->field_issue[0]['nid']);
 
+  $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+
   $text = 'replied to an argument on the issue';
   $link = l(
-    $node->title . '?',
+    (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
     $node->path,
     empty($argument) ? array() : array('fragment' => 'forum-block-' . $argument->nid)
   );

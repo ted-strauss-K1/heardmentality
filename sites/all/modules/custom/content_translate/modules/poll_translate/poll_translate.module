@@ -23,12 +23,13 @@ function poll_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   if ($node->type == 'poll') {
     switch ($op) {
       case 'presave' :
-        content_translate_del(array(
-          'content_type' => 'node',
-          'content_id' => $node->nid,
-        ));
         if ($node->t) {
           foreach ($node->t as $language => $data) {
+            content_translate_del(array(
+              'content_type' => 'node',
+              'content_id' => $node->nid,
+              'language' => $language,
+            ));
             foreach ($data as $field => $list) {
               if (is_array($list)) {
                 foreach ($list as $field_order => $text) {
@@ -152,6 +153,85 @@ function poll_translate_pollfix($nid, $map) {
         db_query($query, $data['index'], 'node', $nid, 'choice', $chorder);
         db_query($query, $data['index'], 'node', $nid, 'choice_short', $chorder);
       break;
+    }
+  }
+}
+
+/**
+ * @param $node
+ * @return array
+ */
+function poll_translate_translation($node) {
+  # display language & translation
+  global $language;
+  return !empty($node->t[$language->language]) ? $node->t[$language->language] : array();
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function poll_translate_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'poll_node_form') {
+    global $language;
+    $node = $form['#node'];
+    if ($node->language != $language->language) {
+      // choices count
+      if (isset($form_state['choice_count'])) {
+        $choice_count = $form_state['choice_count'];
+      } else {
+        $choice_count = max(2, empty($node->choice) ? 2 : count($node->choice));
+      }
+      // translations
+      $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+      //
+      if (!empty($translation['title'][0])) {
+//        $form['title']['#value_original'] = $form['title']['#value'];
+        $form['title']['#value'] = check_plain($translation['title'][0]);
+      }
+      if (!empty($translation['body'][0])) {
+//        $form['field_description'][0]['#default_value']['value_original'] = $form['field_description'][0]['#default_value']['value'];
+        $form['field_description'][0]['#default_value']['value'] = check_plain($translation['body'][0]);
+      }
+      // Add the current choices to the form.
+      for ($delta = 0; $delta < $choice_count; $delta++) {
+        if (!empty($translation['choice'][$delta])) {
+//          $form['choice_wrapper']['choice'][$delta]['chtext']['#value_original'] = $form['choice_wrapper']['choice'][$delta]['chtext']['#value'];
+          $form['choice_wrapper']['choice'][$delta]['chtext']['#value'] = check_plain($translation['choice'][$delta]);
+        }
+      }
+      // additional submit handler
+      array_unshift($form['#submit'], 'poll_translate_node_form_submit');
+      // TODO -- poll add more not working
+      unset($form['choice_wrapper']['poll_more']);
+    }
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function poll_translate_node_form_submit(&$form, &$form_state) {
+  global $language;
+  $node = $form['#node'];
+  $values =  &$form_state['values'];
+  // title
+  content_translate_add('node', $node->nid, $language->language, 'title', $form['#post']['title']);
+  $values['title'] = $node->title;
+  // body
+  content_translate_add('node', $node->nid, $language->language, 'body', $values['field_description'][0]['value']);
+  $values['field_description'][0]['value'] = $node->field_description[0]['value'];
+  // save translated values
+  foreach ($form['choice_wrapper']['choice'] as $chorder => &$element) {
+    if (!is_numeric($chorder)) continue;
+    content_translate_add('node', $node->nid, $language->language, 'choice', $form['#post']['choice'][(int)$chorder]['chtext'], (int)$chorder);
+  }
+  // restore the default non-translated values
+  if ($node->choice) {
+    foreach ($node->choice as $chorder => $choice) {
+      $values['choice'][$chorder]['chtext'] = $choice['chtext'];
     }
   }
 }

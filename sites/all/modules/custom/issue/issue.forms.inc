@@ -216,7 +216,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
   );
 
   # display language & translation
-  $translation = issue_get_translation($node);
+  $translation = poll_translate_translation($node);
 
   # votes
   $vote_r = is_null($node->vote) ? -1 : $node->vote;

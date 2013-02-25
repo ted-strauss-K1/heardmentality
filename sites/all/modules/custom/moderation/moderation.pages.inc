@@ -819,7 +819,7 @@ function moderation_issue_view_form($form_state, $nid)
 
   $node = node_load($nid);
 
-  $translation = issue_get_translation($node);
+  $translation = poll_translate_translation($node);
 
   $form['title'] = array(
     '#type' => 'textfield',
@@ -1202,7 +1202,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 
   $changed = array();
 
-  $translation = issue_get_translation($node);
+  $translation = poll_translate_translation($node);
 
   $title = !empty($translation['title'][0]) ? $translation['title'][0] : $node->title;
   if ($title != $values['title']) {
