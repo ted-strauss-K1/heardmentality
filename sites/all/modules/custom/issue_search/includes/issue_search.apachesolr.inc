@@ -176,7 +176,7 @@ function issue_search_apachesolr_index_documents_alter(array &$documents, $entit
  */
 function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query) {
     global $language;
-    
+
     // Params.
     $query->addParam('fl', 'im_field_arguments');
     $query->addParam('fl', 'sm_field_description');
@@ -196,11 +196,12 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query) 
     $query->addFilter('entity_type', 'node');
     $query->addFilter('bundle', 'poll');
     $query->addFilter('bundle_name', 'Issue');
-    # $subquery = apachesolr_drupal_query('apachesolr');
-    # $subquery->addFilter('ss_language', $language->language);
-    # $subquery->addFilter('ss_language', 'und');
-    # $query->addFilterSubQuery($subquery, 'OR', 'AND');
-    
+    if ($_POST['my_language'] == 'true') {
+        $subquery = apachesolr_drupal_query('apachesolr');
+        $subquery->addFilter('ss_language', $language->language);
+        $subquery->addFilter('ss_language', 'und');
+        $query->addFilterSubQuery($subquery, 'OR', 'AND');
+    }
 }
 
 /**
@@ -215,7 +216,7 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query) 
 function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query) {
     global $_issue_search_user;
 
-    // Filters.
+    // Taxonomy.
     if ($_POST['taxonomy']) {
         $subquery = apachesolr_drupal_query('apachesolr');
         $values = explode(';', $_POST['taxonomy']);
@@ -224,30 +225,39 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query) {
         }
         $query->addFilterSubQuery($subquery, 'OR', 'AND');
     }
-    if ($_POST['countrycodes']) {
-        $subquery = apachesolr_drupal_query('apachesolr');
-        $values = explode(';', $_POST['countrycodes']);
-        foreach ($values as $value) {
-            $subquery->addFilter('sm_country', $value);
+
+    // Location.
+    if ($_POST['my_region'] == 'true') {
+        $value = $_issue_search_user->profile_country;
+        $query->addFilter('sm_country', $value);
+    } else {
+        if ($_POST['countrycodes']) {
+            $subquery = apachesolr_drupal_query('apachesolr');
+            $values = explode(';', $_POST['countrycodes']);
+            foreach ($values as $value) {
+                $subquery->addFilter('sm_country', $value);
+            }
+            $query->addFilterSubQuery($subquery, 'OR', 'AND');
         }
-        $query->addFilterSubQuery($subquery, 'OR', 'AND');
-    }
-    if ($_POST['provincecodes']) {
-        $subquery = apachesolr_drupal_query('apachesolr');
-        $values = explode(';', $_POST['provincecodes']);
-        foreach ($values as $value) {
-            $subquery->addFilter('sm_country_province', $value);
+        if ($_POST['provincecodes']) {
+            $subquery = apachesolr_drupal_query('apachesolr');
+            $values = explode(';', $_POST['provincecodes']);
+            foreach ($values as $value) {
+                $subquery->addFilter('sm_country_province', $value);
+            }
+            $query->addFilterSubQuery($subquery, 'OR', 'AND');
         }
-        $query->addFilterSubQuery($subquery, 'OR', 'AND');
-    }
-    if ($_POST['citycodes']) {
-        $subquery = apachesolr_drupal_query('apachesolr');
-        $values = explode(';', $_POST['citycodes']);
-        foreach ($values as $value) {
-            $subquery->addFilter('sm_city', $value);
+        if ($_POST['citycodes']) {
+            $subquery = apachesolr_drupal_query('apachesolr');
+            $values = explode(';', $_POST['citycodes']);
+            foreach ($values as $value) {
+                $subquery->addFilter('sm_city', $value);
+            }
+            $query->addFilterSubQuery($subquery, 'OR', 'AND');
         }
-        $query->addFilterSubQuery($subquery, 'OR', 'AND');
     }
+    
+    // Date.
     switch ($_POST['interval']) {
         case 'week':
             $query->addFilter('ds_changed', '[' . apachesolr_date_iso(strtotime("-1 week")) . ' TO ' . apachesolr_date_iso(strtotime("Today")) . ']');
@@ -259,7 +269,9 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query) {
         default:
             break;
     }
-    if ($_POST['not_voted']) {
+    
+    // Votes.
+    if ($_POST['not_voted'] == 'true') {
         $query->addFilter('im_user_votes', $_issue_search_user->uid, TRUE);
     }
 }
@@ -269,7 +281,7 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query) {
  * This is invoked by apachesolr_search.module for the whole resultset returned in a search.
  *
  * @param type $results
- *  Rsultset.
+ *  Resultset.
  * @param DrupalSolrQueryInterface $query
  *  Query.
  */
