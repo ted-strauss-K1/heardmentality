@@ -64,10 +64,11 @@ function issue_block_categories_preprocess(&$vars) {
     $vars['nid'] = $nid = arg(1);
   }
 
-  if (!is_numeric($nid) || !($node = node_load($nid))) {
+  if (!is_numeric($nid) || !($node = node_load($nid)) || ($node->type != 'poll')) {
     unset($vars['nid']);
     return;
   }
+
   // collecting info
   $vars['node'] = $node;
   foreach ($node->taxonomy as $term) {
