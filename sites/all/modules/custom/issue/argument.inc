@@ -525,6 +525,10 @@ function argument_create_debate($nid, $title)
 
   node_save($node);
 
+  $cid = 'content:'. $node->nid .':'. $node->vid;
+  cache_clear_all($cid, content_cache_tablename());
+  $node = node_load($node->nid, null, true);
+
   return $node;
 }
 
