@@ -325,6 +325,14 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
         '#id' => 'answer-add',
       );
     }
+
+    if (!$node->allowsuggestions) {
+      unset($form['suggest']['suggest_answer']);
+      unset($form['suggest']['submit_suggest_answer']);
+      if (empty($node->choice_suggest)) {
+        unset($form['suggest']);
+      }
+    }
   }
 
   # add vote submit button
