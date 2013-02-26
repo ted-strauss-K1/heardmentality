@@ -329,9 +329,6 @@ function argument_create_comment()
     exit();
   }
 
-  // fire event
-  comment_invoke_comment($comment, 'insert');
-
   print json_encode(array(
     'status' => true,
     'message' => t('Thanks, Your reply posted!'),
