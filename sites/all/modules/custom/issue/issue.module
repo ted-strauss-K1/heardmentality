@@ -297,3 +297,12 @@ function issue_get_vote_status($nid = false) {
 
   return $nid === false ? $cache : $cache[$nid];
 }
+
+/**
+ * @param $node
+ */
+function issue_node_clean_cache(&$node) {
+  $cid = 'content:'. $node->nid .':'. $node->vid;
+  cache_clear_all($cid, content_cache_tablename());
+  $node = node_load($node->nid, null, true);
+}

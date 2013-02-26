@@ -525,9 +525,7 @@ function argument_create_debate($nid, $title)
 
   node_save($node);
 
-  $cid = 'content:'. $node->nid .':'. $node->vid;
-  cache_clear_all($cid, content_cache_tablename());
-  $node = node_load($node->nid, null, true);
+  issue_node_clean_cache($node);
 
   return $node;
 }
@@ -763,10 +761,7 @@ function arguments_create_resource($nid, $url, $image)
 
   node_save($node);
 
-  // delete permanent cache with no extra fields
-  $cid = 'content:'. $node->nid .':'. $node->vid;
-  cache_clear_all($cid, content_cache_tablename());
-  $node = node_load($node->nid, null, true);
+  issue_node_clean_cache($node);
 
   return $node;
 }
