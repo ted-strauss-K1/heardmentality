@@ -114,6 +114,17 @@ function events_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         'content_id' => $node->nid,
         'content_type' => 'node',
       ));
+      // comments
+      $result = db_query("
+        (SELECT cid FROM comments WHERE nid = '%d') UNION
+        (SELECT content_id FROM events WHERE
+          content_type = 'comment' AND content_id NOT IN (SELECT cid FROM comments))", $node->nid);
+      while ($cid = db_result($result)) {
+        events_del(array(
+          'content_id' => $cid,
+          'content_type' => 'comment',
+        ));
+      }
       break;
   }
 }
@@ -124,17 +135,17 @@ function events_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
  * @param $a1
  * @param $op
  */
-function events_comment(&$a1, $op)
-{
-  switch ($op) {
-    case 'delete' :
-      events_del(array(
-        'content_id' => $a1->cid,
-        'content_type' => 'comment',
-      ));
-      break;
-  }
-}
+//function events_comment(&$a1, $op)
+//{
+//  switch ($op) {
+//    case 'delete' :
+//      events_del(array(
+//        'content_id' => $a1->cid,
+//        'content_type' => 'comment',
+//      ));
+//      break;
+//  }
+//}
 
 /**
  * Implementation of hook_user()

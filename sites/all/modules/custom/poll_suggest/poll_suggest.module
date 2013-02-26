@@ -134,6 +134,7 @@ function poll_suggest_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       case 'delete' :
         db_query("DELETE FROM {poll_suggest_votes} WHERE chid IN (SELECT chid FROM {poll_suggest} WHERE nid = '%d')", $node->nid);
         db_query("DELETE FROM {poll_suggest} WHERE nid = '%d'", $node->nid);
+        db_query("DELETE FROM {poll_suggest_allow} WHERE nid = '%d'", $node->nid);
         break;
       case 'load' :
         $node->allowsuggestions = (bool)db_result(db_query("SELECT status FROM {poll_suggest_allow} WHERE nid = '%d'", $node->nid));

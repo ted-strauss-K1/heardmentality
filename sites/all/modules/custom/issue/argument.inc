@@ -329,9 +329,6 @@ function argument_create_comment()
     exit();
   }
 
-  // fire event
-  comment_invoke_comment($comment, 'insert');
-
   print json_encode(array(
     'status' => true,
     'message' => t('Thanks, Your reply posted!'),
@@ -524,6 +521,8 @@ function argument_create_debate($nid, $title)
   $node->validated = TRUE;
 
   node_save($node);
+
+  issue_node_clean_cache($node);
 
   return $node;
 }
@@ -759,10 +758,7 @@ function arguments_create_resource($nid, $url, $image)
 
   node_save($node);
 
-  // delete permanent cache with no extra fields
-  $cid = 'content:'. $node->nid .':'. $node->vid;
-  cache_clear_all($cid, content_cache_tablename());
-  $node = node_load($node->nid, null, true);
+  issue_node_clean_cache($node);
 
   return $node;
 }
