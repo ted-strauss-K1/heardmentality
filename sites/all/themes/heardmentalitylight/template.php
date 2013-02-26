@@ -31,8 +31,9 @@ function heardmentalitylight_status_messages($display = NULL) {
         $noty[] = sprintf($noty_pattern, json_encode(array(
           'text' => $message,
           'type' => $noty_type,
+        ) + ($noty_type == 'error' && preg_match('/password/', $message) ?
+          array('timeout' => false) : array()
         )));
-
       }
     }
   }
