@@ -2,7 +2,7 @@
 /**
  * Search bindings.
  */
-$('#issue-search-filter-form').live('submit', function (e) { console.log(5); e.preventDefault(); issue_search(); return false; });
+$('#issue-search-filter-form').live('submit', function (e) { e.preventDefault(); issue_search(); return false; });
 
 /**
  * Delete items from search info.
