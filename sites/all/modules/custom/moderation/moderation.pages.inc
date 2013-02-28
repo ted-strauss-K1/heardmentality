@@ -893,7 +893,8 @@ function moderation_issue_view_form($form_state, $nid)
         if (!empty($location['province'])) {
           $tfl_codes[1][] = $location['country'] . '_' . $location['province'];
           if (!empty($location['city'])) {
-            $tfl_codes[2][] = $location['country'] . '_' . $location['province'] . '_' . $location['city'];
+//            $tfl_codes[2][] = $location['country'] . '_' . $location['province'] . '_' . $location['city'];
+            $tfl_codes[2][] = $location['city'];
           }
         }
       }
@@ -1286,7 +1287,8 @@ function moderation_issue_view_form_save(&$form, &$form_state)
         $cities = false;
         // through province's cities
         foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
-          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
+          if (in_array($ccode, $values['location']['location-2'])) {
+//          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
             $cities = true;
             $location3 = $location2;
             $location3['city'] = $ccode;
