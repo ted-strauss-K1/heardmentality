@@ -272,7 +272,11 @@ function moderation_history($op, $content_id, $content_type, $change, $vars = ar
       return $history;
       break;
     case 'del' :
-      db_query("DELETE FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s' AND type = '%s'", $content_id, $content_type, $change);
+      if ($change === true) {
+        db_query("DELETE FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s'", $content_id, $content_type);
+      } else {
+        db_query("DELETE FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s' AND type = '%s'", $content_id, $content_type, $change);
+      }
       break;
   }
 }
@@ -339,4 +343,31 @@ function moderation_flags_preprocess(&$vars) {
   }
 
   $vars['flags'] = moderation_flags($vars['content_type'], $vars['content_id']);
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ */
+function moderation_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
+  switch ($op) {
+    case 'delete' :
+      moderation_history('del', $node->nid, 'node', true);
+    break;
+  }
+}
+
+/**
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function moderation_comment(&$a1, $op)
+{
+  switch ($op) {
+    case 'delete' :
+      moderation_history('del', $a1->cid, 'comment', true);
+    break;
+  }
 }

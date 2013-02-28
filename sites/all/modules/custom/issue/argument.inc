@@ -232,19 +232,22 @@ function argument_filter($nid, $sort = null, $class = null, $chorder = null)
     $params[] = $chorder;
 
     # filter arguments
-    $query .= " AND ao.val = '%d'";
     switch ($class) {
       case 'neutral' :
         $params[] = 0;
+        $query .= " AND ao.val <> '%d'";
         break;
       case 'positive' :
         $params[] = 1;
+        $query .= " AND ao.val = '%d'";
         break;
       case 'negative' :
         $params[] = -1;
+        $query .= " AND ao.val = '%d'";
         break;
       default :
         $params[] = 0;
+        $query .= " AND ao.val = '%d'";
         break;
     }
   }
@@ -325,9 +328,6 @@ function argument_create_comment()
     ));
     exit();
   }
-
-  // fire event
-  comment_invoke_comment($comment, 'insert');
 
   print json_encode(array(
     'status' => true,
@@ -521,6 +521,8 @@ function argument_create_debate($nid, $title)
   $node->validated = TRUE;
 
   node_save($node);
+
+  issue_node_clean_cache($node);
 
   return $node;
 }
@@ -756,10 +758,7 @@ function arguments_create_resource($nid, $url, $image)
 
   node_save($node);
 
-  // delete permanent cache with no extra fields
-  $cid = 'content:'. $node->nid .':'. $node->vid;
-  cache_clear_all($cid, content_cache_tablename());
-  $node = node_load($node->nid, null, true);
+  issue_node_clean_cache($node);
 
   return $node;
 }

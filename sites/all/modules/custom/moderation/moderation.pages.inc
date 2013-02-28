@@ -842,6 +842,12 @@ function moderation_issue_view_form($form_state, $nid)
     '#suffix' => '</div>',
   );
 
+  $form['allowsuggestions'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow suggesting answers'),
+    '#default_value' => $node->allowsuggestions,
+  );
+
   $form['choices'] = array(
     '#type' => 'fieldset',
     '#title' => t('Leave the choice text empty to request its deletion'),
@@ -1234,6 +1240,10 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     }
   }
 
+  if ($node->allowsuggestions != $values['allowsuggestions']) {
+    $node->allowsuggestions = $values['allowsuggestions'];
+  }
+
   # characteristics
   if (module_exists('poll_charact'))
     $char = poll_charact_get();
@@ -1260,6 +1270,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   # locations
   $node->locations = array();
   // through selected countries
+  if ($values['location']['location-0'])
   foreach ($values['location']['location-0'] as $country) {
     $location = location_empty_location(array());
     $location['country'] = $country;

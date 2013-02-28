@@ -1,7 +1,7 @@
 <?php if ($flags) : ?>
 <div class="dark-grey-box">
   <div class="profile-meta profile_page_wrapper">
-    <label for="profile" class="profile profile_page"><?php print t('Flags') ?></label>
+    <label for="profile" class="profile profile_page flags"><?php print t('Flags') ?></label>
   </div>
 
   <?php foreach ($flags as $fid => $flag) : ?>

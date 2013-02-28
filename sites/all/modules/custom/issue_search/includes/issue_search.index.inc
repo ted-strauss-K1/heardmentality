@@ -82,6 +82,12 @@ function issue_search_additional_fields($entity_type = 'node') {
         $fields[$entity_type][apachesolr_index_key($field)] = array($field);
     }
 
+    // Construct pseudo-field for node views count.
+    $field = $mappings['languages'];
+    if (!empty($field['bundles'])) {
+        $fields[$entity_type][apachesolr_index_key($field)] = array($field);
+    }
+
     return $fields[$entity_type];
 }
 
@@ -245,6 +251,10 @@ function issue_search_extra_fields_indexing_callback($entity, $field_name, $inde
             );
             break;
 
+        case 'languages':
+            $fields = issue_search_extra_fields_indexing_languages($entity, $field_name, $index_key, $field_info);
+            break;
+
         default:
             break;
     }
@@ -344,7 +354,42 @@ function issue_search_extra_fields_indexing_votes_count($node, $field_name, $ind
  *  Views amount info.
  */
 function issue_search_extra_fields_indexing_views_count($node, $field_name, $index_key, $field_info) {
-    $value = (int)db_result(db_query('SELECT t.totalcount AS views FROM {node_counter} t WHERE t.nid = %d LIMIT 1', $node->nid));
+    $value = (int) db_result(db_query('SELECT t.totalcount AS views FROM {node_counter} t WHERE t.nid = %d LIMIT 1', $node->nid));
 
     return $value;
+}
+/**
+ * Lists languages of the issue.
+ *
+ * @param object $node
+ *   An object containing the node that will get indexed.
+ * @param string $field_name
+ *   A string containing the name of field.
+ * @param string $index_key
+ *   A string containing the solr index field name.
+ * @param array $field_info
+ *   Field information.
+ * 
+ * @return array
+ *  An array of fields with language codes of the node.
+ */
+function issue_search_extra_fields_indexing_languages($node, $field_name, $index_key, $field_info) {
+    $fields = array();
+
+    $languages = array();
+    $query = db_query("SELECT ct.language AS langcode FROM {content_translate} ct WHERE ct.content_id = %d", $node->nid);
+    while ($record = db_fetch_object($query)) {
+        $languages[] = $record->langcode;
+    }
+    $languages[] = ($node->language == '') ? 'und' : $node->language;
+    $languages = array_unique($languages);
+    
+    foreach ($languages as $language) {
+        $fields[] = array(
+            'key' => $index_key,
+            'value' => $language,
+        );
+    }
+
+    return $fields;
 }

@@ -134,11 +134,16 @@ function poll_suggest_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       case 'delete' :
         db_query("DELETE FROM {poll_suggest_votes} WHERE chid IN (SELECT chid FROM {poll_suggest} WHERE nid = '%d')", $node->nid);
         db_query("DELETE FROM {poll_suggest} WHERE nid = '%d'", $node->nid);
+        db_query("DELETE FROM {poll_suggest_allow} WHERE nid = '%d'", $node->nid);
         break;
       case 'load' :
+        $node->allowsuggestions = (bool)db_result(db_query("SELECT status FROM {poll_suggest_allow} WHERE nid = '%d'", $node->nid));
         $node->choice_suggest = poll_suggest_get($node->nid);
         $node->vote_suggest = $node->choice_suggest[0]['uservote'] ? $node->choice_suggest[0]['chid'] : -1;
         break;
+      case 'presave' :
+        poll_suggest_allowsuggestions_set($node->nid, $node->allowsuggestions);
+      break;
     }
   }
 }
@@ -176,4 +181,37 @@ function poll_suggest_choice_convert($chid)
       }
     }
   }
+}
+
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function poll_suggest_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'poll_node_form') {
+    $form['allowsuggestions'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Allow suggesting answers'),
+      '#default_value' => $form['#node']->allowsuggestions,
+    );
+    array_push($form['#submit'], 'poll_suggest_allowsuggestions');
+  }
+}
+
+/**
+ * @param $nid
+ * @param $value
+ */
+function poll_suggest_allowsuggestions_set($nid, $value) {
+  db_query("REPLACE INTO {poll_suggest_allow} SET nid = '%d', status = '%d'", $nid, intval($value));
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function poll_suggest_allowsuggestions(&$form, &$form_state) {
+  poll_suggest_allowsuggestions_set($form['#node']->nid, $form_state['values']['allowsuggestions']);
 }

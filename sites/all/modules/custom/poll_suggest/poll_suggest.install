@@ -98,5 +98,32 @@ function poll_suggest_schema()
     ),
   );
 
+  $schema['poll_suggest_allow'] = array(
+    'description' => 'Stores the suggested answers for {poll}s.',
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid this choice belongs to.',
+      ),
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid')
+    ),
+    'primary key' => array('nid'),
+    'unique keys' => array(
+      'poll_suggest_status' => array('nid', 'status')
+    ),
+
+  );
+
   return $schema;
 }
