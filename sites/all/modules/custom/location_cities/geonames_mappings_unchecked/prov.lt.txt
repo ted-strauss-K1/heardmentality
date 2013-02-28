@@ -1,0 +1,23 @@
+**864389 lt_AL  :::  Alytus ~ Alytaus Apskritis(864389)
+**864477 lt_KA  :::  Kaunas ~ Kauno Apskritis(864477)
+**864477 lt_KL  :::  Klaipeda ~ Kauno Apskritis(864477)
+**864477 lt_MA  :::  Marijampole ~ Kauno Apskritis(864477)
+**864477 lt_PA  :::  Panevezys ~ Kauno Apskritis(864477)
+**864477 lt_SI  :::  Siauliai ~ Kauno Apskritis(864477)
+**864477 lt_TA  :::  Taurage ~ Kauno Apskritis(864477)
+**864484 lt_TE  :::  Telsiai ~ Utenos Apskritis(864484)
+**864484 lt_UT  :::  Utena ~ Utenos Apskritis(864484)
+**864485 lt_VI  :::  Vilnius ~ Vilniaus Apskritis(864485)
+
+NAMES:::::
+
+Alytaus Apskritis(864389) 
+Kauno Apskritis(864477) 
+Klaipėdos Apskritis(864478) 
+Marijampolės Apskritis(864479) 
+Panevėžio Apskritis(864480) 
+Tauragės Apskritis(864482) 
+Telšių Apskritis(864483) 
+Utenos Apskritis(864484) 
+Vilniaus Apskritis(864485) 
+Šiaulių Apskritis(864481) 

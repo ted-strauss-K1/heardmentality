@@ -1,0 +1,14 @@
+ 2304116 gh_AS
+ 2302353 gh_CE
+ 2301360 gh_EA
+ 2300569 gh_GA
+ 2297169 gh_NO
+ 2294291 gh_UE
+ 2294286 gh_UW
+ 2294234 gh_VO
+ 2294076 gh_WE
+*2302547 gh_BA  :::  Brong-Ahafo Region ~ Brong-Ahafo(2302547)
+
+NAMES:::::
+
+Brong-Ahafo(2302547) 

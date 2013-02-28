@@ -1,0 +1,20 @@
+  887358 zw_ML
+  886841 zw_MW
+  886748 zw_MN
+*1105843 zw_BU  :::  Bulawayo (city) ~ Bulawayo(1105843)
+*1105844 zw_HA  :::  Harare (city) ~ Harare(1105844)
+**886843 zw_MC  :::  Mashonaland Central ~ Mashonaland Central Province(886843)
+**886842 zw_ME  :::  Mashonaland East ~ Mashonaland East Province(886842)
+*1105843 zw_MV  :::  Masvingo ~ Bulawayo(1105843)
+**886747 zw_MS  :::  Matabeleland South ~ Matabeleland South Province(886747)
+*1105843 zw_MD  :::  Midlands ~ Bulawayo(1105843)
+
+NAMES:::::
+
+Bulawayo(1105843) 
+Harare(1105844) 
+Mashonaland Central Province(886843) 
+Mashonaland East Province(886842) 
+Masvingo Province(886761) 
+Matabeleland South Province(886747) 
+Midlands Province(886119) 

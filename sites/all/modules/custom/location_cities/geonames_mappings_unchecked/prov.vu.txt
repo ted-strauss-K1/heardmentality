@@ -1,0 +1,15 @@
+*2208265 vu_MA  :::  Malampa ~ Malampa Province(2208265)
+*2208266 vu_PE  :::  Penama ~ Penama Province(2208266)
+*2134898 vu_SA  :::  Sanma ~ Sanma Province(2134898)
+*2208267 vu_SH  :::  Shefa ~ Shefa Province(2208267)
+*2134739 vu_TA  :::  Tafea ~ Tafea Province(2134739)
+*2137421 vu_TO  :::  Torba ~ Torba Province(2137421)
+
+NAMES:::::
+
+Malampa Province(2208265) 
+Penama Province(2208266) 
+Sanma Province(2134898) 
+Shefa Province(2208267) 
+Tafea Province(2134739) 
+Torba Province(2137421) 

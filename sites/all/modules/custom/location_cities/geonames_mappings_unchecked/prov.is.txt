@@ -1,0 +1,19 @@
+*3337405 is_AL  :::  Austurland ~ East(3337405)
+*3337404 is_HF  :::  Hofuoborgarsvaeoi ~ Northeast(3337404)
+*3337404 is_NE  :::  Norourland eystra ~ Northeast(3337404)
+*3337404 is_NV  :::  Norourland vestra ~ Northeast(3337404)
+*3337406 is_SL  :::  Suourland ~ South(3337406)
+*3337406 is_SN  :::  Suournes ~ South(3337406)
+*3426185 is_VF  :::  Vestfiroir ~ Westfjords(3426185)
+*3426184 is_VL  :::  Vesturland ~ West(3426184)
+
+NAMES:::::
+
+Capital Region(3426182) 
+East(3337405) 
+Northeast(3337404) 
+Northwest(3337403) 
+South(3337406) 
+Southern Peninsula(3426183) 
+West(3426184) 
+Westfjords(3426185) 

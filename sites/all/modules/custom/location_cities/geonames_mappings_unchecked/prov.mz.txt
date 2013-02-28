@@ -1,0 +1,23 @@
+ 1040649 mz_MP
+ 1033354 mz_NA
+*1051823 mz_CD  :::  Cabo Delgado ~ Cabo Delgado Province(1051823)
+*1046058 mz_GZ  :::  Gaza ~ Gaza Province(1046058)
+*1045110 mz_IN  :::  Inhambane ~ Inhambane Province(1045110)
+*1040947 mz_MN  :::  Manica ~ Manica Province(1040947)
+*1046058 mz_MC  :::  Maputo (city) ~ Gaza Province(1046058)
+*1030006 mz_NI  :::  Niassa ~ Niassa Province(1030006)
+*1026804 mz_SO  :::  Sofala ~ Sofala Province(1026804)
+*1046058 mz_TE  :::  Tete ~ Gaza Province(1046058)
+*1046058 mz_ZA  :::  Zambezia ~ Gaza Province(1046058)
+
+NAMES:::::
+
+Cabo Delgado Province(1051823) 
+Cidade de Maputo(1105845) 
+Gaza Province(1046058) 
+Inhambane Province(1045110) 
+Manica Province(1040947) 
+Niassa Province(1030006) 
+Province of Tete(1026010) 
+Província de Zambézia(1024312) 
+Sofala Province(1026804) 

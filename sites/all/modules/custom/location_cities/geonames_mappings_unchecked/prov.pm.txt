@@ -1,0 +1,7 @@
+*3424935 pm_P  :::  Saint Pierre ~ Commune de Saint-Pierre(3424935)
+*3424938 pm_M  :::  Miquelon ~ Commune de Miquelon-Langlade(3424938)
+
+NAMES:::::
+
+Commune de Miquelon-Langlade(3424938) 
+Commune de Saint-Pierre(3424935) 

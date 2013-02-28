@@ -1,0 +1,12 @@
+  223889 dj_K
+  221525 dj_O
+**220781 dj_S  :::  'Ali Sabih ~ Tadjourah(220781)
+**223818 dj_J  :::  Djibouti ~ Djibouti Region(223818)
+**220781 dj_T  :::  Tadjoura ~ Tadjourah(220781)
+
+NAMES:::::
+
+Ali Sabieh Region(225282) 
+Arta Region(449265) 
+Djibouti Region(223818) 
+Tadjourah(220781) 

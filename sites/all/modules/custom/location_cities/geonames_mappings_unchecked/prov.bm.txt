@@ -1,0 +1,24 @@
+ 3573103 bm_PG
+*3573251 bm_DS  :::  Devonshire ~ Devonshire Parish(3573251)
+*3573198 bm_HC  :::  Hamilton City ~ Hamilton city(3573198)
+*3573198 bm_HA  :::  Hamilton ~ Hamilton city(3573198)
+*3573095 bm_PB  :::  Pembroke ~ Pembroke Parish(3573095)
+*3573062 bm_GC  :::  Saint George City ~ Saint George(3573062)
+*3573062 bm_SG  :::  Saint George's ~ Saint George(3573062)
+*3573050 bm_SA  :::  Sandys ~ Sandys Parish(3573050)
+*3573062 bm_SM  :::  Smith's ~ Saint George(3573062)
+*3573026 bm_SH  :::  Southampton ~ Southampton Parish(3573026)
+*3572972 bm_WA  :::  Warwick ~ Warwick Parish(3572972)
+
+NAMES:::::
+
+Devonshire Parish(3573251) 
+Hamilton Parish(3573195) 
+Hamilton city(3573198) 
+Pembroke Parish(3573095) 
+Saint George(3573062) 
+Saint George’s Parish(3573057) 
+Sandys Parish(3573050) 
+Smith’s Parish(3573031) 
+Southampton Parish(3573026) 
+Warwick Parish(3572972) 

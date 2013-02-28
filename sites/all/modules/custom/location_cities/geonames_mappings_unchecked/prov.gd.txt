@@ -1,0 +1,12 @@
+ 3579938 gd_A
+ 3579932 gd_D
+ 3579926 gd_G
+ 3579919 gd_J
+ 3579913 gd_M
+ 3579907 gd_P
+*7303836 gd_C  :::  Carriacou ~ Carriacou and Petite Martinique(7303836)
+*7303836 gd_Q  :::  Petit Martinique ~ Carriacou and Petite Martinique(7303836)
+
+NAMES:::::
+
+Carriacou and Petite Martinique(7303836) 

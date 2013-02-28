@@ -1,0 +1,51 @@
+  733192 bg_01
+  732771 bg_02
+  726051 bg_03
+  864552 bg_07
+  729560 bg_11
+  728379 bg_13
+  728331 bg_14
+  728194 bg_16
+**864561 bg_04  :::  Veliko Turnovo ~ Oblast Veliko Tŭrnovo(864561)
+**727012 bg_05  :::  Vidin ~ Sofiya(727012)
+**727012 bg_06  :::  Vratsa ~ Sofiya(727012)
+**727012 bg_08  :::  Dobrich ~ Sofiya(727012)
+**727012 bg_09  :::  Kurdzhali ~ Sofiya(727012)
+**864554 bg_10  :::  Kyustendil ~ Oblast Kyustendil(864554)
+**727012 bg_12  :::  Montana ~ Sofiya(727012)
+**727012 bg_15  :::  Pleven ~ Sofiya(727012)
+**727012 bg_17  :::  Razgrad ~ Sofiya(727012)
+**727012 bg_18  :::  Ruse ~ Sofiya(727012)
+**727012 bg_19  :::  Silistra ~ Sofiya(727012)
+**727012 bg_20  :::  Sliven ~ Sofiya(727012)
+**727012 bg_21  :::  Smolyan ~ Sofiya(727012)
+**727012 bg_23  :::  Sofia ~ Sofiya(727012)
+**731061 bg_22  :::  Sofia Region ~ Sofia-Capital(731061)
+**864559 bg_24  :::  Stara Zagora ~ Oblast Stara Zagora(864559)
+**864560 bg_25  :::  Turgovishte ~ Oblast Tŭrgovishte(864560)
+**730436 bg_26  :::  Khaskovo ~ Oblast Khaskovo(730436)
+**727012 bg_27  :::  Shumen ~ Sofiya(727012)
+**727012 bg_28  :::  Yambol ~ Sofiya(727012)
+
+NAMES:::::
+
+Oblast Dobrich(726419) 
+Oblast Khaskovo(730436) 
+Oblast Kyustendil(864554) 
+Oblast Kŭrdzhali(864553) 
+Oblast Montana(453753) 
+Oblast Pleven(728204) 
+Oblast Razgrad(453751) 
+Oblast Ruse(727524) 
+Oblast Shumen(864555) 
+Oblast Silistra(864556) 
+Oblast Sliven(864557) 
+Oblast Smolyan(864558) 
+Oblast Stara Zagora(864559) 
+Oblast Tŭrgovishte(864560) 
+Oblast Veliko Tŭrnovo(864561) 
+Oblast Vidin(864562) 
+Oblast Vratsa(725713) 
+Oblast Yambol(864563) 
+Sofia-Capital(731061) 
+Sofiya(727012) 

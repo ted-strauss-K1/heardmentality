@@ -1,0 +1,25 @@
+ 6418540 dk_NJ
+*6418539 dk_CC  :::  Copenhagen (municipality) ~ Central Jutland(6418539)
+*6418539 dk_FC  :::  Frederiksberg (municipality) ~ Central Jutland(6418539)
+*6418541 dk_CO  :::  Copenhagen ~ Zealand(6418541)
+*6418542 dk_FR  :::  Frederiksborg ~ South Denmark(6418542)
+*6418541 dk_RO  :::  Roskilde ~ Zealand(6418541)
+*6418541 dk_WZ  :::  West Zealand ~ Zealand(6418541)
+*6418541 dk_ST  :::  Storstrom ~ Zealand(6418541)
+*6418541 dk_FU  :::  Funen ~ Zealand(6418541)
+*6418539 dk_SJ  :::  South Jutland ~ Central Jutland(6418539)
+*6418541 dk_RB  :::  Ribe ~ Zealand(6418541)
+*6418541 dk_VK  :::  Vejle ~ Zealand(6418541)
+*6418541 dk_RK  :::  Ringkjobing ~ Zealand(6418541)
+*6418541 dk_VB  :::  Viborg ~ Zealand(6418541)
+*6418541 dk_AR  :::  Arhus ~ Zealand(6418541)
+*6418541 dk_BH  :::  Bornholm ~ Zealand(6418541)
+*6418541 dk_GL  :::  Greenland ~ Zealand(6418541)
+*6418541 dk_FO  :::  Faroe Islands ~ Zealand(6418541)
+
+NAMES:::::
+
+Capital Region(6418538) 
+Central Jutland(6418539) 
+South Denmark(6418542) 
+Zealand(6418541) 

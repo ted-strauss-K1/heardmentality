@@ -1,0 +1,28 @@
+  240591 cf_BBA
+  240396 cf_BKO
+  238640 cf_HKO
+  238639 cf_HMB
+ 2385105 cf_LOB
+  237556 cf_MBO
+  236887 cf_OUK
+ 2383653 cf_OUH
+  236178 cf_VAK
+*2383765 cf_KEM  :::  Kemo ~ Ombella-Mpoko(2383765)
+*2386161 cf_MKD  :::  Mambere-Kade� ~ Mambéré-Kadéï(2386161)
+*2383765 cf_NMM  :::  Nana-Mambere ~ Ombella-Mpoko(2383765)
+*2383765 cf_OMP  :::  Ombella-M'Poko ~ Ombella-Mpoko(2383765)
+*2383765 cf_OPE  :::  Ouham-Pende ~ Ombella-Mpoko(2383765)
+*2383765 cf_NGR  :::  Nana-Grebizi ~ Ombella-Mpoko(2383765)
+*2383765 cf_SMB  :::  Sangha-Mbaere ~ Ombella-Mpoko(2383765)
+*2596686 cf_BAN  :::  Bangui ~ Commune de Bangui(2596686)
+
+NAMES:::::
+
+Commune de Bangui(2596686) 
+Mambéré-Kadéï(2386161) 
+Ombella-Mpoko(2383765) 
+Préfecture de la Kémo(2385836) 
+Préfecture de la Nana-Grébizi(2386243) 
+Préfecture de la Nana-Mambéré(2384205) 
+Préfecture de la Sangha-Mbaéré(2383204) 
+Préfecture de l’ Ouham-Pendé(2383650) 

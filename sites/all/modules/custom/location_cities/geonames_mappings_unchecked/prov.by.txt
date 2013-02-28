@@ -1,0 +1,16 @@
+**629631 by_BR  :::  Brest voblast ~ Brestskaya Voblasts’(629631)
+**628281 by_HO  :::  Homyel voblast ~ Homyel’skaya Voblasts’(628281)
+**628035 by_HR  :::  Hrodna voblast ~ Hrodzyenskaya Voblasts’(628035)
+**625073 by_MA  :::  Mahilyow voblast ~ Mahilyowskaya Voblasts’(625073)
+**625142 by_MI  :::  Minsk voblast ~ Minskaya Voblasts’(625142)
+**620134 by_VI  :::  Vitsebsk voblast ~ Vitsyebskaya Voblasts’(620134)
+
+NAMES:::::
+
+Brestskaya Voblasts’(629631) 
+Homyel’skaya Voblasts’(628281) 
+Hrodzyenskaya Voblasts’(628035) 
+Mahilyowskaya Voblasts’(625073) 
+Minsk(625143) 
+Minskaya Voblasts’(625142) 
+Vitsyebskaya Voblasts’(620134) 

@@ -1,0 +1,9 @@
+*2140464 nc_L  :::  Iles Loyaute ~ Province Sud(2140464)
+*2140685 nc_N  :::  Nord ~ Province Nord(2140685)
+*2140464 nc_S  :::  Sud ~ Province Sud(2140464)
+
+NAMES:::::
+
+Province Nord(2140685) 
+Province Sud(2140464) 
+Province des îles Loyauté(7521415) 

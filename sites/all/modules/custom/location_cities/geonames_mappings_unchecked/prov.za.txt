@@ -1,0 +1,15 @@
+ 1085596 za_NC
+  972062 za_KN
+  967573 za_FS
+ 1085594 za_GT
+ 1085595 za_MP
+ 1085597 za_LP
+*1085593 za_WC  :::  Western Cape ~ Province of Eastern Cape(1085593)
+*1085593 za_EC  :::  Eastern Cape ~ Province of Eastern Cape(1085593)
+*1085598 za_NW  :::  North West ~ Province of North-West(1085598)
+
+NAMES:::::
+
+Province of Eastern Cape(1085593) 
+Province of North-West(1085598) 
+Province of the Western Cape(1085599) 

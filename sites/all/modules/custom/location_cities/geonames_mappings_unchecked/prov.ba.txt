@@ -1,0 +1,24 @@
+*3294903 ba_BRO
+*3230000 ba_FUS  :::  Unsko-Sanski Kanton ~ Republika Srpska(3230000)
+*3294903 ba_FPO  :::  Posavski Kanton ~ Brčko(3294903)
+*3294903 ba_FTU  :::  Tuzlanski Kanton ~ Brčko(3294903)
+*3230000 ba_FZE  :::  Zenicko-Dobojski Kanton ~ Republika Srpska(3230000)
+*3294903 ba_FBP  :::  Bosanskopodrinjski Kanton ~ Brčko(3294903)
+*3230000 ba_FSB  :::  Srednjebosanski Kanton ~ Republika Srpska(3230000)
+*3230000 ba_FHN  :::  Hercegovacko-neretvanski Kanton ~ Republika Srpska(3230000)
+*3230000 ba_FZH  :::  Zapadnohercegovacka Zupanija ~ Republika Srpska(3230000)
+*3294903 ba_FSA  :::  Kanton Sarajevo ~ Brčko(3294903)
+*3230000 ba_FZA  :::  Zapadnobosanska ~ Republika Srpska(3230000)
+*3294903 ba_SBL  :::  Banja Luka ~ Brčko(3294903)
+*3294903 ba_SDO  :::  Doboj ~ Brčko(3294903)
+*3294903 ba_SBI  :::  Bijeljina ~ Brčko(3294903)
+*3294903 ba_SVL  :::  Vlasenica ~ Brčko(3294903)
+*3230000 ba_SSR  :::  Sarajevo-Romanija or Sokolac ~ Republika Srpska(3230000)
+*3294903 ba_SFO  :::  Foca ~ Brčko(3294903)
+*3294903 ba_STR  :::  Trebinje ~ Brčko(3294903)
+
+NAMES:::::
+
+
+Federation of Bosnia and Herzegovina(3229999) 
+Republika Srpska(3230000) 

@@ -1,0 +1,25 @@
+ 2673722 se_ST
+ 2666218 se_UP
+ 2676207 se_SO
+ 2702976 se_JO
+ 2699050 se_KR
+ 2702259 se_KA
+ 2711508 se_GO
+ 2721357 se_BL
+ 3337385 se_SK
+ 2708794 se_HA
+ 3337386 se_VG
+ 2664870 se_VL
+ 2686655 se_OR
+ 2664179 se_VM
+ 2699767 se_DA
+ 2712411 se_GA
+ 2664292 se_VN
+ 2703330 se_JA
+ 2664415 se_VB
+  604010 se_NO
+*2685867 se_OG  :::  Östergotland ~ Östergötland(2685867)
+
+NAMES:::::
+
+Östergötland(2685867) 

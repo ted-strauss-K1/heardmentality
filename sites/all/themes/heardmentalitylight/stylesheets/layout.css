@@ -971,7 +971,7 @@ p.comment-meta {
 .comment-agree a{
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
-    color: #ccc !important;
+    color: #888 !important; /* was #ccc */
     cursor: pointer;
     display: inline-block;
     float: none;
@@ -1007,7 +1007,7 @@ p.comment-meta {
 .comment-agree a.disagree:active,
 .comment-agree a:active,
 .comment-agree a:active {
-	background-color: #aaa;
+	background-color: #777; /* was #ccc */
 	color: #fff !important;
 }
 
@@ -4377,7 +4377,7 @@ h6#deb-ana:hover a,
 }
 
 .position-question strong {
-	color: #ccc;
+	color: #888; /* was #ccc */
 }
 
 .position-question, .position-question a {
@@ -4457,7 +4457,7 @@ ul.control_links h6#reply:hover {
 
 ul.control_links li a,
 ul.control_links li a.icon.flag2 {
-	color: #ccc;
+	color: #888;  /* was #ccc */
 	text-decoration: none;
     font-weight: normal;
     padding: 1px 4px;
@@ -4484,7 +4484,7 @@ ul.control_links li:hover a.icon.flag2,
 ul.control_links h6#reply:hover,
 ul.control_links h6#reply:hover a  {
 	color: #fff;
-	background-color: #ccc;
+	background-color: #777; /* was #ccc */
 }
 
 ul.control_links h6#reply:hover {
@@ -4500,7 +4500,7 @@ ul.control_links h6#reply:hover {
 #debate_list_area .reply_wrapper legend span {
 	background: none transparent;
 	padding: 0;
-	color: #ccc;
+	color: #888; /* was #ccc */
 	font-size: 12px;
 	line-height: 15px;
 	font-weight: bold;
@@ -4514,7 +4514,7 @@ ul.control_links h6#reply:hover {
 
 #debate_list_area .reply_wrapper legend span:hover,
 #debate_list_area .reply_wrapper legend a:hover span {
-	background: none #ccc;
+	background: none #777; /* was #ccc */
 	color: #fff;
 }
 

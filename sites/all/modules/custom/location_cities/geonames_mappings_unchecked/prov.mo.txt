@@ -1,0 +1,10 @@
+*1821286 mo_OLF  :::  Our Lady Fatima Parish ~ Concelho das Ilhas(1821286)
+*1821286 mo_ANT  :::  St. Anthony Parish ~ Concelho das Ilhas(1821286)
+*1821286 mo_LAZ  :::  St. Lazarus Parish ~ Concelho das Ilhas(1821286)
+*1821286 mo_CAT  :::  Cathedral Parish ~ Concelho das Ilhas(1821286)
+*1821273 mo_LAW  :::  St. Lawrence Parish ~ Concelho de Macau(1821273)
+
+NAMES:::::
+
+Concelho das Ilhas(1821286) 
+Concelho de Macau(1821273) 

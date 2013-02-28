@@ -1,0 +1,11 @@
+*7733156 mp_N  :::  Northern Islands ~ Northern Islands Municipality(7733156)
+*4041530 mp_R  :::  Rota ~ Rota Municipality(4041530)
+*4041530 mp_S  :::  Saipan ~ Rota Municipality(4041530)
+*4041530 mp_T  :::  Tinian ~ Rota Municipality(4041530)
+
+NAMES:::::
+
+Northern Islands Municipality(7733156) 
+Rota Municipality(4041530) 
+Saipan Municipality(4041552) 
+Tinian Municipality(4041650) 
