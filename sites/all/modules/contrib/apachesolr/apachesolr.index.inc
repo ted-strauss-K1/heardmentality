@@ -201,7 +201,7 @@ function apachesolr_index_entity_to_documents($item, $env_id) {
   // or as another user
   $uid = variable_get('apachesolr_index_user', 0);
   if($uid == 0) {
-    $user = drupal_anonymous_user();
+    $user = user_load(1); //drupal_anonymous_user();
   }
   else {
     $user = user_load($uid);
