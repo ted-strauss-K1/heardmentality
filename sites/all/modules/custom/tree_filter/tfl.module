@@ -51,7 +51,9 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array())
     $cities = array();
     foreach ($checked as $code) {
       list($ccode, $pcode) = explode("_", $code, 2);
-      $cities = array_merge($cities, location_get_cities($ccode, $pcode));
+      foreach (location_get_cities($ccode, $pcode) as $citycode => $cityname) {
+        $cities[$citycode] = $cityname;
+      }
     }
     $tfl['list'][] = $cities;
 
