@@ -65,6 +65,18 @@ function issue_search_apachesolr_field_mappings() {
             'field_name' => 'views_count'
         ),
     );
+    $mappings['languages'] = array(
+        'indexing_callback' => 'issue_search_extra_fields_indexing_callback',
+        'index_type' => 'string',
+        'multiple' => TRUE,
+        'name' => 'languages',
+        'module_name' => 'issue',
+        'display_name' => t('Node Languages'),
+        'bundles' => array('poll'),
+        'field' => array(
+            'field_name' => 'languages'
+        ),
+    );
 
     return $mappings;
 }
@@ -157,12 +169,35 @@ function issue_search_apachesolr_index_document_build(ApacheSolrDocument $docume
  *  Entity type.
  * @param string $env_id
  *  Environment ID.
- * 
- * @todo 
- *  Alter documents if necessary.
  */
 function issue_search_apachesolr_index_documents_alter(array &$documents, $entity, $entity_type, $env_id) {
-    // TODO: alter documents if necessary.
+    
+    // Add translated fields to the document's content.
+    foreach ($documents as $document) {
+        
+        // Skip unnecessary content.
+        if (($entity_type != 'node') || ($entity->type != 'poll') || ($document->entity_id != $entity->nid)) {
+            continue;
+        }
+
+        // Get existing content.
+        $content = $document->content;
+        
+        // Get translations to add.
+        $fields = array();
+        $query = db_query("SELECT ct.text AS text FROM {content_translate} ct WHERE ct.content_id = %d", $entity->nid);
+        while ($record = db_fetch_object($query)) {
+            $fields[] = $record->text;
+        }
+        
+        // Extend content.
+        foreach ($fields as $field) {
+            $content .= ' ' . $field;
+        }
+        
+        // Set new content.
+        $document->content = $content;
+    }
 }
 
 /**
@@ -198,8 +233,8 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query) 
     $query->addFilter('bundle_name', 'Issue');
     if ($_POST['my_language'] == 'true') {
         $subquery = apachesolr_drupal_query('apachesolr');
-        $subquery->addFilter('ss_language', $language->language);
-        $subquery->addFilter('ss_language', 'und');
+        $subquery->addFilter('sm_languages', $language->language);
+        $subquery->addFilter('sm_languages', 'und');
         $query->addFilterSubQuery($subquery, 'OR', 'AND');
     }
 }

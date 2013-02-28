@@ -1,12 +1,8 @@
 
 /**
- * Search form filter submit.
+ * Search bindings.
  */
-$('#issue-search-filter-form').live('submit', function (e) {
-    e.preventDefault();
-    issue_search();
-    return false;
-});
+$('#issue-search-filter-form').live('submit', function (e) { e.preventDefault(); issue_search(); return false; });
 
 /**
  * Delete items from search info.
@@ -31,6 +27,8 @@ $('.date-solr-filter, .solr-sort').live('click', function (e) {
     var el = $(this);
     el.parents('ul').find('a').removeClass('active');
     el.addClass('active');
+    issue_search();
+    return false;
 });
 
 /**
