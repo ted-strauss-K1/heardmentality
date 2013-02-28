@@ -1,0 +1,18 @@
+*2960655 lu_DD  :::  Diekirch ~ District de Diekirch(2960655)
+*2960655 lu_DC  :::  Clervaux ~ District de Diekirch(2960655)
+*2960655 lu_DR  :::  Redange ~ District de Diekirch(2960655)
+*2960655 lu_DV  :::  Vianden ~ District de Diekirch(2960655)
+*2960655 lu_DW  :::  Wiltz ~ District de Diekirch(2960655)
+*2960513 lu_GG  :::  Grevenmacher ~ District de Grevenmacher(2960513)
+*2960655 lu_GE  :::  Echternach ~ District de Diekirch(2960655)
+*2960655 lu_GR  :::  Remich ~ District de Diekirch(2960655)
+*2960314 lu_LL  :::  Luxembourg ~ District de Luxembourg(2960314)
+*2960655 lu_LC  :::  Capellen ~ District de Diekirch(2960655)
+*2960655 lu_LE  :::  Esch-sur-Alzette ~ District de Diekirch(2960655)
+*2960655 lu_LM  :::  Mersch ~ District de Diekirch(2960655)
+
+NAMES:::::
+
+District de Diekirch(2960655) 
+District de Grevenmacher(2960513) 
+District de Luxembourg(2960314) 

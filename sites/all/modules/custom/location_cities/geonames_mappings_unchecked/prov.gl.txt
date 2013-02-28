@@ -1,0 +1,10 @@
+*7602006 gl_A  :::  Avannaa ~ Qeqqata(7602006)
+*7602005 gl_T  :::  Tunu ~ Kujalleq(7602005)
+*7602006 gl_K  :::  Kitaa ~ Qeqqata(7602006)
+
+NAMES:::::
+
+Kujalleq(7602005) 
+Qaasuitsup(7602003) 
+Qeqqata(7602006) 
+Sermersooq(7602007) 

@@ -1,0 +1,10 @@
+ 4032279 to_T
+*4032637 to_H  :::  Ha'apai ~ Ha`apai(4032637)
+*4032231 to_V  :::  Vava'u ~ Vava`u(4032231)
+
+NAMES:::::
+
+Eua(7668021) 
+Ha`apai(4032637) 
+Niuas(7668055) 
+Vava`u(4032231) 

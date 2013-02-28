@@ -1,0 +1,22 @@
+*7289707 np_BA  :::  Bagmati ~ Central Region(7289707)
+*7289708 np_BH  :::  Bheri ~ Eastern Region(7289708)
+*7289707 np_DH  :::  Dhawalagiri ~ Central Region(7289707)
+*7289707 np_GA  :::  Gandaki ~ Central Region(7289707)
+*7289707 np_JA  :::  Janakpur ~ Central Region(7289707)
+*7289708 np_KA  :::  Karnali ~ Eastern Region(7289708)
+*7289708 np_KO  :::  Kosi ~ Eastern Region(7289708)
+*7289707 np_LU  :::  Lumbini ~ Central Region(7289707)
+*7289707 np_MA  :::  Mahakali ~ Central Region(7289707)
+*7289707 np_ME  :::  Mechi ~ Central Region(7289707)
+*7289707 np_NA  :::  Narayani ~ Central Region(7289707)
+*7289707 np_RA  :::  Rapti ~ Central Region(7289707)
+*7289707 np_SA  :::  Sagarmatha ~ Central Region(7289707)
+*7289707 np_SE  :::  Seti ~ Central Region(7289707)
+
+NAMES:::::
+
+Central Region(7289707) 
+Eastern Region(7289708) 
+Far Western Region(7289705) 
+Mid Western Region(7289706) 
+Western Region(7289709) 

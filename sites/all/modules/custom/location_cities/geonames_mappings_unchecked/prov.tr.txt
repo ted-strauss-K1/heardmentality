@@ -1,0 +1,115 @@
+  325361 tr_ADA
+  325302 tr_AFY
+  443185 tr_AKS
+  752014 tr_AMA
+  323784 tr_ANK
+  323776 tr_ANT
+  862470 tr_ARD
+  751816 tr_ART
+  443186 tr_BAT
+  862471 tr_BAY
+  321122 tr_BIL
+  321022 tr_BIT
+  750510 tr_BOL
+  320390 tr_BRD
+  750268 tr_BRS
+  317106 tr_DEN
+  747711 tr_EDI
+  315372 tr_EZC
+  315367 tr_EZR
+  314829 tr_GAZ
+  746878 tr_GIR
+  312394 tr_HTY
+  311071 tr_ISP
+  745042 tr_IST
+  443187 tr_KRM
+  743881 tr_KAS
+  308463 tr_KAY
+  443213 tr_KLS
+  742865 tr_KOC
+  306569 tr_KON
+  304919 tr_MAL
+  304825 tr_MAN
+  304794 tr_MAR
+  311728 tr_MER
+  741098 tr_ORD
+  443183 tr_OSM
+  740481 tr_RIZ
+  740352 tr_SAK
+  740263 tr_SAM
+  300821 tr_SII
+  739598 tr_SIN
+  300617 tr_SIV
+  738742 tr_TOK
+  738647 tr_TRA
+  298845 tr_TUN
+  298113 tr_VAN
+  862469 tr_YAL
+  296560 tr_YOZ
+  737021 tr_ZON
+**325329 tr_ADI  :::  Adiyaman ~ Adıyaman(325329)
+**743942 tr_AGR  :::  Agri ~ Kars(743942)
+**322819 tr_AYI  :::  Aydin ~ Aydın(322819)
+**322164 tr_BAL  :::  Balikesir ~ Balıkesir(322164)
+**862467 tr_BAR  :::  Bartin ~ Bartın(862467)
+**321079 tr_BIN  :::  Bingol ~ Bingöl(321079)
+**749778 tr_CKL  :::  Canakkale ~ Çanakkale(749778)
+**312888 tr_CKR  :::  Cankiri ~ Hakkâri(312888)
+**748877 tr_COR  :::  Corum ~ Çorum(748877)
+**316540 tr_DIY  :::  Diyarbakir ~ Diyarbakır(316540)
+**865521 tr_DUZ  :::  Duzce ~ Düzce(865521)
+**315807 tr_ELA  :::  Elazig ~ Elazığ(315807)
+**315201 tr_ESK  :::  Eskisehir ~ Eskişehir(315201)
+**746423 tr_GMS  :::  Gumushane ~ Gümüşhane(746423)
+**312888 tr_HKR  :::  Hakkari ~ Hakkâri(312888)
+**443184 tr_IGD  :::  Igdir ~ Iğdır(443184)
+**311044 tr_IZM  :::  Izmir ~ İzmir(311044)
+**310858 tr_KAH  :::  Kahramanmaras ~ Kahramanmaraş(310858)
+**862468 tr_KRB  :::  Karabuk ~ Karabük(862468)
+**315201 tr_KRS  :::  Kirsehir ~ Eskişehir(315201)
+**443188 tr_KRK  :::  Kirikkale ~ Kırıkkale(443188)
+**743165 tr_KLR  :::  Kirklareli ~ Kırklareli(743165)
+**305267 tr_KUT  :::  Kutahya ~ Kütahya(305267)
+**304183 tr_MUG  :::  Mugla ~ Muğla(304183)
+**304041 tr_MUS  :::  Mus ~ Muş(304041)
+**303830 tr_NEV  :::  Nevsehir ~ Nevşehir(303830)
+**303826 tr_NIG  :::  Nigde ~ Niğde(303826)
+**298332 tr_SAN  :::  Sanliurfa ~ Şanlıurfa(298332)
+**298298 tr_SIR  :::  Sirnak ~ Uşak(298298)
+**738926 tr_TEL  :::  Tekirdag ~ Tekirdağ(738926)
+**298298 tr_USK  :::  Usak ~ Uşak(298298)
+
+NAMES:::::
+
+Adıyaman(325329) 
+Aydın(322819) 
+Ağrı(325163) 
+Balıkesir(322164) 
+Bartın(862467) 
+Bingöl(321079) 
+Diyarbakır(316540) 
+Düzce(865521) 
+Elazığ(315807) 
+Eskişehir(315201) 
+Gümüşhane(746423) 
+Hakkâri(312888) 
+Iğdır(443184) 
+Kahramanmaraş(310858) 
+Karabük(862468) 
+Kars(743942) 
+Kütahya(305267) 
+Kırklareli(743165) 
+Kırıkkale(443188) 
+Kırşehir(307513) 
+Muğla(304183) 
+Muş(304041) 
+Nevşehir(303830) 
+Niğde(303826) 
+Tekirdağ(738926) 
+Uşak(298298) 
+Çanakkale(749778) 
+Çankırı(749747) 
+Çorum(748877) 
+İzmir(311044) 
+Şanlıurfa(298332) 
+Şırnak(443189) 

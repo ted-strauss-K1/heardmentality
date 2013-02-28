@@ -1,0 +1,5 @@
+******** as_E  :::  Eastern ~ ()
+******** as_M  :::  Manu'a ~ ()
+******** as_R  :::  Rose Island ~ ()
+******** as_S  :::  Swains Island ~ ()
+******** as_W  :::  Western ~ ()

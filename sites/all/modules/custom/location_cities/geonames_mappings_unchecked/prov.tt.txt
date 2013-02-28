@@ -1,0 +1,24 @@
+ 7521939 tt_DM
+ 7521941 tt_PD
+ 7521942 tt_PT
+ 7521944 tt_SG
+ 7521946 tt_SL
+ 7521945 tt_SI
+ 7521947 tt_TP
+ 7521943 tt_PF
+ 7521937 tt_CH
+ 3573606 tt_TO
+*7521938 tt_CT  :::  Couva/Tabaquite/Talparo ~ Couva-Tabaquite-Talparo(7521938)
+*3574155 tt_MR  :::  Mayaro/Rio Claro ~ Mayaro(3574155)
+*3573891 tt_PS  :::  Port of Spain ~ City of Port of Spain(3573891)
+*3573739 tt_SF  :::  San Fernando ~ City of San Fernando(3573739)
+*3574155 tt_AR  :::  Arima ~ Mayaro(3574155)
+
+NAMES:::::
+
+Borough of Arima(3575052) 
+City of Port of Spain(3573891) 
+City of San Fernando(3573739) 
+Couva-Tabaquite-Talparo(7521938) 
+Eastern Tobago(7521940) 
+Mayaro(3574155) 

@@ -1,0 +1,21 @@
+*2457161 ml_GA  :::  Gao ~ Gao Region(2457161)
+*2455517 ml_KY  :::  Kayes ~ Kayes Region(2455517)
+*2597449 ml_KD  :::  Kidal ~ Kidal Region(2597449)
+*2454532 ml_KL  :::  Koulikoro ~ Koulikoro Region(2454532)
+*2453347 ml_MP  :::  Mopti ~ Mopti Region(2453347)
+*2457161 ml_SG  :::  Segou ~ Gao Region(2457161)
+*2451184 ml_SK  :::  Sikasso ~ Sikasso Region(2451184)
+*2449066 ml_TB  :::  Tombouctou ~ Tombouctou Region(2449066)
+*2460594 ml_CD  :::  Bamako Capital District ~ Bamako Region(2460594)
+
+NAMES:::::
+
+Bamako Region(2460594) 
+Gao Region(2457161) 
+Kayes Region(2455517) 
+Kidal Region(2597449) 
+Koulikoro Region(2454532) 
+Mopti Region(2453347) 
+Sikasso Region(2451184) 
+Ségou Region(2451477) 
+Tombouctou Region(2449066) 

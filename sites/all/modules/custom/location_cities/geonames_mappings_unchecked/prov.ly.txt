@@ -1,0 +1,45 @@
+ 2219944 ly_JU
+   88932 ly_KU
+   87204 ly_DA
+ 2214602 ly_MZ
+ 2210553 ly_SU
+***88904 ly_AJ  :::  Ajdabiya ~ Al Marj(88904)
+*7602691 ly_AZ  :::  Al 'Aziziyah ~ Al Marqab(7602691)
+***88904 ly_FA  :::  Al Fatih ~ Al Marj(88904)
+*7602691 ly_JA  :::  Al Jabal al Akhdar ~ Al Marqab(7602691)
+***88904 ly_KH  :::  Al Khums ~ Al Marj(88904)
+***88904 ly_NK  :::  An Nuqat al Khams ~ Al Marj(88904)
+***88904 ly_AS  :::  Ash Shati' ~ Al Marj(88904)
+***88904 ly_AW  :::  Awbari ~ Al Marj(88904)
+*7602691 ly_ZA  :::  Az Zawiyah ~ Al Marqab(7602691)
+***88904 ly_BA  :::  Banghazi ~ Al Marj(88904)
+***88904 ly_GD  :::  Ghadamis ~ Al Marj(88904)
+*7602691 ly_GY  :::  Gharyan ~ Al Marqab(7602691)
+***88904 ly_MI  :::  Misratah ~ Al Marj(88904)
+***88904 ly_SB  :::  Sabha ~ Al Marj(88904)
+***88904 ly_SW  :::  Sawfajjin ~ Al Marj(88904)
+***88904 ly_TL  :::  Tarabulus (Tripoli) ~ Al Marj(88904)
+***88904 ly_TH  :::  Tarhunah ~ Al Marj(88904)
+***88904 ly_TU  :::  Tubruq ~ Al Marj(88904)
+***88904 ly_YA  :::  Yafran ~ Al Marj(88904)
+***88904 ly_ZL  :::  Zlitan ~ Al Marj(88904)
+
+NAMES:::::
+
+Al Marj(88904) 
+Al Marqab(7602691) 
+Sha‘bīyat Banghāzī(88318) 
+Sha‘bīyat Ghāt(2217350) 
+Sha‘bīyat Mişrātah(2214845) 
+Sha‘bīyat Nālūt(2214432) 
+Sha‘bīyat Sabhā(2212774) 
+Sha‘bīyat Wādī al Ḩayāt(7602693) 
+Sha‘bīyat Wādī ash Shāţi’(2219413) 
+Sha‘bīyat al Buţnān(7602688) 
+Sha‘bīyat al Jabal al Akhḑar(443289) 
+Sha‘bīyat al Jabal al Gharbī(7602689) 
+Sha‘bīyat al Jafārah(7602690) 
+Sha‘bīyat al Wāḩāt(7602692) 
+Sha‘bīyat an Nuqāţ al Khams(2593778) 
+Sha‘bīyat az Zāwiyah(2218972) 
+Sha‘bīyat Ţarābulus(2210245) 

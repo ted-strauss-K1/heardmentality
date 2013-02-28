@@ -1,0 +1,17 @@
+*3624953 cr_AL  :::  Alajuela ~ Provincia de Alajuela(3624953)
+*3624368 cr_CA  :::  Cartago ~ Provincia de Cartago(3624368)
+*3623582 cr_GU  :::  Guanacaste ~ Provincia de Guanacaste(3623582)
+*3623484 cr_HE  :::  Heredia ~ Provincia de Heredia(3623484)
+*3623064 cr_LI  :::  Limon ~ Provincia de Limón(3623064)
+*3622226 cr_PU  :::  Puntarenas ~ Provincia de Puntarenas(3622226)
+*3621837 cr_SJ  :::  San Jose ~ Provincia de San José(3621837)
+
+NAMES:::::
+
+Provincia de Alajuela(3624953) 
+Provincia de Cartago(3624368) 
+Provincia de Guanacaste(3623582) 
+Provincia de Heredia(3623484) 
+Provincia de Limón(3623064) 
+Provincia de Puntarenas(3622226) 
+Provincia de San José(3621837) 

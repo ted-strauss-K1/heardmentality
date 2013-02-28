@@ -1,0 +1,23 @@
+*2236015 cm_ADA  :::  Adamawa Province (Adamaoua) ~ Adamaoua Province(2236015)
+*2223603 cm_CEN  :::  Centre Province ~ North Province(2223603)
+*2223603 cm_EST  :::  East Province (Est) ~ North Province(2223603)
+*2223603 cm_EXN  :::  Extreme North Province (Extr�me-Nord) ~ North Province(2223603)
+*2229336 cm_LIT  :::  Littoral Province ~ Littoral Region(2229336)
+*2223603 cm_NOR  :::  North Province (Nord) ~ North Province(2223603)
+*2223602 cm_NOT  :::  Northwest Province (Nord-Ouest) ~ North-West Province(2223602)
+*2223603 cm_OUE  :::  West Province (Ouest) ~ North Province(2223603)
+*2223603 cm_SUD  :::  South Province (Sud) ~ North Province(2223603)
+*2223602 cm_SOU  :::  Southwest Province (Sud-Ouest). ~ North-West Province(2223602)
+
+NAMES:::::
+
+Adamaoua Province(2236015) 
+Centre Region(2233376) 
+East Region(2231835) 
+Far North Region(2231755) 
+Littoral Region(2229336) 
+North Province(2223603) 
+North-West Province(2223602) 
+South Region(2221789) 
+South-West Region(2221788) 
+West Region(2222934) 

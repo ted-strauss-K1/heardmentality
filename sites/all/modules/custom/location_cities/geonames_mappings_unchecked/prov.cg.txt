@@ -1,0 +1,20 @@
+ 2260487 cg_CU
+ 2593118 cg_CO
+ 2258431 cg_LI
+ 2255422 cg_PL
+ 2255404 cg_PO
+ 2255329 cg_SA
+*7280295 cg_BO  :::  Bouenza ~ Pointe-Noire(7280295)
+*2572183 cg_BR  :::  Brazzaville ~ Commune de Brazzaville(2572183)
+*7280295 cg_KO  :::  Kouilou ~ Pointe-Noire(7280295)
+*7280295 cg_LE  :::  Lekoumou ~ Pointe-Noire(7280295)
+*7280295 cg_NI  :::  Niari ~ Pointe-Noire(7280295)
+
+NAMES:::::
+
+Commune de Brazzaville(2572183) 
+Pointe-Noire(7280295) 
+Région de la Bouenza(2260668) 
+Région de la Lékoumou(2258534) 
+Région du Kouilou(2258738) 
+Région du Niari(2256175) 

@@ -1,0 +1,8 @@
+  921882 km_G
+**922001 km_A  :::  Anjouan ~ Ndzuwani(922001)
+**921780 km_M  :::  Moheli ~ Mwali(921780)
+
+NAMES:::::
+
+Mwali(921780) 
+Ndzuwani(922001) 

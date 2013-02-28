@@ -1,0 +1,24 @@
+ 1327132 mm_CH
+ 1321702 mm_KC
+ 1319539 mm_KH
+ 1320233 mm_KN
+ 1308528 mm_MN
+ 1298852 mm_RK
+ 1297099 mm_SH
+*1321850 mm_AY  :::  Ayeyarwady ~ Ayeyarwady Division(1321850)
+*1300463 mm_BG  :::  Bago ~ Bago Division(1300463)
+*1312604 mm_MG  :::  Magway ~ Magway Division(1312604)
+*1311871 mm_MD  :::  Mandalay ~ Mandalay Division(1311871)
+*1298480 mm_SG  :::  Sagaing ~ Sagaing Division(1298480)
+*1293118 mm_TN  :::  Tanintharyi ~ Tanintharyi Division(1293118)
+*1298822 mm_YG  :::  Yangon ~ Yangon Division(1298822)
+
+NAMES:::::
+
+Ayeyarwady Division(1321850) 
+Bago Division(1300463) 
+Magway Division(1312604) 
+Mandalay Division(1311871) 
+Sagaing Division(1298480) 
+Tanintharyi Division(1293118) 
+Yangon Division(1298822) 

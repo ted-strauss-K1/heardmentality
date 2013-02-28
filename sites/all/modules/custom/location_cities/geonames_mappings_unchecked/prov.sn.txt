@@ -1,0 +1,18 @@
+ 2253350 sn_DA
+ 2252308 sn_DI
+ 2251910 sn_FA
+ 2250804 sn_KA
+ 2249781 sn_KO
+ 2249221 sn_LO
+ 2248753 sn_MA
+ 2246451 sn_SL
+ 2244990 sn_TA
+ 2243939 sn_ZI
+*2244800 sn_TH  :::  Thies ~ Région de Thiès(2244800)
+
+NAMES:::::
+
+Région de Kaffrine(7303935) 
+Région de Kédougou(7303936) 
+Région de Sédhiou(7303937) 
+Région de Thiès(2244800) 

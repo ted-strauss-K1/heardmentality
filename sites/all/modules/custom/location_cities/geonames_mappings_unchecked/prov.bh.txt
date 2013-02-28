@@ -1,0 +1,10 @@
+ 7090954 bh_CAP
+  290333 bh_MUH
+ 7090974 bh_NOR
+*7090973 bh_CEN  :::  Central ~ Central Governorate(7090973)
+*7090972 bh_SOU  :::  Southern ~ Southern Governorate(7090972)
+
+NAMES:::::
+
+Central Governorate(7090973) 
+Southern Governorate(7090972) 
