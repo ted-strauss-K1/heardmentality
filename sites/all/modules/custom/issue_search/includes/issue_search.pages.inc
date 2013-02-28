@@ -35,7 +35,7 @@ function issue_search_form($form_state) {
         '#type' => 'item',
         '#value' => '
             <ul class="sort-filter options_filter">
-                <li><a href="issues" class="solr-sort first active" solrsort="ds_changed" direction="desc">' . t('Latest') . '</a></li>
+                <li><a href="issues" class="solr-sort first active" solrsort="ds_created" direction="desc">' . t('Latest') . '</a></li>
                 <li><a href="issues" class="solr-sort" solrsort="is_views_count" direction="desc">' . t('Views') . '</a></li>
                 <li><a href="issues" class="solr-sort last" solrsort="is_votes_count" direction="desc">' . t('Votes') . '</a></li>
             </ul>

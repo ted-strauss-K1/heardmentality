@@ -222,7 +222,7 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query) 
     $query->replaceParam('rows', db_result(db_query('SELECT COUNT(*) FROM {node}')));
 
     // Sort.
-    $query->setAvailableSort('ds_changed', array('title' => t('Updated'), 'default' => 'desc'));
+    $query->setAvailableSort('ds_created', array('title' => t('Updated'), 'default' => 'desc'));
     $query->setAvailableSort('is_views_count', array('title' => t('Views Amount'), 'default' => 'desc'));
     $query->setAvailableSort('is_votes_count', array('title' => t('Votes Amount'), 'default' => 'desc'));
     $query->setSolrsort($_POST['solrsort'], $_POST['direction']);
@@ -295,10 +295,10 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query) {
     // Date.
     switch ($_POST['interval']) {
         case 'week':
-            $query->addFilter('ds_changed', '[' . apachesolr_date_iso(strtotime("-1 week")) . ' TO ' . apachesolr_date_iso(strtotime("Today")) . ']');
+            $query->addFilter('ds_created', '[' . apachesolr_date_iso(strtotime("-1 week")) . ' TO ' . apachesolr_date_iso(time()) . ']');
             break;
         case 'month':
-            $query->addFilter('ds_changed', '[' . apachesolr_date_iso(strtotime("-4 week")) . ' TO ' . apachesolr_date_iso(strtotime("Today")) . ']');
+            $query->addFilter('ds_created', '[' . apachesolr_date_iso(strtotime("-4 week")) . ' TO ' . apachesolr_date_iso(time()) . ']');
             break;
         case 'all':
         default:
