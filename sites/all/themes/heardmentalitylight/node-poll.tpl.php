@@ -7,6 +7,7 @@
     ?>?</h2>
     <?php if($page) : ?>
     <div class="qd">
+      <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
       <?php print theme('flagger_button', $nid, 'node'); ?>
       <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
         <?php print l(t('moderation'), 'moderation/issue/'.$node->nid,
