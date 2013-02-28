@@ -31,7 +31,8 @@ function theme_issue_search_results($results = array()) {
  *  Output.
  */
 function theme_issue_search_filter() {
-    return '<div class="filter_search grey-box poll-box issues_search">' . drupal_get_form('issue_search_filter_form') . '</div>';
+    $issues_count = '<div id="count_results-wrapper" class="form-item"><span>0</span> issues</div>';
+    return '<div class="filter_search grey-box poll-box issues_search">' . $issues_count . drupal_get_form('issue_search_filter_form') . '</div>';
 }
 
 /**
@@ -59,13 +60,6 @@ function issue_search_filter_form($form_state) {
         '#prefix' => '<div id="block-wrapper">',
         '#suffix' => '</div>',
         '#tree' => TRUE,
-    );
-
-    // Container: count.
-    $form['block']['results'] = array(
-        '#value' => '<span>0</span>' . ' issues',
-        '#type' => 'item',
-        '#id' => 'count_results'
     );
 
     // Data.
