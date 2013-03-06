@@ -1,0 +1,126 @@
+<?php
+
+define('EXTRACT_PERIOD', 'd');
+
+/**
+ *
+ */
+function extract_cron() {
+  extract_exec();
+}
+
+/**
+ *
+ */
+function extract_exec() {
+  $path = 'extract.';
+  switch (EXTRACT_PERIOD) {
+    case 'd' : $path .= date('Y.m.d'); break;
+  }
+  $path_abs = $_SERVER['DOCUMENT_ROOT'] . '/' . drupal_get_path('module', 'extract') . '/data/' . $path . '.csv';
+  if (!file_exists($path_abs)) {
+    $f = fopen($path_abs, 'w+');
+
+    $keys = array(
+      'id','issue_id','issue_text','issue_category_l1','issue_category_l2','issue_category_l3','vote_answer_id','vote_answer_text','vote_increment','current_vote_flag','vote_timestamp','userid','gender','zip','country','state','city','religion','ethnic','income','marital','edu','age','left_right','lib_auth','radic_cons','dowe_hawk',
+    );
+
+    $query = "
+      SELECT
+        CONCAT(pvh.uid, '-', pvh.nid, '-', pvh.chorder) AS id,
+        pvh.nid issue_id,
+        nr.title issue_text,
+        (SELECT GROUP_CONCAT(tn1.tid)
+          FROM term_node tn1
+          WHERE
+            tn1.nid = nr.nid AND
+            tn1.vid = nr.vid AND
+            tn1.tid IN (SELECT * FROM term_depth_1)) issue_category_l1,
+        (SELECT GROUP_CONCAT(tn2.tid)
+          FROM term_node tn2
+          WHERE
+            tn2.nid = nr.nid AND
+            tn2.vid = nr.vid AND
+            tn2.tid IN (SELECT * FROM term_depth_2)) issue_category_l2,
+        (SELECT GROUP_CONCAT(tn3.tid)
+          FROM term_node tn3
+          WHERE
+            tn3.nid = nr.nid AND
+            tn3.vid = nr.vid AND
+            tn3.tid IN (SELECT * FROM term_depth_3)) issue_category_l3,
+        pc.chorder vote_answer_id,
+        pc.chtext vote_answer_text,
+        (CASE pvh.status WHEN 1 THEN 1 ELSE -1 END) vote_increment,
+        (CASE WHEN
+          (SELECT MAX(pvh2.date_voted)
+            FROM poll_votes_history pvh2
+            WHERE
+              pvh2.nid = pvh.nid AND
+              pvh.uid = pvh2.uid) = pvh.date_voted
+          AND pvh.status = 1
+          THEN 1 ELSE 0 END) current_vote_flag,
+        UNIX_TIMESTAMP(pvh.date_voted) vote_timestamp,
+        MD5(CONCAT(pvh.uid, '=', pvh.uid)) userid,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_gender' AND pv.uid = pvh.uid) gender,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_zip' AND pv.uid = pvh.uid) zip,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_country' AND pv.uid = pvh.uid) country,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_state' AND pv.uid = pvh.uid) state,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_city' AND pv.uid = pvh.uid) city,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_religion' AND pv.uid = pvh.uid) religion,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_ethnicity' AND pv.uid = pvh.uid) ethnic,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_income' AND pv.uid = pvh.uid) income,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_marital' AND pv.uid = pvh.uid) marital,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_education' AND pv.uid = pvh.uid) edu,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_yob' AND pv.uid = pvh.uid) age,
+        (SELECT value
+          FROM poll_charact_values pcv
+          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 1) left_right,
+        (SELECT value
+          FROM poll_charact_values pcv
+          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 2) lib_auth,
+        (SELECT value
+          FROM poll_charact_values pcv
+          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 3) radic_cons,
+        (SELECT value
+          FROM poll_charact_values pcv
+          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 4) dowe_hawk
+      FROM poll_votes_history pvh
+      INNER JOIN node n ON n.nid = pvh.nid
+      INNER JOIN node_revisions nr ON n.nid = nr.nid AND n.vid = nr.vid
+      INNER JOIN poll_choices pc ON pc.nid = n.nid AND pc.chorder = pvh.chorder
+      ORDER BY pvh.date_voted DESC, pvh.status DESC";
+
+    fwrite($f, implode(",",$keys));
+    fwrite($f, "\n");
+
+    $result = db_query($query);
+    while ($row = db_fetch_array($result)) {
+      foreach ($row as $k => &$v) $v = "\"" . str_replace('"','\"',$v) . "\"";
+      fwrite($f, implode(",", $row) . "\n");
+    }
+
+    fclose($f);
+  }
+}
