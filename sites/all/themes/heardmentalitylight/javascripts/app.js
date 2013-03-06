@@ -202,12 +202,6 @@ $(function(){
     resizable:true
   });
 
-  // Dialog Link
-  $('#dialog_link').click(function(){
-    $('#dialog').tabs();
-    $('#dialog').dialog('open');
-    return false;
-  });
   
   
   // Dialog Link
