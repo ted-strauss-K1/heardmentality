@@ -1261,8 +1261,8 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   # taxonomy
   $node->taxonomy = array();
   for ($i = 0; $i >= 0; $i++) {
-    if (!empty($values['taxonomy-' . $i])) {
-      foreach ($values['taxonomy-' . $i] as $tid) {
+    if (!empty($values['taxonomy']['taxonomy-' . $i])) {
+      foreach ($values['taxonomy']['taxonomy-' . $i] as $tid) {
         $node->taxonomy[] = taxonomy_get_term($tid);
       }
     } else break;
