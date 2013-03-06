@@ -104,6 +104,7 @@ function issue_charts_preprocess(&$vars)
       $count += $choice['chvotes'];
     }
   }
+  $node->votecount = $count;
 
   # voted or not
   $voted = $node->vote != -1;
@@ -113,8 +114,8 @@ function issue_charts_preprocess(&$vars)
 
   if (!$voted) {
     $vars['charts'] = '<span class="no_show">' . t('Vote now to show results.') . '</span>';
-  } elseif ($count < 10) {
-    $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
+//  } elseif ($count < 10) {
+//    $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
   } else {
     $vars['charts'] = theme('issue_charts_inner', $node);
   }
@@ -174,7 +175,7 @@ function issue_charts_inner_preprocess(&$vars)
   # Highchart Filter
   $vars['filter'] = theme('issue_charts_filter', $node);
   # Quick facts
-  $vars['quickfacts'] = theme('issue_charts_quickfacts', $node);
+  $vars['quickfacts'] = $node->votecount <= 10 ? t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') : theme('issue_charts_quickfacts', $node);
   # Legend
   $vars['legend'] = theme('issue_charts_legend', $chtexts);
   # Highchart History
