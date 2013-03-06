@@ -222,6 +222,11 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
   // update stats
   db_query("UPDATE {poll_choices} SET chvotes = (SELECT COUNT(*) FROM {poll_votes} pv WHERE pv.nid = {poll_choices}.nid AND pv.chorder = {poll_choices}.chorder) AND nid = '%d'", $nid);
 
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_queue_node($nid);
+  }
+
   return true;
 }
 

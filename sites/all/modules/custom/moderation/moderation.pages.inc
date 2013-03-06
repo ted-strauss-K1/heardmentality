@@ -1384,6 +1384,11 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   moderation_history('set', $nid, 'node', 'approve');
 
   node_save($node);
+
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_queue_node($node->nid);
+  }
 }
 
 //////// DELETION REQUESTS
