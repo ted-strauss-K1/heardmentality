@@ -22,8 +22,17 @@ function extract_exec() {
     $f = fopen($path_abs, 'w+');
 
     $keys = array(
-      'id','issue_id','issue_text','issue_category_l1','issue_category_l2','issue_category_l3','vote_answer_id','vote_answer_text','vote_increment','current_vote_flag','vote_timestamp','userid','gender','zip','country','state','city','religion','ethnic','income','marital','edu','age','left_right','lib_auth','radic_cons','dowe_hawk',
+      'id','issue_id','issue_text','issue_category_l1','issue_category_l2','issue_category_l3','vote_answer_id','vote_answer_text','vote_increment','current_vote_flag','vote_timestamp','userid','gender','zip','country','state','city','religion','ethnicity','income','marital','education','age','left_right','lib_auth','radic_cons','dowe_hawk',
     );
+
+    $y = date('Y');
+
+    $q = "SELECT REPLACE(name, 'profile_', '') name, options FROM profile_fields WHERE type = 'selection' AND options <> ''";
+    $result = db_query($q);
+    while ($row = db_fetch_array($result)) {
+      $selections[$row['name']] = explode("\n", $row['options']);
+    }
+
 
     $query = "
       SELECT
@@ -81,7 +90,7 @@ function extract_exec() {
           WHERE pf.name = 'profile_religion' AND pv.uid = pvh.uid) religion,
         (SELECT value
           FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
-          WHERE pf.name = 'profile_ethnicity' AND pv.uid = pvh.uid) ethnic,
+          WHERE pf.name = 'profile_ethnicity' AND pv.uid = pvh.uid) ethnicity,
         (SELECT value
           FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
           WHERE pf.name = 'profile_income' AND pv.uid = pvh.uid) income,
@@ -90,7 +99,7 @@ function extract_exec() {
           WHERE pf.name = 'profile_marital' AND pv.uid = pvh.uid) marital,
         (SELECT value
           FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
-          WHERE pf.name = 'profile_education' AND pv.uid = pvh.uid) edu,
+          WHERE pf.name = 'profile_education' AND pv.uid = pvh.uid) education,
         (SELECT value
           FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
           WHERE pf.name = 'profile_yob' AND pv.uid = pvh.uid) age,
@@ -117,7 +126,27 @@ function extract_exec() {
 
     $result = db_query($query);
     while ($row = db_fetch_array($result)) {
-      foreach ($row as $k => &$v) $v = "\"" . str_replace('"','\"',$v) . "\"";
+
+      if (!is_numeric($row['age'])) {
+        $row['age'] = 'undefined';
+      } else {
+        $age = $y - intval($row['age']);
+        if ($age >= 51) {
+          $row['age'] = '>50';
+        } elseif ($age >= 31) {
+          $row['age'] = '31-50';
+        } else {
+          $row['age'] = '<=30';
+        }
+      }
+
+      foreach ($row as $k => &$v) {
+        if (isset($selections[$k])) {
+          $v = isset($selections[$k][$v]) ? $selections[$k][$v] : 'undefined';
+        }
+        $v = "\"" . str_replace('"','\"',$v) . "\"";
+      }
+
       fwrite($f, implode(",", $row) . "\n");
     }
 
