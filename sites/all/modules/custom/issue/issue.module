@@ -1,7 +1,5 @@
 <?php
 
-include "old.issue.module";
-
 require_once "issue.forms.inc";
 require_once "argument.forms.inc";
 require_once "argument.inc";
@@ -14,6 +12,11 @@ require_once "issue.charts.inc";
  */
 function issue_preprocess_page(&$vars)
 {
+  if (module_exists('rules')) {
+    global $user;
+    rules_invoke_event('page_view', $user);
+  }
+
   //
   if (arg(0) == 'issue' && arg(1) == 'create') {
     drupal_add_js('misc/ahah.js');
@@ -72,6 +75,14 @@ function issue_menu()
     $menu += argument_menu();
   }
 
+  $menu['issue/share/%'] = array(
+    'page callback'   => 'issue_share',
+    'page arguments'  => array(2),
+    'access callback' => true,
+    'type'            => MENU_CALLBACK,
+    'file'            => 'issue.pages.inc',
+  );
+
   return $menu;
 }
 
@@ -96,6 +107,7 @@ function issue_theme()
     'arguments' => array('node' => NULL),
     'template' => 'templates/issue-arguments',
     'preprocess functions' => array('issue_arguments_preprocess'),
+    'file' => 'issue.theme.inc',
   );
   $theme['issue_arguments_content'] = array(
     'arguments' => array('node' => NULL),
@@ -111,7 +123,62 @@ function issue_theme()
     'template' => 'templates/issue-loader',
   );
 
-  return $theme + argument_theme() + charts_theme() + _issue_theme();
+  // blocks
+  $theme['issue_block_categories'] = array(
+    'arguments'             => array('nid' => NULL),
+    'template'              => 'templates/issue-block-categories',
+    'preprocess functions'  => array('issue_block_categories_preprocess'),
+    'file' => 'issue.theme.inc',
+  );
+  $theme['issue_block_categories_popular'] = array(
+    'arguments'             => array(),
+    'template'              => 'templates/issue-block-categories-popular',
+    'preprocess functions'  => array('issue_block_categories_popular_preprocess'),
+    'file' => 'issue.theme.inc',
+  );
+
+
+  return $theme + argument_theme() + charts_theme();
+}
+
+/**
+ * Implementation of hook_block()
+ *
+ * @param string $op
+ * @param int $delta
+ * @param array $edit
+ * @return mixed
+ */
+function issue_block($op = 'list', $delta = 0, $edit = array())
+{
+  switch ($op) {
+    case 'list' :
+      $blocks = array();
+
+      $blocks['issue-categories'] = array(
+        'info'  => t('Active Categories'),
+      );
+      $blocks['issue-categories-popular'] = array(
+        'info'  => t('Popular Categories'),
+      );
+
+      return $blocks;
+    case 'view' :
+      $block = array();
+
+      switch ($delta) {
+        case 'issue-categories' :
+          $block['subject'] = t('');
+          $block['content'] = theme('issue_block_categories');
+        break;
+        case 'issue-categories-popular' :
+          $block['subject'] = t('');
+          $block['content'] = theme('issue_block_categories_popular');
+        break;
+      }
+
+      return $block;
+  }
 }
 
 /**
@@ -127,12 +194,11 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   if ($node->type == 'poll') {
     switch ($op) {
       case 'delete' :
-        // TODO delete arguments
-        break;
+        foreach ($node->field_arguments as $arg) {
+          node_delete($arg['nid']);
+        }
+      break;
       case 'load' :
-        // TODO load
-        $node->description = theme('issue_description', $node->field_description[0]['value']);
-
         $node->arguments = array();
         if (!empty($node->field_arguments)) {
           $tmp = array(
@@ -149,7 +215,11 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         }
         break;
       case 'view' :
-        // TODO view
+        $translation = poll_translate_translation($node);
+        $node->description = theme('issue_description',
+          !empty($translation['body'][0]) ?
+            $translation['body'][0] :
+            $node->field_description[0]['value']);
       break;
     }
   }
@@ -175,34 +245,64 @@ function issue_comment(&$a1, $op)
   }
 }
 
-
-// 'create poll content'
-// 'vote on polls'
-
-/*
- * Permission to view an issue
+/**
+ * @param $uid
+ * @return int
  */
-define('ISSUE_VIEW', 'View Issue');
-
-/*
- * Permission to edit an issue
- */
-define('ISSUE_EDIT', 'Edit Issue');
-
-/*
- * Permission to edit own issue
- */
-define('ISSUE_EDIT_OWN', 'Edit Own Issue');
-
-/*
- * Permission to create an issue
- */
-define('ISSUE_CREATE', 'Create Issue');
-
-/*
- * Implementation of hook_perm()
- */
-function issue_perm()
+function issue_get_uservotes($uid)
 {
-  return array(ISSUE_VIEW, ISSUE_EDIT, ISSUE_EDIT_OWN, ISSUE_CREATE);
+  static $votes;
+
+  if (is_null($votes)) {
+    $votes = array();
+    $result = db_query("SELECT uid, COUNT(*) count FROM {poll_votes} GROUP BY uid");
+    while ($row = db_fetch_object($result)) {
+      $votes[$row->uid] = $row->count;
+    }
+  }
+
+  return (int)$votes[$uid];
+}
+
+/**
+ * @param bool $nid
+ * @return array
+ *  'nid' - node id
+ *    'r' -- regular votes
+ *      pairs: uid >> vote value
+ *    's' -- suggested votes
+ *      pairs: uid >> vote value
+ *    'u' -- list of users voted
+ *      hash: uid >> vote data
+ */
+function issue_get_vote_status($nid = false) {
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $query = "
+    (SELECT nid, uid, chorder cid, 'r' type FROM poll_votes)
+      UNION
+    (SELECT ps.nid, psv.uid, psv.chid cid, 's' type FROM poll_suggest_votes psv, poll_suggest ps WHERE psv.chid = ps.chid)";
+    $result = db_query($query);
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['nid']][$row['type']][$row['uid']] = $row['cid'];
+      $cache[$row['nid']]['u'][$row['uid']] = $row;
+    }
+
+    // todo maybe we could store the cache to db
+
+  }
+
+  return $nid === false ? $cache : $cache[$nid];
+}
+
+/**
+ * @param $node
+ */
+function issue_node_clean_cache(&$node) {
+  $cid = 'content:'. $node->nid .':'. $node->vid;
+  cache_clear_all($cid, content_cache_tablename());
+  $node = node_load($node->nid, null, true);
 }

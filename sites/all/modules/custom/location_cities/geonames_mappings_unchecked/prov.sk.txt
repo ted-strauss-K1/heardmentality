@@ -1,0 +1,19 @@
+*3343954 sk_BA  :::  Banskobystricky ~ Banskobystrický kraj(3343954)
+*3343955 sk_BR  :::  Bratislavsky ~ Bratislavský kraj(3343955)
+**865084 sk_KO  :::  Kosicky ~ Košický kraj(865084)
+*3343956 sk_NI  :::  Nitriansky ~ Nitriansky kraj(3343956)
+**865085 sk_PR  :::  Presovsky ~ Prešovský kraj(865085)
+*3343957 sk_TC  :::  Trenciansky ~ Trenčiansky kraj(3343957)
+*3343958 sk_TV  :::  Trnavsky ~ Trnavský kraj(3343958)
+*3343956 sk_ZI  :::  Zilinsky ~ Nitriansky kraj(3343956)
+
+NAMES:::::
+
+Banskobystrický kraj(3343954) 
+Bratislavský kraj(3343955) 
+Košický kraj(865084) 
+Nitriansky kraj(3343956) 
+Prešovský kraj(865085) 
+Trenčiansky kraj(3343957) 
+Trnavský kraj(3343958) 
+Žilinský kraj(3056506) 

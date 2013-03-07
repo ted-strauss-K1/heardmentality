@@ -1,0 +1,11 @@
+*2082282 fm_C  :::  Chuuk ~ State of Chuuk(2082282)
+*2082036 fm_K  :::  Kosrae ~ State of Kosrae(2082036)
+*2081550 fm_P  :::  Pohnpei ~ State of Pohnpei(2081550)
+*2081175 fm_Y  :::  Yap ~ State of Yap(2081175)
+
+NAMES:::::
+
+State of Chuuk(2082282) 
+State of Kosrae(2082036) 
+State of Pohnpei(2081550) 
+State of Yap(2081175) 

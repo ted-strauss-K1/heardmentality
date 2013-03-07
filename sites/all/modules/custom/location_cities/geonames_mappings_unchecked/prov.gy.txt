@@ -1,0 +1,23 @@
+*3379515 gy_BW  :::  Barima-Waini ~ Barima-Waini Region(3379515)
+*3379023 gy_CM  :::  Cuyuni-Mazaruni ~ Cuyuni-Mazaruni Region(3379023)
+*3378950 gy_DM  :::  Demerara-Mahaica ~ Demerara-Mahaica Region(3378950)
+*3378840 gy_EC  :::  East Berbice-Corentyne ~ East Berbice-Corentyne Region(3378840)
+*3378741 gy_EW  :::  Essequibo Islands-West Demerara ~ Essequibo Islands-West Demerara Region(3378741)
+*3377274 gy_MB  :::  Mahaica-Berbice ~ Mahaica-Berbice Region(3377274)
+*3376407 gy_PM  :::  Pomeroon-Supenaam ~ Pomeroon-Supenaam Region(3376407)
+*3376386 gy_PI  :::  Potaro-Siparuni ~ Potaro-Siparuni Region(3376386)
+*3375469 gy_UD  :::  Upper Demerara-Berbice ~ Upper Demerara-Berbice Region(3375469)
+*3375463 gy_UT  :::  Upper Takutu-Upper Essequibo ~ Upper Takutu-Upper Essequibo Region(3375463)
+
+NAMES:::::
+
+Barima-Waini Region(3379515) 
+Cuyuni-Mazaruni Region(3379023) 
+Demerara-Mahaica Region(3378950) 
+East Berbice-Corentyne Region(3378840) 
+Essequibo Islands-West Demerara Region(3378741) 
+Mahaica-Berbice Region(3377274) 
+Pomeroon-Supenaam Region(3376407) 
+Potaro-Siparuni Region(3376386) 
+Upper Demerara-Berbice Region(3375469) 
+Upper Takutu-Upper Essequibo Region(3375463) 

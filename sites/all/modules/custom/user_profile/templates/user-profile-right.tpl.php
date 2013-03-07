@@ -1,4 +1,4 @@
-<?php if (!$denied && $complete['percent'] < 100 && $_COOKIE['profile_status'] != 0) : ?>
+<?php if (!$denied && ($complete['percent'] < 100) && is_null($_COOKIE['profile_status'])) : ?>
 <div class="message right-message profile-status-toggle">
   <a href="#" id="button" class="hide-message2 ui-dialog-titlebar-close profile-close-icon">
     <span class="ui-icon ui-icon-closethick">close</span>

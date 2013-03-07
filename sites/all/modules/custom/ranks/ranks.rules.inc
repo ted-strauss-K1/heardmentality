@@ -14,7 +14,6 @@ function ranks_rules_condition_info()
       'module' => 'Ranks',
     ),
   );
-
 }
 
 /**

@@ -1,0 +1,18 @@
+  400741 ke_EA
+**400742 ke_CE  :::  Central ~ Central Province(400742)
+**199247 ke_CO  :::  Coast ~ Coast Province(199247)
+**184742 ke_NA  :::  Nairobi Area ~ Nairobi Province(184742)
+**400745 ke_NE  :::  North Eastern ~ North Eastern Province(400745)
+**182763 ke_NY  :::  Nyanza ~ Nyanza Province(182763)
+**400744 ke_RV  :::  Rift Valley ~ Rift Valley Province(400744)
+**400743 ke_WE  :::  Western ~ Western Province(400743)
+
+NAMES:::::
+
+Central Province(400742) 
+Coast Province(199247) 
+Nairobi Province(184742) 
+North Eastern Province(400745) 
+Nyanza Province(182763) 
+Rift Valley Province(400744) 
+Western Province(400743) 

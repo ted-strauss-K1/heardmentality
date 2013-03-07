@@ -1,0 +1,11 @@
+*1221692 tj_GB  :::  Gorno-Badakhstan ~ Gorno-Badakhshan(1221692)
+*7280679 tj_KT  :::  Khatlon ~ Dushanbe(7280679)
+*7280679 tj_SU  :::  Sughd ~ Dushanbe(7280679)
+
+NAMES:::::
+
+Dushanbe(7280679) 
+Gorno-Badakhshan(1221692) 
+Region of Republican Subordination(6452615) 
+Viloyati Khatlon(1347488) 
+Viloyati Sughd(1221092) 

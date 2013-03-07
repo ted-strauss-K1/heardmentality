@@ -7,9 +7,11 @@ dependencies[] = "comment"
 dependencies[] = "poll"
 dependencies[] = "forum"
 dependencies[] = "user_profile"
-; dependencies[] = "argument_options"
+dependencies[] = "taxonomy_ext"
 dependencies[] = "comment_support"
 dependencies[] = "comment_language"
+dependencies[] = "poll_suggest"
+dependencies[] = "poll_translate"
 
 
 

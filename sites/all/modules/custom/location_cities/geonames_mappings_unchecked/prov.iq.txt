@@ -1,0 +1,36 @@
+   93540 iq_MY
+   97019 iq_DQ
+   98862 iq_NJ
+***99592 iq_BD  :::  Baghdad ~ Anbar(99592)
+***99592 iq_SD  :::  Salah ad Din ~ Anbar(99592)
+***97270 iq_DY  :::  Diyala ~ Dihok(97270)
+***99592 iq_WS  :::  Wasit ~ Anbar(99592)
+***99592 iq_BA  :::  Al Basrah ~ Anbar(99592)
+***99592 iq_MU  :::  Al Muthanna ~ Anbar(99592)
+***99592 iq_QA  :::  Al Qadisyah ~ Anbar(99592)
+***99592 iq_BB  :::  Babil ~ Anbar(99592)
+***99592 iq_KB  :::  Al Karbala ~ Anbar(99592)
+***99592 iq_AB  :::  Al Anbar ~ Anbar(99592)
+***99592 iq_NN  :::  Ninawa ~ Anbar(99592)
+***97270 iq_DH  :::  Dahuk ~ Dihok(97270)
+***99592 iq_AL  :::  Arbil ~ Anbar(99592)
+***99592 iq_TM  :::  At Ta'mim ~ Anbar(99592)
+***99592 iq_SL  :::  As Sulaymaniyah ~ Anbar(99592)
+
+NAMES:::::
+
+Anbar(99592) 
+Dihok(97270) 
+Diyala Province(96965) 
+Mayorality of Baghdad(98180) 
+Muhafazat Salah ad Din(91695) 
+Muhafazat Wasit(89693) 
+Muḩāfaz̧at Arbīl(95445) 
+Muḩāfaz̧at Bābil(98227) 
+Muḩāfaz̧at Karbalā’(94823) 
+Muḩāfaz̧at Kirkūk(98410) 
+Muḩāfaz̧at Nīnawá(92877) 
+Muḩāfaz̧at al Başrah(89341) 
+Muḩāfaz̧at al Muthanná(99032) 
+Muḩāfaz̧at al Qādisīyah(99022) 
+Muḩāfaz̧at as Sulaymānīyah(98465) 

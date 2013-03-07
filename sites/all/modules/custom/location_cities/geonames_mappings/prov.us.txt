@@ -1,0 +1,59 @@
+ 4829764 us_AL
+ 5879092 us_AK
+ 5551752 us_AZ
+ 4099753 us_AR
+ 5332921 us_CA
+ 5417618 us_CO
+ 4831725 us_CT
+ 4142224 us_DE
+ 4155751 us_FL
+ 4197000 us_GA
+ 5855797 us_HI
+ 5596512 us_ID
+ 4896861 us_IL
+ 4921868 us_IN
+ 4862182 us_IA
+ 4273857 us_KS
+ 6254925 us_KY
+ 4331987 us_LA
+ 4971068 us_ME
+ 4361885 us_MD
+ 6254926 us_MA
+ 5001836 us_MI
+ 5037779 us_MN
+ 4436296 us_MS
+ 4398678 us_MO
+ 5667009 us_MT
+ 5073708 us_NE
+ 5509151 us_NV
+ 5090174 us_NH
+ 5101760 us_NJ
+ 5481136 us_NM
+ 5128638 us_NY
+ 4482348 us_NC
+ 5690763 us_ND
+ 5165418 us_OH
+ 4544379 us_OK
+ 5744337 us_OR
+ 6254927 us_PA
+ 5224323 us_RI
+ 4597040 us_SC
+ 5769223 us_SD
+ 4662168 us_TN
+ 4736286 us_TX
+ 5549030 us_UT
+ 5242283 us_VT
+ 6254928 us_VA
+ 5815135 us_WA
+ 4826850 us_WV
+ 5279468 us_WI
+ 5843591 us_WY
+*4138106 us_DC
+******** us_AS  :::  American Samoa ~ Washington, D.C.(4138106)
+******** us_FM  :::  Federated States of Micronesia ~ Washington, D.C.(4138106)
+******** us_GU  :::  Guam ~ Washington, D.C.(4138106)
+******** us_MH  :::  Marshall Islands ~ Washington, D.C.(4138106)
+******** us_MP  :::  Northern Mariana Islands ~ Washington, D.C.(4138106)
+******** us_PW  :::  Palau ~ Washington, D.C.(4138106)
+******** us_PR  :::  Puerto Rico ~ Washington, D.C.(4138106)
+******** us_VI  :::  Virgin Islands ~ Washington, D.C.(4138106)

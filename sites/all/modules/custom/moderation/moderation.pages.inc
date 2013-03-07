@@ -68,10 +68,12 @@ function moderation_markup_issue($node)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . rtrim($node->title) . '?</h2>
+    <h2 class="din half">' . l(rtrim($node->title), 'moderation/issue/' . $node->nid) . '? '.
+//    '<div class="open"></div>' .
+    '</h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $node->path, t('View')) .
-    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/issue/' . $node->nid, t('Edit')) .
+//    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/issue/' . $node->nid, t('Edit')) .
     sprintf('<a href="/%s" target="_blank"><span class="mod-list mod-icon" title="%s"></span></a>', 'moderation/arguments/1/' . $node->nid, t('Arguments')) .
     '</div>
   </div>';
@@ -87,10 +89,12 @@ function moderation_markup_argument($node)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . rtrim($node->title) . '</h2>
+    <h2 class="din half">' . l(rtrim($node->title), 'moderation/argument/' . $node->nid) .
+//    ' <div class="open"></div>'.
+    ' </h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'node/' . $node->parent_issue, t('View')) .
-    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/argument/' . $node->nid, t('Edit')) .
+//    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/argument/' . $node->nid, t('Edit')) .
     sprintf('<a href="/%s" target="_blank"><span class="mod-chat mod-icon" title="%s"></span></a>', 'moderation/comments/1/' . $node->nid, t('Replies')) .
     '</div>
   </div>';
@@ -106,10 +110,12 @@ function moderation_markup_comment($comment)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . rtrim($comment->comment) . '</h2>
+    <h2 class="din half">' . l(rtrim($comment->comment), 'moderation/comment/' . $comment->cid) .
+//    ' <div class="open"></div> '.
+    '</h2>
     <div class="mod-buttons">' .
     sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', 'moderation/argument/' . $comment->nid, t('Edit parent argument')) .
-    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/comment/' . $comment->cid, t('Edit')) .
+//    sprintf('<a href="/%s" target="_blank"><span class="mod-edit mod-icon" title="%s"></span></a>', 'moderation/comment/' . $comment->cid, t('Edit')) .
     '</div>
   </div>';
 }
@@ -130,7 +136,7 @@ function moderation_markup_user($user)
 
   return user_access(MODERATION_ADMIN, $user) ? '' :
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . ucwords($user->name) . '</h2>
+    <h2 class="din half">' . ucwords($user->name) . ' <div class="open"></div> </h2>
     <div class="mod-buttons">' .
       sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $user->viewlink, t('View Profile')) .
       sprintf('<a href="#" class="permission %s" name="%s"><span class="mod-edit mod-icon" title="%s"></span></a>',
@@ -370,6 +376,7 @@ function _moderation_filter_nodes($filters, &$page, &$pages)
 
   // language
   if ($filters['language'] != '') {
+    // todo
     $query .= " AND n.language = '%s'";
     $params[] = $filters['language'];
   }
@@ -759,7 +766,7 @@ function moderation_argument_view_form($form, $nid)
 
   $form['save'] = array(
     '#type' => 'submit',
-    '#value' => t('Save'),
+    '#value' => t('Approve'),
     '#submit' => array('moderation_argument_view_form_save'),
   );
   if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
@@ -812,19 +819,33 @@ function moderation_issue_view_form($form_state, $nid)
 
   $node = node_load($nid);
 
+  $translation = poll_translate_translation($node);
+
   $form['title'] = array(
     '#type' => 'textfield',
     '#title' => t('Title'),
-    '#value' => $node->title,
-    '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
-    '#suffix' => '</div>',
+    '#value' => !empty($translation['title'][0]) ? $translation['title'][0] : $node->title,
+    '#prefix' =>
+      sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
+        sprintf('
+        <div style="float:right;margin-right: 30px;"><a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a></div>',
+          $node->path, t('View')),
+    '#suffix' =>
+
+      '</div>',
   );
   $form['body'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
-    '#value' => $node->body,
+    '#value' => !empty($translation['body'][0]) ? $translation['body'][0] :  $node->field_description[0]['value'],
     '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
     '#suffix' => '</div>',
+  );
+
+  $form['allowsuggestions'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow suggesting answers'),
+    '#default_value' => $node->allowsuggestions,
   );
 
   $form['choices'] = array(
@@ -836,6 +857,12 @@ function moderation_issue_view_form($form_state, $nid)
     '#collapsed' => FALSE,
   );
   foreach ($node->choice as $delta => $choice) {
+    if (!empty($translation['choice'][$choice['chorder']])) {
+      $choice['chtext'] = $translation['choice'][$choice['chorder']];
+    }
+    if (!empty($translation['choice_short'][$choice['chorder']])) {
+      $choice['chtext_short'] = $translation['choice_short'][$choice['chorder']];
+    }
     $form_element = _moderation_ahah_choice($delta, $choice, $nid);
     $form['choices'][$delta] = $form_element;
   }
@@ -866,7 +893,8 @@ function moderation_issue_view_form($form_state, $nid)
         if (!empty($location['province'])) {
           $tfl_codes[1][] = $location['country'] . '_' . $location['province'];
           if (!empty($location['city'])) {
-            $tfl_codes[2][] = $location['country'] . '_' . $location['province'] . '_' . $location['city'];
+//            $tfl_codes[2][] = $location['country'] . '_' . $location['province'] . '_' . $location['city'];
+            $tfl_codes[2][] = $location['city'];
           }
         }
       }
@@ -923,7 +951,7 @@ function moderation_issue_view_form_taxonomy(&$form, $tft_codes = false)
   $tft = tft_list('poll', $tft_codes);
 
   // taxonomy depth::
-  $tree = taxonomy_get_tree(3);
+  $tree = taxonomy_node_type_terms();
   $depth = 0;
   foreach ($tree as $leaf) {
     if ($depth < $leaf->depth) {
@@ -1130,11 +1158,11 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
     '#default_value' => $choice['chtext'],
     '#parents' => array('choices', $delta, 'chtext'),
   );
-  $form['chtext-short'] = array(
+  $form['chtext_short'] = array(
     '#type' => 'textfield',
     '#title' => t('Choice short text @n', array('@n' => ($delta + 1))),
     '#default_value' => $choice['chtext_short'],
-    '#parents' => array('choices', $delta, 'chtext-short'),
+    '#parents' => array('choices', $delta, 'chtext_short'),
   );
   $form['chorder'] = array(
     '#type' => 'hidden',
@@ -1146,10 +1174,11 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
     $form['charact'] = array(
       '#type' => 'fieldset',
       '#title' => t('Metadata'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#collapsible' => FALSE,
+      '#collapsed' => FALSE,
     );
     $charact = poll_charact_values_get($nid, $choice['chorder']);
+    if ($charact)
     foreach ($charact as $cid => $char) {
       $form['charact']['char' . $cid] = array(
         '#type' => 'select',
@@ -1179,36 +1208,61 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 //  var_dump($values); die();
 
   $changed = array();
-  if ($node->title != $values['title']) {
+
+  $translation = poll_translate_translation($node);
+
+  $title = !empty($translation['title'][0]) ? $translation['title'][0] : $node->title;
+  if ($title != $values['title']) {
     $changed['title'] = $values['title'];
   }
-  if ($node->body != $values['body']) {
+
+  $body = !empty($translation['body'][0]) ? $translation['body'][0] :  $node->field_description[0]['value'];
+  if ($body != $values['body']) {
     $changed['body'] = $values['body'];
   }
 
   foreach ($values['choices'] as $i => $choice) {
     $chorder = $choice['chorder'];
-    $chtext = $choice['chtext'];
-    $chtext_short = $choice['chtext-short'];
-    if ($node->choice[$chorder]['chtext'] != $chtext) {
-      $changed['choices'][$chorder]['chtext'] = $chtext;
+    # chtext
+    $chtext = !empty($translation['choice'][$choice['chorder']]) ? $translation['choice'][$choice['chorder']] : $node->choice[$chorder]['chtext'];
+    $chtext_short = !empty($translation['choice_short'][$choice['chorder']]) ? $translation['choice_short'][$choice['chorder']] : $node->choice[$chorder]['chtext_short'];
+    if ($choice['chtext'] != $chtext) {
+      $changed['choices'][$chorder]['chtext'] = $choice['chtext'];
     }
-    if ($node->choice[$chorder]['chtext_short'] != $chtext_short) {
-      $changed['choices'][$chorder]['chtext_short'] = $chtext_short;
+    if ($choice['chtext_short'] != $chtext_short) {
+      $changed['choices'][$chorder]['chtext_short'] = $choice['chtext_short'];
     }
     if (!empty($changed['choices'][$chorder])) {
       $changed['choices'][$chorder] += array(
         'chorder' => $chorder,
-        'chtext_old' => $node->choice[$chorder]['chtext'],
+        'chtext_old' => $chtext,
+        'chtext_short_old' => $chtext_short,
       );
     }
   }
 
+  if ($node->allowsuggestions != $values['allowsuggestions']) {
+    $node->allowsuggestions = $values['allowsuggestions'];
+  }
+
+  # characteristics
+  if (module_exists('poll_charact'))
+    $char = poll_charact_get();
+    $char_values = poll_charact_values($node->nid);
+    foreach ($values['choices'] as $i => $choice) {
+      foreach ($char as $cid => $name) {
+//      foreach ($char_values[$choice['chorder']] as $cid => $data) {
+        if ($char_values[$choice['chorder']][$cid]['value'] != $choice['charact']['char'.$cid]) {
+          poll_charact_value_set($node->nid, $choice['chorder'], $cid, $choice['charact']['char'.$cid]);
+        }
+      }
+    }
+
   # taxonomy
   $node->taxonomy = array();
   for ($i = 0; $i >= 0; $i++) {
-    if (!empty($values['taxonomy-' . $i])) {
-      foreach ($values['taxonomy-' . $i] as $tid) {
+    if (!empty($values['taxonomy']['taxonomy-' . $i])) {
+      foreach ($values['taxonomy']['taxonomy-' . $i] as $tid) {
         $node->taxonomy[] = taxonomy_get_term($tid);
       }
     } else break;
@@ -1217,6 +1271,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   # locations
   $node->locations = array();
   // through selected countries
+  if ($values['location']['location-0'])
   foreach ($values['location']['location-0'] as $country) {
     $location = location_empty_location(array());
     $location['country'] = $country;
@@ -1232,7 +1287,8 @@ function moderation_issue_view_form_save(&$form, &$form_state)
         $cities = false;
         // through province's cities
         foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
-          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
+          if (in_array($ccode, $values['location']['location-2'])) {
+//          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
             $cities = true;
             $location3 = $location2;
             $location3['city'] = $ccode;
@@ -1254,21 +1310,71 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 
   // track changes
   if (!empty($changed)) {
-    if (isset($changed['title'])) $node->title = $changed['title'];
-    if (isset($changed['body'])) $node->body = $changed['body'];
+    global $language;
 
-    foreach ($changed['choices'] as $chorder => $case) {
-      $choice = & $node->choice[$chorder];
-      if ($case['chtext_short'] != '') {
-        poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
+    // todo charact values to node
+    //////////////////////////////
+    if ($changed['charact']) {
+//      foreach ()
+    }
+
+
+    if ($node->language != $language->language) {
+      if (!$node->t) {
+        $node->t = array();
       }
-      if (isset($case['chtext'])) {
-        if ($case['chtext'] != '') {
-          $choice['chtext'] = $case['chtext'];
-        } else {
-          moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+      if (!$node->t[$language->language]) {
+        $node->t[$language->language] = array();
+      }
+      $t = &$node->t[$language->language];
+      if (isset($changed['title'])) $t['title'][0] = $changed['title'];
+      if (isset($changed['body'])) $t['body'][0] = $changed['body'];
+
+      if ($changed['choices'])
+        foreach ($changed['choices'] as $chorder => $case) {
+          if ($case['chtext_short'] != '') {
+            $t['choice_short'][$chorder] = $case['chtext_short'];
+          } else {
+            unset($t['choice_short'][$chorder]);
+          }
+          if (isset($case['chtext'])) {
+            if ($case['chtext'] != '') {
+              $t['choice'][$chorder] = $case['chtext'];
+              // add poll choice to original node
+              if (!isset($node->choice[$chorder])) {
+                $node->choice[$chorder]['chtext'] = $case['chtext'];
+                if (module_exists('mstapi')) {
+                  $translations = mstapi_exec($language->language, $node->language, array(strip_tags($case['chtext'])));
+                  $translated = $translations[strip_tags($case['chtext'])];
+                  if ($translated != '') {
+                    $node->choice[$chorder]['chtext'] = $translated;
+                  }
+                }
+              }
+            } else {
+              unset($t['choice'][$chorder]);
+              moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+            }
+          }
         }
-      }
+    } else {
+      if (isset($changed['title'])) $node->title = $changed['title'];
+      if (isset($changed['body'])) $node->field_description[0]['value'] = $changed['body'];
+
+      if ($changed['choices'])
+        foreach ($changed['choices'] as $chorder => $case) {
+          $choice = &$node->choice[$chorder];
+          if ($case['chtext_short'] != '') {
+            poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
+          }
+          if (isset($case['chtext'])) {
+            if ($case['chtext'] != '') {
+              $choice['chtext'] = $case['chtext'];
+            } else {
+              moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+            }
+          }
+        }
     }
     moderation_history('set', $nid, 'node', 'edit', $changed);
   }
@@ -1278,6 +1384,11 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   moderation_history('set', $nid, 'node', 'approve');
 
   node_save($node);
+
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_queue_node($node->nid);
+  }
 }
 
 //////// DELETION REQUESTS

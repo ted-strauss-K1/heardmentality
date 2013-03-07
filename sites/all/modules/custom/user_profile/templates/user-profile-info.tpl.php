@@ -78,7 +78,7 @@
     <?php foreach ($badges['#list'] as $name => $info) : ?>
     <li>
       <span class="badge <?php print $info['type'];?>"></span>
-      <?php print $name;?> x <?php print $info['#count'];?>
+      <?php print $info['name'] ;?> x <?php print $info['#count'];?>
     </li>
     <?php endforeach; ?>
   </ul>

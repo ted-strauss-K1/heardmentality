@@ -4,8 +4,11 @@
   $node = node_load($item['content_id']);
 
   $text = 'voted on an issue';
+
+  $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+
   $link = l(
-    $node->title . '?',
+    (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
     $node->path,
     array()
   );

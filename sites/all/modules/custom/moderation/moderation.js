@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $('.mod-wrapper h2').live('click', function () {
+  $('.mod-wrapper h2 .open').live('click', function () {
     var e1 = $(this);
     var e2 = $(this).parents('.mod-wrapper').find('.mod-buttons');
     if (e1.hasClass('mod-open')) {

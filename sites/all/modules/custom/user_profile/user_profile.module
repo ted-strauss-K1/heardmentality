@@ -77,11 +77,13 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
 
   # for redirects
   if ($form_id == 'user_register') {
-    $form['#redirect'] = array("user/profile/edit");
+    // if we want to redirect to edit page
+//    $form['#redirect'] = array("user/profile/edit");
+    $form['#redirect'] = $_GET['q'];
     unset($_REQUEST['destination']);
   }
   if ($form_id == 'user_login') {
-    // todo if we want to redirect to view page
+    // if we want to redirect to view page
 //    $form['#redirect'] = "user/profile/view";
     $form['#redirect'] = $_GET['q'];
     unset($_REQUEST['destination']);
@@ -203,10 +205,15 @@ function user_profile_info_preprocess(&$vars)
     $vars['badges'] = $vars['account']->badges;
   }
 
-  $vars['comments'] = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
-  // TODO
-//  $vars['votes'] = issue_get_uservotes($uid) + poll_suggest_get_uservotes($uid);
-//  $vars['references'] = (int)db_result(db_query("SELECT COUNT(*) FROM {content_type_forum} AS ctf LEFT JOIN {node} AS n ON ctf.nid = n.nid WHERE n.uid = '%d' AND ctf.field_type_value = '%d' AND n.status = '%d'", $uid, TYPE_RESOURCE, 1));
+  if (module_exists('comment')) {
+    $vars['comments'] = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
+  }
+  if (module_exists('issue')) {
+    $vars['votes'] = issue_get_uservotes($uid);
+  }
+  if (module_exists('forum')) {
+    $vars['references'] = (int)db_result(db_query("SELECT COUNT(*) FROM {content_type_forum} AS ctf LEFT JOIN {node} AS n ON ctf.nid = n.nid WHERE n.uid = '%d' AND ctf.field_argument_type_value = '%d' AND n.status = '%d'", $uid, TYPE_RESOURCE, 1));
+  }
 
   if (module_exists('follower')) {
     $vars['followers_count'] = follower_get_followers($uid, true);
@@ -362,7 +369,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
             }
           }
           if ($ulogin_data['network']) {
-            switch ($ulogin_data['identity']) {
+            switch ($ulogin_data['network']) {
               case 'facebook':
               case 'twitter':
                 $profile_fields['profile_' . $ulogin_data['network']] = preg_replace('@.*\/@', '', $ulogin_data['identity']);
@@ -379,7 +386,28 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
 
         }
       }
-      break;
+    break;
+    case 'logout':
+
+      if (module_exists('gigya')) {
+        $_REQUEST['destination'] = str_replace('socialize-logout?destination=', '', urldecode($_REQUEST['destination']));
+      }
+
+      if (
+        (arg(0, $_REQUEST['destination']) == 'user') &&
+        (arg(1, $_REQUEST['destination']) == 'profile')
+      ) {
+        $_REQUEST['destination'] = 'user/profile/view';
+        $uid = arg(3, $_REQUEST['destination']);
+        if (is_numeric($uid)) {
+          $_REQUEST['destination'] .= '/' . $uid;
+        } else {
+          $_REQUEST['destination'] .= '/' . $account->uid;
+        }
+        drupal_goto();
+      }
+
+    break;
   }
 }
 

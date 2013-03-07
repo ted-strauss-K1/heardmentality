@@ -1,0 +1,21 @@
+*1249296 lk_CE  :::  Central ~ Central Province(1249296)
+*8133521 lk_EA  :::  Eastern ~ Eastern Province(8133521)
+*1232870 lk_NC  :::  North Central ~ North Central Province(1232870)
+*7671049 lk_NO  :::  Northern ~ Northern Province(7671049)
+*1232860 lk_NW  :::  North Western ~ North Western Province(1232860)
+*1228435 lk_SA  :::  Sabaragamuwa ~ Province of Sabaragamuwa(1228435)
+*1227618 lk_SO  :::  Southern ~ Southern Province(1227618)
+*1225265 lk_UV  :::  Uva ~ Province of Uva(1225265)
+*1223421 lk_WE  :::  Western ~ Western Province(1223421)
+
+NAMES:::::
+
+Central Province(1249296) 
+Eastern Province(8133521) 
+North Central Province(1232870) 
+North Western Province(1232860) 
+Northern Province(7671049) 
+Province of Sabaragamuwa(1228435) 
+Province of Uva(1225265) 
+Southern Province(1227618) 
+Western Province(1223421) 

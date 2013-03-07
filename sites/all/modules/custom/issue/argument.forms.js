@@ -157,6 +157,20 @@ function yn_success(el, data) {
 }
 
 /**
+ * Resource text -- remove http://
+ */
+$('#url').focusin(function(){
+  if ($(this).val() == $(this).prop('defaultValue')) {
+    $(this).val('');
+  }
+});
+$('#url').focusout(function(){
+  if ($(this).val() == '') {
+    $(this).val($(this).prop('defaultValue'));
+  }
+});
+
+/**
  * Reply Form Submit
  */
 $('.arg-reply-form').live('submit', function (e) {
@@ -281,6 +295,15 @@ $('.argument-delete').live('click', function (e) {
  */
 Drupal.behaviors.translate = function (context) {
   translate();
+
+  if (typeof tipsy_attach == 'function') {
+    tipsy_attach();
+  }
+
+  if (typeof toggle_resources == 'function') {
+    toggle_resources();
+  }
+
 }
 
 /**

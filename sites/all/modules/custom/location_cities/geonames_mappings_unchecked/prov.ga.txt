@@ -1,0 +1,20 @@
+ 2400682 ga_ES
+*2400454 ga_HO  :::  Haut-Ogooue ~ Province du Haut-Ogooué(2400454)
+*2397842 ga_MO  :::  Moyen-Ogooue ~ Province du Moyen-Ogooué(2397842)
+*2397466 ga_NG  :::  Ngounie ~ Province de la Ngounié(2397466)
+*2397141 ga_NY  :::  Nyanga ~ Province de la Nyanga(2397141)
+*2397141 ga_OI  :::  Ogooue-Ivindo ~ Province de la Nyanga(2397141)
+*2397141 ga_OL  :::  Ogooue-Lolo ~ Province de la Nyanga(2397141)
+*2397141 ga_OM  :::  Ogooue-Maritime ~ Province de la Nyanga(2397141)
+*2396076 ga_WN  :::  Woleu-Ntem ~ Province du Woleu-Ntem(2396076)
+
+NAMES:::::
+
+Province de la Ngounié(2397466) 
+Province de la Nyanga(2397141) 
+Province de l’ Ogooué-Ivindo(2396926) 
+Province de l’ Ogooué-Lolo(2396925) 
+Province de l’ Ogooué-Maritime(2396924) 
+Province du Haut-Ogooué(2400454) 
+Province du Moyen-Ogooué(2397842) 
+Province du Woleu-Ntem(2396076) 

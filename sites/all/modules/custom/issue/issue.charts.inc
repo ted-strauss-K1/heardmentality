@@ -83,7 +83,6 @@ function charts_theme()
 
   $theme['issue_charts_strength'] = array(
     'arguments' => array('node' => NULL),
-    'preprocess functions' => array('issue_charts_common_preprocess'),
   );
 
   return $theme;
@@ -105,6 +104,7 @@ function issue_charts_preprocess(&$vars)
       $count += $choice['chvotes'];
     }
   }
+  $node->votecount = $count;
 
   # voted or not
   $voted = $node->vote != -1;
@@ -114,8 +114,8 @@ function issue_charts_preprocess(&$vars)
 
   if (!$voted) {
     $vars['charts'] = '<span class="no_show">' . t('Vote now to show results.') . '</span>';
-  } elseif ($count < 10) {
-    $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
+//  } elseif ($count < 10) {
+//    $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
   } else {
     $vars['charts'] = theme('issue_charts_inner', $node);
   }
@@ -142,7 +142,7 @@ function issue_charts_chtexts($node)
    *
    * @param $vars
    */
-function issue_charts_common_preprocess(&$vars)
+function issue_charts_common_preprocess($vars)
 {
   // run once
   static $js;
@@ -158,7 +158,6 @@ function issue_charts_common_preprocess(&$vars)
   drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
   drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
   drupal_add_js(array('charts' => array('colors' => charts_colors(true))), 'setting');
-
 }
 
 /**
@@ -176,7 +175,7 @@ function issue_charts_inner_preprocess(&$vars)
   # Highchart Filter
   $vars['filter'] = theme('issue_charts_filter', $node);
   # Quick facts
-  $vars['quickfacts'] = theme('issue_charts_quickfacts', $node);
+  $vars['quickfacts'] = $node->votecount <= 10 ? t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') : theme('issue_charts_quickfacts', $node);
   # Legend
   $vars['legend'] = theme('issue_charts_legend', $chtexts);
   # Highchart History
@@ -670,7 +669,10 @@ function theme_issue_charts_gmap($node)
  */
 function theme_issue_charts_strength($node)
 {
-# Prepare the data for the debate analysis
+  // preprocess
+  issue_charts_common_preprocess(array('node' => $node));
+
+  # Prepare the data for the debate analysis
   $data = array();
   $choices = ($node->choice) ? $node->choice : array();
   foreach ($node->choice as $choice) {

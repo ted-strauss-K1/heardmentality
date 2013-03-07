@@ -1,0 +1,21 @@
+*3923172 bo_BEN  :::  Departmento Beni ~ Departamento del Beni(3923172)
+*3920177 bo_CHU  :::  Departmento Chuquisaca ~ Departamento de Chuquisaca(3920177)
+*3919966 bo_COC  :::  Departmento Cochabamba ~ Departamento de Cochabamba(3919966)
+*3911924 bo_LPZ  :::  Departmento La Paz ~ Departamento de La Paz(3911924)
+*3908600 bo_ORU  :::  Departmento Oruro ~ Departamento de Pando(3908600)
+*3908600 bo_PAN  :::  Departmento Pando ~ Departamento de Pando(3908600)
+*3907580 bo_POT  :::  Departmento Potosi ~ Departamento de Potosí(3907580)
+*3904907 bo_SCZ  :::  Departmento Santa Cruz ~ Departamento de Santa Cruz(3904907)
+*3903319 bo_TAR  :::  Departmento Tarija ~ Departamento de Tarija(3903319)
+
+NAMES:::::
+
+Departamento de Chuquisaca(3920177) 
+Departamento de Cochabamba(3919966) 
+Departamento de La Paz(3911924) 
+Departamento de Pando(3908600) 
+Departamento de Potosí(3907580) 
+Departamento de Santa Cruz(3904907) 
+Departamento de Tarija(3903319) 
+Departamento del Beni(3923172) 
+Oruro(3909233) 

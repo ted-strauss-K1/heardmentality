@@ -4,7 +4,7 @@ $('.issue-vote-form').live('submit', function (e) {
   $.ajax({
     type:'POST',
     dataType:'json',
-    url:'/issue/ajax',
+    url:/*'/'+Drupal.settings.language+*/'/issue/ajax',
     data:form.serialize(),
     success:function (response) {
       if (!response.status) {
@@ -47,6 +47,14 @@ function choices(s1, s2) {
   });
 }
 
+function toggle_resources() {
+  if ($('#inc_check').attr('checked')) {
+    $('.resources').show();
+  } else {
+    $('.resources').hide();
+  }
+}
+
 $(document).ready(function () {
   /*
    * Regular and Suggested choices
@@ -59,8 +67,8 @@ $(document).ready(function () {
   /*
    * Toggle resources
    */
-  $('#inc_ref').change(function () {
-    $('.resources').toggle();
+  $('#inc_check').change(function () {
+    toggle_resources();
   });
 
 });
@@ -81,6 +89,12 @@ $('a.permalink').live('click', function (e) {
   });
 });
 
+$('#shareDiv-reaction0, #shareDiv-reaction1, #shareDiv-reaction2, #shareDiv-reaction3').live('click', function() {
+  $.ajax({
+    type      : 'POST',
+    dataType  : 'json',
+    url       : '/issue/share/' + Drupal.settings.node.nid
+  });
 
 
-
+});

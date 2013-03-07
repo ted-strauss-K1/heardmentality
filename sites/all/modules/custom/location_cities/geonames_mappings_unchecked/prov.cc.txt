@@ -1,0 +1,9 @@
+ 7304591 cc_W
+*1547382 cc_D  :::  Direction Island ~ Bantam Village(1547382)
+*1547382 cc_H  :::  Home Island ~ Bantam Village(1547382)
+*1547382 cc_O  :::  Horsburgh Island ~ Bantam Village(1547382)
+*1547382 cc_S  :::  South Island ~ Bantam Village(1547382)
+
+NAMES:::::
+
+Bantam Village(1547382) 

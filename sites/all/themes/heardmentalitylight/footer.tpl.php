@@ -8,7 +8,7 @@
 
     <div class="four columns">
       <div class="black-box">
-        <p class="blurb ryde"><?php print t('Be Heard. Don\'t Be Part of the Herd!'); ?></p>
+        <p class="blurb ryde"><?php print t("Be Heard! Don't Be Part of the Herd."); ?></p>
         <hr class="dark">
 
         <div class="floatleft"><a class="twitter" href="http://twitter.com/HeardMentality" target="_blank"></a></div>

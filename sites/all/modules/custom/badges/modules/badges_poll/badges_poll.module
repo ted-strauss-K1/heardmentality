@@ -11,7 +11,6 @@ function badges_poll_badges()
 
   $badges['poll_votes_bronze'] = array(
     'function' => 'badges_poll_votes_check',
-    'function multiple' => 'badges_poll_votes_check_multiple',
     'name' => t('Civic Duty'),
     'info' => t('Voted 300 times'),
     'type' => 'bronze',
@@ -19,17 +18,46 @@ function badges_poll_badges()
   );
   $badges['poll_votes_silver'] = array(
     'function' => 'badges_poll_votes_check',
-    'function multiple' => 'badges_poll_votes_check_multiple',
+    'name' => t('Electorate'),
+    'info' => t('Voted 600 times'),
+    'type' => 'silver',
+    'arguments' => array('vote_count' => 600),
+  );
+  $badges['poll_votes_gold'] = array(
+    'function' => 'badges_poll_votes_check',
     'name' => t('Patriotic Citizen'),
     'info' => t('Voted 1000 times'),
-    'type' => 'silver',
+    'type' => 'gold',
     'arguments' => array('vote_count' => 1000),
   );
 
-  if (module_exists("taxonomy")) {
+
+  $badges['poll_votes_count_bronze'] = array(
+    'function' => 'badges_poll_votes_count_check',
+    'name' => t('Nice Question'),
+    'info' => t('Created an issue voted on 10 times'),
+    'type' => 'bronze',
+    'arguments' => array('vote_count' => 10),
+  );
+  $badges['poll_votes_count_silver'] = array(
+    'function' => 'badges_poll_votes_count_check',
+    'name' => t('Good Question'),
+    'info' => t('Created an issue voted on 25 times'),
+    'type' => 'silver',
+    'arguments' => array('vote_count' => 25),
+  );
+  $badges['poll_votes_count_gold'] = array(
+    'function' => 'badges_poll_votes_count_check',
+    'name' => t('Great Question'),
+    'info' => t('Created an issue voted on 100 times'),
+    'type' => 'gold',
+    'arguments' => array('vote_count' => 100),
+  );
+
+
+  if (module_exists("taxonomy_ext")) {
     $badges['poll_votes_taxonomy_bronze'] = array(
       'function' => 'badges_poll_votes_taxonomy_check',
-      'function multiple' => 'badges_poll_votes_taxonomy_check_multiple',
       'name' => t('Generalist'),
       'info' => t('User has voted on at least 5 questions in 10 bottom level categories (i.e categories without children subcategories)'),
       'type' => 'bronze',
@@ -37,7 +65,6 @@ function badges_poll_badges()
     );
     $badges['poll_votes_taxonomy_silver'] = array(
       'function' => 'badges_poll_votes_taxonomy_check',
-      'function multiple' => 'badges_poll_votes_taxonomy_check_multiple',
       'name' => t('Well Read'),
       'info' => t('User has voted on at least 10 questions in 20 bottom level categories (i.e categories without children subcategories)'),
       'type' => 'silver',
@@ -45,7 +72,6 @@ function badges_poll_badges()
     );
     $badges['poll_votes_taxonomy_gold'] = array(
       'function' => 'badges_poll_votes_taxonomy_check',
-      'function multiple' => 'badges_poll_votes_taxonomy_check_multiple',
       'name' => t('Scholar'),
       'info' => t('User has voted on at least 20 questions in 30 bottom level categories (i.e categories without children subcategories)'),
       'type' => 'gold',
@@ -77,61 +103,32 @@ function badges_poll_votes_check($uid, $arguments = array())
 }
 
 /**
- * @param array $uids
- * @return array
+ * @param $uid
+ * @return bool
  */
-function badges_poll_votes_check_multiple($uids = array(), $arguments = array())
+function badges_poll_votes_count_check($uid, $arguments = array())
 {
-  $output = array();
+  static $cache;
 
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_poll_votes_check($uid, $arguments);
-  }
+  if (is_null($cache)) {
+    $cache = array();
 
-  return $output;
-}
-
-/**
- * Get Bottom-level Categories
- */
-function taxonomy_bottom_level_terms($vid)
-{
-  static $_list = array();
-
-  if (isset($list[$vid])) {
-    return $list[$vid];
-  }
-  $list = array();
-  $terms = taxonomy_get_tree($vid);
-  foreach ($terms as $term) {
-    $list[$term->tid] = $term;
-    foreach ($term->parents as $parent) {
-      if ($parent != 0) {
-        unset($list[$parent]);
+    $result = db_query("
+      SELECT n.uid, COUNT(*) count
+      FROM node n
+      INNER JOIN poll_votes pv ON pv.nid = n.nid
+      WHERE n.type = '%s'
+      GROUP BY n.nid
+      ORDER BY COUNT(*) DESC
+    ", 'poll');
+    while ($row = db_fetch_array($result)) {
+      if (!isset($cache[$row['uid']])) {
+        $cache[$row['uid']] = $row['count'];
       }
     }
   }
-  $_list[$vid] = array_keys($list);
 
-  return $_list[$vid];
-}
-
-/**
- * @param string $type
- */
-function taxonomy_node_type_vocabularies($type = 'poll')
-{
-  static $vids = array();
-
-  if (is_null($vids[$type])) {
-    $vids[$type] = array();
-    $result = db_query("SELECT vid FROM {vocabulary_node_types} WHERE type = '%s'", $type);
-    while ($vid = db_result($result)) {
-      $vids[$type][] = $vid;
-    }
-  }
-
-  return $vids[$type];
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['vote_count'] : false;
 }
 
 /**
@@ -152,7 +149,7 @@ function badges_poll_votes_taxonomy_check($uid, $arguments = array())
       $tblt = array_merge($tblt, taxonomy_bottom_level_terms($vid));
     }
 
-    $result = db_query("SELECT pv.uid, COUNT(DISTINCT(tn.nid)) AS nids, COUNT(DISTINCT(tn.tid)) AS tids FROM {poll_votes} pv INNER JOIN {term_node} tn ON tn.nid = pv.nid GROUP BY pv.uid ORDER BY pv.uid WHERE tn.tid IN (" . db_placeholders($tblt) . ")", $tblt);
+    $result = db_query("SELECT pv.uid, COUNT(DISTINCT(tn.nid)) AS nids, COUNT(DISTINCT(tn.tid)) AS tids FROM {poll_votes} pv INNER JOIN {term_node} tn ON tn.nid = pv.nid WHERE tn.tid IN (" . db_placeholders($tblt) . ") GROUP BY pv.uid ORDER BY pv.uid", $tblt);
     while ($row = db_fetch_array($result)) {
       $cache[$row['uid']] = array('nids' => $row['nids'], 'tids' => $row['tids']);
     }
@@ -161,19 +158,4 @@ function badges_poll_votes_taxonomy_check($uid, $arguments = array())
   return isset($cache[$uid]) ?
     ($cache[$uid]['nids'] >= $arguments['nids']) &&
       ($cache[$uid]['tids'] >= $arguments['tids']) : false;
-}
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_poll_votes_taxonomy_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_poll_votes_taxonomy_check($uid, $arguments);
-  }
-
-  return $output;
 }

@@ -1,4 +1,4 @@
-<?php include "old.issue.pages.inc";
+<?php
 
 /**
  * "issue/create" menu callback
@@ -189,5 +189,53 @@ function _issue_ajax_suggest($vars)
       'content' => $content,
     ));
     exit;
+  }
+}
+
+/**
+ * Poll vote change
+ */
+function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old = -1)
+{
+  if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return false;
+  global $user;
+  if ($vote_r_old != -1) {
+    db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND uid = '%d'", $nid, $user->uid);
+  }
+  if ($vote_s_old != -1) {
+    poll_suggest_vote_remove($vote_s_old, $user->uid);
+  }
+  # add new values
+  if ($vote_r != -1) {
+    db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $vote_r, $user->uid);
+
+    if (module_exists('rules')) {
+      $node = node_load($nid);
+      rules_invoke_event('poll_vote', $user, $node);
+      rules_invoke_event('poll_voted', user_load($node->uid), $node);
+    }
+  }
+  if ($vote_s != -1) {
+    poll_suggest_vote_add($vote_s, $user->uid);
+  }
+
+  // update stats
+  db_query("UPDATE {poll_choices} SET chvotes = (SELECT COUNT(*) FROM {poll_votes} pv WHERE pv.nid = {poll_choices}.nid AND pv.chorder = {poll_choices}.chorder) AND nid = '%d'", $nid);
+
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_queue_node($nid);
+  }
+
+  return true;
+}
+
+/**
+ *
+ */
+function issue_share($nid) {
+  if (user_is_logged_in() && module_exists('rules')) {
+    global $user;
+    rules_invoke_event('poll_share', $user, node_load($nid));
   }
 }

@@ -36,7 +36,6 @@ function badges_yn_badges()
 
   $badges['yn_comment_bronze'] = array(
     'function' => 'badges_yn_check',
-    'function multiple' => 'badges_yn_check_multiple',
     'name' => t('Nice Reply'),
     'info' => t('Reply voted up 10 times'),
     'type' => 'bronze',
@@ -44,7 +43,6 @@ function badges_yn_badges()
   );
   $badges['yn_comment_silver'] = array(
     'function' => 'badges_yn_check',
-    'function multiple' => 'badges_yn_check_multiple',
     'name' => t('Good Reply'),
     'info' => t('Reply voted up 25 times'),
     'type' => 'silver',
@@ -52,7 +50,6 @@ function badges_yn_badges()
   );
   $badges['yn_comment_gold'] = array(
     'function' => 'badges_yn_check',
-    'function multiple' => 'badges_yn_check_multiple',
     'name' => t('Great Reply'),
     'info' => t('Reply voted up 100 times'),
     'type' => 'gold',
@@ -61,7 +58,6 @@ function badges_yn_badges()
 
   $badges['yn_upfirst'] = array(
     'function' => 'badges_yn_upfirst_check',
-    'function multiple' => 'badges_yn_upfirst_check_multiple',
     'name' => t('Supporter'),
     'info' => t('First up vote'),
     'type' => 'bronze',
@@ -70,7 +66,6 @@ function badges_yn_badges()
 
   $badges['yn_predict_bronze'] = array(
     'function' => 'badges_yn_predict_check',
-    'function multiple' => 'badges_yn_predict_check_multiple',
     'name' => t('Seer'),
     'info' => t('First agree on a post or resource that eventually gets 50 agrees'),
     'type' => 'bronze',
@@ -78,7 +73,6 @@ function badges_yn_badges()
   );
   $badges['yn_predict_silver'] = array(
     'function' => 'badges_yn_predict_check',
-    'function multiple' => 'badges_yn_predict_check_multiple',
     'name' => t('Oracle'),
     'info' => t('First agree on a post or resource that eventually gets 100 agrees'),
     'type' => 'silver',
@@ -88,7 +82,6 @@ function badges_yn_badges()
   if (module_exists('issue')) {
     $badges['yn_argument_agreed_resource_bronze'] = array(
       'function' => 'badges_yn_argument_agreed_check',
-      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
       'name' => t('Paperboy'),
       'info' => t('Resource posted by user gets 5 agrees'),
       'type' => 'bronze',
@@ -96,7 +89,6 @@ function badges_yn_badges()
     );
     $badges['yn_argument_agreed_resource_silver'] = array(
       'function' => 'badges_yn_argument_agreed_check',
-      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
       'name' => t('Newsstand'),
       'info' => t('Resource posted by user gets 20 agrees'),
       'type' => 'silver',
@@ -104,7 +96,6 @@ function badges_yn_badges()
     );
     $badges['yn_argument_agreed_resource_gold'] = array(
       'function' => 'badges_yn_argument_agreed_check',
-      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
       'name' => t('Librarian'),
       'info' => t('Resource posted by user gets 50 agrees'),
       'type' => 'gold',
@@ -113,7 +104,6 @@ function badges_yn_badges()
 
     $badges['yn_argument_agreed_debate_bronze'] = array(
       'function' => 'badges_yn_argument_agreed_check',
-      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
       'name' => t('Nice Post'),
       'info' => t('Debate posted by user gets 5 agrees'),
       'type' => 'bronze',
@@ -121,7 +111,6 @@ function badges_yn_badges()
     );
     $badges['yn_argument_agreed_debate_silver'] = array(
       'function' => 'badges_yn_argument_agreed_check',
-      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
       'name' => t('Well Put'),
       'info' => t('Debate posted by user gets 20 agrees'),
       'type' => 'silver',
@@ -129,7 +118,6 @@ function badges_yn_badges()
     );
     $badges['yn_argument_agreed_debate_gold'] = array(
       'function' => 'badges_yn_argument_agreed_check',
-      'function multiple' => 'badges_yn_argument_agreed_check_multiple',
       'name' => t('Consensus Builder'),
       'info' => t('Debate posted by user gets 50 agrees'),
       'type' => 'gold',
@@ -187,22 +175,6 @@ function badges_yn_check($uid, $arguments = array())
 }
 
 /**
- * @param array $uids
- * @param array $arguments
- * @return array
- */
-function badges_yn_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_yn_check($uid, $arguments);
-  }
-
-  return $output;
-}
-
-/**
  * @param $uid
  * @param array $arguments
  * @return bool
@@ -221,22 +193,6 @@ function badges_yn_upfirst_check($uid, $arguments = array())
   }
 
   return isset($cache[$uid]);
-}
-
-/**
- * @param array $uids
- * @param array $arguments
- * @return array
- */
-function badges_yn_upfirst_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_yn_upfirst_check($uid, $arguments);
-  }
-
-  return $output;
 }
 
 /**
@@ -261,22 +217,6 @@ function badges_yn_predict_check($uid, $arguments = array())
   }
 
   return isset($cache[$uid]) ? $cache[$uid] >= $arguments['votes'] : false;
-}
-
-/**
- * @param array $uids
- * @param array $arguments
- * @return array
- */
-function badges_yn_predict_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_yn_predict_check($uid, $arguments);
-  }
-
-  return $output;
 }
 
 /**
@@ -308,20 +248,4 @@ function badges_yn_argument_agreed_check($uid, $arguments = array())
   }
 
   return isset($cache[$uid]) ? $cache[$uid] >= $arguments['count'] : false;
-}
-
-/**
- * @param array $uids
- * @param array $arguments
- * @return array
- */
-function badges_yn_argument_agreed_check_multiple($uids = array(), $arguments = array())
-{
-  $output = array();
-
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_yn_argument_agreed_check($uid, $arguments);
-  }
-
-  return $output;
 }

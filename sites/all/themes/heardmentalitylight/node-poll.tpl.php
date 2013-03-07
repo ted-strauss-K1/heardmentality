@@ -1,10 +1,22 @@
 <div class="<?php if($teaser) : ?>search_item<?php endif; ?> issue-vote-wrapper" <?php if($page) : ?>id="new_vote"<?php else : ?> <?php endif; ?>>
   <!-- Part 1 -->
+  <?php $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array(); ?>
   <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">
-    <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print t(rtrim($title, "?")); ?>?</h2>
+    <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print
+      l( t(rtrim(!empty($translation['title'][0]) ? $translation['title'][0] : $title, "?")), $node->path);
+    ?>?</h2>
     <?php if($page) : ?>
     <div class="qd">
+      <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
       <?php print theme('flagger_button', $nid, 'node'); ?>
+      <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
+        <?php print l(t('moderation'), 'moderation/issue/'.$node->nid,
+          array('attributes' => array(
+            'class' => 'moderation',
+            'original-title' => t('moderation'),
+          ))
+        ); ?>
+      <?php endif; ?>
       <p class="description"><?php print $node->description; ?></p>
     </div>
     <?php endif; ?>

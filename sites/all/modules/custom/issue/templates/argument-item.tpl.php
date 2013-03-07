@@ -23,7 +23,10 @@ $rtype = $node->field_rtype[0]['value'];
           <?php if (isset($image) && !isset($videoid)) : ?>
           <span class="pic">
               <a target="_blank" title="reference" href="<?php print $url; ?>">
-                <img src="<?php print $image; ?>" alt=""/>
+                <img src="<?php print url($image, array(
+                  'absolute' => true,
+                  'language' => false,
+                )); ?>" alt=""/>
               </a>
             </span>
           <?php endif; ?>

@@ -115,7 +115,7 @@ function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       case 'load' :
         $node->creation_time = ($_ = theme('time_interval', $node->created)) ? $_ : date("F d Y H:i:s", $node->created);
         $node->comments = argument_recent_comments($node->nid);
-        break;
+      break;
     }
   }
 }
@@ -232,19 +232,22 @@ function argument_filter($nid, $sort = null, $class = null, $chorder = null)
     $params[] = $chorder;
 
     # filter arguments
-    $query .= " AND ao.val = '%d'";
     switch ($class) {
       case 'neutral' :
         $params[] = 0;
+        $query .= " AND ao.val <> '%d'";
         break;
       case 'positive' :
         $params[] = 1;
+        $query .= " AND ao.val = '%d'";
         break;
       case 'negative' :
         $params[] = -1;
+        $query .= " AND ao.val = '%d'";
         break;
       default :
         $params[] = 0;
+        $query .= " AND ao.val = '%d'";
         break;
     }
   }
@@ -326,9 +329,6 @@ function argument_create_comment()
     exit();
   }
 
-  // fire event
-  comment_invoke_comment($comment, 'insert');
-
   print json_encode(array(
     'status' => true,
     'message' => t('Thanks, Your reply posted!'),
@@ -379,8 +379,7 @@ function _comment_save(&$comment)
  */
 function argument_delete($content_type, $content_id)
 {
-  global $user;
-  if (!user_access('moderation', $user) && !argument_check_owner($content_type, $content_id)) {
+  if (!(module_exists('moderation') && moderation_check_perm()) && !argument_check_owner($content_type, $content_id)) {
     print json_encode(array(
       'status' => false,
       'message' => t('Sorry, you have no permissions to delete the content'),
@@ -395,6 +394,9 @@ function argument_delete($content_type, $content_id)
     case 'comment' :
       db_query("UPDATE {comments} SET status = '%d' WHERE cid = '%d'", COMMENT_NOT_PUBLISHED, $content_id);
       break;
+  }
+  if (module_exists('moderation')) {
+    moderation_history('set', $content_type, $content_id, 'delete');
   }
   print json_encode(array(
     'status' => true,
@@ -453,7 +455,7 @@ function argument_create()
       if ($node) {
         print json_encode(array(
           'success' => true,
-          'message' => '<span class="posted">Your argument posted successfully!</span>',
+          'message' => '<span class="posted">'.t('Your argument was posted successfully!').'</span>',
           'node' => $node,
         ));
 
@@ -519,6 +521,8 @@ function argument_create_debate($nid, $title)
   $node->validated = TRUE;
 
   node_save($node);
+
+  issue_node_clean_cache($node);
 
   return $node;
 }
@@ -641,7 +645,7 @@ function argument_fetch_url($url, $image = false)
     $node->body = empty($tags) ? '' : $tags['description'];
 
     # get images
-    $node->field_image_path[0]['value'] = file_create_url(file_directory_path() . '/noimage.jpg');
+    $node->field_image_path[0]['value'] = file_directory_path() . '/noimage.jpg';
     module_load_include('php', 'issue', 'includes/url_to_absolute');
     $images = array();
     $images_source = $html->find('img');
@@ -655,14 +659,20 @@ function argument_fetch_url($url, $image = false)
 
     if ($image !== false) {
       # save image to disk
-      $result = drupal_http_request($image, array(), 'POST', '', 3);
-      if ($result->data) {
-        $ext = argument_create_resource_image_extension($image);
-        $hash = md5($image);
-        $filepath = file_directory_path() . '/resources/res-' . $hash . '.' . $ext;
-        $file = file_save_data($result->data, $filepath, FILE_EXISTS_REPLACE);
-        image_scale($file, $filepath, '110', '70');
-        $node->field_image_path[0]['value'] = file_create_url($file);
+      // old code
+//      $result = drupal_http_request($image, array(), 'POST', '', 3);
+//      if ($result->data) {
+//        $ext = argument_create_resource_image_extension($image);
+//        $hash = md5($image);
+//        $filepath = file_directory_path() . '/resources/res-' . $hash . '.' . $ext;
+//        $file = file_save_data($result->data, $filepath, FILE_EXISTS_REPLACE);
+//        image_scale($file, $filepath, '110', '70');
+//        $node->field_image_path[0]['value'] = file_create_url($file);
+//      }
+
+      module_load_include('php', 'issue', 'includes/download_image');
+      if ($file = download_image($image, 'resources')) {
+        $node->field_image_path[0]['value'] = $file->filepath;
       }
     }
   }
@@ -747,6 +757,8 @@ function arguments_create_resource($nid, $url, $image)
   $node->field_issue[0]['nid'] = $nid;
 
   node_save($node);
+
+  issue_node_clean_cache($node);
 
   return $node;
 }

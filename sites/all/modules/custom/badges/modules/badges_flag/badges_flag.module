@@ -11,13 +11,11 @@ function badges_flag_badges()
 
   $badges['flag_first'] = array(
     'function' => 'badges_flag_check',
-    'function multiple' => 'badges_flag_check_multiple',
     'name' => t('Citizen Patrol'),
     'info' => t('First flagged post'),
   );
   $badges['flag_success'] = array(
     'function' => 'badges_flag_success_check',
-    'function multiple' => 'badges_flag_success_check_multiple',
     'name' => t('Scrutineer'),
     'info' => t('Flags post, that eventually results in a change or removal'),
   );
@@ -46,22 +44,6 @@ function badges_flag_check($uid)
 }
 
 /**
- * @param array $uids
- * @return array
- */
-function badges_flag_check_multiple($uids = array())
-{
-  $output = array();
-
-  // default values
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_flag_check($uid);
-  }
-
-  return $output;
-}
-
-/**
  * @param $uid
  * @return bool
  */
@@ -82,20 +64,4 @@ function badges_flag_success_check($uid)
   }
 
   return isset($cache[$uid]);
-}
-
-/**
- * @param array $uids
- * @return array
- */
-function badges_flag_success_check_multiple($uids = array())
-{
-  $output = array();
-
-  // default values
-  foreach ($uids as $uid) {
-    $output[$uid] = badges_flag_success_check($uid);
-  }
-
-  return $output;
 }

@@ -1,0 +1,18 @@
+ 4035434 ws_AN
+ 4035425 ws_AI
+ 4035402 ws_AT
+ 4035313 ws_GF
+ 4035154 ws_PA
+ 4034977 ws_TU
+ 4034910 ws_VS
+*4035383 ws_FA  :::  Fa'asaleleaga ~ Fa‘asaleleaga(4035383)
+*4035314 ws_GE  :::  Gaga'emauga ~ Gaga‘emauga(4035314)
+*4035046 ws_SA  :::  Satupa'itea ~ Satupa‘itea(4035046)
+*4034943 ws_VF  :::  Va'a-o-Fonoti ~ Va‘a-o-Fonoti(4034943)
+
+NAMES:::::
+
+Fa‘asaleleaga(4035383) 
+Gaga‘emauga(4035314) 
+Satupa‘itea(4035046) 
+Va‘a-o-Fonoti(4034943) 

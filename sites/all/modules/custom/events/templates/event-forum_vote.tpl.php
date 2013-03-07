@@ -5,8 +5,11 @@
     ' with an argument on the issue';
   $argument = node_load($item['vars']['nid_arg']);
   $node = node_load($item['vars']['nid']);
+
+  $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+
   $link = l(
-    $node->title . '?',
+    (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
     $node->path,
     empty($argument) ? array() : array('fragment' => 'forum-block-' . $argument->nid)
   );

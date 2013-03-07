@@ -1,0 +1,24 @@
+  443120 jo_AJ
+  248944 jo_IR
+  443123 jo_MD
+**443122 jo_AQ  :::  Al 'Aqabah ~ Aqaba(443122)
+**250751 jo_BA  :::  Al Balqa' ~ Balqa(250751)
+**250625 jo_KA  :::  Al Karak ~ Karak(250625)
+**250583 jo_MF  :::  Al Mafraq ~ Mafraq(250583)
+**250439 jo_AM  :::  'Amman ~ Amman(250439)
+**250199 jo_TA  :::  At Tafilah ~ Tafielah(250199)
+**250092 jo_ZA  :::  Az Zarqa' ~ Zarqa(250092)
+**443121 jo_JA  :::  Jarash ~ Jerash(443121)
+**250439 jo_MN  :::  Ma'an ~ Amman(250439)
+
+NAMES:::::
+
+Amman(250439) 
+Aqaba(443122) 
+Balqa(250751) 
+Jerash(443121) 
+Karak(250625) 
+Mafraq(250583) 
+Ma’an(248380) 
+Tafielah(250199) 
+Zarqa(250092) 

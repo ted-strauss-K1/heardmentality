@@ -23,7 +23,7 @@
 <ul class="map-stats">
   <?php
   $list = array('users' => t('Users'), 'nodes' => t('Issues'), 'votes' => t('Votes'), 'online' => t('Online'));
-  foreach ($list as $type => $title) : ?>
+  foreach ($list as $type => $title) : $i++; ?>
     <li>
       <span class="count" id="count_<?php print $type; ?>">0</span>
       <span class="count-title"><a href="javascript:void(0);"
@@ -32,5 +32,6 @@
           $name = 'count_' . $type; print $$name; ?>
         </span>
     </li>
+    <?php if ($i==2) : ?><br><?php endif; ?>
     <?php endforeach; ?>
 </ul>

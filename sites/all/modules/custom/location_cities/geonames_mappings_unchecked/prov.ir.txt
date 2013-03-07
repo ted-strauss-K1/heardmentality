@@ -1,0 +1,57 @@
+  443794 ir_QOM
+  124763 ir_MKZ
+  111452 ir_ZAN
+  142549 ir_EAZ
+  139816 ir_BSH
+  111821 ir_YZD
+ 6201375 ir_RKH
+**134766 ir_TEH  :::  Tehran ~ Fārs(134766)
+*7648907 ir_QAZ  :::  Qazvin ~ Alborz(7648907)
+**134766 ir_GIL  :::  Gilan ~ Fārs(134766)
+*7648907 ir_ARD  :::  Ardabil ~ Alborz(7648907)
+**124544 ir_WEZ  :::  West Azarbaijan ~ Māzandarān(124544)
+**134766 ir_KRD  :::  Kurdistan ~ Fārs(134766)
+**116401 ir_HMD  :::  Hamadan ~ Semnān(116401)
+**116401 ir_KRM  :::  Kermanshah ~ Semnān(116401)
+*7648907 ir_ILM  :::  Ilam ~ Alborz(7648907)
+*7648907 ir_LRS  :::  Lorestan ~ Alborz(7648907)
+**134766 ir_KZT  :::  Khuzestan ~ Fārs(134766)
+**124544 ir_CMB  :::  Chahar Mahaal and Bakhtiari ~ Māzandarān(124544)
+**413931 ir_KBA  :::  Kohkiluyeh and Buyer Ahmad ~ Ostān-e Ardabīl(413931)
+**134766 ir_FAR  :::  Fars ~ Fārs(134766)
+**131222 ir_HRM  :::  Hormozgan ~ Hormozgān(131222)
+**443792 ir_SBL  :::  Sistan and Baluchistan ~ Ostān-e Golestān(443792)
+**116401 ir_KRB  :::  Kerman ~ Semnān(116401)
+**134766 ir_EFH  :::  Esfahan ~ Fārs(134766)
+**116401 ir_SMN  :::  Semnan ~ Semnān(116401)
+**124544 ir_MZD  :::  Mazandaran ~ Māzandarān(124544)
+*7648907 ir_GLS  :::  Golestan ~ Alborz(7648907)
+**131222 ir_NKH  :::  North Khorasan ~ Hormozgān(131222)
+**131222 ir_SKH  :::  South Khorasan ~ Hormozgān(131222)
+
+NAMES:::::
+
+Alborz(7648907) 
+Fārs(134766) 
+Hormozgān(131222) 
+Māzandarān(124544) 
+Ostān-e Ardabīl(413931) 
+Ostān-e Chahār Maḩāl va Bakhtīārī(139677) 
+Ostān-e Eşfahān(418862) 
+Ostān-e Golestān(443792) 
+Ostān-e Gīlān(133349) 
+Ostān-e Hamadān(132142) 
+Ostān-e Kermān(128231) 
+Ostān-e Kermānshāh(128222) 
+Ostān-e Khorāsān-e Jonūbī(6201374) 
+Ostān-e Khorāsān-e Shomālī(6201376) 
+Ostān-e Khūzestān(127082) 
+Ostān-e Kohgīlūyeh va Bowyer Aḩmad(126878) 
+Ostān-e Kordestān(126584) 
+Ostān-e Lorestān(125605) 
+Ostān-e Qazvīn(443793) 
+Ostān-e Sīstān va Balūchestān(1159456) 
+Ostān-e Tehrān(110791) 
+Ostān-e Āz̄arbāyjān-e Gharbī(142550) 
+Ostān-e Īlām(130801) 
+Semnān(116401) 

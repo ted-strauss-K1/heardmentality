@@ -1,0 +1,17 @@
+*2310307 gq_AN  :::  Provincia Annobon ~ Provincia de Annobón(2310307)
+*2566978 gq_BN  :::  Provincia Bioko Norte ~ Provincia de Bioko Norte(2566978)
+*2566979 gq_BS  :::  Provincia Bioko Sur ~ Provincia de Bioko Sur(2566979)
+*2566980 gq_CS  :::  Provincia Centro Sur ~ Provincia de Centro Sur(2566980)
+*2566981 gq_KN  :::  Provincia Kie-Ntem ~ Provincia de Kié-Ntem(2566981)
+*2566982 gq_LI  :::  Provincia Litoral ~ Provincia de Litoral(2566982)
+*2566983 gq_WN  :::  Provincia Wele-Nzas ~ Provincia de Wele-Nzas(2566983)
+
+NAMES:::::
+
+Provincia de Annobón(2310307) 
+Provincia de Bioko Norte(2566978) 
+Provincia de Bioko Sur(2566979) 
+Provincia de Centro Sur(2566980) 
+Provincia de Kié-Ntem(2566981) 
+Provincia de Litoral(2566982) 
+Provincia de Wele-Nzas(2566983) 

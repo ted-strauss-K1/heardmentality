@@ -1,4 +1,3 @@
-<!-- remove issue-results-graph -->
 <div id="results">
   <h2 class="din"><?php print t('Results'); ?></h2>
 

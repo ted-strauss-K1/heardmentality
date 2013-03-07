@@ -1,15 +1,19 @@
-$(function() {
+$(document).ready(function () {
+  tipsy_attach();
+});
 
+function tipsy_attach() {
   $('#medal1, #medal2, #medal3,  img.coin2, .disagree, .agree, #badges .medal3, #badgeslist .medal3').tipsy({
     gravity: 'nw'
   });
+
   $('.flag, .flag2, .heart, a.stats-quick').tipsy({
     gravity: 'w'
   });
   $('span.lighter, .privacy-rules').tipsy({
     gravity: 's'
   });
-  $('.flagger').tipsy({
+  $('.flagger, .moderation').tipsy({
     gravity: 'e'
   });
 
@@ -41,5 +45,4 @@ $(function() {
   $('#example-html').tipsy({
     html: true
   });
-
-});
+}

@@ -1,0 +1,11 @@
+name = uLogin Alter
+description = "Adds optional fields selector to admin form."
+core = 6.x
+package = User interface
+dependencies[] = ulogin
+
+; Information added by drupal.org packaging script on 2012-06-11
+version = "6.x-1.3"
+core = "6.x"
+project = "ulogin"
+datestamp = "1339401732"
