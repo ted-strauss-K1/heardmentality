@@ -75,17 +75,17 @@ $rtype = $node->field_rtype[0]['value'];
         <!-- User Debate Options: END -->
 
         <!-- User Info -->
-        <?php $userlink = url('<front>', array('absolute' => TRUE)) . '/user/profile/view/' . $node->name; ?>
+        <?php $account = user_load(array('uid' => $node->uid)); ?>
         <div class="userinfo-debate">
           <span class="date"><?php print t('posted'); ?>&nbsp;
             <span><?php print $node->creation_time; ?></span>
           </span>
-          <a class="user-thumb" href="<?php print $userlink; ?>">
-            <img src="<?php print user_profile_image(user_load(array('uid' => $node->uid))); ?>"
+          <a class="user-thumb" href="<?php print $account->viewlink; ?>">
+            <img src="<?php print user_profile_image($account); ?>"
                  alt="<?php print $node->name; ?>" class="user-thumb">
           </a>
             <span class="name">
-              <a href="<?php print $userlink; ?>"><?php print $node->name; ?></a>
+              <a href="<?php print $account->viewlink; ?>"><?php print $node->name; ?></a>
             </span>
         </div>
         <!-- User Info: END -->
