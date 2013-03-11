@@ -103,7 +103,8 @@ function ulogin_callback() {
   }
 
   $destination = drupal_get_destination();
-  drupal_goto($destination['destination']);
+  $destination = preg_replace('/^.*\?destination=/', '', urldecode($destination));
+  drupal_goto($destination);
 }
 
 function ulogin_user_identity($form_state, $account) {
