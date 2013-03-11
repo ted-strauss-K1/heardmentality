@@ -45,8 +45,8 @@
   <?php endif; ?>
 
   <p class="profile-links quick-profile">
-    <a href="/user/profile/view"><?php print t('View Profile');?></a> |
-    <a href="/user/profile/edit"><?php print t('Edit Profile');?></a>
+    <a href="<?php print url('user/profile/view'); ?>"><?php print t('View Profile');?></a> |
+    <a href="<?php print url('user/profile/edit'); ?>"><?php print t('Edit Profile');?></a>
   </p>
 
   <a href="/logout?<?php print drupal_get_destination(); ?>" title="<?php print t('Log out');?>"

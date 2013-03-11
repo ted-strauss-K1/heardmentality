@@ -5988,5 +5988,7 @@ span.beta {
   color: red;
   font-weight: bold;
 }
-
+.block-locale > div {
+  display: none;
+}
 
