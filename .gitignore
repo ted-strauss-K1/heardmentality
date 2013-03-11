@@ -17,3 +17,4 @@ sites/all/themes/README.txt
 .htaccess
 .idea
 sites/all/modules/development/tester
+sites/all/modules/custom/extract/data
