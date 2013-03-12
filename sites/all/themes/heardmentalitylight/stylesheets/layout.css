@@ -4241,6 +4241,22 @@ h6#deb-ana:hover a,
 	color: #0c6926;
 }
 
+.container .nine .grey-box .uactivity .events_google_translate a:hover {
+  text-decoration: none;
+}
+.events_google_translate .translate span {
+  color: #55BA59;
+  font-size: 11px !important;
+  text-decoration: none;
+}
+.events_google_translate .translate span:hover {
+  color: #0c6926;
+  text-decoration: none;
+}
+.events_google_translate .translate div {
+  display: inline;
+}
+
 #debate_list_area .arg .argument_body font:first-child,
 #debate_list_area .reply_body font:first-child {
 	background: none #e1e43c !important;

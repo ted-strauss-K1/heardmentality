@@ -335,12 +335,14 @@ function heardmentalitylight_theme($existing, $type, $theme, $path){
   # setting special templates for the pages and forms
 
   return array(
-    'issue_suggest_form' => array(
-      'arguments' => array('form' => NULL),
-      'template' => 'issue-suggest-form',
-    ),
+//    'google_translate' => array(
+//      'arguments' => array(
+//        'text' => NULL,
+//        'class' => NULL,
+//      ),
+//      'template' => 'google_translate',
+//    ),
   );
 }
-
 
 

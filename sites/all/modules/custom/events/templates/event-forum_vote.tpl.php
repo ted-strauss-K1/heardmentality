@@ -1,12 +1,14 @@
 <li class="clearfix">
   <?php
   $account = $item['account'];
-  $text = ($item['vars']['vote'] == VOTE_AGREE ? 'agreed' : 'disagreed') .
-    ' with an argument on the issue';
-  $argument = node_load($item['vars']['nid_arg']);
-  $node = node_load($item['vars']['nid']);
+
+  $argument = node_load($item['content_id']);
+  $node = node_load($argument->field_issue[0]['nid']);
 
   $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+
+  $text = ($item['vars']['vote'] == VOTE_AGREE ? 'agreed' : 'disagreed') .
+    ' with an argument on the issue';
 
   $link = l(
     (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
@@ -29,7 +31,13 @@
   <?php print t($text); ?>
   <?php print $link; ?>
   <?php if ($text2) : ?>
-    </p><p class="action-comment-ref"><?php print t($text2) ?>
+    </p><p class="action-comment-ref">
+
+    <!-- google translate -->
+    <span class="goog-trans-section events_google_translate">
+      <?php print $text2; ?>&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
+    </span>
+
   <br clear="both">
   <?php endif; ?>
 </p>

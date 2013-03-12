@@ -34,9 +34,8 @@ $rtype = $node->field_rtype[0]['value'];
           <?php if ($atype == TYPE_DEBATE) : ?>
 
           <p><?php print $node->title; ?></p>&nbsp;
-          <div class="sq">[
-            <div class="goog-trans-control translate"></div>
-            ]
+          <div class="sq">
+            [<div class="goog-trans-control translate"></div>]
           </div>
 
           <?php else : ?>

@@ -33,7 +33,13 @@
   <?php print t($text); ?>
   <?php print $link; ?>
   <?php if ($text2) : ?>
-        </p><p class="action-comment-ref"><?php print t($text2) ?>
+        </p><p class="action-comment-ref">
+
+    <!-- google translate -->
+    <span class="goog-trans-section events_google_translate">
+      <?php print $text2; ?>&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
+    </span>
+
   <br clear="both">
   <?php endif; ?>
 

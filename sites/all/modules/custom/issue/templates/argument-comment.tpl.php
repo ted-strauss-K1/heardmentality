@@ -7,9 +7,8 @@
 
   <div class="goog-trans-section reply_body">
     <p><?php print $comment->comment; ?></p>&nbsp;
-    <div class="sq">[
-      <div class="goog-trans-control translate"></div>
-      ]
+    <div class="sq">
+      [<div class="goog-trans-control translate"></div>]
     </div>
   </div>
   <span class="userinfo-reply">&nbsp;-&nbsp;
