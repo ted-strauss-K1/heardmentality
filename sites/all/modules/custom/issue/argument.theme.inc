@@ -81,7 +81,7 @@ function theme_argument_delete($content_type, $content_id)
 {
   global $user;
   if (user_access('moderation', $user) || argument_check_owner($content_type, $content_id)) {
-    return l(t('Delete'), '#', array('attributes' => array(
+    return l(t('Delete'), '', array('attributes' => array(
       'class' => 'flag2 delete argument-delete',
       'title' => t('Delete'),
       'name' => $content_type . '/' . $content_id,

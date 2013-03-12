@@ -42,9 +42,8 @@ function flagger_exec(flagger) {
     }
   });
 }
-
-
 $(document).ready(function () {
+  console.log('twice?');
   $('.flagger').live('click', function (e) {
     e.preventDefault();
     var flagger = $(this);

@@ -75,7 +75,7 @@ $rtype = $node->field_rtype[0]['value'];
         <!-- User Debate Options: END -->
 
         <!-- User Info -->
-        <?php $userlink = url('<front>', array('absolute' => TRUE)) . '/user/profile/view/' . $node->name; ?>
+        <?php $userlink = url('user/profile/view/') . $node->name; ?>
         <div class="userinfo-debate">
           <span class="date"><?php print t('posted'); ?>&nbsp;
             <span><?php print $node->creation_time; ?></span>
