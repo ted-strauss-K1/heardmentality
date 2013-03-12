@@ -9,6 +9,39 @@ function poll_translate_enable()
 }
 
 /**
+ * @return array
+ */
+function poll_translate_menu() {
+  $menu = array();
+
+  $menu['content_translate/poll'] = array(
+    'page callback'     => 'poll_translate_translate',
+    'access arguments'  => array(CONTENT_TRANSLATE),
+    'type'              => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * @param $nid
+ */
+function poll_translate_translate() {
+  if ($language_to = arg(3)) {
+    $languages = array($language_to);
+  } else {
+    $langs = language_list('enabled');
+    foreach ($langs[0] as $code => $lang) {
+      $languages[] = $code;
+    }
+  }
+  foreach ($languages as $langcode) {
+    content_translate('node', intval(arg(2)), $langcode);
+  }
+  exit('x--x');
+}
+
+/**
  * Implementation of hook_nodeapi()
  *
  * There we replace some data in SIDE poll with CORE one
@@ -67,6 +100,7 @@ function poll_translate_content_translate_node($node, $language_to)
     $node->t = array();
   }
 
+
   # check if the node was translated to that language
   if (isset($node->t[$language_to])) {
     return;
@@ -79,6 +113,10 @@ function poll_translate_content_translate_node($node, $language_to)
 
   # language to translate from
   $language_from = $node->language;
+
+  if ($language_from == $language_to) {
+    return;
+  }
 
   # Collect data to translate
   $list = array();
@@ -176,6 +214,7 @@ function poll_translate_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'poll_node_form') {
     global $language;
     $node = $form['#node'];
+
     if ($node->language != $language->language) {
       // choices count
       if (isset($form_state['choice_count'])) {

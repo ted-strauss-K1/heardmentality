@@ -157,11 +157,11 @@ function issue_create_form_validate($form, &$form_state)
 function issue_create_form_submit($form, &$form_state)
 {
   $post = $form_state['clicked_button']['#post'];
-  global $user;
+  global $user, $language;
 
   $node = new StdClass();
   $node->type = 'poll';
-  $node->language = $user->language; // TODO check language detection
+  $node->language = !empty($user->language) ? $user->language : $language->language; // TODO check language detection
   $node->uid = $user->uid;
   $node->status = 1;
 //  $node->created = time();

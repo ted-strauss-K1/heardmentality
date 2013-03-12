@@ -1,5 +1,14 @@
 <?php
 
+define('CONTENT_TRANSLATE', 'Administer content translations');
+
+/**
+ * @return array
+ */
+function content_translate_perm() {
+  return array(CONTENT_TRANSLATE);
+}
+
 /**
  * @param $content_type
  * @param $content_id
@@ -9,6 +18,7 @@ function content_translate($content_type, $content_id, $language_to)
 {
   switch ($content_type) {
     case 'node' :
+      cache_clear_all('content:'. $content_id, content_cache_tablename(), true);
       module_invoke_all("content_translate_node", node_load($content_id), $language_to);
       break;
     case 'comment' :
