@@ -23,8 +23,7 @@
         </div>
         <p>
           <?php print t('Filling in your <em>!empty-field</em> will bring you to !complete% Complete', array('!empty-field' => t($complete['nextfield']), '!complete' => $complete['nextpercent'])); ?>
-          <a class="blue"
-             href="<?php url('user/profile/edit', array('fragment' => $complete['nextname']."-wrapper")) ?><?php print t('Add it here.'); ?></a>
+          <a class="blue" href="<?php print url('user/profile/edit', array('fragment' => $complete['nextname']."-wrapper")) ?>"><?php print t('Add it here.'); ?></a>
         </p>
       </div>
 

@@ -306,7 +306,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
 {
   switch ($op) {
     case 'load' :
-      $account->viewlink = url('user/profile/view/' . $account->name);
+      $account->viewlink = url('user/profile/view') .'/'. $account->name;
       $account->editlink = url('user/profile/edit');
       break;
     case 'insert' :
