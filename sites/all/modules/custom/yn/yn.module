@@ -344,7 +344,7 @@ function yn_votes($content_id, $content_type, $uid = false, $reset = false)
       if ($row['value'] == VOTE_DISAGREE) {
         $votes[1] = $row['votes'];
       }
-      $votes[3] = $votes[3] || ($row['rated'] == 1);
+      $votes[3] = $votes[3] || ($row['rated'] != 0);
     }
     $votes[2] = $votes[0] - $votes[1];
 
