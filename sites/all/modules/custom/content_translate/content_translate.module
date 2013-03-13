@@ -19,7 +19,7 @@ function content_translate($content_type, $content_id, $language_to)
   switch ($content_type) {
     case 'node' :
       cache_clear_all('content:'. $content_id, content_cache_tablename(), true);
-      module_invoke_all("content_translate_node", node_load($content_id), $language_to);
+      module_invoke_all("content_translate_node", node_load($content_id, null, true), $language_to);
       break;
     case 'comment' :
       module_invoke_all("content_translate_comment", _comment_load($content_id), $language_to);
@@ -114,4 +114,15 @@ function content_translate_del($p = array()) {
   if ($params) {
     db_query($query, $params);
   }
+}
+
+/**
+ * @return array
+ */
+function content_translate_langcodes() {
+  $langs = language_list('enabled');
+  foreach ($langs[1] as $code => $lang) {
+    $languages[] = $code;
+  }
+  return $languages;
 }

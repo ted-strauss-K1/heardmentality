@@ -6008,3 +6008,6 @@ span.beta {
   display: none;
 }
 
+.button.light.follower {
+  float: right;
+}

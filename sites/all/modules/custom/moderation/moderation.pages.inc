@@ -1,35 +1,6 @@
 <?php
 
 /**
- * Theme for pager
- *
- * @param $page
- * @param $pages
- * @param $pattern
- * @return string
- */
-function theme_moderation_pager($page, $pages, $pattern)
-{
-  if ($pages == 1) return '';
-  if ($page > $pages) $page = $pages;
-  $output = '<div class="mod-pager"><span class="mod-text">PAGE</span> &nbsp;';
-  $a = '<a href="/%s" class="%s">%d</a>';
-  $showpages = array_unique(array(1, 2, $page - 1, $page, $page + 1, $pages - 1, $pages));
-  $flag = true;
-  for ($i = 1; $i <= $pages; $i++) {
-    if (in_array($i, $showpages)) {
-      $output .= sprintf($a, sprintf($pattern, $i), $page == $i ? 'mod-active' : '', $i);
-      $flag = true;
-    } elseif ($i == 3 || $i == $pages - 2) {
-      if ($flag) $output .= '<span class="mod-spacer">&nbsp;</span>';
-      $flag = false;
-    }
-  }
-  $output .= '</div>';
-  return $output;
-}
-
-/**
  * @param $content_type
  * @param $content_id
  * @return string

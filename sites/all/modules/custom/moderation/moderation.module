@@ -181,18 +181,11 @@ function moderation_theme()
     'arguments' => array('page' => 'issues'),
     'template' => 'moderation-main',
   );
-  $theme['moderation_pager'] = array(
-    'arguments' => array(
-      'page' => 1,
-      'pages' => 1,
-      'pattern' => NULL,
-    ),
-    'file' => 'moderation.pages.inc',
-  );
-//  $theme['moderation_flags'] = array(
+//  $theme['moderation_pager'] = array(
 //    'arguments' => array(
-//      'content_type' => '',
-//      'content_id' => 0,
+//      'page' => 1,
+//      'pages' => 1,
+//      'pattern' => NULL,
 //    ),
 //    'file' => 'moderation.pages.inc',
 //  );

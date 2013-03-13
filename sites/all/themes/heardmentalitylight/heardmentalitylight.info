@@ -11,6 +11,7 @@ stylesheets[all][] = stylesheets/layout.css
 stylesheets[all][] = stylesheets/skeleton.css
 stylesheets[all][] = stylesheets/media.css
 stylesheets[all][] = stylesheets/scrollpane/jquery.jscrollpane.css
+stylesheets[all][] = stylesheets/pager.css
 
 stylesheets[all][] = stylesheets/ie.css
 
