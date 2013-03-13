@@ -1,14 +1,14 @@
 <?php
-  print theme('follower_button', $account);
+print theme('follower_button', $account);
 
-  global $user;
-  if ($user->uid == $account->uid) {
-    print l(t('Edit Profile'), 'user/profile/edit',
-      array('attributes' => array(
-        'class' => 'button light follower',
-      ))
-    );
-  }
+global $user;
+if ($user->uid == $account->uid) {
+  print l(t('Edit Profile'), 'user/profile/edit',
+    array('attributes' => array(
+      'class' => 'button light follower',
+    ))
+  );
+}
 ?>
 <h2 class="din"><?php print $account->name; ?></h2>
 

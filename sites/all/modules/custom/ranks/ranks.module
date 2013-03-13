@@ -78,7 +78,8 @@ function ranks_get()
 /**
  *
  */
-function theme_ranks() {
+function theme_ranks()
+{
   $output = '<ul>';
 
   foreach (ranks_get() as $rank) {

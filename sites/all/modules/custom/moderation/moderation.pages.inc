@@ -39,7 +39,7 @@ function moderation_markup_issue($node)
 {
   return
     '<div class="mod-wrapper part part1 search_list">
-    <h2 class="din half">' . l(rtrim($node->title), 'moderation/issue/' . $node->nid) . '? '.
+    <h2 class="din half">' . l(rtrim($node->title), 'moderation/issue/' . $node->nid) . '? ' .
 //    '<div class="open"></div>' .
     '</h2>
     <div class="mod-buttons">' .
@@ -797,18 +797,18 @@ function moderation_issue_view_form($form_state, $nid)
     '#title' => t('Title'),
     '#value' => !empty($translation['title'][0]) ? $translation['title'][0] : $node->title,
     '#prefix' =>
-      sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
-        sprintf('
+    sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
+      sprintf('
         <div style="float:right;margin-right: 30px;"><a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a></div>',
-          $node->path, t('View')),
+        $node->path, t('View')),
     '#suffix' =>
 
-      '</div>',
+    '</div>',
   );
   $form['body'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
-    '#value' => !empty($translation['body'][0]) ? $translation['body'][0] :  $node->field_description[0]['value'],
+    '#value' => !empty($translation['body'][0]) ? $translation['body'][0] : $node->field_description[0]['value'],
     '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
     '#suffix' => '</div>',
   );
@@ -1150,16 +1150,16 @@ function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
     );
     $charact = poll_charact_values_get($nid, $choice['chorder']);
     if ($charact)
-    foreach ($charact as $cid => $char) {
-      $form['charact']['char' . $cid] = array(
-        '#type' => 'select',
-        '#title' => t($char['name']),
-        '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
-        '#value' => $char['value'],
-        '#size' => 5,
-        '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
-      );
-    }
+      foreach ($charact as $cid => $char) {
+        $form['charact']['char' . $cid] = array(
+          '#type' => 'select',
+          '#title' => t($char['name']),
+          '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
+          '#value' => $char['value'],
+          '#size' => 5,
+          '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
+        );
+      }
   }
 
   return $form;
@@ -1187,7 +1187,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     $changed['title'] = $values['title'];
   }
 
-  $body = !empty($translation['body'][0]) ? $translation['body'][0] :  $node->field_description[0]['value'];
+  $body = !empty($translation['body'][0]) ? $translation['body'][0] : $node->field_description[0]['value'];
   if ($body != $values['body']) {
     $changed['body'] = $values['body'];
   }
@@ -1219,15 +1219,15 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   # characteristics
   if (module_exists('poll_charact'))
     $char = poll_charact_get();
-    $char_values = poll_charact_values($node->nid);
-    foreach ($values['choices'] as $i => $choice) {
-      foreach ($char as $cid => $name) {
+  $char_values = poll_charact_values($node->nid);
+  foreach ($values['choices'] as $i => $choice) {
+    foreach ($char as $cid => $name) {
 //      foreach ($char_values[$choice['chorder']] as $cid => $data) {
-        if ($char_values[$choice['chorder']][$cid]['value'] != $choice['charact']['char'.$cid]) {
-          poll_charact_value_set($node->nid, $choice['chorder'], $cid, $choice['charact']['char'.$cid]);
-        }
+      if ($char_values[$choice['chorder']][$cid]['value'] != $choice['charact']['char' . $cid]) {
+        poll_charact_value_set($node->nid, $choice['chorder'], $cid, $choice['charact']['char' . $cid]);
       }
     }
+  }
 
   # taxonomy
   $node->taxonomy = array();
@@ -1243,41 +1243,41 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   $node->locations = array();
   // through selected countries
   if ($values['location']['location-0'])
-  foreach ($values['location']['location-0'] as $country) {
-    $location = location_empty_location(array());
-    $location['country'] = $country;
-    $location['name'] = $country;
-    $provinces = false;
-    // through country's provinces
-    foreach (location_get_provinces($country) as $pcode => $pname) {
-      if (in_array($location['name'] . '_' . $pcode, $values['location']['location-1'])) {
-        $provinces = true;
-        $location2 = $location;
-        $location2['province'] = $pcode;
-        $location2['name'] .= '_' . $pcode;
-        $cities = false;
-        // through province's cities
-        foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
-          if (in_array($ccode, $values['location']['location-2'])) {
+    foreach ($values['location']['location-0'] as $country) {
+      $location = location_empty_location(array());
+      $location['country'] = $country;
+      $location['name'] = $country;
+      $provinces = false;
+      // through country's provinces
+      foreach (location_get_provinces($country) as $pcode => $pname) {
+        if (in_array($location['name'] . '_' . $pcode, $values['location']['location-1'])) {
+          $provinces = true;
+          $location2 = $location;
+          $location2['province'] = $pcode;
+          $location2['name'] .= '_' . $pcode;
+          $cities = false;
+          // through province's cities
+          foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
+            if (in_array($ccode, $values['location']['location-2'])) {
 //          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
-            $cities = true;
-            $location3 = $location2;
-            $location3['city'] = $ccode;
-            $location3['name'] .= '_' . $ccode;
-            $node->locations[] = $location3;
+              $cities = true;
+              $location3 = $location2;
+              $location3['city'] = $ccode;
+              $location3['name'] .= '_' . $ccode;
+              $node->locations[] = $location3;
+            }
+          }
+          // if no cities are set - let the location be just a province
+          if (!$cities) {
+            $node->locations[] = $location2;
           }
         }
-        // if no cities are set - let the location be just a province
-        if (!$cities) {
-          $node->locations[] = $location2;
-        }
+      }
+      // if no provinces are set - let the location be just a country
+      if (!$provinces) {
+        $node->locations[] = $location;
       }
     }
-    // if no provinces are set - let the location be just a country
-    if (!$provinces) {
-      $node->locations[] = $location;
-    }
-  }
 
   // track changes
   if (!empty($changed)) {
@@ -1297,7 +1297,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
       if (!$node->t[$language->language]) {
         $node->t[$language->language] = array();
       }
-      $t = &$node->t[$language->language];
+      $t = & $node->t[$language->language];
       if (isset($changed['title'])) $t['title'][0] = $changed['title'];
       if (isset($changed['body'])) $t['body'][0] = $changed['body'];
 
@@ -1334,7 +1334,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 
       if ($changed['choices'])
         foreach ($changed['choices'] as $chorder => $case) {
-          $choice = &$node->choice[$chorder];
+          $choice = & $node->choice[$chorder];
           if ($case['chtext_short'] != '') {
             poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
           }
@@ -1408,7 +1408,7 @@ function moderation_delete_request($form)
         $comment = _comment_load($form['content_id']['#value']);
         comment_unpublish_action($comment);
         rules_invoke_event('comment_unpublish', $comment);
-      break;
+        break;
       case 'node' :
         db_query("UPDATE node SET status = '%d' WHERE nid = '%d'", 0, $form['content_id']['#value']);
         break;

@@ -1,15 +1,18 @@
 <?php
 
-function tester_boot() {
-	
+function tester_boot()
+{
+
 }
 
-function tester_init() {
-	
-	
-}  
+function tester_init()
+{
 
-function tester_menu() {
+
+}
+
+function tester_menu()
+{
   return array(
     'tester' => array(
       'page callback' => 'tester',
@@ -19,7 +22,8 @@ function tester_menu() {
   );
 }
 
-function __($t, $p = '') {
+function __($t, $p = '')
+{
   static $pref;
   if ($p) {
     $pref = $p;
@@ -27,26 +31,31 @@ function __($t, $p = '') {
   }
 
   $f = fopen("D:/out/prov.$pref.txt", 'a+');
-  fwrite($f, $t."\n");
+  fwrite($f, $t . "\n");
   fclose($f);
 }
 
-function tester_countrycode_rewrite($code) {
+function tester_countrycode_rewrite($code)
+{
   switch ($code) {
-    case 'uk': return 'gb';
-    case 'cs': return 'rs';
-    default: return $code;
+    case 'uk':
+      return 'gb';
+    case 'cs':
+      return 'rs';
+    default:
+      return $code;
   }
 }
 
-function tester_prepare_gid($gid, $x = ' ') {
-  if (strlen($gid)==8) return $gid;
-  else return str_repeat($x, 8-strlen($gid)) . $gid;
+function tester_prepare_gid($gid, $x = ' ')
+{
+  if (strlen($gid) == 8) return $gid;
+  else return str_repeat($x, 8 - strlen($gid)) . $gid;
 }
 
 
-
-function tester_compare_province($ccode, $data) {
+function tester_compare_province($ccode, $data)
+{
   __('', $ccode);
   $provs = location_get_provinces($ccode);
   $names = array();
@@ -74,7 +83,7 @@ function tester_compare_province($ccode, $data) {
   foreach ($provs as $code => $name) {
     if (in_array($code, $found)) continue;
     $name = str_replace(' province', '', $name);
-    $t =  ' ' . $ccode . '_' . $code;
+    $t = ' ' . $ccode . '_' . $code;
 
     $sname2 = '';
     $sgid = '';
@@ -89,7 +98,7 @@ function tester_compare_province($ccode, $data) {
       }
     }
 
-    $t .= '  :::  ' . $name . ' ~ ' . $sname2 . '('.$sgid.')';
+    $t .= '  :::  ' . $name . ' ~ ' . $sname2 . '(' . $sgid . ')';
     $t = tester_prepare_gid($sgid, '*') . $t;
     __($t);
   }
@@ -101,30 +110,31 @@ function tester_compare_province($ccode, $data) {
   __('');
 
   foreach ($names as $name2 => $gid) {
-    __($name2 . '('.$gid.') ');
+    __($name2 . '(' . $gid . ') ');
   }
 //  __('');
 //  __('');
 }
 
-function tester() {
+function tester()
+{
   set_time_limit(0);
   $data = unserialize(file_get_contents("D:/dump.txt"));
 
-  $path = "D:/dev/vhosts/hm2/".drupal_get_path("module", "location_cities");
+  $path = "D:/dev/vhosts/hm2/" . drupal_get_path("module", "location_cities");
 
   $list = scandir($path . '/geonames_mappings');
   foreach ($list as $file) {
     if (!preg_match('/^\.+$/', $file)) {
-      echo $file. "\n";
-      $f = fopen($path . '/geonames_mappings/'.$file, 'r');
+      echo $file . "\n";
+      $f = fopen($path . '/geonames_mappings/' . $file, 'r');
       $code = preg_replace('/(prov\.|\.txt)/', "", $file);
 //      if ($code != 'us') continue;
       if ($put) {
         @fclose($put);
       }
-      if (file_exists($path . '/supported/location.'.$code.'.inc')) continue;
-      $put = fopen($path . '/supported/location.'.$code.'.inc', 'a+');
+      if (file_exists($path . '/supported/location.' . $code . '.inc')) continue;
+      $put = fopen($path . '/supported/location.' . $code . '.inc', 'a+');
       fwrite($put, "<?php\n\n");
       while ($s = fgets($f)) {
         if (empty($s)) break;
@@ -138,11 +148,11 @@ function tester() {
             $items[$item['geonameid']] = $item['name'];
           }
           if ($items) {
-            fwrite($put, "function location_cities_list_".strtolower($m[2].'_'.$m[3])."()\n");
+            fwrite($put, "function location_cities_list_" . strtolower($m[2] . '_' . $m[3]) . "()\n");
             fwrite($put, "{\n");
             fwrite($put, "\treturn array(\n");
             foreach ($items as $gid => $name) {
-              fwrite($put, "\t\t'$gid' => t('".str_replace("'", "\'", $name)."'),\n");
+              fwrite($put, "\t\t'$gid' => t('" . str_replace("'", "\'", $name) . "'),\n");
             }
             fwrite($put, "\t);\n");
             fwrite($put, "}\n");
@@ -162,8 +172,6 @@ function tester() {
   }
 
 
-
-
 //  $countries = location_get_iso3166_list();
 //  foreach ($countries as $code => $name) {
 //    if (isset($data[tester_countrycode_rewrite($code)])) {
@@ -176,7 +184,8 @@ function tester() {
 }
 
 
-function tester3() {
+function tester3()
+{
   set_time_limit(0);
   $data = unserialize(file_get_contents("D:/dump.txt"));
 
@@ -192,7 +201,8 @@ function tester3() {
   exit;
 }
 
-function tester2() {
+function tester2()
+{
   set_time_limit(0);
   $data = array();
 
@@ -216,7 +226,8 @@ function tester2() {
   exit;
 }
 
-function geonames_tree($gid) {
+function geonames_tree($gid)
+{
   $out = array();
 
   $result = geonames_query('children', array('geonameid' => $gid));

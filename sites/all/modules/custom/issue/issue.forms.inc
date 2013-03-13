@@ -231,8 +231,8 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
       $list[$i] = '<span class="ch">' .
         check_plain(
           !empty($translation['choice'][$choice['chorder']]) ?
-          $translation['choice'][$choice['chorder']] :
-          $choice['chtext']
+            $translation['choice'][$choice['chorder']] :
+            $choice['chtext']
         ) .
         '</span>';
     }
@@ -277,8 +277,8 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
       $sa_options[$s['chid']] = '<span class="ch">' .
         check_plain(
           !empty($translation['choice_suggest'][$s['chid']]) ?
-          $translation['choice_suggest'][$s['chid']] :
-          $s['chtext']
+            $translation['choice_suggest'][$s['chid']] :
+            $s['chtext']
         )
         . '</span>';
       if ($s['uid']) {

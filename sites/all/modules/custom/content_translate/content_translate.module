@@ -5,7 +5,8 @@ define('CONTENT_TRANSLATE', 'Administer content translations');
 /**
  * @return array
  */
-function content_translate_perm() {
+function content_translate_perm()
+{
   return array(CONTENT_TRANSLATE);
 }
 
@@ -18,7 +19,7 @@ function content_translate($content_type, $content_id, $language_to)
 {
   switch ($content_type) {
     case 'node' :
-      cache_clear_all('content:'. $content_id, content_cache_tablename(), true);
+      cache_clear_all('content:' . $content_id, content_cache_tablename(), true);
       module_invoke_all("content_translate_node", node_load($content_id, null, true), $language_to);
       break;
     case 'comment' :
@@ -50,7 +51,7 @@ function content_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         'content_type' => 'node',
         'content_id' => $node->nid,
       ));
-    break;
+      break;
   }
 }
 
@@ -61,9 +62,10 @@ function content_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
  * @param $text
  * @param int $field_order
  */
-function content_translate_add($content_type, $content_id, $language, $field, $text, $field_order = 0) {
+function content_translate_add($content_type, $content_id, $language, $field, $text, $field_order = 0)
+{
   if (is_string($text) && ($text != ''))
-  db_query("
+    db_query("
     REPLACE INTO {content_translate}
     SET
       content_type = '%s',
@@ -84,7 +86,8 @@ function content_translate_add($content_type, $content_id, $language, $field, $t
  * @param bool $language
  * @return array
  */
-function content_translate_get($content_type, $content_id, $language = false) {
+function content_translate_get($content_type, $content_id, $language = false)
+{
   static $cache = array();
 
   if (!isset($cache[$content_type][$content_id])) {
@@ -102,12 +105,13 @@ function content_translate_get($content_type, $content_id, $language = false) {
 /**
  * @param array $p
  */
-function content_translate_del($p = array()) {
+function content_translate_del($p = array())
+{
   $query = "DELETE FROM {content_translate} WHERE 1";
   $params = array();
   foreach (array('content_type', 'content_id', 'language', 'field', 'field_order') as $pname) {
     if (isset($p[$pname])) {
-      $query .= " AND ".$pname." = '%s'";
+      $query .= " AND " . $pname . " = '%s'";
       $params[] = $p[$pname];
     }
   }
@@ -119,7 +123,8 @@ function content_translate_del($p = array()) {
 /**
  * @return array
  */
-function content_translate_langcodes() {
+function content_translate_langcodes()
+{
   $langs = language_list('enabled');
   foreach ($langs[1] as $code => $lang) {
     $languages[] = $code;

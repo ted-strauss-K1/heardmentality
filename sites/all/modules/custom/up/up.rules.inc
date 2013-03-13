@@ -65,7 +65,8 @@ function up_rules_condition_info()
  * @param array $settings
  * @return bool
  */
-function up_userpoints_limit($user, $settings = array()) {
+function up_userpoints_limit($user, $settings = array())
+{
   return ($settings['number'] != 0) && (up_userpoints_today($user->uid) >= $settings['number']);
 }
 
@@ -73,7 +74,8 @@ function up_userpoints_limit($user, $settings = array()) {
  * @param $settings
  * @param $form
  */
-function up_userpoints_limit_form($settings, &$form) {
+function up_userpoints_limit_form($settings, &$form)
+{
   $form['settings']['number'] = array(
     '#type' => 'textfield',
     '#title' => t('Number of Points'),
@@ -92,7 +94,6 @@ function up_userpoints_limit_form_validate(&$form, &$form_state)
     form_set_error('up_userpoints_limit', t('Number of Points should be numeric'));
   }
 }
-
 
 
 /**

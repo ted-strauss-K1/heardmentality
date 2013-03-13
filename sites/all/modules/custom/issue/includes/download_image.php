@@ -4,7 +4,8 @@
  *
  * @see https://gist.github.com/1849861
  */
-function download_image($url, $save_dir = '') {
+function download_image($url, $save_dir = '')
+{
   global $user;
 
   // Check if the file extension is valid.
@@ -83,13 +84,11 @@ function download_image($url, $save_dir = '') {
       // Save file record.
       if (drupal_write_record('files', $file)) {
         return $file;
-      }
-      else {
+      } else {
         watchdog('download', 'Download Image Error: Could not save file record.', array(), WATCHDOG_ERROR);
         return FALSE;
       }
-    }
-    else {
+    } else {
       watchdog('download', 'Download Image Error: Could not save data.', array(), WATCHDOG_ERROR);
       return FALSE;
     }

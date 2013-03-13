@@ -5,7 +5,8 @@
  * @param $form_state
  * @param $form_id
  */
-function ulogin_alter_form_alter(&$form, &$form_state, $form_id) {
+function ulogin_alter_form_alter(&$form, &$form_state, $form_id)
+{
   if ($form_id == 'ulogin_settings_form') {
     $fields = _ulogin_fields_list();
     $form['fset_ulogin_fields']['ulogin_fields_optional'] = array(

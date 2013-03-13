@@ -11,19 +11,20 @@ function poll_translate_enable()
 /**
  * @return array
  */
-function poll_translate_menu() {
+function poll_translate_menu()
+{
   $menu = array();
 
   $menu['content_translate/poll'] = array(
-    'page callback'     => 'poll_translate_translate',
-    'access arguments'  => array(CONTENT_TRANSLATE),
-    'type'              => MENU_CALLBACK,
+    'page callback' => 'poll_translate_translate',
+    'access arguments' => array(CONTENT_TRANSLATE),
+    'type' => MENU_CALLBACK,
   );
   $menu['content_translate/poll/admin'] = array(
-    'page callback'     => 'drupal_get_form',
-    'page arguments'    => array('poll_translate_admin'),
-    'title'             => t('Translate polls'),
-    'access arguments'  => array(CONTENT_TRANSLATE),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('poll_translate_admin'),
+    'title' => t('Translate polls'),
+    'access arguments' => array(CONTENT_TRANSLATE),
   );
 
   return $menu;
@@ -32,11 +33,12 @@ function poll_translate_menu() {
 /**
  * @return array
  */
-function poll_translate_admin() {
+function poll_translate_admin()
+{
   $form = array();
 
   // get page
-  if (isset($_REQUEST['page']) && is_numeric($_REQUEST['page']) && $_REQUEST['page']>0) {
+  if (isset($_REQUEST['page']) && is_numeric($_REQUEST['page']) && $_REQUEST['page'] > 0) {
     $pager_page = intval($_REQUEST['page']);
   } else {
     $pager_page = 1;
@@ -48,7 +50,7 @@ function poll_translate_admin() {
   // count pages
   $pager_perpage = 25;
   $pager_count = (int)db_result(db_query(sprintf($query, 'COUNT(n.nid) count')));
-  $pager_pages = ceil($pager_count/$pager_perpage);
+  $pager_pages = ceil($pager_count / $pager_perpage);
   if ($pager_page > $pager_pages) {
     $pager_page = $pager_pages;
   }
@@ -59,8 +61,8 @@ function poll_translate_admin() {
   }
   //
   $form['page'] = array(
-    '#type'   => 'hidden',
-    '#value'  => $pager_page,
+    '#type' => 'hidden',
+    '#value' => $pager_page,
   );
 
   // the list of languages available
@@ -69,25 +71,25 @@ function poll_translate_admin() {
   // result
   $result = db_query(sprintf($query, 'n.nid, n.title, GROUP_CONCAT(l.language) languages'));
   while ($row = db_fetch_array($result)) {
-    $form['issue-'.$row['nid']] = array(
-      '#type'         => 'fieldset',
-      '#title'        => $row['title'],
-      '#collapsible'  => FALSE,
-      '#collapsed'    => FALSE,
+    $form['issue-' . $row['nid']] = array(
+      '#type' => 'fieldset',
+      '#title' => $row['title'],
+      '#collapsible' => FALSE,
+      '#collapsed' => FALSE,
     );
-    $translate_to = explode(',',$row['languages']);
+    $translate_to = explode(',', $row['languages']);
     if (1 != count($translate_to)) {
-      $form['issue-'.$row['nid']]['all'] = array(
-        '#type'         => 'submit',
-        '#value'        => t('All languages'),
-        '#name'         => $row['nid'],
+      $form['issue-' . $row['nid']]['all'] = array(
+        '#type' => 'submit',
+        '#value' => t('All languages'),
+        '#name' => $row['nid'],
       );
     }
     foreach ($translate_to as $langcode) {
-      $form['issue-'.$row['nid']][$langcode] = array(
-        '#type'         => 'submit',
-        '#value'        => t($languages[$langcode]->name),
-        '#name'         => $row['nid']."/".$langcode,
+      $form['issue-' . $row['nid']][$langcode] = array(
+        '#type' => 'submit',
+        '#value' => t($languages[$langcode]->name),
+        '#name' => $row['nid'] . "/" . $langcode,
       );
     }
 
@@ -103,7 +105,8 @@ function poll_translate_admin() {
  * @param $form
  * @param $form_state
  */
-function poll_translate_admin_submit($form, $form_state) {
+function poll_translate_admin_submit($form, $form_state)
+{
   list($nid, $lang) = explode('/', $form_state['clicked_button']['#name']);
   poll_translate_translate($nid, (string)$lang);
   drupal_goto('content_translate/poll/admin', array('query' => array('page' => $form_state['page'])));
@@ -112,7 +115,8 @@ function poll_translate_admin_submit($form, $form_state) {
 /**
  * @param $nid
  */
-function poll_translate_translate($nid = false, $lang = false) {
+function poll_translate_translate($nid = false, $lang = false)
+{
   if ($language_to = ($lang !== false ? $lang : arg(3))) {
     $languages = array($language_to);
   } else {
@@ -160,10 +164,10 @@ function poll_translate_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
           }
 //          unset($node->t);
         }
-      break;
+        break;
       case 'load' :
         $node->t = content_translate_get('node', $node->nid);
-      break;
+        break;
     }
   }
 }
@@ -247,7 +251,8 @@ function poll_translate_content_translate_node($node, $language_to)
  * @param $nid
  * @param $map
  */
-function poll_translate_pollfix($nid, $map) {
+function poll_translate_pollfix($nid, $map)
+{
   foreach ($map as $chorder => $data) {
     switch ($data['status']) {
       case 'deleted' :
@@ -263,7 +268,7 @@ function poll_translate_pollfix($nid, $map) {
           'field' => 'choice_short',
           'field_order' => $chorder,
         ));
-      break;
+        break;
       case 'updated' :
         $query = "
           UPDATE {content_translate}
@@ -272,7 +277,7 @@ function poll_translate_pollfix($nid, $map) {
         ";
         db_query($query, $data['index'], 'node', $nid, 'choice', $chorder);
         db_query($query, $data['index'], 'node', $nid, 'choice_short', $chorder);
-      break;
+        break;
     }
   }
 }
@@ -281,7 +286,8 @@ function poll_translate_pollfix($nid, $map) {
  * @param $node
  * @return array
  */
-function poll_translate_translation($node) {
+function poll_translate_translation($node)
+{
   # display language & translation
   global $language;
   return !empty($node->t[$language->language]) ? $node->t[$language->language] : array();
@@ -292,7 +298,8 @@ function poll_translate_translation($node) {
  * @param $form_state
  * @param $form_id
  */
-function poll_translate_form_alter(&$form, &$form_state, $form_id) {
+function poll_translate_form_alter(&$form, &$form_state, $form_id)
+{
   if ($form_id == 'poll_node_form') {
     global $language;
     $node = $form['#node'];
@@ -334,10 +341,11 @@ function poll_translate_form_alter(&$form, &$form_state, $form_id) {
  * @param $form
  * @param $form_state
  */
-function poll_translate_node_form_submit(&$form, &$form_state) {
+function poll_translate_node_form_submit(&$form, &$form_state)
+{
   global $language;
   $node = $form['#node'];
-  $values =  &$form_state['values'];
+  $values =  & $form_state['values'];
   // title
   content_translate_add('node', $node->nid, $language->language, 'title', $form['#post']['title']);
   $values['title'] = $node->title;

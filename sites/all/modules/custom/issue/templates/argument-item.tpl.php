@@ -35,7 +35,9 @@ $rtype = $node->field_rtype[0]['value'];
 
           <p><?php print $node->title; ?></p>&nbsp;
           <div class="sq">
-            [<div class="goog-trans-control translate"></div>]
+            [
+            <div class="goog-trans-control translate"></div>
+            ]
           </div>
 
           <?php else : ?>

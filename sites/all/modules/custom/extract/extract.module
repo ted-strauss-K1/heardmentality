@@ -5,7 +5,8 @@ define('EXTRACT_PERIOD', 'd');
 /**
  *
  */
-function extract_cron() {
+function extract_cron()
+{
   extract_exec();
 }
 
@@ -14,8 +15,9 @@ function extract_cron() {
  * @param $haystack
  * @param bool $strict
  */
-function array_remove_value($needle, &$haystack, $strict = false) {
-  if(($key = array_search($needle, $haystack, $strict)) !== false) {
+function array_remove_value($needle, &$haystack, $strict = false)
+{
+  if (($key = array_search($needle, $haystack, $strict)) !== false) {
     unset($haystack[$key]);
   }
 }
@@ -23,17 +25,20 @@ function array_remove_value($needle, &$haystack, $strict = false) {
 /**
  *
  */
-function extract_exec() {
+function extract_exec()
+{
   $path = 'extract.';
   switch (EXTRACT_PERIOD) {
-    case 'd' : $path .= date('Y.m.d'); break;
+    case 'd' :
+      $path .= date('Y.m.d');
+      break;
   }
   $path_abs = $_SERVER['DOCUMENT_ROOT'] . '/' . drupal_get_path('module', 'extract') . '/data/' . $path . '.csv';
   if (!file_exists($path_abs)) {
     $f = fopen($path_abs, 'w+');
 
     $keys = array(
-      'id','issue_id','issue_text','issue_category_l1','issue_category_l2','issue_category_l3','vote_answer_id','vote_answer_text','vote_increment','current_vote_flag','vote_timestamp','userid','gender','zip','country','state','city','religion','ethnicity','income','marital','education','age','left_right','lib_auth','radic_cons','dove_hawk',
+      'id', 'issue_id', 'issue_text', 'issue_category_l1', 'issue_category_l2', 'issue_category_l3', 'vote_answer_id', 'vote_answer_text', 'vote_increment', 'current_vote_flag', 'vote_timestamp', 'userid', 'gender', 'zip', 'country', 'state', 'city', 'religion', 'ethnicity', 'income', 'marital', 'education', 'age', 'left_right', 'lib_auth', 'radic_cons', 'dove_hawk',
     );
 
     $y = date('Y');
@@ -50,8 +55,8 @@ function extract_exec() {
       $terms[$row['tid']] = $row;
     }
 
-    if (true){
-    $query = "
+    if (true) {
+      $query = "
       SELECT
         CONCAT(pvh.uid, '-', pvh.nid, '-', pvh.chorder) AS id,
         pvh.nid issue_id,
@@ -138,7 +143,7 @@ function extract_exec() {
       INNER JOIN poll_choices pc ON pc.nid = n.nid AND pc.chorder = pvh.chorder
       ORDER BY pvh.date_voted DESC, pvh.status DESC";
     }
-    fwrite($f, implode(",",$keys));
+    fwrite($f, implode(",", $keys));
     fwrite($f, "\n");
 
     $result = db_query($query);
@@ -162,22 +167,22 @@ function extract_exec() {
       $row['vote_timestamp'] = date('Y/m/d H:i:s', $row['vote_timestamp']);
 
       // categories rewrite
-      $l1 = explode(',',$row['issue_category_l1']);
-      $l2 = explode(',',$row['issue_category_l2']);
-      $l3 = explode(',',$row['issue_category_l3']);
+      $l1 = explode(',', $row['issue_category_l1']);
+      $l2 = explode(',', $row['issue_category_l2']);
+      $l3 = explode(',', $row['issue_category_l3']);
       foreach ($l3 as $tid) {
-        $codes = explode(',',$terms[$tid]['code'],3);
-        array_remove_value($codes[0],$l1);
-        array_remove_value($codes[1],$l2);
+        $codes = explode(',', $terms[$tid]['code'], 3);
+        array_remove_value($codes[0], $l1);
+        array_remove_value($codes[1], $l2);
         $cats[] = $codes;
       }
       foreach ($l2 as $tid) {
-        $codes = explode(',',$terms[$tid]['code'],2);
-        array_remove_value($codes[0],$l1);
+        $codes = explode(',', $terms[$tid]['code'], 2);
+        array_remove_value($codes[0], $l1);
         $cats[] = $codes;
       }
       foreach ($l1 as $tid) {
-        $codes = explode(',',$terms[$tid]['code'],1);
+        $codes = explode(',', $terms[$tid]['code'], 1);
         $cats[] = $codes;
       }
       $row['issue_category_l1'] = '%cat1';
@@ -188,10 +193,10 @@ function extract_exec() {
       foreach ($row as $k => &$v) {
         if (isset($selections[$k])) {
           $v = isset($selections[$k][$v]) && !empty($selections[$k][$v]) ? $selections[$k][$v] : 'undefined';
-        } elseif (in_array($k, array('zip','country','state','city')) && empty($v)) {
+        } elseif (in_array($k, array('zip', 'country', 'state', 'city')) && empty($v)) {
           $v = 'undefined';
         }
-        $v = "\"" . str_replace('"','\"',$v) . "\"";
+        $v = "\"" . str_replace('"', '\"', $v) . "\"";
       }
 
       // prepare the line
@@ -203,10 +208,10 @@ function extract_exec() {
       } else {
         foreach ($cats as $line) {
           fwrite($f, strtr($row, array(
-            '%cat1' => $terms[intval($line[0])]['name'],
-            '%cat2' => $terms[intval($line[1])]['name'],
-            '%cat3' => $terms[intval($line[2])]['name'],
-          )
+              '%cat1' => $terms[intval($line[0])]['name'],
+              '%cat2' => $terms[intval($line[1])]['name'],
+              '%cat3' => $terms[intval($line[2])]['name'],
+            )
           ));
         }
       }
