@@ -119,6 +119,24 @@ function issue_search_filter_form($form_state)
 
   $tfl = tfl_list($tfl_codes0, $tfl_codes1, $tfl_codes2);
 
+  // Gather info: location. Show only locations having nodes listed under
+  $tfl_exist = array();
+  $result = db_query("(SELECT DISTINCT city code FROM location) UNION (SELECT DISTINCT CONCAT(country, '_', province) code FROM location) UNION (SELECT DISTINCT country code FROM location)");
+  while ($row = db_fetch_array($result)) {
+    $tfl_exist[$row['code']] = 1;
+  }
+  //
+  $tfl_count = count($tfl['list']);
+  for ($i = 0; $i < $tfl_count; $i++) {
+    $keys = array_keys($tfl['list'][$i]);
+    foreach ($keys as $key) {
+      if (!isset($tfl_exist[$key])) {
+        unset($tfl['list'][$i][$key]);
+      }
+    }
+//    $tfl['list'][$i] = array_intersect_assoc($tfl['list'][$i], $tfl_exist);
+  }
+
   // Gather info: info_values.
   foreach (array('tft' => 'taxonomy', 'tfl' => 'location') as $varname => $type) {
     $tf = $$varname;

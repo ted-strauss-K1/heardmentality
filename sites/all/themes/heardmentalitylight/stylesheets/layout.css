@@ -5368,11 +5368,13 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 	margin: 0;
 }
 
-#my_region-wrapper {
+#my_region-wrapper,
+#edit-my-language-wrapper {
 	margin: 0 0 0.3em !important;
 }
 
 #my_region-wrapper input.form-checkbox,
+#edit-my-language-wrapper input.form-checkbox,
 #edit-voted-status-wrapper input.form-checkbox {
 	position: relative;
 	top: 1px;
