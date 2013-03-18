@@ -220,7 +220,7 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
   }
 
   // update stats
-  db_query("UPDATE {poll_choices} SET chvotes = (SELECT COUNT(*) FROM {poll_votes} pv WHERE pv.nid = {poll_choices}.nid AND pv.chorder = {poll_choices}.chorder) AND nid = '%d'", $nid);
+  db_query("UPDATE {poll_choices} INNER JOIN (SELECT pv.nid, pv.chorder, COUNT(*) chvotes FROM {poll_votes} pv GROUP BY pv.nid, pv.chorder) pvotes ON pvotes.nid = poll_choices.nid AND pvotes.chorder = poll_choices.chorder SET poll_choices.chvotes = pvotes.chvotes WHERE poll_choices.nid = '%d'", $nid);
 
   // reindex
   if (module_exists('issue_search')) {
