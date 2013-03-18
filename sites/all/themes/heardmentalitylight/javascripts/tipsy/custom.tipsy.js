@@ -13,7 +13,7 @@ function tipsy_attach() {
   $('span.lighter, .privacy-rules').tipsy({
     gravity: 's'
   });
-  $('.flagger, .moderation').tipsy({
+  $('.flagger, .moderation, .flagger_flags').tipsy({
     gravity: 'e'
   });
 

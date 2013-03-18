@@ -95,6 +95,7 @@ $rtype = $node->field_rtype[0]['value'];
       <!-- Content Control Links -->
       <ul class="control_links">
         <li><?php print theme('flagger_button', $nid, 'node'); ?></li>
+        <li>&nbsp;|&nbsp;<?php print theme('flagger_button_flags', $nid, 'node'); ?></li>
         <li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
         <?php if ($delete = theme('argument_delete', 'node', $nid)) : ?>
         <li>&nbsp;|&nbsp;<?php print $delete; ?></li>

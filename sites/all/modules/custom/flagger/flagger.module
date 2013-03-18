@@ -21,6 +21,13 @@ function flagger_menu()
     'type' => MENU_CALLBACK,
   );
 
+  $menu[FLAGGER_PATH . '/%/%/flags'] = array(
+    'page callback' => 'flagger_page_flags',
+    'page arguments' => array(1, 2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
   $menu[FLAGGER_PATH . '/save'] = array(
     'page callback' => 'flagger_page_save',
     'access arguments' => array('access content'),
@@ -233,6 +240,13 @@ function flagger_theme()
     ),
   );
 
+  $theme['flagger_button_flags'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+    ),
+  );
+
   $theme['flagger_node_flags'] = array(
     'arguments' => array(
       'content_id' => NULL,
@@ -271,6 +285,28 @@ function theme_flagger_button($content_id, $content_type)
       ))
     );
   }
+}
+
+/**
+ * Flagger Button Flags theme call
+ *
+ * @param $content_id
+ * @param $content_type
+ * @return string
+ */
+function theme_flagger_button_flags($content_id, $content_type)
+{
+  if (!module_exists('moderation') || !moderation_check_perm()) {
+    return '';
+  }
+
+  return l(t('flags'), FLAGGER_PATH . '/' . $content_type . '/' . $content_id . '/flags',
+    array('attributes' => array(
+      'class' => 'flagger_flags noty_request',
+      'name' => url(FLAGGER_PATH . '/' . $content_type . '/' . $content_id . '/flags'),
+      'original-title' => t('flags'),
+    ))
+  );
 }
 
 /**
@@ -366,6 +402,47 @@ function theme_flagger_flags()
 
   $output .= '</div>';
   return $output;
+}
+
+/**
+ * Callback for FLAGGER_PATH
+ *
+ * @param $content_type
+ * @param $content_id
+ */
+function flagger_page_flags($content_type, $content_id)
+{
+  if (!module_exists('moderation') || !moderation_check_perm()) {
+    print json_encode(array(
+      'status'  => false,
+      'message' => t('You have no access to that info'),
+    ));
+    exit;
+  }
+
+  $output = '';
+
+  $flags = moderation_flags($content_type, $content_id);
+  foreach ($flags as $fid => $flag) {
+    $output .= t($flag['title']);
+    $output .= '<hr style="margin:3px 0 5px 0"/>';
+    $output .= '<ul>';
+    foreach ($flag['users'] as $uid => $data) {
+      $output .= '<li>'. l($data['name'], 'user/profile/view/' . $uid) .': "'.$data['note'] .'"</li>';
+    }
+    $output .= '</ul>';
+  }
+
+  if (!$flags) {
+    $output = t('No flags');
+  }
+
+  print json_encode(array(
+    'status'  => true,
+    'message' => $output,
+  ));
+
+  exit;
 }
 
 /**

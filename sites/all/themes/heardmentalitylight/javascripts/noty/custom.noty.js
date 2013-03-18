@@ -12,3 +12,30 @@ $.hrd.noty = function(options) {
 	opt = $.extend(opt, options);
 	noty(opt);
 };
+
+$('.noty_request').live('click', function (e) {
+  e.preventDefault();
+  $.ajax({
+    type      : "POST",
+    dataType  : "json",
+    url       : $(this).attr('name'),
+    data      : {},
+    success   : function (response) {
+      if (!response.status) {
+        $.hrd.noty({
+          type  : 'error',
+          text  : response.message
+        });
+        return;
+      }
+      $.hrd.noty({
+        'layout'  : 'center',
+        'type'    : 'success',
+        'text'    : response.message,
+        'modal'   : true,
+        'timeout' : false
+      });
+
+    }
+  });
+});
