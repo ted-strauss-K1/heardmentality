@@ -53,19 +53,19 @@ function theme_time_interval($timestamp)
   $interval = $date->diff($date_now);
   # convert to string
   if ($interval->y != 0) {
-    return $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
+    return $interval->y . ' ' . t('year' . ($interval->y > 1 ? 's' : '')) . ' ago';
   }
   if ($interval->m != 0) {
-    return $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
+    return $interval->m . ' ' . t('month' . ($interval->m > 1 ? 's' : '')) . ' ago';
   }
   if ($interval->d != 0) {
-    return $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
+    return $interval->d . ' ' . t('day' . ($interval->d > 1 ? 's' : '')) . ' ago';
   }
   if ($interval->h != 0) {
-    return $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
+    return $interval->h . ' ' . t('hour' . ($interval->h > 1 ? 's' : '')) . ' ago';
   }
   if ($interval->i != 0) {
-    return $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
+    return $interval->i . ' ' . t('minute' . ($interval->i > 1 ? 's' : '')) . ' ago';
   }
   return 'just now';
 }
