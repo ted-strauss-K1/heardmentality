@@ -197,7 +197,7 @@ function events_theme()
     'arguments' => array(
       'items' => array(),
     ),
-    'preprocess functions' => array('events_theme_preprocess'),
+    'preprocess functions' => array('events_stream_theme_preprocess'),
     'template' => 'events',
   );
   $theme['events_item'] = array(
@@ -214,7 +214,7 @@ function events_theme()
  *
  * @param $vars
  */
-function events_theme_preprocess(&$vars)
+function events_stream_theme_preprocess(&$vars)
 {
   drupal_add_js(drupal_get_path('module', 'events') . '/events.js');
   drupal_add_js(array('time' => array(
