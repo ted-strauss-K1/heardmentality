@@ -6010,6 +6010,6 @@ span.beta {
   display: none;
 }
 
-.button.light.follower {
+.button.light.editlink, .button.light.follower {
   float: right;
 }

@@ -5,7 +5,7 @@ global $user;
 if ($user->uid == $account->uid) {
   print l(t('Edit Profile'), 'user/profile/edit',
     array('attributes' => array(
-      'class' => 'button light follower',
+      'class' => 'button light editlink',
     ))
   );
 }
