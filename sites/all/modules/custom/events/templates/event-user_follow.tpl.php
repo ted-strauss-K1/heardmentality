@@ -4,7 +4,7 @@
   $target = user_load($item['content_id']);
 
   $text = 'now following';
-  $link = '<span class="name"><a href="/' . $target->viewlink . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
+  $link = '<span class="name"><a href="' . $target->viewlink . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
   $text2 = l(
     sprintf('<img class="following-user listed" src="%s" />', user_profile_image($target)),
     $target->viewlink,
