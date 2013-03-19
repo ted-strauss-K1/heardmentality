@@ -9,10 +9,8 @@ $(document).ready(function () {
   // update timeline
   setInterval(function () {
     $('.submitted').each(function() {
-      var time = parseInt($(this).attr('name'));
-      $(this)
-        .attr('name', time + 1)
-        .html(events_time_interval(time + 1) + " " + events_time_string("ago"));
+      $(this).html(
+        events_time_interval(parseInt($(this).attr('name'))) + " " + events_time_string("ago"));
     });
   }, 1000);
 });
