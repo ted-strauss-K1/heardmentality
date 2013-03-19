@@ -233,6 +233,7 @@ function events_stream_theme_preprocess(&$vars)
     'year' => t('year'),
     'years' => t('years'),
     'ago' => t('ago'),
+    'just now' => t('just now'),
   )), 'setting');
 }
 
