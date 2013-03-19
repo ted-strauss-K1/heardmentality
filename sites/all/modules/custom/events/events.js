@@ -58,6 +58,9 @@ function events_time_interval(time) {
   var curdate = new Date();
 
   var diff = curdate.getTime() - date.getTime();
+  if (diff <= 0) {
+    return events_time_string("just now"));
+  }
   diff = Math.floor(diff/1000);
   if (diff < 60) return diff + " " + events_time_string("second" + (diff==1?"":"s"));
   diff = Math.floor(diff/60);
