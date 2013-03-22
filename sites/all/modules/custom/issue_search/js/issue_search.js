@@ -35,6 +35,15 @@ $('.date-solr-filter, .solr-sort').live('click', function (e) {
 });
 
 /**
+ * Search on select click
+ */
+$('#issue-search-filter-form select').live('click', function (e) {
+  e.preventDefault();
+  issue_search();
+  return false;
+});
+
+/**
  * Search on load
  */
 $(document).ready(function () {
