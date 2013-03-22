@@ -39,21 +39,25 @@ function theme_heatmap_preprocess(&$vars)
   $cases['users'] = array(
     'name' => t('Users'),
     'result' => db_query("SELECT pv.value AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid WHERE pf.name = 'profile_country' GROUP BY pv.value"),
+    'count' => db_result(db_query("SELECT COUNT(*) FROM {users} WHERE status = 1")),
   );
 
   $cases['nodes'] = array(
     'name' => t('Issues'),
     'result' => db_query("SELECT l.country, COUNT(DISTINCT(nid)) AS count FROM {location_instance} li INNER JOIN {location} l ON l.lid = li.lid GROUP BY l.country"),
+    'count' => db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = 'poll' AND status = 1")),
   );
 
   $cases['online'] = array(
     'name' => t('Online'),
     'result' => db_query("SELECT pv.value AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid INNER JOIN {users} u ON u.uid = pv.uid AND u.access >= '%d' WHERE pf.name = 'profile_country' GROUP BY pv.value", time() - variable_get('user_block_seconds_online', 900)),
+    'count' => db_result(db_query("SELECT COUNT(*) FROM {users} WHERE access >= '%d' AND status = 1", time() - variable_get('user_block_seconds_online', 900))),
   );
 
   $cases['votes'] = array(
     'name' => t('Votes'),
     'result' => db_query("SELECT l.country, COUNT(*) AS count FROM {poll_votes} AS pv INNER JOIN {location_instance} li ON pv.nid = li.nid INNER JOIN {location} l ON l.lid = li.lid GROUP BY l.country"),
+    'count' => db_result(db_query("SELECT COUNT(*) FROM {poll_votes}")),
   );
 
   foreach ($cases as $key => $case) {
@@ -66,8 +70,9 @@ function theme_heatmap_preprocess(&$vars)
     $data = array();
     while ($row = db_fetch_array($case['result'])) {
       $data[] = array($countries[$row['country']], (int)$row['count']);
-      $vars['count_' . $key] += (int)$row['count'];
+//      $vars['count_' . $key] += (int)$row['count'];
     }
+    $vars['count_' . $key] = (int)$case['count'];
     drupal_add_js(array('heatmap' => array($key => array(
       'columns' => $cols,
       'dataset' => $data,
