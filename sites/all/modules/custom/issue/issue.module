@@ -76,11 +76,11 @@ function issue_menu()
   }
 
   $menu['issue/share/%'] = array(
-    'page callback'   => 'issue_share',
-    'page arguments'  => array(2),
+    'page callback' => 'issue_share',
+    'page arguments' => array(2),
     'access callback' => true,
-    'type'            => MENU_CALLBACK,
-    'file'            => 'issue.pages.inc',
+    'type' => MENU_CALLBACK,
+    'file' => 'issue.pages.inc',
   );
 
   return $menu;
@@ -125,15 +125,15 @@ function issue_theme()
 
   // blocks
   $theme['issue_block_categories'] = array(
-    'arguments'             => array('nid' => NULL),
-    'template'              => 'templates/issue-block-categories',
-    'preprocess functions'  => array('issue_block_categories_preprocess'),
+    'arguments' => array('nid' => NULL),
+    'template' => 'templates/issue-block-categories',
+    'preprocess functions' => array('issue_block_categories_preprocess'),
     'file' => 'issue.theme.inc',
   );
   $theme['issue_block_categories_popular'] = array(
-    'arguments'             => array(),
-    'template'              => 'templates/issue-block-categories-popular',
-    'preprocess functions'  => array('issue_block_categories_popular_preprocess'),
+    'arguments' => array(),
+    'template' => 'templates/issue-block-categories-popular',
+    'preprocess functions' => array('issue_block_categories_popular_preprocess'),
     'file' => 'issue.theme.inc',
   );
 
@@ -156,10 +156,10 @@ function issue_block($op = 'list', $delta = 0, $edit = array())
       $blocks = array();
 
       $blocks['issue-categories'] = array(
-        'info'  => t('Active Categories'),
+        'info' => t('Active Categories'),
       );
       $blocks['issue-categories-popular'] = array(
-        'info'  => t('Popular Categories'),
+        'info' => t('Popular Categories'),
       );
 
       return $blocks;
@@ -170,11 +170,11 @@ function issue_block($op = 'list', $delta = 0, $edit = array())
         case 'issue-categories' :
           $block['subject'] = t('');
           $block['content'] = theme('issue_block_categories');
-        break;
+          break;
         case 'issue-categories-popular' :
           $block['subject'] = t('');
           $block['content'] = theme('issue_block_categories_popular');
-        break;
+          break;
       }
 
       return $block;
@@ -197,7 +197,7 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         foreach ($node->field_arguments as $arg) {
           node_delete($arg['nid']);
         }
-      break;
+        break;
       case 'load' :
         $node->arguments = array();
         if (!empty($node->field_arguments)) {
@@ -220,7 +220,11 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
           !empty($translation['body'][0]) ?
             $translation['body'][0] :
             $node->field_description[0]['value']);
-      break;
+        break;
+      case 'insert' :
+      case 'update' :
+        db_query("UPDATE {url_alias} SET language = '' WHERE src = '%s'", 'node/' . $node->nid);
+        break;
     }
   }
 
@@ -275,7 +279,8 @@ function issue_get_uservotes($uid)
  *    'u' -- list of users voted
  *      hash: uid >> vote data
  */
-function issue_get_vote_status($nid = false) {
+function issue_get_vote_status($nid = false)
+{
   static $cache;
 
   if (is_null($cache)) {
@@ -301,8 +306,9 @@ function issue_get_vote_status($nid = false) {
 /**
  * @param $node
  */
-function issue_node_clean_cache(&$node) {
-  $cid = 'content:'. $node->nid .':'. $node->vid;
+function issue_node_clean_cache(&$node)
+{
+  $cid = 'content:' . $node->nid . ':' . $node->vid;
   cache_clear_all($cid, content_cache_tablename());
   $node = node_load($node->nid, null, true);
 }

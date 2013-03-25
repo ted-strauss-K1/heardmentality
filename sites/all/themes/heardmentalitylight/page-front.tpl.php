@@ -31,7 +31,7 @@
 
       <div class="border-bottom clearfix">
         <p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion'); ?>.</p>
-        <span class="banven clearfix"><a href="/issues" class="button vote floatright participate"><?php print t('Be heard!'); ?></a></span>
+        <span class="banven clearfix"><a href="<?php url('issues') ?>" class="button vote floatright participate"><?php print t('Be heard!'); ?></a></span>
       </div>
     </div>
   </div>

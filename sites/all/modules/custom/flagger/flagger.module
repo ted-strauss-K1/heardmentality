@@ -21,6 +21,13 @@ function flagger_menu()
     'type' => MENU_CALLBACK,
   );
 
+  $menu[FLAGGER_PATH . '/%/%/flags'] = array(
+    'page callback' => 'flagger_page_flags',
+    'page arguments' => array(1, 2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
   $menu[FLAGGER_PATH . '/save'] = array(
     'page callback' => 'flagger_page_save',
     'access arguments' => array('access content'),
@@ -116,10 +123,10 @@ function flagger_form(&$form, $content_id, $content_type)
     if ($flag->is_flagged($content_id)) {
       $value = $flag->fid;
       $notes = flag_note_get_notes(array(
-        'uid'             => $user->uid,
-        'content_id'      => $content_id,
-        'content_type'    => $content_type,
-        'fid'             => $flag->fid,
+        'uid' => $user->uid,
+        'content_id' => $content_id,
+        'content_type' => $content_type,
+        'fid' => $flag->fid,
       ));
       if ($notes) {
         $note = $notes[0]['note'];
@@ -127,9 +134,9 @@ function flagger_form(&$form, $content_id, $content_type)
     }
   }
   $form['flag'] = array(
-    '#type'           => 'radios',
-    '#default_value'  => $value,
-    '#options'        => $options,
+    '#type' => 'radios',
+    '#default_value' => $value,
+    '#options' => $options,
   );
 
   $form['note'] = array(
@@ -233,6 +240,13 @@ function flagger_theme()
     ),
   );
 
+  $theme['flagger_button_flags'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+    ),
+  );
+
   $theme['flagger_node_flags'] = array(
     'arguments' => array(
       'content_id' => NULL,
@@ -274,6 +288,28 @@ function theme_flagger_button($content_id, $content_type)
 }
 
 /**
+ * Flagger Button Flags theme call
+ *
+ * @param $content_id
+ * @param $content_type
+ * @return string
+ */
+function theme_flagger_button_flags($content_id, $content_type)
+{
+  if (!module_exists('moderation') || !moderation_check_perm()) {
+    return '';
+  }
+
+  return l(t('flags'), FLAGGER_PATH . '/' . $content_type . '/' . $content_id . '/flags',
+    array('attributes' => array(
+      'class' => 'flagger_flags noty_request',
+      'name' => url(FLAGGER_PATH . '/' . $content_type . '/' . $content_id . '/flags'),
+      'original-title' => t('flags'),
+    ))
+  );
+}
+
+/**
  * Theme for Flags Block
  *
  * @param $content_id
@@ -302,7 +338,8 @@ function theme_flagger_node_flags($content_id, $content_type)
 /**
  * @return string
  */
-function theme_flagger_flags() {
+function theme_flagger_flags()
+{
   $output = '<div class="table-bor-form clearfix">';
 
   // collect info
@@ -324,7 +361,7 @@ function theme_flagger_flags() {
   // All-user interaction
   $output .= '
     <div class="table-bor-form-item-1">
-      <div class="table-bor-form-item-1-title"><h6>'.t('In all user interaction').':</h6></div>
+      <div class="table-bor-form-item-1-title"><h6>' . t('In all user interaction') . ':</h6></div>
       <ul>';
   foreach ($flags['poll'] as $name => $title) {
     if (isset($flags['post'][$name])) {
@@ -338,11 +375,11 @@ function theme_flagger_flags() {
   // Issues
   $output .= '
     <div class="table-bor-form-item-1">
-      <div class="table-bor-form-item-1-title"><h6>'.t('Issues').':</h6></div>
+      <div class="table-bor-form-item-1-title"><h6>' . t('Issues') . ':</h6></div>
       <ul>';
   foreach ($flags['poll'] as $name => $title) {
 //    if (!isset($flags['post'][$name])) {
-      $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($title));
+    $output .= sprintf('<li><a href="#" class="flag-%s">%s</a></li>', $name, t($title));
 //    }
   }
   $output .= '
@@ -352,7 +389,7 @@ function theme_flagger_flags() {
   // Posts
   $output .= '
     <div class="table-bor-form-item-1">
-      <div class="table-bor-form-item-1-title"><h6>'.t('Posts').':</h6></div>
+      <div class="table-bor-form-item-1-title"><h6>' . t('Posts') . ':</h6></div>
       <ul>';
   foreach ($flags['post'] as $name => $title) {
 //    if (!isset($flags['poll'][$name])) {
@@ -365,6 +402,47 @@ function theme_flagger_flags() {
 
   $output .= '</div>';
   return $output;
+}
+
+/**
+ * Callback for FLAGGER_PATH
+ *
+ * @param $content_type
+ * @param $content_id
+ */
+function flagger_page_flags($content_type, $content_id)
+{
+  if (!module_exists('moderation') || !moderation_check_perm()) {
+    print json_encode(array(
+      'status'  => false,
+      'message' => t('You have no access to that info'),
+    ));
+    exit;
+  }
+
+  $output = '';
+
+  $flags = moderation_flags($content_type, $content_id);
+  foreach ($flags as $fid => $flag) {
+    $output .= t($flag['title']);
+    $output .= '<hr style="margin:3px 0 5px 0"/>';
+    $output .= '<ul>';
+    foreach ($flag['users'] as $uid => $data) {
+      $output .= '<li>'. l($data['name'], 'user/profile/view/' . $uid) .': "'.$data['note'] .'"</li>';
+    }
+    $output .= '</ul>';
+  }
+
+  if (!$flags) {
+    $output = t('No flags');
+  }
+
+  print json_encode(array(
+    'status'  => true,
+    'message' => $output,
+  ));
+
+  exit;
 }
 
 /**
@@ -392,7 +470,7 @@ function flagger_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
     case 'load' :
       // let's load the flags used
       $node->flags = flagger_get_counts('node', $node->nid);
-    break;
+      break;
   }
 }
 
@@ -432,7 +510,8 @@ function flagger_get_counts($content_type, $content_id, $reset = FALSE)
 /**
  * Implementation of hook_flag(). Trigger actions if any are available.
  */
-function flagger_flag($action, $flag, $content_id, $account) {
+function flagger_flag($action, $flag, $content_id, $account)
+{
   if (module_exists('rules')) {
     $event_name = ($action == 'flag' ? 'flag_flagged' : 'flag_unflagged');
     $arguments = array(

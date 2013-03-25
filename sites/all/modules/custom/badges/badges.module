@@ -241,10 +241,10 @@ function badges_menu()
     'access callback' => true,
   );
   $menu['admin/settings/badges'] = array(
-    'title'           => t('Badges'),
-    'page callback'   => 'drupal_get_form',
-    'page arguments'  => array('badges_form'),
-    'access arguments'=> array(BADGES_ADMIN),
+    'title' => t('Badges'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('badges_form'),
+    'access arguments' => array(BADGES_ADMIN),
   );
 
   return $menu;
@@ -253,11 +253,12 @@ function badges_menu()
 /**
  * @return array
  */
-function badges_form() {
+function badges_form()
+{
   return array(
     'submit' => array(
-      '#type'     => 'submit',
-      '#value'    => t('Rebuild Badges List'),
+      '#type' => 'submit',
+      '#value' => t('Rebuild Badges List'),
     ),
   );
 }
@@ -265,13 +266,15 @@ function badges_form() {
 /**
  *
  */
-function badges_form_submit() {
+function badges_form_submit()
+{
   db_query("DELETE FROM {badges} WHERE uid <= 0");
   foreach (badges_list() as $name => $info) {
     badges_add(-1, $name);
   }
 
 }
+
 /**
  * Implementation of hook_preprocess_page()
  *
@@ -323,9 +326,9 @@ function theme_badges_list($sort = 2)
     <table border="0" cellspacing="0" cellpadding="0" id="badgeslist">
       <thead>
         <tr>
-          <th class="small">'.t('Type').'/'.t('Count').'</th>
-          <th class="medium">'.t('Name').'</th>
-          <th class="large">'.t('Description').'</th>
+          <th class="small">' . t('Type') . '/' . t('Count') . '</th>
+          <th class="medium">' . t('Name') . '</th>
+          <th class="large">' . t('Description') . '</th>
         </tr>
       </thead>
       <tbody>';
@@ -366,14 +369,14 @@ function theme_badges_list($sort = 2)
 //      <div class="medal"><span class="badge-circle %s %s" id="medal1" title="%s Medal">&nbsp;</span>&nbsp;x&nbsp;%d&nbsp;&nbsp;%s <p>%s</p></div>',
 //      $badge->name, $badge_item['type'], badges_types($badge_item['type']), $badge->count-1, $badge_item['name'], $badge_item['info']
 //    );
-      $output .= sprintf('
+    $output .= sprintf('
         <tr>
           <td><span class="%s medal3" title="%s">&nbsp;</span> x %d</td>
           <td>%s</td>
           <td>%s</td>
         </tr>
-      ', $badge_item['type'], badges_types($badge_item['type']).' '.t('Medal'), $badge->count-1, $badge_item['name'], $badge_item['info']
-      );
+      ', $badge_item['type'], badges_types($badge_item['type']) . ' ' . t('Medal'), $badge->count - 1, $badge_item['name'], $badge_item['info']
+    );
   }
 //  $output .= '</div>';
   $output .= '</tbody></table></div></div>';
@@ -394,7 +397,7 @@ function theme_badges_list_users()
 //  var_dump($badges_userbadges);
 
   foreach ($badges_userbadges as $uid => $data) {
-    $output .= '<li><a href="/user/profile/view/'.$uid.'">' . $data['#name'] . '</a>:&nbsp;';
+    $output .= '<li><a href="/user/profile/view/' . $uid . '">' . $data['#name'] . '</a>:&nbsp;';
 
     foreach ($data['#list'] as $name => $info) {
       $output .= sprintf('<span class="selected-item %s">%s<span class="count-item">x</span><span class="number-item">%d</span></span>',
@@ -427,7 +430,7 @@ function badges_user($op, &$edit, &$account, $category = NULL)
       if (!isset($user->badges)) {
         $user->badges = badges_userbadges($user->uid);
       }
-    break;
+      break;
   }
 }
 

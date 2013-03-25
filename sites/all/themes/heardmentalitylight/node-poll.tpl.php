@@ -9,6 +9,7 @@
     <div class="qd">
       <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
       <?php print theme('flagger_button', $nid, 'node'); ?>
+      <?php print theme('flagger_button_flags', $nid, 'node'); ?>
       <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
         <?php print l(t('moderation'), 'moderation/issue/'.$node->nid,
           array('attributes' => array(
@@ -30,6 +31,8 @@
   <div class="part part2">
     <div id="shareDiv" class="clearfix"></div>
   </div><!-- /div.part2 -->
+
+  <?php print drupal_get_form('subscriptions_ui_node_form', menu_get_object()) ?>
 
   <?php
     $nodepath = 'node/'.$nid;

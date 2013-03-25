@@ -5,7 +5,8 @@
  * @param $form_state
  * @param $form_id
  */
-function ulogin_alter_form_alter(&$form, &$form_state, $form_id) {
+function ulogin_alter_form_alter(&$form, &$form_state, $form_id)
+{
   if ($form_id == 'ulogin_settings_form') {
     $fields = _ulogin_fields_list();
     $form['fset_ulogin_fields']['ulogin_fields_optional'] = array(
@@ -15,5 +16,14 @@ function ulogin_alter_form_alter(&$form, &$form_state, $form_id) {
       '#default_value' => variable_get('ulogin_fields_optional', array()),
       '#description' => t('Select optional fields you need to have.'),
     );
+    $form['fset_ulogin_fields']['ulogin_fields_optional'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Fields to request optionally'),
+      '#options' => $fields,
+      '#default_value' => variable_get('ulogin_fields_optional', array()),
+      '#description' => t('Select optional fields you need to have.'),
+    );
+    $form['fset_ulogin_other']['ulogin_duplicate_emails']['#options'][2] =
+      t("Allow duplicate email addresses, log in using the existing account with that email");
   }
 }

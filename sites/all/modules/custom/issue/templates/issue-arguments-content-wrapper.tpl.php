@@ -69,9 +69,9 @@
   <div id="empty_helper">&nbsp;</div>
 
   <ul>
-    <li><a href="<?php print $base_url ?>/argument/tab/<?php print $node->nid; ?>/0/0">recent</a></li>
-    <li><a href="<?php print $base_url ?>/argument/tab/<?php print $node->nid; ?>/1/0">older</a></li>
-    <li><a href="<?php print $base_url ?>/argument/tab/<?php print $node->nid; ?>/2/0">supported</a></li>
+    <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/0/0">recent</a></li>
+    <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/1/0">older</a></li>
+    <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/2/0">supported</a></li>
   </ul>
   <div id="ui-tabs-1">
     <?php print argument_tab($node->nid); ?>

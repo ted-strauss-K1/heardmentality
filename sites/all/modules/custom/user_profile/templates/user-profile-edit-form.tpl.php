@@ -164,14 +164,14 @@ $privacy = user_profile_profile_privacy_values();
     </div>
   </div>
 
-<!--  <div class="grey-box full clearfix">-->
-<!--    <label for="" class="subscriptions">--><?php //print t('Social Integration'); ?><!--</label>-->
-<!---->
-<!--    <p class="twelve">-->
-<!--      --><?php //print t('Stay logged in to these accounts - This makes sharing with your external networks easier.'); ?>
-<!--    </p>-->
-<!--    --><?php //print drupal_render($form['social']); ?>
-<!--  </div>-->
+  <!--  <div class="grey-box full clearfix">-->
+  <!--    <label for="" class="subscriptions">--><?php //print t('Social Integration'); ?><!--</label>-->
+  <!---->
+  <!--    <p class="twelve">-->
+  <!--      --><?php //print t('Stay logged in to these accounts - This makes sharing with your external networks easier.'); ?>
+  <!--    </p>-->
+  <!--    --><?php //print drupal_render($form['social']); ?>
+  <!--  </div>-->
 
   <div class="grey-box full clearfix">
     <label for="" class="subscriptions"><?php print t('Subscriptions'); ?></label>

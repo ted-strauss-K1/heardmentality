@@ -22,7 +22,7 @@
 ); ?>
 <p class="action-item">
   <span class="name">
-    <a href="/<?php print $account->viewlink ?>" title="<?php print $account->name ?>">
+    <a href="<?php print $account->viewlink ?>" title="<?php print $account->name ?>">
       <?php print ucwords($account->name) ?>
     </a>
   </span>
@@ -33,5 +33,5 @@
   <br clear="both">
   <?php endif; ?>
 </p>
-  <span class="submitted"><?php print $date; ?></span>
+  <span class="submitted" name="<?php print $item['timestamp']; ?>"><?php print $item['date_added']; ?></span>
 </li>

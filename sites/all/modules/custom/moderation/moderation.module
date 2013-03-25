@@ -181,18 +181,11 @@ function moderation_theme()
     'arguments' => array('page' => 'issues'),
     'template' => 'moderation-main',
   );
-  $theme['moderation_pager'] = array(
-    'arguments' => array(
-      'page' => 1,
-      'pages' => 1,
-      'pattern' => NULL,
-    ),
-    'file' => 'moderation.pages.inc',
-  );
-//  $theme['moderation_flags'] = array(
+//  $theme['moderation_pager'] = array(
 //    'arguments' => array(
-//      'content_type' => '',
-//      'content_id' => 0,
+//      'page' => 1,
+//      'pages' => 1,
+//      'pattern' => NULL,
 //    ),
 //    'file' => 'moderation.pages.inc',
 //  );
@@ -208,8 +201,8 @@ function moderation_theme()
       'content_type' => '',
       'content_id' => '',
     ),
-    'template'              => 'moderation-flags',
-    'preprocess functions'  => array('moderation_flags_preprocess'),
+    'template' => 'moderation-flags',
+    'preprocess functions' => array('moderation_flags_preprocess'),
   );
 
   return $theme;
@@ -218,7 +211,8 @@ function moderation_theme()
 /**
  *
  */
-function theme_moderators() {
+function theme_moderators()
+{
   $uids = array();
   foreach (variable_get(MODERATION_USERS, array()) as $uid => $perm) {
     if ($perm) {
@@ -226,7 +220,7 @@ function theme_moderators() {
     }
   }
   $items = array();
-  $result = db_query("SELECT uid, name FROM {users} WHERE uid IN (".db_placeholders($uids).")", $uids);
+  $result = db_query("SELECT uid, name FROM {users} WHERE uid IN (" . db_placeholders($uids) . ")", $uids);
   while ($row = db_fetch_object($result)) {
     $items[] = sprintf('<a href="/user/profile/view/%d">%s</a>', $row->uid, $row->name);
   }
@@ -281,7 +275,8 @@ function moderation_history($op, $content_id, $content_type, $change, $vars = ar
   }
 }
 
-function moderation_flags($content_type = '', $content_id = '') {
+function moderation_flags($content_type = '', $content_id = '')
+{
   static $cache = array();
 
   if (is_null($cache[$content_type][$content_id])) {
@@ -304,11 +299,11 @@ function moderation_flags($content_type = '', $content_id = '') {
       $content_type, $content_id
     );
     while ($row = db_fetch_array($result)) {
-      $cache[$content_type][$content_id][$row['fid']]['name']   = $row['flag'];
-      $cache[$content_type][$content_id][$row['fid']]['title']  = $row['title'];
+      $cache[$content_type][$content_id][$row['fid']]['name'] = $row['flag'];
+      $cache[$content_type][$content_id][$row['fid']]['title'] = $row['title'];
       $cache[$content_type][$content_id][$row['fid']]['users'][$row['uid']] = array(
-        'name'    => $row['name'],
-        'note'    => $row['note'],
+        'name' => $row['name'],
+        'note' => $row['note'],
       );
     }
   }
@@ -319,7 +314,8 @@ function moderation_flags($content_type = '', $content_id = '') {
 /**
  * @param $vars
  */
-function moderation_flags_preprocess(&$vars) {
+function moderation_flags_preprocess(&$vars)
+{
   if (empty($vars['content_id'])) {
     if (is_numeric(arg(2))) {
       $vars['content_id'] = arg(2);
@@ -333,10 +329,10 @@ function moderation_flags_preprocess(&$vars) {
       case 'issue' :
       case 'argument' :
         $vars['content_type'] = 'node';
-      break;
+        break;
       case 'comment' :
         $vars['content_type'] = 'comment';
-      break;
+        break;
       default :
         return array();
     }
@@ -353,7 +349,7 @@ function moderation_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   switch ($op) {
     case 'delete' :
       moderation_history('del', $node->nid, 'node', true);
-    break;
+      break;
   }
 }
 
@@ -368,6 +364,6 @@ function moderation_comment(&$a1, $op)
   switch ($op) {
     case 'delete' :
       moderation_history('del', $a1->cid, 'comment', true);
-    break;
+      break;
   }
 }

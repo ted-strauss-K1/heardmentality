@@ -5,24 +5,40 @@ define('EXTRACT_PERIOD', 'd');
 /**
  *
  */
-function extract_cron() {
+function extract_cron()
+{
   extract_exec();
+}
+
+/**
+ * @param $needle
+ * @param $haystack
+ * @param bool $strict
+ */
+function array_remove_value($needle, &$haystack, $strict = false)
+{
+  if (($key = array_search($needle, $haystack, $strict)) !== false) {
+    unset($haystack[$key]);
+  }
 }
 
 /**
  *
  */
-function extract_exec() {
+function extract_exec()
+{
   $path = 'extract.';
   switch (EXTRACT_PERIOD) {
-    case 'd' : $path .= date('Y.m.d'); break;
+    case 'd' :
+      $path .= date('Y.m.d');
+      break;
   }
   $path_abs = $_SERVER['DOCUMENT_ROOT'] . '/' . drupal_get_path('module', 'extract') . '/data/' . $path . '.csv';
   if (!file_exists($path_abs)) {
     $f = fopen($path_abs, 'w+');
 
     $keys = array(
-      'id','issue_id','issue_text','issue_category_l1','issue_category_l2','issue_category_l3','vote_answer_id','vote_answer_text','vote_increment','current_vote_flag','vote_timestamp','userid','gender','zip','country','state','city','religion','ethnicity','income','marital','education','age','left_right','lib_auth','radic_cons','dowe_hawk',
+      'id', 'issue_id', 'issue_text', 'issue_category_l1', 'issue_category_l2', 'issue_category_l3', 'vote_answer_id', 'vote_answer_text', 'vote_increment', 'current_vote_flag', 'vote_timestamp', 'userid', 'gender', 'zip', 'country', 'state', 'city', 'religion', 'ethnicity', 'income', 'marital', 'education', 'age', 'left_right', 'lib_auth', 'radic_cons', 'dove_hawk',
     );
 
     $y = date('Y');
@@ -33,8 +49,14 @@ function extract_exec() {
       $selections[$row['name']] = explode("\n", $row['options']);
     }
 
+    $q = "SELECT th.*, td.name FROM term_data td INNER JOIN ((SELECT * FROM th1) UNION (SELECT * FROM th2) UNION (SELECT * FROM th3)) th ON td.tid = th.tid";
+    $result = db_query($q);
+    while ($row = db_fetch_array($result)) {
+      $terms[$row['tid']] = $row;
+    }
 
-    $query = "
+    if (true) {
+      $query = "
       SELECT
         CONCAT(pvh.uid, '-', pvh.nid, '-', pvh.chorder) AS id,
         pvh.nid issue_id,
@@ -44,19 +66,19 @@ function extract_exec() {
           WHERE
             tn1.nid = nr.nid AND
             tn1.vid = nr.vid AND
-            tn1.tid IN (SELECT * FROM term_depth_1)) issue_category_l1,
+            tn1.tid IN (SELECT tid FROM th1)) issue_category_l1,
         (SELECT GROUP_CONCAT(tn2.tid)
           FROM term_node tn2
           WHERE
             tn2.nid = nr.nid AND
             tn2.vid = nr.vid AND
-            tn2.tid IN (SELECT * FROM term_depth_2)) issue_category_l2,
+            tn2.tid IN (SELECT tid FROM th2)) issue_category_l2,
         (SELECT GROUP_CONCAT(tn3.tid)
           FROM term_node tn3
           WHERE
             tn3.nid = nr.nid AND
             tn3.vid = nr.vid AND
-            tn3.tid IN (SELECT * FROM term_depth_3)) issue_category_l3,
+            tn3.tid IN (SELECT tid FROM th3)) issue_category_l3,
         pc.chorder vote_answer_id,
         pc.chtext vote_answer_text,
         (CASE pvh.status WHEN 1 THEN 1 ELSE -1 END) vote_increment,
@@ -114,19 +136,20 @@ function extract_exec() {
           WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 3) radic_cons,
         (SELECT value
           FROM poll_charact_values pcv
-          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 4) dowe_hawk
+          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 4) dove_hawk
       FROM poll_votes_history pvh
       INNER JOIN node n ON n.nid = pvh.nid
       INNER JOIN node_revisions nr ON n.nid = nr.nid AND n.vid = nr.vid
       INNER JOIN poll_choices pc ON pc.nid = n.nid AND pc.chorder = pvh.chorder
       ORDER BY pvh.date_voted DESC, pvh.status DESC";
-
-    fwrite($f, implode(",",$keys));
+    }
+    fwrite($f, implode(",", $keys));
     fwrite($f, "\n");
 
     $result = db_query($query);
     while ($row = db_fetch_array($result)) {
 
+      // age rewrite
       if (!is_numeric($row['age'])) {
         $row['age'] = 'undefined';
       } else {
@@ -140,14 +163,58 @@ function extract_exec() {
         }
       }
 
+      // timestamp rewrite
+      $row['vote_timestamp'] = date('Y/m/d H:i:s', $row['vote_timestamp']);
+
+      // categories rewrite
+      $l1 = explode(',', $row['issue_category_l1']);
+      $l2 = explode(',', $row['issue_category_l2']);
+      $l3 = explode(',', $row['issue_category_l3']);
+      foreach ($l3 as $tid) {
+        $codes = explode(',', $terms[$tid]['code'], 3);
+        array_remove_value($codes[0], $l1);
+        array_remove_value($codes[1], $l2);
+        $cats[] = $codes;
+      }
+      foreach ($l2 as $tid) {
+        $codes = explode(',', $terms[$tid]['code'], 2);
+        array_remove_value($codes[0], $l1);
+        $cats[] = $codes;
+      }
+      foreach ($l1 as $tid) {
+        $codes = explode(',', $terms[$tid]['code'], 1);
+        $cats[] = $codes;
+      }
+      $row['issue_category_l1'] = '%cat1';
+      $row['issue_category_l2'] = '%cat2';
+      $row['issue_category_l3'] = '%cat3';
+
+      // addslashes
       foreach ($row as $k => &$v) {
         if (isset($selections[$k])) {
-          $v = isset($selections[$k][$v]) ? $selections[$k][$v] : 'undefined';
+          $v = isset($selections[$k][$v]) && !empty($selections[$k][$v]) ? $selections[$k][$v] : 'undefined';
+        } elseif (in_array($k, array('zip', 'country', 'state', 'city')) && empty($v)) {
+          $v = 'undefined';
         }
-        $v = "\"" . str_replace('"','\"',$v) . "\"";
+        $v = "\"" . str_replace('"', '\"', $v) . "\"";
       }
 
-      fwrite($f, implode(",", $row) . "\n");
+      // prepare the line
+      $row = implode(",", $row) . "\n";
+
+      // duplicate the lines if any category is assigned
+      if (empty($cats)) {
+        fwrite($f, sprintf($row, '', '', ''));
+      } else {
+        foreach ($cats as $line) {
+          fwrite($f, strtr($row, array(
+              '%cat1' => $terms[intval($line[0])]['name'],
+              '%cat2' => $terms[intval($line[1])]['name'],
+              '%cat3' => $terms[intval($line[2])]['name'],
+            )
+          ));
+        }
+      }
     }
 
     fclose($f);

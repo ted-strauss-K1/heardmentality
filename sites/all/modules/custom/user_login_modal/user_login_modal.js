@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  $('.openlogin_box').live('click', function () {
+  $('#dialog_link, .openlogin_box').live('click', function () {
 
     $('#dialog')
       .tabs()

@@ -137,11 +137,11 @@ function issue_charts_chtexts($node)
   return $chtexts;
 }
 
-  /**
-   * Preprocess function for issue_charts_inner
-   *
-   * @param $vars
-   */
+/**
+ * Preprocess function for issue_charts_inner
+ *
+ * @param $vars
+ */
 function issue_charts_common_preprocess($vars)
 {
   // run once

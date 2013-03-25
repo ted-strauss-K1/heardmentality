@@ -5,7 +5,7 @@
  */
 function content_translate_install()
 {
-  drupal_install_schema('content_translate');
+  $v = drupal_install_schema('content_translate');
 }
 
 /**

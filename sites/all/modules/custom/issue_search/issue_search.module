@@ -10,15 +10,16 @@ require_once 'includes/issue_search.theme.inc';
 /**
  * Implementation of hook_init().
  * Perform setup tasks.
- * 
+ *
  * @global object $user
  *  Current Drupal user.
  * @global object $_issue_search_user
  *  Copy of real user for this module.
  */
-function issue_search_init() {
-    global $user, $_issue_search_user;
-    $_issue_search_user = $user;
+function issue_search_init()
+{
+  global $user, $_issue_search_user;
+  $_issue_search_user = $user;
 }
 
 /**
@@ -28,37 +29,38 @@ function issue_search_init() {
  * @return array
  *  An associative array whose keys define paths and whose values are an associative array of properties for each path.
  */
-function issue_search_menu() {
-    $menu = array();
+function issue_search_menu()
+{
+  $menu = array();
 
-    // Issues list.
-    $menu['issues'] = array(
-        'page callback' => 'drupal_get_form',
-        'title' => t('Issues'),
-        'page arguments' => array('issue_search_form'),
-        'access callback' => TRUE,
-        'type' => MENU_CALLBACK,
-        'file' => 'includes/issue_search.pages.inc',
-    );
+  // Issues list.
+  $menu['issues'] = array(
+    'page callback' => 'drupal_get_form',
+    'title' => t('Issues'),
+    'page arguments' => array('issue_search_form'),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/issue_search.pages.inc',
+  );
 
-    // AJAX callback for processing a search.
-    $menu['issues/ajax'] = array(
-        'page callback' => 'issue_search_ajax',
-        'access callback' => TRUE,
-        'type' => MENU_CALLBACK,
-        'file' => 'includes/issue_search.pages.inc',
-    );
+  // AJAX callback for processing a search.
+  $menu['issues/ajax'] = array(
+    'page callback' => 'issue_search_ajax',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/issue_search.pages.inc',
+  );
 
-    return $menu;
+  return $menu;
 }
 
 /**
  * Implementation of hook_nodeapi().
  * Act on nodes defined by other modules.
- * 
+ *
  * @global object $user
  *  Current Drupal user.
- * 
+ *
  * @param object $node
  *  The node the action is being performed on
  * @param type $op
@@ -83,39 +85,41 @@ function issue_search_menu() {
  *  For "validate", passes in the $form parameter from node_validate().
  * @param type $a4
  *  For "view" and "alter", passes in the $page parameter from node_view().
- * 
- * @return array 
+ *
+ * @return array
  *  The "presave", "insert", "update", "delete", "print" and "view" operations have no return value.
  *  The "load" operation should return an array containing pairs of fields => values to be merged into the node object.
  */
-function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-    global $user;
+function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
+  global $user;
 
-    // Enqueue a node into apachesolr node queue for indexing a new amount of views.
-    if ($op == 'view') {
-        if ($node->type == 'poll') {
-            $is_admin = (in_array('administrator', $user->roles) || ($user->uid == 1) || ($user->uid == $node->uid));
-            if (!$is_admin) {
-                if (!((strpos(request_uri(), "/cron.php") === 0) && ($user->uid == 0))) {
-                    issue_search_queue_node($node->nid);
-                }
-            }
+  // Enqueue a node into apachesolr node queue for indexing a new amount of views.
+  if ($op == 'view') {
+    if ($node->type == 'poll') {
+      $is_admin = (in_array('administrator', $user->roles) || ($user->uid == 1) || ($user->uid == $node->uid));
+      if (!$is_admin) {
+        if (!((strpos(request_uri(), "/cron.php") === 0) && ($user->uid == 0))) {
+          issue_search_queue_node($node->nid);
         }
+      }
     }
+  }
 }
 
 /**
  * @param $nid
  */
-function issue_search_queue_node($nid) {
+function issue_search_queue_node($nid)
+{
   @db_query("UPDATE {apachesolr_index_entities_node} SET changed = %d WHERE entity_id = %d", time(), $nid);
 }
 
 /**
  * Implementation of hook_theme().
  * Register a module (or theme's) theme implementations.
- * 
- * @param array $existing 
+ *
+ * @param array $existing
  *  An array of existing implementations that may be used for override purposes. This is primarily useful for themes that may wish to examine existing implementations to extract data (such as arguments) so that it may properly register its own, higher priority implementations.
  * @param string $type
  *  What 'type' is being processed. This is primarily useful so that themes tell if they are the actual theme being called or a parent theme. May be one of:
@@ -128,95 +132,99 @@ function issue_search_queue_node($nid) {
  *  The actual name of theme that is being being checked (mostly only useful for theme engine).
  * @param string $path
  *  The directory path of the theme or module, so that it doesn't need to be looked up.
- * 
+ *
  * @return array
  *  A keyed array of theme hooks.
  */
-function issue_search_theme($existing = array(), $type = '', $theme = '', $path = '') {
-    $functions = array();
+function issue_search_theme($existing = array(), $type = '', $theme = '', $path = '')
+{
+  $functions = array();
 
-    $functions['issue_search_results'] = array(
-        'arguments' => array(
-            'results' => array()
-        ),
-        'file' => 'includes/issue_search.theme.inc',
-    );
-    $functions['issue_search_filter'] = array(
-        'arguments' => array(),
-        'file' => 'includes/issue_search.theme.inc',
-    );
+  $functions['issue_search_results'] = array(
+    'arguments' => array(
+      'results' => array()
+    ),
+    'file' => 'includes/issue_search.theme.inc',
+  );
+  $functions['issue_search_filter'] = array(
+    'arguments' => array(),
+    'file' => 'includes/issue_search.theme.inc',
+  );
 
-    return $functions;
+  return $functions;
 }
 
 /**
  * Implementation of hook_preprocess_page().
  * Preprocess theme variables for a page theming function or template.
- * 
+ *
  * @param type $variables
  *  The variables array (modify in place).
  */
-function issue_search_preprocess_page(&$variables) {
+function issue_search_preprocess_page(&$variables)
+{
 
-    // Case Issues search page.
-    if (arg(0) == 'issues') {
+  // Case Issues search page.
+  if (arg(0) == 'issues') {
 
-        // Set page template.
-        array_push($variables['template_files'], 'page_12_4');
+    // Set page template.
+    array_push($variables['template_files'], 'page_12_4');
 
-        // Javascripts.
-        drupal_add_js(drupal_get_path('module', 'issue_search') . '/js/issue_search.js');
-        drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
+    // Javascripts.
+    drupal_add_js(drupal_get_path('module', 'issue_search') . '/js/issue_search.js');
+    drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
 
-        // Filters sidebar.
-        $variables['right'] = theme('issue_search_filter');
-    }
+    // Filters sidebar.
+    $variables['right'] = theme('issue_search_filter');
+  }
 }
 
 /**
  * Implementation of hook_exit().
  * Perform cleanup tasks.
- * 
+ *
  * @global object $user
  *  Current Drupal user.
- * 
+ *
  * @param string $destination
  *  If this hook is invoked as part of a drupal_goto() call, then this argument will be a fully-qualified URL that is the destination of the redirect.
  */
-function issue_search_exit($destination = NULL) {
-    global $user;
+function issue_search_exit($destination = NULL)
+{
+  global $user;
 
-    // Check if we are counting views.
-    if (variable_get('statistics_count_content_views', 0)) {
+  // Check if we are counting views.
+  if (variable_get('statistics_count_content_views', 0)) {
 
-        // Check if current page displays a node in viewing mode.
-        if ((arg(0) == 'node') && is_numeric(arg(1)) && arg(2) == '') {
+    // Check if current page displays a node in viewing mode.
+    if ((arg(0) == 'node') && is_numeric(arg(1)) && arg(2) == '') {
 
-            // Check if the user is admin or author.
-            $is_admin = (in_array('administrator', $user->roles) || ($user->uid == 1) || ($user->uid == node_load(arg(1))->uid));
-            if ($is_admin) {
+      // Check if the user is admin or author.
+      $is_admin = (in_array('administrator', $user->roles) || ($user->uid == 1) || ($user->uid == node_load(arg(1))->uid));
+      if ($is_admin) {
 
-                // Decrement total view count and day view count of current node.
-                db_query('UPDATE {node_counter} SET daycount = daycount - 1, totalcount = totalcount - 1, timestamp = %d WHERE nid = %d', time(), arg(1));
-            }
-        }
+        // Decrement total view count and day view count of current node.
+        db_query('UPDATE {node_counter} SET daycount = daycount - 1, totalcount = totalcount - 1, timestamp = %d WHERE nid = %d', time(), arg(1));
+      }
     }
+  }
 }
 
 /**
  * Search function.
- * 
+ *
  * @return array
  *  Search results.
  */
-function issue_search() {
+function issue_search()
+{
 
-    $keywords = $_POST['keywords'];
-    $params = array(
-        'q' => $keywords,
-    );
+  $keywords = $_POST['keywords'];
+  $params = array(
+    'q' => $keywords,
+  );
 
-    $results = apachesolr_search_run('apachesolr', $params);
+  $results = apachesolr_search_run('apachesolr', $params);
 
-    return $results;
+  return $results;
 }

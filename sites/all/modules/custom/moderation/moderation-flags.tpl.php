@@ -6,13 +6,13 @@
 
   <?php foreach ($flags as $fid => $flag) : ?>
 
-    <?php print t($flag['title']); ?>
-    <hr style="margin:3px 0 5px 0" />
-    <ul>
+  <?php print t($flag['title']); ?>
+  <hr style="margin:3px 0 5px 0"/>
+  <ul>
     <?php foreach ($flag['users'] as $uid => $data) : ?>
-      <li><?php print l($data['name'], 'user/profile/view/'.$uid); ?>: "<?php print $data['note']; ?>"</li>
+    <li><?php print l($data['name'], 'user/profile/view/' . $uid); ?>: "<?php print $data['note']; ?>"</li>
     <?php endforeach; ?>
-    </ul>
+  </ul>
 
   <?php endforeach; ?>
 </div>

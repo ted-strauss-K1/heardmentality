@@ -58,7 +58,8 @@ function theme_issue_arguments_content($node)
 /**
  * @param $vars
  */
-function issue_block_categories_preprocess(&$vars) {
+function issue_block_categories_preprocess(&$vars)
+{
   $nid = $vars['nid'];
   if (empty($nid)) {
     $vars['nid'] = $nid = arg(1);
@@ -90,7 +91,8 @@ function issue_block_categories_preprocess(&$vars) {
  * @param $term
  * @return string
  */
-function issue_term_parents($term) {
+function issue_term_parents($term)
+{
   $list = array();
 
   $terms = taxonomy_node_type_terms();
@@ -114,7 +116,8 @@ function issue_term_parents($term) {
 /**
  * @param $vars
  */
-function issue_block_categories_popular_preprocess(&$vars) {
+function issue_block_categories_popular_preprocess(&$vars)
+{
   $result = db_query_range("
     SELECT COUNT(*) count, td.* FROM poll_votes pv
     INNER JOIN term_node tn ON tn.nid = pv.nid

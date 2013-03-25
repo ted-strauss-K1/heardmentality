@@ -167,16 +167,7 @@ $(document).ready(function(){
     $(this).fadeTo("fast", 0.9); // This should set the opacity back to 30% on mouseout
   });
 });
-						   
-						
-$(document).ready(function(){
-  $(" h6#add-arg").fadeTo("fast", 1); // This sets the opacity of the thumbs to fade down to 30% when the page loads
-  $(" h6#add-arg").hover(function(){
-    $(this).fadeTo("fast", 1.0); // This should set the opacity to 100% on hover
-  },function(){
-    $(this).fadeTo("fast", 1); // This should set the opacity back to 30% on mouseout
-  });
-});						   
+
 
 /**
  * JQUERY UI STUFF

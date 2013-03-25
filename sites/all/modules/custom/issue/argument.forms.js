@@ -159,12 +159,12 @@ function yn_success(el, data) {
 /**
  * Resource text -- remove http://
  */
-$('#url').focusin(function(){
+$('#url').focusin(function () {
   if ($(this).val() == $(this).prop('defaultValue')) {
     $(this).val('');
   }
 });
-$('#url').focusout(function(){
+$('#url').focusout(function () {
   if ($(this).val() == '') {
     $(this).val($(this).prop('defaultValue'));
   }

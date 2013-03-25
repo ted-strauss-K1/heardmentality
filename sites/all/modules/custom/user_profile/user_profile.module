@@ -306,8 +306,8 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
 {
   switch ($op) {
     case 'load' :
-      $account->viewlink = 'user/profile/view/' . $account->name;
-      $account->editlink = 'user/profile/edit/';
+      $account->viewlink = url('user/profile/view') . '/' . $account->name;
+      $account->editlink = url('user/profile/edit');
       break;
     case 'insert' :
 
@@ -386,7 +386,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
 
         }
       }
-    break;
+      break;
     case 'logout':
 
       if (module_exists('gigya')) {
@@ -407,7 +407,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
         drupal_goto();
       }
 
-    break;
+      break;
   }
 }
 

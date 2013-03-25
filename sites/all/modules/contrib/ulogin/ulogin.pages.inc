@@ -51,6 +51,14 @@ function ulogin_callback() {
   if ($identity = _ulogin_identity_load($data)) {
     user_external_login(user_load($identity['uid']));
   }
+
+  // odyachenko
+  //handle duplicate email addresses
+  elseif ((variable_get('ulogin_duplicate_emails', 1) == 2) && !empty($data['email']) && $account = ulogin_user_load_by_mail($data['email'])) {
+    user_external_login($account);
+  }
+  // end odyachenko
+
   //handle duplicate email addresses
   elseif (variable_get('ulogin_duplicate_emails', 1) && !empty($data['email']) && $account = ulogin_user_load_by_mail($data['email'])) {
     drupal_set_message(t('You are trying to login with email address of another user.'), 'error');
@@ -103,7 +111,8 @@ function ulogin_callback() {
   }
 
   $destination = drupal_get_destination();
-  drupal_goto($destination['destination']);
+  $destination = preg_replace('/^.*\?destination=/', '', urldecode($destination));
+  drupal_goto($destination);
 }
 
 function ulogin_user_identity($form_state, $account) {

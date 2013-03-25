@@ -1,5 +1,18 @@
 <?php
 
+function events_menu() {
+  $menu = array();
+
+  $menu['events/latest/%'] = array(
+    'page callback' => 'events_get_latest',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
 /**
  * API function : add event
  *
@@ -89,6 +102,7 @@ function events_get($p = array(), $count = 30)
       $users[$item['uid']] = user_load($item['uid']);
     }
     $item['account'] = $users[$item['uid']];
+    $item['timestamp'] = strtotime($item['date_added']);
     if (function_exists('time_interval')) {
       $item['date_added'] = time_interval($item['date_added']);
     }
@@ -183,7 +197,7 @@ function events_theme()
     'arguments' => array(
       'items' => array(),
     ),
-    'preprocess functions' => array('events_theme_preprocess'),
+    'preprocess functions' => array('events_stream_theme_preprocess'),
     'template' => 'events',
   );
   $theme['events_item'] = array(
@@ -200,9 +214,27 @@ function events_theme()
  *
  * @param $vars
  */
-function events_theme_preprocess(&$vars)
+function events_stream_theme_preprocess(&$vars)
 {
   drupal_add_js(drupal_get_path('module', 'events') . '/events.js');
+  drupal_add_js(array('time' => array(
+    'second' => t('second'),
+    'seconds' => t('seconds'),
+    'minute' => t('minute'),
+    'minutes' => t('minutes'),
+    'hour' => t('hour'),
+    'hours' => t('hours'),
+    'day' => t('day'),
+    'days' => t('days'),
+    'week' => t('week'),
+    'weeks' => t('weeks'),
+    'month' => t('month'),
+    'months' => t('months'),
+    'year' => t('year'),
+    'years' => t('years'),
+    'ago' => t('ago'),
+    'just now' => t('just now'),
+  )), 'setting');
 }
 
 /**
@@ -264,7 +296,7 @@ function theme_events_item($item)
   $classes[] = 'content_type-' . $item['content_type'];
 
   return isset($themes[$item['type']]) ?
-    '<div id="msg-' . $item['id'] . '" class="' . implode(' ', $classes) . '">' .
+    '<div name="'.$item['id'].'" id="msg-' . $item['id'] . '" class="' . implode(' ', $classes) . '">' .
       theme($themes[$item['type']], $item) .
       '</div>'
     : '';
@@ -295,6 +327,9 @@ function events_theme_items()
   return $theme;
 }
 
+/**
+ * @return array
+ */
 function events_events_info()
 {
   return array(
@@ -308,4 +343,64 @@ function events_events_info()
     'user_badge' => 'event_user_badge',
     'user_follow' => 'event_user_follow',
   );
+}
+
+
+/**
+ * API function : get events
+ *
+ * @param int $count
+ * @param array $p
+ * @return array
+ */
+function events_get_latest($id)
+{
+  $items = array();
+
+  # fetch results
+  static $users = array();
+  $result = db_query("SELECT * FROM {events} WHERE id > '%d' ORDER BY date_added ASC", $id);
+  while ($item = db_fetch_array($result)) {
+    $item['vars'] = unserialize($item['vars']);
+    if (!$users[$item['uid']]) {
+      $users[$item['uid']] = user_load($item['uid']);
+    }
+    $item['account'] = $users[$item['uid']];
+    $item['timestamp'] = strtotime($item['date_added']);
+    if (function_exists('time_interval')) {
+      $item['date_added'] = time_interval($item['date_added']);
+    }
+    $items[$item['id']] = theme('events_item', $item);
+  }
+
+  print json_encode($items);
+  exit;
+}
+
+/**
+ * @param $date
+ * @return string
+ */
+function time_interval($date) {
+  # dates/interval
+  $date_now = new DateTime("now");
+  $date = new DateTime($date);
+  $interval = $date->diff($date_now);
+  # convert to string
+  if ($interval->y != 0) {
+    return $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
+  }
+  if ($interval->m != 0) {
+    return $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
+  }
+  if ($interval->d != 0) {
+    return $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
+  }
+  if ($interval->h != 0) {
+    return $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
+  }
+  if ($interval->i != 0) {
+    return $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
+  }
+  return 'just now';
 }

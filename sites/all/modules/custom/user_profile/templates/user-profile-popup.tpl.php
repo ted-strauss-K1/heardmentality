@@ -24,7 +24,7 @@
         <p>
           <?php print t('Filling in your <em>!empty-field</em> will bring you to !complete% Complete', array('!empty-field' => t($complete['nextfield']), '!complete' => $complete['nextpercent'])); ?>
           <a class="blue"
-             href="/user/profile/edit#<?php $complete['nextname'] ?>-wrapper"><?php print t('Add it here.'); ?></a>
+             href="<?php print url('user/profile/edit', array('fragment' => $complete['nextname'] . "-wrapper")) ?>"><?php print t('Add it here.'); ?></a>
         </p>
       </div>
 
@@ -45,8 +45,8 @@
   <?php endif; ?>
 
   <p class="profile-links quick-profile">
-    <a href="/user/profile/view"><?php print t('View Profile');?></a> |
-    <a href="/user/profile/edit"><?php print t('Edit Profile');?></a>
+    <a href="<?php print url('user/profile/view'); ?>"><?php print t('View Profile');?></a> |
+    <a href="<?php print url('user/profile/edit'); ?>"><?php print t('Edit Profile');?></a>
   </p>
 
   <a href="/logout?<?php print drupal_get_destination(); ?>" title="<?php print t('Log out');?>"

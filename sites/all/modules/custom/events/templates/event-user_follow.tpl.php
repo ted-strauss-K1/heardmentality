@@ -4,7 +4,7 @@
   $target = user_load($item['content_id']);
 
   $text = 'now following';
-  $link = '<span class="name"><a href="/' . $target->viewlink . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
+  $link = '<span class="name"><a href="' . $target->viewlink . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
   $text2 = l(
     sprintf('<img class="following-user listed" src="%s" />', user_profile_image($target)),
     $target->viewlink,
@@ -18,7 +18,7 @@
 ); ?>
 <p class="action-item">
   <span class="name">
-    <a href="/<?php print $account->viewlink ?>" title="<?php print $account->name ?>">
+    <a href="<?php print $account->viewlink ?>" title="<?php print $account->name ?>">
       <?php print ucwords($account->name) ?>
     </a>
   </span>
@@ -31,5 +31,5 @@
   <?php endif; ?>
 
 </p>
-  <span class="submitted"><?php print $date; ?></span>
+  <span class="submitted" name="<?php print $item['timestamp']; ?>"><?php print $item['date_added']; ?></span>
 </li>

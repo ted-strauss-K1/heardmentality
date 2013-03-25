@@ -55,7 +55,8 @@ function taxonomy_bottom_level_terms($vid)
  * @param string $type
  * @return mixed
  */
-function taxonomy_node_type_terms($type = 'poll') {
+function taxonomy_node_type_terms($type = 'poll')
+{
   static $terms = array();
 
   if (is_null($terms[$type])) {

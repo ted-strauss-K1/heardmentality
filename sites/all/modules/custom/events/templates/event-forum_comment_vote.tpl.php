@@ -25,7 +25,7 @@
 ); ?>
 <p class="action-item">
   <span class="name">
-    <a href="/<?php print $account->viewlink ?>" title="<?php print $account->name ?>">
+    <a href="<?php print $account->viewlink ?>" title="<?php print $account->name ?>">
       <?php print ucwords($account->name) ?>
     </a>
   </span>
@@ -33,10 +33,16 @@
   <?php print t($text); ?>
   <?php print $link; ?>
   <?php if ($text2) : ?>
-        </p><p class="action-comment-ref"><?php print t($text2) ?>
+        </p><p class="action-comment-ref">
+
+    <!-- google translate -->
+  <span class="goog-trans-section events_google_translate">
+      <?php print $text2; ?>&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
+    </span>
+
   <br clear="both">
   <?php endif; ?>
 
 </p>
-  <span class="submitted"><?php print $date; ?></span>
+  <span class="submitted" name="<?php print $item['timestamp']; ?>"><?php print $item['date_added']; ?></span>
 </li>

@@ -34,7 +34,8 @@ $rtype = $node->field_rtype[0]['value'];
           <?php if ($atype == TYPE_DEBATE) : ?>
 
           <p><?php print $node->title; ?></p>&nbsp;
-          <div class="sq">[
+          <div class="sq">
+            [
             <div class="goog-trans-control translate"></div>
             ]
           </div>
@@ -75,17 +76,17 @@ $rtype = $node->field_rtype[0]['value'];
         <!-- User Debate Options: END -->
 
         <!-- User Info -->
-        <?php $userlink = url('<front>', array('absolute' => TRUE)) . '/user/profile/view/' . $node->name; ?>
+        <?php $account = user_load(array('uid' => $node->uid)); ?>
         <div class="userinfo-debate">
           <span class="date"><?php print t('posted'); ?>&nbsp;
             <span><?php print $node->creation_time; ?></span>
           </span>
-          <a class="user-thumb" href="<?php print $userlink; ?>">
-            <img src="<?php print user_profile_image(user_load(array('uid' => $node->uid))); ?>"
+          <a class="user-thumb" href="<?php print $account->viewlink; ?>">
+            <img src="<?php print user_profile_image($account); ?>"
                  alt="<?php print $node->name; ?>" class="user-thumb">
           </a>
             <span class="name">
-              <a href="<?php print $userlink; ?>"><?php print $node->name; ?></a>
+              <a href="<?php print $account->viewlink; ?>"><?php print $node->name; ?></a>
             </span>
         </div>
         <!-- User Info: END -->
@@ -94,6 +95,7 @@ $rtype = $node->field_rtype[0]['value'];
       <!-- Content Control Links -->
       <ul class="control_links">
         <li><?php print theme('flagger_button', $nid, 'node'); ?></li>
+        <li>&nbsp;|&nbsp;<?php print theme('flagger_button_flags', $nid, 'node'); ?></li>
         <li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
         <?php if ($delete = theme('argument_delete', 'node', $nid)) : ?>
         <li>&nbsp;|&nbsp;<?php print $delete; ?></li>

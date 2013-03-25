@@ -42,8 +42,6 @@ function flagger_exec(flagger) {
     }
   });
 }
-
-
 $(document).ready(function () {
   $('.flagger').live('click', function (e) {
     e.preventDefault();

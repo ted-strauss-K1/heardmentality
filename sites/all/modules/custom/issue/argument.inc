@@ -115,7 +115,7 @@ function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       case 'load' :
         $node->creation_time = ($_ = theme('time_interval', $node->created)) ? $_ : date("F d Y H:i:s", $node->created);
         $node->comments = argument_recent_comments($node->nid);
-      break;
+        break;
     }
   }
 }
@@ -455,7 +455,7 @@ function argument_create()
       if ($node) {
         print json_encode(array(
           'success' => true,
-          'message' => '<span class="posted">'.t('Your argument was posted successfully!').'</span>',
+          'message' => '<span class="posted">' . t('Your argument was posted successfully!') . '</span>',
           'node' => $node,
         ));
 

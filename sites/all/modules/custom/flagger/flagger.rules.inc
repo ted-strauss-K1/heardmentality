@@ -8,7 +8,8 @@
 /**
  * Implementation of hook_rules_event_info().
  */
-function flagger_rules_event_info() {
+function flagger_rules_event_info()
+{
   $items = array();
 
   $arguments = array(

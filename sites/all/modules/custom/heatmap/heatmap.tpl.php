@@ -32,6 +32,6 @@
           $name = 'count_' . $type; print $$name; ?>
         </span>
     </li>
-    <?php if ($i==2) : ?><br><?php endif; ?>
+    <?php if ($i == 2) : ?><br><?php endif; ?>
     <?php endforeach; ?>
 </ul>
