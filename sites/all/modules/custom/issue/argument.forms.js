@@ -375,10 +375,24 @@ $(document).ready(function () {
 });
 
 /**
+ *
+ * @param url
+ * @return {*}
+ */
+function url_prepare(url) {
+  var regex1 = /^www\./, regex2 = /^http:\/\//;
+  if (regex1.test(url) || !regex2.test(url)) {
+    return 'http://' + url;
+  }
+  return url;
+}
+
+/**
  * Validate URL
  */
 function url_validate(url) {
-  var objRE = /http:\/\/(www\.)?[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
+  // var objRE = /^http:\/\/(www\.)?[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
+  var objRE = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
   return objRE.test(url);
 }
 
@@ -404,7 +418,7 @@ $('#argument-add-form').live('submit', function (e) {
     }
   }
   // resource link & regexp
-  var nlink = $('#url').val();
+  var nlink = url_prepare($('#url').val());
   // resource linkbox
   var linkbox = $('#linkbox').html();
 
@@ -415,7 +429,7 @@ $('#argument-add-form').live('submit', function (e) {
   } else if (!flag_set && type == 1) {
     error = 'You must choose at least one suppose or oppose.';
   } else if (!url_validate(nlink) && type == 2) {
-    error = 'Please enter a valid URL.';
+    error = 'Please enter a valid URL. ' + nlink;
   } else if (linkbox == '' && type == 2) {
     var callback_url = '/argument/preview/resource';
     var lbox = $('#linkbox');
