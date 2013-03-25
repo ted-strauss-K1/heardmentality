@@ -93,16 +93,19 @@ function events_follower_block_preprocess(&$vars)
 
   $limit = 10;
 
-  $vars['users'] = follower_get_following($user->uid, false, $limit);
-  $vars['users_count'] = follower_get_following($user->uid, true);
+  $vars['users'] = follower_get_following($user->uid, FALSE, $limit);
+  $vars['users_count'] = follower_get_following($user->uid, TRUE);
 }
 
+/**
+ * @return array
+ */
 function events_follower_uids()
 {
   $p = array();
 
   global $user;
-  $uids = follower_get_following($user->uid, false, 1000);
+  $uids = follower_get_following($user->uid, FALSE, 1000);
   foreach ($uids as $f_user) {
     $p[] = $f_user->requestee_id;
   }
@@ -134,7 +137,7 @@ function events_follower_ajax()
   }
 
   print json_encode(array(
-    'status' => true,
+    'status' => TRUE,
     'message' => theme('events', events_get($p)),
   ));
   exit;

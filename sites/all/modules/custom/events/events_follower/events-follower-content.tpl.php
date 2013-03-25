@@ -9,11 +9,12 @@
 
 
 <hr class="line">
-
+    ccccccccccccccccccc
 <div id="events_following">
   <?php
   $p = array();
   $p['uid'] = events_follower_uids();
-  print theme('events', events_get($p));
+  $events = events_get($p);
+  print theme('events', $events);
   ?>
 </div>
