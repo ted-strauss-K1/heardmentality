@@ -25,7 +25,7 @@ function issue_create_ahah_answer()
   $form = form_get_cache($form_build_id, $form_state);
   $args = $form['#parameters'];
   $form_id = array_shift($args);
-  if ($form_element !== false) {
+  if ($form_element !== FALSE) {
     $form['choice_wrapper']['answer'][$delta] = $form_element;
   }
   form_set_cache($form_build_id, $form, $form_state);
@@ -50,7 +50,7 @@ function issue_create_ahah_answer()
   $output = drupal_render($choice_form);
 
   $ahah = array('status' => TRUE, 'data' => $output);
-  if ($form_element === false) {
+  if ($form_element === FALSE) {
     $ahah['js'] = array('func' => 'issue_create_ahah_answer_error');
   }
   print json_encode($ahah);
@@ -73,7 +73,7 @@ function issue_ajax()
   # logged in user validation
   if (user_is_anonymous()) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('Please log in'),
     ));
     exit;
@@ -83,7 +83,7 @@ function issue_ajax()
   $nid = $post['nid'];
   if (empty($nid) || !is_numeric($nid)) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('Wrong issue ID'),
     ));
     exit;
@@ -98,7 +98,7 @@ function issue_ajax()
       break;
     default :
       print json_encode(array(
-        'status' => false,
+        'status' => FALSE,
         'vars' => $post,
         'message' => t('Unknown error happened'),
       ));
@@ -128,14 +128,14 @@ function _issue_ajax_vote($vars)
   $result = issue_poll_vote((int)$nid, (int)$vote_r, (int)$vote_r_old, (int)$vote_s, (int)$vote_s_old);
   if (!$result) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('Unexpected error happened while saving your vote'),
     ));
     exit;
   } else {
-    $content = drupal_get_form('issue_vote_form', node_load($nid, null, true), $vars['full'] == 1, true);
+    $content = drupal_get_form('issue_vote_form', node_load($nid, NULL, TRUE), $vars['full'] == 1, TRUE);
     print json_encode(array(
-      'status' => true,
+      'status' => TRUE,
       'message' => t('Your vote was successfully saved'),
       'content' => $content,
     ));
@@ -154,7 +154,7 @@ function _issue_ajax_suggest($vars)
   # empty answer validation
   if (empty($answer)) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('Cannot add empty answer'),
     ));
     exit;
@@ -165,7 +165,7 @@ function _issue_ajax_suggest($vars)
   foreach ($choices as $choice) {
     if (($choice['chtext'] == $answer) || ($choice['chtext_short'] == $answer)) {
       print json_encode(array(
-        'status' => false,
+        'status' => FALSE,
         'message' => t('Cannot add duplicate answer'),
       ));
       exit;
@@ -177,14 +177,14 @@ function _issue_ajax_suggest($vars)
   $result = issue_poll_vote((int)$nid, -1, (int)$vars['vote_regular'], (int)$chid, (int)$vars['vote_suggested']);
   if (!$result) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('Unexpected error happened while adding your suggestion'),
     ));
     exit;
   } else {
-    $content = drupal_get_form('issue_vote_form', node_load($nid, null, true), $vars['full'] == 1, true);
+    $content = drupal_get_form('issue_vote_form', node_load($nid, NULL, TRUE), $vars['full'] == 1, TRUE);
     print json_encode(array(
-      'status' => true,
+      'status' => TRUE,
       'message' => t('Your suggestion was successfully added'),
       'content' => $content,
     ));
@@ -197,7 +197,7 @@ function _issue_ajax_suggest($vars)
  */
 function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old = -1)
 {
-  if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return false;
+  if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return FALSE;
   global $user;
   if ($vote_r_old != -1) {
     db_query("DELETE FROM {poll_votes} WHERE nid = '%d' AND uid = '%d'", $nid, $user->uid);
@@ -227,7 +227,7 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
     issue_search_queue_node($nid);
   }
 
-  return true;
+  return TRUE;
 }
 
 /**
@@ -239,4 +239,46 @@ function issue_share($nid)
     global $user;
     rules_invoke_event('poll_share', $user, node_load($nid));
   }
+}
+
+/**
+ *
+ */
+function issue_subscribe() {
+  $hierarchy = $_REQUEST['hierarchy'];
+  $tid = preg_replace('/-.*$/', '', $hierarchy);
+  $term = taxonomy_get_term($tid);
+
+  if (!$term) {
+    print json_encode(array(
+      'status' => false,
+      'message' => t('Unknown error'),
+    ));
+    exit;
+  }
+
+  // write the record
+  global $user;
+  $exists = (bool)subscriptions_get_subscription($user->uid, 'node', 'tid', $term->tid);
+  if (!$exists) {
+    subscriptions_write_subscription('node', 'tid', $term->tid, -1, $user->uid);
+  } else {
+    db_query(
+      "DELETE FROM {subscriptions}
+      WHERE
+        module = '%s' AND
+        field = '%s' AND
+        value = '%s' AND
+        author_uid = %d AND
+        recipient_uid = %d",
+      'node', 'tid', $term->tid, -1, $user->uid);
+  }
+  // output
+  print json_encode(array(
+    'status' => true,
+    'message' => t('You have '.($exists ? 'un' : '').'subscribed '.($exists ? 'from' : 'to').' !name', array('!name' => $term->name)),
+    'result' => !$exists,
+  ));
+
+  exit;
 }

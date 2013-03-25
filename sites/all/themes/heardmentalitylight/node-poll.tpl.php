@@ -32,8 +32,6 @@
     <div id="shareDiv" class="clearfix"></div>
   </div><!-- /div.part2 -->
 
-  <?php print drupal_get_form('subscriptions_ui_node_form', menu_get_object()) ?>
-
   <?php
     $nodepath = 'node/'.$nid;
     $pagePath = url($nodepath, array('absolute' => TRUE)).'/';

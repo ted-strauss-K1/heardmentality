@@ -48,11 +48,40 @@ function theme_issue_arguments_content($node)
     $form = drupal_get_form('argument_form', $node);
   } else {
     $form =
-      '<div class="' . theme('user_login_modal_class', true) . '" align="center">' .
+      '<div class="' . theme('user_login_modal_class', TRUE) . '" align="center">' .
         '<b>' . t('Please log in to participate in the debate') . '</b>
       </div>';
   }
   return theme('issue_arguments_content_wrapper', $node, $form);
+}
+
+/**
+ * @param $name
+ * @param $hierarchy
+ */
+function theme_issue_category($name, $hierarchy) {
+  drupal_add_js(drupal_get_path('module', 'issue') . "/issue.categories.js");
+  static $subscriptions;
+  if (module_exists('subscriptions') and is_null($subscriptions)) {
+    $subscriptions = array();
+    global $user;
+    $data = subscriptions_get(array(
+      'recipient_uid' => $user->uid,
+      'module' => 'node',
+      'field' => 'tid',
+      'author_uid' => -1,
+    ));
+    foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
+      $subscriptions[] = $tid;
+    }
+    // $subscriptions[$s->recipient_uid][$s->module][$s->field][$s->value][$s->author_uid] = 1;
+  }
+
+  return  (
+    module_exists('subscriptions') ?
+      sprintf('<input type="checkbox" class="issue_category" title="%s" name="%s" %s>',
+        t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $subscriptions) ? 'checked' : '') : '') .
+    l($name, 'issues', array('query' => array('tids' => $hierarchy)));
 }
 
 /**
@@ -85,6 +114,14 @@ function issue_block_categories_preprocess(&$vars)
   $vars['orig_language'] = $languages[$node->language];
 
 
+}
+
+/**
+ * @param $vars
+ */
+function issue_block_categories_user_preprocess(&$vars)
+{
+  $vars['categories'] = taxonomy_node_type_terms();
 }
 
 /**

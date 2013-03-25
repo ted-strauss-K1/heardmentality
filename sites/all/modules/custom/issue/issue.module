@@ -71,6 +71,15 @@ function issue_menu()
     'file' => 'issue.pages.inc',
   );
 
+  if (module_exists('subscriptions')) {
+    $menu['issue/subscribe'] = array(
+      'page callback' => 'issue_subscribe',
+      'access arguments' => array('subscribe to all content types'),
+      'type' => MENU_CALLBACK,
+      'file' => 'issue.pages.inc',
+    );
+  }
+
   if (function_exists('argument_menu')) {
     $menu += argument_menu();
   }
@@ -117,10 +126,20 @@ function issue_theme()
     'arguments' => array('node' => NULL, 'form' => NULL),
     'template' => 'templates/issue-arguments-content-wrapper',
   );
+
   // TODO rename
   $theme['sub_loader'] = array(
     'arguments' => array('styles' => NULL),
     'template' => 'templates/issue-loader',
+  );
+
+  //
+  $theme['issue_category'] = array(
+    'arguments' => array(
+      'name' => NULL,
+      'hierarchy' => '',
+    ),
+    'file' => 'issue.theme.inc',
   );
 
   // blocks
@@ -134,6 +153,12 @@ function issue_theme()
     'arguments' => array(),
     'template' => 'templates/issue-block-categories-popular',
     'preprocess functions' => array('issue_block_categories_popular_preprocess'),
+    'file' => 'issue.theme.inc',
+  );
+  $theme['issue_block_categories_user'] = array(
+    'arguments' => array(),
+    'template' => 'templates/issue-block-categories-user',
+    'preprocess functions' => array('issue_block_categories_user_preprocess'),
     'file' => 'issue.theme.inc',
   );
 
