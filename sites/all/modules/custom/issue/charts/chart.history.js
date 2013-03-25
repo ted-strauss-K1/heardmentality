@@ -1,4 +1,4 @@
-function initialize_highstock(seriesOptions, sdate) {
+function initialize_highstock_chart(seriesOptions, sdate) {
   var chart = new Highcharts.StockChart({
     chart:{
       renderTo:'container_graph',
@@ -131,12 +131,18 @@ function initialize_highstock(seriesOptions, sdate) {
 
 }
 
-$(function () {
+//
+function initialize_highstock() {
   var count = Drupal.settings.charts.count;
   var sdate = Drupal.settings.charts.history.date;
   var seriesOptions = [];
   for (var i = 0; i < count; i++) {
     seriesOptions[i] = Drupal.settings.charts.history['choice' + i];
   }
-  initialize_highstock(seriesOptions, sdate);
+  initialize_highstock_chart(seriesOptions, sdate);
+}
+
+//
+$(function () {
+  initialize_highstock();
 });

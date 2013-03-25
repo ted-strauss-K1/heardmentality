@@ -148,10 +148,10 @@ function initialize_highchart_create(seriesOptions, categories, arg) {
   });
 }
 
-$(function () {
-  initialize_highchart('');
-  $('#filter').live("change", function () {
-    initialize_highchart($(this).val());
-  });
+$('#filter').live("change", function () {
+  initialize_highchart($(this).val());
 });
 
+$(function () {
+  initialize_highchart('');
+});
