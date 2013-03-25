@@ -19,6 +19,7 @@ function user_profile_preprocess_page(&$vars)
       case 'view' :
       case 'follow' :
         $vars['right'] = theme('user_profile_info', null);
+        $vars['right'] .= theme('issue_block_categories_user');
         if (arg(2) == 'view' && module_exists('events')) {
           $account = _user_profile_get_user(arg(3));
           if ($account) {

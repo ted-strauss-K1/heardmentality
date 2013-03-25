@@ -117,6 +117,14 @@ function issue_block_categories_preprocess(&$vars)
 }
 
 /**
+ * @param $vars
+ */
+function issue_block_categories_user_preprocess(&$vars)
+{
+  $vars['categories'] = taxonomy_node_type_terms();
+}
+
+/**
  * @param $term
  * @return string
  */
