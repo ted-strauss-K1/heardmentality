@@ -84,6 +84,10 @@ function issue_menu()
     $menu += argument_menu();
   }
 
+  if (function_exists('charts_menu')) {
+    $menu += charts_menu();
+  }
+
   $menu['issue/share/%'] = array(
     'page callback' => 'issue_share',
     'page arguments' => array(2),

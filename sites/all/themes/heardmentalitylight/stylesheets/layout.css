@@ -6039,3 +6039,7 @@ li input[type="checkbox"].issue_category {
   top: 2px;
   left: -2px;
 }
+
+.notvoted li {
+  display: none;
+}

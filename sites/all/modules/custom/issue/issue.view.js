@@ -19,6 +19,10 @@ $('.issue-vote-form').live('submit', function (e) {
         text:response.message
       });
       form.parents('.voteform').html(response.content);
+
+      $('.notvoted li').slideDown(500);
+      $('.no_show').hide();
+      charts_update();
       //
       Drupal.attachBehaviors();
     }

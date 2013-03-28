@@ -1,3 +1,28 @@
+/**
+ *
+ */
+function init_highstock() {
+  var count = Drupal.settings.charts.count;
+  var sdate = Drupal.settings.charts.history.date;
+  var seriesOptions = [];
+  for (var i = 0; i < count; i++) {
+    seriesOptions[i] = Drupal.settings.charts.history['choice' + i];
+  }
+  initialize_highstock(seriesOptions, sdate);
+}
+
+/**
+ *
+ */
+$(function () {
+  if (Drupal.settings.charts.voted) init_highstock();
+});
+
+/**
+ *
+ * @param seriesOptions
+ * @param sdate
+ */
 function initialize_highstock(seriesOptions, sdate) {
   var chart = new Highcharts.StockChart({
     chart:{
@@ -128,15 +153,4 @@ function initialize_highstock(seriesOptions, sdate) {
     },
     series:seriesOptions
   });
-
 }
-
-$(function () {
-  var count = Drupal.settings.charts.count;
-  var sdate = Drupal.settings.charts.history.date;
-  var seriesOptions = [];
-  for (var i = 0; i < count; i++) {
-    seriesOptions[i] = Drupal.settings.charts.history['choice' + i];
-  }
-  initialize_highstock(seriesOptions, sdate);
-});

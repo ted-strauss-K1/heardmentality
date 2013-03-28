@@ -1,4 +1,22 @@
-function initialize_highchart(arg) {
+/**
+ *
+ */
+$(function () {
+  if (Drupal.settings.charts.voted) init_highchart('');
+});
+
+/**
+ *
+ */
+$('#filter').live("change", function () {
+  init_highchart($(this).val());
+});
+
+/**
+ *
+ * @param arg
+ */
+function init_highchart(arg) {
   var data = Drupal.settings.charts.filter[arg];
 //  console.log(data);
 
@@ -29,11 +47,16 @@ function initialize_highchart(arg) {
     };
   }
   $(selector).empty();
-//  console.log(seriesOptions);
 
   initialize_highchart_create(seriesOptions, categories, arg);
 }
 
+/**
+ *
+ * @param seriesOptions
+ * @param categories
+ * @param arg
+ */
 function initialize_highchart_create(seriesOptions, categories, arg) {
 
   $(seriesOptions).map(function (index, element) {
@@ -147,11 +170,3 @@ function initialize_highchart_create(seriesOptions, categories, arg) {
     series:seriesOptions
   });
 }
-
-$(function () {
-  initialize_highchart('');
-  $('#filter').live("change", function () {
-    initialize_highchart($(this).val());
-  });
-});
-
