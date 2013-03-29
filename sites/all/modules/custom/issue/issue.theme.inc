@@ -71,6 +71,7 @@ function theme_issue_category($name, $hierarchy) {
       'field' => 'tid',
       'author_uid' => -1,
     ));
+    if ($data)
     foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
       $subscriptions[] = $tid;
     }
