@@ -6,7 +6,7 @@
  * @param bool $index
  * @return array
  */
-function charts_colors($index = false)
+function charts_colors($index = FALSE)
 {
   static $i = 0;
   static $colors = array();
@@ -32,16 +32,35 @@ function charts_colors($index = false)
       '#F6EB16'
     );
   }
-  if ($index === true) {
+  if ($index === TRUE) {
     return $colors;
   }
-  if ($index !== false && isset($colors[$index])) {
+  if ($index !== FALSE && isset($colors[$index])) {
     return $colors[$index];
   } else {
     $color = $colors[$i];
     $i = ($i + 1) % count($colors);
     return $color;
   }
+}
+
+/**
+ * Implementation of hook_menu()
+ *
+ * @return array
+ */
+function charts_menu()
+{
+  $menu = array();
+
+  $menu['issue/charts'] = array(
+    'page callback' => 'charts_ajax',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
 }
 
 /**
@@ -59,7 +78,7 @@ function charts_theme()
     'preprocess functions' => array('issue_charts_preprocess'),
   );
   $theme['issue_charts_inner'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => NULL, 'voted' => NULL),
     'template' => 'templates/issue-charts-inner',
     'preprocess functions' => array('issue_charts_common_preprocess', 'issue_charts_inner_preprocess'),
   );
@@ -113,17 +132,17 @@ function issue_charts_preprocess(&$vars)
   }
 
   if (!$voted) {
-    $vars['charts'] = '<span class="no_show">' . t('Vote now to show results.') . '</span>';
-//  } elseif ($count < 10) {
-//    $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
-  } else {
-    $vars['charts'] = theme('issue_charts_inner', $node);
+    $vars['charts'] .= '<span class="no_show">' . t('Vote now to show results.') . '</span>';
+//    if ($count < 10) {
+//      $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
+//    }
   }
+  $vars['charts'] .= theme('issue_charts_inner', $node, $voted);
 }
 
 function issue_charts_chtexts($node)
 {
-  static $chtexts = null;
+  static $chtexts = NULL;
 
   if (is_null($chtexts)) {
     $chtexts = array();
@@ -149,7 +168,7 @@ function issue_charts_common_preprocess($vars)
   if (!is_null($js)) {
     return;
   }
-  $js = true;
+  $js = TRUE;
 
   $node = $vars['node'];
   # short names for choices
@@ -157,7 +176,8 @@ function issue_charts_common_preprocess($vars)
   # save to js settings
   drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
   drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
-  drupal_add_js(array('charts' => array('colors' => charts_colors(true))), 'setting');
+  drupal_add_js(array('charts' => array('colors' => charts_colors(TRUE))), 'setting');
+  drupal_add_js(drupal_get_path('module', 'issue') . "/charts/chart.update.js");
 }
 
 /**
@@ -167,6 +187,8 @@ function issue_charts_common_preprocess($vars)
  */
 function issue_charts_inner_preprocess(&$vars)
 {
+  drupal_add_js(array('charts' => array('voted' => $vars['voted'])), 'setting');
+
   $node = $vars['node'];
 
   # short names for choices
@@ -206,7 +228,7 @@ function theme_issue_charts_filter($node)
  */
 function issue_charts_filter_preprocess($node)
 {
-  static $dataset = null;
+  static $dataset = NULL;
 
   if (is_null($dataset)) {
     $dataset = array();
@@ -316,7 +338,7 @@ function issue_charts_filter_form()
  */
 function issue_charts_filter_categories()
 {
-  static $cat = null;
+  static $cat = NULL;
 
   if (is_null($cat)) {
     $cat = array();
@@ -538,6 +560,17 @@ function dates_range($date1, $date2)
  */
 function issue_charts_history_preprocess($node)
 {
+  $history = issue_charts_history($node);
+
+  # Put the data to Drupal.settings
+  drupal_add_js(array('charts' => array('history' => $history)), 'setting');
+}
+
+/**
+ * @param $node
+ * @return array
+ */
+function issue_charts_history($node) {
   # short names for choices
   $chtexts = issue_charts_chtexts($node);
 
@@ -612,19 +645,20 @@ function issue_charts_history_preprocess($node)
     }
   }
 
-  # Put the data to Drupal.settings
-  drupal_add_js(array('charts' => array('history' => array(
+  $history = array(
     'date' => $mindate,
     'stats' => $stats,
     'cdate' => $cdate,
-  ))), 'setting');
+  );
   foreach ($chtexts as $i => $choice) {
-    drupal_add_js(array('charts' => array('history' => array(
+    $history += array(
       'choice' . $i => array(
         'name' => $choice,
         'data' => $list[$i],
-      )))), 'setting');
+      ));
   }
+
+  return $history;
 }
 
 /**
@@ -635,23 +669,8 @@ function issue_charts_history_preprocess($node)
  */
 function theme_issue_charts_gmap($node)
 {
-  $gmap = array();
+  $gmap = issue_charts_gmap($node);
 
-  $fieldmap = variable_get(PROFILE_FIELDMAP, array());
-
-  $result = db_query("
-    SELECT pv1.value lat, pv2.value lng
-    FROM {poll_votes} pv
-    INNER JOIN {users} u ON u.uid = pv.uid
-    INNER JOIN {profile_values} pv1 ON pv1.fid = '%s' AND pv1.uid = u.uid
-    INNER JOIN {profile_values} pv2 ON pv2.fid = '%s' AND pv2.uid = u.uid
-    WHERE pv.nid = '%d' AND pv1.value <> '' AND pv2.value <> ''",
-    $fieldmap['profile_lat']->fid, $fieldmap['profile_lng']->fid, $node->nid
-  );
-
-  while ($row = db_fetch_object($result)) {
-    $gmap[] = array($row->lat, $row->lng, charts_colors());
-  }
   drupal_add_js(array('charts' => array('gmap' => $gmap)), 'setting');
   drupal_add_js(array('charts' => array('gmap_icons' => drupal_get_path('module', 'issue') . '/charts/icons')), 'setting');
   drupal_add_js(drupal_get_path('module', 'issue') . '/charts/chart.gmap.js');
@@ -672,6 +691,21 @@ function theme_issue_charts_strength($node)
   // preprocess
   issue_charts_common_preprocess(array('node' => $node));
 
+  $data = issue_charts_strength($node);
+
+  # settings
+  drupal_add_js(array('charts' => array('strength' => $data)), 'setting');
+  drupal_add_js(drupal_get_path('module', 'issue') . "/charts/highcharts/highcharts.js");
+  drupal_add_js(drupal_get_path('module', 'issue') . "/charts/chart.strength.js");
+
+  return '<div class="expanding stat"><h6 class="button" id="deb-ana">' . t('Stats') . '</h6></div>';
+}
+
+/**
+ * @param $node
+ * @return array
+ */
+function issue_charts_strength($node) {
   # Prepare the data for the debate analysis
   $data = array();
   $choices = ($node->choice) ? $node->choice : array();
@@ -702,10 +736,61 @@ function theme_issue_charts_strength($node)
     $data[$i]['y'] = (float)$value;
   }
 
-  # settings
-  drupal_add_js(array('charts' => array('strength' => $data)), 'setting');
-  drupal_add_js(drupal_get_path('module', 'issue') . "/charts/highcharts/highcharts.js");
-  drupal_add_js(drupal_get_path('module', 'issue') . "/charts/chart.strength.js");
+  return $data;
+}
 
-  return '<div class="expanding stat"><h6 class="button" id="deb-ana">' . t('Stats') . '</h6></div>';
+/**
+ * @param $node
+ * @return array
+ */
+function issue_charts_gmap($node) {
+  $gmap = array();
+
+  $fieldmap = variable_get(PROFILE_FIELDMAP, array());
+
+  $result = db_query("
+    SELECT pv1.value lat, pv2.value lng
+    FROM {poll_votes} pv
+    INNER JOIN {users} u ON u.uid = pv.uid
+    INNER JOIN {profile_values} pv1 ON pv1.fid = '%s' AND pv1.uid = u.uid
+    INNER JOIN {profile_values} pv2 ON pv2.fid = '%s' AND pv2.uid = u.uid
+    WHERE pv.nid = '%d' AND pv1.value <> '' AND pv2.value <> ''",
+    $fieldmap['profile_lat']->fid, $fieldmap['profile_lng']->fid, $node->nid
+  );
+
+  while ($row = db_fetch_object($result)) {
+    $gmap[] = array($row->lat, $row->lng, charts_colors());
+  }
+
+  return $gmap;
+}
+
+/**
+ * @param $nid
+ */
+function charts_ajax($nid) {
+  // check permission
+  if (!user_access('vote on polls')) {
+    print json_encode(array(
+      'status' => FALSE,
+      'message' => t('Access error'),
+    ));
+  } elseif (!($node = node_load($nid)) || ($node->type != 'poll')) {
+    print json_encode(array(
+      'status' => FALSE,
+      'message' => t("Content does not exis"),
+    ));
+  } else {
+    print json_encode(array(
+      'status' => TRUE,
+      'message' => t('Success'),
+      'data' => array(
+        'filter' => issue_charts_filter_preprocess($node),
+        'gmap' => issue_charts_gmap($node),
+        'history' => issue_charts_history($node),
+        'strength' => issue_charts_strength($node),
+      ),
+    ));
+  }
+  exit;
 }

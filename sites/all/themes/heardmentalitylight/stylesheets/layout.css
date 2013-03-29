@@ -6032,3 +6032,19 @@ span.beta {
 h6#add-arg.expanded {
   display: none;
 }
+
+
+li input[type="checkbox"].issue_category {
+  position: relative;
+  top: 2px;
+  left: -2px;
+}
+
+.notvoted li {
+  display: none;
+}
+
+.flagger_flags.flagged {
+  background: #f55;
+  color: #fff;
+}

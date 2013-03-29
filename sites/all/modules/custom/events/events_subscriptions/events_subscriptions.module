@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @param bool $uid
+ * @param int $count
+ * @return array
+ */
+function events_subscriptions_get($uid = FALSE, $count = 30) {
+  $items = array();
+
+  if ($uid === FALSE) {
+    global $user;
+    $uid = $user->uid;
+  }
+
+  # build query
+  $query = "
+    SELECT DISTINCT e.*
+    FROM {node} n
+    INNER JOIN {events} e ON e.content_id = n.nid AND e.content_type = 'node'
+    INNER JOIN {term_node} tn ON tn.nid = n.nid
+    INNER JOIN {subscriptions} s ON s.module = 'node' AND s.field = 'tid' AND s.value = tn.tid
+    WHERE n.type = 'poll' AND s.recipient_uid = '%d'";
+  $query .= " ORDER BY e.date_added DESC LIMIT %d";
+
+  # fetch results
+  static $users = array();
+  $result = db_query($query, $uid, $count);
+  while ($item = db_fetch_array($result)) {
+    $item['vars'] = unserialize($item['vars']);
+    if (!$users[$item['uid']]) {
+      $users[$item['uid']] = user_load($item['uid']);
+    }
+    $item['account'] = $users[$item['uid']];
+    $item['timestamp'] = strtotime($item['date_added']);
+    if (function_exists('time_interval')) {
+      $item['date_added'] = time_interval($item['date_added']);
+    }
+    $items[$item['id']] = $item;
+  }
+
+  return $items;
+}
