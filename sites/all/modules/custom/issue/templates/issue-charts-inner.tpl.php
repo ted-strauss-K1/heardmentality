@@ -1,4 +1,4 @@
-<ul>
+<ul <?php print $voted ? '' : 'class="notvoted"' ?>>
   <li class="part">
     <div class="space">
       <div class="inner filter"><?php print $filter; ?></div>

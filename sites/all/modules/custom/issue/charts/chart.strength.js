@@ -1,5 +1,22 @@
-$('#deb-ana').live('click', function () {
+/**
+ *
+ */
+$(function () {
+  init_strength();
+});
+
+/**
+ *
+ */
+function init_strength() {
   chartStrength(Drupal.settings.charts.strength, Drupal.settings.charts.choices);
+}
+
+/**
+ *
+ */
+$('#deb-ana').live('click', function () {
+  init_strength();
 });
 
 function chartStrength(data, categories) {
