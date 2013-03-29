@@ -6043,3 +6043,8 @@ li input[type="checkbox"].issue_category {
 .notvoted li {
   display: none;
 }
+
+.flagger_flags.flagged {
+  background: #f55;
+  color: #fff;
+}

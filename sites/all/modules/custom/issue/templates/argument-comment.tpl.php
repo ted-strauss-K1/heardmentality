@@ -26,7 +26,11 @@
     <?php print theme('yn', 'comment', $comment->cid, $user->uid == $comment->uid); ?>
     <ul class="control_links">
       <li><?php print theme('flagger_button', $comment->cid, 'comment'); ?></li>
-      <li>&nbsp;|&nbsp;<?php print theme('flagger_button_flags', $nid, 'node'); ?></li>
+      <li>&nbsp;|&nbsp;<?php
+        $counts = flagger_get_flags('comment', $comment->cid);
+        print theme(
+          'flagger_button_flags', $comment->cid, 'comment',
+          !empty($counts)); ?></li>
       <?php if ($delete = theme('argument_delete', 'comment', $comment->content_id)) : ?>
       <li>&nbsp;|&nbsp;<?php print $delete; ?></li>
       <?php endif; ?>

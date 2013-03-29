@@ -27,7 +27,7 @@ function moderation_flags_preprocess(&$vars)
     }
   }
 
-  $vars['flags'] = moderation_flags($vars['content_type'], $vars['content_id']);
+  $vars['flags'] = flagger_get_flags($vars['content_type'], $vars['content_id']);
 }
 
 /**
