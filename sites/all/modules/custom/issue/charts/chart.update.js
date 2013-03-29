@@ -5,7 +5,7 @@ function charts_update() {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : '/'+Drupal.settings.language+'/issue/charts/'+Drupal.settings.node.nid,
+    url       : /*'/'+Drupal.settings.language+*/'/issue/charts/'+Drupal.settings.node.nid,
     data      : {},
     success   : function (response) {
       if (!response.status) {
