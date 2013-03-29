@@ -109,6 +109,13 @@ function _moderation_form($type = 'issues')
     );
   }
 
+  if (empty($items)) {
+    $form['item_none'] = array(
+      '#type' => 'markup',
+      '#value' => '<span>'.t('No items found').'</span>',
+    );
+  }
+
   // add pager
   $pattern = 'moderation/' . $type . '/%d/' . arg(3);
   $form['#suffix'] = theme('moderation_pager', $page, $pages, $pattern);
