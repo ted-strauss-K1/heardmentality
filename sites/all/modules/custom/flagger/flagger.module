@@ -428,7 +428,8 @@ function flagger_page_flags($content_type, $content_id)
     $output .= '<hr style="margin:3px 0 5px 0"/>';
     $output .= '<ul>';
     foreach ($flag['users'] as $uid => $data) {
-      $output .= '<li>'. l($data['name'], 'user/profile/view/' . $uid) .': "'.$data['note'] .'"</li>';
+      $output .= '<li><b>'. l($data['name'],'user/profile/view/'.$uid) . '</b>' .
+        (empty($data['note']) ? '' : ': '.$data['note']) .'</li>';
     }
     $output .= '</ul>';
   }
