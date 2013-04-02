@@ -1,7 +1,17 @@
+<?php
+$account = $item['account'];
+$target = user_load($item['content_id']);
+
+if (
+  ($account->status != 1) ||
+  ($target->status != 1)
+) {
+  return;
+}
+
+?>
 <li class="clearfix">
   <?php
-  $account = $item['account'];
-  $target = user_load($item['content_id']);
 
   $text = 'now following';
   $link = '<span class="name"><a href="' . $target->viewlink . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';

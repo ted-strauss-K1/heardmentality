@@ -1,12 +1,25 @@
+<?php
+$account = $item['account'];
+$comment = _comment_load($item['content_id']);
+$argument = node_load($comment->nid);
+$node = node_load($argument->field_issue[0]['nid']);
+$vars = $item['vars'];
+
+$translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+
+if (
+  ($account->status != 1) ||
+  ($comment->status == COMMENT_NOT_PUBLISHED) ||
+  ($argument->status != 1) ||
+  ($node->status != 1)
+) {
+  return;
+}
+
+?>
 <li class="clearfix">
   <?php
-  $account = $item['account'];
-  $comment = _comment_load($item['content_id']);
-  $argument = node_load($comment->nid);
-  $node = node_load($argument->field_issue[0]['nid']);
-  $vars = $item['vars'];
 
-  $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
 
   if (!$comment->support) yn_invert_vote_value($vars['vote']);
   $text = ($vars['vote'] == VOTE_AGREE ? 'strenghtened' : 'weakened') .

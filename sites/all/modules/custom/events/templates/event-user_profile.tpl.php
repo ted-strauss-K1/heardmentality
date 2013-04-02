@@ -1,6 +1,15 @@
+<?php
+$account = $item['account'];
+
+if (
+  ($account->status != 1)
+) {
+  return;
+}
+
+?>
 <li class="clearfix">
   <?php
-  $account = $item['account'];
   $text = 'updated the profile';
   ?>
   <?php print l(

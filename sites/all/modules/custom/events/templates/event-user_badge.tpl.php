@@ -1,20 +1,37 @@
+<?php
+
+// todo strange behavior
+return;
+
+$account = $item['account'];
+$vars = $item['vars'];
+$badges_types = badges_types();
+$badge = badges_list($vars['badge_id']);
+
+if (
+  ($account->status != 1) ||
+  !module_exists("badges") ||
+  !$badge
+) {
+  return;
+}
+
+?>
 <li class="clearfix">
   <?php
-  $account = $item['account'];
-  $node = node_load($item['vars']['nid']);
+//  $node = node_load($item['vars']['nid']);
   $text = 'got the badge';
-  if (module_exists("badges")) {
-    $badges = badges_get();
-    $badges_types = badges_types();
-    foreach ($badges as $badge) {
-      if (($badge['status'] == 1) && ($vars['badge_id'] == $badge['id'])) {
-        $text2 = sprintf('<span class="medal"><span class="%s" id="medal1" title="%s Medal">&nbsp;</span>&nbsp;%s</span>',
-          $badges_types[$badge['type']], ucfirst($badges_types[$badge['type']]), $badge['name']);
-        break;
-      }
+  $badges = badges_get();
+
+  foreach ($badges as $badge) {
+    if (($badge['status'] == 1) && ($vars['badge_id'] == $badge['id'])) {
+      $text2 = sprintf('<span class="medal"><span class="%s" id="medal1" title="%s Medal">&nbsp;</span>&nbsp;%s</span>',
+        $badges_types[$badge['type']], ucfirst($badges_types[$badge['type']]), $badge['name']);
+      break;
     }
   }
-  ?>
+
+?>
 
   <?php print l(
   sprintf('<img class="following-user listed" src="%s" />', user_profile_image($account)),

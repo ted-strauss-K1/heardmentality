@@ -1,11 +1,23 @@
+<?php
+$account = $item['account'];
+$argument = node_load($item['content_id']);
+$node = node_load($argument->field_issue[0]['nid']);
+$vars = $item['vars'];
+
+$translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+
+if (
+  ($account->status != 1) ||
+  ($argument->status != 1) ||
+  ($node->status != 1)
+) {
+  return;
+}
+
+?>
 <li class="clearfix">
   <?php
-  $account = $item['account'];
-  $argument = node_load($item['content_id']);
-  $node = node_load($argument->field_issue[0]['nid']);
-  $vars = $item['vars'];
 
-  $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
 
   if (!empty($argument) && $argument->field_argument_type[0]['value'] == TYPE_RESOURCE) {
     $text = 'posted a reference on the issue';

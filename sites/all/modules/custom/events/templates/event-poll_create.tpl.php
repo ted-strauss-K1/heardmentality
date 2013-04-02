@@ -1,9 +1,22 @@
+<?php
+$account = $item['account'];
+$node = node_load($item['content_id']);
+$translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+$vars = $item['vars'];
+
+if (
+  ($account->status != 1) ||
+  ($node->status != 1)
+) {
+  return;
+}
+
+?>
 <li class="clearfix">
   <?php
-  $account = $item['account'];
-  $node = node_load($item['content_id']);
+
   $text = 'added a new issue';
-  $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+
   $link = l(
     (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
     $node->path,

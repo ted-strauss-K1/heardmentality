@@ -1,11 +1,22 @@
+<?php
+$account = $item['account'];
+$argument = node_load($item['content_id']);
+$node = node_load($argument->field_issue[0]['nid']);
+$vars = $item['vars'];
+
+$translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
+
+if (
+  ($account->status != 1) ||
+  ($argument->status != 1) ||
+  ($node->status != 1)
+) {
+  return;
+}
+
+?>
 <li class="clearfix">
   <?php
-  $account = $item['account'];
-
-  $argument = node_load($item['content_id']);
-  $node = node_load($argument->field_issue[0]['nid']);
-
-  $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
 
   $text = ($item['vars']['vote'] == VOTE_AGREE ? 'agreed' : 'disagreed') .
     ' with an argument on the issue';
