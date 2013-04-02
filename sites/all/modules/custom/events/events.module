@@ -339,7 +339,7 @@ function events_events_info()
     'forum_comment' => 'event_forum_comment',
     'forum_vote' => 'event_forum_vote',
     'forum_comment_vote' => 'event_forum_comment_vote',
-    'user_profile' => 'event_user_profile',
+//    'user_profile' => 'event_user_profile',
     'user_badge' => 'event_user_badge',
     'user_follow' => 'event_user_follow',
   );
