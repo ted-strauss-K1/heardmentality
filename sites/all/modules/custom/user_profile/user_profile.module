@@ -19,7 +19,7 @@ function user_profile_preprocess_page(&$vars)
       case 'view' :
       case 'follow' :
         $vars['right'] = theme('user_profile_info', null);
-        if (arg(2) == 'view' && module_exists('subscriptions')) {
+        if (module_exists('subscriptions')) {
           $account = _user_profile_get_user(arg(3));
           global $user;
           if (($account->uid == $user->uid) && user_is_logged_in()) {
