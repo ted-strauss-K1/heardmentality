@@ -239,11 +239,11 @@ function issue_search_filter_form($form_state)
     }
   }
 
-  $form['my_language'] = array(
-    '#type' => 'checkbox',
-    '#default_value' => TRUE,
-    '#title' => t('Show issues of my language'),
-  );
+//  $form['my_language'] = array(
+//    '#type' => 'checkbox',
+//    '#default_value' => TRUE,
+//    '#title' => t('Show issues of my language'),
+//  );
   $form['voted_status'] = array(
     '#type' => 'checkbox',
     '#default_value' => FALSE,
