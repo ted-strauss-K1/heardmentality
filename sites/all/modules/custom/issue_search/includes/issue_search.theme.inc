@@ -246,7 +246,7 @@ function issue_search_filter_form($form_state)
   );
   $form['voted_status'] = array(
     '#type' => 'checkbox',
-    '#default_value' => TRUE,
+    '#default_value' => FALSE,
     '#title' => t('Show only not voted'),
   );
   $form['search_text'] = array(
