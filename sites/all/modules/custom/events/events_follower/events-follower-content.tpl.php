@@ -9,7 +9,7 @@
 
 
 <hr class="line">
-    ccccccccccccccccccc
+
 <div id="events_following">
   <?php
   $p = array();
