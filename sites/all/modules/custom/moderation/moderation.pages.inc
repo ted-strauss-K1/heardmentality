@@ -287,8 +287,8 @@ function _moderation_form_content_filter_issues($filters, $page) {
   $params[] = 1;
 
   # not moderated
-  $query .= " AND ct.field_moderated_value <> '%d'";
-  $params[] = 1;
+  $query .= " AND n.moderate <> '%d'";
+  $params[] = 0;
 
   # moderation
   switch ($filters['status']) {

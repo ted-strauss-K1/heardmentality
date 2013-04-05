@@ -164,9 +164,10 @@ function issue_create_form_submit($form, &$form_state)
   $node->language = !empty($user->language) ? $user->language : $language->language; // TODO check language detection
   $node->uid = $user->uid;
   $node->status = 1;
+  $node->moderate = 1;
 //  $node->created = time();
 //  $node->tnid = 0;
-  $node->title = $post['q_quest'];
+  $node->title = preg_replace('/\?$/', '', trim($post['q_quest']));
   $node->field_description[0]['value'] = $post['q_context'];
   $node->name = $user->name;
   $count = count($post['answer']);
