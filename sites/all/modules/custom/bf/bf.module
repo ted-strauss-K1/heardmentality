@@ -21,6 +21,19 @@ function bf_menu() {
     'access arguments' => array('administer content'),
     'type' => MENU_NORMAL_ITEM,
   );
+  $menu['admin/settings/bill-feeds/settings'] = array(
+    'title'             => t('Bill Feeds'),
+    'type'              => MENU_DEFAULT_LOCAL_TASK,
+    'weight'            => -10,
+  );
+  $menu['admin/settings/bill-feeds/batch'] = array(
+    'title'             => t('Batch Update'),
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('bf_admin_batch_form'),
+    'access arguments'  => array('administer content'),
+    'type'              => MENU_LOCAL_TASK,
+    'weight'            => -9,
+  );
 
   return $menu;
 }
@@ -41,10 +54,11 @@ function bf_admin_form() {
 }
 
 /**
+ * Go through the list
+ *
  * @return bool
  */
 function bf_get_list() {
-  set_time_limit(0);
   # make the request
   $result = drupal_http_request(BILL_FEEDS_URL);
   # error
@@ -54,121 +68,208 @@ function bf_get_list() {
   # data
   $data = $result->data;
   # fetch
-  if (preg_match_all('/<a\s+href="([^\"]+.xml)"/', $data, $m)) {
+  $list = array();
+  if (preg_match_all('/<a\s+href="([^\"]+.xml)"\s*>.*<\/a>\s*(\d+-[A-Z][a-z]+-\d+\s\d+\:\d+)\s*/', $data, $m)) {
     foreach ($m[0] as $i => $full) {
-      bf_issue(BILL_FEEDS_URL.'/'.$m[1][$i]);
-      break;
+      $list[] = array(
+        'url' => BILL_FEEDS_URL.'/'.$m[1][$i],
+        'timeout' => strtotime($m[2][$i])
+      );
+//      bf_issue(BILL_FEEDS_URL.'/'.$m[1][$i], strtotime($m[2][$i]));
     }
+  }
+  return $list;
+}
+
+// todo remove
+/**
+ * @param $list
+ */
+function bf_process_list($list) {
+  set_time_limit(0);
+
+  foreach ($list as $url => $timeout) {
+    # action with: url + timestamp
+    bf_issue($url, $timeout);
   }
 }
 
 /**
+ * Process given document by url and its modification date
+ *
  * @param $url
+ * @param bool $timestamp
  */
-function bf_issue($url) {
-  $account = user_load(1);
+function bf_issue($url, $timestamp = false) {
+  # if no timestamp given
+  if (!$timestamp) {
+    $timestamp = time();
+  }
 
   # get data
-  if (false !== ($data = bf_get_feed($url))) {
-    $doc = new DOMDocument();
-    $doc->loadXML($data);
+  $data = bf_get_feed($url, $timestamp);
 
-    // generic info
-    $node = new stdClass();
-    $node->type = 'poll';
-    $node->language = 'en';
-    $node->uid = $account->uid;
-    $node->status = 1;
-    $node->created = time();
-    $node->changed = time();
-    $node->comment = 0;
-    $node->promote = 0;
-    $node->moderate = 0;
-    $node->sticky = 0;
-    $node->tnid = 0;
-    $node->translate = 0;
-    $node->format = 0;
-    $node->name = $account->name;
-    $node->picture = $account->picture;
-    $node->body = '';
-    $node->choice = array();
-    $node->field_arguments = array();
-    $node->allowsuggestions = false;
-    $node->taxonomy = array();
+  # bad request
+  if (false === $data) {
+    return;
+  }
 
-    // fetched info
-
-    # title
-    $title = $doc->getElementsByTagName('title');
-    $titles = array();
-    foreach ($title as $value) {
-      $titles[$value->getAttribute('type')][] = $value->nodeValue;
+  # if nid is set then it's an update
+  if (0 < $data['nid']) {
+    if ($data['timestamp'] < $timestamp) {
+      $content = bf_get_feed($url, $timestamp, true);
+      $nid = bf_issue_update($content, $data['nid']);
+      bf_feed_nid($url, $nid);
     }
-    $title = '';
-    if (isset($titles['popular'])) {
-      $title = $titles['popular'][0];
-    } elseif (isset($titles['short'])) {
-      $title = $titles['short'][0];
-    } else {
-      foreach ($titles as $type => $list) {
-        foreach ($list as $item) {
-          $title = $item;
-          break 2;
-        }
+    return;
+  }
+
+  # if nid is not set its' an import
+  if (-1 != $data['nid']) {
+    $nid = bf_issue_create($data['content'], $url);
+    bf_feed_nid($url, $nid);
+    echo $nid . ' ';
+  }
+}
+
+/**
+ * Create a Bill Feed issue
+ *
+ * @param $data
+ * @return mixed
+ */
+function bf_issue_create($data, $url = '') {
+  $doc = new DOMDocument();
+  $doc->loadXML($data);
+
+  // generic info
+  $node = new stdClass();
+  $node->type = 'poll';
+  $node->language = 'en';
+  $node->uid = 1;
+  $node->status = 1;
+  $node->created = time();
+  $node->changed = time();
+  $node->comment = 0;
+  $node->promote = 0;
+  $node->moderate = 2; // we use that value to show that there's need for only metadata moderation
+  $node->sticky = 0;
+  $node->tnid = 0;
+  $node->translate = 0;
+  $node->format = 0;
+//  $node->name = $account->name;
+//  $node->picture = $account->picture;
+  $node->body = '';
+  $node->choice = array();
+  $node->field_arguments = array();
+  $node->allowsuggestions = false;
+  $node->taxonomy = array();
+
+  // active poll
+  $node->active = 1;
+
+  // fetched info
+
+  # status
+  $statuses = $doc->getElementsByTagName('status');
+  foreach ($statuses as $status) {
+    foreach ($status->childNodes as $status_value) {
+      if (preg_match('/vote/', "".$status_value->tagName)) {
+        return -1;
       }
     }
-    if (!$title) {
-      $title = $url;
+  }
+
+  # title
+  $title = $doc->getElementsByTagName('title');
+  $titles = array();
+  foreach ($title as $value) {
+    $titles[$value->getAttribute('type')][] = $value->nodeValue;
+  }
+  $title = '';
+  if (isset($titles['popular'])) {
+    $title = $titles['popular'][0];
+  } elseif (isset($titles['short'])) {
+    $title = $titles['short'][0];
+  } else {
+    foreach ($titles as $list) {
+      foreach ($list as $item) {
+        $title = $item;
+        break 2;
+      }
     }
-    $node->title = $title;
+  }
+  if (!$title) {
+    $title = $url;
+  }
+  $node->title = $title;
 
-    # summary
-    $summary = $doc->getElementsByTagName('summary');
-    foreach ($summary as $value) {
-      $summary = $value->nodeValue;
-    }
-    $node->field_description[0]['value'] = $summary;
+  # summary
+  $summary = $doc->getElementsByTagName('summary');
+  foreach ($summary as $value) {
+    $summary = $value->nodeValue;
+  }
+  $node->field_description[0]['value'] = $summary;
 
-    # terms
-    foreach ($doc->getElementsByTagName('term') as $value) {
-      $term = bf_term_by_name($value->getAttribute('name'));
-      $node->taxonomy[ $term->tid ] = $term;
-    }
+  # terms
+  foreach ($doc->getElementsByTagName('term') as $value) {
+    $term = bf_term_by_name($value->getAttribute('name'));
+    $node->taxonomy[ $term->tid ] = $term;
+  }
 
-    # choices
-    $node->choice[] = array(
-      'chtext' => 'Yay',
-      'chvotes' => 0,
-      'chorder' => 0,
-    );
-    $node->choice[] = array(
-      'chtext' => 'Nay',
-      'chvotes' => 0,
-      'chorder' => 0,
-    );
+  # choices
+  $node->choice[] = array(
+    'chtext' => 'Yay',
+    'chvotes' => 0,
+    'chorder' => 0,
+  );
+  $node->choice[] = array(
+    'chtext' => 'Nay',
+    'chvotes' => 0,
+    'chorder' => 0,
+  );
 
-    # arguments
+  # arguments
 //    $node->field_arguments[] = array(
 //      'nid' => '',
 //    );
 
-    // node_save($node);
-    unset($node);
+  # save
+  node_save($node);
+  issue_node_clean_cache($node);
 
-  }
+  # output
+  return $node->nid;
 }
 
 /**
  * @param $url
+ * @param bool $timestamp
+ */
+function bf_issue_update($data, $nid) {
+  $node = node_load($nid);
+
+  // todo
+//  exit('NID TO UPDATE: '.$nid);
+
+  return $node->nid;
+}
+
+/**
+ * Get feed by url
+ *
+ * @param $url
+ * @param $timestamp - update date of the document
  * @return bool
  */
-function bf_get_feed($url) {
+function bf_get_feed($url, $timestamp, $force = false) {
   # cache?
-  if ($data = db_fetch_object(db_query("SELECT * FROM {bill_feeds} WHERE url = '%s'", $url))) {
-    if ($data->nid) {
-      return false;
-    }
-    $data = $data->content;
+  if ($force || ($data = db_fetch_object(db_query("SELECT * FROM {bill_feeds} WHERE url = '%s'", $url)))) {
+    return array(
+      'content' => $data->content,
+      'nid' => $data->nid,
+      'timestamp' => strtotime($data->document_date),
+    );
   }
   # request
   else {
@@ -181,15 +282,31 @@ function bf_get_feed($url) {
     # data
     $data = $result->data;
     # cache!
-    db_query("REPLACE INTO {bill_feeds} SET url = '%s', content = '%s', date_added = '%s'",
-      $url, $data, date("y-m-d H:i:s")
+    db_query("REPLACE INTO {bill_feeds} SET url = '%s', content = '%s', cache_date = '%s', document_date = '%s'",
+      $url, $data, date("y-m-d H:i:s"), date("y-m-d H:i:s", $timestamp)
+    );
+    # output
+    return array(
+      'content' => $data,
+      'nid' => 0,
+      'timestamp' => $timestamp,
     );
   }
-
-  return $data;
 }
 
 /**
+ * @param $url
+ * @param $nid
+ */
+function bf_feed_nid($url, $nid) {
+  db_query("UPDATE {bill_feeds} SET nid = '%s' WHERE url = '%s'", $nid, $url);
+}
+
+
+
+/**
+ * Get Bill Feeds root term
+ *
  * @return bool
  */
 function bf_term() {
@@ -198,6 +315,8 @@ function bf_term() {
 }
 
 /**
+ * Get Bill Feeds term by name (or create it)
+ *
  * @param $name
  * @return array
  */
@@ -223,5 +342,97 @@ function bf_term_by_name($name) {
     );
     taxonomy_save_term($term);
     return taxonomy_get_term($term['tid']);
+  }
+}
+
+/**
+ * @return array
+ */
+function bf_admin_batch_form() {
+  $form = array();
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Go'),
+  );
+
+  return $form;
+}
+
+/**
+ *
+ */
+function bf_admin_batch_form_submit() {
+  set_time_limit(0);
+  $list = bf_get_list();
+
+  foreach ($list as $item) {
+    bf_issue($item['url'], $item['timestamp']);
+  }
+
+  return;
+
+  // maybe we could use a batch process
+  $batch = array(
+    'operations' => array(
+      array('bf_batch', array()),
+    ),
+    'finished' => 'bf_batch_finished',
+    'title' => t('Processing Bill Feeds'),
+    'init_message' => t('Bill Feeds will be loaded.'),
+    'progress_message' => t('Processed @current out of @total.'),
+    'error_message' => t('Processing has encountered an error.'),
+  );
+  batch_set($batch);
+}
+
+/**
+ * @param $context
+ */
+function bf_batch(&$context) {
+  set_time_limit(20);
+
+  // get the list
+  $list = bf_get_list();
+
+  // init sandbox
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($list);
+  }
+
+  for ($i=$context['sandbox']['progress']; $i<$context['sandbox']['max']; $i++) {
+    $item = $list[$i];
+
+    // todo process
+
+    $context['results'][] = t("Processed feed").': ' . $item['url'];
+    $context['sandbox']['progress']++;
+  }
+
+  // status
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+}
+
+/**
+ * @param $success
+ * @param $results
+ * @param $operations
+ */
+function bf_batch_finished($success, $results, $operations) {
+  if ($success) {
+    // Here we do something meaningful with the results.
+    $message = count($results) .' processed.';
+    $message .= theme('item_list', $results);  // D6 syntax
+    drupal_set_message($message);
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array('%error_operation' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
+    drupal_set_message($message, 'error');
   }
 }

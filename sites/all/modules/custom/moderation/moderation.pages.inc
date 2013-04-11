@@ -559,6 +559,7 @@ function moderation_issue_view_form($form_state, $nid)
     '#suffix' => '</div>',
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
+    '#disabled' => TRUE,
   );
   foreach ($node->choice as $delta => $choice) {
     if (!empty($translation['choice'][$choice['chorder']])) {

@@ -37,7 +37,11 @@ function bf_schema()
         'default' => 0,
         'description' => 'The {node}.nid of issue created',
       ),
-      'date_added' => array(
+      'cache_date' => array(
+        'type' => 'datetime',
+        'not null' => TRUE,
+      ),
+      'document_date' => array(
         'type' => 'datetime',
         'not null' => TRUE,
       ),

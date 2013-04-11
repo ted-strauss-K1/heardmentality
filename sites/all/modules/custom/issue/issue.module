@@ -43,6 +43,18 @@ function issue_preprocess_node(&$vars)
 }
 
 /**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function issue_form_alter(&$form, &$form_state, $form_id)
+{
+  if ($form_id == 'poll_node_form') {
+    $form['title']['#maxlength'] = 256;
+  }
+}
+
+/**
  * Implementation of hook_menu()
  *
  * @return array
