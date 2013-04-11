@@ -3,15 +3,41 @@
 /**
  *
  */
-define('BILL_FEEDS_URL', 'http://www.govtrack.us/data/us/112/bills');
+define('BILL_FEEDS_PARAM', 'bill_feeds_url');
+define('BILL_FEEDS_URL', variable_get(BILL_FEEDS_PARAM, 'http://www.govtrack.us/data/us/112/bills'));
 
 /**
- * Get govtrack.us current url
+ * Implementation of hook_menu()
  *
- * @return string
+ * @return array
  */
-function bf_get_path() {
-  return BILL_FEEDS_URL;
+function bf_menu() {
+  $menu = array();
+
+  $menu['admin/settings/bill-feeds'] = array(
+    'title' => t('Bill Feeds'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bf_admin_form'),
+    'access arguments' => array('administer content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $menu;
+}
+
+/**
+ * @return mixed
+ */
+function bf_admin_form() {
+  $form = array();
+
+  $form[BILL_FEEDS_PARAM] = array(
+    '#type' => 'textfield',
+    '#title' => t('Data Source URL'),
+    '#default_value' => BILL_FEEDS_URL,
+  );
+
+  return system_settings_form($form);
 }
 
 /**
@@ -20,7 +46,7 @@ function bf_get_path() {
 function bf_get_list() {
   set_time_limit(0);
   # make the request
-  $result = drupal_http_request(bf_get_path());
+  $result = drupal_http_request(BILL_FEEDS_URL);
   # error
   if (!$result->data) {
     return FALSE;
@@ -30,7 +56,7 @@ function bf_get_list() {
   # fetch
   if (preg_match_all('/<a\s+href="([^\"]+.xml)"/', $data, $m)) {
     foreach ($m[0] as $i => $full) {
-      bf_issue(bf_get_path().'/'.$m[1][$i]);
+      bf_issue(BILL_FEEDS_URL.'/'.$m[1][$i]);
       break;
     }
   }
@@ -109,12 +135,19 @@ function bf_issue($url) {
       $node->taxonomy[ $term->tid ] = $term;
     }
 
+    # choices
+    $node->choice[] = array(
+      'chtext' => 'Yay',
+      'chvotes' => 0,
+      'chorder' => 0,
+    );
+    $node->choice[] = array(
+      'chtext' => 'Nay',
+      'chvotes' => 0,
+      'chorder' => 0,
+    );
 
-//    $node->choice[] = array(
-//      'chtext' => '',
-//      'chvotes' => '',
-//      'chorder' => '',
-//    );
+    # arguments
 //    $node->field_arguments[] = array(
 //      'nid' => '',
 //    );
