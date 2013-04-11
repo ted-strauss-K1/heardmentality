@@ -96,7 +96,14 @@ $rtype = $node->field_rtype[0]['value'];
       <ul class="control_links">
         <li><?php print theme('flagger_button', $nid, 'node'); ?></li>
         <li>&nbsp;|&nbsp;<?php print theme('flagger_button_flags', $nid, 'node', !empty($node->flags)); ?></li>
-        <li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
+        <li>&nbsp;|&nbsp;<a href="#"
+                            class="flag2 permalink"
+                            title="permalink"
+                            name="<?php
+            $url = url('node/'.$node->field_issue[0]['nid'], array('absolute' => true, 'fragment' => 'forum-block-'.$nid));
+            print module_exists('shorturl') ? shorturl_shorten($url, TRUE) : addslashes($url);
+            ?>"
+            >link</a></li>
         <?php if ($delete = theme('argument_delete', 'node', $nid)) : ?>
         <li>&nbsp;|&nbsp;<?php print $delete; ?></li>
         <?php endif; ?>
