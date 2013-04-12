@@ -1,67 +1,16 @@
-<?php
-$account = $item['account'];
-$node = node_load($item['content_id']);
-$translation = module_exists('poll_translate') ? poll_translate_translation($node) : array();
-$vars = $item['vars'];
-
-if (
-  ($account->status != 1) ||
-  ($node->status != 1) ||
-  !module_exists('subscriptions')
-) {
-  return;
-}
-
-global $user;
-$tids = array();
-$data = subscriptions_get(array(
-  'recipient_uid' => $user->uid,
-  'module' => 'node',
-  'field' => 'tid',
-  'author_uid' => -1,
-));
-if ($data) {
-  foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
-    if (in_array($tid, $vars['tids'])) {
-      $tids[] = $tid;
-    }
-  }
-}
-
-if (empty($tids)) {
-  return;
-}
-
-?>
-<li class="clearfix">
-  <?php
-
-  $text = 'added a new issue';
-
-  $link = l(
-    (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
-    $node->path,
-    array()
-  );
-  $text2 = '';
-  ?>
-  <?php print l(
-  sprintf('<img class="following-user listed" src="%s" />', user_profile_image($account)),
-  $account->viewlink,
-  array('html' => true)
-); ?>
-<p class="action-item">
-  <span class="name">
-      <a href="<?php print $account->viewlink ?>" title="<?php print $account->name ?>">
-        <?php print ucwords($account->name) ?>
-      </a>
-    </span>
-  <?php print t($text); ?>
-  <?php print $link; ?>
-  <?php if ($text2) : ?>
-      </p><p class="action-comment-ref"><?php print t($text2) ?>
-  <br clear="both">
-  <?php endif; ?>
-</p>
-  <span class="submitted" name="<?php print $item['timestamp']; ?>"><?php print $item['date_added']; ?></span>
-</li>
+<?php if (!$skip) : ?>
+  <li class="clearfix">
+    <ul class="tags">
+      <label class="tags-on"></label>
+      <?php if ($categories) foreach ($categories as $hierarchy => $name) : ?>
+        <li><?php print theme('issue_category', $name, $hierarchy); ?></li>
+      <?php endforeach; ?>
+    </ul>
+    <br clear="both">
+    <p class="action-comment-ref">
+      <?php print t('New issue posted') . ' ' . $link ?>
+      <br clear="both">
+    </p>
+    <span class="submitted" name="<?php print $item['timestamp']; ?>"><?php print $item['date_added']; ?></span>
+  </li>
+<?php endif; ?>

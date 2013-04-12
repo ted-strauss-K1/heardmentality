@@ -81,8 +81,10 @@ function events_get($p = array(), $count = 30)
   foreach (array('uid', 'type', 'content_id', 'content_type') as $key) {
     if (isset($p[$key])) {
       if (is_array($p[$key])) {
-        $query .= " AND " . $key . " IN (" . db_placeholders($p[$key], 'varchar') . ")";
-        $params = array_merge($params, $p[$key]);
+        if (!empty($p[$key])) {
+          $query .= " AND " . $key . " IN (" . db_placeholders($p[$key], 'varchar') . ")";
+          $params = array_merge($params, $p[$key]);
+        }
       } else {
         $query .= " AND " . $key . " = '%s'";
         $params[] = $p[$key];
@@ -324,6 +326,8 @@ function events_theme_items()
       'arguments' => array(
         'item' => array(),
       ),
+      'preprocess functions' => array('event_item_theme_preprocess', $themename.'_theme_preprocess'),
+      'file' => 'events.theme.inc',
       'template' => 'templates/event-' . $event,
     );
   }
