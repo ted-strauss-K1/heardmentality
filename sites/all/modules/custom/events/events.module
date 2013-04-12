@@ -346,6 +346,7 @@ function events_events_info()
     'user_profile' => 'event_user_profile',
     'user_badge' => 'event_user_badge',
     'user_follow' => 'event_user_follow',
+    'taxonomy' => 'event_taxonomy',
   );
 }
 
