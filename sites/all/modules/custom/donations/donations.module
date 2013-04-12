@@ -229,7 +229,9 @@ function donations_donate_form_submit($form, $form_state)
         transaction_id = '%s'",
       $user->uid, $amt, $currency, '', 0, $params['token'], ''
     );
-    drupal_goto('https://www.sandbox.paypal.com/webscr', 'cmd=_express-checkout&token=' . urlencode($params['token']));
+    $gateway = variable_get('paypal_api_live', false) ?
+      'https://www.paypal.com/webscr' : 'https://www.sandbox.paypal.com/webscr';
+    drupal_goto($gateway, 'cmd=_express-checkout&token=' . urlencode($params['token']));
   }
 }
 
