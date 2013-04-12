@@ -270,6 +270,7 @@ function events_block($op = 'list', $delta = 0, $edit = array())
           $block['subject'] = t('HAPPENING NOW');
           $types = events_events_info();
           unset($types['user_profile']);
+          unset($types['taxonomy']);
           $types = array_keys($types);
           $block['content'] = theme('events', events_get(array(
             'type' => $types,
