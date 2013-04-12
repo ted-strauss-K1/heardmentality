@@ -91,7 +91,6 @@ function events_get($p = array(), $count = 30)
   }
   $query .= " ORDER BY date_added DESC LIMIT %d";
   $params[] = $count;
-  db_query($query, $params);
 
   # fetch results
   static $users = array();
@@ -267,7 +266,12 @@ function events_block($op = 'list', $delta = 0, $edit = array())
       switch ($delta) {
         case 'events-front' :
           $block['subject'] = t('HAPPENING NOW');
-          $block['content'] = theme('events', events_get());
+          $types = events_events_info();
+          unset($types['user_profile']);
+          $types = array_keys($types);
+          $block['content'] = theme('events', events_get(array(
+            'type' => $types,
+          )));
           break;
       }
       return $block;
@@ -339,7 +343,7 @@ function events_events_info()
     'forum_comment' => 'event_forum_comment',
     'forum_vote' => 'event_forum_vote',
     'forum_comment_vote' => 'event_forum_comment_vote',
-//    'user_profile' => 'event_user_profile',
+    'user_profile' => 'event_user_profile',
     'user_badge' => 'event_user_badge',
     'user_follow' => 'event_user_follow',
   );
