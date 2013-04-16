@@ -310,23 +310,32 @@ function events_get_latest($id)
 {
   $items = array();
 
-  # fetch results
-  static $users = array();
-  $result = db_query("SELECT * FROM {events} WHERE id > '%d' ORDER BY date_added ASC", $id);
-  while ($item = db_fetch_array($result)) {
-    $item['vars'] = unserialize($item['vars']);
-    if (!$users[$item['uid']]) {
-      $users[$item['uid']] = user_load($item['uid']);
-    }
-    $item['account'] = $users[$item['uid']];
-    $item['timestamp'] = strtotime($item['date_added']);
-    if (function_exists('time_interval')) {
-      $item['date_added'] = time_interval($item['date_added']);
-    }
-    $items[$item['id']] = theme('events_item', $item);
-  }
+  print json_encode(
+    events_get(array(
+      'q' => array(
+        events_build_query(array('exclude' => array('type' => array('user_profile', 'taxonomy'),))),
+      ),
+      'update' => $id,
+    ))
+  );
 
-  print json_encode($items);
+  # fetch results
+//  static $users = array();
+//  $result = db_query("SELECT * FROM {events} WHERE id > '%d' ORDER BY date_added ASC", $id);
+//  while ($item = db_fetch_array($result)) {
+//    $item['vars'] = unserialize($item['vars']);
+//    if (!$users[$item['uid']]) {
+//      $users[$item['uid']] = user_load($item['uid']);
+//    }
+//    $item['account'] = $users[$item['uid']];
+//    $item['timestamp'] = strtotime($item['date_added']);
+//    if (function_exists('time_interval')) {
+//      $item['date_added'] = time_interval($item['date_added']);
+//    }
+//    $items[$item['id']] = theme('events_item', $item);
+//  }
+//
+//  print json_encode($items);
   exit;
 }
 
