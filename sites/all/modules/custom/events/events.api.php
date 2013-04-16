@@ -91,7 +91,7 @@ function events_get($p = array(), $count = 30)
   $query .= $union;
   $query .= ") merge";
   if ($p['update']) {
-    $query .= " id > %d";
+    $query .= " WHERE id > %d";
     $params[] = $p['update'];
   }
   $query .= " ORDER BY date_added DESC";
