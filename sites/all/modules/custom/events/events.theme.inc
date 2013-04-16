@@ -232,6 +232,7 @@ function event_taxonomy_theme_preprocess(&$vars) {
     'author_uid' => -1,
   ));
   if ($data) {
+    $vars['item']['vars']['tids'] = explode(',', $vars['item']['vars']['tids']);
     foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
       if (in_array($tid, $vars['item']['vars']['tids'])) {
         $term = taxonomy_get_term($tid);

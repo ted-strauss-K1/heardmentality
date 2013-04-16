@@ -12,9 +12,14 @@
 
 <div id="events_following">
   <?php
-  $p = array();
-  $p['uid'] = events_follower_uids();
-  $events = events_get($p);
-  print theme('events', $events);
+//  $p = array();
+//  $p['uid'] = events_follower_uids();
+//  $events = events_get($p);
+//  print theme('events', $events);
+  print theme('events', events_get(array(
+    'q' => array(
+      events_build_query(array('uid' => events_follower_uids(),)),
+    )
+  )));
   ?>
 </div>

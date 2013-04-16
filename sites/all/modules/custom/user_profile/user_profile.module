@@ -30,17 +30,17 @@ function user_profile_preprocess_page(&$vars)
         if (arg(2) == 'view' && module_exists('events')) {
           $account = _user_profile_get_user(arg(3));
           if ($account) {
-            $types = events_events_info();
-            unset($types['user_profile']);
-            $types = array_keys($types);
             $events = events_get(array(
-              'uid' => $account->uid,
-              'type' => $types,
+              'q' => array(
+                events_build_query(array('uid' => $account->uid, 'exclude' => array('type' => array('user_profile'),))),
+                events_subscriptions_build_query($account->uid),
+              )
             ));
-            if (module_exists('events_subscriptions')) {
-              $events += events_subscriptions_get();
-            }
-            krsort($events);
+//            if (module_exists('events_subscriptions')) {
+//              $events += events_subscriptions_get();
+//            }
+//            krsort($events);
+            events_subscriptions_get();;
             $vars['content_bottom'] = theme('events', $events);
           }
         }

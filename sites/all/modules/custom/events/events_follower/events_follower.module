@@ -135,16 +135,21 @@ function events_follower_ajax()
       $p['type'] = array('poll_vote', 'forum_vote', 'forum_comment_vote');
       break;
     default:
-      $types = events_events_info();
-      unset($types['user_profile']);
-      unset($types['taxonomy']);
-      $p['type'] = array_keys($types);
+//      $types = events_events_info();
+//      unset($types['user_profile']);
+//      unset($types['taxonomy']);
+      $p['exclude']['type'] = array('user_profile', 'taxonomy');
       break;
   }
 
   print json_encode(array(
     'status' => TRUE,
-    'message' => theme('events', events_get($p)),
+//    'message' => theme('events', events_get($p)),
+    'message' => theme('events', events_get(array(
+      'q' => array(
+        events_build_query($p),
+      )
+    ))),
   ));
   exit;
 }
