@@ -222,6 +222,7 @@ function event_taxonomy_theme_preprocess(&$vars) {
 
   if (($node->status != 1) || !module_exists('subscriptions')) {
     $vars['skip'] = true;
+    return;
   }
 
   global $user;
