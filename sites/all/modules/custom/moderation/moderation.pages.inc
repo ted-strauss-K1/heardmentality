@@ -523,6 +523,10 @@ function moderation_issue_view_form($form_state, $nid)
 
   $node = node_load($nid);
 
+  if ('poll' != $node->type) {
+    drupal_goto('moderation');
+  }
+
   $translation = poll_translate_translation($node);
 
   $form['title'] = array(
