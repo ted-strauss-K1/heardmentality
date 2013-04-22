@@ -991,6 +991,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   $node->locations = array();
   // through selected countries
   if ($values['location']['location-0'])
+    if (is_array($values['location']['location-0']))
     foreach ($values['location']['location-0'] as $country) {
       $location = location_empty_location(array());
       $location['country'] = $country;
@@ -998,6 +999,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
       $provinces = FALSE;
       // through country's provinces
       foreach (location_get_provinces($country) as $pcode => $pname) {
+        if (is_array($values['location']['location-1']))
         if (in_array($location['name'] . '_' . $pcode, $values['location']['location-1'])) {
           $provinces = TRUE;
           $location2 = $location;
@@ -1006,6 +1008,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
           $cities = FALSE;
           // through province's cities
           foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
+            if (is_array($values['location']['location-2']))
             if (in_array($ccode, $values['location']['location-2'])) {
 //          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
               $cities = TRUE;
