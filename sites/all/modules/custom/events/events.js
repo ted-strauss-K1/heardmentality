@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  translate();
-
   // update every 20 seconds
   setInterval(function () {
     eventsStreamUpdate();

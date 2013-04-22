@@ -160,7 +160,8 @@ function events_theme()
  */
 function events_stream_theme_preprocess(&$vars)
 {
-  if ($vars['settings']['update']) {
+  drupal_add_js(drupal_get_path('module', 'events') . '/events.translate.js');
+  if (isset($vars['settings']['update'])) {
     drupal_add_js(drupal_get_path('module', 'events') . '/events.js');
   }
   drupal_add_js(array('time' => array(

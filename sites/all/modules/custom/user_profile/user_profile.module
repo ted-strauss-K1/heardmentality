@@ -36,11 +36,6 @@ function user_profile_preprocess_page(&$vars)
                 events_subscriptions_build_query($account->uid),
               )
             ));
-//            if (module_exists('events_subscriptions')) {
-//              $events += events_subscriptions_get();
-//            }
-//            krsort($events);
-            events_subscriptions_get();;
             $vars['content_bottom'] = theme('events', $events);
           }
         }
