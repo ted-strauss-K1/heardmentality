@@ -38,7 +38,7 @@ function extract_exec()
     $f = fopen($path_abs, 'w+');
 
     $keys = array(
-      'id', 'issue_id', 'issue_text', 'issue_category_l1', 'issue_category_l2', 'issue_category_l3', 'vote_answer_id', 'vote_answer_text', 'vote_increment', 'current_vote_flag', 'vote_timestamp', 'userid', 'gender', 'zip', 'country', 'state', 'city', 'religion', 'ethnicity', 'income', 'marital', 'education', 'age', 'left_right', 'lib_auth', 'radic_cons', 'dove_hawk',
+      'id', 'issue_id', 'issue_text', 'issue_category_l1', 'issue_category_l2', 'issue_category_l3', 'vote_answer_id', 'vote_answer_text', 'vote_increment', 'current_vote_flag', 'vote_timestamp', 'userid', 'gender', 'zip', 'country', 'state', 'city', 'religion', 'ethnicity', 'income', 'marital', 'education', 'sorient', 'age', 'left_right', 'lib_auth', 'radic_cons', 'dove_hawk',
     );
 
     $y = date('Y');
@@ -122,6 +122,9 @@ function extract_exec()
         (SELECT value
           FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
           WHERE pf.name = 'profile_education' AND pv.uid = pvh.uid) education,
+        (SELECT value
+          FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
+          WHERE pf.name = 'profile_sorient' AND pv.uid = pvh.uid) sorient,
         (SELECT value
           FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
           WHERE pf.name = 'profile_yob' AND pv.uid = pvh.uid) age,
