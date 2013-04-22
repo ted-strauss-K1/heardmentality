@@ -1,0 +1,7 @@
+name = Flag Note Extension
+description = Flag History Tracking: Notes
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = "flag_ext"
+dependencies[] = "flag_note"
