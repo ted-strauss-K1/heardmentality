@@ -82,7 +82,8 @@ $(document).ready(function () {
  */
 $('a.permalink').live('click', function (e) {
   e.preventDefault();
-  var link = window.location.href.replace(/#.*/, '') + '#' + $(this).parents('.one-forum').attr('id');
+//  var link = window.location.href.replace(/#.*/, '') + '#' + $(this).parents('.one-forum').attr('id');
+  var link = $(this).attr('name');
   $.hrd.noty({
     'layout':'center',
     'type':'alert',

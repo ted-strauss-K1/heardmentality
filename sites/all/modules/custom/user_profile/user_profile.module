@@ -19,7 +19,7 @@ function user_profile_preprocess_page(&$vars)
       case 'view' :
       case 'follow' :
         $vars['right'] = theme('user_profile_info', null);
-        if (arg(2) == 'view' && module_exists('subscriptions')) {
+        if (module_exists('subscriptions')) {
           $account = _user_profile_get_user(arg(3));
           global $user;
           if (($account->uid == $user->uid) && user_is_logged_in()) {
@@ -30,11 +30,12 @@ function user_profile_preprocess_page(&$vars)
         if (arg(2) == 'view' && module_exists('events')) {
           $account = _user_profile_get_user(arg(3));
           if ($account) {
-            $events = events_get(array('uid' => $account->uid));
-            if (module_exists('events_subscriptions')) {
-              $events += events_subscriptions_get();
-            }
-            ksort($events);
+            $events = events_get(array(
+              'q' => array(
+                events_build_query(array('uid' => $account->uid, 'exclude' => array('type' => array('user_profile'),))),
+                events_subscriptions_build_query($account->uid),
+              )
+            ));
             $vars['content_bottom'] = theme('events', $events);
           }
         }

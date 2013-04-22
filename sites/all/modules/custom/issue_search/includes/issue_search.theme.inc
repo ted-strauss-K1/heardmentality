@@ -156,9 +156,39 @@ function issue_search_filter_form($form_state)
   }
 
   // Container: info.
+  global $user;
+  drupal_add_js(drupal_get_path('module', 'issue') . "/issue.categories.js");
+  $subscriptions = array();
+  if (module_exists('subscriptions')) {
+    $data = subscriptions_get(array(
+      'recipient_uid' => $user->uid,
+      'module' => 'node',
+      'field' => 'tid',
+      'author_uid' => -1,
+    ));
+    if ($data)
+      foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
+        $subscriptions[] = $tid;
+      }
+  }
+
+//  return  (
+//  module_exists('subscriptions') ?
+//    sprintf('<input type="checkbox" class="issue_category" title="%s" name="%s" %s>',
+//      t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $subscriptions) ? 'checked' : '') : '')
+
   $info = t('Issues about') . ':<br />';
   foreach ($info_items as $item) {
-    $info .= sprintf('<span><input type="hidden" name="#edit-block-%s" value="%s">%s<span class="del-item">x</span></span>', $item['type'], $item['value'], $item['text']);
+    if (preg_match('/taxonomy/', $item['type'])) {
+      $info .= sprintf('<span>
+    <input type="checkbox" class="issue_category" title="%s" name="%s" %s>
+    <input type="hidden" name="#edit-block-%s" value="%s">%s<span class="del-item">x</span></span>',
+        t('Check to subscribe'), issue_term_parents(taxonomy_get_term($item['value'])), in_array($item['value'], $subscriptions) ? 'checked' : '', $item['type'], $item['value'], $item['text']);
+    } else {
+      $info .= sprintf('<span><input type="hidden" name="#edit-block-%s" value="%s">%s<span class="del-item">x</span></span>', $item['type'], $item['value'], $item['text']);
+    }
+
+
   }
   $form['block']['information'] = array(
     '#value' => $info,
@@ -239,14 +269,14 @@ function issue_search_filter_form($form_state)
     }
   }
 
-  $form['my_language'] = array(
-    '#type' => 'checkbox',
-    '#default_value' => TRUE,
-    '#title' => t('Show issues of my language'),
-  );
+//  $form['my_language'] = array(
+//    '#type' => 'checkbox',
+//    '#default_value' => TRUE,
+//    '#title' => t('Show issues of my language'),
+//  );
   $form['voted_status'] = array(
     '#type' => 'checkbox',
-    '#default_value' => TRUE,
+    '#default_value' => FALSE,
     '#title' => t('Show only not voted'),
   );
   $form['search_text'] = array(

@@ -122,7 +122,23 @@ function issue_block_categories_preprocess(&$vars)
  */
 function issue_block_categories_user_preprocess(&$vars)
 {
-  $vars['categories'] = taxonomy_node_type_terms();
+  $vars['categories'] = array();
+
+  global $user;
+  if (module_exists('subscriptions')) {
+    global $user;
+    $data = subscriptions_get(array(
+      'recipient_uid' => $user->uid,
+      'module' => 'node',
+      'field' => 'tid',
+      'author_uid' => -1,
+    ));
+    if ($data) {
+      foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
+        $vars['categories'][$tid] = taxonomy_get_term($tid);
+      }
+    }
+  }
 }
 
 /**

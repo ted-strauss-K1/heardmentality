@@ -6092,6 +6092,7 @@ li input[type="checkbox"].issue_category {
   color: #fff;
 }
 
+<<<<<<< HEAD
 html[lang="ru"] .see-banner p, html[lang="ru"] .vote-banner p, html[lang="ru"] .share-banner p, html[lang="ru"] .error-banner p,
 html[lang="ru"] .see-banner span, html[lang="ru"] .vote-banner span, html[lang="ru"] .share-banner span, html[lang="ru"] .error-banner span,
 html[lang="ru"] .count,
@@ -6107,3 +6108,6 @@ html[lang="ru"] #count_results-wrapper span {
 	display: block;
 	float: none;
 }
+=======
+.action .tags li {clear:none;}
+>>>>>>> stage

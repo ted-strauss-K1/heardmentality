@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  translate();
-
   // update every 20 seconds
   setInterval(function () {
     eventsStreamUpdate();
@@ -23,7 +21,7 @@ function eventsStreamUpdate() {
     type      : "POST",
     dataType  : "json",
     url       : 'events/latest/'+$('.uactivity .msg:first').attr('name'),
-    data      : {},
+    data      : $('#uactivity').attr('name'),
     success   : function (response) {
       for (var item in response) {
         $('.uactivity .msg:first').before(response[item]);

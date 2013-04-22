@@ -1,5 +1,6 @@
 <?php
 
+require_once "issue.theme.inc";
 require_once "issue.forms.inc";
 require_once "argument.forms.inc";
 require_once "argument.inc";
@@ -38,6 +39,18 @@ function issue_preprocess_node(&$vars)
   if ($node->type == 'poll') {
     drupal_set_subtitle(t('Issue'));
     drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function issue_form_alter(&$form, &$form_state, $form_id)
+{
+  if ($form_id == 'poll_node_form') {
+    $form['title']['#maxlength'] = 256;
   }
 }
 

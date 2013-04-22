@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @return array
+ */
+function embed_menu() {
+  $menu = array();
+
+  $menu['embed/%'] = array(
+    'page callback' => 'embed',
+    'page arguments' => array(1),
+    'access callback' => true,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * @param $p
+ */
+function embed($p) {
+  print theme('embed_common', 'regular');
+
+  exit;
+}
+
+/**
+ * @return array
+ */
+function embed_theme() {
+  $theme = array();
+
+  $theme['embed_common'] = array(
+    'arguments' => array(
+      'format' => NULL,
+    ),
+    'template' => 'template/embed.wrapper',
+    'preprocess functions' => array('embed_common_theme_preprocess'),
+  );
+
+  return $theme;
+}
+
+/**
+ * @param $format
+ */
+function embed_common_theme_preprocess(&$vars) {
+  $vars['module_path'] = drupal_get_path('module', 'embed');
+
+  $vars['content'] = 'xxxxs';
+}

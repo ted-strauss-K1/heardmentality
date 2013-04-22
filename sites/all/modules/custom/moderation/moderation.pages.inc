@@ -287,8 +287,8 @@ function _moderation_form_content_filter_issues($filters, $page) {
   $params[] = 1;
 
   # not moderated
-  $query .= " AND ct.field_moderated_value <> '%d'";
-  $params[] = 1;
+  $query .= " AND n.moderate <> '%d'";
+  $params[] = 0;
 
   # moderation
   switch ($filters['status']) {
@@ -559,6 +559,7 @@ function moderation_issue_view_form($form_state, $nid)
     '#suffix' => '</div>',
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
+    '#disabled' => TRUE,
   );
   foreach ($node->choice as $delta => $choice) {
     if (!empty($translation['choice'][$choice['chorder']])) {
@@ -909,8 +910,6 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   $nid = $values['content_id'];
   $node = node_load($nid);
 
-//  var_dump($values); die();
-
   $changed = array();
 
   $translation = poll_translate_translation($node);
@@ -963,13 +962,25 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   }
 
   # taxonomy
+  $taxonomy_diff = array();
+  $taxonomy_old = array();
+  foreach ($node->taxonomy as $term) {
+    $taxonomy_old[] = $term->nid;
+  }
   $node->taxonomy = array();
   for ($i = 0; $i >= 0; $i++) {
     if (!empty($values['taxonomy']['taxonomy-' . $i])) {
       foreach ($values['taxonomy']['taxonomy-' . $i] as $tid) {
         $node->taxonomy[] = taxonomy_get_term($tid);
+        if (!in_array($tid, $taxonomy_old)) {
+          $taxonomy_diff[] = $tid;
+        }
       }
     } else break;
+  }
+  if ($taxonomy_diff && module_exists('rules')) {
+    global $user;
+    rules_invoke_event('moderation_taxonomy', $user, $node, implode(',',$taxonomy_diff));
   }
 
   # locations
