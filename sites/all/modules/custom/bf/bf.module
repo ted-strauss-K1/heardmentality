@@ -109,6 +109,9 @@ function bf_issue($url, $timestamp = false) {
   # get data
   $data = bf_get_feed($url, $timestamp);
 
+  // todo remove for active state
+  return;
+
   # bad request
   if (false === $data) {
     return;
