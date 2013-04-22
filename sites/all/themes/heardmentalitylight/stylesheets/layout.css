@@ -3,7 +3,7 @@
 ================================================== */
 	body {background:url(../images/cross_hatch_texture.png)}
 	.header { margin:0px 0px; padding:0px 0px}
-	a.logo {height:26px;float:left;background-color:/*#6B0063*/ #362750;color:white;padding:6px 12px 0px 12px;width:auto;display:block;font-size:15px;letter-spacing:0.15em;text-transform:uppercase;text-align:center;display:block; text-decoration: none;}
+	a.logo {float:left;background-color:/*#6B0063*/ #362750;color:white;padding:6px 12px 5px;width:auto;display:block;font-size:15px;letter-spacing:0.15em;text-transform:uppercase;text-align:center;display:block; text-decoration: none;}
 	img.logo-img{float:left;/*padding:0px 2px 0px 0px;margin:-2px 0px 0px -2px*/ margin: 0 0 0 -2px; padding: 0 5px 0 0;}
 	a.logo:hover {background:#362750;}
 	a.login {color:white;padding:10px 12px 0px 12px;font-size:13px;letter-spacing:0.15em;text-transform:none;float:right}
@@ -14,11 +14,14 @@
 	
 	.navigation {display:block;margin:0px 0px;padding:0px 0px }			
 	.top-left {
-		float:left;
-		margin:0px 0px 0px 10px;
+		float: none;
+		margin: 0px 10px;
 		padding:0px;
-		background:#EF00D3;
 		}
+	
+	.top-left.user-menu.full {
+		float: left;
+	}
 
 	.top-right { 
 		background:#000;
@@ -31,6 +34,10 @@
 		padding: 0;
 		background: none transparent;
 		zoom: 1;
+		}
+		
+		.top-right.login p {
+			margin: 0;
 		}
 
 #block-block-28 p {
@@ -47,6 +54,14 @@
 	background-color: #362750 !important;/*#000*/
 	min-width: 88px;
 	text-align: center !important;
+}
+
+.top-right.login a.login i {
+	margin-right: 5px;
+	vertical-align: top;
+	display: inline-block;
+	position: relative;
+	top: -1px;
 }
 
 /*.top-right.login .expanding {
@@ -163,7 +178,7 @@
 			background:#3cc7f4;
 			color:#222;
 		} */
-    ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 18px 0 0; clear: both; max-width: 412px; float: right; text-align: right;}
+    ul.lang {margin:0px 0px 10px 5px; zoom: 1; padding: 18px 0 0; clear: both; max-width: 412px; float: right; text-align: right;}
     ul.lang li{display: inline-block; vertical-align: top;margin:2px 5px 12px 10px;text-transform:uppercase;color:#333;font-size:11px;line-height:11px;letter-spacing:0.1em;}
     ul.lang li a{color:#222; text-decoration: none;}
     ul.lang li a:hover{color:#000; text-decoration: underline;}
@@ -207,7 +222,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.icon.heart {background:url(../images/icons/29-heart.png) center left no-repeat;float:right;padding:7px 28px 0px 0px;margin:2px 7px 0px 0px}
 	
 	.icon.stats {background:url(../images/icons/122-stats.png) top center no-repeat;float:left;padding:1px 16px 0px 14px;margin:-5px 0px -5px 0px;filter:alpha(opacity=90);opacity:0.9;height:27px;}
-	.icon.cat {background:url(../images/icons/14-tag.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -8px 0px 0px;filter:alpha(opacity=90);opacity:0.75; height: 22px;}
+	.icon.cat {float:right; padding: 0; margin: -3px 5px 0 0; filter:alpha(opacity=90); opacity:0.75; height: auto;}
 	.icon.cat2 {background:url(../images/icons/14-tag.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:0px 5px 0px 0px;filter:alpha(opacity=90);opacity:0.75}
 
   .icon.mod-history {background:url(../images/icons/162-receipt.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}	
@@ -222,7 +237,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.icon2.bullhorn {background:url(../images/icons/124-bullhorn@2x.png) 0px 5px no-repeat;float:left;padding:0px 33px 0px 20px;filter:alpha(opacity=95);opacity:0.97;}
 	.icon2.download {background:url(../images/icons/57-download@2x.png) top right no-repeat;float:left;padding:5px 60px 0px 10px;margin:0px 0px 0px 0px;}
 	
-	.icon.text, .icon.text a {text-transform:uppercase;letter-spacing:1px;font-size:11px;text-decoration:none}
+	.icon.text, .icon.text a {font-size: 20px; text-decoration:none; vertical-align: top;}
 	.text-bold, .icon.text-bold a {text-transform:uppercase;letter-spacing:1px;font-size:11px;text-decoration:none;font-weight:bold;color:#111;letter-spacing:1px;margin:0px 10px 0px 0px;}
 	.icon2.text, .icon2.text a {text-shadow: 0 1px #fff;text-transform:uppercase;letter-spacing:1px;font-size:31px;text-decoration:none;font-weight:bold;text-align:left;line-height:1em}
 
@@ -343,91 +358,102 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		padding:22px 22px 6px 20px;
 		border-radius: 3px;
 	}
-  .black-box input.form-text{
-    width: 250px;
-  }
+	
+	#block-issue-issue-categories-popular .grey-box {
+		padding: 20px 20px 14px;
+	}
+	
+	#block-issue-issue-categories-popular ul.tags {
+		padding: 0;
+		margin: 0;
+	}
+	
+	#block-issue-issue-categories-popular ul.tags label {
+		border-bottom: 1px solid #C0C0C0;
+		padding: 0 3px 10px;
+		text-transform: uppercase;
+		font-weight: bold;
+		color: #999;
+		text-shadow: 0 1px #fff;
+		font-size: 13px;
+		line-height: 21px;
+		margin-bottom: 16px;
+	}
+	
+	.black-box input.form-text{
+		width: 250px;
+	}
+	
 	.circle-box {
-		background:url(../images/circle_bg.png) -6px -210px no-repeat;
-		margin:50px 0px 10px 0px;
-		display:block;
-		width:300px;
-		height:300px;
-	}
-	
-	.see {
-			position:relative;
-			display:block;
-			height: 100px;
-			width: 250px;
-			background:url(../images/see-event.png) 0 0 no-repeat;
-		}
-		
-	.vote-now {
-			position:relative;
-			display:block;
-			height: 100px;
-			width: 250px;
-			background:url(../images/vote-event.png) 0 0 no-repeat;
-		}
-		
-	.share-now {
-			position:relative;
-			display:block;
-			height: 100px;
-			width: 250px;
-			background:url(../images/share-event.png) 0 0 no-repeat;
-		}
-
-		.circle-box .see *,.circle-box .vote *,.circle-box .share * {
-		  display: none;
-		}
-
-	.see span.hover{
-		position: absolute;
-		top: 0;
-		left: 0;
+		background: none #fff;
+		border-radius: 200px;
+		-o-border-radius: 200px;
+		-moz-border-radius: 200px;
+		-webkit-border-radius: 200px;
+		-khtml-border-radius: 200px;
+		margin: 50px auto 10px;
 		display: block;
-		height: 100px;
-		width: 250px;
-		background:url(../images/see-event.png) 0 -100px no-repeat;
+		width: 285px;
+		height: 285px;
 	}
 	
-	.vote-now span.hover {
-		position: absolute;
-		top: 0;
-		left: 0;
-		display: block;
-		height: 100px;
-		width: 250px;
-		background:url(../images/vote-event.png) 0 -100px no-repeat;
-	}
-	
-	.share-now span.hover {
-		position: absolute;
-		top: 0;
-		left: 0;
-		display: block;
-		height: 100px;
-		width: 250px;
-		background:url(../images/share-event.png) 0 -100px no-repeat;
-	}
-	
-	.see-banner, .vote-banner, .share-banner {
-		text-align:center;
-		font-family: 'DINBoldRegular';
-		text-transform:uppercase;
-		font-size:40px;
-		padding:110px 0px 0px 28px;
-		
-		/*banner images need to be convert to text*/
+	.see-banner, .vote-banner, .share-banner, .error-banner {
+		text-align: center;
+		font-family: 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
+		text-transform: uppercase;
+		font-size: 70px;
+		padding: 0;
 		direction: ltr;
+		height: 285px;
+		width: 285px;
+		letter-spacing: -0.04em;
 	}
+	
 	.error-banner {
-		text-align:center;
-		font-family: 'DINBoldRegular';
-		text-transform:uppercase;
-		font-size:80px;
-		padding:140px 0px 0px 10px;
+		font-size: 80px;	
+	}
+	
+	.see-banner a, .vote-banner a, .share-banner a, .error-banner a {
+		color: #111;
+		display: block;
+		height: 285px;
+		width: 285px;
+		text-decoration: none;
+		position: relative;
+	}
+	
+	.see-banner span, .vote-banner span, .share-banner span, .error-banner span,
+	.see-banner p, .vote-banner p, .share-banner p, .error-banner p{
+		display: block;
+		background-color: #fff;
+		border-radius: 200px;
+		-o-border-radius: 200px;
+		-moz-border-radius: 200px;
+		-webkit-border-radius: 200px;
+		-khtml-border-radius: 200px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-top: 1px solid #BABCBD;
+	}
+	
+	.see-banner span, .vote-banner span, .share-banner span, .error-banner span {
+		width: 265px;
+		height: 70px;
+		padding: 109px 10px 106px;
+		line-height: 70px;
+		-webkit-font-smoothing: antialiased;
+	}
+	
+	.see-banner p.hover, .vote-banner p.hover, .share-banner p.hover, .error-banner p.hover {
+		display: none;
+		font-size: 19px;
+		line-height: 23px;
+		letter-spacing: normal;
+		text-transform: none;
+		width: 213px;
+		height: 145px;
+		padding: 120px 36px 20px;
 	}
 	
 	.banner-text {
@@ -441,9 +467,13 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		line-height:1em;
 		margin: 0;
 	}
-
+	
+	html[lang="ru"] .banner-text {
+		font-size: 28px;	
+	}
   .page-error .banner-text {
     width: 100%;
+	margin-top: 40px;
   }
 	
 	.dark-grey-box {
@@ -519,7 +549,10 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	ul.tags li a{
-		color:#111;
+		color: #111;
+		display: inline-block;
+		padding: 3px 2px 2px 0;
+		vertical-align: middle;
 	}
 	
 	ul.tags li a:hover,
@@ -698,7 +731,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		font-weight:normal;
 		text-transform:none;
 		text-shadow: 0 -1px #fff;
-		margin: 0px 1.4em 12px;
+		margin: 0;
 		text-shadow:none;
 		clear: both;
 	}
@@ -882,14 +915,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	  border-top: 1px solid #999;
 		margin:0px 2px 10px 0px;
 	  border-left: 1px solid #999;
-	}
-	
-	.button.participate {
-		margin:5px 0px 0px 0px;
-	}
-	
-	.border-bottom .button.participate {
-		margin: 0;
 	}
 	
 	.update-issue, .delete-issue {float:right;margin:0px 0px 0px 20px}
@@ -1233,14 +1258,14 @@ ul.map-stats li{
 }
 .count {	
 	font-size:24px;
-	font-family: 'DINBoldRegular';
+	font-family: 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
 	font-weight: normal;
     font-style: normal;
 }			
 .count-title{
 	font-size:19px;
 	padding:0px 8px 0px 8px;
-	font-family: 'DINLightRegular';
+	font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
 }					
 		
 
@@ -1685,7 +1710,7 @@ p.choose_pic {
 }
 
 .profile-meta p{
-	line-height:1em;
+	line-height:1.2em;
 	font-size:13px;
 	text-shadow:0px 1px #cecece;
 }
@@ -1764,7 +1789,7 @@ img.user-profile{
 }
 
 #dialog img.user-profile {
-	margin:-15px 12px 10px 1em;
+	margin: -15px 12px 19px 0;
 }
 
 #dialog .profile-meta {
@@ -1887,8 +1912,8 @@ label.login {text-align:right;text-transform:none;color:#000;font-weight:normal;
 .login-site {margin:0px 0px -10px 0px;}
 span.sort {font-weight:normal;font-weight:bold;color:#666;text-shadow: 0 1px #fff;font-size:0.8em;margin:0px 3px 0px -15px;}
 
-span.activity {font-weight:bold;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;padding:0px 3px 0px 3px;}
-.activity.map-title {font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #c0c0c0; margin: 0 10px 9px; padding: 0 3px 10px;}
+span.activity {font-weight:bold;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;padding:0px 3px 0px 3px; text-transform: uppercase;}
+.activity.map-title {font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #c0c0c0; margin: 0 10px 9px; padding: 0 3px 10px; text-transform: uppercase;}
 
 .action span.date {color:#ef3d3b;}
 .action span.name {color:#ef3d3b;font-weight:bold}
@@ -2162,7 +2187,7 @@ p.policy a:hover{
 }
 
 .din {
-	font-family: 'DINLightRegular', Arial, sans-serif;
+	font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
 	font-weight: normal;
 	font-style: normal;
 }	
@@ -2186,7 +2211,7 @@ p.policy a:hover{
 }
 	
 .dinbold {
-	font-family: 'DINBoldRegular', Arial, sans-serif;
+	font-family: 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -2333,7 +2358,7 @@ textarea#q_quest  {
 .issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option,
 .issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
 	color: #4c4c4c;
-	font: 18px/1.2 'DINLightRegular', Arial, sans-serif;
+	font: 18px/1.2 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
 	display: block;
 	cursor: pointer;
 }
@@ -2730,6 +2755,10 @@ ul.menu li a {
 	color: #fff;	
 }
 
+ul.menu li.following a {
+	background-color: #EF3D3B;
+}
+
 ul.menu li a.analysis {
 	background-color: #ef3d3b;
 	color: #fff;	
@@ -2742,27 +2771,31 @@ ul.menu li a.active {
 	color: #222;
 }
 
-ul.menu.second li a.moderator {
-	background-color: #ccc;
+ul.menu li a.moderator {
+	background-color: #e1e43c;
 	color: #000;	
 }
 
-ul.menu.second li a.moderator:hover {
-	background-color: #362750;
+ul.menu li a.moderator:hover {
+	background-color: #6ccbd5;
 	color: #fff;	
 }
 
-ul.menu.second li:first-child {
+ul.menu.second {
+	float: right;
+}
+
+ul.menu.second.full {
 	position: absolute;
     right: 119px;
 }
 
-ul.menu.second li a.add {
+ul.menu li a.add {
 	background-color: #f6eb16;
 	color: #000;
 }
 
-ul.menu.second li a.add:hover {
+ul.menu li a.add:hover {
 	background-color: #362750;
 	color: #fff;
 }
@@ -2784,17 +2817,29 @@ ul.menu.second li a.add:hover {
 }
 
 .banner-text {
-	float: left;
-	width: 75%;
+	display: table-cell;
+	width: 100%;
 	padding-top: 4px;
 	line-height: 1.1;
 }
 
 .banven {
-	float: right;
-	display: block;
-	margin-left: 15px;
+	display: table-cell;
+	float: none;
+	vertical-align: middle;
+	margin: 0;
+	white-space: nowrap;
 }
+
+.banven a.button.participate {
+	margin: 0 0 0 15px;
+}
+
+.helper {
+	display: table;
+	width: 100%;
+}
+
 .container .nine .grey-box ul {
 	margin: 0;
 }
@@ -2859,7 +2904,7 @@ ul.menu.second li a.add:hover {
 .ui-dialog.ui-widget-content .ui-tabs-nav .ui-state-default {
 	border: 0 none;
 	background: none transparent;
-	font-family: 'DINBoldRegular', Arial, Verdana, sans-serif;
+	font-family: 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
 	border: solid #fff;
 	border-width: 1px 1px 0;
 }
@@ -2978,7 +3023,7 @@ ul.menu.second li a.add:hover {
 }
 
 .ui-dialog.ui-widget-content  .dialog.vcard {
-	padding: 9px 14px 14px 0;
+	padding: 9px 14px 18px;
 }
 
 #user-register .description {
@@ -3322,7 +3367,7 @@ h2.page-title {
 .search_list .poll-vote-area .form-radios span.teaser_count_vote {
 	float: left;
 	width: 50px;
-	font: 17px/1 'DINLightRegular', Arial, sans-serif;
+	font: 17px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
 	color: #7b7d01;
 	padding: 5px 3px 2px;
 	margin: 0;
@@ -3340,7 +3385,7 @@ h2.page-title {
 .issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote span,
 .search_list .poll-vote-area .form-radios span.teaser_count_vote span {
 	display: block;
-	font: 20px/1 'DINLightRegular', Arial, sans-serif;
+	font: 20px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
 }
 
 .issue-vote-wrapper .poll-vote-area fieldset {
@@ -4980,7 +5025,7 @@ p.result-title {
 .vote-results .legend dd {
 	float: left;
 	margin: 0 5px 0 0;
-	font-family: 'DINBoldRegular',Arial,sans-serif;
+	font-family: 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
 	font-size: 12px;
@@ -5337,7 +5382,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 }
 
 #count_results-wrapper {
-	font-family: 'DINLightRegular',Arial,sans-serif;
+	font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
 	color: #372418;
@@ -5349,7 +5394,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 #count_results-wrapper span {
 	font-size: 28px;
 	line-height: 30px;
-	font-family: 'DINBoldRegular',Arial,sans-serif;
+	font-family: 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
 	font-style: normal;
     font-weight: normal;
 }
@@ -5414,7 +5459,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 #item_results-wrapper,
 #top_categories-wrapper {
-	font-family: 'DINLightRegular',Arial,sans-serif;
+	font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
 	font-size: 15px;
 	line-height: 18px;
 }
@@ -5653,7 +5698,7 @@ span.coins_char {
 }
 
 #about_us_page_content h6 {
-	font-family: 'DINLightRegular',Arial,sans-serif;
+	font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
 	color: #181818;
@@ -5994,7 +6039,7 @@ span.beta {
 /*}*/
 
 #block-issue-issue-categories-popular {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 #block-issue-issue-categories,
 #block-user_profile-user-profile-right
@@ -6033,11 +6078,9 @@ h6#add-arg.expanded {
   display: none;
 }
 
-
 li input[type="checkbox"].issue_category {
-  position: relative;
-  top: 2px;
-  left: -2px;
+	margin: 0 5px 0 0;
+    vertical-align: middle;
 }
 
 .notvoted li {
@@ -6049,4 +6092,18 @@ li input[type="checkbox"].issue_category {
   color: #fff;
 }
 
+html[lang="ru"] .see-banner p, html[lang="ru"] .vote-banner p, html[lang="ru"] .share-banner p, html[lang="ru"] .error-banner p,
+html[lang="ru"] .see-banner span, html[lang="ru"] .vote-banner span, html[lang="ru"] .share-banner span, html[lang="ru"] .error-banner span,
+html[lang="ru"] .count,
+html[lang="ru"] .dinbold,
+html[lang="ru"] .ui-dialog.ui-widget-content .ui-tabs-nav .ui-state-default,
+html[lang="ru"] .vote-results .legend dd,
+html[lang="ru"] #count_results-wrapper span {
+	font-weight: bold;
+}
 
+.one-third.column.centered {
+	width: auto;
+	display: block;
+	float: none;
+}

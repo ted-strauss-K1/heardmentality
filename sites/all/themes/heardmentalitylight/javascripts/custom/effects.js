@@ -2,8 +2,8 @@
 var circle = -1;
 var circle_count = $('.circle-box').length;
 function circle_state(i) {
-  $('.circle-box span.hover').stop().fadeTo(200, 0);
-  $('.circle-box #circle'+i+' span.hover').stop().fadeTo(200, 1);
+  $('.circle-box p.hover').stop().fadeTo(200, 0);
+  $('.circle-box #circle'+i+' p.hover').stop().fadeTo(200, 1);
 }
 function circle_next() {
   circle++;
@@ -25,12 +25,12 @@ $(document).ready(function() {
     circle_timer = setInterval('circle_next()', 5000);
   });
 //  $('.see, .vote-now, .share-now').each(function () {
-//    var $span = $('> span.hover', this).css('opacity', 0);
+//    var $span = $('> p.hover', this).css('opacity', 0);
 //    $(this).hover(function () {
-//      $span.stop().fadeTo(200, 1);
+//      $p.stop().fadeTo(200, 1);
 //
 //    }, function () {
-//      $span.stop().fadeTo(200, 0);
+//      $p.stop().fadeTo(200, 0);
 //    });
 //  });
 });

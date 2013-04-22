@@ -1,12 +1,10 @@
-/*Custom media queries for Heardmentality*/	
-	
-
-/* #Media Queries
+/* Custom media queries for Heardmentality
 ================================================== */
 
-	/* Anything smaller than standard 960 */
+/* Anything smaller than standard 1024 
+==================================================*/
 	
-	@media only screen and (max-width: 967px) {
+	@media only screen and (max-width: 1023px) {
 	  
 		.hide-on-mobiles {
 			display:none;
@@ -58,14 +56,6 @@
 		
 		#issue-create-form input.add-answer {
 			margin: 0;
-		}
-
-		.button.participate {
-			margin:2px 0px 0px 0px;
-    	}
-		
-		.banner-text {
-			width: 75%;
 		}
 
 		.container .nine .grey-box .uactivity {
@@ -168,16 +158,17 @@
 		}
 	}
 
-/* iPad Portrait/Browser */
+/* iPad Portrait/Browser 
+==================================================*/
 
-	@media only screen and (min-width: 768px) and (max-width: 991px) {
+	@media only screen and (min-width: 768px) and (max-width: 1023px) {
 	
 		input.form-text, input.form-text.user-search {
 			width: 338px;
 		}
-		
 	
-		.main-banner-display {
+		.main-banner-display,
+		.main-banner-display.column.centered {
 			display: none;
 		}
 
@@ -190,16 +181,6 @@
 			width: 134px;
 		}
 		
-		.banner-text {
-			font-size: 22px;
-			line-height: 1.2;
-			width: 75%;
-		}
-		
-		.button.participate {
-			margin: 2px 0px 0px 0px;
-    	}
-    	
     	ul.vote li.post {
 			width: 80%;
     	}
@@ -209,12 +190,15 @@
 		
 	}
 	
-	/* iPad Portrait Only */
+/* iPad Portrait Only 
+==================================================*/
 	@media only screen and (min-width: 768px) and (max-width: 991px) and (max-device-width: 1000px) {
 	
 	}
-	
-	/* Mobile/Browser */
+
+
+/* Mobile Only
+==================================================*/
 
 	@media only screen and (max-width: 767px) {
 	
@@ -226,16 +210,22 @@
 			margin:10px 3px 10px 0px;
 		}
     
-		.main-banner-display {
+		.main-banner-display,
+		.main-banner-display.column.centered {
 			display: none;
 		}
 
 		.banner-text {
-			font-size:22px;
-			width:100%;
-			line-height: 1.3;
+			font-size: 25px;
+			width: 100%;
+			padding: 0;
+			line-height: 1.24;
 		}
 		
+		html[lang="ru"] .banner-text {
+			font-size: 27px;
+		}
+    	
 		ul.vote li.post {
 			width:auto;
 		}
@@ -248,9 +238,20 @@
 		#edit_profile ul.privacy {
 			clear: both;
 			float: none;
-			margin: 0;
 			width: 100%;
-			padding-top: 8px;
+			margin: 0;
+			padding-top: 10px;
+		}
+		
+		.visible-to {
+			display: block;
+			width: 100%;
+			top: 0;
+			padding: 13px 0 0;
+			text-align: left;
+			position: relative;
+			color: #0c6926;
+
 		}
 		
 		#edit_profile ul.privacy li span{
@@ -343,11 +344,7 @@
 		#user-profile-location div {
 			margin: 0 0 15px;
 		}
-	
-/*******************************
-Mobile Only 
-*******************************/
-	@media only screen and (max-width: 767px)  {
+
 		
 		select option {
 			padding: 0 3px;
@@ -356,6 +353,8 @@ Mobile Only
 		.hide-on-mobiles {
 			display:none;
 		}
+		
+		/* Header */
 		
 		.top-mobile .border-bottom {
 			margin-top: 32px;
@@ -386,6 +385,7 @@ Mobile Only
 			color:white;
 			text-decoration:none;
 			line-height:15px;
+			padding: 13px 12px 12px;
 		}
 		
 		ul.menu li a:hover{
@@ -405,18 +405,27 @@ Mobile Only
 			padding: 0;
   		}
 			
-		a.logo {width:auto;margin:0px 0px 0px 0px;text-align:left;float:none}
+		a.logo {width:auto;margin:0px 0px 0px 0px;text-align:left;float:none; padding: 8px 12px 6px;}
 		
 		.top-right.login a.login {
 			float: none;
 			text-align: left !important;
 			background-color: #222 !important;
+			padding: 13px 12px 11px !important
 		}
 		
 		.top-right.login a#dialog_link:hover {
 			color: #000;
 			background-color: #F6EB16 !important;
 			padding: 7px 12px 0;
+		}
+		
+		.top-left.user-menu.full {
+			float: none;
+		}
+		
+		.top-left.user-menu.full:after {
+			clear: none;
 		}
 		
 		.top-left.user-menu ul.menu {
@@ -429,10 +438,11 @@ Mobile Only
 			width: 100%;
 		}
 		
-		.top-left.user-menu ul.menu.second li {
+		ul.menu.second.full {
 			float: left;
-			min-width: 50%;
-			width: auto;
+			position: static;
+			right: 0;
+			width: 50%;
 		}	
 		
 		.top-left.user-menu ul.menu li a {
@@ -443,10 +453,19 @@ Mobile Only
 			/*font-size: 92%;*/
 		}
 		
-		.top-left.user-menu ul.menu.second li:first-child {
+		.top-left.user-menu ul.menu.second li.add_issue {
 			position: relative;
 			right: 0;
+			width: 100%;
 		}
+		
+		.top-right.blue h6 {
+			margin-top: 8px;
+		}
+		
+		ul.menu li a.add {display:block;float:left;}
+		
+		/*END Header*/
 		
 		.line-bottom {
 			background:#DDDDDD;
@@ -470,8 +489,6 @@ Mobile Only
 			padding:145px 0px 0px 0px;
 			font-size:80px;
 		}
-		
-		ul.menu li a.add {display:block;float:left;}
 		
 		input.form-text, input.form-text.user-search {
 			width:120px;
@@ -530,56 +547,52 @@ Mobile Only
 		
 		input.add-answer {
 			margin:0px 4px 5px 0px;
-		}	
-    
+		}
    
 		.button.participate {
 			margin: -10px 0px 20px 0px;
     	}
     	
     	.vote-results ul li{ float:none;width:94.5%;}
+				
+		.helper {
+			display: table;
+			width: auto;
+		}
+		
+		.banven {
+			display: block;
+			vertical-align: middle;
+			white-space: normal;
+			padding-top: 10px;
+			margin: 0;
+			float: left;
+			width: 100%;
+		}
+		
+		.banven a.button.participate {
+			margin: 0;
+		}
 		
 		.banner-text {
-			width: 100%;
-			padding: 0;
-		}
-
-		.banven {
-			padding-top: 10px;
+			display: block;
+			width: auto;
 		}
 		
 		ul.lang {
 			max-width: 100%;
 		}
 		
-		/*Edit Profile*/
-		
-		#edit_profile ul.privacy {
-			margin: 0 0 0 25%;
-			width: 75%;
-			padding: 0;
-		}
-		
-		#edit_profile ul.privacy li span{
-			font-size: 11px;
-			line-height: 13px;
-			font-style: italic;
-		}
-		
-		#edit_profile ul.privacy li,
-		#edit_profile .privacy .form-radios .form-item,
-		.subscription .form-radios .form-item,
-		ul.subscription li {
-			float: right;
-			margin: 0 1% 0 0;
+		.button.vote, input.submit-issue, input.save {
+			display: block;
 			text-align: center;
-			width: 24%;
 		}
 		
-		.subscription .form-radios .form-item,
-		ul.subscription li {
-			width: 32.33%;
+		.button.vote.floatright, input.submit-issue.floatright, input.save.floatright {
+			float: none;
 		}
+		
+		/*Edit Profile*/
 		
 		ul.privacy #income li,
 		#edit_profile .privacy #income .form-radios .form-item {
@@ -621,16 +634,6 @@ Mobile Only
 		ul.privacy li {
 			margin-top: 0;
 		}
-		
-		.visible-to {
-		display: block;
-		position: relative;
-		text-align: right;
-		top: 13px;
-		width: 20%;
-		padding: 0;
-		color: #0c6926;
-			}
 		
 		form#user-details #update_submit {
 			float: left;
@@ -917,11 +920,14 @@ Mobile Only
 		}
 }
 
-/*******************************
-END Mobile Only 
-*******************************/
+/* END Mobile Only
+==================================================*/
+
+/* END Mobile Only
+==================================================*/
 	
-/* Mobile Landscape/Browser */
+/* Mobile Landscape/Browser 
+==================================================*/
 
 	@media only screen and (min-width: 480px) and (max-width: 767px) {
 		input.form-text, input.form-text.user-search {
@@ -943,26 +949,15 @@ END Mobile Only
 		}
 	}
 	
-/* Mobile Landscape Only */
+/* Mobile Landscape Only 
+==================================================*/
 	@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {
 		
 	}
 	
-/* Small screens */	
+/* Small screens 
+==================================================*/	
 	@media only screen and (max-width: 480px){
-		.visible-to {
-			display: block;
-			width: 100%;
-			top: 0;
-			padding-top: 13px;
-			text-align: left;
-		}
-		
-		#edit_profile ul.privacy {
-			width: 100%;
-			margin: 0;
-			padding-top: 10px;
-		}
 		
 		ul.date_filter {
 			padding-left: 1.5em;

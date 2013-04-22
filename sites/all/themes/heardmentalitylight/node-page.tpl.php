@@ -1,18 +1,8 @@
-<div class="one-third column">
-  <div class="circle-box no-bg auto-height">
-  </div>
-</div>
-<div class="one-third column">
+<div class="one-third column centered main-banner-display">
   <div class="circle-box">
-    <div class="error-banner"><?php print $title; ?></div>
+    <div class="error-banner"><a href="/"><span class="title"><?php print $title; ?></span></a></div>
   </div>
 </div>
-<div class="one-third column ">
-  <div class="circle-box no-bg auto-height">
-  </div>
-</div>
-<br class="clear">
-<br><br>
 
 <div class="container">
   <div class="sixteen columns">

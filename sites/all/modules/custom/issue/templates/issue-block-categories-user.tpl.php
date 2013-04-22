@@ -1,5 +1,5 @@
 <div class="grey-box poll-box" style="margin-top: 20px">
-  <div class="icon cat text"></div>
+  <i class="icon cat text icon-tag"></i>
   <ul class="tags">
     <label class="tags-on"><?php print t('SUBSCRIPTIONS'); ?></label>
     <?php if ($categories) foreach ($categories as $term) : ?>

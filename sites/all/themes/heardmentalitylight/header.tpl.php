@@ -16,21 +16,24 @@
 <div class="line-bottom">
 	<div class="container">
 		<div class="navigation">
-			<div class="top-left user-menu">
+			<div class="top-left clearfix user-menu<?php if (module_exists('moderation') && moderation_check_perm()) : ?> full<?php endif; ?>">
 				<ul class="menu">
 				  <li><?php print l(t('Issues'), 'issues', array('attributes' => array('class'=>'issues'))); ?></li>
 <!--				  <li>--><?php //print l(t('Analysis'), $_GET['q'], array('attributes' => array('class'=>'analysis'))); ?><!--</li>-->
+
+				  <?php if (user_is_logged_in()) : ?>
+					  <li class="following"><?php print l(t('Following'), 'following', array('attributes' => array('class'=>'following'))); ?></li>
+				  <?php endif; ?>
+				  
+				  <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
+					  <li class="moderator"><?php print l(t('Moderator'), 'moderation', array('attributes' => array('class'=>'moderator'))); ?></li>
+				  <?php endif; ?>
+				  
 				</ul>
-				<ul class="menu second">
-				  <li><?php print l(t('Add an Issue'), 'issue/create', array('attributes' => array(
+				<ul class="menu second<?php if (module_exists('moderation') && moderation_check_perm()) : ?> full<?php endif; ?>">
+				  <li class="add_issue"><?php print l(t('Add an Issue'), 'issue/create', array('attributes' => array(
             'class'=>'add ' . theme('user_login_modal_class')
           ))); ?></li>
-				  <?php if (user_is_logged_in()) : ?>
-					  <li><?php print l(t('Following'), 'following', array('attributes' => array('class'=>'following'))); ?></li>
-				  <?php endif; ?>
-				  <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
-					  <li><?php print l(t('Moderator'), 'moderation', array('attributes' => array('class'=>'moderator add'))); ?></li>
-				  <?php endif; ?>
 				</ul>
 			</div>
       <?php if (module_exists('moderation') && moderation_check_perm()) : ?>

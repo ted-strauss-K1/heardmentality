@@ -6,21 +6,21 @@
     <div class="one-third column">
       <div class="circle-box">
         <div class="see-banner circle-wrapper" id="circle0">
-          <a class="see" href=""><span class="hover" style="display:none"></span></a>
+          <a class="see" href=""><span class="title">SEE</span><p class="hover">See global opinions on important issues</p></a>
         </div>
       </div>
     </div>
     <div class="one-third column">
       <div class="circle-box">
         <div class="vote-banner circle-wrapper" id="circle1">
-          <a class="vote-now" href=""><span class="hover" style="display:none"></span></a>
+          <a class="vote-now" href=""><span class="title">VOTE</span><p class="hover">Vote on issues and let your voice be heard</p></a>
         </div>
       </div>
     </div>
     <div class="one-third column ">
       <div class="circle-box">
         <div class="share-banner circle-wrapper" id="circle2">
-          <a class="share-now" href=""><span class="hover" style="display:none"></span></a>
+          <a class="share-now" href=""><span class="title">SHARE</span><p class="hover">Share your opinions with the community</p></a>
         </div>
       </div>
     </div>
@@ -30,8 +30,10 @@
     <div class="sixteen columns top-mobile">
 
       <div class="border-bottom clearfix">
-        <p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion'); ?>.</p>
-        <span class="banven clearfix"><a href="<?php url('issues') ?>" class="button vote floatright participate"><?php print t('Be heard!'); ?></a></span>
+		<div class="helper">
+			<p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion'); ?>.</p>
+			<span class="banven clearfix"><a href="<?php url('issues') ?>" class="button vote floatright participate"><?php print t('Be heard!'); ?></a></span>
+		</div>
       </div>
     </div>
   </div>

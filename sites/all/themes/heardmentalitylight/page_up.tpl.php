@@ -17,7 +17,7 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
   <?php print $styles; ?>
 
   <link rel="shortcut icon" href="<?php print $directoryPath; ?>/images/favicon.ico">

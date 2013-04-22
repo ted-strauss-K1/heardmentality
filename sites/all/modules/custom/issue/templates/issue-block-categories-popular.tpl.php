@@ -1,5 +1,5 @@
 <div class="grey-box poll-box">
-  <div class="icon cat text"></div>
+  <i class="icon cat text icon-tag"></i>
   <ul class="tags">
     <label class="tags-on"><?php print t('POPULAR CATEGORIES'); ?></label>
     <?php if ($categories) foreach ($categories as $hierarchy => $name) : ?>

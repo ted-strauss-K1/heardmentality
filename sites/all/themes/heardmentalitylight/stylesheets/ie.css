@@ -388,7 +388,6 @@
 
 /* todo remove these ones */
 .ie7 .bronze, .ie7 .silver, .ie7 .gold,
-
 .ie7 .badge-circle
 {
 	height: 14px;
@@ -398,4 +397,20 @@
 .ie7 .item-list .pager .pager-current {
 	display: inline;
 	zoom: 1;
+}
+
+.ie .banven {
+	display: block;
+	margin-left: 15px;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.ie .banven a.button.participate {
+	margin: 0;
+}
+
+.ie  .banner-text {
+	float: left;
+	width: 70%;
 }
