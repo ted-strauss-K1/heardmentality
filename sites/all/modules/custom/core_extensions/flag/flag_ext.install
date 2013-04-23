@@ -98,6 +98,13 @@ function flag_ext_schema()
         'not null' => TRUE,
         'default' => 0,
       ),
+      'uid_moderator' => array(
+        'description' => 'The user ID by whom this content was unflagged.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
       'sid' => array(
         'description' => "The user's session id as stored in the session table.",
         'type' => 'int',
