@@ -6,6 +6,74 @@
 define('FLAGGER_PATH', 'flagger');
 
 /**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function flagger_theme()
+{
+  $theme = array();
+
+  $theme['flagger_btn_flag'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+    ),
+    'file' => 'flagger.theme.inc',
+  );
+  $theme['flagger_btn_flags'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+    ),
+    'file' => 'flagger.theme.inc',
+  );
+  $theme['flagger_btn_flags_history'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+    ),
+    'file' => 'flagger.theme.inc',
+  );
+
+
+
+
+
+
+  // todo refactor
+  $theme['flagger_button'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+    ),
+  );
+
+  $theme['flagger_button_flags'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+      'flagged' => FALSE,
+    ),
+  );
+
+  $theme['flagger_node_flags'] = array(
+    'arguments' => array(
+      'content_id' => NULL,
+      'content_type' => NULL,
+    ),
+  );
+
+  $theme['flagger_flags'] = array(
+    'arguments' => array(),
+  );
+
+  return $theme;
+}
+
+
+
+/**
  * Implementation of hook_menu()
  *
  * @return array
@@ -20,6 +88,14 @@ function flagger_menu()
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+  $menu[FLAGGER_PATH . '/save'] = array(
+    'page callback' => 'flagger_page_save',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+
+
 
   $menu[FLAGGER_PATH . '/%/%/flags'] = array(
     'page callback' => 'flagger_page_flags',
@@ -28,11 +104,7 @@ function flagger_menu()
     'type' => MENU_CALLBACK,
   );
 
-  $menu[FLAGGER_PATH . '/save'] = array(
-    'page callback' => 'flagger_page_save',
-    'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-  );
+
 
   return $menu;
 }
@@ -69,7 +141,7 @@ function flagger_form(&$form, $content_id, $content_type)
 
   $form['title'] = array(
     '#type' => 'markup',
-    "#value" => t('Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing? '),
+    "#value" => t("Which one of Heard Mentality's Guidelines and Principles is this debate posting infringing?"),
   );
   $form['guide'] = array(
     '#type' => 'markup',
@@ -91,31 +163,7 @@ function flagger_form(&$form, $content_id, $content_type)
 
   $note = '';
 
-  // checkboxes
-//  $i = 0;
-//  foreach ($flags as $flag) {
-//    $form['flag-' . $i] = array(
-//      '#type' => 'checkbox',
-//      '#title' => t($flag->title),
-//      '#value' => $flag->is_flagged($content_id),
-//    );
-//    $form['flag-fid-' . $i] = array(
-//      '#type' => 'hidden',
-//      '#value' => $flag->fid,
-//    );
-//    $form['flag-state-' . $i] = array(
-//      '#type' => 'hidden',
-//      '#value' => $flag->is_flagged($content_id),
-//    );
-//    $i++;
-//  }
-//  $form['flag_count'] = array(
-//    '#type' => 'hidden',
-//    "#value" => count($flags),
-//  );
-
   // radios
-
   $value = -1;
   $options = array();
   foreach ($flags as $flag) {
@@ -168,28 +216,6 @@ function flagger_page_save()
   $note = $post['note'];
   $tid = ($post['tid'] > 0 ? $post['tid'] : NULL);
 
-  // checkboxes
-//  for ($i = 0; $i < $post['flag_count']; $i++) {
-//    $fid = $post['flag-fid-' . $i];
-//    $state_old = $post['flag-state-' . $i];
-//    $state_new = $post['flag-' . $i];
-//    if ($state_old != $state_new) {
-//      $flag = flag_get_flag(null, $fid);
-//      if ($state_old) {
-//        flag_note_remove_notes(array('content_type' => $post['content_type'], 'content_id' => $post['content_id']));
-//      }
-//      if ($state_new) {
-//        $record = $flag;
-//        $record->uid = $user->uid;
-//        $record->note = $note;
-//        $record->tid = $tid;
-//        $record->content_id = $post['content_id'];
-//        flag_note_insert_note($record);
-//      }
-//      $flag->flag($state_new ? 'flag' : 'unflag', $post['content_id']);
-//    }
-//  }
-
   // radios
   $content_id = $post['content_id'];
   $content_type = $post['content_type'];
@@ -224,43 +250,7 @@ function flagger_page_save()
 
 }
 
-/**
- * Implementation of hook_theme()
- *
- * @return array
- */
-function flagger_theme()
-{
-  $theme = array();
 
-  $theme['flagger_button'] = array(
-    'arguments' => array(
-      'content_id' => NULL,
-      'content_type' => NULL,
-    ),
-  );
-
-  $theme['flagger_button_flags'] = array(
-    'arguments' => array(
-      'content_id' => NULL,
-      'content_type' => NULL,
-      'flagged' => FALSE,
-    ),
-  );
-
-  $theme['flagger_node_flags'] = array(
-    'arguments' => array(
-      'content_id' => NULL,
-      'content_type' => NULL,
-    ),
-  );
-
-  $theme['flagger_flags'] = array(
-    'arguments' => array(),
-  );
-
-  return $theme;
-}
 
 /**
  * Flagger Button theme call
