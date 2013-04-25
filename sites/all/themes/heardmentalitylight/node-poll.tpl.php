@@ -9,8 +9,9 @@
     <div class="qd">
       <?php if ($node->moderate) : ?>
         <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
-        <?php print theme('flagger_button', $nid, 'node'); ?>
-        <?php print theme('flagger_button_flags', $nid, 'node'); ?>
+        <?php print theme('flagger_btn_flag', $nid, 'node'); ?>
+        <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
+        <?php print theme('flagger_btn_history', $nid, 'node'); ?>
         <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
           <?php print l(t('moderation'), 'moderation/issue/'.$node->nid,
             array('attributes' => array(
