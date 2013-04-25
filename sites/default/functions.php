@@ -19,3 +19,30 @@ function drupal_set_subtitle($title = NULL) {
 
   return $stored_title;
 }
+
+# development function
+
+function mtime($msg = false) {
+  static $time, $data = array();
+
+  if (false === $msg) {
+    $time = round(microtime(true), 4);
+    return;
+  }
+
+  if (true === $msg) {
+    $output = "<table>";
+    foreach ($data as $item) {
+      $output .= sprintf("<tr><td>%s</td><td>%s</td></tr>", $item["time"], $item["msg"]);
+    }
+    $output .= "</table>";
+    return $output;
+  }
+
+  $time2 = round(microtime(true), 4);
+  $data[] = array(
+    'msg' => $msg,
+    'time' => $time2 - $time,
+  );
+  $time = $time2;
+}
