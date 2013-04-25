@@ -1673,6 +1673,7 @@ function gigya_connectui_js() {
  * Implementation of hook_token_values()
  */
 function gigya_token_values($type, $object = NULL, $options = array()) {
+  return array(); # odyachenko - dirty hack, but that shit slows the tokens
   if ($type == 'user' || $type == 'gigya') {
     module_load_include('inc', 'gigya');
     $gigya_fields = _gigya_get_profile_fields();
