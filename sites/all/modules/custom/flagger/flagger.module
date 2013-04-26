@@ -143,11 +143,11 @@ function flagger_flag($action, $flag, $content_id, $account)
  * @param string $content_id
  * @return mixed
  */
-function flagger_get_flags($content_type = '', $content_id = '')
+function flagger_get_flags($content_type = '', $content_id = '', $reset = false)
 {
   static $cache = array();
 
-  if (is_null($cache[$content_type][$content_id])) {
+  if ($reset || is_null($cache[$content_type][$content_id])) {
     $cache[$content_type][$content_id] = array();
 
     $result = db_query("

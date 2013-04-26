@@ -145,9 +145,18 @@ function flagger_page_save()
       $record->content_id = $content_id;
       flag_note_insert_note($record);
     } else {
+      $fcid = flag_ext_fcid($content_type, $content_id, $user->uid);
       $flag->flag('unflag', $content_id);
+      flag_ext_unset($fcid, $user->uid);
     }
   }
+
+  print json_encode(array(
+    'content_id' => $content_id,
+    'content_type' => $content_type,
+    'flagged' => (bool)flagger_get_flags($content_type, $content_id, true),
+  ));
+  exit;
 }
 
 
@@ -264,10 +273,22 @@ function flagger_page_unflag($fcid) {
     exit;
   }
 
-  global $user;
-  $flag = db_result(db_query("SELECT * FROM {flag_content} WHERE fcid = %d", $fcid));
+  # unflag
+  $flag = db_fetch_object(db_query("SELECT * FROM {flag_content} WHERE fcid = %d", $fcid));
   if ($flag) {
+    $content_id = $flag->content_id;
+    $content_type = $flag->content_type;
     $flag = flag_get_flag(null, $flag->fid);
+    $flag->flag('unflag', $content_id);
+    global $user;
+    flag_ext_unset($fcid, $user->uid);
   }
-
+  print json_encode(array(
+    'status'  => TRUE,
+    'message' => t('Flag was removed'),
+    'content_id' => $content_id,
+    'content_type' => $content_type,
+    'flagged' => (bool)flagger_get_flags($content_type, $content_id, true),
+  ));
+  exit;
 }

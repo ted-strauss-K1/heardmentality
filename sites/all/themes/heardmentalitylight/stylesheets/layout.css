@@ -6111,10 +6111,10 @@ html[lang="ru"] #count_results-wrapper span {
 
 .action .tags li {clear:none;}
 
-.flag-name.status-1 {
+.status-1 .flag-name {
   font-weight: bold;
 }
-.flag-name.status-0 {
+.status-0 .flag-name {
   text-decoration: line-through;
 }
 /*ul.flags-history li*/
