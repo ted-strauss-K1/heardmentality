@@ -969,19 +969,21 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   $taxonomy_diff = array();
   $taxonomy_old = array();
   foreach ($node->taxonomy as $term) {
-    $taxonomy_old[] = $term->nid;
+    $taxonomy_old[intval($term->tid)] = $term;
   }
+
   $node->taxonomy = array();
   for ($i = 0; $i >= 0; $i++) {
     if (!empty($values['taxonomy']['taxonomy-' . $i])) {
       foreach ($values['taxonomy']['taxonomy-' . $i] as $tid) {
         $node->taxonomy[] = taxonomy_get_term($tid);
-        if (!in_array($tid, $taxonomy_old)) {
+        if (!isset($taxonomy_old[intval($tid)])) {
           $taxonomy_diff[] = $tid;
         }
       }
     } else break;
   }
+
   if ($taxonomy_diff && module_exists('rules')) {
     global $user;
     rules_invoke_event('moderation_taxonomy', $user, $node, implode(',',$taxonomy_diff));
