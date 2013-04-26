@@ -19,6 +19,7 @@
   print theme('events', events_get(array(
     'q' => array(
       events_build_query(array('uid' => events_follower_uids(),)),
+      events_build_query(array('type' => 'taxonomy',)),
     )
   )));
   ?>
