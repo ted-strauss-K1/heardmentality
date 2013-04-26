@@ -1,3 +1,17 @@
+// status
+function flagger_status(response)  {
+  if ("string" == typeof response) {
+    response = $.parseJSON(response);
+  }
+  var flags = $('.flagger-btn-flags-'+response.content_type+'-'+response.content_id);
+  if (response.flagged) {
+    flags.addClass('flagged');
+  } else {
+    flags.removeClass('flagged');
+  }
+  return true;
+}
+
 // flag
 $('.flagger').live('click', function (e) {
   e.preventDefault();
@@ -41,7 +55,7 @@ $('.flagger').live('click', function (e) {
         ]
       });
       $('#flagger-form').ajaxForm({
-        // target: '#output'
+        success: flagger_status,
       });
     }
   });
@@ -116,11 +130,12 @@ $('.status-1 span.remove').live('click', function (e) {
         'layout':'topRight',
         'type':'alert',
         'text':response.message,
-        'modal':true,
-        'timeout':false
+        'modal':false,
+        'timeout':5000
       });
       if (response.status) {
         parent.removeClass('status-1').addClass('status-0');
+        flagger_status(response);
       }
     }
   });
