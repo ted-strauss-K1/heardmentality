@@ -1,6 +1,7 @@
 <div class="dark-grey-box top clearfix">
   <div class="profile-meta profile_page_wrapper">
-    <label for="profile" class="profile profile_page"><?php print t('You\'re following'); ?></label>
+	<i class="icon cat text icon-groups-friends"></i>
+    <label for="profile" class="white_text with_icon"><?php print t('You\'re following'); ?></label>
   </div>
   <div class="following clearfix" id="events_users">
     <?php print theme('events_follower_block_content', $users); ?>

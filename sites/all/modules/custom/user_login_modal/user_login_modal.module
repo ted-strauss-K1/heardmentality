@@ -50,9 +50,9 @@ function user_login_modal_theme()
 function theme_user_login_modal()
 {
   global $user;
-  return '<p><a id="dialog_link" class="ui-state-default ui-corner-all login ' . theme('user_login_modal_class') . '" href="#"><i class="icon-user"></i>' .
+  return '<p><a id="dialog_link" class="ui-state-default ui-corner-all login ' . theme('user_login_modal_class') . '" href="#"><i class="icon-user"></i><span>' .
     (user_is_logged_in() ? $user->name : t('Login')) .
-    '</a></p>';
+    '</span></a></p>';
 }
 
 /**

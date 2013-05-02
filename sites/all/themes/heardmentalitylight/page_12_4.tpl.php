@@ -31,7 +31,7 @@
     <?php endif; ?>
   </div>
 
-  <div class="four columns">
+  <div class="four columns margin-top">
 
     <?php if ($right) : ?>
     <?php print $right; ?>

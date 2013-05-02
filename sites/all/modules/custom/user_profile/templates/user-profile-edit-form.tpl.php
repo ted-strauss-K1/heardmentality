@@ -150,8 +150,8 @@ $privacy = user_profile_profile_privacy_values();
 
   <div class="dark-grey-box top clearfix">
     <div class="profile-meta">
-      <div class="icon photo text"></div>
-      <label for="profile" class="profile"><?php print t('Change Photo'); ?></label>
+      <i class="icon cat text icon-businesscardalt"></i>
+      <label for="profile" class="white_text with_icon"><?php print t('Change Photo'); ?></label>
       <?php print drupal_render($form['image_upload']);?>
       <div id="brow_img_name"></div>
       <p class="choose_pic">

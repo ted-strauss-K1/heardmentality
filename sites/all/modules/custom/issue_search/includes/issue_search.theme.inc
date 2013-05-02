@@ -33,7 +33,7 @@ function theme_issue_search_results($results = array())
  */
 function theme_issue_search_filter()
 {
-  $issues_count = '<div id="count_results-wrapper" class="form-item"><span>0</span> issues</div>';
+  $issues_count = '<i class="icon cat text icon-binoculars-searchalt"></i><label class="tags-on search_issues" for="count_results-wrapper">Search Issues</label><div id="count_results-wrapper" class="form-item"><span>0</span> issues</div>';
   return '<div class="filter_search grey-box poll-box issues_search">' . $issues_count . drupal_get_form('issue_search_filter_form') . '</div>';
 }
 

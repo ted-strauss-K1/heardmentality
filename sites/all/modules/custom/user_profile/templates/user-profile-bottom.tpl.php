@@ -9,7 +9,7 @@
 
 <?php else : ?>
 
-<div class="icon profile-i text"></div>
+<i class="icon cat text icon-businesscardalt"></i>
 <label for="profile" class="profile-dark dinbold"><?php print $user->name; ?>, <?php print t($rank); ?></label>
 <p class="profile-links">
   <a href="/user/profile/view"><?php print t('View Profile');?></a> |

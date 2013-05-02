@@ -19,9 +19,7 @@ function issue_create_form(&$form_state)
     '#type' => 'markup',
     '#value' => '
       <div class="grey-box full" id="create_box">
-        <h2 class="din">' . t('Add an Issue') . '</h2>
         <div class="new-issue clearfix">
-          <hr class="short2">
     '
   );
   $form['title_div'] = array(

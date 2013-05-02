@@ -1,5 +1,6 @@
 <div class="grey-box full clearfix" id="guidelines">
-  <!--<div class="icon guides text"></div>-->
+
+  <i class="icon cat text icon-roadsignleft"></i>
   <label for="guidelines" class="tags-on"><?php print t('Guidelines'); ?></label>
 
   <p class="issue-meta"><?php print t('Please follow Heard Mentality\'s'); ?>
