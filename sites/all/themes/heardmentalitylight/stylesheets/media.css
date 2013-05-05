@@ -615,10 +615,11 @@
 		
 		.button.vote, input.submit-issue, input.save,
 		#issue-create-form input.add-answer,
-		#search-solr-block		{
+		#search-solr-block	{
 			display: block;
 			text-align: center;
 			float: none;
+			white-space: normal;
 		}
 		
 		input.button.vote, input.submit-issue, input.save,
@@ -953,6 +954,10 @@
 		
 		#footer #divGigyaLogin {
 			position: static;
+		}
+		
+		.with_icon.maximum {
+			max-width: none;
 		}
 }
 

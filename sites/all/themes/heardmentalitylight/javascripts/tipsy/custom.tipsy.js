@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 function tipsy_attach() {
-  $('#medal1, #medal2, #medal3,  img.coin2, .disagree, .agree, #badges .medal3, #badgeslist .medal3').tipsy({
+  $('.medal1, #medal1, #medal2, #medal3,  img.coin2, .disagree, .agree, #badges .medal3, #badgeslist .medal3').tipsy({
     gravity: 'nw'
   });
 

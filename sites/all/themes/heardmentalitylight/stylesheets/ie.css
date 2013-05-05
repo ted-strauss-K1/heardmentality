@@ -414,3 +414,6 @@
 	float: left;
 	width: 70%;
 }
+
+.ie7 .expanding h6 {background: url(../images/state.gif) no-repeat 100% 2px;} 
+.ie7 .expanding  .active {background-position: 100% -24px;}

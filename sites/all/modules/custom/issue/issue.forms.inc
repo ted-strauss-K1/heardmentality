@@ -98,8 +98,7 @@ function issue_create_form(&$form_state)
     '#attributes' => array('class' => 'submit-issue'),
     '#value' => t('SUBMIT NEW ISSUE'),
     '#id' => 'save_issue',
-    '#prefix' => '<label class="before-submit">' . t('Your issue will go live immediately, but a moderator will edit it soon to assign categories, look for duplicates, or make format changes') . '</label>',
-    '#suffix' => ' <div class="clear"></div>'
+    '#prefix' => '<i class="icon-asterisk note_icon"></i><label class="before-submit">' . t('Site moderators will generate interest for your issue by classifying it so other users can find it easier and by submitting it to be translated into our worlds major language so you can poll people from around the world.<br /><br />Our moderators also check every issue to ensure our <a href="privacy">Policy</a> and <a href="aboutus#guide">Guidelines</a> have been followed. Your original text may be edited to conform.') . '</label><hr class="bottom" />',
   );
   $form['issue_cont_close'] = array(
     '#type' => 'markup',

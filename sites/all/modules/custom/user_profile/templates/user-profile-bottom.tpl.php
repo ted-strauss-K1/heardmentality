@@ -30,12 +30,17 @@
   <a href="/user/profile/view" title="<?php print t('View Profile');?>">
     <img class="user-profile" src="<?php print user_profile_image($user);?>">
   </a>
-  <?php if ($badges) foreach ($badges['#stat'] as $type => $badge) : ?>
-  <div class="medal">
-    <span class="<?php print $type ?>" id="medal1" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
-    <?php print $badge; ?>
-  </div>
-  <?php endforeach; ?>
+  
+  <?php if ($badges) : ?>
+	  <div class="medal clearfix">
+	  <?php if ($badges) foreach ($badges['#stat'] as $type => $badge) : ?>
+	  <span class="medal_box">
+		<span class="medal1 <?php print $type ?>" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
+		<?php print $badge; ?>
+	  </span>
+	  <?php endforeach; ?>
+	  </div>
+  <?php endif; ?>
 </div>
 <a type="submit" title="<?php print t('Log out');?>" href="/logout"
    class="button darker floatright"><?php print t('Logout'); ?></a>

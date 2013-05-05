@@ -102,8 +102,8 @@
 
 /* #Links
 ================================================== */
-	a, a:visited { color: #1366BA; text-decoration: none; font-weight: normal; outline: 0; }
-	a:hover, a:focus { color: #000; }
+	a, a:visited { color: /*#1366BA*/ #0181c3; text-decoration: none; font-weight: normal; outline: 0; }
+	a:hover, a:focus { color: #CC2027; }
 	p a, p a:visited { line-height: inherit; }
 	
 
@@ -561,10 +561,10 @@
 	.add-bottom { margin-bottom: 20px !important; }
 	.border-bottom {border-bottom:1px solid #999;border-top:1px solid #999;padding:10px 10px 0px 10px;margin:20px 0px 0px 10px;width:auto;}
 	.no-white-space {white-space:nowrap;}
-	a.black {color:#1366BA;font-weight:bold;}
-	a.bolded {color:#1366BA;font-weight:bold;text-shadow:none;font-weight:110%;cursor:pointer;}
+	a.black {color:#0181c3;font-weight:bold;}
+	a.bolded {color:#0181c3;font-weight:bold;text-shadow:none;font-weight:110%;cursor:pointer;}
 	
-	a.black:hover, a.bolded:hover {color:#000}
+	a.black:hover, a.bolded:hover {color:#cc2027}
   .left20 {margin-left:20px;}
 	.left5 {margin:5px 10px 5px 0px;}
   .left10 {margin:20px 10px -10px 10px;}  
@@ -573,14 +573,14 @@
 	.minus-ten {margin-top:-10px;font-size:12px;line-height:1em}
 
 	/*Rallydev-522*/
-  #issue-create-form #related-issues, #issue-create-form .before-submit {display:none;}
+  #issue-create-form #related-issues {display:none;}
   
 /* #EXPANDING BOX
 ================================================== */	
 	
 	.expanding h6 {line-height:1;}
 	
-	.expanding h6 {padding: 5px; cursor:pointer; background: url(../images/state.gif) no-repeat 100% 2px; display:block; text-decoration:none; margin:0; margin-top:10px;padding-left:0px}  
+	.expanding h6 {position: relative; padding: 5px; cursor:pointer; display:block; text-decoration: none; margin:0; margin-top:10px; padding-left:0px}  
 	.expanding 	h6 a {color: #000; text-decoration:none;text-shadow: 0 1px #fff;
 		
 	color:#999;
@@ -588,15 +588,36 @@
 	text-transform:uppercase;
 	font-weight:bold;
 	padding:0px 0px 10px 0px;}
-	.expanding h6.wait {color:#1366BA;background:none;}
-	.expanding h6.wait a{color:#1366BA;}
-	.expanding 	h6 a:hover {color: #000;}
+	
+	.expanding h6:after {
+    border-color: #656565 transparent transparent;
+    border-style: solid;
+    border-width: 6px;
+    content: "";
+    display: block;
+    height: 0;
+    margin-right: 0;
+    margin-top: -4px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+	}
+	
+	.expanding  h6.active:after {
+	    border-color: transparent transparent #656565;
+		margin-top: -10px;		
+	}
+	
+	.expanding h6.wait {color:#0181c3;background:none;}
+	.expanding h6.wait a{color:#0181c3;}
+	.expanding 	h6 a:hover {color: #cc2027;}
 
 	h6#reply {background:#ddd;float:right;text-transform:none;opacity:1;margin:-30px 2px 10px 10px;}
 	h6#reply a{text-transform:none;font-size:11px;}
 	h6.blue-link {background: url(../images/state2.gif) no-repeat 100% 2px;}
-	h6.blue-link a, h6.blue-link {color:#1366BA;}
-	h6.blue-link a:hover {color:#000;}
+	h6.blue-link a, h6.blue-link {color:#0181c3;}
+	h6.blue-link a:hover {color:#cc2027;}
 	.expanding 	ul {border-bottom: 0px solid #ccc; padding:10px 0 10px 20px; margin:0;z-index:1000;position:relative;}
 	
 	
@@ -687,7 +708,7 @@ hr.line { margin: 10px 0; }
   padding:0px 3px 0px 3px;
 }
 .sort-wrapper a:hover{
-  color:#1366BA;
+  color:#0181c3;
 }
 
 

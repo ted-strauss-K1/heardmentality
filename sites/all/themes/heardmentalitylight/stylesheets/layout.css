@@ -115,9 +115,9 @@
 		line-height:15px; 
 		font-weight:normal;
 		text-align:right;
-		min-width: 81px;
+		min-width: 83px;
 		float: right;
-		padding-right: 20px;
+		padding-right: 18px;
 		}	
 	.top-right.blue h6 a{ 
 		font-weight:normal;
@@ -339,7 +339,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	.four .grey-box {
-		padding: 17px 14px 14px 14px;
+		padding: 17px 14px 15px;
 	}
 	
 	.grey-box.message {
@@ -362,11 +362,16 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		border-radius: 3px;
 	}
 	
-	#block-issue-issue-categories-popular .grey-box {
+	#block-issue-issue-categories-popular .grey-box 	{
 		padding: 20px 20px 14px;
 	}
 	
-	#block-issue-issue-categories-popular ul.tags {
+	#block-issue-issue-categories  .grey-box {
+		padding: 15px 14px;
+	}
+	
+	#block-issue-issue-categories-popular ul.tags,
+	#block-issue-issue-categories ul.tags	{
 		padding: 0;
 		margin: 0;
 	}
@@ -645,9 +650,9 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		color:#444;
 		font-size:13px;
 		line-height:1.3em;
-		padding:0px 0px 0px 10px;
+		padding: 0;
 		clear:both;
-		margin:-10px 0px 10px 0px;
+		margin: -15px 0px 10px 0px;
 	}
 	
 	.poll-vote-area p.issue-meta {
@@ -659,7 +664,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	
 	.poll-vote-area p.issue-meta a,
 	.poll-vote-area p.issue-meta a:visited {
-		color: #1366BA;
+		color: #0181c3;
 	}
 	
 	.poll-vote-area p.issue-meta a:hover {
@@ -678,11 +683,11 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	 a.username, a.lang {
 	   	font-weight:bold;
-	   	color:#1366BA;
+	   	color:#0181c3;
      	text-decoration:none;
 	 }
 	 a.username:hover, a.lang:hover {
-	   color:#EF3D3B;
+	   color:#cc2027;
 	 }
 	.results, label.profile, label.queue{ 
 		color:#fefefe;
@@ -746,14 +751,14 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	p.profile-links.quick-profile a{ 
-		color:#1366BA;
+		color:#0181c3;
 		line-height:1em;
 		cursor:pointer;
 		text-shadow: 0 -1px #fff;
 		font-weight:normal;
 	}
 	p.profile-links.quick-profile a:hover{ 
-		color:#000;
+		color:#cc2027;
 	}
 	p.profile-links a:hover{ 
 		color:#fff;
@@ -772,8 +777,9 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		text-shadow: 0 -1px #999;
 		font-size:12px;
 		text-transform:uppercase;
-		padding:0px 0px 12px;
+		padding:0px 0px 10px;
 		margin:0px 0px 0px 0px;
+		line-height: 1.2em;
 	}
 	
 	hr.short { margin:12px 0px 8px 0px;border-bottom:1px solid #f9f9f9;}
@@ -864,20 +870,16 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		font-style:italic;
 		text-align:right;
 		width:auto;
-		color:#1366BA;
+		color:#0181c3;
 		margin:8px 5px 0px 0px;
 	
 	}
 	.wait a{
-		color:#1366BA;
+		color:#0181c3;
 	}
 	
 	.wait a:hover{
-		color:#000;
-	}
-	
-	feildset.suggest-answer {
-
+		color:#cc2027;
 	}
 	
 	fieldset.suggest-answer li{
@@ -1170,7 +1172,7 @@ input.re-submit {
 }
 
 .sort-by a:hover{
-	color:#1366BA;
+	color:#0181c3;
 }
 
 
@@ -1452,11 +1454,13 @@ input.add-answer {
 }
 
 label.before-submit {
-	line-height:1em;
-	font-weight:normal;
-	text-align:left;
-	color:#A3770F;
-	margin:0px 2px 27px 0px;
+	line-height: 1.2em;
+	font-weight: normal;
+	font-style: italic;
+	text-align: left;
+	color: #444;
+	margin: 0 0 20px 25px;
+	display: block;
 	
 }
 
@@ -1699,8 +1703,7 @@ p.choose_pic {
 
 .message.right-message {
 	background:url(../images/ui-bg_diagonals40x40.png);
-	/*margin: 30px 0px 0px 0;*/
-	padding:22px 22px 10px 22px;
+	padding: 17px 14px 15px;
 	border: 1px solid #C0C0C0;
     -webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -1715,6 +1718,10 @@ p.choose_pic {
 
 .right-message p {
 	width:auto;
+}
+
+.message.right-message a.bolded {
+	display: inline-block;
 }
 
 .profile-meta p{
@@ -1811,24 +1818,38 @@ img.user-profile{
 .small-prog {
   width:210px;
 }
-.medals {float:left;margin:-12px 0px 0px 0px}
-.medal {margin:0px 0px 10px 0px}
-#footer .medal{margin:0px 10px 10px 0px;float:left}
-.medal.quick-profile{margin:0px 10px 10px 0px;float:left;}
 
 /* todo remove these ones */
 .bronze, .silver, .gold {cursor:pointer;padding:2px 8px 2px 8px; -webkit-border-radius: 200px; -o-border-radius: 200px; -khtml-border-radius: 200px; -moz-border-radius: 200px; border-radius: 200px; margin:0px 5px 10px 0px;border-width:1px;border-style:solid;border-color:#9a9a9a #9c9c9c #9e9e9e #9a9a9a;}
-#footer .bronze, #footer .silver,  #footer .gold, #badges .bronze, #badges .silver,  #badges .gold, {cursor:pointer;padding:2px 8px 2px 8px; -webkit-border-radius: 200px; -o-border-radius: 200px; -khtml-border-radius: 200px; -moz-border-radius: 200px; border-radius: 200px; margin:0px 5px 10px 0px;border-width:0px;border-style:solid;border-color:#444;}
+#footer .bronze, #footer .silver,  #footer .gold, #badges .bronze, #badges .silver,  #badges .gold {cursor:pointer;padding:2px 8px 2px 8px; -webkit-border-radius: 200px; -o-border-radius: 200px; -khtml-border-radius: 200px; -moz-border-radius: 200px; border-radius: 200px; margin:0px 5px 10px 0px;border-width:0px;border-style:solid;border-color:#444;}
 
 .badge-circle {cursor:pointer;padding:2px 8px 2px 8px; -webkit-border-radius: 200px; -o-border-radius: 200px; -khtml-border-radius: 200px; -moz-border-radius: 200px; border-radius: 200px; margin:0px 5px 10px 0px;border-width:1px;border-style:solid;border-color:#9a9a9a #9c9c9c #9e9e9e #9a9a9a;}
-#footer .badge-circle, #badges .badge-circle, {cursor:pointer;padding:2px 8px 2px 8px; -webkit-border-radius: 200px; -o-border-radius: 200px; -khtml-border-radius: 200px; -moz-border-radius: 200px; border-radius: 200px; margin:0px 5px 10px 0px;border-width:0px;border-style:solid;border-color:#444;}
+#footer .badge-circle, #badges .badge-circle {cursor:pointer;padding:2px 8px 2px 8px; -webkit-border-radius: 200px; -o-border-radius: 200px; -khtml-border-radius: 200px; -moz-border-radius: 200px; border-radius: 200px; margin:0px 5px 10px 0px;border-width:0px;border-style:solid;border-color:#444;}
 
 .bronze {background:#D1A619;}
-.silver {background:#ececec}	
-.gold {background:#F7DB07}		
-.medal {font-weight:bold;font-size:12px;text-shadow:0px 1px #cecece;}
-#footer .medal {font-weight:bold;font-size:12px;text-shadow:0px -1px #000;color:#777;}
-.profile-activity {
+.silver {background:#ececec;}	
+.gold {background:#F7DB07;}
+		
+.medal {font-weight:bold;font-size:12px;text-shadow:0px 1px #cecece; margin: 0;}
+#footer .medal {font-weight:bold;font-size:12px;text-shadow:0px -1px #000;color:#777; margin:0px 0 10px 0px;float:left;}
+.medals {float:left;margin:-12px 0px 0px 0px;}
+.medal.quick-profile{margin:0px 10px 10px 0px;float:left;}
+.medal_box {
+	float: left;
+	margin: 0 10px 10px 0;
+}
+
+#footer .medal_box {
+	margin: 0 10px 0 0;
+}
+
+.vertical  .medal_box {
+	margin-top: 2px;
+}
+
+.vertical  .medal_box .medal1 {
+	position: relative;
+	top: -2px;
 }
 
 img.coin { margin:0px 5px 0px -2px}
@@ -1998,11 +2019,8 @@ a.more:hover, a.find:hover  {color:#000;font-size:12px;}
 .badge.bronze {background:#D1A619;}
 .badge.silver {background:#ececec;}
 
-
-
 .profile-complete {
 	height:7px;
-	width:98.5%;
 	background:#A39D8C;
 	opacity:0.9;
 	margin:-5px 0px 15px 1px;
@@ -2241,7 +2259,7 @@ h2.din a:hover {border-bottom:1px dotted #ccc;color:#000}
   .activity-stream p a,
   .activity_stream p a  {
 		font-weight:normal;
-	   	color:#1366BA;
+	   	color:#0181c3;
         text-decoration:none;
 	}
 .activity-stream .submitted,
@@ -2583,7 +2601,7 @@ input.form-text.upload{
     width: 90%;
 }
 .action a, .action a:visited{
-    color: #1366BA;
+    color: #0181c3;
     font-weight: normal;
     text-decoration: none;
 }
@@ -2842,8 +2860,13 @@ ul.menu li a.add:hover {
 }
 
 .container .nine .grey-box .uactivity a:hover,
-.activity_stream a:hover {
+.activity_stream a:hover,
+.activity-stream p a:hover, .activity_stream p a:hover {
 	text-decoration: underline;
+}
+
+.action-comment-ref a.goog-te-gadget-link:hover {
+	text-decoration: none;
 }
 
 /*#uactivity .jspContainer  {
@@ -5290,7 +5313,7 @@ span.small_pos.fixes,
 
 .filter_search.issues_search {
 	margin-top: 30px;
-	padding: 15px 14px 20px;
+	padding: 15px 14px 18px;
 }
 
 #uactivity .activity-stream {
@@ -5863,12 +5886,13 @@ ul.sub-pages-menu a:hover {
 #guidelines label.tags-on,
 .search_issues,
 .with_icon {
-	padding: 5px 0 18px;
+	padding: 3px 0 16px;
 	width: 100%;
 	font-size: 12px;
     line-height: 1em;
     text-transform: uppercase;
 	margin: 0;
+	line-height: 1.2em;
 }
 
 .with_icon {
@@ -5877,6 +5901,10 @@ ul.sub-pages-menu a:hover {
 	font-weight: bold;
 	display: block;
 	clear: none;
+}
+
+.with_icon.maximum {
+	max-width: 150px;
 }
 
 #guidelines p.issue-meta {
@@ -6141,4 +6169,11 @@ a.google i {
 	font-size: 40px;
 	line-height: 1;
 	vertical-align: top;
+}
+
+.note_icon {
+	color: #EF3D3B;
+	float: left;
+	font-size: 16px;
+	line-height: 1;
 }

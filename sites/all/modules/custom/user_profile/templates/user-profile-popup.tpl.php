@@ -34,12 +34,15 @@
   <?php else : ?>
 
   <div class="floatleft" style="padding-left: 26px">
+  <div class="medal clearfix">
     <?php foreach ($badges['#stat'] as $type => $badge) : ?>
-    <div class="medal">
-      <span class="<?php print $type ?>" id="medal1" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
+      <span class="medal_box">
+		<span class="medal1 <?php print $type ?>" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
+		<?php print $badge; ?>
+	  </span>
       <?php print $badge; ?>
-    </div>
     <?php endforeach; ?>
+  </div>
   </div>
 
   <?php endif; ?>

@@ -46,7 +46,7 @@ function issue_search_form($form_state)
 
   // Search results area.
   $form['#suffix'] = '
-        <div id="loading_wrapper" style="padding: 20px; width: 100%;text-align: center;">' .
+        <div id="loading_wrapper" style="padding: 20px 5%; width: 90%; text-align: center;">' .
     theme('sub_loader', 'margin-top: 15px auto; display: block; ') .
     '</div>' .
     '<div id="linkbox"></div>
