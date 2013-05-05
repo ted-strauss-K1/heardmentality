@@ -37,7 +37,7 @@ function theme_flagger_btn_flags($content_id, $content_type, $flagged = false, $
 
   return l(t('flags'), '',
     array('attributes' => array(
-      'class' => 'flagger_flags noty_request flagger-btn-flags-'.$content_type.'-'.$content_id . ($flagged ? ' flagged' : ''),
+      'class' => 'flagger_flags flagger-btn-flags-'.$content_type.'-'.$content_id . ($flagged ? ' flagged' : ''),
       'name' => $content_type . '/' . $content_id,
       'original-title' => t('flags'),
     ))
@@ -49,14 +49,14 @@ function theme_flagger_btn_flags($content_id, $content_type, $flagged = false, $
  * @param $content_type
  * @return string
  */
-function theme_flagger_btn_flags_history($content_id, $content_type, $uid = false) {
+function theme_flagger_btn_history($content_id, $content_type, $uid = false) {
   if (!module_exists('moderation') || !moderation_check_perm($uid)) {
     return '';
   }
 
-  return l(t('flags history'), '',
+  return l(t('history'), '',
     array('attributes' => array(
-      'class' => 'flagger_flags_history noty_request flagger-btn-flags-history-'.$content_type.'-'.$content_id,
+      'class' => 'flagger_history flagger-btn-flags-history-'.$content_type.'-'.$content_id,
       'name' => $content_type . '/' . $content_id,
       'original-title' => t('flags history'),
     ))
