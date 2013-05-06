@@ -118,18 +118,6 @@
 			margin: 0;
 		}
 		
-		a.twitter {
-			margin-right: 16px;
-		}
-		
-		a.facebook {
-			margin-right: 14px;
-		}
-		
-		a.facebook.google {
-			margin-right: 0;
-		}
-		
 		.black-box {
 			position: relative;
 		}
@@ -155,6 +143,24 @@
 			height: auto !important;
 			left: -10px;
 			position: relative;
+		}
+		
+		a.facebook i,
+		a.twitter i,
+		a.facebook.google i {
+			font-size: 37px;
+		}
+		
+		a.facebook{
+			margin: 0 7px 15px 0;
+		}
+
+		a.twitter {
+			margin: 0 0px 15px 0;
+		}
+
+		a.facebook.google {
+			margin: 0 0 15px;
 		}
 	}
 
@@ -201,6 +207,18 @@
 ==================================================*/
 
 	@media only screen and (max-width: 767px) {
+	
+		input[type="text"], input[type="password"], input[type="email"], textarea, select {
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box;
+			width: 100% !important;
+		}
+		
+		.four.columns.margin-top {
+			margin-top: 0;
+		}
 	
 		input.form-text, input.form-text.user-search {
 			width: 250px;
@@ -411,13 +429,26 @@
 			float: none;
 			text-align: left !important;
 			background-color: #222 !important;
-			padding: 13px 12px 11px !important
+			padding: 13px 12px 11px !important;
+			max-width: none;
+			overflow: visible;
+			text-overflow: inherit;
+			white-space: normal;
 		}
 		
 		.top-right.login a#dialog_link:hover {
 			color: #000;
 			background-color: #F6EB16 !important;
 			padding: 7px 12px 0;
+		}
+		
+		.top-right.login a.login i {
+			float: left;
+		}
+		
+		.top-right.login a.login span {
+			display: block;
+			margin-left: 20px;
 		}
 		
 		.top-left.user-menu.full {
@@ -516,7 +547,6 @@
 		
 		ul.subscription {
 			float:left;
-			margin:10px;
 		}
 		
 		li.always-invisible {
@@ -583,12 +613,26 @@
 			max-width: 100%;
 		}
 		
-		.button.vote, input.submit-issue, input.save {
+		.button.vote, input.submit-issue, input.save,
+		#issue-create-form input.add-answer,
+		#search-solr-block		{
 			display: block;
 			text-align: center;
+			float: none;
+		}
+		
+		input.button.vote, input.submit-issue, input.save,
+		#issue-create-form input.add-answer, #search-solr-block {
+			width: 100%;
 		}
 		
 		.button.vote.floatright, input.submit-issue.floatright, input.save.floatright {
+			float: none;
+		}
+		
+		#issue-create-form input.form-text {
+			margin-left: auto;
+			margin-right: auto;
 			float: none;
 		}
 		
@@ -667,6 +711,10 @@
 			margin: 0 0 15px;
 		}
 		
+		
+		#edit_profile, .grey-box.full, .dark-grey-box, .filter_search.issues_search, .white-box {
+			padding: 20px;
+		}
 	/*Issues search*/
 	
 	.poll-vote-area p.issue-meta {
@@ -881,18 +929,6 @@
 	#issue-create-form label span.title {
 		margin-top: -12px;
 	}
-	
-		a.twitter {
-			margin-right: 23px;
-		}
-		
-		a.facebook {
-			margin-right: 21px;
-		}
-		
-		a.facebook.google {
-			margin-right: 0;
-		}
 		
 		#url-wrapper input.form-text {
 			width: 94%;

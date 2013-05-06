@@ -11,9 +11,9 @@
         <p class="blurb ryde"><?php print t("Be Heard! Don't Be Part of the Herd."); ?></p>
         <hr class="dark">
 
-        <div class="floatleft"><a class="twitter" href="http://twitter.com/HeardMentality" target="_blank"></a></div>
-        <div class="floatleft"><a class="facebook" href="http://www.facebook.com/pages/Heard-Mentality/253846777970342?ref=ts" target="_blank"></a>	</div>
-		<div class="floatleft"><a class="facebook google" href="https://plus.google.com/102365576412479164048" target="_blank"></a>	</div>
+        <div class="floatleft"><a class="twitter" href="http://twitter.com/HeardMentality" target="_blank"><i class="icon-twitter"></i></a></div>
+        <div class="floatleft"><a class="facebook" href="http://www.facebook.com/pages/Heard-Mentality/253846777970342?ref=ts" target="_blank"><i class="icon-facebook"></i></a></div>
+		<div class="floatleft"><a class="facebook google" href="https://plus.google.com/102365576412479164048" target="_blank"><i class="icon-googleplus"></i></a></div>
         <div class="clear"></div>
       </div>
     </div>

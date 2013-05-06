@@ -55,7 +55,7 @@ $('.flagger').live('click', function (e) {
         ]
       });
       $('#flagger-form').ajaxForm({
-        success: flagger_status,
+        success: flagger_status
       });
     }
   });
