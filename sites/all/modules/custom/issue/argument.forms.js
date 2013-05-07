@@ -154,6 +154,11 @@ function yn_success(el, data) {
     votes_update('node', data.parent_id, false, data.pvote_dn);
   }
   parent.children('.yn').attr({'title':'You have rated this!'}).removeClass('yn-a yn-d');
+
+  // update strenght chart
+  if ('undefined' != typeof charts_update) {
+    charts_update();
+  }
 }
 
 /**
