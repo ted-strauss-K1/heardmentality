@@ -156,9 +156,7 @@ function yn_success(el, data) {
   parent.children('.yn').attr({'title':'You have rated this!'}).removeClass('yn-a yn-d');
 
   // update strenght chart
-  if ('undefined' != typeof charts_update) {
-    charts_update();
-  }
+  charts_update();
 }
 
 /**
