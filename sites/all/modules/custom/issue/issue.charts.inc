@@ -749,7 +749,7 @@ function issue_charts_gmap($node) {
   $fieldmap = variable_get(PROFILE_FIELDMAP, array());
 
   $result = db_query("
-    SELECT pv1.value lat, pv2.value lng
+    SELECT pv1.value lat, pv2.value lng, pv.chorder
     FROM {poll_votes} pv
     INNER JOIN {users} u ON u.uid = pv.uid
     INNER JOIN {profile_values} pv1 ON pv1.fid = '%s' AND pv1.uid = u.uid
@@ -758,8 +758,9 @@ function issue_charts_gmap($node) {
     $fieldmap['profile_lat']->fid, $fieldmap['profile_lng']->fid, $node->nid
   );
 
+
   while ($row = db_fetch_object($result)) {
-    $gmap[] = array($row->lat, $row->lng, charts_colors());
+    $gmap[] = array($row->lat, $row->lng, charts_colors($row->chorder));
   }
 
   return $gmap;
