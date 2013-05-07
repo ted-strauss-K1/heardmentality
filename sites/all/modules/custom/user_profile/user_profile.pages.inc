@@ -174,15 +174,6 @@ function user_profile_edit_form()
     '#value' => user_profile_location_format($user->profile_city, $user->profile_state, $user->profile_country),
   );
 
-  // todo what to do with social connections with no gigya?
-//  $form['social'] = array(
-//    '#type' => 'markup',
-//    '#value' => '
-//      <div id="divConnect"></div>
-//      <script type="text/javascript">gigya.services.socialize.showAddConnectionsUI(conf, {height:65, width:175 ,showTermsLink:false, hideGigyaLink:true, useHTML:true, containerID: "divConnect"});</script>
-//    ',
-//  );
-
   $form['subscription_notify'] = array(
     '#type' => 'radios',
     '#default_value' => $user->subscription_notify ? $user->subscription_notify : SUBSCRIPTION_NEVER,

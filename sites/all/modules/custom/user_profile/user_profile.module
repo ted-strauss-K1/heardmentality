@@ -403,10 +403,6 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
       break;
     case 'logout':
 
-      if (module_exists('gigya')) {
-        $_REQUEST['destination'] = str_replace('socialize-logout?destination=', '', urldecode($_REQUEST['destination']));
-      }
-
       if (
         (arg(0, $_REQUEST['destination']) == 'user') &&
         (arg(1, $_REQUEST['destination']) == 'profile')
