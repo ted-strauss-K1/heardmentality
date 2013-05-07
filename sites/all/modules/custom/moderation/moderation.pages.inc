@@ -887,7 +887,7 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
       '#collapsed' => FALSE,
     );
     $charact = poll_charact_values_get($nid, $choice['chorder']);
-    if ($charact)
+    if ($charact) {
       foreach ($charact as $cid => $char) {
         $form['charact']['char' . $cid] = array(
           '#type' => 'select',
@@ -898,6 +898,19 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
           '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
         );
       }
+    } else {
+      $charact = poll_charact_get();
+      foreach ($charact as $cid => $char) {
+        $form['charact']['char' . $cid] = array(
+          '#type' => 'select',
+          '#title' => t($char),
+          '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
+          '#value' => $char['value'],
+          '#size' => 5,
+          '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
+        );
+      }
+    }
   }
 
   return $form;
