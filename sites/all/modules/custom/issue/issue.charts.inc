@@ -13,7 +13,7 @@ function charts_colors($index = FALSE)
   if (empty($colors)) {
     $colors += array(
       '#934d9e',
-      '#FF7F00',
+      '#ff7f00',
       '#50c0ac',
       '#0c6926',
       '#ef4c8d',
@@ -22,14 +22,14 @@ function charts_colors($index = FALSE)
       '#ef3d3b',
       '#3cc7f4',
       '#589a1c',
-      '#C2499B',
+      '#c2499b',
       '#f89521',
-      '#CC2027',
+      '#cc2027',
       '#55ba59',
       '#d5bc29',
       '#6ccbd5',
-      '#43B649',
-      '#F6EB16'
+      '#43b649',
+      '#f6eb16'
     );
   }
   if ($index === TRUE) {
