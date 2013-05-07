@@ -6,6 +6,15 @@
  */
 
 /**
+ * Index issues
+ */
+function issue_search_index_issues() {
+  $env_id = apachesolr_default_environment();
+  $limit = variable_get('apachesolr_cron_limit', 50);
+  apachesolr_index_entities($env_id, $limit);
+}
+
+/**
  * Returns array containing information about fields that should be indexed.
  *
  * @param string $entity_type

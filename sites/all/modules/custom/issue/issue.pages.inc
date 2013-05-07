@@ -225,7 +225,7 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
 
   // reindex
   if (module_exists('issue_search')) {
-    issue_search_queue_node($nid);
+    issue_search_index_node($nid);
   }
 
   return TRUE;

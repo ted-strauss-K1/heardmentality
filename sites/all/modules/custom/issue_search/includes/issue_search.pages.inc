@@ -63,6 +63,16 @@ function issue_search_form($form_state)
  */
 function issue_search_ajax()
 {
+  // to cookie
+  $search_state2 = array();
+  foreach (array(
+    "region" => 'my_region',
+    "voted_status" => 'not_voted',
+    "search_text" => 'keywords',
+  ) as $k => $key) {
+    $search_state2[$k] = $_POST[$key];
+  }
+  setcookie("search2", serialize($search_state2), time() + 60*60*24, "/");
 
   // Search results.
   $results = issue_search();

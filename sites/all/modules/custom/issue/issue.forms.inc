@@ -178,6 +178,11 @@ function issue_create_form_submit($form, &$form_state)
 
   node_save($node);
 
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_index_node($node->nid);
+  }
+
   drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
 '), 'success');
 

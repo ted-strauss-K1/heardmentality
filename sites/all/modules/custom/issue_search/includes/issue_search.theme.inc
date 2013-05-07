@@ -55,6 +55,16 @@ function issue_search_filter_form($form_state)
 
   global $user;
 
+  // get search state
+  $search_state = isset($_COOKIE['search']) ? unserialize($_COOKIE['search']) : null;
+  $search_state2 = isset($_COOKIE['search2']) ? unserialize($_COOKIE['search2']) : array();
+
+  // clean search state
+  if (isset($_GET['tids'])) {
+    $search_state = null;
+    $search_state2 = null;
+  }
+
   ahah_helper_register($form, $form_state);
 
   // Main container.
@@ -66,8 +76,25 @@ function issue_search_filter_form($form_state)
   );
 
   // Data.
-  $data = $form_state['storage']['block'];
   $data2 = $form_state['storage'];
+  $data = $form_state['storage']['block'];
+
+  if (is_null($data) && is_array($search_state)) { // open the blank page
+    $data2 = $search_state;
+    $data = $data2['block'] ? $data2['block'] : null;
+  } else { // ahah-reload, have the data inside
+    $search_state = $data2;
+    if (!empty($form_state['post'])) {
+      $search_state2 = array();
+      foreach (array("region", "voted_status", "search_text", "filter_time", "filter_type") as $key) {
+        $search_state2[$key] = $form_state['post'][$key];
+      }
+    }
+  }
+
+  // save search_state to cookies
+  setcookie("search", serialize($search_state), time() + 60*60*24, "/");
+  setcookie("search2", serialize($search_state2), time() + 60*60*24, "/");
 
   // Gather info.
   $info_items = array();
@@ -254,7 +281,7 @@ function issue_search_filter_form($form_state)
         '#type' => 'checkbox',
         '#title' => t('My region'),
         '#id' => 'my_region',
-        '#default_value' => FALSE,
+        '#default_value' => $search_state2['region'],
         '#ahah' => array(
           'event' => 'change',
           'path' => ahah_helper_path(array('block')),
@@ -276,12 +303,13 @@ function issue_search_filter_form($form_state)
 //  );
   $form['voted_status'] = array(
     '#type' => 'checkbox',
-    '#default_value' => FALSE,
+    '#default_value' => $search_state2['voted_status'],
     '#title' => t('Show only not voted'),
   );
   $form['search_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Keyword'),
+    '#value' => $search_state2['search_text'],
   );
   $form['search'] = array(
     '#type' => 'submit',
@@ -292,15 +320,15 @@ function issue_search_filter_form($form_state)
 
   $form['filter_time'] = array(
     '#type' => 'hidden',
-    '#value' => 0,
+    '#value' => $search_state2['filter_time'],
   );
   $form['filter_type'] = array(
     '#type' => 'hidden',
-    '#value' => 0,
+    '#value' => $search_state2['filter_type'],
   );
   $form['block']['filter_page'] = array(
     '#type' => 'hidden',
-    '#value' => 0,
+    '#value' => $search_state2['filter_page'],
   );
 
   unset($form_state['storage']['block']);

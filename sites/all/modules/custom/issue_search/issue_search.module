@@ -100,7 +100,7 @@ function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       $is_admin = (in_array('administrator', $user->roles) || ($user->uid == 1) || ($user->uid == $node->uid));
       if (!$is_admin) {
         if (!((strpos(request_uri(), "/cron.php") === 0) && ($user->uid == 0))) {
-          issue_search_queue_node($node->nid);
+          issue_search_index_node($node->nid);
         }
       }
     }
@@ -110,9 +110,10 @@ function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 /**
  * @param $nid
  */
-function issue_search_queue_node($nid)
+function issue_search_index_node($nid)
 {
   @db_query("UPDATE {apachesolr_index_entities_node} SET changed = %d WHERE entity_id = %d", time(), $nid);
+  issue_search_index_issues();
 }
 
 /**
@@ -218,7 +219,6 @@ function issue_search_exit($destination = NULL)
  */
 function issue_search()
 {
-
   $keywords = $_POST['keywords'];
   $params = array(
     'q' => $keywords,
