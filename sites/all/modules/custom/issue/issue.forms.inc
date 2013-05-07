@@ -114,7 +114,7 @@ function issue_create_form(&$form_state)
  */
 function _issue_create_form_answer_textfield($delta, $value = '')
 {
-  if ($delta < 4) {
+  if ($delta < 10) {
     $form = array(
       '#tree' => TRUE,
     );
