@@ -905,7 +905,7 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
           '#type' => 'select',
           '#title' => t($char),
           '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
-          '#value' => $char['value'],
+          '#value' => POLL_CHARACT,
           '#size' => 5,
           '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
         );
