@@ -1,5 +1,7 @@
 <?php
 
+define('MODERATION_DELETE_COUNT', 3);
+
 /**
  * @param $uid
  */
@@ -616,7 +618,8 @@ function moderation_issue_view_form($form_state, $nid)
     '#value' => t('Save and Approve'),
     '#submit' => array('moderation_issue_view_form_save'),
   );
-  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
+  global $user;
+  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete', array(), false, $user->uid)) {
     $form['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Deletion request'),
@@ -1050,9 +1053,8 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     global $language;
 
     // todo charact values to node
-    //////////////////////////////
     if ($changed['charact']) {
-//      foreach ()
+      //
     }
 
 
@@ -1149,10 +1151,7 @@ function moderation_delete_request($form)
   moderation_history('set', $form['content_id']['#value'], $form['content_type']['#value'], 'delete');
   $delete_requests = count(moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete'));
 
-  // todo the number of approval to be gotten to approve the content completely
-  $required = 3;
-
-  if ($delete_requests >= $required) {
+  if ($delete_requests >= MODERATION_DELETE_COUNT) {
     switch ($form['content_type']['#value']) {
       case 'comment' :
         $comment = _comment_load($form['content_id']['#value']);
@@ -1165,6 +1164,6 @@ function moderation_delete_request($form)
     }
     drupal_set_message(t('Content deletion approved.'));
   } else {
-    drupal_set_message(t('Content deletion not approved.') . ' ' . ($required - $delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
+    drupal_set_message(t('Content deletion not approved.') . ' ' . (MODERATION_DELETE_COUNT - $delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
   }
 }

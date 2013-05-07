@@ -237,7 +237,7 @@ function theme_moderators()
  * @param bool $count
  * @return array
  */
-function moderation_history($op, $content_id, $content_type, $change, $vars = array(), $count = false)
+function moderation_history($op, $content_id, $content_type, $change, $vars = array(), $count = false, $uid = false)
 {
   global $language;
   switch ($op) {
@@ -253,6 +253,10 @@ function moderation_history($op, $content_id, $content_type, $change, $vars = ar
       if ($change !== true) {
         $sql .= " AND type = '%s'";
         $v[] = $change;
+      }
+      if (false != $uid) {
+        $sql .= " AND uid = '%s'";
+        $v[] = $uid;
       }
       $sql .= " ORDER BY date_added DESC";
       if ($count !== false) {
