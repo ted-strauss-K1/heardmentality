@@ -94,8 +94,9 @@ $rtype = $node->field_rtype[0]['value'];
 
       <!-- Content Control Links -->
       <ul class="control_links">
-        <li><?php print theme('flagger_button', $nid, 'node'); ?></li>
-        <li>&nbsp;|&nbsp;<?php print theme('flagger_button_flags', $nid, 'node', !empty($node->flags)); ?></li>
+        <li><?php print theme('flagger_btn_flag', $nid, 'node'); ?></li>
+        <li>&nbsp;|&nbsp;<?php print theme('flagger_btn_flags', $nid, 'node'); ?></li>
+        <li>&nbsp;|&nbsp;<?php print theme('flagger_btn_history', $nid, 'node'); ?></li>
         <li>&nbsp;|&nbsp;<a href="#"
                             class="flag2 permalink"
                             title="permalink"
