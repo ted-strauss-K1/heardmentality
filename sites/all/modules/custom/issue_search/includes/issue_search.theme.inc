@@ -281,7 +281,7 @@ function issue_search_filter_form($form_state)
         '#type' => 'checkbox',
         '#title' => t('My region'),
         '#id' => 'my_region',
-        '#default_value' => $search_state2['region'],
+        '#default_value' => $search_state2['region'] && ('false' != $search_state2['region']),
         '#ahah' => array(
           'event' => 'change',
           'path' => ahah_helper_path(array('block')),
