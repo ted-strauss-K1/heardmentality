@@ -303,7 +303,7 @@ function issue_search_filter_form($form_state)
 //  );
   $form['voted_status'] = array(
     '#type' => 'checkbox',
-    '#default_value' => $search_state2['voted_status'],
+    '#default_value' => $search_state2['voted_status'] && ('false' != $search_state2['voted_status']),
     '#title' => t('Show only not voted'),
   );
   $form['search_text'] = array(
