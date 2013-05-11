@@ -45,7 +45,8 @@
 .ie7 .profile-meta,
 .ie8 .profile-meta,
 .ie8 div.user-avatar-select,
-.ie7 div.user-avatar-select {
+.ie7 div.user-avatar-select,
+.ie #moderation-issues-form .fieldset-wrapper {
 	zoom: 1;
 }
 

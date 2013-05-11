@@ -536,26 +536,21 @@ function moderation_issue_view_form($form_state, $nid)
     '#title' => t('Title'),
     '#value' => !empty($translation['title'][0]) ? $translation['title'][0] : $node->title,
     '#prefix' =>
-    sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
-      sprintf('
-        <div style="float:right;margin-right: 30px;"><a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a></div>',
+    sprintf('<div class="question_section">') .
+      sprintf('<div class="view_q"><a href="/%s" target="_blank"><i class="mod-view mod-icon icon-eye-view" title="%s"></i></a></div>',
         $node->path, t('View')),
-    '#suffix' =>
-
-    '</div>',
   );
   $form['body'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
     '#value' => !empty($translation['body'][0]) ? $translation['body'][0] : $node->field_description[0]['value'],
-    '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
-    '#suffix' => '</div>',
   );
 
   $form['allowsuggestions'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow suggesting answers'),
     '#default_value' => $node->allowsuggestions,
+	'#suffix' => '</div>',
   );
 
   $form['choices'] = array(

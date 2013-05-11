@@ -993,6 +993,23 @@
 			float: none;
 			text-align: center;
 		}
+		
+		#moderation-issues-form  fieldset .form-submit {
+			width: 100%;
+			text-align: center;
+			margin-top: 16px;
+		}
+		
+		#moderation-issues-form .fieldset-wrapper {
+			padding-top: 5px;
+		}
+		
+		#moderation-issues-form  fieldset #edit-status-wrapper,
+		#moderation-issues-form  fieldset #edit-perpage-wrapper {
+			padding: 0;
+			width: 100%;
+			margin: 17px 0 0;
+		}
 }
 
 /* END Mobile Only

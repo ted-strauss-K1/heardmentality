@@ -2764,7 +2764,8 @@ p{ line-height:1.2em;}
 /*Clear*/
 
 .top-right.login:after,
-ul.lang:after {
+ul.lang:after,
+#moderation-issues-form .fieldset-wrapper:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
@@ -6206,9 +6207,16 @@ a.google i {
 }
 
 .mod-wrapper {
-	background: none transparent;
-	padding: 0;
+	padding: 12px 0 0;
+	margin: 11px 0 0;
+	background-position: 0 0;
 	clear: both;
+}
+
+fieldset + .mod-wrapper {
+	padding: 0;
+	margin: 0;
+	background: none transparent;
 }
 
 .mod-wrapper h2.din.half {
@@ -6220,7 +6228,83 @@ a.google i {
 
 #moderation-issues-form fieldset {
 	height: auto;
-	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-    margin: 0 0 11px;
-    padding: 0 0 12px;
+    margin: 0 -20px 18px;
+    padding: 0 20px 18px;
+	border-bottom: 1px solid #c0c0c0;
+}
+
+#moderation-issues-form fieldset,
+.question_section {
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f5f5f5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f5f5f5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#f5f5f5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#f5f5f5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#f5f5f5 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#f5f5f5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f5f5f5',GradientType=0 ); /* IE6-8 */
+    zoom: 1;
+}
+
+#moderation-issues-form {
+	margin-bottom: 10px;
+}
+
+#moderation-issues-form .fieldset-wrapper {
+	clear: both;
+}
+
+#moderation-issues-form  fieldset .form-item {
+	float: left;
+	margin: 0;
+	width: 49%;
+}
+
+#moderation-issues-form  fieldset select {
+	margin: 0;
+	width: 99%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+select option {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+}
+
+#moderation-issues-form  fieldset #edit-status-wrapper {
+	padding-right: 1%;
+}
+
+#moderation-issues-form  fieldset #edit-perpage-wrapper {
+	padding-left: 1%;
+}
+
+#moderation-issues-form  fieldset #edit-perpage {
+	float: right;
+}
+
+#moderation-issues-form  fieldset label {
+	font-size: 13px;
+    font-weight: bold;
+    line-height: 1.5em;
+	padding-bottom: 5px;
+}
+
+#moderation-issues-form  fieldset .form-submit {
+	margin: 14px 0 0;
+}
+
+#moderation-issue-view-form {
+	margin: 0 -20px 10px;
+}
+
+.question_section,
+#choices-wrapper,
+#taxonomy-wrapper,
+#location-wrapper {
+	padding: 0 20px 20px;
+	border-bottom: 1px solid #c0c0c0;
 }
