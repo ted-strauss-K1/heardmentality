@@ -268,7 +268,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.white-box {
 		background-color: #fff;
 		border: 1px solid #c0c0c0;
-		padding: 20px 10px 20px;
+		padding: 20px 20px 14px;
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
@@ -301,6 +301,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		padding-bottom: 10px;
 		border-bottom: 1px solid #c0c0c0;
 		margin: 0 10px;
+		font-size: 13px;
 	}
 	
 	.top-grey-box .sort-by.profile {
@@ -317,7 +318,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		border: 1px solid #c0c0c0;
 		border-top: 0 none;
 		margin: 0;
-		padding: 16px 15px 10px 20px;
+		padding: 20px 20px 14px;
 		-webkit-border-radius: 0 0 4px 4px;
 		-moz-border-radius: 0 0 4px 4px;
 		border-radius: 0 0 4px 4px;
@@ -325,11 +326,15 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		-o-border-radius: 0 0 4px 4px;
 	}
 	
+	.front .grey-box {
+		padding: 16px 15px 10px 20px;
+	}
+	
 	#edit_profile,
 	.grey-box.full	{
 		background: url(../images/white_50.png) repeat 0 0;
 		border: 1px solid #c0c0c0;
-		padding: 20px 30px;
+		padding: 20px;
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
@@ -1926,11 +1931,20 @@ ul.badges.profile {
 }
 
 #button.hide-message{padding:4px 11px 4px 4px;}
-#button.hide-message2{padding:4px 6px 4px 4px;}
+#button.hide-message2{padding: 8px; line-height: 1; font-size: 9px;}
+
+.close_icon,
+#button:hover .close_icon {
+	color: #242224;
+	vertical-align: top;
+	line-height: 1;
+	font-size: 9px;
+}
+
 .hide-message {position: absolute; right: 1.7em; top: 50%; width: 10px; margin: -10px 0 0 0 !important; padding: 1px; height: auto;border:1px solid #ccc;border-radius: 3px;font-weight:bold;text-shadow: 0 1px #fff;}
 .hide-message:hover {color:#222;border:1px solid #999;}
 
-.hide-message2 {float:right;width: auto; margin: -4px -6px 0 0; padding: 1px; border:1px solid #ccc;border-radius: 3px;font-weight:bold;text-shadow: 0 1px #fff;}
+.hide-message2 {float:right;width: auto; margin: -4px -3px 0 0; padding: 1px; border:1px solid #ccc;border-radius: 3px;font-weight:bold;text-shadow: 0 1px #fff;}
 .hide-message2:hover {color:#222;border:1px solid #999;}
 .profile-message {width:auto;height:auto;margin:0px 0px 0px 0px;}
 
@@ -1942,7 +1956,7 @@ label.login {text-align:right;text-transform:none;color:#000;font-weight:normal;
 span.sort {font-weight:normal;font-weight:bold;color:#666;text-shadow: 0 1px #fff;font-size:0.8em;margin:0px 3px 0px -15px;}
 
 span.activity {font-weight:bold;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;padding:0px 3px 0px 3px; text-transform: uppercase;}
-.activity.map-title {font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #c0c0c0; margin: 0 10px 9px; padding: 0 3px 10px; text-transform: uppercase;}
+.activity.map-title {font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #c0c0c0; margin: 0 0 16px; padding: 0 3px 11px; text-transform: uppercase;}
 
 .action span.date {color:#ef3d3b;}
 .action span.name {color:#ef3d3b;font-weight:bold}
@@ -3734,6 +3748,11 @@ h6#deb-ana {
 	margin: 0 0 0 7px;
 }
 
+h6#add-arg:after,
+h6#deb-ana:after {
+	display: none;
+}
+
 h6#add-arg a,
 h6#deb-ana a {
     color: #999999;
@@ -5325,13 +5344,14 @@ form#solr-issues-search-form {
 	padding: 0;
 }
 
-.search_top_filters, .moderation_header {
-	padding: 0 10px 15px;
+.search_top_filters, .moderation_header, .sort-wrapper {
+	padding: 0 3px 15px;
 	border-bottom: 1px solid #C0C0C0;
-	margin: 0 20px 15px;	
+	margin: 0 0 18px;	
 }
 
-form#solr-issues-search-form .form-item {
+form#solr-issues-search-form .form-item,
+.search_top_filters .form-item, .moderation_header .form-item {
 	margin: 0;
 }
 
@@ -5767,7 +5787,7 @@ span.coins_char {
 	margin-left: 2em;
 }
 
-#static_page_block_submenu label {
+/*#static_page_block_submenu label {
     color: #FEFEFE;
     font-size: 12px;
     line-height: 1em;
@@ -5776,7 +5796,7 @@ span.coins_char {
     text-shadow: 0 -1px #999999;
     text-transform: uppercase;
 	  background: url(../images/icons/137-presentation.png) no-repeat 100% 0;
-}
+}*/
 
 /*.dark-grey-box.special {
 	position: fixed;
@@ -6176,4 +6196,31 @@ a.google i {
 	float: left;
 	font-size: 16px;
 	line-height: 1;
+}
+
+/*Moderation*/
+
+#moderation-issues-form legend,
+#moderation-issues-form legend a {
+	float: right;
+}
+
+.mod-wrapper {
+	background: none transparent;
+	padding: 0;
+	clear: both;
+}
+
+.mod-wrapper h2.din.half {
+	margin: 0;
+    padding: 0;
+	font-size: 24px;
+	line-height: 1.2em;
+}
+
+#moderation-issues-form fieldset {
+	height: auto;
+	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+    margin: 0 0 11px;
+    padding: 0 0 12px;
 }

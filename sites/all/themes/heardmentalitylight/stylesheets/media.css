@@ -162,6 +162,20 @@
 		a.facebook.google {
 			margin: 0 0 15px;
 		}
+		
+		.filter_search.issues_search input.form-text, .filter_search.issues_search select, .filter_search.issues_search textarea,
+		#subscription_email,
+		#edit-language-wrapper select		{
+			width: 100% !important;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		
+		.filter_search.issues_search #search-solr-block,
+		#submit_brow-avat, #subscription_submit, #language_submit {
+			width: 100%;
+		}
 	}
 
 /* iPad Portrait/Browser 
@@ -713,8 +727,15 @@
 		}
 		
 		
-		#edit_profile, .grey-box.full, .dark-grey-box, .filter_search.issues_search, .white-box {
-			padding: 20px;
+		#edit_profile, .grey-box.full, .dark-grey-box, .filter_search.issues_search, .white-box, .message.right-message, #guidelines {
+			padding: 20px 20px 14px;
+		}
+		
+		#create_box,
+		.dark-grey-box,
+		.filter_search.issues_search,
+		#edit_profile {
+			padding: 20px;	
 		}
 	/*Issues search*/
 	
@@ -959,10 +980,20 @@
 		.with_icon.maximum {
 			max-width: none;
 		}
+		
+		/*Moderation*/
+		
+		#moderation-issues-form legend {
+			float: none;
+			width: 100%
+		}
+		
+		#moderation-issues-form legend a {
+			display: block;
+			float: none;
+			text-align: center;
+		}
 }
-
-/* END Mobile Only
-==================================================*/
 
 /* END Mobile Only
 ==================================================*/
