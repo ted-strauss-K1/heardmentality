@@ -129,7 +129,7 @@ function _issue_ajax_vote($vars)
   if (!$result) {
     print json_encode(array(
       'status' => FALSE,
-      'message' => t('Unexpected error happened while saving your vote'),
+      'message' => t('Your vote was not changed'),
     ));
     exit;
   } else {
@@ -178,7 +178,7 @@ function _issue_ajax_suggest($vars)
   if (!$result) {
     print json_encode(array(
       'status' => FALSE,
-      'message' => t('Unexpected error happened while adding your suggestion'),
+      'message' => t('Your vote was not changed'),
     ));
     exit;
   } else {
@@ -197,6 +197,7 @@ function _issue_ajax_suggest($vars)
  */
 function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old = -1)
 {
+  if ($vote_r == -1 && $vote_s == -1) return FALSE;
   if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return FALSE;
   global $user;
   if ($vote_r_old != -1) {
@@ -220,11 +221,11 @@ function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old =
   }
 
   // update stats
-  db_query("UPDATE {poll_choices} INNER JOIN (SELECT pv.nid, pv.chorder, COUNT(*) chvotes FROM {poll_votes} pv GROUP BY pv.nid, pv.chorder) pvotes ON pvotes.nid = poll_choices.nid AND pvotes.chorder = poll_choices.chorder SET poll_choices.chvotes = pvotes.chvotes WHERE poll_choices.nid = '%d'", $nid);
+  db_query("UPDATE {poll_choices} SET {poll_choices}.chvotes = (SELECT COUNT(*) FROM {poll_votes} WHERE {poll_votes}.nid = {poll_choices}.nid AND {poll_votes}.chorder = {poll_choices}.chorder) WHERE {poll_choices}.nid = '%d'", $nid);
 
   // reindex
   if (module_exists('issue_search')) {
-    issue_search_queue_node($nid);
+    issue_search_index_node($nid);
   }
 
   return TRUE;

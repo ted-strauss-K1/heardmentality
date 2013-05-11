@@ -13,7 +13,7 @@ function charts_colors($index = FALSE)
   if (empty($colors)) {
     $colors += array(
       '#934d9e',
-      '#FF7F00',
+      '#ff7f00',
       '#50c0ac',
       '#0c6926',
       '#ef4c8d',
@@ -22,14 +22,14 @@ function charts_colors($index = FALSE)
       '#ef3d3b',
       '#3cc7f4',
       '#589a1c',
-      '#C2499B',
+      '#c2499b',
       '#f89521',
-      '#CC2027',
+      '#cc2027',
       '#55ba59',
       '#d5bc29',
       '#6ccbd5',
-      '#43B649',
-      '#F6EB16'
+      '#43b649',
+      '#f6eb16'
     );
   }
   if ($index === TRUE) {
@@ -749,7 +749,7 @@ function issue_charts_gmap($node) {
   $fieldmap = variable_get(PROFILE_FIELDMAP, array());
 
   $result = db_query("
-    SELECT pv1.value lat, pv2.value lng
+    SELECT pv1.value lat, pv2.value lng, pv.chorder
     FROM {poll_votes} pv
     INNER JOIN {users} u ON u.uid = pv.uid
     INNER JOIN {profile_values} pv1 ON pv1.fid = '%s' AND pv1.uid = u.uid
@@ -758,8 +758,9 @@ function issue_charts_gmap($node) {
     $fieldmap['profile_lat']->fid, $fieldmap['profile_lng']->fid, $node->nid
   );
 
+
   while ($row = db_fetch_object($result)) {
-    $gmap[] = array($row->lat, $row->lng, charts_colors());
+    $gmap[] = array($row->lat, $row->lng, charts_colors($row->chorder));
   }
 
   return $gmap;

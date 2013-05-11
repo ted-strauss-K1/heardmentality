@@ -66,8 +66,8 @@
   <div class="following clearfix">
     <label for="following" class="following"><?php print user_profile_follow_title('followers'); ?></label>
     <?php foreach ($followers as $f_user) : ?>
-    <a href="/user/profile/view/<?php print $f_user->requestee->name; ?>" class="floatleft"><img class="following-user"
-                                                                                                 src="<?php print user_profile_image($f_user->requestee); ?>"/></a>
+    <a href="/user/profile/view/<?php print $f_user->requester->name; ?>" class="floatleft"><img class="following-user"
+                                                                                                 src="<?php print user_profile_image($f_user->requester); ?>"/></a>
     <?php endforeach; ?>
     <a class="more" href="/user/profile/follow/<?php print $account->uid ?>/followers"><?php print t('See All');?>
       (<?php print $followers_count; ?>)</a>

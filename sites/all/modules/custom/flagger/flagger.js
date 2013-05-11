@@ -1,4 +1,22 @@
-function flagger_exec(flagger) {
+// status
+function flagger_status(response)  {
+  if ("string" == typeof response) {
+    response = $.parseJSON(response);
+  }
+  var flags = $('.flagger-btn-flags-'+response.content_type+'-'+response.content_id);
+  if (response.flagged) {
+    flags.addClass('flagged');
+  } else {
+    flags.removeClass('flagged');
+  }
+  return true;
+}
+
+// flag
+$('.flagger').live('click', function (e) {
+  e.preventDefault();
+  var flagger = $(this);
+
   var url = '/flagger/' + flagger.attr('name')
   $.ajax({
     type:"POST",
@@ -9,27 +27,27 @@ function flagger_exec(flagger) {
       $.hrd.noty({
         'layout':'center',
         'type':'alert',
-        'text':response.text,
+        'text':response.message,
         'modal':true,
         'timeout':false,
         'buttons':[
           {
             addClass:'btn btn-primary',
-            text:'Flag!',
+            text:response.texts[0],
             onClick:function ($noty) {
               $('#flagger-form').submit();
               $noty.close();
               $.hrd.noty({
                 'layout':'center',
                 'type':'success',
-                'text':'Thank you for helping us keep this place in order',
+                'text':response.texts[2],
                 'modal':true
               });
             }
           },
           {
             addClass:'btn btn-danger',
-            text:'Cancel',
+            text:response.texts[1],
             onClick:function ($noty) {
               $noty.close();
             }
@@ -37,16 +55,90 @@ function flagger_exec(flagger) {
         ]
       });
       $('#flagger-form').ajaxForm({
-        // target: '#output'
+        success: flagger_status
       });
     }
   });
-}
-$(document).ready(function () {
-  $('.flagger').live('click', function (e) {
-    e.preventDefault();
-    var flagger = $(this);
-    flagger_exec(flagger);
-    return false;
+
+  return false;
+});
+
+// flags
+$('.flagger_flags').live('click', function (e) {
+  e.preventDefault();
+  var flagger = $(this);
+
+  var url = '/flagger/flags/' + flagger.attr('name')
+  $.ajax({
+    type:"POST",
+    dataType:'json',
+    url:url,
+    data:{},
+    success:function (response) {
+      $.hrd.noty({
+        'layout':'center',
+        'type':'alert',
+        'text':response.message,
+        'modal':true,
+        'timeout':false
+      });
+    }
   });
+
+  return false;
+});
+
+// history
+$('.flagger_history').live('click', function (e) {
+  e.preventDefault();
+  var flagger = $(this);
+
+  var url = '/flagger/history/' + flagger.attr('name')
+  $.ajax({
+    type:"POST",
+    dataType:'json',
+    url:url,
+    data:{},
+    success:function (response) {
+      $.hrd.noty({
+        'layout':'center',
+        'type':'alert',
+        'text':response.message,
+        'modal':true,
+        'timeout':false
+      });
+    }
+  });
+
+  return false;
+});
+
+// history
+$('.status-1 span.remove').live('click', function (e) {
+  e.preventDefault();
+  var parent = $(this).parents('li.status-1');
+  var fcid = parent.attr('name');
+
+  var url = '/flagger/unflag/' + parent.attr('name')
+  $.ajax({
+    type:"POST",
+    dataType:'json',
+    url:url,
+    data:{},
+    success:function (response) {
+      $.hrd.noty({
+        'layout':'topRight',
+        'type':'alert',
+        'text':response.message,
+        'modal':false,
+        'timeout':5000
+      });
+      if (response.status) {
+        parent.removeClass('status-1').addClass('status-0');
+        flagger_status(response);
+      }
+    }
+  });
+
+  return false;
 });

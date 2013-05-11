@@ -1,5 +1,7 @@
 <?php
 
+define('MODERATION_DELETE_COUNT', 3);
+
 /**
  * @param $uid
  */
@@ -616,7 +618,8 @@ function moderation_issue_view_form($form_state, $nid)
     '#value' => t('Save and Approve'),
     '#submit' => array('moderation_issue_view_form_save'),
   );
-  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete')) {
+  global $user;
+  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete', array(), false, $user->uid)) {
     $form['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Deletion request'),
@@ -887,7 +890,7 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
       '#collapsed' => FALSE,
     );
     $charact = poll_charact_values_get($nid, $choice['chorder']);
-    if ($charact)
+    if ($charact) {
       foreach ($charact as $cid => $char) {
         $form['charact']['char' . $cid] = array(
           '#type' => 'select',
@@ -898,6 +901,19 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
           '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
         );
       }
+    } else {
+      $charact = poll_charact_get();
+      foreach ($charact as $cid => $char) {
+        $form['charact']['char' . $cid] = array(
+          '#type' => 'select',
+          '#title' => t($char),
+          '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
+          '#value' => POLL_CHARACT,
+          '#size' => 5,
+          '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
+        );
+      }
+    }
   }
 
   return $form;
@@ -969,19 +985,21 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   $taxonomy_diff = array();
   $taxonomy_old = array();
   foreach ($node->taxonomy as $term) {
-    $taxonomy_old[] = $term->nid;
+    $taxonomy_old[intval($term->tid)] = $term;
   }
+
   $node->taxonomy = array();
   for ($i = 0; $i >= 0; $i++) {
     if (!empty($values['taxonomy']['taxonomy-' . $i])) {
       foreach ($values['taxonomy']['taxonomy-' . $i] as $tid) {
         $node->taxonomy[] = taxonomy_get_term($tid);
-        if (!in_array($tid, $taxonomy_old)) {
+        if (!isset($taxonomy_old[intval($tid)])) {
           $taxonomy_diff[] = $tid;
         }
       }
     } else break;
   }
+
   if ($taxonomy_diff && module_exists('rules')) {
     global $user;
     rules_invoke_event('moderation_taxonomy', $user, $node, implode(',',$taxonomy_diff));
@@ -991,6 +1009,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   $node->locations = array();
   // through selected countries
   if ($values['location']['location-0'])
+    if (is_array($values['location']['location-0']))
     foreach ($values['location']['location-0'] as $country) {
       $location = location_empty_location(array());
       $location['country'] = $country;
@@ -998,6 +1017,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
       $provinces = FALSE;
       // through country's provinces
       foreach (location_get_provinces($country) as $pcode => $pname) {
+        if (is_array($values['location']['location-1']))
         if (in_array($location['name'] . '_' . $pcode, $values['location']['location-1'])) {
           $provinces = TRUE;
           $location2 = $location;
@@ -1006,6 +1026,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
           $cities = FALSE;
           // through province's cities
           foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
+            if (is_array($values['location']['location-2']))
             if (in_array($ccode, $values['location']['location-2'])) {
 //          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
               $cities = TRUE;
@@ -1032,9 +1053,8 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     global $language;
 
     // todo charact values to node
-    //////////////////////////////
     if ($changed['charact']) {
-//      foreach ()
+      //
     }
 
 
@@ -1106,7 +1126,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 
   // reindex
   if (module_exists('issue_search')) {
-    issue_search_queue_node($node->nid);
+    issue_search_index_node($node->nid);
   }
 }
 
@@ -1131,10 +1151,7 @@ function moderation_delete_request($form)
   moderation_history('set', $form['content_id']['#value'], $form['content_type']['#value'], 'delete');
   $delete_requests = count(moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete'));
 
-  // todo the number of approval to be gotten to approve the content completely
-  $required = 3;
-
-  if ($delete_requests >= $required) {
+  if ($delete_requests >= MODERATION_DELETE_COUNT) {
     switch ($form['content_type']['#value']) {
       case 'comment' :
         $comment = _comment_load($form['content_id']['#value']);
@@ -1147,6 +1164,6 @@ function moderation_delete_request($form)
     }
     drupal_set_message(t('Content deletion approved.'));
   } else {
-    drupal_set_message(t('Content deletion not approved.') . ' ' . ($required - $delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
+    drupal_set_message(t('Content deletion not approved.') . ' ' . (MODERATION_DELETE_COUNT - $delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
   }
 }
