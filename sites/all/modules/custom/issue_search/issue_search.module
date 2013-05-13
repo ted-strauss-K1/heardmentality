@@ -5,6 +5,8 @@
  *  Issue search module: hooks and core functions.
  */
 require_once 'includes/issue_search.apachesolr.inc';
+require_once 'includes/issue_search.index.inc';
+require_once 'includes/issue_search.pages.inc';
 require_once 'includes/issue_search.theme.inc';
 
 /**
