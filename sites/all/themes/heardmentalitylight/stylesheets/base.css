@@ -149,7 +149,10 @@
 	input[type="button"],
 	h6#add-arg,
 	h6#deb-ana,
-	#moderation-issues-form legend a{
+	#moderation-issues-form legend a,
+	#choices-wrapper legend a,
+	#taxonomy-wrapper legend a,
+	#location-wrapper a {
 		background: none #dfdfdf;
 		background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#cecece));
 		background: -webkit-linear-gradient(top, #f1f1f1, #cecece);
@@ -201,7 +204,10 @@
 	h6#deb-ana:hover,
 	#debate_work_area h6.expanded,
 	#debate_work_area h6.expanded:hover,
-	#moderation-issues-form legend a:hover	{
+	#moderation-issues-form legend a:hover,
+	#choices-wrapper legend a:hover,
+	#taxonomy-wrapper legend a:hover,
+	#location-wrapper a:hover {
 		background: none #d6d6d6;
 		background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c4c4c4));
 		background: -webkit-linear-gradient(top, #efefef, #c4c4c4);
