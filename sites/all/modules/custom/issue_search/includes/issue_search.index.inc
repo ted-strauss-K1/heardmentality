@@ -9,6 +9,8 @@
  * Index issues
  */
 function issue_search_index_issues() {
+  module_load_include('inc', 'apachesolr', 'apachesolr.index');
+
   $env_id = apachesolr_default_environment();
   $limit = variable_get('apachesolr_cron_limit', 50);
   apachesolr_index_entities($env_id, $limit);

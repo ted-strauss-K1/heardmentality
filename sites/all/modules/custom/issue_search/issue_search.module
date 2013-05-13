@@ -5,6 +5,8 @@
  *  Issue search module: hooks and core functions.
  */
 require_once 'includes/issue_search.apachesolr.inc';
+require_once 'includes/issue_search.index.inc';
+require_once 'includes/issue_search.pages.inc';
 require_once 'includes/issue_search.theme.inc';
 
 /**
@@ -100,7 +102,7 @@ function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       $is_admin = (in_array('administrator', $user->roles) || ($user->uid == 1) || ($user->uid == $node->uid));
       if (!$is_admin) {
         if (!((strpos(request_uri(), "/cron.php") === 0) && ($user->uid == 0))) {
-          issue_search_index_node($node->nid);
+//       todo   issue_search_index_node($node->nid);
         }
       }
     }
