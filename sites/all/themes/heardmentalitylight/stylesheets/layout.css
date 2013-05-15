@@ -6339,7 +6339,11 @@ select option {
 
 .view_q a {
 	text-decoration: none;
-	color: #43b649;
+	color: #0181C3;
+}
+
+.view_q a:hover i {
+	color: #cc2027;	
 }
 
 .view_q i {
@@ -6404,21 +6408,43 @@ select option {
 	padding: 0;
 }
 
-#choices-wrapper .fieldset-wrapper fieldset .form-item {
+#choices-wrapper .fieldset-wrapper fieldset .form-item,
+#taxonomy-wrapper .fieldset-wrapper .form-item,
+#location-wrapper .fieldset-wrapper .form-item {
 	float: left;
-	width: 31.83%;
+	width: 32%;
 	clear: none;
 	margin: 8px 2% 0 0;
 }
 
-#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item {
+#taxonomy-wrapper .fieldset-wrapper .form-item,
+#location-wrapper .fieldset-wrapper .form-item {
+	margin-top: 13px;
+}
+
+#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item,
+#taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item,
+#location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item {
 	margin-right: 0;
 }
 
-#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item + .form-item {
+#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item + .form-item,
+#taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item + .form-item,
+#location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item + .form-item {
 	margin-right: 2%;
 }
 
-#choices-wrapper > fieldset {
+#choices-wrapper > fieldset,
+#taxonomy-wrapper > fieldset,
+#location-wrapper > fieldset {
 	margin: 0;
+	height: auto;
+}
+
+#moderation-issue-view-form .action_wrapper {
+	padding: 20px 20px 0;
+}
+
+#moderation-issue-view-form .form-submit + .form-submit {
+	margin: 0 0 0 10px;
 }

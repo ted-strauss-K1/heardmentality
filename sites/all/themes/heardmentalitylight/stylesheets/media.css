@@ -179,18 +179,31 @@
 		
 		/*Moderation*/
 		
-		#choices-wrapper .fieldset-wrapper fieldset .form-item {
+		#choices-wrapper .fieldset-wrapper fieldset .form-item,
+		#taxonomy-wrapper .fieldset-wrapper .form-item,
+		#location-wrapper .fieldset-wrapper .form-item {
 			width: 49%;
 			clear: none;
 			margin: 8px 2% 0 0;
 		}
 		
+		#taxonomy-wrapper .fieldset-wrapper .form-item,
+		#location-wrapper .fieldset-wrapper .form-item {
+			margin-top: 13px;
+		}
+		
 		#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item,
-		#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item + .form-item {
+		#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item + .form-item,
+		#taxonomy-wrapper .fieldset-wrapper .form-item + .form-item,
+		#taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item + .form-item,
+		#location-wrapper .fieldset-wrapper .form-item + .form-item,
+		#location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item + .form-item {
 			margin-right: 0;
 		}
 		
-		#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item {
+		#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item,
+		#taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item,
+		#location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item		{
 			margin-right: 2%;
 		}
 	}
@@ -1026,6 +1039,48 @@
 			padding: 0;
 			width: 100%;
 			margin: 17px 0 0;
+		}
+		
+		#choices-wrapper legend a,
+		#taxonomy-wrapper legend a,
+		#location-wrapper legend a{
+			float: none;
+			display: block;
+			text-align: center;
+		}
+		
+		#choices-wrapper legend,
+		#taxonomy-wrapper legend,
+		#location-wrapper legend {
+			width: 100%;
+			float: none;
+			display: block;
+		}
+
+		#taxonomy-wrapper .fieldset-wrapper .form-item:first-child, 
+		#location-wrapper .fieldset-wrapper .form-item:first-child {
+			margin-top: 17px;
+		}
+		
+		#choices-wrapper .fieldset-wrapper fieldset .form-item, 
+		#taxonomy-wrapper .fieldset-wrapper .form-item, 
+		#location-wrapper .fieldset-wrapper .form-item {
+			margin: 14px 0 0;
+			width: 100%;
+		}
+		
+		#choices-wrapper .fieldset-wrapper fieldset {
+			margin: 23px 0;
+		}
+		
+		#moderation-issue-view-form .form-submit {
+			width: 100%;
+			display: block;
+			text-align: center;
+		}
+		
+		#moderation-issue-view-form .form-submit + .form-submit {
+			margin: 18px 0 0 0;
 		}
 }
 

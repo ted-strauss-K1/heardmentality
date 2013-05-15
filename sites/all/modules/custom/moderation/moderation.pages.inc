@@ -612,6 +612,7 @@ function moderation_issue_view_form($form_state, $nid)
     '#type' => 'submit',
     '#value' => t('Save and Approve'),
     '#submit' => array('moderation_issue_view_form_save'),
+	'#prefix' => '<div class="action_wrapper">',
   );
   global $user;
   if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete', array(), false, $user->uid)) {
@@ -619,6 +620,7 @@ function moderation_issue_view_form($form_state, $nid)
       '#type' => 'submit',
       '#value' => t('Deletion request'),
       '#submit' => array('moderation_issue_view_form_delete'),
+	  '#suffix' => '</div>',
     );
   }
 
