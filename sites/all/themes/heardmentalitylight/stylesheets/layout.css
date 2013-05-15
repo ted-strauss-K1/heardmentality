@@ -6391,7 +6391,7 @@ select option {
 #choices-wrapper .fieldset-wrapper fieldset {
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
     margin: 18px 0 18px;
-    padding: 0 0 23px;
+    padding: 0 0 25px;
 }
 
 #choices-wrapper .fieldset-wrapper fieldset legend {

@@ -176,6 +176,23 @@
 		#submit_brow-avat, #subscription_submit, #language_submit {
 			width: 100%;
 		}
+		
+		/*Moderation*/
+		
+		#choices-wrapper .fieldset-wrapper fieldset .form-item {
+			width: 49%;
+			clear: none;
+			margin: 8px 2% 0 0;
+		}
+		
+		#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item,
+		#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item + .form-item {
+			margin-right: 0;
+		}
+		
+		#choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item {
+			margin-right: 2%;
+		}
 	}
 
 /* iPad Portrait/Browser 
