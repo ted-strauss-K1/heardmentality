@@ -698,7 +698,7 @@ function theme_issue_charts_strength($node)
   drupal_add_js(drupal_get_path('module', 'issue') . "/charts/highcharts/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/charts/chart.strength.js");
 
-  return '<div class="expanding stat"><h6 class="button" id="deb-ana">' . t('Stats') . '</h6></div>';
+  return '<div class="expanding stat"><h6 class="dd_button" id="deb-ana">' . t('Stats') . '</h6></div>';
 }
 
 /**

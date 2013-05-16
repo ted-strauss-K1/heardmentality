@@ -1082,6 +1082,10 @@
 		#moderation-issue-view-form .form-submit + .form-submit {
 			margin: 18px 0 0 0;
 		}
+				
+		#choices-wrapper select {
+			width: 100%;
+		}
 }
 
 /* END Mobile Only

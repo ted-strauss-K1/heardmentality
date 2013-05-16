@@ -537,7 +537,7 @@ function moderation_issue_view_form($form_state, $nid)
     '#value' => !empty($translation['title'][0]) ? $translation['title'][0] : $node->title,
     '#prefix' =>
     sprintf('<div class="question_section">') .
-      sprintf('<div class="view_q"><a href="/%s" target="_blank"><i class="mod-view mod-icon icon-eye-view" title="%s"></i></a></div>',
+      sprintf('<div class="view_q"><a href="/%s" target="_blank"><i class="mod-view mod-icon icon-eye-open" title="%s"></i>View</a></div>',
         $node->path, t('View')),
   );
   $form['body'] = array(
@@ -894,7 +894,7 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
           '#title' => t($char['name']),
           '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
           '#value' => $char['value'],
-          '#size' => 5,
+          '#size' => 1,
           '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
         );
       }
