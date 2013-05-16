@@ -6461,3 +6461,11 @@ select option {
 	font-style: italic;
 	font-size: 13px;
 }
+
+.mh_cell li div {
+	margin-top: 10px;
+}
+
+.mh_cell li div:first-child {
+	margin-top: 5px;
+}
