@@ -69,6 +69,7 @@ function theme_user_login_modal_popup()
     <a href="#popup-login" class="inline-dialog"></a>
 
     <div id="popup-login">
+      <div class="popup-login-inner mobile">
 
       <div id="tabs-1" class="popup-tab">
         <div id="user-login">
@@ -82,6 +83,8 @@ function theme_user_login_modal_popup()
           <h2>'.t('Register').'</h2>
           ' . drupal_get_form('user_register') . '
         </div>
+      </div>
+
       </div>
 
     </div>
