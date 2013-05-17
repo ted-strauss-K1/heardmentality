@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  $(".inline-dialog").colorbox({inline:true});
+  $(".inline-dialog").colorbox({inline:true, width:'100%', top: '0px'});
 
   $('#dialog_link, .openlogin_box').live('click', function () {
 

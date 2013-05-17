@@ -12,10 +12,10 @@
   border-left: 1px #ccc solid;
 }
 .popup-login-inner.mobile {
-  width: 320px;
+  width: 300px;
 }
 .popup-login-inner.mobile .popup-tab {
-  width: 320px;
+  /*width: 320px;*/
 
   float: none;
 }
