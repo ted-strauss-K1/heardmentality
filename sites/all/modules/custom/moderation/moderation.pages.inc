@@ -1048,6 +1048,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
       }
     }
 
+
   // track changes
   if (!empty($changed)) {
     global $language;
@@ -1091,6 +1092,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
                 }
               }
             } else {
+              // todo - deletion of the choice onlty when viewing the node on original lang
               unset($t['choice'][$chorder]);
               moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
             }
@@ -1102,14 +1104,13 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 
       if ($changed['choices'])
         foreach ($changed['choices'] as $chorder => $case) {
-          $choice = & $node->choice[$chorder];
+          $choice = &$node->choice[$chorder];
           if ($case['chtext_short'] != '') {
             poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
           }
           if (isset($case['chtext'])) {
-            if ($case['chtext'] != '') {
-              $choice['chtext'] = $case['chtext'];
-            } else {
+            $choice['chtext'] = $case['chtext'];
+            if ($case['chtext'] == '') {
               moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
             }
           }
