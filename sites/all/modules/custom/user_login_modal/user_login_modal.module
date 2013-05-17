@@ -69,7 +69,7 @@ function theme_user_login_modal_popup()
     <a href="#popup-login" class="inline-dialog"></a>
 
     <div id="popup-login">
-      <div class="popup-login-inner mobile">
+      <div class="popup-login-inner '.(is_mobile()?'mobile':'').'">
 
       <div id="tabs-1" class="popup-tab">
         <div id="user-login">
