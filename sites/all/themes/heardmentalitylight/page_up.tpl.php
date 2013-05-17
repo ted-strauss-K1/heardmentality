@@ -27,6 +27,7 @@
 
   <!-- xx -->
   <meta property="og:image" content="<?php print url(drupal_get_path('theme', 'heardmentalitylight') . '/images/HM_Social_IMG_5.png' ) ?>"/>
+  <img src="<?php print url(drupal_get_path('theme', 'heardmentalitylight') . '/images/HM_Social_IMG_5.png' ) ?>" style="display:none" />
 
   <!-- socialize.js script should only be included once -->
   <script type="text/javascript">
