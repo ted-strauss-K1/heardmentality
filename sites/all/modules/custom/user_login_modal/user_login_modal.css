@@ -1,0 +1,26 @@
+.popup-tab  {
+  width: 325px;
+  float: left;
+  margin: 0;
+}
+.popup-tab h2 {
+  font-size: 25px;
+  width: 270px;
+}
+.popup-tab div#user-register {
+  padding-left: 20px;
+  border-left: 1px #ccc solid;
+}
+/*#popup-login.mobile .popup-tab {*/
+  /*width: 325px;*/
+/*}*/
+/*#popup-login.mobile .popup-tab div#user-register {*/
+  /*padding-left: 0;*/
+  /*border-left: none;*/
+/*}*/
+/*.popup-tab#tabs-2 {*/
+  /*width: 300px;*/
+/*}*/
+.popup-tab input.form-text {
+  width: 270px;
+}

@@ -12,6 +12,7 @@ function user_login_modal_preprocess_page(&$vars)
   }
   drupal_add_js('misc/ahah.js');
   drupal_add_js(drupal_get_path('module', 'user_login_modal') . '/user_login_modal.js');
+  drupal_add_css(drupal_get_path('module', 'user_login_modal') . '/user_login_modal.css');
   $vars['user_login_modal'] = theme('user_login_modal');
 
   if (!user_is_logged_in()) {
@@ -63,22 +64,26 @@ function theme_user_login_modal()
 function theme_user_login_modal_popup()
 {
   return '
-  <div id="dialog">
-    <ul>
-      <li><a href="#tabs-1">Log in</a></li>
-      <li><a href="#tabs-2">Sign up</a></li>
-    </ul>
+  <div style="display:none">
 
-    <div id="tabs-1" title="Login" class="dialog">
-      <div id="user-login">
-        ' . drupal_get_form('user_login') . '
-      </div>
-    </div>
+    <a href="#popup-login" class="inline-dialog"></a>
 
-    <div id="tabs-2">
-      <div id ="user-register">
-        ' . drupal_get_form('user_register') . '
+    <div id="popup-login">
+
+      <div id="tabs-1" class="popup-tab">
+        <div id="user-login">
+          <h2>'.t('Login').'</h2>
+          ' . drupal_get_form('user_login') . '
+        </div>
       </div>
+
+      <div id="tabs-2" class="popup-tab">
+        <div id="user-register">
+          <h2>'.t('Register').'</h2>
+          ' . drupal_get_form('user_register') . '
+        </div>
+      </div>
+
     </div>
   </div>';
 }
