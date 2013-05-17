@@ -804,7 +804,7 @@ function moderation_ahah($type, $page = 0)
       $delta = count($_POST['choices']);
 
       $form_element = _moderation_ahah_choice($delta);
-      drupal_alter('form', $form_element, array());
+      @drupal_alter('form', $form_element, array());
       $form['choices'][$delta] = $form_element;
 
       $post_choices = $_POST['choices'];
