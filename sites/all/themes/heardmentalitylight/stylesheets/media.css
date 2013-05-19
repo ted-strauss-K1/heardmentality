@@ -675,7 +675,8 @@
 			float: none;
 		}
 		
-		#issue-create-form input.form-text {
+		#issue-create-form input.form-text,
+		.issue-vote-wrapper .button.vote, .search_list .button.vote {
 			margin-left: auto;
 			margin-right: auto;
 			float: none;
@@ -757,7 +758,8 @@
 		}
 		
 		
-		#edit_profile, .grey-box.full, .dark-grey-box, .filter_search.issues_search, .white-box, .message.right-message, #guidelines {
+		#edit_profile, .grey-box.full, .dark-grey-box, .filter_search.issues_search, .white-box, .message.right-message, #guidelines,
+		.grey-box.icon_inside, .four .grey-box.icon_inside, #block-issue-issue-categories .grey-box {
 			padding: 20px 20px 14px;
 		}
 		

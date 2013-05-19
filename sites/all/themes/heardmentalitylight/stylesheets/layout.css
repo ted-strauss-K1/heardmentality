@@ -347,6 +347,11 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		padding: 17px 14px 15px;
 	}
 	
+	.four .grey-box.icon_inside,
+	.grey-box.icon_inside	{
+		padding: 15px 14px;
+	}
+	
 	.grey-box.message {
 	background:url(../images/ui-bg_diagonals40x40.png);
 	}
@@ -5918,7 +5923,14 @@ ul.sub-pages-menu a:hover {
 /*Feedback*/
 
 #block-feedback-form .feedback-link {
-	color: #515151;
+	color: #0181C3;
+	font-weight: bold;
+	font-size: 13px;
+	text-transform: lowercase;
+}
+
+#block-feedback-form .feedback-link:hover {
+	color: #CC2027
 }
 
 #feedback-form .form-item {
@@ -5928,7 +5940,6 @@ ul.sub-pages-menu a:hover {
 #block-feedback-form #feedback-throbber {
 	height: auto;
 }
-
 
 #block-feedback-form form {
 	padding: 10px;
@@ -6456,7 +6467,7 @@ select option {
 }
 
 .mh_cell span.action {
-	color: #362750;
+	color: #0c6926;
 	font-weight: bold;
 	font-style: italic;
 	font-size: 13px;
@@ -6467,5 +6478,9 @@ select option {
 }
 
 .mh_cell li div:first-child {
+	margin-top: 5px;
+}
+
+.flag_content {
 	margin-top: 5px;
 }

@@ -1,18 +1,19 @@
 <?php if ($flags) : ?>
-<div class="dark-grey-box">
-  <div class="profile-meta profile_page_wrapper">
-    <label for="profile" class="profile profile_page flags"><?php print t('Flags') ?></label>
-  </div>
+<div class="grey-box full icon_inside">
+  <i class="icon cat text icon-flagalt"></i>
+  <label class="with_icon"><?php echo t('Flags'); ?></label>
 
   <?php foreach ($flags as $fid => $flag) : ?>
-
-  <?php print t($flag['title']); ?>
-  <hr style="margin:3px 0 5px 0"/>
-  <ul>
-    <?php foreach ($flag['users'] as $uid => $data) : ?>
-    <li><?php print l($data['name'], 'user/profile/view/' . $uid); ?>: "<?php print $data['note']; ?>"</li>
+  
+  <div class="mh_cell">
+	<strong><?php print t($flag['title']); ?></strong>
+	<div class="flag_content">
+		<?php foreach ($flag['users'] as $uid => $data) : ?>
+		<?php print l($data['name'], 'user/profile/view/' . $uid); ?>: "<?php print $data['note']; ?>"
+	</div>
     <?php endforeach; ?>
-  </ul>
+  <hr class="short" />
+  </div>
 
   <?php endforeach; ?>
 </div>

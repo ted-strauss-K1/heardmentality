@@ -1,6 +1,6 @@
-<div class="grey-box full">
+<div class="grey-box full icon_inside">
   <i class="icon cat text icon-rubberstamp"></i>
-  <label class="with_icon" for="guidelines"><?php echo t('Moderation history'); ?></label>
+  <label class="with_icon"><?php echo t('Moderation history'); ?></label>
   <?php
   $type = arg(1);
   $content_id = arg(2);
