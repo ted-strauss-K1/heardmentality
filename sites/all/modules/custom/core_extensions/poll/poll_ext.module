@@ -52,3 +52,23 @@ function poll_ext_chtext_short_set($nid, $chorder, $chtext_short)
 {
   db_query("INSERT INTO {poll_choices_short} (nid, chorder, chtext) VALUES ('%d', '%d', '%s') ON DUPLICATE KEY UPDATE chtext = '%s'", $nid, $chorder, $chtext_short, $chtext_short);
 }
+
+/**
+ * Implementation of hook_pollfix()
+ *
+ * @param $nid
+ * @param $map
+ */
+function poll_ext_pollfix($nid, $map)
+{
+  foreach ($map as $key => $data) {
+    switch ($data['status']) {
+      case 'deleted' :
+        db_query("DELETE FROM {poll_choices_short} WHERE nid = '%d' AND chorder = '%d'", $nid, $key);
+      break;
+      case 'updated' :
+        db_query("UPDATE {poll_choices_short} SET chorder = '%d' WHERE nid = '%d' AND chorder = '%d'", $map['index'], $nid, $key);
+      break;
+    }
+  }
+}

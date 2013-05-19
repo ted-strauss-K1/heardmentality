@@ -25,6 +25,10 @@
   <link rel="apple-touch-icon" sizes="72x72" href="<?php print $directoryPath; ?>/images/apple-touch-icon-72x72.png" />
   <link rel="apple-touch-icon" sizes="114x114" href="<?php print $directoryPath; ?>/images/apple-touch-icon-114x114.png" />
 
+  <!-- xx -->
+  <meta property="og:image" content="<?php print url(drupal_get_path('theme', 'heardmentalitylight') . '/images/HM_Social_IMG_5.png' ) ?>"/>
+  <img src="<?php print url(drupal_get_path('theme', 'heardmentalitylight') . '/images/HM_Social_IMG_5.png' ) ?>" style="display:none" />
+
   <!-- socialize.js script should only be included once -->
   <script type="text/javascript">
     var conf = { enabledProviders: 'facebook,twitter,yahoo,messenger,google,linkedin,myspace,aol,foursquare,orkut,vkontakte,renren' }

@@ -1,0 +1,32 @@
+.popup-tab  {
+  width: 325px;
+  float: left;
+  margin: 0;
+}
+.popup-tab h2 {
+  font-size: 25px;
+  width: 270px;
+}
+.popup-tab div#user-register {
+  padding-left: 20px;
+  border-left: 1px #ccc solid;
+}
+.popup-login-inner {
+  padding: 15px;
+}
+.popup-login-inner.mobile {
+  width: 300px;
+  padding: 0;
+}
+.popup-login-inner.mobile .popup-tab {
+  float: none;
+}
+.popup-login-inner.mobile .popup-tab div#user-register {
+  padding-left: 0;
+  border-left: none;
+  border-top: 2px #ccc solid;
+  padding-top: 15px;
+}
+.popup-tab input.form-text {
+  width: 270px;
+}
