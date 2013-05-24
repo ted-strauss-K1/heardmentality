@@ -68,7 +68,7 @@ function argument_theme()
     'file' => 'argument.theme.inc',
   );
   $theme['argument_item'] = array(
-    'arguments' => array('node' => null),
+    'arguments' => array('node' => NULL),
     'template' => 'templates/argument-item',
   );
   $theme['argument_comment'] = array(
@@ -169,13 +169,13 @@ function argument_check_owner($content_type, $content_id)
   global $user;
   switch ($content_type) {
     case 'node' :
-      return false != db_result(db_query("SELECT nid FROM {node} WHERE nid = '%d' AND uid = '%d'", $content_id, $user->uid));
+      return FALSE != db_result(db_query("SELECT nid FROM {node} WHERE nid = '%d' AND uid = '%d'", $content_id, $user->uid));
       break;
     case 'comment' :
-      return false != db_result(db_query("SELECT cid FROM {comments} WHERE cid = '%d' AND uid = '%d'", $content_id, $user->uid));
+      return FALSE != db_result(db_query("SELECT cid FROM {comments} WHERE cid = '%d' AND uid = '%d'", $content_id, $user->uid));
       break;
   }
-  return false;
+  return FALSE;
 }
 
 /**
@@ -184,7 +184,7 @@ function argument_check_owner($content_type, $content_id)
  * @param null $print
  * @return mixed
  */
-function argument_tab($nid, $sort = null, $print = null)
+function argument_tab($nid, $sort = NULL, $print = NULL)
 {
   $argnids = argument_filter($nid, $sort, $_REQUEST['class'], $_REQUEST['chorder']);
   $nodes = array();
@@ -211,7 +211,7 @@ function argument_tab($nid, $sort = null, $print = null)
  * @param null $chorder
  * @return array
  */
-function argument_filter($nid, $sort = null, $class = null, $chorder = null)
+function argument_filter($nid, $sort = NULL, $class = NULL, $chorder = NULL)
 {
   $argnids = array();
 
@@ -284,14 +284,14 @@ function argument_create_comment()
 {
   if (!user_is_logged_in()) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('Please login to post reply'),
     ));
     exit();
   }
   if (!user_access('create forum topics')) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('You don\'t have permissions to post arguments'),
     ));
     exit();
@@ -323,14 +323,14 @@ function argument_create_comment()
 
   if (!_comment_save($comment)) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('Error occurred'),
     ));
     exit();
   }
 
   print json_encode(array(
-    'status' => true,
+    'status' => TRUE,
     'message' => t('Thanks, Your reply posted!'),
     'content' => theme('argument_comment', $comment),
   ));
@@ -363,12 +363,12 @@ function _comment_save(&$comment)
     $comment->pid, $comment->nid, $comment->uid, $comment->subject, $comment->comment, $comment->hostname, $comment->timestamp, $comment->status, $comment->format, $comment->thread, $comment->name, $comment->mail, $comment->homepage);
 
   if (!$result) {
-    $comment = false;
+    $comment = FALSE;
   } else {
     $comment->cid = db_last_insert_id('comments', 'cid');
     comment_invoke_comment($comment, 'insert');
   }
-  return $comment !== false;
+  return $comment !== FALSE;
 }
 
 /**
@@ -381,7 +381,7 @@ function argument_delete($content_type, $content_id)
 {
   if (!(module_exists('moderation') && moderation_check_perm()) && !argument_check_owner($content_type, $content_id)) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('Sorry, you have no permissions to delete the content'),
     ));
     exit;
@@ -399,10 +399,23 @@ function argument_delete($content_type, $content_id)
     moderation_history('set', $content_type, $content_id, 'delete');
   }
   print json_encode(array(
-    'status' => true,
+    'status' => TRUE,
     'message' => t('Successfully deleted'),
   ));
   exit();
+}
+
+/**
+ * @param $url
+ * @return string
+ */
+function argument_url_prepare($url) {
+  $regex1 = '/^www\./';
+  $regex2 = '/^http:\/\//';
+  if (preg_match($regex1,$url) || !preg_match($regex2,$url)) {
+    return 'http://' . $url;
+  }
+  return $url;
 }
 
 /**
@@ -431,13 +444,13 @@ function argument_create()
         argument_options_update($node, $issue);
 
         print json_encode(array(
-          'success' => true,
+          'success' => TRUE,
           'message' => '<span class="posted">' . t('Your argument posted successfully') . '!</span>',
         ));
 
       } else {
         print json_encode(array(
-          'success' => false,
+          'success' => FALSE,
           'message' => '<div class="messages error"><b>' . t('Error occurred. Please try again') . '</b></div>',
         ));
       }
@@ -446,29 +459,33 @@ function argument_create()
     case TYPE_RESOURCE : # Resource
       if (empty($post['url'])) {
         print json_encode(array(
-          'success' => false,
+          'success' => FALSE,
           'message' => '<div class="messages error"><b>' . t('Please enter an URL') . '</b></div>',
         ));
         exit;
       }
+      $post['url'] = argument_url_prepare($post['url']);
       $node = arguments_create_resource($post['nid'], $post['url'], $post['uimg']);
       if ($node) {
         print json_encode(array(
-          'success' => true,
+          'success' => TRUE,
           'message' => '<span class="posted">' . t('Your argument was posted successfully!') . '</span>',
           'node' => $node,
+          'debug' => array(
+            $post,
+          ),
         ));
 
       } else {
         $url = parse_url($post['url']);
-        if (false !== strpos($url['host'], 'youtube.com')) {
+        if (FALSE !== strpos($url['host'], 'youtube.com')) {
           print json_encode(array(
-            'success' => false,
+            'success' => FALSE,
             'message' => '<div class="messages error"><b>' . t('YouTube video ID not found') . '</b></div>',
           ));
         } else {
           print json_encode(array(
-            'success' => false,
+            'success' => FALSE,
             'message' => '<div class="messages error"><b>' . t('Error occurred. Please check you URL') . '</b></div>',
           ));
         }
@@ -485,7 +502,7 @@ function argument_create_debate($nid, $title)
 {
   global $user;
   if (empty($nid) || empty($title)) {
-    return false;
+    return FALSE;
   }
 
   $node = new stdClass();
@@ -534,17 +551,17 @@ function argument_preview_resource()
 {
   $_POST += $_REQUEST;
 
-  $url = isset($_POST['url']) ? $_POST['url'] : false;
+  $url = isset($_POST['url']) ? $_POST['url'] : FALSE;
   $node = argument_fetch_url($url);
 
-  if ($node === false) {
+  if ($node === FALSE) {
     print json_encode(array(
-      'status' => false,
+      'status' => FALSE,
       'message' => t('No URL provided'),
     ));
   } else {
     print json_encode(array(
-      'status' => true,
+      'status' => TRUE,
       'message' => theme('argument_resource_preview', $node),
       'success' => $node,
     ));
@@ -572,13 +589,13 @@ function argument_safe_string($string)
  * @param bool $image
  * @return bool|stdClass
  */
-function argument_fetch_url($url, $image = false)
+function argument_fetch_url($url, $image = FALSE)
 {
   module_load_include('php', 'issue', 'includes/simple_html_dom');
   $html = file_get_html($url);
 
   if (empty($html)) {
-    return false;
+    return FALSE;
   }
 
   global $user;
@@ -607,11 +624,11 @@ function argument_fetch_url($url, $image = false)
   $url_p = parse_url($url);
   $node->field_source[0]['value'] = $url_p['host'];
 
-  if (false !== strpos($node->field_source[0]['value'], 'youtube.com')) { # YouTube Video
+  if (FALSE !== strpos($node->field_source[0]['value'], 'youtube.com')) { # YouTube Video
     $node->field_rtype[0]['value'] = 'youtube';
 
     $params = explode('&', $url_p['query']);
-    $youtube_id = false;
+    $youtube_id = FALSE;
     foreach ($params as $param) {
       $param = explode('=', $param, 2);
       if ($param[0] == 'v') {
@@ -619,8 +636,8 @@ function argument_fetch_url($url, $image = false)
         break;
       }
     }
-    if ($youtube_id === false || strlen($youtube_id) != 11) {
-      return false;
+    if ($youtube_id === FALSE || strlen($youtube_id) != 11) {
+      return FALSE;
     }
     // title, body, teaser
     $title = $html->find('#eow-title', 0);
@@ -633,7 +650,7 @@ function argument_fetch_url($url, $image = false)
 
     // preview specific fields
     $node->images = array($node->field_image_path[0]['value']);
-    $node->noimage = false;
+    $node->noimage = FALSE;
 
   } else { # Regular URL
     $node->field_rtype[0]['value'] = 'url';
@@ -655,9 +672,9 @@ function argument_fetch_url($url, $image = false)
     }
 //    var_dump($images); die();
     $node->images = argument_create_resource_validate_images($images);
-    $node->noimage = empty($node->images) ? true : false;
+    $node->noimage = empty($node->images) ? TRUE : FALSE;
 
-    if ($image !== false) {
+    if ($image !== FALSE) {
       # save image to disk
       // old code
 //      $result = drupal_http_request($image, array(), 'POST', '', 3);
@@ -744,12 +761,12 @@ function argument_create_resource_image_extension($image)
 function arguments_create_resource($nid, $url, $image)
 {
   if (empty($nid) || empty($url)) {
-    return false;
+    return FALSE;
   }
 //  $url_p = parse_url($url);
   $node = argument_fetch_url($url, $image);
-  if ($node === false) {
-    return false;
+  if ($node === FALSE) {
+    return FALSE;
   }
   unset($node->images);
   unset($node->noimage);
