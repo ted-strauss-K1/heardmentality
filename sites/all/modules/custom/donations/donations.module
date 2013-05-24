@@ -1,18 +1,9 @@
 <?php
 
 /**
- * Donations init
+ * Admin
  */
-function donations_init()
-{
-  //
-//  $s = drupal_install_schema('donations');
-}
-
-/**
- * Define permissions
- */
-define('DONATIONS_ADMIN', 'Administer Donations');
+require_once "donations.admin.inc";
 
 /**
  * Define permissions
@@ -20,27 +11,36 @@ define('DONATIONS_ADMIN', 'Administer Donations');
 define('DONATIONS_MAKE', 'Make Donations');
 
 /**
+ * Define statuses
+ */
+define('DONATION_PENDING', 0);
+define('DONATION_SUCCESS', 1);
+define('DONATION_FAILURE', 2);
+define('DONATION_CANCEL', 3);
+
+/**
  * Implementation of hook_perm()
  */
 function donations_perm()
 {
-  return array(DONATIONS_ADMIN, DONATIONS_MAKE);
+  return array(DONATIONS_MAKE) + donations_admin_perm();
+}
+
+/**
+ * @return array
+ */
+function donations_api() {
+  return module_invoke_all('donations');
 }
 
 /**
  * Implementation of hook_menu()
+ *
+ * @return array
  */
 function donations_menu()
 {
   $menu = array();
-
-  $menu['admin/settings/donations'] = array(
-    'title' => t('Donations'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('donations_admin_form'),
-    'access arguments' => array(DONATIONS_ADMIN),
-    'type' => MENU_NORMAL_ITEM,
-  );
 
   $menu['donate'] = array(
     'title' => t('Donate'),
@@ -49,78 +49,22 @@ function donations_menu()
     'access arguments' => array(DONATIONS_MAKE),
     'type' => MENU_CALLBACK,
   );
-  $menu['donate/success'] = array(
+  $menu['donate/success/%'] = array(
     'title' => t('Donate'),
-    'page callback' => 'donations_donate_success',
+    'page callback' => 'donations_success',
+    'page arguments' => array(2),
     'access arguments' => array(DONATIONS_MAKE),
     'type' => MENU_CALLBACK,
   );
-  $menu['donate/cancel'] = array(
+  $menu['donate/cancel/%'] = array(
     'title' => t('Donate'),
-    'page callback' => 'donations_donate_cancel',
+    'page callback' => 'donations_cancel',
+    'page arguments' => array(2),
     'access arguments' => array(DONATIONS_MAKE),
     'type' => MENU_CALLBACK,
   );
 
-  return $menu;
-}
-
-/**
- * Donation Admin form
- */
-function donations_admin_form()
-{
-  $form = array();
-
-  $form['prefix'] = array(
-    "#type" => "textarea",
-    "#title" => t("Prefix text"),
-    "#value" => variable_get('donations_prefix', ''),
-  );
-
-  $values = variable_get('donations_values', array());
-  $tmp = array();
-  foreach ($values as $item => $string) {
-    $tmp[] = $item . '|' . $string;
-  }
-  $form['values'] = array(
-    "#type" => "textarea",
-    "#title" => t("Values"),
-    "#value" => implode("\n", $tmp),
-    '#description' => t('On value per row in format "50|50$"')
-  );
-
-  $form['suffix'] = array(
-    "#type" => "textarea",
-    "#title" => t("Suffix text"),
-    "#value" => variable_get('donations_suffix', ''),
-  );
-
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
-
-  return $form;
-}
-
-/**
- * Donation Admin form - Submission
- */
-function donations_admin_form_submit($form, $form_state)
-{
-  $post = $form_state["clicked_button"]["#post"];
-  $values = explode("\n", $post['values']);
-  $list = array();
-  foreach ($values as $item) {
-    if (!empty($item)) {
-      $item = explode("|", $item, 2);
-      $list[$item[0]] = empty($item[1]) ? $item[0] : $item[1];
-    }
-  }
-  variable_set('donations_values', $list);
-  variable_set('donations_prefix', $post['prefix']);
-  variable_set('donations_suffix', $post['suffix']);
+  return $menu + donations_admin_menu();
 }
 
 /**
@@ -130,7 +74,8 @@ function donations_donate_form()
 {
   $form = array();
 
-  $form['#action'] = url('donate', array('absolute' => true));
+  $form['#action'] = url('donate', array('absolute' => TRUE));
+
   $form['prefix'] = array(
     "#type" => "markup",
     "#value" => variable_get('donations_prefix', ''),
@@ -158,6 +103,15 @@ function donations_donate_form()
     "#value" => '',
   );
 
+
+  $payment_methods = donations_api();
+  $form['api'] = array(
+    "#type" => "radios",
+    "#title" => t("Payment method"),
+    '#default_value' => @key($payment_methods),
+    '#options' => $payment_methods,
+  );
+
   $form['suffix'] = array(
     "#type" => "markup",
     "#value" => variable_get('donations_suffix', ''),
@@ -180,6 +134,9 @@ function donations_donate_form_validate($form, $form_state)
   if ($post['values'] == 'other' && !is_numeric($post['other'])) {
     form_set_error('other', t('Value should be numeric'));
   }
+  if (empty($post['api'])) {
+    form_set_error('api', t('Select a payment method'));
+  }
 }
 
 /**
@@ -188,60 +145,60 @@ function donations_donate_form_validate($form, $form_state)
 function donations_donate_form_submit($form, $form_state)
 {
   $post = $form_state["clicked_button"]["#post"];
-  $amt = $post['values'] == 'other' ? $post['other'] : $post['values'];
+  $amount = $post['values'] == 'other' ? $post['other'] : $post['values'];
+  $payment_method = $post['api'];
 
-  $requestParams = array(
-    'RETURNURL' => url('donate/success', array('absolute' => true)),
-    'CANCELURL' => url('donate/cancel', array('absolute' => true)),
+  donations_make($payment_method, $amount);
+}
+
+/**
+ * @param $payment_method
+ * @param $amount
+ */
+function donations_make($payment_method, $amount) {
+  # hardcode
+  $currency = "USD";
+  $comment = "";
+
+  global $user;
+  db_query("
+    INSERT INTO {donations}
+    SET
+      uid = '%d',
+      amount = '%d',
+      currency = '%s',
+      payment_method = '%s',
+      token = '%s',
+      transaction_id = '%s',
+      comment = '%d',
+      status = '%d'",
+      $user->uid, $amount, $currency, $payment_method, '', '', $comment, DONATION_PENDING
   );
+  $op_id = db_last_insert_id('donations', 'id');
 
-  $currency = 'USD';
-
-  $orderParams = array(
-    'PAYMENTREQUEST_0_AMT' => $amt,
-    'PAYMENTREQUEST_0_SHIPPINGAMT' => '0',
-    'PAYMENTREQUEST_0_CURRENCYCODE' => $currency,
-    'PAYMENTREQUEST_0_ITEMAMT' => $amt
-  );
-
-  $item = array(
-    'L_PAYMENTREQUEST_0_NAME0' => t('Donation'),
-    'L_PAYMENTREQUEST_0_DESC0' => t('Donation to ') . variable_get('site_name', 'Heard Mentality'),
-    'L_PAYMENTREQUEST_0_AMT0' => $amt,
-    'L_PAYMENTREQUEST_0_QTY0' => '1'
-  );
-
-  $params = $requestParams + $orderParams + $item;
-  $output = paypal_api_request($params);
-  if ($output === false) {
-    form_set_error('request failed', t('Request to Paypal failed'));
-  } else {
-    global $user;
-    db_query("
-      INSERT INTO {donations}
-      SET
-        uid = '%d',
-        amount = '%d',
-        currency = '%s',
-        comment = '%d',
-        status = '%d',
-        token = '%s',
-        transaction_id = '%s'",
-      $user->uid, $amt, $currency, '', 0, $params['token'], ''
-    );
-    $gateway = variable_get('paypal_api_live', false) ?
-      'https://www.paypal.com/webscr' : 'https://www.sandbox.paypal.com/webscr';
-    drupal_goto($gateway, 'cmd=_express-checkout&token=' . urlencode($params['token']));
+  $function = $payment_method . '_donation_make';
+  if (function_exists($function) && $op_id) {
+    $function($op_id);
   }
+  drupal_goto();
+}
+
+/**
+ * @param $op_id
+ * @return bool|null|object|stdClass
+ */
+function donations_record($op_id) {
+  return db_fetch_object(db_query("SELECT * FROM {donations} WHERE id = '%d'", $op_id));
 }
 
 /**
  * Cancel the donation
  */
-function donations_donate_cancel()
+function donations_cancel($op_id)
 {
-  if (isset($_GET['token']) && !empty($_GET['token'])) {
-    db_query("DELETE FROM {donations} WHERE token = '%s'", $_GET['token']);
+  if ($record = donations_record($op_id)) {
+    module_invoke_all('donations_cancel', $record);
+    db_query("UPDATE {donations} SET status = '%d' WHERE id = '%d'", DONATION_CANCEL, $record->id);
   }
   drupal_goto();
 }
@@ -249,26 +206,12 @@ function donations_donate_cancel()
 /**
  * Cancel the donation
  */
-function donations_donate_success()
+function donations_success($op_id)
 {
-  if (isset($_GET['token']) && !empty($_GET['token'])) {
-    $payment = db_fetch_object(db_query("SELECT * FROM {donations} WHERE token = '%s'", $_GET['token']));
-    $paypal = paypal_api();
-    $requestParams = array(
-      'TOKEN' => $_GET['token'],
-      'PAYMENTACTION' => 'Sale',
-      'PAYERID' => $_GET['PayerID'],
-      'PAYMENTREQUEST_0_AMT' => $payment->amount,
-      'PAYMENTREQUEST_0_CURRENCYCODE' => $payment->currency,
-    );
-
-    $response = $paypal->request('DoExpressCheckoutPayment', $requestParams);
-    if (is_array($response) && $response['ACK'] == 'Success') {
-      db_query("UPDATE {donations} SET status = '%d', transaction_id = '%s' WHERE token = '%s'", 1, $response['PAYMENTINFO_0_TRANSACTIONID'], $_GET['token']);
-      drupal_set_message(t('Thank you for you donation!'));
-    } else {
-      db_query("UPDATE {donations} SET status = '%d' WHERE token = '%s'", 2, $_GET['token']);
-    }
+  if ($record = donations_record($op_id)) {
+    $record->status = DONATION_FAILURE;
+    module_invoke_all('donations_success', $record);
+    db_query("UPDATE {donations} SET status = '%d' WHERE id = '%d'", $record->status, $record->id);
   }
   drupal_goto();
 }

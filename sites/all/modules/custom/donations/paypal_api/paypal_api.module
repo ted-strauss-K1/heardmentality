@@ -1,86 +1,85 @@
 <?php
 
 /**
- * Include required class
+ * include admin file
  */
-require('paypal_api.class');
+include_once "paypal_api.admin.inc";
 
 /**
- * Define permissions
+ * include required class
  */
-define('PAYPAL_ADMIN', 'Administer Paypal API Credentials');
+require_once "paypal_api.class";
 
 /**
- * Implementation of hook_perm()
+ * @return array
  */
-function paypal_api_perm()
-{
-  return array(PAYPAL_ADMIN);
+function paypal_api_donations() {
+  return array('paypal_api' => t('Paypal'));
+}
+
+
+function paypal_api_donation_make($op_id) {
+  if ($record = donations_record($op_id)) {
+    $requestParams = array(
+      'RETURNURL' => url('donate/success/'.$record->id, array('absolute' => TRUE)),
+      'CANCELURL' => url('donate/cancel'.$record->id, array('absolute' => TRUE)),
+    );
+    $orderParams = array(
+      'PAYMENTREQUEST_0_AMT' => $record->amount,
+      'PAYMENTREQUEST_0_SHIPPINGAMT' => '0',
+      'PAYMENTREQUEST_0_CURRENCYCODE' => $record->currency,
+      'PAYMENTREQUEST_0_ITEMAMT' => $record->amount,
+    );
+    $item = array(
+      'L_PAYMENTREQUEST_0_NAME0' => t('Donation'),
+      'L_PAYMENTREQUEST_0_DESC0' => t('Donation to ') . variable_get('site_name', 'Heard Mentality'),
+      'L_PAYMENTREQUEST_0_AMT0' => $record->amount,
+      'L_PAYMENTREQUEST_0_QTY0' => '1'
+    );
+    $params = $requestParams + $orderParams + $item;
+    $output = paypal_api_request($params);
+    if ($output === FALSE) {
+      form_set_error('request failed', t('Request to Paypal failed'));
+    } else {
+      $gateway = variable_get('paypal_api_live', FALSE) ?
+        'https://www.paypal.com/webscr' : 'https://www.sandbox.paypal.com/webscr';
+      drupal_goto($gateway, 'cmd=_express-checkout&token=' . urlencode($params['token']));
+    }
+  }
 }
 
 /**
- * Implementation of hook_menu()
+ * @param $record
  */
-function paypal_api_menu()
-{
-  $menu = array();
-
-  $menu['admin/settings/paypal_api'] = array(
-    'title' => t('Paypal API'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('paypal_api_form'),
-    'access arguments' => array(PAYPAL_ADMIN),
-    'type' => MENU_NORMAL_ITEM,
-  );
-
-  return $menu;
+function paypal_api_donations_cancel($record) {
+  if (isset($_GET['token']) && !empty($_GET['token'])) {
+    db_query("UPDATE {donations} SET token = '%s' WHERE id = '%d'", $_GET['token'], $record->id);
+  }
 }
 
 /**
- * Admin form for Paypal API Credentials
+ * @param $record
  */
-function paypal_api_form()
-{
-  $form = array();
+function paypal_api_donations_success(&$record) {
+  if (isset($_GET['token']) && !empty($_GET['token'])) {
+    $payment = db_fetch_object(db_query("SELECT * FROM {donations} WHERE token = '%s'", $_GET['token']));
+    $paypal = paypal_api();
+    $requestParams = array(
+      'TOKEN' => $_GET['token'],
+      'PAYMENTACTION' => 'Sale',
+      'PAYERID' => $_GET['PayerID'],
+      'PAYMENTREQUEST_0_AMT' => $payment->amount,
+      'PAYMENTREQUEST_0_CURRENCYCODE' => $payment->currency,
+    );
 
-  $form['user'] = array(
-    "#type" => "textfield",
-    "#title" => t("PayPal API user name"),
-    "#value" => variable_get('paypal_api_user', ''),
-  );
-  $form['pwd'] = array(
-    "#type" => "textfield",
-    "#title" => t("PayPal API password"),
-    "#value" => variable_get('paypal_api_pwd', ''),
-  );
-  $form['signature'] = array(
-    "#type" => "textfield",
-    "#title" => t("PayPal API signature string"),
-    "#value" => variable_get('paypal_api_signature', ''),
-  );
-  $form['live'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Live mode'),
-    '#value' => variable_get('paypal_api_live', false),
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
-  return $form;
+    $response = $paypal->request('DoExpressCheckoutPayment', $requestParams);
+    if (is_array($response) && $response['ACK'] == 'Success') {
+      db_query("UPDATE {donations} SET transaction_id = '%s' WHERE id = '%d'", $response['PAYMENTINFO_0_TRANSACTIONID'], $record->id);
+      $record->status = DONATION_SUCCESS;
+    }
+  }
 }
 
-/**
- * Admin form for Paypal API Credentials - Submission
- */
-function paypal_api_form_submit($form, $form_state)
-{
-  $post = $form_state["clicked_button"]["#post"];
-  variable_set('paypal_api_user', $post['user']);
-  variable_set('paypal_api_pwd', $post['pwd']);
-  variable_set('paypal_api_signature', $post['signature']);
-  variable_set('paypal_api_live', (bool)$post['live']);
-}
 
 /**
  * Paypal API class constructor
@@ -92,7 +91,7 @@ function paypal_api()
     'PWD' => variable_get('paypal_api_pwd', ''),
     'SIGNATURE' => variable_get('paypal_api_signature', ''),
   );
-  $live = variable_get('paypal_api_live', false);
+  $live = variable_get('paypal_api_live', FALSE);
   return new Paypal($credentials, $live);
 }
 
@@ -116,10 +115,10 @@ function paypal_api_request(&$params)
 {
   $requestParams = array();
   foreach (array(
-             'AMT', 'CURRENCYCODE', 'RETURNURL', 'CANCELURL',
-             'PAYMENTREQUEST_0_AMT', 'PAYMENTREQUEST_0_SHIPPINGAMT', 'PAYMENTREQUEST_0_CURRENCYCODE', 'PAYMENTREQUEST_0_ITEMAMT',
-             'L_PAYMENTREQUEST_0_NAME0', 'L_PAYMENTREQUEST_0_DESC0', 'L_PAYMENTREQUEST_0_AMT0', 'L_PAYMENTREQUEST_0_QTY0')
-           as $key
+    'AMT', 'CURRENCYCODE', 'RETURNURL', 'CANCELURL',
+    'PAYMENTREQUEST_0_AMT', 'PAYMENTREQUEST_0_SHIPPINGAMT', 'PAYMENTREQUEST_0_CURRENCYCODE', 'PAYMENTREQUEST_0_ITEMAMT',
+    'L_PAYMENTREQUEST_0_NAME0', 'L_PAYMENTREQUEST_0_DESC0', 'L_PAYMENTREQUEST_0_AMT0', 'L_PAYMENTREQUEST_0_QTY0')
+    as $key
   ) {
     if (isset($params[$key])) {
       $requestParams[$key] = $params[$key];
@@ -129,9 +128,8 @@ function paypal_api_request(&$params)
   $response = $paypal_api->request('SetExpressCheckout', $requestParams);
   if (is_array($response) && $response['ACK'] == 'Success') {
     $params['token'] = $response['TOKEN'];
-    return true;
+    return TRUE;
   } else {
-    return false;
+    return FALSE;
   }
-
 }
