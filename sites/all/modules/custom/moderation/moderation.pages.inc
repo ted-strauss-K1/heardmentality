@@ -894,13 +894,14 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
   }
 
   if (module_exists('poll_meta')) {
+    global $user;
     $form['meta'] = array(
       '#type' => 'fieldset',
       '#title' => t('Metadata'),
       '#collapsible' => FALSE,
       '#collapsed' => FALSE,
     );
-    $meta = poll_meta_values_get($nid);
+    $meta = poll_meta_values_get($nid, $user->uid);
     if ($meta[$choice['chorder']]) {
       if (!empty($meta[$choice['chorder']])) {
         foreach ($meta[$choice['chorder']] as $cid => $value) {

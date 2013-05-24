@@ -128,18 +128,18 @@ function extract_exec()
         (SELECT value
           FROM profile_values pv INNER JOIN profile_fields pf ON pf.fid = pv.fid
           WHERE pf.name = 'profile_yob' AND pv.uid = pvh.uid) age,
-        (SELECT value
-          FROM poll_charact_values pcv
-          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 1) left_right,
-        (SELECT value
-          FROM poll_charact_values pcv
-          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 2) lib_auth,
-        (SELECT value
-          FROM poll_charact_values pcv
-          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 3) radic_cons,
-        (SELECT value
-          FROM poll_charact_values pcv
-          WHERE pcv.nid = pvh.nid AND pcv.chorder = pvh.chorder AND pcv.cid = 4) dove_hawk
+        (SELECT AVG(value)
+          FROM poll_meta_values pmv
+          WHERE pmv.nid = pvh.nid AND pmv.chorder = pvh.chorder AND pmv.cid = 1) left_right,
+        (SELECT AVG(value)
+          FROM poll_meta_values pmv
+          WHERE pmv.nid = pvh.nid AND pmv.chorder = pvh.chorder AND pmv.cid = 2) lib_auth,
+        (SELECT AVG(value)
+          FROM poll_meta_values pmv
+          WHERE pmv.nid = pvh.nid AND pmv.chorder = pvh.chorder AND pmv.cid = 3) radic_cons,
+        (SELECT AVG(value)
+          FROM poll_meta_values pmv
+          WHERE pmv.nid = pvh.nid AND pmv.chorder = pvh.chorder AND pmv.cid = 4) dove_hawk
       FROM poll_votes_history pvh
       INNER JOIN node n ON n.nid = pvh.nid
       INNER JOIN node_revisions nr ON n.nid = nr.nid AND n.vid = nr.vid
@@ -151,6 +151,11 @@ function extract_exec()
 
     $result = db_query($query);
     while ($row = db_fetch_array($result)) {
+      foreach (array('left_right', 'lib_auth', 'radic_cons', 'dove_hawk') as $name) {
+        if (!$row[$name]) {
+          $row[$name] = POLL_META_AVG;
+        }
+      }
 
       // age rewrite
       if (!is_numeric($row['age'])) {

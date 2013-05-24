@@ -73,27 +73,27 @@ function poll_meta_value_set($nid, $chorder, $uid, $cid, $value)
  * @param bool $reset
  * @return mixed
  */
-function poll_meta_values_get($nid, $reset = FALSE)
+function poll_meta_values_get($nid, $uid, $reset = FALSE)
 {
   static $cache = NULL;
 
-  if (is_null($cache[$nid]) || $reset) {
-    $cache[$nid] = array();
+  if (is_null($cache[$nid][$uid]) || $reset) {
+    $cache[$nid][$uid] = array();
 
     $result = db_query("
-      SELECT pc.chorder, pm.cid, pm.chtext, IFNULL(pmv.uid, '0') uid, IFNULL(pmv.value, '%d') val
+      SELECT pc.chorder, pm.cid, pm.chtext, IFNULL(pmv.value, '%d') val
       FROM {poll_choices} pc
       JOIN {poll_meta} pm
-      LEFT JOIN {poll_meta_values} pmv ON pmv.cid = pm.cid AND pmv.nid = pc.nid AND pmv.chorder = pc.chorder
+      LEFT JOIN {poll_meta_values} pmv ON pmv.cid = pm.cid AND pmv.nid = pc.nid AND pmv.chorder = pc.chorder AND pmv.uid = '%d'
       WHERE pc.nid = '%d'
-      ORDER BY pc.chorder, pm.cid", POLL_META_AVG, $nid
+      ORDER BY pc.chorder, pm.cid", POLL_META_AVG, $uid, $nid
     );
     while ($row = db_fetch_array($result)) {
-      $cache[$nid][$row['chorder']][$row['cid']] = $row;
+      $cache[$nid][$uid][$row['chorder']][$row['cid']] = $row;
     }
   }
 
-  return $cache[$nid];
+  return $cache[$nid][$uid];
 }
 
 /**
@@ -111,7 +111,7 @@ function poll_meta_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       break;
       case 'load' :
         global $user;
-        $meta = poll_meta_values_get($node->nid);
+        $meta = poll_meta_values_get($node->nid, $user->uid);
         if ($node->choice) {
           foreach ($node->choice as &$choice) {
             $choice['meta'] = array();
@@ -119,7 +119,7 @@ function poll_meta_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
               foreach ($meta[$choice['chorder']] as $cid => $value) {
                 $choice['meta'][$cid] = array(
                   'chtext' => $value['chtext'],
-                  'value' => $value['uid'] == $user->uid ? $value['val'] : POLL_META_AVG,
+                  'value' => $value['val'],
                 );
               }
             }
