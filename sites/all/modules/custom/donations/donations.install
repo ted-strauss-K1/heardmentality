@@ -5,8 +5,15 @@
  */
 function donations_install()
 {
-  // Create database tables.
   drupal_install_schema('donations');
+}
+
+/**
+ * Implementation of hook_install()
+ */
+function donations_uninstall()
+{
+  drupal_uninstall_schema('donations');
 }
 
 /**
@@ -15,6 +22,7 @@ function donations_install()
 function donations_schema()
 {
   $schema = array();
+
   $schema['donations'] = array(
     'description' => t('Stores the donations.'),
     'fields' => array(
@@ -35,16 +43,36 @@ function donations_schema()
         'default' => 0,
       ),
       'currency' => array(
-        'description' => t('The paypal token.'),
+        'description' => t('Currency code.'),
         'type' => 'varchar',
         'not null' => TRUE,
         'length' => 12,
         'default' => 'USD',
       ),
+      'payment_method' => array(
+        'description' => t('Currency code.'),
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 32,
+        'default' => '',
+      ),
+      'token' => array(
+        'description' => t('Transaction token.'),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => false,
+      ),
+      'transaction_id' => array(
+        'description' => t('Transaction id.'),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => false,
+      ),
       'comment' => array(
         'description' => 'The comment for the donation.',
         'type' => 'text',
-        'default' => ''),
+        'default' => ''
+      ),
       'status' => array(
         'description' => t("The donation status (0 - pending, 1 - success, 2 - error)"),
         'type' => 'int',
@@ -52,25 +80,12 @@ function donations_schema()
         'not null' => TRUE,
         'default' => 0,
       ),
-      'token' => array(
-        'description' => t('The paypal token.'),
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-      ),
-      'transaction_id' => array(
-        'description' => t('The paypal txn id.'),
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-      ),
     ),
     'unique keys' => array(
       'token' => array('token')
     ),
     'primary key' => array('id'),
   );
-
 
   return $schema;
 }
