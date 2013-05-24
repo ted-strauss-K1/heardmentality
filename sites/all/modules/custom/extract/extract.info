@@ -4,6 +4,6 @@ package = Custom Modules
 version = "6.x-1.0"
 core = 6.x
 dependencies[] = "profile"
-dependencies[] = "poll_charact"
+dependencies[] = "poll_meta"
 dependencies[] = "poll_ext"
 dependencies[] = "taxonomy"

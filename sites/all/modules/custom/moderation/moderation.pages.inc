@@ -811,8 +811,10 @@ function moderation_ahah($type, $page = 0)
 
       if (is_array($post_choices)) {
         foreach ($post_choices as $chorder => $vals) {
-          foreach ($vals['charact'] as $_key => $_val) {
-            $form['choices'][$chorder]['charact'][$_key]['#value'] = $_val;
+          if ($vals['meta']) {
+            foreach ($vals['meta'] as $_key => $_val) {
+              $form['choices'][$chorder]['meta'][$_key]['#value'] = $_val;
+            }
           }
         }
       }
@@ -882,35 +884,51 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
     '#parents' => array('choices', $delta, 'chorder'),
   );
 
-  if (module_exists('poll_charact')) {
-    $form['charact'] = array(
+  if (module_exists('poll_meta')) {
+    $form['meta'] = array(
       '#type' => 'fieldset',
       '#title' => t('Metadata'),
       '#collapsible' => FALSE,
       '#collapsed' => FALSE,
     );
-    $charact = poll_charact_values_get($nid, $choice['chorder']);
-    if ($charact) {
-      foreach ($charact as $cid => $char) {
-        $form['charact']['char' . $cid] = array(
-          '#type' => 'select',
-          '#title' => t($char['name']),
-          '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
-          '#value' => $char['value'],
-          '#size' => 5,
-          '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
-        );
+  }
+
+  if (module_exists('poll_meta')) {
+    global $user;
+    $form['meta'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Metadata'),
+      '#collapsible' => FALSE,
+      '#collapsed' => FALSE,
+    );
+    $meta = poll_meta_values_get($nid, $user->uid);
+    if ($meta[$choice['chorder']]) {
+      if (!empty($meta[$choice['chorder']])) {
+        foreach ($meta[$choice['chorder']] as $cid => $value) {
+          $form['meta']['char'.$cid] = array(
+            '#type' => 'select',
+            '#title' => t($value['chtext']),
+            '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
+            '#value' => $value['val'],
+            '#size' => 5,
+            '#parents' => array('choices', $delta, 'meta', 'char'.$cid),
+            '#prefix' => '<div class="poll-meta poll-meta-'.$cid.'">',
+            '#suffix' => '</div>',
+          );
+        }
       }
     } else {
-      $charact = poll_charact_get();
-      foreach ($charact as $cid => $char) {
-        $form['charact']['char' . $cid] = array(
+      $meta = poll_meta_get();
+      foreach ($meta as $cid => $text) {
+        $form['meta']['char'.$cid] = array(
           '#type' => 'select',
-          '#title' => t($char),
+          '#title' => t($text),
           '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
-          '#value' => POLL_CHARACT,
+          '#value' => POLL_META_AVG,
           '#size' => 5,
-          '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
+          '#parents' => array('choices', $delta, 'meta', 'char'.$cid),
+          '#prefix' => '<div class="poll-meta poll-meta-'.$cid.'">',
+          '#suffix' => '</div>',
         );
       }
     }
@@ -926,6 +944,7 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
  */
 function moderation_issue_view_form_save(&$form, &$form_state)
 {
+  global $user;
   $values = $form_state["clicked_button"]['#post'];
   $nid = $values['content_id'];
   $node = node_load($nid);
@@ -968,15 +987,12 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     $node->allowsuggestions = $values['allowsuggestions'];
   }
 
-  # characteristics
-  if (module_exists('poll_charact'))
-    $char = poll_charact_get();
-  $char_values = poll_charact_values($node->nid);
-  foreach ($values['choices'] as $i => $choice) {
-    foreach ($char as $cid => $name) {
-//      foreach ($char_values[$choice['chorder']] as $cid => $data) {
-      if ($char_values[$choice['chorder']][$cid]['value'] != $choice['charact']['char' . $cid]) {
-        poll_charact_value_set($node->nid, $choice['chorder'], $cid, $choice['charact']['char' . $cid]);
+  # meta
+  if (module_exists('poll_meta')) {
+    $meta = poll_meta_get();
+    foreach ($values['choices'] as $i => $choice) {
+      foreach ($meta as $cid => $text) {
+        poll_meta_value_set($nid, $choice['chorder'], $user->uid, $cid, $choice['meta']['char' . $cid]);
       }
     }
   }
@@ -1053,8 +1069,8 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   if (!empty($changed)) {
     global $language;
 
-    // todo charact values to node
-    if ($changed['charact']) {
+    // todo meta values to node
+    if ($changed['meta']) {
       //
     }
 
