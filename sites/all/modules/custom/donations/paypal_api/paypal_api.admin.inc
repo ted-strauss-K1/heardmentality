@@ -20,12 +20,13 @@ function paypal_api_menu()
 {
   $menu = array();
 
-  $menu['admin/settings/paypal_api'] = array(
+  $menu['admin/settings/donations/paypal_api'] = array(
     'title' => t('Paypal API'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('paypal_api_form'),
     'access arguments' => array(PAYPAL_ADMIN),
-    'type' => MENU_NORMAL_ITEM,
+    'type'              => MENU_LOCAL_TASK,
+    'weight'            => -9,
   );
 
   return $menu;
