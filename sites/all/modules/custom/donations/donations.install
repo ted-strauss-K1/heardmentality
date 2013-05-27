@@ -81,9 +81,9 @@ function donations_schema()
         'default' => 0,
       ),
     ),
-    'unique keys' => array(
-      'token' => array('token')
-    ),
+//    'unique keys' => array(
+//      'token' => array('token')
+//    ),
     'primary key' => array('id'),
   );
 

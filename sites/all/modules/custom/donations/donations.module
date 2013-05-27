@@ -103,7 +103,6 @@ function donations_donate_form()
     "#value" => '',
   );
 
-
   $payment_methods = donations_api();
   $form['api'] = array(
     "#type" => "radios",
@@ -192,26 +191,29 @@ function donations_record($op_id) {
 }
 
 /**
- * Cancel the donation
+ * Cancel callback for the donation
  */
-function donations_cancel($op_id)
+function donations_cancel($payment_method)
 {
-  if ($record = donations_record($op_id)) {
-    module_invoke_all('donations_cancel', $record);
-    db_query("UPDATE {donations} SET status = '%d' WHERE id = '%d'", DONATION_CANCEL, $record->id);
+  $function = $payment_method . '_donations_cancel';
+  if (function_exists($function)) {
+    if ($record = $function()) {
+      db_query("UPDATE {donations} SET status = '%d' WHERE id = '%d'", DONATION_CANCEL, $record->id);
+    }
   }
   drupal_goto();
 }
 
 /**
- * Cancel the donation
+ * Success callback for the donation
  */
-function donations_success($op_id)
+function donations_success($payment_method)
 {
-  if ($record = donations_record($op_id)) {
-    $record->status = DONATION_FAILURE;
-    module_invoke_all('donations_success', $record);
-    db_query("UPDATE {donations} SET status = '%d' WHERE id = '%d'", $record->status, $record->id);
+  $function = $payment_method . '_donations_success';
+  if (function_exists($function)) {
+    if ($record = $function()) {
+      db_query("UPDATE {donations} SET status = '%d' WHERE id = '%d'", DONATION_SUCCESS, $record->id);
+    }
   }
   drupal_goto();
 }

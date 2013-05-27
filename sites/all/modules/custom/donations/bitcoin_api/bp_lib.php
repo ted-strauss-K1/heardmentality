@@ -2,6 +2,35 @@
 
 require_once 'bp_options.php';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function bpLog($contents)
 {
 	$file = dirname(__FILE__).'/bplog.txt';
@@ -15,47 +44,7 @@ function bpLog($contents)
 	file_put_contents($file, $contents."\n", FILE_APPEND);			
 }
 
-function bpCurl($url, $apiKey, $post = false) {
-	global $bpOptions;	
-		
-	$curl = curl_init($url);
-	$length = 0;
-	if ($post)
-	{	
-		curl_setopt($curl, CURLOPT_POST, 1);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
-		$length = strlen($post);
-	}
-	
-	$uname = base64_encode($apiKey);
-	$header = array(
-		'Content-Type: application/json',
-		"Content-Length: $length",
-		"Authorization: Basic $uname",
-		);
 
-	curl_setopt($curl, CURLOPT_PORT, 443);
-	curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-	curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-	curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC ) ;
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1); // verify certificate
-	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); // check existence of CN and verify that it matches hostname
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-	curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		
-	$responseString = curl_exec($curl);
-	
-	if($responseString == false) {
-		$response = array('error' => curl_error($curl));
-	} else {
-		$response = json_decode($responseString, true);
-		if (!$response)
-			$response = array('error' => 'invalid json: '.$responseString);
-	}
-	curl_close($curl);
-	return $response;
-}
 // $orderId: Used to display an orderID to the buyer. In the account summary view, this value is used to 
 // identify a ledger entry if present.
 //
