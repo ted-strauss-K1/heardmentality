@@ -17,12 +17,14 @@ function paypal_api_donations() {
   return array('paypal_api' => t('Paypal'));
 }
 
-
+/**
+ * @param $op_id
+ */
 function paypal_api_donation_make($op_id) {
   if ($record = donations_record($op_id)) {
     $requestParams = array(
-      'RETURNURL' => url('donate/success/'.$record->id, array('absolute' => TRUE)),
-      'CANCELURL' => url('donate/cancel'.$record->id, array('absolute' => TRUE)),
+      'RETURNURL' => url('donate/success/paypal_api/'.$record->id, array('absolute' => TRUE)),
+      'CANCELURL' => url('donate/cancel/paypal_api/'.$record->id, array('absolute' => TRUE)),
     );
     $orderParams = array(
       'PAYMENTREQUEST_0_AMT' => $record->amount,
@@ -51,33 +53,45 @@ function paypal_api_donation_make($op_id) {
 /**
  * @param $record
  */
-function paypal_api_donations_cancel($record) {
-  if (isset($_GET['token']) && !empty($_GET['token'])) {
-    db_query("UPDATE {donations} SET token = '%s' WHERE id = '%d'", $_GET['token'], $record->id);
+function paypal_api_donations_cancel() {
+  $op_id = arg(3);
+  if ($record = donations_record($op_id)) {
+    if (isset($_GET['token']) && !empty($_GET['token'])) {
+      db_query("UPDATE {donations} SET token = '%s' WHERE id = '%d'", $_GET['token'], $record->id);
+    }
+    return $record;
   }
+  return false;
 }
 
 /**
  * @param $record
  */
-function paypal_api_donations_success(&$record) {
-  if (isset($_GET['token']) && !empty($_GET['token'])) {
-    $payment = db_fetch_object(db_query("SELECT * FROM {donations} WHERE token = '%s'", $_GET['token']));
-    $paypal = paypal_api();
-    $requestParams = array(
-      'TOKEN' => $_GET['token'],
-      'PAYMENTACTION' => 'Sale',
-      'PAYERID' => $_GET['PayerID'],
-      'PAYMENTREQUEST_0_AMT' => $payment->amount,
-      'PAYMENTREQUEST_0_CURRENCYCODE' => $payment->currency,
-    );
+function paypal_api_donations_success() {
+  $op_id = arg(3);
+  if ($record = donations_record($op_id)) {
+    if (isset($_GET['token']) && !empty($_GET['token'])) {
+      db_query("UPDATE {donations} SET token = '%s' WHERE id = '%d'", $_GET['token'], $record->id);
+      $paypal = paypal_api();
+      $requestParams = array(
+        'TOKEN' => $_GET['token'],
+        'PAYMENTACTION' => 'Sale',
+        'PAYERID' => $_GET['PayerID'],
+        'PAYMENTREQUEST_0_AMT' => $record->amount,
+        'PAYMENTREQUEST_0_CURRENCYCODE' => $record->currency,
+      );
 
-    $response = $paypal->request('DoExpressCheckoutPayment', $requestParams);
-    if (is_array($response) && $response['ACK'] == 'Success') {
-      db_query("UPDATE {donations} SET transaction_id = '%s' WHERE id = '%d'", $response['PAYMENTINFO_0_TRANSACTIONID'], $record->id);
-      $record->status = DONATION_SUCCESS;
+      $response = $paypal->request('DoExpressCheckoutPayment', $requestParams);
+      if (is_array($response) && $response['ACK'] == 'Success') {
+        db_query("UPDATE {donations} SET transaction_id = '%s' WHERE id = '%d'", $response['PAYMENTINFO_0_TRANSACTIONID'], $record->id);
+      } else {
+        db_query("UPDATE {donations} SET status = '%d' WHERE id = '%d'", DONATION_FAILURE, $record->id);
+        return false;
+      }
     }
+    return $record;
   }
+  return false;
 }
 
 
