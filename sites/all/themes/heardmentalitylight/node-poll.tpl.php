@@ -32,6 +32,7 @@
   <?php if($page) : ?>
   <!-- Part 2 -->
   <div class="part part2">
+<<<<<<< HEAD
     <div id="shareDiv" class="clearfix">
       <span class='st_facebook_hcount' displayText='Facebook'></span>
       <span class='st_twitter_hcount' displayText='Tweet'></span>
@@ -55,6 +56,36 @@
 
 
   <script type="text/javascript">
+=======
+    <div id="shareDiv" class="clearfix"></div>
+  </div><!-- /div.part2 -->
+
+  <?php
+    $nodepath = 'node/'.$nid;
+    $pagePath = url($nodepath, array('absolute' => TRUE)).'/';
+  ?>
+  <script type="text/javascript">
+    var act = new gigya.services.socialize.UserAction();
+    act.setUserMessage("Your comment here...");
+    act.setTitle("<?php print t($title); ?>");
+    act.setDescription("<?php
+      $context = str_replace(array("\r", "\n"), '', $context);
+      print t(htmlentities($context));
+    ?>");
+    act.setLinkBack("<?php print $pagePath; ?>");
+    act.addActionLink("<?php print t($title); ?>","<?php print $pagePath; ?>");
+    var showShareBarUI_params=
+    {
+      containerID: 'shareDiv',
+      shareButtons: 'Facebook,Twitter,google-plusone,Share',
+      userAction: act,
+      layout:'horizontal'
+    }
+  </script>
+
+  <script type="text/javascript">
+    gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
+>>>>>>> 6ba44ffa408b2f4a152913f93b2c7a80d72db4ce
     function showDesc(){
        jQuery('#sp-desc').css('height', 'auto');
        jQuery('#more-desc').hide();

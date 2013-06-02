@@ -885,15 +885,6 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
   );
 
   if (module_exists('poll_meta')) {
-    $form['meta'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Metadata'),
-      '#collapsible' => FALSE,
-      '#collapsed' => FALSE,
-    );
-  }
-
-  if (module_exists('poll_meta')) {
     global $user;
     $form['meta'] = array(
       '#type' => 'fieldset',
@@ -1063,7 +1054,6 @@ function moderation_issue_view_form_save(&$form, &$form_state)
         $node->locations[] = $location;
       }
     }
-
 
   // track changes
   if (!empty($changed)) {

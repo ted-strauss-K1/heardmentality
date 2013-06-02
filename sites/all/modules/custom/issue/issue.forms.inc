@@ -417,17 +417,3 @@ function issue_vote_form_radios_suggested($form_element, &$form_state)
   }
   return $form_element;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
