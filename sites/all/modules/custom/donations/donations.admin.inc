@@ -19,6 +19,11 @@ function donations_admin_menu()
     'access arguments' => array(DONATIONS_ADMIN),
     'type' => MENU_NORMAL_ITEM,
   );
+  $menu['admin/settings/donations/settings'] = array(
+    'title'             => t('Donations'),
+    'type'              => MENU_DEFAULT_LOCAL_TASK,
+    'weight'            => -10,
+  );
 
   return $menu;
 }
