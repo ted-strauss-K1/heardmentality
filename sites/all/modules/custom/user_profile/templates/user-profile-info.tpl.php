@@ -1,7 +1,8 @@
 <?php if (!$denied) : ?>
 <div class="dark-grey-box top clearfix">
   <div class="profile-meta profile_page_wrapper">
-    <label for="profile" class="profile profile_page"><?php print $account->name; ?></label>
+	<i class="icon cat text icon-businesscardalt"></i>
+    <label for="profile" class="white_text with_icon"><?php print $account->name; ?></label>
 
     <div id="own_info">
       <img class="profile-meta" src="<?php print user_profile_image($account) ?>"/>

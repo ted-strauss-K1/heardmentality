@@ -76,7 +76,8 @@ function heardmentalitylight_preprocess_page(&$vars) {
   }
 
   if (arg(0) == 'issue' && arg(1) == 'create') {
-    array_push($vars['template_files'], 'page_11_5');
+    drupal_set_subtitle(t('Add an Issue'));
+	array_push($vars['template_files'], 'page_11_5');
     $vars['content_class'] = 'grey-box';
     $vars['content_nowrap'] = true;
   }

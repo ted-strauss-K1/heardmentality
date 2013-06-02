@@ -13,7 +13,7 @@
   <?php endif; ?>
 
   <?php if ($content) : ?>
-  <div class="white-box clearfix full" id="region-content">
+	<div class="white-box clearfix full" id="region-content">
     <?php print $content; ?>
   </div>
   <?php endif; ?>
