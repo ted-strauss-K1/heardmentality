@@ -1,6 +1,6 @@
 <?php
 
-define('MODERATION_DELETE_COUNT', 3);
+define('MODERATION_DELETE_COUNT', 1);
 
 /**
  * @param $uid
