@@ -126,7 +126,7 @@ function issue_charts_preprocess(&$vars)
   $node->votecount = $count;
 
   # voted or not
-  $voted = $node->vote != -1;
+  $voted = !is_null($node->vote) && ($node->vote != -1);
   if (module_exists('poll_suggest')) {
     $voted = $voted || ($node->vote_suggest != -1);
   }
@@ -137,6 +137,7 @@ function issue_charts_preprocess(&$vars)
 //      $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
 //    }
   }
+
   $vars['charts'] .= theme('issue_charts_inner', $node, $voted);
 }
 
