@@ -147,7 +147,12 @@ function donations_donate_form_submit($form, $form_state)
   $amount = $post['values'] == 'other' ? $post['other'] : $post['values'];
   $payment_method = $post['api'];
 
-  donations_make($payment_method, $amount);
+  try {
+    donations_make($payment_method, $amount);
+  } catch (Exception $e) {
+    $payment_methods = donations_api();
+    form_set_error('api', t('Error has happened when trying to access') . ' ' . $payment_methods[$payment_method]);
+  }
 }
 
 /**
