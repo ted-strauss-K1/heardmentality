@@ -22,6 +22,18 @@ function array_remove_value($needle, &$haystack, $strict = false)
   }
 }
 
+function extract_menu() {
+  $menu = array();
+
+  $menu['extract'] = array(
+    'page callback' => 'extract_exec',
+    'access arguments' => true,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
 /**
  *
  */
