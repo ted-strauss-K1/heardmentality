@@ -27,7 +27,7 @@ function extract_menu() {
 
   $menu['extract'] = array(
     'page callback' => 'extract_exec',
-    'access arguments' => true,
+    'access callback' => true,
     'type' => MENU_CALLBACK,
   );
 
