@@ -1298,7 +1298,7 @@ function apachesolr_index_nodeapi_mass_update($nodes, $table = NULL) {
     }
     if (count($unpublished_ids)) {
       $query = "UPDATE {{$table}} asn SET asn.changed = '%s', asn.status = 0 WHERE asn.entity_id IN " . db_placeholders($unpublished_ids);
-      db_query($query, array_merge(array(APACHESOLR_REQUEST_TIME), $unpublished_ids));
+      @db_query($query, array_merge(array(APACHESOLR_REQUEST_TIME), $unpublished_ids));
     }
     return TRUE;
   }
