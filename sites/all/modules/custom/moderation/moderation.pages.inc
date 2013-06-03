@@ -619,7 +619,10 @@ function moderation_issue_view_form($form_state, $nid)
     '#submit' => array('moderation_issue_view_form_save'),
   );
   global $user;
-  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete', array(), false, $user->uid)) {
+  if (!moderation_history_get($form['content_id']['#value'], $form['content_type']['#value'], array(
+    'type' => 'delete',
+    'uid' => $user->uid
+  ))) {
     $form['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Deletion request'),
@@ -1100,7 +1103,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
             } else {
               // todo - deletion of the choice onlty when viewing the node on original lang
               unset($t['choice'][$chorder]);
-              moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+              moderation_history_set($nid, 'node', 'edit', array('action' => 'choice delete', 'chorder' => $chorder));
             }
           }
         }
@@ -1117,18 +1120,19 @@ function moderation_issue_view_form_save(&$form, &$form_state)
           if (isset($case['chtext'])) {
             $choice['chtext'] = $case['chtext'];
             if ($case['chtext'] == '') {
-              moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
+              moderation_history_set($nid, 'node', 'edit', array('action' => 'choice delete', 'chorder' => $chorder));
             }
           }
         }
     }
-    moderation_history('set', $nid, 'node', 'edit', $changed);
+    moderation_history_set($nid, 'node', 'edit', $changed);
   }
 
   // approved
-  moderation_history('del', $nid, 'node', 'approve');
-  moderation_history('set', $nid, 'node', 'approve');
-
+  moderation_history_del($nid, 'node', array('type' => 'approve'));
+  moderation_history_set($nid, 'node', 'approve');
+  moderation_history_del($nid, 'node', array('!uid' => $user->uid));
+//  exit;
   node_save($node);
 
   // reindex
@@ -1155,8 +1159,8 @@ function moderation_issue_view_form_delete(&$form, &$form_state)
  */
 function moderation_delete_request($form)
 {
-  moderation_history('set', $form['content_id']['#value'], $form['content_type']['#value'], 'delete');
-  $delete_requests = count(moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete'));
+  moderation_history_set($form['content_id']['#value'], $form['content_type']['#value'], 'delete');
+  $delete_requests = count(moderation_history_get($form['content_id']['#value'], $form['content_type']['#value'], array('type' => 'delete')));
 
   if ($delete_requests >= MODERATION_DELETE_COUNT) {
     switch ($form['content_type']['#value']) {

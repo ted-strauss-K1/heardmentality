@@ -228,56 +228,57 @@ function theme_moderators()
   return implode(', ', $items);
 }
 
-/**
- * @param $op
- * @param $content_id
- * @param $content_type
- * @param $change
- * @param array $vars
- * @param bool $count
- * @return array
- */
-function moderation_history($op, $content_id, $content_type, $change, $vars = array(), $count = false, $uid = false)
-{
+
+function moderation_history_set($content_id, $content_type, $change, $vars = array(), $uid = false) {
   global $language;
-  switch ($op) {
-    case 'set' :
-      global $user;
-      db_query("INSERT INTO {moderation_history} SET uid = '%d', content_id = '%d', content_type = '%s', language = '%s', type = '%s', vars = '%s', date_added = '%s'",
-        $user->uid, $content_id, $content_type, $language->language, $change, serialize($vars), date('Y-m-d H:i:s')
-      );
-    break;
-    case 'get' :
-      $sql = "SELECT * FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s' AND language = '%s'";
-      $v = array($content_id, $content_type, $language->language);
-      if ($change !== true) {
-        $sql .= " AND type = '%s'";
-        $v[] = $change;
-      }
-      if (false != $uid) {
-        $sql .= " AND uid = '%s'";
-        $v[] = $uid;
-      }
-      $sql .= " ORDER BY date_added DESC";
-      if ($count !== false) {
-        $sql .= " LIMIT " . $count;
-      }
-      $result = db_query($sql, $v);
-      $history = array();
-      while ($item = db_fetch_array($result)) {
-        $item['vars'] = unserialize($item['vars']);
-        $history[] = $item;
-      }
-      return $history;
-    break;
-    case 'del' :
-      if ($change === true) {
-        db_query("DELETE FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s'", $content_id, $content_type);
-      } else {
-        db_query("DELETE FROM {moderation_history} WHERE content_id = '%d' AND content_type = '%s' AND type = '%s'", $content_id, $content_type, $change);
-      }
-    break;
+  if (false === $uid) {
+    global $user;
+    $uid = $user->uid;
   }
+  db_query("INSERT INTO {moderation_history} SET uid = '%d', status = 1, content_id = '%d', content_type = '%s', language = '%s', type = '%s', vars = '%s', date_added = '%s'", $uid, $content_id, $content_type, $language->language, $change, serialize($vars), date('Y-m-d H:i:s'));
+}
+
+function moderation_history_del($content_id, $content_type, $p = array()) {
+  $query = "UPDATE {moderation_history} SET status = 0 WHERE content_id = '%d' AND content_type = '%s'";
+  $params[] = $content_id;
+  $params[] = $content_type;
+  foreach ($p as $key => $value) {
+    if ('!' != $key[0]) {
+      $query .= " AND ".$key." = '%s'";
+      $params[] = $value;
+    } else {
+      $key = substr($key, 1);
+      $query .= " AND ".$key." <> '%s'";
+      $params[] = $value;
+    }
+  }
+  db_query($query, $params);
+}
+
+function moderation_history_get($content_id, $content_type, $p, $count = false) {
+  global $language;
+  $query = "SELECT * FROM {moderation_history} WHERE status = 1 AND content_id = '%d' AND content_type = '%s' AND language = '%s'";
+  $params = array($content_id, $content_type, $language->language);
+  foreach ($p as $key => $value) {
+    if ('!' != $key[0]) {
+      $query .= " AND ".$key." = '%s'";
+      $params[] = $value;
+    } else {
+      $key = substr($key, 1);
+      $query .= " AND ".$key." <> '%s'";
+    }
+  }
+  $query .= " ORDER BY date_added DESC";
+  if ($count !== false) {
+    $query .= " LIMIT " . $count;
+  }
+  $result = db_query($query, $params);
+  $history = array();
+  while ($item = db_fetch_array($result)) {
+    $item['vars'] = unserialize($item['vars']);
+    $history[] = $item;
+  }
+  return $history;
 }
 
 /**
@@ -287,8 +288,8 @@ function moderation_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 {
   switch ($op) {
     case 'delete' :
-      moderation_history('del', $node->nid, 'node', true);
-      break;
+      moderation_history_del($node->nid, 'node');
+    break;
   }
 }
 
@@ -302,7 +303,7 @@ function moderation_comment(&$a1, $op)
 {
   switch ($op) {
     case 'delete' :
-      moderation_history('del', $a1->cid, 'comment', true);
-      break;
+      moderation_history_del($a1->cid, 'comment');
+    break;
   }
 }

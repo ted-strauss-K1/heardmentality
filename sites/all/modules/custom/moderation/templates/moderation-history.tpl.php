@@ -13,7 +13,7 @@
     default :
       return;
   }
-  $history = moderation_history('get', $content_id, $content_type, true, array(), 10);
+  $history = moderation_history_get($content_id, $content_type, array(), 10);
   ?><?php if ($history) : ?>
   <?php foreach ($history as $item) : ?>
     <div style="border-bottom: 1px #ccc dotted; margin-bottom: 5px; padding: 5px 0;">

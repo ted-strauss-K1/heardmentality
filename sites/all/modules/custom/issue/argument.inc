@@ -396,7 +396,7 @@ function argument_delete($content_type, $content_id)
       break;
   }
   if (module_exists('moderation')) {
-    moderation_history('set', $content_type, $content_id, 'delete');
+    moderation_history_set($content_id, $content_type, 'delete');
   }
   print json_encode(array(
     'status' => TRUE,
