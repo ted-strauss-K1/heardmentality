@@ -38,7 +38,7 @@ function extract_exec()
     $f = fopen($path_abs, 'w+');
 
     if (!$f) {
-      exit($path_abs);
+      exit( "path = " . $path_abs );
       return;
     }
 
