@@ -107,7 +107,7 @@ function donations_donate_form()
   $form['api'] = array(
     "#type" => "radios",
     "#title" => t("Payment method"),
-    '#default_value' => @key($payment_methods),
+    '#default_value' => array_key_exists('paypal_api', $payment_methods) ? 'paypal_api': @key($payment_methods),
     '#options' => $payment_methods,
   );
 
