@@ -1,0 +1,6 @@
+.not-voted .teaser_count_vote {
+  display: none;
+}
+.not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+  margin: 0 0 10px !important;
+}

@@ -1,6 +1,77 @@
 <?php
 
 /**
+ * Voting Functionality
+ */
+require_once "includes/issue.vote.inc";
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
+  if ($node->type == 'poll') {
+    switch ($op) {
+      case 'delete' :
+        foreach ($node->field_arguments as $arg) {
+          node_delete($arg['nid']);
+        }
+        break;
+      case 'load' :
+        # arguments' stats
+        $node->arguments = array();
+        if (!empty($node->field_arguments)) {
+          $tmp = array(
+            TYPE_DEBATE => 0,
+            TYPE_RESOURCE => 0,
+            '#all' => 0,
+          );
+          $result = db_query("SELECT * FROM {content_type_forum} WHERE field_issue_nid = '%d' ORDER BY nid DESC", $node->nid);
+          while ($row = db_fetch_array($result)) {
+            $tmp['#all']++;
+            $tmp[$row['field_argument_type_value']]++;
+          }
+          $node->arguments = $tmp;
+        }
+        break;
+      case 'view' :
+        # js
+        drupal_add_js(array('poll' => array($node->nid => $node->choice)), 'setting');
+
+        # translation
+        $translation = poll_translate_translation($node);
+        $node->description = theme('issue_description',
+          !empty($translation['body'][0]) ?
+            $translation['body'][0] :
+            $node->field_description[0]['value']);
+        break;
+      case 'insert' :
+      case 'update' :
+        db_query("UPDATE {url_alias} SET language = '' WHERE src = '%s'", 'node/' . $node->nid);
+        break;
+    }
+  }
+
+  $node->content_id = $node->nid;
+  $node->content_type = 'node';
+
+  if (function_exists('argument_nodeapi')) {
+    argument_nodeapi($node, $op, $a3, $a4);
+  }
+}
+
+
+
+
+
+
+
+/**
  * Implementation of hook_preprocess_page()
  *
  * @param $vars
@@ -16,8 +87,7 @@ function issue_preprocess_page(&$vars)
     $vars['right'] = theme('issue_guidelines');
   }
 
-  # view
-  // ...
+
 
 
 
@@ -34,6 +104,30 @@ function issue_preprocess_page(&$vars)
   //
 
 }
+
+
+/**
+ * Implementation of hook_preprocess_node()
+ *
+ * @param $vars
+ */
+function issue_preprocess_node(&$vars)
+{
+  $node = & $vars['node'];
+
+  # page title for poll pages
+  if ('poll' == $node->type) {
+    drupal_set_subtitle(t('Issue'));
+
+    # view
+    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.vote.js');
+    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.view.js');
+    drupal_add_css(drupal_get_path('module', 'issue') . '/css/issue.view.css');
+    module_load_include('inc', 'issue', 'includes/issue.view');
+  }
+}
+
+
 
 
 /**
@@ -60,15 +154,19 @@ function issue_menu()
     'file' => 'includes/issue.create.inc',
   );
 
-
-
-
+  # vote
   $menu['issue/ajax'] = array(
     'page callback' => 'issue_ajax',
     'access arguments' => array('vote on polls'),
     'type' => MENU_CALLBACK,
-    'file' => 'issue.pages.inc',
+    'file' => 'includes/issue.vote.inc',
   );
+
+
+
+
+
+
 
   if (module_exists('subscriptions')) {
     $menu['issue/subscribe'] = array(
@@ -90,7 +188,7 @@ function issue_menu()
   $menu['issue/share/%'] = array(
     'page callback' => 'issue_share',
     'page arguments' => array(2),
-    'access callback' => true,
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
     'file' => 'issue.pages.inc',
   );
@@ -111,25 +209,7 @@ require_once "issue.charts.inc";
 
 
 
-/**
- * Implementation of hook_preprocess_node()
- *
- * @param $vars
- */
-function issue_preprocess_node(&$vars)
-{
-  $node = & $vars['node'];
 
-  # page title for poll pages
-  if ($node->type == 'poll') {
-    drupal_set_subtitle(t('Issue'));
-    drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
-
-    # updating the form
-    drupal_add_js(array('poll' => array($node->nid => $node->choice)), 'setting');
-    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.update.js');
-  }
-}
 
 /**
  * @param $form
@@ -256,60 +336,7 @@ function issue_block($op = 'list', $delta = 0, $edit = array())
   }
 }
 
-/**
- * Implementation of hook_nodeapi()
- *
- * @param $node
- * @param $op
- * @param null $a3
- * @param null $a4
- */
-function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
-  if ($node->type == 'poll') {
-    switch ($op) {
-      case 'delete' :
-        foreach ($node->field_arguments as $arg) {
-          node_delete($arg['nid']);
-        }
-        break;
-      case 'load' :
-        $node->arguments = array();
-        if (!empty($node->field_arguments)) {
-          $tmp = array(
-            TYPE_DEBATE => 0,
-            TYPE_RESOURCE => 0,
-            '#all' => 0,
-          );
-          $result = db_query("SELECT * FROM {content_type_forum} WHERE field_issue_nid = '%d' ORDER BY nid DESC", $node->nid);
-          while ($row = db_fetch_array($result)) {
-            $tmp['#all']++;
-            $tmp[$row['field_argument_type_value']]++;
-          }
-          $node->arguments = $tmp;
-        }
-        break;
-      case 'view' :
-        $translation = poll_translate_translation($node);
-        $node->description = theme('issue_description',
-          !empty($translation['body'][0]) ?
-            $translation['body'][0] :
-            $node->field_description[0]['value']);
-        break;
-      case 'insert' :
-      case 'update' :
-        db_query("UPDATE {url_alias} SET language = '' WHERE src = '%s'", 'node/' . $node->nid);
-        break;
-    }
-  }
 
-  $node->content_id = $node->nid;
-  $node->content_type = 'node';
-
-  if (function_exists('argument_nodeapi')) {
-    argument_nodeapi($node, $op, $a3, $a4);
-  }
-}
 
 /**
  * Implementation of hook_comment()
@@ -354,7 +381,7 @@ function issue_get_uservotes($uid)
  *    'u' -- list of users voted
  *      hash: uid >> vote data
  */
-function issue_get_vote_status($nid = false)
+function issue_get_vote_status($nid = FALSE)
 {
   static $cache;
 
@@ -375,7 +402,7 @@ function issue_get_vote_status($nid = false)
 
   }
 
-  return $nid === false ? $cache : $cache[$nid];
+  return $nid === FALSE ? $cache : $cache[$nid];
 }
 
 /**
@@ -385,5 +412,5 @@ function issue_node_clean_cache(&$node)
 {
   $cid = 'content:' . $node->nid . ':' . $node->vid;
   cache_clear_all($cid, content_cache_tablename());
-  $node = node_load($node->nid, null, true);
+  $node = node_load($node->nid, NULL, TRUE);
 }
