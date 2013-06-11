@@ -93,7 +93,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
             $s['chtext']
         )
         . '</span>';
-      if ($s['uid']) {
+      if ($s['uid'] == $user->uid) {
         $sa_added = true;
       }
     }
@@ -260,6 +260,7 @@ function issue_ajax()
     print json_encode(array(
       'status' => FALSE,
       'message' => t('Wrong issue ID'),
+      'message2' => $post,
     ));
     exit;
   }
@@ -312,22 +313,25 @@ function _issue_ajax_vote($vars)
 
   # saving the vote
   $result = issue_poll_vote((int)$nid, (int)$vote_r, (int)$vote_r_old, (int)$vote_s, (int)$vote_s_old);
+  $node = node_load($nid, NULL, TRUE);
+  $output = array(
+    'nid' => $node->nid,
+    'choice_r' => $node->choice,
+    'choice_s' => poll_suggest_get_votes($nid),
+    'vote_r' => $node->vote,
+    'vote_s' => $node->vote_suggest,
+  );
   if (!$result) {
     exit(json_encode(array(
       'status' => FALSE,
       'message' => t('Your vote was not changed'),
+      'content' => $output,
     )));
   } else {
-    $node = node_load($nid, NULL, TRUE);
     exit(json_encode(array(
       'status' => TRUE,
       'message' => t('Your vote was successfully saved'),
-      'content' => array(
-        'nid' => $node->nid,
-        'choice_r' => $node->choice,
-        'choice_s' => poll_suggest_get_votes($nid),
-      ),
-      'time' => mtime(true),
+      'content' => $output,
     )));
   }
 }
@@ -339,6 +343,13 @@ function _issue_ajax_suggest($vars)
 {
   $answer = $vars['suggest']['suggest_answer'];
   $nid = $vars['nid'];
+
+
+//  print json_encode(array(
+//    'status' => FALSE,
+//    'message' => $vars,
+//  ));
+//  exit;
 
   # empty answer validation
   if (empty($answer)) {

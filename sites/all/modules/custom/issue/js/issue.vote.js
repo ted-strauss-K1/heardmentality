@@ -29,7 +29,6 @@ $(document).ready(function () {
   choices(s2, s1);
 });
 
-
 $('.issue-vote-form').live('submit', function (e) {
   e.preventDefault();
   var form = $(this);
@@ -66,6 +65,10 @@ $('.issue-vote-form').live('submit', function (e) {
       $('.vote-result-s-'+vote_s).html(-1 + parseInt($('.vote-result-s-'+vote_s).html()));
     }
     form.removeClass('not-voted');
+    $.hrd.noty({
+      type:'success',
+      text: 'Your vote was changed!' // todo translate
+    });
 
     // now we make the regular call
     $.ajax({
@@ -86,13 +89,14 @@ $('.issue-vote-form').live('submit', function (e) {
             type:'error',
             text:response.message
           });
-          return false;
+//          return false;
         }
-        $.hrd.noty({
-          type:'success',
-          text:response.message
-        });
+//        $.hrd.noty({
+//          type:'success',
+//          text:response.message
+//        });
 
+        // update the form with server's data
         var results = response.content.choice_r;
         for (var i in results) {
           $('.vote-result-r-'+i).html(results[i]['chvotes'])
@@ -101,8 +105,10 @@ $('.issue-vote-form').live('submit', function (e) {
         for (var i in results) {
           $('.vote-result-s-'+i).html(results[i])
         }
-        console.log(response);
+        form.find('input[name=vote_regular]').val(response.content.vote_r);
+        form.find('input[name=vote_suggested]').val(response.content.vote_s);
 
+        // update charts
         $('.notvoted li').slideDown(500);
         $('.no_show').hide();
         charts_update();
@@ -116,6 +122,32 @@ $('.issue-vote-form').live('submit', function (e) {
   return false;
 });
 
+$('#answer-add').live('click', function (e) {
+  e.preventDefault();
+  var form = $('.issue-vote-form');
+
+  // now we make the regular call
+  $.ajax({
+    type:'POST',
+    dataType:'json',
+    url:/*'/'+Drupal.settings.language+*/'/issue/ajax',
+    data: form.serialize(),
+    success:function (response) {
+      if (!response.status) {
+        $.hrd.noty({
+          type:'error',
+          text:response.message
+        });
+          return false;
+      }
+      $.hrd.noty({
+        type:'success',
+        text:response.message
+      });
+      form.parents('.voteform').html(response.content);
+    }
+  });
+});
 
 
 $('body').on('test', function() {
