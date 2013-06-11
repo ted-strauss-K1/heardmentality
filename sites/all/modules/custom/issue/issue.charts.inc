@@ -260,7 +260,7 @@ function issue_charts_filter_preprocess($node)
     }
 
     # get total votes
-    $counts = & $cat['']['#results'];
+    $counts = &$cat['']['#results'];
     $result = db_query("SELECT chorder, COUNT(*) count FROM poll_votes WHERE nid = '%d' GROUP BY chorder", $node->nid);
     while ($vote = db_fetch_array($result)) {
       $counts[$vote['chorder']][$vote['chorder']] = (int)$vote['count'];

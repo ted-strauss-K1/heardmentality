@@ -1,62 +1,6 @@
 <?php
 
 /**
- * "issue/create" menu callback
- *
- * @return null|string
- */
-function issue_create()
-{
-  return drupal_get_form('issue_create_form');
-}
-
-/**
- * "issue/create/ahah/answer" menu callback
- */
-function issue_create_ahah_answer()
-{
-  $delta = count($_POST['answer']);
-  # build form element
-  $form_element = _issue_create_form_answer_textfield($delta);
-  # build new form
-  $form_state = array('storage' => NULL, 'submitted' => FALSE);
-  $form_build_id = $_POST['form_build_id'];
-  # add element
-  $form = form_get_cache($form_build_id, $form_state);
-  $args = $form['#parameters'];
-  $form_id = array_shift($args);
-  if ($form_element !== FALSE) {
-    $form['choice_wrapper']['answer'][$delta] = $form_element;
-  }
-  form_set_cache($form_build_id, $form, $form_state);
-  $form += array(
-    '#post' => $_POST,
-    '#programmed' => FALSE,
-  );
-  $form_state['post'] = $_POST;
-  # Build, validate and if possible, submit the form.
-  $form_state['action'] = $form['#action'];
-  $form_state['rebuild'] = TRUE;
-  drupal_process_form($form_id, $form, $form_state);
-  # Rebuild the form.
-  $form = form_builder($form_id, $form, $args, $form_state);
-  # Render the new output.
-  unset($_SESSION['messages']);
-  $choice_form = $form['choice_wrapper']['answer'];
-  //unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
-  $choice_form[$delta]['#attributes']['class'] =
-    empty($choice_form[$delta]['#attributes']['class']) ?
-      'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] . ' ahah-new-content';
-  $output = drupal_render($choice_form);
-
-  $ahah = array('status' => TRUE, 'data' => $output);
-  if ($form_element === FALSE) {
-    $ahah['js'] = array('func' => 'issue_create_ahah_answer_error');
-  }
-  print json_encode($ahah);
-}
-
-/**
  * Function to handle "issue/ajax" calls
  *
  * @warning Not to mix things up - use it only for poll votes, answer suggestions

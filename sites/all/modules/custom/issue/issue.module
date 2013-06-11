@@ -1,11 +1,5 @@
 <?php
 
-require_once "issue.theme.inc";
-require_once "issue.forms.inc";
-require_once "argument.forms.inc";
-require_once "argument.inc";
-require_once "issue.charts.inc";
-
 /**
  * Implementation of hook_preprocess_page()
  *
@@ -13,46 +7,34 @@ require_once "issue.charts.inc";
  */
 function issue_preprocess_page(&$vars)
 {
+  # create
+  if (arg(0) == 'issue' && arg(1) == 'create') {
+    drupal_add_js('misc/ahah.js');
+    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.create.js');
+
+    # right block
+    $vars['right'] = theme('issue_guidelines');
+  }
+
+  # view
+  // ...
+
+
+
+
+
+
+
+
   if (module_exists('rules')) {
     global $user;
     rules_invoke_event('page_view', $user);
   }
 
   //
-  if (arg(0) == 'issue' && arg(1) == 'create') {
-    drupal_add_js('misc/ahah.js');
-    drupal_add_js(drupal_get_path('module', 'issue') . '/issue.create.js');
-    $vars['right'] = theme('issue_guidelines');
-  }
+
 }
 
-/**
- * Implementation of hook_preprocess_node()
- *
- * @param $vars
- */
-function issue_preprocess_node(&$vars)
-{
-  $node = & $vars['node'];
-
-  # page title for poll pages
-  if ($node->type == 'poll') {
-    drupal_set_subtitle(t('Issue'));
-    drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
-  }
-}
-
-/**
- * @param $form
- * @param $form_state
- * @param $form_id
- */
-function issue_form_alter(&$form, &$form_state, $form_id)
-{
-  if ($form_id == 'poll_node_form') {
-    $form['title']['#maxlength'] = 256;
-  }
-}
 
 /**
  * Implementation of hook_menu()
@@ -63,19 +45,23 @@ function issue_menu()
 {
   $menu = array();
 
+  # create
   $menu['issue/create'] = array(
     'title' => t('Add an Issue'),
     'page callback' => 'issue_create',
     'access arguments' => array('create poll content'),
     'type' => MENU_CALLBACK,
-    'file' => 'issue.pages.inc',
+    'file' => 'includes/issue.create.inc',
   );
   $menu['issue/create/ahah/answer'] = array(
     'page callback' => 'issue_create_ahah_answer',
     'access arguments' => array('create poll content'),
     'type' => MENU_CALLBACK,
-    'file' => 'issue.pages.inc',
+    'file' => 'includes/issue.create.inc',
   );
+
+
+
 
   $menu['issue/ajax'] = array(
     'page callback' => 'issue_ajax',
@@ -111,6 +97,53 @@ function issue_menu()
 
   return $menu;
 }
+
+
+
+
+
+
+require_once "issue.theme.inc";
+require_once "issue.forms.inc";
+require_once "argument.forms.inc";
+require_once "argument.inc";
+require_once "issue.charts.inc";
+
+
+
+/**
+ * Implementation of hook_preprocess_node()
+ *
+ * @param $vars
+ */
+function issue_preprocess_node(&$vars)
+{
+  $node = & $vars['node'];
+
+  # page title for poll pages
+  if ($node->type == 'poll') {
+    drupal_set_subtitle(t('Issue'));
+    drupal_add_js(drupal_get_path('module', 'issue') . '/issue.view.js');
+
+    # updating the form
+    drupal_add_js(array('poll' => array($node->nid => $node->choice)), 'setting');
+    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.update.js');
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function issue_form_alter(&$form, &$form_state, $form_id)
+{
+  if ($form_id == 'poll_node_form') {
+    $form['title']['#maxlength'] = 256;
+  }
+}
+
+
 
 /**
  * Implementation of hook_theme()

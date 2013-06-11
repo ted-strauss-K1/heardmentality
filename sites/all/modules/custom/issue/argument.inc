@@ -591,7 +591,7 @@ function argument_safe_string($string)
  */
 function argument_fetch_url($url, $image = FALSE)
 {
-  module_load_include('php', 'issue', 'includes/simple_html_dom');
+  module_load_include('php', 'issue', 'files/simple_html_dom');
   $html = file_get_html($url);
 
   if (empty($html)) {
@@ -663,7 +663,7 @@ function argument_fetch_url($url, $image = FALSE)
 
     # get images
     $node->field_image_path[0]['value'] = file_directory_path() . '/noimage.jpg';
-    module_load_include('php', 'issue', 'includes/url_to_absolute');
+    module_load_include('php', 'issue', 'files/url_to_absolute');
     $images = array();
     $images_source = $html->find('img');
     foreach ($images_source as $element) {
@@ -687,7 +687,7 @@ function argument_fetch_url($url, $image = FALSE)
 //        $node->field_image_path[0]['value'] = file_create_url($file);
 //      }
 
-      module_load_include('php', 'issue', 'includes/download_image');
+      module_load_include('php', 'issue', 'files/download_image');
       if ($file = download_image($image, 'resources')) {
         $node->field_image_path[0]['value'] = $file->filepath;
       }

@@ -98,7 +98,6 @@ function heardmentalitylight_preprocess_node(&$vars) {
 
   # js setting for all modules to use
   drupal_add_js(array('node' => array('nid' => $node->nid)), 'setting');
-
 }
 
 
