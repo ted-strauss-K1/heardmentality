@@ -106,16 +106,16 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
       '#tree' => TRUE,
     );
 
-    if (!empty($node->choice_suggest)) {
+//    if (!empty($node->choice_suggest)) {
       $form['suggest']['suggest_choice'] = array(
         '#type' => 'radios',
-        '#options' => $sa_options,
+        '#options' => $sa_options + array(0 => '<span class="ch"></span>'),
         '#default_value' => $vote_s,
         '#prefix' => '<div class="choices suggested">',
         '#suffix' => '</div>'
       );
       $form['suggest']['suggest_choice']['#after_build'] = array('issue_vote_form_radios_suggested');
-    }
+//    }
 
     if ($full && user_is_logged_in() && !$sa_added) {
       $form['suggest']['suggest_answer'] = array(
@@ -222,9 +222,10 @@ function issue_vote_form_radios_suggested($form_element, &$form_state)
 {
   $nid = $form_state['values']['nid'];
   $votes = poll_suggest_get_votes($nid);
+  $votes[] = true;
   foreach ($votes as $i => $vote_number) {
     $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
-    $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote">
+    $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote teaser-result-s-'.($vote_number === true ? 'empty' : $i).'">
 <span class="vote-result-s-'.$i.'">' . $vote_number . '</span>' . $vote_string . '</span>';
     $form_element[$i]['#suffix'] = '</div>';
   }
@@ -379,14 +380,16 @@ function _issue_ajax_suggest($vars)
     print json_encode(array(
       'status' => FALSE,
       'message' => t('Your vote was not changed'),
+      'chid' => $chid,
     ));
     exit;
   } else {
-    $content = drupal_get_form('issue_vote_form', node_load($nid, NULL, TRUE), $vars['full'] == 1, TRUE);
+//    $content = drupal_get_form('issue_vote_form', node_load($nid, NULL, TRUE), $vars['full'] == 1, TRUE);
     print json_encode(array(
       'status' => TRUE,
       'message' => t('Your suggestion was successfully added'),
-      'content' => $content,
+      'chid' => $chid,
+//      'content' => $content,
     ));
     exit;
   }
@@ -397,6 +400,12 @@ function _issue_ajax_suggest($vars)
  */
 function issue_poll_vote($nid, $vote_r, $vote_r_old, $vote_s = -1, $vote_s_old = -1)
 {
+//  print json_encode(array(
+//    'status' => FALSE,
+//    'message' => func_get_args(),
+//  ));
+//  exit;
+
   if ($vote_r == -1 && $vote_s == -1) return FALSE;
   if ($vote_r == $vote_r_old && $vote_s == $vote_s_old) return FALSE;
   global $user;

@@ -1,5 +1,5 @@
 $('#answer-add').live('click', function () {
-  $(this).parents('.issue-vote-form').find('input[name=action]').val('suggest')
+//  $(this).parents('.issue-vote-form').find('input[name=action]').val('suggest')
 });
 $('#vote-add, #vote-change').live('click', function () {
   $(this).parents('.issue-vote-form').find('input[name=action]').val('vote')
@@ -32,12 +32,14 @@ $(document).ready(function () {
 $('.issue-vote-form').live('submit', function (e) {
   e.preventDefault();
   var form = $(this);
-
   // UX fake update - we'll check the results later and properly update on form
   var vote_r = form.find('input[name=vote_regular]').val();
   var vote_s = form.find('input[name=vote_suggested]').val();
   var radio = form.find('input[type=radio]:checked');
   var vote = radio.val();
+  if (!vote) {
+    return;
+  }
   var vote_type = 'choice' == radio.attr('name') ? 'r' : 's';
   var vote_changed = false;
   if ('r' == vote_type) {
@@ -89,12 +91,7 @@ $('.issue-vote-form').live('submit', function (e) {
             type:'error',
             text:response.message
           });
-//          return false;
         }
-//        $.hrd.noty({
-//          type:'success',
-//          text:response.message
-//        });
 
         // update the form with server's data
         var results = response.content.choice_r;
@@ -126,6 +123,29 @@ $('#answer-add').live('click', function (e) {
   e.preventDefault();
   var form = $('.issue-vote-form');
 
+  var answer = form.find('input[name="suggest[suggest_answer]"]').val();
+  if ('' == answer) {
+    return;
+  }
+
+  form.find('input[name=action]').val('suggest')
+
+  // UX fake update - we'll check the results later and properly update on form
+  var vote_r = form.find('input[name=vote_regular]').val();
+  var vote_s = form.find('input[name=vote_suggested]').val();
+  var suggest = $('.teaser-result-s-empty');
+  form.find('input[type=radio]').prop('checked', false);
+  suggest.find('input[type=radio]').prop('checked', true);
+  suggest.addClass('teaser-result-s-new').removeClass('teaser-result-s-empty');
+  $('input[value=0][name="suggest[suggest_choice]"]').prop('checked', true);
+  suggest.siblings().find('.ch').html(answer);
+  form.removeClass('not-voted');
+  $('.nsa-wrapper').slideUp(500);
+  $.hrd.noty({
+    type:'success',
+    text:'Your suggestion was successfully added' // todo translate
+  });
+
   // now we make the regular call
   $.ajax({
     type:'POST',
@@ -138,13 +158,24 @@ $('#answer-add').live('click', function (e) {
           type:'error',
           text:response.message
         });
-          return false;
+
+        // rollback
+        suggest.removeClass('teaser-result-s-new').addClass('teaser-result-s-empty');
+        $('.nsa-wrapper').slideDown(500);
+        form.addClass('not-voted');
+        $('input[value='+vote_r+'][name=choice]').prop('checked', true);
+        $('input[value='+vote_s+'][name="suggest[suggest_choice]"]').prop('checked', true);
+
+        return false;
       }
-      $.hrd.noty({
-        type:'success',
-        text:response.message
-      });
-      form.parents('.voteform').html(response.content);
+
+      // update the form with server's data
+      var chid = response.chid;
+      suggest.removeClass('teaser-result-s-new')
+        .find('span').removeClass('vote-result-s-0').addClass('vote-result-s-'+chid);
+      suggest.siblings().find('input[type=radio]').val(chid);
+      form.find('input[name=vote_regular]').val(-1);
+      form.find('input[name=vote_suggested]').val(chid);
     }
   });
 });

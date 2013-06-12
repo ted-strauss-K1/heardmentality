@@ -60,7 +60,7 @@ function poll_suggest_update_text($params = array())
  */
 function poll_suggest_vote_add($chid, $uid)
 {
-  db_query("INSERT INTO {poll_suggest_votes} SET chid = '%d', uid = '%d', date_voted = '%d'", $chid, $uid, date("y-m-d H:i:s"));
+  db_query("INSERT INTO {poll_suggest_votes} SET chid = '%d', uid = '%d', date_voted = '%s'", $chid, $uid, date("Y-m-d H:i:s"));
   poll_suggest_choice_convert($chid);
 }
 
@@ -139,7 +139,13 @@ function poll_suggest_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       case 'load' :
         $node->allowsuggestions = (bool)db_result(db_query("SELECT status FROM {poll_suggest_allow} WHERE nid = '%d'", $node->nid));
         $node->choice_suggest = poll_suggest_get($node->nid);
-        $node->vote_suggest = $node->choice_suggest[0]['uservote'] ? $node->choice_suggest[0]['chid'] : -1;
+        $node->vote_suggest = -1;
+        foreach ($node->choice_suggest as $item) {
+          if ($item['uservote']) {
+            $node->vote_suggest = $item['chid'];
+          }
+        }
+        $node->choice_suggest[0]['uservote'] ? $node->choice_suggest[0]['chid'] : -1;
         break;
       case 'presave' :
         poll_suggest_allowsuggestions_set($node->nid, $node->allowsuggestions);

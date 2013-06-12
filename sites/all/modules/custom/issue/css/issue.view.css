@@ -4,3 +4,7 @@
 .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
   margin: 0 0 10px !important;
 }
+.teaser-result-s-empty, .teaser-result-s-empty + .form-item
+{
+  display: none;
+}
