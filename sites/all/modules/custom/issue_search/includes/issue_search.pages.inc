@@ -63,6 +63,8 @@ function issue_search_form($form_state)
  */
 function issue_search_ajax()
 {
+  $mtime = round(microtime(TRUE), 4);
+
   // to cookie
   $search_state2 = array();
   foreach (array(
@@ -77,13 +79,28 @@ function issue_search_ajax()
   // Search results.
   $results = issue_search();
   $rows = count($results);
-  $message = theme('issue_search_results', $results);
+
+  $env_id = apachesolr_default_environment();
+  if (($query = apachesolr_current_query($env_id)) && ($response = apachesolr_static_response_cache($query->getSearcher()))) {
+    $rows = $response->response->numFound;
+  }
+
+  $message =
+    theme('issue_search_results', $results) .
+    theme('gpager',
+      isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1,
+      null,
+      $rows,
+      SEARCH_RESULTS_PER_PAGE,
+      'issue_search_pager_link'
+    );
 
   // JSON params.
   $json = array(
     'status' => true,
     'message' => $message,
     'rows' => $rows,
+    'time' => round(microtime(TRUE), 4) - $mtime,
   );
 
   print json_encode($json);

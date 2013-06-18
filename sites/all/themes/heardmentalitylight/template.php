@@ -13,7 +13,7 @@ function heardmentalitylight_status_messages($display = NULL) {
 //  $noty_pattern = "$.hrd.noty({'text':'%s','type':'%s'});";
   $noty_pattern = "$.hrd.noty(%s);";
   foreach (drupal_get_messages($display) as $type => $messages) {
-    $noty_type = false;
+    $noty_type = FALSE;
     switch ($type) {
       case 'status' :
         $noty_type = 'success';
@@ -25,20 +25,20 @@ function heardmentalitylight_status_messages($display = NULL) {
         $noty_type = 'error';
       break;
     }
-    if ($noty_type !== false) {
+    if ($noty_type !== FALSE) {
       foreach ($messages as $message) {
 //        $noty[] = sprintf($noty_pattern, addslashes($message), $noty_type);
         $noty[] = sprintf($noty_pattern, json_encode(array(
           'text' => $message,
           'type' => $noty_type,
         ) + ($noty_type == 'error' && preg_match('/password/', $message) ?
-          array('timeout' => false) : array()
+          array('timeout' => FALSE) : array()
         )));
       }
     }
   }
   drupal_add_js('$(document).ready(function(){'.implode('',$noty).'});', 'inline');
-  return false;
+  return FALSE;
 }
 
 
@@ -79,7 +79,7 @@ function heardmentalitylight_preprocess_page(&$vars) {
     drupal_set_subtitle(t('Add an Issue'));
 	array_push($vars['template_files'], 'page_11_5');
     $vars['content_class'] = 'grey-box';
-    $vars['content_nowrap'] = true;
+    $vars['content_nowrap'] = TRUE;
   }
 
   # js setting for all modules to use
@@ -311,7 +311,7 @@ function phptemplate_user_picture($account, $size = '65x56') {
       array('@user' => $account->name ? $account->name :
         variable_get('anonymous', 'Anonymous')));
     $attr=array('width'=>$maxsize_icon['w'],'height'=>$maxsize_icon['h']);
-    $picture = theme('image', $picture, $alt, $alt,$attr, false);
+    $picture = theme('image', $picture, $alt, $alt,$attr, FALSE);
     if (!empty($account->uid) && user_access('access user profiles')) {
       $picture = l($picture, "user/profile/view/$account->name", array('html' => TRUE));
     }
@@ -343,7 +343,79 @@ function heardmentalitylight_theme(){
     ),
   );
 
+  $theme['gpager'] = array(
+    'arguments' => array(
+      'page' => 1,
+      'pages' => 1,
+      'count' => 0,
+      'perpage' => 5,
+    ),
+  );
+  $theme['gpager_link'] = array(
+    'arguments' => array(
+      'page' => 1,
+      'page_active' => 1,
+      'anchor' => FALSE,
+    ),
+  );
+
   return $theme;
+}
+
+/**
+ * @param $page
+ * @param $pages
+ * @param $count
+ * @param $perpage
+ * @param string $theme_callback
+ * @return string
+ */
+function heardmentalitylight_gpager($page, $pages, $count, $perpage, $theme_callback = 'gpager_link') {
+  if (is_null($pages)) {
+    $pages = ceil($count/$perpage);
+  }
+  if ($pages <= 0) {
+    $pages = 1;
+  }
+  if (($page <= 0) || ($page > $pages)) {
+    $page = 1;
+  }
+  if (1 == $pages) return '';
+
+  $show_l = min(5,$page-1);
+  $show_r = min(9-$show_l, $pages-$page);
+  $output = '<div class="mod-pager"><span class="mod-text">PAGE</span> &nbsp;';
+  if ($page - $show_l > 1) {
+    $output .= theme($theme_callback, $page-1, $page, '<');
+    $output .= '<span class="mod-spacer">&nbsp;</span>';
+  }
+  for ($i = $page-$show_l; $i <= $page-1; $i++) {
+    $output .= theme($theme_callback, $i, $page);
+  }
+  $output .= theme($theme_callback, $page, $page);
+  for ($i = $page+1; $i <= $page+$show_r; $i++) {
+    $output .= theme($theme_callback, $i, $page);
+  }
+  if ($page + $show_r < $pages) {
+    $output .= '<span class="mod-spacer">&nbsp;</span>';
+    $output .= theme($theme_callback, $page+1, $page, '>');
+  }
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * @param $page
+ * @param $page_active
+ * @param bool $anchor
+ * @return string
+ */
+function heardmentalitylight_gpager_link($page, $page_active, $anchor = FALSE) {
+  return sprintf('<a href="?page=%d" class="%s">%s</a>',
+    $page,
+    $page == $page_active ? 'mod-active' : '',
+    FALSE == $anchor ? $page : $anchor
+  );
 }
 
 /**
@@ -361,14 +433,14 @@ function heardmentalitylight_moderation_pager($page, $pages, $pattern)
   $output = '<div class="mod-pager"><span class="mod-text">PAGE</span> &nbsp;';
   $a = '<a href="/%s" class="%s">%d</a>';
   $showpages = array_unique(array(1, 2, $page - 1, $page, $page + 1, $pages - 1, $pages));
-  $flag = true;
+  $flag = TRUE;
   for ($i = 1; $i <= $pages; $i++) {
     if (in_array($i, $showpages)) {
       $output .= sprintf($a, sprintf($pattern, $i), $page == $i ? 'mod-active' : '', $i);
-      $flag = true;
+      $flag = TRUE;
     } elseif ($i == 3 || $i == $pages - 2) {
       if ($flag) $output .= '<span class="mod-spacer">&nbsp;</span>';
-      $flag = false;
+      $flag = FALSE;
     }
   }
   $output .= '</div>';

@@ -225,7 +225,7 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query)
   $query->addParam('fl', 'sm_province_name');
   $query->addParam('fl', 'sm_country_name');
   $query->addParam('fl', 'sm_city_name');
-  $query->replaceParam('rows', db_result(db_query('SELECT COUNT(*) FROM {node}')));
+  $query->replaceParam('rows', SEARCH_RESULTS_PER_PAGE);
 
   // Sort.
   $query->setAvailableSort('ds_created', array('title' => t('Updated'), 'default' => 'desc'));

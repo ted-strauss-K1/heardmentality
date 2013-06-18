@@ -17,13 +17,46 @@
 function theme_issue_search_results($results = array())
 {
   $output = '';
-  foreach ($results as $result) {
+  foreach ($results as $index => $result) {
     $node = node_load($result['node']->entity_id);
-    $output .= node_view($node, true);
+    $output .= node_view($node, TRUE);
   }
 
   return $output;
 }
+
+/**
+ * @param $page
+ * @param $page_active
+ * @param bool $anchor
+ * @return string
+ */
+function theme_issue_search_pager_link($page, $page_active, $anchor = FALSE) {
+  return sprintf('<a href="#issue-search-form" name="%s" class="search-pager-link %s">%s</a>',
+    $page,
+    $page == $page_active ? 'mod-active' : '',
+    FALSE == $anchor ? $page : $anchor
+  );
+}
+
+/**
+ * Not supported by Theme Engine!
+ *
+ * @param $page_display
+ * @param $page_current
+ * @param string $suffix
+ * @param string $text
+ * @return string
+ */
+function theme_issue_search_pagerlink($page_display, $page_current, $suffix = '', $text = '') {
+  return sprintf(
+    '<li><a href="#issue-search-form" name="%s" class="%s">%s</a></li>',
+    $page_display, $page_display == $page_current ? 'active' : '', $text == '' ? $page_display : $text
+//    '<li><a href="?page=%d&%s" class="%s">%s</a></li>',
+//    $page_display, $suffix, $page_display == $page_current ? 'active' : '', $text == '' ? $page_display : $text
+  );
+}
+
 
 /**
  * Search filter for Issues.
@@ -56,13 +89,13 @@ function issue_search_filter_form($form_state)
   global $user;
 
   // get search state
-  $search_state = isset($_COOKIE['search']) ? unserialize($_COOKIE['search']) : null;
+  $search_state = isset($_COOKIE['search']) ? unserialize($_COOKIE['search']) : NULL;
   $search_state2 = isset($_COOKIE['search2']) ? unserialize($_COOKIE['search2']) : array();
 
   // clean search state
   if (isset($_GET['tids'])) {
-    $search_state = null;
-    $search_state2 = null;
+    $search_state = NULL;
+    $search_state2 = NULL;
   }
 
   ahah_helper_register($form, $form_state);
@@ -75,13 +108,19 @@ function issue_search_filter_form($form_state)
     '#tree' => TRUE,
   );
 
+  // Main container.
+  $form['page'] = array(
+    '#type' => 'hidden',
+    '#value' => isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1,
+  );
+
   // Data.
   $data2 = $form_state['storage'];
   $data = $form_state['storage']['block'];
 
   if (is_null($data) && is_array($search_state)) { // open the blank page
     $data2 = $search_state;
-    $data = $data2['block'] ? $data2['block'] : null;
+    $data = $data2['block'] ? $data2['block'] : NULL;
   } else { // ahah-reload, have the data inside
     $search_state = $data2;
     if (!empty($form_state['post'])) {

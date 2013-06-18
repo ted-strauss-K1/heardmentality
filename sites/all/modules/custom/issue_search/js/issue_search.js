@@ -50,6 +50,11 @@ $(document).ready(function () {
   issue_search();
 });
 
+$('.search-pager-link').live('click', function () {
+  $('input[name=page]').val($(this).attr('name'));
+  issue_search();
+});
+
 /**
  * Returns search arguments.
  *
@@ -101,6 +106,9 @@ function getSearchArguments() {
   // Key words.
   var keywords = $('#edit-search-text').val();
 
+  // Key words.
+  var page = $('input[name=page]').val();
+
   var data = {
     'interval':interval,
     'solrsort':sort,
@@ -112,7 +120,8 @@ function getSearchArguments() {
     'my_region':myRegion,
     'my_language':myLanguage,
     'not_voted':onlyNotVoted,
-    'keywords':keywords
+    'keywords':keywords,
+    'page':page
   };
 
   return data;
@@ -127,9 +136,9 @@ function issue_search() {
   var issuesAmount = $('#count_results-wrapper span');
 
   // Show loader.
-  linkbox.slideUp(500, function () {
+//  linkbox.slideUp(500, function () {
     loader.slideDown(500)
-  });
+//  });
 
   $.ajax({
     type:'POST',
@@ -145,6 +154,7 @@ function issue_search() {
         });
         return false;
       }
+
       linkbox.html(data.message);
       issuesAmount.html(data.rows);
 
@@ -153,7 +163,7 @@ function issue_search() {
 
     complete:function () {
       loader.slideUp(500, function () {
-        linkbox.slideDown(500)
+//        linkbox.slideDown(500)
       });
     }
   });
