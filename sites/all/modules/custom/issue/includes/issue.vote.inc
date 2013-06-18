@@ -109,7 +109,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
 //    if (!empty($node->choice_suggest)) {
       $form['suggest']['suggest_choice'] = array(
         '#type' => 'radios',
-        '#options' => $sa_options + array(0 => '<span class="ch"></span>'),
+        '#options' => $sa_options,
         '#default_value' => $vote_s,
         '#prefix' => '<div class="choices suggested">',
         '#suffix' => '</div>'
@@ -134,6 +134,7 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
         '#suffix' => '</td></tr></table></div>',
         '#id' => 'answer-add',
       );
+      $form['suggest']['suggest_choice']['#options'] += array(0 => '<span class="ch"></span>');
     }
 
     if (!$node->allowsuggestions) {
@@ -222,7 +223,7 @@ function issue_vote_form_radios_suggested($form_element, &$form_state)
 {
   $nid = $form_state['values']['nid'];
   $votes = poll_suggest_get_votes($nid);
-  $votes[] = true;
+  $votes[0] = true;
   foreach ($votes as $i => $vote_number) {
     $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
     $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote teaser-result-s-'.($vote_number === true ? 'empty' : $i).'">
