@@ -32,22 +32,35 @@ $(document).ready(function () {
 $('.issue-vote-form').live('submit', function (e) {
   e.preventDefault();
   var form = $(this);
-  // UX fake update - we'll check the results later and properly update on form
+
+  // if the form is active - skip the submission
+  if (form.hasClass('active')) {
+    $.hrd.noty({
+      type:'error',
+      text:'Multiple submissions are not allowed. Wait for few seconds to change your vote' // todo translate
+    });
+    return;
+  }
+
+  // current state
   var vote_r = form.find('input[name=vote_regular]').val();
   var vote_s = form.find('input[name=vote_suggested]').val();
+
+  //
   var radio = form.find('input[type=radio]:checked');
   var vote = radio.val();
+  var vote_type = 'choice' == radio.attr('name') ? 'r' : 's';
   if (!vote) {
     return;
   }
-  var vote_type = 'choice' == radio.attr('name') ? 'r' : 's';
+
   var vote_changed = false;
   if ('r' == vote_type) {
     if (vote != vote_r) {
       vote_changed = true;
       form.find('input[name=vote_regular]').val(vote);
       form.find('input[name=vote_suggested]').val(-1);
-      var count = $('.vote-result-r-'+vote);
+      var count = form.find('.vote-result-r-'+vote);
       count.html(parseInt(count.html()) + 1);
     }
   } else {
@@ -55,17 +68,20 @@ $('.issue-vote-form').live('submit', function (e) {
       vote_changed = true;
       form.find('input[name=vote_regular]').val(-1);
       form.find('input[name=vote_suggested]').val(vote);
-      var count = $('.vote-result-s-'+vote);
+      var count = form.find('.vote-result-s-'+vote);
       count.html(parseInt(count.html()) + 1);
     }
   }
+
   if (vote_changed) {
-    if (-1 != vote_r) {
-      $('.vote-result-r-'+vote_r).html(-1 + parseInt($('.vote-result-r-'+vote_r).html()));
-    }
-    if (-1 != vote_s) {
-      $('.vote-result-s-'+vote_s).html(-1 + parseInt($('.vote-result-s-'+vote_s).html()));
-    }
+    // activate form
+    form.addClass('active');
+    // decrease count
+    var r = form.find('.vote-result-r-'+vote_r);
+    r.html(-1 + parseInt(r.html()));
+    var s = form.find('.vote-result-s-'+vote_s);
+    s.html(-1 + parseInt(s.html()));
+    // voted
     form.removeClass('not-voted');
     $.hrd.noty({
       type:'success',
@@ -96,11 +112,11 @@ $('.issue-vote-form').live('submit', function (e) {
         // update the form with server's data
         var results = response.content.choice_r;
         for (var i in results) {
-          $('.vote-result-r-'+i).html(results[i]['chvotes'])
+          form.find('.vote-result-r-'+i).html(results[i]['chvotes'])
         }
         var results = response.content.choice_s;
         for (var i in results) {
-          $('.vote-result-s-'+i).html(results[i])
+          form.find('.vote-result-s-'+i).html(results[i])
         }
         form.find('input[name=vote_regular]').val(response.content.vote_r);
         form.find('input[name=vote_suggested]').val(response.content.vote_s);
@@ -108,44 +124,59 @@ $('.issue-vote-form').live('submit', function (e) {
         // update charts
         $('.notvoted li').slideDown(500);
         $('.no_show').hide();
-        charts_update();
+        if (typeof charts_update == 'function') charts_update();
         //
         Drupal.attachBehaviors();
+
+        form.removeClass('active');
       }
     });
-
   }
 
-  return false;
+  return;
 });
 
 $('#answer-add').live('click', function (e) {
   e.preventDefault();
   var form = $('.issue-vote-form');
 
+  // if the form is active - skip the submission
+  if (form.hasClass('active')) {
+    $.hrd.noty({
+      type:'error',
+      text:'Multiple submissions are not allowed. Wait for few seconds to submit your answer' // todo translate
+    });
+    return;
+  }
+
   var answer = form.find('input[name="suggest[suggest_answer]"]').val();
   if ('' == answer) {
     return;
   }
 
-  form.find('input[name=action]').val('suggest')
+  form.find('input[name=action]').val('suggest');
 
-  // UX fake update - we'll check the results later and properly update on form
+  // current state
   var vote_r = form.find('input[name=vote_regular]').val();
   var vote_s = form.find('input[name=vote_suggested]').val();
+
+  // empty holder
   var suggest = $('.teaser-result-s-empty');
+
+  // Fake UX submission acceptance
   form.find('input[type=radio]').prop('checked', false);
   suggest.find('input[type=radio]').prop('checked', true);
   suggest.addClass('teaser-result-s-new').removeClass('teaser-result-s-empty');
-  $('input[value=0][name="suggest[suggest_choice]"]').prop('checked', true);
+  form.find('input[value=0][name="suggest[suggest_choice]"]').prop('checked', true);
   suggest.siblings().find('.ch').html(answer);
+
   form.removeClass('not-voted');
   $('.nsa-wrapper').slideUp(500);
+
   $.hrd.noty({
     type:'success',
     text:'Your suggestion was successfully added' // todo translate
   });
-
   // now we make the regular call
   $.ajax({
     type:'POST',
@@ -153,6 +184,8 @@ $('#answer-add').live('click', function (e) {
     url:/*'/'+Drupal.settings.language+*/'/issue/ajax',
     data: form.serialize(),
     success:function (response) {
+      form.removeClass('active');
+
       if (!response.status) {
         $.hrd.noty({
           type:'error',
@@ -163,8 +196,8 @@ $('#answer-add').live('click', function (e) {
         suggest.removeClass('teaser-result-s-new').addClass('teaser-result-s-empty');
         $('.nsa-wrapper').slideDown(500);
         form.addClass('not-voted');
-        $('input[value='+vote_r+'][name=choice]').prop('checked', true);
-        $('input[value='+vote_s+'][name="suggest[suggest_choice]"]').prop('checked', true);
+        form.find('input[value='+vote_r+'][name=choice]').prop('checked', true);
+        form.find('input[value='+vote_s+'][name="suggest[suggest_choice]"]').prop('checked', true);
 
         return false;
       }
@@ -178,6 +211,9 @@ $('#answer-add').live('click', function (e) {
       form.find('input[name=vote_suggested]').val(chid);
     }
   });
+
+
+  return;
 });
 
 
