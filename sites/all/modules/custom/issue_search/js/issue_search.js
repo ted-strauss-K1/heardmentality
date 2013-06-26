@@ -1,4 +1,61 @@
 /**
+ * Search on load
+ */
+$(document).ready(function () {
+  issue_search();
+});
+
+/**
+ * Fire event on lists update
+ */
+$(document).ready(function () {
+  function select_search_empty() {
+    
+  }
+
+  var select_search_delay_default = 5000, // ms
+      select_search_delay_timer = false,
+      select_search_delay = select_search_delay_default;
+  $('select.solr-block-form')
+    .on("liszt:updated", function() {
+      issue_search();
+    })
+    .change(function () {
+      // auto populate the categories/locations
+
+
+      // auto search after delay
+      select_search_delay = select_search_delay_default;
+      clearInterval(select_search_delay_timer);
+      select_search_delay_timer = setInterval(function() {
+        select_search_delay -= 1000;
+        if (0 >= select_search_delay) {
+          issue_search();
+          clearInterval(select_search_delay_timer);
+        }
+      }, 1000);
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
  * Search bindings.
  */
 $('#issue-search-filter-form').live('submit', function (e) {
@@ -43,12 +100,7 @@ $('#issue-search-filter-form select').live('click', function (e) {
   return false;
 });
 
-/**
- * Search on load
- */
-$(document).ready(function () {
-  issue_search();
-});
+
 
 $('.search-pager-link').live('click', function () {
   $('input[name=page]').val($(this).attr('name'));

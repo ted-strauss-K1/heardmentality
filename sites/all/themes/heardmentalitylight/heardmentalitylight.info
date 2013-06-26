@@ -36,6 +36,11 @@ scripts[] = javascripts/tipsy/tipsy.js
 scripts[] = javascripts/tipsy/custom.tipsy.js
 stylesheets[all][] = javascripts/tipsy/custom.tipsy.css
 
+; JQuery Chosen
+scripts[] = javascripts/chosen/chosen.jquery.min.js
+scripts[] = javascripts/chosen/custom.chosen.js
+stylesheets[all][] = javascripts/chosen/chosen.min.css
+
 ; JQuery Cookie
 scripts[] = javascripts/jquery-plugins/jquery.cookie.js
 
