@@ -154,17 +154,25 @@ function issue_search_filter_form($form_state)
   for ($i = 0; $i < 3 /*count($tft['list'])*/; $i++) {
     $options = $tft['list'][$i];
     $checked = $tft['checked'][$i];
+
+    if (empty($options)) {
+      $options = array();
+    }
+
     $form['taxonomy-' . $i] = array(
       '#type' => 'select',
       '#multiple' => TRUE,
       '#options' => $options,
       '#default_value' => $checked,
       '#size' => '4',
-      '#attributes' => array('class' => 'solr-block-form chzn-select'),
+      '#attributes' => array('class' => 'solr-block-form tft chzn-select'),
     );
+
     if ($i == 0) {
       $form['taxonomy-' . $i]['#title'] = t('Narrow by');
       $form['taxonomy-' . $i]['#size'] = count($options);
+    } else {
+      $form['taxonomy-' . $i]['#attributes']['class'] .= ' hideable';
     }
   }
 
@@ -174,19 +182,23 @@ function issue_search_filter_form($form_state)
       $options = $tfl['list'][$i];
       $checked = $tfl['checked'][$i];
 
-      if (!empty($options)) {
-        $form['location-' . $i] = array(
-          '#type' => 'select',
-          '#multiple' => TRUE,
-          '#options' => $options,
-          '#default_value' => $checked,
-          '#size' => '4',
-          '#attributes' => array('class' => 'solr-block-form chzn-select'),
-        );
+      if (empty($options)) {
+        $options = array();
       }
+
+      $form['location-' . $i] = array(
+        '#type' => 'select',
+        '#multiple' => TRUE,
+        '#options' => $options,
+        '#default_value' => $checked,
+        '#size' => '4',
+        '#attributes' => array('class' => 'solr-block-form tfl chzn-select'),
+      );
 
       if ($i == 0) {
         $form['location-' . $i]['#title'] = t('Location');
+      } else {
+        $form['location-' . $i]['#attributes']['class'] .= ' hideable';
       }
     }
   }

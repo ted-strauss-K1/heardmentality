@@ -14,15 +14,20 @@ function tft_list($node_type, $tids = array())
 
   // select core tids
   $tmp = array();
+  $all = array();
   $result = db_query("
-    SELECT td.tid, td.name
+    SELECT td.tid, td.name, th.parent
     FROM {vocabulary_node_types} vnt
     INNER JOIN {term_data} td ON td.vid = vnt.vid
     INNER JOIN {term_hierarchy} th ON th.tid = td.tid
-    WHERE vnt.type = '%s' AND th.parent = '%d'", $node_type, 0);
+    WHERE vnt.type = '%s'", $node_type);
   while ($row = db_fetch_object($result)) {
-    $tmp[$row->tid] = $row->name;
+    $all[$row->parent][] = $row;
+    if (0 == $row->parent) $tmp[$row->tid] = $row->name;
   }
+
+  // setting
+  drupal_add_js(array('tft' => $all), 'setting');
 
   while (!empty($tmp)) {
     $tft['list'][] = $tmp;

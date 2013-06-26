@@ -6,23 +6,86 @@ $(document).ready(function () {
 });
 
 /**
+ *
+ */
+function select_search_hide() {
+  $('select.solr-block-form.hideable').each(function() {
+    if ($(this).find('option').length) {
+      $(this).parent().show();
+    } else {
+      $(this).parent().hide();
+    }
+  });
+}
+
+/**
+ *
+ */
+var select_search_options_tft = [];
+function select_search_expand() {
+  // selected values
+  var selected = [];
+  $('select.tft :selected').each(function(){
+    selected.push($(this).val())
+  });
+  // reduced/extended filter
+  var value = false;
+  for (var i in select_search_options_tft) {
+    if (!jQuery.inArray(select_search_options_tft[i], selected)) {
+      // reduce filter
+      value = select_search_options_tft[i];
+    }
+  }
+  // run the search when reduced
+  if (false !== value) {
+    issue_search();
+  }
+  // selected tft
+  select_search_options_tft = selected;
+  // update the filters
+  $('select.tft.hideable option').remove();
+  $('select.tft').each(function(i,e) {
+    var select = $(this);
+    select.find(':selected').each(function(j,element) {
+      if( typeof Drupal.settings.tft[$(element).val()] != "undefined" ) {
+        for (var index in Drupal.settings.tft[$(element).val()]) {
+          $( '#edit-taxonomy-'+(i+1) ).append(
+            $('<option></option>')
+              .val( $(element).val() )
+              .html( Drupal.settings.tft[$(element).val()][index]["name"] )
+          );
+        }
+      }
+    });
+    // select options
+    for (var i in select_search_options_tft) {
+      $('select.tft option[value="'+ select_search_options_tft[i] +'"]').prop('checked', true);
+    }
+  });
+
+
+  $('select.solr-block-form').trigger("liszt:updated");
+
+}
+
+/**
  * Fire event on lists update
  */
 $(document).ready(function () {
-  function select_search_empty() {
-    
-  }
+  //
+  select_search_hide();
 
   var select_search_delay_default = 5000, // ms
       select_search_delay_timer = false,
       select_search_delay = select_search_delay_default;
   $('select.solr-block-form')
     .on("liszt:updated", function() {
-      issue_search();
+      // issue_search();
     })
     .change(function () {
       // auto populate the categories/locations
-
+      select_search_expand();
+      select_search_hide();
 
       // auto search after delay
       select_search_delay = select_search_delay_default;
