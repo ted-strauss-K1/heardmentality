@@ -64,31 +64,35 @@ $('#my_region').live('change', function() {
  * Fire event on lists update
  */
 $(document).ready(function () {
-  //
-  var select_search_delay_default = 3000, // ms
-    select_search_delay_timer = false,
-    select_search_delay = select_search_delay_default;
-  $('select.solr-block-form')
-    .change(function () {
-      // auto populate the categories/locations
-      var output = select_search_expand();
-      select_search_hide();
-
-      if (!output) return;
-      return;
-      // auto search after delay
-      select_search_delay = select_search_delay_default;
-      clearInterval(select_search_delay_timer);
-      select_search_delay_timer = setInterval(function() {
-        select_search_delay -= 1000;
-        if (0 >= select_search_delay) {
-          issue_search();
-          clearInterval(select_search_delay_timer);
-        }
-      }, 1000);
-    });
-
+  $('select.solr-block-form').change(function () {
+    select_search_change()
+  });
 });
+
+/**
+ *
+ */
+var select_search_delay_default = 3000, // ms
+  select_search_delay_timer = false,
+  select_search_delay = select_search_delay_default;
+function select_search_change() {
+  // auto populate the categories/locations
+  var output = select_search_expand();
+  select_search_hide();
+
+  if (!output) return;
+
+  // auto search after delay
+  select_search_delay = select_search_delay_default;
+  clearInterval(select_search_delay_timer);
+  select_search_delay_timer = setInterval(function() {
+    select_search_delay -= 1000;
+    if (0 >= select_search_delay) {
+      issue_search();
+      clearInterval(select_search_delay_timer);
+    }
+  }, 1000);
+}
 
 /**
  * Hide empty selectors
@@ -127,7 +131,15 @@ function select_search_expand() {
   if (false !== value) {
     output = true;
   } else {
-    // todo filter with no search
+    // filter with no search - not a good idea at the moment
+//    $('select.tft :selected').each(function(){
+//      $('.search_item.tft-'+$(this).val()).addClass('keep');
+//    });
+//    $('select.tfl :selected').each(function(){
+//      $('.search_item.tfl-'+$(this).val()).addClass('keep');
+//    });
+//    $('.search_item:not(.keep)').slideUp(500);
+//    $('.search_item').removeClass('keep');
     output = true;
   }
   // selected tft
