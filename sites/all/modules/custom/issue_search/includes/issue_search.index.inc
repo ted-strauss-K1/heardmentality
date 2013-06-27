@@ -200,7 +200,7 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
           $field_index_key = apachesolr_index_key($field);
           $fields[] = array(
             'key' => $field_index_key,
-            'value' => $item['city'],
+            'value' => $item['country'] . '_' . $item['province'] . '_' . $item['city'],
           );
         }
 

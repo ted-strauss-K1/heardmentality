@@ -1,4 +1,9 @@
-<div class="<?php if($teaser) : ?>search_item<?php endif; ?> issue-vote-wrapper" <?php if($page) : ?>id="new_vote"<?php else : ?> <?php endif; ?>>
+<div
+  class="<?php if($teaser) : ?>search_item
+    <?php foreach ($node->taxonomy as $tid => $term) print ' tft-'.$tid; ?>
+    <?php foreach ($node->locations as $location) print ' tfl-'.$location['name']; ?>
+  <?php endif; ?> issue-vote-wrapper"
+  id="<?php if($page) : ?>new_vote<?php else : ?><?php endif; ?>">
   <!-- Part 1 -->
   <?php $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array(); ?>
   <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">

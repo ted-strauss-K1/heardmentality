@@ -6,7 +6,7 @@
  * @param array $codes3
  * @return array
  */
-function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array())
+function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filter = false)
 {
   $tfl = array(
     'list' => array(),
@@ -32,7 +32,6 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array())
     foreach (location_get_provinces($code) as $pcode => $pname) {
       $provinces[$code . '_' . $pcode] = $pname;
     }
-//    $provinces = array_merge($provinces, location_get_provinces($code));
   }
   $tfl['list'][] = $provinces;
 
@@ -52,7 +51,7 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array())
     foreach ($checked as $code) {
       list($ccode, $pcode) = explode("_", $code, 2);
       foreach (location_get_cities($ccode, $pcode) as $citycode => $cityname) {
-        $cities[$citycode] = $cityname;
+        $cities[$code.'_'.$citycode] = $cityname;
       }
     }
     $tfl['list'][] = $cities;
@@ -66,6 +65,60 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array())
     }
     $tfl['checked'][] = $checked;
   }
+
+  // setting
+  $all = array_keys($countries);
+  foreach ($countries as $code => $countryname) {
+    foreach (location_get_provinces($code) as $pcode => $pname) {
+      $id = $code . '_' . $pcode;
+      $all[$code][$id] = array(
+        'id' => $id,
+        'name' => $pname,
+      );
+      if (module_exists('location_cities')) {
+        foreach (location_get_cities($code, $pcode) as $citycode => $cityname) {
+          $id = $code . '_' . $pcode . '_' . $citycode;
+          $all[$code . '_' . $pcode][$id] = array(
+            'id' => $id,
+            'name' => $cityname,
+          );
+        }
+      }
+    }
+  }
+
+  if ($filter) {
+    static $codes = array();
+
+    if (empty($codes)) {
+      $result = db_query("SELECT DISTINCT(name) code FROM {location}");
+      while ($code = db_result($result)) {
+        $split = explode("_", $code);
+        $tmp = $split[0];
+        $codes[0][$tmp] = $tmp;
+        for ($i=1;$i<=2;$i++) {
+          if (isset($split[$i])) {
+            $tmp .= '_'.$split[$i];
+            $codes[$i][$tmp] = $tmp;
+          }
+        }
+      }
+      for ($i=0;$i<=2;$i++) {
+        $codes[$i] = array_unique($codes[$i]);
+      }
+    }
+    foreach ($tfl['list'] as $i => &$list) {
+      $list = array_intersect_key($list, $codes[$i]);
+    }
+    $all = array_intersect_key($all, array_merge($codes[0], $codes[1]));
+    for ($i=0; $i<=1; $i++) {
+      foreach ($codes[$i] as $code) {
+        $all[$code] = isset($all[$code]) ? array_intersect_key($all[$code], $codes[$i+1]) : array();
+      }
+    }
+  }
+
+  drupal_add_js(array('tfl' => $all), 'setting');
 
   return $tfl;
 }

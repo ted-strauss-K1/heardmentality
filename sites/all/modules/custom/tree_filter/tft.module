@@ -5,7 +5,7 @@
  * @param array $tids           - List of selected taxonomy ids
  * @return array
  */
-function tft_list($node_type, $tids = array())
+function tft_list($node_type, $tids = array(), $filter = false)
 {
   $tft = array(
     'list' => array(),
@@ -15,14 +15,20 @@ function tft_list($node_type, $tids = array())
   // select core tids
   $tmp = array();
   $all = array();
+
+//  , COUNT(tn.nid)
   $result = db_query("
     SELECT td.tid, td.name, th.parent
     FROM {vocabulary_node_types} vnt
     INNER JOIN {term_data} td ON td.vid = vnt.vid
     INNER JOIN {term_hierarchy} th ON th.tid = td.tid
-    WHERE vnt.type = '%s'", $node_type);
+    LEFT JOIN {term_node} tn ON td.tid = tn.tid
+    WHERE vnt.type = '%s' GROUP BY td.tid HAVING COUNT(tn.nid) >= '%d'", $node_type, $filter);
   while ($row = db_fetch_object($result)) {
-    $all[$row->parent][] = $row;
+    $all[$row->parent][] = array(
+      'id' => $row->tid,
+      'name' => $row->name,
+    );
     if (0 == $row->parent) $tmp[$row->tid] = $row->name;
   }
 
