@@ -93,12 +93,6 @@ function cpoll_schema() {
         'default' => 'regular',
         'description' => 'The choice type',
       ),
-      'chorder' => array(
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The sort order of this choice among all choices for the same node.',
-      ),
       'cdate' => array(
         'type' => 'datetime',
         'not null' => TRUE,

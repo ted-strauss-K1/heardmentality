@@ -1,1 +1,282 @@
 <?php
+
+/**
+ * Load choices
+ *
+ * @param $nid
+ * @return mixed
+ */
+function cpoll_load_choices($nid) {
+  static $choices = array();
+
+  if (!isset($choices[$nid])) {
+    $choices[$nid] = array();
+
+    $result = db_query("
+      SELECT c.*, COUNT(v.vid) votes, GROUP_CONCAT(v.uid) uids
+      FROM {cpoll_choices} c
+        LEFT JOIN {cpoll_votes} v ON v.chid = c.chid
+      WHERE c.nid = '%d'
+      GROUP BY c.chid", $nid);
+    while ($row = db_fetch_array($result)) {
+      $row['uids'] = !empty($row['uids']) ? explode(',', $row['uids']) : array();
+      $choices[$nid][$row['chid']] = $row;
+    }
+  }
+
+  return $choices[$nid];
+}
+
+/**
+ * Save choice
+ *
+ * @param $choice
+ */
+function cpoll_choice_save($choice) {
+  $object = $choice;
+
+  # allowed keys
+  $allowed = array('chid', 'nid', 'uid', 'chtext', 'chtext_short', 'weight', 'chtype', 'cdate');
+  $object = array_intersect_key($object, array_flip($allowed));
+
+  # prepare for an update/insert
+  $update = array();
+  if (-1 == $object['chid']) {
+    unset($object['chid']);
+    $object['cdate'] = date('Y-m-d H:i:s');
+  } else {
+    $update = 'chid';
+  }
+
+  # execute
+  $object = (object)$object;
+  drupal_write_record('cpoll_choices', $object, $update);
+}
+
+/**
+ * Delete choice
+ *
+ * @param $chid
+ */
+function cpoll_choice_delete($chid) {
+  db_query("DELETE FROM {cpoll_choices} WHERE chid = '%d'", $chid);
+  db_query("DELETE FROM {cpoll_votes} WHERE chid = '%d'", $chid);
+}
+
+/**
+ * @param $chid
+ */
+function cpoll_vote($chid, $uid = FALSE) {
+  if (FALSE == $uid) {
+    global $user;
+    $uid = $user->uid;
+  }
+  db_query("UPDATE {cpoll_votes} SET status = 0 WHERE chid = '%d' AND uid = '%d'", $chid, $uid);
+  db_query("INSERT INTO {cpoll_votes} SET status = 1, chid = '%d', uid = '%d', cdate = '%s'", $chid, $uid, date('Y-m-d H:i:s'));
+}
+
+/**
+ * @return array
+ */
+function cpoll_chtypes() {
+  return array(
+    'regular' => t('Regular'),
+    'suggested' => t('Suggested'),
+  );
+}
+
+/**
+ * Implementation of hook_form_alter()
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function cpoll_form_alter(&$form, $form_state, $form_id)
+{
+  if ($form_id == 'issue_node_form') {
+    // $form['#theme'] = 'cpoll_form';
+
+    $form['choices'] = array(
+      '#type' => 'fieldset',
+      '#title' => 'Choices',
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+      '#weight' => -3,
+      '#tree' => TRUE,
+    );
+
+    $choices = array();
+    if (($node = $form['#node']) && isset($node->nid)) {
+      $choices = cpoll_load_choices($node->nid);
+    }
+    $choices += array(-1 => array());
+    $choices_count = count($choices);
+
+    foreach ($choices as $chid => $choice) {
+      $form['choices'][$chid] = array(
+        '#type' => 'fieldset',
+        '#title' => -1 == $chid ? 'New choice' : 'Choice: ' . $choice['chtext'],
+        '#collapsible' => TRUE,
+        '#collapsed' => -1 != $chid,
+        '#prefix' => '',
+        '#suffix' => '',
+        'chid' => array(
+          '#type' => 'hidden',
+          '#value' => $chid,
+        ),
+        'uid' => array(
+          '#type' => 'hidden',
+          '#value' => $choice['uid'],
+        ),
+        'chtext' => array(
+          '#type' => 'textfield',
+          '#title' => t('Choice Text'),
+          '#value' => $choice['chtext'],
+          '#prefix' => '<table><tr><td colspan="6">',
+          '#suffix' => '</td></tr>',
+        ),
+        'chtext_short' => array(
+          '#type' => 'textfield',
+          '#title' => t('Choice Short Text'),
+          '#value' => $choice['chtext_short'],
+          '#prefix' => '<tr><td colspan="3">',
+          '#suffix' => '</td>',
+        ),
+        'weight' => array(
+          '#type' => 'select',
+          '#title' => t('Weight'),
+          '#options' => range(0,$choices_count-1),
+          '#value' => isset($choice['weight']) ? $choice['weight'] : $choices_count-1,
+          '#delta' => 50,
+          '#prefix' => '<td colspan="1">',
+          '#suffix' => '</td>',
+        ),
+        'chtype' => array(
+          '#type' => 'select',
+          '#title' => t('Type'),
+          '#options' => cpoll_chtypes(),
+          '#default_value' => isset($choice['chtype']) ? $choice['chtype'] : 'regular',
+          '#prefix' => '<td colspan="1">',
+          '#suffix' => '</td>',
+        ),
+        'actions' => array(
+          '#type' => 'select',
+          '#title' => t('Action'),
+          '#options' => array(
+            '' => '--',
+            'delete' => t('Delete'),
+          ),
+          '#disabled' => -1 == $chid,
+          '#prefix' => '<td colspan="1">',
+          '#suffix' => '</td></tr></table>',
+        ),
+      );
+    }
+
+    array_unshift($form['#validate'], 'cpoll_issue_form_validate');
+    $form['#submit'][] = 'cpoll_issue_form_submit';
+  }
+}
+
+/**
+ * @param $choice
+ * @return bool
+ */
+function cpoll_validate(&$choice) {
+  if (!is_array($choice)) {
+    return FALSE;
+  }
+  if (!is_numeric($choice['chid'])) {
+    return FALSE;
+  }
+  if (empty($choice['chtext'])) {
+    return FALSE;
+  }
+  if (!is_numeric($choice['uid'])) {
+    global $user;
+    $choice['uid'] = $user->uid;
+  }
+  if (empty($choice['chtext_short'])) {
+    $choice['chtext_short'] = $choice['chtext'];
+  }
+  return TRUE;
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function cpoll_issue_form_validate(&$form, &$form_state)
+{
+  $choices = & $form_state['clicked_button']['#post']['choices'];
+  foreach ($choices as $chid => &$choice) {
+    if (('delete' != $choice['actions']) && !cpoll_validate($choice)) {
+      if (-1 != $chid) {
+        form_set_error('choice-'.$chid, 'Choice text cannot be empty');
+      } else {
+        unset($choices[-1]);
+      }
+    }
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function cpoll_issue_form_submit(&$form, &$form_state)
+{
+  $form_state['values']['choices'] =  $form_state['clicked_button']['#post']['choices'];
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function cpoll_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
+  if ('issue' == $node->type) {
+    switch ($op) {
+      case 'delete' :
+        $choices = cpoll_load_choices($node->nid);
+        foreach ($choices as $chid => $choice) {
+          cpoll_choice_delete($chid);
+        }
+        break;
+      case 'load' :
+        $node->choices = cpoll_load_choices($node->nid);
+        $node->vote = FALSE;
+        if (user_is_logged_in()) {
+          global $user;
+          foreach ($node->choices as $chid => $choice) {
+            if (in_array($user->uid, $choice['uids'])) {
+              $node->vote = $chid;
+              break;
+            }
+          }
+        }
+        break;
+      case 'view' :
+        //
+        break;
+      case 'insert' :
+      case 'update' :
+        $nid = $node->nid;
+        $choices = $node->choices;
+        foreach ($choices as $chid => $choice) {
+          if ('delete' == $choice['actions']) {
+            cpoll_choice_delete($chid);
+          } else {
+            $choice['nid'] = $nid;
+            cpoll_choice_save($choice);
+          }
+        }
+        break;
+    }
+  }
+}
