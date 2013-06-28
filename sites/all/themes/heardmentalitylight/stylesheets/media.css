@@ -133,17 +133,7 @@
 		#footer #user-login .form-submit {
 			margin: 0 0 15px;
 		}
-		
-		#footer .gigya-login {
-			float: none;
-			clear: both;
-		}
-		
-		#footer #divGigyaLogin {
-			height: auto !important;
-			left: -10px;
-			position: relative;
-		}
+
 		
 		a.facebook i,
 		a.twitter i,
@@ -945,15 +935,7 @@
 		#footer #user-login .form-submit {
 			margin: 36px 0 0;
 		}
-		
-		#footer .gigya-login {
-			float: left;
-			clear: none;
-		}
-		
-		#footer #divGigyaLogin {
-			position: static;
-		}
+
 }
 
 /* END Mobile Only
@@ -1079,14 +1061,4 @@
 			margin: 0 0 15px;
 		}
 		
-		#footer .gigya-login {
-			float: none;
-			clear: both;
-		}
-		
-		#footer #divGigyaLogin {
-			height: auto !important;
-			left: -17px;
-			position: relative;
-		}
 	}

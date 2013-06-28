@@ -2927,23 +2927,11 @@ ul.menu li a.add:hover {
   margin: 0 !important;
 }
 
-.ui-dialog .ui-tabs-panel #componentDiv ,
-.ui-dialog .ui-tabs-panel .gigya-login {
+.ui-dialog .ui-tabs-panel #componentDiv {
   clear: both;
   padding: 16px 0 0;
 }
 
-.ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin_page,
-.ui-dialog .ui-tabs-panel .gigya-login #divGigyaLogin-1_page,
-#footer .gigya-login #divGigyaLogin_page {
-  padding-top: 10px !important;
-}
-
-.ui-dialog .ui-tabs-panel .gigya-login img,
-#footer .gigya-login img {
-  margin-top: 12px !important;
-  height: auto;
-}
 
 .ui-dialog .ui-tabs-panel #user-login,
 .ui-dialog .ui-tabs-panel #user-register {
@@ -3190,15 +3178,6 @@ div.avatar-selection-pager-nav a:hover {
 
 #footer #user-login input.form-text:focus {
   color: #333;
-}
-
-#footer .gigya-login {
-  float: left;
-  color: #999999;
-}
-
-#footer .gigya-login div {
-  color: #999999 !important;
 }
 
 #footer #user-login .form-submit {
