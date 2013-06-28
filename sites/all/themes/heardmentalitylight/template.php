@@ -62,6 +62,7 @@ function heardmentalitylight_preprocess_page(&$vars) {
     if ($node = $vars['node']) {
       switch ($node->type) {
         case 'poll' :
+        case 'issue' :
           # set specific page templates
           drupal_set_subtitle(t('Issue'));
           array_push($vars['template_files'], 'page_12_4');
@@ -75,6 +76,7 @@ function heardmentalitylight_preprocess_page(&$vars) {
     }
   }
 
+  // todo - refactor - delete
   if (arg(0) == 'issue' && arg(1) == 'create') {
     drupal_set_subtitle(t('Add an Issue'));
 	array_push($vars['template_files'], 'page_11_5');

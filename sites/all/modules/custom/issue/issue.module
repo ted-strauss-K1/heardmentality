@@ -78,6 +78,7 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
  */
 function issue_preprocess_page(&$vars)
 {
+  // todo - refactor - delete
   # create
   if (arg(0) == 'issue' && arg(1) == 'create') {
     drupal_add_js('misc/ahah.js');
@@ -139,6 +140,7 @@ function issue_menu()
 {
   $menu = array();
 
+  // todo - refactor - delete
   # create
   $menu['issue/create'] = array(
     'title' => t('Add an Issue'),
@@ -153,6 +155,8 @@ function issue_menu()
     'type' => MENU_CALLBACK,
     'file' => 'includes/issue.create.inc',
   );
+
+
 
   # vote
   $menu['issue/ajax'] = array(

@@ -1,30 +1,3 @@
-/**
- * Count letters on issue create form
- */
-$(function () {
-  var question = $("#q_quest");
-
-  var maxChar = 140;
-  limitChars = function (popup) {
-    var count = maxChar - question.val().length;
-    var counter = $('#q_counter');
-    counter.html(count);
-    if (count <= 0) {
-      counter.addClass('over_limit');
-    } else {
-      counter.removeClass('over_limit');
-    }
-
-    if (count >= 0) {
-      return true;
-    } else {
-      if (popup) $.hrd.noty({'type':'error', 'text':'The question is too long'});
-      return false;
-    }
-  }
-  limitChars();
-});
-
 /*
  * Override ahah.success
  *
@@ -66,28 +39,71 @@ $(function () {
     if (($.browser.safari && $("tr.ahah-new-content", new_content).size() > 0)) {
       new_content.show();
       customCallback();
-}
-else if ($('.ahah-new-content', new_content).size() > 0) {
-  $('.ahah-new-content', new_content).hide();
-  new_content.show();
-  $(".ahah-new-content", new_content)[this.showEffect](this.showSpeed, customCallback);
-}
-else if (this.showEffect != 'show') {
-  new_content[this.showEffect](this.showSpeed, customCallback);
-}
-if (new_content.parents('html').length > 0) {
-  Drupal.attachBehaviors(new_content);
-}
+    }
+    else if ($('.ahah-new-content', new_content).size() > 0) {
+      $('.ahah-new-content', new_content).hide();
+      new_content.show();
+      $(".ahah-new-content", new_content)[this.showEffect](this.showSpeed, customCallback);
+    }
+    else if (this.showEffect != 'show') {
+      new_content[this.showEffect](this.showSpeed, customCallback);
+    }
+    if (new_content.parents('html').length > 0) {
+      Drupal.attachBehaviors(new_content);
+    }
 //Drupal.unfreezeHeight();
-};
+  };
 });
 
 /**
  * This function runs every time we exceed the limit of possible answers
  */
-function issue_create_ahah_answer_error() {
+function cpoll_create_ahah_error() {
   $.hrd.noty({
     'type':'error',
-    'text':'Maximum fields exceeded'
+    'text':'Maximum fields exceeded' // todo translate
   });
 }
+
+/**
+ * Form JS validation
+ */
+var maxlength = 140;
+$('#cpoll-create-form').live('submit', function (e) {
+  var q = $("#q_quest");
+  var errors = [];
+  if (q.val().length > maxlength) {
+    errors.push('The question is too long'); // todo translate
+  }
+  if (2 > $('#poll-choices input').filter(function() { return $(this).val(); }).length) {
+    errors.push('Enter more that two elements'); // todo translate
+  }
+  if (20 > q.val().length) {
+    errors.push('The question is too short'); // todo translate
+  }
+  if (errors.length) {
+    e.preventDefault();
+
+    for (var i in errors) {
+      $.hrd.noty({
+        'type':'error',
+        'text':errors[i]
+      });
+    }
+  }
+});
+
+/**
+ * Counter
+ */
+$('#q_quest').live('keyup', function() {
+  var q = $("#q_quest");
+  var c = $('#q_counter');
+  var count = maxlength - q.val().length;
+  c.html(count);
+  if (count <= 0 || count > 120) {
+    c.addClass('over_limit');
+  } else {
+    c.removeClass('over_limit');
+  }
+});
