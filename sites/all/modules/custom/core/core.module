@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * Include content types
+ */
+include_once('core.features.inc');
