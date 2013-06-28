@@ -1,0 +1,156 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function cpoll_install() {
+  // Create tables.
+  drupal_install_schema('cpoll');
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function cpoll_uninstall() {
+  // Remove tables.
+  drupal_uninstall_schema('cpoll');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function cpoll_schema() {
+  $schema = array();
+
+  $schema['cpoll'] = array(
+    'description' => 'Stores poll-specific information for poll nodes.',
+    'fields' => array(
+      'nid'     => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "The poll's {node}.nid."
+      ),
+      'active'  => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Boolean indicating whether or not the poll is open.',
+      ),
+    ),
+    'primary key' => array('nid'),
+  );
+
+  $schema['cpoll_choices'] = array(
+    'description' => 'Stores information about all choices for all {cpoll}s.',
+    'fields' => array(
+      'chid'    => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier for a {cpoll} choice.',
+      ),
+      'nid'     => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid this choice belongs to.',
+      ),
+      'uid'      => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid this choice is from',
+      ),
+      'chtext'  => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The text for this choice.',
+      ),
+      'chtext_short'  => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The short text for this choice.',
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The weight of this choice',
+      ),
+      'chtype'  => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => 'regular',
+        'description' => 'The choice type',
+      ),
+      'chorder' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The sort order of this choice among all choices for the same node.',
+      ),
+      'cdate' => array(
+        'type' => 'datetime',
+        'not null' => TRUE,
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+      'uid' => array('uid'),
+      'chtype' => array('chtype'),
+    ),
+    'primary key' => array('chid'),
+  );
+
+  $schema['cpoll_votes'] = array(
+    'description' => 'Stores per-{users} votes for each {cpoll}.',
+    'fields' => array(
+      'vid'    => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier for a {cpoll} vote.',
+      ),
+      'chid'    => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier for a {cpoll} choice.',
+      ),
+      'uid'      => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid this vote is from',
+      ),
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 1,
+      ),
+      'cdate' => array(
+        'type' => 'datetime',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('vid'),
+    'indexes' => array(
+      'chid'      => array('chid'),
+      'uid'      => array('uid'),
+    ),
+  );
+
+  return $schema;
+}
