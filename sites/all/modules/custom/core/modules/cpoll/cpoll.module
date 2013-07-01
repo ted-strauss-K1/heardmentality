@@ -6,16 +6,16 @@
  * @param $nid
  * @return mixed
  */
-function cpoll_load_choices($nid) {
+function cpoll_load_choices($nid, $reset = false) {
   static $choices = array();
 
-  if (!isset($choices[$nid])) {
+  if (!isset($choices[$nid]) || $reset) {
     $choices[$nid] = array();
 
     $result = db_query("
       SELECT c.*, COUNT(v.vid) votes, GROUP_CONCAT(v.uid) uids
       FROM {cpoll_choices} c
-        LEFT JOIN {cpoll_votes} v ON v.chid = c.chid
+        LEFT JOIN {cpoll_votes} v ON v.chid = c.chid AND v.status = 1
       WHERE c.nid = '%d'
       GROUP BY c.chid", $nid);
     while ($row = db_fetch_array($result)) {
@@ -51,6 +51,8 @@ function cpoll_choice_save($choice) {
   # execute
   $object = (object)$object;
   drupal_write_record('cpoll_choices', $object, $update);
+
+  return $object;
 }
 
 /**
@@ -71,7 +73,13 @@ function cpoll_vote($chid, $uid = FALSE) {
     global $user;
     $uid = $user->uid;
   }
-  db_query("UPDATE {cpoll_votes} SET status = 0 WHERE chid = '%d' AND uid = '%d'", $chid, $uid);
+  // db_query("UPDATE {cpoll_votes} SET status = 0 WHERE chid = '%d' AND uid = '%d'", $chid, $uid);
+  db_query("
+    UPDATE {cpoll_choices}, {cpoll_votes}
+    SET {cpoll_votes}.status = 0
+    WHERE {cpoll_choices}.chid = {cpoll_votes}.chid
+    AND {cpoll_votes}.uid = '%d'
+    AND {cpoll_choices}.nid = (SELECT c.nid FROM {cpoll_choices} c WHERE c.chid = '%d')", $uid, $chid);
   db_query("INSERT INTO {cpoll_votes} SET status = 1, chid = '%d', uid = '%d', cdate = '%s'", $chid, $uid, date('Y-m-d H:i:s'));
 }
 

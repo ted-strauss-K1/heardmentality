@@ -1,5 +1,5 @@
-name = "core poll - creation"
-description = "Core Poll Creation"
+name = "core poll - voting"
+description = "Core Poll Voting"
 core = "6.x"
 package = "Custom Modules"
 version = "6.x-1.0"

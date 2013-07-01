@@ -156,8 +156,7 @@ function issue_menu()
     'file' => 'includes/issue.create.inc',
   );
 
-
-
+  // todo - refactor - delete
   # vote
   $menu['issue/ajax'] = array(
     'page callback' => 'issue_ajax',

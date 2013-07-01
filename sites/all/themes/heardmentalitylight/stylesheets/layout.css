@@ -6150,3 +6150,15 @@ a.google i {
 .resizable-textarea .grippie {
   width: 100%;
 }
+#cpoll-vote-form .choices {
+  padding: 18px 10px 2px 30px;
+}
+.not-voted .teaser_count_vote {
+  display: none;
+}
+.not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+  margin-left: 0 !important;
+}
+.vote-result-empty, .vote-result-empty + .form-item {
+  display: none;
+}

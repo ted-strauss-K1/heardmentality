@@ -1,0 +1,231 @@
+<?php
+
+/**
+ * Form for adding/editing the Issues' votes
+ *
+ * @param $form
+ * @param $node
+ * @param bool $nowrap
+ * @return array
+ */
+function cpoll_vote_form($form, $node, $nowrap = false)
+{
+  global $user;
+  $form = array();
+
+  $form['#attributes'] = array('class' => 'issue-vote-form');
+
+  # js
+  drupal_add_js(drupal_get_path("module", "cpoll_vote") . "/cpoll_vote.js");
+
+  # wrappers
+  if (!$nowrap) {
+    $form['#prefix'] = sprintf('<style>.issue-vote-form.active { background: red; }</style><div id="voteform-%d" class="voteform">', $node->nid);
+    $form['#suffix'] = '</div>';
+  }
+
+  # info
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $node->nid,
+  );
+  $form['vote'] = array(
+    '#type' => 'hidden',
+    '#value' => $node->vote ? $node->vote : -1,
+  );
+
+  # todo display language & translation
+  $translation = poll_translate_translation($node);
+
+  # votes
+  if ($node->choices) {
+    $options = array();
+    foreach ($node->choices as $i => $choice) {
+      $options[$i] = '<span class="ch">' . check_plain($choice['chtext']) . '</span>'; // todo use translations
+    }
+
+    $options[-1] = '<span class="ch">&nbsp;</span>';
+
+    $form['choices'] = array(
+      '#type' => 'radios',
+      '#default_value' => $node->vote,
+      '#options' => $options,
+      '#prefix' => '<div class="choices">',
+      '#suffix' => '</div>',
+    );
+  }
+
+  # add beauty
+  $form['choices']['#after_build'] = array('cpoll_vote_form_radios');
+
+  # login warning
+  if (!user_is_logged_in()) {
+    $form['#attributes']['class'] .= ' anonymous';
+    $form['login_error'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<div class="login-error">',
+      '#value' => t('You should login to vote or post suggest answers.'),
+      '#suffix' => '</div>',
+    );
+  }
+
+  # todo suggestions
+  $suggestions = true;
+
+  if ($suggestions) {
+    # add suggested answers
+    $form['suggest'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('...Or submit a different answer'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#tree' => TRUE,
+    );
+    $form['suggest']['suggest_answer'] = array(
+      '#type' => 'textfield',
+      '#size' => 38,
+      '#description' => t('(Answers must not exceed 140 carachters in length)'),
+      '#attributes' => array('class' => 'floatleft'),
+      '#maxlength' => 140,
+      '#prefix' => '<div class="nsa-wrapper"><table><tr><td class="first">',
+      '#suffix' => '</td><td>',
+    );
+    $form['suggest']['submit_suggest_answer'] = array(
+      '#type' => 'submit',
+      '#value' => t('Add Answer'),
+      '#attributes' => array('class' => 'add-answer2 light'),
+      '#suffix' => '</td></tr></table></div>',
+      '#id' => 'suggest',
+    );
+  }
+
+  # not-voted
+  if (!$node->vote) {
+    $form['#attributes']['class'] .= ' not-voted';
+  }
+  $form['#attributes']['class'] .= ' voteform-'.$node->nid;
+
+
+  # add vote submit button
+  if (user_is_logged_in()) {
+    $form['main_submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Vote'),
+      '#attributes' => array('class' => 'button vote floatright'),
+      '#id' => 'vote',
+    );
+    if ($node->vote) {
+      $form['main_submit']['#value'] = t('Change vote');
+    }
+  } else {
+    $form['main_submit'] = array(
+      '#type' => 'button',
+      '#value' => t('Login to vote'),
+      '#attributes' => array('class' => 'button vote floatright ' . theme('user_login_modal_class', true)),
+      '#id' => 'vote-login',
+    );
+  }
+
+  // for ajax callbacks
+  $form['action'] = array(
+    '#type' => 'hidden',
+    '#value' => 'vote',
+  );
+
+  return $form;
+}
+
+/**
+ * @param $form_element
+ * @param $form_state
+ */
+function cpoll_vote_form_radios($form_element, &$form_state) {
+  $node = node_load($form_state['values']['nid']);
+  $count = count($form_element['#options']);
+
+  if ($count != count($node->choices)) {
+    // return $form_element;
+  }
+
+  $node->choices[-1] = array('votes' => 0, 'chtype' => 'suggested');
+
+  if ($node->choices) {
+    foreach ($node->choices as $i => $choice) {
+      $vote_number = (int)$choice['votes'];
+      $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
+      $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote vote-result-'.(-1 == $i ? 'empty' : $i).'">
+<span class="vote-result-'.$i.'">' . $vote_number . '</span>' . $vote_string . '</span>';
+      $form_element[$i]['#suffix'] = '</div>';
+    }
+  }
+
+  return $form_element;
+}
+
+/**
+ * @return array
+ */
+function cpoll_vote_menu() {
+  $menu = array();
+
+  $menu['cpoll_vote/ajax'] = array(
+    'page callback' => 'cpoll_vote_ajax',
+    'access callback' => true,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ *
+ */
+function cpoll_vote_ajax() {
+  global $user;
+  $post = & $_REQUEST;
+
+  # suppress form submission
+  unset($post['form_build_id']);
+  unset($post['form_id']);
+  unset($post['form_token']);
+
+  # logged in user validation
+  if (user_is_anonymous()) {
+    print json_encode(array(
+      'status' => FALSE,
+      'message' => t('Please log in'),
+      'result' => cpoll_load_choices($post['nid'], true),
+    ));
+    exit;
+  }
+
+  # add suggestion
+  if ($post['suggestion']) {
+    $choices = cpoll_load_choices($post['nid']);
+    // todo validation
+    $choice = array(
+      'chid' => -1,
+      'nid' => $post['nid'],
+      'uid' => $user->uid,
+      'chtext' => $post['suggestion'],
+      'chtext_short' => $post['suggestion'],
+      'weight' => count($choices),
+      'chtype' => 'suggested',
+    );
+    $object = cpoll_choice_save($choice);
+    $post['chid'] = $object->chid;
+  }
+
+  # vote
+  cpoll_vote($post['chid']);
+
+  # todo reindex
+
+  print json_encode(array(
+    'status' => TRUE,
+    'message' => t('Your vote was added'),
+    'result' => cpoll_load_choices($post['nid'], true),
+    'chid' => $post['chid'],
+  ));
+  exit;
+}
