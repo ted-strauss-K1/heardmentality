@@ -20,7 +20,7 @@ function cpoll_vote_form($form, $node, $nowrap = false)
 
   # wrappers
   if (!$nowrap) {
-    $form['#prefix'] = sprintf('<style>.issue-vote-form.active { background: red; }</style><div id="voteform-%d" class="voteform">', $node->nid);
+    $form['#prefix'] = sprintf('<div id="voteform-%d" class="voteform">', $node->nid);
     $form['#suffix'] = '</div>';
   }
 
