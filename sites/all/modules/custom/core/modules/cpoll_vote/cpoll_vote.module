@@ -153,7 +153,7 @@ function cpoll_vote_form_radios($form_element, &$form_state) {
     foreach ($node->choices as $i => $choice) {
       $vote_number = (int)$choice['votes'];
       $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
-      $form_element[$i]['#prefix'] = '<div class="radio_wrapper clearfix"><span class="teaser_count_vote vote-result-'.(-1 == $i ? 'empty' : $i).'">
+      $form_element[$i]['#prefix'] = '<div class="radio_wrapper choice-'.$choice['chtype'].' clearfix"><span class="teaser_count_vote vote-result-'.(-1 == $i ? 'empty' : $i).'">
 <span class="vote-result-'.$i.'">' . $vote_number . '</span>' . $vote_string . '</span>';
       $form_element[$i]['#suffix'] = '</div>';
     }
