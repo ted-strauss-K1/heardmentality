@@ -46,7 +46,7 @@ function issue_search_form($form_state)
 
   // Search results area.
   $form['#suffix'] = '
-        <div id="loading_wrapper" style="padding: 20px; width: 100%;text-align: center;">' .
+        <div id="loading_wrapper" style="padding: 20px 5%; width: 90%; text-align: center;">' .
     theme('sub_loader', 'margin-top: 15px auto; display: block; ') .
     '</div>' .
     '<div id="linkbox"></div>
@@ -63,33 +63,27 @@ function issue_search_form($form_state)
  */
 function issue_search_ajax()
 {
-  $mtime = round(microtime(TRUE), 4);
+  // to cookie
+  $search_state2 = array();
+  foreach (array(
+    "region" => 'my_region',
+    "voted_status" => 'not_voted',
+    "search_text" => 'keywords',
+  ) as $k => $key) {
+    $search_state2[$k] = $_POST[$key];
+  }
+  setcookie("search2", serialize($search_state2), time() + 60*60*24, "/");
 
   // Search results.
   $results = issue_search();
   $rows = count($results);
-
-  $env_id = apachesolr_default_environment();
-  if (($query = apachesolr_current_query($env_id)) && ($response = apachesolr_static_response_cache($query->getSearcher()))) {
-    $rows = $response->response->numFound;
-  }
-
-  $message =
-    theme('issue_search_results', $results) .
-    theme('gpager',
-      isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1,
-      null,
-      $rows,
-      SEARCH_RESULTS_PER_PAGE,
-      'issue_search_pager_link'
-    );
+  $message = theme('issue_search_results', $results);
 
   // JSON params.
   $json = array(
     'status' => true,
     'message' => $message,
     'rows' => $rows,
-    'time' => round(microtime(TRUE), 4) - $mtime,
   );
 
   print json_encode($json);

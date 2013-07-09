@@ -1,6 +1,6 @@
 <?php
 
-define('MODERATION_DELETE_COUNT', 1);
+define('MODERATION_DELETE_COUNT', 3);
 
 /**
  * @param $uid
@@ -536,26 +536,21 @@ function moderation_issue_view_form($form_state, $nid)
     '#title' => t('Title'),
     '#value' => !empty($translation['title'][0]) ? $translation['title'][0] : $node->title,
     '#prefix' =>
-    sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
-      sprintf('
-        <div style="float:right;margin-right: 30px;"><a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a></div>',
+    sprintf('<div class="question_section">') .
+      sprintf('<div class="view_q"><a href="/%s" target="_blank"><i class="mod-view mod-icon icon-eye-open" title="%s"></i>View</a></div>',
         $node->path, t('View')),
-    '#suffix' =>
-
-    '</div>',
   );
   $form['body'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
     '#value' => !empty($translation['body'][0]) ? $translation['body'][0] : $node->field_description[0]['value'],
-    '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
-    '#suffix' => '</div>',
   );
 
   $form['allowsuggestions'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow suggesting answers'),
     '#default_value' => $node->allowsuggestions,
+	'#suffix' => '</div>',
   );
 
   $form['choices'] = array(
@@ -617,16 +612,15 @@ function moderation_issue_view_form($form_state, $nid)
     '#type' => 'submit',
     '#value' => t('Save and Approve'),
     '#submit' => array('moderation_issue_view_form_save'),
+	'#prefix' => '<div class="action_wrapper">',
   );
   global $user;
-  if (!moderation_history_get($form['content_id']['#value'], $form['content_type']['#value'], array(
-    'type' => 'delete',
-    'uid' => $user->uid
-  ))) {
+  if (!moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete', array(), false, $user->uid)) {
     $form['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Deletion request'),
       '#submit' => array('moderation_issue_view_form_delete'),
+	  '#suffix' => '</div>',
     );
   }
 
@@ -814,10 +808,8 @@ function moderation_ahah($type, $page = 0)
 
       if (is_array($post_choices)) {
         foreach ($post_choices as $chorder => $vals) {
-          if ($vals['meta']) {
-            foreach ($vals['meta'] as $_key => $_val) {
-              $form['choices'][$chorder]['meta'][$_key]['#value'] = $_val;
-            }
+          foreach ($vals['charact'] as $_key => $_val) {
+            $form['choices'][$chorder]['charact'][$_key]['#value'] = $_val;
           }
         }
       }
@@ -887,42 +879,35 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
     '#parents' => array('choices', $delta, 'chorder'),
   );
 
-  if (module_exists('poll_meta')) {
-    global $user;
-    $form['meta'] = array(
+  if (module_exists('poll_charact')) {
+    $form['charact'] = array(
       '#type' => 'fieldset',
       '#title' => t('Metadata'),
       '#collapsible' => FALSE,
       '#collapsed' => FALSE,
     );
-    $meta = poll_meta_values_get($nid, $user->uid);
-    if ($meta[$choice['chorder']]) {
-      if (!empty($meta[$choice['chorder']])) {
-        foreach ($meta[$choice['chorder']] as $cid => $value) {
-          $form['meta']['char'.$cid] = array(
-            '#type' => 'select',
-            '#title' => t($value['chtext']),
-            '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
-            '#value' => $value['val'],
-            '#size' => 5,
-            '#parents' => array('choices', $delta, 'meta', 'char'.$cid),
-            '#prefix' => '<div class="poll-meta poll-meta-'.$cid.'">',
-            '#suffix' => '</div>',
-          );
-        }
+    $charact = poll_charact_values_get($nid, $choice['chorder']);
+    if ($charact) {
+      foreach ($charact as $cid => $char) {
+        $form['charact']['char' . $cid] = array(
+          '#type' => 'select',
+          '#title' => t($char['name']),
+          '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
+          '#value' => $char['value'],
+          '#size' => 1,
+          '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
+        );
       }
     } else {
-      $meta = poll_meta_get();
-      foreach ($meta as $cid => $text) {
-        $form['meta']['char'.$cid] = array(
+      $charact = poll_charact_get();
+      foreach ($charact as $cid => $char) {
+        $form['charact']['char' . $cid] = array(
           '#type' => 'select',
-          '#title' => t($text),
+          '#title' => t($char),
           '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
-          '#value' => POLL_META_AVG,
+          '#value' => POLL_CHARACT,
           '#size' => 5,
-          '#parents' => array('choices', $delta, 'meta', 'char'.$cid),
-          '#prefix' => '<div class="poll-meta poll-meta-'.$cid.'">',
-          '#suffix' => '</div>',
+          '#parents' => array('choices', $delta, 'charact', 'char' . $cid),
         );
       }
     }
@@ -938,7 +923,6 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
  */
 function moderation_issue_view_form_save(&$form, &$form_state)
 {
-  global $user;
   $values = $form_state["clicked_button"]['#post'];
   $nid = $values['content_id'];
   $node = node_load($nid);
@@ -981,12 +965,15 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     $node->allowsuggestions = $values['allowsuggestions'];
   }
 
-  # meta
-  if (module_exists('poll_meta')) {
-    $meta = poll_meta_get();
-    foreach ($values['choices'] as $i => $choice) {
-      foreach ($meta as $cid => $text) {
-        poll_meta_value_set($nid, $choice['chorder'], $user->uid, $cid, $choice['meta']['char' . $cid]);
+  # characteristics
+  if (module_exists('poll_charact'))
+    $char = poll_charact_get();
+  $char_values = poll_charact_values($node->nid);
+  foreach ($values['choices'] as $i => $choice) {
+    foreach ($char as $cid => $name) {
+//      foreach ($char_values[$choice['chorder']] as $cid => $data) {
+      if ($char_values[$choice['chorder']][$cid]['value'] != $choice['charact']['char' . $cid]) {
+        poll_charact_value_set($node->nid, $choice['chorder'], $cid, $choice['charact']['char' . $cid]);
       }
     }
   }
@@ -1058,12 +1045,13 @@ function moderation_issue_view_form_save(&$form, &$form_state)
       }
     }
 
+
   // track changes
   if (!empty($changed)) {
     global $language;
 
-    // todo meta values to node
-    if ($changed['meta']) {
+    // todo charact values to node
+    if ($changed['charact']) {
       //
     }
 
@@ -1103,7 +1091,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
             } else {
               // todo - deletion of the choice onlty when viewing the node on original lang
               unset($t['choice'][$chorder]);
-              moderation_history_set($nid, 'node', 'edit', array('action' => 'choice delete', 'chorder' => $chorder));
+              moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
             }
           }
         }
@@ -1120,19 +1108,18 @@ function moderation_issue_view_form_save(&$form, &$form_state)
           if (isset($case['chtext'])) {
             $choice['chtext'] = $case['chtext'];
             if ($case['chtext'] == '') {
-              moderation_history_set($nid, 'node', 'edit', array('action' => 'choice delete', 'chorder' => $chorder));
+              moderation_history('set', $nid, 'choice', 'delete', array('chorder' => $chorder));
             }
           }
         }
     }
-    moderation_history_set($nid, 'node', 'edit', $changed);
+    moderation_history('set', $nid, 'node', 'edit', $changed);
   }
 
   // approved
-  moderation_history_del($nid, 'node', array('type' => 'approve'));
-  moderation_history_set($nid, 'node', 'approve');
-  moderation_history_del($nid, 'node', array('!uid' => $user->uid));
-//  exit;
+  moderation_history('del', $nid, 'node', 'approve');
+  moderation_history('set', $nid, 'node', 'approve');
+
   node_save($node);
 
   // reindex
@@ -1159,8 +1146,8 @@ function moderation_issue_view_form_delete(&$form, &$form_state)
  */
 function moderation_delete_request($form)
 {
-  moderation_history_set($form['content_id']['#value'], $form['content_type']['#value'], 'delete');
-  $delete_requests = count(moderation_history_get($form['content_id']['#value'], $form['content_type']['#value'], array('type' => 'delete')));
+  moderation_history('set', $form['content_id']['#value'], $form['content_type']['#value'], 'delete');
+  $delete_requests = count(moderation_history('get', $form['content_id']['#value'], $form['content_type']['#value'], 'delete'));
 
   if ($delete_requests >= MODERATION_DELETE_COUNT) {
     switch ($form['content_type']['#value']) {

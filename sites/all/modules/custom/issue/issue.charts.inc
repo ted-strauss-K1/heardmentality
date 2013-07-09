@@ -126,7 +126,7 @@ function issue_charts_preprocess(&$vars)
   $node->votecount = $count;
 
   # voted or not
-  $voted = !is_null($node->vote) && ($node->vote != -1);
+  $voted = $node->vote != -1;
   if (module_exists('poll_suggest')) {
     $voted = $voted || ($node->vote_suggest != -1);
   }
@@ -137,7 +137,6 @@ function issue_charts_preprocess(&$vars)
 //      $vars['charts'] = '<span class="no_show">' . t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') . '</span>';
 //    }
   }
-
   $vars['charts'] .= theme('issue_charts_inner', $node, $voted);
 }
 
@@ -260,7 +259,7 @@ function issue_charts_filter_preprocess($node)
     }
 
     # get total votes
-    $counts = &$cat['']['#results'];
+    $counts = & $cat['']['#results'];
     $result = db_query("SELECT chorder, COUNT(*) count FROM poll_votes WHERE nid = '%d' GROUP BY chorder", $node->nid);
     while ($vote = db_fetch_array($result)) {
       $counts[$vote['chorder']][$vote['chorder']] = (int)$vote['count'];
@@ -699,7 +698,7 @@ function theme_issue_charts_strength($node)
   drupal_add_js(drupal_get_path('module', 'issue') . "/charts/highcharts/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/charts/chart.strength.js");
 
-  return '<div class="expanding stat"><h6 class="button" id="deb-ana">' . t('Stats') . '</h6></div>';
+  return '<div class="expanding stat"><h6 class="dd_button" id="deb-ana">' . t('Stats') . '</h6></div>';
 }
 
 /**

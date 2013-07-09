@@ -7,12 +7,13 @@
     <div id="own_info">
       <img class="profile-meta" src="<?php print user_profile_image($account) ?>"/>
 
-      <div class="medals">
+      <div class="medal vertical clearfix">
         <?php if (isset($badges['#stat'])) : ?>
         <?php foreach ($badges['#stat'] as $type => $badge) : ?>
-          <div class="medal"><span class="<?php print $type ?>" id="medal1"
-                                   title="<?php print ucfirst($type) ?> Medals">&nbsp;</span><?php print $badge;?>
-          </div>
+          	  <span class="medal_box">
+				<span class="medal1 <?php print $type ?>" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
+				<?php print $badge; ?>
+			  </span>
           <?php endforeach; ?>
         <?php endif; ?>
       </div>
@@ -53,8 +54,7 @@
   <div class="following clearfix">
     <label for="following" class="following"><?php print user_profile_follow_title('following'); ?></label>
     <?php foreach ($following as $f_user) : ?>
-    <a href="/user/profile/view/<?php print $f_user->requestee->name; ?>" class="floatleft"><img class="following-user"
-                                                                                                 src="<?php print user_profile_image($f_user->requestee); ?>"/></a>
+    <a href="/user/profile/view/<?php print $f_user->requestee->name; ?>" class="floatleft"><img class="following-user" src="<?php print user_profile_image($f_user->requestee); ?>"/></a>
     <?php endforeach; ?>
     <a class="more" href="/user/profile/follow/<?php print $account->uid ?>/following"><?php print t('See All');?>
       (<?php print $following_count; ?>)</a>
@@ -65,8 +65,7 @@
   <div class="following clearfix">
     <label for="following" class="following"><?php print user_profile_follow_title('followers'); ?></label>
     <?php foreach ($followers as $f_user) : ?>
-    <a href="/user/profile/view/<?php print $f_user->requester->name; ?>" class="floatleft"><img class="following-user"
-                                                                                                 src="<?php print user_profile_image($f_user->requester); ?>"/></a>
+    <a href="/user/profile/view/<?php print $f_user->requester->name; ?>" class="floatleft"><img class="following-user" src="<?php print user_profile_image($f_user->requester); ?>"/></a>
     <?php endforeach; ?>
     <a class="more" href="/user/profile/follow/<?php print $account->uid ?>/followers"><?php print t('See All');?>
       (<?php print $followers_count; ?>)</a>
