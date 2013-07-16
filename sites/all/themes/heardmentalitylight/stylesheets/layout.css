@@ -3299,6 +3299,9 @@ h2.page-title {
 .issue-vote-wrapper #new-ellipse a:hover {
   color: #0c6926;
 }
+.issue-vote-wrapper #new-ellipse + span {
+  display: none;
+}
 
 .issue-vote-wrapper span#extended-issue-description + p {
   display: none;

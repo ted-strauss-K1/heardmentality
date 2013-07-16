@@ -5,10 +5,9 @@
   <?php endif; ?> issue-vote-wrapper"
   id="<?php if($page) : ?>new_vote<?php else : ?><?php endif; ?>">
   <!-- Part 1 -->
-  <?php $translation = module_exists('poll_translate') ? poll_translate_translation($node) : array(); ?>
   <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">
     <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print
-      l( t(rtrim(!empty($translation['title'][0]) ? $translation['title'][0] : $title, "?")), $node->path, array('html' => true));
+      l($node->title, $node->path, array('html' => true));
     ?>?</h2>
     <?php if($page) : ?>
     <div class="qd">
@@ -26,7 +25,13 @@
           ); ?>
         <?php endif; ?>
       <?php endif; ?>
-      <p class="description"><?php print $node->content['body']['#value']; ?></p>
+      <p class="description">
+        <span id="content-s"><?php print $node->description; ?></span>
+        <?php if ($node->description_s) : ?>
+          <span id="new-ellipse"><a>...more</a></span>
+          <span><?php print $node->description_f; ?></span>
+        <?php endif; ?>
+      </p>
     </div>
     <?php endif; ?>
     <div class="poll-vote-area">

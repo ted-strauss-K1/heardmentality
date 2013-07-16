@@ -237,14 +237,16 @@ function issue_theme()
 {
   $theme = array();
 
+  // todo - refactor - delete
   $theme['issue_guidelines'] = array(
     'arguments' => array(),
     'template' => 'templates/issue-guidelines',
   );
-  $theme['issue_description'] = array(
-    'arguments' => array('text' => NULL),
-    'file' => 'issue.theme.inc',
-  );
+
+
+
+
+
   $theme['issue_arguments'] = array(
     'arguments' => array('node' => NULL),
     'template' => 'templates/issue-arguments',
