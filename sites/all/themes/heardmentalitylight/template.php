@@ -361,6 +361,10 @@ function heardmentalitylight_theme(){
     ),
   );
 
+  $theme['sub_loader'] = array(
+    'arguments' => array('styles' => NULL),
+  );
+
   return $theme;
 }
 
@@ -447,4 +451,15 @@ function heardmentalitylight_moderation_pager($page, $pages, $pattern)
   }
   $output .= '</div>';
   return $output;
+}
+
+/**
+ * @param string $styles
+ * @return string
+ */
+function heardmentalitylight_sub_loader($styles = '') {
+  global $theme;
+  return '<span id="sub_loader" style="'. $styles .'">
+    <img src="/'.drupal_get_path('theme', $theme).'/images/loading_min.gif" alt="loading">
+  </span>';
 }

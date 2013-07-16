@@ -249,7 +249,7 @@ function bf_issue_create($data, $url = '') {
 
   # save
   node_save($node);
-  issue_node_clean_cache($node);
+  node_reload($node);
 
   // invoke event
   if ($tids && module_exists('rules')) {

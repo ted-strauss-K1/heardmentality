@@ -36,3 +36,13 @@ function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
     }
   }
 }
+
+/**
+ * @param $node
+ */
+function node_reload(&$node)
+{
+  $cid = 'content:' . $node->nid . ':' . $node->vid;
+  cache_clear_all($cid, content_cache_tablename());
+  $node = node_load($node->nid, NULL, TRUE);
+}

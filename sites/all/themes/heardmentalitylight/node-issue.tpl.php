@@ -138,8 +138,8 @@
             </div>
             <div class="popup hidden" id="filter_content">
               <span class="title">Show all</span>
-              <?php foreach ($node->choices as $index => $choice) : ?>
-                <dl name="<?php print $choice['chorder'] ?>">
+              <?php foreach ($node->choices as $choice) : ?>
+                <dl name="<?php print $choice['chid'] ?>">
                   <dd>
                     <a href="" class="neutral">
                       <span class="small_pos">+</span>
@@ -152,7 +152,7 @@
                       <span class="small_neg">-</span>
                     </a>
                   </dd>
-                  <dt><?php print $choice['chtext_short'] ? $choice['chtext_short'] : $choice['chtext']; ?></dt>
+                  <dt><?php print $choice['chtext_short'] ?></dt>
                 </dl>
               <?php endforeach; ?>
               <span class="title reset">Reset filters</span>

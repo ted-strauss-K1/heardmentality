@@ -344,7 +344,7 @@ $(document).ready(function () {
   $('.add_button .argument-form a').click(function () {
     $('.reference-form').show();
     $('.argument-form').hide();
-    $('#argument_type').val(2);
+    $('#argument_type').val('resource');
 //    TODO text translate
     $('#add_argument').val($('#linkbox').html() == '' ? 'Attach' : 'Add');
     $(this).parents('.add_button').addClass('reduce');
@@ -354,7 +354,7 @@ $(document).ready(function () {
   $('.add_button .reference-form a').click(function () {
     $('.reference-form').hide();
     $('.argument-form').show();
-    $('#argument_type').val(1);
+    $('#argument_type').val('argument');
 //    TODO text translate
     $('#add_argument').val('Add');
     $(this).parents('.add_button').removeClass('reduce');
@@ -427,18 +427,17 @@ $('#argument-add-form').live('submit', function (e) {
 
   // check errors
   var error = false;
-  if (title.length < 2 && type == 1) {
+  if (title.length < 2 && type == 'argument') {
     error = 'Please let us know what you think.';
-  } else if (!flag_set && type == 1) {
+  } else if (!flag_set && type == 'argument') {
     error = 'You must choose at least one suppose or oppose.';
-  } else if (!url_validate(nlink) && type == 2) {
+  } else if (!url_validate(nlink) && type == 'resource') {
     error = 'Please enter a valid URL. ' + nlink;
-  } else if (linkbox == '' && type == 2) {
+  } else if (linkbox == '' && type == 'resource') {
     var callback_url = '/argument/preview/resource';
     var lbox = $('#linkbox');
     lbox.slideDown('slow');
-    // todo translate string
-    lbox.html("<span class='load'>Loading...</span>");
+    lbox.html("<span class='load'>Loading...</span>"); // todo translate string
 
     $.ajax({
       type:'POST',
@@ -642,4 +641,39 @@ $(document).ready(function () {
     el.tabs("load", selected);
     el.tabs("select", selected);
   })
+});
+
+function toggle_resources() {
+  if ($('#inc_check').attr('checked')) {
+    $('.resource').show();
+  } else {
+    $('.resource').hide();
+  }
+}
+
+$(document).ready(function () {
+  /*
+   * Toggle resources
+   */
+  $('#inc_check').change(function () {
+    toggle_resources();
+  });
+
+});
+
+/**
+ *
+ */
+$('a.permalink').live('click', function (e) {
+  e.preventDefault();
+//  var link = window.location.href.replace(/#.*/, '') + '#' + $(this).parents('.one-forum').attr('id');
+  var link = $(this).attr('name');
+  $.hrd.noty({
+    'layout':'center',
+    'type':'alert',
+    'text':'<a href="' + link + '">' + link + '</a>',
+    'modal':true,
+    'timeout':false,
+    'closeWith':['button']
+  });
 });

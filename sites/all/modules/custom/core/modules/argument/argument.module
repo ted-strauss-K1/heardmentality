@@ -1,168 +1,8 @@
 <?php
 
 include_once "argument.theme.inc";
-
-/**
- * Form for adding arguments
- *
- * @param $form
- * @param $node
- * @return array
- */
-function argument_form($form, $node)
-{
-  $form = array();
-
-  $choices = $node->choices;
-  drupal_add_js(array('argument_form' => array('count' => count($choices))), 'setting');
-  drupal_add_js(drupal_get_path('module', 'argument') . "/argument.js");
-
-  $form['#id'] = 'argument-add-form';
-
-  $form['nid'] = array(
-    '#type' => 'hidden',
-    '#value' => $node->nid,
-  );
-  $form['image'] = array(
-    '#type' => 'hidden',
-    '#value' => '',
-    '#id' => 'image',
-  );
-  $form['type'] = array(
-    '#type' => 'hidden',
-    '#value' => 1,
-    '#id' => 'argument_type',
-  );
-
-  $form['head'] = array(
-    '#type' => 'markup',
-    '#value' => '<table><tr><td class="first">',
-  );
-  $form['title'] = array(
-    '#type' => 'textarea',
-    '#size' => 70,
-    '#cols' => 10,
-    '#rows' => 3,
-    '#resizable' => FALSE,
-    '#id' => 'deb_title',
-    '#prefix' => '<div class="argument-form"><label for="deb_title">' . t('What\'s your argument?') . '</label>',
-    '#suffix' => '</div>',
-  );
-  $form['url'] = array(
-    '#type' => 'textfield',
-    '#default_value' => 'http://',
-    '#size' => 60,
-    '#maxlength' => 256,
-    '#id' => 'url',
-    '#prefix' => '
-      <div class="reference-form">
-        <label for="edit-ref-title">' . t('Post a reference') .
-      '<span>(' . t('news, blog, gov, data') . '...).</span>
-        </label>',
-    '#suffix' => '
-      </div>
-      <span class="error-msg" id="deb-err"></span>',
-  );
-  $form['asgn_val'] = array(
-    '#type' => 'markup',
-    '#value' => '
-      </td>
-      <td class="argument-form">
-        <div class="assign">
-          <table>
-            <th>
-              <td style="width: 100%;"><span class="label">' . t('Assign values') . ':</span></td>
-              <td><span class="small_neg">' . t('-') . '</span></td>
-              <td><span class="small_pos">' . t('+') . '</span></td>
-            </th>
-          </table>
-        </div>'
-  );
-
-  foreach ($choices as $i => $choice) {
-    $form['option_' . $i] = array(
-      '#type' => 'select',
-      '#options' => array('-1' => '-', '0' => '-/+', '1' => '+'),
-      '#attributes' => array('class' => 'select-value'),
-      '#id' => 'sup_' . $i,
-      '#default_value' => 0,
-      '#prefix' => '
-        <div class="value-select">
-          <table>
-            <tr>
-              <td class="first">
-                <label class="value floatleft">' . $choice['chtext_short'] . '</label>
-              </td>
-              <td>',
-      '#suffix' => '
-              </td>
-            </tr>
-          </table>
-        </div>',
-    );
-    $form['chorder_' . $i] = array(
-      '#type' => 'hidden',
-      '#value' => $choice['chid']
-    );
-  }
-  $form['clr_div'] = array(
-    '#type' => 'markup',
-    '#value' => '<div class="clr"></div><span class="req_assign">(' . t('Required to set one or more') . ')</span>'
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Add'),
-    '#attributes' => array('class' => 'orange-btn'),
-    '#prefix' => '</td></tr></table><div class="add_button">',
-    '#suffix' => theme('sub_loader', 'display:none; float:left; margin-right:17px; position:relative; top:2px;'),
-    '#id' => 'add_argument',
-  );
-
-  $form['link-arg'] = array(
-    '#type' => 'item',
-    '#value' => l(t('Or post a reference') . '<br><span class="desc">('.t('News, Data, Video, etc.').')</span>', '', array('html' => TRUE)),
-    '#prefix' => '<div class="argument-form">',
-    '#suffix' => '</div>',
-    '#id' => 'link_arg',
-  );
-  $form['link-ref'] = array(
-    '#type' => 'item',
-    '#value' => l(t('Or write an argument'), '#'),
-    '#prefix' => '<div class="reference-form">',
-    '#suffix' => '</div></div>',
-    '#id' => 'link_ref',
-  );
-  $form['linkbox'] = array(
-    '#type' => 'item',
-    '#value' => '<div id ="linkbox"></div>',
-  );
-
-  return $form;
-}
-
-/**
- * @param $nid
- * @param $info
- * @return array
- */
-function argument_get_list($nid, &$info) {
-  $items = array();
-
-  $result = db_query("
-    SELECT n.*
-    FROM {node} n
-    INNER JOIN {content_field_reference} cfr
-      ON n.nid = cfr.nid
-    WHERE n.status = 1 AND cfr.field_reference_nid = '%d'
-    ORDER BY nid DESC", $nid);
-  while ($row = db_fetch_object($result)) {
-    $items[] = $row;
-    $info['all']++;
-    $info[$row->type]++;
-  }
-
-  return $items;
-}
+include_once "argument.forms.inc";
+include_once "argument.pages.inc";
 
 /**
  *
@@ -212,6 +52,7 @@ function argument_menu()
 {
   $menu = array();
 
+  # switch tabs
   $menu['argument/tab/%/%/%'] = array(
     'page callback' => 'argument_tab',
     'type' => MENU_CALLBACK,
@@ -219,12 +60,21 @@ function argument_menu()
     'access arguments' => array('access content'),
   );
 
+  # comment creation
   $menu['argument/create/comment'] = array(
     'page callback' => 'argument_create_comment',
     'type' => MENU_CALLBACK,
     'access arguments' => array('post comments without approval'),
   );
 
+  # preview resource
+  $menu['argument/preview/resource'] = array(
+    'page callback' => 'argument_preview_resource',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+  );
+
+  # create argument/resource
   $menu['argument/create'] = array(
     'page callback' => 'argument_create',
     'type' => MENU_CALLBACK,
@@ -238,110 +88,109 @@ function argument_menu()
     'access callback' => TRUE,
   );
 
-  $menu['argument/preview/resource'] = array(
-    'page callback' => 'argument_preview_resource',
-    'type' => MENU_CALLBACK,
-    'access callback' => TRUE,
-  );
+
 
   return $menu;
 }
 
 /**
- * @param $nid
- * @param null $sort
- * @param null $print
- * @return mixed
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
  */
-function argument_tab($nid, $sort = NULL, $print = NULL)
+function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 {
-  $argnids = argument_filter($nid, $sort, $_REQUEST['class'], $_REQUEST['chorder']);
-  $nodes = array();
-  foreach ($argnids as $argnid) {
-    $nodes[] = node_load($argnid);
-  }
-  $output = theme('argument_tab', $nodes);
-
-  # print/return
-  if (is_null($print)) {
-    return $output;
-  } else {
-    print $output;
-    exit;
+  if ('argument' == $node->type || 'resource' == $node->type) {
+    switch ($op) {
+      case 'load' :
+        $node->creation_time = ($_ = theme('time_interval', $node->created)) ? $_ : date("F d Y H:i:s", $node->created);
+        $node->comments = argument_recent_comments($node->nid);
+        break;
+    }
   }
 }
 
 /**
- * Main function to filter the arguments for Debate tabs
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function argument_comment(&$a1, $op)
+{
+  switch ($op) {
+    case 'view' :
+      $a1->creation_time = ($_ = theme('time_interval', $a1->timestamp)) ? $_ : date("F d Y H:i:s", $a1->timestamp);
+      break;
+  }
+}
+
+/**
+ * Get recent comments
  *
  * @param $nid
- * @param null $sort
- * @param null $class
- * @param null $chorder
  * @return array
  */
-function argument_filter($nid, $sort = NULL, $class = NULL, $chorder = NULL)
+function argument_recent_comments($nid)
 {
-  $argnids = array();
+  $comments = array();
 
-  $params = array();
-
-  $query = "
-    SELECT DISTINCT(n.nid)
-    FROM {content_field_reference} cfr
-    INNER JOIN {node} n ON cfr.nid = n.nid
-    LEFT JOIN {argument_options} ao ON n.nid = ao.nid
-    LEFT JOIN {votingapi_cache} vc ON vc.content_type = 'node' AND vc.content_id = n.nid AND vc.function = 'sum'
-    LEFT JOIN {votingapi_vote} vv ON vv.content_type = 'node' AND vv.content_id = n.nid
-    WHERE n.status = 1 AND cfr.field_reference_nid = '%d'";
-  $params[] = $nid;
-
-  if (!is_null($class) && !is_null($chorder)) {
-    $query .= " AND ao.chorder = '%d'";
-    $params[] = $chorder;
-
-    # filter arguments
-    switch ($class) {
-      case 'neutral' :
-        $params[] = 0;
-        $query .= " AND ao.val <> '%d'";
-        break;
-      case 'positive' :
-        $params[] = 1;
-        $query .= " AND ao.val = '%d'";
-        break;
-      case 'negative' :
-        $params[] = -1;
-        $query .= " AND ao.val = '%d'";
-        break;
-      default :
-        $params[] = 0;
-        $query .= " AND ao.val = '%d'";
-        break;
-    }
+  $result = db_query("SELECT * FROM {comments} WHERE nid = '%d' AND status = '%d' AND comment <> '' ORDER BY cid DESC", $nid, COMMENT_PUBLISHED);
+  while ($comment = db_fetch_object($result)) {
+    $comment->content_id = $comment->cid;
+    $comment->content_type = 'comment';
+    $comments[] = $comment;
   }
 
-  # sort parameters
-  switch ($sort) {
-    case 1 : # older
-      $order = 'ORDER BY n.created ASC';
-      break;
-    case 0 : # recent
-      $order = 'ORDER BY n.created DESC';
-      break;
-    case 2 : # supported
-      $order = 'ORDER BY IFNULL(vc.value, 0) DESC';
-      break;
-    default : # default
-      $order = 'ORDER BY n.nid DESC';
-      break;
-  }
-
-  // fetch results
-  $result = db_query($query . ' ' . $order, $params);
-  while ($item = db_fetch_array($result)) {
-    $argnids[] = $item['nid'];
-  }
-
-  return $argnids;
+  return $comments;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @param $nid
+ * @param $info
+ * @return array
+ */
+function argument_get_list($nid, &$info) {
+  $items = array();
+
+  $result = db_query("
+    SELECT n.*
+    FROM {node} n
+    INNER JOIN {content_field_reference} cfr
+      ON n.nid = cfr.nid
+    WHERE n.status = 1 AND cfr.field_reference_nid = '%d'
+    ORDER BY nid DESC", $nid);
+  while ($row = db_fetch_object($result)) {
+    $items[] = $row;
+    $info['all']++;
+    $info[$row->type]++;
+  }
+
+  return $items;
+}
+
+
+
+
+

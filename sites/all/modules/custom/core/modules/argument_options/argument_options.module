@@ -10,7 +10,7 @@
  */
 function argument_options_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 {
-  if ('argument' == $node->type || 'resource' == $node->type ) {
+  if ('argument' == $node->type || 'resource' == $node->type) {
     switch ($op) {
       case 'insert' :
       case 'update' :

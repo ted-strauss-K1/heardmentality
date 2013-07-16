@@ -120,12 +120,6 @@ function issue_menu()
 {
   $menu = array();
 
-
-
-
-
-
-
   if (module_exists('subscriptions')) {
     $menu['issue/subscribe'] = array(
       'page callback' => 'issue_subscribe',
@@ -133,10 +127,6 @@ function issue_menu()
       'type' => MENU_CALLBACK,
       'file' => 'issue.pages.inc',
     );
-  }
-
-  if (function_exists('argument_menu')) {
-    $menu += argument_menu();
   }
 
   if (function_exists('charts_menu')) {
@@ -193,10 +183,7 @@ function issue_theme()
   $theme = array();
 
   // TODO rename
-  $theme['sub_loader'] = array(
-    'arguments' => array('styles' => NULL),
-    'template' => 'templates/issue-loader',
-  );
+
 
   //
   $theme['issue_category'] = array(
@@ -273,18 +260,7 @@ function issue_block($op = 'list', $delta = 0, $edit = array())
 
 
 
-/**
- * Implementation of hook_comment()
- *
- * @param $a1
- * @param $op
- */
-function issue_comment(&$a1, $op)
-{
-  if (function_exists('argument_comment')) {
-    argument_comment($a1, $op);
-  }
-}
+
 
 /**
  * @param $uid
@@ -340,12 +316,3 @@ function issue_get_vote_status($nid = FALSE)
   return $nid === FALSE ? $cache : $cache[$nid];
 }
 
-/**
- * @param $node
- */
-function issue_node_clean_cache(&$node)
-{
-  $cid = 'content:' . $node->nid . ':' . $node->vid;
-  cache_clear_all($cid, content_cache_tablename());
-  $node = node_load($node->nid, NULL, TRUE);
-}
