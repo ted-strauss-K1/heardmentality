@@ -71,6 +71,12 @@ function cpoll_vote_form($form, $node, $nowrap = false)
 
   # todo suggestions
   $suggestions = true;
+  foreach ($node->choices as $choice) {
+    if ($user->uid == $choice['uid']) {
+      $suggestions = false;
+      break;
+    }
+  }
 
   if ($suggestions) {
     # add suggested answers
