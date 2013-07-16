@@ -1,5 +1,3 @@
-<?php $directoryPath = $base_path . $directory; ?>
-
 <!doctype html>
 <!--[if lt IE 7 ]><html class="ie ie6" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <![endif]-->
@@ -20,10 +18,10 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
   <?php print $styles; ?>
 
-  <link rel="shortcut icon" href="<?php print $directoryPath; ?>/images/favicon.ico">
-  <link rel="apple-touch-icon" href="<?php print $directoryPath; ?>/images/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="<?php print $directoryPath; ?>/images/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="<?php print $directoryPath; ?>/images/apple-touch-icon-114x114.png" />
+  <link rel="shortcut icon" href="/sites/all/themes/heardmentalitylight/images/favicon.ico">
+  <link rel="apple-touch-icon" href="/sites/all/themes/heardmentalitylight/images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/sites/all/themes/heardmentalitylight/images/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/sites/all/themes/heardmentalitylight/images/apple-touch-icon-114x114.png" />
 
   <!-- xx -->
   <meta property="og:image" content="<?php print url(drupal_get_path('theme', 'heardmentalitylight') . '/images/HM_Social_IMG_5.png' ) ?>"/>

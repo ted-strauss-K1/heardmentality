@@ -114,3 +114,13 @@ function trim_better(&$input, $length, $ellipses = TRUE, $strip_html = TRUE) {
 
   return $trimmed_text;
 }
+
+/**
+ *
+ */
+function dbg() {
+  $dbg = debug_backtrace();
+  foreach ($dbg as $record) {
+    print $record['function'] . ' on line ' . $record['line'] . ' in ' . $record['file'] . " <br>\n";
+  }
+}

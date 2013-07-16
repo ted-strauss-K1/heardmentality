@@ -1,15 +1,10 @@
 <?php
-global $user;
-$nid = $node->nid;
-$atype = $node->field_argument_type[0]['value'];
-$image = $node->field_image_path[0]['value'];
-$url = $node->field_url[0]['value'];
-$source = $node->field_source[0]['value'];
-$videoid = $node->field_videoid[0]['value'];
-$rtype = $node->field_rtype[0]['value'];
+  global $user;
+  $nid = $node->nid;
 ?>
-<div id="forum-block-<?php print $nid; ?>" class="one-forum<?php print $atype == TYPE_RESOURCE ? ' resources' : ''; ?>"
-     name="<?php print $nid; ?>">
+<div id="forum-block-<?php print $node->nid; ?>"
+     class="one-forum <?php print $node->type ?>"
+     name="<?php print $node->nid; ?>">
   <ul class="argument_box">
     <li>
       <div class="arg">
@@ -17,11 +12,14 @@ $rtype = $node->field_rtype[0]['value'];
 
         <!-- Content Body -->
         <div class="goog-trans-section argument_body">
-          <?php
 
-          ?>
-          <?php if (isset($image) && !isset($videoid)) : ?>
-          <span class="pic">
+          <!-- IMAGE -->
+          <?php
+            $image = $node->field_image_path[0]['value'];
+            $youtube = $node->field_youtube[0]['value'];
+            $url = $node->field_url[0]['value'];
+          if ($image && !$youtube) : ?>
+            <span class="pic">
               <a target="_blank" title="reference" href="<?php print $url; ?>">
                 <img src="<?php print url($image, array(
                   'absolute' => true,
@@ -31,22 +29,23 @@ $rtype = $node->field_rtype[0]['value'];
             </span>
           <?php endif; ?>
 
-          <?php if ($atype == TYPE_DEBATE) : ?>
+          <!-- TITLE -->
+          <?php if ('argument' == $node->type) : ?>
 
-          <p><?php print $node->title; ?></p>&nbsp;
-          <div class="sq">
-            [
-            <div class="goog-trans-control translate"></div>
-            ]
-          </div>
+            <p><?php print $node->title; ?></p>&nbsp;
+            <div class="sq">[<div class="goog-trans-control translate"></div>]</div>
 
           <?php else : ?>
-          <?php if (isset($videoid)) : ?>
 
-            <iframe id="ytplayer-<?php print $nid ?>" type="text/html" width="400" height="250"
-                    src="http://www.youtube.com/embed/<?php print $videoid ?>?autoplay=0" frameborder="0"/>
+          <?php if ($youtube) : ?>
 
-            <?php else : ?>
+            <iframe id="ytplayer-<?php print $nid ?>"
+                    src="http://www.youtube.com/embed/<?php print $youtube ?>?autoplay=0"
+                    type="text/html"
+                    width="400" height="250"
+                    frameborder="0"/>
+
+          <?php else : ?>
 
             <div class="ref_wrap">
               <h5 class="ref_title">
@@ -54,13 +53,12 @@ $rtype = $node->field_rtype[0]['value'];
                   <?php print $node->title; ?>
                 </a>
               </h5>
-                <span class="source"><?php print t('source') ?>:
-                  <a target="_blank" title="reference" href="<?php print $url; ?>">
-                    <?php print $source; ?>
-                  </a>
-                </span>
-
-              <p><?php print $node->body; ?></p>
+              <span class="source"><?php print t('source') ?>:
+                <a target="_blank" title="reference" href="<?php print $url; ?>">
+                  <?php print $node->field_source[0]['value']; ?>
+                </a>
+              </span>
+              <p><?php print trim_better($node->body, 1000); ?></p>
             </div>
 
             <?php endif; ?>
@@ -70,8 +68,8 @@ $rtype = $node->field_rtype[0]['value'];
         <!-- Content Body: END -->
 
         <!-- User Debate Options -->
-        <?php if ($atype == TYPE_DEBATE) : ?>
-        <?php print theme('argument_options', $node->argument_options); ?>
+        <?php if ('argument' == $node->type) : ?>
+          <?php print theme('argument_options', $node->argument_options);  ?>
         <?php endif; ?>
         <!-- User Debate Options: END -->
 

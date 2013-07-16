@@ -1,9 +1,5 @@
 <?php
 
-/*
- *
- */
-
 
 
 /**
@@ -36,6 +32,16 @@ function theme_issue_arguments_content($node)
   }
   return theme('issue_arguments_content_wrapper', $node, $form);
 }
+
+
+
+
+
+
+
+
+
+
 
 /**
  * @param $name

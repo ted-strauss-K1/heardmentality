@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Voting Functionality
  */
@@ -23,37 +22,18 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         }
         break;
       case 'load' :
-        # arguments' stats
-        $node->arguments = array();
-        if (!empty($node->field_arguments)) {
-          $tmp = array(
-            TYPE_DEBATE => 0,
-            TYPE_RESOURCE => 0,
-            '#all' => 0,
-          );
-          $result = db_query("SELECT * FROM {content_type_forum} WHERE field_issue_nid = '%d' ORDER BY nid DESC", $node->nid);
-          while ($row = db_fetch_array($result)) {
-            $tmp['#all']++;
-            $tmp[$row['field_argument_type_value']]++;
-          }
-          $node->arguments = $tmp;
-        }
+
         break;
       case 'view' :
         # js
         drupal_add_js(array('poll' => array($node->nid => $node->choice)), 'setting');
 
-        # translation
-        $translation = poll_translate_translation($node);
-        $node->description = theme('issue_description',
-          !empty($translation['body'][0]) ?
-            $translation['body'][0] :
-            $node->field_description[0]['value']);
+
         break;
       case 'insert' :
       case 'update' :
         db_query("UPDATE {url_alias} SET language = '' WHERE src = '%s'", 'node/' . $node->nid);
-        break;
+      break;
     }
   }
 
@@ -140,31 +120,6 @@ function issue_menu()
 {
   $menu = array();
 
-  // todo - refactor - delete
-  # create
-  $menu['issue/create'] = array(
-    'title' => t('Add an Issue'),
-    'page callback' => 'issue_create',
-    'access arguments' => array('create poll content'),
-    'type' => MENU_CALLBACK,
-    'file' => 'includes/issue.create.inc',
-  );
-  $menu['issue/create/ahah/answer'] = array(
-    'page callback' => 'issue_create_ahah_answer',
-    'access arguments' => array('create poll content'),
-    'type' => MENU_CALLBACK,
-    'file' => 'includes/issue.create.inc',
-  );
-
-  // todo - refactor - delete
-  # vote
-  $menu['issue/ajax'] = array(
-    'page callback' => 'issue_ajax',
-    'access arguments' => array('vote on polls'),
-    'type' => MENU_CALLBACK,
-    'file' => 'includes/issue.vote.inc',
-  );
-
 
 
 
@@ -237,31 +192,6 @@ function issue_theme()
 {
   $theme = array();
 
-  // todo - refactor - delete
-  $theme['issue_guidelines'] = array(
-    'arguments' => array(),
-    'template' => 'templates/issue-guidelines',
-  );
-
-
-
-
-
-  $theme['issue_arguments'] = array(
-    'arguments' => array('node' => NULL),
-    'template' => 'templates/issue-arguments',
-    'preprocess functions' => array('issue_arguments_preprocess'),
-    'file' => 'issue.theme.inc',
-  );
-  $theme['issue_arguments_content'] = array(
-    'arguments' => array('node' => NULL),
-    'file' => 'issue.theme.inc',
-  );
-  $theme['issue_arguments_content_wrapper'] = array(
-    'arguments' => array('node' => NULL, 'form' => NULL),
-    'template' => 'templates/issue-arguments-content-wrapper',
-  );
-
   // TODO rename
   $theme['sub_loader'] = array(
     'arguments' => array('styles' => NULL),
@@ -298,7 +228,7 @@ function issue_theme()
   );
 
 
-  return $theme + argument_theme() + charts_theme();
+  return $theme + charts_theme();
 }
 
 /**

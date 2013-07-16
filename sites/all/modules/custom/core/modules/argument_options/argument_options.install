@@ -29,24 +29,17 @@ function argument_options_schema()
     'description' => t('Stores the argument options.'),
     'fields' => array(
       'nid' => array(
-        'description' => t("The forum {node}.nid"),
+        'description' => t("The argument {node}.nid"),
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
       ),
-      'iid' => array(
-        'description' => t("The poll {node}.nid"),
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'chorder' => array(
+      'chid' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
-        'description' => 'The sort order of this choice among all choices for the same node.',
+        'description' => 'Choice id.',
       ),
       'val' => array(
         'type' => 'int',
@@ -61,7 +54,7 @@ function argument_options_schema()
         'not null' => TRUE,
       ),
     ),
-    'primary key' => array('nid', 'iid', 'chorder'),
+    'primary key' => array('nid', 'chid'),
   );
 
   return $schema;
