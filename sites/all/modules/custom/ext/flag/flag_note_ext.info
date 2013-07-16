@@ -1,5 +1,5 @@
-name = Flag Note Extension
-description = Flag History Tracking: Notes
+name = EXT - Flag Note: History Tracking
+description =
 package = Custom Modules
 version = "6.x-1.0"
 core = 6.x

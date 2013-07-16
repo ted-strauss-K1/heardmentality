@@ -7,7 +7,7 @@
  * @param $form_state
  * @param $form_id
  */
-function alter_form_alter(&$form, $form_state, $form_id)
+function contact_forms_alter_form_alter(&$form, $form_state, $form_id)
 {
 
   # for module "contact_forms"

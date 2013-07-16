@@ -1,4 +1,4 @@
-name = Feedback to Mail
+name = EXT - Feedback: Send Feedback Messages to Mail
 description = Creates the site's overall data extraction
 package = Custom Modules
 version = "6.x-1.0"

@@ -1,4 +1,4 @@
-name = Comment Language Field
+name = EXT - Comment: Language Field
 description = Comment language Field
 package = Custom Modules
 version = "6.x-1.0"

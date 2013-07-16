@@ -1,4 +1,4 @@
-name = uLogin Alter
+name = EXT - uLogin: Optonal Parameters
 description = "Adds optional fields selector to admin form."
 core = 6.x
 package = User interface
