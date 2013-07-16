@@ -3593,9 +3593,13 @@ h2.page-title {
 .search_list .button.vote {
 	clear: both;
     float: left;
-    margin: 0 0 24px 30px;
+    margin: 0 0 24px 0;
 	top: 24px;
 	position: relative;
+}
+
+.votebtn_wrap {
+	padding: 0 30px;
 }
 
 .search_list .button.vote {
@@ -3736,7 +3740,12 @@ h2.page-title {
 }
 
 #shareDiv {
-	padding: 20px 0 0 30px;
+	padding: 10px 30px 0;
+}
+
+#shareDiv > span {
+	display: inline-block;
+	padding-top: 10px;
 }
 
 .poll-box .ul_wrapper {
@@ -4062,6 +4071,7 @@ h6#deb-ana.expanded:after {
 	-khtml-border-radius: 0;
 	font: 12px/15px Arial,"Lucida Grande",sans-serif;
 	padding: 0;
+	min-height: 182px;
 }
 
 #debate_list_area .ui-tabs-panel {
@@ -6087,6 +6097,7 @@ span.beta {
 .selected-item:hover {
   color: #111111;
 }
+
 .selected-item.bronze { background: #D1A619 }
 .selected-item.bronze:hover { background: #D1A619 }
 .selected-item.silver { background: #ECECEC }
@@ -6094,15 +6105,10 @@ span.beta {
 .selected-item.gold { background: #F7DB07 }
 .selected-item.gold:hover { background: #F7DB07 }
 
-
-
 #debate_list_area div.warning {
-  margin-top: 12px;
+	margin: 25px 30px;
+    padding: 7px 5px 5px;
 }
-/*.four.columns {*/
-
-  /*margin-top: 59px;*/
-/*}*/
 
 #block-issue-issue-categories-popular,
 #block-issue-issue-categories,
@@ -6114,6 +6120,7 @@ span.beta {
   color: red;
   font-weight: bold;
 }
+
 .block-locale > div {
   display: none;
 }

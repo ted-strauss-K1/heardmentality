@@ -161,6 +161,8 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
         '#value' => t('Change vote'),
         '#attributes' => array('class' => 'button vote floatright'),
         '#id' => 'vote-change',
+		'#prefix' => '<div class="votebtn_wrap clearfix">',
+		'#suffix' => '</div>',
       );
     } else {
       $form['main_submit'] = array(
@@ -168,6 +170,8 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
         '#value' => t('Vote'),
         '#attributes' => array('class' => 'button vote floatright'),
         '#id' => 'vote-add',
+		'#prefix' => '<div class="votebtn_wrap clearfix">',
+		'#suffix' => '</div>',
       );
     }
   } else {
@@ -176,6 +180,8 @@ function issue_vote_form($form, $node, $full = true, $nowrap = false)
       '#value' => t('Login to vote'),
       '#attributes' => array('class' => 'button vote floatright ' . theme('user_login_modal_class', true)),
       '#id' => 'vote-login',
+	  '#prefix' => '<div class="votebtn_wrap clearfix">',
+	  '#suffix' => '</div>',
     );
   }
 
