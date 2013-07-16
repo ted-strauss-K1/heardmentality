@@ -26,7 +26,7 @@
           ); ?>
         <?php endif; ?>
       <?php endif; ?>
-      <p class="description"><?php print $node->body; ?></p>
+      <p class="description"><?php print $node->content['body']['#value']; ?></p>
     </div>
     <?php endif; ?>
     <div class="poll-vote-area">
