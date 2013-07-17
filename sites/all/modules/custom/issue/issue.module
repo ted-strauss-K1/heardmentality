@@ -157,20 +157,7 @@ function issue_form_alter(&$form, &$form_state, $form_id)
 }
 
 
-
-
 require_once "issue.theme.inc";
-
-require_once "argument.forms.inc";
-require_once "argument.inc";
-
-
-
-
-
-
-
-
 
 /**
  * Implementation of hook_theme()

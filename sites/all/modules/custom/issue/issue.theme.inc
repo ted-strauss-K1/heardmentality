@@ -1,48 +1,5 @@
 <?php
 
-
-
-/**
- * Preprocess for "issue_arguments" theme
- *
- * @param $vars
- */
-function issue_arguments_preprocess(&$vars)
-{
-  $vars['charts'] = theme('issue_charts', $vars['node']);
-
-  drupal_add_js('misc/collapse.js');
-  drupal_add_js(drupal_get_path('module', 'issue') . "/argument.forms.js");
-  $vars['arguments'] = theme('issue_arguments_content', $vars['node']);
-}
-
-/**
- * @return string
- */
-function theme_issue_arguments_content($node)
-{
-  // arguments form
-  if (user_is_logged_in()) {
-    $form = drupal_get_form('argument_form', $node);
-  } else {
-    $form =
-      '<div class="' . theme('user_login_modal_class', TRUE) . '" align="center">' .
-        '<b>' . t('Please log in to participate in the debate') . '</b>
-      </div>';
-  }
-  return theme('issue_arguments_content_wrapper', $node, $form);
-}
-
-
-
-
-
-
-
-
-
-
-
 /**
  * @param $name
  * @param $hierarchy
