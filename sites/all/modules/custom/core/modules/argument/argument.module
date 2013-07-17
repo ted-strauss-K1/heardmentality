@@ -148,24 +148,6 @@ function argument_recent_comments($nid)
   return $comments;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * @param $nid
  * @param $info
@@ -189,8 +171,3 @@ function argument_get_list($nid, &$info) {
 
   return $items;
 }
-
-
-
-
-
