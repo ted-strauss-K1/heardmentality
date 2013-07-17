@@ -71,10 +71,7 @@
 </div>
 <?php if($page) : ?>
   <div>
-    <?php
-      // todo charts
-      print $charts;
-    ?>
+    <?php print theme('charts', $node); ?>
   </div>
   <div class="ul_wrapper">
     <h2 class="din">Debate</h2>
@@ -90,12 +87,8 @@
             <h6 value="Reply" id="add-arg" class="button <?php print theme('user_login_modal_class'); ?>"><?php print t('Add'); ?></h6>
           </div>
 
-          <?php $arguments = $node->arguments; ?>
-          <?php if ($arguments['#all']) : ?>
-            <?php
-              // todd strength chart
-              // print theme('issue_charts_strength', $node);
-            ?>
+          <?php if ($node->info['all']) : ?>
+            <?php print theme('charts_strength', $node); ?>
           <?php endif; ?>
 
           <div id="leave_comment_area" class="leave-a-comment hidden_ar" style="display: none">
@@ -118,8 +111,6 @@
         </div>
       </div>
       <!-- ENDFORM  -->
-
-
 
       <!-- LIST -->
       <div id="debate_list_area">
@@ -186,7 +177,6 @@
 
       </div><!--/#debate_list_area -->
       <!-- END LIST -->
-
 
     </li>
   </ul>

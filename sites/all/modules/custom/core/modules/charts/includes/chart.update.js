@@ -1,11 +1,11 @@
 /**
  *
  */
-function charts_update() {
+$('body').on('cpoll_update', function() {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : /*'/'+Drupal.settings.language+*/'/issue/charts/'+Drupal.settings.node.nid,
+    url       : /*'/'+Drupal.settings.language+*/'/charts/update/'+Drupal.settings.node.nid,
     data      : {},
     success   : function (response) {
       if (!response.status) {
@@ -29,4 +29,4 @@ function charts_update() {
     }
   });
   return false;
-}
+});

@@ -163,7 +163,6 @@ require_once "issue.theme.inc";
 
 require_once "argument.forms.inc";
 require_once "argument.inc";
-require_once "issue.charts.inc";
 
 
 
@@ -215,7 +214,7 @@ function issue_theme()
   );
 
 
-  return $theme + charts_theme();
+  return $theme;
 }
 
 /**

@@ -2,7 +2,7 @@
  *
  */
 $(function () {
-  if (Drupal.settings.charts.voted) init_gmap();
+  if (Drupal.settings.charts.vote) init_gmap();
 });
 
 /**

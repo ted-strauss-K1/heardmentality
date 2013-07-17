@@ -15,7 +15,7 @@ function init_highstock() {
  *
  */
 $(function () {
-  if (Drupal.settings.charts.voted) init_highstock();
+  if (Drupal.settings.charts.vote) init_highstock();
 });
 
 /**

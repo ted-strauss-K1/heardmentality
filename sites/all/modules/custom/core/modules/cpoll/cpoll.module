@@ -12,6 +12,7 @@ function cpoll_load_choices($nid, $reset = false) {
   if (!isset($choices[$nid]) || $reset) {
     $choices[$nid] = array();
 
+    $index = 0;
     $result = db_query("
       SELECT c.*, COUNT(v.vid) votes, GROUP_CONCAT(v.uid) uids
       FROM {cpoll_choices} c
@@ -20,7 +21,7 @@ function cpoll_load_choices($nid, $reset = false) {
       GROUP BY c.chid", $nid);
     while ($row = db_fetch_array($result)) {
       $row['uids'] = !empty($row['uids']) ? explode(',', $row['uids']) : array();
-      $choices[$nid][$row['chid']] = $row;
+      $choices[$nid][$row['chid']] = $row + array('index' => $index++);
     }
   }
 
@@ -257,6 +258,7 @@ function cpoll_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         }
         break;
       case 'load' :
+        $node->votecount = 0;
         $node->choices = cpoll_load_choices($node->nid);
         $node->vote = FALSE;
         if (user_is_logged_in()) {
@@ -267,6 +269,9 @@ function cpoll_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
               break;
             }
           }
+        }
+        foreach ($node->choices as $choice) {
+          $node->votecount += $choice['votes'];
         }
         break;
       case 'view' :

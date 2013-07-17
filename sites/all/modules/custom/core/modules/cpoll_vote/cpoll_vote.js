@@ -88,7 +88,7 @@ $('#suggest').live('click', function (e) {
       form.removeClass('active');
 
       //
-      $.trigger('cpoll_update');
+      $('body').trigger('cpoll_update');
     }
   });
 });
@@ -162,7 +162,7 @@ $('#vote').live('click', function (e) {
       form.removeClass('active');
 
       //
-      $.trigger('cpoll_update');
+      $('body').trigger('cpoll_update');
     }
   });
 });
