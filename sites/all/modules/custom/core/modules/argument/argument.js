@@ -458,6 +458,8 @@ $('#argument-add-form').live('submit', function (e) {
         }
         lbox.html(response.message);
 
+
+
         $.hrd.noty({
           type:'success',
           // translate

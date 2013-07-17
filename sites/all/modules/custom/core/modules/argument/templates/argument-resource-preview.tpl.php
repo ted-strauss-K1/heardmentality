@@ -4,8 +4,7 @@ $images = $node->images;
 $count = count($images);
 $image_count = $count > 10 ? '10' : $count;
 
-// TODO fix the paths
-$image_path = $base_url . '/' . drupal_get_path('theme', 'heardmentalitylight') . '/images/';
+$image_path = '/sites/all/themes/heardmentalitylight/images/';
 ?>
 
 <div class="linkbox_inner">

@@ -144,21 +144,6 @@ function issue_menu()
   return $menu;
 }
 
-
-
-
-
-
-require_once "issue.theme.inc";
-require_once "issue.forms.inc";
-require_once "argument.forms.inc";
-require_once "argument.inc";
-require_once "issue.charts.inc";
-
-
-
-
-
 /**
  * @param $form
  * @param $form_state
@@ -170,6 +155,21 @@ function issue_form_alter(&$form, &$form_state, $form_id)
     $form['title']['#maxlength'] = 256;
   }
 }
+
+
+
+
+require_once "issue.theme.inc";
+
+require_once "argument.forms.inc";
+require_once "argument.inc";
+require_once "issue.charts.inc";
+
+
+
+
+
+
 
 
 
