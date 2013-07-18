@@ -109,8 +109,6 @@ function issue_preprocess_node(&$vars)
 }
 
 
-
-
 /**
  * Implementation of hook_menu()
  *

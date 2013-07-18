@@ -23,9 +23,7 @@ $('.yn-a, .yn-d').live('click', function (e) {
         text:response.message,
         type:'success'
       });
-      if (typeof yn_success == 'function') {
-        yn_success(el, response.data);
-      }
+      el.trigger('yn', response.data);
     }
   });
 });

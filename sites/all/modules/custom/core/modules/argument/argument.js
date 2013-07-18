@@ -141,7 +141,9 @@ function circle_update(element, count) {
 /**
  * Success event on YN callback
  */
-function yn_success(el, data) {
+
+$('.yn-a, .yn-d').on('yn', function(data) {
+  var el = $(this);
   var parent = el.closest('.comment-agree');
   // update circle
   circle_update(el.parents('.one-forum'), data.pvote_sum);
@@ -156,8 +158,8 @@ function yn_success(el, data) {
   parent.children('.yn').attr({'title':'You have rated this!'}).removeClass('yn-a yn-d');
 
   // update strenght chart
-  charts_update();
-}
+  $('body').trigger('cpoll_update', true);
+});
 
 /**
  * Resource text -- remove http://
