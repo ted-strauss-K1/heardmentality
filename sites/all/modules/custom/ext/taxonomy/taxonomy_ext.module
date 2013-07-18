@@ -6,7 +6,7 @@
  * @param string $type
  * @return mixed
  */
-function taxonomy_node_type_vocabularies($type = 'cpoll')
+function taxonomy_node_type_vocabularies($type = 'issue')
 {
   static $vids = array();
 
@@ -55,7 +55,7 @@ function taxonomy_bottom_level_terms($vid)
  * @param string $type
  * @return mixed
  */
-function taxonomy_node_type_terms($type = 'cpoll')
+function taxonomy_node_type_terms($type = 'issue')
 {
   static $terms = array();
 
