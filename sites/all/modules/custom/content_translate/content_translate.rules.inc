@@ -36,12 +36,6 @@ function content_translate_node(&$node, $settings = array())
     return;
   }
 
-  # init function
-  foreach (array('poll_suggest', 'poll_ext') as $modulename) {
-    if (module_exists($modulename)) {
-      call_user_func($modulename . '_nodeapi', $node, 'load');
-    }
-  }
 
   # get list of available languages
   $langs = i18n_node_language_list($node, true);

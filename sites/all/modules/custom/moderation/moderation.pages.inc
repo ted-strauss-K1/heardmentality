@@ -1115,7 +1115,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
         foreach ($changed['choices'] as $chorder => $case) {
           $choice = &$node->choice[$chorder];
           if ($case['chtext_short'] != '') {
-            poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
+            // todo poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
           }
           if (isset($case['chtext'])) {
             $choice['chtext'] = $case['chtext'];

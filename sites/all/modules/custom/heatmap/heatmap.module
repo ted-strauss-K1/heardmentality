@@ -45,7 +45,7 @@ function theme_heatmap_preprocess(&$vars)
   $cases['nodes'] = array(
     'name' => t('Issues'),
     'result' => db_query("SELECT l.country, COUNT(DISTINCT(nid)) AS count FROM {location_instance} li INNER JOIN {location} l ON l.lid = li.lid GROUP BY l.country"),
-    'count' => db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = 'poll' AND status = 1")),
+    'count' => db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = 'cpoll' AND status = 1")),
   );
 
   $cases['online'] = array(
@@ -56,8 +56,8 @@ function theme_heatmap_preprocess(&$vars)
 
   $cases['votes'] = array(
     'name' => t('Votes'),
-    'result' => db_query("SELECT l.country, COUNT(*) AS count FROM {poll_votes} AS pv INNER JOIN {location_instance} li ON pv.nid = li.nid INNER JOIN {location} l ON l.lid = li.lid GROUP BY l.country"),
-    'count' => db_result(db_query("SELECT COUNT(*) FROM {poll_votes}")),
+    'result' => db_query("SELECT l.country, COUNT(*) AS count FROM {cpoll_votes} AS cv INNER JOIN {cpoll_choices} c ON c.chid = cv.chid  INNER JOIN {location_instance} li ON c.nid = li.nid INNER JOIN {location} l ON l.lid = li.lid WHERE cv.status = 1 GROUP BY l.country"),
+    'count' => db_result(db_query("SELECT COUNT(*) FROM {cpoll_votes} WHERE status = 1")),
   );
 
   foreach ($cases as $key => $case) {
