@@ -1,0 +1,268 @@
+<?php
+
+/**
+ * Implementation of hook_menu()
+ *
+ * @return array
+ */
+function categories_menu()
+{
+  $menu = array();
+
+  $menu['categories/subscribe'] = array(
+    'page callback' => 'categories_subscribe',
+    'access arguments' => array('subscribe to all content types'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ *
+ */
+function categories_subscribe() {
+  $hierarchy = $_REQUEST['hierarchy'];
+  $tid = preg_replace('/-.*$/', '', $hierarchy);
+  $term = taxonomy_get_term($tid);
+
+  if (!$term) {
+    print json_encode(array(
+      'status' => false,
+      'message' => t('Unknown error'),
+    ));
+    exit;
+  }
+
+  // write the record
+  global $user;
+  $exists = (bool)subscriptions_get_subscription($user->uid, 'node', 'tid', $term->tid);
+  if (!$exists) {
+    subscriptions_write_subscription('node', 'tid', $term->tid, -1, $user->uid);
+  } else {
+    db_query(
+      "DELETE FROM {subscriptions}
+      WHERE
+        module = '%s' AND
+        field = '%s' AND
+        value = '%s' AND
+        author_uid = %d AND
+        recipient_uid = %d",
+      'node', 'tid', $term->tid, -1, $user->uid);
+  }
+  // output
+  print json_encode(array(
+    'status' => true,
+    'message' => t('You have '.($exists ? 'un' : '').'subscribed '.($exists ? 'from' : 'to').' !name', array('!name' => $term->name)),
+    'result' => !$exists,
+  ));
+
+  exit;
+}
+
+/**
+ * @param $term
+ * @return string
+ */
+function term_hierarchy($term)
+{
+  $list = array();
+
+  $terms = taxonomy_node_type_terms();
+
+  $tmp = array();
+  $tmp[] = $term->tid;
+
+  while (!empty($tmp)) {
+    $tid = array_shift($tmp);
+    foreach ($terms[$tid]->parents as $ptid) {
+      if (!empty($ptid)) {
+        $tmp[] = $ptid;
+      }
+    }
+    $list[] = $tid;
+  }
+
+  return implode('-', $list);
+}
+
+/**
+ * Implementation of hook_block()
+ *
+ * @param string $op
+ * @param int $delta
+ * @param array $edit
+ * @return mixed
+ */
+function issue_block($op = 'list', $delta = 0, $edit = array())
+{
+  switch ($op) {
+    case 'list' :
+      $blocks = array();
+
+      $blocks['categories'] = array(
+        'info' => t('Active Categories'),
+      );
+      $blocks['categories-popular'] = array(
+        'info' => t('Popular Categories'),
+      );
+
+      return $blocks;
+    case 'view' :
+      $block = array();
+
+      switch ($delta) {
+        case 'categories' :
+          $block['subject'] = t('');
+          $block['content'] = theme('categories_block');
+          break;
+        case 'issue-categories-popular' :
+          $block['subject'] = t('');
+          $block['content'] = theme('categories_popular_block');
+          break;
+      }
+
+      return $block;
+  }
+}
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function categories_theme()
+{
+  $theme = array();
+
+  $theme['categories_subscribe'] = array(
+    'arguments' => array(
+      'name' => NULL,
+      'hierarchy' => '',
+    ),
+  );
+
+  // blocks
+  $theme['categories_block'] = array(
+    'arguments' => array('nid' => NULL),
+    'template' => 'templates/categories-block',
+    'preprocess functions' => array('categories_theme_categories_block_preprocess'),
+  );
+  $theme['categories_popular_block'] = array(
+    'arguments' => array(),
+    'template' => 'templates/categories-popular-block',
+    'preprocess functions' => array('categories_theme_categories_popular_block_preprocess'),
+  );
+
+
+  $theme['categories_user_block'] = array(
+    'arguments' => array(),
+    'template' => 'templates/categories-user-block',
+    'preprocess functions' => array('categories_theme_categories_user_block_preprocess'),
+  );
+
+
+  return $theme;
+}
+
+/**
+ * @param $name
+ * @param $hierarchy
+ */
+function theme_categories_subscribe($name, $hierarchy) {
+  static $subscriptions;
+
+  drupal_add_js(drupal_get_path('module', 'categories_subscribe') . "/categories_subscribe.js");
+
+  if (is_null($subscriptions)) {
+    $subscriptions = array();
+    global $user;
+    $data = subscriptions_get(array(
+      'recipient_uid' => $user->uid,
+      'module' => 'node',
+      'field' => 'tid',
+      'author_uid' => -1,
+    ));
+    if ($data) {
+      foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
+        $subscriptions[] = $tid;
+      }
+    }
+    // $subscriptions[$s->recipient_uid][$s->module][$s->field][$s->value][$s->author_uid] = 1;
+  }
+
+  return  (
+  module_exists('subscriptions') ?
+    sprintf('<input type="checkbox" class="categories_subscribe" title="%s" name="%s" %s>',
+      t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $subscriptions) ? 'checked' : '') : '') .
+    l($name, 'issues', array('query' => array('tids' => $hierarchy)));
+}
+
+/**
+ * @param $vars
+ */
+function categories_theme_categories_block_preprocess(&$vars)
+{
+  $nid = $vars['nid'];
+  if (empty($nid)) {
+    $vars['nid'] = $nid = arg(1);
+  }
+
+  if (!is_numeric($nid) || !($node = node_load($nid)) || ($node->type != 'poll')) {
+    unset($vars['nid']);
+    return;
+  }
+
+  // collecting info
+  $vars['node'] = $node;
+  foreach ($node->taxonomy as $term) {
+    $vars['categories'][term_hierarchy($term)] = $term->name;
+  }
+
+  $languages = i18n_language_list();
+
+  global $language;
+  $vars['disp_langcode'] = $language->language;
+  $vars['orig_langcode'] = $node->language;
+  $vars['orig_path'] = $node->path;
+  $vars['orig_language'] = $languages[$node->language];
+}
+
+/**
+ * @param $vars
+ */
+function categories_theme_categories_user_block_preprocess(&$vars)
+{
+  $vars['categories'] = array();
+
+  global $user;
+  $data = subscriptions_get(array(
+    'recipient_uid' => $user->uid,
+    'module' => 'node',
+    'field' => 'tid',
+    'author_uid' => -1,
+  ));
+  if ($data) {
+    foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
+      $vars['categories'][$tid] = taxonomy_get_term($tid);
+    }
+  }
+}
+
+/**
+ * @param $vars
+ */
+function categories_theme_categories_popular_block_preprocess(&$vars)
+{
+  $result = db_query_range("
+    SELECT COUNT(*) count, td.* FROM poll_votes pv
+    INNER JOIN term_node tn ON tn.nid = pv.nid
+    INNER JOIN term_data AS td ON td.tid = tn.tid
+    GROUP BY tn.tid
+    HAVING COUNT(*) <> 0
+    ORDER BY count DESC
+  ", 0, 15);
+  while ($term = db_fetch_object($result)) {
+    $vars['categories'][term_hierarchy($term)] = $term->name;
+  }
+}

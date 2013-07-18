@@ -1,8 +1,5 @@
 <?php
-/**
- * Voting Functionality
- */
-require_once "includes/issue.vote.inc";
+
 
 /**
  * Implementation of hook_nodeapi()
@@ -40,9 +37,6 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   $node->content_id = $node->nid;
   $node->content_type = 'node';
 
-  if (function_exists('argument_nodeapi')) {
-    argument_nodeapi($node, $op, $a3, $a4);
-  }
 }
 
 
@@ -51,22 +45,6 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 
 
 
-/**
- * Implementation of hook_preprocess_page()
- *
- * @param $vars
- */
-function issue_preprocess_page(&$vars)
-{
-  // todo - refactor - delete
-  # create
-  if (arg(0) == 'issue' && arg(1) == 'create') {
-    drupal_add_js('misc/ahah.js');
-    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.create.js');
-
-    # right block
-    $vars['right'] = theme('issue_guidelines');
-  }
 
 
 
@@ -74,73 +52,6 @@ function issue_preprocess_page(&$vars)
 
 
 
-
-
-
-  if (module_exists('rules')) {
-    global $user;
-    rules_invoke_event('page_view', $user);
-  }
-
-  //
-
-}
-
-
-/**
- * Implementation of hook_preprocess_node()
- *
- * @param $vars
- */
-function issue_preprocess_node(&$vars)
-{
-  $node = & $vars['node'];
-
-  # page title for poll pages
-  if ('poll' == $node->type) {
-    drupal_set_subtitle(t('Issue'));
-
-    # view
-    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.vote.js');
-    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.view.js');
-    drupal_add_css(drupal_get_path('module', 'issue') . '/css/issue.view.css');
-    module_load_include('inc', 'issue', 'includes/issue.view');
-  }
-}
-
-
-/**
- * Implementation of hook_menu()
- *
- * @return array
- */
-function issue_menu()
-{
-  $menu = array();
-
-  if (module_exists('subscriptions')) {
-    $menu['issue/subscribe'] = array(
-      'page callback' => 'issue_subscribe',
-      'access arguments' => array('subscribe to all content types'),
-      'type' => MENU_CALLBACK,
-      'file' => 'issue.pages.inc',
-    );
-  }
-
-  if (function_exists('charts_menu')) {
-    $menu += charts_menu();
-  }
-
-  $menu['issue/share/%'] = array(
-    'page callback' => 'issue_share',
-    'page arguments' => array(2),
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-    'file' => 'issue.pages.inc',
-  );
-
-  return $menu;
-}
 
 /**
  * @param $form
@@ -157,90 +68,9 @@ function issue_form_alter(&$form, &$form_state, $form_id)
 
 require_once "issue.theme.inc";
 
-/**
- * Implementation of hook_theme()
- *
- * @return array
- */
-function issue_theme()
-{
-  $theme = array();
-
-  // TODO rename
 
 
-  //
-  $theme['issue_category'] = array(
-    'arguments' => array(
-      'name' => NULL,
-      'hierarchy' => '',
-    ),
-    'file' => 'issue.theme.inc',
-  );
 
-  // blocks
-  $theme['issue_block_categories'] = array(
-    'arguments' => array('nid' => NULL),
-    'template' => 'templates/issue-block-categories',
-    'preprocess functions' => array('issue_block_categories_preprocess'),
-    'file' => 'issue.theme.inc',
-  );
-  $theme['issue_block_categories_popular'] = array(
-    'arguments' => array(),
-    'template' => 'templates/issue-block-categories-popular',
-    'preprocess functions' => array('issue_block_categories_popular_preprocess'),
-    'file' => 'issue.theme.inc',
-  );
-  $theme['issue_block_categories_user'] = array(
-    'arguments' => array(),
-    'template' => 'templates/issue-block-categories-user',
-    'preprocess functions' => array('issue_block_categories_user_preprocess'),
-    'file' => 'issue.theme.inc',
-  );
-
-
-  return $theme;
-}
-
-/**
- * Implementation of hook_block()
- *
- * @param string $op
- * @param int $delta
- * @param array $edit
- * @return mixed
- */
-function issue_block($op = 'list', $delta = 0, $edit = array())
-{
-  switch ($op) {
-    case 'list' :
-      $blocks = array();
-
-      $blocks['issue-categories'] = array(
-        'info' => t('Active Categories'),
-      );
-      $blocks['issue-categories-popular'] = array(
-        'info' => t('Popular Categories'),
-      );
-
-      return $blocks;
-    case 'view' :
-      $block = array();
-
-      switch ($delta) {
-        case 'issue-categories' :
-          $block['subject'] = t('');
-          $block['content'] = theme('issue_block_categories');
-          break;
-        case 'issue-categories-popular' :
-          $block['subject'] = t('');
-          $block['content'] = theme('issue_block_categories_popular');
-          break;
-      }
-
-      return $block;
-  }
-}
 
 
 

@@ -1,11 +1,11 @@
-$('input[type="checkbox"].issue_category').live('click', function (e) {
+$('input[type="checkbox"].categories_subscribe').live('click', function (e) {
   e.preventDefault();
 
   var $$ = $(this);
   $.ajax({
     type        : 'POST',
     dataType    : 'json',
-    url         : '/issue/subscribe',
+    url         : '/categories/subscribe',
     data        : { hierarchy : $(this).attr('name') },
     success     : function (response) {
       if (!response.status) {
@@ -20,7 +20,7 @@ $('input[type="checkbox"].issue_category').live('click', function (e) {
         type  : 'success',
         text  : response.message
       });
-      // checking
+      // checking todo
       if (response.result) {
         $$.attr('checked', 'checked');
       } else {

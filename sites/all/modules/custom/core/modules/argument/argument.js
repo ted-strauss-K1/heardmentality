@@ -168,8 +168,7 @@ $('#url').focusin(function () {
   if ($(this).val() == $(this).prop('defaultValue')) {
     $(this).val('');
   }
-});
-$('#url').focusout(function () {
+}).focusout(function () {
   if ($(this).val() == '') {
     $(this).val($(this).prop('defaultValue'));
   }

@@ -237,7 +237,7 @@ function event_taxonomy_theme_preprocess(&$vars) {
     foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
       if (in_array($tid, $vars['item']['vars']['tids'])) {
         $term = taxonomy_get_term($tid);
-        $vars['categories'][issue_term_parents($term)] = $term->name;
+        $vars['categories'][term_hierarchy($term)] = $term->name;
       }
     }
   }

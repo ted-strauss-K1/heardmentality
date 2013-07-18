@@ -46,3 +46,17 @@ function node_reload(&$node)
   cache_clear_all($cid, content_cache_tablename());
   $node = node_load($node->nid, NULL, TRUE);
 }
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function core_preprocess_page(&$vars)
+{
+  global $user;
+  // todo page view event
+  // rules_invoke_event('page_view', $user);
+
+
+}
