@@ -3,28 +3,28 @@
 /**
  * Implementation of hook_install()
  */
-function poll_meta_install()
+function cpoll_meta_install()
 {
-  drupal_install_schema('poll_meta');
+  drupal_install_schema('cpoll_meta');
 }
 
 /**
  * Implementation of hook_uninstall()
  */
-function poll_meta_uninstall()
+function cpoll_meta_uninstall()
 {
-  drupal_uninstall_schema('poll_meta');
+  drupal_uninstall_schema('cpoll_meta');
 }
 
 /**
  * Implementation of hook_schema()
  */
-function poll_meta_schema()
+function cpoll_meta_schema()
 {
   $schema = array();
 
-  $schema['poll_meta'] = array(
-    'description' => 'Stores the {poll} meta for choices.',
+  $schema['cpoll_meta'] = array(
+    'description' => 'Stores the {cpoll} meta for choices.',
     'fields' => array(
       'cid' => array(
         'type' => 'serial',
@@ -46,21 +46,14 @@ function poll_meta_schema()
     'primary key' => array('cid'),
   );
 
-  $schema['poll_meta_values'] = array(
+  $schema['cpoll_meta_values'] = array(
     'description' => 'Stores the values of characteristics for {poll} choices',
     'fields' => array(
-      'nid' => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The {node}.nid this choice belongs to.',
-      ),
-      'chorder' => array(
+      'chid' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
-        'description' => 'The sort order of this choice among all choices for the same node.',
+        'description' => '',
       ),
       'uid' => array(
         'description' => 'The {users}.uid that owns this node; initially, this is the user that created it.',
@@ -73,7 +66,7 @@ function poll_meta_schema()
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
-        'description' => 'The {poll_meta}.cid this value belongs to.',
+        'description' => 'The {cpoll_meta}.cid this value belongs to.',
       ),
       'value' => array(
         'type' => 'int',
@@ -83,7 +76,7 @@ function poll_meta_schema()
         'description' => 'Value.',
       ),
     ),
-    'primary key' => array('chorder', 'nid', 'uid', 'cid'),
+    'primary key' => array('chid', 'uid', 'cid'),
   );
 
   return $schema;
