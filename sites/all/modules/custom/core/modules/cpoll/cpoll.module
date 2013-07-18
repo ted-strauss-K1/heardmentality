@@ -74,7 +74,6 @@ function cpoll_vote($chid, $uid = FALSE) {
     global $user;
     $uid = $user->uid;
   }
-  // db_query("UPDATE {cpoll_votes} SET status = 0 WHERE chid = '%d' AND uid = '%d'", $chid, $uid);
   db_query("
     UPDATE {cpoll_choices}, {cpoll_votes}
     SET {cpoll_votes}.status = 0

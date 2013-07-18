@@ -6,3 +6,4 @@ core = 6.x
 dependencies[] = "subscriptions"
 dependencies[] = "taxonomy_ext"
 dependencies[] = "i18n"
+dependencies[] = "cpoll"

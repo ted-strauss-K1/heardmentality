@@ -154,7 +154,6 @@ function categories_theme()
     'preprocess functions' => array('categories_theme_categories_popular_block_preprocess'),
   );
 
-
   $theme['categories_user_block'] = array(
     'arguments' => array(),
     'template' => 'templates/categories-user-block',
@@ -172,7 +171,7 @@ function categories_theme()
 function theme_categories_subscribe($name, $hierarchy) {
   static $subscriptions;
 
-  drupal_add_js(drupal_get_path('module', 'categories_subscribe') . "/categories_subscribe.js");
+  drupal_add_js(drupal_get_path('module', 'categories') . "/categories_subscribe.js");
 
   if (is_null($subscriptions)) {
     $subscriptions = array();
@@ -208,7 +207,7 @@ function categories_theme_categories_block_preprocess(&$vars)
     $vars['nid'] = $nid = arg(1);
   }
 
-  if (!is_numeric($nid) || !($node = node_load($nid)) || ($node->type != 'poll')) {
+  if (!is_numeric($nid) || !($node = node_load($nid)) || ($node->type != 'issue')) {
     unset($vars['nid']);
     return;
   }
@@ -255,9 +254,11 @@ function categories_theme_categories_user_block_preprocess(&$vars)
 function categories_theme_categories_popular_block_preprocess(&$vars)
 {
   $result = db_query_range("
-    SELECT COUNT(*) count, td.* FROM poll_votes pv
-    INNER JOIN term_node tn ON tn.nid = pv.nid
-    INNER JOIN term_data AS td ON td.tid = tn.tid
+    SELECT COUNT(*) count, td.*
+    FROM {cpoll_choices} c
+    LEFT JOIN {cpoll_votes} v ON v.chid = c.chid AND v.status = 1
+    INNER JOIN {term_node} tn ON tn.nid = c.nid
+    INNER JOIN {term_data} AS td ON td.tid = tn.tid
     GROUP BY tn.tid
     HAVING COUNT(*) <> 0
     ORDER BY count DESC

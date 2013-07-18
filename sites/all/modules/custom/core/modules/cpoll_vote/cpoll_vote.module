@@ -61,15 +61,15 @@ function cpoll_vote_form($form, $node, $nowrap = false)
   # login warning
   if (!user_is_logged_in()) {
     $form['#attributes']['class'] .= ' anonymous';
-    $form['login_error'] = array(
-      '#type' => 'markup',
-      '#prefix' => '<div class="login-error">',
-      '#value' => t('You should login to vote or post suggest answers.'),
-      '#suffix' => '</div>',
-    );
+//    $form['login_error'] = array(
+//      '#type' => 'markup',
+//      '#prefix' => '<div class="login-error">',
+//      '#value' => t('You should login to vote or post suggest answers.'),
+//      '#suffix' => '</div>',
+//    );
   }
 
-  # todo suggestions
+  # suggestions
   $suggestions = true;
   foreach ($node->choices as $choice) {
     if ($user->uid == $choice['uid']) {
@@ -130,6 +130,7 @@ function cpoll_vote_form($form, $node, $nowrap = false)
       '#attributes' => array('class' => 'button vote floatright ' . theme('user_login_modal_class', true)),
       '#id' => 'vote-login',
     );
+    unset($form['suggest']);
   }
 
   // for ajax callbacks

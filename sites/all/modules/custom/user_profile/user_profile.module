@@ -23,7 +23,7 @@ function user_profile_preprocess_page(&$vars)
           $account = _user_profile_get_user(arg(3));
           global $user;
           if (($account->uid == $user->uid) && user_is_logged_in()) {
-            $vars['right'] .= theme('issue_block_categories_user');
+            $vars['right'] .= theme('categories_user_block');
           }
         }
 

@@ -13,7 +13,6 @@ function argument_form($form, $node)
 
   $choices = $node->choices;
   drupal_add_js(array('argument_form' => array('count' => count($choices))), 'setting');
-  drupal_add_js(drupal_get_path('module', 'argument') . "/argument.js");
 
   $form['#id'] = 'argument-add-form';
 

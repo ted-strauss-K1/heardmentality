@@ -73,6 +73,9 @@
   <div>
     <?php print theme('charts', $node); ?>
   </div>
+
+  <?php drupal_add_js(drupal_get_path('module', 'argument') . "/argument.js"); ?>
+
   <div class="ul_wrapper">
     <h2 class="din">Debate</h2>
   </div>

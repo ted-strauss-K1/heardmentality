@@ -4,7 +4,7 @@
   <ul class="tags">
     <label class="tags-on"><?php print t('This issue is listed under'); ?></label>
     <?php if ($categories) foreach ($categories as $hierarchy => $name) : ?>
-    <li><?php print theme('issue_category', $name, $hierarchy); ?></li>
+    <li><?php print theme('categories_subscribe', $name, $hierarchy); ?></li>
     <?php endforeach; ?>
   </ul>
   <br class="clear">
