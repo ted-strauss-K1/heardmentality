@@ -45,7 +45,7 @@ function theme_heatmap_preprocess(&$vars)
   $cases['nodes'] = array(
     'name' => t('Issues'),
     'result' => db_query("SELECT l.country, COUNT(DISTINCT(nid)) AS count FROM {location_instance} li INNER JOIN {location} l ON l.lid = li.lid GROUP BY l.country"),
-    'count' => db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = 'cpoll' AND status = 1")),
+    'count' => db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = 'issue' AND status = 1")),
   );
 
   $cases['online'] = array(
