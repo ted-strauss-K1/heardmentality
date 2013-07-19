@@ -13,6 +13,9 @@ function events_add($type, $vars, $uid = false)
     global $user;
     $uid = $user->uid;
   }
+  $vars_tmp = $vars;
+  unset($vars['content_id']);
+  unset($vars['content_type']);
   $query = "INSERT INTO {events} SET uid = '%d', type = '%s', vars = '%s', date_added = '%s'";
   $params = array(
     $uid,
@@ -21,9 +24,9 @@ function events_add($type, $vars, $uid = false)
     date('Y-m-d H:i:s')
   );
   foreach (array('content_id', 'content_type') as $pname) {
-    if (isset($vars[$pname])) {
+    if (isset($vars_tmp[$pname])) {
       $query .= ", " . $pname . " = '%s'";
-      $params[] = $vars[$pname];
+      $params[] = $vars_tmp[$pname];
     }
   }
   db_query($query, $params);
