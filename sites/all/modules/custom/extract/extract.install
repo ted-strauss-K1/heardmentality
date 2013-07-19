@@ -3,6 +3,12 @@
 /**
  * VIEWS
  */
-//CREATE VIEW th1 AS SELECT term_hierarchy.tid AS tid, term_hierarchy.tid AS code FROM term_hierarchy WHERE term_hierarchy.parent = 0;
-//CREATE VIEW th2 AS SELECT th.tid AS tid, CONCAT(th1.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th1 ON th.parent = th1.tid;
-//CREATE VIEW th3 AS SELECT th.tid AS tid, CONCAT(th2.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th2 ON th.parent = th2.tid;
+
+/*
+
+CREATE VIEW th1 AS SELECT term_hierarchy.tid AS tid, term_hierarchy.tid AS code FROM term_hierarchy WHERE term_hierarchy.parent = 0;
+CREATE VIEW th2 AS SELECT th.tid AS tid, CONCAT(th1.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th1 ON th.parent = th1.tid;
+CREATE VIEW th3 AS SELECT th.tid AS tid, CONCAT(th2.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th2 ON th.parent = th2.tid;
+
+ */
+
