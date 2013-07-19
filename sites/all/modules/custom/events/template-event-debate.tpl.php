@@ -1,0 +1,1 @@
+<?php include "template-event.tpl.php";
