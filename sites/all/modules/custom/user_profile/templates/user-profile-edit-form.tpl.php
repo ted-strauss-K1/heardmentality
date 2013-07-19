@@ -102,15 +102,10 @@ $privacy = user_profile_profile_privacy_values();
           </ul>
           <?php endif; ?>
         </li>
-        <?php if ($field->name == 'profile_zip') : ?>
-          <li id="user-profile-location">
-            <div><?php print drupal_render($form['location']) ?></div>
-          </li>
-          <!--        <div class="z_wrapper">-->
-          <!--          <div class="form-item">-->
-          <!--            --><?php //print drupal_render($form['city-state-country']); ?>
-          <!--          </div>-->
-          <!--        </div>-->
+          <?php if ($field->name == 'profile_zip') : ?>
+            <li id="user-profile-location">
+              <div><?php print drupal_render($form['location']) ?></div>
+            </li>
           <?php endif; ?>
         <?php endwhile; ?>
 

@@ -15,8 +15,6 @@ if ($user->uid == $account->uid) {
 <div class="user-info">
   <p><?php print t($rank); ?></p>
 
-  <?php if (module_exists('profile_privacy')) : ?>
-
   <?php $fields = profile_privacy_get_fields(); ?>
   <?php foreach ($fields as $field) : ?>
     <?php if (!empty($account->{$field->name}) && profile_privacy_get_field_access($account, $field)) : ?>
@@ -47,6 +45,6 @@ if ($user->uid == $account->uid) {
         </span>
       <?php endif; ?>
     <?php endforeach; ?>
-  <?php endif; ?>
+
 </div>
 

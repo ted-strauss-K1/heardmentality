@@ -4,4 +4,3 @@ package = Custom Modules
 version = "6.x-1.0"
 core = 6.x
 dependencies[] = "poll_translate"
-dependencies[] = "user_profile"

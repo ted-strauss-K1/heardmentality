@@ -3,8 +3,16 @@ description = User Profile Management
 package = Custom Modules
 version = "6.x-1.6"
 core = 6.x
+
+; dependencies
 dependencies[] = 'profile'
 dependencies[] = 'profile_privacy'
-dependencies[] = 'pcp'
 dependencies[] = 'avatar_selection'
+dependencies[] = 'ranks'
+dependencies[] = 'categories'
+dependencies[] = 'events'
 dependencies[] = 'imagecache'
+dependencies[] = 'badges'
+dependencies[] = 'follower'
+dependencies[] = 'location'
+dependencies[] = 'pcp'
