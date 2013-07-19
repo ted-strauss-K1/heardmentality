@@ -70,8 +70,6 @@ function events_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  // todo check below
-
   $menu['events/latest/%'] = array(
     'page callback' => 'events_get_latest',
     'page arguments' => array(2),
@@ -119,34 +117,27 @@ function events_process_event($type, $vars, $uid) {
   }
 }
 
-
-
-
-
-
-
-
-
-
 /**
- * Implementation of hook_comment()
+ * API function : get events
  *
- * @param $a1
- * @param $op
+ * @param int $count
+ * @param array $p
+ * @return array
  */
-//function events_comment(&$a1, $op)
-//{
-//  switch ($op) {
-//    case 'delete' :
-//      events_del(array(
-//        'content_id' => $a1->cid,
-//        'content_type' => 'comment',
-//      ));
-//      break;
-//  }
-//}
+function events_get_latest($id)
+{
+  print json_encode(
+    events_get(array(
+      'q' => array(
+        events_build_query(array('exclude' => array('type' => array('user_profile', 'taxonomy'),))),
+      ),
+      'update' => $id,
+    ))
+  );
+  exit;
+}
 
-
+// theme
 
 /**
  * Implementation of hook_theme()
@@ -216,6 +207,94 @@ function events_preprocess_page(&$vars)
 }
 
 /**
+ * Function to add the custom themes for item types
+ *
+ * @return array
+ */
+function events_theme_items()
+{
+  $theme = array();
+
+  $items = module_invoke_all('events_info');
+
+  foreach ($items as $event => $themename) {
+    $theme[$themename] = array(
+      'arguments' => array(
+        'item' => array(),
+      ),
+      'preprocess functions' => array('event_item_theme_preprocess', $themename.'_theme_preprocess'),
+      'file' => 'events.theme.inc',
+      'template' => 'templates/event-'.$event,
+    );
+  }
+
+  return $theme;
+}
+
+/**
+ * @return array
+ */
+function events_events_info()
+{
+  // todo events
+
+  return array(
+    'poll_create' => 'event_poll_create',
+    'poll_vote' => 'event_poll_vote',
+    'forum_create' => 'event_forum_create',
+    'forum_comment' => 'event_forum_comment',
+    'forum_vote' => 'event_forum_vote',
+    'forum_comment_vote' => 'event_forum_comment_vote',
+    'user_profile' => 'event_user_profile',
+    'user_badge' => 'event_user_badge',
+    'user_follow' => 'event_user_follow',
+    'taxonomy' => 'event_taxonomy',
+  );
+}
+
+/**
+ * @param $item
+ * @return mixed|string
+ */
+function theme_events_item($item)
+{
+  static $themes = NULL;
+
+  if (is_null($themes)) {
+    $themes = module_invoke_all('events_info');
+  }
+
+  $classes = array();
+  $classes[] = 'activity-stream';
+  $classes[] = 'msg';
+  $classes[] = 'msg-' . $item['type'];
+  $classes[] = 'uid-' . $item['uid'];
+  $classes[] = 'content_id-' . $item['content_id'];
+  $classes[] = 'content_type-' . $item['content_type'];
+
+  return isset($themes[$item['type']]) ?
+    '<div name="'.$item['id'].'" id="msg-' . $item['id'] . '" class="' . implode(' ', $classes) . '">' .
+      theme($themes[$item['type']], $item) .
+      '</div>'
+    : '';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
  * Implementation of hook_block
  *
  * @param string $op
@@ -247,144 +326,12 @@ function events_block($op = 'list', $delta = 0, $edit = array())
 }
 
 
-/**
- * @param $item
- * @return mixed|string
- */
-function theme_events_item($item)
-{
-  static $themes = NULL;
-
-  if (is_null($themes)) {
-    $themes = module_invoke_all('events_info');
-  }
-
-  $classes = array();
-  $classes[] = 'activity-stream';
-  $classes[] = 'msg';
-  $classes[] = 'msg-' . $item['type'];
-  $classes[] = 'uid-' . $item['uid'];
-  $classes[] = 'content_id-' . $item['content_id'];
-  $classes[] = 'content_type-' . $item['content_type'];
-
-  return isset($themes[$item['type']]) ?
-    '<div name="'.$item['id'].'" id="msg-' . $item['id'] . '" class="' . implode(' ', $classes) . '">' .
-      theme($themes[$item['type']], $item) .
-      '</div>'
-    : '';
-}
-
-/**
- * Function to add the custom themes for item types
- *
- * TODO
- *
- * @return array
- */
-function events_theme_items()
-{
-  $theme = array();
-
-  $items = module_invoke_all('events_info');
-
-  foreach ($items as $event => $themename) {
-    $theme[$themename] = array(
-      'arguments' => array(
-        'item' => array(),
-      ),
-      'preprocess functions' => array('event_item_theme_preprocess', $themename.'_theme_preprocess'),
-      'file' => 'events.theme.inc',
-      'template' => 'templates/event-' . $event,
-    );
-  }
-
-  return $theme;
-}
-
-/**
- * @return array
- */
-function events_events_info()
-{
-  return array(
-    'poll_create' => 'event_poll_create',
-    'poll_vote' => 'event_poll_vote',
-    'forum_create' => 'event_forum_create',
-    'forum_comment' => 'event_forum_comment',
-    'forum_vote' => 'event_forum_vote',
-    'forum_comment_vote' => 'event_forum_comment_vote',
-    'user_profile' => 'event_user_profile',
-    'user_badge' => 'event_user_badge',
-    'user_follow' => 'event_user_follow',
-    'taxonomy' => 'event_taxonomy',
-  );
-}
 
 
-/**
- * API function : get events
- *
- * @param int $count
- * @param array $p
- * @return array
- */
-function events_get_latest($id)
-{
-  $items = array();
 
-  print json_encode(
-    events_get(array(
-      'q' => array(
-        events_build_query(array('exclude' => array('type' => array('user_profile', 'taxonomy'),))),
-      ),
-      'update' => $id,
-    ))
-  );
 
-  # fetch results
-//  static $users = array();
-//  $result = db_query("SELECT * FROM {events} WHERE id > '%d' ORDER BY date_added ASC", $id);
-//  while ($item = db_fetch_array($result)) {
-//    $item['vars'] = unserialize($item['vars']);
-//    if (!$users[$item['uid']]) {
-//      $users[$item['uid']] = user_load($item['uid']);
-//    }
-//    $item['account'] = $users[$item['uid']];
-//    $item['timestamp'] = strtotime($item['date_added']);
-//    if (function_exists('time_interval')) {
-//      $item['date_added'] = time_interval($item['date_added']);
-//    }
-//    $items[$item['id']] = theme('events_item', $item);
-//  }
-//
-//  print json_encode($items);
-  exit;
-}
 
-/**
- * @param $date
- * @return string
- */
-function time_interval($date) {
-  # dates/interval
-  $date_now = new DateTime("now");
-  $date = new DateTime($date);
-  $interval = $date->diff($date_now);
-  # convert to string
-  if ($interval->y != 0) {
-    return $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
-  }
-  if ($interval->m != 0) {
-    return $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
-  }
-  if ($interval->d != 0) {
-    return $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
-  }
-  if ($interval->h != 0) {
-    return $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
-  }
-  if ($interval->i != 0) {
-    return $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
-  }
-  return 'just now';
-}
+
+
+
+

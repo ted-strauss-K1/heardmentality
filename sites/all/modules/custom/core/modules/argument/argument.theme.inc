@@ -39,38 +39,6 @@ function theme_argument_result_ball($count)
 }
 
 /**
- * Theme time_interval
- *
- * Converts time to string like "3 hour(s) ago
- *
- * @param $timestamp
- */
-function theme_time_interval($timestamp)
-{
-  # dates/interval
-  $date_now = new DateTime("now");
-  $date = new DateTime(date("F d Y H:i:s", $timestamp));
-  $interval = $date->diff($date_now);
-  # convert to string
-  if ($interval->y != 0) {
-    return $interval->y . ' ' . t('year' . ($interval->y > 1 ? 's' : '')) . ' ago';
-  }
-  if ($interval->m != 0) {
-    return $interval->m . ' ' . t('month' . ($interval->m > 1 ? 's' : '')) . ' ago';
-  }
-  if ($interval->d != 0) {
-    return $interval->d . ' ' . t('day' . ($interval->d > 1 ? 's' : '')) . ' ago';
-  }
-  if ($interval->h != 0) {
-    return $interval->h . ' ' . t('hour' . ($interval->h > 1 ? 's' : '')) . ' ago';
-  }
-  if ($interval->i != 0) {
-    return $interval->i . ' ' . t('minute' . ($interval->i > 1 ? 's' : '')) . ' ago';
-  }
-  return 'just now';
-}
-
-/**
  * Theme argument_delete
  *
  * @param $content_type

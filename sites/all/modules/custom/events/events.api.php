@@ -114,9 +114,7 @@ function events_get($p = array(), $count = 30)
     }
     $item['account'] = $users[$item['uid']];
     $item['timestamp'] = strtotime($item['date_added']);
-    if (function_exists('time_interval')) {
-      $item['date_added'] = time_interval($item['date_added']);
-    }
+    $item['date_added'] = time_interval($item['date_added']);
     $items[$item['id']] = $item;
   }
 

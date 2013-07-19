@@ -29,9 +29,6 @@ function argument_theme() {
   $theme['argument_result_ball'] = array(
     'arguments' => array('vote_sum' => NULL),
   );
-  $theme['time_interval'] = array(
-    'arguments' => array('time' => NULL),
-  );
 
   $theme['argument_delete'] = array(
     'arguments' => array(
@@ -106,7 +103,7 @@ function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   if ('argument' == $node->type || 'resource' == $node->type) {
     switch ($op) {
       case 'load' :
-        $node->creation_time = ($_ = theme('time_interval', $node->created)) ? $_ : date("F d Y H:i:s", $node->created);
+        $node->creation_time = time_interval($node->created, true);
         $node->comments = argument_recent_comments($node->nid);
         break;
     }
@@ -123,7 +120,7 @@ function argument_comment(&$a1, $op)
 {
   switch ($op) {
     case 'view' :
-      $a1->creation_time = ($_ = theme('time_interval', $a1->timestamp)) ? $_ : date("F d Y H:i:s", $a1->timestamp);
+      $a1->creation_time = time_interval($a1->timestamp, true);
       break;
   }
 }
