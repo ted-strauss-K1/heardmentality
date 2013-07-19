@@ -155,6 +155,7 @@ function argument_create_comment()
     'status' => TRUE,
     'message' => t('Thanks, Your reply posted!'),
     'content' => theme('argument_comment', $comment),
+    'cid' => $comment->cid,
   ));
 
   exit();

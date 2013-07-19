@@ -178,6 +178,12 @@ function follower_page_save()
     if (module_exists('rules')) {
       rules_invoke_event('follower_user_followed', $relationship->requester, $relationship->requestee);
     }
+
+    // events
+    module_invoke_all('process_event', 'follow', array(
+      'content_type' => 'user',
+      'content_id' => $relationship->requestee->uid,
+    ), $relationship->requester->uid);
   } else {
     $relationship = user_relationships_load($rid);
     user_relationships_delete_relationship($relationship, $user);
@@ -185,6 +191,12 @@ function follower_page_save()
     if (module_exists('rules')) {
       rules_invoke_event('follower_user_unfollowed', user_load($relationship->requester_id), user_load($relationship->requestee_id));
     }
+
+    // events
+    module_invoke_all('process_event', '_follow', array(
+      'content_type' => 'user',
+      'content_id' => $relationship->requestee_id,
+    ), $relationship->requester_id);
   }
   $response = follower_strings() + array('rel' => $relationship);
   print json_encode($response);

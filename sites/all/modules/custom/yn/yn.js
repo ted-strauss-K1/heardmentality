@@ -23,7 +23,7 @@ $('.yn-a, .yn-d').live('click', function (e) {
         text:response.message,
         type:'success'
       });
-      el.trigger('yn', response.data);
+      $('body').trigger('yn', [el, response.data]);
     }
   });
 });

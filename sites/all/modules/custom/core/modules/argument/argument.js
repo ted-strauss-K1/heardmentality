@@ -142,8 +142,7 @@ function circle_update(element, count) {
  * Success event on YN callback
  */
 
-$('.yn-a, .yn-d').on('yn', function(data) {
-  var el = $(this);
+$('body').on('yn', function(e, el, data) {
   var parent = el.closest('.comment-agree');
   // update circle
   circle_update(el.parents('.one-forum'), data.pvote_sum);
@@ -216,6 +215,13 @@ $('.arg-reply-form').live('submit', function (e) {
         replycount.html(parseInt(replycount.html()) + 1);
         replycount.fadeIn(1000);
       });
+
+      $('body').trigger('events', ['reply', {
+        'cid'           : response.cid,
+        'content_type'  : 'comment',
+        'content_id'    : response.cid
+      }]);
+
       // add the translate to the new comment
       translate();
     },

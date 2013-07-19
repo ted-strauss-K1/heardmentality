@@ -88,7 +88,7 @@ function events_menu() {
 function events_preprocess_event($type) {
   $mtime = microtime(true);
 
-  $vars = $_REQUEST;
+  $vars = $_POST;
   unset($vars['q']);
 
   global $user;
@@ -108,7 +108,15 @@ function events_preprocess_event($type) {
  * @param $type
  */
 function events_process_event($type, $vars, $uid) {
-  events_add($type, $vars, $uid);
+  if ('_' == $type[0]) {
+    $p = array(
+      'uid' => $uid,
+      'type' => substr($type, 1),
+    ) + $vars;
+    events_del($p);
+  } else {
+    events_add($type, $vars, $uid);
+  }
 }
 
 

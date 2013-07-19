@@ -425,7 +425,10 @@ function user_profile_edit_form_submit(&$form, &$form_state)
 
   // events
   global $user;
-  module_invoke_all('process_event', 'user_update', array(), $user->uid);
+  module_invoke_all('process_event', 'user_update', array(
+    'content_type' => 'user',
+    'content_id' => $user->uid,
+  ), $user->uid);
 }
 
 /**

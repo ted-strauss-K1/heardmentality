@@ -150,13 +150,22 @@ function yn_vote($content_id, $value, $content_type, $vote_source = '', $uid = '
     $vote['uid'] = $uid;
   }
 
-  if (module_exists('rules')) {
-    if ($vote['vote_source'] != VOTE_AUTOADD) {
+  global $user;
+
+  // rules
+  if ($vote['vote_source'] != VOTE_AUTOADD) {
+    if (module_exists('rules')) {
       # invoke yn_voteup / yn_votedn events
-      global $user;
       $author = _yn_content_author($content_id, $content_type);
       rules_invoke_event($value == VOTE_AGREE ? 'yn_voteup' : 'yn_votedn', $user, $author, $content_id, $content_type);
     }
+
+    // events
+    module_invoke_all('process_event', 'yn', array(
+      'content_type' => $content_type,
+      'content_id' => $content_id,
+      'value' => $value,
+    ), $user->uid);
   }
 
   $output = votingapi_add_votes($vote);
