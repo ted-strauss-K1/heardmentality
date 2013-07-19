@@ -17,6 +17,7 @@ $(document).ready(function () {
  * Update function
  */
 function eventsStreamUpdate() {
+
   $.ajax({
     type      : "POST",
     dataType  : "json",
@@ -24,9 +25,7 @@ function eventsStreamUpdate() {
     data      : $('#uactivity').attr('name'),
     success   : function (response) {
       for (var item in response) {
-        $('.uactivity .msg:first').before(response[item]);
-        $('.uactivity .msg:first').hide();
-        $('.uactivity .msg:first').slideDown(500);
+        $('.uactivity .msg:first').before(response[item]).hide().slideDown(500);
       }
       $('.uactivity .msg').slice(100).remove()
     }

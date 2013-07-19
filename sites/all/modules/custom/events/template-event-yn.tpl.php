@@ -1,1 +1,1 @@
-<?php include "event-regular.tpl.php";
+<?php include "template-event.tpl.php";

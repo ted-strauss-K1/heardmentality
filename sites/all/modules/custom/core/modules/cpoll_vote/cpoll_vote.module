@@ -226,6 +226,12 @@ function cpoll_vote_ajax() {
   # vote
   cpoll_vote($post['chid']);
 
+  // events
+  module_invoke_all('process_event', '_vote', array(
+    'content_type' => 'node',
+    'content_id' => $post['nid'],
+  ), $user->uid);
+
   # todo reindex
 
   print json_encode(array(

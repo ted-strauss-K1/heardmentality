@@ -14,6 +14,7 @@ function argument_options_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
     switch ($op) {
       case 'insert' :
       case 'update' :
+        if ($node->argument_options)
         foreach ($node->argument_options as $chid => $choice) {
           db_query("
             REPLACE INTO {argument_options}

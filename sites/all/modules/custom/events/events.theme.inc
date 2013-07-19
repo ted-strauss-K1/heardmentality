@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Main item theme preprocessing
+ *  - do not show events when the user is disabled
+ *
+ * @param $vars
+ */
 function event_item_theme_preprocess(&$vars) {
   if ($vars['item']['account']) {
     $account = $vars['item']['account'];
@@ -16,16 +22,26 @@ function event_item_theme_preprocess(&$vars) {
 }
 
 /**
- * Preprocess for "poll" theme
+ * Preprocess for "create" theme
  *
  * @param $vars
  */
-function event_poll__theme_preprocess(&$vars) {
+function event_create_theme_preprocess(&$vars) {
+  event_issue__theme_preprocess($vars);
+  $vars['text'] = t('added a new issue');
+}
+
+/**
+ * Preprocess common for issue-related theme
+ *
+ * @param $vars
+ */
+function event_issue__theme_preprocess(&$vars) {
   $node = node_load($vars['item']['content_id']);
-  $translation = module_exists('poll_translate') ?
-    poll_translate_translation($node) : array();
+
+  // todo content translation
   $vars['link'] = l(
-    (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
+    $node->title,
     $node->path,
     array()
   );
@@ -37,61 +53,23 @@ function event_poll__theme_preprocess(&$vars) {
 }
 
 /**
- * Preprocess for "poll_create" theme
- *
- * @param $vars
- */
-function event_poll_create_theme_preprocess(&$vars) {
-  event_poll__theme_preprocess($vars);
-  $vars['text'] = t('added a new issue');
-}
-
-/**
  * Preprocess for "poll_vote" theme
  *
  * @param $vars
  */
-function event_poll_vote_theme_preprocess(&$vars) {
-  event_poll__theme_preprocess($vars);
+function event_vote_theme_preprocess(&$vars) {
+  event_issue__theme_preprocess($vars);
   $vars['text'] = t('voted on an issue');
 }
 
 /**
- * Preprocess for "forum" theme
+ * Preprocess for "debate" theme
  *
  * @param $vars
  */
-function event_forum__theme_preprocess(&$vars) {
-  $argument = node_load($vars['item']['content_id']);
-  $node = node_load($argument->field_issue[0]['nid']);
-  $translation = module_exists('poll_translate') ?
-    poll_translate_translation($node) : array();
-  $vars['link'] = l(
-    (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
-    $node->path,
-    empty($argument) ? array() : array('fragment' => 'forum-block-' . $argument->nid)
-  );
-  $vars['text2'] = '
-    <!-- google translate -->
-    <span class="goog-trans-section events_google_translate">'.
-      $argument->title .
-      '&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
-    </span>';
-  $vars['argument_type'] = $argument->field_argument_type[0]['value'];
-
-  if (($node->status != 1) || ($argument->status != 1)) {
-    $vars['skip'] = true;
-  }
-}
-
-/**
- * Preprocess for "forum_create" theme
- *
- * @param $vars
- */
-function event_forum_create_theme_preprocess(&$vars) {
-  event_forum__theme_preprocess($vars);
-  if ($vars['argument_type'] == TYPE_RESOURCE) {
+function event_debate_theme_preprocess(&$vars) {
+  event_debate__theme_preprocess($vars);
+  if ('resource' == $vars['debate_type']) {
     $vars['text'] = t('posted a reference on the issue');
   } else {
     $vars['text'] = t('posted an argument on the issue');
@@ -99,16 +77,41 @@ function event_forum_create_theme_preprocess(&$vars) {
 }
 
 /**
- * Preprocess for "forum_vote" theme
+ * Preprocess for "forum" theme
  *
  * @param $vars
  */
-function event_forum_vote_theme_preprocess(&$vars) {
-  event_forum__theme_preprocess($vars);
-  $vars['text'] = (
-  $vars['item']['vars']['vote'] == VOTE_AGREE ?
-    t('agreed') : t('disagreed')
-  ) . ' ' . t('with an argument on the issue');
+function event_debate__theme_preprocess(&$vars) {
+  $debate = node_load($vars['item']['content_id']);
+  $node = node_load($debate->field_reference[0]['nid']);
+
+  // todo content translate
+  $vars['link'] = l(
+    $node->title,
+    $node->path,
+    empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid)
+  );
+  $vars['text2'] = '
+    <!-- google translate -->
+    <span class="goog-trans-section events_google_translate">'.
+      $debate->title .
+      '&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
+    </span>';
+  $vars['debate_type'] = $debate->type;
+
+  if (($node->status != 1) || ($debate->status != 1)) {
+    $vars['skip'] = true;
+  }
+}
+
+/**
+ * Preprocess for "forum_comment" theme
+ *
+ * @param $vars
+ */
+function event_reply_theme_preprocess(&$vars) {
+  event_reply__theme_preprocess($vars);
+  $vars['text'] = t('replied to an argument on the issue');
 }
 
 /**
@@ -116,17 +119,17 @@ function event_forum_vote_theme_preprocess(&$vars) {
  *
  * @param $vars
  */
-function event_forum_comment__theme_preprocess(&$vars) {
+function event_reply__theme_preprocess(&$vars) {
   $comment = _comment_load($vars['item']['content_id']);
-  $argument = node_load($comment->nid);
-  $node = node_load($argument->field_issue[0]['nid']);
+  $debate = node_load($comment->nid);
+  $node = node_load($debate->field_reference[0]['nid']);
 
-  $translation = module_exists('poll_translate') ?
-    poll_translate_translation($node) : array();
+  // todo content translation
+
   $vars['link'] = l(
-    (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
+    $node->title,
     $node->path,
-    empty($argument) ? array() : array('fragment' => 'forum-block-' . $argument->nid)
+    empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid)
   );
   $vars['text2'] = '
     <!-- google translate -->
@@ -137,33 +140,33 @@ function event_forum_comment__theme_preprocess(&$vars) {
 
   if (!$comment->support) yn_invert_vote_value($vars['item']['vars']['vote']);
 
-  if (($node->status != 1) || ($argument->status != 1) || ($comment->status == COMMENT_NOT_PUBLISHED)) {
+  if (($node->status != 1) || ($debate->status != 1) || ($comment->status == COMMENT_NOT_PUBLISHED)) {
     $vars['skip'] = true;
   }
 }
 
 /**
- * Preprocess for "forum_comment" theme
+ * Preprocess for "yn" theme
  *
  * @param $vars
  */
-function event_forum_comment_theme_preprocess(&$vars) {
-  // todo
-  event_forum_comment__theme_preprocess($vars);
-  $vars['text'] = t('replied to an argument on the issue');
-}
-
-/**
- * Preprocess for "forum_comment_vote" theme
- *
- * @param $vars
- */
-function event_forum_comment_vote_theme_preprocess(&$vars) {
-  // todo
-  event_forum_comment__theme_preprocess($vars);
-  $vars['text'] = (
-    $vars['item']['vars']['vote'] == VOTE_AGREE ? t('strenghtened') : t('weakened')
-    ) . ' ' . t('an argument on the issue');
+function event_yn_theme_preprocess(&$vars) {
+  switch ($vars['item']['content_type']) {
+    case 'node' :
+      event_debate__theme_preprocess($vars);
+      $vars['text'] = (
+        $vars['item']['vars']['vote'] == VOTE_AGREE ?
+          t('agreed') : t('disagreed')
+        ) . ' ' . t('with an argument on the issue');
+    break;
+    case 'comment' :
+      event_reply__theme_preprocess($vars);
+      $vars['text'] = (
+        $vars['item']['vars']['vote'] == VOTE_AGREE ? t('strenghtened') : t('weakened')
+        ) . ' ' . t('an argument on the issue');
+    break;
+    default : $vars['skip'] = true;
+  }
 }
 
 /**
@@ -171,17 +174,8 @@ function event_forum_comment_vote_theme_preprocess(&$vars) {
  *
  * @param $vars
  */
-function event_user_profile_theme_preprocess(&$vars) {
+function event_user_update_theme_preprocess(&$vars) {
   $vars['text'] = t('updated the profile');
-}
-
-/**
- * Preprocess for "user_badge" theme
- *
- * @param $vars
- */
-function event_user_badge_theme_preprocess(&$vars) {
-  // todo
 }
 
 /**
@@ -189,7 +183,7 @@ function event_user_badge_theme_preprocess(&$vars) {
  *
  * @param $vars
  */
-function event_user_follow_theme_preprocess(&$vars) {
+function event_follow_theme_preprocess(&$vars) {
   $target = user_load($vars['item']['content_id']);
 
   $vars['text'] = t('now following');
@@ -200,9 +194,28 @@ function event_user_follow_theme_preprocess(&$vars) {
     array('html' => true)
   );
 
-  if ($target->status != 1) {
+  if ($target->uid == 0 || $target->status != 1) {
     $vars['skip'] = true;
   }
+}
+
+
+
+
+
+
+
+
+
+// todo refactor below
+
+/**
+ * Preprocess for "user_badge" theme
+ *
+ * @param $vars
+ */
+function event_user_badge_theme_preprocess(&$vars) {
+  // todo
 }
 
 /**

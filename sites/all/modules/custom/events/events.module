@@ -126,13 +126,27 @@ function events_process_event($type, $vars, $uid) {
  */
 function events_get_latest($id)
 {
+  $events = events_get(array(
+    'q' => array(
+      events_build_query(array('type' => array(
+        'create',
+        'debate',
+        'reply',
+        'vote',
+        'follow',
+        'yn',
+      ))),
+    ),
+    'update' => $id,
+  ));
+
+  $output = array();
+  foreach ($events as $item) {
+    array_unshift($output, theme('events_item', $item));
+  }
+
   print json_encode(
-    events_get(array(
-      'q' => array(
-        events_build_query(array('exclude' => array('type' => array('user_profile', 'taxonomy'),))),
-      ),
-      'update' => $id,
-    ))
+    $output
   );
   exit;
 }
@@ -224,7 +238,7 @@ function events_theme_items()
       ),
       'preprocess functions' => array('event_item_theme_preprocess', $themename.'_theme_preprocess'),
       'file' => 'events.theme.inc',
-      'template' => 'templates/event-'.$event,
+      'template' => 'template-event-'.$event,
     );
   }
 
@@ -239,15 +253,26 @@ function events_events_info()
   // todo events
 
   return array(
-    'poll_create' => 'event_poll_create',
-    'poll_vote' => 'event_poll_vote',
-    'forum_create' => 'event_forum_create',
-    'forum_comment' => 'event_forum_comment',
-    'forum_vote' => 'event_forum_vote',
-    'forum_comment_vote' => 'event_forum_comment_vote',
-    'user_profile' => 'event_user_profile',
+    'create'  => 'event_create',
+    'vote'    => 'event_vote',
+    'debate'  => 'event_debate',
+
+    'reply'   => 'event_reply',
+    'yn'      => 'event_yn',
+    'follow'  => 'event_follow',
+    'user_update' => 'event_user_update',
+
+
+//    'poll_create' => 'event_poll_create',
+//    'poll_vote' => 'event_poll_vote',
+//    'forum_create' => 'event_forum_create',
+//    'forum_comment' => 'event_forum_comment',
+//    'forum_vote' => 'event_forum_vote',
+//    'forum_comment_vote' => 'event_forum_comment_vote',
+//    'user_profile' => 'event_user_profile',
+//    'user_follow' => 'event_user_follow',
+
     'user_badge' => 'event_user_badge',
-    'user_follow' => 'event_user_follow',
     'taxonomy' => 'event_taxonomy',
   );
 }
@@ -279,21 +304,6 @@ function theme_events_item($item)
     : '';
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Implementation of hook_block
  *
@@ -316,7 +326,14 @@ function events_block($op = 'list', $delta = 0, $edit = array())
           $block['subject'] = t('HAPPENING NOW');
           $block['content'] = theme('events', events_get(array(
             'q' => array(
-              events_build_query(array('exclude' => array('type' => array('user_profile', 'taxonomy'),))),
+              events_build_query(array('type' => array(
+                'create',
+                'debate',
+                'reply',
+                'vote',
+                'follow',
+                'yn',
+              ))),
             )
           )), array('update' => TRUE));
           break;
@@ -324,14 +341,3 @@ function events_block($op = 'list', $delta = 0, $edit = array())
       return $block;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
