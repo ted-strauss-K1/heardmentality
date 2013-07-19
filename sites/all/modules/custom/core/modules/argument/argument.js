@@ -181,8 +181,7 @@ $('.arg-reply-form').live('submit', function (e) {
   e.preventDefault();
   var form = $(this);
   if (form.find('textarea').val().length < 2) {
-    // TODO text translate
-    $.hrd.noty({'type':'error', 'text':'Please enter your reply'});
+    $.hrd.noty({'type':'error', 'text':'Please enter your reply'}); // todo translate
     return;
   }
   // hide submit button
@@ -239,15 +238,13 @@ $('.argument-delete').live('click', function (e) {
   $.hrd.noty({
     'layout':'center',
     'type':'alert',
-    // TODO text translate
-    'text':'Are you sure you want to delete?',
+    'text':'Are you sure you want to delete?', // todo translate
     'modal':true,
     'timeout':false,
     'buttons':[
       {
         addClass:'btn btn-primary',
-        // TODO text translate
-        text:'Delete!',
+        text:'Delete!', // todo translate
         onClick:function ($noty) {
           $.ajax({
             type:'POST',
@@ -284,8 +281,7 @@ $('.argument-delete').live('click', function (e) {
       },
       {
         addClass:'btn btn-danger',
-        // TODO text translate
-        text:'Cancel',
+        text:'Cancel', // todo translate
         onClick:function ($noty) {
           $noty.close();
         }
@@ -453,7 +449,7 @@ $('#argument-add-form').live('submit', function (e) {
           });
           $.hrd.noty({
             type:'error',
-            text:'Sorry, your URL cannot be attached'
+            text:'Sorry, your URL cannot be attached' // todo translate
           });
           return false;
         }
@@ -463,11 +459,9 @@ $('#argument-add-form').live('submit', function (e) {
 
         $.hrd.noty({
           type:'success',
-          // translate
-          text:'You can now submit your resource'
+          text:'You can now submit your resource' // todo translate
         });
-        // todo translate
-        $('#add_argument').val('Add');
+        $('#add_argument').val('Add'); // todo translate
       }
     });
 
@@ -517,6 +511,12 @@ $('#argument-add-form').live('submit', function (e) {
         // refresh the opened tab
         var selected = $("#debate_list_area").tabs("option", "selected");
         $('#debate_list_area').tabs("load", selected);
+
+        $('body').trigger('events', ['debate', {
+          'nid'           : response.nid,
+          'content_type'  : 'node',
+          'content_id'    : response.nid
+        }]);
       } else {
         $.hrd.noty({
           type:'error',

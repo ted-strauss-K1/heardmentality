@@ -89,7 +89,11 @@ $('#suggest').live('click', function (e) {
 
       //
       $('body').trigger('cpoll_update');
-      $('body').trigger('events', ['suggest', {chid:response.chid}]);
+      $('body').trigger('events', ['suggest', {
+        'chid'          : response.chid,
+        'content_type'  : 'node',
+        'content_id'    : form.find('input[name=nid]').val()
+      }]);
     }
   });
 });
@@ -164,7 +168,11 @@ $('#vote').live('click', function (e) {
 
       //
       $('body').trigger('cpoll_update');
-      $('body').trigger('events', ['vote', {chid:response.chid}]);
+      $('body').trigger('events', ['vote', {
+        'chid'          : response.chid,
+        'content_type'  : 'node',
+        'content_id'    : form.find('input[name=nid]').val()
+      }]);
     }
   });
 });

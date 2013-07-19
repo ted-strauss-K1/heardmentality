@@ -400,15 +400,15 @@ function argument_create()
       if ($node) {
         # argument options
         $node->argument_options = cpoll_load_choices($post['nid']);
-        $choices_count = count($node->argument_options);
-        for ($i = 0; $i < $choices_count; $i++) {
-          $node->argument_options[$post['chorder_'.$i]]['val'] = $post['option_'.$i];
+        foreach ($node->argument_options as $chid => &$choice) {
+          $choice['val'] = $post['option_'.$chid];
         }
         node_save($node);
 
         print json_encode(array(
           'success' => TRUE,
           'message' => '<span class="posted">' . t('Your argument posted successfully') . '!</span>',
+          'nid' => $node->nid,
         ));
       } else {
         print json_encode(array(
@@ -433,9 +433,7 @@ function argument_create()
           'success' => TRUE,
           'message' => '<span class="posted">' . t('Your argument was posted successfully!') . '</span>',
           'node' => $node,
-          'debug' => array(
-            $post,
-          ),
+          'nid' => $node->nid,
         ));
 
       } else {
