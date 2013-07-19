@@ -40,12 +40,15 @@ function extract_menu() {
  */
 function extract_exec()
 {
+  # file naming
   $path = 'extract.';
   switch (EXTRACT_PERIOD) {
     case 'd' :
       $path .= date('Y.m.d');
       break;
   }
+
+  # check if file exists
   $path_abs = $_SERVER['DOCUMENT_ROOT'] . '/' . drupal_get_path('module', 'extract') . '/data/' . $path . '.csv';
   if (!file_exists($path_abs)) {
     $f = fopen($path_abs, 'w+');
@@ -55,10 +58,12 @@ function extract_exec()
       return;
     }
 
+    # keys to look for
     $keys = array(
       'id', 'issue_id', 'issue_text', 'issue_category_l1', 'issue_category_l2', 'issue_category_l3', 'vote_answer_id', 'vote_answer_text', 'vote_increment', 'current_vote_flag', 'vote_timestamp', 'userid', 'gender', 'zip', 'country', 'state', 'city', 'religion', 'ethnicity', 'income', 'marital', 'education', 'sorient', 'age', 'left_right', 'lib_auth', 'radic_cons', 'dove_hawk',
     );
 
+    # current year
     $y = date('Y');
 
     # select profile fields
@@ -95,7 +100,7 @@ function extract_exec()
       $votes[] = $row;
     }
 
-    # select analysis info
+    # build query
     if (true) {
       $query = "
         SELECT

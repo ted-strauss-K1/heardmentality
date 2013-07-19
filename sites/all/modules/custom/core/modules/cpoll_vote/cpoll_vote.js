@@ -89,6 +89,7 @@ $('#suggest').live('click', function (e) {
 
       //
       $('body').trigger('cpoll_update');
+      $('body').trigger('events', ['suggest', {chid:response.chid}]);
     }
   });
 });
@@ -163,6 +164,7 @@ $('#vote').live('click', function (e) {
 
       //
       $('body').trigger('cpoll_update');
+      $('body').trigger('events', ['vote', {chid:response.chid}]);
     }
   });
 });

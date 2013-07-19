@@ -57,37 +57,20 @@ function events_user($op, &$edit, &$account, $category = NULL)
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * @return array
+ */
 function events_menu() {
   $menu = array();
+
+  $menu['events/event/%'] = array(
+    'page callback' => 'events_preprocess_event',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  // todo check below
 
   $menu['events/latest/%'] = array(
     'page callback' => 'events_get_latest',
@@ -98,6 +81,36 @@ function events_menu() {
 
   return $menu;
 }
+
+/**
+ * @param $type
+ */
+function events_preprocess_event($type) {
+  $mtime = microtime(true);
+
+  $vars = $_REQUEST;
+  unset($vars['q']);
+
+  global $user;
+  $uid = $user->uid;
+
+  $messages = module_invoke_all('process_event', $type, $vars, $uid);
+
+  $mtime = round(microtime(true) - $mtime, 4);
+
+  exit(json_encode(array(
+    'time' => $mtime,
+    'messages' => $messages,
+  )));
+}
+
+/**
+ * @param $type
+ */
+function events_process_event($type, $vars, $uid) {
+  events_add($type, $vars, $uid);
+}
+
 
 
 
@@ -191,7 +204,7 @@ function events_stream_theme_preprocess(&$vars)
  */
 function events_preprocess_page(&$vars)
 {
-  //
+  drupal_add_js(drupal_get_path('module', 'events') . '/events.ajax.js');
 }
 
 /**
@@ -218,7 +231,7 @@ function events_block($op = 'list', $delta = 0, $edit = array())
             'q' => array(
               events_build_query(array('exclude' => array('type' => array('user_profile', 'taxonomy'),))),
             )
-          )), array('update' => true));
+          )), array('update' => TRUE));
           break;
       }
       return $block;
@@ -232,7 +245,7 @@ function events_block($op = 'list', $delta = 0, $edit = array())
  */
 function theme_events_item($item)
 {
-  static $themes = null;
+  static $themes = NULL;
 
   if (is_null($themes)) {
     $themes = module_invoke_all('events_info');

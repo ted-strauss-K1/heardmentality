@@ -3,3 +3,8 @@ description = Creates the site's overall data extraction
 package = Custom Modules
 version = "6.x-1.1"
 core = 6.x
+
+dependencies[] = 'taxonomy'
+dependencies[] = 'cpoll'
+dependencies[] = 'cpoll_meta'
+dependencies[] = 'profile'

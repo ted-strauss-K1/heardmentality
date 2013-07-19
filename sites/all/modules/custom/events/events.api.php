@@ -100,8 +100,6 @@ function events_get($p = array(), $count = 30)
     $params[] = $count;
   }
 
-//  echo strtr($query, array('}' => '', '{' => ''));
-
   # fetch results
   static $users = array();
 

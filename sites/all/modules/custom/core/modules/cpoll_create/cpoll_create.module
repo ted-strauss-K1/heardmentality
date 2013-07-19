@@ -303,5 +303,8 @@ function cpoll_create_form_submit($form, &$form_state)
   drupal_set_message(t('Your issue has been added. It will be reviewed by 3 moderators but is available immediately.
 '), 'success');
 
+  // events
+  module_invoke_all('process_event', 'create', array('nid' => $node->nid), $user->uid);
+
   drupal_goto($node->path);
 }

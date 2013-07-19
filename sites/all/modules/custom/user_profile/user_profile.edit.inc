@@ -422,6 +422,10 @@ function user_profile_edit_form_submit(&$form, &$form_state)
       user_profile_edit_form_submit_image($form, $form_state);
       break;
   }
+
+  // events
+  global $user;
+  module_invoke_all('process_event', 'user_update', array(), $user->uid);
 }
 
 /**
