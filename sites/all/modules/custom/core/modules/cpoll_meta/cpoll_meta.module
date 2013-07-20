@@ -146,3 +146,10 @@ function cpoll_meta_user($op, &$edit, &$account, $category = NULL)
     break;
   }
 }
+
+/**
+ * @param $chid
+ */
+function cpoll_meta_cpoll_choice_delete($chid) {
+  db_query("DELETE FROM {cpoll_meta_values} WHERE chid = '%d'", $chid);
+}

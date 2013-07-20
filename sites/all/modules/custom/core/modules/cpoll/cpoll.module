@@ -21,6 +21,9 @@ function cpoll_load_choices($nid, $reset = false) {
       GROUP BY c.chid", $nid);
     while ($row = db_fetch_array($result)) {
       $row['uids'] = !empty($row['uids']) ? explode(',', $row['uids']) : array();
+      if ('' == $row['chtext_short']) {
+        $row['chtext_short'] = $row['chtext'];
+      }
       $choices[$nid][$row['chid']] = $row + array('index' => $index++);
     }
   }
@@ -64,6 +67,8 @@ function cpoll_choice_save($choice) {
 function cpoll_choice_delete($chid) {
   db_query("DELETE FROM {cpoll_choices} WHERE chid = '%d'", $chid);
   db_query("DELETE FROM {cpoll_votes} WHERE chid = '%d'", $chid);
+
+  module_invoke_all('cpoll_choice_delete', $chid);
 }
 
 /**
@@ -282,7 +287,7 @@ function cpoll_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
           $nid = $node->nid;
           $choices = $node->choices;
           foreach ($choices as $chid => $choice) {
-            if ('delete' == $choice['actions']) {
+            if ('delete' == $choice['actions'] || '' == $choice['chtext']) {
               cpoll_choice_delete($chid);
             } else {
               $choice['nid'] = $nid;

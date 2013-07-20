@@ -5,6 +5,7 @@ version = "6.x-1.0"
 core = 6.x
 
 dependencies[] = "core"
+dependencies[] = "cpoll_meta"
 dependencies[] = "flagger"
 dependencies[] = "user_profile"
 dependencies[] = "issue_translate"

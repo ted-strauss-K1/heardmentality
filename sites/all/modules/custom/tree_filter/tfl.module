@@ -45,26 +45,23 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
   $tfl['checked'][] = $checked;
 
   // cities
-  if (module_exists('location_cities')) {
-    // cities
-    $cities = array();
-    foreach ($checked as $code) {
-      list($ccode, $pcode) = explode("_", $code, 2);
-      foreach (location_get_cities($ccode, $pcode) as $citycode => $cityname) {
-        $cities[$code.'_'.$citycode] = $cityname;
-      }
+  $cities = array();
+  foreach ($checked as $code) {
+    list($ccode, $pcode) = explode("_", $code, 2);
+    foreach (location_get_cities($ccode, $pcode) as $citycode => $cityname) {
+      $cities[$code.'_'.$citycode] = $cityname;
     }
-    $tfl['list'][] = $cities;
-
-    // cities checked
-    $checked = array();
-    foreach ($cities as $code => $name) {
-      if (in_array($code, $codes3)) {
-        $checked[] = $code;
-      }
-    }
-    $tfl['checked'][] = $checked;
   }
+  $tfl['list'][] = $cities;
+
+  // cities checked
+  $checked = array();
+  foreach ($cities as $code => $name) {
+    if (in_array($code, $codes3)) {
+      $checked[] = $code;
+    }
+  }
+  $tfl['checked'][] = $checked;
 
   // setting
   $all = array_keys($countries);
@@ -75,14 +72,12 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
         'id' => $id,
         'name' => $pname,
       );
-      if (module_exists('location_cities')) {
-        foreach (location_get_cities($code, $pcode) as $citycode => $cityname) {
-          $id = $code . '_' . $pcode . '_' . $citycode;
-          $all[$code . '_' . $pcode][$id] = array(
-            'id' => $id,
-            'name' => $cityname,
-          );
-        }
+      foreach (location_get_cities($code, $pcode) as $citycode => $cityname) {
+        $id = $code . '_' . $pcode . '_' . $citycode;
+        $all[$code . '_' . $pcode][$id] = array(
+          'id' => $id,
+          'name' => $cityname,
+        );
       }
     }
   }

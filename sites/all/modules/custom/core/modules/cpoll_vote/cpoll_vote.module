@@ -208,7 +208,7 @@ function cpoll_vote_ajax() {
   # add suggestion
   if ($post['suggestion']) {
     $choices = cpoll_load_choices($post['nid']);
-    // todo validation
+    // todo new choice validation
     $choice = array(
       'chid' => -1,
       'nid' => $post['nid'],
@@ -231,7 +231,7 @@ function cpoll_vote_ajax() {
     'content_id' => $post['nid'],
   ), $user->uid);
 
-  # todo reindex
+  # todo search reindex
 
   print json_encode(array(
     'status' => TRUE,

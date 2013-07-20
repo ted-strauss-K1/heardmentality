@@ -20,12 +20,7 @@ $('input[type="checkbox"].categories_subscribe').live('click', function (e) {
         type  : 'success',
         text  : response.message
       });
-      // checking todo
-      if (response.result) {
-        $$.attr('checked', 'checked');
-      } else {
-        $$.removeAttr('checked');
-      }
+      $$.prop('checked', response.result);
     }
   });
 });

@@ -235,8 +235,7 @@ function user_profile_preprocess_page(&$vars)
     }
   }
 
-
-  #  Popup todo add preprocess
+  #  Popup
   if (user_is_logged_in()) {
     $vars['user_popups'] = theme('user_profile_popup');
   }

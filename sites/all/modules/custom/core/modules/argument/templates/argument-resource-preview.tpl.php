@@ -35,8 +35,8 @@ $image_path = '/sites/all/themes/heardmentalitylight/images/';
     <?php endif; ?>
   </div>
   <div class="rightfm">
-    <?php // todo translate texts ?>
     <a href="javascript:void(0)" class="del_ref"
+      <?php // todo translate ?>
        onclick="$('#argument-add-form').reset(); $('#linkbox').html(''); $('#add_argument').val('Attach');"><span>x</span></a>
     <em><?php print $node->title ?></em>
     <?php print t('source') ?>:&nbsp;<strong><?php print $node->field_source[0]['value'] ?></strong>

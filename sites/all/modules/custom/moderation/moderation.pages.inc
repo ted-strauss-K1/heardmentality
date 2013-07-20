@@ -487,11 +487,11 @@ function moderation_issue_view_form($form_state, $nid)
     drupal_goto('moderation');
   }
 
-  // todo content translation
+  //
   $form['title'] = array(
     '#type' => 'textfield',
     '#title' => t('Title'),
-    '#value' => $node->title,
+    '#value' => issue_translate($node, 'title'),
     '#prefix' =>
     sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
       sprintf('
@@ -504,7 +504,7 @@ function moderation_issue_view_form($form_state, $nid)
   $form['body'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
-    '#value' => $node->field_description[0]['value'],
+    '#value' => issue_translate($node, 'body'),
     '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
     '#suffix' => '</div>',
   );
@@ -526,25 +526,32 @@ function moderation_issue_view_form($form_state, $nid)
     '#disabled' => TRUE,
   );
 
-  // todo content translation
-  foreach ($node->choices as $choice) {
+  //
+  foreach ($node->choices as $chid => $choice) {
+    $choice['chtext'] = issue_translate($node, 'chtext', $chid);
+    $choice['chtext_short'] = issue_translate($node, 'chtext_short', $chid);
     $form_element = _moderation_ahah_choice($choice['index'], $choice, $nid);
     $form['choices'][$choice['index']] = $form_element;
   }
 
-  $form['choices']['add_more'] = array(
-//  $form['add_more'] = array(
-    '#type' => 'submit',
-    '#value' => '+ ' . t('Add another choice'),
-    '#weight' => 1,
-    '#ahah' => array(
-      'path' => 'moderation/ahah/choices',
-//      'path' => ahah_helper_path(array('choices')),
-      'wrapper' => 'choices-wrapper',
-      'method' => 'replace',
-      'effect' => 'fade',
-    ),
-  );
+  // todo add choices when viewing on other language
+
+  # original language
+  global $language;
+  if ($node->language == $language->language) {
+    // add more
+    $form['choices']['add_more'] = array(
+      '#type' => 'submit',
+      '#value' => '+ ' . t('Add another choice'),
+      '#weight' => 1,
+      '#ahah' => array(
+        'path' => 'moderation/ahah/choices',
+        'wrapper' => 'choices-wrapper',
+        'method' => 'replace',
+        'effect' => 'fade',
+      ),
+    );
+  }
 
   // taxonomy
   $tft_codes = empty($node->taxonomy) ? array() : array_keys($node->taxonomy);
@@ -560,7 +567,6 @@ function moderation_issue_view_form($form_state, $nid)
           $tfl_codes[1][] = $location['country'] . '_' . $location['province'];
           if (!empty($location['city'])) {
             $tfl_codes[2][] = $location['country'] . '_' . $location['province'] . '_' . $location['city'];
-            // $tfl_codes[2][] = $location['city'];
           }
         }
       }
@@ -596,8 +602,22 @@ function moderation_issue_view_form($form_state, $nid)
  * @param int $nid
  * @return array
  */
-function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
+function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
 {
+  # create empty choice
+  if (false === $choice) {
+    global $user;
+    $choice = (array)cpoll_choice_save(array(
+      'chid' => -1,
+      'uid' => $user->uid,
+      'nid' => $nid,
+      'chtext' => '',
+      'chtext_short' => '',
+      'weight' => 100,
+      'chtype' => 'regular',
+    ));
+  }
+
   $form = array(
     '#tree' => TRUE,
   );
@@ -620,45 +640,49 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
     '#default_value' => $choice['chid'],
     '#parents' => array('choices', $delta, 'chid'),
   );
+  $form['uid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $choice['uid'],
+    '#parents' => array('choices', $delta, 'uid'),
+  );
 
-  if (module_exists('cpoll_meta')) {
-    global $user;
-    $form['meta'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Metadata'),
-      '#collapsible' => FALSE,
-      '#collapsed' => FALSE,
-    );
-    $meta = cpoll_meta_values_get($nid, $user->uid);
-    if ($meta[$choice['chid']]) {
-      foreach ($meta[$choice['chid']] as $cid => $value) {
-        $form['meta']['char'.$cid] = array(
-          '#type' => 'select',
-          '#title' => t($value['chtext']),
-          '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
-          '#value' => $value['val'],
-          '#size' => 5,
-          '#parents' => array('choices', $delta, 'meta', 'char'.$cid),
-          '#prefix' => '<div class="poll-meta poll-meta-'.$cid.'">',
-          '#suffix' => '</div>',
-        );
-      }
-    } else {
-      $meta = cpoll_meta_get();
-      foreach ($meta as $cid => $text) {
-        $form['meta']['char'.$cid] = array(
-          '#type' => 'select',
-          '#title' => t($text),
-          '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
-          '#value' => CPOLL_META_AVG,
-          '#size' => 5,
-          '#parents' => array('choices', $delta, 'meta', 'char'.$cid),
-          '#prefix' => '<div class="poll-meta poll-meta-'.$cid.'">',
-          '#suffix' => '</div>',
-        );
-      }
+  global $user;
+  $form['meta'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Metadata'),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+  $meta = cpoll_meta_values_get($nid, $user->uid);
+  if ($meta[$choice['chid']]) {
+    foreach ($meta[$choice['chid']] as $cid => $value) {
+      $form['meta']['char'.$cid] = array(
+        '#type' => 'select',
+        '#title' => t($value['chtext']),
+        '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
+        '#value' => $value['val'],
+        '#size' => 5,
+        '#parents' => array('choices', $delta, 'meta', 'char'.$cid),
+        '#prefix' => '<div class="poll-meta poll-meta-'.$cid.'">',
+        '#suffix' => '</div>',
+      );
+    }
+  } else {
+    $meta = cpoll_meta_get();
+    foreach ($meta as $cid => $text) {
+      $form['meta']['char'.$cid] = array(
+        '#type' => 'select',
+        '#title' => t($text),
+        '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
+        '#value' => CPOLL_META_AVG,
+        '#size' => 5,
+        '#parents' => array('choices', $delta, 'meta', 'char'.$cid),
+        '#prefix' => '<div class="poll-meta poll-meta-'.$cid.'">',
+        '#suffix' => '</div>',
+      );
     }
   }
+
 
   return $form;
 }
@@ -679,13 +703,6 @@ function moderation_ahah($type, $page = 0)
 
   # change the form parts
   switch ($type) {
-    // todo remove
-    case 'taxonomy' :
-      moderation_issue_view_form_taxonomy($form, FALSE, TRUE);
-      break;
-    case 'location' :
-      moderation_issue_view_form_location($form, FALSE, TRUE);
-      break;
     case 'choices' :
       $delta = count($_POST['choices']);
 
@@ -704,7 +721,6 @@ function moderation_ahah($type, $page = 0)
           }
         }
       }
-
       break;
   }
 
@@ -722,14 +738,6 @@ function moderation_ahah($type, $page = 0)
 
   # render the form parts
   switch ($type) {
-    // todo remove
-    case 'taxonomy' :
-    case 'location' :
-      $form_element = $form[$type];
-      unset($form_element['#prefix']);
-      unset($form_element['#suffix']);
-      $output = drupal_render($form_element);
-      break;
     case 'choices' :
       $choice_form = $form['choices'];
       $output = drupal_render($choice_form);
@@ -798,6 +806,7 @@ function moderation_issue_view_form_taxonomy(&$form, $tft_codes = FALSE)
       '#default_value' => $checked,
       '#size' => '4',
       '#attributes' => array('class' => 'chosen-mod tft '.($i>0 ? 'hideable':'')),
+      '#validated' => true,
     );
   }
 }
@@ -841,6 +850,7 @@ function moderation_issue_view_form_location(&$form, $tfl_codes = FALSE)
       '#default_value' => $checked,
       '#size' => '4',
       '#attributes' => array('class' => 'chosen-mod tfl '.($i>0 ? 'hideable':'')),
+      '#validated' => true,
     );
   }
 }
@@ -912,63 +922,52 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   // there we store changes
   $changed = array();
 
-  // todo content translation
 
-
-
-  $translation = poll_translate_translation($node);
-
-  $title = !empty($translation['title'][0]) ? $translation['title'][0] : $node->title;
+  // title changed
+  $title = issue_translate($node, 'title');
   if ($title != $values['title']) {
     $changed['title'] = $values['title'];
   }
 
-  $body = !empty($translation['body'][0]) ? $translation['body'][0] : $node->field_description[0]['value'];
+  // body changed
+  $body = issue_translate($node, 'body');
   if ($body != $values['body']) {
     $changed['body'] = $values['body'];
   }
 
-  foreach ($values['choices'] as $i => $choice) {
-    $chorder = $choice['chorder'];
-    # chtext
-    $chtext = !empty($translation['choice'][$choice['chorder']]) ? $translation['choice'][$choice['chorder']] : $node->choice[$chorder]['chtext'];
-    $chtext_short = !empty($translation['choice_short'][$choice['chorder']]) ? $translation['choice_short'][$choice['chorder']] : $node->choice[$chorder]['chtext_short'];
-    if ($choice['chtext'] != $chtext) {
-      $changed['choices'][$chorder]['chtext'] = $choice['chtext'];
+  // choices changed
+  $meta = cpoll_meta_get();
+  $usermeta = cpoll_meta_values_get($node->nid, $user->uid);
+  foreach ($values['choices'] as $choice) {
+    $chid = $choice['chid'];
+    // chtext
+    foreach (array('chtext', 'chtext_short') as $key) {
+      $$key = issue_translate($node, $key, $chid);
+      if ($choice[$key] != $$key) {
+        $changed['choices'][$chid][$key] = $choice[$key];
+        $changed['choices'][$chid][$key . '_old'] = $$key;
+      }
     }
-    if ($choice['chtext_short'] != $chtext_short) {
-      $changed['choices'][$chorder]['chtext_short'] = $choice['chtext_short'];
-    }
-    if (!empty($changed['choices'][$chorder])) {
-      $changed['choices'][$chorder] += array(
-        'chorder' => $chorder,
-        'chtext_old' => $chtext,
-        'chtext_short_old' => $chtext_short,
-      );
+    # meta
+    foreach ($meta as $cid => $text) {
+      if ($choice['meta']['char'.$cid] != $usermeta[$chid][$cid]) {
+        // todo history of meta changes
+      }
+      cpoll_meta_value_set($chid, $user->uid, $cid, $choice['meta']['char'.$cid]);
     }
   }
 
+  // todo allow suggestions
   if ($node->allowsuggestions != $values['allowsuggestions']) {
     $node->allowsuggestions = $values['allowsuggestions'];
   }
 
-  # meta
-  if (module_exists('poll_meta')) {
-    $meta = poll_meta_get();
-    foreach ($values['choices'] as $i => $choice) {
-      foreach ($meta as $cid => $text) {
-        poll_meta_value_set($nid, $choice['chorder'], $user->uid, $cid, $choice['meta']['char' . $cid]);
-      }
-    }
-  }
-
-  # taxonomy
-  $taxonomy_diff = array();
+  # taxonomy changes
   $taxonomy_old = array();
   foreach ($node->taxonomy as $term) {
     $taxonomy_old[intval($term->tid)] = $term;
   }
-
+  $taxonomy_diff = array();
   $node->taxonomy = array();
   for ($i = 0; $i >= 0; $i++) {
     if (!empty($values['taxonomy']['taxonomy-' . $i])) {
@@ -981,133 +980,122 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     } else break;
   }
 
-  if ($taxonomy_diff && module_exists('rules')) {
-    global $user;
-    rules_invoke_event('moderation_taxonomy', $user, $node, implode(',',$taxonomy_diff));
-  }
+  // events
+  module_invoke_all('process_event', 'taxonomy', array(
+    'content_type' => 'node',
+    'content_id' => $node->nid,
+  ), $user->uid);
 
   # locations
   $node->locations = array();
-  // through selected countries
-  if ($values['location']['location-0'])
-    if (is_array($values['location']['location-0']))
+  # counties
+  if (is_array($values['location']['location-0'])) {
     foreach ($values['location']['location-0'] as $country) {
+      # empty location
       $location = location_empty_location(array());
+      # init it with countrycode
       $location['country'] = $country;
       $location['name'] = $country;
+      # provinces
       $provinces = FALSE;
-      // through country's provinces
       foreach (location_get_provinces($country) as $pcode => $pname) {
-        if (is_array($values['location']['location-1']))
-        if (in_array($location['name'] . '_' . $pcode, $values['location']['location-1'])) {
-          $provinces = TRUE;
-          $location2 = $location;
-          $location2['province'] = $pcode;
-          $location2['name'] .= '_' . $pcode;
-          $cities = FALSE;
-          // through province's cities
-          foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
-            if (is_array($values['location']['location-2']))
-            if (in_array($ccode, $values['location']['location-2'])) {
-//          if (in_array($location2['name'] . '_' . $pcode, $values['location']['location-2'])) {
-              $cities = TRUE;
-              $location3 = $location2;
-              $location3['city'] = $ccode;
-              $location3['name'] .= '_' . $ccode;
-              $node->locations[] = $location3;
+        if (is_array($values['location']['location-1'])) {
+          # province selected found
+          if (in_array($location['name'].'_'.$pcode, $values['location']['location-1'])) {
+            $provinces = TRUE;
+            # add province code
+            $location2 = $location;
+            $location2['province'] = $pcode;
+            $location2['name'] .= '_' . $pcode;
+            # cities
+            $cities = FALSE;
+            foreach (location_get_cities($location2['country'], $location2['province']) as $ccode => $name) {
+              if (is_array($values['location']['location-2'])) {
+                # city selection found
+                if (in_array($location2['name'] . '_' . $ccode, $values['location']['location-2'])) {
+                  $cities = TRUE;
+                  # add city code
+                  $location3 = $location2;
+                  $location3['city'] = $ccode;
+                  $location3['name'] .= '_' . $ccode;
+                  $node->locations[] = $location3;
+                }
+              }
             }
-          }
-          // if no cities are set - let the location be just a province
-          if (!$cities) {
-            $node->locations[] = $location2;
+            // if no cities are set - let the location be just a province
+            if (!$cities) {
+              $node->locations[] = $location2;
+            }
           }
         }
       }
-      // if no provinces are set - let the location be just a country
+      # if no provinces are set - let the location be just a country
       if (!$provinces) {
         $node->locations[] = $location;
       }
     }
-
-  // track changes
-  if (!empty($changed)) {
-    global $language;
-
-    // todo meta values to node
-    if ($changed['meta']) {
-      //
-    }
-
-
-    if ($node->language != $language->language) {
-      if (!$node->t) {
-        $node->t = array();
-      }
-      if (!$node->t[$language->language]) {
-        $node->t[$language->language] = array();
-      }
-      $t = & $node->t[$language->language];
-      if (isset($changed['title'])) $t['title'][0] = $changed['title'];
-      if (isset($changed['body'])) $t['body'][0] = $changed['body'];
-
-      if ($changed['choices'])
-        foreach ($changed['choices'] as $chorder => $case) {
-          if ($case['chtext_short'] != '') {
-            $t['choice_short'][$chorder] = $case['chtext_short'];
-          } else {
-            unset($t['choice_short'][$chorder]);
-          }
-          if (isset($case['chtext'])) {
-            if ($case['chtext'] != '') {
-              $t['choice'][$chorder] = $case['chtext'];
-              // add poll choice to original node
-              if (!isset($node->choice[$chorder])) {
-                $node->choice[$chorder]['chtext'] = $case['chtext'];
-                if (module_exists('mstapi')) {
-                  $translations = mstapi_exec($language->language, $node->language, array(strip_tags($case['chtext'])));
-                  $translated = $translations[strip_tags($case['chtext'])];
-                  if ($translated != '') {
-                    $node->choice[$chorder]['chtext'] = $translated;
-                  }
-                }
-              }
-            } else {
-              // todo - deletion of the choice onlty when viewing the node on original lang
-              unset($t['choice'][$chorder]);
-              moderation_history_set($nid, 'node', 'edit', array('action' => 'choice delete', 'chorder' => $chorder));
-            }
-          }
-        }
-    } else {
-      if (isset($changed['title'])) $node->title = $changed['title'];
-      if (isset($changed['body'])) $node->field_description[0]['value'] = $changed['body'];
-
-      if ($changed['choices'])
-        foreach ($changed['choices'] as $chorder => $case) {
-          $choice = &$node->choice[$chorder];
-          if ($case['chtext_short'] != '') {
-            // todo poll_ext_chtext_short_set($nid, $chorder, $case['chtext_short']);
-          }
-          if (isset($case['chtext'])) {
-            $choice['chtext'] = $case['chtext'];
-            if ($case['chtext'] == '') {
-              moderation_history_set($nid, 'node', 'edit', array('action' => 'choice delete', 'chorder' => $chorder));
-            }
-          }
-        }
-    }
-    moderation_history_set($nid, 'node', 'edit', $changed);
   }
 
-  // approved
+  # save
+  global $language;
+  # original language
+  if ($node->language == $language->language) {
+    $node->title = $values['title'];
+    $node->body = $values['body'];
+
+    # add new choices
+    foreach ($values['choices'] as $choice) {
+      if (!isset($node->choices[$choice['chid']])) {
+        $count = count($node->choice);
+        $node->choices[$choice['chid']] = array(
+          'chid' => $choice['chid'],
+          'nid' => $node->nid,
+          'uid' => $choice['uid'],
+          'chtext' => $choice['chtext'],
+          'chtext_short' => $choice['chtext_short'],
+          'weight' => $count,
+          'type' => 'regular',
+        );
+      } else {
+        $node->choices[$choice['chid']]['chtext'] = $choice['chtext'];
+        $node->choices[$choice['chid']]['chtext_short'] = $choice['chtext_short'];
+      }
+    }
+  }
+
+  # translation
+  else {
+    # init translation if it does not exist
+    if (!$node->t) {
+      $node->t = array();
+    }
+    if (!$node->t[$language->language]) {
+      $node->t[$language->language] = array();
+    }
+    $t = & $node->t[$language->language];
+
+    $t['title'][0] = $values['title'];
+    $t['body'][0] = $values['body'];
+    foreach ($values['choices'] as $choice) {
+      $t['chtext'][$choice['chid']] = $choice['chtext'];
+      $t['chtext_short'][$choice['chid']] = $choice['chtext_short'];
+    }
+  }
+
+  # record the changes to history
+  moderation_history_set($nid, 'node', 'edit', $changed);
+
+  # approved
   moderation_history_del($nid, 'node', array('type' => 'approve'));
   moderation_history_set($nid, 'node', 'approve');
   moderation_history_del($nid, 'node', array('!uid' => $user->uid));
-//  exit;
+
+  # save node
   node_save($node);
 
-  // reindex
+  # reindex
   if (module_exists('issue_search')) {
+    // todo search
     issue_search_index_node($node->nid);
   }
 }

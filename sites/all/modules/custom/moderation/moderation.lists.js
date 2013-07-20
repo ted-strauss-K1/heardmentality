@@ -1,7 +1,7 @@
 $(document).ready(function () {
   // chosen!
   $(".chosen-mod").chosen();
-  select_hide();
+  select_change();
 });
 
 /**

@@ -545,7 +545,6 @@ function arguments_create_resource($nid, $url, $image)
  */
 function argument_delete($content_type, $content_id)
 {
-  // todo moderation
   if (!(module_exists('moderation') && moderation_check_perm()) && !argument_check_owner($content_type, $content_id)) {
     print json_encode(array(
       'status' => FALSE,
@@ -562,7 +561,7 @@ function argument_delete($content_type, $content_id)
       db_query("UPDATE {comments} SET status = '%d' WHERE cid = '%d'", COMMENT_NOT_PUBLISHED, $content_id);
       break;
   }
-  // todo moderation
+  //
   if (module_exists('moderation')) {
     moderation_history_set($content_id, $content_type, 'delete');
   }

@@ -29,7 +29,6 @@ function moderation_perm()
 function moderation_preprocess_page(&$vars)
 {
   if ('moderation' == arg(0)) {
-    // todo themes
     if (in_array(arg(1), array('issue', 'argument', 'comment',))) {
       $type = arg(1);
       $content_id = arg(2);
@@ -223,22 +222,8 @@ function moderation_theme()
   return $theme;
 }
 
-
-
-
-
-
-// todo check below
-
-
-
-
-
-
-
-
 /**
- *
+ * todo check where it's used
  */
 function theme_moderators()
 {
@@ -256,7 +241,13 @@ function theme_moderators()
   return implode(', ', $items);
 }
 
-
+/**
+ * @param $content_id
+ * @param $content_type
+ * @param $change
+ * @param array $vars
+ * @param bool $uid
+ */
 function moderation_history_set($content_id, $content_type, $change, $vars = array(), $uid = false) {
   global $language;
   if (false === $uid) {
@@ -266,6 +257,11 @@ function moderation_history_set($content_id, $content_type, $change, $vars = arr
   db_query("INSERT INTO {moderation_history} SET uid = '%d', status = 1, content_id = '%d', content_type = '%s', language = '%s', type = '%s', vars = '%s', date_added = '%s'", $uid, $content_id, $content_type, $language->language, $change, serialize($vars), date('Y-m-d H:i:s'));
 }
 
+/**
+ * @param $content_id
+ * @param $content_type
+ * @param array $p
+ */
 function moderation_history_del($content_id, $content_type, $p = array()) {
   $query = "UPDATE {moderation_history} SET status = 0 WHERE content_id = '%d' AND content_type = '%s'";
   $params[] = $content_id;
@@ -283,6 +279,13 @@ function moderation_history_del($content_id, $content_type, $p = array()) {
   db_query($query, $params);
 }
 
+/**
+ * @param $content_id
+ * @param $content_type
+ * @param $p
+ * @param bool $count
+ * @return array
+ */
 function moderation_history_get($content_id, $content_type, $p, $count = false) {
   global $language;
   $query = "SELECT * FROM {moderation_history} WHERE status = 1 AND content_id = '%d' AND content_type = '%s' AND language = '%s'";

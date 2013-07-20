@@ -40,7 +40,7 @@ function up_comment(&$a1, $op)
  */
 function up_cleanup($content_id, $content_type)
 {
-  // TODO
+  //
 }
 
 /**

@@ -286,7 +286,7 @@ function issue_translate($node, $field, $field_order = 0) {
     case 'title' :
       return $node->title;
     case 'body' :
-      return $node->content['body']['#value'];
+      return $node->body;
     case 'chtext' :
     case 'chtext_short' :
       return $node->choices[$field_order][$field];
