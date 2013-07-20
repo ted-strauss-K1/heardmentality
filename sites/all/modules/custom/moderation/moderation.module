@@ -1,17 +1,17 @@
 <?php
 
-//
-include "moderation.inc";
+/**
+ * Implementation of hook_init()
+ */
+function moderation_init()
+{
+  //
+}
 
 /**
  * Define permission
  */
 define('MODERATION_ADMIN', 'Administer Moderation module');
-
-/**
- * Define variable name to store uids of moderators
- */
-define('MODERATION_USERS', 'moderation_users');
 
 /**
  * Implementation of hook_perm()
@@ -28,9 +28,24 @@ function moderation_perm()
  */
 function moderation_preprocess_page(&$vars)
 {
-  if (arg(0) == 'moderation') {
+  if ('moderation' == arg(0)) {
+    // todo themes
     if (in_array(arg(1), array('issue', 'argument', 'comment',))) {
-      $vars['right'] .= theme('moderation_history');
+      $type = arg(1);
+      $content_id = arg(2);
+      switch ($type) {
+        case 'issue' :
+        case 'argument' :
+          $content_type = 'node';
+          break;
+        case 'comment' :
+          $content_type = 'comment';
+          break;
+        default :
+          return;
+      }
+      $history = moderation_history_get($content_id, $content_type, array(), 10);
+      $vars['right'] .= theme('moderation_history', $history);
       $vars['right'] .= theme('moderation_flags');
     }
 
@@ -43,13 +58,29 @@ function moderation_preprocess_page(&$vars)
   }
 }
 
+/**
+ * Define variable name to store uids of moderators
+ */
+define('MODERATION_USERS', 'moderation_users');
 
 /**
- * Implementation of hook_init()
+ * Check if user has the moderation permissions
+ *
+ * @param string $uid
+ * @return bool
  */
-function moderation_init()
+function moderation_check_perm($uid = false)
 {
-  // ???
+  if (false === $uid) {
+    global $user;
+    $account = $user;
+  } elseif (is_object($uid)) {
+    $account = $uid;
+  } else {
+    $account = user_load($uid);
+  }
+  $perms = variable_get(MODERATION_USERS, array());
+  return user_access(MODERATION_ADMIN, $account) || $perms[$account->uid];
 }
 
 /**
@@ -137,6 +168,8 @@ function moderation_menu()
     'type' => MENU_CALLBACK,
     'file' => 'moderation.pages.inc',
   );
+
+  // ahah to add choices
   $menu['moderation/ahah/%'] = array(
     'page callback' => 'moderation_ahah',
     'page arguments' => array(2),
@@ -149,26 +182,6 @@ function moderation_menu()
 }
 
 /**
- * Check if user has the moderation permissions
- *
- * @param string $uid
- * @return bool
- */
-function moderation_check_perm($uid = false)
-{
-  if (is_object($uid)) {
-    $uid = $uid->uid;
-  }
-  if ($uid === false) {
-    global $user;
-  } else {
-    $user = user_load($uid);
-  }
-  $perms = variable_get(MODERATION_USERS, array());
-  return user_access(MODERATION_ADMIN, $user) || $perms[$user->uid];
-}
-
-/**
  * Implementation of hook_theme()
  *
  * @return array
@@ -177,15 +190,24 @@ function moderation_theme()
 {
   $theme = array();
 
-  $theme['moderators'] = array(
-    'arguments' => array(),
-  );
   $theme['moderation_main'] = array(
     'arguments' => array('page' => 'issues'),
     'template' => 'templates/moderation-main',
   );
+  $theme['moderation_item'] = array(
+    'arguments' => array(
+      'entity' => '',
+    ),
+    'template' => 'templates/moderation-item',
+    'preprocess functions' => array('moderation_item_preprocess'),
+    'file' => 'moderation.theme.inc',
+  );
+
+  // blocks
   $theme['moderation_history'] = array(
-    'arguments' => array(),
+    'arguments' => array(
+      'history' => array(),
+    ),
     'template' => 'templates/moderation-history',
   );
   $theme['moderation_flags'] = array(
@@ -197,17 +219,23 @@ function moderation_theme()
     'preprocess functions' => array('moderation_flags_preprocess'),
     'file' => 'moderation.theme.inc',
   );
-  $theme['moderation_item'] = array(
-    'arguments' => array(
-      'entity' => '',
-    ),
-    'template' => 'templates/moderation-item',
-    'preprocess functions' => array('moderation_item_preprocess'),
-    'file' => 'moderation.theme.inc',
-  );
 
   return $theme;
 }
+
+
+
+
+
+
+// todo check below
+
+
+
+
+
+
+
 
 /**
  *

@@ -1,5 +1,7 @@
 <?php
 
+// todo dependencies
+
 # api functions
 require_once "events.api.php";
 

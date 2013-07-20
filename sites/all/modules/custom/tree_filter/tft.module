@@ -16,7 +16,7 @@ function tft_list($node_type, $tids = array(), $filter = false)
   $tmp = array();
   $all = array();
 
-//  , COUNT(tn.nid)
+  //
   $result = db_query("
     SELECT td.tid, td.name, th.parent
     FROM {vocabulary_node_types} vnt
@@ -35,6 +35,7 @@ function tft_list($node_type, $tids = array(), $filter = false)
   // setting
   drupal_add_js(array('tft' => $all), 'setting');
 
+  //
   while (!empty($tmp)) {
     $tft['list'][] = $tmp;
     // save old values

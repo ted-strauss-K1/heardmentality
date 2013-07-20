@@ -3,7 +3,14 @@ description = Provides common way for moderation: Issues, Debates, Resources and
 package = Custom Modules
 version = "6.x-1.0"
 core = 6.x
-dependencies[] = "issue"
+
+dependencies[] = "core"
+dependencies[] = "flagger"
+dependencies[] = "user_profile"
+
+
+
+
 dependencies[] = "i18n"
 dependencies[] = "location"
 dependencies[] = "location_cities"

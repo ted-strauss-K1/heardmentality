@@ -3,6 +3,33 @@
 /**
  * @param $vars
  */
+function moderation_item_preprocess(&$vars)
+{
+  $entity = $vars['entity'];
+  switch ($entity->type) {
+    case 'issue' :
+      $vars['text'] = rtrim($entity->title);
+      $vars['link'] = 'moderation/issue/'.$entity->nid;
+      $vars['fragment'] = '';
+      break;
+    case 'argument' :
+    case 'resource' :
+      $vars['text'] = rtrim($entity->title);
+      $vars['link'] = 'node/' . $entity->field_reference[0]['nid'];
+      $vars['fragment'] = 'forum-block-'.$entity->nid;
+      break;
+    default :
+      $node = node_load($entity->nid);
+      $vars['text'] = rtrim($entity->comment);
+      $vars['link'] = 'node/' . $node->field_reference[0]['nid'];
+      $vars['fragment'] = 'forum-block-'.$node->nid;
+      break;
+  }
+}
+
+/**
+ * @param $vars
+ */
 function moderation_flags_preprocess(&$vars)
 {
   if (empty($vars['content_id'])) {
@@ -28,30 +55,4 @@ function moderation_flags_preprocess(&$vars)
   }
 
   $vars['flags'] = flagger_get_flags($vars['content_type'], $vars['content_id']);
-}
-
-/**
- * @param $vars
- */
-function moderation_item_preprocess(&$vars)
-{
-  $entity = $vars['entity'];
-  switch ($entity->type) {
-    case 'poll' :
-      $vars['text'] = rtrim($entity->title);
-      $vars['link'] = 'moderation/issue/'.$entity->nid;
-      $vars['fragment'] = '';
-    break;
-    case 'forum' :
-      $vars['text'] = rtrim($entity->title);
-      $vars['link'] = 'node/' . $entity->field_issue[0]['nid'];
-      $vars['fragment'] = 'forum-block-'.$entity->nid;
-    break;
-    default :
-      $node = node_load($entity->nid);
-      $vars['text'] = rtrim($entity->comment);
-      $vars['link'] = 'node/' . $node->field_issue[0]['nid'];
-      $vars['fragment'] = 'forum-block-'.$node->nid;
-    break;
-  }
 }

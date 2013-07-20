@@ -22,8 +22,7 @@ function issue_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 
         break;
       case 'view' :
-        # js
-        drupal_add_js(array('poll' => array($node->nid => $node->choice)), 'setting');
+
 
 
         break;
@@ -64,9 +63,6 @@ function issue_form_alter(&$form, &$form_state, $form_id)
     $form['title']['#maxlength'] = 256;
   }
 }
-
-
-require_once "issue.theme.inc";
 
 
 
