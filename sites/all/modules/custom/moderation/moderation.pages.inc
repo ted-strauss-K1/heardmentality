@@ -845,43 +845,44 @@ function moderation_issue_view_form_location(&$form, $tfl_codes = FALSE)
   }
 }
 
+/**
+ * @param $form
+ * @param $form_state
+ */
+function moderation_issue_view_form_delete(&$form, &$form_state)
+{
+  moderation_delete_request($form);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// todo check below
-
+/**
+ *
+ */
 define('MODERATION_DELETE_COUNT', 1);
+
+/**
+ * @param $form
+ */
+function moderation_delete_request($form)
+{
+  moderation_history_set($form['content_id']['#value'], $form['content_type']['#value'], 'delete');
+  $delete_requests = count(moderation_history_get($form['content_id']['#value'], $form['content_type']['#value'], array('type' => 'delete')));
+
+  if ($delete_requests >= MODERATION_DELETE_COUNT) {
+    switch ($form['content_type']['#value']) {
+      case 'comment' :
+        $comment = _comment_load($form['content_id']['#value']);
+        comment_unpublish_action($comment);
+        rules_invoke_event('comment_unpublish', $comment);
+      break;
+      case 'node' :
+        db_query("UPDATE node SET status = '%d' WHERE nid = '%d'", 0, $form['content_id']['#value']);
+      break;
+    }
+    drupal_set_message(t('Content deletion approved.'));
+  } else {
+    drupal_set_message(t('Content deletion not approved.') . ' ' . (MODERATION_DELETE_COUNT - $delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
+  }
+}
 
 /**
  * @param $uid
@@ -897,46 +898,6 @@ function moderation_perms($uid)
   variable_set(MODERATION_USERS, $perms);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// SHOW FORMS
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * @param $delta
- * @param bool $choice
- * @param int $nid
- * @return array
- */
-
-
-
 /**
  * @param $form
  * @param $form_state
@@ -948,7 +909,12 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   $nid = $values['content_id'];
   $node = node_load($nid);
 
+  // there we store changes
   $changed = array();
+
+  // todo content translation
+
+
 
   $translation = poll_translate_translation($node);
 
@@ -1143,43 +1109,5 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   // reindex
   if (module_exists('issue_search')) {
     issue_search_index_node($node->nid);
-  }
-}
-
-//////// DELETION REQUESTS
-
-/**
- * @param $form
- * @param $form_state
- */
-function moderation_issue_view_form_delete(&$form, &$form_state)
-{
-  moderation_delete_request($form);
-}
-
-/**
- * // todo do we need this at all?
- *
- * @param $form
- */
-function moderation_delete_request($form)
-{
-  moderation_history_set($form['content_id']['#value'], $form['content_type']['#value'], 'delete');
-  $delete_requests = count(moderation_history_get($form['content_id']['#value'], $form['content_type']['#value'], array('type' => 'delete')));
-
-  if ($delete_requests >= MODERATION_DELETE_COUNT) {
-    switch ($form['content_type']['#value']) {
-      case 'comment' :
-        $comment = _comment_load($form['content_id']['#value']);
-        comment_unpublish_action($comment);
-        rules_invoke_event('comment_unpublish', $comment);
-      break;
-      case 'node' :
-        db_query("UPDATE node SET status = '%d' WHERE nid = '%d'", 0, $form['content_id']['#value']);
-      break;
-    }
-    drupal_set_message(t('Content deletion approved.'));
-  } else {
-    drupal_set_message(t('Content deletion not approved.') . ' ' . (MODERATION_DELETE_COUNT - $delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
   }
 }
