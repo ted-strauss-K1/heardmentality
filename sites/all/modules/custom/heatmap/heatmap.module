@@ -56,7 +56,14 @@ function theme_heatmap_preprocess(&$vars)
 
   $cases['votes'] = array(
     'name' => t('Votes'),
-    'result' => db_query("SELECT l.country, COUNT(*) AS count FROM {cpoll_votes} AS cv INNER JOIN {cpoll_choices} c ON c.chid = cv.chid  INNER JOIN {location_instance} li ON c.nid = li.nid INNER JOIN {location} l ON l.lid = li.lid WHERE cv.status = 1 GROUP BY l.country"),
+    'result' => db_query("
+      SELECT pv.value AS country, COUNT(*) AS count
+      FROM {cpoll_votes} AS v
+      INNER JOIN {cpoll_choices} c ON c.chid = v.chid
+      INNER JOIN {profile_values} pv ON pv.uid = v.uid
+      INNER JOIN {profile_fields} pf ON pv.fid = pf.fid
+      WHERE pf.name = 'profile_country'
+      GROUP BY pv.value"),
     'count' => db_result(db_query("SELECT COUNT(*) FROM {cpoll_votes} WHERE status = 1")),
   );
 
