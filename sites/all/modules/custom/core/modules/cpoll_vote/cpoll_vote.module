@@ -34,14 +34,13 @@ function cpoll_vote_form($form, $node, $nowrap = false)
     '#value' => $node->vote ? $node->vote : -1,
   );
 
-  # todo display language & translation
-  $translation = poll_translate_translation($node);
-
   # votes
   if ($node->choices) {
     $options = array();
-    foreach ($node->choices as $i => $choice) {
-      $options[$i] = '<span class="ch">' . check_plain($choice['chtext']) . '</span>'; // todo use translations
+    foreach ($node->choices as $chid => $choice) {
+      $options[$chid] = '<span class="ch">' . check_plain(
+        issue_translate($node, 'chtext', $chid)
+      ) . '</span>';
     }
 
     $options[-1] = '<span class="ch">&nbsp;</span>';

@@ -226,18 +226,15 @@ function issue_translate_content_translate_node($node, $language_to)
   $translations = mstapi_exec($language_from, $language_to, $list);
 
   # put the translations to node
-  $node->t[$language_to]['title'] = $translations[strip_tags($node->title)];
-  $node->t[$language_to]['body'] = $translations[strip_tags($node->content['body']['#value'])];
+  $node->t[$language_to]['title'][0] = $translations[strip_tags($node->title)];
+  $node->t[$language_to]['body'][0] = $translations[strip_tags($node->content['body']['#value'])];
   foreach ($node->choices as $chid => $choice) {
-    $node->t[$language_to]['choices'][$chid] = array(
-      'chtext' => $translations[$choice['chtext']],
-      'chtext_short' => $translations[$choice['chtext_short']],
-    );
+    $node->t[$language_to]['chtext'][$chid] = $translations[$choice['chtext']];
+    $node->t[$language_to]['chtext_short'][$chid] = $translations[$choice['chtext_short']];
   }
 
   node_save($node);
 }
-
 
 /**
  * @param $node
@@ -271,4 +268,29 @@ function issue_translate_form_alter(&$form, &$form_state, $form_id)
 function issue_translate_node_form_submit(&$form, &$form_state)
 {
   //
+}
+
+/**
+ * @param $node
+ * @param $field
+ * @param int $field_order
+ * @param bool $language
+ * @return string
+ */
+function issue_translate($node, $field, $field_order = 0) {
+  $translation = issue_translate_translation($node);
+  if (isset($translation[$field][$field_order])) {
+    return $translation[$field][$field_order];
+  }
+  switch ($field) {
+    case 'title' :
+      return $node->title;
+    case 'body' :
+      return $node->content['body']['#value'];
+    case 'chtext' :
+    case 'chtext_short' :
+      return $node->choices[$field_order][$field];
+  }
+
+  return '';
 }

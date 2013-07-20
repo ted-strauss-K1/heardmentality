@@ -18,8 +18,11 @@ function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   if ('issue' == $node->type) {
     switch ($op) {
       case 'view' :
+        # translation
+        $node->title = issue_translate($node, 'title', 0);
+        $node->content['body']['#value'] = issue_translate($node, 'body', 0);
+
         # description
-        // todo translation
         $node->description = trim_better($node->content['body']['#value'], 2500);
         $node->description_f = $node->content['body']['#value'];
         $node->description_s = $node->description != $node->description_f;
@@ -31,7 +34,14 @@ function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       break;
       case 'insert' :
       case 'update' :
-        //
+        db_query("UPDATE {url_alias} SET language = '' WHERE src = '%s'", 'node/' . $node->nid);
+      break;
+      case 'delete' :
+        if ($node->debate) {
+          foreach ($node->debate as $row) {
+            node_delete($row->nid);
+          }
+        }
       break;
     }
   }
@@ -59,4 +69,16 @@ function core_preprocess_page(&$vars)
   // rules_invoke_event('page_view', $user);
 
 
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function core_form_alter(&$form, &$form_state, $form_id)
+{
+  if ($form_id == 'issue_node_form') {
+    $form['title']['#maxlength'] = 256;
+  }
 }

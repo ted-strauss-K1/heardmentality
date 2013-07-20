@@ -105,7 +105,7 @@ function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       case 'load' :
         $node->creation_time = time_interval($node->created, true);
         $node->comments = argument_recent_comments($node->nid);
-        break;
+      break;
     }
   }
 }
