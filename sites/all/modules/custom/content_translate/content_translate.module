@@ -29,12 +29,13 @@ function content_translate($content_type, $content_id, $language_to)
 }
 
 /**
+ * todo laguage detection
+ *
  * @param $string
  * @return string
  */
 function content_translate_detect_language($string)
 {
-  // TODO Language detection
   global $user;
   return $user->language;
 }

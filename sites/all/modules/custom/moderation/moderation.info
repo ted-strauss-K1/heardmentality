@@ -7,11 +7,7 @@ core = 6.x
 dependencies[] = "core"
 dependencies[] = "flagger"
 dependencies[] = "user_profile"
-
-
-
-
-dependencies[] = "i18n"
+dependencies[] = "issue_translation"
 dependencies[] = "location"
 dependencies[] = "location_cities"
 dependencies[] = "taxonomy_ext"

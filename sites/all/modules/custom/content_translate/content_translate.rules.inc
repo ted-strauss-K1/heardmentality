@@ -36,7 +36,6 @@ function content_translate_node(&$node, $settings = array())
     return;
   }
 
-
   # get list of available languages
   $langs = i18n_node_language_list($node, true);
   # run translations
