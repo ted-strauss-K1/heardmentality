@@ -1,9 +1,13 @@
 <?php
 
 /**
- * @file
- *  Functions related to Apache Solr indexing operations.
+ * @param $nid
  */
+function issue_search_index_node($nid)
+{
+  @db_query("UPDATE {apachesolr_index_entities_node} SET changed = %d WHERE entity_id = %d", time(), $nid);
+  issue_search_index_issues();
+}
 
 /**
  * Index issues
@@ -14,6 +18,104 @@ function issue_search_index_issues() {
   $env_id = apachesolr_default_environment();
   $limit = variable_get('apachesolr_cron_limit', 50);
   apachesolr_index_entities($env_id, $limit);
+}
+
+/**
+ * Implementation of hook_apachesolr_field_mappings().
+ * Add index mappings for Field API types. The default mappings array handles just list fields and taxonomy term reference fields.
+ *
+ * @return array
+ *  An associative array of mappings as defined by modules that implement hook_apachesolr_field_mappings().
+ */
+function issue_search_apachesolr_field_mappings()
+{
+  $mappings['locations'] = array(
+    'indexing_callback' => 'issue_search_locations_indexing_callback',
+    'multiple' => TRUE,
+  );
+  $mappings['user_votes'] = array(
+    'indexing_callback' => 'issue_search_extra_fields_indexing_callback',
+    'index_type' => 'integer',
+    'multiple' => TRUE,
+    'name' => 'user_votes',
+    'module_name' => 'issue',
+    'display_name' => t('User Votes'),
+    'bundles' => array('issue'),
+    'field' => array(
+      'field_name' => 'user_votes'
+    ),
+  );
+  $mappings['votes_count'] = array(
+    'indexing_callback' => 'issue_search_extra_fields_indexing_callback',
+    'index_type' => 'integer',
+    'multiple' => FALSE,
+    'name' => 'votes_count',
+    'module_name' => 'issue',
+    'display_name' => t('Votes Amount'),
+    'bundles' => array('issue'),
+    'field' => array(
+      'field_name' => 'votes_count'
+    ),
+  );
+  $mappings['views_count'] = array(
+    'indexing_callback' => 'issue_search_extra_fields_indexing_callback',
+    'index_type' => 'integer',
+    'multiple' => FALSE,
+    'name' => 'views_count',
+    'module_name' => 'issue',
+    'display_name' => t('Views Amount'),
+    'bundles' => array('issue'),
+    'field' => array(
+      'field_name' => 'views_count'
+    ),
+  );
+  $mappings['languages'] = array(
+    'indexing_callback' => 'issue_search_extra_fields_indexing_callback',
+    'index_type' => 'string',
+    'multiple' => TRUE,
+    'name' => 'languages',
+    'module_name' => 'issue',
+    'display_name' => t('Node Languages'),
+    'bundles' => array('issue'),
+    'field' => array(
+      'field_name' => 'languages'
+    ),
+  );
+
+  return $mappings;
+}
+
+/**
+ * Implementation of hook_apachesolr_field_mappings_alter().
+ * Add or alter index mappings for Field API types. The default mappings array handles just list fields and taxonomy term reference fields, in the same way as documented in hook_apachesolr_field_mappings.
+ *
+ * @param array $mappings
+ *  An associative array of mappings as defined by modules that implement hook_apachesolr_field_mappings().
+ * @param string $entity_type
+ *  Entity type.
+ */
+function issue_search_apachesolr_field_mappings_alter(&$mappings, $entity_type)
+{
+  //
+}
+
+/**
+ * Implementation of hook_apachesolr_field_name_map_alter().
+ *  Assigns a readable name to your custom solr field.
+ *
+ * @param array $map
+ *  Fields map.
+ */
+function issue_search_apachesolr_field_name_map_alter(&$map)
+{
+  $map['sm_location_codes'] = t('Location Codes');
+  $map['sm_latitude_longitude'] = t('Latitude / Longitude');
+  $map['sm_postal_code'] = t('Postal Code');
+  $map['sm_country'] = t('Country Code');
+  $map['sm_country_name'] = t('Country Name');
+  $map['sm_province'] = t('Province Code');
+  $map['sm_province_name'] = t('Province Name');
+  $map['sm_city'] = t('City Code');
 }
 
 /**
@@ -62,16 +164,10 @@ function issue_search_additional_fields($entity_type = 'node')
   $field['name'] = 'locations';
   $field['module_name'] = 'location';
   $field['display_name'] = t('Location');
-  $field['bundles'] = array('poll');
+  $field['bundles'] = array('issue');
   $field['multiple'] = TRUE;
   $field['field'] = array();
   $field['field']['field_name'] = 'locations';
-  if (!empty($field['bundles'])) {
-    $fields[$entity_type][apachesolr_index_key($field)] = array($field);
-  }
-
-  // Construct pseudo-field for node having votes check.
-  $field = $mappings['has_votes'];
   if (!empty($field['bundles'])) {
     $fields[$entity_type][apachesolr_index_key($field)] = array($field);
   }
@@ -100,6 +196,16 @@ function issue_search_additional_fields($entity_type = 'node')
     $fields[$entity_type][apachesolr_index_key($field)] = array($field);
   }
 
+  /*
+  // Construct pseudo-field for node having votes check.
+  $field = $mappings['has_votes'];
+  if (!empty($field['bundles'])) {
+    $fields[$entity_type][apachesolr_index_key($field)] = array($field);
+  }
+
+
+  */
+
   return $fields[$entity_type];
 }
 
@@ -126,17 +232,48 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
     if (!empty($field_location)) {
       foreach ($field_location as $delta => $item) {
 
+        if (isset($item['name'])) {
+          $field = array(
+            'index_type' => $field_info['index_type'],
+            'multiple' => $field_info['multiple'],
+            'name' => 'location_codes',
+          );
+          $field_index_key = apachesolr_index_key($field);
+
+          $codes = explode('_', $item['name'], 3);
+          $code = '';
+          for ($i=0; $i<count($codes); $i++) {
+            $code .= (0!=$i ? '_' : '') . $codes[$i];
+            $fields[] = array(
+              'key' => $field_index_key,
+              'value' => $code,
+            );
+          }
+        }
+
         // Latitude / Longitude.
         if (isset($item['latitude']) && isset($item['longitude'])) {
-          $fields[] = array(
-            'key' => $index_key,
-            'value' => implode(',', array($item['latitude'], $item['longitude'])),
-          );
+          if (0 != $item['latitude'] || 0 != $item['longitude']) {
+            $field = array(
+              'index_type' => $field_info['index_type'],
+              'multiple' => $field_info['multiple'],
+              'name' => 'latitude_longitude',
+            );
+            $field_index_key = apachesolr_index_key($field);
+            $fields[] = array(
+              'key' => $field_index_key,
+              'value' => implode(',', array($item['latitude'], $item['longitude'])),
+            );
+          }
         }
 
         // Postal Code.
         if (!empty($item['postal_code'])) {
-          $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'postal_code');
+          $field = array(
+            'index_type' => $field_info['index_type'],
+            'multiple' => $field_info['multiple'],
+            'name' => 'postal_code'
+          );
           $field_index_key = apachesolr_index_key($field);
           $fields[] = array(
             'key' => $field_index_key,
@@ -146,7 +283,11 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
 
         // Country Code.
         if (!empty($item['country'])) {
-          $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'country');
+          $field = array(
+            'index_type' => $field_info['index_type'],
+            'multiple' => $field_info['multiple'],
+            'name' => 'country'
+          );
           $field_index_key = apachesolr_index_key($field);
           $fields[] = array(
             'key' => $field_index_key,
@@ -156,7 +297,11 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
 
         // Country Name.
         if (!empty($item['country_name'])) {
-          $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'country_name');
+          $field = array(
+            'index_type' => $field_info['index_type'],
+            'multiple' => $field_info['multiple'],
+            'name' => 'country_name'
+          );
           $field_index_key = apachesolr_index_key($field);
           $fields[] = array(
             'key' => $field_index_key,
@@ -166,27 +311,11 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
 
         // Province Code.
         if (!empty($item['province'])) {
-          $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'province');
-          $field_index_key = apachesolr_index_key($field);
-          $fields[] = array(
-            'key' => $field_index_key,
-            'value' => $item['province'],
+          $field = array(
+            'index_type' => $field_info['index_type'],
+            'multiple' => $field_info['multiple'],
+            'name' => 'province'
           );
-        }
-
-        // Province Name.
-        if (!empty($item['province_name'])) {
-          $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'province_name');
-          $field_index_key = apachesolr_index_key($field);
-          $fields[] = array(
-            'key' => $field_index_key,
-            'value' => $item['province_name'],
-          );
-        }
-
-        // Country-Province code.
-        if ((!empty($item['country'])) && (!empty($item['province']))) {
-          $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'country_province');
           $field_index_key = apachesolr_index_key($field);
           $fields[] = array(
             'key' => $field_index_key,
@@ -194,9 +323,27 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
           );
         }
 
+        // Province Name.
+        if (!empty($item['province_name'])) {
+          $field = array(
+            'index_type' => $field_info['index_type'],
+            'multiple' => $field_info['multiple'],
+            'name' => 'province_name'
+          );
+          $field_index_key = apachesolr_index_key($field);
+          $fields[] = array(
+            'key' => $field_index_key,
+            'value' => $item['province_name'],
+          );
+        }
+
         // City Code.
-        if (!empty($item['city_code'])) {
-          $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'city_code');
+        if (!empty($item['city'])) {
+          $field = array(
+            'index_type' => $field_info['index_type'],
+            'multiple' => $field_info['multiple'],
+            'name' => 'city'
+          );
           $field_index_key = apachesolr_index_key($field);
           $fields[] = array(
             'key' => $field_index_key,
@@ -205,6 +352,8 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
         }
 
         // City Name.
+        // todo city name indexing
+        /*
         if (!empty($item['city'])) {
           $field = array('index_type' => $field_info['index_type'], 'multiple' => $field_info['multiple'], 'name' => 'city');
           $field_index_key = apachesolr_index_key($field);
@@ -213,6 +362,9 @@ function issue_search_locations_indexing_callback($entity, $field_name, $index_k
             'value' => $item['city'],
           );
         }
+        */
+
+
       }
     }
   }
@@ -240,63 +392,34 @@ function issue_search_extra_fields_indexing_callback($entity, $field_name, $inde
   $fields = array();
 
   switch ($field_name) {
-    case 'has_votes':
-      $fields[] = array(
-        'key' => $index_key,
-        'value' => issue_search_extra_fields_indexing_has_votes($entity, $field_name, $index_key, $field_info),
-      );
-      break;
 
     case 'user_votes':
       $fields = issue_search_extra_fields_indexing_user_votes($entity, $field_name, $index_key, $field_info);
-      break;
+    break;
 
     case 'votes_count':
       $fields[] = array(
         'key' => $index_key,
         'value' => issue_search_extra_fields_indexing_votes_count($entity, $field_name, $index_key, $field_info)
       );
-      break;
+    break;
 
     case 'views_count':
       $fields[] = array(
         'key' => $index_key,
         'value' => issue_search_extra_fields_indexing_views_count($entity, $field_name, $index_key, $field_info)
       );
-      break;
+    break;
 
     case 'languages':
       $fields = issue_search_extra_fields_indexing_languages($entity, $field_name, $index_key, $field_info);
-      break;
+    break;
 
     default:
       break;
   }
 
   return $fields;
-}
-
-/**
- * Checks if $node has votes or not.
- *
- * @param object $node
- *   An object containing the node that will get indexed.
- * @param string $field_name
- *   A string containing the name of field.
- * @param string $index_key
- *   A string containing the solr index field name.
- * @param array $field_info
- *   Field information.
- *
- * @return boolean
- *      FALSE if no votes, TRUE otherwise.
- */
-function issue_search_extra_fields_indexing_has_votes($node, $field_name, $index_key, $field_info)
-{
-  $list = issue_get_vote_status($node->nid);
-  $result = (isset($list['u']) && !empty($list['u'])) ? TRUE : FALSE;
-
-  return $result;
 }
 
 /**
@@ -318,13 +441,15 @@ function issue_search_extra_fields_indexing_user_votes($node, $field_name, $inde
 {
   $fields = array();
 
-  $list = issue_get_vote_status($node->nid);
-  $uids = (isset($list['u']) && !empty($list['u'])) ? array_keys($list['u']) : array();
-  foreach ($uids as $uid) {
-    $fields[] = array(
-      'key' => $index_key,
-      'value' => $uid,
-    );
+  if ($choices = cpoll_load_choices($node->nid)) {
+    foreach ($choices as $choice) {
+      foreach ($choice['uids'] as $uid) {
+        $fields[] = array(
+          'key' => $index_key,
+          'value' => $uid,
+        );
+      }
+    }
   }
 
   return $fields;
@@ -347,12 +472,15 @@ function issue_search_extra_fields_indexing_user_votes($node, $field_name, $inde
  */
 function issue_search_extra_fields_indexing_votes_count($node, $field_name, $index_key, $field_info)
 {
-  $list = issue_get_vote_status($node->nid);
-  $uids = (isset($list['u']) && !empty($list['u'])) ? array_keys($list['u']) : array();
+  $votes = 0;
 
-  $value = count($uids);
+  if ($choices = cpoll_load_choices($node->nid)) {
+    foreach ($choices as $choice) {
+      $votes += $choice['votes'];
+    }
+  }
 
-  return $value;
+  return $votes;
 }
 
 /**
@@ -397,7 +525,7 @@ function issue_search_extra_fields_indexing_languages($node, $field_name, $index
   $fields = array();
 
   $languages = array();
-  $query = db_query("SELECT ct.language AS langcode FROM {content_translate} ct WHERE ct.content_id = %d", $node->nid);
+  $query = db_query("SELECT ct.language AS langcode FROM {content_translate} ct WHERE ct.content_type = 'node' AND ct.content_id = %d", $node->nid);
   while ($record = db_fetch_object($query)) {
     $languages[] = $record->langcode;
   }
@@ -412,4 +540,91 @@ function issue_search_extra_fields_indexing_languages($node, $field_name, $index
   }
 
   return $fields;
+}
+
+/**
+ * Implementation of hook_apachesolr_index_document_build().
+ * Build the documents before sending them to Solr. The function is the follow-up for apachesolr_update_index.
+ *
+ * @param ApacheSolrDocument $document
+ *  Document object: maps fields and values.
+ * @param object $entity
+ *  An object containing the entity that will get indexed.
+ * @param string $entity_type
+ *  Entity type.
+ * @param string $env_id
+ *  Environment ID.
+ */
+function issue_search_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id)
+{
+  $fields = array();
+
+  // Get fields for indexing.
+  $indexed_fields = issue_search_additional_fields($entity_type);
+  foreach ($indexed_fields as $index_key => $nodefields) {
+    if (!empty($nodefields)) {
+      foreach ($nodefields as $field_info) {
+        if (is_array($field_info['field'])) {
+          $field_name = $field_info['field']['field_name'];
+        }
+
+        $function = $field_info['indexing_callback'];
+        if ($function && function_exists($function) && in_array($entity->type, $field_info['bundles'])) {
+
+          // NOTE: This function should always return an array. One entity field may be indexed to multiple Solr fields.
+          $fields = array_merge($fields, $function($entity, $field_name, $index_key, $field_info));
+        }
+      }
+    }
+  }
+
+  foreach ($fields as $field) {
+    $document->addField($field['key'], $field['value']);
+  }
+}
+
+/**
+ * Implementation of hook_apachesolr_index_documents_alter().
+ * Alter the prepared documents from one entity before sending them to Solr.
+ *
+ * @todo better way to index translations
+ *
+ * @param array $documents
+ *  An array of already built documents.
+ * @param object $entity
+ *  An object containing the entity that will get indexed.
+ * @param string $entity_type
+ *  Entity type.
+ * @param string $env_id
+ *  Environment ID.
+ */
+function issue_search_apachesolr_index_documents_alter(array &$documents, $entity, $entity_type, $env_id)
+{
+
+  // Add translated fields to the document's content.
+  foreach ($documents as $document) {
+
+    // Skip unnecessary content.
+    if (($entity_type != 'node') || ($entity->type != 'issue') || ($document->entity_id != $entity->nid)) {
+      continue;
+    }
+
+    // Get existing content.
+    $content = $document->content;
+
+    // Get translations to add.
+    $fields = array();
+    $query = db_query("SELECT ct.text AS text FROM {content_translate} ct WHERE ct.content_id = %d", $entity->nid);
+    while ($record = db_fetch_object($query)) {
+      $fields[] = $record->text;
+    }
+
+    // Extend content.
+    foreach ($fields as $field) {
+      $content .= ' ' . $field;
+    }
+
+    // Set new content.
+    $document->content = $content;
+  }
 }

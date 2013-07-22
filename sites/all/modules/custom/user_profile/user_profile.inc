@@ -378,10 +378,8 @@ function user_profile_info_preprocess(&$vars)
   $vars['badges'] = $vars['account']->badges;
   # comments
   $vars['comments'] = @db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
-  # todo uservotes
-  if (module_exists('issue')) {
-    $vars['votes'] = issue_get_uservotes($uid);
-  }
+  # votes
+  $vars['votes'] = issue_get_uservotes($uid);
   # references
   $vars['references'] = (int)db_result(db_query("SELECT COUNT(*) FROM {node} n WHERE n.uid = '%d' AND n.type IN ('argument', 'resource') AND n.status = '%d'", $uid, 1));
   # following

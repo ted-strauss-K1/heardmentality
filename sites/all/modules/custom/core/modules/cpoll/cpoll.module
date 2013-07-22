@@ -299,3 +299,22 @@ function cpoll_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
     }
   }
 }
+
+/**
+ * @param $uid
+ * @return int
+ */
+function cpoll_uservotes($uid)
+{
+  static $votes;
+
+  if (is_null($votes)) {
+    $votes = array();
+    $result = db_query("SELECT uid, COUNT(*) count FROM {cpoll_votes} WHERE status = 1 GROUP BY uid");
+    while ($row = db_fetch_object($result)) {
+      $votes[$row->uid] = $row->count;
+    }
+  }
+
+  return (int)$votes[$uid];
+}

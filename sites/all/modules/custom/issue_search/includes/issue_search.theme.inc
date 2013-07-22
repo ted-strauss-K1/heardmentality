@@ -1,11 +1,6 @@
 <?php
 
 /**
- * @file
- *  Theming callbacks.
- */
-
-/**
  * Search results output.
  *
  * @param array $results
@@ -17,7 +12,7 @@
 function theme_issue_search_results($results = array())
 {
   $output = '';
-  foreach ($results as $index => $result) {
+  foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
     $output .= node_view($node, TRUE);
   }
@@ -38,25 +33,6 @@ function theme_issue_search_pager_link($page, $page_active, $anchor = FALSE) {
     FALSE == $anchor ? $page : $anchor
   );
 }
-
-/**
- * Not supported by Theme Engine!
- *
- * @param $page_display
- * @param $page_current
- * @param string $suffix
- * @param string $text
- * @return string
- */
-function theme_issue_search_pagerlink($page_display, $page_current, $suffix = '', $text = '') {
-  return sprintf(
-    '<li><a href="#issue-search-form" name="%s" class="%s">%s</a></li>',
-    $page_display, $page_display == $page_current ? 'active' : '', $text == '' ? $page_display : $text
-//    '<li><a href="?page=%d&%s" class="%s">%s</a></li>',
-//    $page_display, $suffix, $page_display == $page_current ? 'active' : '', $text == '' ? $page_display : $text
-  );
-}
-
 
 /**
  * Search filter for Issues.
@@ -124,10 +100,10 @@ function issue_search_filter_form($form_state)
     $tfl_codes0 = array($user->profile_country);
     $tfl_codes1 = array();
     $tfl_codes2 = array();
-  } elseif ($settings['countrycodes']) {
-    $tfl_codes0 = explode(';', $settings['countrycodes']);
-    $tfl_codes1 = explode(';', $settings['provincecodes']);
-    $tfl_codes2 = explode(';', $settings['citycodes']);
+  } elseif ($settings['location1']) {
+    $tfl_codes0 = explode(';', $settings['location1']);
+    $tfl_codes1 = explode(';', $settings['location2']);
+    $tfl_codes2 = explode(';', $settings['location3']);
   }
 
   // my_region

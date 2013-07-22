@@ -213,19 +213,19 @@ function search_arguments() {
   $('select[id="edit-location-0"] :selected').each(function () {
     codes.push($(this).val());
   });
-  data['countrycodes'] = codes.join(';');
+  data['location1'] = codes.join(';');
 
   codes = [];
   $('select[id="edit-location-1"] :selected').each(function () {
     codes.push($(this).val());
   });
-  data['provincecodes'] = codes.join(';');
+  data['location2'] = codes.join(';');
 
   codes = [];
   $('select[id="edit-location-2"] :selected').each(function () {
     codes.push($(this).val());
   });
-  data['citycodes'] = codes.join(';');
+  data['location3'] = codes.join(';');
 
   // my region
   data['my_region'] = $('#my_region').prop('checked')+'';

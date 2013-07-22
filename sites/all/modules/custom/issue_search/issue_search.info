@@ -2,10 +2,13 @@ name = Issues Search Page
 description = Issues Search Page
 package = Custom Modules
 core = "6.x"
+
+; search
 dependencies[] = "apachesolr_search"
-dependencies[] = "ahah_helper"
-dependencies[] = "issue"
-dependencies[] = "location"
-dependencies[] = "location_cities"
+; filters
+dependencies[] = "cpoll"
+dependencies[] = "cpoll_vote"
 dependencies[] = "tft"
 dependencies[] = "tfl"
+dependencies[] = "profile"
+
