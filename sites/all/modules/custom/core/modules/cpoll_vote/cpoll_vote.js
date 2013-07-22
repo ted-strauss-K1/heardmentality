@@ -77,7 +77,7 @@ $('#suggest').live('click', function (e) {
       }
 
       //
-      $('input[name=choices][value=-1]').val(response.chid);
+      $('input[name=choices][value="-1"]').val(response.chid);
       vote.val(response.chid);
 
       // update the form with server's data
