@@ -71,28 +71,8 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
     $countries = explode(';', $_POST['location1']);
     $provinces = explode(';', $_POST['location2']);
     $cities = explode(';', $_POST['location3']);
-
-
-    # filter #1
-//    $filter = array();
-//    foreach ($cities as $city) {
-//      $codes = explode('_', $city, 3);
-//      $filter[] = $codes[0];
-//      $filter[] = $codes[0] . '_' . $codes[1];
-//    }
-//    $provinces = array_diff($provinces, $filter);
-//    $countries = array_diff($countries, $filter);
-
-    # filter #2
-//    $filter = array();
-//    foreach ($provinces as $province) {
-//      $codes = explode('_', $province, 2);
-//      $filter[] = $codes[0];
-//    }
-//    $countries = array_diff($countries, $filter);
-
     $values = array_merge($countries, $provinces, $cities);
-//    $values = array_filter();
+    $values = array_filter($values);
 
     var_dump($values);
     $subquery = apachesolr_drupal_query('apachesolr');
@@ -101,8 +81,6 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
     }
     // replace first AND to OR to make the search for ONEof MANY
     $query->addFilterSubQuery($subquery, 'OR', 'AND');
-
-
   }
 
   // Date.
@@ -121,7 +99,7 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
 
   // Votes.
   if ($_POST['not_voted'] == 'true') {
-//    $query->addFilter('im_user_votes', $_issue_search_user->uid, TRUE);
+    $query->addFilter('im_user_votes', $_issue_search_user->uid, TRUE);
   }
 }
 
