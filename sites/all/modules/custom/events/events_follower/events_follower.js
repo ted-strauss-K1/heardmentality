@@ -7,21 +7,6 @@ $('.sort-wrapper a').live('click', function () {
   $(this).addClass('active');
 });
 
-//$('img.following-user').live('click', function() {
-//  var el = $(this);
-//  var id = $(this).attr('id').replace('uid-', '');
-//  following_params = following_params || {};
-//  if (el.hasClass('checked')) {
-//    el.removeClass('checked');
-//    following_params['uid'] = following_params['uid'] || [];
-//    following_params['uid'].push(id);
-//  } else {
-//    el.addClass('checked');
-//    var index = following_params['uid'].indexOf(id);
-//    following_params['uid'].splice(index, 1);
-//  }
-//});
-
 /**
  * saving params for following page here
  *
@@ -68,10 +53,6 @@ $('.sort-wrapper a').live('click', function () {
 /**
  * Specific param passing
  */
-
-
-
-
 $('#events_users_more').live('click', function () {
-
+  //
 });
