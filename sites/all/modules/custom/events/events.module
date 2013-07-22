@@ -335,6 +335,7 @@ function events_block($op = 'list', $delta = 0, $edit = array())
                 'vote',
                 'follow',
                 'yn',
+                'taxonomy',
               ))),
             )
           )), array('update' => TRUE));

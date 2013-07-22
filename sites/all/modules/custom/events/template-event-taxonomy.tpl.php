@@ -2,8 +2,8 @@
   <li class="clearfix">
     <ul class="tags">
       <label class="tags-on"></label>
-      <?php if ($categories) foreach ($categories as $hierarchy => $name) : ?>
-        <li><?php print theme('issue_category', $name, $hierarchy); ?></li>
+      <?php foreach ($categories as $hierarchy => $name) : ?>
+        <li><?php print theme('categories_subscribe', $name, $hierarchy); ?></li>
       <?php endforeach; ?>
     </ul>
     <br clear="both">

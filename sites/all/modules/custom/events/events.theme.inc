@@ -225,28 +225,31 @@ function event_user_badge_theme_preprocess(&$vars) {
  */
 function event_taxonomy_theme_preprocess(&$vars) {
   $node = node_load($vars['item']['content_id']);
-  $translation = module_exists('poll_translate') ?
-    poll_translate_translation($node) : array();
+
+  // todo content translation
   $vars['link'] = l(
-    (!empty($translation['title'][0]) ? $translation['title'][0] : $node->title) . '?',
+    $node->title,
     $node->path,
     array()
   );
 
-  if (($node->status != 1) || !module_exists('subscriptions')) {
+  if (($node->status != 1) || !module_exists('categories')) {
     $vars['skip'] = true;
     return;
   }
 
   global $user;
-  $data = subscriptions_get(array(
-    'recipient_uid' => $user->uid,
-    'module' => 'node',
-    'field' => 'tid',
-    'author_uid' => -1,
-  ));
+  static $data;
+  if (is_null($data)) {
+    $data = subscriptions_get(array(
+      'recipient_uid' => $user->uid,
+      'module' => 'node',
+      'field' => 'tid',
+      'author_uid' => -1,
+    ));
+  }
+
   if ($data) {
-    $vars['item']['vars']['tids'] = explode(',', $vars['item']['vars']['tids']);
     foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
       if (in_array($tid, $vars['item']['vars']['tids'])) {
         $term = taxonomy_get_term($tid);

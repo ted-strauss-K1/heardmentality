@@ -192,8 +192,8 @@ function theme_categories_subscribe($name, $hierarchy) {
 
   return  (
   module_exists('subscriptions') ?
-    sprintf('<input type="checkbox" class="categories_subscribe" title="%s" name="%s" %s>',
-      t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $subscriptions) ? 'checked' : '') : '') .
+    sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>',
+      $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $subscriptions) ? 'checked' : '') : '') .
     l($name, 'issues', array('query' => array('tids' => $hierarchy)));
 }
 

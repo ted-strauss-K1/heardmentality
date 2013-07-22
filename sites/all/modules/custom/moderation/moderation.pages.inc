@@ -984,6 +984,7 @@ function moderation_issue_view_form_save(&$form, &$form_state)
   module_invoke_all('process_event', 'taxonomy', array(
     'content_type' => 'node',
     'content_id' => $node->nid,
+    'tids' => $taxonomy_diff,
   ), $user->uid);
 
   # locations

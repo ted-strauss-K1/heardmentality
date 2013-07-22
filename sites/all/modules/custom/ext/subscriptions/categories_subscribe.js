@@ -20,7 +20,7 @@ $('input[type="checkbox"].categories_subscribe').live('click', function (e) {
         type  : 'success',
         text  : response.message
       });
-      $$.prop('checked', response.result);
+      $('input[type="checkbox"][name="'+$$.attr('name')+'"].categories_subscribe').prop('checked', response.result);
     }
   });
 });
