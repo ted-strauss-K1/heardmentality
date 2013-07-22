@@ -118,6 +118,8 @@ function cpoll_vote_form($form, $node, $nowrap = false)
       '#value' => t('Vote'),
       '#attributes' => array('class' => 'button vote floatright'),
       '#id' => 'vote',
+      '#prefix' => '<div class="votebtn_wrap clearfix">',
+      '#suffix' => '</div>',
     );
     if ($node->vote) {
       $form['main_submit']['#value'] = t('Change vote');
@@ -128,6 +130,8 @@ function cpoll_vote_form($form, $node, $nowrap = false)
       '#value' => t('Login to vote'),
       '#attributes' => array('class' => 'button vote floatright ' . theme('user_login_modal_class', true)),
       '#id' => 'vote-login',
+      '#prefix' => '<div class="votebtn_wrap clearfix">',
+      '#suffix' => '</div>',
     );
     unset($form['suggest']);
   }

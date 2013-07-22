@@ -3509,11 +3509,15 @@ h2.page-title {
   padding: 8px 12px 6px;
 }
 
+.votebtn_wrap {
+  padding: 0 30px;
+}
+
 .issue-vote-wrapper .button.vote,
 .search_list .button.vote {
   clear: both;
   float: left;
-  margin: 0 0 24px 30px;
+  margin: 0 0 24px 0;
   top: 24px;
   position: relative;
 }
@@ -3656,7 +3660,11 @@ h2.page-title {
 }
 
 #shareDiv {
-  padding: 20px 0 0 30px;
+  padding: 10px 30px 0;
+}
+#shareDiv > span {
+  display: inline-block;
+  padding-top: 10px;
 }
 
 .poll-box .ul_wrapper {
@@ -3664,6 +3672,7 @@ h2.page-title {
   padding: 0;
   margin: 0;
   border-top: 1px solid #C0C0C0;
+  min-height: 182px;
 }
 
 .poll-box .ul_wrapper h2.din {
@@ -6023,12 +6032,9 @@ span.beta {
 
 
 #debate_list_area div.warning {
-  margin-top: 12px;
+  margin: 25px 30px;
+  padding: 7px 5px 5px;
 }
-/*.four.columns {*/
-
-/*margin-top: 59px;*/
-/*}*/
 
 #block-issue-issue-categories-popular,
 #block-issue-issue-categories,

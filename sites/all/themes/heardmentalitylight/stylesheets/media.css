@@ -824,13 +824,7 @@
 		display: none;
 	}
 	
-	#shareDiv {
-		padding: 20px 0 0;
-		margin-left: 30px;
-		max-width: 350px;
-		overflow-x: auto;
-		overflow-y: hidden;
-	}
+
 	
 	.profile-message.poll-box {
 		padding: 30px 0 0;
@@ -981,12 +975,7 @@
 			padding-left: 1.5em;
 			padding-right: 3em;
 		}
-		
-		#shareDiv {
-			padding: 20px 0 0;
-			margin-left: 30px;
-			max-width: 235px;
-		}
+
 		
 		#debate_work_area {
 			clear: both;
