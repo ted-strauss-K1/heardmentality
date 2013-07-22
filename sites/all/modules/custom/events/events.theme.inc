@@ -39,9 +39,8 @@ function event_create_theme_preprocess(&$vars) {
 function event_issue__theme_preprocess(&$vars) {
   $node = node_load($vars['item']['content_id']);
 
-  // todo content translation
   $vars['link'] = l(
-    $node->title,
+    issue_translate($node, 'title'),
     $node->path,
     array()
   );
@@ -85,9 +84,8 @@ function event_debate__theme_preprocess(&$vars) {
   $debate = node_load($vars['item']['content_id']);
   $node = node_load($debate->field_reference[0]['nid']);
 
-  // todo content translate
   $vars['link'] = l(
-    $node->title,
+    issue_translate($node, 'title'),
     $node->path,
     empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid)
   );
@@ -124,10 +122,8 @@ function event_reply__theme_preprocess(&$vars) {
   $debate = node_load($comment->nid);
   $node = node_load($debate->field_reference[0]['nid']);
 
-  // todo content translation
-
   $vars['link'] = l(
-    $node->title,
+    issue_translate($node, 'title'),
     $node->path,
     empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid)
   );
@@ -199,25 +195,6 @@ function event_follow_theme_preprocess(&$vars) {
   }
 }
 
-
-
-
-
-
-
-
-
-// todo refactor below
-
-/**
- * Preprocess for "user_badge" theme
- *
- * @param $vars
- */
-function event_user_badge_theme_preprocess(&$vars) {
-  // todo
-}
-
 /**
  * Preprocess for "taxonomy" theme
  *
@@ -226,9 +203,8 @@ function event_user_badge_theme_preprocess(&$vars) {
 function event_taxonomy_theme_preprocess(&$vars) {
   $node = node_load($vars['item']['content_id']);
 
-  // todo content translation
   $vars['link'] = l(
-    $node->title,
+    issue_translate($node, 'title'),
     $node->path,
     array()
   );
@@ -262,3 +238,21 @@ function event_taxonomy_theme_preprocess(&$vars) {
     $vars['skip'] = true;
   }
 }
+
+
+
+
+
+
+
+// todo refactor below
+
+/**
+ * Preprocess for "user_badge" theme
+ *
+ * @param $vars
+ */
+function event_user_badge_theme_preprocess(&$vars) {
+  // todo
+}
+
