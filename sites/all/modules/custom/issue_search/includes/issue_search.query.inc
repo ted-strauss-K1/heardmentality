@@ -14,7 +14,6 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query)
   global $language;
 
   // Params
-  // $query->addParam('fl', 'im_field_debate');
   $query->addParam('fl', 'sm_location_codes');
   $query->replaceParam('rows', SEARCH_RESULTS_PER_PAGE);
 
