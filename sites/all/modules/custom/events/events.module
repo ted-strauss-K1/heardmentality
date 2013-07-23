@@ -252,8 +252,6 @@ function events_theme_items()
  */
 function events_events_info()
 {
-  // todo events
-
   return array(
     'create'  => 'event_create',
     'vote'    => 'event_vote',
@@ -266,7 +264,6 @@ function events_events_info()
 
     // todo badge event
     'user_badge' => 'event_user_badge',
-
   );
 }
 

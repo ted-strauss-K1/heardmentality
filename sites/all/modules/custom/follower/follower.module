@@ -175,10 +175,6 @@ function follower_page_save()
     $relationship->type = user_relationships_type_load(FOLLOWER_RELATION_ID);
     user_relationships_request_relationship($relationship);
 
-    if (module_exists('rules')) {
-      rules_invoke_event('follower_user_followed', $relationship->requester, $relationship->requestee);
-    }
-
     // events
     module_invoke_all('process_event', 'follow', array(
       'content_type' => 'user',
@@ -187,10 +183,6 @@ function follower_page_save()
   } else {
     $relationship = user_relationships_load($rid);
     user_relationships_delete_relationship($relationship, $user);
-
-    if (module_exists('rules')) {
-      rules_invoke_event('follower_user_unfollowed', user_load($relationship->requester_id), user_load($relationship->requestee_id));
-    }
 
     // events
     module_invoke_all('process_event', '_follow', array(

@@ -251,10 +251,6 @@ function bf_issue_create($data, $url = '') {
   node_save($node);
   node_reload($node);
 
-  // invoke event
-  if ($tids && module_exists('rules')) {
-    rules_invoke_event('moderation_taxonomy', user_load(1), $node, implode(',',$tids));
-  }
 
   # output
   return $node->nid;
@@ -286,11 +282,6 @@ function bf_issue_update($data, $nid) {
     if (!in_array($term->tid, $tids_old)) {
       $tids[] = $term->tid;
     }
-  }
-
-  // invoke event
-  if ($tids && module_exists('rules')) {
-    rules_invoke_event('moderation_taxonomy', user_load($node->uid), $node, implode(',',$tids));
   }
 
   # save

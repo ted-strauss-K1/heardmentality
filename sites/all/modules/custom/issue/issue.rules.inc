@@ -8,16 +8,6 @@
 function issue_rules_event_info()
 {
   return array(
-    'page_view' => array(
-      'label' => t('Page is Viewed'),
-      'module' => 'Poll',
-      'arguments' => array(
-        'acting_user' => array(
-          'type' => 'user',
-          'label' => t('User')
-        ),
-      ),
-    ),
     'poll_share' => array(
       'label' => t('Poll was shared'),
       'module' => 'Poll',

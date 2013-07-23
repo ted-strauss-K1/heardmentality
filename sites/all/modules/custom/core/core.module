@@ -64,9 +64,26 @@ function node_reload(&$node)
  */
 function core_preprocess_page(&$vars)
 {
-  if (is_node_page() && module_exists('log')) {
+  if (module_exists('rules')) {
     global $user;
-    log_add($user->uid, 'view');
+    rules_invoke_event('issue_view', $user);
+  }
+}
+
+/**
+ * Implementation of hook_user()
+ *
+ * @param $op
+ * @param $edit
+ * @param $account
+ * @param null $category
+ */
+function core_user($op, &$edit, &$account, $category = NULL)
+{
+  switch ($op) {
+    case 'login' :
+      //
+    break;
   }
 }
 

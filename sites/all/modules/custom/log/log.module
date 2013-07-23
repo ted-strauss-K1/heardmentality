@@ -52,3 +52,12 @@ function log_add($uid, $type = '')
 {
   db_query("INSERT INTO {log} SET uid = '%d', type = '%s', date_added = '%s'", $uid, $type, date('Y-m-d H:i:s'));
 }
+
+/**
+ * @param $type
+ */
+function log_process_event($type, $vars, $uid) {
+  if ('vote' == $type) {
+    log_add($uid, $type);
+  }
+}
