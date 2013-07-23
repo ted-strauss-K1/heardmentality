@@ -64,11 +64,10 @@ function node_reload(&$node)
  */
 function core_preprocess_page(&$vars)
 {
-  global $user;
-  // todo page view event
-  // rules_invoke_event('page_view', $user);
-
-
+  if (is_node_page() && module_exists('log')) {
+    global $user;
+    log_add($user->uid, 'view');
+  }
 }
 
 /**

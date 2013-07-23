@@ -119,7 +119,7 @@ function trim_better(&$input, $length, $ellipses = TRUE, $strip_html = TRUE) {
  * @param $date
  * @return string
  */
-function time_interval($date, $is_timestamp = false) {
+function time_interval($date, $is_timestamp = FALSE) {
   # dates/interval
   $date_now = new DateTime("now");
   $date = new DateTime($is_timestamp ? date("F d Y H:i:s", $date) : $date);
@@ -151,4 +151,11 @@ function dbg() {
   foreach ($dbg as $record) {
     print $record['function'] . ' on line ' . $record['line'] . ' in ' . $record['file'] . " <br>\n";
   }
+}
+
+/**
+ * @return bool
+ */
+function is_node_page() {
+  return ('node' == arg(0)) && is_numeric(arg(1)) && empty(arg(2));
 }
