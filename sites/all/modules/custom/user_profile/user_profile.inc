@@ -379,7 +379,7 @@ function user_profile_info_preprocess(&$vars)
   # comments
   $vars['comments'] = @db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '%d'", $uid));
   # votes
-  $vars['votes'] = issue_get_uservotes($uid);
+  $vars['votes'] = cpoll_uservotes($uid);
   # references
   $vars['references'] = (int)db_result(db_query("SELECT COUNT(*) FROM {node} n WHERE n.uid = '%d' AND n.type IN ('argument', 'resource') AND n.status = '%d'", $uid, 1));
   # following
