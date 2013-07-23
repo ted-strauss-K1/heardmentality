@@ -84,7 +84,7 @@ function issue_search_filter_form($form_state)
     $tft_codes = explode(",", $_GET['tids']);
   }
 
-  $tft = tft_list('poll', $tft_codes, true);
+  $tft = tft_list('issue', $tft_codes, true);
 
   // Gather info: location.
   $tfl_codes0 = array();
