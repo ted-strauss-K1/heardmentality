@@ -35,7 +35,7 @@
     </div>
     <?php endif; ?>
     <div class="poll-vote-area">
-      <div class="voting-pane"><?php print drupal_get_form('cpoll_vote_form', $node); ?></div>
+      <div class="voting-pane"><?php print drupal_get_form('cpoll_vote_form', $node, false, $page); ?></div>
     </div>
   </div><!-- /div.part1 -->
 

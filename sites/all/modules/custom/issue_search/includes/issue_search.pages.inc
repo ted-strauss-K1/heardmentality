@@ -10,6 +10,9 @@ function issue_search_form($form_state)
 {
   $form = array();
 
+  //
+  drupal_add_js(drupal_get_path("module", "cpoll_vote") . "/cpoll_vote.js");
+
   # date filters
   $form['date_filters'] = array(
     '#type' => 'item',

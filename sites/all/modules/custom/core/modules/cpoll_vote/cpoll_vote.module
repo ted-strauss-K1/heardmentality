@@ -8,7 +8,7 @@
  * @param bool $nowrap
  * @return array
  */
-function cpoll_vote_form($form, $node, $nowrap = false)
+function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
 {
   global $user;
   $form = array();
@@ -89,7 +89,7 @@ function cpoll_vote_form($form, $node, $nowrap = false)
     $form['suggest']['suggest_answer'] = array(
       '#type' => 'textfield',
       '#size' => 38,
-      '#description' => t('(Answers must not exceed 140 carachters in length)'),
+      '#description' => '('.t('Answers must not exceed 140 carachters in length').')',
       '#attributes' => array('class' => 'floatleft'),
       '#maxlength' => 140,
       '#prefix' => '<div class="nsa-wrapper"><table><tr><td class="first">',
@@ -133,6 +133,10 @@ function cpoll_vote_form($form, $node, $nowrap = false)
       '#prefix' => '<div class="votebtn_wrap clearfix">',
       '#suffix' => '</div>',
     );
+    unset($form['suggest']);
+  }
+
+  if (!$page) {
     unset($form['suggest']);
   }
 
