@@ -3,6 +3,7 @@
  */
 $(document).ready(function () {
   // search on load
+  issue_search_page_clean();
   issue_search();
 
   // chosen!
@@ -12,12 +13,18 @@ $(document).ready(function () {
   select_search_hide();
 });
 
+
+function issue_search_page_clean() {
+  $('input[name=page]').val(1);
+}
+
 /**
  * Search on submit
  */
 $('#issue-search-filter-form').live('submit', function (e) {
   e.preventDefault();
   clearInterval(select_search_delay_timer);
+  issue_search_page_clean();
   issue_search();
   return false;
 });
@@ -38,6 +45,7 @@ $('.date-solr-filter, .solr-sort').live('click', function (e) {
   var el = $(this);
   el.parents('ul').find('a').removeClass('active');
   el.addClass('active');
+  issue_search_page_clean();
   issue_search();
   return false;
 });
@@ -89,6 +97,7 @@ function select_search_change() {
   select_search_delay_timer = setInterval(function() {
     select_search_delay -= 1000;
     if (0 >= select_search_delay) {
+      issue_search_page_clean();
       issue_search();
       clearInterval(select_search_delay_timer);
     }
