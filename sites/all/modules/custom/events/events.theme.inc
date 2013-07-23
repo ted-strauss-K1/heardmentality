@@ -239,20 +239,13 @@ function event_taxonomy_theme_preprocess(&$vars) {
   }
 }
 
-
-
-
-
-
-
-// todo refactor below
-
 /**
  * Preprocess for "user_badge" theme
  *
+ * todo badges event
  * @param $vars
  */
 function event_user_badge_theme_preprocess(&$vars) {
-  // todo
+  //
 }
 

@@ -1096,7 +1096,6 @@ function moderation_issue_view_form_save(&$form, &$form_state)
 
   # reindex
   if (module_exists('issue_search')) {
-    // todo search
     issue_search_index_node($node->nid);
   }
 }

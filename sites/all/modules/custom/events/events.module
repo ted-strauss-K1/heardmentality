@@ -258,24 +258,15 @@ function events_events_info()
     'create'  => 'event_create',
     'vote'    => 'event_vote',
     'debate'  => 'event_debate',
-
     'reply'   => 'event_reply',
     'yn'      => 'event_yn',
     'follow'  => 'event_follow',
     'user_update' => 'event_user_update',
-
-
-//    'poll_create' => 'event_poll_create',
-//    'poll_vote' => 'event_poll_vote',
-//    'forum_create' => 'event_forum_create',
-//    'forum_comment' => 'event_forum_comment',
-//    'forum_vote' => 'event_forum_vote',
-//    'forum_comment_vote' => 'event_forum_comment_vote',
-//    'user_profile' => 'event_user_profile',
-//    'user_follow' => 'event_user_follow',
-
-    'user_badge' => 'event_user_badge',
     'taxonomy' => 'event_taxonomy',
+
+    // todo badge event
+    'user_badge' => 'event_user_badge',
+
   );
 }
 

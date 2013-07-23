@@ -239,7 +239,10 @@ function cpoll_vote_ajax() {
     'content_id' => $post['nid'],
   ), $user->uid);
 
-  # todo search reindex
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_index_node($post['nid']);
+  }
 
   print json_encode(array(
     'status' => TRUE,

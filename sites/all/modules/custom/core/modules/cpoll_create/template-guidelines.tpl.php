@@ -7,7 +7,6 @@
     <a class="bolded"> <?php print l(t('Guidelines and Principles'), 'aboutus', array('fragment' => 'guide')); ?></a>
     <?php print t('when creating a new Issue. All issues should be');?>:
   <ul class="issue-meta">
-    <!--  todo Auto flags retrieval -->
     <li><?php print t('concise'); ?></li>
     <li><?php print t('clean'); ?></li>
     <li><?php print t('original'); ?></li>

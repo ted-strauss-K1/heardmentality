@@ -223,6 +223,7 @@ function user_profile_preprocess_page(&$vars)
                   'vote',
                   'follow',
                   'yn',
+                  'user_update',
                 ),)),
                 events_subscriptions_build_query($account->uid),
               )
