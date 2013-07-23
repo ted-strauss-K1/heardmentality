@@ -1,6 +1,6 @@
 name = EXT - Comment: Support Field
 description = Comment Support Field
-package = Custom Modules
+package = Custom Modules : EXT
 version = "6.x-1.0"
 core = 6.x
 dependencies[] = "comment"
