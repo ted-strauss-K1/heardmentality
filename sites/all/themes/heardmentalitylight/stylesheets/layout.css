@@ -6158,7 +6158,7 @@ a.google i {
 .resizable-textarea .grippie {
   width: 100%;
 }
-#cpoll-vote-form .choices {
+form.issue-vote-form > div > div.choices {
   padding: 18px 10px 2px 30px;
 }
 .not-voted .teaser_count_vote {
