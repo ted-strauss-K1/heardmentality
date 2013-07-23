@@ -146,7 +146,7 @@ function cpoll_create_form() {
     '#description' => t("If the amount of boxes above isn't enough, click here to add more choices."),
     '#weight' => 1,
     '#ahah' => array(
-      'path' => 'issue/create/ahah/answer',
+      'path' => 'create/ahah',
       'wrapper' => 'poll-choices',
       'method' => 'replace',
       'effect' => 'fade',
