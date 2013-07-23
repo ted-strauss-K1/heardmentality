@@ -31,7 +31,7 @@
 				  
 				</ul>
 				<ul class="menu second<?php if (module_exists('moderation') && moderation_check_perm()) : ?> full<?php endif; ?>">
-				  <li class="add_issue"><?php print l(t('Add an Issue'), 'issue/create', array('attributes' => array(
+				  <li class="add_issue"><?php print l(t('Add an Issue'), 'create', array('attributes' => array(
             'class'=>'add ' . theme('user_login_modal_class')
           ))); ?></li>
 				</ul>
