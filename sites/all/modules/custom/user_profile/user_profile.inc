@@ -214,10 +214,16 @@ function user_profile_preprocess_page(&$vars)
         if ('view' == arg(2)) {
           $account = _user_profile_get_user(arg(3));
           if ($account) {
-            // todo check events usage
             $events = events_get(array(
               'q' => array(
-                events_build_query(array('uid' => $account->uid, 'exclude' => array('type' => array('user_profile'),))),
+                events_build_query(array('uid' => $account->uid, 'type' => array(
+                  'create',
+                  'debate',
+                  'reply',
+                  'vote',
+                  'follow',
+                  'yn',
+                ),)),
                 events_subscriptions_build_query($account->uid),
               )
             ));
