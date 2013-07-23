@@ -56,9 +56,9 @@
 
     <?php if ($front_right) : ?>
       <div class="grey-box-cat clearfix">
-        <ul class="tags">
+<!--        <ul class="tags">-->
           <?php print $front_right; ?>
-        </ul>
+<!--        </ul>-->
       </div>
     <?php endif; ?>
 

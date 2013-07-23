@@ -117,7 +117,7 @@ function issue_block($op = 'list', $delta = 0, $edit = array())
           $block['subject'] = t('');
           $block['content'] = theme('categories_block');
           break;
-        case 'issue-categories-popular' :
+        case 'categories-popular' :
           $block['subject'] = t('');
           $block['content'] = theme('categories_popular_block');
           break;

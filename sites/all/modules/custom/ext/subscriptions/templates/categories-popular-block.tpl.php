@@ -1,4 +1,4 @@
-<div class="grey-box poll-box">
+<!--<div class="grey-box poll-box">-->
   <i class="icon cat text icon-tag"></i>
   <ul class="tags">
     <label class="tags-on"><?php print t('POPULAR CATEGORIES'); ?></label>
@@ -7,4 +7,4 @@
     <?php endforeach; ?>
   </ul>
   <div class="clear"></div>
-</div>
+<!--</div>-->
