@@ -223,25 +223,6 @@ function moderation_theme()
 }
 
 /**
- * todo check where it's used
- */
-function theme_moderators()
-{
-  $uids = array();
-  foreach (variable_get(MODERATION_USERS, array()) as $uid => $perm) {
-    if ($perm) {
-      $uids[] = $uid;
-    }
-  }
-  $items = array();
-  $result = db_query("SELECT uid, name FROM {users} WHERE uid IN (" . db_placeholders($uids) . ")", $uids);
-  while ($row = db_fetch_object($result)) {
-    $items[] = sprintf('<a href="/user/profile/view/%d">%s</a>', $row->uid, $row->name);
-  }
-  return implode(', ', $items);
-}
-
-/**
  * @param $content_id
  * @param $content_type
  * @param $change
