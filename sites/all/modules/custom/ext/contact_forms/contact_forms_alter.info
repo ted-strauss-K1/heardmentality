@@ -1,5 +1,5 @@
 name = EXT - Contact Forms: Form Alter
 description =
-package = Custom Modules
+package = Custom Modules : EXT
 version = "6.x-1.0"
 core = 6.x

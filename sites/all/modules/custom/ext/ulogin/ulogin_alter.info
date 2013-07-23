@@ -1,7 +1,7 @@
 name = EXT - uLogin: Optonal Parameters
 description = "Adds optional fields selector to admin form."
 core = 6.x
-package = User interface
+package = Custom Modules : EXT
 dependencies[] = ulogin
 
 ; Information added by drupal.org packaging script on 2012-06-11
