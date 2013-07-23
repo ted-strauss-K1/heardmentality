@@ -75,6 +75,7 @@ function term_hierarchy($term)
 
   while (!empty($tmp)) {
     $tid = array_shift($tmp);
+    if ($terms[$tid]->parents)
     foreach ($terms[$tid]->parents as $ptid) {
       if (!empty($ptid)) {
         $tmp[] = $ptid;
