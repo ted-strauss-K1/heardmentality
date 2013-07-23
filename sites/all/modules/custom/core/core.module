@@ -4,6 +4,7 @@
  * Include content types
  */
 include_once('core.features.inc');
+include_once('core.convert.inc');
 
 /**
  * Implementation of hook_nodeapi()
