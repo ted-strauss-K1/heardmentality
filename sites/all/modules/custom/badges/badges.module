@@ -347,7 +347,7 @@ function theme_badges_list($sort = 2)
     case 3:
       $keys = array_keys(badges_types());
       $keys = array_flip($keys);
-      $query .= 'ORDER BY (CASE badge ';
+      $query .= 'ORDER BY (CASE badge WHEN 0 THEN 0 ';
       $i = -1;
 
       foreach (badges_list() as $name => $info) {
