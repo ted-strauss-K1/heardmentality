@@ -157,5 +157,5 @@ function dbg() {
  * @return bool
  */
 function is_node_page() {
-  return ('node' == arg(0)) && is_numeric(arg(1)) && empty(arg(2));
+  return ('node' == arg(0)) && is_numeric(arg(1)) && ('' == arg(2));
 }
