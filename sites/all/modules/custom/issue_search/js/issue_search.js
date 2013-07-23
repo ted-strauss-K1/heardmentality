@@ -17,6 +17,7 @@ $(document).ready(function () {
  */
 $('#issue-search-filter-form').live('submit', function (e) {
   e.preventDefault();
+  clearInterval(select_search_delay_timer);
   issue_search();
   return false;
 });

@@ -22,7 +22,7 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query)
   $query->setAvailableSort('ds_created', array('title' => t('Updated'), 'default' => 'desc'));
   $query->setAvailableSort('is_views_count', array('title' => t('Views Amount'), 'default' => 'desc'));
   $query->setAvailableSort('is_votes_count', array('title' => t('Votes Amount'), 'default' => 'desc'));
-  $query->setSolrsort($_POST['solrsort'], $_POST['direction']);
+  $query->setSolrsort($_POST['sort'], $_POST['direction']);
 
   // Filters.
   $query->addFilter('entity_type', 'node');
@@ -60,27 +60,26 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
       $subquery->addFilter('tid', $value);
     }
     // replace first AND to OR to make the search for ONE of MANY
-    $query->addFilterSubQuery($subquery, 'OR', 'AND');
+    $query->addFilterSubQuery($subquery, 'AND', 'AND');
   }
 
   // Location.
   if ($_POST['my_region'] == 'true') {
     $value = $_issue_search_user->profile_country;
     $query->addFilter('sm_location_codes', $value);
-  } if (!empty($POST['location1'])) {
+  } elseif (!empty($_POST['location1'])) {
     $countries = explode(';', $_POST['location1']);
     $provinces = explode(';', $_POST['location2']);
     $cities = explode(';', $_POST['location3']);
     $values = array_merge($countries, $provinces, $cities);
     $values = array_filter($values);
 
-    var_dump($values);
     $subquery = apachesolr_drupal_query('apachesolr');
     foreach ($values as $value) {
       $subquery->addFilter('sm_location_codes', $value);
     }
     // replace first AND to OR to make the search for ONEof MANY
-    $query->addFilterSubQuery($subquery, 'OR', 'AND');
+    $query->addFilterSubQuery($subquery, 'AND', 'AND');
   }
 
   // Date.
