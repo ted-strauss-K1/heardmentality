@@ -11,7 +11,7 @@
     ?>?</h2>
     <?php if($page) : ?>
     <div class="qd">
-      <?php if (true || $node->moderate) : // todo ?>
+      <?php if ($node->moderate) : ?>
         <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
         <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
         <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
@@ -74,6 +74,7 @@
     <?php print theme('charts', $node); ?>
   </div>
 
+  <?php drupal_add_js(drupal_get_path('module', 'yn') . '/yn.js'); ?>
   <?php drupal_add_js(drupal_get_path('module', 'argument') . "/argument.js"); ?>
 
   <div class="ul_wrapper">
