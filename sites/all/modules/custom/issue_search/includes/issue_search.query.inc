@@ -53,13 +53,9 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
 
   // Taxonomy.
   if ($_POST['taxonomy']) {
-    $subquery = apachesolr_drupal_query('apachesolr');
     $values = explode(';', $_POST['taxonomy']);
-    foreach ($values as $value) {
-      $subquery->addFilter('tid', $value);
-    }
-    // replace first AND to OR to make the search for ONE of MANY
-    $query->addFilterSubQuery($subquery, 'AND', 'AND');
+
+    issue_search_alter_filterquery($query, 'tid', $values, FALSE);
   }
 
   // Location.
@@ -73,12 +69,7 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
     $values = array_merge($countries, $provinces, $cities);
     $values = array_filter($values);
 
-    $subquery = apachesolr_drupal_query('apachesolr');
-    foreach ($values as $value) {
-      $subquery->addFilter('sm_location_codes', $value);
-    }
-    // replace first AND to OR to make the search for ONEof MANY
-    $query->addFilterSubQuery($subquery, 'AND', 'AND');
+    issue_search_alter_filterquery($query, 'sm_location_codes', $values, TRUE);
   }
 
   // Date.
@@ -97,7 +88,7 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
 
   // Votes.
   if ($_POST['not_voted'] == 'true') {
-    $query->addFilter('im_user_votes', $_issue_search_user->uid, TRUE);
+    $query->addFilter('im_user_votes', $_issue_search_user->uid, FALSE);
   }
 }
 
@@ -113,4 +104,28 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
 function issue_search_apachesolr_process_results(&$results, DrupalSolrQueryInterface $query)
 {
   //
+}
+
+/**
+ * @param $query
+ * @param $field
+ * @param $values
+ * @param bool $flag
+ *    @code true for OR joining
+ *    @code false for AND joining
+ */
+function issue_search_alter_filterquery(&$query, $field, $values, $flag = FALSE) {
+  if ($flag) {
+    $subquery = apachesolr_drupal_query('apachesolr');
+    foreach ($values as $value) {
+      $subquery->addFilter($field, $value);
+    }
+    $query->addFilterSubQuery($subquery, 'AND', 'AND');
+  } else {
+    foreach ($values as $value) {
+      $subquery = apachesolr_drupal_query('apachesolr');
+      $subquery->addFilter($field, $value);
+      $query->addFilterSubQuery($subquery, 'OR', 'AND');
+    }
+  }
 }
