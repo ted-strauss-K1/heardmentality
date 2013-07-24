@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * Implementation of hook_badges()
+ *
+ * @return array
+ */
+function badges_cpoll_taxonomy_badges()
+{
+  $badges = array();
+  
+  $badges['poll_votes_taxonomy_bronze'] = array(
+    'function' => 'badges_cpoll_taxonomy_votes_taxonomy_check',
+    'name' => t('Generalist'),
+    'info' => t('User has voted on at least 5 questions in 10 bottom level categories (i.e categories without children subcategories)'),
+    'type' => 'bronze',
+    'arguments' => array('nids' => 5, 'tids' => 10),
+  );
+  $badges['poll_votes_taxonomy_silver'] = array(
+    'function' => 'badges_cpoll_taxonomy_votes_taxonomy_check',
+    'name' => t('Well Read'),
+    'info' => t('User has voted on at least 10 questions in 20 bottom level categories (i.e categories without children subcategories)'),
+    'type' => 'silver',
+    'arguments' => array('nids' => 10, 'tids' => 20),
+  );
+  $badges['poll_votes_taxonomy_gold'] = array(
+    'function' => 'badges_cpoll_taxonomy_votes_taxonomy_check',
+    'name' => t('Scholar'),
+    'info' => t('User has voted on at least 20 questions in 30 bottom level categories (i.e categories without children subcategories)'),
+    'type' => 'gold',
+    'arguments' => array('nids' => 20, 'tids' => 30),
+  );
+
+  return $badges;
+}
+
+/**
+ * @param $uid
+ * @return bool
+ */
+function badges_cpoll_taxonomy_votes_taxonomy_check($uid, $arguments = array())
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    // bottom level categories
+    $tblt = array();
+    $vids = taxonomy_node_type_vocabularies();
+    foreach ($vids as $vid) {
+      $tblt = array_merge($tblt, taxonomy_bottom_level_terms($vid));
+    }
+
+    $result = db_query("
+      SELECT v.uid, COUNT(DISTINCT(tn.nid)) AS nids, COUNT(DISTINCT(tn.tid)) AS tids
+      FROM {cpoll_votes} v
+      INNER JOIN {cpoll_choices} c ON c.chid = v.chid
+      INNER JOIN {term_node} tn ON tn.nid = c.nid
+      WHERE tn.tid IN (" . db_placeholders($tblt) . ")
+      GROUP BY v.uid
+      ORDER BY v.uid", $tblt);
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['uid']] = array('nids' => $row['nids'], 'tids' => $row['tids']);
+    }
+  }
+
+  return isset($cache[$uid]) ?
+    ($cache[$uid]['nids'] >= $arguments['nids']) &&
+      ($cache[$uid]['tids'] >= $arguments['tids']) : false;
+}

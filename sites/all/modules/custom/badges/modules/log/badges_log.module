@@ -5,19 +5,19 @@
  *
  * @return array
  */
-function badges_visits_badges()
+function badges_log_badges()
 {
   $badges = array();
 
   $badges['visits_silver'] = array(
-    'function' => 'badges_visits_check',
+    'function' => 'badges_log_check',
     'name' => t('Enthusiast'),
     'info' => t('Visited the site each day for 30 consecutive days'),
     'type' => 'silver',
     'arguments' => array('days' => 30),
   );
   $badges['visits_gold'] = array(
-    'function' => 'badges_visits_check',
+    'function' => 'badges_log_check',
     'name' => t('Fanatic'),
     'info' => t('Visited the site each day for 100 consecutive days'),
     'type' => 'silver',
@@ -31,18 +31,24 @@ function badges_visits_badges()
  * @param $uid
  * @return bool
  */
-function badges_visits_check($uid, $arguments = array())
+function badges_log_check($uid, $arguments = array())
 {
   static $cache;
 
   if (is_null($cache[$arguments['days']])) {
     $cache[$arguments['days']] = array();
 
-    $result = db_query("SELECT uid, COUNT(DISTINCT DATE(date_added)) count FROM log WHERE date_added >= ADDDATE(CURDATE(), INTERVAL -" . $arguments['days'] . " DAY) GROUP BY uid ORDER BY uid");
+    $result = db_query("
+      SELECT uid, COUNT(DISTINCT DATE(date_added)) count
+      FROM log
+      WHERE date_added >= ADDDATE(CURDATE(), INTERVAL -" . $arguments['days'] . " DAY)
+      GROUP BY uid
+      ORDER BY uid");
     while ($row = db_fetch_array($result)) {
       $cache[$arguments['days']][$row['uid']] = $row['count'];
     }
   }
 
-  return isset($cache[$arguments['days']][$uid]) ? $cache[$arguments['days']][$uid] == $arguments['days'] : false;
+  return isset($cache[$arguments['days']][$uid]) ?
+    $cache[$arguments['days']][$uid] == $arguments['days'] : false;
 }

@@ -28,7 +28,13 @@ function badges_userpoints_yearling_check($uid, $arguments = array())
   if (is_null($cache)) {
     $cache = array();
 
-    $result = db_query("SELECT u.uid, DATEDIFF(CURDATE(), FROM_UNIXTIME(u.created, '%Y-%m-%d')) days, IFNULL(up.points, 0) count FROM {users} u LEFT JOIN {userpoints} up ON u.uid = up.uid");
+    $result = db_query("
+      SELECT
+        u.uid,
+        DATEDIFF(CURDATE(), FROM_UNIXTIME(u.created, '%Y-%m-%d')) days,
+        IFNULL(up.points, 0) count
+      FROM {users} u
+      LEFT JOIN {userpoints} up ON u.uid = up.uid");
     while ($row = db_fetch_array($result)) {
       $cache[$row['uid']] = array('count' => $row['count'], 'days' => $row['days']);
     }

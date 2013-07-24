@@ -6,3 +6,4 @@ version = "6.x-1.0"
 
 dependencies[] = "core"
 dependencies[] = "argument_options"
+dependencies[] = "comment"

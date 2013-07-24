@@ -9,8 +9,8 @@ function badges_rules_event_info()
 {
   return array(
     'badges_grant' => array(
-      'label' => t('User got the badge'),
-      'module' => 'Badges Module',
+      'label' => t('User Got the Badge'),
+      'module' => 'Badges',
       'arguments' => array(
         'user' => array(
           'type' => 'user',
@@ -34,7 +34,7 @@ function badges_rules_action_info()
 {
   return array(
     'badges_grant_badge_rules_action' => array(
-      'label' => t('Grant the badges to user'),
+      'label' => t('Grant the Badges to User'),
       'arguments' => array(
         'user' => array(
           'type' => 'user',

@@ -5,26 +5,26 @@
  *
  * @return array
  */
-function badges_issue_badges()
+function badges_argument_badges()
 {
   $badges = array();
 
-  $badges['issue_bronze'] = array(
-    'function' => 'badges_issue_check',
+  $badges['argument_bronze'] = array(
+    'function' => 'badges_argument_check',
     'name' => t('Conversation Piece'),
     'info' => t('Created a question that resulted in 20 debate posts or resource posts (including replies)'),
     'type' => 'bronze',
     'arguments' => array('count' => 20),
   );
-  $badges['issue_silver'] = array(
-    'function' => 'badges_issue_check',
+  $badges['argument_silver'] = array(
+    'function' => 'badges_argument_check',
     'name' => t('Cocktail Party'),
     'info' => t('Created a question that resulted in 50 debate posts or resource posts (including replies)'),
     'type' => 'silver',
     'arguments' => array('count' => 50),
   );
-  $badges['issue_gold'] = array(
-    'function' => 'badges_issue_check',
+  $badges['argument_gold'] = array(
+    'function' => 'badges_argument_check',
     'name' => t('Healthy Debate'),
     'info' => t('Created a question that resulted in 100 debate posts or resource posts (including replies)'),
     'type' => 'gold',
@@ -38,7 +38,7 @@ function badges_issue_badges()
  * @param $uid
  * @return bool
  */
-function badges_issue_check($uid, $arguments = array())
+function badges_argument_check($uid, $arguments = array())
 {
   static $cache;
 
@@ -46,10 +46,11 @@ function badges_issue_check($uid, $arguments = array())
     $cache = array();
 
     $result = db_query("
-      SELECT n.uid, COUNT(DISTINCT(ctf.nid)) + COUNT(DISTINCT(c.cid)) count
-      FROM {content_type_forum} ctf
-      INNER JOIN {node} n ON n.nid = ctf.field_issue_nid
-      LEFT JOIN {comments} c ON c.nid = ctf.nid GROUP BY n.nid");
+      SELECT n.uid, COUNT(DISTINCT(cfr.nid)) + COUNT(DISTINCT(c.cid)) count
+      FROM {node} n
+      INNER JOIN {content_field_reference} cfr ON cfr.field_reference_nid = n.nid
+      LEFT JOIN {comments} c ON c.nid = cfr.nid
+      GROUP BY n.nid");
     while ($row = db_fetch_array($result)) {
       if (!isset($cache[$row['uid']]) || ($cache[$row['uid']] < $row['count'])) {
         $cache[$row['uid']] = $row['count'];

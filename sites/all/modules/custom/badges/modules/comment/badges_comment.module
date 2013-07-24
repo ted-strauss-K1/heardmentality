@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Implementation of hook_badges()
+ *
+ * @return array
+ */
+function badges_comment_badges()
+{
+  $badges = array();
+
+  $badges['comment_bronze'] = array(
+    'function' => 'badges_comment_check',
+    'name' => t('Commentator'),
+    'info' => t('Left 10 Comments'),
+    'type' => 'bronze',
+    'arguments' => array('comment_count' => 10),
+  );
+
+  return $badges;
+}
+
+/**
+ * @param $uid
+ * @return bool
+ */
+function badges_comment_check($uid, $arguments = array())
+{
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("SELECT uid, COUNT(*) count FROM {comments} GROUP BY uid");
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['uid']] = $row['count'];
+    }
+  }
+
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : false;
+}

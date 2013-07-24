@@ -52,7 +52,11 @@ function badges_statistics_check($uid, $arguments = array())
   if (is_null($cache)) {
     $cache = array();
 
-    $result = db_query("SELECT n.uid, MAX(nc.totalcount) count FROM {node} n LEFT JOIN {node_counter} nc ON n.nid = nc.nid GROUP BY n.uid");
+    $result = db_query("
+      SELECT n.uid, MAX(nc.totalcount) count
+      FROM {node} n
+      LEFT JOIN {node_counter} nc ON n.nid = nc.nid
+      GROUP BY n.uid");
     while ($row = db_fetch_array($result)) {
       $cache[$row['uid']] = $row['count'];
     }
@@ -72,7 +76,14 @@ function badges_statistics_tumbleweed_check($uid, $arguments = array())
   if (is_null($cache)) {
     $cache = array();
 
-    $result = db_query("SELECT n.uid, DATEDIFF(CURDATE(), FROM_UNIXTIME(n.created, '%Y-%m-%d')) days, IFNULL(nc.totalcount, 0) views FROM {node} n LEFT JOIN {node_counter} nc ON n.nid = nc.nid WHERE n.type = '%s'", 'poll');
+    $result = db_query("
+      SELECT
+        n.uid,
+        DATEDIFF(CURDATE(), FROM_UNIXTIME(n.created, '%Y-%m-%d')) days,
+        IFNULL(nc.totalcount, 0) views
+      FROM {node} n
+      LEFT JOIN {node_counter} nc ON n.nid = nc.nid
+      WHERE n.type = '%s'", 'issue');
     while ($row = db_fetch_array($result)) {
       $cache[$row['uid']][] = array('days' => $row['days'], 'views' => $row['views']);
     }
