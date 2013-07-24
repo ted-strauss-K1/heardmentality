@@ -9,31 +9,35 @@
     <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print
       l($node->title, $node->path, array('html' => true));
     ?>?</h2>
-    <?php if($page) : ?>
     <div class="qd">
-      <?php if ($node->moderate) : ?>
-        <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
-        <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
-        <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
-        <?php print theme('flagger_btn_history', $nid, 'node'); ?>
-        <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
-          <?php print l(t('moderation'), 'moderation/issue/'.$node->nid,
-            array('attributes' => array(
-              'class' => 'moderation',
-              'original-title' => t('moderation'),
-            ))
-          ); ?>
+      <?php if($page) : ?>
+        <?php if ($node->moderate) : ?>
+          <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
+          <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
+          <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
+          <?php print theme('flagger_btn_history', $nid, 'node'); ?>
+          <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
+            <?php print l(t('moderation'), 'moderation/issue/'.$node->nid,
+              array('attributes' => array(
+                'class' => 'moderation',
+                'original-title' => t('moderation'),
+              ))
+            ); ?>
+          <?php endif; ?>
         <?php endif; ?>
       <?php endif; ?>
-      <p class="description">
-        <span id="content-s"><?php print $node->description; ?></span>
-        <?php if ($node->description_s) : ?>
-          <span id="new-ellipse"><a>...more</a></span>
-          <span><?php print $node->description_f; ?></span>
-        <?php endif; ?>
-      </p>
+
+      <?php print theme('expander', $node->content['body']['#value']); ?>
+
+      <?php if (!$page) : ?>
+        <ul class="tags">
+          <?php foreach ($node->taxonomy as $term) : ?>
+            <li><?php print theme('categories_subscribe', $term->name, term_hierarchy($term)); ?></li>
+          <?php endforeach; ?>
+        </ul>
+      <?php endif; ?>
     </div>
-    <?php endif; ?>
+
     <div class="poll-vote-area">
       <div class="voting-pane"><?php print drupal_get_form('cpoll_vote_form', $node, false, $page); ?></div>
     </div>

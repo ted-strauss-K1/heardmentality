@@ -1,0 +1,15 @@
+.expander-control {
+  display: block;
+  cursor: pointer;
+  color: #6A7989;
+  background: #E9EDF1;
+  height: 13px;
+  padding: 9px 0px 14px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+}
+div.expander {
+  text-align: justify;
+  margin: 10px 0;
+}

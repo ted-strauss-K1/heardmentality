@@ -287,6 +287,7 @@ function issue_search() {
 
       linkbox.html(data.message);
       issuesAmount.html(data.rows);
+      expander();
 
       return true;
     },

@@ -58,7 +58,7 @@
                   <?php print $node->field_source[0]['value']; ?>
                 </a>
               </span>
-              <p><?php print trim_better($node->body, 1000); ?></p>
+              <?php print theme('expander', $node->body); ?>
             </div>
 
             <?php endif; ?>

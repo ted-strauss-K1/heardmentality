@@ -310,6 +310,7 @@ Drupal.behaviors.translate = function (context) {
     toggle_resources();
   }
 
+  expander();
 }
 
 /**

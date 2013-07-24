@@ -41,6 +41,11 @@ scripts[] = javascripts/chosen/chosen.jquery.min.js
 scripts[] = javascripts/chosen/custom.chosen.js
 stylesheets[all][] = javascripts/chosen/chosen.min.css
 
+; JQuery Expander
+scripts[] = javascripts/expander/jquery.expander.min.js
+scripts[] = javascripts/expander/custom.expander.js
+stylesheets[all][] = javascripts/expander/custom.expander.css
+
 ; JQuery Cookie
 scripts[] = javascripts/jquery-plugins/jquery.cookie.js
 

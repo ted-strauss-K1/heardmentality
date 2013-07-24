@@ -22,12 +22,6 @@ function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         $node->title = issue_translate($node, 'title', 0);
         $node->content['body']['#value'] = issue_translate($node, 'body', 0);
 
-        # description
-        $node->description = trim_better($node->content['body']['#value'], 2500);
-        $node->description_f = $node->content['body']['#value'];
-        $node->description_s = $node->description != $node->description_f;
-        drupal_add_js(drupal_get_path('module', 'core') . '/core.js');
-
         # args
         $node->debate = argument_get_list($node->nid, $node->info);
 
