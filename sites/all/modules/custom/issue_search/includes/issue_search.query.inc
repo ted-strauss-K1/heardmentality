@@ -88,7 +88,7 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
 
   // Votes.
   if ($_POST['not_voted'] == 'true') {
-    $query->addFilter('im_user_votes', $_issue_search_user->uid, FALSE);
+    $query->addFilter('im_user_votes', $_issue_search_user->uid, TRUE);
   }
 }
 
