@@ -10,6 +10,7 @@ function theme_argument_tab($nodes)
 {
   $output = '';
   foreach ($nodes as $node) {
+    $node->iid = $node->reference[0]['nid'];
     $output .= theme('argument_item', $node);
   }
   if (empty($output)) {

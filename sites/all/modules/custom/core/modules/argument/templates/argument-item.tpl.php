@@ -121,7 +121,10 @@
             <ul>
               <div id="all_replybox_<?php print $nid; ?>">
                 <?php if ($node->comments) foreach ($node->comments as $comment) : ?>
-                <?php print theme('argument_comment', $comment); ?>
+                <?php
+                  $comment->iid = $node->iid;
+                  print theme('argument_comment', $comment);
+                ?>
                 <?php endforeach; ?>
               </div>
             </ul>

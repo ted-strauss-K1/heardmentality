@@ -216,11 +216,15 @@ $('.arg-reply-form').live('submit', function (e) {
         replycount.fadeIn(1000);
       });
 
-      $('body').trigger('events', ['reply', {
+      var body = $('body');
+      body.trigger('events', ['reply', {
         'cid'           : response.cid,
         'content_type'  : 'comment',
         'content_id'    : response.cid
-      }]);
+      }])
+
+      // todo badges
+      body.trigger('badges.cpoll_author', [Drupal.settings.user.uid]);
 
       // add the translate to the new comment
       translate();
