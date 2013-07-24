@@ -27,7 +27,7 @@ include_once "badges.queue.inc";
  */
 function badges_menu()
 {
-  return badges_pages_menu() + badges_admin_menu();
+  return badges_pages_menu() + badges_admin_menu() + badges_queue_menu();
 }
 
 /**
@@ -77,4 +77,20 @@ function badges_user($op, &$edit, &$account, $category = NULL)
       }
       break;
   }
+}
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function badges_preprocess_page(&$vars)
+{
+  if (arg(0) == 'badges') {
+    drupal_set_subtitle(t('Badges'));
+  }
+
+  global $user;
+  drupal_add_js(array('user' => array('uid' => $user->uid)), 'setting');
+  drupal_add_js(drupal_get_path('module', 'badges') . '/badges.js');
 }

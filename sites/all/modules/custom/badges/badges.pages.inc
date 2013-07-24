@@ -26,18 +26,6 @@ function badges_pages_menu()
 }
 
 /**
- * Implementation of hook_preprocess_page()
- *
- * @param $vars
- */
-function badges_preprocess_page(&$vars)
-{
-  if (arg(0) == 'badges') {
-    drupal_set_subtitle(t('Badges'));
-  }
-}
-
-/**
  * Implementation of hook_theme()
  *
  * @return array
