@@ -18,7 +18,6 @@ function badges_queue($uid = FALSE, $badges = FALSE) {
     // todo check duplicate queueing
     db_query("INSERT INTO {badges_queue} SET uid = '%s', badge = '%s', date_added = '%s'", $uid, $badge, date("y-m-d H:i:s"));
   }
-  exit;
 }
 
 /**

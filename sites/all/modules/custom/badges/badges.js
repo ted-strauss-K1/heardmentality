@@ -36,9 +36,7 @@ $(document).ready(function () {
 
   body.on('badge.debate_create', function(e, uid) {
     // uid - cpoll author
-    body.trigger('badges.queue', [uid, 'argument_bronze']);
-    body.trigger('badges.queue', [uid, 'argument_silver']);
-    body.trigger('badges.queue', [uid, 'argument_gold']);
+    body.trigger('badges.queue', [uid, ['argument_bronze', 'argument_silver', 'argument_gold']]);
   });
 
   body.on('badge.comment_create', function(e, uid) {
@@ -48,52 +46,36 @@ $(document).ready(function () {
 
   body.on('badge.cpoll_vote', function(e, uid) {
     // uid - voter
-    body.trigger('badges.queue', [uid, 'poll_votes_bronze']);
-    body.trigger('badges.queue', [uid, 'poll_votes_silver']);
-    body.trigger('badges.queue', [uid, 'poll_votes_gold']);
-    body.trigger('badges.queue', [uid, 'poll_votes_taxonomy_bronze']);
-    body.trigger('badges.queue', [uid, 'poll_votes_taxonomy_silver']);
-    body.trigger('badges.queue', [uid, 'poll_votes_taxonomy_gold']);
+    body.trigger('badges.queue', [uid, ['poll_votes_bronze', 'poll_votes_silver', 'poll_votes_gold', 'poll_votes_taxonomy_bronze', 'poll_votes_taxonomy_silver', 'poll_votes_taxonomy_gold']]);
   });
 
   body.on('badge.cpoll_voted', function(e, uid) {
     // uid - cpoll author
-    body.trigger('badges.queue', [uid, 'poll_votes_count_bronze']);
-    body.trigger('badges.queue', [uid, 'poll_votes_count_silver']);
-    body.trigger('badges.queue', [uid, 'poll_votes_count_gold']);
+    body.trigger('badges.queue', [uid, ['poll_votes_count_bronze', 'poll_votes_count_silver', 'poll_votes_count_gold']]);
   });
 
   body.on('badge.comment_yn_voteup', function(e, uid) {
     // uid - content author
-    body.trigger('badges.queue', [uid, 'comment_agreed_bronze']);
-    body.trigger('badges.queue', [uid, 'comment_agreed_gold']);
-
-    body.trigger('badges.queue', [uid, 'yn_comment_bronze']);
-    body.trigger('badges.queue', [uid, 'yn_comment_silver']);
-    body.trigger('badges.queue', [uid, 'yn_comment_gold']);
+    body.trigger('badges.queue', [uid, ['comment_agreed_bronze', 'comment_agreed_gold', 'yn_comment_bronze', 'yn_comment_silver', 'yn_comment_gold']]);
   });
 
   body.on('badge.resource_yn_voteup', function(e, uid) {
     // uid - content author
-    body.trigger('badges.queue', [uid, 'yn_argument_agreed_resource_bronze']);
-    body.trigger('badges.queue', [uid, 'yn_argument_agreed_resource_silver']);
-    body.trigger('badges.queue', [uid, 'yn_argument_agreed_resource_gold']);
+    body.trigger('badges.queue', [uid, ['yn_argument_agreed_resource_bronze', 'yn_argument_agreed_resource_silver', 'yn_argument_agreed_resource_gold']]);
   });
 
   body.on('badge.resource_yn_voteup', function(e, uid) {
     // uid - content author
-    body.trigger('badges.queue', [uid, 'yn_argument_agreed_debate_bronze']);
-    body.trigger('badges.queue', [uid, 'yn_argument_agreed_debate_silver']);
-    body.trigger('badges.queue', [uid, 'yn_argument_agreed_debate_gold']);
+    body.trigger('badges.queue', [uid, ['yn_argument_agreed_debate_bronze', 'yn_argument_agreed_debate_silver', 'yn_argument_agreed_debate_gold']]);
   });
 
   body.on('badge.yn_voteup', function(e, uid) {
     // uid - voter
-    body.trigger('badges.queue', [uid, 'yn_upfirst']);
+    body.trigger('badges.queue', [uid, ['yn_upfirst']]);
   });
 
   body.on('badge.yn_predict', function(e, uid) {
     // uid - voter
-    body.trigger('badges.queue', [uid, 'yn_upfirst']);
+    body.trigger('badges.queue', [uid, ['yn_predict_bronze', 'yn_predict_silver']]);
   });
 });
