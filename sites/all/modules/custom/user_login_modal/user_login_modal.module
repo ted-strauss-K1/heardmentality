@@ -19,6 +19,9 @@ function user_login_modal_preprocess_page(&$vars)
     $vars['login_block'] = drupal_get_form('user_login');
     $vars['login_register'] = drupal_get_form('user_register');
   }
+
+  $vars['styles'] = drupal_get_css();
+  $vars['script'] = drupal_get_js();
 }
 
 /**

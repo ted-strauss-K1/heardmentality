@@ -83,12 +83,14 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
 {
   # alter register form
   if ($form_id == 'user_register') {
-    $form['account']['#title'] = '';
-    $form['account']['mail']['#title'] = t("What's your email address?");
-    $form['account']['mail']['#description'] = '';
-    $form['account']['pass']['#description'] = '';
-    $form['account']['name']['#description'] = '';
-    $form['submit']['#value'] = t('Sign up');
+    $form['#title'] = '';
+    $form['mail']['#title'] = t("What's your email address?");
+    $form['mail']['#description'] = '';
+    $form['pass']['#description'] = '';
+    $form['name']['#description'] = '';
+    if ('admin' != arg(0)) {
+      $form['submit']['#value'] = t('Sign up');
+    }
     $form['#validate'][] = 'user_profile_register_form_validate';
     $form['news'] = array(
       '#type' => 'checkbox',
