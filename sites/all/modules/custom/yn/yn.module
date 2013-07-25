@@ -356,6 +356,8 @@ function yn_votes($content_id, $content_type, $uid = false, $reset = false)
       $votes[3] = $votes[3] || ($row['rated'] != 0);
     }
     $votes[2] = $votes[0] - $votes[1];
+    // first vote
+    $votes[4] = db_fetch_array(db_query("SELECT * FROM {votingapi_vote} WHERE content_id = '%d' AND content_type = '%s' AND value = '%d' ORDER BY timestamp ASC", $content_id, $content_type, VOTE_AGREE));
 
     $cache[$content_type][$content_id] = $votes;
   }
@@ -448,13 +450,19 @@ function yn_ajax($content_id, $content_type, $vote_value)
     exit();
   }
   yn_vote($content_id, $vote_value, $content_type);
+
+  # content
+  $content = $content_type == 'comment' ?
+    _comment_load($content_id) :
+    db_fetch_object(db_query("SELECT * FROM {node} WHERE nid = '%d'", $content_id));
+
+  # votes
   if ($content_type == 'comment') {
-    $comment = _comment_load($content_id);
     $_vote_value = $vote_value;
-    if (empty($comment->support)) {
+    if (empty($content->support)) {
       yn_invert_vote_value($_vote_value);
     }
-    $parent_id = $comment->nid;
+    $parent_id = $content->nid;
     yn_vote($parent_id, $_vote_value, 'node', VOTE_AUTOADD);
   } else {
     $parent_id = $content_id;
@@ -463,27 +471,31 @@ function yn_ajax($content_id, $content_type, $vote_value)
   $output = array();
   $votes = yn_votes($content_id, $content_type, false, true);
 
-  list($output['vote_up'], $output['vote_dn'], $output['vote_sum'], $rated) = $votes;
+  list($output['vote_up'], $output['vote_dn'], $output['vote_sum'], $rated, $fvote) = $votes;
   if ($content_type == 'node') {
     list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum'], $rated) = $votes;
   } else {
     list($output['pvote_up'], $output['pvote_dn'], $output['pvote_sum'], $rated) = yn_votes($parent_id, 'node');
   }
 
-  # update the parent
-//  $node = node_load($parent_id);
-//  $node->field_strength[0]['value'] = $output['pvote_sum'];
-//  node_save($node);
+  # uid
+  if ('node' == $content_type) {
+    $output['node_type'] = $content->type;
+    $output['content_uid'] = $content->uid;
+  } else {
+    $output['content_uid'] = $content->uid;
+  }
 
   $output['content_id'] = $content_id;
   $output['content_type'] = $content_type;
   $output['vote_value'] = $vote_value;
   $output['parent_id'] = $parent_id;
+  $output['first_voter'] = $fvote['uid'];
 
-  $message = $vote_value == VOTE_AGREE ? 'Agreed!' : 'Disagreed!';
+  $message = $vote_value == VOTE_AGREE ? t('Agreed') : t('Disagreed');
   print json_encode(array(
     'status' => true,
-    'message' => t($message),
+    'message' => $message . '!',
     'data' => $output,
   ));
   exit();

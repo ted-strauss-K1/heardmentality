@@ -52,3 +52,22 @@ function badges_log_check($uid, $arguments = array())
   return isset($cache[$arguments['days']][$uid]) ?
     $cache[$arguments['days']][$uid] == $arguments['days'] : false;
 }
+
+/**
+ * Implementation of hook_user()
+ *
+ * @param $op
+ * @param $edit
+ * @param $account
+ * @param null $category
+ */
+function badges_log_user($op, &$edit, &$account, $category = NULL)
+{
+  switch ($op) {
+    case 'login' :
+      badges_queue($account->uid, array(
+        'visits_silver', 'visits_gold'
+      ));
+    break;
+  }
+}

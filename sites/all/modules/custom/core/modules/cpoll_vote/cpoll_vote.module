@@ -29,6 +29,10 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
     '#type' => 'hidden',
     '#value' => $node->nid,
   );
+  $form['uid'] = array(
+    '#type' => 'hidden',
+    '#value' => $node->uid,
+  );
   $form['vote'] = array(
     '#type' => 'hidden',
     '#value' => $node->vote ? $node->vote : -1,

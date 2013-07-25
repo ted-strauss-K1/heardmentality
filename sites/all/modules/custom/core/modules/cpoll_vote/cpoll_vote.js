@@ -88,12 +88,17 @@ $('#suggest').live('click', function (e) {
       form.removeClass('active');
 
       //
-      $('body').trigger('cpoll_update');
-      $('body').trigger('events', ['suggest', {
+      var body = $('body');
+      body.trigger('cpoll_update');
+      body.trigger('events', ['suggest', {
         'chid'          : response.chid,
         'content_type'  : 'node',
         'content_id'    : form.find('input[name=nid]').val()
       }]);
+
+      // badges
+      body.trigger('cpoll_vote', [Drupal.settings.user.uid]);
+      body.trigger('cpoll_voted', [form.find('input[name=uid]').val()]);
     }
   });
 });
@@ -167,12 +172,17 @@ $('#vote').live('click', function (e) {
       form.removeClass('active');
 
       //
-      $('body').trigger('cpoll_update');
-      $('body').trigger('events', ['vote', {
+      var body = $('body');
+      body.trigger('cpoll_update');
+      body.trigger('events', ['vote', {
         'chid'          : response.chid,
         'content_type'  : 'node',
         'content_id'    : form.find('input[name=nid]').val()
       }]);
+
+      // badges
+      body.trigger('cpoll_vote', [Drupal.settings.user.uid]);
+      body.trigger('cpoll_voted', [form.find('input[name=uid]').val()]);
     }
   });
 });

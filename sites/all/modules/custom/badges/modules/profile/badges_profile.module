@@ -26,3 +26,22 @@ function badges_user_profile_check($uid)
   $complete_data = pcp_get_complete_percentage_data($user);
   return $complete_data['percent'] == 100;
 }
+
+/**
+ * Implementation of hook_user()
+ *
+ * @param $op
+ * @param $edit
+ * @param $account
+ * @param null $category
+ */
+function badges_profile_user($op, &$edit, &$account, $category = NULL)
+{
+  switch ($op) {
+    case 'update' :
+      badges_queue($account->uid, array(
+        'user_profile'
+      ));
+    break;
+  }
+}

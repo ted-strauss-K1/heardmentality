@@ -99,3 +99,27 @@ function badges_statistics_tumbleweed_check($uid, $arguments = array())
 
   return false;
 }
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param $node
+ * @param $op
+ * @param null $a3
+ * @param null $a4
+ */
+function badges_statistics_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
+{
+  if (('issue' == $node->type) && is_node_page()) {
+    switch ($op) {
+      case 'view' :
+        badges_queue($node->uid, array(
+          'statistics_bronze',
+          'statistics_silver',
+          'statistics_gold',
+          'statistics_tumbleweed',
+        ));
+      break;
+    }
+  }
+}
