@@ -97,8 +97,8 @@ $('#suggest').live('click', function (e) {
       }]);
 
       // badges
-      body.trigger('cpoll_vote', [Drupal.settings.user.uid]);
-      body.trigger('cpoll_voted', [form.find('input[name=uid]').val()]);
+      body.trigger('badge.cpoll_vote', [Drupal.settings.user.uid]);
+      body.trigger('badge.cpoll_voted', [form.find('input[name=uid]').val()]);
     }
   });
 });
@@ -181,8 +181,8 @@ $('#vote').live('click', function (e) {
       }]);
 
       // badges
-      body.trigger('cpoll_vote', [Drupal.settings.user.uid]);
-      body.trigger('cpoll_voted', [form.find('input[name=uid]').val()]);
+      body.trigger('badge.cpoll_vote', [Drupal.settings.user.uid]);
+      body.trigger('badge.cpoll_voted', [form.find('input[name=uid]').val()]);
     }
   });
 });

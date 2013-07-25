@@ -186,6 +186,8 @@ function badges_grant($item, $badge)
     return FALSE;
   }
 
+  $output = array();
+
   if (is_array($item)) {
     $function = $badge_data['function multiple'];
     $arguments = $badge_data['arguments'];
@@ -197,6 +199,7 @@ function badges_grant($item, $badge)
     foreach ($results as $uid => $result) {
       if ($result && (($badge_data['count'] === TRUE) || ($badge_data['count'] > badges_count($badge, $uid)))) {
         badges_add($uid, $badge);
+        $output[] = array('uid' => $uid, 'badge' => $badge);
       }
     }
   } else {
@@ -206,6 +209,9 @@ function badges_grant($item, $badge)
     $uid = $item;
     if ($result && (($badge_data['count'] === TRUE) || ($badge_data['count'] > badges_count($badge, $uid)))) {
       badges_add($uid, $badge);
+      $output[] = array('uid' => $uid, 'badge' => $badge);
     }
   }
+
+  return $output;
 }

@@ -98,13 +98,8 @@ $('.yn').live('click', function () {
 function votes_update(content_type, content_id, agree, count) {
   var selector = '#yn-' + content_type + '-' + content_id + ' .yn-' + (agree ? 'a' : 'd') + ' span';
   var el = $('#yn-' + content_type + '-' + content_id);
-//  console.log(el);
   var el_a = el.children('.yn-' + (agree ? 'a' : 'd'))
-//  console.log(el_a);
-  var count_before = $(selector);
-  var el_span = el_a.children('span');
-  count_before = el_span;
-//  console.log(el_span);
+  var count_before = el_a.find('span');
   if (!count_before) {
     return;
   }
@@ -165,13 +160,13 @@ $('body').on('yn', function(e, el, data) {
   // badges
   if (1 == data['vote_value']) {
     if ('comment' == data['content_type']) {
-      body.trigger('comment_yn_voteup', [data['content_uid']]);
+      body.trigger('badge.comment_yn_voteup', [data['content_uid']]);
     }
     if ('node' == data['content_type']) {
-      body.trigger(data['node_type'] + '_yn_voteup', [data['content_uid']]);
+      body.trigger('badge.'+data['node_type'] + '_yn_voteup', [data['content_uid']]);
     }
-    body.trigger('yn_voteup', [Drupal.settings.user.uid]);
-    body.trigger('yn_predict', [data['first_voter']]);
+    body.trigger('badge.yn_voteup', [Drupal.settings.user.uid]);
+    body.trigger('badge.yn_predict', [data['first_voter']]);
   }
 });
 

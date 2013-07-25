@@ -4,7 +4,7 @@
 $(document).ready(function () {
   var body = $('body');
 
-  body.on('badge.queue', function(e, uid, badges) {
+  body.on('badges.queue', function(e, uid, badges) {
     $.ajax({
       type      : 'POST',
       dataType  : 'json',
@@ -19,20 +19,31 @@ $(document).ready(function () {
     });
   });
 
-  body.on('badge.dequeue', function(e, uid) {
+  body.on('badges.dequeue', function(e, uid) {
     $.ajax({
       type      : 'POST',
       dataType  : 'json',
       url       : '/badges/dequeue',
       data      : {'uid' : uid },
       success   : function (response) {
-        //
+        if (response.status) {
+          $.hrd.noty({
+            text  : response.message,
+            type  : 'success'
+          });
+        }
       },
       complete  : function () {
         //
       }
     });
   });
+
+  // dequeue
+  console.log('interval for granting badges');
+  setInterval(function () {
+    body.trigger('badges.dequeue', [Drupal.settings.user.uid]);
+  }, 10000);
 
   body.on('badge.debate_create', function(e, uid) {
     // uid - cpoll author
@@ -64,7 +75,7 @@ $(document).ready(function () {
     body.trigger('badges.queue', [uid, ['yn_argument_agreed_resource_bronze', 'yn_argument_agreed_resource_silver', 'yn_argument_agreed_resource_gold']]);
   });
 
-  body.on('badge.resource_yn_voteup', function(e, uid) {
+  body.on('badge.argument_yn_voteup', function(e, uid) {
     // uid - content author
     body.trigger('badges.queue', [uid, ['yn_argument_agreed_debate_bronze', 'yn_argument_agreed_debate_silver', 'yn_argument_agreed_debate_gold']]);
   });
