@@ -123,8 +123,8 @@
       <!-- LIST -->
       <div id="debate_list_area">
         <h2>
-          <span class="argcount"><?php print intval($node->info['argument']); ?>&nbsp;</span><span>Arguments&nbsp;&amp;&nbsp;</span>
-          <span class="rescount"><?php print intval($node->info['resource']); ?>&nbsp;</span><span>References</span>
+          <span class="argcount"><?php print intval($node->info['argument']); ?></span>&nbsp;<span>Arguments&nbsp;&amp;&nbsp;</span>
+          <span class="rescount"><?php print intval($node->info['resource']); ?></span>&nbsp;<span>References</span>
 
           <div class="show_only">
             <span class="button" id="show_filter">&#9660; Show only</span>

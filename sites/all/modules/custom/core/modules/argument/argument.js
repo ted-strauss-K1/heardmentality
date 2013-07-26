@@ -256,6 +256,8 @@ $('.argument-delete').live('click', function (e) {
   e.preventDefault();
   var el = $(this);
 
+  var name = el.attr('name');
+
   $.hrd.noty({
     'layout':'center',
     'type':'alert',
@@ -270,7 +272,7 @@ $('.argument-delete').live('click', function (e) {
           $.ajax({
             type:'POST',
             dataType:'json',
-            url:'/argument/delete/' + el.attr('name'),
+            url:'/argument/delete/' + name,
             data:{},
             success:function (response) {
               if (!response.status) {
@@ -280,17 +282,20 @@ $('.argument-delete').live('click', function (e) {
               // show message
               $.hrd.noty({text:response.message, type:'success'});
               // delete content from page
-              var params = el.attr('name').split('/');
+              var params = name.split('/');
               var container = false;
               switch (params[0]) { // by content_type
                 case 'node' :
                   container = el.closest('.one-forum');
+                  counter = container.hasClass('argument') ? $('.argcount') : $('.rescount');
                   break;
                 case 'comment' :
                   container = el.closest('.one_reply');
-                  break;
+                  counter = container.parents('div.replies').find('.replycount');
+                break;
               }
               if (container) {
+                counter.html( parseInt(counter.html()) - 1 );
                 container.slideUp(400, function () {
                   container.remove();
                 });

@@ -565,6 +565,7 @@ function argument_delete($content_type, $content_id)
   if (module_exists('moderation')) {
     moderation_history_set($content_id, $content_type, 'delete');
 
+    module_load_include('inc', 'moderation', 'moderation.pages');
     moderation_badges();
   }
   print json_encode(array(

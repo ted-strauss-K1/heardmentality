@@ -602,10 +602,10 @@ function moderation_issue_view_form($form_state, $nid)
  * @param int $nid
  * @return array
  */
-function _moderation_ahah_choice($delta, $choice = false, $nid = 0)
+function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
 {
   # create empty choice
-  if (false === $choice) {
+  if (FALSE === $choice) {
     global $user;
     $choice = (array)cpoll_choice_save(array(
       'chid' => -1,
@@ -806,7 +806,7 @@ function moderation_issue_view_form_taxonomy(&$form, $tft_codes = FALSE)
       '#default_value' => $checked,
       '#size' => '4',
       '#attributes' => array('class' => 'chosen-mod tft '.($i>0 ? 'hideable':'')),
-      '#validated' => true,
+      '#validated' => TRUE,
     );
   }
 }
@@ -850,7 +850,7 @@ function moderation_issue_view_form_location(&$form, $tfl_codes = FALSE)
       '#default_value' => $checked,
       '#size' => '4',
       '#attributes' => array('class' => 'chosen-mod tfl '.($i>0 ? 'hideable':'')),
-      '#validated' => true,
+      '#validated' => TRUE,
     );
   }
 }
@@ -866,6 +866,9 @@ function moderation_issue_view_form_delete(&$form, &$form_state)
   moderation_badges();
 }
 
+/**
+ *
+ */
 function moderation_badges() {
   if (module_exists('badges')) {
     $result = db_query("SELECT DISTINCT(uid) FROM {flag_content}");
