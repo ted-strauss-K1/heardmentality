@@ -60,16 +60,17 @@ function ranks_theme()
  */
 function ranks_get()
 {
-  static $ranks = null;
+  static $ranks = NULL;
 
   if (is_null($ranks)) {
     $ranks = array();
     $result = db_query('SELECT * FROM {ranks} ORDER BY points ASC');
+    $index = 0;
     while ($rank = db_fetch_array($result)) {
-      $ranks[] = $rank;
+      $ranks[] = $rank + array('index' => $index++);
     }
     if (empty($ranks)) {
-      $ranks[] = array('id' => 0, 'name' => 'Citizen', 'points' => 0);
+      $ranks[] = array('id' => 0, 'name' => 'Citizen', 'points' => 0, 'index' => 0);
     }
   }
   return $ranks;
@@ -113,20 +114,26 @@ function ranks_user($op, &$edit, &$account, $category = NULL)
  * @param $uid
  * @return mixed
  */
-function ranks_user_rank($uid)
+function ranks_user_rank($uid, $reset = FALSE)
 {
-  $ranks = ranks_get();
-  $up = up_userpoints_get($uid);
-  $rank = $ranks[0];
-  for ($i = 0; $i < count($ranks); $i++) {
-    if ($up >= $ranks[$i]['points']) {
-      $rank = $ranks[$i];
-    } else {
-      break;
+  static $cache = array();
+
+  if (is_null($cache) || $reset) {
+    $ranks = ranks_get();
+    $up = up_userpoints_get($uid);
+    $rank = $ranks[0];
+    for ($i = 0; $i < count($ranks); $i++) {
+      if ($up >= $ranks[$i]['points']) {
+        $rank = $ranks[$i];
+      } else {
+        break;
+      }
     }
+    # Adding userpoints for rules event to see if user got new rank
+    $cache[$uid] = $rank + array('up' => $up);
   }
-  # Adding userpoints for rules event to see if user got new rank
-  return $rank + array('up' => $up);
+
+  return $cache[$uid];
 }
 
 /**
@@ -139,4 +146,14 @@ function ranks_init()
   global $user;
   $edit = array();
   ranks_user('load', $edit, $user);
+}
+
+/**
+ * @param $rank_index
+ * @param $uid
+ * @return bool
+ */
+function ranks_permission($rank_index, $uid) {
+  $rank = ranks_user_rank($uid);
+  return $rank_index <= $rank['index'];
 }

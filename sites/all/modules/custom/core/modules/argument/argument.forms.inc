@@ -115,9 +115,12 @@ function argument_form($form, $node)
     '#id' => 'add_argument',
   );
 
+  global $user;
+  $allow_resources = ranks_permission(0, $user->uid); // todo has sufficient permissions
   $form['link-arg'] = array(
     '#type' => 'item',
-    '#value' => l(t('Or post a reference') . '<br><span class="desc">('.t('News, Data, Video, etc.').')</span>', '', array('html' => TRUE)),
+    '#value' => $allow_resources ?
+      (l(t('Or post a reference') . '<br><span class="desc">('.t('News, Data, Video, etc.').')</span>', '', array('html' => TRUE,))) : ('<span class="desc">('.t('You need to have higher rank to posts resources').')</span>'),
     '#prefix' => '<div class="argument-form">',
     '#suffix' => '</div>',
     '#id' => 'link_arg',

@@ -6,7 +6,13 @@
   </span>
 
   <div class="goog-trans-section reply_body">
-    <p><?php print $comment->comment; ?></p>&nbsp;
+    <p>
+      <?php if (ranks_permission(0, $comment->uid)) : // todo has sufficient rank ?>
+        <?php print $comment->comment; ?>
+      <?php else : ?>
+        <?php print strip_tags($comment->comment); ?>
+      <?php endif; ?>
+    </p>&nbsp;
     <div class="sq">
       [
       <div class="goog-trans-control translate"></div>

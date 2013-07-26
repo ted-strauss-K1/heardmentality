@@ -48,17 +48,31 @@
           <?php else : ?>
 
             <div class="ref_wrap">
-              <h5 class="ref_title">
-                <a target="_blank" title="reference" href="<?php print $url; ?>">
+              <?php if (ranks_permission(0, $node->uid)) : // todo has sufficient rank ?>
+                <h5 class="ref_title">
+                  <a target="_blank" title="reference" href="<?php print $url; ?>">
+                    <?php print $node->title; ?>
+                  </a>
+                </h5>
+                <span class="source"><?php print t('source') ?>:
+                  <a target="_blank" title="reference" href="<?php print $url; ?>">
+                    <?php print $node->field_source[0]['value']; ?>
+                  </a>
+                </span>
+              <?php else : ?>
+                <h5 class="ref_title">
                   <?php print $node->title; ?>
-                </a>
-              </h5>
-              <span class="source"><?php print t('source') ?>:
-                <a target="_blank" title="reference" href="<?php print $url; ?>">
-                  <?php print $node->field_source[0]['value']; ?>
-                </a>
-              </span>
-              <?php print theme('expander', $node->body); ?>
+                </h5>
+                <span class="source"><?php print t('source') ?>:
+                  <strong><?php print $node->field_source[0]['value']; ?></strong>
+                </span>
+              <?php endif; ?>
+
+              <?php if (ranks_permission(0, $node->uid)) : // todo has sufficient rank ?>
+                <?php print theme('expander', $node->body); ?>
+              <?php else : ?>
+                <?php print theme('expander', $node->body, 1000, ''); ?>
+              <?php endif; ?>
             </div>
 
             <?php endif; ?>

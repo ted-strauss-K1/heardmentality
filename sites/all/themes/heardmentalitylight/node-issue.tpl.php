@@ -27,7 +27,11 @@
         <?php endif; ?>
       <?php endif; ?>
 
-      <?php print theme('expander', $node->content['body']['#value']); ?>
+      <?php if (ranks_permission(0, $node->uid)) : // todo has sufficient rank ?>
+        <?php print theme('expander', $node->content['body']['#value']); ?>
+      <?php else : ?>
+        <?php print theme('expander', $node->content['body']['#value'], 1000, ''); ?>
+      <?php endif; ?>
 
       <?php if (!$page) : ?>
         <ul class="tags">
