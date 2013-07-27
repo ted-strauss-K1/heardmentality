@@ -305,7 +305,7 @@ function extract_exec()
   if (file_exists($path_abs) && ($path_abs != variable_get('extract_file_sent', ''))) {
     $sender = variable_get('site_mail', 'dyachenko.oleg@gmail.com');
     $recipient = 'jaminstrauss@gmail.com';
-    $recipient = 'dyachenko.oleg@gmail.com';
+//    $recipient = 'dyachenko.oleg@gmail.com';
     $subject = 'Extract from HeardMentality ('.$_SERVER["SERVER_NAME"].')' . $filename;
     $body = 'See attachment'; //body text in HTML format
     $plaintext = TRUE; //whether to send messages in plaintext-only
@@ -318,7 +318,7 @@ function extract_exec()
     );
 
     $message = mimemail($sender, $recipient, $subject, $body, $plaintext, $headers, $text = NULL, $attachments, $mailkey, $send= True);
-    var_dump($message['result']);
-    // variable_set('extract_file_sent', $path_abs);
+//    var_dump($message['result']);
+    variable_set('extract_file_sent', $path_abs);
   }
 }
