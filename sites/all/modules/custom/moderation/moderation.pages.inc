@@ -623,6 +623,10 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0)
   );
   // We'll manually set the #parents property of these fields so that
   // their values appear in the $form_state['values']['choice'] array.
+  $form['votes'] = array(
+    '#type' => 'markup',
+    '#value' => '<div class="mod-votecount-wrapper"><span>'.t('Votes') . ': ' . intval($choice['votes']) . '</span></div>',
+  );
   $form['chtext'] = array(
     '#type' => 'textfield',
     '#title' => t('Choice @n', array('@n' => ($delta + 1))),
