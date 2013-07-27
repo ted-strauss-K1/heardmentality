@@ -135,6 +135,7 @@ $('.status-1 span.remove').live('click', function (e) {
       });
       if (response.status) {
         parent.removeClass('status-1').addClass('status-0');
+        parent.find('span.flag-name').removeClass('status-1').addClass('status-0');
         flagger_status(response);
       }
     }
