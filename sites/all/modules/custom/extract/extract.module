@@ -49,8 +49,13 @@ function extract_exec()
   }
 
   # check if file exists
-  $path_abs = $_SERVER['DOCUMENT_ROOT'] . '/' . drupal_get_path('module', 'extract') . '/data/' . $path . '.csv';
-  if (!file_exists($path_abs)) {
+  $filename = $path . '.csv';
+  $filepath = 'data/' . $filename;
+  $path_rel = drupal_get_path('module', 'extract') . '/' . $filepath;
+  $path_abs = dirname(__FILE__) . '/' . $filepath;
+  if (true || !file_exists($path_abs)) {
+    set_time_limit(0);
+
     $f = fopen($path_abs, 'w+');
 
     if (!$f) {
@@ -223,9 +228,10 @@ function extract_exec()
       if (is_null($node_cats[$row['issue_id']])) {
         $cats = array();
 
-        $l1 = explode(',', $row['issue_category_l1']);
-        $l2 = explode(',', $row['issue_category_l2']);
-        $l3 = explode(',', $row['issue_category_l3']);
+        $l1 = array_filter(explode(',', $row['issue_category_l1']));
+        $l2 = array_filter(explode(',', $row['issue_category_l2']));
+        $l3 = array_filter(explode(',', $row['issue_category_l3']));
+
         foreach ($l3 as $tid) {
           $codes = explode(',', $terms[$tid]['code'], 3);
           array_remove_value($codes[0], $l1);
@@ -271,9 +277,6 @@ function extract_exec()
         $analysis[$row['vid']][] = $row;
       } else {
         foreach ($cats as $line) {
-          if (!intval($line[0])) {
-            continue;
-          }
           $tmp = $row;
           $tmp['issue_category_l1'] = $terms[intval($line[0])]['name'];
           $tmp['issue_category_l2'] = $terms[intval($line[1])]['name'];
@@ -296,5 +299,26 @@ function extract_exec()
     }
 
     fclose($f);
+  }
+
+  // todo send email
+  if (file_exists($path_abs) && ($path_abs != variable_get('extract_file_sent', ''))) {
+    $sender = variable_get('site_mail', 'dyachenko.oleg@gmail.com');
+    $recipient = 'jaminstrauss@gmail.com';
+    $recipient = 'dyachenko.oleg@gmail.com';
+    $subject = 'Extract from HeardMentality ('.$_SERVER["SERVER_NAME"].')' . $filename;
+    $body = 'See attachment'; //body text in HTML format
+    $plaintext = TRUE; //whether to send messages in plaintext-only
+    $headers = array();
+    $attachments[] = array(
+      'filepath' => $path_rel , //you have to use relative paths.
+      'filename' => $filename , // can use any alias name here
+      'filemime' => 'text/csv' , // mime file type
+      'list' => TRUE,
+    );
+
+    $message = mimemail($sender, $recipient, $subject, $body, $plaintext, $headers, $text = NULL, $attachments, $mailkey, $send= True);
+    var_dump($message['result']);
+    // variable_set('extract_file_sent', $path_abs);
   }
 }
