@@ -336,6 +336,9 @@ $('.issue-search-more').live('click', function() {
 });
 
 $(window).scroll(function(){
+  if (jQuery.browser.mobile) {
+    return;
+  }
   var searchmore = $('.issue-search-more');
   if (searchmore && !searchmore.hasClass('active') && searchmore.offset()) {
     if ($(window).scrollTop() + 0.75*$(window).height() >= searchmore.offset().top) {
