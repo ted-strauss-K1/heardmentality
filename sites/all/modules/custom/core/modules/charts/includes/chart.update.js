@@ -1,7 +1,7 @@
 /**
  *
  */
-$('body').on('cpoll_update', function(only) {
+$('body').on('cpoll_update', function(e, only) {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
@@ -22,11 +22,17 @@ $('body').on('cpoll_update', function(only) {
         Drupal.settings.charts[i] = data[i];
       }
 
-      init_strength();
+      if (typeof init_strength == 'function') {
+        init_strength();
+      }
 
       if (only) {
         return;
-      }
+    }
+
+      $('span.no_show').remove();
+      $('ul.notvoted').removeClass('notvoted');
+
       init_gmap();
       init_highstock();
       init_highchart('');
