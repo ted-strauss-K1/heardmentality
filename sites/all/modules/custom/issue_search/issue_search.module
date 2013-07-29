@@ -149,7 +149,6 @@ function issue_search_preprocess_page(&$variables)
     array_push($variables['template_files'], 'page_12_4');
 
     // js
-    drupal_add_js(drupal_get_path('module', 'issue') . '/js/issue.vote.js');
     drupal_add_js(drupal_get_path('module', 'issue_search') . '/js/issue_search.js');
 
     // Filters sidebar.
