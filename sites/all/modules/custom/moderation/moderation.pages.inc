@@ -509,11 +509,15 @@ function moderation_issue_view_form($form_state, $nid)
     '#suffix' => '</div>',
   );
 
-  // todo allow suggestion
-  $form['allowsuggestions'] = array(
+  $form['fixed'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Allow suggesting answers'),
-    '#default_value' => $node->allowsuggestions,
+    '#title' => t('Forbid suggesting answers'),
+    '#value' => $node->cpoll['fixed'],
+  );
+  $form['active'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Active Poll'),
+    '#value' => $node->cpoll['active'],
   );
 
   $form['choices'] = array(
@@ -538,7 +542,7 @@ function moderation_issue_view_form($form_state, $nid)
 
   # original language
   global $language;
-  if ($node->language == $language->language) {
+  if (($node->language == $language->language) && !$node->cpoll['fixed']) {
     // add more
     $form['choices']['add_more'] = array(
       '#type' => 'submit',
@@ -973,10 +977,9 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     }
   }
 
-  // todo allow suggestions
-  if ($node->allowsuggestions != $values['allowsuggestions']) {
-    $node->allowsuggestions = $values['allowsuggestions'];
-  }
+  // poll status
+  $node->cpoll['fixed'] = $values['fixed'];
+  $node->cpoll['active'] = $values['active'];
 
   # taxonomy changes
   $taxonomy_old = array();
