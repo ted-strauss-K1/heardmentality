@@ -6195,3 +6195,15 @@ form.issue-vote-form > div > div.choices {
   font-style: italic;
   display: inline-block;
 }
+
+.embedly-wrapper .action .close {
+  background-image: url(images/ui-icons_222222_256x240.png);
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  display: block;
+  overflow: hidden;
+  text-indent: -99999em;
+  background-position: -96px -128px;
+  cursor: pointer;
+}

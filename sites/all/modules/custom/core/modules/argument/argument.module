@@ -21,10 +21,6 @@ function argument_theme() {
     'arguments' => array('comment' => NULL),
     'template' => 'templates/argument-comment',
   );
-  $theme['argument_resource_preview'] = array(
-    'arguments' => array('node' => NULL),
-    'template' => 'templates/argument-resource-preview',
-  );
 
   $theme['argument_result_ball'] = array(
     'arguments' => array('vote_sum' => NULL),
@@ -62,13 +58,6 @@ function argument_menu()
     'page callback' => 'argument_create_comment',
     'type' => MENU_CALLBACK,
     'access arguments' => array('post comments without approval'),
-  );
-
-  # preview resource
-  $menu['argument/preview/resource'] = array(
-    'page callback' => 'argument_preview_resource',
-    'type' => MENU_CALLBACK,
-    'access callback' => TRUE,
   );
 
   # create argument/resource

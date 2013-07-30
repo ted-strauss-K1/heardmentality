@@ -41,6 +41,13 @@ scripts[] = javascripts/chosen/chosen.jquery.min.js
 scripts[] = javascripts/chosen/custom.chosen.js
 stylesheets[all][] = javascripts/chosen/chosen.min.css
 
+; Embedly + JQuery Preview
+scripts[] = javascripts/embedly/jquery.embedly-3.1.1.min.js
+scripts[] = javascripts/embedly/jquery.preview-0.3.2.js
+scripts[] = javascripts/embedly/custom-preview.js
+stylesheets[all][] = javascripts/embedly/jquery.preview-0.3.2.css
+stylesheets[all][] = javascripts/embedly/custom-preview.css
+
 ; JQuery Expander
 scripts[] = javascripts/expander/jquery.expander.min.js
 scripts[] = javascripts/expander/custom.expander.js
