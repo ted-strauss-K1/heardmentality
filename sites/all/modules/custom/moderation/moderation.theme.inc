@@ -56,3 +56,23 @@ function moderation_flags_preprocess(&$vars)
 
   $vars['flags'] = flagger_get_flags($vars['content_type'], $vars['content_id']);
 }
+
+/**
+ * @param $vars
+ */
+function moderation_related_preprocess(&$vars)
+{
+  if (empty($vars['content_id'])) {
+    if (is_numeric(arg(2))) {
+      $vars['content_id'] = arg(2);
+    } else {
+      return array();
+    }
+  }
+
+  $block = apachesolr_search_mlt_block_load('mlt-001');
+  $solr = apachesolr_get_solr();
+  $docs = apachesolr_search_mlt_suggestions($block, apachesolr_document_id($vars['content_id']), $solr);
+
+  $vars['related'] = $docs;
+}
