@@ -483,6 +483,10 @@ function moderation_issue_view_form($form_state, $nid)
 
   $node = node_load($nid);
 
+  if ($node->moderate != MODERATION_ALLOWED) {
+    drupal_set_message(t('Moderation of that issue is not allowed'), 'warning');
+  }
+
   if ('issue' != $node->type) {
     drupal_goto('moderation');
   }

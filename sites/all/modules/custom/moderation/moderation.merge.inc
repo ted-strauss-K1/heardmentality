@@ -11,9 +11,10 @@ function moderation_merge_form($form_state, $merge, $base) {
 
   $base_choices = array();
   foreach ($base->choices as $chid => $choice) {
-    $base_choices[$chid] = $choice['chtext'];
+    $base_choices[$chid] = t('Merge into '). ' "'.$choice['chtext'].'"';
   }
-  $base_choices[0] = '--';
+  $base_choices[0] = t('Remove the answer');
+  $base_choices[-1] = t('Transfer the answer');
 
   $form['warning'] = array(
     '#type' => 'markup',
@@ -26,11 +27,11 @@ function moderation_merge_form($form_state, $merge, $base) {
     '#type' => 'markup',
     '#value' => '&nbsp;',
     '#prefix' => '<table class="merge-issue"><th><tr>
-      <td class="merge-main">'.t('Base Issue').'</td>
+      <td class="merge-main">'.t('Merged Issue').'</td>
       <td class="merge-center">' .
         l(t('Swap Issues'), 'moderation/merge/'.$base->nid.'/'.$merge->nid) .
       '</td>
-      <td class="merge-main">'.t('Merged Issue').'</td>
+      <td class="merge-main">'.t('Base Issue').'</td>
     </tr></th>',
     '#suffix' => '</table>',
   );
@@ -48,23 +49,25 @@ function moderation_merge_form($form_state, $merge, $base) {
       '#suffix' => '</tr>',
       '#tree' => TRUE,
     );
-    $form['table']['choices-'.$index]['select-'.$index] = array(
-      '#type' => 'select',
-      '#options' => $base_choices,
+
+    $form['table']['choices-'.$index]['name-'.$index] = array(
+      '#type' => 'markup',
+      '#value' => $choice['chtext'],
       '#prefix' => '<td>',
       '#suffix' => '</td>',
     );
     $form['table']['choices-'.$index]['chid-'.$index] = array(
       '#type' => 'hidden',
       '#value' => $chid,
-      '#prefix' => '<td>&lt;&lt;',
+      '#prefix' => '<td>&gt;&gt;',
       '#suffix' => '</td>',
     );
-    $form['table']['choices-'.$index]['name-'.$index] = array(
-      '#type' => 'markup',
-      '#value' => $choice['chtext'],
+    $form['table']['choices-'.$index]['select-'.$index] = array(
+      '#type' => 'select',
+      '#options' => $base_choices,
       '#prefix' => '<td>',
       '#suffix' => '</td>',
+      '#attributes' => array('class' => 'chosen-select->moderatio'),
     );
   }
 

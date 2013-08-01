@@ -269,7 +269,7 @@ function cpoll_create_form_submit($form, &$form_state)
   $node->language = !empty($user->language) ? $user->language : $language->language;
   $node->uid = $user->uid;
   $node->status = 1;
-  $node->moderate = 1;
+  $node->moderate = MODERATION_ALLOWED;
   $node->title = preg_replace('/\?$/', '', trim($post['q_quest']));
   $node->body = $post['q_context'];
   $node->name = $user->name;

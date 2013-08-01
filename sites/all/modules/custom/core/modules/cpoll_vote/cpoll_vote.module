@@ -24,6 +24,10 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
     $form['#suffix'] = '</div>';
   }
 
+  if (!empty($node->field_base[0]['nid'])) {
+//    var_dump($node->field_base);
+  }
+
   # info
   $form['nid'] = array(
     '#type' => 'hidden',
