@@ -326,9 +326,10 @@ function cpoll_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
       case 'load' :
         $node->cpoll = cpoll_load_cpoll($node->nid);
 
-        if (!empty($node->field_base[0]['nid'])) {
+        if (!empty($node->field_base_issue[0]['nid'])) {
           $node->cpoll['active'] = 0;
           $node->cpoll['fixed'] = 1;
+          $node->moderate = MODERATION_NOT_ALLOWED;
         }
 
         $node->votecount = 0;

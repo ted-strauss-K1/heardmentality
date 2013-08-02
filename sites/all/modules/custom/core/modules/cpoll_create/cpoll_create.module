@@ -270,7 +270,9 @@ function cpoll_create_form_submit($form, &$form_state)
   $node->uid = $user->uid;
   $node->status = 1;
   $node->moderate = MODERATION_ALLOWED;
-  $node->title = preg_replace('/\?$/', '', trim($post['q_quest']));
+  $node->title =
+    trim($post['q_quest']);
+    // preg_replace('/\?$/', '', trim($post['q_quest']));
   $node->body = $post['q_context'];
   $node->name = $user->name;
   node_save($node);

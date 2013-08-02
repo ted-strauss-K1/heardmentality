@@ -8,10 +8,10 @@
   <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">
     <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print
       l($node->title, $node->path, array('html' => true));
-    ?>?</h2>
+    ?></h2>
     <div class="qd">
       <?php if($page) : ?>
-        <?php if ($node->moderate) : ?>
+        <?php if ($node->moderate == MODERATION_ALLOWED) : ?>
           <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
           <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
           <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
@@ -24,6 +24,18 @@
               ))
             ); ?>
           <?php endif; ?>
+
+        <?php elseif (!empty($node->field_base_issue[0]['nid'])) : ?>
+
+          <?php if ($node->field_base_issue[0]['safe']['status']) : ?>
+            <?php print t('Duplicates issue') ?> <?php
+              $base_issue = node_load($node->field_base_issue[0]['nid']);
+              print l(issue_translate($base_issue, 'title'), 'node/'.$base_issue->nid);
+            ?>
+          <?php else : ?>
+            <?php print t('Closed as the duplicate to other content on site'); ?>
+          <?php endif; ?>
+
         <?php endif; ?>
       <?php endif; ?>
 
