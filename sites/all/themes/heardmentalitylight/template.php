@@ -55,7 +55,6 @@ function heardmentalitylight_preprocess_page(&$vars) {
   if ((arg(0)=='node') && is_numeric(arg(1))) {
     if ($node = $vars['node']) {
       switch ($node->type) {
-        case 'poll' :
         case 'issue' :
           # set specific page templates
           drupal_set_subtitle(t('Issue'));

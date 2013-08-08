@@ -45,6 +45,41 @@ function ranks_form()
 {
   $form = array();
 
+  if (true) {
+
+    file_put_contents('D:\import.txt', "Import Started\n", FILE_APPEND);
+
+    include_once "D:/dev/vhosts/hm2/includes/locale.inc";
+
+    $list = scandir("D:/dev/vhosts/hm2/translations/");
+    foreach ($list as $item) {
+      if ('.' == $item || '..' == $item) continue;
+
+      $file = new stdClass();
+      $file->filename = $item;
+      $file->filepath = "D:/dev/vhosts/hm2/translations/" . $item;
+
+      $langcode = 'ru';
+
+      $mode = LOCALE_IMPORT_KEEP;
+
+      $group = 'default';
+
+      $time = time();
+      file_put_contents('D:\import.txt', $item . "\n", FILE_APPEND);
+      file_put_contents('D:\import.txt', date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+
+      // Now import strings into the language
+      _locale_import_po($file, $langcode, $mode, $group);
+
+      file_put_contents('D:\import.txt', date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+      file_put_contents('D:\import.txt', 'Took ' . (time() - $time) . "\n", FILE_APPEND);
+    }
+
+
+    exit('Done!');
+  }
+
   $ranks = ranks_get();
   $ranks[] = array();
 

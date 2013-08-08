@@ -48,7 +48,7 @@ $('#suggest').live('click', function (e) {
   $.ajax({
     type:'POST',
     dataType:'json',
-    url:/*'/'+Drupal.settings.language+*/'/cpoll_vote/ajax',
+    url:'/'+Drupal.settings.language+'/cpoll_vote/ajax',
     data: {
       "nid"         : form.find('input[name=nid]').val(),
       "suggestion"  : input.val()
@@ -140,7 +140,7 @@ $('#vote').live('click', function (e) {
   $.ajax({
     type:'POST',
     dataType:'json',
-    url:/*'/'+Drupal.settings.language+*/'/cpoll_vote/ajax',
+    url:'/'+Drupal.settings.language+'/cpoll_vote/ajax',
     data: {
       "nid"         : form.find('input[name=nid]').val(),
       "chid"        : chid.val()

@@ -274,7 +274,7 @@ function issue_search() {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : '/issues/ajax',
+    url       : '/'+Drupal.settings.language+'/issues/ajax',
     data      : search_arguments(),
     success   : function (response) {
       if (!response.status) {
@@ -313,7 +313,7 @@ $('.issue-search-more').live('click', function() {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : '/issues/ajax',
+    url       : '/'+Drupal.settings.language+'/issues/ajax',
     data      : search_arguments(),
     success   : function (response) {
       if (!response.status) {
