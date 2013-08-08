@@ -10,7 +10,7 @@
 <?php else : ?>
 
 <i class="icon cat text icon-businesscardalt"></i>
-<label for="profile" class="profile-dark dinbold"><?php print $user->name; ?>, <?php print t($rank); ?></label>
+<label for="profile" class="profile-dark dinbold"><?php print $user->name; ?>, <?php print t($user->rank['name']); ?></label>
 <p class="profile-links">
   <a href="/user/profile/view"><?php print t('View Profile');?></a> |
   <a href="/user/profile/edit"><?php print t('Edit Profile');?></a>
