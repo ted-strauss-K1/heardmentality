@@ -12,7 +12,7 @@
         <?php foreach ($badges['#stat'] as $type => $badge) : ?>
           <div class="medal"><span class="<?php print $type ?>"
                                    id="medal1"
-                                   title="<?php print ucfirst($type) ?> Medals">&nbsp;</span><?php print $badge;?>
+                                   title="<?php print t(ucfirst($type) . ' Medals'); ?>">&nbsp;</span><?php print $badge;?>
           </div>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -40,11 +40,6 @@
           <span class="user-title"><?php print t('References');?>: </span>
           <span class="user-data"><?php print number_format($references); ?></span>
         </span>
-
-        <span class="right_wrapper">
-          <span class="user-title"><?php print t('Followers');?>: </span>
-          <span class="user-data"><?php print number_format($followers_count); ?></span>
-        </span>
       </div>
     </div>
 
@@ -54,11 +49,20 @@
   <div class="following clearfix">
     <label for="following" class="following"><?php print user_profile_follow_title('following'); ?></label>
     <?php foreach ($following as $f_user) : ?>
-    <a href="/user/profile/view/<?php print $f_user->requestee->name; ?>" class="floatleft"><img class="following-user"
-                                                                                                 src="<?php print user_profile_image($f_user->requestee); ?>"/></a>
+      <?php print l(
+        '<img class="following-user"                                                                              src="'.user_profile_image($f_user->requestee).'" />',
+        'user/profile/view/'.$f_user->requestee->name,
+        array(
+          'attributes' => array('class' => 'floatleft'),
+          'html' => true,
+        )
+      );?>
     <?php endforeach; ?>
-    <a class="more" href="/user/profile/follow/<?php print $account->uid ?>/following"><?php print t('See All');?>
-      (<?php print $following_count; ?>)</a>
+    <?php print l(
+      t('See all') . ' (' .$following_count. ')',
+      'user/profile/follow/'.$account->uid.'/following',
+      array('attributes' => array('class' => 'more'))
+    ); ?>
   </div>
   <?php endif; ?>
 
@@ -66,11 +70,20 @@
   <div class="following clearfix">
     <label for="following" class="following"><?php print user_profile_follow_title('followers'); ?></label>
     <?php foreach ($followers as $f_user) : ?>
-    <a href="/user/profile/view/<?php print $f_user->requester->name; ?>" class="floatleft"><img class="following-user"
-                                                                                                 src="<?php print user_profile_image($f_user->requester); ?>"/></a>
+      <?php print l(
+        '<img class="following-user"                                                                              src="'.user_profile_image($f_user->requester).'" />',
+        'user/profile/view/'.$f_user->requester->name,
+        array(
+          'attributes' => array('class' => 'floatleft'),
+          'html' => true,
+        )
+      );?>
     <?php endforeach; ?>
-    <a class="more" href="/user/profile/follow/<?php print $account->uid ?>/followers"><?php print t('See All');?>
-      (<?php print $followers_count; ?>)</a>
+    <?php print l(
+      t('See all') . ' (' .$followers_count. ')',
+      'user/profile/follow/'.$account->uid.'/followers',
+      array('attributes' => array('class' => 'more'))
+    ); ?>
   </div>
   <?php endif; ?>
 

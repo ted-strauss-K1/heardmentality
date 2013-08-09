@@ -32,11 +32,11 @@
   </a>
   <?php if ($badges) foreach ($badges['#stat'] as $type => $badge) : ?>
   <div class="medal">
-    <span class="<?php print $type ?>" id="medal1" title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
+    <span class="<?php print $type ?>" id="medal1" title="<?php print t(ucfirst($type) . ' Medals'); ?>">&nbsp;</span>
     <?php print $badge; ?>
   </div>
   <?php endforeach; ?>
 </div>
-<a type="submit" title="<?php print t('Log out');?>" href="/logout"
+<a type="submit" title="<?php print t('Logout');?>" href="/logout"
    class="button darker floatright"><?php print t('Logout'); ?></a>
 <?php endif; ?>
