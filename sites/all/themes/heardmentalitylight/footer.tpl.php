@@ -26,7 +26,7 @@
 
     <div class="five columns">
       <div class="black-box">
-        <a href="/"><img src="/sites/all/themes/heardmentalitylight/images/dark_logo.png" class="dark-logo"></a>
+        <?php print l('<img src="/sites/all/themes/heardmentalitylight/images/dark_logo.png" class="dark-logo">', '', array('html' => true)); ?>
         <ul class="din foot-link">
           <li><?php print l(t('ABOUT'), 'aboutus'); ?></li>
           <li><?php print l(t('CONTACT'), 'contact'); ?></li>

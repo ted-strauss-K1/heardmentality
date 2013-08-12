@@ -12,8 +12,8 @@
 <i class="icon cat text icon-businesscardalt"></i>
 <label for="profile" class="profile-dark dinbold"><?php print $user->name; ?>, <?php print t($user->rank['name']); ?></label>
 <p class="profile-links">
-  <a href="/user/profile/view"><?php print t('View Profile');?></a> |
-  <a href="/user/profile/edit"><?php print t('Edit Profile');?></a>
+  <?php print l(t('View Profile'), 'user/profile/view');?> |
+  <?php print l(t('Edit Profile'), 'user/profile/edit');?>
 </p>
 <?php if ($complete['percent'] < 100) : ?>
   <div class="profile-meta">
@@ -27,9 +27,14 @@
   </div>
   <?php endif; ?>
 <div class="floatleft">
-  <a href="/user/profile/view" title="<?php print t('View Profile');?>">
-    <img class="user-profile" src="<?php print user_profile_image($user);?>">
-  </a>
+  <?php print l(
+    '<img class="user-profile" src="'.user_profile_image($user).'">',
+    'user/profile/view', array(
+    'attributes' => array(
+      'title' => t('View Profile'),
+    ),
+    'html' => true,
+  )); ?>
   <?php if ($badges) foreach ($badges['#stat'] as $type => $badge) : ?>
   <div class="medal">
     <span class="<?php print $type ?>" id="medal1" title="<?php print t(ucfirst($type) . ' Medals'); ?>">&nbsp;</span>
@@ -37,6 +42,10 @@
   </div>
   <?php endforeach; ?>
 </div>
-<a type="submit" title="<?php print t('Logout');?>" href="/logout"
-   class="button darker floatright"><?php print t('Logout'); ?></a>
+  <?php print l(t('Logout'), 'logout', array(
+    'attributes' => array(
+      'title' => t('Logout'),
+      'class' => 'button darker floatright',
+    )
+  )); ?>
 <?php endif; ?>

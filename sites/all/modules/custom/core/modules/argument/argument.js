@@ -442,7 +442,7 @@ $('#argument-add-form').live('submit', function (e) {
     // title
     var title = $('#deb_title').val();
     if (title.length < 2) {
-      error = 'Please let us know what you think'; // todo translate
+      error = Drupal.t('Please let us know what you think'); // todo translate
     }
 
     // flags

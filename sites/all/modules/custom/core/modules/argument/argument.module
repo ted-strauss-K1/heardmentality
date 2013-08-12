@@ -4,6 +4,15 @@ include_once "argument.theme.inc";
 include_once "argument.forms.inc";
 include_once "argument.pages.inc";
 
+function argument_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'argument');
+  return array(
+    $path . '/argument.js' => array(
+      'Please let us know what you think',
+    ),
+  );
+}
+
 /**
  *
  */
