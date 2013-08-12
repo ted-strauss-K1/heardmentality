@@ -5,6 +5,10 @@
  */
 include_once('core.features.inc');
 
+
+define('MODERATION_NOT_ALLOWED', 0);
+define('MODERATION_ALLOWED', 1);
+
 /**
  * Implementation of hook_nodeapi()
  *

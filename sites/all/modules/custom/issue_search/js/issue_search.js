@@ -276,17 +276,17 @@ function issue_search() {
     dataType  : 'json',
     url       : '/issues/ajax',
     data      : search_arguments(),
-    success   : function (data) {
-      if (!data.status) {
+    success   : function (response) {
+      if (!response.status) {
         $.hrd.noty({
-          text:data.message,
+          text:response.message,
           type:'error'
         });
         return false;
       }
 
-      linkbox.html(data.message);
-      issuesAmount.html(data.rows);
+      linkbox.html(response.message);
+      issuesAmount.html(response.rows);
       expander();
 
       return true;
@@ -297,3 +297,53 @@ function issue_search() {
     }
   });
 }
+
+
+
+$('.issue-search-more').live('click', function() {
+  var $$ = $(this);
+  // get page
+  var page_to_show = parseInt($('input[name=page]').val()) + 1;
+  $('input[name=page]').val(page_to_show);
+
+  // activate
+  $$.toggleClass('active');
+
+  // search
+  $.ajax({
+    type      : 'POST',
+    dataType  : 'json',
+    url       : '/issues/ajax',
+    data      : search_arguments(),
+    success   : function (response) {
+      if (!response.status) {
+        $.hrd.noty({
+          text:response.message,
+          type:'error'
+        });
+        return false;
+      }
+
+      //
+      $$.before(response.message);
+      $$.toggleClass('active');
+      $$.remove();
+
+      expander();
+      return true;
+    }
+  });
+});
+
+$(window).scroll(function(){
+  if (jQuery.browser.mobile) {
+    return;
+  }
+  var searchmore = $('.issue-search-more');
+  if (searchmore && !searchmore.hasClass('active') && searchmore.offset()) {
+    if ($(window).scrollTop() + 0.75*$(window).height() >= searchmore.offset().top) {
+      // position is right
+      searchmore.trigger('click');
+    }
+  }
+});

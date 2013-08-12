@@ -29,7 +29,7 @@ function moderation_perm()
 function moderation_preprocess_page(&$vars)
 {
   if ('moderation' == arg(0)) {
-    if (in_array(arg(1), array('issue', 'argument', 'comment',))) {
+    if (in_array(arg(1), array('issue', 'argument', 'comment', ))) {
       $type = arg(1);
       $content_id = arg(2);
       switch ($type) {
@@ -44,13 +44,26 @@ function moderation_preprocess_page(&$vars)
           return;
       }
       $history = moderation_history_get($content_id, $content_type, array(), 10);
+      if ('node' == $content_type) {
+        $vars['right'] .= theme('moderation_related', $content_id);
+      }
       $vars['right'] .= theme('moderation_history', $history);
       $vars['right'] .= theme('moderation_flags');
+
+      # css/js
+      drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.js");
+      drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.css");
     }
 
-    # css/js
-    drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.js");
-    drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.css");
+    if ('merge' == arg(1)) {
+      drupal_set_subtitle(t('Merge Issues'));
+
+      # css/js
+      drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.merge.js");
+      drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.merge.css");
+    }
+
+
 
     # set page template
     array_push($vars['template_files'], 'page_12_4');
@@ -177,6 +190,17 @@ function moderation_menu()
     'file' => 'moderation.pages.inc',
   );
 
+  // merge
+  $menu['moderation/merge/%/%'] = array(
+    'title' => t('Merge Issues'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('moderation_merge_form', 2, 3),
+    'access callback' => 'moderation_check_perm',
+    'type' => MENU_CALLBACK,
+    'weight' => -2,
+    'file' => 'moderation.merge.inc',
+  );
+
   return $menu;
 }
 
@@ -203,6 +227,14 @@ function moderation_theme()
   );
 
   // blocks
+  $theme['moderation_related'] = array(
+    'arguments' => array(
+      'content_id' => '',
+    ),
+    'preprocess functions' => array('moderation_related_preprocess'),
+    'template' => 'templates/moderation-related',
+    'file' => 'moderation.theme.inc',
+  );
   $theme['moderation_history'] = array(
     'arguments' => array(
       'history' => array(),

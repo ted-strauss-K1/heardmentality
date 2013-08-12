@@ -40,7 +40,6 @@ $(document).ready(function () {
   });
 
   // dequeue
-  console.log('interval for granting badges');
   setInterval(function () {
     body.trigger('badges.dequeue', [Drupal.settings.user.uid]);
   }, 10000);

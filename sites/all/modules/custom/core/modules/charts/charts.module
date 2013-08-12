@@ -54,7 +54,7 @@ function charts_theme_preprocess(&$vars)
   $node = $vars['node'];
 
   $vars['charts'] = '';
-  if (!$node->vote) {
+  if (!$node->vote && $node->cpoll['active']) {
     $vars['charts'] = '<span class="no_show">' . t('Vote now to show results.') . '</span>';
   }
 
@@ -162,7 +162,7 @@ function charts_chtexts($node)
 function charts_inner_preprocess(&$vars)
 {
   $node = $vars['node'];
-  drupal_add_js(array('charts' => array('vote' => $node->vote)), 'setting');
+  drupal_add_js(array('charts' => array('vote' => $node->vote || !$node->cpoll['active'])), 'setting');
 
   # Highchart Filter
   $vars['filter'] = theme('charts_filter', $node);

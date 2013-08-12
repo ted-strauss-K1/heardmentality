@@ -1,4 +1,4 @@
-<ul <?php print $node->vote ? '' : 'class="notvoted"' ?>>
+<ul <?php print $node->vote || !$node->cpoll['active'] ? '' : 'class="notvoted"' ?>>
   <li class="part">
     <div class="space">
       <div class="inner filter"><?php print $filter; ?></div>

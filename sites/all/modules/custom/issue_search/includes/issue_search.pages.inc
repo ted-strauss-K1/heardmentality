@@ -65,15 +65,19 @@ function issue_search_ajax()
     $rows = $response->response->numFound;
   }
 
-  $message =
-    theme('issue_search_results', $results) .
-    theme('gpager',
-      isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1,
-      NULL,
-      $rows,
-      SEARCH_RESULTS_PER_PAGE,
-      'issue_search_pager_link'
-    );
+  $message = theme('issue_search_results', $results);
+//    theme('gpager',
+//      isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1,
+//      NULL,
+//      $rows,
+//      SEARCH_RESULTS_PER_PAGE,
+//      'issue_search_pager_link'
+//    );
+  $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+  $pages = ceil($rows/SEARCH_RESULTS_PER_PAGE);
+  if ($pages != $page) {
+    $message .= '<span class="issue-search-more"></span>';
+  }
 
   // JSON params.
   $json = array(

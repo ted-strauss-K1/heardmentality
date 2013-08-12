@@ -173,7 +173,7 @@ $('#vote').live('click', function (e) {
 
       //
       var body = $('body');
-      body.trigger('cpoll_update');
+      body.trigger('cpoll_update', [false]);
       body.trigger('events', ['vote', {
         'chid'          : response.chid,
         'content_type'  : 'node',

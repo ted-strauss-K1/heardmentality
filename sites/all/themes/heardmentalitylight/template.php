@@ -76,7 +76,9 @@ function heardmentalitylight_preprocess_page(&$vars) {
 
   # user
   global $user;
-  drupal_add_js(array('user' => $user), 'setting');
+  drupal_add_js(array('user' => array(
+    'uid' => $user->uid,
+  )), 'setting');
 }
 
 /**
@@ -88,7 +90,10 @@ function heardmentalitylight_preprocess_node(&$vars) {
   $node = &$vars['node'];
 
   # js setting for all modules to use
-  drupal_add_js(array('node' => $node), 'setting');
+  drupal_add_js(array('node' => array(
+    'nid' => $node->nid,
+    'uid' => $node->uid,
+  )), 'setting');
 }
 
 /**
