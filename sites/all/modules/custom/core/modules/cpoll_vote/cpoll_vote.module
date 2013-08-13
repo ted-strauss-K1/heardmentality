@@ -1,6 +1,22 @@
 <?php
 
 /**
+ * @return array
+ */
+function cpoll_vote_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'cpoll_vote');
+  return array(
+    $path . '/cpoll_vote.js' => array(
+      'Multiple submissions are not allowed',
+      'Wait for few seconds to add your suggestion',
+      'Your suggestion was added',
+      'Wait for few seconds to change your vote',
+      'Your vote is accepted',
+    ),
+  );
+}
+
+/**
  * Form for adding/editing the Issues' votes
  *
  * @param $form
