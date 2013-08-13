@@ -55,6 +55,12 @@ function moderation_preprocess_page(&$vars)
       drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.css");
     }
 
+    if ('users' == arg(1)) {
+      # css/js
+      drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.js");
+      drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.css");
+    }
+
     if ('merge' == arg(1)) {
       drupal_set_subtitle(t('Merge Issues'));
 
