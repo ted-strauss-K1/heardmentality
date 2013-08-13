@@ -61,7 +61,7 @@ $('#my_region').live('change', function() {
       tfl_user.prop('selected', true);
     } else {
       $.hrd.noty({
-        text: 'No issues for you region', // todo translate
+        text: Drupal.t('No issues for you region'),
         type:'error'
       });
       $(this).prop('checked', false)
