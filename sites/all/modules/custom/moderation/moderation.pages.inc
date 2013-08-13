@@ -451,7 +451,7 @@ function moderation_markup_user($user)
     '<div class="mod-wrapper part part1 search_list">
     <h2 class="din half">' . ucwords($user->name) . ' <div class="open"></div> </h2>
     <div class="mod-buttons">' .
-      sprintf('<a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $user->viewlink, t('View Profile')) .
+      sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $user->viewlink, t('View Profile')) .
       sprintf('<a href="#" class="permission %s" name="%s"><span class="mod-edit mod-icon" title="%s"></span></a>',
         !moderation_check_perm($user->uid) ? '' : 'remove', 'moderation/user/' . $user->uid, t('Change permissions')) .
       '</div>
@@ -497,13 +497,18 @@ function moderation_issue_view_form($form_state, $nid)
     '#title' => t('Title'),
     '#value' => issue_translate($node, 'title'),
     '#prefix' =>
-    sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">') .
-      sprintf('
-        <div style="float:right;margin-right: 30px;"><a href="/%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a></div>',
-        $node->path, t('View')),
-    '#suffix' =>
-
-    '</div>',
+    '<div class="dark-grey-box" style="margin:10px 0; width: 90%">' .
+      '<div style="float:right;margin-right: 30px;">' .
+      l(
+        sprintf('<span class="mod-view mod-icon" title="%s"></span>', t('View')),
+        $node->path,
+        array(
+          'html' => TRUE,
+          'attributes' => array('target' => '_blank'),
+        )
+      ) .
+      '</div>',
+    '#suffix' => '</div>',
   );
   $form['body'] = array(
     '#type' => 'textarea',
