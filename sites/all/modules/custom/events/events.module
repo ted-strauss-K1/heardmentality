@@ -6,6 +6,18 @@
 require_once "events.api.php";
 
 /**
+ * @return array
+ */
+function events_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'events');
+  return array(
+    $path . '/events.js' => array(
+
+    ),
+  );
+}
+
+/**
  * Implementation of hook_nodeapi()
  *
  * @param $node
