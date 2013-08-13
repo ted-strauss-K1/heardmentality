@@ -8,7 +8,7 @@ $('#suggest').live('click', function (e) {
   if (form.hasClass('active')) {
     $.hrd.noty({
       type:'error',
-      text:'Multiple submissions are not allowed. Wait for few seconds to change your vote' // todo translate
+      text:Drupal.t('Multiple submissions are not allowed')+'. '+Drupal.t('Wait for few seconds to add your suggestion')
     });
     return;
   }
@@ -25,7 +25,7 @@ $('#suggest').live('click', function (e) {
   form.removeClass('not-voted');
   $.hrd.noty({
     type:'success',
-    text: 'Your suggestion was added!' // todo translate
+    text: Drupal.t('Your suggestion was added')+'!'
   });
 
   // update the text
@@ -112,7 +112,7 @@ $('#vote').live('click', function (e) {
   if (form.hasClass('active')) {
     $.hrd.noty({
       type:'error',
-      text:'Multiple submissions are not allowed. Wait for few seconds to change your vote' // todo translate
+      text:Drupal.t('Multiple submissions are not allowed')+'. '+Drupal.t('Wait for few seconds to change your vote')
     });
     return;
   }
@@ -132,7 +132,7 @@ $('#vote').live('click', function (e) {
   form.removeClass('not-voted');
   $.hrd.noty({
     type:'success',
-    text: 'Your vote is accepted!' // todo translate
+    text: Drupal.t('Your vote is accepted') + '!'
   });
 
   // activate form
