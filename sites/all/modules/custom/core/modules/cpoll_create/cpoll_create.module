@@ -1,6 +1,21 @@
 <?php
 
 /**
+ * @return array
+ */
+function cpoll_create_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'cpoll_create');
+  return array(
+    $path . '/cpoll_create.js' => array(
+      'Maximum fields exceeded',
+      'The question is too long',
+      'Enter more that two elements',
+      'The question is too short',
+    ),
+  );
+}
+
+/**
  * Implementation of hook_menu()
  *
  * @return array
