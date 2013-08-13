@@ -106,7 +106,7 @@ function theme_badges_list($sort = 2)
           <td>%s</td>
           <td>%s</td>
         </tr>
-      ', $badge_item['type'], badges_types($badge_item['type']) . ' ' . t('Medal'), $badge->count - 1, $badge_item['name'], $badge_item['info']
+      ', $badge_item['type'], t(badges_types($badge_item['type']) . ' Medal'), $badge->count - 1, $badge_item['name'], $badge_item['info']
     );
   }
 //  $output .= '</div>';

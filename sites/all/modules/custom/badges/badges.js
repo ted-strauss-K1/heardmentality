@@ -8,7 +8,7 @@ $(document).ready(function () {
     $.ajax({
       type      : 'POST',
       dataType  : 'json',
-      url       : '/badges/queue',
+      url       : '/'+Drupal.settings.language+'/badges/queue',
       data      : { 'uid' : uid, 'badges' : badges },
       success   : function (response) {
         //
@@ -23,7 +23,7 @@ $(document).ready(function () {
     $.ajax({
       type      : 'POST',
       dataType  : 'json',
-      url       : '/badges/dequeue',
+      url       : '/'+Drupal.settings.language+'/badges/dequeue',
       data      : {'uid' : uid },
       success   : function (response) {
         if (response.status) {
@@ -40,7 +40,6 @@ $(document).ready(function () {
   });
 
   // dequeue
-  console.log('interval for granting badges');
   setInterval(function () {
     body.trigger('badges.dequeue', [Drupal.settings.user.uid]);
   }, 10000);

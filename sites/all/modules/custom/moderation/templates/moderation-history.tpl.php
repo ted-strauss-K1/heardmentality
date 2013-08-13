@@ -38,7 +38,7 @@
 
             <?php elseif ($main == 'body') : ?>
 
-              <?php print t('Set description value to: ') . $edit; ?>
+              <?php print t('Set description value to: ') . trim_better($edit, 200); ?>
 
             <?php elseif ($main == 'title') : ?>
 

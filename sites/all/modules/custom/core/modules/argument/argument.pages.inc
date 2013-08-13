@@ -195,195 +195,8 @@ function _comment_save(&$comment)
 }
 
 /**
- * argument_resource_preview
+ * CREATE ARGUMENTS
  */
-function argument_preview_resource()
-{
-  $_POST += $_REQUEST;
-
-  $url = isset($_POST['url']) ? $_POST['url'] : FALSE;
-  $node = argument_fetch_url($url);
-
-  if ($node === FALSE) {
-    print json_encode(array(
-      'status' => FALSE,
-      'message' => t('No URL provided'),
-    ));
-  } else {
-    print json_encode(array(
-      'status' => TRUE,
-      'message' => theme('argument_resource_preview', $node),
-      'success' => $node,
-    ));
-  }
-  exit();
-}
-
-/**
- * Create the core of the resource node by url
- *
- * @param $url
- * @param bool $image
- * @return bool|stdClass
- */
-function argument_fetch_url($url, $image = FALSE)
-{
-  module_load_include('php', 'argument', 'files/simple_html_dom');
-  $html = file_get_html($url);
-
-  if (empty($html)) {
-    return FALSE;
-  }
-
-  global $user;
-  $node = new stdClass();
-  $node->type = 'resource';
-
-  global $language;
-  $node->language = $user->language ? $user->language : $language->language; // TODO language detection
-
-  $node->uid = $user->uid;
-  $node->status = 1;
-  $node->created = time();
-  $node->tnid = 0;
-  $node->translate = 0;
-  $node->name = $user->name;
-  // Without node_submit()
-  $node->validated = TRUE;
-
-  // url
-  $node->field_url[0]['value'] = $url;
-  // source
-  $url_p = parse_url($url);
-  $node->field_source[0]['value'] = $url_p['host'];
-
-  if (FALSE !== strpos($node->field_source[0]['value'], 'youtube.com')) { # YouTube Video
-    $node->field_rtype[0]['value'] = 'youtube';
-
-    $params = explode('&', $url_p['query']);
-    $youtube_id = FALSE;
-    foreach ($params as $param) {
-      $param = explode('=', $param, 2);
-      if ($param[0] == 'v') {
-        $youtube_id = $param[1];
-        break;
-      }
-    }
-    if ($youtube_id === FALSE || strlen($youtube_id) != 11) {
-      return FALSE;
-    }
-    // title, body, teaser
-    $title = $html->find('#eow-title', 0);
-    $node->title = empty($title) ? '' : $title->innertext;
-    $body = $html->find('#eow-description', 0);
-    $node->body = empty($body) ? '' : $body->plaintext;
-    // youtube video id
-    $node->field_youtube[0]['value'] = $youtube_id;
-    $node->field_image_path[0]['value'] = 'http://img.youtube.com/vi/' . $youtube_id . '/default.jpg';
-
-    // preview specific fields
-    $node->images = array($node->field_image_path[0]['value']);
-    $node->noimage = FALSE;
-
-  } else { # Regular URL
-    $node->field_rtype[0]['value'] = 'url';
-    $node->field_youtube[0]['value'] = '';
-    // title, body, teaser
-    $title = $html->find('title', 0);
-    $node->title = empty($title) ? '' : $title->innertext;
-    $tags = get_meta_tags($url);
-    $node->body = empty($tags) ? '' : $tags['description'];
-
-    # get images
-    $node->field_image_path[0]['value'] = file_directory_path() . '/noimage.jpg';
-    module_load_include('php', 'argument', 'files/url_to_absolute');
-    $images = array();
-    $images_source = $html->find('img');
-    foreach ($images_source as $element) {
-      # $images[$element->src] = true;
-      $images[] = url_to_absolute($url, $element->src);
-    }
-    $node->images = argument_create_resource_validate_images($images);
-    $node->noimage = empty($node->images) ? TRUE : FALSE;
-
-    if ($image !== FALSE) {
-      module_load_include('php', 'argument', 'files/download_image');
-      if ($file = download_image($image, 'resources')) {
-        $node->field_image_path[0]['value'] = $file->filepath;
-      }
-    }
-  }
-  $html->clear();
-
-  // safe strings
-  $node->title = argument_safe_string($node->title);
-  $node->body = argument_safe_string($node->body);
-  $node->teaser = $node->body;
-
-  return $node;
-}
-
-/**
- * Validate the images
- *
- * @param $images - array of image absolute urls
- * @return array
- */
-function argument_create_resource_validate_images($images)
-{
-  $ext_allowed = array('png', 'jpg', 'jpeg', 'gif');
-  $result = array();
-  $sizes = array();
-  foreach ($images as $image) {
-    $ext = argument_create_resource_image_extension($image);
-    if (in_array($ext, $ext_allowed)) {
-      list($width, $height, $type, $attr) = getimagesize($image);
-      if ($width > 30 && $height > 30) {
-        $size_coeff = $width * $height;
-        $result[$size_coeff][] = $image;
-      }
-    }
-  }
-  // sort by size
-  krsort($result, SORT_NUMERIC);
-  $output = array();
-  foreach ($result as $items) {
-    foreach ($items as $item) {
-      $output[] = $item;
-    }
-  }
-  return $output;
-}
-
-/**
- * @param $string
- * @return mixed
- */
-function argument_safe_string($string)
-{
-  return preg_replace(
-    '/[\x00-\x08\x10\x0B\x0C\x0E-\x19\x7F]' .
-      '|[\x00-\x7F][\x80-\xBF]+' .
-      '|([\xC0\xC1]|[\xF0-\xFF])[\x80-\xBF]*' .
-      '|[\xC2-\xDF]((?![\x80-\xBF])|[\x80-\xBF]{2,})' .
-      '|[\xE0-\xEF](([\x80-\xBF](?![\x80-\xBF]))|(?![\x80-\xBF]{2})|[\x80-\xBF]{3,})/S',
-    '?', $string);
-}
-
-/**
- * Get the image extension
- *
- * @param $image
- * @return string
- */
-function argument_create_resource_image_extension($image)
-{
-  $img = explode("/", $image);
-  $img = end($img);
-  $ext = explode(".", $img);
-  $ext = end($ext);
-  return strtolower($ext);
-}
 
 /**
  *  New debate/resource form submission
@@ -395,94 +208,131 @@ function argument_create()
 {
   $post = $_POST;
 
+  $node = argument_prepare();
+  $node->field_reference[0]['nid'] = $post['nid'];
+
   switch ($post['type']) {
-    case 'argument' : # Debate
-      $node = argument_create_argument($post['nid'], $post['title']);
+    case 'argument' :
+      $node->type = 'argument';
+      if (empty($post['text'])) {
+        break;
+      }
+      $node->teaser = $node->body = $node->title = $post['text'];
+      node_save($node);
+      node_reload($node);
+
       if ($node) {
         # argument options
         $node->argument_options = cpoll_load_choices($post['nid']);
         foreach ($node->argument_options as $chid => &$choice) {
-          $choice['val'] = $post['option_'.$chid];
+          if (isset($post['options'][$chid])) {
+            $choice['val'] = $post['options'][$chid];
+          }
         }
         node_save($node);
 
-        print json_encode(array(
+        exit(json_encode(array(
           'success' => TRUE,
-          'message' => '<span class="posted">' . t('Your argument posted successfully') . '!</span>',
+          'message' => t('Your argument posted successfully'),
           'nid' => $node->nid,
-        ));
-      } else {
-        print json_encode(array(
-          'success' => FALSE,
-          'message' => '<div class="messages error"><b>' . t('Error occurred. Please try again') . '</b></div>',
-        ));
+        )));
       }
-      break;
+    break;
 
     case 'resource' : # Resource
+      $node->type = 'resource';
+      // no url
       if (empty($post['url'])) {
-        print json_encode(array(
+        exit(json_encode(array(
           'success' => FALSE,
-          'message' => '<div class="messages error"><b>' . t('Please enter an URL') . '</b></div>',
-        ));
-        exit;
+          'message' => t('Please enter an URL'),
+        )));
       }
-      $post['url'] = argument_url_prepare($post['url']);
-      $node = arguments_create_resource($post['nid'], $post['url'], $post['uimg']);
-      if ($node) {
-        print json_encode(array(
-          'success' => TRUE,
-          'message' => '<span class="posted">' . t('Your argument was posted successfully!') . '</span>',
-          'node' => $node,
-          'nid' => $node->nid,
-        ));
+      // url
+      $url = $post['url'];
+      $node->field_url[0]['value'] = $url;
+      // source
+      $url_p = parse_url($url);
+      $node->field_source[0]['value'] = $url_p['host'];
+      // title
+      $node->title = $post['title'];
+      $node->body = $post['description'];
 
-      } else {
-        $url = parse_url($post['url']);
-        if (FALSE !== strpos($url['host'], 'youtube.com')) {
-          print json_encode(array(
+      # YouTube Video
+      if (preg_match('/^(www\.)?youtube\.com/', $node->field_source[0]['value'])) {
+        // rtype
+        $node->field_rtype[0]['value'] = 'youtube';
+        // youtube id
+        $params = explode('&', $url_p['query']);
+        $youtube_id = FALSE;
+        foreach ($params as $param) {
+          $param = explode('=', $param, 2);
+          if ($param[0] == 'v') {
+            $youtube_id = $param[1];
+            break;
+          }
+        }
+        if ($youtube_id === FALSE || strlen($youtube_id) != 11) {
+          exit(json_encode(array(
             'success' => FALSE,
-            'message' => '<div class="messages error"><b>' . t('YouTube video ID not found') . '</b></div>',
-          ));
-        } else {
-          print json_encode(array(
-            'success' => FALSE,
-            'message' => '<div class="messages error"><b>' . t('Error occurred. Please check you URL') . '</b></div>',
-          ));
+            'message' => t('YouTube video ID not found'),
+          )));
+        }
+        $node->field_youtube[0]['value'] = $youtube_id;
+        // image path
+        $node->field_image_path[0]['value'] = 'http://img.youtube.com/vi/' . $youtube_id . '/default.jpg';
+      }
+      # Regular URL
+      else {
+        // rtype
+        $node->field_rtype[0]['value'] = 'url';
+        // youtube id
+        $node->field_youtube[0]['value'] = '';
+        // image path
+        $node->field_image_path[0]['value'] = file_directory_path() . '/noimage.jpg';
+        if ($post['image']) {
+          $node->field_image_path[0]['value'] = $post['image'];
+          module_load_include('php', 'argument', 'files/download_image');
+          if ($file = download_image($node->field_image_path[0]['value'], 'resources')) {
+            $node->field_image_path[0]['value'] = $file->filepath;
+          }
         }
       }
-      break;
+
+      node_save($node);
+      node_reload($node);
+
+      if ($node) {
+        exit(json_encode(array(
+          'success' => TRUE,
+          'message' => t('Your argument was posted successfully!'),
+          'node' => $node,
+          'nid' => $node->nid,
+        )));
+      } else {
+        exit(json_encode(array(
+          'success' => FALSE,
+          'message' => t('Error occurred. Please check you URL'),
+        )));
+      }
+    break;
   }
-  exit;
+  // error
+  exit(json_encode(array(
+    'success' => FALSE,
+    'message' => t('Error occurred. Please try again'),
+    'post' => $post,
+  )));
 }
 
 /**
- * @param $url
- * @return string
+ * Prepare blank node
+ *
+ * @return stdClass
  */
-function argument_url_prepare($url) {
-  $regex1 = '/^www\./';
-  $regex2 = '/^http:\/\//';
-  if (preg_match($regex1,$url) || !preg_match($regex2,$url)) {
-    return 'http://' . $url;
-  }
-  return $url;
-}
-
-
-/**
- * Debate Node creation
- */
-function argument_create_argument($nid, $title)
-{
+function argument_prepare() {
   global $user;
-  if (empty($nid) || empty($title)) {
-    return FALSE;
-  }
-
   $node = new stdClass();
-
-  $node->type = 'argument';
 
   global $language;
   $node->language = $user->language ? $user->language : $language->language; // TODO language detection
@@ -492,47 +342,9 @@ function argument_create_argument($nid, $title)
   $node->created = time();
   $node->tnid = 0;
   $node->translate = 0;
-  $node->title = $title;
-  $node->body = $title;
-  $node->teaser = $node->body;
   $node->name = $user->name;
-
-  $node->field_reference[0]['nid'] = $nid;
-
   // Without node_submit()
   $node->validated = TRUE;
-
-  node_save($node);
-  node_reload($node);
-
-  return $node;
-}
-
-/**
- * Resource Node creation
- *
- * @param $nid
- * @param $url
- * @param $image
- * @return bool|stdClass
- */
-function arguments_create_resource($nid, $url, $image)
-{
-  if (empty($nid) || empty($url)) {
-    return FALSE;
-  }
-//  $url_p = parse_url($url);
-  $node = argument_fetch_url($url, $image);
-  if ($node === FALSE) {
-    return FALSE;
-  }
-  unset($node->images);
-  unset($node->noimage);
-
-  $node->field_reference[0]['nid'] = $nid;
-
-  node_save($node);
-  node_reload($node);
 
   return $node;
 }

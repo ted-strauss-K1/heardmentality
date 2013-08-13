@@ -2,7 +2,7 @@
  * Function to invoke user shared userpoints
  */
 function up_share() {
-  var url = '/up_share/' + Drupal.settings.node.nid;
+  var url = '/'+Drupal.settings.language+'/up_share/' + Drupal.settings.node.nid;
   $.ajax({
     type:"POST",
     dataType:'json',

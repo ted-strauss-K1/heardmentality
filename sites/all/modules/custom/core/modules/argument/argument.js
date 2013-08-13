@@ -138,8 +138,8 @@ function circle_update(element, count) {
  */
 
 $('body').on('yn', function(e, el, data) {
-  console.log(el);
-  console.log(data);
+  var body = $('body');
+
   var parent = el.closest('.comment-agree');
   // update circle
   circle_update(el.parents('.one-forum'), data.pvote_sum);
@@ -154,7 +154,6 @@ $('body').on('yn', function(e, el, data) {
   parent.children('.yn').attr({'title':'You have rated this!'}).removeClass('yn-a yn-d');
 
   // update strenght chart
-  var body = $('body');
   body.trigger('cpoll_update', true);
 
   // badges
@@ -272,7 +271,7 @@ $('.argument-delete').live('click', function (e) {
           $.ajax({
             type:'POST',
             dataType:'json',
-            url:'/argument/delete/' + name,
+            url:'/'+Drupal.settings.language+'/argument/delete/' + name,
             data:{},
             success:function (response) {
               if (!response.status) {
@@ -369,7 +368,7 @@ $(document).ready(function () {
     $('.reference-form').show();
     $('.argument-form').hide();
     $('#argument_type').val('resource');
-    $('#add_argument').val($('#linkbox').html() == '' ? 'Attach' : 'Add'); // todo translate
+    // $('#add_argument').val($('#linkbox').html() == '' ? 'Attach' : 'Add'); // todo translate
     $(this).parents('.add_button').addClass('reduce');
     return false;
   });
@@ -428,27 +427,156 @@ $('#argument-add-form').live('submit', function (e) {
   e.preventDefault();
 
   var form = $('#argument-add-form');
-
-  // type = 1/2 = debate/resource
   var type = $('#argument_type').val();
-  // debate title
-  var title = $('#deb_title').val();
-  // debate flags
-  var flag_set = false;
-  var choices_count = Drupal.settings.argument_form.count;
-  for (var i = 0; i < choices_count; i++) {
-    if ($('#sup_' + i).val() != 0) {
-      flag_set = true;
-      break;
+
+  var
+    error = false,
+    data = {},
+    choices_count = Drupal.settings.argument_form.count;
+
+  data['nid'] = form.find('[name=nid]').val();
+  data['type'] = type;
+
+  // argument posting
+  if ('argument' == type) {
+    // title
+    var title = $('#deb_title').val();
+    if (title.length < 2) {
+      error = Drupal.t('Please let us know what you think'); // todo translate
+    }
+
+    // flags
+    var flag_set = false;
+    data['options'] = {};
+    form.find('input[name^="chorder_"]').each(function (i,e) {
+      var
+        chid = $(e).val(),
+        val = form.find('[name="option_'+chid+'"]').val();
+      data['options'][chid] = val;
+      if (0 != val) {
+        flag_set = true;
+      }
+    });
+    if (!flag_set) {
+      error = 'You must choose at least one suppose or oppose'; // todo translate
+    }
+
+    // data collect
+    data['text'] = form.find('textarea').val();
+  }
+
+  var ifnull = function(text) {
+    return 'null' == text || !text ? '' : text;
+  }
+
+  // resource posting
+  if ('resource' == type) {
+    var embedly = form.find('.embedly');
+    var preview = embedly.data('preview');
+    if (preview['url']) {
+      data['url'] = preview['url'];
+      data['title'] = ifnull(preview['title']);
+      data['description'] = ifnull(preview['description']);
+      data['image'] = ifnull(preview['thumbnail_url']);
+    } else {
+      error = 'The URL you entered was not processed. Try pasiting it again.'; // todo translate
     }
   }
+
+  // handle errors
+  if (error) {
+    $.hrd.noty({
+      type:'error',
+      text:error
+    });
+    return false;
+  }
+
+  // hide submit button and show loader
+  $('#add_argument').hide();
+  $('#sub_loader').show();
+
+  // submit form
+  // without errors submit form
+  $.ajax({
+    type      : 'POST',
+    dataType  : 'json',
+    url       : '/'+Drupal.settings.language+'/argument/create',
+    data      : data,
+    success   : function (response) {
+      // close form
+      argument_form_toggle($('h6#add-arg'));
+      // work with response
+      if (response.success) {
+        // success message
+        $.hrd.noty({
+          type  : 'success',
+          text  : response.message
+        });
+        // reset form
+        form.reset();
+        // reset choices
+        for (var i = 0; i < choices_count; i++) {
+          $('#sup_' + i + ' option').removeAttr('selected');
+          $('#slider-' + i).slider({value:2});
+          $('#sup_' + i + ' :nth-child(2)').attr("selected", "selected");
+        }
+        // reset embedly
+        $('.embedly-wrapper').html('');
+        // refresh the opened tab
+        var debate_area = $("#debate_list_area");
+        var selected = debate_area.tabs("option", "selected");
+        debate_area.tabs("load", selected);
+
+        // event
+        var body = $('body');
+        body.trigger('events', ['debate', {
+          'nid'           : response.nid,
+          'content_type'  : 'node',
+          'content_id'    : response.nid
+        }]);
+
+        // badges
+        body.trigger('badge.debate_create', [Drupal.settings.node.uid]);
+
+      } else {
+        $.hrd.noty({
+          type:'error',
+          text:response.message
+        });
+      }
+    },
+    complete:function () {
+      // hide sub loader
+      $('#sub_loader').hide();
+      // show submit button
+      $('#add_argument').show();
+      // recalculate
+      var ct = $('.' + (type == 1 ? 'arg' : 'res') + 'count');
+      ct.fadeOut(1000, function () {
+        var count = parseInt(ct.html()) + 1;
+        ct.html(count);
+        ct.fadeIn(1000);
+      });
+    }
+  });
+
+  return false;
+
+
+  // todo check below
+
+
+  // debate title
+
+
   // resource link & regexp
   var nlink = url_prepare($('#url').val());
   // resource linkbox
   var linkbox = $('#linkbox').html();
 
   // check errors
-  var error = false;
+
   if (title.length < 2 && type == 'argument') {
     error = 'Please let us know what you think.';
   } else if (!flag_set && type == 'argument') {
@@ -456,7 +584,7 @@ $('#argument-add-form').live('submit', function (e) {
   } else if (!url_validate(nlink) && type == 'resource') {
     error = 'Please enter a valid URL. ' + nlink;
   } else if (linkbox == '' && type == 'resource') {
-    var callback_url = '/argument/preview/resource';
+    var callback_url = '/'+Drupal.settings.language+'/argument/preview/resource';
     var lbox = $('#linkbox');
     lbox.slideDown('slow');
     lbox.html("<span class='load'>Loading...</span>"); // todo translate string
@@ -480,8 +608,7 @@ $('#argument-add-form').live('submit', function (e) {
         }
         lbox.html(response.message);
 
-        // badges
-        $('body').trigger('badge.debate_create', [Drupal.settings.node.uid]);
+
 
         $.hrd.noty({
           type:'success',
@@ -493,143 +620,14 @@ $('#argument-add-form').live('submit', function (e) {
 
     return false;
   }
-  if (error) {
-    $.hrd.noty({
-      type:'error',
-      text:error
-    });
-    return false;
-  }
 
-  // hide submit button
-  $('#add_argument').hide();
-  // show sub loader
-  $('#sub_loader').show();
   // image
   form.find('input[name=image]').val($('input[name=uimg]').val());
 
-  // without errors submit form
-  $.ajax({
-    type:'POST',
-    dataType:'json',
-    url:'/argument/create',
-    data:form.serialize(),
-    success:function (response) {
-      // close form
-      argument_form_toggle($('h6#add-arg'));
-      // work with response
-      if (response.success) {
-        // success message
-        $.hrd.noty({
-          type:'success',
-          text:response.message
-        });
-        // reset form
-        form.reset();
-        // reset linkbox
-        $('#linkbox').html('');
-        // reset the chicces
-        for (var i = 0; i < choices_count; i++) {
-          $('#sup_' + i + ' option').removeAttr('selected');
-          $('#slider-' + i).slider({value:2});
-          $('#sup_' + i + ' :nth-child(2)').attr("selected", "selected");
-        }
-        // refresh the opened tab
-        var selected = $("#debate_list_area").tabs("option", "selected");
-        $('#debate_list_area').tabs("load", selected);
 
-        $('body').trigger('events', ['debate', {
-          'nid'           : response.nid,
-          'content_type'  : 'node',
-          'content_id'    : response.nid
-        }]);
-      } else {
-        $.hrd.noty({
-          type:'error',
-          text:response.message
-        });
-      }
-    },
-    complete:function () {
-      // hide sub loader
-      $('#sub_loader').hide();
-      // show submit button
-      $('#add_argument').show();
-      // recalculate
-      var ct = $('.' + (type == 1 ? 'arg' : 'res') + 'count');
-      ct.fadeOut(1000, function () {
-        var count = parseInt(ct.html()) + 1;
-        ct.html(count);
-        ct.fadeIn(1000);
-      });
-    }
-  });
   return false;
 });
 
-/**
- * Image selector buttons
- */
-$(document).ready(function () {
-  var noimage = $('#no_thumbnail');
-  var selectors = $('.img-select');
-
-  // image selectors
-  selectors.live('click', function () {
-    var images = $('.img-selector').find('img');
-    var images_count = images.length;
-    var image_src = $('input[name="uimg"]');
-    var imgid = $('#img_count');
-
-    // new index
-    var image_index = $('input[name="uimg_index"]');
-    var image_index_new = Number(image_index.val()) + ($(this).hasClass('prev') ? -1 : 1);
-    var next = $('.img-select.next');
-    var prev = $('.img-select.prev');
-
-    // new image
-    var selected = $('#cur_img_' + image_index_new);
-    image_src.val(selected.attr('src'));
-    image_index.val(image_index_new);
-    imgid.html(image_index_new + 1);
-    images.hide();
-    selected.show();
-
-    // next button
-    if (image_index_new >= images_count - 1) {
-      next.hide();
-    } else {
-      next.show();
-    }
-    // prev button
-    if (image_index_new <= 0) {
-      prev.hide();
-    } else {
-      prev.show();
-    }
-  });
-
-  // no image behaviour
-  noimage.live('click', function () {
-    var selectors = $('.img_controls');
-    var image_src = $('input[name="uimg"]');
-    var images = $('.img-selector').find('img');
-    var counter = $('.img_counter');
-    if ($(this).attr('checked')) {
-      selectors.hide();
-      image_src.val('');
-      images.hide();
-      counter.hide();
-    } else {
-      selectors.show();
-      images.show();
-      counter.show();
-      var image_index = $('input[name="uimg_index"]');
-      // new image
-      image_src.val(images[image_index]);
-    }
-  });
-});
 
 /**
  * Show popup

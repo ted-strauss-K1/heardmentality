@@ -55,6 +55,7 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
       '#options' => $options,
       '#prefix' => '<div class="choices">',
       '#suffix' => '</div>',
+      '#disabled' => !$node->cpoll['active'],
     );
   }
 
@@ -81,7 +82,7 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
     }
   }
 
-  if ($suggestions) {
+  if ($suggestions && !$node->cpoll['fixed'] && $node->cpoll['active']) {
     # add suggested answers
     $form['suggest'] = array(
       '#type' => 'fieldset',
@@ -109,11 +110,10 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
   }
 
   # not-voted
-  if (!$node->vote) {
+  if (!$node->vote && $node->cpoll['active']) {
     $form['#attributes']['class'] .= ' not-voted';
   }
   $form['#attributes']['class'] .= ' voteform-'.$node->nid;
-
 
   # add vote submit button
   if (user_is_logged_in()) {
@@ -138,6 +138,16 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
       '#suffix' => '</div>',
     );
     unset($form['suggest']);
+  }
+
+  if (!$node->cpoll['active']) {
+    unset($form['main_submit']);
+    $form['main_submit'] = array(
+      '#type' => 'markup',
+      '#value' => t('Voting is closed'),
+      '#prefix' => '<div class="votebtn_wrap clearfix message">',
+      '#suffix' => '</div>',
+    );
   }
 
   if (!$page) {
@@ -170,7 +180,7 @@ function cpoll_vote_form_radios($form_element, &$form_state) {
   if ($node->choices) {
     foreach ($node->choices as $i => $choice) {
       $vote_number = (int)$choice['votes'];
-      $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
+      $vote_string = t('vote' . ($vote_number == 1 ? '' : 's'));
       $form_element[$i]['#prefix'] = '<div class="radio_wrapper choice-'.$choice['chtype'].' clearfix"><span class="teaser_count_vote vote-result-'.(-1 == $i ? 'empty' : $i).'">
 <span class="vote-result-'.$i.'">' . $vote_number . '</span>' . $vote_string . '</span>';
       $form_element[$i]['#suffix'] = '</div>';

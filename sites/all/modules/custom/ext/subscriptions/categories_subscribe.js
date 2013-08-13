@@ -5,7 +5,7 @@ $('input[type="checkbox"].categories_subscribe').live('click', function (e) {
   $.ajax({
     type        : 'POST',
     dataType    : 'json',
-    url         : '/categories/subscribe',
+    url         : '/'+Drupal.settings.language+'/categories/subscribe',
     data        : { hierarchy : $(this).attr('name') },
     success     : function (response) {
       if (!response.status) {

@@ -51,6 +51,7 @@ function argument_form($form, $node)
     '#size' => 60,
     '#maxlength' => 256,
     '#id' => 'url',
+    '#attributes' => array('class' => 'embedly'),
     '#prefix' => '
       <div class="reference-form">
         <label for="edit-ref-title">' . t('Post a reference') .
@@ -76,12 +77,12 @@ function argument_form($form, $node)
         </div>'
   );
 
-  foreach ($choices as $i => $choice) {
-    $form['option_' . $i] = array(
+  foreach ($choices as $chid => $choice) {
+    $form['option_' . $chid] = array(
       '#type' => 'select',
       '#options' => array('-1' => '-', '0' => '-/+', '1' => '+'),
       '#attributes' => array('class' => 'select-value'),
-      '#id' => 'sup_' . $i,
+      '#id' => 'sup_' . $chid,
       '#default_value' => 0,
       '#prefix' => '
         <div class="value-select">
@@ -97,7 +98,7 @@ function argument_form($form, $node)
           </table>
         </div>',
     );
-    $form['chorder_' . $i] = array(
+    $form['chorder_' . $choice['index']] = array(
       '#type' => 'hidden',
       '#value' => $choice['chid']
     );
@@ -134,7 +135,7 @@ function argument_form($form, $node)
   );
   $form['linkbox'] = array(
     '#type' => 'item',
-    '#value' => '<div id ="linkbox"></div>',
+    '#value' => '<div class="embedly-wrapper"></div><a href="#" class="close"></a>',
   );
 
   return $form;

@@ -55,7 +55,6 @@ function heardmentalitylight_preprocess_page(&$vars) {
   if ((arg(0)=='node') && is_numeric(arg(1))) {
     if ($node = $vars['node']) {
       switch ($node->type) {
-        case 'poll' :
         case 'issue' :
           # set specific page templates
           drupal_set_subtitle(t('Issue'));
@@ -76,7 +75,9 @@ function heardmentalitylight_preprocess_page(&$vars) {
 
   # user
   global $user;
-  drupal_add_js(array('user' => $user), 'setting');
+  drupal_add_js(array('user' => array(
+    'uid' => $user->uid,
+  )), 'setting');
 }
 
 /**
@@ -88,7 +89,10 @@ function heardmentalitylight_preprocess_node(&$vars) {
   $node = &$vars['node'];
 
   # js setting for all modules to use
-  drupal_add_js(array('node' => $node), 'setting');
+  drupal_add_js(array('node' => array(
+    'nid' => $node->nid,
+    'uid' => $node->uid,
+  )), 'setting');
 }
 
 /**

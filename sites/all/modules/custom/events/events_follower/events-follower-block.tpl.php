@@ -13,9 +13,11 @@
   <?php if (!empty($users)) : ?>
   <div class="following clearfix">
     <?php global $user; ?>
-    <a class="more" href="/user/profile/follow/<?php print $user->uid ?>/following">
-      <?php print t('See All');?> (<?php print (int)$users_count; ?>)
-    </a>
+    <?php print l(
+      t('See all') . ' (' .$users_count. ')',
+      'user/profile/follow/'.$user->uid.'/following',
+      array('attributes' => array('class' => 'more'))
+    ); ?>
   </div>
   <?php endif; ?>
 </div>

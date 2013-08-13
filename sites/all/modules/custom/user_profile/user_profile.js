@@ -36,7 +36,7 @@ $(document).ready(function () {
 
   $('#profile_zip').live('focusout', function () {
     $('#user-profile-location').slideUp(400);
-    var url = '/user/profile/location/' + $('#profile_country').val() + '/' + $('#profile_zip').val();
+    var url = '/'+Drupal.settings.language+'/user/profile/location/' + $('#profile_country').val() + '/' + $('#profile_zip').val();
     $.ajax({
       type:"POST",
       dataType:'json',

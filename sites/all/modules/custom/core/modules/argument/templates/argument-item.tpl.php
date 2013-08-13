@@ -43,7 +43,7 @@
                     src="http://www.youtube.com/embed/<?php print $youtube ?>?autoplay=0"
                     type="text/html"
                     width="400" height="250"
-                    frameborder="0"/>
+                    frameborder="0"/></iframe>
 
           <?php else : ?>
 

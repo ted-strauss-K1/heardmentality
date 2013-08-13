@@ -6,7 +6,7 @@
  * @param $nid
  * @return mixed
  */
-function cpoll_load_choices($nid, $reset = false) {
+function cpoll_load_choices($nid, $reset = FALSE) {
   static $choices = array();
 
   if (!isset($choices[$nid]) || $reset) {
@@ -29,6 +29,26 @@ function cpoll_load_choices($nid, $reset = false) {
   }
 
   return $choices[$nid];
+}
+
+/**
+ *
+ */
+function cpoll_load_cpoll($nid, $reset = FALSE) {
+  static $cache = array();
+
+  if (is_null($cache[$nid]) || $reset) {
+    $cache[$nid] = array(
+      'active' => 1,
+      'fixed' => 0,
+    );
+
+    if ($result = db_fetch_array(db_query("SELECT active, fixed FROM {cpoll} WHERE nid = '%d'", $nid))) {
+      $cache[$nid] = $result;
+    }
+  }
+
+  return $cache[$nid];
 }
 
 /**
@@ -110,6 +130,34 @@ function cpoll_form_alter(&$form, $form_state, $form_id)
   if ($form_id == 'issue_node_form') {
     // $form['#theme'] = 'cpoll_form';
 
+    $node = $form['#node'];
+
+    $form['cpoll'] = array(
+      '#type' => 'fieldset',
+      '#title' => 'Poll Status',
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+      '#weight' => -3,
+      '#tree' => TRUE,
+    );
+    $cpoll = cpoll_load_cpoll($node->nid);
+    $form['cpoll']['active'] = array(
+      '#type' => 'select',
+      '#title' => '',
+      '#options' => array(t('Closed'), t('Active')),
+      '#value' => $cpoll['active'],
+      '#prefix' => '<table><tr><td>',
+      '#suffix' => '</td>',
+    );
+    $form['cpoll']['fixed'] = array(
+      '#type' => 'select',
+      '#title' => '',
+      '#options' => array(t('Can be changed'), t('Cannot be changed')),
+      '#value' => $cpoll['fixed'],
+      '#prefix' => '<td>',
+      '#suffix' => '</td></tr></table>',
+    );
+
     $form['choices'] = array(
       '#type' => 'fieldset',
       '#title' => 'Choices',
@@ -118,12 +166,19 @@ function cpoll_form_alter(&$form, $form_state, $form_id)
       '#weight' => -3,
       '#tree' => TRUE,
     );
-
     $choices = array();
-    if (($node = $form['#node']) && isset($node->nid)) {
+    if (isset($node->nid)) {
       $choices = cpoll_load_choices($node->nid);
     }
-    $choices += array(-1 => array());
+    if (!$cpoll['fixed']) {
+      $choices += array(-1 => array());
+    }
+
+    $form['fixed'] = array(
+      '#type' => 'hidden',
+      '#value' => $cpoll['fixed'],
+    );
+
     $choices_count = count($choices);
 
     foreach ($choices as $chid => $choice) {
@@ -148,6 +203,7 @@ function cpoll_form_alter(&$form, $form_state, $form_id)
           '#value' => $choice['chtext'],
           '#prefix' => '<table><tr><td colspan="6">',
           '#suffix' => '</td></tr>',
+          '#disabled' => $cpoll['fixed'],
         ),
         'chtext_short' => array(
           '#type' => 'textfield',
@@ -155,6 +211,7 @@ function cpoll_form_alter(&$form, $form_state, $form_id)
           '#value' => $choice['chtext_short'],
           '#prefix' => '<tr><td colspan="3">',
           '#suffix' => '</td>',
+          '#disabled' => $cpoll['fixed'],
         ),
         'weight' => array(
           '#type' => 'select',
@@ -164,6 +221,7 @@ function cpoll_form_alter(&$form, $form_state, $form_id)
           '#delta' => 50,
           '#prefix' => '<td colspan="1">',
           '#suffix' => '</td>',
+          '#disabled' => $cpoll['fixed'],
         ),
         'chtype' => array(
           '#type' => 'select',
@@ -172,6 +230,7 @@ function cpoll_form_alter(&$form, $form_state, $form_id)
           '#default_value' => isset($choice['chtype']) ? $choice['chtype'] : 'regular',
           '#prefix' => '<td colspan="1">',
           '#suffix' => '</td>',
+          '#disabled' => $cpoll['fixed'],
         ),
         'actions' => array(
           '#type' => 'select',
@@ -180,7 +239,7 @@ function cpoll_form_alter(&$form, $form_state, $form_id)
             '' => '--',
             'delete' => t('Delete'),
           ),
-          '#disabled' => -1 == $chid,
+          '#disabled' => $cpoll['fixed'] || -1 == $chid,
           '#prefix' => '<td colspan="1">',
           '#suffix' => '</td></tr></table>',
         ),
@@ -222,7 +281,9 @@ function cpoll_validate(&$choice) {
  */
 function cpoll_issue_form_validate(&$form, &$form_state)
 {
+  $fixed = $form_state['clicked_button']['#post']['fixed'];
   $choices = & $form_state['clicked_button']['#post']['choices'];
+  if (!$fixed)
   foreach ($choices as $chid => &$choice) {
     if (('delete' != $choice['actions']) && !cpoll_validate($choice)) {
       if (-1 != $chid) {
@@ -241,6 +302,7 @@ function cpoll_issue_form_validate(&$form, &$form_state)
 function cpoll_issue_form_submit(&$form, &$form_state)
 {
   $form_state['values']['choices'] =  $form_state['clicked_button']['#post']['choices'];
+  $form_state['values']['cpoll'] =  $form_state['clicked_button']['#post']['cpoll'];
 }
 
 /**
@@ -262,6 +324,14 @@ function cpoll_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         }
         break;
       case 'load' :
+        $node->cpoll = cpoll_load_cpoll($node->nid);
+
+        if (!empty($node->field_base_issue[0]['nid'])) {
+          $node->cpoll['active'] = 0;
+          $node->cpoll['fixed'] = 1;
+          $node->moderate = MODERATION_NOT_ALLOWED;
+        }
+
         $node->votecount = 0;
         $node->choices = cpoll_load_choices($node->nid);
         $node->vote = FALSE;
@@ -295,7 +365,13 @@ function cpoll_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
             }
           }
         }
-        break;
+
+        if (isset($node->cpoll)) {
+          db_query("REPLACE INTO {cpoll} SET nid = '%d', active = '%d', fixed = '%d'",
+            $nid, $node->cpoll['active'], $node->cpoll['fixed']);
+        }
+
+      break;
     }
   }
 }

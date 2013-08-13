@@ -445,7 +445,6 @@ function user_profile_block_preprocess(&$vars)
     $preprocessed['user'] = $user;
     $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
     $preprocessed['badges'] = $user->badges;
-    $preprocessed['rank'] = $user->rank['name'];
 //    if (module_exists('up')) {
 //      $preprocessed['points'] = up_userpoints_get($user->uid);
 //    }

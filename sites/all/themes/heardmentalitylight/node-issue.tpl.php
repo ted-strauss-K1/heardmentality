@@ -8,10 +8,10 @@
   <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">
     <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print
       l($node->title, $node->path, array('html' => true));
-    ?>?</h2>
+    ?></h2>
     <div class="qd">
       <?php if($page) : ?>
-        <?php if ($node->moderate) : ?>
+        <?php if ($node->moderate == MODERATION_ALLOWED) : ?>
           <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
           <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
           <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
@@ -24,6 +24,18 @@
               ))
             ); ?>
           <?php endif; ?>
+
+        <?php elseif (!empty($node->field_base_issue[0]['nid'])) : ?>
+
+          <?php if ($node->field_base_issue[0]['safe']['status']) : ?>
+            <?php print t('Duplicates issue') ?> <?php
+              $base_issue = node_load($node->field_base_issue[0]['nid']);
+              print l(issue_translate($base_issue, 'title'), 'node/'.$base_issue->nid);
+            ?>
+          <?php else : ?>
+            <?php print t('Closed as the duplicate to other content on site'); ?>
+          <?php endif; ?>
+
         <?php endif; ?>
       <?php endif; ?>
 
@@ -86,7 +98,7 @@
   <?php drupal_add_js(drupal_get_path('module', 'argument') . "/argument.js"); ?>
 
   <div class="ul_wrapper">
-    <h2 class="din">Debate</h2>
+    <h2 class="din"><?php print t('Debate'); ?></h2>
   </div>
   <ul class="tabs-content" style="margin: 22px 0 0;">
     <li class="active" id="simpleTab">
@@ -114,7 +126,7 @@
           </div>
 
           <div id="analytics-area" class="hidden_deb" style="display: none;">
-            <h2><span>Debate statistics</span></h2>
+            <h2><span><?php print t('Debate statistics'); ?></span></h2>
 
             <div id="deb-ana-load-txt"></div>
             <div id="load-deb-statics"></div>
@@ -127,20 +139,20 @@
       <!-- LIST -->
       <div id="debate_list_area">
         <h2>
-          <span class="argcount"><?php print intval($node->info['argument']); ?></span>&nbsp;<span>Arguments&nbsp;&amp;&nbsp;</span>
-          <span class="rescount"><?php print intval($node->info['resource']); ?></span>&nbsp;<span>References</span>
+          <span class="argcount"><?php print intval($node->info['argument']); ?></span>&nbsp;<span><?php print t('Arguments'); ?>&nbsp;&amp;&nbsp;</span>
+          <span class="rescount"><?php print intval($node->info['resource']); ?></span>&nbsp;<span><?php print t('References'); ?></span>
 
           <div class="show_only">
-            <span class="button" id="show_filter">&#9660; Show only</span>
+            <span class="button" id="show_filter">&#9660; <?php print t('Show only'); ?></span>
 
             <div class="inc">
               <form id="inc_ref">
                 <input type="checkbox" checked="yes" value="include references" id="inc_check"/>
-                <label for="inc_check">Include References</label>
+                <label for="inc_check"><?php print t('Include References'); ?></label>
               </form>
             </div>
             <div class="popup hidden" id="filter_content">
-              <span class="title">Show all</span>
+              <span class="title"><?php print t('Show all'); ?></span>
               <?php foreach ($node->choices as $choice) : ?>
                 <dl name="<?php print $choice['chid'] ?>">
                   <dd>
@@ -158,7 +170,7 @@
                   <dt><?php print $choice['chtext_short'] ?></dt>
                 </dl>
               <?php endforeach; ?>
-              <span class="title reset">Reset filters</span>
+              <span class="title reset"><?php print t('Reset filters'); ?></span>
             </div>
           </div>
         </h2>
@@ -166,9 +178,9 @@
         <div id="empty_helper">&nbsp;</div>
 
         <ul>
-          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/0/0">recent</a></li>
-          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/1/0">older</a></li>
-          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/2/0">supported</a></li>
+          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/0/0"><?php print t('recent'); ?></a></li>
+          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/1/0"><?php print t('older'); ?></a></li>
+          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/2/0"><?php print t('supported'); ?></a></li>
         </ul>
         <div id="ui-tabs-1">
           <?php
