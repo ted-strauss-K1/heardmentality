@@ -7,7 +7,7 @@
     <?php print theme('events_follower_block_content', $users); ?>
     <?php if ((count($users) < $users_count) && false) : ?>
     <span id="events_users_more"
-          style="display: block; background: #CCC; width: 100%; padding: 5px; text-align: center; border-radius: 5px; clear: both; cursor: pointer;">more</span>
+          style="display: block; background: #CCC; width: 100%; padding: 5px; text-align: center; border-radius: 5px; clear: both; cursor: pointer;"><?php print t('more'); ?></span>
     <?php endif; ?>
   </div>
   <?php if (!empty($users)) : ?>
