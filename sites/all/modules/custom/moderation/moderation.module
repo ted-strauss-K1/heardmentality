@@ -29,6 +29,8 @@ function moderation_perm()
 function moderation_preprocess_page(&$vars)
 {
   if ('moderation' == arg(0)) {
+    drupal_set_subtitle(t('Moderator'));
+
     if (in_array(arg(1), array('issue', 'argument', 'comment', ))) {
       $type = arg(1);
       $content_id = arg(2);

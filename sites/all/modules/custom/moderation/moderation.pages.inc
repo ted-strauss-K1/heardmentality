@@ -451,7 +451,7 @@ function moderation_markup_user($user)
     '<div class="mod-wrapper part part1 search_list">
     <h2 class="din half">' . ucwords($user->name) . ' <div class="open"></div> </h2>
     <div class="mod-buttons">' .
-      sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', $user->viewlink, t('View Profile')) .
+      sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', url($user->viewlink), t('View Profile')) .
       sprintf('<a href="#" class="permission %s" name="%s"><span class="mod-edit mod-icon" title="%s"></span></a>',
         !moderation_check_perm($user->uid) ? '' : 'remove', 'moderation/user/' . $user->uid, t('Change permissions')) .
       '</div>

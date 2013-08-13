@@ -183,7 +183,7 @@ function event_follow_theme_preprocess(&$vars) {
   $target = user_load($vars['item']['content_id']);
 
   $vars['text'] = t('now following');
-  $vars['link'] = '<span class="name"><a href="' . $target->viewlink . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
+  $vars['link'] = '<span class="name"><a href="' . url($target->viewlink) . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
   $vars['text2'] = l(
     sprintf('<img class="following-user listed" src="%s" />', user_profile_image($target)),
     $target->viewlink,

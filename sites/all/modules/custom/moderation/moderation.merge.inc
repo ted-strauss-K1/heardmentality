@@ -76,7 +76,7 @@ function moderation_merge_form($form_state, $merge, $base) {
   );
   $form['table']['item'] = array(
     '#type' => 'markup',
-    '#value' => 'Choices',
+    '#value' => t('Choices'),
     '#prefix' => '<tr><td class="merge-header" colspan=3>',
     '#suffix' => '</td><tr>',
   );
