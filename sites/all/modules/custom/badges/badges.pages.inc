@@ -128,7 +128,8 @@ function theme_badges_list_users()
 //  var_dump($badges_userbadges);
 
   foreach ($badges_userbadges as $uid => $data) {
-    $output .= '<li><a href="/user/profile/view/' . $uid . '">' . $data['#name'] . '</a>:&nbsp;';
+    $output .=
+      '<li>'. l($data['#name'], 'user/profile/view/'.$uid).':&nbsp;';
 
     foreach ($data['#list'] as $name => $info) {
       $output .= sprintf('<span class="selected-item %s">%s<span class="count-item">x</span><span class="number-item">%d</span></span>',
