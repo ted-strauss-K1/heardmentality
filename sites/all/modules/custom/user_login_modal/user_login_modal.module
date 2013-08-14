@@ -57,7 +57,7 @@ function theme_user_login_modal()
   return '<p>
     <a id="dialog_link"
         class="ui-state-default ui-corner-all login ' . theme('user_login_modal_class') . '"
-        href="'.(user_is_logged_in() ? '#' : '/user/login').'"><i class="icon-user"></i><span>' .
+        href="'.(user_is_logged_in() ? '#' : url('user/login')).'"><i class="icon-user"></i><span>' .
     (user_is_logged_in() ? $user->name : t('Login')) .
     '</span></a></p>';
 }

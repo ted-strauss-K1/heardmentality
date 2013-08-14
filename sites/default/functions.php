@@ -126,21 +126,21 @@ function time_interval($date, $is_timestamp = FALSE) {
   $interval = $date->diff($date_now);
   # convert to string
   if ($interval->y != 0) {
-    return $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
+    return $interval->y . ' '.t('year' . ($interval->y > 1 ? 's' : '')) . ' '.t('ago');
   }
   if ($interval->m != 0) {
-    return $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
+    return $interval->m . ' '.t('month' . ($interval->m > 1 ? 's' : '')) . ' '.t('ago');
   }
   if ($interval->d != 0) {
-    return $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
+    return $interval->d . ' '.t('day' . ($interval->d > 1 ? 's' : '')) . ' '.t('ago');
   }
   if ($interval->h != 0) {
-    return $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
+    return $interval->h . ' '.t('hour' . ($interval->h > 1 ? 's' : '')) . ' '.t('ago');
   }
   if ($interval->i != 0) {
-    return $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
+    return $interval->i . ' '.t('minute' . ($interval->i > 1 ? 's' : '')) . ' '.t('ago');
   }
-  return 'just now';
+  return t('just now');
 }
 
 /**
@@ -158,4 +158,27 @@ function dbg() {
  */
 function is_node_page() {
   return ('node' == arg(0)) && is_numeric(arg(1)) && ('' == arg(2));
+}
+
+function register_t($string, $textgroup = 'default', $skip = false) {
+  $lids = array();
+  $result = db_query("SELECT lid FROM locales_source WHERE source = '%s'", $string);
+  while ($lid = db_result($result)) {
+    $lids[] = $lid;
+  }
+
+  switch (count($lids)) {
+    case 0  :
+      db_query("INSERT INTO locales_source VALUES (NULL, '/ru/', '%s', '%s', '%s')", $textgroup, $string, VERSION);
+      if (!$skip)
+        register_t($string, $textgroup, true);
+      break;
+    case 1  :
+      db_query("UPDATE locales_source SET textgroup = '%s' WHERE lid = '%s'", $textgroup, $lids[0]);
+      db_query("REPLACE INTO locales_target VALUES ('%s', '%s', 'ru', 0, 0, 0, 0)", $lids[0], $string);
+      break;
+    default :
+      echo $string . ' ' . implode(',', $lids) . " <br>\n";
+      break;
+  }
 }

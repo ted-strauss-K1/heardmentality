@@ -3,17 +3,24 @@
   <?php $param = $code == 'following' ? 'requestee' : 'requester'; ?>
 
   <?php foreach ($users as $item) : ?>
-    <?php $user = $item->{$param}; ?>
+    <?php
+      $account = $item->{$param};
+      $account->viewlink = 'user/profile/view/' . $account->name;
+    ?>
 
     <div class="one_person clearfix">
-      <?php print theme('follower_button', $user); ?>
+      <?php print theme('follower_button', $account); ?>
 
       <div class="name_wrapper">
-        <a href="/<?php print $user->viewlink; ?>">
-          <img class="following-user-2" src="<?php print user_profile_image($user); ?>" alt="">
-        </a>
+        <?php print l(
+          '<img class="following-user-2" src="'.user_profile_image($account).'">',
+          $account->viewlink,
+          array(
+            'html' => true,
+          )
+        ); ?>
 			<span class="name din">
-			  <a href="/<?php print $user->viewlink; ?>"><?php print $user->name; ?></a>
+			  <?php print l($account->name, $account->viewlink ); ?>
 			</span>
       </div>
     </div>

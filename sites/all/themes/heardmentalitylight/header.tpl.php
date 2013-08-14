@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="navigation">
 			<div class="top-left">
-				<a class="logo" href="/"><img src="/sites/all/themes/heardmentalitylight/images/tiny_logo.png" class="logo-img" /> <?php print t('Heard Mentality'); ?><span class="beta"><?php print t('Beta'); ?></span></a>
+				<a class="logo" href="<?php print url(); ?>"><img src="/sites/all/themes/heardmentalitylight/images/tiny_logo.png" class="logo-img" /> <?php print t('Heard Mentality'); ?><span class="beta"><?php print t('Beta'); ?></span></a>
 			</div>
 			
 			<div class="top-right login">
@@ -41,7 +41,7 @@
           <div class="expanding">
             <h6 class="inactive"><?php print t('Language'); ?></h6>
             <ul class="lang" style="display:none;" aria-hidden="true">
-              <?php if($multilanguage_area): print $multilanguage_area; endif; ?> ... more languages coming soon
+              <?php if($multilanguage_area): print $multilanguage_area; endif; ?> ... <?php t('more languages coming soon'); ?>
             </ul>
           </div>
         </div>

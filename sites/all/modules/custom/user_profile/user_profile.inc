@@ -14,8 +14,8 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
     case 'load' :
 
       # user links
-      $account->viewlink = url('user/profile/view') . '/' . $account->name;
-      $account->editlink = url('user/profile/edit');
+      $account->viewlink = 'user/profile/view/' . $account->name;
+      $account->editlink = 'user/profile/edit';
 
     break;
 

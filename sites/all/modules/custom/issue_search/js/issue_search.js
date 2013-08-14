@@ -61,7 +61,7 @@ $('#my_region').live('change', function() {
       tfl_user.prop('selected', true);
     } else {
       $.hrd.noty({
-        text: 'No issues for you region', // todo translate
+        text: Drupal.t('No issues for you region'),
         type:'error'
       });
       $(this).prop('checked', false)
@@ -274,7 +274,7 @@ function issue_search() {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : '/issues/ajax',
+    url       : '/'+Drupal.settings.language+'/issues/ajax',
     data      : search_arguments(),
     success   : function (response) {
       if (!response.status) {
@@ -313,7 +313,7 @@ $('.issue-search-more').live('click', function() {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : '/issues/ajax',
+    url       : '/'+Drupal.settings.language+'/issues/ajax',
     data      : search_arguments(),
     success   : function (response) {
       if (!response.status) {

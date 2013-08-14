@@ -12,10 +12,16 @@
     <div class="popup-login-inner <?php print is_mobile()? 'mobile' : '' ?>">
 
       <label for="profile" class="profile"></label>
-      <a href="/user/profile/view" title="<?php print t('View Profile');?>">
-        <img class="user-profile" src="<?php print user_profile_image($user) ?>"/>
-      </a>
-
+      <?php print l(
+        '<img class="user-profile" src="'.user_profile_image($user).'"/>',
+        'user/profile/view',
+        array(
+          'attributes' => array(
+            'title' => t('View Profile'),
+          ),
+          'html' =>true,
+        )
+      ); ?>
       <?php if ($complete['percent'] < 100) : ?>
         <div class="floatleft small-prog">
           <div class="profile-meta quick-profile">

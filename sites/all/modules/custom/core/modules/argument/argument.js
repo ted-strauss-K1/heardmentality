@@ -189,7 +189,10 @@ $('.arg-reply-form').live('submit', function (e) {
   e.preventDefault();
   var form = $(this);
   if (form.find('textarea').val().length < 2) {
-    $.hrd.noty({'type':'error', 'text':'Please enter your reply'}); // todo translate
+    $.hrd.noty({
+      'type':'error',
+      'text':Drupal.t('Please enter your reply')
+    });
     return;
   }
   // hide submit button
@@ -260,18 +263,18 @@ $('.argument-delete').live('click', function (e) {
   $.hrd.noty({
     'layout':'center',
     'type':'alert',
-    'text':'Are you sure you want to delete?', // todo translate
+    'text':Drupal.t('Are you sure you want to delete?'),
     'modal':true,
     'timeout':false,
     'buttons':[
       {
         addClass:'btn btn-primary',
-        text:'Delete!', // todo translate
+        text:Drupal.t('Delete')+'!',
         onClick:function ($noty) {
           $.ajax({
             type:'POST',
             dataType:'json',
-            url:'/argument/delete/' + name,
+            url:'/'+Drupal.settings.language+'/argument/delete/' + name,
             data:{},
             success:function (response) {
               if (!response.status) {
@@ -306,7 +309,7 @@ $('.argument-delete').live('click', function (e) {
       },
       {
         addClass:'btn btn-danger',
-        text:'Cancel', // todo translate
+        text:Drupal.t('Cancel'),
         onClick:function ($noty) {
           $noty.close();
         }
@@ -368,7 +371,6 @@ $(document).ready(function () {
     $('.reference-form').show();
     $('.argument-form').hide();
     $('#argument_type').val('resource');
-    // $('#add_argument').val($('#linkbox').html() == '' ? 'Attach' : 'Add'); // todo translate
     $(this).parents('.add_button').addClass('reduce');
     return false;
   });
@@ -377,7 +379,7 @@ $(document).ready(function () {
     $('.reference-form').hide();
     $('.argument-form').show();
     $('#argument_type').val('argument');
-    $('#add_argument').val('Add'); // todo translate
+    $('#add_argument').val(Drupal.t('Add'));
     $(this).parents('.add_button').removeClass('reduce');
     return false;
   });
@@ -442,7 +444,7 @@ $('#argument-add-form').live('submit', function (e) {
     // title
     var title = $('#deb_title').val();
     if (title.length < 2) {
-      error = 'Please let us know what you think'; // todo translate
+      error = Drupal.t('Please let us know what you think');
     }
 
     // flags
@@ -458,7 +460,7 @@ $('#argument-add-form').live('submit', function (e) {
       }
     });
     if (!flag_set) {
-      error = 'You must choose at least one suppose or oppose'; // todo translate
+      error = Drupal.t('You must choose at least one suppose or oppose');
     }
 
     // data collect
@@ -479,7 +481,7 @@ $('#argument-add-form').live('submit', function (e) {
       data['description'] = ifnull(preview['description']);
       data['image'] = ifnull(preview['thumbnail_url']);
     } else {
-      error = 'The URL you entered was not processed. Try pasiting it again.'; // todo translate
+      error = Drupal.t('The URL you entered was not processed. Try pasiting it again.');
     }
   }
 
@@ -501,7 +503,7 @@ $('#argument-add-form').live('submit', function (e) {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : '/argument/create',
+    url       : '/'+Drupal.settings.language+'/argument/create',
     data      : data,
     success   : function (response) {
       // close form
@@ -584,10 +586,10 @@ $('#argument-add-form').live('submit', function (e) {
   } else if (!url_validate(nlink) && type == 'resource') {
     error = 'Please enter a valid URL. ' + nlink;
   } else if (linkbox == '' && type == 'resource') {
-    var callback_url = '/argument/preview/resource';
+    var callback_url = '/'+Drupal.settings.language+'/argument/preview/resource';
     var lbox = $('#linkbox');
     lbox.slideDown('slow');
-    lbox.html("<span class='load'>Loading...</span>"); // todo translate string
+    lbox.html("<span class='load'>"+Drupal.t('Loading')+"...</span>");
 
     $.ajax({
       type:'POST',
@@ -602,7 +604,7 @@ $('#argument-add-form').live('submit', function (e) {
           });
           $.hrd.noty({
             type:'error',
-            text:'Sorry, your URL cannot be attached' // todo translate
+            text:Drupal.t('Sorry, your URL cannot be attached')
           });
           return false;
         }
@@ -612,9 +614,9 @@ $('#argument-add-form').live('submit', function (e) {
 
         $.hrd.noty({
           type:'success',
-          text:'You can now submit your resource' // todo translate
+          text:Drupal.t('You can now submit your resource')
         });
-        $('#add_argument').val('Add'); // todo translate
+        $('#add_argument').val(Drupal.t('Add'));
       }
     });
 

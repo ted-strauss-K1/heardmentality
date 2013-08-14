@@ -5,6 +5,28 @@ include_once "argument.forms.inc";
 include_once "argument.pages.inc";
 
 /**
+ * @return array
+ */
+function argument_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'argument');
+  return array(
+    $path . '/argument.js' => array(
+      'Please let us know what you think',
+      'Please enter your reply',
+      'Are you sure you want to delete?',
+      'Delete',
+      'Cancel',
+      'Add',
+      'You must choose at least one suppose or oppose',
+      'The URL you entered was not processed. Try pasiting it again.',
+      'Sorry, your URL cannot be attached',
+      'Loading',
+      'You can now submit your resource',
+    ),
+  );
+}
+
+/**
  *
  */
 function argument_theme() {
@@ -92,7 +114,7 @@ function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
   if ('argument' == $node->type || 'resource' == $node->type) {
     switch ($op) {
       case 'load' :
-        $node->creation_time = time_interval($node->created, true);
+        $node->creation_time = time_interval($node->created, TRUE);
         $node->comments = argument_recent_comments($node->nid);
       break;
     }
@@ -109,7 +131,7 @@ function argument_comment(&$a1, $op)
 {
   switch ($op) {
     case 'view' :
-      $a1->creation_time = time_interval($a1->timestamp, true);
+      $a1->creation_time = time_interval($a1->timestamp, TRUE);
       break;
   }
 }

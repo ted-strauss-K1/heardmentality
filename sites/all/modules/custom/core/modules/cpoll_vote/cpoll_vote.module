@@ -1,6 +1,22 @@
 <?php
 
 /**
+ * @return array
+ */
+function cpoll_vote_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'cpoll_vote');
+  return array(
+    $path . '/cpoll_vote.js' => array(
+      'Multiple submissions are not allowed',
+      'Wait for few seconds to add your suggestion',
+      'Your suggestion was added',
+      'Wait for few seconds to change your vote',
+      'Your vote is accepted',
+    ),
+  );
+}
+
+/**
  * Form for adding/editing the Issues' votes
  *
  * @param $form
@@ -180,7 +196,7 @@ function cpoll_vote_form_radios($form_element, &$form_state) {
   if ($node->choices) {
     foreach ($node->choices as $i => $choice) {
       $vote_number = (int)$choice['votes'];
-      $vote_string = 'vote' . ($vote_number == 1 ? '' : 's');
+      $vote_string = t('vote' . ($vote_number == 1 ? '' : 's'));
       $form_element[$i]['#prefix'] = '<div class="radio_wrapper choice-'.$choice['chtype'].' clearfix"><span class="teaser_count_vote vote-result-'.(-1 == $i ? 'empty' : $i).'">
 <span class="vote-result-'.$i.'">' . $vote_number . '</span>' . $vote_string . '</span>';
       $form_element[$i]['#suffix'] = '</div>';

@@ -1,5 +1,5 @@
 function follower_exec(follower) {
-  var url = '/follower/save/';
+  var url = '/'+Drupal.settings.language+'/follower/save/';
   $.ajax({
     type:"POST",
     dataType:'json',

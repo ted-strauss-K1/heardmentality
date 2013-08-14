@@ -29,6 +29,8 @@ function moderation_perm()
 function moderation_preprocess_page(&$vars)
 {
   if ('moderation' == arg(0)) {
+    drupal_set_subtitle(t('Moderator'));
+
     if (in_array(arg(1), array('issue', 'argument', 'comment', ))) {
       $type = arg(1);
       $content_id = arg(2);
@@ -50,6 +52,12 @@ function moderation_preprocess_page(&$vars)
       $vars['right'] .= theme('moderation_history', $history);
       $vars['right'] .= theme('moderation_flags');
 
+      # css/js
+      drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.js");
+      drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.css");
+    }
+
+    if ('users' == arg(1)) {
       # css/js
       drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.js");
       drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.css");

@@ -61,7 +61,7 @@ $(function () {
 function cpoll_create_ahah_error() {
   $.hrd.noty({
     'type':'error',
-    'text':'Maximum fields exceeded' // todo translate
+    'text':Drupal.t('Maximum fields exceeded')
   });
 }
 
@@ -73,13 +73,13 @@ $('#cpoll-create-form').live('submit', function (e) {
   var q = $("#q_quest");
   var errors = [];
   if (q.val().length > maxlength) {
-    errors.push('The question is too long'); // todo translate
+    errors.push(Drupal.t('The question is too long'));
   }
   if (2 > $('#poll-choices input').filter(function() { return $(this).val(); }).length) {
-    errors.push('Enter more that two elements'); // todo translate
+    errors.push(Drupal.t('Enter more that two elements'));
   }
   if (20 > q.val().length) {
-    errors.push('The question is too short'); // todo translate
+    errors.push(Drupal.t('The question is too short'));
   }
   if (errors.length) {
     e.preventDefault();

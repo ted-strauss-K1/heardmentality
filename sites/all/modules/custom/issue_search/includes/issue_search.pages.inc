@@ -19,7 +19,7 @@ function issue_search_form($form_state)
     '#value' => '
       <ul class="date-filter date_filter">
         <li><a class="date-solr-filter first" href="issues" interval="week">' . t('This Week') . '</a></li>
-        <li><a class="date-solr-filter" href="issues" interval="month">' . t('Month') . '</a></li>
+        <li><a class="date-solr-filter" href="issues" interval="month">' . t('This Month') . '</a></li>
         <li><a class="date-solr-filter last active" href="issues" interval="all">' . t('All time') . '</a></li>
       </ul>',
     '#prefix' => '<div class="search_top_filters clearfix">',
@@ -31,8 +31,8 @@ function issue_search_form($form_state)
     '#value' => '
       <ul class="sort-filter options_filter">
         <li><a href="issues" class="solr-sort first active" solrsort="ds_created" direction="desc">' . t('Latest') . '</a></li>
-        <li><a href="issues" class="solr-sort" solrsort="is_views_count" direction="desc">' . t('Views') . '</a></li>
-        <li><a href="issues" class="solr-sort last" solrsort="is_votes_count" direction="desc">' . t('Votes') . '</a></li>
+        <li><a href="issues" class="solr-sort" solrsort="is_views_count" direction="desc">' . t('By Views') . '</a></li>
+        <li><a href="issues" class="solr-sort last" solrsort="is_votes_count" direction="desc">' . t('By Votes') . '</a></li>
       </ul>',
     '#suffix' => '</div>',
   );

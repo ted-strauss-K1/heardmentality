@@ -17,7 +17,7 @@ $(document).ready(function () {
     $.ajax({
       type:'POST',
       dataType:'json',
-      url:'/' + el.attr('name'),
+      url:'/'+Drupal.settings.language+'/' + el.attr('name'),
       success:function (response) {
 
 

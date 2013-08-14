@@ -26,11 +26,11 @@
 
     <div class="five columns">
       <div class="black-box">
-        <a href="/"><img src="/sites/all/themes/heardmentalitylight/images/dark_logo.png" class="dark-logo"></a>
+        <?php print l('<img src="/sites/all/themes/heardmentalitylight/images/dark_logo.png" class="dark-logo">', '', array('html' => true)); ?>
         <ul class="din foot-link">
-          <li><a href="/aboutus"><?php print t('ABOUT'); ?></a></li>
-          <li><a href="/contact"><?php print t('CONTACT'); ?></a></li>
-          <li><a href="/donate"><?php print t('DONATE'); ?></a></li>
+          <li><?php print l(t('ABOUT'), 'aboutus'); ?></li>
+          <li><?php print l(t('CONTACT'), 'contact'); ?></li>
+          <li><?php print l(t('DONATE'), 'donate'); ?></li>
 <!--          <li><a href="">--><?php //print t('VOLUNTEER'); ?><!--</a></li>-->
         </ul>
       </div>
