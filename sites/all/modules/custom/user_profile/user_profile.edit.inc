@@ -19,6 +19,8 @@ function user_profile_edit_form()
 
   global $user;
 
+  geocode_js();
+
   $form['#attributes']['enctype'] = "multipart/form-data";
 
   $form['username'] = array(

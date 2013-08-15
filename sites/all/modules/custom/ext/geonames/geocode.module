@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * @return array
+ */
+function geocode_menu() {
+  $menu = array();
+
+  $menu['geocode'] = array(
+    'page callback' => 'geocode',
+    'access callback' => TRUE,
+  );
+
+  return $menu;
+}
+
+/**
+ *
+ */
+function geocode() {
+  $error = FALSE;
+  if (!isset($_REQUEST['coords'])) {
+    $error = TRUE;
+  }
+
+  $coords = $_REQUEST['coords'];
+  if (!isset($coords['latitude']) || !isset($coords['longitude'])) {
+    $error = TRUE;
+  }
+
+  if (!$error) {
+    $location = geocode_request($coords['latitude'], $coords['longitude']);
+  }
+  if ($error || !$location) {
+    exit(json_encode(array(
+      'status' => FALSE,
+      'message' => t('We could not determine your location'),
+    )));
+  }
+
+  exit(json_encode(array(
+    'status' => TRUE,
+    'message' => t('We could determine your location'),
+    'location' => $location,
+  )));
+}
+
+/**
+ *
+ */
+function geocode_js() {
+  drupal_add_js(drupal_get_path('module', 'geocode') . '/geocode.js');
+}
+
+/**
+ * @param $lat
+ * @param $lng
+ * @return array
+ */
+function geocode_request($lat, $lng) {
+  $output = array();
+
+  $response = geonames_query('extendedFindNearby',
+    array('lat' => $lat, 'lng' => $lng, 'style' => 'full'),
+    array('qs' => 'f'));
+  if ($response && $response->results) {
+    $count = count($response->results);
+    for ($i=$count-1; $i>=0; $i--) {
+      $result = $response->results[$i];
+
+      # detect country
+      if (!$output['country_code'] && !empty($result['countrycode'])) {
+        $country_codes = location_get_iso3166_list();
+        $country_code_tmp = strtolower($result['countrycode']);
+        if (isset($country_codes[$country_code_tmp])) {
+          $output['country_code'] = $country_code_tmp;
+          $output['country_name'] = $country_codes[$country_code_tmp];
+        }
+      }
+
+      # detect province
+      if ($output['country_code'] && !$output['province_code']) {
+        if (isset($result['iso3166-2']) && !empty($result['iso3166-2'])) {
+          $province_codes = location_get_provinces($output['country_code']);
+          $province_code_tmp = $result['iso3166-2'];
+          if (isset($province_codes[$province_code_tmp])) {
+            $output['province_code'] = $province_code_tmp;
+            $output['province_name'] = $province_codes[$province_code_tmp];
+          }
+        }
+      }
+
+      # detect city
+      if ($output['country_code'] && $output['province_code'] && !$output['city_code']) {
+        if (isset($result['fcode']) && (FALSE !== strpos($result['fcode'], 'PPL'))) {
+          $city_codes = location_get_cities($output['country_code'], $output['province_code']);
+          $city_code_tmp = $result['geonameid'];
+          if (isset($city_codes[$city_code_tmp])) {
+            $output['city_code'] = $city_code_tmp;
+            $output['city_name'] = $city_codes[$city_code_tmp];
+          }
+        }
+      }
+    }
+  }
+
+  if (!empty($output)) {
+    $output += array(
+      'latitude' => $lat,
+      'longitude' => $lng,
+    );
+  }
+
+  return $output;
+}
