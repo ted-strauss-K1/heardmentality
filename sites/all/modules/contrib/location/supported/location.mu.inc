@@ -1,35 +1,23 @@
 <?php
 
-// Mauritius
-
-function location_province_list_mu() {
-  return array('BR' => "Beau Bassin-Rose Hill",
-    'CU' => "Curepipe",
-    'PU' => "Port Louis",
-    'QB' => "Quatre Bornes",
-    'VP' => "Vacoas-Phoenix",
-    'AG' => "Agalega Islands",
-    'CC' => "Cargados Carajos Shoals (Saint Brandon Islands)",
-    'RO' => "Rodrigues",
-    'BL' => "Black River",
-    'FL' => "Flacq",
-    'GP' => "Grand Port",
-    'MO' => "Moka",
-    'PA' => "Pamplemousses",
-    'PW' => "Plaines Wilhems",
-    'PL' => "Port Louis",
-    'RR' => "Riviere du Rempart",
-    'SA' => "Savanne");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_mu() {
-  return array(
-    'minlng' => 56.401,
-    'minlat' => -20.633133,
-    'maxlng' => 63.50495,
-    'maxlat' => -10.402433,
-  );
+function location_province_list_mu () {
+	return array (
+		"AG" => t("Agalega Islands"),
+		"BL" => t("Black River"),
+		"BR" => t("Beau Bassin-Rose Hill"),
+		"CC" => t("Cargados Carajos Shoals (Saint Brandon Islands)"),
+		"CU" => t("Curepipe"),
+		"FL" => t("Flacq"),
+		"GP" => t("Grand Port"),
+		"MO" => t("Moka"),
+		"PA" => t("Pamplemousses"),
+		"PL" => t("Port Louis"),
+		"PU" => t("Port Louis"),
+		"PW" => t("Plaines Wilhems"),
+		"QB" => t("Quatre Bornes"),
+		"RO" => t("Rodrigues"),
+		"RR" => t("Riviere du Rempart"),
+		"SA" => t("Savanne"),
+		"VP" => t("Vacoas-Phoenix"),
+	);
 }

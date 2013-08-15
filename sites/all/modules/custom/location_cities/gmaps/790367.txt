@@ -1,0 +1,235 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ломина",
+               "short_name" : "Ломина",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Gornji Milanovac",
+               "short_name" : "Gornji Milanovac",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Moravica",
+               "short_name" : "Moravica",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ломина, Gornji Milanovac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.02614280,
+                  "lng" : 20.46180410
+               },
+               "southwest" : {
+                  "lat" : 44.02582460,
+                  "lng" : 20.46124090
+               }
+            },
+            "location" : {
+               "lat" : 44.02598370,
+               "lng" : 20.46152250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.02733268029150,
+                  "lng" : 20.46287148029150
+               },
+               "southwest" : {
+                  "lat" : 44.02463471970850,
+                  "lng" : 20.46017351970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Gornji Milanovac",
+               "short_name" : "Gornji Milanovac",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Moravica",
+               "short_name" : "Moravica",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Gornji Milanovac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.0478690,
+                  "lng" : 20.4991150
+               },
+               "southwest" : {
+                  "lat" : 43.99997690,
+                  "lng" : 20.43911920
+               }
+            },
+            "location" : {
+               "lat" : 44.0315210,
+               "lng" : 20.4616390
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.0478690,
+                  "lng" : 20.4991150
+               },
+               "southwest" : {
+                  "lat" : 43.99997690,
+                  "lng" : 20.43911920
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Municipality of Gornji Milanovac",
+               "short_name" : "Municipality of Gornji Milanovac",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Moravica",
+               "short_name" : "Moravica",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Municipality of Gornji Milanovac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.2491340,
+                  "lng" : 20.64811710
+               },
+               "southwest" : {
+                  "lat" : 43.94438350,
+                  "lng" : 20.06549830
+               }
+            },
+            "location" : {
+               "lat" : 44.08396210,
+               "lng" : 20.41516230
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.2491340,
+                  "lng" : 20.64811710
+               },
+               "southwest" : {
+                  "lat" : 43.94438350,
+                  "lng" : 20.06549830
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Moravica",
+               "short_name" : "Moravica",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Moravica, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.2639370,
+                  "lng" : 20.6592050
+               },
+               "southwest" : {
+                  "lat" : 43.28093410,
+                  "lng" : 19.91639090
+               }
+            },
+            "location" : {
+               "lat" : 43.841470,
+               "lng" : 20.29049870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.2639370,
+                  "lng" : 20.6592050
+               },
+               "southwest" : {
+                  "lat" : 43.28093410,
+                  "lng" : 19.91639090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

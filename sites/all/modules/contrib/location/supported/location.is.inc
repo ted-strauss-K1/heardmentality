@@ -1,26 +1,14 @@
 <?php
 
-// Iceland
-
-function location_province_list_is() {
-  return array('AL' => "Austurland",
-    'HF' => "Hofuoborgarsvaeoi",
-    'NE' => "Norourland eystra",
-    'NV' => "Norourland vestra",
-    'SL' => "Suourland",
-    'SN' => "Suournes",
-    'VF' => "Vestfiroir",
-    'VL' => "Vesturland");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_is() {
-  return array(
-    'minlng' => -25.3873,
-    'minlat' => 63.426633,
-    'maxlng' => -13.5579,
-    'maxlat' => 67.174067,
-  );
+function location_province_list_is () {
+	return array (
+		"1" => t("Hofuoborgarsvaoi"),
+		"2" => t("Suournes"),
+		"3" => t("Vesturland"),
+		"4" => t("Vestfiroir"),
+		"5" => t("Norourland Vestra"),
+		"6" => t("Norourland Eystra"),
+		"7" => t("Austurland"),
+		"8" => t("Suourland"),
+	);
 }

@@ -1,36 +1,24 @@
 <?php
 
-// Paraguay
-
-function location_province_list_py() {
-  return array('AG' => "Alto Paraguay",
-    'AN' => "Alto Parana",
-    'AM' => "Amambay",
-    'AS' => "Asuncion",
-    'BO' => "Boqueron",
-    'CG' => "Caaguazu",
-    'CZ' => "Caazapa",
-    'CN' => "Canindeyu",
-    'CE' => "Central",
-    'CC' => "Concepcion",
-    'CD' => "Cordillera",
-    'GU' => "Guaira",
-    'IT' => "Itapua",
-    'MI' => "Misiones",
-    'NE' => "Neembucu",
-    'PA' => "Paraguari",
-    'PH' => "Presidente Hayes",
-    'SP' => "San Pedro");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_py() {
-  return array(
-    'minlng' => -62.7526,
-    'minlat' => -27.5863,
-    'maxlng' => -54.24475,
-    'maxlat' => -19.248333,
-  );
+function location_province_list_py () {
+	return array (
+		"1" => t("Concepcion"),
+		"10" => t("Alto Parana"),
+		"11" => t("Central"),
+		"12" => t("Neembucu"),
+		"13" => t("Amambay"),
+		"14" => t("Canindeyu"),
+		"15" => t("Presidente Hayes"),
+		"16" => t("Alto Paraguay"),
+		"19" => t("Boqueron"),
+		"2" => t("San Pedro"),
+		"3" => t("Cordillera"),
+		"4" => t("Guaira"),
+		"5" => t("Caaguazu"),
+		"6" => t("Caazapa"),
+		"7" => t("Itapua"),
+		"8" => t("Misiones"),
+		"9" => t("Paraguari"),
+		"ASU" => t("Asuncion"),
+	);
 }

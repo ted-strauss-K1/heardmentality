@@ -1,44 +1,33 @@
 <?php
 
-// Ukraine
-
-function location_province_list_ua() {
-  return array('CK' => "Cherkasy",
-    'CH' => "Chernihiv",
-    'CV' => "Chernivtsi",
-    'CR' => "Crimea",
-    'DN' => "Dnipropetrovs'k",
-    'DO' => "Donets'k",
-    'IV' => "Ivano-Frankivs'k",
-    'KL' => "Kharkiv Kherson",
-    'KM' => "Khmel'nyts'kyy",
-    'KR' => "Kirovohrad",
-    'KV' => "Kiev",
-    'KY' => "Kyyiv",
-    'LU' => "Luhans'k",
-    'LV' => "L'viv",
-    'MY' => "Mykolayiv",
-    'OD' => "Odesa",
-    'PO' => "Poltava",
-    'RI' => "Rivne",
-    'SE' => "Sevastopol",
-    'SU' => "Sumy",
-    'TE' => "Ternopil'",
-    'VI' => "Vinnytsya",
-    'VO' => "Volyn'",
-    'ZK' => "Zakarpattya",
-    'ZA' => "Zaporizhzhya",
-    'ZH' => "Zhytomyr");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ua() {
-  return array(
-    'minlng' => 22.0955,
-    'minlat' => 44.4744,
-    'maxlng' => 40.13205,
-    'maxlat' => 52.452833,
-  );
+function location_province_list_ua () {
+	return array (
+		"05" => t("Vinnytsya"),
+		"07" => t("Volyn'"),
+		"09" => t("Luhans'k"),
+		"12" => t("Dnipropetrovs'k"),
+		"14" => t("Donets'k"),
+		"18" => t("Zhytomyr"),
+		"21" => t("Zakarpattya"),
+		"23" => t("Zaporizhzhya"),
+		"26" => t("Ivano-Frankivs'k"),
+		"30" => t("Kyyiv"),
+		"32" => t("Kiev"),
+		"35" => t("Kirovohrad"),
+		"40" => t("Sevastopol"),
+		"43" => t("Crimea"),
+		"46" => t("L'viv"),
+		"48" => t("Mykolayiv"),
+		"51" => t("Odesa"),
+		"53" => t("Poltava"),
+		"56" => t("Rivne"),
+		"59" => t("Sumy"),
+		"61" => t("Ternopil'"),
+		"63" => t("Kharkiv"),
+		"65" => t("Kherson"),
+		"68" => t("Khmel'nyts'kyy"),
+		"71" => t("Cherkasy"),
+		"74" => t("Chernihiv"),
+		"77" => t("Chernivtsi"),
+	);
 }

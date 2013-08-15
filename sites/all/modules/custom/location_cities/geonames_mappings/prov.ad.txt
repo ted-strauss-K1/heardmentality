@@ -1,7 +1,0 @@
- 3041203 ad_CAN
-*3041566 ad_ALV  :::  Andorra la Vella ~ Parròquia d'Andorra la Vella(3041566)
-*3040684 ad_ENC  :::  Encamp ~ Parròquia d'Encamp(3040684)
-*3338529 ad_ESE  :::  Escaldes-Engordany ~ Parròquia d'Escaldes-Engordany(3338529)
-*3040131 ad_LMA  :::  La Massana ~ Parròquia de la Massana(3040131)
-*3039676 ad_ORD  :::  Ordino ~ Parròquia d'Ordino(3039676)
-*3039162 ad_SJL  :::  Sant Julia de L�ria ~ Parròquia de la Massana(3040131)

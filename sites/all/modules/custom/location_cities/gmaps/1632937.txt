@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "20",
+               "short_name" : "20",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Jalan Mede",
+               "short_name" : "Jl. Mede",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "2",
+               "short_name" : "2",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "South Tangerang",
+               "short_name" : "South Tangerang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "3",
+               "short_name" : "3",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Pamulang",
+               "short_name" : "Pamulang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "South Tangerang City",
+               "short_name" : "South Tangerang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "15417",
+               "short_name" : "15417",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Mede No.20, Pamulang, South Tangerang City, Banten 15417, Indonesia",
+         "geometry" : {
+            "location" : {
+               "lat" : -6.3429860,
+               "lng" : 106.7381620
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.341637019708497,
+                  "lng" : 106.7395109802915
+               },
+               "southwest" : {
+                  "lat" : -6.344334980291502,
+                  "lng" : 106.7368130197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Pamulang",
+               "short_name" : "West Pamulang",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Pamulang",
+               "short_name" : "Pamulang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "South Tangerang City",
+               "short_name" : "South Tangerang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Pamulang, Pamulang, South Tangerang City, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.330680099999999,
+                  "lng" : 106.74522990
+               },
+               "southwest" : {
+                  "lat" : -6.36050790,
+                  "lng" : 106.72298010
+               }
+            },
+            "location" : {
+               "lat" : -6.34562290,
+               "lng" : 106.73230970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.330680099999999,
+                  "lng" : 106.74522990
+               },
+               "southwest" : {
+                  "lat" : -6.36050790,
+                  "lng" : 106.72298010
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "15417",
+               "short_name" : "15417",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banten 15417, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.33061590,
+                  "lng" : 106.74999230
+               },
+               "southwest" : {
+                  "lat" : -6.36095610,
+                  "lng" : 106.72322090
+               }
+            },
+            "location" : {
+               "lat" : -6.347891499999999,
+               "lng" : 106.74115590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.33061590,
+                  "lng" : 106.74999230
+               },
+               "southwest" : {
+                  "lat" : -6.36095610,
+                  "lng" : 106.72322090
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pamulang",
+               "short_name" : "Pamulang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "South Tangerang City",
+               "short_name" : "South Tangerang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pamulang, South Tangerang City, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.30482010,
+                  "lng" : 106.77885410
+               },
+               "southwest" : {
+                  "lat" : -6.36207210,
+                  "lng" : 106.69932990
+               }
+            },
+            "location" : {
+               "lat" : -6.347891499999999,
+               "lng" : 106.74115590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.30482010,
+                  "lng" : 106.77885410
+               },
+               "southwest" : {
+                  "lat" : -6.36207210,
+                  "lng" : 106.69932990
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South Tangerang",
+               "short_name" : "South Tangerang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "South Tangerang City",
+               "short_name" : "South Tangerang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Tangerang, South Tangerang City, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.2289340,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -6.3622630,
+                  "lng" : 106.636710
+               }
+            },
+            "location" : {
+               "lat" : -6.28888890,
+               "lng" : 106.71805560
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.2289340,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -6.3622630,
+                  "lng" : 106.636710
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South Tangerang City",
+               "short_name" : "South Tangerang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Tangerang City, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.2289340,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -6.3622630,
+                  "lng" : 106.636710
+               }
+            },
+            "location" : {
+               "lat" : -6.28269440,
+               "lng" : 106.69987670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.2289340,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -6.3622630,
+                  "lng" : 106.636710
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.87581390,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -7.0163420,
+                  "lng" : 105.10011490
+               }
+            },
+            "location" : {
+               "lat" : -6.40581720,
+               "lng" : 106.06401790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.87581390,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -7.0163420,
+                  "lng" : 105.10011490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

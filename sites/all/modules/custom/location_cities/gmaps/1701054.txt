@@ -1,0 +1,250 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Gomisa Avenue",
+               "short_name" : "Gomisa Avenue",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Marawi City",
+               "short_name" : "Marawi City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Lanao del Sur",
+               "short_name" : "Lanao del Sur",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Autonomous Region in Muslim Mindanao",
+               "short_name" : "ARMM",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "9700",
+               "short_name" : "9700",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Gomisa Avenue, Marawi City 9700, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.99872540,
+                  "lng" : 124.29409150
+               },
+               "southwest" : {
+                  "lat" : 7.995954899999998,
+                  "lng" : 124.29232410
+               }
+            },
+            "location" : {
+               "lat" : 7.99735150,
+               "lng" : 124.2932260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.99872540,
+                  "lng" : 124.2945567802915
+               },
+               "southwest" : {
+                  "lat" : 7.995954899999998,
+                  "lng" : 124.2918588197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Marawi City",
+               "short_name" : "Marawi City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Lanao del Sur",
+               "short_name" : "Lanao del Sur",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Autonomous Region in Muslim Mindanao",
+               "short_name" : "ARMM",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Marawi City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 8.06551820,
+                  "lng" : 124.35592170
+               },
+               "southwest" : {
+                  "lat" : 7.98159010,
+                  "lng" : 124.23987870
+               }
+            },
+            "location" : {
+               "lat" : 8.00269490,
+               "lng" : 124.2919010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 8.06551820,
+                  "lng" : 124.35592170
+               },
+               "southwest" : {
+                  "lat" : 7.98159010,
+                  "lng" : 124.23987870
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lanao del Sur",
+               "short_name" : "Lanao del Sur",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Autonomous Region in Muslim Mindanao",
+               "short_name" : "ARMM",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lanao del Sur, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 8.212188899999999,
+                  "lng" : 124.8071930
+               },
+               "southwest" : {
+                  "lat" : 7.39955570,
+                  "lng" : 123.82645410
+               }
+            },
+            "location" : {
+               "lat" : 7.8231760,
+               "lng" : 124.41982430
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 8.212188899999999,
+                  "lng" : 124.8071930
+               },
+               "southwest" : {
+                  "lat" : 7.39955570,
+                  "lng" : 123.82645410
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Northern Mindanao",
+               "short_name" : "Northern Mindanao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Northern Mindanao, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 9.25801830,
+                  "lng" : 125.4444640
+               },
+               "southwest" : {
+                  "lat" : 7.39916090,
+                  "lng" : 123.5556260
+               }
+            },
+            "location" : {
+               "lat" : 8.020163499999999,
+               "lng" : 124.68565090
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 9.25801830,
+                  "lng" : 125.4444640
+               },
+               "southwest" : {
+                  "lat" : 7.39916090,
+                  "lng" : 123.5556260
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            },
+            "location" : {
+               "lat" : 12.8797210,
+               "lng" : 121.7740170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

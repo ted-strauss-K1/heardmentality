@@ -1,36 +1,25 @@
 <?php
 
-// Uruguay
-
-function location_province_list_uy() {
-  return array('AR' => "Artigas",
-    'CA' => "Canelones",
-    'CL' => "Cerro Largo",
-    'CO' => "Colonia",
-    'DU' => "Durazno",
-    'FS' => "Flores",
-    'FA' => "Florida",
-    'LA' => "Lavalleja",
-    'MA' => "Maldonado",
-    'MO' => "Montevideo",
-    'PA' => "Paysandu",
-    'RN' => "Rio Negro",
-    'RV' => "Rivera",
-    'RO' => "Rocha",
-    'SL' => "Salto",
-    'SO' => "Soriano",
-    'SJ' => "San Jose",
-    'TT' => "Treinta y Tres");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_uy() {
-  return array(
-    'minlng' => -58.39985,
-    'minlat' => -34.9494,
-    'maxlng' => -53.1923,
-    'maxlat' => -30.1059,
-  );
+function location_province_list_uy () {
+	return array (
+		"AR" => t("Artigas"),
+		"CA" => t("Canelones"),
+		"CL" => t("Cerro Largo"),
+		"CO" => t("Colonia"),
+		"DU" => t("Durazno"),
+		"FD" => t("Florida"),
+		"FS" => t("Flores"),
+		"LA" => t("Lavalleja"),
+		"MA" => t("Maldonado"),
+		"MO" => t("Montevideo"),
+		"PA" => t("Paysandu"),
+		"RN" => t("Rio Negro"),
+		"RO" => t("Rocha"),
+		"RV" => t("Rivera"),
+		"SA" => t("Salto"),
+		"SJ" => t("San Jose"),
+		"SO" => t("Soriano"),
+		"TA" => t("Tacuarembo"),
+		"TT" => t("Treinta y Tres"),
+	);
 }

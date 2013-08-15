@@ -1,27 +1,15 @@
 <?php
 
-// San Marino
-
-function location_province_list_sm() {
-  return array('AC' => "Acquaviva",
-    'BM' => "Borgo Maggiore",
-    'CH' => "Chiesanuova",
-    'DO' => "Domagnano",
-    'FA' => "Faetano",
-    'FI' => "Fiorentino",
-    'MO' => "Montegiardino",
-    'SM' => "Citta di San Marino",
-    'SE' => "Serravalle");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_sm() {
-  return array(
-    'minlng' => 12.23665,
-    'minlat' => 43.882767,
-    'maxlng' => 12.4976,
-    'maxlat' => 44.070533,
-  );
+function location_province_list_sm () {
+	return array (
+		"01" => t("Acquaviva"),
+		"02" => t("Chiesanuova"),
+		"03" => t("Domagnano"),
+		"04" => t("Faetano"),
+		"05" => t("Fiorentino"),
+		"06" => t("Borgo Maggiore"),
+		"07" => t("Citta di San Marino"),
+		"08" => t("Montegiardino"),
+		"09" => t("Serravalle"),
+	);
 }

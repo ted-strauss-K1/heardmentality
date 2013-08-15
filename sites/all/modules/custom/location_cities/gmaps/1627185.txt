@@ -1,0 +1,298 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lalan",
+               "short_name" : "Lalan",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Lubuk Tarok",
+               "short_name" : "Lubuk Tarok",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sijunjung",
+               "short_name" : "Sijunjung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lalan, Lubuk Tarok, Sijunjung, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.6576508999999999,
+                  "lng" : 100.9952410
+               },
+               "southwest" : {
+                  "lat" : -0.73871290,
+                  "lng" : 100.90955190
+               }
+            },
+            "location" : {
+               "lat" : -0.6928848999999999,
+               "lng" : 100.96939680
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.6576508999999999,
+                  "lng" : 100.9952410
+               },
+               "southwest" : {
+                  "lat" : -0.73871290,
+                  "lng" : 100.90955190
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "27562",
+               "short_name" : "27562",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Sijunjung",
+               "short_name" : "Sijunjung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sijunjung, West Sumatra 27562, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.5901950,
+                  "lng" : 101.00707990
+               },
+               "southwest" : {
+                  "lat" : -0.72326890,
+                  "lng" : 100.8547820
+               }
+            },
+            "location" : {
+               "lat" : -0.64642880,
+               "lng" : 100.91289950
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.5901950,
+                  "lng" : 101.00707990
+               },
+               "southwest" : {
+                  "lat" : -0.72326890,
+                  "lng" : 100.8547820
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lubuk Tarok",
+               "short_name" : "Lubuk Tarok",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sijunjung",
+               "short_name" : "Sijunjung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lubuk Tarok, Sijunjung, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.6576508999999999,
+                  "lng" : 101.0975720
+               },
+               "southwest" : {
+                  "lat" : -0.9300640,
+                  "lng" : 100.9073080
+               }
+            },
+            "location" : {
+               "lat" : -0.7954614999999999,
+               "lng" : 101.00331120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.6576508999999999,
+                  "lng" : 101.0975720
+               },
+               "southwest" : {
+                  "lat" : -0.9300640,
+                  "lng" : 100.9073080
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sijunjung",
+               "short_name" : "Sijunjung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sijunjung, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.310830,
+                  "lng" : 101.49498490
+               },
+               "southwest" : {
+                  "lat" : -0.9866419999999999,
+                  "lng" : 100.790850
+               }
+            },
+            "location" : {
+               "lat" : -0.6647006999999999,
+               "lng" : 101.07117580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.310830,
+                  "lng" : 101.49498490
+               },
+               "southwest" : {
+                  "lat" : -0.9866419999999999,
+                  "lng" : 100.790850
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9073890,
+                  "lng" : 101.89291810
+               },
+               "southwest" : {
+                  "lat" : -4.0200910,
+                  "lng" : 98.59692190000001
+               }
+            },
+            "location" : {
+               "lat" : -0.73993970,
+               "lng" : 100.80000510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9073890,
+                  "lng" : 101.89291810
+               },
+               "southwest" : {
+                  "lat" : -4.0200910,
+                  "lng" : 98.59692190000001
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

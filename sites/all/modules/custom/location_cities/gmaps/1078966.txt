@@ -1,0 +1,235 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "5A",
+               "short_name" : "5A",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Antalaha",
+               "short_name" : "Antalaha",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antsiranana",
+               "short_name" : "Antsiranana",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "5A, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -14.74918260,
+                  "lng" : 50.22002939999999
+               },
+               "southwest" : {
+                  "lat" : -14.75626460,
+                  "lng" : 50.21953860
+               }
+            },
+            "location" : {
+               "lat" : -14.7527290,
+               "lng" : 50.22002470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -14.74918260,
+                  "lng" : 50.22113298029150
+               },
+               "southwest" : {
+                  "lat" : -14.75626460,
+                  "lng" : 50.21843501970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Antalaha",
+               "short_name" : "Antalaha",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antsiranana",
+               "short_name" : "Antsiranana",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Antalaha, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -14.53225580,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -15.99579140,
+                  "lng" : 49.77862349999999
+               }
+            },
+            "location" : {
+               "lat" : -15.17748410,
+               "lng" : 50.10095270
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -14.53225580,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -15.99579140,
+                  "lng" : 49.77862349999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sava",
+               "short_name" : "Sava",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antsiranana",
+               "short_name" : "Antsiranana",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sava, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -12.73742840,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -15.99579140,
+                  "lng" : 49.07112120
+               }
+            },
+            "location" : {
+               "lat" : -14.44071750,
+               "lng" : 49.85472660
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -12.73742840,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -15.99579140,
+                  "lng" : 49.07112120
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Antsiranana",
+               "short_name" : "Antsiranana",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Antsiranana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.951880,
+                  "lng" : 50.48377980000001
+               },
+               "southwest" : {
+                  "lat" : -15.99579110,
+                  "lng" : 47.80889879999999
+               }
+            },
+            "location" : {
+               "lat" : -13.7715390,
+               "lng" : 49.52799960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.951880,
+                  "lng" : 50.48377980000001
+               },
+               "southwest" : {
+                  "lat" : -15.99579110,
+                  "lng" : 47.80889879999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

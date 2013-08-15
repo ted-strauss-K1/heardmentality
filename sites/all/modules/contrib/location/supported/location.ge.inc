@@ -1,30 +1,18 @@
 <?php
 
-// Georgia
-
-function location_province_list_ge() {
-  return array('AB' => "Abkhazia",
-    'AJ' => "Ajaria",
-    'TB' => "Tbilisi",
-    'GU' => "Guria",
-    'IM' => "Imereti",
-    'KA' => "Kakheti",
-    'KK' => "Kvemo Kartli",
-    'MM' => "Mtskheta-Mtianeti",
-    'RL' => "Racha Lechkhumi and Kvemo Svaneti",
-    'SZ' => "Samegrelo-Zemo Svaneti",
-    'SJ' => "Samtskhe-Javakheti",
-    'SK' => "Shida Kartli");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ge() {
-  return array(
-    'minlng' => 39.923261,
-    'minlat' => 41.1446,
-    'maxlng' => 46.7882,
-    'maxlat' => 43.6354,
-  );
+function location_province_list_ge () {
+	return array (
+		"AB" => t("Abkhazia"),
+		"AJ" => t("Ajaria"),
+		"GU" => t("Guria"),
+		"IM" => t("Imereti"),
+		"KA" => t("Kakheti"),
+		"KK" => t("Kvemo Kartli"),
+		"MM" => t("Mtskheta-Mtianeti"),
+		"RL" => t("Racha Lechkhumi and Kvemo Svaneti"),
+		"SJ" => t("Samtskhe-Javakheti"),
+		"SK" => t("Shida Kartli"),
+		"SZ" => t("Samegrelo-Zemo Svaneti"),
+		"TB" => t("Tbilisi"),
+	);
 }

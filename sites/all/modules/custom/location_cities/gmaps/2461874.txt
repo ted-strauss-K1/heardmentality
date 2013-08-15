@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "زنقة خنيفرة",
+               "short_name" : "زنقة خنيفرة",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Samara",
+               "short_name" : "Samara",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Es Semara Province",
+               "short_name" : "Es Semara Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Guelmim-Es Semara",
+               "short_name" : "Guelmim-Es Semara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "زنقة خنيفرة، Samara, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.7369850,
+                  "lng" : -11.6725970
+               },
+               "southwest" : {
+                  "lat" : 26.7362720,
+                  "lng" : -11.67272830
+               }
+            },
+            "location" : {
+               "lat" : 26.73662850,
+               "lng" : -11.67266260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 26.73797748029150,
+                  "lng" : -11.67131366970850
+               },
+               "southwest" : {
+                  "lat" : 26.73527951970850,
+                  "lng" : -11.67401163029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Quartier E-Sakena",
+               "short_name" : "Quartier E-Sakena",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Samara",
+               "short_name" : "Samara",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Es Semara Province",
+               "short_name" : "Es Semara Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Guelmim-Es Semara",
+               "short_name" : "Guelmim-Es Semara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Quartier E-Sakena, Samara, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.73911920,
+                  "lng" : -11.66842450
+               },
+               "southwest" : {
+                  "lat" : 26.73436660,
+                  "lng" : -11.67342960
+               }
+            },
+            "location" : {
+               "lat" : 26.73597170,
+               "lng" : -11.67054130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 26.73911920,
+                  "lng" : -11.66842450
+               },
+               "southwest" : {
+                  "lat" : 26.73436660,
+                  "lng" : -11.67342960
+               }
+            }
+         },
+         "types" : [ "neighborhood", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Samara",
+               "short_name" : "Samara",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Es Semara Province",
+               "short_name" : "Es Semara Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Guelmim-Es Semara",
+               "short_name" : "Guelmim-Es Semara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Samara, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.75572750,
+                  "lng" : -11.65185940
+               },
+               "southwest" : {
+                  "lat" : 26.71855050,
+                  "lng" : -11.69528950
+               }
+            },
+            "location" : {
+               "lat" : 26.73944440,
+               "lng" : -11.67027780
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 26.75572750,
+                  "lng" : -11.65185940
+               },
+               "southwest" : {
+                  "lat" : 26.71855050,
+                  "lng" : -11.69528950
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "72000",
+               "short_name" : "72000",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Es Semara Province",
+               "short_name" : "Es Semara Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Guelmim-Es Semara",
+               "short_name" : "Guelmim-Es Semara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "72000, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.76507730,
+                  "lng" : -11.64735320
+               },
+               "southwest" : {
+                  "lat" : 26.71525370,
+                  "lng" : -11.71116830
+               }
+            },
+            "location" : {
+               "lat" : 26.74016550,
+               "lng" : -11.67926070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 26.76507730,
+                  "lng" : -11.64735320
+               },
+               "southwest" : {
+                  "lat" : 26.71525370,
+                  "lng" : -11.71116830
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Es Semara Province",
+               "short_name" : "Es Semara Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Guelmim-Es Semara",
+               "short_name" : "Guelmim-Es Semara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Es Semara Province, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.66285280,
+                  "lng" : -8.67708350
+               },
+               "southwest" : {
+                  "lat" : 26.00217850,
+                  "lng" : -12.51617430
+               }
+            },
+            "location" : {
+               "lat" : 27.17259960,
+               "lng" : -10.26001250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.66285280,
+                  "lng" : -8.67708350
+               },
+               "southwest" : {
+                  "lat" : 26.00217850,
+                  "lng" : -12.51617430
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Guelmim-Es Semara",
+               "short_name" : "Guelmim-Es Semara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Guelmim-Es Semara, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.6696550,
+                  "lng" : -8.670275999999999
+               },
+               "southwest" : {
+                  "lat" : 25.9073520,
+                  "lng" : -12.577550
+               }
+            },
+            "location" : {
+               "lat" : 27.17259960,
+               "lng" : -10.26001250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.6696550,
+                  "lng" : -8.670275999999999
+               },
+               "southwest" : {
+                  "lat" : 25.9073520,
+                  "lng" : -12.577550
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.66667760,
+                  "lng" : -8.666665999999999
+               },
+               "southwest" : {
+                  "lat" : 20.77001840,
+                  "lng" : -17.10490820
+               }
+            },
+            "location" : {
+               "lat" : 24.2155270,
+               "lng" : -12.8858340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.66670280,
+                  "lng" : -8.666665999999999
+               },
+               "southwest" : {
+                  "lat" : 20.77001840,
+                  "lng" : -17.10490820
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

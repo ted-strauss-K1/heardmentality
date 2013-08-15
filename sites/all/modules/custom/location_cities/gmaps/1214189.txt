@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Medan Batangkuis",
+               "short_name" : "Jl. Medan Batangkuis",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Percut Sei Tuan",
+               "short_name" : "Percut Sei Tuan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Deli Serdang",
+               "short_name" : "Deli Serdang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "20371",
+               "short_name" : "20371",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Medan Batangkuis, Percut Sei Tuan, Deli Serdang, North Sumatra 20371, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.60706240,
+                  "lng" : 98.78354059999999
+               },
+               "southwest" : {
+                  "lat" : 3.607059899999999,
+                  "lng" : 98.78266520
+               }
+            },
+            "location" : {
+               "lat" : 3.60706120,
+               "lng" : 98.78310289999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.608410130291502,
+                  "lng" : 98.78445188029150
+               },
+               "southwest" : {
+                  "lat" : 3.605712169708498,
+                  "lng" : 98.78175391970849
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pasar Enam Kuala Namu",
+               "short_name" : "Pasar Enam Kuala Namu",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Beringin",
+               "short_name" : "Beringin",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Deli Serdang",
+               "short_name" : "Deli Serdang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pasar Enam Kuala Namu, Beringin, Deli Serdang, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.650016099999999,
+                  "lng" : 98.8751060
+               },
+               "southwest" : {
+                  "lat" : 3.6180130,
+                  "lng" : 98.85466490
+               }
+            },
+            "location" : {
+               "lat" : 3.63621340,
+               "lng" : 98.86660320
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.650016099999999,
+                  "lng" : 98.8751060
+               },
+               "southwest" : {
+                  "lat" : 3.6180130,
+                  "lng" : 98.85466490
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kuala Namu Internasional Airport",
+               "short_name" : "Kuala Namu Internasional Airport",
+               "types" : [ "establishment" ]
+            },
+            {
+               "long_name" : "Deli Serdang",
+               "short_name" : "Deli Serdang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kuala Namu Internasional Airport (KNM), Deli Serdang, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.65859010,
+                  "lng" : 98.89695850
+               },
+               "southwest" : {
+                  "lat" : 3.61052080,
+                  "lng" : 98.84787899999999
+               }
+            },
+            "location" : {
+               "lat" : 3.64015340,
+               "lng" : 98.87817170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.65859010,
+                  "lng" : 98.89695850
+               },
+               "southwest" : {
+                  "lat" : 3.61052080,
+                  "lng" : 98.84787899999999
+               }
+            }
+         },
+         "types" : [ "airport", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Beringin",
+               "short_name" : "Beringin",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Deli Serdang",
+               "short_name" : "Deli Serdang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Beringin, Deli Serdang, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.6557690,
+                  "lng" : 98.911540
+               },
+               "southwest" : {
+                  "lat" : 3.5926720,
+                  "lng" : 98.84306509999999
+               }
+            },
+            "location" : {
+               "lat" : 3.62866930,
+               "lng" : 98.86936089999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.6557690,
+                  "lng" : 98.911540
+               },
+               "southwest" : {
+                  "lat" : 3.5926720,
+                  "lng" : 98.84306509999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "20553",
+               "short_name" : "20553",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Deli Serdang",
+               "short_name" : "Deli Serdang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Deli Serdang, North Sumatra 20553, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.6946840,
+                  "lng" : 98.91792289999999
+               },
+               "southwest" : {
+                  "lat" : 3.61457890,
+                  "lng" : 98.78709409999999
+               }
+            },
+            "location" : {
+               "lat" : 3.64893510,
+               "lng" : 98.84730239999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.6946840,
+                  "lng" : 98.91792289999999
+               },
+               "southwest" : {
+                  "lat" : 3.61457890,
+                  "lng" : 98.78709409999999
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Deli Serdang",
+               "short_name" : "Deli Serdang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Deli Serdang, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.9095070,
+                  "lng" : 98.94901999999999
+               },
+               "southwest" : {
+                  "lat" : 3.050450,
+                  "lng" : 98.46518390
+               }
+            },
+            "location" : {
+               "lat" : 3.42018020,
+               "lng" : 98.70407499999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.9095070,
+                  "lng" : 98.94901999999999
+               },
+               "southwest" : {
+                  "lat" : 3.050450,
+                  "lng" : 98.46518390
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            },
+            "location" : {
+               "lat" : 2.11535470,
+               "lng" : 99.54509739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

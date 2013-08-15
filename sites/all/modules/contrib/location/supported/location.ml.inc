@@ -1,27 +1,15 @@
 <?php
 
-// Mali
-
-function location_province_list_ml() {
-  return array('GA' => "Gao",
-    'KY' => "Kayes",
-    'KD' => "Kidal",
-    'KL' => "Koulikoro",
-    'MP' => "Mopti",
-    'SG' => "Segou",
-    'SK' => "Sikasso",
-    'TB' => "Tombouctou",
-    'CD' => "Bamako Capital District");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ml() {
-  return array(
-    'minlng' => -12.08985,
-    'minlat' => 10.1315,
-    'maxlng' => 4.34825,
-    'maxlat' => 24.997733,
-  );
+function location_province_list_ml () {
+	return array (
+		"1" => t("Kayes"),
+		"2" => t("Koulikoro"),
+		"3" => t("Sikasso"),
+		"4" => t("Segou"),
+		"5" => t("Mopti"),
+		"6" => t("Tombouctou"),
+		"7" => t("Gao"),
+		"8" => t("Kidal"),
+		"BKO" => t("Bamako Capital District"),
+	);
 }

@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Geoffrey Kamau Avenue",
+               "short_name" : "A 104",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Biashara",
+               "short_name" : "Biashara",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Nakuru",
+               "short_name" : "Nakuru",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Nakuru",
+               "short_name" : "Nakuru",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Geoffrey Kamau Avenue, Nakuru, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.28384160,
+                  "lng" : 36.0689850
+               },
+               "southwest" : {
+                  "lat" : -0.28480250,
+                  "lng" : 36.06532440
+               }
+            },
+            "location" : {
+               "lat" : -0.28432210,
+               "lng" : 36.06715470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.2829730697084979,
+                  "lng" : 36.0689850
+               },
+               "southwest" : {
+                  "lat" : -0.2856710302915020,
+                  "lng" : 36.06532440
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Biashara",
+               "short_name" : "Biashara",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Nakuru",
+               "short_name" : "Nakuru",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Rift Valley",
+               "short_name" : "Rift Valley",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Biashara, Nakuru, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.28088590,
+                  "lng" : 36.08269610
+               },
+               "southwest" : {
+                  "lat" : -0.30486540,
+                  "lng" : 36.0552060
+               }
+            },
+            "location" : {
+               "lat" : -0.29346660,
+               "lng" : 36.07031370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.28088590,
+                  "lng" : 36.08269610
+               },
+               "southwest" : {
+                  "lat" : -0.30486540,
+                  "lng" : 36.0552060
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nakuru",
+               "short_name" : "Nakuru",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Nakuru",
+               "short_name" : "Nakuru",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nakuru, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.20831060,
+                  "lng" : 36.19723720
+               },
+               "southwest" : {
+                  "lat" : -0.42331310,
+                  "lng" : 35.96048360
+               }
+            },
+            "location" : {
+               "lat" : -0.30309880,
+               "lng" : 36.0800260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.20831060,
+                  "lng" : 36.19723720
+               },
+               "southwest" : {
+                  "lat" : -0.42331310,
+                  "lng" : 35.96048360
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nakuru",
+               "short_name" : "Nakuru",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nakuru, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.235120,
+                  "lng" : 36.5950
+               },
+               "southwest" : {
+                  "lat" : -1.1637080,
+                  "lng" : 35.41793610000001
+               }
+            },
+            "location" : {
+               "lat" : -0.42535840,
+               "lng" : 36.00232250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.235120,
+                  "lng" : 36.5950
+               },
+               "southwest" : {
+                  "lat" : -1.1637080,
+                  "lng" : 35.41793610000001
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

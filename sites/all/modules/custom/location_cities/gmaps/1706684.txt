@@ -1,0 +1,303 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Butuan-Cagayan de Oro-Iligan Road",
+               "short_name" : "Butuan-Cagayan de Oro-Iligan Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Butuan City",
+               "short_name" : "Butuan City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Agusan Del Norte",
+               "short_name" : "Agusan Del Norte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Caraga",
+               "short_name" : "Caraga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Butuan-Cagayan de Oro-Iligan Road, Butuan City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 8.943902699999999,
+                  "lng" : 125.50208920
+               },
+               "southwest" : {
+                  "lat" : 8.943682799999999,
+                  "lng" : 125.50156830
+               }
+            },
+            "location" : {
+               "lat" : 8.943792799999999,
+               "lng" : 125.50182870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 8.945141730291502,
+                  "lng" : 125.5031777302915
+               },
+               "southwest" : {
+                  "lat" : 8.942443769708497,
+                  "lng" : 125.5004797697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Libertad",
+               "short_name" : "Libertad",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Butuan City",
+               "short_name" : "Butuan City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Agusan Del Norte",
+               "short_name" : "Agusan Del Norte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Caraga",
+               "short_name" : "Caraga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Libertad, Butuan City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 8.963673499999999,
+                  "lng" : 125.52699580
+               },
+               "southwest" : {
+                  "lat" : 8.933404899999999,
+                  "lng" : 125.48820020
+               }
+            },
+            "location" : {
+               "lat" : 8.94325630,
+               "lng" : 125.50557580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 8.963673499999999,
+                  "lng" : 125.52699580
+               },
+               "southwest" : {
+                  "lat" : 8.933404899999999,
+                  "lng" : 125.48820020
+               }
+            }
+         },
+         "types" : [ "neighborhood", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Butuan City",
+               "short_name" : "Butuan City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Agusan Del Norte",
+               "short_name" : "Agusan Del Norte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Caraga",
+               "short_name" : "Caraga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Butuan City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 9.05158220,
+                  "lng" : 125.74573510
+               },
+               "southwest" : {
+                  "lat" : 8.745972199999999,
+                  "lng" : 125.46225690
+               }
+            },
+            "location" : {
+               "lat" : 8.94753770,
+               "lng" : 125.54062340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 9.05158220,
+                  "lng" : 125.74573510
+               },
+               "southwest" : {
+                  "lat" : 8.745972199999999,
+                  "lng" : 125.46225690
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Agusan Del Norte",
+               "short_name" : "Agusan Del Norte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Caraga",
+               "short_name" : "Caraga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Agusan Del Norte, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 9.459099999999999,
+                  "lng" : 125.76691110
+               },
+               "southwest" : {
+                  "lat" : 8.657575899999999,
+                  "lng" : 125.20638760
+               }
+            },
+            "location" : {
+               "lat" : 8.94562590,
+               "lng" : 125.53192340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 9.459099999999999,
+                  "lng" : 125.76691110
+               },
+               "southwest" : {
+                  "lat" : 8.657575899999999,
+                  "lng" : 125.20638760
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Caraga",
+               "short_name" : "Caraga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Caraga, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 10.47399490,
+                  "lng" : 126.45833360
+               },
+               "southwest" : {
+                  "lat" : 7.907885899999999,
+                  "lng" : 125.20638760
+               }
+            },
+            "location" : {
+               "lat" : 8.801456199999999,
+               "lng" : 125.74068820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 10.47399490,
+                  "lng" : 126.45833360
+               },
+               "southwest" : {
+                  "lat" : 7.907885899999999,
+                  "lng" : 125.20638760
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            },
+            "location" : {
+               "lat" : 12.8797210,
+               "lng" : 121.7740170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

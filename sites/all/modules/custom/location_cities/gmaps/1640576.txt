@@ -1,0 +1,303 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Kartini",
+               "short_name" : "Jl. Kartini",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Kefamenanu City",
+               "short_name" : "Kefamenanu City",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "North Timor Tengah",
+               "short_name" : "North Timor Tengah",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "East Nusa Tenggara",
+               "short_name" : "East Nusa Tenggara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jalan Kartini, Kefamenanu City, North Timor Tengah, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -9.44651760,
+                  "lng" : 124.47818190
+               },
+               "southwest" : {
+                  "lat" : -9.446638099999999,
+                  "lng" : 124.47798410
+               }
+            },
+            "location" : {
+               "lat" : -9.446578199999999,
+               "lng" : 124.47808280
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -9.445228869708497,
+                  "lng" : 124.4794319802915
+               },
+               "southwest" : {
+                  "lat" : -9.447926830291502,
+                  "lng" : 124.4767340197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Kefamenanu",
+               "short_name" : "Central Kefamenanu",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Kefamenanu City",
+               "short_name" : "Kefamenanu City",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "North Timor Tengah",
+               "short_name" : "North Timor Tengah",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "East Nusa Tenggara",
+               "short_name" : "East Nusa Tenggara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Kefamenanu, Kefamenanu City, North Timor Tengah, East Nusa Tenggara, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -9.438689999999999,
+                  "lng" : 124.492540
+               },
+               "southwest" : {
+                  "lat" : -9.45340010,
+                  "lng" : 124.47262990
+               }
+            },
+            "location" : {
+               "lat" : -9.44834550,
+               "lng" : 124.48358550
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -9.438689999999999,
+                  "lng" : 124.492540
+               },
+               "southwest" : {
+                  "lat" : -9.45340010,
+                  "lng" : 124.47262990
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kefamenanu City",
+               "short_name" : "Kefamenanu City",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "North Timor Tengah",
+               "short_name" : "North Timor Tengah",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "East Nusa Tenggara",
+               "short_name" : "East Nusa Tenggara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kefamenanu City, North Timor Tengah, East Nusa Tenggara, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -9.416580,
+                  "lng" : 124.5418680
+               },
+               "southwest" : {
+                  "lat" : -9.526664000000002,
+                  "lng" : 124.44680
+               }
+            },
+            "location" : {
+               "lat" : -9.47286940,
+               "lng" : 124.49744050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -9.416580,
+                  "lng" : 124.5418680
+               },
+               "southwest" : {
+                  "lat" : -9.526664000000002,
+                  "lng" : 124.44680
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Timor Tengah",
+               "short_name" : "North Timor Tengah",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "East Nusa Tenggara",
+               "short_name" : "East Nusa Tenggara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Timor Tengah, East Nusa Tenggara, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -9.018151099999999,
+                  "lng" : 124.8548130
+               },
+               "southwest" : {
+                  "lat" : -9.6629550,
+                  "lng" : 124.09255210
+               }
+            },
+            "location" : {
+               "lat" : -9.452264699999999,
+               "lng" : 124.5971320
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -9.018151099999999,
+                  "lng" : 124.8548130
+               },
+               "southwest" : {
+                  "lat" : -9.6629550,
+                  "lng" : 124.09255210
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "East Nusa Tenggara",
+               "short_name" : "East Nusa Tenggara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "East Nusa Tenggara, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.0635160,
+                  "lng" : 125.1881490
+               },
+               "southwest" : {
+                  "lat" : -11.0075490,
+                  "lng" : 118.9270020
+               }
+            },
+            "location" : {
+               "lat" : -8.657381899999999,
+               "lng" : 121.07937050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.0635160,
+                  "lng" : 125.1881490
+               },
+               "southwest" : {
+                  "lat" : -11.0075490,
+                  "lng" : 118.92706290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

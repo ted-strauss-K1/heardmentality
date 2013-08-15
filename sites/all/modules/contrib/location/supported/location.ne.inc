@@ -1,22 +1,14 @@
 <?php
-// $Id $
 
-// Niger
-
-function location_province_list_ne() {
-  return array(
-
-  );
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ne() {
-  return array(
-    'minlng' => 0.09595,
-    'minlat' => 11.814233,
-    'maxlng' => 15.95105,
-    'maxlat' => 23.507833,
-  );
+function location_province_list_ne () {
+	return array (
+		"1" => t("Agadez"),
+		"2" => t("Diffa"),
+		"3" => t("Dosso"),
+		"4" => t("Maradi"),
+		"5" => t("Tahoua"),
+		"6" => t("Tillaberi"),
+		"7" => t("Zinder"),
+		"8" => t("Niamey"),
+	);
 }

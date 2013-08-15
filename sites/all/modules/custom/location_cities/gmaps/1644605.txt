@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Poros Sungguminahasa-Takalar",
+               "short_name" : "Jl. Poros Sungguminahasa-Takalar",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Pallangga",
+               "short_name" : "Pallangga",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Gowa",
+               "short_name" : "Gowa",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "92161",
+               "short_name" : "92161",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Poros Sungguminahasa-Takalar, Pallangga, Gowa 92161, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.23794340,
+                  "lng" : 119.43688390
+               },
+               "southwest" : {
+                  "lat" : -5.238347099999999,
+                  "lng" : 119.43663760
+               }
+            },
+            "location" : {
+               "lat" : -5.238144999999999,
+               "lng" : 119.43676120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.236796269708497,
+                  "lng" : 119.4381097302915
+               },
+               "southwest" : {
+                  "lat" : -5.239494230291501,
+                  "lng" : 119.4354117697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Galesong Baru",
+               "short_name" : "Galesong Baru",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Galesong",
+               "short_name" : "Galesong",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Takalar",
+               "short_name" : "Takalar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Galesong Baru, Galesong, Takalar, South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.3099740,
+                  "lng" : 119.3726290
+               },
+               "southwest" : {
+                  "lat" : -5.319534000000001,
+                  "lng" : 119.3560140
+               }
+            },
+            "location" : {
+               "lat" : -5.31566480,
+               "lng" : 119.36350730
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.3099740,
+                  "lng" : 119.3726290
+               },
+               "southwest" : {
+                  "lat" : -5.319534000000001,
+                  "lng" : 119.3560140
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Galesong",
+               "short_name" : "Galesong",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Takalar",
+               "short_name" : "Takalar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Galesong, Takalar, South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.30094110,
+                  "lng" : 119.40628310
+               },
+               "southwest" : {
+                  "lat" : -5.354293999999999,
+                  "lng" : 119.3360430
+               }
+            },
+            "location" : {
+               "lat" : -5.33837340,
+               "lng" : 119.38310260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.30094110,
+                  "lng" : 119.40628310
+               },
+               "southwest" : {
+                  "lat" : -5.354293999999999,
+                  "lng" : 119.3360430
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "92255",
+               "short_name" : "92255",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Sulawesi 92255, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.21630150,
+                  "lng" : 119.41081230
+               },
+               "southwest" : {
+                  "lat" : -5.34160460,
+                  "lng" : 119.34859470
+               }
+            },
+            "location" : {
+               "lat" : -5.25017150,
+               "lng" : 119.38890820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.21630150,
+                  "lng" : 119.41081230
+               },
+               "southwest" : {
+                  "lat" : -5.34160460,
+                  "lng" : 119.34859470
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Takalar",
+               "short_name" : "Takalar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Takalar, South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.214734099999999,
+                  "lng" : 119.646990
+               },
+               "southwest" : {
+                  "lat" : -5.6076580,
+                  "lng" : 119.1899290
+               }
+            },
+            "location" : {
+               "lat" : -5.41624930,
+               "lng" : 119.48756680
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.214734099999999,
+                  "lng" : 119.646990
+               },
+               "southwest" : {
+                  "lat" : -5.6076580,
+                  "lng" : 119.1899290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.8952360,
+                  "lng" : 121.84020990
+               },
+               "southwest" : {
+                  "lat" : -7.758941000000001,
+                  "lng" : 117.03851490
+               }
+            },
+            "location" : {
+               "lat" : -3.66879940,
+               "lng" : 119.97405340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.8952360,
+                  "lng" : 121.84020990
+               },
+               "southwest" : {
+                  "lat" : -7.758941000000001,
+                  "lng" : 117.03851490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

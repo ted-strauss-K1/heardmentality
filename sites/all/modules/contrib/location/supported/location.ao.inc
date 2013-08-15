@@ -1,36 +1,24 @@
 <?php
 
-// Angola
-
-function location_province_list_ao() {
-  return array('BGO' => "Bengo",
-    'BGU' => "Benguela province",
-    'BIE' => "Bie",
-    'CAB' => "Cabinda",
-    'CCU' => "Cuando-Cubango",
-    'CNO' => "Cuanza Norte",
-    'CUS' => "Cuanza Sul",
-    'CNN' => "Cunene",
-    'HUA' => "Huambo province",
-    'HUI' => "Huila province",
-    'LUA' => "Luanda",
-    'LNO' => "Lunda Norte",
-    'LSU' => "Lunda Sul",
-    'MAL' => "Malange",
-    'MOX' => "Moxico",
-    'NAM' => "Namibe",
-    'UIG' => "Uige",
-    'ZAI' => "Zaire");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ao() {
-  return array(
-    'minlng' => 11.57905,
-    'minlat' => -18.112767,
-    'maxlng' => 24.1105,
-    'maxlat' => -4.424667,
-  );
+function location_province_list_ao () {
+	return array (
+		"BGO" => t("Bengo"),
+		"BGU" => t("Benguela province"),
+		"BIE" => t("Bie"),
+		"CAB" => t("Cabinda"),
+		"CCU" => t("Cuando-Cubango"),
+		"CNN" => t("Cunene"),
+		"CNO" => t("Cuanza Norte"),
+		"CUS" => t("Cuanza Sul"),
+		"HUA" => t("Huambo province"),
+		"HUI" => t("Huila province"),
+		"LNO" => t("Lunda Norte"),
+		"LSU" => t("Lunda Sul"),
+		"LUA" => t("Luanda"),
+		"MAL" => t("Malange"),
+		"MOX" => t("Moxico"),
+		"NAM" => t("Namibe"),
+		"UIG" => t("Uige"),
+		"ZAI" => t("Zaire"),
+	);
 }

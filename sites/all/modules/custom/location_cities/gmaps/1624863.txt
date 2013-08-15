@@ -1,0 +1,409 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Nusantara",
+               "short_name" : "Jl. Nusantara",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "East Tanjungpinang",
+               "short_name" : "East Tanjungpinang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tanjung Pinang City",
+               "short_name" : "Tanjung Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "29125",
+               "short_name" : "29125",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Nusantara, East Tanjungpinang, Tanjung Pinang City, Riau Islands 29125, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9166953999999999,
+                  "lng" : 104.50970180
+               },
+               "southwest" : {
+                  "lat" : 0.9145991999999999,
+                  "lng" : 104.50888520
+               }
+            },
+            "location" : {
+               "lat" : 0.9153801999999999,
+               "lng" : 104.50893050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9169962802915019,
+                  "lng" : 104.5106424802915
+               },
+               "southwest" : {
+                  "lat" : 0.9142983197084978,
+                  "lng" : 104.5079445197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "29112",
+               "short_name" : "29112",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Riau Islands 29112, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.91872010,
+                  "lng" : 104.45942670
+               },
+               "southwest" : {
+                  "lat" : 0.9031460,
+                  "lng" : 104.443840
+               }
+            },
+            "location" : {
+               "lat" : 0.9116739999999999,
+               "lng" : 104.45195090
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.91872010,
+                  "lng" : 104.45942670
+               },
+               "southwest" : {
+                  "lat" : 0.9031460,
+                  "lng" : 104.443840
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kampung Baru",
+               "short_name" : "Kampung Baru",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "West Tanjungpinang",
+               "short_name" : "West Tanjungpinang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tanjung Pinang City",
+               "short_name" : "Tanjung Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kampung Baru, West Tanjungpinang, Tanjung Pinang City, Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9188408999999998,
+                  "lng" : 104.4548520
+               },
+               "southwest" : {
+                  "lat" : 0.8980070,
+                  "lng" : 104.4420960
+               }
+            },
+            "location" : {
+               "lat" : 0.9082120999999999,
+               "lng" : 104.45049540
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9188408999999998,
+                  "lng" : 104.4548520
+               },
+               "southwest" : {
+                  "lat" : 0.8980070,
+                  "lng" : 104.4420960
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Tanjungpinang",
+               "short_name" : "West Tanjungpinang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tanjung Pinang City",
+               "short_name" : "Tanjung Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Tanjungpinang, Tanjung Pinang City, Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9316510,
+                  "lng" : 104.45514310
+               },
+               "southwest" : {
+                  "lat" : 0.8980070,
+                  "lng" : 104.43804290
+               }
+            },
+            "location" : {
+               "lat" : 0.91632220,
+               "lng" : 104.44612880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9316510,
+                  "lng" : 104.45514310
+               },
+               "southwest" : {
+                  "lat" : 0.8980070,
+                  "lng" : 104.43804290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tanjung Pinang",
+               "short_name" : "Tanjung Pinang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tanjung Pinang City",
+               "short_name" : "Tanjung Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tanjung Pinang, Tanjung Pinang City, Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9907870000000001,
+                  "lng" : 104.5530380
+               },
+               "southwest" : {
+                  "lat" : 0.8392109999999999,
+                  "lng" : 104.33640
+               }
+            },
+            "location" : {
+               "lat" : 0.91792050,
+               "lng" : 104.4464640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9907870000000001,
+                  "lng" : 104.5530380
+               },
+               "southwest" : {
+                  "lat" : 0.8392109999999999,
+                  "lng" : 104.401770
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tanjung Pinang City",
+               "short_name" : "Tanjung Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tanjung Pinang City, Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9907870000000001,
+                  "lng" : 104.5530380
+               },
+               "southwest" : {
+                  "lat" : 0.8392109999999999,
+                  "lng" : 104.33640010
+               }
+            },
+            "location" : {
+               "lat" : 0.9046080999999999,
+               "lng" : 104.48397650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9907870000000001,
+                  "lng" : 104.5530380
+               },
+               "southwest" : {
+                  "lat" : 0.8392109999999999,
+                  "lng" : 104.401770
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.7955170,
+                  "lng" : 109.1640180
+               },
+               "southwest" : {
+                  "lat" : -0.8641219999999999,
+                  "lng" : 103.2782370
+               }
+            },
+            "location" : {
+               "lat" : 3.94565140,
+               "lng" : 108.14286690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.26655210,
+                  "lng" : 108.5425160
+               },
+               "southwest" : {
+                  "lat" : 3.4780680,
+                  "lng" : 107.7783750
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

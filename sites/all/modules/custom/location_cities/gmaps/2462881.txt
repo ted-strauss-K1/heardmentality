@@ -1,0 +1,303 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "N1",
+               "short_name" : "N1",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Novapolis",
+               "short_name" : "Novapolis",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Laayoune",
+               "short_name" : "Laayoune",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Laâyoune Province",
+               "short_name" : "Laâyoune Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "short_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "N1, Laayoune, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.16235360,
+                  "lng" : -13.20315930
+               },
+               "southwest" : {
+                  "lat" : 27.16224710,
+                  "lng" : -13.20371440
+               }
+            },
+            "location" : {
+               "lat" : 27.16227320,
+               "lng" : -13.20343060
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.16364933029150,
+                  "lng" : -13.20208786970850
+               },
+               "southwest" : {
+                  "lat" : 27.16095136970850,
+                  "lng" : -13.20478583029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Laayoune",
+               "short_name" : "Laayoune",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Laâyoune Province",
+               "short_name" : "Laâyoune Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "short_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Laayoune, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.16694330,
+                  "lng" : -13.09699060
+               },
+               "southwest" : {
+                  "lat" : 27.08113710,
+                  "lng" : -13.25414660
+               }
+            },
+            "location" : {
+               "lat" : 27.15361110,
+               "lng" : -13.20333330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.16694330,
+                  "lng" : -13.09699060
+               },
+               "southwest" : {
+                  "lat" : 27.08113710,
+                  "lng" : -13.25414660
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "70000",
+               "short_name" : "70000",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Laâyoune Province",
+               "short_name" : "Laâyoune Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "short_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "70000, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.18608950,
+                  "lng" : -13.11398510
+               },
+               "southwest" : {
+                  "lat" : 27.08205410,
+                  "lng" : -13.25466160
+               }
+            },
+            "location" : {
+               "lat" : 27.13407180,
+               "lng" : -13.18432340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.18608950,
+                  "lng" : -13.11398510
+               },
+               "southwest" : {
+                  "lat" : 27.08205410,
+                  "lng" : -13.25466160
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Laâyoune Province",
+               "short_name" : "Laâyoune Province",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "short_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Laâyoune Province, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.66770040,
+                  "lng" : -11.79931630
+               },
+               "southwest" : {
+                  "lat" : 26.02963820,
+                  "lng" : -13.96974480
+               }
+            },
+            "location" : {
+               "lat" : 26.75995420,
+               "lng" : -12.9896150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.66770040,
+                  "lng" : -11.79931630
+               },
+               "southwest" : {
+                  "lat" : 26.02963820,
+                  "lng" : -13.96974480
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "short_name" : "Laâyoune-Boujdour-Sakia El Hamra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Laâyoune-Boujdour-Sakia El Hamra, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.66967440,
+                  "lng" : -11.8085650
+               },
+               "southwest" : {
+                  "lat" : 24.39005990,
+                  "lng" : -14.99933170
+               }
+            },
+            "location" : {
+               "lat" : 25.44358980,
+               "lng" : -13.17403480
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.66967440,
+                  "lng" : -11.8085650
+               },
+               "southwest" : {
+                  "lat" : 24.39005990,
+                  "lng" : -14.99933170
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.66667760,
+                  "lng" : -8.666665999999999
+               },
+               "southwest" : {
+                  "lat" : 20.77001840,
+                  "lng" : -17.10490820
+               }
+            },
+            "location" : {
+               "lat" : 24.2155270,
+               "lng" : -12.8858340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.66670280,
+                  "lng" : -8.666665999999999
+               },
+               "southwest" : {
+                  "lat" : 20.77001840,
+                  "lng" : -17.10490820
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

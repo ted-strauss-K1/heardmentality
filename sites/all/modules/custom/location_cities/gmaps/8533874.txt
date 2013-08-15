@@ -1,0 +1,134 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ridge Road",
+               "short_name" : "Ridge Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tortola",
+               "short_name" : "Tortola",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "British Virgin Islands",
+               "short_name" : "VG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ridge Road, British Virgin Islands",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.44157970,
+                  "lng" : -64.60088480
+               },
+               "southwest" : {
+                  "lat" : 18.43853020,
+                  "lng" : -64.60344689999999
+               }
+            },
+            "location" : {
+               "lat" : 18.44017690,
+               "lng" : -64.602110
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.44157970,
+                  "lng" : -64.60081686970850
+               },
+               "southwest" : {
+                  "lat" : 18.43853020,
+                  "lng" : -64.60351483029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tortola",
+               "short_name" : "Tortola",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "British Virgin Islands",
+               "short_name" : "VG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tortola, British Virgin Islands",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.45982670,
+                  "lng" : -64.55284770
+               },
+               "southwest" : {
+                  "lat" : 18.38013750,
+                  "lng" : -64.72087209999999
+               }
+            },
+            "location" : {
+               "lat" : 18.43347040,
+               "lng" : -64.63327819999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.45982670,
+                  "lng" : -64.55284770
+               },
+               "southwest" : {
+                  "lat" : 18.38013750,
+                  "lng" : -64.72087209999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "British Virgin Islands",
+               "short_name" : "VG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "British Virgin Islands",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.74955290,
+                  "lng" : -64.27044870
+               },
+               "southwest" : {
+                  "lat" : 18.30633280,
+                  "lng" : -64.85046020
+               }
+            },
+            "location" : {
+               "lat" : 18.4206950,
+               "lng" : -64.6399680
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.52988960,
+                  "lng" : -64.32040210
+               },
+               "southwest" : {
+                  "lat" : 18.30633280,
+                  "lng" : -64.85046020
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

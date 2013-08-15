@@ -1,48 +1,37 @@
 <?php
 
-// Iran, Islamic Republic Of
-
-function location_province_list_ir() {
-  return array('TEH' => "Tehran",
-    'QOM' => "Qom",
-    'MKZ' => "Markazi",
-    'QAZ' => "Qazvin",
-    'GIL' => "Gilan",
-    'ARD' => "Ardabil",
-    'ZAN' => "Zanjan",
-    'EAZ' => "East Azarbaijan",
-    'WEZ' => "West Azarbaijan",
-    'KRD' => "Kurdistan",
-    'HMD' => "Hamadan",
-    'KRM' => "Kermanshah",
-    'ILM' => "Ilam",
-    'LRS' => "Lorestan",
-    'KZT' => "Khuzestan",
-    'CMB' => "Chahar Mahaal and Bakhtiari",
-    'KBA' => "Kohkiluyeh and Buyer Ahmad",
-    'BSH' => "Bushehr",
-    'FAR' => "Fars",
-    'HRM' => "Hormozgan",
-    'SBL' => "Sistan and Baluchistan",
-    'KRB' => "Kerman",
-    'YZD' => "Yazd",
-    'EFH' => "Esfahan",
-    'SMN' => "Semnan",
-    'MZD' => "Mazandaran",
-    'GLS' => "Golestan",
-    'NKH' => "North Khorasan",
-    'RKH' => "Razavi Khorasan",
-    'SKH' => "South Khorasan");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ir() {
-  return array(
-    'minlng' => 44.01905,
-    'minlat' => 25.120267,
-    'maxlng' => 63.3325,
-    'maxlat' => 39.825267,
-  );
+function location_province_list_ir () {
+	return array (
+		"01" => t("East Azarbaijan"),
+		"02" => t("West Azarbaijan"),
+		"03" => t("Ardabil"),
+		"04" => t("Esfahan"),
+		"05" => t("Ilam"),
+		"06" => t("Bushehr"),
+		"07" => t("Tehran"),
+		"08" => t("Chahar Mahaal and Bakhtiari"),
+		"10" => t("Khuzestan"),
+		"11" => t("Zanjan"),
+		"12" => t("Semnan"),
+		"13" => t("Sistan and Baluchistan"),
+		"14" => t("Fars"),
+		"15" => t("Kerman"),
+		"16" => t("Kurdistan"),
+		"17" => t("Kermanshah"),
+		"18" => t("Kohkiluyeh and Buyer Ahmad"),
+		"19" => t("Gilan"),
+		"20" => t("Lorestan"),
+		"21" => t("Mazandaran"),
+		"22" => t("Markazi"),
+		"23" => t("Hormozgan"),
+		"24" => t("Hamadan"),
+		"25" => t("Yazd"),
+		"26" => t("Qom"),
+		"27" => t("Golestan"),
+		"28" => t("Qazvin"),
+		"29" => t("South Khorasan"),
+		"30" => t("Razavi Khorasan"),
+		"31" => t("North Khorasan"),
+		"09" => t("Khorasan"),
+	);
 }

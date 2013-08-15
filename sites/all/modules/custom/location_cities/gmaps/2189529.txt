@@ -1,0 +1,399 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "103",
+               "short_name" : "103",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Avenal Street",
+               "short_name" : "Avenal St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Avenal",
+               "short_name" : "Avenal",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Invercargill",
+               "short_name" : "Invercargill",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Southland",
+               "short_name" : "Southland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "9810",
+               "short_name" : "9810",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "103 Avenal Street, Avenal, Invercargill 9810, New Zealand",
+         "geometry" : {
+            "location" : {
+               "lat" : -46.3999120,
+               "lng" : 168.34991910
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -46.39856301970850,
+                  "lng" : 168.3512680802915
+               },
+               "southwest" : {
+                  "lat" : -46.40126098029150,
+                  "lng" : 168.3485701197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Avenal",
+               "short_name" : "Avenal",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Invercargill",
+               "short_name" : "Invercargill",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Invercargill City",
+               "short_name" : "Invercargill City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Southland",
+               "short_name" : "Southland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "9810",
+               "short_name" : "9810",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Avenal, Invercargill 9810, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -46.39122020,
+                  "lng" : 168.3518920
+               },
+               "southwest" : {
+                  "lat" : -46.40696410,
+                  "lng" : 168.3393130
+               }
+            },
+            "location" : {
+               "lat" : -46.40159930,
+               "lng" : 168.34711710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -46.39122020,
+                  "lng" : 168.3518920
+               },
+               "southwest" : {
+                  "lat" : -46.40696410,
+                  "lng" : 168.3393130
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "9810",
+               "short_name" : "9810",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Southland",
+               "short_name" : "Southland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Southland 9810, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -46.35376260,
+                  "lng" : 168.41581540
+               },
+               "southwest" : {
+                  "lat" : -46.42500250,
+                  "lng" : 168.32872160
+               }
+            },
+            "location" : {
+               "lat" : -46.39581260,
+               "lng" : 168.35836370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -46.35376260,
+                  "lng" : 168.41581540
+               },
+               "southwest" : {
+                  "lat" : -46.42500250,
+                  "lng" : 168.32872160
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Invercargill",
+               "short_name" : "Invercargill",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Invercargill City",
+               "short_name" : "Invercargill City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Southland",
+               "short_name" : "Southland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Invercargill, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -46.35860840,
+                  "lng" : 168.45881750
+               },
+               "southwest" : {
+                  "lat" : -46.50365920,
+                  "lng" : 168.29318820
+               }
+            },
+            "location" : {
+               "lat" : -46.41318660,
+               "lng" : 168.35377310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -46.35860840,
+                  "lng" : 168.45881750
+               },
+               "southwest" : {
+                  "lat" : -46.50365920,
+                  "lng" : 168.29318820
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Invercargill City",
+               "short_name" : "Invercargill City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Southland",
+               "short_name" : "Southland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Invercargill City, Southland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -46.29656689999999,
+                  "lng" : 168.54273880
+               },
+               "southwest" : {
+                  "lat" : -46.65346810,
+                  "lng" : 168.15057960
+               }
+            },
+            "location" : {
+               "lat" : -46.44869940,
+               "lng" : 168.39936840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -46.29656689999999,
+                  "lng" : 168.54273880
+               },
+               "southwest" : {
+                  "lat" : -46.65346810,
+                  "lng" : 168.2070530
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Invercargill",
+               "short_name" : "Invercargill",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Invercargill, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -46.12272510,
+                  "lng" : 168.99728930
+               },
+               "southwest" : {
+                  "lat" : -46.66559220,
+                  "lng" : 168.13077760
+               }
+            },
+            "location" : {
+               "lat" : -46.43738850,
+               "lng" : 168.47930080
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -46.12272510,
+                  "lng" : 168.99728930
+               },
+               "southwest" : {
+                  "lat" : -46.66559220,
+                  "lng" : 168.13077760
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Southland",
+               "short_name" : "Southland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Southland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -44.2905610,
+                  "lng" : 169.49393930
+               },
+               "southwest" : {
+                  "lat" : -47.29002990,
+                  "lng" : 166.4261280
+               }
+            },
+            "location" : {
+               "lat" : -45.84891589999999,
+               "lng" : 167.67553870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -44.2905610,
+                  "lng" : 169.49393930
+               },
+               "southwest" : {
+                  "lat" : -47.289950,
+                  "lng" : 166.4261280
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -29.23134190,
+                  "lng" : -176.15422480
+               },
+               "southwest" : {
+                  "lat" : -52.61941849999999,
+                  "lng" : 165.86943690
+               }
+            },
+            "location" : {
+               "lat" : -40.9005570,
+               "lng" : 174.8859710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -34.12955780,
+                  "lng" : 179.06253570
+               },
+               "southwest" : {
+                  "lat" : -47.76812409999999,
+                  "lng" : 166.42613610
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

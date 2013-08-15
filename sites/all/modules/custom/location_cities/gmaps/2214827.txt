@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Gharyan Road",
+               "short_name" : "Gharyan Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Mizdah",
+               "short_name" : "Mizdah",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Al Jabal al Gharbi",
+               "short_name" : "Al Jabal al Gharbi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Gharyan Road, Mizdah, Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 31.44140570,
+                  "lng" : 12.99571040
+               },
+               "southwest" : {
+                  "lat" : 31.43505260,
+                  "lng" : 12.99214950
+               }
+            },
+            "location" : {
+               "lat" : 31.43802230,
+               "lng" : 12.99441960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 31.44140570,
+                  "lng" : 12.99571040
+               },
+               "southwest" : {
+                  "lat" : 31.43505260,
+                  "lng" : 12.99214950
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mizdah",
+               "short_name" : "Mizdah",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Gharyan",
+               "short_name" : "Gharyan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mizdah, Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 31.47149780,
+                  "lng" : 13.00138030
+               },
+               "southwest" : {
+                  "lat" : 31.43320390,
+                  "lng" : 12.96764370
+               }
+            },
+            "location" : {
+               "lat" : 31.44782220,
+               "lng" : 12.98385640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 31.47149780,
+                  "lng" : 13.00138030
+               },
+               "southwest" : {
+                  "lat" : 31.43320390,
+                  "lng" : 12.96764370
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Al Jabal al Gharbi",
+               "short_name" : "Al Jabal al Gharbi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Al Jabal al Gharbi, Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 32.3136990,
+                  "lng" : 14.8120350
+               },
+               "southwest" : {
+                  "lat" : 28.3689990,
+                  "lng" : 11.5449160
+               }
+            },
+            "location" : {
+               "lat" : 30.26380319999999,
+               "lng" : 12.80547530
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 32.3136990,
+                  "lng" : 14.8120350
+               },
+               "southwest" : {
+                  "lat" : 28.3689990,
+                  "lng" : 11.5449160
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 33.16678710,
+                  "lng" : 25.1469540
+               },
+               "southwest" : {
+                  "lat" : 19.50042980,
+                  "lng" : 9.391466399999999
+               }
+            },
+            "location" : {
+               "lat" : 27.05677690,
+               "lng" : 14.52804050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.16678710,
+                  "lng" : 25.1469540
+               },
+               "southwest" : {
+                  "lat" : 19.50042980,
+                  "lng" : 9.391466399999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

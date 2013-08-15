@@ -1,0 +1,182 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Vauxhall Sreet",
+               "short_name" : "Vauxhall Sreet",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "St Helier",
+               "short_name" : "St. Helier",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Jersey",
+               "short_name" : "JE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Vauxhall Sreet, Jersey",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.18786050,
+                  "lng" : -2.10478040
+               },
+               "southwest" : {
+                  "lat" : 49.18779560,
+                  "lng" : -2.10562260
+               }
+            },
+            "location" : {
+               "lat" : 49.18782810,
+               "lng" : -2.10520150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.18917703029150,
+                  "lng" : -2.103852519708498
+               },
+               "southwest" : {
+                  "lat" : 49.18647906970850,
+                  "lng" : -2.106550480291502
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "St Helier",
+               "short_name" : "St. Helier",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Jersey",
+               "short_name" : "JE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "St Helier, Jersey",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.21891309999999,
+                  "lng" : -2.08556850
+               },
+               "southwest" : {
+                  "lat" : 49.16785060,
+                  "lng" : -2.13742060
+               }
+            },
+            "location" : {
+               "lat" : 49.19911980,
+               "lng" : -2.10636960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.21891309999999,
+                  "lng" : -2.08556850
+               },
+               "southwest" : {
+                  "lat" : 49.16785060,
+                  "lng" : -2.13742060
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jersey",
+               "short_name" : "Jersey",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "St Helier",
+               "short_name" : "St. Helier",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Jersey",
+               "short_name" : "JE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jersey",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.26051190,
+                  "lng" : -2.01083550
+               },
+               "southwest" : {
+                  "lat" : 49.15981420,
+                  "lng" : -2.25463940
+               }
+            },
+            "location" : {
+               "lat" : 49.21377649999999,
+               "lng" : -2.13576650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.26051190,
+                  "lng" : -2.01083550
+               },
+               "southwest" : {
+                  "lat" : 49.15981420,
+                  "lng" : -2.25463940
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jersey",
+               "short_name" : "JE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jersey",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.26213140,
+                  "lng" : -2.01046460
+               },
+               "southwest" : {
+                  "lat" : 49.16012170,
+                  "lng" : -2.25480110
+               }
+            },
+            "location" : {
+               "lat" : 49.2144390,
+               "lng" : -2.131250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.26213140,
+                  "lng" : -2.01046460
+               },
+               "southwest" : {
+                  "lat" : 49.16012170,
+                  "lng" : -2.25480110
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

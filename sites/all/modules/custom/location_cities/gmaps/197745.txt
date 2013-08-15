@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Garissa-Dadaab Road",
+               "short_name" : "A3",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Garissa",
+               "short_name" : "Garissa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Ijara",
+               "short_name" : "Ijara",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Garissa",
+               "short_name" : "Garissa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Garissa-Dadaab Road, Garissa, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.45230110,
+                  "lng" : 39.64693949999999
+               },
+               "southwest" : {
+                  "lat" : -0.45323190,
+                  "lng" : 39.64610260
+               }
+            },
+            "location" : {
+               "lat" : -0.45276650,
+               "lng" : 39.64652110
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.4514175197084979,
+                  "lng" : 39.64787003029149
+               },
+               "southwest" : {
+                  "lat" : -0.4541154802915020,
+                  "lng" : 39.64517206970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Garissa",
+               "short_name" : "Garissa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Ijara",
+               "short_name" : "Ijara",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Garissa",
+               "short_name" : "Garissa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Garissa, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.43309760,
+                  "lng" : 39.66493620
+               },
+               "southwest" : {
+                  "lat" : -0.48510930,
+                  "lng" : 39.63223460
+               }
+            },
+            "location" : {
+               "lat" : -0.45322930,
+               "lng" : 39.64609880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.43309760,
+                  "lng" : 39.66493620
+               },
+               "southwest" : {
+                  "lat" : -0.48510930,
+                  "lng" : 39.63223460
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ijara",
+               "short_name" : "Ijara",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Garissa",
+               "short_name" : "Garissa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ijara, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.5905045999999999,
+                  "lng" : 41.60799080
+               },
+               "southwest" : {
+                  "lat" : -2.15856020,
+                  "lng" : 38.73229980
+               }
+            },
+            "location" : {
+               "lat" : -0.04122740,
+               "lng" : 40.02619850
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.5905045999999999,
+                  "lng" : 41.60799080
+               },
+               "southwest" : {
+                  "lat" : -2.15856020,
+                  "lng" : 38.73229980
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Garissa",
+               "short_name" : "Garissa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Garissa, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9694350,
+                  "lng" : 41.56794410
+               },
+               "southwest" : {
+                  "lat" : -2.034030,
+                  "lng" : 38.6643070
+               }
+            },
+            "location" : {
+               "lat" : -0.69065340,
+               "lng" : 40.30886260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9694350,
+                  "lng" : 41.56794410
+               },
+               "southwest" : {
+                  "lat" : -2.034030,
+                  "lng" : 38.6643070
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

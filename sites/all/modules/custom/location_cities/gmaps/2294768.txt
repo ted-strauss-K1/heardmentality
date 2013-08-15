@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tarkwa - Esiama Road",
+               "short_name" : "Tarkwa - Esiama Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tarkwa",
+               "short_name" : "Tarkwa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wassa West",
+               "short_name" : "Wassa West",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Western",
+               "short_name" : "Western",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tarkwa - Esiama Road, Tarkwa, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.308142399999999,
+                  "lng" : -1.98989870
+               },
+               "southwest" : {
+                  "lat" : 5.30403080,
+                  "lng" : -1.99123070
+               }
+            },
+            "location" : {
+               "lat" : 5.30608660,
+               "lng" : -1.99056470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.308142399999999,
+                  "lng" : -1.989215719708498
+               },
+               "southwest" : {
+                  "lat" : 5.30403080,
+                  "lng" : -1.991913680291502
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tarkwa",
+               "short_name" : "Tarkwa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wassa West",
+               "short_name" : "Wassa West",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Western",
+               "short_name" : "Western",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tarkwa, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.32668760,
+                  "lng" : -1.97376250
+               },
+               "southwest" : {
+                  "lat" : 5.28609260,
+                  "lng" : -2.00371740
+               }
+            },
+            "location" : {
+               "lat" : 5.2999860,
+               "lng" : -1.9922020
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.32668760,
+                  "lng" : -1.97376250
+               },
+               "southwest" : {
+                  "lat" : 5.28609260,
+                  "lng" : -2.00371740
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wassa West",
+               "short_name" : "Wassa West",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Western",
+               "short_name" : "Western",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wassa West, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.65561880,
+                  "lng" : -1.75506590
+               },
+               "southwest" : {
+                  "lat" : 4.891888199999999,
+                  "lng" : -2.24052430
+               }
+            },
+            "location" : {
+               "lat" : 5.30731720,
+               "lng" : -1.90992380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.65561880,
+                  "lng" : -1.75506590
+               },
+               "southwest" : {
+                  "lat" : 4.891888199999999,
+                  "lng" : -2.24052430
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Western",
+               "short_name" : "Western",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Western, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.052660899999999,
+                  "lng" : -1.4178180
+               },
+               "southwest" : {
+                  "lat" : 4.7388150,
+                  "lng" : -3.255420
+               }
+            },
+            "location" : {
+               "lat" : 5.39019780,
+               "lng" : -2.14502450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.052660899999999,
+                  "lng" : -1.4178180
+               },
+               "southwest" : {
+                  "lat" : 4.7388150,
+                  "lng" : -3.255420
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            },
+            "location" : {
+               "lat" : 7.9465270,
+               "lng" : -1.0231940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

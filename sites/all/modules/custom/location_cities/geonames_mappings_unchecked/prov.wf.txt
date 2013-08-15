@@ -1,9 +1,0 @@
-*4034884 wf_A  :::  Alo ~ Circonscription d'Alo(4034884)
-*4034884 wf_S  :::  Sigave ~ Circonscription d'Alo(4034884)
-*4034884 wf_W  :::  Wallis ~ Circonscription d'Alo(4034884)
-
-NAMES:::::
-
-Circonscription d'Alo(4034884) 
-Circonscription d'Uvéa(4034759) 
-Circonscription de Sigavé(4034776) 

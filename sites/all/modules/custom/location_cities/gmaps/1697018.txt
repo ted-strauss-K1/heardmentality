@@ -1,0 +1,303 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rizal Street",
+               "short_name" : "Rizal Street",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Ormoc City",
+               "short_name" : "Ormoc City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Leyte",
+               "short_name" : "Leyte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Eastern Visayas",
+               "short_name" : "Eastern Visayas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rizal Street, Ormoc City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.00742210,
+                  "lng" : 124.6080150
+               },
+               "southwest" : {
+                  "lat" : 11.00587530,
+                  "lng" : 124.60746720
+               }
+            },
+            "location" : {
+               "lat" : 11.00664870,
+               "lng" : 124.60774110
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.00799768029150,
+                  "lng" : 124.6090900802915
+               },
+               "southwest" : {
+                  "lat" : 11.00529971970850,
+                  "lng" : 124.6063921197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barangay 6",
+               "short_name" : "Barangay 6",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Ormoc City",
+               "short_name" : "Ormoc City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Leyte",
+               "short_name" : "Leyte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Eastern Visayas",
+               "short_name" : "Eastern Visayas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barangay 6, Ormoc City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.00852680,
+                  "lng" : 124.60825330
+               },
+               "southwest" : {
+                  "lat" : 11.00595920,
+                  "lng" : 124.60698720
+               }
+            },
+            "location" : {
+               "lat" : 11.00744490,
+               "lng" : 124.6076830
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.00859198029150,
+                  "lng" : 124.6089692302915
+               },
+               "southwest" : {
+                  "lat" : 11.00589401970850,
+                  "lng" : 124.6062712697085
+               }
+            }
+         },
+         "types" : [ "neighborhood", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ormoc City",
+               "short_name" : "Ormoc City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Leyte",
+               "short_name" : "Leyte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Eastern Visayas",
+               "short_name" : "Eastern Visayas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ormoc City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.15617160,
+                  "lng" : 124.80331420
+               },
+               "southwest" : {
+                  "lat" : 10.94477330,
+                  "lng" : 124.47731850
+               }
+            },
+            "location" : {
+               "lat" : 11.006980,
+               "lng" : 124.6128010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.15617160,
+                  "lng" : 124.80331420
+               },
+               "southwest" : {
+                  "lat" : 10.94477330,
+                  "lng" : 124.47731850
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Leyte",
+               "short_name" : "Leyte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Eastern Visayas",
+               "short_name" : "Eastern Visayas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Leyte, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.56360540,
+                  "lng" : 125.14715540
+               },
+               "southwest" : {
+                  "lat" : 10.1828060,
+                  "lng" : 124.28722550
+               }
+            },
+            "location" : {
+               "lat" : 11.08910390,
+               "lng" : 124.89228240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.56360540,
+                  "lng" : 125.14715540
+               },
+               "southwest" : {
+                  "lat" : 10.1828060,
+                  "lng" : 124.28722550
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Eastern Visayas",
+               "short_name" : "Eastern Visayas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Eastern Visayas, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.69665420,
+                  "lng" : 125.96881140
+               },
+               "southwest" : {
+                  "lat" : 9.895296999999999,
+                  "lng" : 124.00057590
+               }
+            },
+            "location" : {
+               "lat" : 12.24455330,
+               "lng" : 125.03881640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.69665420,
+                  "lng" : 125.96881140
+               },
+               "southwest" : {
+                  "lat" : 9.895296999999999,
+                  "lng" : 124.00057590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            },
+            "location" : {
+               "lat" : 12.8797210,
+               "lng" : 121.7740170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

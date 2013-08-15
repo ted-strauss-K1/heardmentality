@@ -1,31 +1,19 @@
 <?php
 
-// Mauritania
-
-function location_province_list_mr() {
-  return array('AD' => "Adrar",
-    'AS' => "Assaba",
-    'BR' => "Brakna",
-    'DN' => "Dakhlet Nouadhibou",
-    'GO' => "Gorgol",
-    'GM' => "Guidimaka",
-    'HC' => "Hodh Ech Chargui",
-    'HG' => "Hodh El Gharbi",
-    'IN' => "Inchiri",
-    'TA' => "Tagant",
-    'TZ' => "Tiris Zemmour",
-    'TR' => "Trarza",
-    'NO' => "Nouakchott");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_mr() {
-  return array(
-    'minlng' => -17.0583,
-    'minlat' => 14.669667,
-    'maxlng' => -5.00065,
-    'maxlat' => 27.406533,
-  );
+function location_province_list_mr () {
+	return array (
+		"01" => t("Hodh Ech Chargui"),
+		"02" => t("Hodh El Gharbi"),
+		"03" => t("Assaba"),
+		"04" => t("Gorgol"),
+		"05" => t("Brakna"),
+		"06" => t("Trarza"),
+		"07" => t("Adrar"),
+		"08" => t("Dakhlet Nouadhibou"),
+		"09" => t("Tagant"),
+		"10" => t("Guidimaka"),
+		"11" => t("Tiris Zemmour"),
+		"12" => t("Inchiri"),
+		"NKC" => t("Nouakchott"),
+	);
 }

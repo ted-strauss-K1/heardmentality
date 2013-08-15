@@ -1,28 +1,16 @@
 <?php
 
-// Dominica
-
-function location_province_list_dm() {
-  return array('AND' => "Saint Andrew Parish",
-    'DAV' => "Saint David Parish",
-    'GEO' => "Saint George Parish",
-    'JOH' => "Saint John Parish",
-    'JOS' => "Saint Joseph Parish",
-    'LUK' => "Saint Luke Parish",
-    'MAR' => "Saint Mark Parish",
-    'PAT' => "Saint Patrick Parish",
-    'PAU' => "Saint Paul Parish",
-    'PET' => "Saint Peter Parish");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_dm() {
-  return array(
-    'minlng' => -61.5093,
-    'minlat' => 15.237433,
-    'maxlng' => -61.20985,
-    'maxlat' => 15.627967,
-  );
+function location_province_list_dm () {
+	return array (
+		"02" => t("Saint Andrew Parish"),
+		"03" => t("Saint David Parish"),
+		"04" => t("Saint George Parish"),
+		"05" => t("Saint John Parish"),
+		"06" => t("Saint Joseph Parish"),
+		"07" => t("Saint Luke Parish"),
+		"08" => t("Saint Mark Parish"),
+		"09" => t("Saint Patrick Parish"),
+		"10" => t("Saint Paul Parish"),
+		"11" => t("Saint Peter Parish"),
+	);
 }

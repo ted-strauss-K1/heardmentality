@@ -1,0 +1,409 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "166",
+               "short_name" : "166",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Alexander Road",
+               "short_name" : "Alexander Rd",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Trentham",
+               "short_name" : "Trentham",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Upper Hutt",
+               "short_name" : "Upper Hutt",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "5018",
+               "short_name" : "5018",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "166 Alexander Road, Trentham, Upper Hutt 5018, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -41.13364490,
+                  "lng" : 175.05915280
+               },
+               "southwest" : {
+                  "lat" : -41.14071590,
+                  "lng" : 175.05036780
+               }
+            },
+            "location" : {
+               "lat" : -41.14004140,
+               "lng" : 175.05175550
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -41.13364490,
+                  "lng" : 175.05915280
+               },
+               "southwest" : {
+                  "lat" : -41.14071590,
+                  "lng" : 175.05036780
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Trentham",
+               "short_name" : "Trentham",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Upper Hutt",
+               "short_name" : "Upper Hutt",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Upper Hutt City",
+               "short_name" : "Upper Hutt City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Trentham, Upper Hutt, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -41.11301180,
+                  "lng" : 175.06564990
+               },
+               "southwest" : {
+                  "lat" : -41.17041240,
+                  "lng" : 175.02491120
+               }
+            },
+            "location" : {
+               "lat" : -41.12600570,
+               "lng" : 175.04080080
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -41.11301180,
+                  "lng" : 175.06564990
+               },
+               "southwest" : {
+                  "lat" : -41.17041240,
+                  "lng" : 175.02491120
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "5018",
+               "short_name" : "5018",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wellington 5018, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -41.06858870,
+                  "lng" : 175.21961190
+               },
+               "southwest" : {
+                  "lat" : -41.17028340,
+                  "lng" : 174.96749960
+               }
+            },
+            "location" : {
+               "lat" : -41.11122560,
+               "lng" : 175.09086710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -41.06858870,
+                  "lng" : 175.21961190
+               },
+               "southwest" : {
+                  "lat" : -41.17028340,
+                  "lng" : 174.96749960
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Upper Hutt",
+               "short_name" : "Upper Hutt",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Upper Hutt, Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.94934290,
+                  "lng" : 175.30629880
+               },
+               "southwest" : {
+                  "lat" : -41.22620760,
+                  "lng" : 174.96749960
+               }
+            },
+            "location" : {
+               "lat" : -41.05836010,
+               "lng" : 175.14793640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.94934290,
+                  "lng" : 175.30629880
+               },
+               "southwest" : {
+                  "lat" : -41.22620760,
+                  "lng" : 174.96749960
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Upper Hutt City",
+               "short_name" : "Upper Hutt City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Upper Hutt City, Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.94934590,
+                  "lng" : 175.32032440
+               },
+               "southwest" : {
+                  "lat" : -41.22620770,
+                  "lng" : 174.95939630
+               }
+            },
+            "location" : {
+               "lat" : -41.05836010,
+               "lng" : 175.14793640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.94934590,
+                  "lng" : 175.32032440
+               },
+               "southwest" : {
+                  "lat" : -41.22620770,
+                  "lng" : 174.95939630
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Upper Hutt",
+               "short_name" : "Upper Hutt",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Upper Hutt City",
+               "short_name" : "Upper Hutt City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Upper Hutt, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.94934590,
+                  "lng" : 175.32032440
+               },
+               "southwest" : {
+                  "lat" : -41.22620770,
+                  "lng" : 174.95939630
+               }
+            },
+            "location" : {
+               "lat" : -41.12443270,
+               "lng" : 175.07078340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.94934590,
+                  "lng" : 175.32032440
+               },
+               "southwest" : {
+                  "lat" : -41.22620770,
+                  "lng" : 174.95939630
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.46558070,
+                  "lng" : 176.27181910
+               },
+               "southwest" : {
+                  "lat" : -41.6137520,
+                  "lng" : 174.6130840
+               }
+            },
+            "location" : {
+               "lat" : -41.02993230,
+               "lng" : 175.43755740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.46558070,
+                  "lng" : 176.27181910
+               },
+               "southwest" : {
+                  "lat" : -41.6137520,
+                  "lng" : 174.6130840
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -29.23134190,
+                  "lng" : -176.15422480
+               },
+               "southwest" : {
+                  "lat" : -52.61941849999999,
+                  "lng" : 165.86943690
+               }
+            },
+            "location" : {
+               "lat" : -40.9005570,
+               "lng" : 174.8859710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -34.12955780,
+                  "lng" : 179.06253570
+               },
+               "southwest" : {
+                  "lat" : -47.76812409999999,
+                  "lng" : 166.42613610
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

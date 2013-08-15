@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Wr Supratman",
+               "short_name" : "Jl. Wr Supratman",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Wenang",
+               "short_name" : "Wenang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Manado",
+               "short_name" : "Manado",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jalan Wr Supratman, Wenang, Manado, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.48756610,
+                  "lng" : 124.84592460
+               },
+               "southwest" : {
+                  "lat" : 1.48747110,
+                  "lng" : 124.84503210
+               }
+            },
+            "location" : {
+               "lat" : 1.48751130,
+               "lng" : 124.84547930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.488867580291502,
+                  "lng" : 124.8468273302915
+               },
+               "southwest" : {
+                  "lat" : 1.486169619708498,
+                  "lng" : 124.8441293697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lawangirung",
+               "short_name" : "Lawangirung",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Wenang",
+               "short_name" : "Wenang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Manado",
+               "short_name" : "Manado",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lawangirung, Wenang, Manado, North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.4901210,
+                  "lng" : 124.84788010
+               },
+               "southwest" : {
+                  "lat" : 1.48488090,
+                  "lng" : 124.84008990
+               }
+            },
+            "location" : {
+               "lat" : 1.48806650,
+               "lng" : 124.84379050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.4901210,
+                  "lng" : 124.84788010
+               },
+               "southwest" : {
+                  "lat" : 1.48488090,
+                  "lng" : 124.84008990
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wenang",
+               "short_name" : "Wenang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Manado",
+               "short_name" : "Manado",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wenang, Manado, North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.49948710,
+                  "lng" : 124.8532490
+               },
+               "southwest" : {
+                  "lat" : 1.4715350,
+                  "lng" : 124.834470
+               }
+            },
+            "location" : {
+               "lat" : 1.4855780,
+               "lng" : 124.84310060
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.49948710,
+                  "lng" : 124.8532490
+               },
+               "southwest" : {
+                  "lat" : 1.4715350,
+                  "lng" : 124.834470
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Manado",
+               "short_name" : "Manado",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Manado, North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.64914710,
+                  "lng" : 124.93336210
+               },
+               "southwest" : {
+                  "lat" : 1.42998690,
+                  "lng" : 124.68149310
+               }
+            },
+            "location" : {
+               "lat" : 1.51884210,
+               "lng" : 124.88448670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.64914710,
+                  "lng" : 124.93336210
+               },
+               "southwest" : {
+                  "lat" : 1.42998690,
+                  "lng" : 124.68149310
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Manado",
+               "short_name" : "Manado",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Manado",
+               "short_name" : "Manado",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Manado, North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.64914710,
+                  "lng" : 124.93336210
+               },
+               "southwest" : {
+                  "lat" : 1.42998690,
+                  "lng" : 124.68149310
+               }
+            },
+            "location" : {
+               "lat" : 1.49170140,
+               "lng" : 124.8428430
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.64914710,
+                  "lng" : 124.93336210
+               },
+               "southwest" : {
+                  "lat" : 1.42998690,
+                  "lng" : 124.68149310
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.5657830,
+                  "lng" : 127.18157810
+               },
+               "southwest" : {
+                  "lat" : 0.29200590,
+                  "lng" : 123.1108510
+               }
+            },
+            "location" : {
+               "lat" : 0.6246931999999999,
+               "lng" : 123.97500180
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.748310,
+                  "lng" : 125.73645210
+               },
+               "southwest" : {
+                  "lat" : 0.29200590,
+                  "lng" : 123.1108510
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

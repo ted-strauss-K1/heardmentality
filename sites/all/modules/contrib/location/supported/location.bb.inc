@@ -1,29 +1,17 @@
 <?php
 
-// Barbados
-
-function location_province_list_bb() {
-  return array('CC' => "Christ Church",
-    'AND' => "Saint Andrew",
-    'GEO' => "Saint George",
-    'JAM' => "Saint James",
-    'JOH' => "Saint John",
-    'JOS' => "Saint Joseph",
-    'LUC' => "Saint Lucy",
-    'MIC' => "Saint Michael",
-    'PET' => "Saint Peter",
-    'PHI' => "Saint Philip",
-    'THO' => "Saint Thomas");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_bb() {
-  return array(
-    'minlng' => -59.6715,
-    'minlat' => 13.018433,
-    'maxlng' => -59.3994,
-    'maxlat' => 13.285133,
-  );
+function location_province_list_bb () {
+	return array (
+		"01" => t("Christ Church"),
+		"02" => t("Saint Andrew"),
+		"03" => t("Saint George"),
+		"04" => t("Saint James"),
+		"05" => t("Saint John"),
+		"06" => t("Saint Joseph"),
+		"07" => t("Saint Lucy"),
+		"08" => t("Saint Michael"),
+		"09" => t("Saint Peter"),
+		"10" => t("Saint Philip"),
+		"11" => t("Saint Thomas"),
+	);
 }

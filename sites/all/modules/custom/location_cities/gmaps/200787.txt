@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Waridi Lane",
+               "short_name" : "Waridi Lane",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Athi River",
+               "short_name" : "Athi River",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Machakos",
+               "short_name" : "Machakos",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Waridi Lane, Athi River, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.45079420,
+                  "lng" : 36.98487780
+               },
+               "southwest" : {
+                  "lat" : -1.45088250,
+                  "lng" : 36.98401870000001
+               }
+            },
+            "location" : {
+               "lat" : -1.45079540,
+               "lng" : 36.98441890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.449489369708498,
+                  "lng" : 36.98579723029150
+               },
+               "southwest" : {
+                  "lat" : -1.452187330291502,
+                  "lng" : 36.98309926970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Athi River",
+               "short_name" : "Athi River",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Machakos",
+               "short_name" : "Machakos",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Athi River, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.41757530,
+                  "lng" : 37.04169270
+               },
+               "southwest" : {
+                  "lat" : -1.50615510,
+                  "lng" : 36.92934040
+               }
+            },
+            "location" : {
+               "lat" : -1.45772450,
+               "lng" : 36.97850330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.41757530,
+                  "lng" : 37.04169270
+               },
+               "southwest" : {
+                  "lat" : -1.50615510,
+                  "lng" : 36.92934040
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Machakos",
+               "short_name" : "Machakos",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Machakos, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.7818018999999999,
+                  "lng" : 37.86616110
+               },
+               "southwest" : {
+                  "lat" : -1.7926920,
+                  "lng" : 36.87852010
+               }
+            },
+            "location" : {
+               "lat" : -1.33042260,
+               "lng" : 37.46813960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.7818018999999999,
+                  "lng" : 37.86616110
+               },
+               "southwest" : {
+                  "lat" : -1.7926920,
+                  "lng" : 36.87852010
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

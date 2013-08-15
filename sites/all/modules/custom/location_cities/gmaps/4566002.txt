@@ -1,0 +1,346 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "PR-868",
+               "short_name" : "PR-868",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Levittown",
+               "short_name" : "Levittown",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Toa Baja",
+               "short_name" : "Toa Baja",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Toa Baja",
+               "short_name" : "Toa Baja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "00949",
+               "short_name" : "00949",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "PR-868, Toa Baja, 00949, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.45011690,
+                  "lng" : -66.1807280
+               },
+               "southwest" : {
+                  "lat" : 18.4493570,
+                  "lng" : -66.18181129999999
+               }
+            },
+            "location" : {
+               "lat" : 18.44973820,
+               "lng" : -66.18126860
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.45108593029150,
+                  "lng" : -66.17992066970849
+               },
+               "southwest" : {
+                  "lat" : 18.44838796970850,
+                  "lng" : -66.18261863029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Levittown",
+               "short_name" : "Levittown",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Sabana Seca",
+               "short_name" : "Sabana Seca",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Toa Baja",
+               "short_name" : "Toa Baja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Levittown, Sabana Seca, Toa Baja, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.46335980,
+                  "lng" : -66.15360290
+               },
+               "southwest" : {
+                  "lat" : 18.4307090,
+                  "lng" : -66.18996609999999
+               }
+            },
+            "location" : {
+               "lat" : 18.44994570,
+               "lng" : -66.18155580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.46335980,
+                  "lng" : -66.15360290
+               },
+               "southwest" : {
+                  "lat" : 18.4307090,
+                  "lng" : -66.18996609999999
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sabana Seca",
+               "short_name" : "Sabana Seca",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Toa Baja",
+               "short_name" : "Toa Baja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sabana Seca, Toa Baja, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.47692820,
+                  "lng" : -66.15360290
+               },
+               "southwest" : {
+                  "lat" : 18.4174950,
+                  "lng" : -66.25529999999999
+               }
+            },
+            "location" : {
+               "lat" : 18.4256380,
+               "lng" : -66.18536100000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.47692820,
+                  "lng" : -66.15360290
+               },
+               "southwest" : {
+                  "lat" : 18.4174950,
+                  "lng" : -66.25529999999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Toa Baja",
+               "short_name" : "Toa Baja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Toa Baja, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.47692820,
+                  "lng" : -66.1331910
+               },
+               "southwest" : {
+                  "lat" : 18.38928880,
+                  "lng" : -66.26437880
+               }
+            },
+            "location" : {
+               "lat" : 18.43058540,
+               "lng" : -66.22481739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.47692820,
+                  "lng" : -66.1331910
+               },
+               "southwest" : {
+                  "lat" : 18.38928880,
+                  "lng" : -66.26437880
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "00949",
+               "short_name" : "00949",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Toa Baja",
+               "short_name" : "Toa Baja",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Toa Baja",
+               "short_name" : "Toa Baja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Toa Baja, 00949, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.47692790,
+                  "lng" : -66.13246080000002
+               },
+               "southwest" : {
+                  "lat" : 18.38486490,
+                  "lng" : -66.265890
+               }
+            },
+            "location" : {
+               "lat" : 18.43058540,
+               "lng" : -66.22481739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.47692790,
+                  "lng" : -66.13246080000002
+               },
+               "southwest" : {
+                  "lat" : 18.38486490,
+                  "lng" : -66.265890
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "San Juan-Caguas-Guaynabo, PR",
+               "short_name" : "San Juan-Caguas-Guaynabo, PR",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "San Juan-Caguas-Guaynabo, PR, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.4941990,
+                  "lng" : -65.65807099999999
+               },
+               "southwest" : {
+                  "lat" : 17.98185440,
+                  "lng" : -66.96842810
+               }
+            },
+            "location" : {
+               "lat" : 18.27523110,
+               "lng" : -66.14152630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.4941990,
+                  "lng" : -65.65807099999999
+               },
+               "southwest" : {
+                  "lat" : 17.98185440,
+                  "lng" : -66.96842810
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.51600990,
+                  "lng" : -65.22110990
+               },
+               "southwest" : {
+                  "lat" : 17.88142860,
+                  "lng" : -67.94554710
+               }
+            },
+            "location" : {
+               "lat" : 18.2208330,
+               "lng" : -66.5901490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.51600990,
+                  "lng" : -65.22110990
+               },
+               "southwest" : {
+                  "lat" : 17.88142860,
+                  "lng" : -67.27129590
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

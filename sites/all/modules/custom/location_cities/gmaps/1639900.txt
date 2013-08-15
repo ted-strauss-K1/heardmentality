@@ -1,0 +1,467 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Borobudur",
+               "short_name" : "Jl. Borobudur",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Klatentengah",
+               "short_name" : "Klatentengah",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Klaten",
+               "short_name" : "Klaten",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jalan Borobudur, Klatentengah, Klaten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.706326799999999,
+                  "lng" : 110.6061620
+               },
+               "southwest" : {
+                  "lat" : -7.70662010,
+                  "lng" : 110.60542840
+               }
+            },
+            "location" : {
+               "lat" : -7.706496500000001,
+               "lng" : 110.60578280
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.705124469708498,
+                  "lng" : 110.6071441802915
+               },
+               "southwest" : {
+                  "lat" : -7.707822430291502,
+                  "lng" : 110.6044462197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bareng",
+               "short_name" : "Bareng",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Klatentengah",
+               "short_name" : "Klatentengah",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Klaten",
+               "short_name" : "Klaten",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bareng, Klatentengah, Klaten, Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.696811999999999,
+                  "lng" : 110.60991310
+               },
+               "southwest" : {
+                  "lat" : -7.7069290,
+                  "lng" : 110.6026170
+               }
+            },
+            "location" : {
+               "lat" : -7.70053990,
+               "lng" : 110.60646320
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.696811999999999,
+                  "lng" : 110.60991310
+               },
+               "southwest" : {
+                  "lat" : -7.7069290,
+                  "lng" : 110.6026170
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "57414",
+               "short_name" : "57414",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Klaten",
+               "short_name" : "Klaten",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Klaten, Central Java 57414, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.694782200000001,
+                  "lng" : 110.61019130
+               },
+               "southwest" : {
+                  "lat" : -7.70682650,
+                  "lng" : 110.60267630
+               }
+            },
+            "location" : {
+               "lat" : -7.70053990,
+               "lng" : 110.60646320
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.694782200000001,
+                  "lng" : 110.61019130
+               },
+               "southwest" : {
+                  "lat" : -7.70682650,
+                  "lng" : 110.60267630
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Klaten",
+               "short_name" : "Central Klaten",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Klatentengah",
+               "short_name" : "Klatentengah",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Klaten",
+               "short_name" : "Klaten",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Klaten, Klatentengah, Klaten, Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.69222110,
+                  "lng" : 110.6234450
+               },
+               "southwest" : {
+                  "lat" : -7.739252899999999,
+                  "lng" : 110.59101110
+               }
+            },
+            "location" : {
+               "lat" : -7.71699540,
+               "lng" : 110.61093270
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.69222110,
+                  "lng" : 110.6234450
+               },
+               "southwest" : {
+                  "lat" : -7.739252899999999,
+                  "lng" : 110.59101110
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Klatentengah",
+               "short_name" : "Klatentengah",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Klaten",
+               "short_name" : "Klaten",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Klatentengah, Klaten, Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.69222110,
+                  "lng" : 110.6234450
+               },
+               "southwest" : {
+                  "lat" : -7.739252899999999,
+                  "lng" : 110.59101110
+               }
+            },
+            "location" : {
+               "lat" : -7.71699540,
+               "lng" : 110.61093270
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.69222110,
+                  "lng" : 110.6234450
+               },
+               "southwest" : {
+                  "lat" : -7.739252899999999,
+                  "lng" : 110.59101110
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Klaten",
+               "short_name" : "Klaten",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Klaten",
+               "short_name" : "Klaten",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Klaten, Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.540960099999999,
+                  "lng" : 110.799750
+               },
+               "southwest" : {
+                  "lat" : -7.8086420,
+                  "lng" : 110.44607490
+               }
+            },
+            "location" : {
+               "lat" : -7.7116870,
+               "lng" : 110.5954970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.540960099999999,
+                  "lng" : 110.799750
+               },
+               "southwest" : {
+                  "lat" : -7.8086420,
+                  "lng" : 110.44607490
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Klaten",
+               "short_name" : "Klaten",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Klaten, Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.540960099999999,
+                  "lng" : 110.799750
+               },
+               "southwest" : {
+                  "lat" : -7.8086420,
+                  "lng" : 110.44607490
+               }
+            },
+            "location" : {
+               "lat" : -7.6578930,
+               "lng" : 110.66456830
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.540960099999999,
+                  "lng" : 110.799750
+               },
+               "southwest" : {
+                  "lat" : -7.8086420,
+                  "lng" : 110.44607490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.4026710,
+                  "lng" : 111.6916350
+               },
+               "southwest" : {
+                  "lat" : -8.21163310,
+                  "lng" : 108.5558550
+               }
+            },
+            "location" : {
+               "lat" : -7.1509750,
+               "lng" : 110.14025940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.4026710,
+                  "lng" : 111.6916350
+               },
+               "southwest" : {
+                  "lat" : -8.21163310,
+                  "lng" : 108.5558550
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

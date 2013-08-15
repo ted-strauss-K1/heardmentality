@@ -1,23 +1,27 @@
 <?php
-// $Id $
 
-// Montenegro
-
-function location_province_list_me() {
-  return array(
-  );
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_me() {
-  // NaturalEarth 10m Admin 0 - Countries (v1.3.0)
-  // EPSG:900913
-  return array(
-    'minlng' => 18.4335307,
-    'minlat' => 41.8520718,
-    'maxlng' => 20.3551705,
-    'maxlat' => 43.5478856,
-  );
+function location_province_list_me () {
+	return array (
+		"01" => t("Opstina Andrijevica"),
+		"02" => t("Opstina Bar"),
+		"03" => t("Opstina Berane"),
+		"04" => t("Opstina Bijelo Polje"),
+		"05" => t("Opstina Budva"),
+		"06" => t("Opstina Cetinje"),
+		"07" => t("Opstina Danilovgrad"),
+		"08" => t("Opstina Herceg-Novi"),
+		"09" => t("Opstina Kolasin"),
+		"10" => t("Opstina Kotor"),
+		"11" => t("Opstina Mojkovac"),
+		"12" => t("Opstina Niksic"),
+		"13" => t("Opstina Plav"),
+		"14" => t("Opstina Pljevlja"),
+		"15" => t("Opstina Pluzine"),
+		"16" => t("Opstina Podgorica"),
+		"17" => t("Opstina Rozaje"),
+		"18" => t("Opstina Savnik"),
+		"19" => t("Opstina Tivat"),
+		"20" => t("Opstina Ulcinj"),
+		"21" => t("Opstina Zabljak"),
+	);
 }

@@ -1,8 +1,0 @@
- 3576390 ag_BAR
- 3576037 ag_RED
-*3576024 ag_ASG  :::  Saint George ~ Parish of Saint George(3576024)
-*3576023 ag_ASJ  :::  Saint John ~ Parish of Saint John(3576023)
-*3576018 ag_ASM  :::  Saint Mary ~ Parish of Saint Mary(3576018)
-*3576017 ag_ASL  :::  Saint Paul ~ Parish of Saint Paul(3576017)
-*3576016 ag_ASR  :::  Saint Peter ~ Parish of Saint Peter(3576016)
-*3576015 ag_ASH  :::  Saint Philip ~ Parish of Saint Philip(3576015)

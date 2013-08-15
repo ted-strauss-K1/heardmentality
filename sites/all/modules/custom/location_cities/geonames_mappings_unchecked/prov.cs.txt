@@ -1,9 +1,0 @@
-**785958 cs_KOS  :::  Kosovo ~ Central Serbia(785958)
-**785958 cs_MON  :::  Montenegro ~ Central Serbia(785958)
-**785958 cs_SER  :::  Serbia ~ Central Serbia(785958)
-**785958 cs_VOJ  :::  Vojvodina ~ Central Serbia(785958)
-
-NAMES:::::
-
-Autonomna Pokrajina Vojvodina(784272) 
-Central Serbia(785958) 

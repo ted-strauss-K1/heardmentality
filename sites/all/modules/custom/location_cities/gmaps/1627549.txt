@@ -1,0 +1,429 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "13",
+               "short_name" : "13",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Jalan Brigjen Syamun",
+               "short_name" : "Jl. Brigjen Syamun",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Serang",
+               "short_name" : "Serang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "2",
+               "short_name" : "2",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Serang",
+               "short_name" : "Serang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Serang City",
+               "short_name" : "Serang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "42112",
+               "short_name" : "42112",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Brigjen Syamun No.13, Serang, Serang City, Banten 42112, Indonesia",
+         "geometry" : {
+            "location" : {
+               "lat" : -6.1142810,
+               "lng" : 106.1501140
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.112932019708498,
+                  "lng" : 106.1514629802915
+               },
+               "southwest" : {
+                  "lat" : -6.115629980291502,
+                  "lng" : 106.1487650197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kotabaru",
+               "short_name" : "Kotabaru",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Serang",
+               "short_name" : "Serang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Serang City",
+               "short_name" : "Serang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kotabaru, Serang, Serang City, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.107929899999999,
+                  "lng" : 106.15732790
+               },
+               "southwest" : {
+                  "lat" : -6.11998980,
+                  "lng" : 106.14820990
+               }
+            },
+            "location" : {
+               "lat" : -6.11390110,
+               "lng" : 106.15294770
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.107929899999999,
+                  "lng" : 106.15732790
+               },
+               "southwest" : {
+                  "lat" : -6.11998980,
+                  "lng" : 106.14820990
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "42112",
+               "short_name" : "42112",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Serang",
+               "short_name" : "Serang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Serang City",
+               "short_name" : "Serang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serang, Serang City, Banten 42112, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.1078720,
+                  "lng" : 106.15744780
+               },
+               "southwest" : {
+                  "lat" : -6.11991780,
+                  "lng" : 106.14845280
+               }
+            },
+            "location" : {
+               "lat" : -6.114517999999999,
+               "lng" : 106.15368280
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.1078720,
+                  "lng" : 106.15744780
+               },
+               "southwest" : {
+                  "lat" : -6.11991780,
+                  "lng" : 106.14845280
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serang",
+               "short_name" : "Serang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Serang City",
+               "short_name" : "Serang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serang, Serang City, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.0823420,
+                  "lng" : 106.199380
+               },
+               "southwest" : {
+                  "lat" : -6.13861380,
+                  "lng" : 106.133110
+               }
+            },
+            "location" : {
+               "lat" : -6.110366099999999,
+               "lng" : 106.16397490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.0823420,
+                  "lng" : 106.199380
+               },
+               "southwest" : {
+                  "lat" : -6.13861380,
+                  "lng" : 106.133110
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serang City",
+               "short_name" : "Serang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serang City, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.98059990,
+                  "lng" : 106.2552510
+               },
+               "southwest" : {
+                  "lat" : -6.2199070,
+                  "lng" : 106.06592990
+               }
+            },
+            "location" : {
+               "lat" : -6.1354010,
+               "lng" : 106.18161960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.98059990,
+                  "lng" : 106.2552510
+               },
+               "southwest" : {
+                  "lat" : -6.2199070,
+                  "lng" : 106.06592990
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serang",
+               "short_name" : "Serang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Serang City",
+               "short_name" : "Serang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serang, Serang City, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.98059990,
+                  "lng" : 106.2552510
+               },
+               "southwest" : {
+                  "lat" : -6.2199070,
+                  "lng" : 106.06592990
+               }
+            },
+            "location" : {
+               "lat" : -6.120090,
+               "lng" : 106.1502990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.98059990,
+                  "lng" : 106.2552510
+               },
+               "southwest" : {
+                  "lat" : -6.2199070,
+                  "lng" : 106.06592990
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.87581390,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -7.0163420,
+                  "lng" : 105.10011490
+               }
+            },
+            "location" : {
+               "lat" : -6.40581720,
+               "lng" : 106.06401790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.87581390,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -7.0163420,
+                  "lng" : 105.10011490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

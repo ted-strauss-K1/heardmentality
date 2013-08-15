@@ -1,0 +1,260 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "De Rouvilleweg",
+               "short_name" : "De Rouvilleweg",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Otrobanda",
+               "short_name" : "Otrobanda",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Willemstad",
+               "short_name" : "Willemstad",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Santa Maria",
+               "short_name" : "Santa Maria",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Curaçao",
+               "short_name" : "Curaçao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Country of Curaçao",
+               "short_name" : "CW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "De Rouvilleweg, Willemstad, Curaçao",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.10892550,
+                  "lng" : -68.93440830
+               },
+               "southwest" : {
+                  "lat" : 12.10861770,
+                  "lng" : -68.93447270
+               }
+            },
+            "location" : {
+               "lat" : 12.10877080,
+               "lng" : -68.93443599999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.11012058029150,
+                  "lng" : -68.93309151970850
+               },
+               "southwest" : {
+                  "lat" : 12.10742261970850,
+                  "lng" : -68.93578948029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Otrobanda",
+               "short_name" : "Otrobanda",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Willemstad",
+               "short_name" : "Willemstad",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Santa Maria",
+               "short_name" : "Santa Maria",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Curaçao",
+               "short_name" : "Curaçao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Country of Curaçao",
+               "short_name" : "CW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Otrobanda, Willemstad, Curaçao",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.11781660,
+                  "lng" : -68.93106580
+               },
+               "southwest" : {
+                  "lat" : 12.10449960,
+                  "lng" : -68.95028110
+               }
+            },
+            "location" : {
+               "lat" : 12.1090,
+               "lng" : -68.9370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.11781660,
+                  "lng" : -68.93106580
+               },
+               "southwest" : {
+                  "lat" : 12.10449960,
+                  "lng" : -68.95028110
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Willemstad",
+               "short_name" : "Willemstad",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Santa Maria",
+               "short_name" : "Santa Maria",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Curaçao",
+               "short_name" : "Curaçao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Country of Curaçao",
+               "short_name" : "CW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Willemstad, Curaçao",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.18571870,
+                  "lng" : -68.80535610
+               },
+               "southwest" : {
+                  "lat" : 12.07083920,
+                  "lng" : -68.99167290
+               }
+            },
+            "location" : {
+               "lat" : 12.1081290,
+               "lng" : -68.9302060
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.18571870,
+                  "lng" : -68.80535610
+               },
+               "southwest" : {
+                  "lat" : 12.07083920,
+                  "lng" : -68.99167290
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Curaçao",
+               "short_name" : "Curaçao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Country of Curaçao",
+               "short_name" : "CW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Curaçao",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.39243560,
+                  "lng" : -68.63983150
+               },
+               "southwest" : {
+                  "lat" : 11.97803530,
+                  "lng" : -69.16245470
+               }
+            },
+            "location" : {
+               "lat" : 12.09891030,
+               "lng" : -68.85857740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.39243560,
+                  "lng" : -68.73671680
+               },
+               "southwest" : {
+                  "lat" : 12.03432620,
+                  "lng" : -69.16245470
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Country of Curaçao",
+               "short_name" : "CW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Curaçao",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.39243560,
+                  "lng" : -68.63983150
+               },
+               "southwest" : {
+                  "lat" : 11.97803530,
+                  "lng" : -69.16245470
+               }
+            },
+            "location" : {
+               "lat" : 12.169570,
+               "lng" : -68.990020
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.39243560,
+                  "lng" : -68.73671680
+               },
+               "southwest" : {
+                  "lat" : 12.03432620,
+                  "lng" : -69.16245470
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kade - Brofoyedru Road",
+               "short_name" : "Kade - Brofoyedru Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Akim Oda",
+               "short_name" : "Akim Oda",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Birim Central Municipality",
+               "short_name" : "Birim Central Municipality",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Eastern",
+               "short_name" : "Eastern",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kade - Brofoyedru Road, Akim Oda, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.93121140,
+                  "lng" : -0.97984310
+               },
+               "southwest" : {
+                  "lat" : 5.91757320,
+                  "lng" : -0.98920140
+               }
+            },
+            "location" : {
+               "lat" : 5.92595270,
+               "lng" : -0.9871770999999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.93121140,
+                  "lng" : -0.97984310
+               },
+               "southwest" : {
+                  "lat" : 5.91757320,
+                  "lng" : -0.98920140
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Akim Oda",
+               "short_name" : "Akim Oda",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Birim Central Municipality",
+               "short_name" : "Birim Central Municipality",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Eastern",
+               "short_name" : "Eastern",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Akim Oda, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.95286330,
+                  "lng" : -0.9571837000000001
+               },
+               "southwest" : {
+                  "lat" : 5.90326230,
+                  "lng" : -1.00155830
+               }
+            },
+            "location" : {
+               "lat" : 5.92527780,
+               "lng" : -0.9858332999999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.95286330,
+                  "lng" : -0.9571837000000001
+               },
+               "southwest" : {
+                  "lat" : 5.90326230,
+                  "lng" : -1.00155830
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Birim Central Municipality",
+               "short_name" : "Birim Central Municipality",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Eastern",
+               "short_name" : "Eastern",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Birim Central Municipality, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.01765360,
+                  "lng" : -0.7436370999999999
+               },
+               "southwest" : {
+                  "lat" : 5.719503899999999,
+                  "lng" : -1.03546130
+               }
+            },
+            "location" : {
+               "lat" : 5.85581980,
+               "lng" : -0.86751340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 6.01765360,
+                  "lng" : -0.7436370999999999
+               },
+               "southwest" : {
+                  "lat" : 5.719503899999999,
+                  "lng" : -1.03546130
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Eastern",
+               "short_name" : "Eastern",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Eastern, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.186541000000001,
+                  "lng" : 0.3226440
+               },
+               "southwest" : {
+                  "lat" : 5.7293480,
+                  "lng" : -1.24834010
+               }
+            },
+            "location" : {
+               "lat" : 6.237403599999999,
+               "lng" : -0.45023680
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.186541000000001,
+                  "lng" : 0.3226440
+               },
+               "southwest" : {
+                  "lat" : 5.7293480,
+                  "lng" : -1.24834010
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            },
+            "location" : {
+               "lat" : 7.9465270,
+               "lng" : -1.0231940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

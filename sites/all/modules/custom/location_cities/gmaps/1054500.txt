@@ -1,0 +1,240 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "10",
+               "short_name" : "10",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tsiombe",
+               "short_name" : "Tsiombe",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tsihombe",
+               "short_name" : "Tsihombe",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "10, Tsiombe, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -25.31514860,
+                  "lng" : 45.49056380
+               },
+               "southwest" : {
+                  "lat" : -25.31654680,
+                  "lng" : 45.48632540
+               }
+            },
+            "location" : {
+               "lat" : -25.31616480,
+               "lng" : 45.48857390
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -25.31449871970850,
+                  "lng" : 45.49056380
+               },
+               "southwest" : {
+                  "lat" : -25.31719668029150,
+                  "lng" : 45.48632540
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tsihombe",
+               "short_name" : "Tsihombe",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tsihombe, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -25.08000190,
+                  "lng" : 45.83633420
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 45.13106350
+               }
+            },
+            "location" : {
+               "lat" : -25.30459370,
+               "lng" : 45.52519820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -25.08000190,
+                  "lng" : 45.83633420
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 45.13106350
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Androy",
+               "short_name" : "Androy",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Androy, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -23.80607780,
+                  "lng" : 46.27449750
+               },
+               "southwest" : {
+                  "lat" : -25.60605940,
+                  "lng" : 44.51609970
+               }
+            },
+            "location" : {
+               "lat" : -24.74978350,
+               "lng" : 45.44980650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -23.80607780,
+                  "lng" : 46.27449750
+               },
+               "southwest" : {
+                  "lat" : -25.60605940,
+                  "lng" : 44.51609970
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Toliara, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -18.1937060,
+                  "lng" : 47.42046819999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.22487610
+               }
+            },
+            "location" : {
+               "lat" : -23.14852690,
+               "lng" : 44.39928920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -18.1937060,
+                  "lng" : 47.42046819999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.22487610
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Sam Ratulangi",
+               "short_name" : "Jl. Sam Ratulangi",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Maesa",
+               "short_name" : "Maesa",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bitung",
+               "short_name" : "Bitung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jalan Sam Ratulangi, Maesa, Bitung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.44487960,
+                  "lng" : 125.18318130
+               },
+               "southwest" : {
+                  "lat" : 1.44482360,
+                  "lng" : 125.18197180
+               }
+            },
+            "location" : {
+               "lat" : 1.44485290,
+               "lng" : 125.18257660
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.446200580291502,
+                  "lng" : 125.1839255302915
+               },
+               "southwest" : {
+                  "lat" : 1.443502619708498,
+                  "lng" : 125.1812275697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bitung Barat Dua",
+               "short_name" : "Bitung Barat Dua",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Maesa",
+               "short_name" : "Maesa",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bitung",
+               "short_name" : "Bitung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bitung Barat Dua, Maesa, Bitung, North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.4866260,
+                  "lng" : 125.18418910
+               },
+               "southwest" : {
+                  "lat" : 1.4399330,
+                  "lng" : 125.17115790
+               }
+            },
+            "location" : {
+               "lat" : 1.46753720,
+               "lng" : 125.17912080
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.4866260,
+                  "lng" : 125.18418910
+               },
+               "southwest" : {
+                  "lat" : 1.4399330,
+                  "lng" : 125.17115790
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Maesa",
+               "short_name" : "Maesa",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bitung",
+               "short_name" : "Bitung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Maesa, Bitung, North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.4866750,
+                  "lng" : 125.1971210
+               },
+               "southwest" : {
+                  "lat" : 1.4380020,
+                  "lng" : 125.1658020
+               }
+            },
+            "location" : {
+               "lat" : 1.46957880,
+               "lng" : 125.1763720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.4866750,
+                  "lng" : 125.1971210
+               },
+               "southwest" : {
+                  "lat" : 1.4380020,
+                  "lng" : 125.1658020
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bitung",
+               "short_name" : "Bitung",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bitung",
+               "short_name" : "Bitung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bitung, North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.57548090,
+                  "lng" : 125.2932820
+               },
+               "southwest" : {
+                  "lat" : 1.3811050,
+                  "lng" : 125.0300830
+               }
+            },
+            "location" : {
+               "lat" : 1.45535290,
+               "lng" : 125.2046970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.57548090,
+                  "lng" : 125.2932820
+               },
+               "southwest" : {
+                  "lat" : 1.3811050,
+                  "lng" : 125.0300830
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bitung",
+               "short_name" : "Bitung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bitung, North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.57548090,
+                  "lng" : 125.2932820
+               },
+               "southwest" : {
+                  "lat" : 1.3811050,
+                  "lng" : 125.0300830
+               }
+            },
+            "location" : {
+               "lat" : 1.48203350,
+               "lng" : 125.1488790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.57548090,
+                  "lng" : 125.2932820
+               },
+               "southwest" : {
+                  "lat" : 1.3811050,
+                  "lng" : 125.0300830
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sulawesi",
+               "short_name" : "North Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.5657830,
+                  "lng" : 127.18157810
+               },
+               "southwest" : {
+                  "lat" : 0.29200590,
+                  "lng" : 123.1108510
+               }
+            },
+            "location" : {
+               "lat" : 0.6246931999999999,
+               "lng" : 123.97500180
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.748310,
+                  "lng" : 125.73645210
+               },
+               "southwest" : {
+                  "lat" : 0.29200590,
+                  "lng" : 123.1108510
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

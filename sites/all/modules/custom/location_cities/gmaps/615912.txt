@@ -1,0 +1,235 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tbilisi-Senaki-Leselidze",
+               "short_name" : "ს1",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Akhali Atoni",
+               "short_name" : "Akhali Atoni",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Abkhazia",
+               "short_name" : "Abkhazia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Georgia",
+               "short_name" : "GE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tbilisi-Senaki-Leselidze, Akhali Atoni, Georgia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 43.08221840,
+                  "lng" : 40.83886380
+               },
+               "southwest" : {
+                  "lat" : 43.08041610,
+                  "lng" : 40.8309460
+               }
+            },
+            "location" : {
+               "lat" : 43.08136890,
+               "lng" : 40.83493270
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 43.08266623029149,
+                  "lng" : 40.83886380
+               },
+               "southwest" : {
+                  "lat" : 43.07996826970849,
+                  "lng" : 40.8309460
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Akhali Aponi Railway Station",
+               "short_name" : "Akhali Aponi Railway Station",
+               "types" : [ "train_station", "transit_station", "establishment" ]
+            },
+            {
+               "long_name" : "E97",
+               "short_name" : "E97",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Akhali Atoni",
+               "short_name" : "Akhali Atoni",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Abkhazia",
+               "short_name" : "Abkhazia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Georgia",
+               "short_name" : "GE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Akhali Aponi Railway Station, E97, Akhali Atoni, Georgia",
+         "geometry" : {
+            "location" : {
+               "lat" : 43.080910,
+               "lng" : 40.83820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 43.08225898029149,
+                  "lng" : 40.83954898029150
+               },
+               "southwest" : {
+                  "lat" : 43.07956101970850,
+                  "lng" : 40.83685101970850
+               }
+            }
+         },
+         "types" : [ "train_station", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Akhali Atoni",
+               "short_name" : "Akhali Atoni",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Abkhazia",
+               "short_name" : "Abkhazia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Georgia",
+               "short_name" : "GE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Akhali Atoni, Georgia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 43.09264730,
+                  "lng" : 40.84424970000001
+               },
+               "southwest" : {
+                  "lat" : 43.07791620,
+                  "lng" : 40.79446790
+               }
+            },
+            "location" : {
+               "lat" : 43.08493410,
+               "lng" : 40.82605710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 43.09264730,
+                  "lng" : 40.84424970000001
+               },
+               "southwest" : {
+                  "lat" : 43.07791620,
+                  "lng" : 40.79446790
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Abkhazia",
+               "short_name" : "Abkhazia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Georgia",
+               "short_name" : "GE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Abkhazia, Georgia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 43.5845410,
+                  "lng" : 42.1499760
+               },
+               "southwest" : {
+                  "lat" : 42.41073620,
+                  "lng" : 40.01032660
+               }
+            },
+            "location" : {
+               "lat" : 42.97378160,
+               "lng" : 41.44217990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 43.5845410,
+                  "lng" : 42.1499760
+               },
+               "southwest" : {
+                  "lat" : 42.41073620,
+                  "lng" : 40.01032660
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Georgia",
+               "short_name" : "GE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Georgia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 43.5866270,
+                  "lng" : 46.7361190
+               },
+               "southwest" : {
+                  "lat" : 41.0549420,
+                  "lng" : 40.00661130
+               }
+            },
+            "location" : {
+               "lat" : 42.3154070,
+               "lng" : 43.35689199999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 43.5866270,
+                  "lng" : 46.7361190
+               },
+               "southwest" : {
+                  "lat" : 41.0549420,
+                  "lng" : 40.00661130
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

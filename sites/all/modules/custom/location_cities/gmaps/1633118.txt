@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Tumbang Rungan",
+               "short_name" : "Jl. Tumbang Rungan",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Palangka Raya",
+               "short_name" : "Palangka Raya",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pahandut",
+               "short_name" : "Pahandut",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Palangka Raya",
+               "short_name" : "Palangka Raya",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "74874",
+               "short_name" : "74874",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Tumbang Rungan, Pahandut, Palangka Raya, Central Kalimantan 74874, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.16674210,
+                  "lng" : 113.94359420
+               },
+               "southwest" : {
+                  "lat" : -2.1765670,
+                  "lng" : 113.92405890
+               }
+            },
+            "location" : {
+               "lat" : -2.176550,
+               "lng" : 113.93158560
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.16674210,
+                  "lng" : 113.94359420
+               },
+               "southwest" : {
+                  "lat" : -2.1765670,
+                  "lng" : 113.92405890
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bukit Tunggal",
+               "short_name" : "Bukit Tunggal",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Jekan Raya",
+               "short_name" : "Jekan Raya",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Palangka Raya",
+               "short_name" : "Palangka Raya",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bukit Tunggal, Jekan Raya, Palangka Raya, Central Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.1305130,
+                  "lng" : 113.91664690
+               },
+               "southwest" : {
+                  "lat" : -2.3014230,
+                  "lng" : 113.6954360
+               }
+            },
+            "location" : {
+               "lat" : -2.19734860,
+               "lng" : 113.78708220
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.1305130,
+                  "lng" : 113.91664690
+               },
+               "southwest" : {
+                  "lat" : -2.3014230,
+                  "lng" : 113.6954360
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jekan Raya",
+               "short_name" : "Jekan Raya",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Palangka Raya",
+               "short_name" : "Palangka Raya",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jekan Raya, Palangka Raya, Central Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.0808520,
+                  "lng" : 113.92882710
+               },
+               "southwest" : {
+                  "lat" : -2.3014230,
+                  "lng" : 113.6954360
+               }
+            },
+            "location" : {
+               "lat" : -2.19654410,
+               "lng" : 113.83467760
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.0808520,
+                  "lng" : 113.92882710
+               },
+               "southwest" : {
+                  "lat" : -2.3014230,
+                  "lng" : 113.6954360
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Palangka Raya",
+               "short_name" : "Palangka Raya",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Palangka Raya",
+               "short_name" : "Palangka Raya",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Palangka Raya, Central Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.62350790,
+                  "lng" : 114.1067920
+               },
+               "southwest" : {
+                  "lat" : -2.3988320,
+                  "lng" : 113.48201590
+               }
+            },
+            "location" : {
+               "lat" : -2.210,
+               "lng" : 113.920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.62350790,
+                  "lng" : 114.1067920
+               },
+               "southwest" : {
+                  "lat" : -2.3988320,
+                  "lng" : 113.48201590
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Palangka Raya",
+               "short_name" : "Palangka Raya",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Palangka Raya, Central Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.62350790,
+                  "lng" : 114.1067920
+               },
+               "southwest" : {
+                  "lat" : -2.3988320,
+                  "lng" : 113.48201590
+               }
+            },
+            "location" : {
+               "lat" : -1.74937770,
+               "lng" : 113.66807470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.62350790,
+                  "lng" : 114.1067920
+               },
+               "southwest" : {
+                  "lat" : -2.3988320,
+                  "lng" : 113.48201590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "74874",
+               "short_name" : "74874",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Kalimantan 74874, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.1323130,
+                  "lng" : 114.11179330
+               },
+               "southwest" : {
+                  "lat" : -3.46836230,
+                  "lng" : 113.5761490
+               }
+            },
+            "location" : {
+               "lat" : -2.6138660,
+               "lng" : 113.85847370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.1323130,
+                  "lng" : 114.11179330
+               },
+               "southwest" : {
+                  "lat" : -3.46836230,
+                  "lng" : 113.5761490
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.7932560,
+                  "lng" : 115.847220
+               },
+               "southwest" : {
+                  "lat" : -3.56188590,
+                  "lng" : 110.7336650
+               }
+            },
+            "location" : {
+               "lat" : -1.68148780,
+               "lng" : 113.38235450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.7932560,
+                  "lng" : 115.847220
+               },
+               "southwest" : {
+                  "lat" : -3.56188590,
+                  "lng" : 110.7336650
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

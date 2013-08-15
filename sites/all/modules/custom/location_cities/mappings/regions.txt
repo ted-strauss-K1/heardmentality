@@ -1,0 +1,3596 @@
+AD	02	Canillo	3041203
+AD	03	Encamp	3040684
+AD	04	La Massana	3040131
+AD	05	Ordino	3039676
+AD	06	Sant Julia de Loria	3039162
+AD	07	Andorra la Vella	3041566
+AD	08	Escaldes-Engordany	3338529
+AE	AJ	'Ajman	292933
+AE	AZ	Abu Zaby	292969
+AE	DU	Dubayy	292224
+AE	FU	Al Fujayrah	292879
+AE	RK	R'as al Khaymah	291075
+AE	SH	Ash Shariqah	292673
+AE	UQ	Umm al Qaywayn	290595
+AF	BAL	Balkh province	1147288
+AF	BAM	Bamian province	1147239
+AF	BDG	Badghis province	1147707
+AF	BDS	Badakhshan province	1147745
+AF	BGL	Baghlan province	1147537
+AF	DAY	Daykundi	6957553
+AF	FRA	Farah province	1142263
+AF	FYB	Faryab province	1142226
+AF	GHA	Ghazni province	1141268
+AF	GHO	Ghowr province	1141103
+AF	HEL	Helmand province	1140043
+AF	HER	Herat province	1140025
+AF	JOW	Jowzjan province	1139049
+AF	KAB	Kabul province	1138957
+AF	KAN	Kandahar province	1138335
+AF	KAP	Kapisa province	1138255
+AF	KDZ	Kondoz province	1135690
+AF	KHO	Khost province	1444362
+AF	KNR	Konar province	1135702
+AF	LAG	Laghman province	1135022
+AF	LOW	Lowgar province	1134561
+AF	NAN	Nangrahar province	1132366
+AF	NIM	Nimruz province	1131821
+AF	NUR	Nurestan province	1444363
+AF	ORU	Oruzgan province	1131461
+AF	PAN	Panjshir	6957555
+AF	PAR	Parwan province	1131054
+AF	PIA	Paktia province	1131257
+AF	PKA	Paktika province	1131256
+AF	SAM	Samangan province	1127766
+AF	SAR	Sar-e Pol province	1127106
+AF	TAK	Takhar province	1123230
+AF	WAR	Wardak province	1121863
+AF	ZAB	Zabol province	1121143
+AG	03	Saint George	3576024
+AG	04	Saint John	3576023
+AG	05	Saint Mary	3576018
+AG	06	Saint Paul	3576017
+AG	07	Saint Peter	3576016
+AG	08	Saint Philip	3576015
+AG	10	Barbuda	3576390
+AG	11	Redonda	3576037
+AL	01	Berat	865730
+AL	02	Durres	3344947
+AL	03	Elbasan	865732
+AL	04	Fier	3344948
+AL	05	Gjirokaster	865733
+AL	06	Korce	865734
+AL	07	Kukes	865735
+AL	08	Lezhe	3344949
+AL	09	Diber	865731
+AL	10	Shkoder	3344950
+AL	11	Tirane	3344951
+AL	12	Vlore	3344952
+AM	AG	Aragatsotn	828259
+AM	AR	Ararat	409313
+AM	AV	Armavir	828260
+AM	ER	Yerevan	616051
+AM	GR	Geghark'unik'	828261
+AM	KT	Kotayk'	828262
+AM	LO	Lorri	828263
+AM	SH	Shirak	828264
+AM	SU	Syunik'	409314
+AM	TV	Tavush	828265
+AM	VD	Vayots' Dzor	409315
+AO	BGO	Bengo	2243598
+AO	BGU	Benguela province	3351660
+AO	BIE	Bie	3351640
+AO	CAB	Cabinda	2243266
+AO	CCU	Cuando-Cubango	876337
+AO	CNN	Cunene	3349096
+AO	CNO	Cuanza Norte	2241660
+AO	CUS	Cuanza Sul	3349234
+AO	HUA	Huambo province	3348310
+AO	HUI	Huila province	3348303
+AO	LNO	Lunda Norte	145702
+AO	LSU	Lunda Sul	145701
+AO	LUA	Luanda	2240444
+AO	MAL	Malange	2239858
+AO	MOX	Moxico	875996
+AO	NAM	Namibe	3347016
+AO	UIG	Uige	2236566
+AO	ZAI	Zaire	2236355
+AR	A	Salta	3838231
+AR	B	Buenos Aires Province	3435907
+AR	C	Ciudad Autonoma de Buenos Aires	3433955
+AR	D	San Luis	3837029
+AR	E	Entre Rios	3434137
+AR	F	La Rioja	3848949
+AR	G	Santiago del Estero	3835868
+AR	H	Chaco	3861887
+AR	J	San Juan	3837152
+AR	K	Catamarca	3862286
+AR	L	La Pampa	3849574
+AR	M	Mendoza	3844419
+AR	N	Misiones	3430657
+AR	P	Formosa	3433896
+AR	Q	Neuquen	3843122
+AR	R	Rio Negro	3838830
+AR	S	Santa Fe	3836276
+AR	T	Tucuman	3833578
+AR	U	Chubut	3861244
+AR	V	Tierra del Fuego	3834450
+AR	W	Corrientes	3435214
+AR	X	Cordoba	3860255
+AR	Y	Jujuy	3853404
+AR	Z	Santa Cruz	3836350
+AS	E	Eastern	5881219
+AS	M	Manu'a	5881436
+AS	R	Rose Island	7309441
+AS	S	Swains Island	5881199
+AS	W	Western	5880873
+AT	1	Burgenland	2781194
+AT	2	Karnten	2774686
+AT	3	Niederosterreich	2770542
+AT	4	Oberosterreich	2769848
+AT	5	Salzburg	2766823
+AT	6	Steiermark	2764581
+AT	7	Tirol	2763586
+AT	8	Vorarlberg	2762300
+AT	9	Wien	2761367
+AU	ACT	Australian Capital Territory	2177478
+AU	NSW	New South Wales	2155400
+AU	NT	Northern Territory	2064513
+AU	QLD	Queensland	2152274
+AU	SA	South Australia	2061327
+AU	TAS	Tasmania	2147291
+AU	VIC	Victoria	2145234
+AU	WA	Western Australia	2058645
+AZ	AB	Sirvan	409417
+AZ	ABS	Abseron	587245
+AZ	AGA	Agstafa	828297
+AZ	AGC	AgcabAdi	148615
+AZ	AGM	Agdam	148617
+AZ	AGS	Agdas	587376
+AZ	AGU	Agsu	587342
+AZ	AST	Astara	148442
+AZ	BA	Baki	587081
+AZ	BAL	BalakAn	587010
+AZ	BAR	BArdA	587056
+AZ	BEY	Beylaqan	146879
+AZ	BIL	Bilasuvar	147310
+AZ	CAB	Cabrayil	148140
+AZ	CAL	Calilabab	148155
+AZ	DAS	Daskasan	586771
+AZ	DAV	Sabran	586725
+AZ	FUZ	Fuzuli	148107
+AZ	GA	Ganca	828298
+AZ	GAD	Gadabay	627535
+AZ	GOR	Goranboy	586112
+AZ	GOY	Goycay	586482
+AZ	HAC	Haciqabul	828315
+AZ	IMI	Imisli	147983
+AZ	ISM	Ismayilli	586320
+AZ	KAL	Kalbacar	586047
+AZ	KUR	Kurdamir	585686
+AZ	LA	Lankaran	147613
+AZ	LAC	Lacin	147626
+AZ	LAN	Lankaran Sahari	409418
+AZ	LER	Lerik	147610
+AZ	MAS	Masalli	147551
+AZ	MI	Mingecevir	828299
+AZ	NA	Naftalan	828300
+AZ	NEF	Neftcala	147422
+AZ	NX	Naxcivan	147435
+AZ	OGU	Oguz	584742
+AZ	QAB	Qabala	585738
+AZ	QAX	Qax	586290
+AZ	QAZ	Qazax	586087
+AZ	QBA	Quba	585786
+AZ	QBI	Qubadli	147694
+AZ	QOB	Qobustan	828301
+AZ	QUS	Qusar	585749
+AZ	SA	Saki	585031
+AZ	SAB	Sabirabad	147284
+AZ	SAK	Saki Sahari	828303
+AZ	SAL	Salyan	147269
+AZ	SAT	Saatli	147287
+AZ	SIY	Siyazan	828304
+AZ	SKR	Samkir	585059
+AZ	SM	Sumqayit	828305
+AZ	SMI	Samaxi	585030
+AZ	SMX	Samux	828302
+AZ	SS	Susa	147163
+AZ	SUS	Susa Sahari	409419
+AZ	TAR	Tartar	409420
+AZ	TOV	Tovuz	584861
+AZ	UCA	Ucar	584783
+AZ	XA	Xankandi	409421
+AZ	XAC	Xacmaz	586001
+AZ	XAN	Goygol	585967
+AZ	XCI	Xocali	148449
+AZ	XIZ	Xizi	828306
+AZ	XVD	Xocavand	409423
+AZ	YAR	Yardimli	146962
+AZ	YE	Yevlax Sahari	828307
+AZ	YEV	Yevlax	584650
+AZ	ZAN	Zangilan	146900
+AZ	ZAQ	Zaqatala	584604
+AZ	ZAR	Zardab	584583
+BA	BIH	Federacija Bosna i Hercegovina	3229999
+BA	BRC	Brcko District	3294903
+BA	SRP	Republika Srpska	3230000
+BB	01	Christ Church	3373988
+BB	02	Saint Andrew	3373580
+BB	03	Saint George	3373572
+BB	04	Saint James	3373570
+BB	05	Saint John	3373569
+BB	06	Saint Joseph	3373568
+BB	07	Saint Lucy	3373565
+BB	08	Saint Michael	3373557
+BB	09	Saint Peter	3373554
+BB	10	Saint Philip	3373553
+BB	11	Saint Thomas	3373551
+BD	A	Barisal	1337229
+BD	B	Chittagong	1337200
+BD	C	Dhaka	1337179
+BD	D	Khulna	1337210
+BD	E	Rajshahi	1337166
+BD	F	Rangpur	7671048
+BD	G	Sylhet	1477362
+BE	BRU	Brussels	2800867
+BE	VLG	Flanders	3337388
+BE	WAL	Wallonia	3337387
+BF	01	Boucle du Mouhoun	6930701
+BF	02	Cascades	6930703
+BF	03	Centre	6930704
+BF	04	Centre-Est	6930705
+BF	05	Centre-Nord	6930706
+BF	06	Centre-Ouest	6930707
+BF	07	Centre-Sud	6930708
+BF	08	Est	6930709
+BF	09	Hauts-Bassins	6930710
+BF	10	Nord	6930711
+BF	11	Plateau-Central	6930712
+BF	12	Sahel	6930713
+BF	13	Sud-Ouest	6930714
+BG	01	Blagoevgrad	733192
+BG	02	Burgas	732771
+BG	03	Varna	726051
+BG	04	Veliko Turnovo	864561
+BG	05	Vidin	864562
+BG	06	Vratsa	725713
+BG	07	Gabrovo	864552
+BG	08	Dobrich	726419
+BG	09	Kurdzhali	864553
+BG	10	Kyustendil	864554
+BG	11	Lovech	729560
+BG	12	Montana	453753
+BG	13	Pazardzhik	728379
+BG	14	Pernik	728331
+BG	15	Pleven	728204
+BG	16	Plovdiv	728194
+BG	17	Razgrad	453751
+BG	18	Ruse	727524
+BG	19	Silistra	864556
+BG	20	Sliven	864557
+BG	21	Smolyan	864558
+BG	22	Sofia Region	731061
+BG	23	Sofia	727012
+BG	24	Stara Zagora	864559
+BG	25	Turgovishte	864560
+BG	26	Khaskovo	730436
+BG	27	Shumen	864555
+BG	28	Yambol	864563
+BH	13	Capital	7090954
+BH	14	Southern	7090972
+BH	15	Muharraq	290333
+BH	16	Central	7090973
+BH	17	Northern	7090974
+BI	BB	Bubanza	428514
+BI	BL	Bujumbura Rural	7303940
+BI	BM	Bujumbura Mairie	7303939
+BI	BR	Bururi	423327
+BI	CA	Cankuzo	427700
+BI	CI	Cibitoke	430020
+BI	GI	Gitega	426271
+BI	KI	Kirundo	432455
+BI	KR	Karuzi	428218
+BI	KY	Kayanza	430951
+BI	MA	Makamba	422233
+BI	MU	Muramvya	425550
+BI	MW	Mwaro	434386
+BI	MY	Muyinga	431747
+BI	NG	Ngozi	430567
+BI	RT	Rutana	434147
+BI	RY	Ruyigi	426699
+BJ	AK	Atakora	2395524
+BJ	AL	Alibori	2597271
+BJ	AQ	Atlantique	2395504
+BJ	BO	Borgou	2394992
+BJ	CO	Collines	2597272
+BJ	DO	Donga	2597274
+BJ	KO	Kouffo	2597273
+BJ	LI	Littoral	2597275
+BJ	MO	Mono	2392716
+BJ	OU	Oueme	2392325
+BJ	PL	Plateau	2597277
+BJ	ZO	Zou	2390719
+BM	DS	Devonshire	3573251
+BM	GC	Saint George	3573062
+BM	HA	Hamilton	3573195
+BM	HC	Hamilton City	3573198
+BM	PB	Pembroke	3573095
+BM	PG	Paget	3573103
+BM	SA	Sandys	3573050
+BM	SG	Saint George's	3573057
+BM	SH	Southampton	3573026
+BM	SM	Smith's	3573031
+BM	WA	Warwick	3572972
+BN	BE	Belait	1820869
+BN	BM	Brunei and Muara	1820818
+BN	TE	Temburong	1820106
+BN	TU	Tutong	1820068
+BO	B	Departmento Beni	3923172
+BO	C	Departmento Cochabamba	3919966
+BO	H	Departmento Chuquisaca	3920177
+BO	L	Departmento La Paz	3911924
+BO	N	Departmento Pando	3908600
+BO	O	Departmento Oruro	3909233
+BO	P	Departmento Potosi	3907580
+BO	S	Departmento Santa Cruz	3904907
+BO	T	Departmento Tarija	3903319
+BQ	BO	Bonaire	7609816
+BQ	SA	Saba	7610358
+BQ	SE	Sint Eustatius	7610359
+BR	AC	Acre	3665474
+BR	AL	Alagoas 	3408096
+BR	AM	Amazonas 	3665361
+BR	AP	Amapa	3407762
+BR	BA	Bahia	3471168
+BR	CE	Ceara	3402362
+BR	DF	Distrito Federal	3463504
+BR	ES	Espirito Santo	3463930
+BR	GO	Goias	3462372
+BR	MA	Maranhao 	3395443
+BR	MG	Minas Gerais	3457153
+BR	MS	Mato Grosso do Sul	3457415
+BR	MT	Mato Grosso 	3457419
+BR	PA	Para	3393129
+BR	PB	Paraiba	3393098
+BR	PE	Pernambuco 	3392268
+BR	PI	Piaui	3392213
+BR	PR	Parana	3455077
+BR	RJ	Rio de Janeiro 	3451189
+BR	RN	Rio Grande do Norte 	3390290
+BR	RO	Rondonia	3924825
+BR	RR	Roraima	3662560
+BR	RS	Rio Grande do Sul	3451133
+BR	SC	Santa Catarina 	3450387
+BR	SE	Sergipe	3447799
+BR	SP	Sao Paulo	3448433
+BR	TO	Tocantins	3474575
+BS	AK	Acklins Islands	3572937
+BS	BI	Bimini and Cat Cay	3572807
+BS	BP	Black Point	8030541
+BS	CE	Kemps Bay District	3572109
+BS	CI	Cat Island	3572678
+BS	CK	Marsh Harbour District 	3571912
+BS	CO	Governor’s Harbour	3572312
+BS	CS	High Rock District	3572188
+BS	EG	East Grand Bahama	8030546
+BS	EX	Exuma	3572427
+BS	FP	City of Freeport	3572374
+BS	GC	Fresh Creek	3572363
+BS	HI	Harbour Island	3572238
+BS	HT	New Providence 	3571815
+BS	IN	Inagua	3572154
+BS	LI	Long Island	3572005
+BS	MC	Rock Sound	3571591
+BS	MG	Mayaguana	3571894
+BS	MI	Sandy Point	3571495
+BS	NE	North Eleuthera	8030553
+BS	NO	North Abaco	8030551
+BS	NS	North Andros	8030552
+BS	RC	Rum Cay	8030554
+BS	RI	Ragged Island	3571629
+BS	SA	South Andros	8030556
+BS	SE	South Eleuthera	8030557
+BS	SO	South Abaco	8030555
+BS	SS	San Salvador	3571493
+BS	SW	Spanish Wells	8030558
+BS	WG	West Grand Bahama	8030559
+BS	GT	Green Turtle Cay	3572271
+BT	11	Paro	1337286
+BT	12	Chukha	1337279
+BT	13	Haa	1337283
+BT	14	Samtse	1337289
+BT	15	Thimphu	1337293
+BT	21	Tsirang	1337281
+BT	22	Dagana	1337280
+BT	23	Punakha	1337288
+BT	24	Wangdue Phodrang	1337295
+BT	31	Sarpang	1337282
+BT	32	Trongsa	1337294
+BT	33	Bumthang	1337278
+BT	34	Zhemgang	1337291
+BT	41	Trashigang	1337292
+BT	42	Mongar	1337285
+BT	43	Pemagatshel	1337287
+BT	44	Lhuntse	1337284
+BT	45	Samdrup Jongkhar	1337290
+BT	GA	Gasa	7303651
+BT	TY	Trashi Yangste	7303653
+BW	CE	Central	933851
+BW	GH	Ghanzi	933758
+BW	KG	Kgalagadi	933657
+BW	KL	Kgatleng	933654
+BW	KW	Kweneng	933562
+BW	NE	North East	933210
+BW	NW	North West	933230
+BW	SE	South East	933044
+BW	SO	Southern	933043
+BY	BR	Brest voblast	629631
+BY	HM	Horad Minsk	625143
+BY	HO	Homyel voblast	628281
+BY	HR	Hrodna voblast	628035
+BY	MA	Mahilyow voblast	625073
+BY	MI	Minsk voblast	625142
+BY	VI	Vitsebsk voblast	620134
+BZ	BZ	Belize District	3582676
+BZ	CY	Cayo District	3582429
+BZ	CZL	Corozal District	3582302
+BZ	OW	Orange Walk District	3581511
+BZ	SC	Stann Creek District	3580975
+BZ	TOL	Toledo District	3580913
+CA	AB	Alberta	5883102
+CA	BC	British Columbia 	5909050
+CA	MB	Manitoba	6065171
+CA	NB	New Brunswick	6087430
+CA	NL	Newfoundland and Labrador	6354959
+CA	NS	Nova Scotia	6091530
+CA	NT	Northwest Territories	6091069
+CA	NU	Nunavut	6091732
+CA	ON	Ontario	6093943
+CA	PE	Prince Edward Island	6113358
+CA	QC	Quebec	6115047
+CA	SK	Saskatchewan	6141242
+CA	YT	Yukon Territory	6185811
+CC	D	Direction Island	
+CC	H	Home Island	
+CC	O	Horsburgh Island	
+CC	S	South Island	
+CC	W	West Island	
+CD	BC	Bas-Congo	2317277
+CD	BN	Bandundu	2317396
+CD	EQ	Equateur	216661
+CD	KA	Katanga	205703
+CD	KE	Kasai-Oriental	214138
+CD	KN	Kinshasa	2314300
+CD	KW	Kasai-Occidental	214139
+CD	MA	Maniema	209610
+CD	NK	Nord-Kivu	206938
+CD	OR	Orientale	216139
+CD	SK	Sud-Kivu	205413
+CF	AC	Ouham	2383653
+CF	BB	Bamingui-Bangoran	240591
+CF	BGF	Bangui	2596686
+CF	BK	Basse-Kotto	240396
+CF	HK	Haute-Kotto	238640
+CF	HM	Haut-Mbomou	238639
+CF	HS	Mambere-Kadei	2386161
+CF	KB	Nana-Grebizi	2386243
+CF	KG	Kemo	2385836
+CF	LB	Lobaye	2385105
+CF	MB	Mbomou	237556
+CF	MP	Ombella-M'Poko	2383765
+CF	NM	Nana-Mambere	2384205
+CF	OP	Ouham-Pende	2383650
+CF	SE	Sangha-Mbaere	2383204
+CF	UK	Ouaka	236887
+CF	VK	Vakaga	236178
+CG	11	Bouenza	2260668
+CG	12	Pool 	2255404
+CG	13	Sangha	2255329
+CG	14	Plateaux	2255422
+CG	15	Cuvette-Ouest	2593118
+CG	2	Lekoumou	2258534
+CG	5	Kouilou	2258738
+CG	7	Likouala	2258431
+CG	8	Cuvette	2260487
+CG	9	Niari	2256175
+CG	BZV	Brazzaville	2572183
+CH	AG	Aargau	2661876
+CH	AI	Appenzell Innerhoden	2661741
+CH	AR	Appenzell Ausserrhoden	2661739
+CH	BE	Bern	2661551
+CH	BL	Basel-Landschaft	2661603
+CH	BS	Basel-Stadt	2661602
+CH	FR	Fribourg	2660717
+CH	GE	Geneva	2660645
+CH	GL	Glarus	2660593
+CH	GR	Graubunden	2660522
+CH	JU	Jura	2660207
+CH	LU	Lucerne	2659810
+CH	NE	Neuchatel	2659495
+CH	NW	Nidwalden	2659471
+CH	OW	Obwalden	2659315
+CH	SG	St. Gallen	2658821
+CH	SH	Schaffhausen	2658760
+CH	SO	Solothurn	2658563
+CH	SZ	Schwyz	2658664
+CH	TG	Thurgau	2658372
+CH	TI	Ticino	2658370
+CH	UR	Uri	2658226
+CH	VD	Vaud	2658182
+CH	VS	Valais	2658205
+CH	ZG	Zug	2657907
+CH	ZH	Zurich	2657895
+CI	01	Lagunes (Region des)	2597316
+CI	02	Haut-Sassandra (Region du)	2597319
+CI	03	Savanes (Region des)	2597320
+CI	04	Vallee du Bandama (Region de la)	2597321
+CI	05	Moyen-Comoe (Region du)	2597322
+CI	06	18 Montagnes (Region des)	2597323
+CI	07	Lacs (Region des)	2597324
+CI	08	Zanzan (Region du)	2597325
+CI	09	Bas-Sassandra (Region du)	2597326
+CI	10	Denguele (Region du)	2597328
+CI	11	Nzi-Comoe (Region)	2597331
+CI	12	Marahoue (Region de la)	2597332
+CI	13	Sud-Comoe (Region du)	2597317
+CI	14	Worodougou (Region du)	2597327
+CI	15	Sud-Bandama (Region du)	2597329
+CI	16	Agnebi (Region de l')	2597318
+CI	17	Bafing (Region du)	2597334
+CI	18	Fromager (Region du)	2597330
+CI	19	Moyen-Cavally (Region du)	2597333
+CK	AI	Aitutaki	
+CK	AT	Atiu	
+CK	MA	Manuae	
+CK	MG	Mangaia	
+CK	MK	Manihiki	
+CK	MT	Mitiaro	
+CK	MU	Mauke	
+CK	NI	Nassau Island	
+CK	PA	Palmerston	
+CK	PE	Penrhyn	
+CK	PU	Pukapuka	
+CK	RK	Rakahanga	
+CK	RR	Rarotonga	
+CK	SU	Surwarrow	
+CK	TA	Takutea	
+CL	AI	Aisen del General Carlos Ibanez del Campo (XI)	3900333
+CL	AN	Antofagasta (II)	3899537
+CL	AP	Arica y Parinacota	6693562
+CL	AR	Araucania (IX)	3899463
+CL	AT	Atacama (III)	3899191
+CL	BI	Bio-Bio (VIII)	3898380
+CL	CO	Coquimbo (IV)	3893623
+CL	LI	Libertador General Bernardo O'Higgins (VI)	3883281
+CL	LL	Los Lagos (X)	3881974
+CL	LR	Los Rios	6693563
+CL	MA	Magallanes (XII)	4036650
+CL	ML	Maule (VII)	3880306
+CL	RM	Region Metropolitana (RM)	3873544
+CL	TA	Tarapaca (I)	3870116
+CL	VS	Valparaiso (V)	3868621
+CM	AD	Adamawa Province (Adamaoua)	2236015
+CM	CE	Centre Province	2233376
+CM	EN	Extreme North Province (Extreme-Nord)	2231755
+CM	ES	East Province (Est)	2231835
+CM	LT	Littoral Province	2229336
+CM	NO	North Province (Nord)	2223603
+CM	NW	Northwest Province (Nord-Ouest)	2223602
+CM	OU	West Province (Ouest)	2222934
+CM	SU	South Province (Sud)	2221789
+CM	SW	Southwest Province (Sud-Ouest).	2221788
+CN	11	Beijing	2038349
+CN	12	Tianjin	1792943
+CN	13	Hebei	1808773
+CN	14	Shanxi	1795912
+CN	15	Nei Mongol	2035607
+CN	21	Liaoning	2036115
+CN	22	Jilin	2036500
+CN	23	Heilongjiang	2036965
+CN	31	Shanghai	1796231
+CN	32	Jiangsu	1806260
+CN	33	Zhejiang	1784764
+CN	34	Anhui	1818058
+CN	35	Fujian	1811017
+CN	36	Jiangxi	1806222
+CN	37	Shandong	1796328
+CN	41	Henan	1808520
+CN	42	Hubei	1806949
+CN	43	Hunan	1806691
+CN	44	Guangdong	1809935
+CN	45	Guangxi	1809867
+CN	46	Hainan	1809054
+CN	50	Chongqing	1814905
+CN	51	Sichuan	1794299
+CN	52	Guizhou	1809445
+CN	53	Yunnan	1785694
+CN	54	Xizang Zizhiqu (Tibet)	1279685
+CN	61	Shaanxi	1796480
+CN	62	Gansu	1810676
+CN	63	Qinghai	1280239
+CN	64	Ningxia	1799355
+CN	65	Xinjiang	1529047
+CN	71	Taiwan	
+CN	91	Xianggang	
+CN	92	Aomen	
+CO	AMA	Amazonas	3689982
+CO	ANT	Antioquia	3689815
+CO	ARA	Arauca	3689717
+CO	ATL	Atlantico	3689436
+CO	BOL	Bolivar	3688650
+CO	BOY	Boyaca	3688536
+CO	CAL	Caldas	3687951
+CO	CAQ	Caqueta	3687479
+CO	CAS	Casanare	3687173
+CO	CAU	Cauca	3687029
+CO	CES	Cesar	3686880
+CO	CHO	Choco	3686431
+CO	COR	Cordoba	3685889
+CO	CUN	Cundinamarca	3685413
+CO	DC	Bogota D.C.	3688685
+CO	GUA	Guainia	3681652
+CO	GUV	Guaviare	3681344
+CO	HUI	Huila	3680692
+CO	LAG	La Guajira	3678847
+CO	MAG	Magdalena	3675686
+CO	MET	Meta	3674810
+CO	NAR	Narino	3674021
+CO	NSA	Norte de Santander	3673798
+CO	PUT	Putumayo	3671178
+CO	QUI	Quindio	3671087
+CO	RIS	Risaralda	3670698
+CO	SAN	Santander	3668578
+CO	SAP	San Andres y Providencia	3670205
+CO	SUC	Sucre	3667725
+CO	TOL	Tolima	3666951
+CO	VAC	Valle del Cauca	3666313
+CO	VAU	Vaupes	3666254
+CO	VID	Vichada	3666082
+CR	A	Alajuela	3624953
+CR	C	Cartago	3624368
+CR	G	Guanacaste	3623582
+CR	H	Heredia	3623484
+CR	L	Limon	3623064
+CR	P	Puntarenas	3622226
+CR	SJ	San Jose	3621837
+CU	01	Pinar del Rio	3544088
+CU	03	La Habana	3564073
+CU	04	Matanzas	3547394
+CU	05	Villa Clara	3534168
+CU	06	Cienfuegos	3564120
+CU	07	Sancti Spiritus	3540665
+CU	08	Ciego de Avila	3564175
+CU	09	Camaguey	3566062
+CU	10	Las Tunas	3550595
+CU	11	Holguin	3556965
+CU	12	Granma	3558052
+CU	13	Santiago de Cuba	3536725
+CU	14	Guantanamo	3557685
+CU	99	Isla de la Juventud	3556608
+CU	02	La Habana	
+CV	B	Ilhas de Barlavento	
+CV	S	Ilhas de Sotavento	
+CY	01	Lefkosia	146267
+CY	02	Lemesos	146383
+CY	03	Larnaka	146398
+CY	04	Ammochostos	146615
+CY	05	Pafos	146213
+CY	06	Keryneia	146411
+CZ	JC	South Bohemian Region (Jihocesky kraj)	3339537
+CZ	JM	South Moravian Region (Jihomoravsky kraj)	3339536
+CZ	KA	Carlsbad Region  (Karlovarsky kraj)	3339539
+CZ	KR	Hradec Kralove Region (Kralovehradecky kraj)	3339540
+CZ	LI	Liberec Region (Liberecky kraj)	3339541
+CZ	MO	Moravian-Silesian Region (Moravskoslezsky kraj)	3339573
+CZ	OL	Olomouc Region (Olomoucky kraj)	3339542
+CZ	PA	Pardubice Region (Pardubicky kraj)	3339574
+CZ	PL	Plzen( Region Plzensky kraj)	3339575
+CZ	PR	Prague - the Capital (Praha - hlavni mesto)	3067695
+CZ	ST	Central Bohemian Region (Stredocesky kraj)	3339576
+CZ	US	Usti nad Labem Region (Ustecky kraj)	3339577
+CZ	VY	Vysocina Region (kraj Vysocina)	3339538
+CZ	ZL	Zlin Region (Zlinsky kraj)	3339578
+DE	BB	Brandenburg	2945356
+DE	BE	Berlin	2950157
+DE	BW	Baden-Wurttemberg	2953481
+DE	BY	Bayern	2951839
+DE	HB	Bremen	2944387
+DE	HE	Hessen	2905330
+DE	HH	Hamburg	2911297
+DE	MV	Mecklenburg-Vorpommern	2872567
+DE	NI	Niedersachsen	2862926
+DE	NW	Nordrhein-Westfalen	2861876
+DE	RP	Rheinland-Pfalz	2847618
+DE	SH	Schleswig-Holstein	2838632
+DE	SL	Saarland	2842635
+DE	SN	Sachsen	2842566
+DE	ST	Sachsen-Anhalt	2842565
+DE	TH	Thuringen	2822542
+DJ	AR	Arta	449265
+DJ	AS	'Ali Sabih	225282
+DJ	DI	Dikhil	223889
+DJ	DJ	Djibouti	223818
+DJ	OB	Obock	221525
+DJ	TA	Tadjoura	220781
+DK	81	Region Nordjylland	6418540
+DK	82	Region Midtjylland	6418539
+DK	83	Region Syddanmark	6418542
+DK	84	Region Hovedstaden	6418538
+DK	85	Region Sjaland	6418541
+DM	02	Saint Andrew Parish	3575632
+DM	03	Saint David Parish	3575630
+DM	04	Saint George Parish	3575628
+DM	05	Saint John Parish	3575626
+DM	06	Saint Joseph Parish	3575625
+DM	07	Saint Luke Parish	3575622
+DM	08	Saint Mark Parish	3575621
+DM	09	Saint Patrick Parish	3575620
+DM	10	Saint Paul Parish	3575619
+DM	11	Saint Peter Parish	3575618
+DO	01	Distrito Nacional	3496024
+DO	02	Azua	3512209
+DO	03	Baoruco	3512050
+DO	04	Barahona	3512042
+DO	05	Dajabon	3508951
+DO	06	Duarte	3508718
+DO	07	Elias Pina	3507269
+DO	08	El Seybo	3506189
+DO	09	Espaillat	3505867
+DO	10	Independencia	3504326
+DO	11	La Altagracia	3503706
+DO	12	La Romana	3500955
+DO	13	La Vega	3499977
+DO	14	Maria Trinidad Sanchez	3496772
+DO	15	Monte Cristi	3496200
+DO	16	Pedernales	3495136
+DO	17	Peravia (Bani)	3495015
+DO	18	Puerto Plata	3494267
+DO	19	Salcedo	3493282
+DO	20	Samana	3493232
+DO	21	San Cristobal	3493186
+DO	22	San Juan	3493091
+DO	23	San Pedro de Macoris	3493031
+DO	24	Sanchez Ramirez	3493192
+DO	25	Santiago	3492918
+DO	26	Santiago Rodriguez	3492912
+DO	27	Valverde	3492112
+DO	28	Monsenor Nouel	3496274
+DO	29	Monte Plata	3496132
+DO	30	Hato Mayor	3504766
+DZ	01	Adrar	2508807
+DZ	02	Chlef	2501296
+DZ	03	Laghouat	2491188
+DZ	04	Oum el-Bouaghi	2484618
+DZ	05	Batna	2505569
+DZ	06	Bejaia	2505325
+DZ	07	Biskra	2503822
+DZ	08	Bechar	2505525
+DZ	09	Blida	2503765
+DZ	10	Bouira	2502951
+DZ	11	Tamanghasset	2478217
+DZ	12	Tebessa	2477457
+DZ	13	Tlemcen	2475683
+DZ	14	Tiaret	2476893
+DZ	15	Tizi Ouzou	2475741
+DZ	16	Alger	2507475
+DZ	17	Djelfa	2500013
+DZ	18	Jijel	2492910
+DZ	19	Setif	2481696
+DZ	20	Saida	2482557
+DZ	21	Skikda	2479532
+DZ	22	Sidi Bel Abbes	2481001
+DZ	23	Annaba	2506994
+DZ	24	Guelma	2495659
+DZ	25	Constantine	2501147
+DZ	26	Medea	2488831
+DZ	27	Mostaganem	2487130
+DZ	28	M'Sila	2486682
+DZ	29	Muaskar	2490095
+DZ	30	Ouargla	2485794
+DZ	31	Oran	2485920
+DZ	32	El Bayadh	2498541
+DZ	33	Illizi	2493455
+DZ	34	Bordj Bou Arreridj	2503699
+DZ	35	Boumerdes	2502638
+DZ	36	El Tarf	2497322
+DZ	37	Tindouf	2476302
+DZ	38	Tissemsilt	2475858
+DZ	39	El Oued	2497406
+DZ	40	Khenchela	2491887
+DZ	41	Souk Ahras	2479213
+DZ	42	Tipaza	2476027
+DZ	43	Mila	2487449
+DZ	44	Ain Defla	2508226
+DZ	45	Naama	2486512
+DZ	46	Ain Temouchent	2507899
+DZ	47	Ghardaia	2496045
+DZ	48	Relizane	2483666
+EC	A	Azuay	3660431
+EC	B	Bolivar	3660130
+EC	C	Carchi	3659718
+EC	D	Orellana	3830306
+EC	E	Esmeraldas	3657986
+EC	F	Canar	3659849
+EC	G	Guayas	3657505
+EC	H	Chimborazo	3659237
+EC	I	Imbabura	3655635
+EC	L	Loja	3654665
+EC	M	Manabi	3654451
+EC	N	Napo	3653890
+EC	O	El Oro	3658195
+EC	P	Pichincha	3653224
+EC	R	Los Rios	3654592
+EC	S	Morona-Santiago	3654005
+EC	SD	Santo Domingo de los Tsachilas	7062136
+EC	SE	Santa Elena	7062138
+EC	T	Tungurahua	3650445
+EC	U	Sucumbios	3830305
+EC	W	Galapagos	3657879
+EC	X	Cotopaxi	3658766
+EC	Y	Pastaza	3653392
+EC	Z	Zamora-Chinchipe	3649953
+EE	37	Harju County	592170
+EE	39	Hiiu County	592133
+EE	44	Ida-Viru County	592075
+EE	49	Jogeva County	591901
+EE	51	Jarva County	591961
+EE	57	Laane County	590856
+EE	59	Laane-Viru County	590854
+EE	65	Polva County	589373
+EE	67	Parnu County	589576
+EE	70	Rapla County	589115
+EE	74	Saare County	588879
+EE	78	Tartu County	588334
+EE	82	Valga County	587875
+EE	84	Viljandi County	587590
+EE	86	Voru County	587448
+EG	ALX	Al Iskandariyah	361059
+EG	ASN	Aswan	359787
+EG	AST	Asyut	359781
+EG	BA	Al Bahr al Ahmar	361468
+EG	BH	Al Buhayrah	361370
+EG	BNS	Bani Suwayf	359171
+EG	C	Al Qahirah	360631
+EG	DK	Ad Daqahliyah	361849
+EG	DT	Dumyat	358044
+EG	FYM	Al Fayyum	361323
+EG	GH	Al Gharbiyah	361294
+EG	GZ	Al Jizah	360997
+EG	IS	Al Isma'iliyah	361056
+EG	JS	Janub Sina'	355182
+EG	KB	Al Qalyubiyah	360621
+EG	KFS	Kafr ash Shaykh	354500
+EG	KN	Qina	350546
+EG	LX	Al Uqsur	7603259
+EG	MN	Al Minya	360688
+EG	MNF	Al Minufiyah	360689
+EG	MT	Matruh	352603
+EG	PTS	Bur Sa'id	358617
+EG	SHG	Suhaj	347794
+EG	SHR	Ash Sharqiyah	360016
+EG	SIN	Shamal Sina'	349401
+EG	SUZ	As Suways	359797
+EG	WAD	Al Wadi al Jadid	360483
+EG	HU	Helwan	
+EG	SU	As Sadis min Uktubar	
+ER	AN	Anseba (Keren)	448497
+ER	DK	Southern Red Sea (Debub-Keih-Bahri)	448499
+ER	DU	Southern (Debub)	448498
+ER	GB	Gash-Barka (Barentu)	448500
+ER	MA	Central (Maekel)	448501
+ER	SK	Northern Red Sea (Semien-Keih-Bahri)	448502
+ES	AN	Comunidad Autonoma de Andalucia	2593109
+ES	AR	Comunidad Autonoma de Aragon	3336899
+ES	AS	Comunidad Autonoma del Principado de Asturias	3114710
+ES	CB	Comunidad Autonoma de Cantabria	3336898
+ES	CE	Ceuta	2519582
+ES	CL	Comunidad Autonoma de Castilla y Leon	3336900
+ES	CM	Comunidad Autonoma de Castilla-La Mancha	2593111
+ES	CN	Comunidad Autonoma de Canarias	2593110
+ES	CT	Catalunya	3336901
+ES	EX	Comunidad Autonoma de Extremadura	2593112
+ES	GA	Comunidad Autonoma de Galicia	3336902
+ES	IB	Comunidad Autonoma de las Islas Baleares	2521383
+ES	MC	Comunidad Autonoma de la Region de Murcia	2513413
+ES	MD	Comunidad de Madrid	3117732
+ES	ML	Melilla	6362988
+ES	NC	Comunidad Foral de Navarra	3115609
+ES	PV	Euskal Autonomia Erkidegoa	3336903
+ES	RI	Comunidad Autonoma de La Rioja	3336897
+ES	VC	Comunidad Valenciana	2593113
+ET	AA	Addis Ababa	444178
+ET	AF	Afar	444179
+ET	AM	Amhara	444180
+ET	BE	Benishangul-Gumaz	444181
+ET	DD	Dire Dawa	444182
+ET	GA	Gambela	444183
+ET	HA	Hariai	444184
+ET	OR	Oromia	444185
+ET	SN	Southern Nations - Nationalities and Peoples Region	444188
+ET	SO	Somali	444186
+ET	TI	Tigray	444187
+FI	01	Ahvenanmaa [Finnish] / Aland [Swedish]	
+FI	02	Etela-Karjala [Finnish] / Sodra Karelen [Swedish]	830699
+FI	03	Etela-Pohjanmaa [Finnish] / Sodra Osterbotten [Swedish]	830682
+FI	04	Etela-Savo [Finnish] / Sodra Savolax [Swedish]	830695
+FI	05	Kainuu [Finnish] / Kajanaland [Swedish]	830664
+FI	06	Kanta-Hame [Finnish] / Egentliga Tavastland [Swedish]	830705
+FI	07	Keski-Pohjanmaa [Finnish] / Mellersta Osterbotten [Swedish]	830675
+FI	08	Keski-Suomi [Finnish] / Mellersta Finland [Swedish]	830685
+FI	09	Kymenlaakso [Finnish] / Kymmenedalen [Swedish]	830703
+FI	10	Lappi [Finnish] / Lappland [Swedish]	830603
+FI	11	Pirkanmaa [Finnish] / Birkaland [Swedish]	830704
+FI	12	Pohjanmaa [Finnish] / Osterbotten [Swedish]	830676
+FI	13	Pohjois-Karjala [Finnish] / Norra Karelen [Swedish]	830686
+FI	14	Pohjois-Pohjanmaa [Finnish] / Norra Osterbotten [Swedish]	830667
+FI	15	Pohjois-Savo [Finnish] / Norra Savolax [Swedish]	830690
+FI	16	Paijat-Hame [Finnish] / Paijanne-Tavastland [Swedish]	831040
+FI	17	Satakunta [Finnish and Swedish]	831041
+FI	18	Uusimaa [Finnish] / Nyland [Swedish]	830709
+FI	19	Varsinais-Suomi [Finnish] / Egentliga Finland [Swedish]	830708
+FI	AL	Ahvenanmaan laani	661882
+FI	ES	Etela-Suomen laani	828987
+FI	IS	Ita-Suomen laani	828988
+FI	LL	Lapin laani	648958
+FI	LS	Lansi-Suomen laani	828989
+FI	OL	Oulun laani	643485
+FJ	C	Central Division	2205272
+FJ	E	Eastern Division	4036647
+FJ	N	Northern Division	2199295
+FJ	R	Rotuma	6324593
+FJ	W	Western Division	2194371
+FM	KSA	Kosrae	2082036
+FM	PNI	Pohnpei	2081550
+FM	TRK	Chuuk	2082282
+FM	YAP	Yap	2081175
+FR	A	Alsace	3038033
+FR	B	Aquitaine	3037350
+FR	C	Auvergne	3035876
+FR	D	Bourgogne	3030967
+FR	E	Bretagne	3030293
+FR	F	Centre	3027939
+FR	G	Champagne-Ardenne	3027257
+FR	H	Territorial Collectivity of Corsica	3023519
+FR	I	Franche-Comte	3017372
+FR	J	Ile-de-France	3012874
+FR	K	Languedoc-Roussillon	3007670
+FR	L	Limousin	2998268
+FR	M	Lorraine	2997551
+FR	N	Midi-Pyrenees	2993955
+FR	O	Nord-Pas-de-Calais	2990119
+FR	P	Basse-Normandie	3034693
+FR	Q	Haute-Normandie	3013756
+FR	R	Pays de la Loire	2988289
+FR	S	Picardie	2987375
+FR	T	Poitou-Charentes	2986492
+FR	U	Provence-Alpes-Cote d'Azur	2985244
+FR	V	Rhone-Alpes	2983751
+GA	1	Estuaire	2400682
+GA	2	Haut-Ogooue	2400454
+GA	3	Moyen-Ogooue	2397842
+GA	4	Ngounie	2397466
+GA	5	Nyanga	2397141
+GA	6	Ogooue-Ivindo	2396926
+GA	7	Ogooue-Lolo	2396925
+GA	8	Ogooue-Maritime	2396924
+GA	9	Woleu-Ntem	2396076
+GB	ENG	England	6269131
+GB	NIR	Northern Ireland	2641364
+GB	SCT	Scotland	2638360
+GB	WLS	Wales	2634895
+GD	01	Saint Andrew	3579938
+GD	02	Saint David	3579932
+GD	03	Saint George	3579926
+GD	04	Saint John	3579919
+GD	05	Saint Mark	3579913
+GD	06	Saint Patrick	3579907
+GD	10	Southern Grenadine Islands	7303836
+GE	AB	Abkhazia	6643410
+GE	AJ	Ajaria	615929
+GE	GU	Guria	865538
+GE	IM	Imereti	865539
+GE	KA	Kakheti	865537
+GE	KK	Kvemo Kartli	865536
+GE	MM	Mtskheta-Mtianeti	865541
+GE	RL	Racha Lechkhumi and Kvemo Svaneti	865542
+GE	SJ	Samtskhe-Javakheti	865544
+GE	SK	Shida Kartli	865540
+GE	SZ	Samegrelo-Zemo Svaneti	865543
+GE	TB	Tbilisi	611716
+GH	AA	Greater Accra Region	2300569
+GH	AH	Ashanti Region	2304116
+GH	BA	Brong-Ahafo Region	2302547
+GH	CP	Central Region	2302353
+GH	EP	Eastern Region	2301360
+GH	NP	Northern Region	2297169
+GH	TV	Volta Region	2294234
+GH	UE	Upper East Region	2294291
+GH	UW	Upper West Region	2294286
+GH	WP	Western Region	2294076
+GL	KU	Kujalleq	7602005
+GL	QA	Qaasuitsup	7602003
+GL	QE	Qeqqata 	7602006
+GL	SM	Sermersooq	7602007
+GM	B	Banjul	2413875
+GM	L	Lower River	2412716
+GM	M	Central River	2412707
+GM	N	North Bank	2412353
+GM	U	Upper River	2411711
+GM	W	Western	2411683
+GN	B	Boke	8335085
+GN	C	Conakry	2422464
+GN	D	Kindia	8335088
+GN	F	Faranah	8335086
+GN	K	Kankan	8335087
+GN	L	Labe	8335089
+GN	M	Mamou	8335090
+GN	N	Nzerekore	8335091
+GQ	C	Region Continental	
+GQ	I	Region Insular	
+GR	69	Agio Oros	736572
+GR	A	Anatoliki Makedonia kai Thraki	6697803
+GR	B	Kentriki Makedonia	6697801
+GR	C	Dytiki Makedonia	6697811
+GR	D	Ipeiros	6697804
+GR	E	Thessalia	6697809
+GR	F	Ionia Nisia	6697805
+GR	G	Dytiki Ellada	6697810
+GR	H	Sterea Ellada	6697800
+GR	I	Attiki	6692632
+GR	J	Peloponnisos	6697807
+GR	K	Voreio Aigaio	6697806
+GR	L	Notio Aigaio	6697808
+GR	M	Kriti	6697802
+GT	AV	Alta Verapaz	3599773
+GT	BV	Baja Verapaz	3599602
+GT	CM	Chimaltenango	3598571
+GT	CQ	Chiquimula	3598464
+GT	ES	Escuintla	3595802
+GT	GU	Guatemala	3595530
+GT	HU	Huehuetenango	3595415
+GT	IZ	Izabal	3595259
+GT	JA	Jalapa	3595236
+GT	JU	Jutiapa	3595067
+GT	PE	El Peten	3591410
+GT	PR	El Progreso	3596416
+GT	QC	El Quiche	3590964
+GT	QZ	Quetzaltenango	3590978
+GT	RE	Retalhuleu	3590857
+GT	SA	Sacatepequez	3590686
+GT	SM	San Marcos	3589801
+GT	SO	Solola	3588697
+GT	SR	Santa Rosa	3589172
+GT	SU	Suchitepequez	3588668
+GT	TO	Totonicapan	3588257
+GT	ZA	Zacapa	3587586
+GW	L	Leste	
+GW	N	Norte	
+GW	S	Sul	
+GY	BA	Barima-Waini	3379515
+GY	CU	Cuyuni-Mazaruni	3379023
+GY	DE	Demerara-Mahaica	3378950
+GY	EB	East Berbice-Corentyne	3378840
+GY	ES	Essequibo Islands-West Demerara	3378741
+GY	MA	Mahaica-Berbice	3377274
+GY	PM	Pomeroon-Supenaam	3376407
+GY	PT	Potaro-Siparuni	3376386
+GY	UD	Upper Demerara-Berbice	3375469
+GY	UT	Upper Takutu-Upper Essequibo	3375463
+HK	HCW	Central and Western Hong Kong Island	7533598
+HK	HEA	Eastern Hong Kong Island	7533608
+HK	HSO	Southern Hong Kong Island	7533609
+HK	HWC	Wan Chai Hong Kong Island	7533607
+HK	KKC	Kowloon City Kowloon	7533612
+HK	KKT	Kwun Tong Kowloon	7533614
+HK	KSS	Sham Shui Po Kowloon	7533611
+HK	KWT	Wong Tai Sin Kowloon	7533613
+HK	KYT	Yau Tsim Mong Kowloon	7533610
+HK	NIS	Islands New Territories	1819708
+HK	NKT	Kwai Tsing New Territories	7533615
+HK	NNO	North New Territories	7533617
+HK	NSK	Sai Kung New Territories	1819049
+HK	NST	Sha Tin New Territories	7533618
+HK	NTM	Tuen Mun New Territories	7533616
+HK	NTP	Tai Po New Territories	1818672
+HK	NTW	Tsuen Wan New Territories	1818458
+HK	NYL	Yuen Long New Territories	1818224
+HM	F	Flat Island	
+HM	H	Heard Island	
+HM	M	McDonald Island	
+HM	S	Shag Island	
+HN	AT	Atlantida	3615027
+HN	CH	Choluteca	3613527
+HN	CL	Colon	3613358
+HN	CM	Comayagua	3613319
+HN	CP	Copan	3613229
+HN	CR	Cortes	3613140
+HN	EP	El Paraiso	3610942
+HN	FM	Francisco Morazan	3609672
+HN	GD	Gracias a Dios	3609583
+HN	IB	Islas de la Bahia (Bay Islands)	3608814
+HN	IN	Intibuca	3608833
+HN	LE	Lempira	3606066
+HN	LP	La Paz	3607251
+HN	OC	Ocotepeque	3604318
+HN	OL	Olancho	3604249
+HN	SB	Santa Barbara	3601689
+HN	VA	Valle	3600456
+HN	YO	Yoro	3600193
+HR	01	Zagreb county	3337531
+HR	02	Krapina-Zagorje county	3337519
+HR	03	Sisak-Moslavina county	3337526
+HR	04	Karlovac county	3337515
+HR	05	Varazdin county	3337528
+HR	06	Koprivnica-Krizevci county	3337518
+HR	07	Bjelovar-Bilogora county	3337511
+HR	08	Primorje-Gorski Kotar county	3337524
+HR	09	Lika-Senj county	3337520
+HR	10	Virovitica-Podravina county	3337533
+HR	11	Pozega-Slavonia county	3337523
+HR	12	Brod-Posavina county	3337512
+HR	13	Zadar county	3337530
+HR	14	Osijek-Baranja county	3337522
+HR	15	Sibenik-Knin county	3337525
+HR	16	Vukovar-Srijem county	3337529
+HR	17	Split-Dalmatia county	3337527
+HR	18	Istria county	3337514
+HR	19	Dubrovnik-Neretva county	3337513
+HR	20	Medjimurje county	3337521
+HR	21	Zagreb (city)	3337532
+HT	AR	Artibonite	3731053
+HT	CE	Centre	3728069
+HT	GA	Grand'Anse	3724613
+HT	ND	Nord	3719543
+HT	NE	Nord-Est	3719540
+HT	NO	Nord-Ouest	3719536
+HT	OU	Ouest	3719432
+HT	SD	Sud	3716952
+HT	SE	Sud-Est	3716950
+HU	BA	Baranya megye	3055399
+HU	BC	Bekescsaba	
+HU	BE	Bekes megye	722433
+HU	BK	Bacs-Kiskun megye	3055744
+HU	BU	Budapest fovaros	3054638
+HU	BZ	Borsod-Abauj-Zemplen megye	722064
+HU	CS	Csongrad megye	721589
+HU	DE	Debrecen	
+HU	DU	Dunaujvaros	
+HU	EG	Erd	
+HU	ER	Eger	
+HU	FE	Fejer megye	3053028
+HU	GS	Gyor-Moson-Sopron megye	3051977
+HU	GY	Gyor	
+HU	HB	Hajdu-Bihar megye	720293
+HU	HE	Heves megye	720002
+HU	HV	Hodmezovasarhely	
+HU	JN	Jasz-Nagykun-Szolnok megye	719637
+HU	KE	Komarom-Esztergom megye	3049518
+HU	KM	Kecskemet	
+HU	KV	Kaposvar	
+HU	MI	Miskolc	
+HU	NK	Nagykanizsa	
+HU	NO	Nograd megye	3047348
+HU	NY	Nyiregyhaza	
+HU	PE	Pest megye	3046431
+HU	PS	Pecs	
+HU	SD	Szeged	
+HU	SF	Szekesfehervar	
+HU	SH	Szombathely	
+HU	SK	Szolnok	
+HU	SN	Sopron	
+HU	SO	Somogy megye	3045226
+HU	SS	Szekszard	
+HU	ST	Salgotarjan	
+HU	SZ	Szabolcs-Szatmar-Bereg megye	715593
+HU	TB	Tatabanya	
+HU	TO	Tolna megye	3043845
+HU	VA	Vas megye	3043047
+HU	VE	Veszprem megye	3042925
+HU	VM	Veszprem	
+HU	ZA	Zala megye	3042613
+HU	ZE	Zalaegerszeg	
+ID	IJ	Papua	
+ID	JW	Java	
+ID	KA	Kalimantan	
+ID	MA	Maluku	
+ID	NU	Nusa Tenggara	
+ID	SL	Sulawesi	
+ID	SM	Sumatera	
+IE	C	Connaught	7521313
+IE	L	Leinster	7521314
+IE	M	Munster	7521315
+IE	U	Ulster	7521316
+IL	D	Southern	294952
+IL	HA	Haifa	294800
+IL	JM	Jerusalem	293198
+IL	M	Central	294904
+IL	TA	Tel Aviv	293396
+IL	Z	Northern	294824
+IN	AN	Andaman and Nicobar Islands	1278647
+IN	AP	Andhra Pradesh	1278629
+IN	AR	Arunachal Pradesh	1278341
+IN	AS	Assam	1278253
+IN	BR	Bihar	1275715
+IN	CH	Chandigarh	1274744
+IN	CT	Chhattisgarh	1444364
+IN	DD	Daman and Diu	1271155
+IN	DL	Delhi	1273293
+IN	DN	Dadra and Nagar Haveli	1273726
+IN	GA	Goa	1271157
+IN	GJ	Gujarat	1270770
+IN	HP	Himachal Pradesh	1270101
+IN	HR	Haryana	1270260
+IN	JH	Jharkhand	1444365
+IN	JK	Jammu and Kashmir	1269320
+IN	KA	Karnataka	1267701
+IN	KL	Kerala	1267254
+IN	LD	Lakshadweep	1265206
+IN	MH	Maharashtra	1264418
+IN	ML	Meghalaya	1263207
+IN	MN	Manipur	1263706
+IN	MP	Madhya Pradesh	1264542
+IN	MZ	Mizoram	1262963
+IN	NL	Nagaland	1262271
+IN	OR	Orissa	1261029
+IN	PB	Punjab	1259223
+IN	PY	Pondicherry	1259424
+IN	RJ	Rajasthan	1258899
+IN	SK	Sikkim	1256312
+IN	TN	Tamil Nadu	1255053
+IN	TR	Tripura	1254169
+IN	UL	Uttaranchal	1444366
+IN	UP	Uttar Pradesh	1253626
+IN	WB	West Bengal	1252881
+IO	DG	Diego Garcia	
+IO	DI	Danger Island	
+IO	EA	Eagle Islands	
+IO	EG	Egmont Islands	
+IO	NI	Nelsons Island	
+IO	PB	Peros Banhos	
+IO	SI	Salomon Islands	
+IO	TB	Three Brothers	
+IQ	AN	Al Anbar	99592
+IQ	AR	Arbil	95445
+IQ	BA	Al Basrah	89341
+IQ	BB	Babil	98227
+IQ	BG	Baghdad	98180
+IQ	DA	Dahuk	97270
+IQ	DI	Diyala	96965
+IQ	DQ	Dhi Qar	97019
+IQ	KA	Al Karbala	94823
+IQ	MA	Maysan	93540
+IQ	MU	Al Muthanna	99032
+IQ	NA	An Najaf	98862
+IQ	NI	Ninawa	92877
+IQ	QA	Al Qadisyah	99022
+IQ	SD	Salah ad Din	91695
+IQ	SU	As Sulaymaniyah	98465
+IQ	TS	Kirkuk	98410
+IQ	WA	Wasit	89693
+IR	01	East Azarbaijan	142549
+IR	02	West Azarbaijan	142550
+IR	03	Ardabil	413931
+IR	04	Esfahan	418862
+IR	05	Ilam	130801
+IR	06	Bushehr	139816
+IR	07	Tehran	110791
+IR	08	Chahar Mahaal and Bakhtiari	139677
+IR	10	Khuzestan	127082
+IR	11	Zanjan	111452
+IR	12	Semnan	116401
+IR	13	Sistan and Baluchistan	1159456
+IR	14	Fars	134766
+IR	15	Kerman	128231
+IR	16	Kurdistan	126584
+IR	17	Kermanshah	128222
+IR	18	Kohkiluyeh and Buyer Ahmad	126878
+IR	19	Gilan	133349
+IR	20	Lorestan	125605
+IR	21	Mazandaran	124544
+IR	22	Markazi	124763
+IR	23	Hormozgan	131222
+IR	24	Hamadan	132142
+IR	25	Yazd	111821
+IR	26	Qom	443794
+IR	27	Golestan	443792
+IR	28	Qazvin	443793
+IR	29	South Khorasan	6201374
+IR	30	Razavi Khorasan	6201375
+IR	31	North Khorasan	6201376
+IR	09	Khorasan	
+IS	1	Hofuoborgarsvaoi	3426182
+IS	2	Suournes	3426183
+IS	3	Vesturland	3426184
+IS	4	Vestfiroir	3426185
+IS	5	Norourland Vestra	3337403
+IS	6	Norourland Eystra	3337404
+IS	7	Austurland	3337405
+IS	8	Suourland	3337406
+IT	21	Piedmont	3170831
+IT	23	Regione Autonoma Valle d'Aosta	3164857
+IT	25	Lombardy	3174618
+IT	32	Regione Autonoma Trentino-Alto Adige	3165244
+IT	34	Regione del Veneto	3164604
+IT	36	Regione Autonoma Friuli-Venezia Giulia	3176525
+IT	42	Regione Liguria	3174725
+IT	45	Regione Emilia-Romagna	3177401
+IT	52	Tuscany	3165361
+IT	55	Regione Umbria	3165048
+IT	57	Regione Marche	3174004
+IT	62	Regione Lazio	3174976
+IT	65	Regione Abruzzo	3183560
+IT	67	Regione Molise	3173222
+IT	72	Regione Campania	3181042
+IT	75	Regione Puglia	3169778
+IT	77	Regione Basilicata	3182306
+IT	78	Regione Calabria	2525468
+IT	82	Regione Autonoma Siciliana	2523119
+IT	88	Regione Autonoma della Sardegna	2523228
+JM	01	Kingston Parish	3489853
+JM	02	Saint Andrew Parish	3488716
+JM	03	Saint Thomas Parish	3488688
+JM	04	Portland Parish	3488997
+JM	05	Saint Mary Parish	3488693
+JM	06	Saint Ann Parish	3488715
+JM	07	Trelawny Parish	3488222
+JM	08	Saint James Parish	3488700
+JM	09	Hanover Parish	3490145
+JM	10	Westmoreland Parish	3488081
+JM	11	Saint Elizabeth Parish	3488708
+JM	12	Manchester Parish	3489586
+JM	13	Clarendon Parish	3490952
+JM	14	Saint Catherine Parish	3488711
+JO	AJ	Ajlun	443120
+JO	AM	'Amman	250439
+JO	AQ	Al 'Aqabah	443122
+JO	AT	At Tafilah	250199
+JO	AZ	Az Zarqa'	250092
+JO	BA	Al Balqa'	250751
+JO	IR	Irbid	248944
+JO	JA	Jarash	443121
+JO	KA	Al Karak	250625
+JO	MA	Al Mafraq	250583
+JO	MD	Madaba	443123
+JO	MN	Ma'an	248380
+JP	01	Hokkaido	2130037
+JP	02	Aomori	2130656
+JP	03	Iwate	2112518
+JP	04	Miyagi	2111888
+JP	05	Akita	2113124
+JP	06	Yamagata	2110554
+JP	07	Hukusima (Fukushima) 	2112922
+JP	08	Ibaraki 	2112669
+JP	09	Totigi (Tochigi) 	1850310
+JP	10	Gunma	1863501
+JP	11	Saitama	1853226
+JP	12	Tiba (Chiba) 	2113014
+JP	13	Tokyo 	1850144
+JP	14	Kanagawa	1860291
+JP	15	Niigata	1855429
+JP	16	Toyama	1849872
+JP	17	Isikawa (Ishikawa) 	1861387
+JP	18	Hukui (Fukui) 	1863983
+JP	19	Yamanasi (Yamanashi) 	1848649
+JP	20	Nagano	1856210
+JP	21	Gihu  (Gifu) 	1863640
+JP	22	Sizuoka (Shizuoka) 	1851715
+JP	23	Aiti (Aichi) 	1865694
+JP	24	Mie	1857352
+JP	25	Siga (Shiga) 	1852553
+JP	26	Kyoto	1857907
+JP	27	Osaka	1853904
+JP	28	Hyogo	1862047
+JP	29	Nara	1855608
+JP	30	Wakayama	1848938
+JP	31	Tottori 	1849890
+JP	32	Simane (Shimane) 	1852442
+JP	33	Okayama	1854381
+JP	34	Hirosima (Hiroshima)	1862413
+JP	35	Yamaguti (Yamaguchi)	1848681
+JP	36	Tokusima (Tokushima) 	1850157
+JP	37	Kagawa	1860834
+JP	38	Ehime	1864226
+JP	39	Koti (Kochi)	1859133
+JP	40	Hukuoka (Fukuoka) 	1863958
+JP	41	Saga	1853299
+JP	42	Nagasaki	1856156
+JP	43	Kumamoto	1858419
+JP	44	Oita	1854484
+JP	45	Miyazaki	1856710
+JP	46	Kagosima (Kagoshima)	1860825
+JP	47	Okinawa	1854345
+KE	110	Nairobi Area	184742
+KE	200	Central	400742
+KE	300	Coast	199247
+KE	400	Eastern	400741
+KE	500	North Eastern	400745
+KE	600	Nyanza	182763
+KE	700	Rift Valley	400744
+KE	800	Western	400743
+KG	B	Batken	1463580
+KG	C	Chu	1538652
+KG	GB	Bishkek	1528334
+KG	J	Jalal-Abad	1529778
+KG	N	Naryn	1527590
+KG	O	Osh	1346798
+KG	T	Talas	1527297
+KG	Y	Ysyk-Kol	1528260
+KH	1	Banteay Mean Choay	1899273
+KH	10	Kratie	1830563
+KH	11	Mondul Kiri	1830306
+KH	12	Phnom Penh	1830103
+KH	13	Preah Vihear	1822676
+KH	14	Prey Veng	1822609
+KH	15	Pursat	1821301
+KH	16	Rotanokiri	1822449
+KH	17	Siemreap	1822213
+KH	18	Preah Seihanu (Kompong Som or Sihanoukville)	1899262
+KH	19	Stung Treng	1822028
+KH	2	Battambang	1821310
+KH	20	Svay Rieng	1821992
+KH	21	Takeo	1821939
+KH	22	Otdar Mean Choay	1822210
+KH	23	Keb	1830937
+KH	24	Pailin	1830206
+KH	3	Kampong Cham	1831172
+KH	4	Kampong Chhnang	1831166
+KH	5	Kampong Speu	1831132
+KH	6	Kampong Thom	1831124
+KH	7	Kampot	1831111
+KH	8	Kandal	1831095
+KH	9	Kaoh Kong	1831037
+KI	G	Gilbert Islands	2110215
+KI	L	Line Islands	4030940
+KI	P	Phoenix Islands	7521379
+KM	A	Anjouan	922001
+KM	G	Grande Comore	921882
+KM	M	Moheli	921780
+KN	K	Saint Kitts	
+KN	N	Nevis	
+KP	01	P'yongyang Special City	1871856
+KP	02	P'yongan-namdo	1871952
+KP	03	P'yongan-bukto	1871954
+KP	04	Chagang-do	2045265
+KP	05	Hwanghae-namdo	1876884
+KP	06	Hwanghae-bukto	1876888
+KP	07	Kangwon-do	1876101
+KP	08	Hamgyong-namdo	1877450
+KP	09	Hamgyong-bukto	2044245
+KP	10	Ryanggang-do (Yanggang-do)	2039332
+KP	13	Nason (Najin-Sonbong)	2054927
+KR	11	Seoul Special City	1835847
+KR	26	Busan Metropolitan City	1838519
+KR	27	Daegu Metropolitan City	1835327
+KR	28	Incheon Metropolitan City	1843561
+KR	29	Gwangju Metropolitan City	1841808
+KR	30	Daejeon Metropolitan City	1835224
+KR	31	Ulsan Metropolitan City	1833742
+KR	41	Gyeonggi-do	1841610
+KR	42	Gangwon-do	1843125
+KR	43	Chungcheongbuk-do	1845106
+KR	44	Chungcheongnam-do	1845105
+KR	45	Jeollabuk-do	1845789
+KR	46	Jeollanam-do	1845788
+KR	47	Gyeongsangbuk-do	1841597
+KR	48	Gyeongsangnam-do	1902028
+KR	49	Jeju-do	1846265
+KW	AH	Al Ahmadi	285841
+KW	FA	Al Farwaniyah	285816
+KW	HA	Hawalli	285628
+KW	JA	Al Jahra	285798
+KW	KU	Al Asimah	285788
+KW	MU	Mubarak al Kabir	7733358
+KY	CR	Creek	
+KY	EA	Eastern	
+KY	ML	Midland	
+KY	SK	Stake Bay	
+KY	SP	Spot Bay	
+KY	ST	South Town	
+KY	WD	West End	
+KY	WN	Western	
+KZ	AKM	Aqmola	1518003
+KZ	AKT	Aqtobe	610688
+KZ	ALA	Almaty	1526395
+KZ	ALM	Almaty	1537162
+KZ	AST	Astana	1538317
+KZ	ATY	Atyrau	609862
+KZ	BAY	Baykonyr	1538316
+KZ	KAR	Qaraghandy	1523401
+KZ	KUS	Qustanay	1521671
+KZ	KZY	Qyzylorda	1521406
+KZ	MAN	Mangghystau	608879
+KZ	PAV	Paylodar	1520239
+KZ	SEV	Soltustik Qazaqstan 	1519367
+KZ	VOS	Shyghys Qazaqstan 	1517381
+KZ	YUZ	Ongtustik Qazaqstan	1524787
+KZ	ZAP	Baty Qazaqstan	607847
+KZ	ZHA	Zhambyl	1524444
+LA	AT	Attapu	1665045
+LA	BK	Bokeo	1904616
+LA	BL	Bolikhamxai	1904617
+LA	CH	Champasak 	1657818
+LA	HO	Houaphan	1657114
+LA	KH	Khammouan	1656538
+LA	LM	Louang Namtha	1655561
+LA	LP	Louangphabang	1655558
+LA	OU	Oudomxai	1654491
+LA	PH	Phongsali	1653893
+LA	SL	Salavan	1653333
+LA	SV	Savannakhet	1653315
+LA	VI	Vientiane	1652238
+LA	VT	Vientiane	1904618
+LA	XA	Xaignabouli	1652210
+LA	XE	Xekong	1904615
+LA	XI	Xiangkhoang	1652077
+LA	XN	Xaisomboun	
+LB	AK	Aakkar	6201370
+LB	AS	Liban-Nord	278297
+LB	BA	Beyrouth	276780
+LB	BH	Baalbek-Hermel	6201371
+LB	BI	Beqaa	280282
+LB	JA	Liban-Sud	279894
+LB	JL	Mont-Liban	273607
+LB	NA	Nabatiye	444191
+LC	AR	Anse-la-Raye	3576891
+LC	CA	Castries	3576810
+LC	CH	Choiseul	3576794
+LC	DA	Dauphin	3576771
+LC	DE	Dennery	3576764
+LC	GI	Gros-Islet	3576685
+LC	LA	Laborie	3576662
+LC	MI	Micoud	3576567
+LC	PR	Praslin	3576507
+LC	SO	Soufriere	3576441
+LC	VF	Vieux-Fort	3576413
+LI	01	Balzers	3042074
+LI	02	Eschen	3042069
+LI	03	Gamprin	3042063
+LI	04	Mauren	3042056
+LI	05	Planken	3042050
+LI	06	Ruggell	3042047
+LI	07	Schaan	3042042
+LI	08	Schellenberg	3042038
+LI	09	Triesen	3042036
+LI	10	Triesenberg	3042034
+LI	11	Vaduz	3042031
+LK	1	Western	1223421
+LK	2	Central	1249296
+LK	3	Southern	1227618
+LK	4	Northern	7671049
+LK	5	Eastern	8133521
+LK	6	North Western	1232860
+LK	7	North Central	1232870
+LK	8	Uva	1225265
+LK	9	Sabaragamuwa	1228435
+LR	BG	Bong	2278292
+LR	BM	Bomi	2278324
+LR	CM	Grand Cape Mount	2276627
+LR	GB	Grand Bassa	2276630
+LR	GG	Grand Gedeh	2276622
+LR	GK	Grand Kru	2588490
+LR	LO	Lofa	2275344
+LR	MG	Margibi	2588491
+LR	MO	Montserrado	2274890
+LR	MY	Maryland	2275099
+LR	NI	Nimba	2274688
+LR	RI	River Cess	2588492
+LR	SI	Sinoe	2273898
+LS	A	Maseru	932506
+LS	B	Butha-Buthe	932888
+LS	C	Leribe	932700
+LS	D	Berea	932932
+LS	E	Mafeteng	932615
+LS	F	Mohale's Hoek	932439
+LS	G	Quthing	932184
+LS	H	Qacha's Nek	932219
+LS	J	Mokhotlong	932418
+LS	K	Thaba-Tseka	932011
+LT	AL	Alytus	864389
+LT	KL	Klaipeda	864478
+LT	KU	Kaunas	864477
+LT	MR	Marijampole	864479
+LT	PN	Panevezys	864480
+LT	SA	Siauliai	864481
+LT	TA	Taurage	864482
+LT	TE	Telsiai	864483
+LT	UT	Utena	864484
+LT	VL	Vilnius	864485
+LU	D	Diekirch	2960655
+LU	G	Grevenmacher	2960513
+LU	L	Luxembourg	2960314
+LV	001	Aglonas Novads	7628345
+LV	002	Aizkraukles Novads	461613
+LV	003	Aizputes Novads	7628305
+LV	004	Aknistes Novads	7628338
+LV	005	Alojas Novads	7628368
+LV	006	Alsungas Novads	7628299
+LV	007	Aluksnes Novads	461525
+LV	008	Amatas Novads	7628375
+LV	009	Apes Novads	7628384
+LV	010	Auces Novads	7628312
+LV	011	Adazu Novads	7628327
+LV	012	Babites Novads	7628318
+LV	013	Baldones Novads	7628324
+LV	014	Baltinavas Novads	7628349
+LV	015	Balvu Novads	461160
+LV	016	Bauskas Novads	461112
+LV	017	Beverinas Novads	7628379
+LV	018	Brocenu Novads	7628309
+LV	019	Burtnieku Novads	7628372
+LV	020	Carnikavas Novads	7628326
+LV	021	Cesvaines Novads	7628353
+LV	022	Cesu Novads	460569
+LV	023	Ciblas Novads	7628346
+LV	024	Dagdas Novads	7628350
+LV	025	Daugavpils Novads	460410
+LV	026	Dobeles Novads	460311
+LV	027	Dundagas Novads	7628298
+LV	028	Durbes Novads	7628304
+LV	029	Engures Novads	7628314
+LV	030	Erglu Novads	7628382
+LV	031	Garkalnes Novads	7628328
+LV	032	Grobinas Novads	7628303
+LV	033	Gulbenes Novads	459664
+LV	034	Iecavas Novads	7628321
+LV	035	Ikskiles Novads	7628358
+LV	036	Ilukstes Novads	7628339
+LV	037	Incukalna Novads	7628360
+LV	038	Jaunjelgavas Novads	7628333
+LV	039	Jaunpiebalgas Novads	7628381
+LV	040	Jaunpils Novads	7628313
+LV	041	Jelgavas Novads	459278
+LV	042	Jekabpils Novads	459282
+LV	043	Kandavas Novads	7628311
+LV	044	Karsavas Novads	7628351
+LV	045	Kocenu Novads	7628374
+LV	046	Kokneses Novads	7628357
+LV	047	Kraslavas Novads	458621
+LV	048	Krimuldas Novads	7628361
+LV	049	Krustpils Novads	7628355
+LV	050	Kuldigas Novads	458459
+LV	051	Keguma Novads	7628330
+LV	052	Kekavas Novads	7628322
+LV	053	Lielvardes Novads	7628331
+LV	054	Limbazu Novads	457889
+LV	055	Ligatnes Novads	7628363
+LV	056	Livanu Novads	7628341
+LV	057	Lubanas Novads	7628354
+LV	058	Ludzas Novads	457773
+LV	059	Madonas Novads	457712
+LV	060	Mazsalacas Novads	7628371
+LV	061	Malpils Novads	7628364
+LV	062	Marupes Novads	7628319
+LV	063	Mersraga novads	8299767
+LV	064	Nauksenu Novads	7628369
+LV	065	Neretas Novads	7628334
+LV	066	Nicas Novads	7628301
+LV	067	Ogres Novads	457061
+LV	068	Olaines Novads	7628320
+LV	069	Ozolnieku Novads	7628316
+LV	070	Pargaujas Novads	7628373
+LV	071	Pavilostas Novads	7628300
+LV	072	Plavinu Novads	7628356
+LV	073	Preilu Novads	456528
+LV	074	Priekules Novads	7628306
+LV	075	Priekulu Novads	7628376
+LV	076	Raunas Novads	7628377
+LV	077	Rezeknes Novads	456197
+LV	078	Riebinu Novads	7628344
+LV	079	Rojas Novads	7628310
+LV	080	Ropazu Novads	7628359
+LV	081	Rucavas Novads	7628302
+LV	082	Rugaju Novads	7628352
+LV	083	Rundales Novads	7628317
+LV	084	Rujienas Novads	7628370
+LV	085	Salas Novads	7628336
+LV	086	Salacgrivas Novads	7628367
+LV	087	Salaspils Novads	7628323
+LV	088	Saldus Novads	455888
+LV	089	Saulkrastu Novads	7628366
+LV	090	Sejas Novads	7628365
+LV	091	Siguldas Novads	7628362
+LV	092	Skriveru Novads	7628332
+LV	093	Skrundas Novads	7628308
+LV	094	Smiltenes Novads	7628380
+LV	095	Stopinu Novads	7628325
+LV	096	Strencu Novads	7628378
+LV	097	Talsu Novads	454968
+LV	098	Tervetes Novads	7628315
+LV	099	Tukuma Novads	454771
+LV	100	Vainodes Novads	7628307
+LV	101	Valkas Novads	454571
+LV	102	Varaklanu Novads	7628342
+LV	103	Varkavas Novads	7628340
+LV	104	Vecpiebalgas Novads	7628383
+LV	105	Vecumnieku Novads	7628329
+LV	106	Ventspils Novads	454307
+LV	107	Viesites Novads	7628335
+LV	108	Vilakas Novads	7628348
+LV	109	Vilanu Novads	7628343
+LV	110	Zilupes Novads	7628347
+LV	DGV	Daugavpils	460414
+LV	JEL	Jelgava	459281
+LV	JKB	Jekabpils	7628337
+LV	JUR	Jurmala	459202
+LV	LPX	Liepaja	457955
+LV	REZ	Rezekne	456203
+LV	RIX	Riga	456173
+LV	VEN	Ventspils	454311
+LV	VMR	Valmiera	454564
+LY	BA	Banghazi	88318
+LY	BU	Al Butnan	7602688
+LY	DR	Darnah	87204
+LY	GT	Ghat	2217350
+LY	JA	Al Jabal al Akhdar	443289
+LY	JG	Al Jabal al Gharbi	7602689
+LY	JI	Al Jifarah	7602690
+LY	JU	Al Jufrah	2219944
+LY	KF	Al Kufrah	88932
+LY	MB	Al Marqab	7602691
+LY	MI	Misratah	2214845
+LY	MJ	Al Maraj	88904
+LY	MQ	Murzuq	2214602
+LY	NL	Nalut	2214432
+LY	NQ	An Nuqat al Khams	2593778
+LY	SB	Sabha	2212774
+LY	SR	Surt	2210553
+LY	TB	Tarabulus	2210245
+LY	WA	Al Wah,at	7602692
+LY	WD	Wadi al Hayat	7602693
+LY	WS	Wadi ash Shati´	2219413
+LY	ZA	Az Zawiyah	2218972
+MA	01	Tanger-Tetouan	2597556
+MA	02	Gharb-Chrarda-Beni Hssen	2597550
+MA	03	Taza-Al Hoceima-Taounate	2597557
+MA	04	Oriental	2597553
+MA	05	Fes-Boulemane	2548882
+MA	06	Meknes-Tafilalet	2542710
+MA	07	Rabat-Sale-Zemmour-Zaer	2538470
+MA	08	Grand Casablanca	2553603
+MA	09	Chaouia-Ouardigha	2597548
+MA	10	Doukkala-Abda	2597549
+MA	11	Marrakech-Tensift-Al Haouz	2542995
+MA	12	Tadla-Azilal	2597555
+MA	13	Souss-Massa-Draa	2597554
+MA	14	Guelmim-Es Smara	2597551
+MA	15	Laayoune-Boujdour-Sakia El Hamra	6545402
+MA	16	Oued ed Dahab-Lagouira	
+MC	CL	La Colle	
+MC	CO	La Condamine	
+MC	FO	Fontvieille	
+MC	GA	La Gare	
+MC	JE	Jardin Exotique	
+MC	LA	Larvotto	
+MC	MA	Malbousquet	
+MC	MC	Monte-Carlo	
+MC	MG	Moneghetti	
+MC	MO	Monaco-Ville	
+MC	MU	Moulins	
+MC	PH	Port-Hercule	
+MC	SD	Sainte-Devote	
+MC	SO	La Source	
+MC	SP	Spelugues	
+MC	SR	Saint-Roman	
+MC	VR	Vallon de la Rousse	
+MD	AN	Raionul Anenii Noi	617715
+MD	BA	Municipiul Balti	873909
+MD	BD	Tighina	861487
+MD	BR	Raionul Briceni	618511
+MD	BS	Raionul Basarabeasca	618565
+MD	CA	Cahul	618164
+MD	CL	Raionul Calarasi	618162
+MD	CM	Raionul Cimislia	618430
+MD	CR	Raionul Criuleni	617962
+MD	CS	Raionul Causeni	618119
+MD	CT	Raionul Cantemir	618142
+MD	CU	Municipiul Chisinau	618069
+MD	DO	Donduseni	618381
+MD	DR	Raionul Drochia	618369
+MD	DU	Dubasari	618363
+MD	ED	Raionul Edinet	617077
+MD	FA	Falesti	618345
+MD	FL	Floresti	618331
+MD	GA	U.T.A. Gagauzia	858895
+MD	GL	Raionul Glodeni	618260
+MD	HI	Hincesti	858803
+MD	IA	Ialoveni	617991
+MD	LE	Leova	617903
+MD	NI	Nisporeni	617754
+MD	OC	Raionul Ocnita	617656
+MD	OR	Raionul Orhei	617639
+MD	RE	Rezina	617501
+MD	RI	Riscani	617483
+MD	SD	Raionul Soldanesti	858808
+MD	SI	Singerei	617913
+MD	SN	Stinga Nistrului	858889
+MD	SO	Soroca	617366
+MD	ST	Raionul Straseni	617301
+MD	SV	Raionul Stefan Voda	617283
+MD	TA	Raionul Taraclia	617264
+MD	TE	Telenesti	617255
+MD	UN	Raionul Ungheni	617181
+ME	01	Opstina Andrijevica	3343959
+ME	02	Opstina Bar	3204508
+ME	03	Opstina Berane	3199070
+ME	04	Opstina Bijelo Polje	3204173
+ME	05	Opstina Budva	3203104
+ME	06	Opstina Cetinje	3202640
+ME	07	Opstina Danilovgrad	3202193
+ME	08	Opstina Herceg-Novi	3199393
+ME	09	Opstina Kolasin	3197895
+ME	10	Opstina Kotor	3197537
+ME	11	Opstina Mojkovac	3194925
+ME	12	Opstina Niksic	3194493
+ME	13	Opstina Plav	3193227
+ME	14	Opstina Pljevlja	3193160
+ME	15	Opstina Pluzine	3193129
+ME	16	Opstina Podgorica	3189077
+ME	17	Opstina Rozaje	786233
+ME	18	Opstina Savnik	3191221
+ME	19	Opstina Tivat	3189071
+ME	20	Opstina Ulcinj	3188514
+ME	21	Opstina Zabljak	3186995
+MG	A	Toamasina province	
+MG	D	Antsiranana province	
+MG	F	Fianarantsoa province	
+MG	M	Mahajanga province	
+MG	T	Antananarivo province	
+MG	U	Toliara province	
+MH	L	Ralik chain	
+MH	T	Ratak chain	
+MK	01	Aerodrom t	7056266
+MK	02	Aracinovo	863831
+MK	03	Berovo	863485
+MK	04	Bitola	863486
+MK	05	Bogdanci	862950
+MK	06	Bogovinje	863834
+MK	07	Bosilovo	862946
+MK	077	Centar t	863840
+MK	08	Brvenica	863835
+MK	09	Butel t	7056269
+MK	10	Valandovo	784732
+MK	11	Vasilevo	862947
+MK	12	Vevcani	863911
+MK	13	Veles	863909
+MK	14	Vinica	863912
+MK	15	Vranestica	863913
+MK	16	Vrapciste	863914
+MK	17	Gazi Baba t	863853
+MK	18	Gevgelija	863854
+MK	19	Gostivar	863855
+MK	20	Gradsko	862974
+MK	21	Debar	863843
+MK	22	Debarca	7056271
+MK	23	Delcevo	863844
+MK	24	Demir Kapija	862961
+MK	25	Demir Hisar	863846
+MK	26	Dojran	862949
+MK	27	Dolneni	863849
+MK	28	Drugovo	863851
+MK	29	Gjorce Petrov t	863850
+MK	30	Zelino	863919
+MK	31	Zajas	863917
+MK	32	Zelenikovo	863918
+MK	33	Zrnovci	862958
+MK	34	Ilinden	863856
+MK	35	Jegunovce	863858
+MK	36	Kavadarci	863861
+MK	37	Karbinci	862960
+MK	38	Karpos t	863860
+MK	39	Kisela Voda t	863863
+MK	40	Kicevo	863862
+MK	41	Konce	862953
+MK	42	Kocani	863865
+MK	43	Kratovo	789090
+MK	44	Kriva Palanka	863869
+MK	45	Krivogastani	863870
+MK	46	Krusevo	863871
+MK	47	Kumanovo	863873
+MK	48	Lipkovo	863875
+MK	49	Lozovo	862975
+MK	50	Mavrovo-i-Rostusa	863892
+MK	51	Makedonska Kamenica	862956
+MK	52	Makedonski Brod	863877
+MK	53	Mogila	863488
+MK	54	Negotino	863881
+MK	55	Novaci	863468
+MK	56	Novo Selo	862945
+MK	57	Oslomej	863885
+MK	58	Ohrid	863883
+MK	59	Petrovec	863886
+MK	60	Pehcevo	862938
+MK	61	Plasnica	863887
+MK	62	Prilep	863888
+MK	63	Probistip	863889
+MK	64	Radovis	863890
+MK	65	Rankovce	863891
+MK	66	Resen	786339
+MK	67	Rosoman	862973
+MK	68	Saraj t	863894
+MK	69	Sveti Nikole	863905
+MK	70	Stip	863900
+MK	71	Struga	863901
+MK	72	Strumica	863902
+MK	73	Studenicani	863903
+MK	74	Suto Orizari t	863904
+MK	75	Tearce	863906
+MK	76	Tetovo	863907
+MK	78	Centar Zupa	863841
+MK	79	Cair t	863836
+MK	80	Caska	863838
+MK	81	Cesinovo-Oblesevo	862977
+MK	82	Cucer Sandevo	863842
+MK	83	Sopiste	863896
+MK	84	Staro Nagoricane	863899
+ML	1	Kayes	2455517
+ML	2	Koulikoro	2454532
+ML	3	Sikasso	2451184
+ML	4	Segou	2451477
+ML	5	Mopti	2453347
+ML	6	Tombouctou	2449066
+ML	7	Gao	2457161
+ML	8	Kidal	2597449
+ML	BKO	Bamako Capital District	2460594
+MM	01	Sagaing	1298480
+MM	02	Bago	1300463
+MM	03	Magway	1312604
+MM	04	Mandalay	1311871
+MM	05	Tanintharyi	1293118
+MM	06	Yangon	1298822
+MM	07	Ayeyarwady	1321850
+MM	11	Kachin State	1321702
+MM	12	Kayah State	1319539
+MM	13	Kayin State	1320233
+MM	14	Chin State	1327132
+MM	15	Mon State	1308528
+MM	16	Rakhine State	1298852
+MM	17	Shan State	1297099
+MN	035	Orhon	2055113
+MN	037	Darhan uul	2055111
+MN	039	Hentiy	2030783
+MN	041	Hovsgol	2030469
+MN	043	Hovd	1515696
+MN	046	Uvs	1514967
+MN	047	Tov	2028849
+MN	049	Selenge	2029432
+MN	051	Suhbaatar	2029155
+MN	053	Omnogovi	2029669
+MN	055	Ovorhangay	2029546
+MN	057	Dzavhan	1516012
+MN	059	DundgovL	2031740
+MN	061	Dornod	2031799
+MN	063	Dornogov	2031798
+MN	064	Govi-Sumber	2055112
+MN	065	Govi-Altay	1515917
+MN	067	Bulgan	2032199
+MN	069	Bayanhongor	1516290
+MN	071	Bayan-Olgiy	1516278
+MN	073	Arhangay	2032855
+MN	1	Ulanbaatar	2028461
+MP	N	Northern Islands	7733156
+MP	R	Rota	4041530
+MP	S	Saipan	4041552
+MP	T	Tinian	4041650
+MR	01	Hodh Ech Chargui	2379025
+MR	02	Hodh El Gharbi	2379024
+MR	03	Assaba	2381344
+MR	04	Gorgol	2379384
+MR	05	Brakna	2380635
+MR	06	Trarza	2375742
+MR	07	Adrar	2381972
+MR	08	Dakhlet Nouadhibou	2380426
+MR	09	Tagant	2376551
+MR	10	Guidimaka	2379216
+MR	11	Tiris Zemmour	2375989
+MR	12	Inchiri	2378903
+MR	NKC	Nouakchott	2377449
+MT	01	Attard	8299700
+MT	02	Balzan	8299701
+MT	03	Birgu	8299702
+MT	04	Birkirkara	8299703
+MT	05	Birzebbuga	8299704
+MT	06	Bormla	8299705
+MT	07	Dingli	8299706
+MT	08	Fgura	8299707
+MT	09	Floriana	8299708
+MT	10	Fontana	8299709
+MT	11	Gudja	8299715
+MT	12	Gzira	8299716
+MT	13	Ghajnsielem	8299710
+MT	14	Gharb	8299711
+MT	15	Gargur	8299712
+MT	16	Ghasri	8299713
+MT	17	Gaxaq	8299714
+MT	18	Hamrun	8299717
+MT	19	Iklin	8299718
+MT	20	Isla	8299724
+MT	21	Kalkara	8299725
+MT	22	Kercem	8299726
+MT	23	Kirkop	8299727
+MT	24	Lija	8299728
+MT	25	Luqa	8299729
+MT	26	Marsa	8299730
+MT	27	Marsaskala	8299731
+MT	28	Marsaxlokk	8299732
+MT	29	Mdina	8299719
+MT	30	Melliea	8299733
+MT	31	Mgarr	8299720
+MT	32	Mosta	8299734
+MT	33	Mqabba	8299721
+MT	34	Msida	8299722
+MT	35	Mtarfa	8299723
+MT	36	Munxar	8299735
+MT	37	Nadur	8299736
+MT	38	Naxxar	8299737
+MT	39	Paola	8299738
+MT	40	Pembroke	8299739
+MT	41	Pieta	8299740
+MT	42	Qala	8299741
+MT	43	Qormi	8299742
+MT	44	Qrendi	8299743
+MT	45	Rabat Ghawdex	8299745
+MT	46	Rabat Malta	
+MT	47	Safi	8299746
+MT	48	San Giljan	8299748
+MT	49	San Gwann	8299747
+MT	50	San Lawrenz	8299749
+MT	51	San Pawl il-Bahar	8299751
+MT	52	Sannat	8299753
+MT	53	Santa Lucija	8299750
+MT	54	Santa Venera	8299752
+MT	55	Siggiewi	8299754
+MT	56	Sliema	8299755
+MT	57	Swieqi	8299756
+MT	58	Tarxien	8299757
+MT	59	Ta Xbiex	8299758
+MT	60	Valletta	8334638
+MT	61	Xagra	8299759
+MT	62	Xewkija	8299760
+MT	63	Xgajra	8299761
+MT	64	Zabbar	8299762
+MT	65	Zebbug Ghawdex	8299764
+MT	66	Zebbug Malta	8299763
+MT	67	Zejtun	8299765
+MT	68	Zurrieq	8299766
+MU	AG	Agalega Islands	448254
+MU	BL	Black River	934718
+MU	BR	Beau Bassin-Rose Hill	
+MU	CC	Cargados Carajos Shoals (Saint Brandon Islands)	1106583
+MU	CU	Curepipe	
+MU	FL	Flacq	934522
+MU	GP	Grand Port	934466
+MU	MO	Moka	934275
+MU	PA	Pamplemousses	934212
+MU	PL	Port Louis	934153
+MU	PU	Port Louis	
+MU	PW	Plaines Wilhems	934166
+MU	QB	Quatre Bornes	
+MU	RO	Rodrigues	1547449
+MU	RR	Riviere du Rempart	934090
+MU	SA	Savanne	934017
+MU	VP	Vacoas-Phoenix	
+MV	CE	Medhu 	8030592
+MV	MLE	Male	1337624
+MV	NC	Medhu Uthuru	8030594
+MV	NO	Uthuru	8030595
+MV	SC	Medhu Dhekunu	8030593
+MV	SU	Dhekunu	8030589
+MV	UN	Mathi Uthuru	8030591
+MV	US	Mathi Dhekunu	8030590
+MW	C	Central	931597
+MW	N	Northern	924591
+MW	S	Southern	923817
+MX	AGU	Aguascalientes	4019231
+MX	BCN	Baja California	4017700
+MX	BCS	Baja California Sur	4017698
+MX	CAM	Campeche	3531730
+MX	CHH	Chihuahua	4014336
+MX	CHP	Chiapas	3531011
+MX	COA	Coahuila	4013674
+MX	COL	Colima	4013513
+MX	DIF	Distrito Federal	3527646
+MX	DUR	Durango	4011741
+MX	GRO	Guerrero	3527213
+MX	GUA	Guanajuato	4005267
+MX	HID	Hidalgo	3527115
+MX	JAL	Jalisco	4004156
+MX	MEX	Mexico	3523272
+MX	MIC	Michoacan	3995955
+MX	MOR	Morelos	3522961
+MX	NAY	Nayarit	3995012
+MX	NLE	Nuevo Leon	3522542
+MX	OAX	Oaxaca	3522509
+MX	PUE	Puebla	3521082
+MX	QUE	Queretaro	3520914
+MX	ROO	Quintana Roo	3520887
+MX	SIN	Sinaloa	3983035
+MX	SLP	San Luis Potosi	3985605
+MX	SON	Sonora	3982846
+MX	TAB	Tabasco	3516458
+MX	TAM	Tamaulipas	3516391
+MX	TLA	Tlaxcala	3515359
+MX	VER	Veracruz	3514780
+MX	YUC	Yucatan	3514211
+MX	ZAC	Zacatecas	3979840
+MY	01	Johor	1733049
+MY	02	Kedah	1733048
+MY	03	Kelantan	1733044
+MY	04	Melaka	1733035
+MY	05	Negeri Sembilan	1733043
+MY	06	Pahang	1733042
+MY	07	Pinang	1733047
+MY	08	Perak	1733041
+MY	09	Perlis	1733040
+MY	10	Selangor	1733037
+MY	11	Terengganu	1733036
+MY	12	Sabah	1733039
+MY	13	Sarawak	1733038
+MY	14	Kuala Lumpur	1733046
+MY	15	Labuan	1734240
+MY	16	Putrajaya	1996552
+MZ	A	Niassa	1030006
+MZ	B	Manica	1040947
+MZ	G	Gaza	1046058
+MZ	I	Inhambane	1045110
+MZ	L	Maputo	1040649
+MZ	MPM	Maputo (city)	1105845
+MZ	N	Nampula	1033354
+MZ	P	Cabo Delgado	1051823
+MZ	Q	Zambezia	1024312
+MZ	S	Sofala	1026804
+MZ	T	Tete	1026010
+NA	CA	Caprivi	1090052
+NA	ER	Erongo	3371199
+NA	HA	Hardap	3371200
+NA	KA	Karas	3371201
+NA	KH	Khomas	3352137
+NA	KU	Kunene	3371202
+NA	OD	Otjozondjupa	3371209
+NA	OH	Omaheke	3371205
+NA	OK	Kavango	3371204
+NA	ON	Oshana	3371207
+NA	OS	Omusati	3371206
+NA	OT	Oshikoto	3371208
+NA	OW	Ohangwena	3371203
+NC	L	Iles Loyaute	7521415
+NC	N	Nord	2140685
+NC	S	Sud	2140464
+NE	1	Agadez	2448083
+NE	2	Diffa	2445702
+NE	3	Dosso	2445486
+NE	4	Maradi	2441289
+NE	5	Tahoua	2439374
+NE	6	Tillaberi	2595293
+NE	7	Zinder	2437797
+NE	8	Niamey	2595294
+NG	AB	Abia	2565340
+NG	AD	Adamawa	2565342
+NG	AK	Akwa Ibom	2350813
+NG	AN	Anambra	2349961
+NG	BA	Bauchi	2347468
+NG	BE	Benue	2347266
+NG	BO	Borno	2346794
+NG	BY	Bayelsa	2595344
+NG	CR	Cross River	2345891
+NG	DE	Delta	2565341
+NG	EB	Ebonyi	2595345
+NG	ED	Edo	2565343
+NG	EK	Ekiti	2595346
+NG	EN	Enugu	2565344
+NG	FC	Federal Capital Territory	2352776
+NG	GO	Gombe	2595347
+NG	IM	Imo	2337542
+NG	JI	Jigawa	2565345
+NG	KD	Kaduna	2335722
+NG	KE	Kebbi	2597363
+NG	KN	Kano	2335196
+NG	KO	Kogi	2597364
+NG	KT	Katsina	2334797
+NG	KW	Kwara	2332785
+NG	LA	Lagos	2332453
+NG	NA	Nassarawa	2595348
+NG	NI	Niger	2328925
+NG	OG	Ogun	2327546
+NG	ON	Ondo	2326168
+NG	OS	Osun	2597365
+NG	OY	Oyo	2325190
+NG	PL	Plateau	2324828
+NG	RI	Rivers	2324433
+NG	SO	Sokoto	2322907
+NG	TA	Taraba	2597366
+NG	YO	Yobe	2597367
+NG	ZA	Zamfara	2595349
+NI	AN	Region Autonoma del Atlantico Norte	3830307
+NI	AS	Region Autonoma del Atlantico Sur	3830308
+NI	BO	Boaco	3620673
+NI	CA	Carazo	3620481
+NI	CI	Chinandega	3620380
+NI	CO	Chontales	3620368
+NI	ES	Esteli	3619193
+NI	GR	Granada	3619135
+NI	JI	Jinotega	3618928
+NI	LE	Leon	3618029
+NI	MD	Madriz	3617796
+NI	MN	Managua	3617762
+NI	MS	Masaya	3617722
+NI	MT	Matagalpa	3617707
+NI	NS	Nueva Segovia	3617458
+NI	RI	Rivas	3617051
+NI	SJ	Rio San Juan	3617056
+NL	DR	Drenthe	2756631
+NL	FL	Flevoland	3319179
+NL	FR	Friesland	2755812
+NL	GE	Gelderland	2755634
+NL	GR	Groningen	2755249
+NL	LI	Limburg	2751596
+NL	NB	Noord Brabant	2749990
+NL	NH	Noord Holland	2749879
+NL	OV	Overijssel	2748838
+NL	UT	Utrecht	2745909
+NL	ZE	Zeeland	2744011
+NL	ZH	Zuid Holland	2743698
+NO	01	Ostfold	3143188
+NO	02	Akershus	3163480
+NO	03	Oslo	3143242
+NO	04	Hedmark	3153403
+NO	05	Oppland	3143487
+NO	06	Buskerud	3159665
+NO	07	Vestfold	3132015
+NO	08	Telemark	3134723
+NO	09	Aust-Agder	3162354
+NO	10	Vest-Agder	3132064
+NO	11	Rogaland	3141558
+NO	12	Hordaland	3151864
+NO	14	Sogn og Fjordane	3137966
+NO	15	More og Romdal	3145495
+NO	16	Sor-Trondelag	3137400
+NO	17	Nord-Trondelag	3144148
+NO	18	Nordland	3144301
+NO	19	Troms	3133897
+NO	20	Finnmark	780166
+NO	21	Svalbard	
+NO	22	Jan Mayen	
+NP	1	Madhyamanchal	7289707
+NP	2	Madhya Pashchimanchal	7289706
+NP	3	Pashchimanchal	7289709
+NP	4	Purwanchal	7289708
+NP	5	Sudur Pashchimanchal	7289705
+NR	01	Aiwo	2110451
+NR	02	Anabar	2110449
+NR	03	Anetan	2110448
+NR	04	Anibare	2110445
+NR	05	Baiti	2110442
+NR	06	Boe	2110441
+NR	07	Buada	2110440
+NR	08	Denigomodu	2110437
+NR	09	Ewa	2110435
+NR	10	Ijuw	2110432
+NR	11	Meneng	2110431
+NR	12	Nibok	2110423
+NR	13	Uaboe	2110420
+NR	14	Yaren	2110418
+NZ	N	North Island	
+NZ	S	South Island	
+OM	BA	Al Batinah South	411736
+OM	BU	Al Buraymi	7110710
+OM	DA	Ad Dakhiliyah	411735
+OM	MA	Masqat	411740
+OM	MU	Musandam	411741
+OM	SH	Ash Sharqiyah South	411738
+OM	WU	Al Wusta	411737
+OM	ZA	Az Zahirah	411739
+OM	ZU	Zufar	411742
+PA	1	Bocas del Toro	3713954
+PA	2	Cocle	3712162
+PA	3	Colon	3712073
+PA	4	Chiriqui	3712410
+PA	5	Darien	3711671
+PA	6	Herrera	3708710
+PA	7	Los Santos	3704961
+PA	8	Panama	3703433
+PA	9	Veraguas	3700159
+PA	EM	Comarca Embera-Wounaan	7303686
+PA	KY	Comarca de Kuna Yala	3701537
+PA	NB	Ngobe-Bugle	7303688
+PE	AMA	Amazonas	3699699
+PE	ANC	Ancash	3699674
+PE	APU	Apurimac	3947421
+PE	ARE	Arequipa	3947319
+PE	AYA	Ayacucho	3947018
+PE	CAJ	Cajamarca	3699087
+PE	CAL	Callao	3946080
+PE	CUS	Cusco	3941583
+PE	HUC	Huanuco	3696416
+PE	HUV	Huancavelica	3939467
+PE	ICA	Ica	3938526
+PE	JUN	Junin	3937485
+PE	LAL	La Libertad	3695781
+PE	LAM	Lambayeque	3695753
+PE	LIM	Lima	3936452
+PE	LMA	Municipalidad Metropolitana de Lima	3936451
+PE	LOR	Loreto	3695238
+PE	MDD	Madre de Dios	3935619
+PE	MOQ	Moquegua	3934607
+PE	PAS	Pasco	3932834
+PE	PIU	Piura	3693525
+PE	PUN	Puno	3931275
+PE	SAM	San Martin	3692385
+PE	TAC	Tacna	3928127
+PE	TUM	Tumbes	3691146
+PE	UCA	Ucayali	3691099
+PF	I	Austral Islands	4034366
+PF	M	Marquesas Islands 	4019991
+PF	S	Iles Sous-le-Vent 	4034364
+PF	T	Tuamotu-Gambier 	4030621
+PF	V	Iles du Vent	4034365
+PG	CPK	Chimbu	2098593
+PG	CPM	Central	2133763
+PG	EBR	East New Britain	2097853
+PG	EHG	Eastern Highlands	2097855
+PG	EPW	Enga	2097655
+PG	ESW	East Sepik	2097846
+PG	GPK	Gulf	2096633
+PG	MBA	Milne Bay	2132895
+PG	MPL	Morobe	2090468
+PG	MPM	Madang	2091993
+PG	MRL	Manus	2091495
+PG	NCD	National Capital	2089856
+PG	NIK	New Ireland	2089693
+PG	NPP	Northern	2089478
+PG	NSA	Bougainville	2089470
+PG	SAN	Sandaun	2087246
+PG	SHM	Southern Highlands	2086331
+PG	WBK	West New Britain	2083546
+PG	WHM	Western Highlands	2083551
+PG	WPD	Western	2083549
+PH	00	National Capital Region	7521311
+PH	01	Ilocos	7521301
+PH	02	Cagayan Valley	7521297
+PH	03	Central Luzon	7521305
+PH	05	Bicol	7521310
+PH	06	Western Visayas	7521304
+PH	07	Central Visayas	7521306
+PH	08	Eastern Visayas	7521307
+PH	09	Zamboanga Peninsula	7521308
+PH	10	Northern Mindanao	7521295
+PH	11	Davao	7521309
+PH	12	Soccsksargen	7521298
+PH	13	Caraga	7521299
+PH	14	Autonomous Region in Muslim Mindanao	7115989
+PH	15	Cordillera Administrative Region	7521300
+PH	40	Calabarzon	7521303
+PH	41	Mimaropa	7521296
+PK	BA	Balochistan	1183606
+PK	IS	Islamabad Capital Territory	1162015
+PK	JK	Azad Kashmir	1184196
+PK	NA	Gilgit-Baltistan	1168878
+PK	NW	Khyber Pakhtunkhwa	1168873
+PK	PB	Punjab	1167710
+PK	SD	Sindh 	1164807
+PK	TA	Federally Administered Tribal Areas	1179245
+PL	DS	Dolnoslaskie	3337492
+PL	KP	Kujawsko-Pomorskie	3337500
+PL	LB	Lubuskie	3337494
+PL	LD	Lodzkie	3337493
+PL	LU	Lubelskie	858785
+PL	MA	Malopolskie	858786
+PL	MZ	Mazowieckie	858787
+PL	OP	Opolskie	3337495
+PL	PD	Podlaskie	858789
+PL	PK	Podkarpackie	858788
+PL	PM	Pomorskie	3337496
+PL	SK	Swietokrzyskie	858790
+PL	SL	Slaskie	3337497
+PL	WN	Warminsko-Mazurskie	858791
+PL	WP	Wielkopolskie	3337498
+PL	ZP	Zachodniopomorskie	3337499
+PM	M	Miquelon	3424938
+PM	P	Saint Pierre	3424935
+PT	01	Aveiro	2742610
+PT	02	Beja	2270984
+PT	03	Braga	2742031
+PT	04	Braganca	2742026
+PT	05	Castelo Branco	2269513
+PT	06	Coimbra	2740636
+PT	07	Evora	2268404
+PT	08	Faro	2268337
+PT	09	Guarda	2738782
+PT	10	Leiria	2267094
+PT	11	Lisboa	2267056
+PT	12	Portalegre	2264507
+PT	13	Porto	2735941
+PT	14	Santarem	2263478
+PT	15	Setubal	2262961
+PT	16	Viana do Castelo	2732772
+PT	17	Vila Real	2732437
+PT	18	Viseu	2732264
+PT	20	Acores (Azores)	3411865
+PT	30	Madeira	2593105
+PW	002	Aimeliik	1559964
+PW	004	Airai	4037645
+PW	010	Angaur	4037653
+PW	050	Hatohobei	1559776
+PW	100	Kayangel	1559774
+PW	150	Koror	4037892
+PW	212	Melekeok	4037930
+PW	214	Ngaraard	4037962
+PW	218	Ngarchelong	4038037
+PW	222	Ngardmau	4038043
+PW	224	Ngatpang	1559532
+PW	226	Ngchesar	4037976
+PW	227	Ngeremlengui	4038068
+PW	228	Ngiwal	4038179
+PW	350	Peleliu	4038261
+PW	370	Sonsorol	1559630
+PY	1	Concepcion	3438833
+PY	10	Alto Parana	3439440
+PY	11	Central	3439137
+PY	12	Neembucu	3437677
+PY	13	Amambay	3439433
+PY	14	Canindeyu	3439216
+PY	15	Presidente Hayes	3437443
+PY	16	Alto Paraguay	3439441
+PY	19	Boqueron	3867442
+PY	2	San Pedro	3437027
+PY	3	Cordillera	3438827
+PY	4	Guaira	3438049
+PY	5	Caaguazu	3439312
+PY	6	Caazapa	3439296
+PY	7	Itapua	3437923
+PY	8	Misiones	3437727
+PY	9	Paraguari	3437599
+PY	ASU	Asuncion	3474570
+QA	DA	Ad Dawhah	389470
+QA	KH	Al Khawr wa adh Dhakhirah	389465
+QA	MS	Ash Shamal	389462
+QA	RA	Ar Rayyan	389469
+QA	US	Umm Salal	389467
+QA	WA	Al Wakrah	389472
+QA	ZA	Az Z a‘ayin	8030540
+RO	AB	Alba	686581
+RO	AG	Arges	686192
+RO	AR	Arad	686253
+RO	B	Bucuresti	683504
+RO	BC	Bacau	685947
+RO	BH	Bihor	684878
+RO	BN	Bistrita-Nasaud	684647
+RO	BR	Braila	683901
+RO	BT	Botosani	684038
+RO	BV	Brasov	683843
+RO	BZ	Buzau	683121
+RO	CJ	Cluj	681291
+RO	CL	Calarasi	683016
+RO	CS	Caras-Severin	682714
+RO	CT	Constanta	680962
+RO	CV	Covasna	680428
+RO	DB	Dimbovita	679385
+RO	DJ	Dolj	679134
+RO	GJ	Gorj	676898
+RO	GL	Galati	677692
+RO	GR	Giurgiu	677104
+RO	HD	Hunedoara	675917
+RO	HR	Harghita	676309
+RO	IF	Ilfov	865518
+RO	IL	Ialomita	675848
+RO	IS	Iasi	675809
+RO	MH	Mehedinti	673612
+RO	MM	Maramures	673887
+RO	MS	Mures	672628
+RO	NT	Neamt	672460
+RO	OT	Olt	671857
+RO	PH	Prahova	669737
+RO	SB	Sibiu	667267
+RO	SJ	Salaj	668248
+RO	SM	Satu Mare	667869
+RO	SV	Suceava	665849
+RO	TL	Tulcea	664517
+RO	TM	Timis	665091
+RO	TR	Teleorman	665283
+RO	VL	Vilcea	662892
+RO	VN	Vrancea	662447
+RO	VS	Vaslui	663116
+RS	KM	Kosovo	
+RS	VO	Vojvodina	784272
+RU	AD	Adygeya	584222
+RU	AL	Altai Republic	1506272
+RU	ALT	Altai Krai	1511732
+RU	AMU	Amur	2027748
+RU	ARK	Arkhangelsk	581043
+RU	AST	Astrakhan	580491
+RU	BA	Bashkortostan	578853
+RU	BEL	Belgorod	578071
+RU	BRY	Bryansk	571473
+RU	BU	Buryatia	2050915
+RU	CE	Chechnya	569665
+RU	CHE	Chelyabinsk	1508290
+RU	CHU	Chukotka	2126099
+RU	CU	Chuvashia	567395
+RU	DA	Dagestan	567293
+RU	IN	Ingushetia	556349
+RU	IRK	Irkutsk	2023468
+RU	IVA	Ivanovo	555235
+RU	KAM	Kamchatka	2125072
+RU	KB	Kabardino-Balkaria	554667
+RU	KC	Karachay-Cherkessia	552927
+RU	KDA	Krasnodar	542415
+RU	KEM	Kemerovo	1503900
+RU	KGD	Kaliningrad	554230
+RU	KGN	Kurgan	1501312
+RU	KHA	Khabarovsk	2022888
+RU	KHM	Khantia-Mansia	1503773
+RU	KIR	Kirov	548389
+RU	KK	Khakassia	1503834
+RU	KL	Kalmykia	553972
+RU	KLU	Kaluga	553899
+RU	KO	Komi	545854
+RU	KOS	Kostroma	543871
+RU	KR	Karelia	552548
+RU	KRS	Kursk	538555
+RU	KYA	Krasnoyarsk	1502020
+RU	LEN	Leningrad	536199
+RU	LIP	Lipetsk	535120
+RU	MAG	Magadan	2123627
+RU	ME	Mari El	529352
+RU	MO	Mordovia	525369
+RU	MOS	Moscow (Province)	524925
+RU	MOW	Moscow (City)	524894
+RU	MUR	Murmansk	524304
+RU	NEN	Nenetsia	522652
+RU	NGR	Novgorod	519324
+RU	NIZ	Nizhny Novgorod	559838
+RU	NVS	Novosibirsk	1496745
+RU	OMS	Omsk	1496152
+RU	ORE	Orenburg	515001
+RU	ORL	Oryol	514801
+RU	PER	Perm	511180
+RU	PNZ	Penza	511555
+RU	PRI	Primorsky	2017623
+RU	PSK	Pskov	504338
+RU	ROS	Rostov	501165
+RU	RYA	Ryazan	500059
+RU	SA	Sakha	2013162
+RU	SAK	Sakhalin	2121529
+RU	SAM	Samara	499068
+RU	SAR	Saratov	498671
+RU	SE	North Ossetia	519969
+RU	SMO	Smolensk	491684
+RU	SPE	St. Petersburg	536203
+RU	STA	Stavropol	487839
+RU	SVE	Sverdlovsk	1490542
+RU	TA	Tatarstan	484048
+RU	TAM	Tambov	484638
+RU	TOM	Tomsk	1489421
+RU	TUL	Tula	480508
+RU	TVE	Tver	480041
+RU	TY	Tuva	1488873
+RU	TYU	Tyumen	1488747
+RU	UD	Udmurtia	479613
+RU	ULY	Ulynovsk	479119
+RU	VGG	Volgograd	472755
+RU	VLA	Vladimir	826294
+RU	VLG	Vologda	472454
+RU	VOR	Voronezh	472039
+RU	YAN	Yamalia	1486462
+RU	YAR	Yaroslavl	468898
+RU	YEV	Jewish Oblast	2026639
+RU	ZAB	Zabaykal'skiy kray	7779061
+RW	01	Kigali	6413338
+RW	02	Est	6413337
+RW	03	Nord	6413339
+RW	04	Ouest	6413340
+RW	05	Sud	6413341
+SA	01	Ar Riyad	108411
+SA	02	Makkah	104514
+SA	03	Al Madinah	109224
+SA	04	Ash Sharqiyah (Eastern Province)	108241
+SA	05	Al Qasim	108933
+SA	06	Ha'il	106280
+SA	07	Tabuk	101627
+SA	08	Al Hudud ash Shamaliyah	109579
+SA	09	Jizan	105298
+SA	10	Najran	103628
+SA	11	Al Bahah	109954
+SA	12	Al Jawf	109470
+SA	14	'Asir	108179
+SB	CE	Central	2109495
+SB	CH	Choiseul	7280292
+SB	CT	Capital Territory	
+SB	GU	Guadalcanal	2108831
+SB	IS	Isabel	2108262
+SB	MK	Makira	2178730
+SB	ML	Malaita	2106552
+SB	RB	Rennell and Bellona	7280293
+SB	TE	Temotu	2178472
+SB	WE	Western	2101556
+SC	01	Anse aux Pins	241450
+SC	02	Anse Boileau	241449
+SC	03	Anse Etoile	241447
+SC	04	Anse Louis	448410
+SC	05	Anse Royale	241444
+SC	06	Baie Lazare	241439
+SC	07	Baie Sainte Anne	241438
+SC	08	Beau Vallon	241428
+SC	09	Bel Air	241426
+SC	10	Bel Ombre	241424
+SC	11	Cascade	241396
+SC	12	Glacis	241336
+SC	13	Grand' Anse (on Mahe)	241330
+SC	14	Grand' Anse (on Praslin)	241331
+SC	15	La Digue	241311
+SC	16	La Riviere Anglaise	241302
+SC	17	Mont Buxton	241252
+SC	18	Mont Fleuri	241251
+SC	19	Plaisance	241224
+SC	20	Pointe La Rue	241221
+SC	21	Port Glaud	241215
+SC	22	Saint Louis	241181
+SC	23	Takamaka	241151
+SC	24	Les Mamelles	448408
+SC	25	Roche Caiman	448409
+SD	DC	Wasat Darfur	8394436
+SD	DE	Sharq Darfur	8394435
+SD	DN	Shamal Darfur	408666
+SD	DS	Janub Darfur	408660
+SD	DW	Gharb Darfur	408658
+SD	GD	Al Qadarif	408649
+SD	GZ	Al Jazirah	408648
+SD	KA	Kassala	408663
+SD	KH	Al Khartum	379253
+SD	KN	Shamal Kurdufan	408667
+SD	KS	Janub Kurdufan	408661
+SD	NB	An Nil al Azraq	408654
+SD	NO	Ash Shamaliyah	378389
+SD	NR	An Nil	408664
+SD	NW	An Nil al Abyad	408653
+SD	RS	Al Bahr al Ahmar	408646
+SD	SI	Sinnar	408669
+SE	AB	Stockholms	2673722
+SE	AC	Vasterbottens	2664415
+SE	BD	Norrbottens	604010
+SE	C	Uppsala	2666218
+SE	D	Sodermanlands	2676207
+SE	E	Ostergotlands	2685867
+SE	F	Jonkopings	2702976
+SE	G	Kronobergs	2699050
+SE	H	Kalmar	2702259
+SE	I	Gotlands	2711508
+SE	K	Blekinge	2721357
+SE	M	Skane	3337385
+SE	N	Hallands	2708794
+SE	O	Vastra Gotaland	3337386
+SE	S	Varmlands	2664870
+SE	T	Orebro	2686655
+SE	U	Vastmanlands	2664179
+SE	W	Dalarna	2699767
+SE	X	Gavleborgs	2712411
+SE	Y	Vasternorrlands	2664292
+SE	Z	Jamtlands	2703330
+SG	01	Central Singapore	7535954
+SG	02	North East	7535955
+SG	03	North West	7535958
+SG	04	South East	7535956
+SG	05	South West	7535957
+SH	AC	Ascension	2411430
+SH	HL	Saint Helena	6930057
+SH	TA	Tristan da Cunha	3370684
+SI	001	Ajdovscina	3204853
+SI	002	Beltinci	3239282
+SI	003	Bled	3239103
+SI	004	Bohinj	3239101
+SI	005	Borovnica	3239073
+SI	006	Bovec	3239100
+SI	007	Brda	3239083
+SI	008	Brezovica	3239071
+SI	009	Brezice	3203411
+SI	010	Tisina	3344937
+SI	011	Celje	3202780
+SI	012	Cerklje na Gorenjskem	3239110
+SI	013	Cerknica	3202707
+SI	014	Cerkno	3239091
+SI	015	Crensovci	3239286
+SI	016	Crna na Koroskem	3239181
+SI	017	Crnomelj	3202332
+SI	018	Destrnik	3344926
+SI	019	Divaca	3239051
+SI	020	Dobrepolje	3239193
+SI	021	Dobrova-Polhov Gradec	3239096
+SI	022	Dol pri Ljubljani	3239115
+SI	023	Domzale	3201729
+SI	024	Dornava	3239248
+SI	025	Dravograd	3201252
+SI	026	Duplek	3239216
+SI	027	Gorenja Vas-Poljane	3239095
+SI	028	Gorisnica	3239245
+SI	029	Gornja Radgona	3200196
+SI	030	Gornji Grad	3239133
+SI	031	Gornji Petrovci	3239275
+SI	032	Grosuplje	3199522
+SI	033	Salovci	3344943
+SI	034	Hrastnik	3199296
+SI	035	Hrpelje-Kozina	3239050
+SI	036	Idrija	3199169
+SI	037	Ig	3239069
+SI	038	Ilirska Bistrica	3199130
+SI	039	Ivancna Gorica	3239191
+SI	040	Izola/Isola	3199016
+SI	041	Jesenice	3198646
+SI	042	Jursinci	3239251
+SI	043	Kamnik	3198364
+SI	044	Kanal	3239086
+SI	045	Kidricevo	3239227
+SI	046	Kobarid	3239098
+SI	047	Kobilje	3239280
+SI	048	Kocevje	3197942
+SI	049	Komen	3239078
+SI	050	Koper/Capodistria	3197752
+SI	051	Kozje	3239243
+SI	052	Kranj	3197377
+SI	053	Kranjska Gora	3239105
+SI	054	Krsko	3197146
+SI	055	Kungota	3239213
+SI	056	Kuzma	3239272
+SI	057	Lasko	3196759
+SI	058	Lenart	3196684
+SI	059	Lendava/Lendva	3344935
+SI	060	Litija	3196424
+SI	061	Ljubljana	3239318
+SI	062	Ljubno	3239184
+SI	063	Ljutomer	3196306
+SI	064	Logatec	3196288
+SI	065	Loska Dolina	3239056
+SI	066	Loski Potok	3239059
+SI	067	Luce	3239134
+SI	068	Lukovica	3239188
+SI	069	Majsperk	3239229
+SI	070	Maribor	3195505
+SI	071	Medvode	3239113
+SI	072	Menges	3239114
+SI	073	Metlika	3195213
+SI	074	Mezica	3239177
+SI	075	Miren-Kostanjevica	3239080
+SI	076	Mislinja	3239207
+SI	077	Moravce	3239132
+SI	078	Moravske Toplice	3239279
+SI	079	Mozirje	3194791
+SI	080	Murska Sobota	3194647
+SI	081	Muta	3239179
+SI	082	Naklo	3239104
+SI	083	Nazarje	3239294
+SI	084	Nova Gorica	3194451
+SI	085	Novo Mesto	3194350
+SI	086	Odranci	3239285
+SI	087	Ormoz	3193964
+SI	088	Osilnica	3239061
+SI	089	Pesnica	3239215
+SI	090	Piran/Pirano	3193340
+SI	091	Pivka	3239054
+SI	092	Podcetrtek	3239241
+SI	093	Podvelka	3344916
+SI	094	Postojna	3192672
+SI	095	Preddvor	3239107
+SI	096	Ptuj	3192240
+SI	097	Puconci	3239268
+SI	098	Race-Fram	3239224
+SI	099	Radece	3239189
+SI	100	Radenci	3239262
+SI	101	Radlje ob Dravi	3192120
+SI	102	Radovljica	3192062
+SI	103	Ravne na Koroskem	3239175
+SI	104	Ribnica	3191679
+SI	105	Rogasovci	3239270
+SI	106	Rogaska Slatina	3239234
+SI	107	Rogatec	3239237
+SI	108	Ruse	3239211
+SI	109	Semic	3239195
+SI	110	Sevnica	3190949
+SI	111	Sezana	3190944
+SI	112	Slovenj Gradec	3190535
+SI	113	Slovenska Bistrica	3190533
+SI	114	Slovenske Konjice	3190529
+SI	116	Sveti Jurij	3239259
+SI	117	Sencur	3239111
+SI	118	Sentilj	3239214
+SI	119	Sentjernej	3239197
+SI	120	Sentjur	3191028
+SI	121	Skocjan	3239199
+SI	122	Skofja Loka	3190716
+SI	123	Skofljica	3239066
+SI	124	Smarje pri Jelsah	3190509
+SI	125	Smartno ob Paki	3239187
+SI	126	Sostanj	3239185
+SI	127	Store	3239200
+SI	128	Tolmin	3189037
+SI	129	Trbovlje	3188914
+SI	130	Trebnje	3188885
+SI	131	Trzic	3188687
+SI	132	Turnisce	3239283
+SI	133	Velenje	3189074
+SI	134	Velike Lasce	3239062
+SI	135	Videm	3239231
+SI	136	Vipava	3239075
+SI	137	Vitanje	3239204
+SI	138	Vodice	3239112
+SI	139	Vojnik	3239202
+SI	140	Vrhnika	3187213
+SI	141	Vuzenica	3239180
+SI	142	Zagorje ob Savi	3186905
+SI	143	Zavrc	3239247
+SI	144	Zrece	3239205
+SI	146	Zelezniki	3239093
+SI	147	Ziri	3239087
+SI	148	Benedikt	3344930
+SI	149	Bistrica ob Sotli	3344912
+SI	150	Bloke	3344899
+SI	151	Braslovce	3344905
+SI	152	Cankova	3344938
+SI	153	Cerkvenjak	3344929
+SI	154	Dobje	3344913
+SI	155	Dobrna	3344914
+SI	156	Dobrovnik-Dobronak	3344936
+SI	157	Dolenjske Toplice	3344910
+SI	158	Grad	3344939
+SI	159	Hajdina	3344922
+SI	160	Hoce-Slivnica	3344920
+SI	161	Hodos/Hodos	3344940
+SI	162	Horjul	3344897
+SI	163	Jezersko	3344894
+SI	164	Komenda	3344896
+SI	165	Kostel	3344908
+SI	166	Krizevci	3344932
+SI	167	Lovrenc na Pohorju	3344918
+SI	168	Markovci	3344925
+SI	169	Miklavz na Dravskem polju	3344921
+SI	170	Mirna Pec	3344911
+SI	171	Oplotnica	3344915
+SI	172	Podlehnik	3344924
+SI	173	Polzela	3344906
+SI	174	Prebold	3344907
+SI	175	Prevalje	3344902
+SI	176	Razkrizje	3344941
+SI	177	Ribnica na Pohorju	3344917
+SI	178	Selnica ob Dravi	3344919
+SI	179	Sodrazica	3344900
+SI	180	Solcava	3344895
+SI	181	Sveta Ana	3344931
+SI	182	Sveti Andraz v Slovenskih goricah	3344928
+SI	183	Sempeter-Vrtojba	3344898
+SI	184	Tabor	3344904
+SI	185	Trnovska vas	3344927
+SI	186	Trzin	3344901
+SI	187	Velika Polana	3344934
+SI	188	Verzej	3344933
+SI	189	Vransko	3344903
+SI	190	Zalec	3186843
+SI	191	Zetale	3344923
+SI	192	Zirovnica	3344893
+SI	193	Zuzemberk	3344909
+SI	194	Smartno pri Litiji	3344942
+SI	195	Apace	8133579
+SI	196	Cirkulane	8133580
+SI	197	Kosanjevica na Krki	8133581
+SI	198	Makole	8133583
+SI	199	Mokronog-Trebelno	8133584
+SI	200	Poljcane	8133585
+SI	201	Rence-Vogrsko	8133587
+SI	202	Sredisce ob Dravi	8133588
+SI	203	Straza	8133589
+SI	204	Sveta Trojica v Slovenskih Goricah	8133590
+SI	205	Sveti Tomaz	8133591
+SI	206	Smarjeske Toplice	8133593
+SI	208	Log-Dragomer	8133582
+SI	209	Recica ob Savinji	8133586
+SI	210	Sveti Jurij v Slovenskih Goricah	8469236
+SI	211	Sentrupert	8133592
+SI	215	Starse	3239226
+SJ	21	Svalbard	7521757
+SJ	22	Jan Mayen	3041964
+SK	BC	Banskobystricky	3343954
+SK	BL	Bratislavsky	3343955
+SK	KI	Kosicky	865084
+SK	NI	Nitriansky	3343956
+SK	PV	Presovsky	865085
+SK	TA	Trnavsky	3343958
+SK	TC	Trenciansky	3343957
+SK	ZI	Zilinsky	3056506
+SL	E	Eastern	2409543
+SL	N	Northern	2404798
+SL	S	Southern	2403745
+SL	W	Western	2403068
+SM	01	Acquaviva	3345303
+SM	02	Chiesanuova	3178807
+SM	03	Domagnano	3345305
+SM	04	Faetano	3345306
+SM	05	Fiorentino	3345307
+SM	06	Borgo Maggiore	3345304
+SM	07	Citta di San Marino	3345302
+SM	08	Montegiardino	3345308
+SM	09	Serravalle	3166650
+SN	DB	Diourbel	2252308
+SN	DK	Dakar	2253350
+SN	FK	Fatick	2251910
+SN	KA	Kaffrine	7303935
+SN	KD	Kolda	2249781
+SN	KE	Kedougou	7303936
+SN	KL	Kaolack	2250804
+SN	LG	Louga	2249221
+SN	MT	Matam	2248753
+SN	SE	Sedhiou	7303937
+SN	SL	Saint-Louis	2246451
+SN	TC	Tambacounda	2244990
+SN	TH	Thies 	2244800
+SN	ZG	Ziguinchor	2243939
+SO	AW	Awdal	6268943
+SO	BK	Bakool	64982
+SO	BN	Banaadir	64833
+SO	BR	Bari	64661
+SO	BY	Bay	64538
+SO	GA	Galguduud	59362
+SO	GE	Gedo	58802
+SO	HI	Hiiraan	57060
+SO	JD	Jubbada Dhexe	56084
+SO	JH	Jubbada Hoose	56083
+SO	MU	Mudug	53707
+SO	NU	Nugaal	53477
+SO	SA	Sanaag	52187
+SO	SD	Shabeellaha Dhexe	51967
+SO	SH	Shabeellaha Hoose	51966
+SO	SO	Sool	6268947
+SO	TO	Togdheer	51230
+SO	WO	Woqooyi Galbeed	50360
+SR	BR	Brokopondo	3384481
+SR	CM	Commewijne	3384418
+SR	CR	Coronie	3384397
+SR	MA	Marowijne	3383560
+SR	NI	Nickerie	3383438
+SR	PM	Paramaribo	3383329
+SR	PR	Para	3383337
+SR	SA	Saramacca	3383110
+SR	SI	Sipaliwini	3383062
+SR	WA	Wanica	3382761
+SS	BN	Northern Bahr el Ghazal	408665
+SS	BW	Western Bahr el Ghazal	408657
+SS	EC	Central Equatoria 	408655
+SS	EE	Eastern Equatoria	408668
+SS	EW	Western Equatoria	408656
+SS	JG	Jonglei	408662
+SS	LK	Lakes	408647
+SS	NU	Upper Nile	381229
+SS	UY	Unity	408650
+SS	WR	Warrap	408670
+ST	P	Principe	2410878
+ST	S	Sao Tome	2410764
+SV	AH	Ahuachapan	3587425
+SV	CA	Cabanas	3587217
+SV	CH	Chalatenango	3587090
+SV	CU	Cuscatlan	3586831
+SV	LI	La Libertad	3585155
+SV	MO	Morazan	3584317
+SV	PA	La Paz	3585087
+SV	SA	Santa Ana	3583332
+SV	SM	San Miguel	3583462
+SV	SO	Sonsonate	3583101
+SV	SS	San Salvador	3583360
+SV	SV	San Vicente	3583176
+SV	UN	La Union	3584767
+SV	US	Usulutan	3582882
+SY	DI	Dimashq	167541
+SY	DR	Dara	170903
+SY	DY	Dayr az Zawr	170792
+SY	HA	Al Hasakah	173813
+SY	HI	Hims	169575
+SY	HL	Halab	170062
+SY	HM	Hamah	170015
+SY	ID	Idlib	169387
+SY	LA	Al Ladhiqiyah	173578
+SY	QU	Al Qunaytirah	173336
+SY	RA	Ar Raqqah	172957
+SY	RD	Rif Dimashq	170652
+SY	SU	As Suwayda	172410
+SY	TA	Tartus	163342
+SZ	HH	Hhohho	935085
+SZ	LU	Lubombo	935042
+SZ	MA	Manzini	934994
+SZ	SH	Shishelweni	934867
+TC	AC	Ambergris Cays	
+TC	DC	Dellis Cay	
+TC	EC	East Caicos	
+TC	FC	French Cay	
+TC	GT	Grand Turk	
+TC	LW	Little Water Cay	
+TC	MC	Middle Caicos	
+TC	NC	North Caicos	
+TC	PN	Pine Cay	
+TC	PR	Providenciales	
+TC	RC	Parrot Cay	
+TC	SC	South Caicos	
+TC	SL	Salt Cay	
+TC	WC	West Caicos	
+TD	BA	Batha	2435899
+TD	BG	Barh el Ghazel	7603255
+TD	BO	Borkou	7602866
+TD	CB	Chari-Baguirmi	2434478
+TD	CD	Ennedi Quest	
+TD	GR	Guera	2431555
+TD	HL	Hadjer-Lamis	7603251
+TD	KA	Kanem	2430873
+TD	LC	Lac	2429323
+TD	LO	Logone Occidental	2429060
+TD	LR	Logone Oriental	2429058
+TD	MA	Mandoul	7603252
+TD	MC	Moyen-Chari	2427315
+TD	ME	Mayo-Kebbi Est	2428132
+TD	MO	Mayo-Kebbi Ouest	7603253
+TD	ND	Ville de N'Djamena	7603254
+TD	OD	Ouaddai	242246
+TD	SA	Salamat	242048
+TD	SI	Sila	7603257
+TD	TA	Tandjile	2425287
+TD	TI	Tibesti	7603258
+TD	WF	Wadi Fira	244877
+TD	EN	Ennedi	7603256
+TF	 	Iles Eparses	6690916
+TG	C	Centrale	2367237
+TG	K	Kara	2597439
+TG	M	Maritime	2365173
+TG	P	Plateaux	2364370
+TG	S	Savanes	2364205
+TH	10	Bangkok	1609348
+TH	11	Samut Prakan	1606589
+TH	12	Nonthaburi	1608132
+TH	13	Pathum Thani	1607982
+TH	14	Phra Nakhon Si Ayutthaya	1607530
+TH	15	Ang Thong	1621034
+TH	16	Lop Buri	1609031
+TH	17	Sing Buri	1606269
+TH	18	Chai Nat	1611415
+TH	19	Saraburi	1606417
+TH	20	Chon Buri	1611108
+TH	21	Rayong	1607016
+TH	22	Chanthaburi	1611268
+TH	23	Trat	1605277
+TH	24	Chachoengsao	1611438
+TH	25	Prachin Buri	1906687
+TH	26	Nakhon Nayok	1608538
+TH	27	Sa Kaeo	1906691
+TH	30	Nakhon Ratchasima	1608528
+TH	31	Buri Ram	1611452
+TH	32	Surin	1606029
+TH	33	Si Sa Ket	1606238
+TH	34	Ubon Ratchathani	1906688
+TH	35	Yasothon	1604767
+TH	36	Chaiyaphum	1611406
+TH	37	Amnat Charoen	1906689
+TH	39	Nong Bua Lam Phu	1906690
+TH	40	Khon Kaen	1609775
+TH	41	Udon Thani	1906686
+TH	42	Loei	1609070
+TH	43	Nong Khai	1608231
+TH	44	Maha Sarakham	1608899
+TH	45	Roi Et	1607000
+TH	46	Kalasin	1610468
+TH	47	Sakon Nakhon	1606789
+TH	48	Nakhon Phanom	1608530
+TH	49	Mukdahan	1608595
+TH	50	Chiang Mai	1153670
+TH	51	Lamphun	1152467
+TH	52	Lampang	1152472
+TH	53	Uttaradit	1605214
+TH	54	Phrae	1607551
+TH	55	Nan	1608451
+TH	56	Phayao	1607758
+TH	57	Chiang Rai	1153668
+TH	58	Mae Hong Son	1152221
+TH	60	Nakhon Sawan	1608526
+TH	61	Uthai Thani	1149965
+TH	62	Kamphaeng Phet	1153089
+TH	63	Tak	1150489
+TH	64	Sukhothai	1150532
+TH	65	Phitsanulok	1607707
+TH	66	Phichit	1607724
+TH	67	Phetchabun	1607736
+TH	70	Ratchaburi	1150953
+TH	71	Kanchanaburi	1153080
+TH	72	Suphanburi	1606032
+TH	73	Nakhon Pathom	1608533
+TH	74	Samut Sakhon	1606587
+TH	75	Samut Songkhram	1606585
+TH	76	Phetchaburi	1151416
+TH	77	Prachuap Khiri Khan	1151073
+TH	80	Nakhon Si Thammarat	1608525
+TH	81	Krabi	1152631
+TH	82	Phang Nga	1151462
+TH	83	Phuket	1151253
+TH	84	Surat Thani	1150514
+TH	85	Ranong	1150964
+TH	86	Chumpon	1153555
+TH	90	Songkhla	1606146
+TH	91	Satun	1606375
+TH	92	Trang	1150006
+TH	93	Phattalung	1607778
+TH	94	Pattani	1607976
+TH	95	Yala	1604869
+TH	96	Narathiwat	1608408
+TH	S	Pattaya	
+TJ	GB	Gorno-Badakhstan	1221692
+TJ	KT	Khatlon	1347488
+TJ	SU	Sughd	1221092
+TK	A	Atafu	4031116
+TK	F	Fakaofo	4031112
+TK	N	Nukunonu	4031091
+TL	AL	Aileu	1651815
+TL	AN	Ainaro	1651809
+TL	BA	Baucau	1649538
+TL	BO	Bobonaro	1648513
+TL	CO	Cova Lima	1639462
+TL	DI	Dili	1645456
+TL	ER	Ermera	1644865
+TL	LA	Lautem	1638294
+TL	LI	Liquica	1637729
+TL	MF	Manufahi	1636309
+TL	MT	Manatuto	1636525
+TL	OE	Oecussi	1651539
+TL	VI	Viqueque	1622470
+TM	A	Ahal Welayaty	162181
+TM	B	Balkan Welayaty 	162152
+TM	D	Dashhowuz Welayaty	601465
+TM	L	Lebap Welayaty	1219651
+TM	M	Mary Welayaty	1218666
+TM	S	Asgabat	
+TN	11	Tunis	2464464
+TN	12	L'Ariana	2473245
+TN	13	Ben Arous	2472477
+TN	14	La Manouba	6201192
+TN	21	Nabeul	2468576
+TN	22	Zaghouan	2464038
+TN	23	Bizerte	2472699
+TN	31	Beja	2472770
+TN	32	Jendouba	2470085
+TN	33	Le Kef	2473637
+TN	34	Siliana	2465027
+TN	41	Kairouan	2473451
+TN	42	Kasserine	2473460
+TN	43	Sidi Bouzid	2465837
+TN	51	Sousse	2464912
+TN	52	Monastir	2473495
+TN	53	Mahdia	2473574
+TN	61	Sfax	2467450
+TN	71	Gafsa	2468351
+TN	72	Tozeur	2464645
+TN	73	Kebili	2468014
+TN	81	Gabes	2468365
+TN	82	Medenine	2469470
+TN	83	Tataouine	2464698
+TO	01	Eua	7668021
+TO	02	Ha'apai	4032637
+TO	03	Niuas	7668055
+TO	04	Tongatapu	4032279
+TO	05	Vava'u	4032231
+TR	01	Adana	325361
+TR	02	Adiyaman	325329
+TR	03	Afyonkarahisar	325302
+TR	04	Agri	325163
+TR	05	Amasya	752014
+TR	06	Ankara	323784
+TR	07	Antalya	323776
+TR	08	Artvin	751816
+TR	09	Aydin	322819
+TR	10	Balikesir	322164
+TR	11	Bilecik	321122
+TR	12	Bingol	321079
+TR	13	Bitlis	321022
+TR	14	Bolu	750510
+TR	15	Burdur	320390
+TR	16	Bursa	750268
+TR	17	Canakkale	749778
+TR	18	Cankiri	749747
+TR	19	Corum	748877
+TR	20	Denizli	317106
+TR	21	Diyarbakir	316540
+TR	22	Edirne	747711
+TR	23	Elazig	315807
+TR	24	Erzincan	315372
+TR	25	Erzurum	315367
+TR	26	Eskisehir	315201
+TR	27	Gaziantep	314829
+TR	28	Giresun	746878
+TR	29	Gumushane	746423
+TR	30	Hakkari	312888
+TR	31	Hatay	312394
+TR	32	Isparta	311071
+TR	33	Mersin	311728
+TR	34	Istanbul	745042
+TR	35	Izmir	311044
+TR	36	Kars	743942
+TR	37	Kastamonu	743881
+TR	38	Kayseri	308463
+TR	39	Kirklareli	743165
+TR	40	Kirsehir	307513
+TR	41	Kocaeli	742865
+TR	42	Konya	306569
+TR	43	Kutahya	305267
+TR	44	Malatya	304919
+TR	45	Manisa	304825
+TR	46	Kahramanmaras	310858
+TR	47	Mardin	304794
+TR	48	Mugla	304183
+TR	49	Mus	304041
+TR	50	Nevsehir	303830
+TR	51	Nigde	303826
+TR	52	Ordu	741098
+TR	53	Rize	740481
+TR	54	Sakarya	740352
+TR	55	Samsun	740263
+TR	56	Siirt	300821
+TR	57	Sinop	739598
+TR	58	Sivas	300617
+TR	59	Tekirdag	738926
+TR	60	Tokat	738742
+TR	61	Trabzon	738647
+TR	62	Tunceli	298845
+TR	63	Sanliurfa	298332
+TR	64	Usak	298298
+TR	65	Van	298113
+TR	66	Yozgat	296560
+TR	67	Zonguldak	737021
+TR	68	Aksaray	443185
+TR	69	Bayburt	862471
+TR	70	Karaman	443187
+TR	71	Kirikkale	443188
+TR	72	Batman	443186
+TR	73	Sirnak	443189
+TR	74	Bartin	862467
+TR	75	Ardahan	862470
+TR	76	Igdir	443184
+TR	77	Yalova	862469
+TR	78	Karabuk	862468
+TR	79	Kilis	443213
+TR	80	Osmaniye	443183
+TR	81	Duzce	865521
+TT	ARI	Arima	3575052
+TT	CHA	Chaguanas	7521937
+TT	CTT	Couva/Tabaquite/Talparo	7521938
+TT	DMN	Diego Martin	7521939
+TT	ETO	Eastern Tobago	7521940
+TT	PED	Penal/Debe	7521941
+TT	POS	Port of Spain	3573891
+TT	PRT	Princes Town	7521942
+TT	PTF	Point Fortin	7521943
+TT	RCM	Mayaro/Rio Claro	3574155
+TT	SFO	San Fernando	3573739
+TT	SGE	Sangre Grande	7521944
+TT	SIP	Siparia	7521945
+TT	SJL	San Juan/Laventille	7521946
+TT	TUP	Tunapuna/Piarco	7521947
+TT	WTO	Tobago	3573606
+TV	FUN	Funafuti	2110384
+TV	NIT	Niutao	7601979
+TV	NKF	Nukufetau	7601982
+TV	NKL	Nukulaelae	7601983
+TV	NMA	Nanumea	2110345
+TV	NMG	Nanumanga	7601980
+TV	NUI	Nui	2110341
+TV	VAI	Vaitupu	7601981
+TZ	01	Arusha	161322
+TZ	02	Dar es Salaam	160260
+TZ	03	Dodoma	160192
+TZ	04	Iringa	159067
+TZ	05	Kagera	148679
+TZ	06	Pemba North	150733
+TZ	07	Zanzibar North	148725
+TZ	08	Kigoma	157732
+TZ	09	Kilimanjaro	157449
+TZ	10	Pemba South	150732
+TZ	11	Zanzibar Central/South	148728
+TZ	12	Lindi	155946
+TZ	13	Mara	154775
+TZ	14	Mbeya	154375
+TZ	15	Zanzibar Urban/West	148724
+TZ	16	Morogoro	153214
+TZ	17	Mtwara	877744
+TZ	18	Mwanza	152219
+TZ	19	Pwani	150602
+TZ	20	Rukwa	150442
+TZ	21	Ruvuma	877416
+TZ	22	Shinyanga	150004
+TZ	23	Singida	149876
+TZ	24	Tabora	149653
+TZ	25	Tanga	149595
+TZ	26	Manyara	435764
+UA	05	Vinnytsya	689559
+UA	07	Volyn'	689064
+UA	09	Luhans'k	702657
+UA	12	Dnipropetrovs'k	709929
+UA	14	Donets'k	709716
+UA	18	Zhytomyr	686966
+UA	21	Zakarpattya	687869
+UA	23	Zaporizhzhya	687699
+UA	26	Ivano-Frankivs'k	707470
+UA	30	Kyyiv	703447
+UA	32	Kiev	703446
+UA	35	Kirovohrad	705811
+UA	40	Sevastopol	694422
+UA	43	Crimea	703883
+UA	46	L'viv	702549
+UA	48	Mykolayiv	700567
+UA	51	Odesa	698738
+UA	53	Poltava	696634
+UA	56	Rivne	695592
+UA	59	Sumy	692196
+UA	61	Ternopil'	691649
+UA	63	Kharkiv	706482
+UA	65	Kherson	706442
+UA	68	Khmel'nyts'kyy	706370
+UA	71	Cherkasy	710802
+UA	74	Chernihiv	710734
+UA	77	Chernivtsi	710720
+UG	C	Central	234594
+UG	E	Eastern	8260673
+UG	N	Northern	8260674
+UG	W	Western	8260675
+UM	67	Johnston Atoll	5854929
+UM	71	Midway Atoll	5854943
+UM	76	Navassa Island	4743755
+UM	79	Wake Island	4041685
+UM	81	Baker Island	5854907
+UM	84	Howland Island	5854922
+UM	86	Jarvis Island	5854926
+UM	89	Kingman Reef	5854936
+UM	95	Palmyra Atoll	5854952
+US	AK	Alaska	5879092
+US	AL	Alabama	4829764
+US	AR	Arkansas	4099753
+US	AS	American Samoa	
+US	AZ	Arizona	5551752
+US	CA	California	5332921
+US	CO	Colorado	5417618
+US	CT	Connecticut	4831725
+US	DC	District of Columbia	4138106
+US	DE	Delaware	4142224
+US	FL	Florida	4155751
+US	GA	Georgia	4197000
+US	GU	Guam	
+US	HI	Hawaii	5855797
+US	IA	Iowa	4862182
+US	ID	Idaho	5596512
+US	IL	Illinois	4896861
+US	IN	Indiana	4921868
+US	KS	Kansas	4273857
+US	KY	Kentucky	6254925
+US	LA	Louisiana	4331987
+US	MA	Massachusetts	6254926
+US	MD	Maryland	4361885
+US	ME	Maine	4971068
+US	MI	Michigan	5001836
+US	MN	Minnesota	5037779
+US	MO	Missouri	4398678
+US	MP	Northern Mariana Islands	
+US	MS	Mississippi	4436296
+US	MT	Montana	5667009
+US	NC	North Carolina	4482348
+US	ND	North Dakota	5690763
+US	NE	Nebraska	5073708
+US	NH	New Hampshire	5090174
+US	NJ	New Jersey	5101760
+US	NM	New Mexico	5481136
+US	NV	Nevada	5509151
+US	NY	New York	5128638
+US	OH	Ohio	5165418
+US	OK	Oklahoma	4544379
+US	OR	Oregon	5744337
+US	PA	Pennsylvania	6254927
+US	PR	Puerto Rico	
+US	RI	Rhode Island	5224323
+US	SC	South Carolina	4597040
+US	SD	South Dakota	5769223
+US	TN	Tennessee	4662168
+US	TX	Texas	4736286
+US	UM	U.S. Minor Outlying Islands	
+US	UT	Utah	5549030
+US	VA	Virginia	6254928
+US	VI	Virgin Islands of the U.S.	
+US	VT	Vermont	5242283
+US	WA	Washington	5815135
+US	WI	Wisconsin	5279468
+US	WV	West Virginia	4826850
+US	WY	Wyoming	5843591
+UY	AR	Artigas	3443756
+UY	CA	Canelones	3443411
+UY	CL	Cerro Largo	3443173
+UY	CO	Colonia	3443025
+UY	DU	Durazno	3442720
+UY	FD	Florida	3442584
+UY	FS	Flores	3442587
+UY	LA	Lavalleja	3442007
+UY	MA	Maldonado	3441890
+UY	MO	Montevideo	3441572
+UY	PA	Paysandu	3441242
+UY	RN	Rio Negro	3440789
+UY	RO	Rocha	3440771
+UY	RV	Rivera	3440780
+UY	SA	Salto	3440711
+UY	SJ	San Jose	3440645
+UY	SO	Soriano	3440054
+UY	TA	Tacuarembo	3440033
+UY	TT	Treinta y Tres	3439780
+UZ	AN	Andijon	1484846
+UZ	BU	Buxoro	1114929
+UZ	FA	Farg'ona	1484845
+UZ	JI	Jizzax	1484844
+UZ	NG	Namangan	1484842
+UZ	NW	Navoiy	1484841
+UZ	QA	Qashqadaryo	1114928
+UZ	QR	Qoraqalpog'iston Republikasi	453752
+UZ	SA	Samarqand	1114927
+UZ	SI	Sirdaryo	1484840
+UZ	SU	Surxondaryo	1114926
+UZ	TK	Toshkent city	1484839
+UZ	TO	Toshkent region	1484838
+UZ	XO	Xorazm	1484843
+VC	01	Charlotte	3577934
+VC	02	Saint Andrew	3577822
+VC	03	Saint David	3577821
+VC	04	Saint George 	3577819
+VC	05	Saint Patrick	3577818
+VC	06	Grenadines	3577892
+VE	A	Federal Capital	3640847
+VE	B	Anzoategui	3649198
+VE	C	Apure	3649151
+VE	D	Aragua	3649110
+VE	E	Barinas	3648544
+VE	F	Bolivar	3648106
+VE	G	Carabobo	3646751
+VE	H	Cojedes	3645386
+VE	I	Falcon	3640873
+VE	J	Guarico	3640017
+VE	K	Lara	3636539
+VE	L	Merida	3632306
+VE	M	Miranda	3632191
+VE	N	Monagas	3632100
+VE	O	Nueva Esparta	3631462
+VE	P	Portuguesa	3629941
+VE	R	Sucre	3626655
+VE	S	Tachira	3626553
+VE	T	Trujillo	3625974
+VE	U	Yaracuy	3625210
+VE	V	Zulia	3625035
+VE	W	Federal Dependency	3640846
+VE	X	Vargas	3830309
+VE	Y	Delta Amacuro	3644541
+VE	Z	Amazonas	3649302
+VI	C	Saint Croix	7267902
+VI	J	Saint John	7267903
+VI	T	Saint Thomas	7267904
+VN	01	Lai Chau	1577954
+VN	02	Lao Cai	1562412
+VN	03	Ha Giang	1581030
+VN	04	Cao Bang	1586182
+VN	05	Son La	1567643
+VN	06	Yen Bai	1559978
+VN	07	Tuyen Quang	1559976
+VN	09	Lang Son	1576632
+VN	13	Quang Ninh	1568758
+VN	14	Hoa Binh	1572594
+VN	18	Ninh Binh	1559970
+VN	20	Thai Binh	1566338
+VN	21	Thanh Hoa	1566165
+VN	22	Nghe An	1559969
+VN	23	Ha Tinh	1580700
+VN	24	Quang Binh	1568839
+VN	25	Quang Tri	1568733
+VN	26	Thua Thien-Hue	1565033
+VN	27	Quang Nam	1905516
+VN	28	Kon Tum	1565088
+VN	29	Quang Ngai	1568769
+VN	30	Gia Lai	1581088
+VN	31	Binh Dinh	1587871
+VN	32	Phu Yen	1569805
+VN	33	Dak Lak	1584169
+VN	34	Khanh Hoa	1579634
+VN	35	Lam Dong	1577882
+VN	36	Ninh Thuan	1559971
+VN	37	Tay Ninh	1566557
+VN	39	Dong Nai	1582720
+VN	40	Binh Thuan	1581882
+VN	41	Long An	1575788
+VN	43	Ba Ria-Vung Tau	1584534
+VN	44	An Giang	1594446
+VN	45	Dong Thap	1582562
+VN	46	Tien Giang	1564676
+VN	47	Kien Giang	1579008
+VN	48	Can Tho	1581188
+VN	49	Vinh Long	1559977
+VN	50	Ben Tre	1587974
+VN	51	Tra Vinh	1559975
+VN	52	Soc Trang	1559972
+VN	53	Bac Can	1905669
+VN	54	Bac Giang	1905419
+VN	55	Bac Lieu	1905675
+VN	56	Bac Ninh	1905412
+VN	57	Binh Duong	1905475
+VN	58	Binh Phuoc	1905480
+VN	59	Ca Mau	1905678
+VN	60	Da Nang	1905468
+VN	61	Hai Duong	1905686
+VN	62	Hai Phong	1581297
+VN	63	Ha Nam	1905637
+VN	64	Ha Noi	1581129
+VN	65	Ho Chi Minh	1580578
+VN	66	Hung Yen	1905699
+VN	67	Nam Dinh	1905626
+VN	68	Phu Tho	1905577
+VN	69	Thai Nguyen	1905497
+VN	70	Vinh Phuc	1905856
+VN	71	Dien Bien	1905099
+VN	72	Dak Nong	1904987
+VN	73	Hau Giang	7506719
+VN	15	Ha Tay	1581019
+VU	MAP	Malampa	2208265
+VU	PAM	Penama	2208266
+VU	SAM	Sanma	2134898
+VU	SEE	Shefa	2208267
+VU	TAE	Tafea	2134739
+VU	TOB	Torba	2137421
+WF	A	Alo	4034884
+WF	S	Sigave	4034776
+WF	W	ʻUvea 	4034759
+WS	AA	A'ana	4035434
+WS	AL	Aiga-i-le-Tai	4035425
+WS	AT	Atua	4035402
+WS	FA	Fa'asaleleaga	4035383
+WS	GE	Gaga'emauga	4035314
+WS	GI	Gagaifomauga	4035313
+WS	PA	Palauli	4035154
+WS	SA	Satupa'itea	4035046
+WS	TU	Tuamasaga	4034977
+WS	VF	Va'a-o-Fonoti	4034943
+WS	VS	Vaisigano	4034910
+YE	AB	Abyan	80425
+YE	AD	Adan	80412
+YE	AM	Amran	6201194
+YE	BA	Al Bayda	79838
+YE	DA	Ad Dali	6201193
+YE	DH	Dhamar	76183
+YE	HD	Hadramawt	75411
+YE	HJ	Hajjah	6201195
+YE	HU	Al Hudaydah	79416
+YE	IB	Ibb	6201196
+YE	JA	Al Jawf	74222
+YE	LA	Lahij	6201197
+YE	MA	Ma'rib	72966
+YE	MR	Al Mahrah	78985
+YE	MW	Al Mahwit	73200
+YE	RA	Raymah	71532
+YE	SA	Amanat Al Asimah	6940571
+YE	SD	Sa'dah	71333
+YE	SH	Shabwah	70935
+YE	SN	San'a	71132
+YE	TA	Ta'izz	70222
+ZA	EC	Eastern Cape	1085593
+ZA	FS	Free State	967573
+ZA	GP	Gauteng	1085594
+ZA	LP	Limpopo	1085597
+ZA	MP	Mpumalanga	1085595
+ZA	NC	Northern Cape	1085596
+ZA	NW	North West	1085598
+ZA	WC	Western Cape	1085599
+ZA	ZN	KwaZulu-Natal	972062
+ZM	01	Western Province	896140
+ZM	02	Central Province	921064
+ZM	03	Eastern Province	917388
+ZM	04	Luapula Province	909845
+ZM	05	Northern Province	900601
+ZM	06	North-Western Province	900594
+ZM	07	Southern Province	896972
+ZM	08	Copperbelt Province	917524
+ZM	09	Lusaka Province	909129
+ZW	BU	Bulawayo (city)	1105843
+ZW	HA	Harare (city)	1105844
+ZW	MA	Manicaland	887358
+ZW	MC	Mashonaland Central	886843
+ZW	ME	Mashonaland East	886842
+ZW	MI	Midlands	886119
+ZW	MN	Matabeleland North	886748
+ZW	MS	Matabeleland South	886747
+ZW	MV	Masvingo	886761
+ZW	MW	Mashonaland West	886841

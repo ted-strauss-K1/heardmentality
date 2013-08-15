@@ -1,0 +1,91 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Shete",
+               "short_name" : "Shete",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Santa Cruz",
+               "short_name" : "Santa Cruz",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Aruba",
+               "short_name" : "AW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Shete, Santa Cruz, Aruba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.51280460,
+                  "lng" : -69.9499550
+               },
+               "southwest" : {
+                  "lat" : 12.51104820,
+                  "lng" : -69.95102750
+               }
+            },
+            "location" : {
+               "lat" : 12.51226830,
+               "lng" : -69.95089380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.51327538029150,
+                  "lng" : -69.94914226970850
+               },
+               "southwest" : {
+                  "lat" : 12.51057741970850,
+                  "lng" : -69.95184023029151
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Aruba",
+               "short_name" : "AW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Aruba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.62337840,
+                  "lng" : -69.86587999999999
+               },
+               "southwest" : {
+                  "lat" : 12.41176560,
+                  "lng" : -70.06602560
+               }
+            },
+            "location" : {
+               "lat" : 12.521110,
+               "lng" : -69.9683380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.62337840,
+                  "lng" : -69.86587999999999
+               },
+               "southwest" : {
+                  "lat" : 12.41176560,
+                  "lng" : -70.06602560
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,33 +1,21 @@
 <?php
 
-// Estonia
-
-function location_province_list_ee() {
-  return array('37' => "Harju County",
-    '39' => "Hiiu County",
-    '44' => "Ida-Viru County",
-    '49' => "J�geva County",
-    '51' => "JArva County",
-    '57' => "LAAne County",
-    '59' => "LAAne-Viru County",
-    '65' => "P�lva County",
-    '67' => "PArnu County",
-    '70' => "Rapla County",
-    '74' => "Saare County",
-    '78' => "Tartu County",
-    '82' => "Valga County",
-    '84' => "Viljandi County",
-    '86' => "V�ru County");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ee() {
-  return array(
-    'minlng' => 21.75065,
-    'minlat' => 57.6099,
-    'maxlng' => 28.1741,
-    'maxlat' => 59.6835,
-  );
+function location_province_list_ee () {
+	return array (
+		"37" => t("Harju County"),
+		"39" => t("Hiiu County"),
+		"44" => t("Ida-Viru County"),
+		"49" => t("Jogeva County"),
+		"51" => t("Jarva County"),
+		"57" => t("Laane County"),
+		"59" => t("Laane-Viru County"),
+		"65" => t("Polva County"),
+		"67" => t("Parnu County"),
+		"70" => t("Rapla County"),
+		"74" => t("Saare County"),
+		"78" => t("Tartu County"),
+		"82" => t("Valga County"),
+		"84" => t("Viljandi County"),
+		"86" => t("Voru County"),
+	);
 }

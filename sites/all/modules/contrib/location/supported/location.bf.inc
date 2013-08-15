@@ -1,63 +1,19 @@
 <?php
 
-// Burkina Faso
-
-function location_province_list_bf() {
-  return array('BAL' => "Bale",
-    'BAM' => "Bam",
-    'BAN' => "Banwa",
-    'BAZ' => "Bazega",
-    'BOR' => "Bougouriba",
-    'BLG' => "Boulgou",
-    'BOK' => "Boulkiemde",
-    'COM' => "Comoe",
-    'GAN' => "Ganzourgou",
-    'GNA' => "Gnagna",
-    'GOU' => "Gourma",
-    'HOU' => "Houet",
-    'IOA' => "Ioba",
-    'KAD' => "Kadiogo",
-    'KEN' => "Kenedougou",
-    'KOD' => "Komondjari",
-    'KOP' => "Kompienga",
-    'KOS' => "Kossi",
-    'KOL' => "Koulpelogo",
-    'KOT' => "Kouritenga",
-    'KOW' => "Kourweogo",
-    'LER' => "Leraba",
-    'LOR' => "Loroum",
-    'MOU' => "Mouhoun",
-    'NAH' => "Nahouri",
-    'NAM' => "Namentenga",
-    'NAY' => "Nayala",
-    'NOU' => "Noumbiel",
-    'OUB' => "Oubritenga",
-    'OUD' => "Oudalan",
-    'PAS' => "Passore",
-    'PON' => "Poni",
-    'SAG' => "Sanguie",
-    'SAM' => "Sanmatenga",
-    'SEN' => "Seno",
-    'SIS' => "Sissili",
-    'SOM' => "Soum",
-    'SOR' => "Sourou",
-    'TAP' => "Tapoa",
-    'TUY' => "Tuy",
-    'YAG' => "Yagha",
-    'YAT' => "Yatenga",
-    'ZIR' => "Ziro",
-    'ZOD' => "Zondoma",
-    'ZOW' => "Zoundweogo");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_bf() {
-  return array(
-    'minlng' => -5.5285,
-    'minlat' => 9.4826,
-    'maxlng' => 2.2205,
-    'maxlat' => 15.1109,
-  );
+function location_province_list_bf () {
+	return array (
+		"01" => t("Boucle du Mouhoun"),
+		"02" => t("Cascades"),
+		"03" => t("Centre"),
+		"04" => t("Centre-Est"),
+		"05" => t("Centre-Nord"),
+		"06" => t("Centre-Ouest"),
+		"07" => t("Centre-Sud"),
+		"08" => t("Est"),
+		"09" => t("Hauts-Bassins"),
+		"10" => t("Nord"),
+		"11" => t("Plateau-Central"),
+		"12" => t("Sahel"),
+		"13" => t("Sud-Ouest"),
+	);
 }

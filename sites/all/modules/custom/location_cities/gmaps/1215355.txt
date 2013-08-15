@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Sultan Hassannudin",
+               "short_name" : "Jl. Sultan Hassannudin",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Binjai",
+               "short_name" : "Binjai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Binjai Kota",
+               "short_name" : "Binjai Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Binjai",
+               "short_name" : "Binjai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "20742",
+               "short_name" : "20742",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Sultan Hassannudin, Binjai Kota, Binjai, North Sumatra 20742, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.60065110,
+                  "lng" : 98.48573720
+               },
+               "southwest" : {
+                  "lat" : 3.60038240,
+                  "lng" : 98.48526740
+               }
+            },
+            "location" : {
+               "lat" : 3.60051680,
+               "lng" : 98.48550229999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.601865730291502,
+                  "lng" : 98.48685128029150
+               },
+               "southwest" : {
+                  "lat" : 3.599167769708498,
+                  "lng" : 98.48415331970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Satria",
+               "short_name" : "Satria",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Binjai Kota",
+               "short_name" : "Binjai Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Binjai",
+               "short_name" : "Binjai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Satria, Binjai Kota, Binjai, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.60256990,
+                  "lng" : 98.48727989999999
+               },
+               "southwest" : {
+                  "lat" : 3.5957180,
+                  "lng" : 98.47663100000001
+               }
+            },
+            "location" : {
+               "lat" : 3.59854990,
+               "lng" : 98.48287460
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.60256990,
+                  "lng" : 98.48727989999999
+               },
+               "southwest" : {
+                  "lat" : 3.5957180,
+                  "lng" : 98.47663100000001
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "20742",
+               "short_name" : "20742",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Binjai",
+               "short_name" : "Binjai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Binjai, North Sumatra 20742, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.61279390,
+                  "lng" : 98.49766540
+               },
+               "southwest" : {
+                  "lat" : 3.598850,
+                  "lng" : 98.48482509999999
+               }
+            },
+            "location" : {
+               "lat" : 3.60601790,
+               "lng" : 98.48836249999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.61279390,
+                  "lng" : 98.49766540
+               },
+               "southwest" : {
+                  "lat" : 3.598850,
+                  "lng" : 98.48482509999999
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Binjai Kota",
+               "short_name" : "Binjai Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Binjai",
+               "short_name" : "Binjai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Binjai Kota, Binjai, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.6162780,
+                  "lng" : 98.49460999999999
+               },
+               "southwest" : {
+                  "lat" : 3.5895590,
+                  "lng" : 98.45721379999999
+               }
+            },
+            "location" : {
+               "lat" : 3.59490580,
+               "lng" : 98.47052840000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.6162780,
+                  "lng" : 98.49460999999999
+               },
+               "southwest" : {
+                  "lat" : 3.5895590,
+                  "lng" : 98.45721379999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Binjai",
+               "short_name" : "Binjai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Binjai",
+               "short_name" : "Binjai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Binjai, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.6727820,
+                  "lng" : 98.53694190
+               },
+               "southwest" : {
+                  "lat" : 3.5276530,
+                  "lng" : 98.44050399999999
+               }
+            },
+            "location" : {
+               "lat" : 3.5944620,
+               "lng" : 98.48224599999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.6727820,
+                  "lng" : 98.53694190
+               },
+               "southwest" : {
+                  "lat" : 3.5276530,
+                  "lng" : 98.44050399999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Binjai",
+               "short_name" : "Binjai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Binjai, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.6727820,
+                  "lng" : 98.53694190
+               },
+               "southwest" : {
+                  "lat" : 3.5276530,
+                  "lng" : 98.44050399999999
+               }
+            },
+            "location" : {
+               "lat" : 3.59216930,
+               "lng" : 98.49522280000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.6727820,
+                  "lng" : 98.53694190
+               },
+               "southwest" : {
+                  "lat" : 3.5276530,
+                  "lng" : 98.44050399999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            },
+            "location" : {
+               "lat" : 2.11535470,
+               "lng" : 99.54509739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

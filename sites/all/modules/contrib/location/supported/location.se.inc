@@ -1,40 +1,27 @@
 <?php
-// $Id $
 
-// Sweden
-
-function location_province_list_se() {
-  return array('ST' => "Stockholm",
-    'UP' => "Uppsala",
-    'SO' => "Södermanland",
-    'OG' => "Östergotland",
-    'JO' => "Jönköping",
-    'KR' => "Kronoberg",
-    'KA' => "Kalmar",
-    'GO' => "Gotland",
-    'BL' => "Blekinge",
-    'SK' => "Skåne",
-    'HA' => "Halland",
-    'VG' => "Västra Götaland",
-    'VL' => "Värmland",
-    'OR' => "Örebro",
-    'VM' => "Västmanland",
-    'DA' => "Dalarna",
-    'GA' => "Gävleborg",
-    'VN' => "Västernorrland",
-    'JA' => "Jämtland",
-    'VB' => "Västerbotten",
-    'NO' => "Norrbotten");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_se() {
-  return array(
-    'minlng' => 11.06005,
-    'minlat' => 55.385433,
-    'maxlng' => 23.989,
-    'maxlat' => 69.126433,
-  );
+function location_province_list_se () {
+	return array (
+		"AB" => t("Stockholms"),
+		"AC" => t("Vasterbottens"),
+		"BD" => t("Norrbottens"),
+		"C" => t("Uppsala"),
+		"D" => t("Sodermanlands"),
+		"E" => t("Ostergotlands"),
+		"F" => t("Jonkopings"),
+		"G" => t("Kronobergs"),
+		"H" => t("Kalmar"),
+		"I" => t("Gotlands"),
+		"K" => t("Blekinge"),
+		"M" => t("Skane"),
+		"N" => t("Hallands"),
+		"O" => t("Vastra Gotaland"),
+		"S" => t("Varmlands"),
+		"T" => t("Orebro"),
+		"U" => t("Vastmanlands"),
+		"W" => t("Dalarna"),
+		"X" => t("Gavleborgs"),
+		"Y" => t("Vasternorrlands"),
+		"Z" => t("Jamtlands"),
+	);
 }

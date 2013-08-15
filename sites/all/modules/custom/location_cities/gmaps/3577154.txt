@@ -1,0 +1,134 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "6",
+               "short_name" : "6",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Oranjestad",
+               "short_name" : "Oranjestad",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Aruba",
+               "short_name" : "AW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "6, Oranjestad, Aruba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.52479220,
+                  "lng" : -70.02554340
+               },
+               "southwest" : {
+                  "lat" : 12.52368570,
+                  "lng" : -70.02690960
+               }
+            },
+            "location" : {
+               "lat" : 12.52425570,
+               "lng" : -70.02624050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.52558793029150,
+                  "lng" : -70.02487751970850
+               },
+               "southwest" : {
+                  "lat" : 12.52288996970850,
+                  "lng" : -70.02757548029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Oranjestad",
+               "short_name" : "Oranjestad",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Aruba",
+               "short_name" : "AW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Oranjestad, Aruba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.54676410,
+                  "lng" : -69.97229349999999
+               },
+               "southwest" : {
+                  "lat" : 12.47001710,
+                  "lng" : -70.0541860
+               }
+            },
+            "location" : {
+               "lat" : 12.524580,
+               "lng" : -70.0264590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.54676410,
+                  "lng" : -69.97229349999999
+               },
+               "southwest" : {
+                  "lat" : 12.47001710,
+                  "lng" : -70.0541860
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Aruba",
+               "short_name" : "AW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Aruba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 12.62337840,
+                  "lng" : -69.86587999999999
+               },
+               "southwest" : {
+                  "lat" : 12.41176560,
+                  "lng" : -70.06602560
+               }
+            },
+            "location" : {
+               "lat" : 12.521110,
+               "lng" : -69.9683380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 12.62337840,
+                  "lng" : -69.86587999999999
+               },
+               "southwest" : {
+                  "lat" : 12.41176560,
+                  "lng" : -70.06602560
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

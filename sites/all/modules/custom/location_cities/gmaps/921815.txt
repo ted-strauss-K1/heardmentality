@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "CCD14",
+               "short_name" : "CCD14",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Mamoudzou",
+               "short_name" : "Mamoudzou",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mamoudzou",
+               "short_name" : "Mamoudzou",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Mayotte",
+               "short_name" : "YT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "CCD14, Mamoudzou, Mayotte",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -12.77908170,
+                  "lng" : 45.22516230
+               },
+               "southwest" : {
+                  "lat" : -12.7800210,
+                  "lng" : 45.22490360
+               }
+            },
+            "location" : {
+               "lat" : -12.77950470,
+               "lng" : 45.22491260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -12.77820236970850,
+                  "lng" : 45.22638193029150
+               },
+               "southwest" : {
+                  "lat" : -12.78090033029150,
+                  "lng" : 45.22368396970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mamoudzou",
+               "short_name" : "Mamoudzou",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mamoudzou",
+               "short_name" : "Mamoudzou",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Mayotte",
+               "short_name" : "YT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mamoudzou, Mayotte",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -12.77483240,
+                  "lng" : 45.23526680000001
+               },
+               "southwest" : {
+                  "lat" : -12.78627650,
+                  "lng" : 45.21925920
+               }
+            },
+            "location" : {
+               "lat" : -12.78060,
+               "lng" : 45.22779999999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -12.77483240,
+                  "lng" : 45.23526680000001
+               },
+               "southwest" : {
+                  "lat" : -12.78627650,
+                  "lng" : 45.21925920
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mamoudzou",
+               "short_name" : "Mamoudzou",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Mayotte",
+               "short_name" : "YT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mamoudzou, Mayotte",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -12.75326210,
+                  "lng" : 45.24091440
+               },
+               "southwest" : {
+                  "lat" : -12.82364110,
+                  "lng" : 45.15262990
+               }
+            },
+            "location" : {
+               "lat" : -12.79730170,
+               "lng" : 45.19625330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -12.75326210,
+                  "lng" : 45.24091440
+               },
+               "southwest" : {
+                  "lat" : -12.82364110,
+                  "lng" : 45.15262990
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mayotte",
+               "short_name" : "YT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mayotte",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -12.63641150,
+                  "lng" : 45.30002880
+               },
+               "southwest" : {
+                  "lat" : -13.00616140,
+                  "lng" : 45.01817070
+               }
+            },
+            "location" : {
+               "lat" : -12.82750,
+               "lng" : 45.1662440
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -12.63641150,
+                  "lng" : 45.30002880
+               },
+               "southwest" : {
+                  "lat" : -13.00616140,
+                  "lng" : 45.01817070
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

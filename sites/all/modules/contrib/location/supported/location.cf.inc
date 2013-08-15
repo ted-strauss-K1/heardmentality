@@ -1,35 +1,23 @@
 <?php
 
-// Central African Republic
-
-function location_province_list_cf() {
-  return array('BBA' => "Bamingui-Bangoran",
-    'BKO' => "Basse-Kotto",
-    'HKO' => "Haute-Kotto",
-    'HMB' => "Haut-Mbomou",
-    'KEM' => "Kemo",
-    'LOB' => "Lobaye",
-    'MKD' => "Mambere-Kade�",
-    'MBO' => "Mbomou",
-    'NMM' => "Nana-Mambere",
-    'OMP' => "Ombella-M'Poko",
-    'OUK' => "Ouaka",
-    'OUH' => "Ouham",
-    'OPE' => "Ouham-Pende",
-    'VAK' => "Vakaga",
-    'NGR' => "Nana-Grebizi",
-    'SMB' => "Sangha-Mbaere",
-    'BAN' => "Bangui");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_cf() {
-  return array(
-    'minlng' => 14.512,
-    'minlat' => 2.727,
-    'maxlng' => 27.4848,
-    'maxlat' => 11.062967,
-  );
+function location_province_list_cf () {
+	return array (
+		"AC" => t("Ouham"),
+		"BB" => t("Bamingui-Bangoran"),
+		"BGF" => t("Bangui"),
+		"BK" => t("Basse-Kotto"),
+		"HK" => t("Haute-Kotto"),
+		"HM" => t("Haut-Mbomou"),
+		"HS" => t("Mambere-Kadei"),
+		"KB" => t("Nana-Grebizi"),
+		"KG" => t("Kemo"),
+		"LB" => t("Lobaye"),
+		"MB" => t("Mbomou"),
+		"MP" => t("Ombella-M'Poko"),
+		"NM" => t("Nana-Mambere"),
+		"OP" => t("Ouham-Pende"),
+		"SE" => t("Sangha-Mbaere"),
+		"UK" => t("Ouaka"),
+		"VK" => t("Vakaga"),
+	);
 }

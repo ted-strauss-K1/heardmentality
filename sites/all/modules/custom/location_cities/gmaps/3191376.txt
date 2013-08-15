@@ -1,0 +1,288 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Leonarda Da Vincija",
+               "short_name" : "Leonarda Da Vincija",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Šabac",
+               "short_name" : "Šabac",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mačva District",
+               "short_name" : "Mačva District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Leonarda Da Vincija, Šabac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.74672370,
+                  "lng" : 19.69193910
+               },
+               "southwest" : {
+                  "lat" : 44.74556170,
+                  "lng" : 19.68992470
+               }
+            },
+            "location" : {
+               "lat" : 44.74613710,
+               "lng" : 19.69092520
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.74749168029150,
+                  "lng" : 19.69228088029150
+               },
+               "southwest" : {
+                  "lat" : 44.74479371970850,
+                  "lng" : 19.68958291970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "272076",
+               "short_name" : "272076",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Šabac",
+               "short_name" : "Šabac",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mačva District",
+               "short_name" : "Mačva District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Šabac 272076, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.74731340,
+                  "lng" : 19.69080980
+               },
+               "southwest" : {
+                  "lat" : 44.74577310,
+                  "lng" : 19.68874720
+               }
+            },
+            "location" : {
+               "lat" : 44.74638070,
+               "lng" : 19.68957560
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.74789223029151,
+                  "lng" : 19.69112748029150
+               },
+               "southwest" : {
+                  "lat" : 44.74519426970851,
+                  "lng" : 19.68842951970850
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Šabac",
+               "short_name" : "Šabac",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mačva District",
+               "short_name" : "Mačva District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Šabac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.80828450000001,
+                  "lng" : 19.74509250
+               },
+               "southwest" : {
+                  "lat" : 44.72893040,
+                  "lng" : 19.61488730
+               }
+            },
+            "location" : {
+               "lat" : 44.754230,
+               "lng" : 19.6997510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.80828450000001,
+                  "lng" : 19.74509250
+               },
+               "southwest" : {
+                  "lat" : 44.72893040,
+                  "lng" : 19.61488730
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sabac",
+               "short_name" : "Sabac",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Mačva District",
+               "short_name" : "Mačva District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sabac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.91230430,
+                  "lng" : 19.85710140
+               },
+               "southwest" : {
+                  "lat" : 44.47642090000001,
+                  "lng" : 19.32392130
+               }
+            },
+            "location" : {
+               "lat" : 44.68607919999999,
+               "lng" : 19.6302670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.91230430,
+                  "lng" : 19.85710140
+               },
+               "southwest" : {
+                  "lat" : 44.47642090000001,
+                  "lng" : 19.32392130
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mačva District",
+               "short_name" : "Mačva District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mačva District, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.94040200000001,
+                  "lng" : 20.0003170
+               },
+               "southwest" : {
+                  "lat" : 44.11247410,
+                  "lng" : 19.107210
+               }
+            },
+            "location" : {
+               "lat" : 44.59253140,
+               "lng" : 19.50822460
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.94040200000001,
+                  "lng" : 20.0003170
+               },
+               "southwest" : {
+                  "lat" : 44.11247410,
+                  "lng" : 19.107210
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

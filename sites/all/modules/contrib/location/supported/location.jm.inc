@@ -1,32 +1,20 @@
 <?php
 
-// Jamaica
-
-function location_province_list_jm() {
-  return array('CLA' => "Clarendon Parish",
-    'HAN' => "Hanover Parish",
-    'KIN' => "Kingston Parish",
-    'MAN' => "Manchester Parish",
-    'POR' => "Portland Parish",
-    'AND' => "Saint Andrew Parish",
-    'ANN' => "Saint Ann Parish",
-    'CAT' => "Saint Catherine Parish",
-    'ELI' => "Saint Elizabeth Parish",
-    'JAM' => "Saint James Parish",
-    'MAR' => "Saint Mary Parish",
-    'THO' => "Saint Thomas Parish",
-    'TRL' => "Trelawny Parish",
-    'WML' => "Westmoreland Parish");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_jm() {
-  return array(
-    'minlng' => -78.4033,
-    'minlat' => 16.911867,
-    'maxlng' => -75.9029,
-    'maxlat' => 18.462967,
-  );
+function location_province_list_jm () {
+	return array (
+		"01" => t("Kingston Parish"),
+		"02" => t("Saint Andrew Parish"),
+		"03" => t("Saint Thomas Parish"),
+		"04" => t("Portland Parish"),
+		"05" => t("Saint Mary Parish"),
+		"06" => t("Saint Ann Parish"),
+		"07" => t("Trelawny Parish"),
+		"08" => t("Saint James Parish"),
+		"09" => t("Hanover Parish"),
+		"10" => t("Westmoreland Parish"),
+		"11" => t("Saint Elizabeth Parish"),
+		"12" => t("Manchester Parish"),
+		"13" => t("Clarendon Parish"),
+		"14" => t("Saint Catherine Parish"),
+	);
 }

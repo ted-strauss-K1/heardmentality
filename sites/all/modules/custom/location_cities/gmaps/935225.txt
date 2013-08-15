@@ -1,0 +1,240 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "145-167",
+               "short_name" : "145-167",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "N1A",
+               "short_name" : "N1A",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Saint-Leu",
+               "short_name" : "Saint-Leu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint-Paul",
+               "short_name" : "Saint-Paul",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "145-167 N1A, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.17024480,
+                  "lng" : 55.28807610
+               },
+               "southwest" : {
+                  "lat" : -21.17100910,
+                  "lng" : 55.28802090
+               }
+            },
+            "location" : {
+               "lat" : -21.17057860,
+               "lng" : 55.28807310
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.16927796970850,
+                  "lng" : 55.28939748029150
+               },
+               "southwest" : {
+                  "lat" : -21.17197593029150,
+                  "lng" : 55.28669951970851
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rue du General Lambert",
+               "short_name" : "Rue du General Lambert",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Saint-Leu",
+               "short_name" : "Saint-Leu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint-Paul",
+               "short_name" : "Saint-Paul",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rue du General Lambert, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.17024480,
+                  "lng" : 55.28807610
+               },
+               "southwest" : {
+                  "lat" : -21.17100910,
+                  "lng" : 55.28802090
+               }
+            },
+            "location" : {
+               "lat" : -21.17062710,
+               "lng" : 55.28805080
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.16927796970850,
+                  "lng" : 55.28939748029150
+               },
+               "southwest" : {
+                  "lat" : -21.17197593029150,
+                  "lng" : 55.28669951970851
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint-Leu",
+               "short_name" : "Saint-Leu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint-Leu, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.11400830,
+                  "lng" : 55.41581150
+               },
+               "southwest" : {
+                  "lat" : -21.24868220,
+                  "lng" : 55.27097230
+               }
+            },
+            "location" : {
+               "lat" : -21.15663330,
+               "lng" : 55.3254090
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.11400830,
+                  "lng" : 55.41581150
+               },
+               "southwest" : {
+                  "lat" : -21.24868220,
+                  "lng" : 55.27097230
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint-Paul",
+               "short_name" : "Saint-Paul",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint-Paul, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.89592030,
+                  "lng" : 55.464990
+               },
+               "southwest" : {
+                  "lat" : -21.25010340,
+                  "lng" : 55.2168040
+               }
+            },
+            "location" : {
+               "lat" : -21.02966950,
+               "lng" : 55.35859720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.89592030,
+                  "lng" : 55.464990
+               },
+               "southwest" : {
+                  "lat" : -21.25010340,
+                  "lng" : 55.2168040
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            },
+            "location" : {
+               "lat" : -21.1151410,
+               "lng" : 55.5363840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

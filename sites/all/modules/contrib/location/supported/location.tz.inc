@@ -1,44 +1,32 @@
 <?php
 
-// Tanzania, United Republic of
-
-function location_province_list_tz() {
-  return array('AR' => "Arusha",
-    'DS' => "Dar es Salaam",
-    'DO' => "Dodoma",
-    'IR' => "Iringa",
-    'KA' => "Kagera",
-    'KI' => "Kigoma",
-    'KJ' => "Kilimanjaro",
-    'LN' => "Lindi",
-    'MY' => "Manyara",
-    'MR' => "Mara",
-    'MB' => "Mbeya",
-    'MO' => "Morogoro",
-    'MT' => "Mtwara",
-    'MW' => "Mwanza",
-    'PN' => "Pemba North",
-    'PS' => "Pemba South",
-    'PW' => "Pwani",
-    'RK' => "Rukwa",
-    'RV' => "Ruvuma",
-    'SH' => "Shinyanga",
-    'SI' => "Singida",
-    'TB' => "Tabora",
-    'TN' => "Tanga",
-    'ZC' => "Zanzibar Central/South",
-    'ZN' => "Zanzibar North",
-    'ZU' => "Zanzibar Urban/West");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_tz() {
-  return array(
-    'minlng' => 29.29035,
-    'minlat' => -11.737133,
-    'maxlng' => 40.4958,
-    'maxlat' => -1.0601,
-  );
+function location_province_list_tz () {
+	return array (
+		"01" => t("Arusha"),
+		"02" => t("Dar es Salaam"),
+		"03" => t("Dodoma"),
+		"04" => t("Iringa"),
+		"05" => t("Kagera"),
+		"06" => t("Pemba North"),
+		"07" => t("Zanzibar North"),
+		"08" => t("Kigoma"),
+		"09" => t("Kilimanjaro"),
+		"10" => t("Pemba South"),
+		"11" => t("Zanzibar Central/South"),
+		"12" => t("Lindi"),
+		"13" => t("Mara"),
+		"14" => t("Mbeya"),
+		"15" => t("Zanzibar Urban/West"),
+		"16" => t("Morogoro"),
+		"17" => t("Mtwara"),
+		"18" => t("Mwanza"),
+		"19" => t("Pwani"),
+		"20" => t("Rukwa"),
+		"21" => t("Ruvuma"),
+		"22" => t("Shinyanga"),
+		"23" => t("Singida"),
+		"24" => t("Tabora"),
+		"25" => t("Tanga"),
+		"26" => t("Manyara"),
+	);
 }

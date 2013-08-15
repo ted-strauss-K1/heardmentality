@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rue Marius et Ary Leblond",
+               "short_name" : "Rue Marius et Ary Leblond",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Centre",
+               "short_name" : "Centre",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Saint Paul",
+               "short_name" : "Saint Paul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint-Paul",
+               "short_name" : "Saint-Paul",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rue Marius et Ary Leblond, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.00956650,
+                  "lng" : 55.27058290
+               },
+               "southwest" : {
+                  "lat" : -21.00993870,
+                  "lng" : 55.27020390
+               }
+            },
+            "location" : {
+               "lat" : -21.00978860,
+               "lng" : 55.27037780
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.00840361970850,
+                  "lng" : 55.27174238029150
+               },
+               "southwest" : {
+                  "lat" : -21.01110158029150,
+                  "lng" : 55.26904441970851
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Centre",
+               "short_name" : "Centre",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Saint Paul",
+               "short_name" : "Saint Paul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint-Paul",
+               "short_name" : "Saint-Paul",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Centre, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.99761340,
+                  "lng" : 55.28312270
+               },
+               "southwest" : {
+                  "lat" : -21.01592420,
+                  "lng" : 55.25906130
+               }
+            },
+            "location" : {
+               "lat" : -21.01078340,
+               "lng" : 55.27150520
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.99761340,
+                  "lng" : 55.28312270
+               },
+               "southwest" : {
+                  "lat" : -21.01592420,
+                  "lng" : 55.25906130
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint Paul",
+               "short_name" : "Saint Paul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint-Paul",
+               "short_name" : "Saint-Paul",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint Paul, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.95631450,
+                  "lng" : 55.46353340
+               },
+               "southwest" : {
+                  "lat" : -21.11685070,
+                  "lng" : 55.21651270
+               }
+            },
+            "location" : {
+               "lat" : -21.04526230,
+               "lng" : 55.33647029999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.95631450,
+                  "lng" : 55.46353340
+               },
+               "southwest" : {
+                  "lat" : -21.11685070,
+                  "lng" : 55.21651270
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint-Paul",
+               "short_name" : "Saint-Paul",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint-Paul, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.89592030,
+                  "lng" : 55.464990
+               },
+               "southwest" : {
+                  "lat" : -21.25010340,
+                  "lng" : 55.2168040
+               }
+            },
+            "location" : {
+               "lat" : -21.02966950,
+               "lng" : 55.35859720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.89592030,
+                  "lng" : 55.464990
+               },
+               "southwest" : {
+                  "lat" : -21.25010340,
+                  "lng" : 55.2168040
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            },
+            "location" : {
+               "lat" : -21.1151410,
+               "lng" : 55.5363840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

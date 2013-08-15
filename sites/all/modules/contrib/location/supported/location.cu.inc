@@ -1,33 +1,21 @@
 <?php
 
-// Cuba
-
-function location_province_list_cu() {
-  return array('IJU' => "Isla de la Juventud",
-    'PRI' => "Pinar del Rio",
-    'LHA' => "La Habana",
-    'CLH' => "Ciudad de La Habana",
-    'MAT' => "Matanzas",
-    'CFU' => "Cienfuegos",
-    'VCL' => "Villa Clara",
-    'SSP' => "Sancti Spiritus",
-    'CAV' => "Ciego de Avila",
-    'CAM' => "Camaguey",
-    'LTU' => "Las Tunas",
-    'GRA' => "Granma",
-    'HOL' => "Holguin",
-    'SCU' => "Santiago de Cuba",
-    'GUA' => "Guantanamo");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_cu() {
-  return array(
-    'minlng' => -84.88225,
-    'minlat' => 19.796767,
-    'maxlng' => -74.10875,
-    'maxlat' => 23.263867,
-  );
+function location_province_list_cu () {
+	return array (
+		"01" => t("Pinar del Rio"),
+		"03" => t("La Habana"),
+		"04" => t("Matanzas"),
+		"05" => t("Villa Clara"),
+		"06" => t("Cienfuegos"),
+		"07" => t("Sancti Spiritus"),
+		"08" => t("Ciego de Avila"),
+		"09" => t("Camaguey"),
+		"10" => t("Las Tunas"),
+		"11" => t("Holguin"),
+		"12" => t("Granma"),
+		"13" => t("Santiago de Cuba"),
+		"14" => t("Guantanamo"),
+		"99" => t("Isla de la Juventud"),
+		"02" => t("La Habana"),
+	);
 }

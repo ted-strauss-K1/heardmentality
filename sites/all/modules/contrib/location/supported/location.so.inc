@@ -1,36 +1,24 @@
 <?php
 
-// Somalia
-
-function location_province_list_so() {
-  return array('AW' => "Awdal",
-    'BK' => "Bakool",
-    'BN' => "Banaadir",
-    'BR' => "Bari",
-    'BY' => "Bay",
-    'GA' => "Galguduud",
-    'GE' => "Gedo",
-    'HI' => "Hiiraan",
-    'JD' => "Jubbada Dhexe",
-    'JH' => "Jubbada Hoose",
-    'MU' => "Mudug",
-    'NU' => "Nugaal",
-    'SA' => "Sanaag",
-    'SD' => "Shabeellaha Dhexe",
-    'SH' => "Shabeellaha Hoose",
-    'SL' => "Sool",
-    'TO' => "Togdheer",
-    'WG' => "Woqooyi Galbeed");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_so() {
-  return array(
-    'minlng' => 40.9763,
-    'minlat' => -1.640967,
-    'maxlng' => 51.41685,
-    'maxlat' => 11.9692,
-  );
+function location_province_list_so () {
+	return array (
+		"AW" => t("Awdal"),
+		"BK" => t("Bakool"),
+		"BN" => t("Banaadir"),
+		"BR" => t("Bari"),
+		"BY" => t("Bay"),
+		"GA" => t("Galguduud"),
+		"GE" => t("Gedo"),
+		"HI" => t("Hiiraan"),
+		"JD" => t("Jubbada Dhexe"),
+		"JH" => t("Jubbada Hoose"),
+		"MU" => t("Mudug"),
+		"NU" => t("Nugaal"),
+		"SA" => t("Sanaag"),
+		"SD" => t("Shabeellaha Dhexe"),
+		"SH" => t("Shabeellaha Hoose"),
+		"SO" => t("Sool"),
+		"TO" => t("Togdheer"),
+		"WO" => t("Woqooyi Galbeed"),
+	);
 }

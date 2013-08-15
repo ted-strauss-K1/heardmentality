@@ -1,30 +1,18 @@
 <?php
 
-// Jordan
-
-function location_province_list_jo() {
-  return array('AJ' => "Ajlun",
-    'AQ' => "Al 'Aqabah",
-    'BA' => "Al Balqa'",
-    'KA' => "Al Karak",
-    'MF' => "Al Mafraq",
-    'AM' => "'Amman",
-    'TA' => "At Tafilah",
-    'ZA' => "Az Zarqa'",
-    'IR' => "Irbid",
-    'JA' => "Jarash",
-    'MN' => "Ma'an",
-    'MD' => "Madaba");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_jo() {
-  return array(
-    'minlng' => 34.8481,
-    'minlat' => 29.204733,
-    'maxlng' => 39.74045,
-    'maxlat' => 33.319433,
-  );
+function location_province_list_jo () {
+	return array (
+		"AJ" => t("Ajlun"),
+		"AM" => t("'Amman"),
+		"AQ" => t("Al 'Aqabah"),
+		"AT" => t("At Tafilah"),
+		"AZ" => t("Az Zarqa'"),
+		"BA" => t("Al Balqa'"),
+		"IR" => t("Irbid"),
+		"JA" => t("Jarash"),
+		"KA" => t("Al Karak"),
+		"MA" => t("Al Mafraq"),
+		"MD" => t("Madaba"),
+		"MN" => t("Ma'an"),
+	);
 }

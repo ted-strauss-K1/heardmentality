@@ -1,42 +1,30 @@
 <?php
 
-// Argentina
-
-function location_province_list_ar() {
-  return array('A' => "Salta",
-    'B' => "Buenos Aires Province",
-    'C' => "Distrito Federal",
-    'D' => "San Luis",
-    'E' => "Entre Rios",
-    'F' => "La Rioja",
-    'G' => "Santiago del Estero",
-    'H' => "Chaco",
-    'J' => "San Juan",
-    'K' => "Catamarca",
-    'L' => "La Pampa",
-    'M' => "Mendoza",
-    'N' => "Misiones",
-    'P' => "Formosa",
-    'Q' => "Neuquen",
-    'R' => "Rio Negro",
-    'S' => "Santa Fe",
-    'T' => "Tucuman",
-    'U' => "Chubut",
-    'V' => "Tierra del Fuego",
-    'W' => "Corrientes",
-    'X' => "Cordoba",
-    'Y' => "Jujuy",
-    'Z' => "Santa Cruz");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ar() {
-  return array(
-    'minlng' => -73.4967,
-    'minlat' => -55.049767,
-    'maxlng' => -53.64205,
-    'maxlat' => -21.829967,
-  );
+function location_province_list_ar () {
+	return array (
+		"A" => t("Salta"),
+		"B" => t("Buenos Aires Province"),
+		"C" => t("Ciudad Autonoma de Buenos Aires"),
+		"D" => t("San Luis"),
+		"E" => t("Entre Rios"),
+		"F" => t("La Rioja"),
+		"G" => t("Santiago del Estero"),
+		"H" => t("Chaco"),
+		"J" => t("San Juan"),
+		"K" => t("Catamarca"),
+		"L" => t("La Pampa"),
+		"M" => t("Mendoza"),
+		"N" => t("Misiones"),
+		"P" => t("Formosa"),
+		"Q" => t("Neuquen"),
+		"R" => t("Rio Negro"),
+		"S" => t("Santa Fe"),
+		"T" => t("Tucuman"),
+		"U" => t("Chubut"),
+		"V" => t("Tierra del Fuego"),
+		"W" => t("Corrientes"),
+		"X" => t("Cordoba"),
+		"Y" => t("Jujuy"),
+		"Z" => t("Santa Cruz"),
+	);
 }

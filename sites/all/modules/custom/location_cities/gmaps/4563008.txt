@@ -1,0 +1,399 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Calle Cordova",
+               "short_name" : "PR-156",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cañabón",
+               "short_name" : "Cañabón",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "00727",
+               "short_name" : "00727",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Calle Cordova, Caguas, 00727, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.23326780,
+                  "lng" : -66.04719279999999
+               },
+               "southwest" : {
+                  "lat" : 18.23319490,
+                  "lng" : -66.04882309999999
+               }
+            },
+            "location" : {
+               "lat" : 18.23323060,
+               "lng" : -66.04800790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.23458033029150,
+                  "lng" : -66.04665896970849
+               },
+               "southwest" : {
+                  "lat" : 18.23188236970850,
+                  "lng" : -66.04935693029149
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "00726",
+               "short_name" : "00726",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Caguas, 00726, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.27436570,
+                  "lng" : -66.03148419999999
+               },
+               "southwest" : {
+                  "lat" : 18.12028240,
+                  "lng" : -66.07311880
+               }
+            },
+            "location" : {
+               "lat" : 18.23440530,
+               "lng" : -66.04844199999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.23589263029150,
+                  "lng" : -66.04723491970852
+               },
+               "southwest" : {
+                  "lat" : 18.23319466970850,
+                  "lng" : -66.04993288029152
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cañabón",
+               "short_name" : "Cañabón",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cañabón, Caguas, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.2508070,
+                  "lng" : -66.04225680
+               },
+               "southwest" : {
+                  "lat" : 18.2236430,
+                  "lng" : -66.09042090
+               }
+            },
+            "location" : {
+               "lat" : 18.24046320,
+               "lng" : -66.06717089999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.2508070,
+                  "lng" : -66.04225680
+               },
+               "southwest" : {
+                  "lat" : 18.2236430,
+                  "lng" : -66.09042090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cañabón",
+               "short_name" : "Cañabón",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Caguas, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.2740150,
+                  "lng" : -65.99941799999999
+               },
+               "southwest" : {
+                  "lat" : 18.20042110,
+                  "lng" : -66.0846660
+               }
+            },
+            "location" : {
+               "lat" : 18.23412170,
+               "lng" : -66.04849890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.2740150,
+                  "lng" : -65.99941799999999
+               },
+               "southwest" : {
+                  "lat" : 18.20042110,
+                  "lng" : -66.0846660
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Caguas, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.3124480,
+                  "lng" : -65.99814590
+               },
+               "southwest" : {
+                  "lat" : 18.11306910,
+                  "lng" : -66.11791590
+               }
+            },
+            "location" : {
+               "lat" : 18.19925860,
+               "lng" : -66.07014490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.3124480,
+                  "lng" : -65.99814590
+               },
+               "southwest" : {
+                  "lat" : 18.11306910,
+                  "lng" : -66.11791590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "00727",
+               "short_name" : "00727",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Caguas",
+               "short_name" : "Caguas",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Caguas, 00727, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.28154090,
+                  "lng" : -65.98975709999999
+               },
+               "southwest" : {
+                  "lat" : 18.112870,
+                  "lng" : -66.13689680
+               }
+            },
+            "location" : {
+               "lat" : 18.18660130,
+               "lng" : -66.0582490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.28154090,
+                  "lng" : -65.98975709999999
+               },
+               "southwest" : {
+                  "lat" : 18.112870,
+                  "lng" : -66.13689680
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "San Juan-Caguas-Guaynabo, PR",
+               "short_name" : "San Juan-Caguas-Guaynabo, PR",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "San Juan-Caguas-Guaynabo, PR, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.4941990,
+                  "lng" : -65.65807099999999
+               },
+               "southwest" : {
+                  "lat" : 17.98185440,
+                  "lng" : -66.96842810
+               }
+            },
+            "location" : {
+               "lat" : 18.27523110,
+               "lng" : -66.14152630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.4941990,
+                  "lng" : -65.65807099999999
+               },
+               "southwest" : {
+                  "lat" : 17.98185440,
+                  "lng" : -66.96842810
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.51600990,
+                  "lng" : -65.22110990
+               },
+               "southwest" : {
+                  "lat" : 17.88142860,
+                  "lng" : -67.94554710
+               }
+            },
+            "location" : {
+               "lat" : 18.2208330,
+               "lng" : -66.5901490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.51600990,
+                  "lng" : -65.22110990
+               },
+               "southwest" : {
+                  "lat" : 17.88142860,
+                  "lng" : -67.27129590
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

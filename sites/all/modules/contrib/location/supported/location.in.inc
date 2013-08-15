@@ -1,53 +1,41 @@
 <?php
 
-// India
-
-function location_province_list_in() {
-  return array('AP' => "Andhra Pradesh",
-    'AR' => "Arunachal Pradesh",
-    'AS' => "Assam",
-    'BR' => "Bihar",
-    'CT' => "Chhattisgarh",
-    'GA' => "Goa",
-    'GJ' => "Gujarat",
-    'HR' => "Haryana",
-    'HP' => "Himachal Pradesh",
-    'JK' => "Jammu and Kashmir",
-    'JH' => "Jharkhand",
-    'KA' => "Karnataka",
-    'KL' => "Kerala",
-    'MP' => "Madhya Pradesh",
-    'MM' => "Maharashtra",
-    'MN' => "Manipur",
-    'ML' => "Meghalaya",
-    'MZ' => "Mizoram",
-    'NL' => "Nagaland",
-    'OR' => "Orissa",
-    'PB' => "Punjab",
-    'RJ' => "Rajasthan",
-    'SK' => "Sikkim",
-    'TN' => "Tamil Nadu",
-    'TR' => "Tripura",
-    'UL' => "Uttaranchal",
-    'UP' => "Uttar Pradesh",
-    'WB' => "West Bengal",
-    'AN' => "Andaman and Nicobar Islands",
-    'CH' => "Chandigarh",
-    'DN' => "Dadra and Nagar Haveli",
-    'DD' => "Daman and Diu",
-    'DL' => "Delhi",
-    'LD' => "Lakshadweep",
-    'PY' => "Pondicherry");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_in() {
-  return array(
-    'minlng' => 68.1721,
-    'minlat' => 6.470867,
-    'maxlng' => 97.27195,
-    'maxlat' => 37.118133,
-  );
+function location_province_list_in () {
+	return array (
+		"AN" => t("Andaman and Nicobar Islands"),
+		"AP" => t("Andhra Pradesh"),
+		"AR" => t("Arunachal Pradesh"),
+		"AS" => t("Assam"),
+		"BR" => t("Bihar"),
+		"CH" => t("Chandigarh"),
+		"CT" => t("Chhattisgarh"),
+		"DD" => t("Daman and Diu"),
+		"DL" => t("Delhi"),
+		"DN" => t("Dadra and Nagar Haveli"),
+		"GA" => t("Goa"),
+		"GJ" => t("Gujarat"),
+		"HP" => t("Himachal Pradesh"),
+		"HR" => t("Haryana"),
+		"JH" => t("Jharkhand"),
+		"JK" => t("Jammu and Kashmir"),
+		"KA" => t("Karnataka"),
+		"KL" => t("Kerala"),
+		"LD" => t("Lakshadweep"),
+		"MH" => t("Maharashtra"),
+		"ML" => t("Meghalaya"),
+		"MN" => t("Manipur"),
+		"MP" => t("Madhya Pradesh"),
+		"MZ" => t("Mizoram"),
+		"NL" => t("Nagaland"),
+		"OR" => t("Orissa"),
+		"PB" => t("Punjab"),
+		"PY" => t("Pondicherry"),
+		"RJ" => t("Rajasthan"),
+		"SK" => t("Sikkim"),
+		"TN" => t("Tamil Nadu"),
+		"TR" => t("Tripura"),
+		"UL" => t("Uttaranchal"),
+		"UP" => t("Uttar Pradesh"),
+		"WB" => t("West Bengal"),
+	);
 }

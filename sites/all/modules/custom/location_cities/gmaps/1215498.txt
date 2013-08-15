@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Raya Lintas Sumatera",
+               "short_name" : "AH25",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "North Rantau",
+               "short_name" : "North Rantau",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Labuhanbatu",
+               "short_name" : "Labuhanbatu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "21411",
+               "short_name" : "21411",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Raya Lintas Sumatera, North Rantau, Labuhanbatu, North Sumatra 21411, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.11815810,
+                  "lng" : 99.79879480
+               },
+               "southwest" : {
+                  "lat" : 2.1163370,
+                  "lng" : 99.79604909999999
+               }
+            },
+            "location" : {
+               "lat" : 2.11690220,
+               "lng" : 99.79717670000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.118596530291502,
+                  "lng" : 99.79879480
+               },
+               "southwest" : {
+                  "lat" : 2.115898569708498,
+                  "lng" : 99.79604909999999
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bandar Kumbul",
+               "short_name" : "Bandar Kumbul",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "West Bilah",
+               "short_name" : "West Bilah",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Labuhanbatu",
+               "short_name" : "Labuhanbatu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bandar Kumbul, West Bilah, Labuhanbatu, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.08665990,
+                  "lng" : 99.78954189999999
+               },
+               "southwest" : {
+                  "lat" : 1.98568390,
+                  "lng" : 99.71209290
+               }
+            },
+            "location" : {
+               "lat" : 2.02699340,
+               "lng" : 99.75671609999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.08665990,
+                  "lng" : 99.78954189999999
+               },
+               "southwest" : {
+                  "lat" : 1.98568390,
+                  "lng" : 99.71209290
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "21411",
+               "short_name" : "21411",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra 21411, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.17601290,
+                  "lng" : 99.92070
+               },
+               "southwest" : {
+                  "lat" : 1.92897980,
+                  "lng" : 99.67169960
+               }
+            },
+            "location" : {
+               "lat" : 2.05605440,
+               "lng" : 99.7455650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.17601290,
+                  "lng" : 99.92070
+               },
+               "southwest" : {
+                  "lat" : 1.92897980,
+                  "lng" : 99.67169960
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Bilah",
+               "short_name" : "West Bilah",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Labuhanbatu",
+               "short_name" : "Labuhanbatu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Bilah, Labuhanbatu, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.20294910,
+                  "lng" : 99.96359609999999
+               },
+               "southwest" : {
+                  "lat" : 1.92989010,
+                  "lng" : 99.6613440
+               }
+            },
+            "location" : {
+               "lat" : 2.05605440,
+               "lng" : 99.7455650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.20294910,
+                  "lng" : 99.96359609999999
+               },
+               "southwest" : {
+                  "lat" : 1.92989010,
+                  "lng" : 99.6613440
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Labuhanbatu",
+               "short_name" : "Labuhanbatu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Labuhanbatu, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.74040210,
+                  "lng" : 100.36511690
+               },
+               "southwest" : {
+                  "lat" : 1.7994060,
+                  "lng" : 99.6613440
+               }
+            },
+            "location" : {
+               "lat" : 2.34398630,
+               "lng" : 100.17032570
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.74040210,
+                  "lng" : 100.36511690
+               },
+               "southwest" : {
+                  "lat" : 1.7994060,
+                  "lng" : 99.6613440
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            },
+            "location" : {
+               "lat" : 2.11535470,
+               "lng" : 99.54509739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

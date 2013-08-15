@@ -1,0 +1,409 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "99-121",
+               "short_name" : "99-121",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "St Hill Street",
+               "short_name" : "St Hill St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Wanganui",
+               "short_name" : "Wanganui",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Wanganui",
+               "short_name" : "Wanganui",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Manawatu-Wanganui",
+               "short_name" : "Manawatu-Wanganui",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "4500",
+               "short_name" : "4500",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "99-121 St Hill Street, Wanganui, 4500, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -39.93273000000001,
+                  "lng" : 175.05088710
+               },
+               "southwest" : {
+                  "lat" : -39.93365439999999,
+                  "lng" : 175.04927520
+               }
+            },
+            "location" : {
+               "lat" : -39.93322340,
+               "lng" : 175.05010290
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.93184321970850,
+                  "lng" : 175.0514301302915
+               },
+               "southwest" : {
+                  "lat" : -39.93454118029150,
+                  "lng" : 175.0487321697085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wanganui",
+               "short_name" : "Wanganui",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Wanganui",
+               "short_name" : "Wanganui",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wanganui District",
+               "short_name" : "Wanganui District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Manawatu-Wanganui",
+               "short_name" : "Manawatu-Wanganui",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "4500",
+               "short_name" : "4500",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Wanganui, 4500, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -39.91032080,
+                  "lng" : 175.06014680
+               },
+               "southwest" : {
+                  "lat" : -39.94151129999999,
+                  "lng" : 175.0359220
+               }
+            },
+            "location" : {
+               "lat" : -39.93008870,
+               "lng" : 175.04789010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.91032080,
+                  "lng" : 175.06014680
+               },
+               "southwest" : {
+                  "lat" : -39.94151129999999,
+                  "lng" : 175.0359220
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "4500",
+               "short_name" : "4500",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Manawatu-Wanganui",
+               "short_name" : "Manawatu-Wanganui",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Manawatu-Wanganui 4500, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -39.87813010,
+                  "lng" : 175.09450730
+               },
+               "southwest" : {
+                  "lat" : -39.95103630,
+                  "lng" : 175.01488020
+               }
+            },
+            "location" : {
+               "lat" : -39.92733130,
+               "lng" : 175.05451970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.87813010,
+                  "lng" : 175.09450730
+               },
+               "southwest" : {
+                  "lat" : -39.95103630,
+                  "lng" : 175.01488020
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wanganui",
+               "short_name" : "Wanganui",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wanganui District",
+               "short_name" : "Wanganui District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Manawatu-Wanganui",
+               "short_name" : "Manawatu-Wanganui",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wanganui, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -39.87750970,
+                  "lng" : 175.09838130
+               },
+               "southwest" : {
+                  "lat" : -39.97440599999999,
+                  "lng" : 174.96039710
+               }
+            },
+            "location" : {
+               "lat" : -39.93008870,
+               "lng" : 175.04789010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.87750970,
+                  "lng" : 175.09838130
+               },
+               "southwest" : {
+                  "lat" : -39.97440599999999,
+                  "lng" : 174.96039710
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wanganui District",
+               "short_name" : "Wanganui District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Manawatu-Wanganui",
+               "short_name" : "Manawatu-Wanganui",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wanganui District, Manawatu-Wanganui, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -39.06998950,
+                  "lng" : 175.497690
+               },
+               "southwest" : {
+                  "lat" : -40.02093110,
+                  "lng" : 174.76208640
+               }
+            },
+            "location" : {
+               "lat" : -39.7925910,
+               "lng" : 175.0233460
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.06998950,
+                  "lng" : 175.497690
+               },
+               "southwest" : {
+                  "lat" : -40.02093110,
+                  "lng" : 174.76208640
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wanganui",
+               "short_name" : "Wanganui",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wanganui, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -39.40207310,
+                  "lng" : 175.51537830
+               },
+               "southwest" : {
+                  "lat" : -40.1092130,
+                  "lng" : 174.70126460
+               }
+            },
+            "location" : {
+               "lat" : -39.71387450,
+               "lng" : 175.10643730
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.40207310,
+                  "lng" : 175.51537830
+               },
+               "southwest" : {
+                  "lat" : -40.1092130,
+                  "lng" : 174.70126460
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Manawatu-Wanganui",
+               "short_name" : "Manawatu-Wanganui",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Manawatu-Wanganui, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -38.48777770,
+                  "lng" : 176.6327840
+               },
+               "southwest" : {
+                  "lat" : -40.78248380,
+                  "lng" : 174.76208640
+               }
+            },
+            "location" : {
+               "lat" : -39.72733560,
+               "lng" : 175.43755740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -38.48777770,
+                  "lng" : 176.6327840
+               },
+               "southwest" : {
+                  "lat" : -40.78248380,
+                  "lng" : 174.76208640
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -29.23134190,
+                  "lng" : -176.15422480
+               },
+               "southwest" : {
+                  "lat" : -52.61941849999999,
+                  "lng" : 165.86943690
+               }
+            },
+            "location" : {
+               "lat" : -40.9005570,
+               "lng" : 174.8859710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -34.12955780,
+                  "lng" : 179.06253570
+               },
+               "southwest" : {
+                  "lat" : -47.76812409999999,
+                  "lng" : 166.42613610
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

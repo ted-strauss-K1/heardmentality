@@ -1,34 +1,22 @@
 <?php
 
-// Malaysia
-
-function location_province_list_my() {
-  return array('JH' => "Johor",
-    'KD' => "Kedah",
-    'KN' => "Kelantan",
-    'KL' => "Kuala Lumpur",
-    'ML' => "Malacca",
-    'NS' => "Negeri Sembilan",
-    'PH' => "Pahang",
-    'PK' => "Perak",
-    'PS' => "Perlis",
-    'PG' => "Penang",
-    'WP' => "Wilayah Persekutuan",
-    'SL' => "Selangor",
-    'TR' => "Terengganu",
-    'LB' => "Labuan",
-    'SB' => "Sabah",
-    'SR' => "Sarawak");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_my() {
-  return array(
-    'minlng' => 99.6346,
-    'minlat' => 0.9351,
-    'maxlng' => 119.2795,
-    'maxlat' => 7.417033,
-  );
+function location_province_list_my () {
+	return array (
+		"01" => t("Johor"),
+		"02" => t("Kedah"),
+		"03" => t("Kelantan"),
+		"04" => t("Melaka"),
+		"05" => t("Negeri Sembilan"),
+		"06" => t("Pahang"),
+		"07" => t("Pinang"),
+		"08" => t("Perak"),
+		"09" => t("Perlis"),
+		"10" => t("Selangor"),
+		"11" => t("Terengganu"),
+		"12" => t("Sabah"),
+		"13" => t("Sarawak"),
+		"14" => t("Kuala Lumpur"),
+		"15" => t("Labuan"),
+		"16" => t("Putrajaya"),
+	);
 }

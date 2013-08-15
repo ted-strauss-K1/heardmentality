@@ -1,9 +1,0 @@
-*7267902 vi_C  :::  Saint Croix ~ Saint Croix Island(7267902)
-*7267903 vi_J  :::  Saint John ~ Saint John Island(7267903)
-*7267904 vi_T  :::  Saint Thomas ~ Saint Thomas Island(7267904)
-
-NAMES:::::
-
-Saint Croix Island(7267902) 
-Saint John Island(7267903) 
-Saint Thomas Island(7267904) 

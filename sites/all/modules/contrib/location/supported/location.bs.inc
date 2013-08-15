@@ -1,49 +1,37 @@
 <?php
 
-// Bahamas
-
-function location_province_list_bs() {
-  return array('ACK' => "Acklins",
-    'BER' => "Berry Islands",
-    'BIM' => "Bimini",
-    'BLK' => "Black Point",
-    'CAT' => "Cat Island",
-    'CAB' => "Central Abaco",
-    'CAN' => "Central Andros",
-    'CEL' => "Central Eleuthera",
-    'FRE' => "City of Freeport",
-    'CRO' => "Crooked Island",
-    'EGB' => "East Grand Bahama",
-    'EXU' => "Exuma",
-    'GRD' => "Grand Cay",
-    'HAR' => "Harbour Island",
-    'HOP' => "Hope Town",
-    'INA' => "Inagua",
-    'LNG' => "Long Island",
-    'MAN' => "Mangrove Cay",
-    'MAY' => "Mayaguana",
-    'MOO' => "Moore's Island",
-    'NAB' => "North Abaco",
-    'NAN' => "North Andros",
-    'NEL' => "North Eleuthera",
-    'RAG' => "Ragged Island",
-    'RUM' => "Rum Cay",
-    'SAL' => "San Salvador",
-    'SAB' => "South Abaco",
-    'SAN' => "South Andros",
-    'SEL' => "South Eleuthera",
-    'SWE' => "Spanish Wells",
-    'WGB' => "West Grand Bahama");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_bs() {
-  return array(
-    'minlng' => -79.2951,
-    'minlat' => 20.8592,
-    'maxlng' => -72.6932,
-    'maxlat' => 27.0249,
-  );
+function location_province_list_bs () {
+	return array (
+		"AK" => t("Acklins Islands"),
+		"BI" => t("Bimini and Cat Cay"),
+		"BP" => t("Black Point"),
+		"CE" => t("Kemps Bay District"),
+		"CI" => t("Cat Island"),
+		"CK" => t("Marsh Harbour District "),
+		"CO" => t("Governor’s Harbour"),
+		"CS" => t("High Rock District"),
+		"EG" => t("East Grand Bahama"),
+		"EX" => t("Exuma"),
+		"FP" => t("City of Freeport"),
+		"GC" => t("Fresh Creek"),
+		"HI" => t("Harbour Island"),
+		"HT" => t("New Providence "),
+		"IN" => t("Inagua"),
+		"LI" => t("Long Island"),
+		"MC" => t("Rock Sound"),
+		"MG" => t("Mayaguana"),
+		"MI" => t("Sandy Point"),
+		"NE" => t("North Eleuthera"),
+		"NO" => t("North Abaco"),
+		"NS" => t("North Andros"),
+		"RC" => t("Rum Cay"),
+		"RI" => t("Ragged Island"),
+		"SA" => t("South Andros"),
+		"SE" => t("South Eleuthera"),
+		"SO" => t("South Abaco"),
+		"SS" => t("San Salvador"),
+		"SW" => t("Spanish Wells"),
+		"WG" => t("West Grand Bahama"),
+		"GT" => t("Green Turtle Cay"),
+	);
 }

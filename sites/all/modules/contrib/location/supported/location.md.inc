@@ -1,33 +1,43 @@
 <?php
 
-// Moldova, Republic of
-
-function location_province_list_md() {
-  return array(
-    'GA' => "Gagauzia",
-    'CU' => "Chisinau",
-    'BA' => "Balti",
-    'CA' => "Cahul",
-    'ED' => "Edinet",
-    'LA' => "Lapusna",
-    'OR' => "Orhei",
-    'SO' => "Soroca",
-    'TI' => "Tighina",
-    'UN' => "Ungheni",
-    'SN' => "Stînga Nistrului",
-  );
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_md() {
-  // NaturalEarth 10m Admin 0 - Countries (v1.3.0)
-  // EPSG:900913
-  return array(
-    'minlng' => 26.6178890,
-    'minlat' => 45.4617739,
-    'maxlng' => 30.1315763,
-    'maxlat' => 48.4860338,
-  );
+function location_province_list_md () {
+	return array (
+		"AN" => t("Raionul Anenii Noi"),
+		"BA" => t("Municipiul Balti"),
+		"BD" => t("Tighina"),
+		"BR" => t("Raionul Briceni"),
+		"BS" => t("Raionul Basarabeasca"),
+		"CA" => t("Cahul"),
+		"CL" => t("Raionul Calarasi"),
+		"CM" => t("Raionul Cimislia"),
+		"CR" => t("Raionul Criuleni"),
+		"CS" => t("Raionul Causeni"),
+		"CT" => t("Raionul Cantemir"),
+		"CU" => t("Municipiul Chisinau"),
+		"DO" => t("Donduseni"),
+		"DR" => t("Raionul Drochia"),
+		"DU" => t("Dubasari"),
+		"ED" => t("Raionul Edinet"),
+		"FA" => t("Falesti"),
+		"FL" => t("Floresti"),
+		"GA" => t("U.T.A. Gagauzia"),
+		"GL" => t("Raionul Glodeni"),
+		"HI" => t("Hincesti"),
+		"IA" => t("Ialoveni"),
+		"LE" => t("Leova"),
+		"NI" => t("Nisporeni"),
+		"OC" => t("Raionul Ocnita"),
+		"OR" => t("Raionul Orhei"),
+		"RE" => t("Rezina"),
+		"RI" => t("Riscani"),
+		"SD" => t("Raionul Soldanesti"),
+		"SI" => t("Singerei"),
+		"SN" => t("Stinga Nistrului"),
+		"SO" => t("Soroca"),
+		"ST" => t("Raionul Straseni"),
+		"SV" => t("Raionul Stefan Voda"),
+		"TA" => t("Raionul Taraclia"),
+		"TE" => t("Telenesti"),
+		"UN" => t("Raionul Ungheni"),
+	);
 }

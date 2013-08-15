@@ -1,22 +1,23 @@
 <?php
 
-// Monaco
-
-function location_province_list_mc() {
-  return array('FV' => "Fontvieille",
-    'LC' => "La Condamine",
-    'MV' => "Monaco-Ville",
-    'MC' => "Monte-Carlo");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_mc() {
-  return array(
-    'minlng' => 7.267656,
-    'minlat' => 43.6426,
-    'maxlng' => 7.53715,
-    'maxlat' => 43.927506,
-  );
+function location_province_list_mc () {
+	return array (
+		"CL" => t("La Colle"),
+		"CO" => t("La Condamine"),
+		"FO" => t("Fontvieille"),
+		"GA" => t("La Gare"),
+		"JE" => t("Jardin Exotique"),
+		"LA" => t("Larvotto"),
+		"MA" => t("Malbousquet"),
+		"MC" => t("Monte-Carlo"),
+		"MG" => t("Moneghetti"),
+		"MO" => t("Monaco-Ville"),
+		"MU" => t("Moulins"),
+		"PH" => t("Port-Hercule"),
+		"SD" => t("Sainte-Devote"),
+		"SO" => t("La Source"),
+		"SP" => t("Spelugues"),
+		"SR" => t("Saint-Roman"),
+		"VR" => t("Vallon de la Rousse"),
+	);
 }

@@ -1,0 +1,361 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Perintis Kemerdekaan",
+               "short_name" : "Jl. Perintis Kemerdekaan",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Labuan",
+               "short_name" : "Labuan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pandeglang",
+               "short_name" : "Pandeglang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "42264",
+               "short_name" : "42264",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Perintis Kemerdekaan, Labuan, Pandeglang 42264, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.37797770,
+                  "lng" : 105.83190050
+               },
+               "southwest" : {
+                  "lat" : -6.37884380,
+                  "lng" : 105.83010670
+               }
+            },
+            "location" : {
+               "lat" : -6.37852340,
+               "lng" : 105.83095450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.377061769708498,
+                  "lng" : 105.8323525802915
+               },
+               "southwest" : {
+                  "lat" : -6.379759730291502,
+                  "lng" : 105.8296546197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Labuan",
+               "short_name" : "Labuan",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Labuan",
+               "short_name" : "Labuan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pandeglang",
+               "short_name" : "Pandeglang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "42264",
+               "short_name" : "42264",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Labuan, Pandeglang, Banten 42264, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.37161990,
+                  "lng" : 105.835760
+               },
+               "southwest" : {
+                  "lat" : -6.3851760,
+                  "lng" : 105.82399010
+               }
+            },
+            "location" : {
+               "lat" : -6.37848030,
+               "lng" : 105.83049750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.37161990,
+                  "lng" : 105.835760
+               },
+               "southwest" : {
+                  "lat" : -6.3851760,
+                  "lng" : 105.82399010
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Labuan",
+               "short_name" : "Labuan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pandeglang",
+               "short_name" : "Pandeglang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Labuan, Pandeglang, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.3409460,
+                  "lng" : 105.85803990
+               },
+               "southwest" : {
+                  "lat" : -6.399826999999999,
+                  "lng" : 105.80432010
+               }
+            },
+            "location" : {
+               "lat" : -6.36676730,
+               "lng" : 105.83490090
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.3409460,
+                  "lng" : 105.85803990
+               },
+               "southwest" : {
+                  "lat" : -6.399826999999999,
+                  "lng" : 105.80432010
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "42264",
+               "short_name" : "42264",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banten 42264, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.221402599999999,
+                  "lng" : 105.92137140
+               },
+               "southwest" : {
+                  "lat" : -6.398396099999999,
+                  "lng" : 105.80335230
+               }
+            },
+            "location" : {
+               "lat" : -6.257936399999999,
+               "lng" : 105.86425930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.221402599999999,
+                  "lng" : 105.92137140
+               },
+               "southwest" : {
+                  "lat" : -6.398396099999999,
+                  "lng" : 105.80335230
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pandeglang",
+               "short_name" : "Pandeglang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pandeglang, Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.2215510,
+                  "lng" : 106.1757750
+               },
+               "southwest" : {
+                  "lat" : -7.0163420,
+                  "lng" : 105.10011490
+               }
+            },
+            "location" : {
+               "lat" : -6.74827060,
+               "lng" : 105.68817880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.2215510,
+                  "lng" : 106.1757750
+               },
+               "southwest" : {
+                  "lat" : -7.0163420,
+                  "lng" : 105.10011490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banten",
+               "short_name" : "Banten",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banten, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.87581390,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -7.0163420,
+                  "lng" : 105.10011490
+               }
+            },
+            "location" : {
+               "lat" : -6.40581720,
+               "lng" : 106.06401790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.87581390,
+                  "lng" : 106.7799150
+               },
+               "southwest" : {
+                  "lat" : -7.0163420,
+                  "lng" : 105.10011490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

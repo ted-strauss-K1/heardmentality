@@ -1,23 +1,11 @@
 <?php
 
-// Bahrain
-
-function location_province_list_bh() {
-  return array('CAP' => "Capital",
-    'CEN' => "Central",
-    'MUH' => "Muharraq",
-    'NOR' => "Northern",
-    'SOU' => "Southern");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_bh() {
-  return array(
-    'minlng' => 50.402,
-    'minlat' => 25.862667,
-    'maxlng' => 50.66065,
-    'maxlat' => 26.339733,
-  );
+function location_province_list_bh () {
+	return array (
+		"13" => t("Capital"),
+		"14" => t("Southern"),
+		"15" => t("Muharraq"),
+		"16" => t("Central"),
+		"17" => t("Northern"),
+	);
 }

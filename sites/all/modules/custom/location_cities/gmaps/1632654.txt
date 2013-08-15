@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Masjid Jamik",
+               "short_name" : "Jl. Masjid Jamik",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Pangkal Pinang",
+               "short_name" : "Pangkal Pinang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Rangkui",
+               "short_name" : "Rangkui",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pangkal Pinang City",
+               "short_name" : "Pangkal Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "33684",
+               "short_name" : "33684",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Masjid Jamik, Rangkui, Pangkal Pinang City, Bangka Belitung Islands 33684, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.12897120,
+                  "lng" : 106.11407870
+               },
+               "southwest" : {
+                  "lat" : -2.12976170,
+                  "lng" : 106.11372450
+               }
+            },
+            "location" : {
+               "lat" : -2.12936650,
+               "lng" : 106.11390160
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.128017469708498,
+                  "lng" : 106.1152505802915
+               },
+               "southwest" : {
+                  "lat" : -2.130715430291502,
+                  "lng" : 106.1125526197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Masjid Jamik",
+               "short_name" : "Masjid Jamik",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Rangkui",
+               "short_name" : "Rangkui",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pangkal Pinang City",
+               "short_name" : "Pangkal Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "33684",
+               "short_name" : "33684",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Masjid Jamik, Rangkui, Pangkal Pinang City, Bangka Belitung Islands 33684, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.12734290,
+                  "lng" : 106.11557710
+               },
+               "southwest" : {
+                  "lat" : -2.1329570,
+                  "lng" : 106.10729110
+               }
+            },
+            "location" : {
+               "lat" : -2.12990950,
+               "lng" : 106.11178510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.12734290,
+                  "lng" : 106.11557710
+               },
+               "southwest" : {
+                  "lat" : -2.1329570,
+                  "lng" : 106.10729110
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rangkui",
+               "short_name" : "Rangkui",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pangkal Pinang City",
+               "short_name" : "Pangkal Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rangkui, Pangkal Pinang City, Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.1083910,
+                  "lng" : 106.1325250
+               },
+               "southwest" : {
+                  "lat" : -2.15229510,
+                  "lng" : 106.0871170
+               }
+            },
+            "location" : {
+               "lat" : -2.13408450,
+               "lng" : 106.10811030
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.1083910,
+                  "lng" : 106.1325250
+               },
+               "southwest" : {
+                  "lat" : -2.15229510,
+                  "lng" : 106.0871170
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pangkal Pinang",
+               "short_name" : "Pangkal Pinang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pangkal Pinang City",
+               "short_name" : "Pangkal Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pangkal Pinang, Pangkal Pinang City, Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.0573380,
+                  "lng" : 106.1821990
+               },
+               "southwest" : {
+                  "lat" : -2.1592550,
+                  "lng" : 106.03914790
+               }
+            },
+            "location" : {
+               "lat" : -2.1293230,
+               "lng" : 106.1095960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.0573380,
+                  "lng" : 106.1821990
+               },
+               "southwest" : {
+                  "lat" : -2.1592550,
+                  "lng" : 106.03914790
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pangkal Pinang City",
+               "short_name" : "Pangkal Pinang City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pangkal Pinang City, Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.0573380,
+                  "lng" : 106.1821990
+               },
+               "southwest" : {
+                  "lat" : -2.1592550,
+                  "lng" : 106.03914790
+               }
+            },
+            "location" : {
+               "lat" : -2.11726230,
+               "lng" : 106.13457050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.0573380,
+                  "lng" : 106.1821990
+               },
+               "southwest" : {
+                  "lat" : -2.1592550,
+                  "lng" : 106.03914790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "33684",
+               "short_name" : "33684",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bangka Belitung Islands 33684, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.0950790,
+                  "lng" : 106.24179070
+               },
+               "southwest" : {
+                  "lat" : -2.51532790,
+                  "lng" : 105.96585080
+               }
+            },
+            "location" : {
+               "lat" : -2.34461540,
+               "lng" : 106.13457050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.0950790,
+                  "lng" : 106.24179070
+               },
+               "southwest" : {
+                  "lat" : -2.51532790,
+                  "lng" : 105.96585080
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.5006170,
+                  "lng" : 108.84799210
+               },
+               "southwest" : {
+                  "lat" : -3.4165350,
+                  "lng" : 105.1083960
+               }
+            },
+            "location" : {
+               "lat" : -2.74105130,
+               "lng" : 106.44058720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.5006170,
+                  "lng" : 108.84799210
+               },
+               "southwest" : {
+                  "lat" : -3.4165350,
+                  "lng" : 105.1083960
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,462 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Siak 2",
+               "short_name" : "Jalan Siak 2",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Lima Puluh",
+               "short_name" : "Lima Puluh",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Pekanbaru",
+               "short_name" : "Pekanbaru",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pekanbaru City",
+               "short_name" : "Pekanbaru City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau",
+               "short_name" : "Riau",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "No.Jalan Siak 2, Pekanbaru City, Riau, Indonesia",
+         "geometry" : {
+            "location" : {
+               "lat" : 0.5335510999999999,
+               "lng" : 101.44961940
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.5349000802915020,
+                  "lng" : 101.4509683802915
+               },
+               "southwest" : {
+                  "lat" : 0.5322021197084980,
+                  "lng" : 101.4482704197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rintis",
+               "short_name" : "Rintis",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Lima Puluh",
+               "short_name" : "Lima Puluh",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pekanbaru City",
+               "short_name" : "Pekanbaru City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau",
+               "short_name" : "Riau",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rintis, Lima Puluh, Pekanbaru City, Riau, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.5359550,
+                  "lng" : 101.45911090
+               },
+               "southwest" : {
+                  "lat" : 0.5250720999999999,
+                  "lng" : 101.44745910
+               }
+            },
+            "location" : {
+               "lat" : 0.5309467999999999,
+               "lng" : 101.45450010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.5359550,
+                  "lng" : 101.45911090
+               },
+               "southwest" : {
+                  "lat" : 0.5250720999999999,
+                  "lng" : 101.44745910
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "28155",
+               "short_name" : "28155",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Pekanbaru City",
+               "short_name" : "Pekanbaru City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau",
+               "short_name" : "Riau",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pekanbaru City, Riau 28155, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.54618190,
+                  "lng" : 101.45916740
+               },
+               "southwest" : {
+                  "lat" : 0.5281420,
+                  "lng" : 101.4287490
+               }
+            },
+            "location" : {
+               "lat" : 0.53850590,
+               "lng" : 101.43959310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.54618190,
+                  "lng" : 101.45916740
+               },
+               "southwest" : {
+                  "lat" : 0.5281420,
+                  "lng" : 101.4287490
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lima Puluh",
+               "short_name" : "Lima Puluh",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Lima Puluh",
+               "short_name" : "Lima Puluh",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pekanbaru City",
+               "short_name" : "Pekanbaru City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau",
+               "short_name" : "Riau",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lima Puluh, Pekanbaru City, Riau, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.55675690,
+                  "lng" : 101.46905490
+               },
+               "southwest" : {
+                  "lat" : 0.5248050,
+                  "lng" : 101.44704190
+               }
+            },
+            "location" : {
+               "lat" : 0.5361507999999999,
+               "lng" : 101.45946960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.55675690,
+                  "lng" : 101.46905490
+               },
+               "southwest" : {
+                  "lat" : 0.5248050,
+                  "lng" : 101.44704190
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lima Puluh",
+               "short_name" : "Lima Puluh",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pekanbaru City",
+               "short_name" : "Pekanbaru City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau",
+               "short_name" : "Riau",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lima Puluh, Pekanbaru City, Riau, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.55675690,
+                  "lng" : 101.46905490
+               },
+               "southwest" : {
+                  "lat" : 0.5248050,
+                  "lng" : 101.44704190
+               }
+            },
+            "location" : {
+               "lat" : 0.5361507999999999,
+               "lng" : 101.45946960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.55675690,
+                  "lng" : 101.46905490
+               },
+               "southwest" : {
+                  "lat" : 0.5248050,
+                  "lng" : 101.44704190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pekanbaru",
+               "short_name" : "Pekanbaru",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pekanbaru City",
+               "short_name" : "Pekanbaru City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau",
+               "short_name" : "Riau",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pekanbaru, Pekanbaru City, Riau, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.69242090,
+                  "lng" : 101.59288090
+               },
+               "southwest" : {
+                  "lat" : 0.4169750,
+                  "lng" : 101.32606190
+               }
+            },
+            "location" : {
+               "lat" : 0.53333330,
+               "lng" : 101.450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.69242090,
+                  "lng" : 101.59288090
+               },
+               "southwest" : {
+                  "lat" : 0.4169750,
+                  "lng" : 101.32606190
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pekanbaru City",
+               "short_name" : "Pekanbaru City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau",
+               "short_name" : "Riau",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pekanbaru City, Riau, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.69242090,
+                  "lng" : 101.59288090
+               },
+               "southwest" : {
+                  "lat" : 0.4169750,
+                  "lng" : 101.32606190
+               }
+            },
+            "location" : {
+               "lat" : 0.5523355999999999,
+               "lng" : 101.479350
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.69242090,
+                  "lng" : 101.59288090
+               },
+               "southwest" : {
+                  "lat" : 0.4169750,
+                  "lng" : 101.32606190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Riau",
+               "short_name" : "Riau",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Riau, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.88316640,
+                  "lng" : 103.8132970
+               },
+               "southwest" : {
+                  "lat" : -1.1222730,
+                  "lng" : 100.0248490
+               }
+            },
+            "location" : {
+               "lat" : 0.29334690,
+               "lng" : 101.70682940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.88316640,
+                  "lng" : 103.8132970
+               },
+               "southwest" : {
+                  "lat" : -1.1222730,
+                  "lng" : 100.0248490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

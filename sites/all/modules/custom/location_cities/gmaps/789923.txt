@@ -1,0 +1,240 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Brace Milosavljevic",
+               "short_name" : "Brace Milosavljevic",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Jagodina",
+               "short_name" : "Jagodina",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pomoravlje District",
+               "short_name" : "Pomoravlje District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "35000",
+               "short_name" : "35000",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Brace Milosavljevic, Jagodina 35000, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 43.97714670,
+                  "lng" : 21.26227730
+               },
+               "southwest" : {
+                  "lat" : 43.97665530,
+                  "lng" : 21.26131650
+               }
+            },
+            "location" : {
+               "lat" : 43.9769010,
+               "lng" : 21.26179690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 43.97824998029149,
+                  "lng" : 21.26314588029150
+               },
+               "southwest" : {
+                  "lat" : 43.97555201970850,
+                  "lng" : 21.26044791970849
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jagodina",
+               "short_name" : "Jagodina",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pomoravlje District",
+               "short_name" : "Pomoravlje District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jagodina, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.00037830,
+                  "lng" : 21.29219060
+               },
+               "southwest" : {
+                  "lat" : 43.94790610,
+                  "lng" : 21.22825740
+               }
+            },
+            "location" : {
+               "lat" : 43.98138890,
+               "lng" : 21.24555560
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.00037830,
+                  "lng" : 21.29219060
+               },
+               "southwest" : {
+                  "lat" : 43.94790610,
+                  "lng" : 21.22825740
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Јагодина",
+               "short_name" : "Јагодина",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pomoravlje District",
+               "short_name" : "Pomoravlje District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Јагодина, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.1112540,
+                  "lng" : 21.35673520
+               },
+               "southwest" : {
+                  "lat" : 43.83947960,
+                  "lng" : 21.04637140
+               }
+            },
+            "location" : {
+               "lat" : 43.93555290,
+               "lng" : 21.19675130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.1112540,
+                  "lng" : 21.35673520
+               },
+               "southwest" : {
+                  "lat" : 43.83947960,
+                  "lng" : 21.04637140
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pomoravlje District",
+               "short_name" : "Pomoravlje District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pomoravlje District, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.3100240,
+                  "lng" : 21.8399690
+               },
+               "southwest" : {
+                  "lat" : 43.71146690,
+                  "lng" : 20.9297010
+               }
+            },
+            "location" : {
+               "lat" : 43.95913789999999,
+               "lng" : 21.2713530
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.3100240,
+                  "lng" : 21.8399690
+               },
+               "southwest" : {
+                  "lat" : 43.71146690,
+                  "lng" : 20.9297010
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

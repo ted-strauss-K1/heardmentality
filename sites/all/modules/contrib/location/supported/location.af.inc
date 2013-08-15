@@ -1,50 +1,40 @@
 <?php
 
-// Afghanistan
-
-function location_province_list_af() {
-  return array('BDS' => "Badakhshan province",
-    'BDG' => "Badghis province",
-    'BGL' => "Baghlan province",
-    'BAL' => "Balkh province",
-    'BAM' => "Bamian province",
-    'FRA' => "Farah province",
-    'FYB' => "Faryab province",
-    'GHA' => "Ghazni province",
-    'GHO' => "Ghowr province",
-    'HEL' => "Helmand province",
-    'HER' => "Herat province",
-    'JOW' => "Jowzjan province",
-    'KAB' => "Kabul province",
-    'KAN' => "Kandahar province",
-    'KAP' => "Kapisa province",
-    'KHO' => "Khost province",
-    'KNR' => "Konar province",
-    'KDZ' => "Kondoz province",
-    'LAG' => "Laghman province",
-    'LOW' => "Lowgar province",
-    'NAN' => "Nangrahar province",
-    'NIM' => "Nimruz province",
-    'NUR' => "Nurestan province",
-    'ORU' => "Oruzgan province",
-    'PIA' => "Paktia province",
-    'PKA' => "Paktika province",
-    'PAR' => "Parwan province",
-    'SAM' => "Samangan province",
-    'SAR' => "Sar-e Pol province",
-    'TAK' => "Takhar province",
-    'WAR' => "Wardak province",
-    'ZAB' => "Zabol province");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_af() {
-  return array(
-    'minlng' => 60.5054,
-    'minlat' => 29.612733,
-    'maxlng' => 74.93195,
-    'maxlat' => 38.538967,
-  );
+function location_province_list_af () {
+	return array (
+		"BAL" => t("Balkh province"),
+		"BAM" => t("Bamian province"),
+		"BDG" => t("Badghis province"),
+		"BDS" => t("Badakhshan province"),
+		"BGL" => t("Baghlan province"),
+		"DAY" => t("Daykundi"),
+		"FRA" => t("Farah province"),
+		"FYB" => t("Faryab province"),
+		"GHA" => t("Ghazni province"),
+		"GHO" => t("Ghowr province"),
+		"HEL" => t("Helmand province"),
+		"HER" => t("Herat province"),
+		"JOW" => t("Jowzjan province"),
+		"KAB" => t("Kabul province"),
+		"KAN" => t("Kandahar province"),
+		"KAP" => t("Kapisa province"),
+		"KDZ" => t("Kondoz province"),
+		"KHO" => t("Khost province"),
+		"KNR" => t("Konar province"),
+		"LAG" => t("Laghman province"),
+		"LOW" => t("Lowgar province"),
+		"NAN" => t("Nangrahar province"),
+		"NIM" => t("Nimruz province"),
+		"NUR" => t("Nurestan province"),
+		"ORU" => t("Oruzgan province"),
+		"PAN" => t("Panjshir"),
+		"PAR" => t("Parwan province"),
+		"PIA" => t("Paktia province"),
+		"PKA" => t("Paktika province"),
+		"SAM" => t("Samangan province"),
+		"SAR" => t("Sar-e Pol province"),
+		"TAK" => t("Takhar province"),
+		"WAR" => t("Wardak province"),
+		"ZAB" => t("Zabol province"),
+	);
 }

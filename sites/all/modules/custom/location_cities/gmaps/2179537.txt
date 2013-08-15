@@ -1,0 +1,346 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "16",
+               "short_name" : "16",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Willis Street",
+               "short_name" : "Willis St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "6011",
+               "short_name" : "6011",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "16 Willis Street, Wellington, 6011, New Zealand",
+         "geometry" : {
+            "location" : {
+               "lat" : -41.28675630,
+               "lng" : 174.7758720
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -41.28540731970850,
+                  "lng" : 174.7772209802915
+               },
+               "southwest" : {
+                  "lat" : -41.28810528029150,
+                  "lng" : 174.7745230197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wellington City",
+               "short_name" : "Wellington City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -41.27793060,
+                  "lng" : 174.7804610
+               },
+               "southwest" : {
+                  "lat" : -41.29112160,
+                  "lng" : 174.77076810
+               }
+            },
+            "location" : {
+               "lat" : -41.28642570,
+               "lng" : 174.77624420
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -41.27793060,
+                  "lng" : 174.7804610
+               },
+               "southwest" : {
+                  "lat" : -41.29112160,
+                  "lng" : 174.77076810
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "6011",
+               "short_name" : "6011",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "6011, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -41.25929470,
+                  "lng" : 174.80365760
+               },
+               "southwest" : {
+                  "lat" : -41.30652010,
+                  "lng" : 174.76475380
+               }
+            },
+            "location" : {
+               "lat" : -41.27850750,
+               "lng" : 174.78899070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -41.25929470,
+                  "lng" : 174.80365760
+               },
+               "southwest" : {
+                  "lat" : -41.30652010,
+                  "lng" : 174.76475380
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wellington City",
+               "short_name" : "Wellington City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -41.1262850,
+                  "lng" : 174.91062520
+               },
+               "southwest" : {
+                  "lat" : -41.36245510,
+                  "lng" : 174.6130840
+               }
+            },
+            "location" : {
+               "lat" : -41.28646030,
+               "lng" : 174.7762360
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -41.1262850,
+                  "lng" : 174.91062520
+               },
+               "southwest" : {
+                  "lat" : -41.36245510,
+                  "lng" : 174.6130840
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wellington City",
+               "short_name" : "Wellington City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wellington City, Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -41.1262850,
+                  "lng" : 174.91062520
+               },
+               "southwest" : {
+                  "lat" : -41.36245510,
+                  "lng" : 174.6130840
+               }
+            },
+            "location" : {
+               "lat" : -41.28090240,
+               "lng" : 174.73155630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -41.1262850,
+                  "lng" : 174.91062520
+               },
+               "southwest" : {
+                  "lat" : -41.36245510,
+                  "lng" : 174.6130840
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.46558070,
+                  "lng" : 176.27181910
+               },
+               "southwest" : {
+                  "lat" : -41.6137520,
+                  "lng" : 174.6130840
+               }
+            },
+            "location" : {
+               "lat" : -41.02993230,
+               "lng" : 175.43755740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.46558070,
+                  "lng" : 176.27181910
+               },
+               "southwest" : {
+                  "lat" : -41.6137520,
+                  "lng" : 174.6130840
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -29.23134190,
+                  "lng" : -176.15422480
+               },
+               "southwest" : {
+                  "lat" : -52.61941849999999,
+                  "lng" : 165.86943690
+               }
+            },
+            "location" : {
+               "lat" : -40.9005570,
+               "lng" : 174.8859710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -34.12955780,
+                  "lng" : 179.06253570
+               },
+               "southwest" : {
+                  "lat" : -47.76812409999999,
+                  "lng" : 166.42613610
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

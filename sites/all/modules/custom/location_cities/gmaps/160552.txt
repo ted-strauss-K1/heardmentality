@@ -1,0 +1,240 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "416A Road",
+               "short_name" : "416A Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Biharamulo",
+               "short_name" : "Biharamulo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Kagera",
+               "short_name" : "Kagera",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "416A Road, Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.61456780,
+                  "lng" : 31.83833599999999
+               },
+               "southwest" : {
+                  "lat" : -2.62500670,
+                  "lng" : 31.82143809999999
+               }
+            },
+            "location" : {
+               "lat" : -2.61735540,
+               "lng" : 31.83215240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.61456780,
+                  "lng" : 31.83833599999999
+               },
+               "southwest" : {
+                  "lat" : -2.62500670,
+                  "lng" : 31.82143809999999
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Chato",
+               "short_name" : "Chato",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Biharamulo",
+               "short_name" : "Biharamulo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Kagera",
+               "short_name" : "Kagera",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Chato, Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.63158730,
+                  "lng" : 31.77683840
+               },
+               "southwest" : {
+                  "lat" : -2.64359090,
+                  "lng" : 31.75950040
+               }
+            },
+            "location" : {
+               "lat" : -2.63646970,
+               "lng" : 31.7679850
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.63158730,
+                  "lng" : 31.77683840
+               },
+               "southwest" : {
+                  "lat" : -2.64359090,
+                  "lng" : 31.75950040
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Biharamulo",
+               "short_name" : "Biharamulo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Kagera",
+               "short_name" : "Kagera",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Biharamulo, Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.30170310,
+                  "lng" : 31.85691839999999
+               },
+               "southwest" : {
+                  "lat" : -3.10383510,
+                  "lng" : 31.1052990
+               }
+            },
+            "location" : {
+               "lat" : -2.7806410,
+               "lng" : 31.44561790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.30170310,
+                  "lng" : 31.85691839999999
+               },
+               "southwest" : {
+                  "lat" : -3.10383510,
+                  "lng" : 31.1052990
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kagera",
+               "short_name" : "Kagera",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kagera, Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.9907360,
+                  "lng" : 32.13586810
+               },
+               "southwest" : {
+                  "lat" : -3.34408990,
+                  "lng" : 30.40339110
+               }
+            },
+            "location" : {
+               "lat" : -2.37511240,
+               "lng" : 31.26263660
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.9907360,
+                  "lng" : 32.13586810
+               },
+               "southwest" : {
+                  "lat" : -3.34408990,
+                  "lng" : 30.40339110
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.9843970,
+                  "lng" : 40.44496530
+               },
+               "southwest" : {
+                  "lat" : -11.76125360,
+                  "lng" : 29.340
+               }
+            },
+            "location" : {
+               "lat" : -6.3690280,
+               "lng" : 34.8888220
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.9843970,
+                  "lng" : 40.44496530
+               },
+               "southwest" : {
+                  "lat" : -11.76125360,
+                  "lng" : 29.340
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

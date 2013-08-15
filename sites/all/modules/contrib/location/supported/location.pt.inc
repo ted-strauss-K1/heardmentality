@@ -1,38 +1,26 @@
 <?php
 
-// Portugal
-
-function location_province_list_pt() {
-  return array('AV' => "Aveiro",
-    'AR' => "Acores (Azores)",
-    'BJ' => "Beja",
-    'BA' => "Braga",
-    'BN' => "Braganca",
-    'CB' => "Castelo Branco",
-    'CO' => "Coimbra",
-    'EV' => "Evora",
-    'FA' => "Faro",
-    'GU' => "Guarda",
-    'LE' => "Leiria",
-    'LI' => "Lisboa",
-    'MA' => "Madeira",
-    'PG' => "Portalegre",
-    'PO' => "Porto",
-    'SA' => "Santarem",
-    'SE' => "Setubal",
-    'VC' => "Viana do Castelo",
-    'VR' => "Vila Real",
-    'VS' => "Viseu");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_pt() {
-  return array(
-    'minlng' => -31.25925,
-    'minlat' => 32.335633,
-    'maxlng' => -6.25515,
-    'maxlat' => 42.028267,
-  );
+function location_province_list_pt () {
+	return array (
+		"01" => t("Aveiro"),
+		"02" => t("Beja"),
+		"03" => t("Braga"),
+		"04" => t("Braganca"),
+		"05" => t("Castelo Branco"),
+		"06" => t("Coimbra"),
+		"07" => t("Evora"),
+		"08" => t("Faro"),
+		"09" => t("Guarda"),
+		"10" => t("Leiria"),
+		"11" => t("Lisboa"),
+		"12" => t("Portalegre"),
+		"13" => t("Porto"),
+		"14" => t("Santarem"),
+		"15" => t("Setubal"),
+		"16" => t("Viana do Castelo"),
+		"17" => t("Vila Real"),
+		"18" => t("Viseu"),
+		"20" => t("Acores (Azores)"),
+		"30" => t("Madeira"),
+	);
 }

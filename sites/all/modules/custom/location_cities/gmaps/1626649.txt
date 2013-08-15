@@ -1,0 +1,409 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan A. Yani",
+               "short_name" : "Jl. A. Yani",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Barangin",
+               "short_name" : "Barangin",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sawah Lunto",
+               "short_name" : "Sawah Lunto",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "27422",
+               "short_name" : "27422",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan A. Yani, Barangin, Sawah Lunto 27422, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.67300240,
+                  "lng" : 100.76937810
+               },
+               "southwest" : {
+                  "lat" : -0.67454050,
+                  "lng" : 100.76718830
+               }
+            },
+            "location" : {
+               "lat" : -0.67416090,
+               "lng" : 100.76783080
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.6724224697084979,
+                  "lng" : 100.7696321802915
+               },
+               "southwest" : {
+                  "lat" : -0.6751204302915020,
+                  "lng" : 100.7669342197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ix Korong",
+               "short_name" : "Ix Korong",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Lubuk Sikarah",
+               "short_name" : "Lubuk Sikarah",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Solok",
+               "short_name" : "Solok",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ix Korong, Lubuk Sikarah, Solok, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.7946909999999999,
+                  "lng" : 100.65984790
+               },
+               "southwest" : {
+                  "lat" : -0.8040560,
+                  "lng" : 100.6411830
+               }
+            },
+            "location" : {
+               "lat" : -0.79991050,
+               "lng" : 100.649220
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.7946909999999999,
+                  "lng" : 100.65984790
+               },
+               "southwest" : {
+                  "lat" : -0.8040560,
+                  "lng" : 100.6411830
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "27317",
+               "short_name" : "27317",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Sumatra 27317, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.7767018999999999,
+                  "lng" : 100.67960360
+               },
+               "southwest" : {
+                  "lat" : -0.803070,
+                  "lng" : 100.64006790
+               }
+            },
+            "location" : {
+               "lat" : -0.78935320,
+               "lng" : 100.66189350
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.7767018999999999,
+                  "lng" : 100.67960360
+               },
+               "southwest" : {
+                  "lat" : -0.803070,
+                  "lng" : 100.64006790
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lubuk Sikarah",
+               "short_name" : "Lubuk Sikarah",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Solok",
+               "short_name" : "Solok",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lubuk Sikarah, Solok, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.76462290,
+                  "lng" : 100.6794920
+               },
+               "southwest" : {
+                  "lat" : -0.8190470,
+                  "lng" : 100.54137010
+               }
+            },
+            "location" : {
+               "lat" : -0.79181580,
+               "lng" : 100.6140250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.76462290,
+                  "lng" : 100.6794920
+               },
+               "southwest" : {
+                  "lat" : -0.8190470,
+                  "lng" : 100.54137010
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Solok",
+               "short_name" : "Solok",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Solok",
+               "short_name" : "Solok",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Solok, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.7387119999999999,
+                  "lng" : 100.68887590
+               },
+               "southwest" : {
+                  "lat" : -0.8190470,
+                  "lng" : 100.541370
+               }
+            },
+            "location" : {
+               "lat" : -0.7788794999999999,
+               "lng" : 100.6151230
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.7387119999999999,
+                  "lng" : 100.68887590
+               },
+               "southwest" : {
+                  "lat" : -0.8190470,
+                  "lng" : 100.541370
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Solok",
+               "short_name" : "Solok",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Solok, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.53460690,
+                  "lng" : 101.2457650
+               },
+               "southwest" : {
+                  "lat" : -1.32046110,
+                  "lng" : 100.4300030
+               }
+            },
+            "location" : {
+               "lat" : -0.96438380,
+               "lng" : 100.89030990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.53460690,
+                  "lng" : 101.2457650
+               },
+               "southwest" : {
+                  "lat" : -1.32046110,
+                  "lng" : 100.4300030
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9073890,
+                  "lng" : 101.89291810
+               },
+               "southwest" : {
+                  "lat" : -4.0200910,
+                  "lng" : 98.59692190000001
+               }
+            },
+            "location" : {
+               "lat" : -0.73993970,
+               "lng" : 100.80000510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9073890,
+                  "lng" : 101.89291810
+               },
+               "southwest" : {
+                  "lat" : -4.0200910,
+                  "lng" : 98.59692190000001
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

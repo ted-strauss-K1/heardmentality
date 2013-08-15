@@ -1,28 +1,18 @@
 <?php
 
-// Panama
-
-function location_province_list_pa() {
-  return array('BT' => "Bocas del Toro",
-    'CH' => "Chiriqui",
-    'CC' => "Cocle",
-    'CL' => "Colon",
-    'DA' => "Darien",
-    'HE' => "Herrera",
-    'LS' => "Los Santos",
-    'PA' => "Panama",
-    'SB' => "San Blas",
-    'VG' => "Veraguas");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_pa() {
-  return array(
-    'minlng' => -83.0577,
-    'minlat' => 7.1904,
-    'maxlng' => -77.17625,
-    'maxlat' => 9.6265,
-  );
+function location_province_list_pa () {
+	return array (
+		"1" => t("Bocas del Toro"),
+		"2" => t("Cocle"),
+		"3" => t("Colon"),
+		"4" => t("Chiriqui"),
+		"5" => t("Darien"),
+		"6" => t("Herrera"),
+		"7" => t("Los Santos"),
+		"8" => t("Panama"),
+		"9" => t("Veraguas"),
+		"EM" => t("Comarca Embera-Wounaan"),
+		"KY" => t("Comarca de Kuna Yala"),
+		"NB" => t("Ngobe-Bugle"),
+	);
 }

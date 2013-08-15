@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Letjend. Suprapto,",
+               "short_name" : "Jl. Letjend. Suprapto,",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tanjung Balai",
+               "short_name" : "Tanjung Balai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "North Tanjungbalai",
+               "short_name" : "North Tanjungbalai",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tanjung Balai City",
+               "short_name" : "Tanjung Balai City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "21332",
+               "short_name" : "21332",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Letjend. Suprapto,, North Tanjungbalai, Tanjung Balai City, North Sumatra 21332, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.97172820,
+                  "lng" : 99.7998080
+               },
+               "southwest" : {
+                  "lat" : 2.9712250,
+                  "lng" : 99.79953080
+               }
+            },
+            "location" : {
+               "lat" : 2.97147660,
+               "lng" : 99.79966940000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.972825580291502,
+                  "lng" : 99.80101838029151
+               },
+               "southwest" : {
+                  "lat" : 2.970127619708498,
+                  "lng" : 99.79832041970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Perjuangan",
+               "short_name" : "Perjuangan",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Teluk Nibung",
+               "short_name" : "Teluk Nibung",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tanjung Balai City",
+               "short_name" : "Tanjung Balai City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "21352",
+               "short_name" : "21352",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Perjuangan, Teluk Nibung, Tanjung Balai City, North Sumatra 21352, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.0068490,
+                  "lng" : 99.8197680
+               },
+               "southwest" : {
+                  "lat" : 2.9938120,
+                  "lng" : 99.8110830
+               }
+            },
+            "location" : {
+               "lat" : 2.99936430,
+               "lng" : 99.81667830000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.0068490,
+                  "lng" : 99.8197680
+               },
+               "southwest" : {
+                  "lat" : 2.9938120,
+                  "lng" : 99.8110830
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Teluk Nibung",
+               "short_name" : "Teluk Nibung",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tanjung Balai City",
+               "short_name" : "Tanjung Balai City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Teluk Nibung, Tanjung Balai City, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.0248950,
+                  "lng" : 99.82001310
+               },
+               "southwest" : {
+                  "lat" : 2.9734270,
+                  "lng" : 99.78000279999999
+               }
+            },
+            "location" : {
+               "lat" : 3.00808780,
+               "lng" : 99.80691410
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.0248950,
+                  "lng" : 99.82001310
+               },
+               "southwest" : {
+                  "lat" : 2.9734270,
+                  "lng" : 99.78000279999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tanjung Balai",
+               "short_name" : "Tanjung Balai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tanjung Balai City",
+               "short_name" : "Tanjung Balai City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tanjung Balai, Tanjung Balai City, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.0248950,
+                  "lng" : 99.8378070
+               },
+               "southwest" : {
+                  "lat" : 2.9206810,
+                  "lng" : 99.75299290
+               }
+            },
+            "location" : {
+               "lat" : 2.9651220,
+               "lng" : 99.8003310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.0248950,
+                  "lng" : 99.8378070
+               },
+               "southwest" : {
+                  "lat" : 2.9206810,
+                  "lng" : 99.75299290
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tanjung Balai City",
+               "short_name" : "Tanjung Balai City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tanjung Balai City, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.0248950,
+                  "lng" : 99.8378070
+               },
+               "southwest" : {
+                  "lat" : 2.9206810,
+                  "lng" : 99.75299290
+               }
+            },
+            "location" : {
+               "lat" : 2.94402720,
+               "lng" : 99.80133509999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.0248950,
+                  "lng" : 99.8378070
+               },
+               "southwest" : {
+                  "lat" : 2.9206810,
+                  "lng" : 99.75299290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "21352",
+               "short_name" : "21352",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra 21352, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.07760190,
+                  "lng" : 99.86197660000001
+               },
+               "southwest" : {
+                  "lat" : 2.95692210,
+                  "lng" : 99.77837380
+               }
+            },
+            "location" : {
+               "lat" : 3.02274230,
+               "lng" : 99.82365330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.07760190,
+                  "lng" : 99.86197660000001
+               },
+               "southwest" : {
+                  "lat" : 2.95692210,
+                  "lng" : 99.77837380
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            },
+            "location" : {
+               "lat" : 2.11535470,
+               "lng" : 99.54509739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

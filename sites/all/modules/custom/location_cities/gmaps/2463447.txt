@@ -1,0 +1,240 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Route Du Port",
+               "short_name" : "Route Du Port",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Dakhla",
+               "short_name" : "Dakhla",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Oued Ed-Dahab-Lagouira",
+               "short_name" : "Oued Ed-Dahab-Lagouira",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Route Du Port, Dakhla, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.68243510,
+                  "lng" : -15.95399510
+               },
+               "southwest" : {
+                  "lat" : 23.68171890,
+                  "lng" : -15.95557840
+               }
+            },
+            "location" : {
+               "lat" : 23.6821040,
+               "lng" : -15.95480720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.68342598029151,
+                  "lng" : -15.95343776970850
+               },
+               "southwest" : {
+                  "lat" : 23.68072801970850,
+                  "lng" : -15.95613573029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Dakhla",
+               "short_name" : "Dakhla",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Oued Ed-Dahab-Lagouira",
+               "short_name" : "Oued Ed-Dahab-Lagouira",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Dakhla, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.7490540,
+                  "lng" : -15.90880390
+               },
+               "southwest" : {
+                  "lat" : 23.66452830,
+                  "lng" : -15.97386350
+               }
+            },
+            "location" : {
+               "lat" : 23.697510,
+               "lng" : -15.936980
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.7490540,
+                  "lng" : -15.90880390
+               },
+               "southwest" : {
+                  "lat" : 23.66452830,
+                  "lng" : -15.97386350
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "73000",
+               "short_name" : "73000",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Dakhla",
+               "short_name" : "Dakhla",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Oued Ed-Dahab-Lagouira",
+               "short_name" : "Oued Ed-Dahab-Lagouira",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Dakhla 73000, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.76123060,
+                  "lng" : -15.90442660
+               },
+               "southwest" : {
+                  "lat" : 23.65450920,
+                  "lng" : -15.98510740
+               }
+            },
+            "location" : {
+               "lat" : 23.70786990,
+               "lng" : -15.9447670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.76123060,
+                  "lng" : -15.90442660
+               },
+               "southwest" : {
+                  "lat" : 23.65450920,
+                  "lng" : -15.98510740
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Oued Ed-Dahab-Lagouira",
+               "short_name" : "Oued Ed-Dahab-Lagouira",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Oued Ed-Dahab-Lagouira, Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 24.58708090,
+                  "lng" : -12.00000010
+               },
+               "southwest" : {
+                  "lat" : 20.77415790,
+                  "lng" : -17.1031820
+               }
+            },
+            "location" : {
+               "lat" : 22.73378920,
+               "lng" : -14.28611160
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 24.58708090,
+                  "lng" : -12.00000010
+               },
+               "southwest" : {
+                  "lat" : 20.77415790,
+                  "lng" : -17.1031820
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Western Sahara",
+               "short_name" : "EH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Western Sahara",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 27.66667760,
+                  "lng" : -8.666665999999999
+               },
+               "southwest" : {
+                  "lat" : 20.77001840,
+                  "lng" : -17.10490820
+               }
+            },
+            "location" : {
+               "lat" : 24.2155270,
+               "lng" : -12.8858340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 27.66670280,
+                  "lng" : -8.666665999999999
+               },
+               "southwest" : {
+                  "lat" : 20.77001840,
+                  "lng" : -17.10490820
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

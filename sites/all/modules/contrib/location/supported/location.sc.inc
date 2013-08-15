@@ -1,41 +1,31 @@
 <?php
 
-// Seychelles
-
-function location_province_list_sc() {
-  return array('AP' => "Anse aux Pins",
-    'AB' => "Anse Boileau",
-    'AE' => "Anse Etoile",
-    'AL' => "Anse Louis",
-    'AR' => "Anse Royale",
-    'BL' => "Baie Lazare",
-    'BS' => "Baie Sainte Anne",
-    'BV' => "Beau Vallon",
-    'BA' => "Bel Air",
-    'BO' => "Bel Ombre",
-    'CA' => "Cascade",
-    'GL' => "Glacis",
-    'GM' => "Grand' Anse (on Mahe)",
-    'GP' => "Grand' Anse (on Praslin)",
-    'DG' => "La Digue",
-    'RA' => "La Riviere Anglaise",
-    'MB' => "Mont Buxton",
-    'MF' => "Mont Fleuri",
-    'PL' => "Plaisance",
-    'PR' => "Pointe La Rue",
-    'PG' => "Port Glaud",
-    'SL' => "Saint Louis",
-    'TA' => "Takamaka");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_sc() {
-  return array(
-    'minlng' => 46.04125,
-    'minlat' => -11.5018,
-    'maxlng' => 56.26545,
-    'maxlat' => -4.231767,
-  );
+function location_province_list_sc () {
+	return array (
+		"01" => t("Anse aux Pins"),
+		"02" => t("Anse Boileau"),
+		"03" => t("Anse Etoile"),
+		"04" => t("Anse Louis"),
+		"05" => t("Anse Royale"),
+		"06" => t("Baie Lazare"),
+		"07" => t("Baie Sainte Anne"),
+		"08" => t("Beau Vallon"),
+		"09" => t("Bel Air"),
+		"10" => t("Bel Ombre"),
+		"11" => t("Cascade"),
+		"12" => t("Glacis"),
+		"13" => t("Grand' Anse (on Mahe)"),
+		"14" => t("Grand' Anse (on Praslin)"),
+		"15" => t("La Digue"),
+		"16" => t("La Riviere Anglaise"),
+		"17" => t("Mont Buxton"),
+		"18" => t("Mont Fleuri"),
+		"19" => t("Plaisance"),
+		"20" => t("Pointe La Rue"),
+		"21" => t("Port Glaud"),
+		"22" => t("Saint Louis"),
+		"23" => t("Takamaka"),
+		"24" => t("Les Mamelles"),
+		"25" => t("Roche Caiman"),
+	);
 }

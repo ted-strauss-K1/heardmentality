@@ -1,33 +1,21 @@
 <?php
 
-// Cook Islands
-
-function location_province_list_ck() {
-  return array('PU' => "Pukapuka",
-    'RK' => "Rakahanga",
-    'MK' => "Manihiki",
-    'PE' => "Penrhyn",
-    'NI' => "Nassau Island",
-    'SU' => "Surwarrow",
-    'PA' => "Palmerston",
-    'AI' => "Aitutaki",
-    'MA' => "Manuae",
-    'TA' => "Takutea",
-    'MT' => "Mitiaro",
-    'AT' => "Atiu",
-    'MU' => "Mauke",
-    'RR' => "Rarotonga",
-    'MG' => "Mangaia");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ck() {
-  return array(
-    'minlng' => -165.7749,
-    'minlat' => -11.650367,
-    'maxlng' => -165.37025,
-    'maxlat' => -10.815933,
-  );
+function location_province_list_ck () {
+	return array (
+		"AI" => t("Aitutaki"),
+		"AT" => t("Atiu"),
+		"MA" => t("Manuae"),
+		"MG" => t("Mangaia"),
+		"MK" => t("Manihiki"),
+		"MT" => t("Mitiaro"),
+		"MU" => t("Mauke"),
+		"NI" => t("Nassau Island"),
+		"PA" => t("Palmerston"),
+		"PE" => t("Penrhyn"),
+		"PU" => t("Pukapuka"),
+		"RK" => t("Rakahanga"),
+		"RR" => t("Rarotonga"),
+		"SU" => t("Surwarrow"),
+		"TA" => t("Takutea"),
+	);
 }

@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Gurami",
+               "short_name" : "Jalan Gurami",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Papua",
+               "short_name" : "West Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "98412",
+               "short_name" : "98412",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Gurami, Sorong, West Papua 98412, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.8789437000000001,
+                  "lng" : 131.26137610
+               },
+               "southwest" : {
+                  "lat" : -0.8792778999999999,
+                  "lng" : 131.2607820
+               }
+            },
+            "location" : {
+               "lat" : -0.8791108999999999,
+               "lng" : 131.2610790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.8777618197084980,
+                  "lng" : 131.2624280302915
+               },
+               "southwest" : {
+                  "lat" : -0.8804597802915021,
+                  "lng" : 131.2597300697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Klaligi",
+               "short_name" : "Klaligi",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Sorong Manoi",
+               "short_name" : "Sorong Manoi",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Papua",
+               "short_name" : "West Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Klaligi, Sorong Manoi, Sorong, West Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.8759730,
+                  "lng" : 131.2685720
+               },
+               "southwest" : {
+                  "lat" : -0.8878830,
+                  "lng" : 131.2557920
+               }
+            },
+            "location" : {
+               "lat" : -0.8813886999999999,
+               "lng" : 131.26454190
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.8759730,
+                  "lng" : 131.2685720
+               },
+               "southwest" : {
+                  "lat" : -0.8878830,
+                  "lng" : 131.2557920
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Papua",
+               "short_name" : "West Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sorong, West Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.8596368999999999,
+                  "lng" : 131.2906410
+               },
+               "southwest" : {
+                  "lat" : -0.89213890,
+                  "lng" : 131.24170690
+               }
+            },
+            "location" : {
+               "lat" : -0.87852930,
+               "lng" : 131.27583790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.8596368999999999,
+                  "lng" : 131.2906410
+               },
+               "southwest" : {
+                  "lat" : -0.89213890,
+                  "lng" : 131.24170690
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "98412",
+               "short_name" : "98412",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "West Papua",
+               "short_name" : "West Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Papua 98412, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.7994836999999999,
+                  "lng" : 131.44165050
+               },
+               "southwest" : {
+                  "lat" : -0.90700490,
+                  "lng" : 131.2543180
+               }
+            },
+            "location" : {
+               "lat" : -0.8445682999999999,
+               "lng" : 131.39117780
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.7994836999999999,
+                  "lng" : 131.44165050
+               },
+               "southwest" : {
+                  "lat" : -0.90700490,
+                  "lng" : 131.2543180
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Papua",
+               "short_name" : "West Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sorong, West Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.7769660,
+                  "lng" : 131.4338860
+               },
+               "southwest" : {
+                  "lat" : -0.9555680000000001,
+                  "lng" : 131.1848220
+               }
+            },
+            "location" : {
+               "lat" : -0.86683660,
+               "lng" : 131.34105940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.7769660,
+                  "lng" : 131.4338860
+               },
+               "southwest" : {
+                  "lat" : -0.9555680000000001,
+                  "lng" : 131.1848220
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sorong",
+               "short_name" : "Sorong",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Papua",
+               "short_name" : "West Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sorong, West Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.7769660,
+                  "lng" : 131.4338860
+               },
+               "southwest" : {
+                  "lat" : -0.9555680000000001,
+                  "lng" : 131.1848220
+               }
+            },
+            "location" : {
+               "lat" : -0.8666667000000001,
+               "lng" : 131.250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.7769660,
+                  "lng" : 131.4338860
+               },
+               "southwest" : {
+                  "lat" : -0.9555680000000001,
+                  "lng" : 131.1848220
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Papua",
+               "short_name" : "West Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Papua, Republic of Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.0809050,
+                  "lng" : 135.25798010
+               },
+               "southwest" : {
+                  "lat" : -4.3293560,
+                  "lng" : 129.299980
+               }
+            },
+            "location" : {
+               "lat" : -1.33611540,
+               "lng" : 133.17471620
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.0806920,
+                  "lng" : 135.25798010
+               },
+               "southwest" : {
+                  "lat" : -4.3293380,
+                  "lng" : 129.30006580
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

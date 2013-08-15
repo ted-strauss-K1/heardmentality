@@ -1,50 +1,36 @@
 <?php
 
-// Dominican Republic
-
-function location_province_list_do() {
-  return array('DN' => "Distrito Nacional",
-    'AZ' => "Azua",
-    'BC' => "Baoruco",
-    'BH' => "Barahona",
-    'DJ' => "Dajabon",
-    'DU' => "Duarte",
-    'EL' => "Elias Pina",
-    'SY' => "El Seybo",
-    'ET' => "Espaillat",
-    'HM' => "Hato Mayor",
-    'IN' => "Independencia",
-    'AL' => "La Altagracia",
-    'RO' => "La Romana",
-    'VE' => "La Vega",
-    'MT' => "Maria Trinidad Sanchez",
-    'MN' => "Monsenor Nouel",
-    'MC' => "Monte Cristi",
-    'MP' => "Monte Plata",
-    'PD' => "Pedernales",
-    'PR' => "Peravia (Bani)",
-    'PP' => "Puerto Plata",
-    'SL' => "Salcedo",
-    'SM' => "Samana",
-    'SH' => "Sanchez Ramirez",
-    'SC' => "San Cristobal",
-    'JO' => "San Jose de Ocoa",
-    'SJ' => "San Juan",
-    'PM' => "San Pedro de Macoris",
-    'SA' => "Santiago",
-    'ST' => "Santiago Rodriguez",
-    'SD' => "Santo Domingo",
-    'VA' => "Valverde");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_do() {
-  return array(
-    'minlng' => -71.90115,
-    'minlat' => 17.506667,
-    'maxlng' => -68.2548,
-    'maxlat' => 19.880967,
-  );
+function location_province_list_do () {
+	return array (
+		"01" => t("Distrito Nacional"),
+		"02" => t("Azua"),
+		"03" => t("Baoruco"),
+		"04" => t("Barahona"),
+		"05" => t("Dajabon"),
+		"06" => t("Duarte"),
+		"07" => t("Elias Pina"),
+		"08" => t("El Seybo"),
+		"09" => t("Espaillat"),
+		"10" => t("Independencia"),
+		"11" => t("La Altagracia"),
+		"12" => t("La Romana"),
+		"13" => t("La Vega"),
+		"14" => t("Maria Trinidad Sanchez"),
+		"15" => t("Monte Cristi"),
+		"16" => t("Pedernales"),
+		"17" => t("Peravia (Bani)"),
+		"18" => t("Puerto Plata"),
+		"19" => t("Salcedo"),
+		"20" => t("Samana"),
+		"21" => t("San Cristobal"),
+		"22" => t("San Juan"),
+		"23" => t("San Pedro de Macoris"),
+		"24" => t("Sanchez Ramirez"),
+		"25" => t("Santiago"),
+		"26" => t("Santiago Rodriguez"),
+		"27" => t("Valverde"),
+		"28" => t("Monsenor Nouel"),
+		"29" => t("Monte Plata"),
+		"30" => t("Hato Mayor"),
+	);
 }

@@ -1,43 +1,30 @@
 <?php
 
-// Cambodia
-
-function location_province_list_kh() {
-  return array('PP' => "Phnom Penh",
-    'PS' => "Preah Seihanu (Kompong Som or Sihanoukville)",
-    'PA' => "Pailin",
-    'KB' => "Keb",
-    'BM' => "Banteay Meanchey",
-    'BA' => "Battambang",
-    'KM' => "Kampong Cham",
-    'KN' => "Kampong Chhnang",
-    'KU' => "Kampong Speu",
-    'KO' => "Kampong Som",
-    'KT' => "Kampong Thom",
-    'KP' => "Kampot",
-    'KL' => "Kandal",
-    'KK' => "Kaoh Kong",
-    'KR' => "Kratie",
-    'MK' => "Mondul Kiri",
-    'OM' => "Oddar Meancheay",
-    'PU' => "Pursat",
-    'PR' => "Preah Vihear",
-    'PG' => "Prey Veng",
-    'RK' => "Ratanak Kiri",
-    'SI' => "Siemreap",
-    'ST' => "Stung Treng",
-    'SR' => "Svay Rieng",
-    'TK' => "Takeo");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_kh() {
-  return array(
-    'minlng' => 102.2838,
-    'minlat' => 10.4398,
-    'maxlng' => 107.52335,
-    'maxlat' => 14.561533,
-  );
+function location_province_list_kh () {
+	return array (
+		"1" => t("Banteay Mean Choay"),
+		"10" => t("Kratie"),
+		"11" => t("Mondul Kiri"),
+		"12" => t("Phnom Penh"),
+		"13" => t("Preah Vihear"),
+		"14" => t("Prey Veng"),
+		"15" => t("Pursat"),
+		"16" => t("Rotanokiri"),
+		"17" => t("Siemreap"),
+		"18" => t("Preah Seihanu (Kompong Som or Sihanoukville)"),
+		"19" => t("Stung Treng"),
+		"2" => t("Battambang"),
+		"20" => t("Svay Rieng"),
+		"21" => t("Takeo"),
+		"22" => t("Otdar Mean Choay"),
+		"23" => t("Keb"),
+		"24" => t("Pailin"),
+		"3" => t("Kampong Cham"),
+		"4" => t("Kampong Chhnang"),
+		"5" => t("Kampong Speu"),
+		"6" => t("Kampong Thom"),
+		"7" => t("Kampot"),
+		"8" => t("Kandal"),
+		"9" => t("Kaoh Kong"),
+	);
 }

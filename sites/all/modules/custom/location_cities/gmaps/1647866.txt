@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Raya Bukittinggi - Payakumbuh",
+               "short_name" : "Jl. Raya Bukittinggi - Payakumbuh",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Bukittinggi",
+               "short_name" : "Bukittinggi",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mandiangin Koto Selayan",
+               "short_name" : "Mandiangin Koto Selayan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bukittinggi",
+               "short_name" : "Bukittinggi",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "26137",
+               "short_name" : "26137",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Raya Bukittinggi - Payakumbuh, Mandiangin Koto Selayan, Bukittinggi, West Sumatra 26137, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.29849380,
+                  "lng" : 100.37961330
+               },
+               "southwest" : {
+                  "lat" : -0.29867980,
+                  "lng" : 100.37883830
+               }
+            },
+            "location" : {
+               "lat" : -0.29858290,
+               "lng" : 100.37922490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.2972378197084979,
+                  "lng" : 100.3805747802915
+               },
+               "southwest" : {
+                  "lat" : -0.2999357802915020,
+                  "lng" : 100.3778768197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bukit Cangang Kayu Ramang",
+               "short_name" : "Bukit Cangang Kayu Ramang",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Guguk Panjang",
+               "short_name" : "Guguk Panjang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bukittinggi",
+               "short_name" : "Bukittinggi",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bukit Cangang Kayu Ramang, Guguk Panjang, Bukittinggi, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.3054690,
+                  "lng" : 100.3727050
+               },
+               "southwest" : {
+                  "lat" : -0.3143110,
+                  "lng" : 100.3640570
+               }
+            },
+            "location" : {
+               "lat" : -0.30971250,
+               "lng" : 100.36803640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.3054690,
+                  "lng" : 100.3727050
+               },
+               "southwest" : {
+                  "lat" : -0.3143110,
+                  "lng" : 100.3640570
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "26138",
+               "short_name" : "26138",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bukittinggi",
+               "short_name" : "Bukittinggi",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bukittinggi, West Sumatra 26138, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.2996360,
+                  "lng" : 100.38870230
+               },
+               "southwest" : {
+                  "lat" : -0.31278680,
+                  "lng" : 100.36368570
+               }
+            },
+            "location" : {
+               "lat" : -0.30738950,
+               "lng" : 100.37926710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.2996360,
+                  "lng" : 100.38870230
+               },
+               "southwest" : {
+                  "lat" : -0.31278680,
+                  "lng" : 100.36368570
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Guguk Panjang",
+               "short_name" : "Guguk Panjang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bukittinggi",
+               "short_name" : "Bukittinggi",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Guguk Panjang, Bukittinggi, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.2918510,
+                  "lng" : 100.3887860
+               },
+               "southwest" : {
+                  "lat" : -0.31760,
+                  "lng" : 100.3450170
+               }
+            },
+            "location" : {
+               "lat" : -0.30624320,
+               "lng" : 100.36944010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.2918510,
+                  "lng" : 100.3887860
+               },
+               "southwest" : {
+                  "lat" : -0.31760,
+                  "lng" : 100.3450170
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bukittinggi",
+               "short_name" : "Bukittinggi",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bukittinggi",
+               "short_name" : "Bukittinggi",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bukittinggi, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.272690,
+                  "lng" : 100.40563590
+               },
+               "southwest" : {
+                  "lat" : -0.3257680,
+                  "lng" : 100.3325090
+               }
+            },
+            "location" : {
+               "lat" : -0.30555560,
+               "lng" : 100.36916670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.272690,
+                  "lng" : 100.40563590
+               },
+               "southwest" : {
+                  "lat" : -0.3257680,
+                  "lng" : 100.3325090
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bukittinggi",
+               "short_name" : "Bukittinggi",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bukittinggi, West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.272690,
+                  "lng" : 100.40563590
+               },
+               "southwest" : {
+                  "lat" : -0.3257680,
+                  "lng" : 100.3325090
+               }
+            },
+            "location" : {
+               "lat" : -0.30391780,
+               "lng" : 100.3834790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.272690,
+                  "lng" : 100.40563590
+               },
+               "southwest" : {
+                  "lat" : -0.3257680,
+                  "lng" : 100.3325090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Sumatra",
+               "short_name" : "West Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9073890,
+                  "lng" : 101.89291810
+               },
+               "southwest" : {
+                  "lat" : -4.0200910,
+                  "lng" : 98.59692190000001
+               }
+            },
+            "location" : {
+               "lat" : -0.73993970,
+               "lng" : 100.80000510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9073890,
+                  "lng" : 101.89291810
+               },
+               "southwest" : {
+                  "lat" : -4.0200910,
+                  "lng" : 98.59692190000001
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

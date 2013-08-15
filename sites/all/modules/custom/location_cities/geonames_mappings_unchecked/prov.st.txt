@@ -1,7 +1,0 @@
-*2410878 st_S  :::  Sao Tome ~ Príncipe(2410878)
-*2410878 st_P  :::  Principe ~ Príncipe(2410878)
-
-NAMES:::::
-
-Príncipe(2410878) 
-São Tomé Island(2410764) 

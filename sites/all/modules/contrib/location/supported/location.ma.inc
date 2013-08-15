@@ -1,60 +1,22 @@
 <?php
 
-// Morocco
-
-function location_province_list_ma() {
-  return array('AGD' => "Agadir",
-    'HOC' => "Al Hoceima",
-    'AZI' => "Azilal",
-    'BME' => "Beni Mellal",
-    'BSL' => "Ben Slimane",
-    'BLM' => "Boulemane",
-    'CBL' => "Casablanca",
-    'CHA' => "Chaouen",
-    'EJA' => "El Jadida",
-    'EKS' => "El Kelaa des Sraghna",
-    'ERA' => "Er Rachidia",
-    'ESS' => "Essaouira",
-    'FES' => "Fes",
-    'FIG' => "Figuig",
-    'GLM' => "Guelmim",
-    'IFR' => "Ifrane",
-    'KEN' => "Kenitra",
-    'KHM' => "Khemisset",
-    'KHN' => "Khenifra",
-    'KHO' => "Khouribga",
-    'LYN' => "Laayoune",
-    'LAR' => "Larache",
-    'MRK' => "Marrakech",
-    'MKN' => "Meknes",
-    'NAD' => "Nador",
-    'ORZ' => "Ouarzazate",
-    'OUJ' => "Oujda",
-    'RSA' => "Rabat-Sale",
-    'SAF' => "Safi",
-    'SET' => "Settat",
-    'SKA' => "Sidi Kacem",
-    'TGR' => "Tangier",
-    'TAN' => "Tan-Tan",
-    'TAO' => "Taounate",
-    'TRD' => "Taroudannt",
-    'TAT' => "Tata",
-    'TAZ' => "Taza",
-    'TET' => "Tetouan",
-    'TIZ' => "Tiznit",
-    'ADK' => "Ad Dakhla",
-    'BJD' => "Boujdour",
-    'ESM' => "Es Smara");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ma() {
-  return array(
-    'minlng' => -13.26225,
-    'minlat' => 27.6511,
-    'maxlng' => -1.1251,
-    'maxlat' => 35.87,
-  );
+function location_province_list_ma () {
+	return array (
+		"01" => t("Tanger-Tetouan"),
+		"02" => t("Gharb-Chrarda-Beni Hssen"),
+		"03" => t("Taza-Al Hoceima-Taounate"),
+		"04" => t("Oriental"),
+		"05" => t("Fes-Boulemane"),
+		"06" => t("Meknes-Tafilalet"),
+		"07" => t("Rabat-Sale-Zemmour-Zaer"),
+		"08" => t("Grand Casablanca"),
+		"09" => t("Chaouia-Ouardigha"),
+		"10" => t("Doukkala-Abda"),
+		"11" => t("Marrakech-Tensift-Al Haouz"),
+		"12" => t("Tadla-Azilal"),
+		"13" => t("Souss-Massa-Draa"),
+		"14" => t("Guelmim-Es Smara"),
+		"15" => t("Laayoune-Boujdour-Sakia El Hamra"),
+		"16" => t("Oued ed Dahab-Lagouira"),
+	);
 }

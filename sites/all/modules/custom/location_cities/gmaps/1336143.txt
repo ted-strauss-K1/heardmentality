@@ -1,0 +1,298 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Aronager Road",
+               "short_name" : "Aronager Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Pabna",
+               "short_name" : "Pabna",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pabna",
+               "short_name" : "Pabna",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Rajshahi Division",
+               "short_name" : "Rajshahi Division",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Bangladesh",
+               "short_name" : "BD",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Aronager Road, Pabna, Bangladesh",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 24.00676230,
+                  "lng" : 89.23765639999999
+               },
+               "southwest" : {
+                  "lat" : 24.00627990,
+                  "lng" : 89.23715030
+               }
+            },
+            "location" : {
+               "lat" : 24.00650640,
+               "lng" : 89.23738539999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 24.00787008029150,
+                  "lng" : 89.23875233029150
+               },
+               "southwest" : {
+                  "lat" : 24.00517211970850,
+                  "lng" : 89.23605436970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pabna",
+               "short_name" : "Pabna",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pabna",
+               "short_name" : "Pabna",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Rajshahi Division",
+               "short_name" : "Rajshahi Division",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Bangladesh",
+               "short_name" : "BD",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pabna, Bangladesh",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 24.03846880,
+                  "lng" : 89.30047999999999
+               },
+               "southwest" : {
+                  "lat" : 23.98750720,
+                  "lng" : 89.19945709999999
+               }
+            },
+            "location" : {
+               "lat" : 24.006580,
+               "lng" : 89.24413299999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 24.03846880,
+                  "lng" : 89.30047999999999
+               },
+               "southwest" : {
+                  "lat" : 23.98750720,
+                  "lng" : 89.19945709999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pabna Sadar Upazila",
+               "short_name" : "Pabna Sadar Upazila",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pabna",
+               "short_name" : "Pabna",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Rajshahi Division",
+               "short_name" : "Rajshahi Division",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Bangladesh",
+               "short_name" : "BD",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pabna Sadar Upazila, Bangladesh",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 24.09211320,
+                  "lng" : 89.42296030
+               },
+               "southwest" : {
+                  "lat" : 23.90474990,
+                  "lng" : 89.14585579999999
+               }
+            },
+            "location" : {
+               "lat" : 24.02326440,
+               "lng" : 89.26572659999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 24.09211320,
+                  "lng" : 89.42296030
+               },
+               "southwest" : {
+                  "lat" : 23.90474990,
+                  "lng" : 89.14585579999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pabna",
+               "short_name" : "Pabna",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Rajshahi Division",
+               "short_name" : "Rajshahi Division",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Bangladesh",
+               "short_name" : "BD",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pabna, Bangladesh",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 24.36242240,
+                  "lng" : 89.73958960
+               },
+               "southwest" : {
+                  "lat" : 23.79853880,
+                  "lng" : 89.00058749999999
+               }
+            },
+            "location" : {
+               "lat" : 24.0950410,
+               "lng" : 89.36062980
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 24.36242240,
+                  "lng" : 89.73958960
+               },
+               "southwest" : {
+                  "lat" : 23.79853880,
+                  "lng" : 89.00058749999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rajshahi Division",
+               "short_name" : "Rajshahi Division",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Bangladesh",
+               "short_name" : "BD",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rajshahi Division, Bangladesh",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 25.21599390,
+                  "lng" : 89.79010110
+               },
+               "southwest" : {
+                  "lat" : 23.82410190,
+                  "lng" : 88.02833609999999
+               }
+            },
+            "location" : {
+               "lat" : 24.71057760,
+               "lng" : 88.94138650000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 25.21599390,
+                  "lng" : 89.79010110
+               },
+               "southwest" : {
+                  "lat" : 23.82410190,
+                  "lng" : 88.02833609999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bangladesh",
+               "short_name" : "BD",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bangladesh",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.63424340,
+                  "lng" : 92.68011530
+               },
+               "southwest" : {
+                  "lat" : 20.75438020,
+                  "lng" : 88.00858869999999
+               }
+            },
+            "location" : {
+               "lat" : 23.6849940,
+               "lng" : 90.3563310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 26.63424340,
+                  "lng" : 92.68011530
+               },
+               "southwest" : {
+                  "lat" : 20.75438020,
+                  "lng" : 88.00858869999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

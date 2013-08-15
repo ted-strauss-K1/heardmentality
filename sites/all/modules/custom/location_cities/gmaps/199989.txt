@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kisumu - Busia Road",
+               "short_name" : "B1",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Busia",
+               "short_name" : "Busia",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Busia",
+               "short_name" : "Busia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kisumu - Busia Road, Busia, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.46114090,
+                  "lng" : 34.11214150
+               },
+               "southwest" : {
+                  "lat" : 0.46043630,
+                  "lng" : 34.11023540
+               }
+            },
+            "location" : {
+               "lat" : 0.46078860,
+               "lng" : 34.11118850
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.4621375802915021,
+                  "lng" : 34.11253743029150
+               },
+               "southwest" : {
+                  "lat" : 0.4594396197084980,
+                  "lng" : 34.10983946970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Busia",
+               "short_name" : "Busia",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Busia",
+               "short_name" : "Busia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Busia, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.4668930,
+                  "lng" : 34.12250650
+               },
+               "southwest" : {
+                  "lat" : 0.45094940,
+                  "lng" : 34.09761430
+               }
+            },
+            "location" : {
+               "lat" : 0.46076910,
+               "lng" : 34.11146210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.4668930,
+                  "lng" : 34.12250650
+               },
+               "southwest" : {
+                  "lat" : 0.45094940,
+                  "lng" : 34.09761430
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Busia",
+               "short_name" : "Busia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Busia, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.7818050,
+                  "lng" : 34.43841390
+               },
+               "southwest" : {
+                  "lat" : -0.02477090,
+                  "lng" : 33.90991710
+               }
+            },
+            "location" : {
+               "lat" : 0.43465060,
+               "lng" : 34.24215970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.7818050,
+                  "lng" : 34.43841390
+               },
+               "southwest" : {
+                  "lat" : -0.02477090,
+                  "lng" : 33.90991710
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

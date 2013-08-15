@@ -1,0 +1,361 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Sukabumi",
+               "short_name" : "Jl. Sukabumi",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "East Kotawaringin",
+               "short_name" : "East Kotawaringin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "74311",
+               "short_name" : "74311",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Sukabumi, East Kotawaringin 74311, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.53504790,
+                  "lng" : 112.95522950
+               },
+               "southwest" : {
+                  "lat" : -2.53508280,
+                  "lng" : 112.9546580
+               }
+            },
+            "location" : {
+               "lat" : -2.53506750,
+               "lng" : 112.95494360
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.533716369708499,
+                  "lng" : 112.9562927302915
+               },
+               "southwest" : {
+                  "lat" : -2.536414330291502,
+                  "lng" : 112.9535947697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sawahan",
+               "short_name" : "Sawahan",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Mentawa Baru/Ketapan",
+               "short_name" : "Mentawa Baru/Ketapan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "East Kotawaringin",
+               "short_name" : "East Kotawaringin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "74311",
+               "short_name" : "74311",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Sawahan, Mentawa Baru/Ketapan, East Kotawaringin, Central Kalimantan 74311, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.52695910,
+                  "lng" : 112.9593230
+               },
+               "southwest" : {
+                  "lat" : -2.5369360,
+                  "lng" : 112.8928640
+               }
+            },
+            "location" : {
+               "lat" : -2.5335020,
+               "lng" : 112.93268970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.52695910,
+                  "lng" : 112.9593230
+               },
+               "southwest" : {
+                  "lat" : -2.5369360,
+                  "lng" : 112.8928640
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "74311",
+               "short_name" : "74311",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "East Kotawaringin",
+               "short_name" : "East Kotawaringin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "East Kotawaringin, Central Kalimantan 74311, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.49292440,
+                  "lng" : 113.02239990
+               },
+               "southwest" : {
+                  "lat" : -2.55361360,
+                  "lng" : 112.8183440
+               }
+            },
+            "location" : {
+               "lat" : -2.53148780,
+               "lng" : 112.91779570
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.49292440,
+                  "lng" : 113.02239990
+               },
+               "southwest" : {
+                  "lat" : -2.55361360,
+                  "lng" : 112.8183440
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mentawa Baru/Ketapan",
+               "short_name" : "Mentawa Baru/Ketapan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "East Kotawaringin",
+               "short_name" : "East Kotawaringin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mentawa Baru/Ketapan, East Kotawaringin, Central Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.5246890,
+                  "lng" : 112.99526120
+               },
+               "southwest" : {
+                  "lat" : -2.7156140,
+                  "lng" : 112.64937910
+               }
+            },
+            "location" : {
+               "lat" : -2.61477720,
+               "lng" : 112.88204890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.5246890,
+                  "lng" : 112.99526120
+               },
+               "southwest" : {
+                  "lat" : -2.7156140,
+                  "lng" : 112.64937910
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "East Kotawaringin",
+               "short_name" : "East Kotawaringin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "East Kotawaringin, Central Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.1945010,
+                  "lng" : 113.28435390
+               },
+               "southwest" : {
+                  "lat" : -3.2661170,
+                  "lng" : 112.0709150
+               }
+            },
+            "location" : {
+               "lat" : -2.12254750,
+               "lng" : 112.81055120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.1945010,
+                  "lng" : 113.28435390
+               },
+               "southwest" : {
+                  "lat" : -3.2661170,
+                  "lng" : 112.0709150
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Kalimantan",
+               "short_name" : "Central Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.7932560,
+                  "lng" : 115.847220
+               },
+               "southwest" : {
+                  "lat" : -3.56188590,
+                  "lng" : 110.7336650
+               }
+            },
+            "location" : {
+               "lat" : -1.68148780,
+               "lng" : 113.38235450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.7932560,
+                  "lng" : 115.847220
+               },
+               "southwest" : {
+                  "lat" : -3.56188590,
+                  "lng" : 110.7336650
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

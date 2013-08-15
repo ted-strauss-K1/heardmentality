@@ -1,0 +1,331 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "56",
+               "short_name" : "56",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Ruahine Street",
+               "short_name" : "Ruahine St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Paraparaumu",
+               "short_name" : "Paraparaumu",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "5032",
+               "short_name" : "5032",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "56 Ruahine Street, Paraparaumu 5032, New Zealand",
+         "geometry" : {
+            "location" : {
+               "lat" : -40.91602340,
+               "lng" : 175.01359950
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.91467441970850,
+                  "lng" : 175.0149484802915
+               },
+               "southwest" : {
+                  "lat" : -40.91737238029150,
+                  "lng" : 175.0122505197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Paraparaumu",
+               "short_name" : "Paraparaumu",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kapiti Coast District",
+               "short_name" : "Kapiti Coast District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Paraparaumu, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.87136590,
+                  "lng" : 175.05453390
+               },
+               "southwest" : {
+                  "lat" : -40.97789840,
+                  "lng" : 174.95832690
+               }
+            },
+            "location" : {
+               "lat" : -40.91423360,
+               "lng" : 175.00838020
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.87136590,
+                  "lng" : 175.05453390
+               },
+               "southwest" : {
+                  "lat" : -40.97789840,
+                  "lng" : 174.95832690
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "5032",
+               "short_name" : "5032",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wellington 5032, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.8157630,
+                  "lng" : 175.07680360
+               },
+               "southwest" : {
+                  "lat" : -40.97365170,
+                  "lng" : 174.86225450
+               }
+            },
+            "location" : {
+               "lat" : -40.90067340,
+               "lng" : 174.99215490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.8157630,
+                  "lng" : 175.07680360
+               },
+               "southwest" : {
+                  "lat" : -40.97365170,
+                  "lng" : 174.86225450
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Waikanae",
+               "short_name" : "Waikanae",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Waikanae, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.8157630,
+                  "lng" : 175.17367630
+               },
+               "southwest" : {
+                  "lat" : -41.01606260,
+                  "lng" : 174.86225450
+               }
+            },
+            "location" : {
+               "lat" : -40.9129970,
+               "lng" : 175.04413040
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.8157630,
+                  "lng" : 175.17367630
+               },
+               "southwest" : {
+                  "lat" : -41.01606260,
+                  "lng" : 174.86225450
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kapiti Coast District",
+               "short_name" : "Kapiti Coast District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kapiti Coast District, Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.46558070,
+                  "lng" : 175.68913160
+               },
+               "southwest" : {
+                  "lat" : -41.11478770,
+                  "lng" : 174.86816790
+               }
+            },
+            "location" : {
+               "lat" : -40.82334750,
+               "lng" : 175.31362180
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.46558070,
+                  "lng" : 175.68913160
+               },
+               "southwest" : {
+                  "lat" : -41.11478770,
+                  "lng" : 174.86816790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wellington",
+               "short_name" : "Wellington",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wellington, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -40.46558070,
+                  "lng" : 176.27181910
+               },
+               "southwest" : {
+                  "lat" : -41.6137520,
+                  "lng" : 174.6130840
+               }
+            },
+            "location" : {
+               "lat" : -41.02993230,
+               "lng" : 175.43755740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -40.46558070,
+                  "lng" : 176.27181910
+               },
+               "southwest" : {
+                  "lat" : -41.6137520,
+                  "lng" : 174.6130840
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -29.23134190,
+                  "lng" : -176.15422480
+               },
+               "southwest" : {
+                  "lat" : -52.61941849999999,
+                  "lng" : 165.86943690
+               }
+            },
+            "location" : {
+               "lat" : -40.9005570,
+               "lng" : 174.8859710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -34.12955780,
+                  "lng" : 179.06253570
+               },
+               "southwest" : {
+                  "lat" : -47.76812409999999,
+                  "lng" : 166.42613610
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

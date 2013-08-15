@@ -1,38 +1,26 @@
 <?php
 
-// Bhutan
-
-function location_province_list_bt() {
-  return array('BUM' => "Bumthang",
-    'CHU' => "Chukha",
-    'DAG' => "Dagana",
-    'GAS' => "Gasa",
-    'HAA' => "Haa",
-    'LHU' => "Lhuntse",
-    'MON' => "Mongar",
-    'PAR' => "Paro",
-    'PEM' => "Pemagatshel",
-    'PUN' => "Punakha",
-    'SJO' => "Samdrup Jongkhar",
-    'SAT' => "Samtse",
-    'SAR' => "Sarpang",
-    'THI' => "Thimphu",
-    'TRG' => "Trashigang",
-    'TRY' => "Trashiyangste",
-    'TRO' => "Trongsa",
-    'TSI' => "Tsirang",
-    'WPH' => "Wangdue Phodrang",
-    'ZHE' => "Zhemgang");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_bt() {
-  return array(
-    'minlng' => 88.668547,
-    'minlat' => 26.804233,
-    'maxlng' => 92.08275,
-    'maxlat' => 28.342233,
-  );
+function location_province_list_bt () {
+	return array (
+		"11" => t("Paro"),
+		"12" => t("Chukha"),
+		"13" => t("Haa"),
+		"14" => t("Samtse"),
+		"15" => t("Thimphu"),
+		"21" => t("Tsirang"),
+		"22" => t("Dagana"),
+		"23" => t("Punakha"),
+		"24" => t("Wangdue Phodrang"),
+		"31" => t("Sarpang"),
+		"32" => t("Trongsa"),
+		"33" => t("Bumthang"),
+		"34" => t("Zhemgang"),
+		"41" => t("Trashigang"),
+		"42" => t("Mongar"),
+		"43" => t("Pemagatshel"),
+		"44" => t("Lhuntse"),
+		"45" => t("Samdrup Jongkhar"),
+		"GA" => t("Gasa"),
+		"TY" => t("Trashi Yangste"),
+	);
 }

@@ -1,80 +1,25 @@
 <?php
 
-// Cote D'Ivoire
-
-function location_province_list_ci() {
-  return array(
-    'ABE' => "Abengourou",
-    'ABI' => "Abidjan",
-    'ABO' => "Aboisso",
-    'ADI' => "Adiake",
-    'ADZ' => "Adzope",
-    'AGB' => "Agboville",
-    'AGN' => "Agnibilekrou",
-    'ALE' => "Alepe",
-    'BOC' => "Bocanda",
-    'BAN' => "Bangolo",
-    'BEO' => "Beoumi",
-    'BIA' => "Biankouma",
-    'BDK' => "Bondoukou",
-    'BGN' => "Bongouanou",
-    'BFL' => "Bouafle",
-    'BKE' => "Bouake",
-    'BNA' => "Bouna",
-    'BDL' => "Boundiali",
-    'DKL' => "Dabakala",
-    'DBU' => "Dabou",
-    'DAL' => "Daloa",
-    'DAN' => "Danane",
-    'DAO' => "Daoukro",
-    'DIM' => "Dimbokro",
-    'DIV' => "Divo",
-    'DUE' => "Duekoue",
-    'FER' => "Ferkessedougou",
-    'GAG' => "Gagnoa",
-    'GBA' => "Grand-Bassam",
-    'GLA' => "Grand-Lahou",
-    'GUI' => "Guiglo",
-    'ISS' => "Issia",
-    'JAC' => "Jacqueville",
-    'KAT' => "Katiola",
-    'KOR' => "Korhogo",
-    'LAK' => "Lakota",
-    'MAN' => "Man",
-    'MKN' => "Mankono",
-    'MBA' => "Mbahiakro",
-    'ODI' => "Odienne",
-    'OUM' => "Oume",
-    'SAK' => "Sakassou",
-    'SPE' => "San-Pedro",
-    'SAS' => "Sassandra",
-    'SEG' => "Seguela",
-    'SIN' => "Sinfra",
-    'SOU' => "Soubre",
-    'TAB' => "Tabou",
-    'TAN' => "Tanda",
-    'TIE' => "Tiebissou",
-    'TIN' => "Tingrela",
-    'TIA' => "Tiassale",
-    'TBA' => "Touba",
-    'TLP' => "Toulepleu",
-    'TMD' => "Toumodi",
-    'VAV' => "Vavoua",
-    'YAM' => "Yamoussoukro",
-    'ZUE' => "Zuenoula",
-  );
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_ci() {
-  // NaturalEarth 10m Admin 0 - Countries (v1.3.0)
-  // EPSG:900913
-  return array(
-    'minlng' => -8.6187198,
-    'minlat' => 4.34392201,
-    'maxlng' => -2.5063280,
-    'maxlat' => 10.7264781,
-  );
+function location_province_list_ci () {
+	return array (
+		"01" => t("Lagunes (Region des)"),
+		"02" => t("Haut-Sassandra (Region du)"),
+		"03" => t("Savanes (Region des)"),
+		"04" => t("Vallee du Bandama (Region de la)"),
+		"05" => t("Moyen-Comoe (Region du)"),
+		"06" => t("18 Montagnes (Region des)"),
+		"07" => t("Lacs (Region des)"),
+		"08" => t("Zanzan (Region du)"),
+		"09" => t("Bas-Sassandra (Region du)"),
+		"10" => t("Denguele (Region du)"),
+		"11" => t("Nzi-Comoe (Region)"),
+		"12" => t("Marahoue (Region de la)"),
+		"13" => t("Sud-Comoe (Region du)"),
+		"14" => t("Worodougou (Region du)"),
+		"15" => t("Sud-Bandama (Region du)"),
+		"16" => t("Agnebi (Region de l')"),
+		"17" => t("Bafing (Region du)"),
+		"18" => t("Fromager (Region du)"),
+		"19" => t("Moyen-Cavally (Region du)"),
+	);
 }

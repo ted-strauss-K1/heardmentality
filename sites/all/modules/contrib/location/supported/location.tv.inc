@@ -1,27 +1,14 @@
 <?php
 
-// Tuvalu
-
-function location_province_list_tv() {
-  return array('NMG' => "Nanumanga",
-    'NLK' => "Niulakita",
-    'NTO' => "Niutao",
-    'FUN' => "Funafuti",
-    'NME' => "Nanumea",
-    'NUI' => "Nui",
-    'NFT' => "Nukufetau",
-    'NLL' => "Nukulaelae",
-    'VAI' => "Vaitupu");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_tv() {
-  return array(
-    'minlng' => 176.1042,
-    'minlat' => -12.571533,
-    'maxlng' => 179.8403,
-    'maxlat' => -5.725,
-  );
+function location_province_list_tv () {
+	return array (
+		"FUN" => t("Funafuti"),
+		"NIT" => t("Niutao"),
+		"NKF" => t("Nukufetau"),
+		"NKL" => t("Nukulaelae"),
+		"NMA" => t("Nanumea"),
+		"NMG" => t("Nanumanga"),
+		"NUI" => t("Nui"),
+		"VAI" => t("Vaitupu"),
+	);
 }

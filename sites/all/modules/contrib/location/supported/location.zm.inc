@@ -1,27 +1,15 @@
 <?php
 
-// Zambia
-
-function location_province_list_zm() {
-  return array('CE' => "Central Province",
-    'CB' => "Copperbelt Province",
-    'EA' => "Eastern Province",
-    'LP' => "Luapula Province",
-    'LK' => "Lusaka Province",
-    'NO' => "Northern Province",
-    'NW' => "North-Western Province",
-    'SO' => "Southern Province",
-    'WE' => "Western Province");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_zm() {
-  return array(
-    'minlng' => 21.92875,
-    'minlat' => -18.0931,
-    'maxlng' => 33.53855,
-    'maxlat' => -8.221467,
-  );
+function location_province_list_zm () {
+	return array (
+		"01" => t("Western Province"),
+		"02" => t("Central Province"),
+		"03" => t("Eastern Province"),
+		"04" => t("Luapula Province"),
+		"05" => t("Northern Province"),
+		"06" => t("North-Western Province"),
+		"07" => t("Southern Province"),
+		"08" => t("Copperbelt Province"),
+		"09" => t("Lusaka Province"),
+	);
 }

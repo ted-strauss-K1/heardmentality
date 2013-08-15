@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Pemuda",
+               "short_name" : "Jl. Pemuda",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tasikmalaya",
+               "short_name" : "Tasikmalaya",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cihideung",
+               "short_name" : "Cihideung",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tasikmalaya City",
+               "short_name" : "Tasikmalaya City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "46121",
+               "short_name" : "46121",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Pemuda, Cihideung, Tasikmalaya City, West Java 46121, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.32743270,
+                  "lng" : 108.22096760
+               },
+               "southwest" : {
+                  "lat" : -7.327655899999999,
+                  "lng" : 108.22091850
+               }
+            },
+            "location" : {
+               "lat" : -7.32754430,
+               "lng" : 108.22094310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.326195319708497,
+                  "lng" : 108.2222920302915
+               },
+               "southwest" : {
+                  "lat" : -7.328893280291502,
+                  "lng" : 108.2195940697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Yudanagara",
+               "short_name" : "Yudanagara",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Cihideung",
+               "short_name" : "Cihideung",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tasikmalaya City",
+               "short_name" : "Tasikmalaya City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Yudanagara, Cihideung, Tasikmalaya City, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.32394490,
+                  "lng" : 108.22244710
+               },
+               "southwest" : {
+                  "lat" : -7.332769099999999,
+                  "lng" : 108.21586810
+               }
+            },
+            "location" : {
+               "lat" : -7.328853599999999,
+               "lng" : 108.21921750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.32394490,
+                  "lng" : 108.22244710
+               },
+               "southwest" : {
+                  "lat" : -7.332769099999999,
+                  "lng" : 108.21586810
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "46121",
+               "short_name" : "46121",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Tasikmalaya City",
+               "short_name" : "Tasikmalaya City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tasikmalaya City, West Java 46121, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.32418340,
+                  "lng" : 108.22297670
+               },
+               "southwest" : {
+                  "lat" : -7.332970,
+                  "lng" : 108.21562190
+               }
+            },
+            "location" : {
+               "lat" : -7.328238600000001,
+               "lng" : 108.21847610
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.32418340,
+                  "lng" : 108.22297670
+               },
+               "southwest" : {
+                  "lat" : -7.332970,
+                  "lng" : 108.21562190
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cihideung",
+               "short_name" : "Cihideung",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tasikmalaya City",
+               "short_name" : "Tasikmalaya City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cihideung, Tasikmalaya City, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.322197999999999,
+                  "lng" : 108.22510810
+               },
+               "southwest" : {
+                  "lat" : -7.3539070,
+                  "lng" : 108.1978610
+               }
+            },
+            "location" : {
+               "lat" : -7.334758900000001,
+               "lng" : 108.21699340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.322197999999999,
+                  "lng" : 108.22510810
+               },
+               "southwest" : {
+                  "lat" : -7.3539070,
+                  "lng" : 108.1978610
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tasikmalaya City",
+               "short_name" : "Tasikmalaya City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tasikmalaya City, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.269235000000001,
+                  "lng" : 108.3129670
+               },
+               "southwest" : {
+                  "lat" : -7.4507290,
+                  "lng" : 108.1497110
+               }
+            },
+            "location" : {
+               "lat" : -7.378818600000001,
+               "lng" : 108.2140280
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.269235000000001,
+                  "lng" : 108.3129670
+               },
+               "southwest" : {
+                  "lat" : -7.4507290,
+                  "lng" : 108.1497110
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tasikmalaya",
+               "short_name" : "Tasikmalaya",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tasikmalaya City",
+               "short_name" : "Tasikmalaya City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tasikmalaya, Tasikmalaya City, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.269235000000001,
+                  "lng" : 108.3129670
+               },
+               "southwest" : {
+                  "lat" : -7.4507290,
+                  "lng" : 108.1497110
+               }
+            },
+            "location" : {
+               "lat" : -7.3279540,
+               "lng" : 108.2141040
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.269235000000001,
+                  "lng" : 108.3129670
+               },
+               "southwest" : {
+                  "lat" : -7.4507290,
+                  "lng" : 108.1497110
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.914709999999999,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.820987000000001,
+                  "lng" : 106.3705080
+               }
+            },
+            "location" : {
+               "lat" : -7.090910999999999,
+               "lng" : 107.6688870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.914709999999999,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.820987000000001,
+                  "lng" : 106.3705080
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

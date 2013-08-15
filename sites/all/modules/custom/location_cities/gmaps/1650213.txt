@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Haryono MT",
+               "short_name" : "Jl. Haryono MT",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Banjarmasin",
+               "short_name" : "Banjarmasin",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Central Banjarmasin",
+               "short_name" : "Central Banjarmasin",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banjarmasin",
+               "short_name" : "Banjarmasin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "70231",
+               "short_name" : "70231",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Haryono MT, Central Banjarmasin, Banjarmasin, South Kalimantan 70231, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.32065950,
+                  "lng" : 114.59033080
+               },
+               "southwest" : {
+                  "lat" : -3.32178650,
+                  "lng" : 114.58990610
+               }
+            },
+            "location" : {
+               "lat" : -3.3212320,
+               "lng" : 114.59014580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.319874019708498,
+                  "lng" : 114.5914674302915
+               },
+               "southwest" : {
+                  "lat" : -3.322571980291502,
+                  "lng" : 114.5887694697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Antasan Besar",
+               "short_name" : "Antasan Besar",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Central Banjarmasin",
+               "short_name" : "Central Banjarmasin",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banjarmasin",
+               "short_name" : "Banjarmasin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Antasan Besar, Central Banjarmasin, Banjarmasin, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.31180110,
+                  "lng" : 114.5934450
+               },
+               "southwest" : {
+                  "lat" : -3.3215150,
+                  "lng" : 114.58435290
+               }
+            },
+            "location" : {
+               "lat" : -3.31602690,
+               "lng" : 114.58811210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.31180110,
+                  "lng" : 114.5934450
+               },
+               "southwest" : {
+                  "lat" : -3.3215150,
+                  "lng" : 114.58435290
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Banjarmasin",
+               "short_name" : "Central Banjarmasin",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banjarmasin",
+               "short_name" : "Banjarmasin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Banjarmasin, Banjarmasin, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.3039960,
+                  "lng" : 114.6067180
+               },
+               "southwest" : {
+                  "lat" : -3.33238210,
+                  "lng" : 114.569870
+               }
+            },
+            "location" : {
+               "lat" : -3.31952530,
+               "lng" : 114.58662740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.3039960,
+                  "lng" : 114.6067180
+               },
+               "southwest" : {
+                  "lat" : -3.33238210,
+                  "lng" : 114.569870
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "70123",
+               "short_name" : "70123",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Kalimantan 70123, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.27942610,
+                  "lng" : 114.6020
+               },
+               "southwest" : {
+                  "lat" : -3.3220310,
+                  "lng" : 114.58149980
+               }
+            },
+            "location" : {
+               "lat" : -3.29631320,
+               "lng" : 114.59256630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.27942610,
+                  "lng" : 114.6020
+               },
+               "southwest" : {
+                  "lat" : -3.3220310,
+                  "lng" : 114.58149980
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banjarmasin",
+               "short_name" : "Banjarmasin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banjarmasin, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.26790890,
+                  "lng" : 114.6579840
+               },
+               "southwest" : {
+                  "lat" : -3.3682150,
+                  "lng" : 114.54267110
+               }
+            },
+            "location" : {
+               "lat" : -3.3123720,
+               "lng" : 114.59553560
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.26790890,
+                  "lng" : 114.6579840
+               },
+               "southwest" : {
+                  "lat" : -3.3682150,
+                  "lng" : 114.54267110
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banjarmasin",
+               "short_name" : "Banjarmasin",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Banjarmasin",
+               "short_name" : "Banjarmasin",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banjarmasin, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.26790890,
+                  "lng" : 114.6579840
+               },
+               "southwest" : {
+                  "lat" : -3.3682150,
+                  "lng" : 114.54267110
+               }
+            },
+            "location" : {
+               "lat" : -3.3284990,
+               "lng" : 114.5892030
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.26790890,
+                  "lng" : 114.6579840
+               },
+               "southwest" : {
+                  "lat" : -3.3682150,
+                  "lng" : 114.54267110
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.3150370,
+                  "lng" : 116.5559610
+               },
+               "southwest" : {
+                  "lat" : -4.7448130,
+                  "lng" : 114.3458590
+               }
+            },
+            "location" : {
+               "lat" : -3.09264150,
+               "lng" : 115.28375850
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.3150370,
+                  "lng" : 116.5559610
+               },
+               "southwest" : {
+                  "lat" : -4.7448130,
+                  "lng" : 114.3458590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,21 +1,90 @@
 <?php
 
-// Macedonia, The Former Yugoslav Republic of
-
-function location_province_list_mk() {
-  return array();
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_mk() {
-  // NaturalEarth 10m Admin 0 - Countries (v1.3.0)
-  // EPSG:900913
-  return array(
-    'minlng' => 20.4441573,
-    'minlat' => 40.8493940,
-    'maxlng' => 23.0095821,
-    'maxlat' => 42.3703347,
-  );
+function location_province_list_mk () {
+	return array (
+		"01" => t("Aerodrom t"),
+		"02" => t("Aracinovo"),
+		"03" => t("Berovo"),
+		"04" => t("Bitola"),
+		"05" => t("Bogdanci"),
+		"06" => t("Bogovinje"),
+		"07" => t("Bosilovo"),
+		"077" => t("Centar t"),
+		"08" => t("Brvenica"),
+		"09" => t("Butel t"),
+		"10" => t("Valandovo"),
+		"11" => t("Vasilevo"),
+		"12" => t("Vevcani"),
+		"13" => t("Veles"),
+		"14" => t("Vinica"),
+		"15" => t("Vranestica"),
+		"16" => t("Vrapciste"),
+		"17" => t("Gazi Baba t"),
+		"18" => t("Gevgelija"),
+		"19" => t("Gostivar"),
+		"20" => t("Gradsko"),
+		"21" => t("Debar"),
+		"22" => t("Debarca"),
+		"23" => t("Delcevo"),
+		"24" => t("Demir Kapija"),
+		"25" => t("Demir Hisar"),
+		"26" => t("Dojran"),
+		"27" => t("Dolneni"),
+		"28" => t("Drugovo"),
+		"29" => t("Gjorce Petrov t"),
+		"30" => t("Zelino"),
+		"31" => t("Zajas"),
+		"32" => t("Zelenikovo"),
+		"33" => t("Zrnovci"),
+		"34" => t("Ilinden"),
+		"35" => t("Jegunovce"),
+		"36" => t("Kavadarci"),
+		"37" => t("Karbinci"),
+		"38" => t("Karpos t"),
+		"39" => t("Kisela Voda t"),
+		"40" => t("Kicevo"),
+		"41" => t("Konce"),
+		"42" => t("Kocani"),
+		"43" => t("Kratovo"),
+		"44" => t("Kriva Palanka"),
+		"45" => t("Krivogastani"),
+		"46" => t("Krusevo"),
+		"47" => t("Kumanovo"),
+		"48" => t("Lipkovo"),
+		"49" => t("Lozovo"),
+		"50" => t("Mavrovo-i-Rostusa"),
+		"51" => t("Makedonska Kamenica"),
+		"52" => t("Makedonski Brod"),
+		"53" => t("Mogila"),
+		"54" => t("Negotino"),
+		"55" => t("Novaci"),
+		"56" => t("Novo Selo"),
+		"57" => t("Oslomej"),
+		"58" => t("Ohrid"),
+		"59" => t("Petrovec"),
+		"60" => t("Pehcevo"),
+		"61" => t("Plasnica"),
+		"62" => t("Prilep"),
+		"63" => t("Probistip"),
+		"64" => t("Radovis"),
+		"65" => t("Rankovce"),
+		"66" => t("Resen"),
+		"67" => t("Rosoman"),
+		"68" => t("Saraj t"),
+		"69" => t("Sveti Nikole"),
+		"70" => t("Stip"),
+		"71" => t("Struga"),
+		"72" => t("Strumica"),
+		"73" => t("Studenicani"),
+		"74" => t("Suto Orizari t"),
+		"75" => t("Tearce"),
+		"76" => t("Tetovo"),
+		"78" => t("Centar Zupa"),
+		"79" => t("Cair t"),
+		"80" => t("Caska"),
+		"81" => t("Cesinovo-Oblesevo"),
+		"82" => t("Cucer Sandevo"),
+		"83" => t("Sopiste"),
+		"84" => t("Staro Nagoricane"),
+	);
 }

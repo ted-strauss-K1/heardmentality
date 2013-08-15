@@ -1,0 +1,526 @@
+<?php
+
+function location_cities_list_ph_09 () {
+	return array (
+		"1715542" => t("Dapitan"),
+		"1714674" => t("Dipolog"),
+		"1710612" => t("Ipil"),
+		"1703598" => t("Mahayag"),
+		"1699388" => t("Molave"),
+		"1699054" => t("Muricay"),
+		"1696710" => t("Pagadian"),
+		"1691804" => t("Recodo"),
+		"1679432" => t("Zamboanga"),
+	);
+}
+
+
+function location_cities_list_ph_14 () {
+	return array (
+		"1724088" => t("Bongao"),
+		"1723510" => t("Budta"),
+		"1722818" => t("Buluan"),
+		"1710519" => t("City of Isabela"),
+		"1716771" => t("Cotabato"),
+		"1710141" => t("Jolo"),
+		"1704021" => t("Maganoy"),
+		"1702425" => t("Maluso"),
+		"1701053" => t("Marawi City"),
+		"1696683" => t("Pagalungan"),
+		"1694775" => t("Parang"),
+		"1686004" => t("Sitangkai"),
+		"1679678" => t("Wao"),
+	);
+}
+
+
+function location_cities_list_ph_05 () {
+	return array (
+		"1729814" => t("Baao"),
+		"1726156" => t("Bato"),
+		"1723166" => t("Buhi"),
+		"1722985" => t("Bulan"),
+		"1720793" => t("Calabanga"),
+		"1716287" => t("Daet"),
+		"1712808" => t("Goa"),
+		"1710544" => t("Iriga City"),
+		"1710531" => t("Irosin"),
+		"1710103" => t("Jose Panganiban"),
+		"1708291" => t("Labo"),
+		"1706889" => t("Legaspi"),
+		"1706609" => t("Libon"),
+		"1704002" => t("Magarao"),
+		"1702763" => t("Malilipot"),
+		"1700712" => t("Masbate"),
+		"1699833" => t("Mercedes"),
+		"1698921" => t("Nabua"),
+		"1693795" => t("Pili"),
+		"1693136" => t("Polangui"),
+		"1689498" => t("San Jose"),
+		"1685755" => t("Sorsogon"),
+		"1685117" => t("Tabaco"),
+		"1684577" => t("Tagas"),
+		"1681676" => t("Tiwi"),
+		"1679802" => t("Virac"),
+	);
+}
+
+
+function location_cities_list_ph_01 () {
+	return array (
+		"1731959" => t("Agoo"),
+		"1730171" => t("Aringay"),
+		"1725983" => t("Bauang"),
+		"1725863" => t("Bayambang"),
+		"1724956" => t("Binmaley"),
+		"1720508" => t("Calasiao"),
+		"1714482" => t("Domalanoan"),
+		"1712232" => t("Guiset East"),
+		"1707404" => t("Laoag"),
+		"1706188" => t("Lingayen"),
+		"1702096" => t("Manaoag"),
+		"1701872" => t("Mangaldan"),
+		"1690033" => t("San Fernando"),
+		"1688859" => t("San Nicolas"),
+		"1688372" => t("Santa Barbara"),
+		"1688017" => t("Santa Maria"),
+		"1684320" => t("Tagudin"),
+		"1680197" => t("Urdaneta"),
+		"1679980" => t("Vigan"),
+	);
+}
+
+
+function location_cities_list_ph_06 () {
+	return array (
+		"1730097" => t("Asia"),
+		"1729564" => t("Bacolod City"),
+		"1729085" => t("Bago City"),
+		"1725157" => t("Binalbagan"),
+		"1724933" => t("Binonga"),
+		"1721168" => t("Cadiz"),
+		"1713818" => t("Escalante"),
+		"1711718" => t("Himamaylan"),
+		"1711621" => t("Hinigaran"),
+		"1711005" => t("Iloilo"),
+		"1710518" => t("Isabela"),
+		"1709968" => t("Kabankalan"),
+		"1709632" => t("Kalibo (poblacion)"),
+		"1708226" => t("La Carlota"),
+		"1708217" => t("La Castellana"),
+		"1704781" => t("Maao"),
+		"1702077" => t("Manapla"),
+		"1701500" => t("Mansilingan"),
+		"1699060" => t("Murcia"),
+		"1694791" => t("Paraiso"),
+		"1694498" => t("Passi"),
+		"1692489" => t("Pulupandan"),
+		"1691444" => t("Roxas City"),
+		"1691150" => t("Sagay"),
+		"1713857" => t("Saravia"),
+		"1686102" => t("Sipalay"),
+		"1685622" => t("Suay"),
+		"1683877" => t("Talisay"),
+		"1683800" => t("Taloc"),
+		"1680505" => t("Ualog"),
+		"1680007" => t("Victorias"),
+	);
+}
+
+
+function location_cities_list_ph_40 () {
+	return array (
+		"1731686" => t("Alaminos"),
+		"1731212" => t("Amadeo"),
+		"1730713" => t("Angono"),
+		"1730501" => t("Antipolo"),
+		"1729987" => t("Atimonan"),
+		"1689994" => t("Aurora"),
+		"1729524" => t("Bacoor"),
+		"1966336" => t("Bagong Pagasa"),
+		"1728336" => t("Balayan"),
+		"1727522" => t("Banaybanay"),
+		"1726765" => t("Baras"),
+		"1726280" => t("Batangas"),
+		"1725991" => t("Bauan"),
+		"1725919" => t("Bay"),
+		"1725359" => t("Bignay Uno"),
+		"1725094" => t("Binangonan"),
+		"1720840" => t("Cainta"),
+		"1720751" => t("Calaca"),
+		"1720681" => t("Calamba"),
+		"1720499" => t("Calatagan"),
+		"1720472" => t("Calauag"),
+		"1720464" => t("Calauan"),
+		"1719274" => t("Candelaria"),
+		"1718426" => t("Cardona"),
+		"1718306" => t("Carmona"),
+		"1717960" => t("Catanauan"),
+		"1717641" => t("Cavite"),
+		"1717008" => t("Concepcion Ibaba"),
+		"1716618" => t("Cuenca"),
+		"1715430" => t("Dasmarinas"),
+		"1713014" => t("General Trias"),
+		"1712162" => t("Gumaca"),
+		"1710914" => t("Imus"),
+		"1710770" => t("Indang"),
+		"1710357" => t("Jalajala"),
+		"1709003" => t("Kawit"),
+		"1706402" => t("Lilio"),
+		"1706090" => t("Lipa City"),
+		"1705572" => t("Lopez"),
+		"1705536" => t("Los Banos"),
+		"1705367" => t("Lucban"),
+		"1705357" => t("Lucena"),
+		"1705190" => t("Lumbang"),
+		"1703355" => t("Malabanban Norte"),
+		"1703116" => t("Malanday"),
+		"1702413" => t("Malvar"),
+		"1702372" => t("Mamatid"),
+		"1701149" => t("Maragondon"),
+		"1700179" => t("Mauban"),
+		"1699858" => t("Mendez-Nunez"),
+		"1699205" => t("Morong"),
+		"1698740" => t("Nagcarlan"),
+		"1698548" => t("Naic"),
+		"1698030" => t("Nasugbu"),
+		"1697486" => t("Noveleta"),
+		"1696718" => t("Paete"),
+		"1696614" => t("Pagbilao"),
+		"1695283" => t("Pangil"),
+		"1694290" => t("Patuto"),
+		"1693870" => t("Pila"),
+		"1693778" => t("Pililla"),
+		"1692520" => t("Pulong Santa Cruz"),
+		"1699296" => t("Rodriguez"),
+		"1690570" => t("Sampaloc"),
+		"1689056" => t("San Mateo"),
+		"1688830" => t("San Pablo"),
+		"1688795" => t("San Pascual"),
+		"1688749" => t("San Pedro"),
+		"1688253" => t("Santa Cruz"),
+		"1687894" => t("Santa Rosa"),
+		"1687534" => t("Santo Tomas"),
+		"1687164" => t("Sariaya"),
+		"1686547" => t("Silang"),
+		"1685146" => t("Taal"),
+		"1684308" => t("Taguig"),
+		"1683860" => t("Talisay"),
+		"1683340" => t("Tanauan"),
+		"1683319" => t("Tanay"),
+		"1682659" => t("Tayabas"),
+		"1682598" => t("Taytay"),
+		"1682478" => t("Teresa"),
+		"1682472" => t("Ternate"),
+		"1680018" => t("Victoria"),
+	);
+}
+
+
+function location_cities_list_ph_13 () {
+	return array (
+		"1728825" => t("Bah-Bah"),
+		"1725684" => t("Bayugan"),
+		"1724767" => t("Bislig"),
+		"1723481" => t("Buenavista"),
+		"1722731" => t("Bunawan"),
+		"1722186" => t("Butuan"),
+		"1722032" => t("Cabadbaran"),
+		"1690019" => t("San Francisco"),
+		"1685218" => t("Surigao"),
+		"1684137" => t("Talacogon"),
+		"1683302" => t("Tandag"),
+		"1681333" => t("Trento"),
+		"1680040" => t("Veruela"),
+	);
+}
+
+
+function location_cities_list_ph_10 () {
+	return array (
+		"1721080" => t("Cagayan de Oro"),
+		"1714519" => t("Dologon"),
+		"1714441" => t("Don Carlos"),
+		"1710258" => t("Jasaan"),
+		"1707944" => t("Lala"),
+		"1702934" => t("Malaybalay"),
+		"1701537" => t("Manolo Fortich"),
+		"1701124" => t("Maramag"),
+		"1700980" => t("Mariano"),
+		"1697006" => t("Oroquieta"),
+		"1696899" => t("Ozamiz City"),
+		"1692214" => t("Quezon"),
+		"1684379" => t("Tagoloan"),
+		"1683116" => t("Tangub"),
+		"1680116" => t("Valencia"),
+	);
+}
+
+
+function location_cities_list_ph_11 () {
+	return array (
+		"1727080" => t("Bansalan"),
+		"1721695" => t("Cabayangan"),
+		"1717053" => t("Compostela"),
+		"1715348" => t("Davao"),
+		"1714956" => t("Digos"),
+		"1704968" => t("Lupon"),
+		"1703773" => t("Magsaysay"),
+		"1702649" => t("Malita"),
+		"1702032" => t("Manay"),
+		"1700360" => t("Mati"),
+		"1699323" => t("Monkayo"),
+		"1698887" => t("Nabunturan"),
+		"1697773" => t("New Corella"),
+		"1695804" => t("Panabo"),
+		"1694909" => t("Pantukan"),
+		"1693077" => t("Polomolok"),
+		"1690666" => t("Samal"),
+		"1689087" => t("San Mariano"),
+		"1688058" => t("Santa Maria"),
+		"1684269" => t("Tagum"),
+		"1680613" => t("Tupi"),
+	);
+}
+
+
+function location_cities_list_ph_02 () {
+	return array (
+		"1731486" => t("Alicia"),
+		"1730398" => t("Aparri"),
+		"1729324" => t("Baggabag B"),
+		"1727663" => t("Bambang"),
+		"1725729" => t("Bayombong"),
+		"1722005" => t("Cabagan"),
+		"1711146" => t("Ilagan"),
+		"1691911" => t("Ramon"),
+		"1691441" => t("Roxas"),
+		"1689052" => t("San Mateo"),
+		"1687801" => t("Santiago"),
+		"1685880" => t("Solana"),
+		"1685875" => t("Solano"),
+		"1680932" => t("Tuguegarao City"),
+	);
+}
+
+
+function location_cities_list_ph_07 () {
+	return array (
+		"1728772" => t("Bais"),
+		"1728546" => t("Balamban"),
+		"1727043" => t("Bantayan"),
+		"1725804" => t("Bayawan"),
+		"1724435" => t("Bogo"),
+		"1719053" => t("Canlaon"),
+		"1718436" => t("Carcar"),
+		"1717512" => t("Cebu City"),
+		"1718328" => t("Cogan"),
+		"1717051" => t("Compostela"),
+		"1716924" => t("Consolacion"),
+		"1716858" => t("Cordova"),
+		"1715812" => t("Danao"),
+		"1715804" => t("Danao"),
+		"1714201" => t("Dumaguete City"),
+		"1712520" => t("Guihulngan"),
+		"1706393" => t("Liloan"),
+		"1699572" => t("Minglanilla"),
+		"1698839" => t("Naga"),
+		"1693574" => t("Pinamungahan"),
+		"1690060" => t("San Fernando"),
+		"1688363" => t("Santa Catalina"),
+		"1686728" => t("Sibulan"),
+		"1684497" => t("Tagbilaran City"),
+		"1683881" => t("Talisay"),
+		"1683088" => t("Tanjay"),
+		"1681602" => t("Toledo"),
+	);
+}
+
+
+function location_cities_list_ph_03 () {
+	return array (
+		"1732354" => t("Abucay"),
+		"1731528" => t("Aliaga"),
+		"1730749" => t("Angat"),
+		"1730737" => t("Angeles City"),
+		"1730413" => t("Apalit"),
+		"1730225" => t("Arayat"),
+		"1729734" => t("Babo-Pangulo"),
+		"1728584" => t("Balagtas"),
+		"1728523" => t("Balanga"),
+		"1727995" => t("Baliuag"),
+		"1724489" => t("Bocaue"),
+		"1724106" => t("Bongabon"),
+		"1723822" => t("Botolan"),
+		"1723066" => t("Bulacan"),
+		"1722930" => t("Bulaon"),
+		"1722433" => t("Burgos"),
+		"1722267" => t("Bustos"),
+		"1721906" => t("Cabanatuan City"),
+		"1721636" => t("Cabiao"),
+		"1720034" => t("Calumpit"),
+		"1719683" => t("Camiling"),
+		"1719329" => t("Candaba"),
+		"1718722" => t("Capas"),
+		"1718078" => t("Castillejos"),
+		"1716995" => t("Concepcion"),
+		"1715169" => t("Del Pilar"),
+		"1714766" => t("Dinalupihan"),
+		"1713226" => t("Gapan"),
+		"1713027" => t("General Mamerto Natividad"),
+		"1713018" => t("General Tinio"),
+		"1713004" => t("Gerona"),
+		"1712531" => t("Guiguinto"),
+		"1712488" => t("Guimba"),
+		"1712051" => t("Guyong"),
+		"1711982" => t("Hagonoy"),
+		"1711829" => t("Hermosa"),
+		"1711437" => t("Iba"),
+		"1710389" => t("Jaen"),
+		"1707324" => t("La Paz"),
+		"1707049" => t("Laur"),
+		"1706361" => t("Limay"),
+		"1705771" => t("Loma de Gato"),
+		"1705440" => t("Lubao"),
+		"1704703" => t("Mabalacat"),
+		"1704067" => t("Magalang"),
+		"1702540" => t("Malolos"),
+		"1701692" => t("Manibaug Pasig"),
+		"1700917" => t("Marilao"),
+		"1700868" => t("Mariveles"),
+		"1700753" => t("Masantol"),
+		"1700665" => t("Masinloc"),
+		"1699805" => t("Mexico"),
+		"1699802" => t("Meycauayan"),
+		"1699204" => t("Morong"),
+		"1699088" => t("Munoz"),
+		"1697497" => t("Norzagaray"),
+		"1697376" => t("Obando"),
+		"1697046" => t("Orani"),
+		"1697023" => t("Orion"),
+		"1696165" => t("Palayan City"),
+		"1695583" => t("Pandacaqui"),
+		"1695462" => t("Pandi"),
+		"1695097" => t("Paniqui"),
+		"1694914" => t("Pantubig"),
+		"1694861" => t("Paombong"),
+		"1694826" => t("Papaya"),
+		"1694075" => t("Penaranda"),
+		"1693839" => t("Pilar"),
+		"1693401" => t("Pio"),
+		"1693239" => t("Plaridel"),
+		"1692914" => t("Porac"),
+		"1692565" => t("Pulilan"),
+		"1692199" => t("Quezon"),
+		"1691904" => t("Ramos"),
+		"1691606" => t("Rizal"),
+		"1690664" => t("Samal"),
+		"1690313" => t("San Antonio"),
+		"1690315" => t("San Antonio"),
+		"1690324" => t("San Antonio"),
+		"1690039" => t("San Fernando"),
+		"1689973" => t("San Francisco"),
+		"1689832" => t("San Ildefonso"),
+		"1689395" => t("San Jose del Monte"),
+		"1689171" => t("San Leonardo"),
+		"1689129" => t("San Luis"),
+		"1689099" => t("San Marcelino"),
+		"1688954" => t("San Miguel"),
+		"1688949" => t("San Miguel"),
+		"1688912" => t("San Narciso"),
+		"1688425" => t("San Simon"),
+		"1687409" => t("San Vicente"),
+		"1688398" => t("Santa Ana"),
+		"1688232" => t("Santa Cruz"),
+		"1688248" => t("Santa Cruz"),
+		"1687937" => t("Santa Rita"),
+		"1687529" => t("Santo Tomas"),
+		"1687687" => t("Santol"),
+		"1686933" => t("Sexmoan"),
+		"1685577" => t("Subic"),
+		"1684016" => t("Talavera"),
+		"1682812" => t("Tarlac City"),
+		"1682537" => t("Telabastagan"),
+	);
+}
+
+
+function location_cities_list_ph_00 () {
+	return array (
+		"1720052" => t("Calumpang"),
+		"1703417" => t("Makati City"),
+		"1701966" => t("Mandaluyong City"),
+		"1701668" => t("Manila"),
+		"7290466" => t("Pasig City"),
+		"1692192" => t("Quezon City"),
+		"1683013" => t("Tanza"),
+	);
+}
+
+
+function location_cities_list_ph_08 () {
+	return array (
+		"1732312" => t("Abuyog"),
+		"1725799" => t("Baybay"),
+		"1723893" => t("Borongan"),
+		"1720402" => t("Calbayog City"),
+		"1718393" => t("Carigara"),
+		"1717926" => t("Catarman"),
+		"1717911" => t("Catbalogan"),
+		"1707398" => t("Laoang"),
+		"1704758" => t("Maasin"),
+		"1696041" => t("Palo"),
+		"1683342" => t("Tanauan"),
+	);
+}
+
+
+function location_cities_list_ph_12 () {
+	return array (
+		"1731744" => t("Alabel"),
+		"1727400" => t("Banga"),
+		"1713022" => t("General Santos"),
+		"1712819" => t("Glan"),
+		"1711082" => t("Iligan City"),
+		"1710470" => t("Isulan"),
+		"1710011" => t("Kabacan"),
+		"1708824" => t("Kidapawan"),
+		"1708522" => t("Koronadal"),
+		"1708056" => t("Laguilayan"),
+		"1703051" => t("Malapatan"),
+		"1978681" => t("Malingao"),
+		"1702442" => t("Malungun"),
+		"1699755" => t("Midsayap"),
+		"1687029" => t("Sebu"),
+		"1685230" => t("Surallah"),
+		"1684681" => t("Tacurong"),
+	);
+}
+
+
+function location_cities_list_ph_15 () {
+	return array (
+		"1728930" => t("Baguio"),
+		"1710441" => t("Itogon"),
+		"1707123" => t("La Trinidad"),
+		"1702002" => t("Mankayan"),
+		"1684803" => t("Tabuk"),
+	);
+}
+
+
+function location_cities_list_ph_41 () {
+	return array (
+		"1720561" => t("Calapan"),
+		"1702263" => t("Mamburao"),
+		"1701516" => t("Mansalay"),
+		"1698103" => t("Narra"),
+		"1693618" => t("Pinamalayan"),
+		"1691538" => t("Romblon"),
+		"1691446" => t("Roxas"),
+		"1691280" => t("Sablayan"),
+		"1689510" => t("San Jose"),
+	);
+}
+
+

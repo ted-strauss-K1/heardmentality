@@ -1,0 +1,361 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "23",
+               "short_name" : "23",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "J. Tumo-Vaižganto gatvė",
+               "short_name" : "J. Tumo-Vaižganto g.",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Plungė",
+               "short_name" : "Plungė",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Plungė district municipality",
+               "short_name" : "Plungė district municipality",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Telšiai County",
+               "short_name" : "Telšiai County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "90161",
+               "short_name" : "90161",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "J. Tumo-Vaižganto gatvė 23, Plungė 90161, Lithuania",
+         "geometry" : {
+            "location" : {
+               "lat" : 55.91131660,
+               "lng" : 21.84398180
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.91266558029150,
+                  "lng" : 21.84533078029150
+               },
+               "southwest" : {
+                  "lat" : 55.90996761970850,
+                  "lng" : 21.84263281970849
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "90161",
+               "short_name" : "90161",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Plungė",
+               "short_name" : "Plungė",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Plungė district municipality",
+               "short_name" : "Plungė district municipality",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Telšiai County",
+               "short_name" : "Telšiai County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Plungė 90161, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.91316190,
+                  "lng" : 21.85730790
+               },
+               "southwest" : {
+                  "lat" : 55.90005490,
+                  "lng" : 21.840850
+               }
+            },
+            "location" : {
+               "lat" : 55.90854930,
+               "lng" : 21.84479350
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.91316190,
+                  "lng" : 21.84963970
+               },
+               "southwest" : {
+                  "lat" : 55.90416889999999,
+                  "lng" : 21.840850
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Plungė",
+               "short_name" : "Plungė",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Plungės miesto seniūnija",
+               "short_name" : "Plungės m. sen.",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Plungė district municipality",
+               "short_name" : "Plungė district municipality",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Telšiai County",
+               "short_name" : "Telšiai County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Plungė, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.93061390,
+                  "lng" : 21.88892790
+               },
+               "southwest" : {
+                  "lat" : 55.89560450,
+                  "lng" : 21.80116050
+               }
+            },
+            "location" : {
+               "lat" : 55.9107840,
+               "lng" : 21.84540690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.93061390,
+                  "lng" : 21.88892790
+               },
+               "southwest" : {
+                  "lat" : 55.89560450,
+                  "lng" : 21.80116050
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Plungės miesto seniūnija",
+               "short_name" : "Plungės m. sen.",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Plungė district municipality",
+               "short_name" : "Plungė district municipality",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Telšiai County",
+               "short_name" : "Telšiai County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Plungės miesto seniūnija, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.93061390,
+                  "lng" : 21.88892790
+               },
+               "southwest" : {
+                  "lat" : 55.89560450,
+                  "lng" : 21.80116050
+               }
+            },
+            "location" : {
+               "lat" : 55.91347370,
+               "lng" : 21.83798240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.93061390,
+                  "lng" : 21.88892790
+               },
+               "southwest" : {
+                  "lat" : 55.89560450,
+                  "lng" : 21.80116050
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Plungė district municipality",
+               "short_name" : "Plungė district municipality",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Telšiai County",
+               "short_name" : "Telšiai County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Plungė district municipality, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 56.15891880,
+                  "lng" : 22.17064990
+               },
+               "southwest" : {
+                  "lat" : 55.7486110,
+                  "lng" : 21.51201190
+               }
+            },
+            "location" : {
+               "lat" : 55.91378280,
+               "lng" : 21.86775950
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 56.15891880,
+                  "lng" : 22.17064990
+               },
+               "southwest" : {
+                  "lat" : 55.7486110,
+                  "lng" : 21.51201190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Telšiai County",
+               "short_name" : "Telšiai County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Telšiai County, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 56.43201160,
+                  "lng" : 22.73813880
+               },
+               "southwest" : {
+                  "lat" : 55.59742689999999,
+                  "lng" : 21.51201190
+               }
+            },
+            "location" : {
+               "lat" : 56.10266160,
+               "lng" : 22.11139160
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 56.43201160,
+                  "lng" : 22.73813880
+               },
+               "southwest" : {
+                  "lat" : 55.59742689999999,
+                  "lng" : 21.51201190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 56.45032089999999,
+                  "lng" : 26.83559130
+               },
+               "southwest" : {
+                  "lat" : 53.89687869999999,
+                  "lng" : 20.95436790
+               }
+            },
+            "location" : {
+               "lat" : 55.1694380,
+               "lng" : 23.8812750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 56.45032089999999,
+                  "lng" : 26.83559130
+               },
+               "southwest" : {
+                  "lat" : 53.89687869999999,
+                  "lng" : 20.95436790
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,8 +1,0 @@
-*6620381 hm_F  :::  Flat Island ~ Heard Island and McDonald Islands (general)(6620381)
-*6620381 hm_M  :::  McDonald Island ~ Heard Island and McDonald Islands (general)(6620381)
-*6620381 hm_S  :::  Shag Island ~ Heard Island and McDonald Islands (general)(6620381)
-*6620381 hm_H  :::  Heard Island ~ Heard Island and McDonald Islands (general)(6620381)
-
-NAMES:::::
-
-Heard Island and McDonald Islands (general)(6620381) 

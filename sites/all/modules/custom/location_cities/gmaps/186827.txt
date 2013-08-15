@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Njuri Ncheke Street",
+               "short_name" : "Njuri Ncheke Street",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Meru",
+               "short_name" : "Meru",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Meru",
+               "short_name" : "Meru",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Njuri Ncheke Street, Meru, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.04547970,
+                  "lng" : 37.65679290
+               },
+               "southwest" : {
+                  "lat" : 0.04535520,
+                  "lng" : 37.65562540
+               }
+            },
+            "location" : {
+               "lat" : 0.04540560,
+               "lng" : 37.65620790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.04676643029150204,
+                  "lng" : 37.65755813029150
+               },
+               "southwest" : {
+                  "lat" : 0.04406846970849797,
+                  "lng" : 37.65486016970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Meru",
+               "short_name" : "Meru",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Meru",
+               "short_name" : "Meru",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Meru, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.06591799999999999,
+                  "lng" : 37.66568180
+               },
+               "southwest" : {
+                  "lat" : 0.03081320,
+                  "lng" : 37.62139320
+               }
+            },
+            "location" : {
+               "lat" : 0.05147210,
+               "lng" : 37.64560420
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.06591799999999999,
+                  "lng" : 37.66568180
+               },
+               "southwest" : {
+                  "lat" : 0.03081320,
+                  "lng" : 37.62139320
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Meru",
+               "short_name" : "Meru",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Meru, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.66485390,
+                  "lng" : 38.4123890
+               },
+               "southwest" : {
+                  "lat" : -0.3761510,
+                  "lng" : 37.09816199999999
+               }
+            },
+            "location" : {
+               "lat" : 0.35571740,
+               "lng" : 37.80876930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.66485390,
+                  "lng" : 38.4123890
+               },
+               "southwest" : {
+                  "lat" : -0.3761510,
+                  "lng" : 37.09816199999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

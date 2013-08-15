@@ -1,34 +1,22 @@
 <?php
 
-// Palau
-
-function location_province_list_pw() {
-  return array('AM' => "Aimeliik",
-    'AR' => "Airai",
-    'AN' => "Angaur",
-    'HA' => "Hatohobei",
-    'KA' => "Kayangel",
-    'KO' => "Koror",
-    'ME' => "Melekeok",
-    'NA' => "Ngaraard",
-    'NG' => "Ngarchelong",
-    'ND' => "Ngardmau",
-    'NT' => "Ngatpang",
-    'NC' => "Ngchesar",
-    'NR' => "Ngeremlengui",
-    'NW' => "Ngiwal",
-    'PE' => "Peleliu",
-    'SO' => "Sonsorol");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_pw() {
-  return array(
-    'minlng' => 134.1386,
-    'minlat' => 6.798967,
-    'maxlng' => 134.8889,
-    'maxlat' => 7.697967,
-  );
+function location_province_list_pw () {
+	return array (
+		"002" => t("Aimeliik"),
+		"004" => t("Airai"),
+		"010" => t("Angaur"),
+		"050" => t("Hatohobei"),
+		"100" => t("Kayangel"),
+		"150" => t("Koror"),
+		"212" => t("Melekeok"),
+		"214" => t("Ngaraard"),
+		"218" => t("Ngarchelong"),
+		"222" => t("Ngardmau"),
+		"224" => t("Ngatpang"),
+		"226" => t("Ngchesar"),
+		"227" => t("Ngeremlengui"),
+		"228" => t("Ngiwal"),
+		"350" => t("Peleliu"),
+		"370" => t("Sonsorol"),
+	);
 }

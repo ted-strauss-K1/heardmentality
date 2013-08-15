@@ -1,0 +1,424 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalur Cileunyi - Palimanan",
+               "short_name" : "Jalan Nasional 5",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Klangenan",
+               "short_name" : "Klangenan",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Klangenan",
+               "short_name" : "Klangenan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Cirebon",
+               "short_name" : "Cirebon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "45156",
+               "short_name" : "45156",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalur Cileunyi - Palimanan, Klangenan, Cirebon, West Java 45156, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.710218299999999,
+                  "lng" : 108.44052050
+               },
+               "southwest" : {
+                  "lat" : -6.71039710,
+                  "lng" : 108.4397470
+               }
+            },
+            "location" : {
+               "lat" : -6.71030770,
+               "lng" : 108.44013370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.708958719708497,
+                  "lng" : 108.4414827302915
+               },
+               "southwest" : {
+                  "lat" : -6.711656680291501,
+                  "lng" : 108.4387847697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Klangenan",
+               "short_name" : "Klangenan",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Klangenan",
+               "short_name" : "Klangenan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Cirebon",
+               "short_name" : "Cirebon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Klangenan, Cirebon, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.69384990,
+                  "lng" : 108.44717310
+               },
+               "southwest" : {
+                  "lat" : -6.711538999999999,
+                  "lng" : 108.4328240
+               }
+            },
+            "location" : {
+               "lat" : -6.70792670,
+               "lng" : 108.43799040
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.69384990,
+                  "lng" : 108.44717310
+               },
+               "southwest" : {
+                  "lat" : -6.711538999999999,
+                  "lng" : 108.4328240
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Klangenan",
+               "short_name" : "Klangenan",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Klangenan",
+               "short_name" : "Klangenan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Cirebon",
+               "short_name" : "Cirebon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Klangenan, Cirebon, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.63657210,
+                  "lng" : 108.4818720
+               },
+               "southwest" : {
+                  "lat" : -6.719280,
+                  "lng" : 108.4328240
+               }
+            },
+            "location" : {
+               "lat" : -6.654826799999999,
+               "lng" : 108.45727880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.63657210,
+                  "lng" : 108.4818720
+               },
+               "southwest" : {
+                  "lat" : -6.719280,
+                  "lng" : 108.4328240
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Klangenan",
+               "short_name" : "Klangenan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Cirebon",
+               "short_name" : "Cirebon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Klangenan, Cirebon, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.63657210,
+                  "lng" : 108.4818720
+               },
+               "southwest" : {
+                  "lat" : -6.719280,
+                  "lng" : 108.4328240
+               }
+            },
+            "location" : {
+               "lat" : -6.654826799999999,
+               "lng" : 108.45727880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.63657210,
+                  "lng" : 108.4818720
+               },
+               "southwest" : {
+                  "lat" : -6.719280,
+                  "lng" : 108.4328240
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "45156",
+               "short_name" : "45156",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Cirebon",
+               "short_name" : "Cirebon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cirebon, West Java 45156, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.63374180,
+                  "lng" : 108.49961080
+               },
+               "southwest" : {
+                  "lat" : -6.71889440,
+                  "lng" : 108.43248730
+               }
+            },
+            "location" : {
+               "lat" : -6.659704199999999,
+               "lng" : 108.4632140
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.63374180,
+                  "lng" : 108.49961080
+               },
+               "southwest" : {
+                  "lat" : -6.71889440,
+                  "lng" : 108.43248730
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cirebon",
+               "short_name" : "Cirebon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cirebon, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.5162990,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.0063030,
+                  "lng" : 108.323490
+               }
+            },
+            "location" : {
+               "lat" : -6.68988760,
+               "lng" : 108.47508460
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.5162990,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.0063030,
+                  "lng" : 108.323490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.914709999999999,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.820987000000001,
+                  "lng" : 106.3705080
+               }
+            },
+            "location" : {
+               "lat" : -7.090910999999999,
+               "lng" : 107.6688870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.914709999999999,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.820987000000001,
+                  "lng" : 106.3705080
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

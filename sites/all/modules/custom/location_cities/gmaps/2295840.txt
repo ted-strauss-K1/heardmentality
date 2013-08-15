@@ -1,0 +1,240 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "76",
+               "short_name" : "76",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Evel Street",
+               "short_name" : "Evel Street",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Prestea",
+               "short_name" : "Prestea",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wassa West",
+               "short_name" : "Wassa West",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Western",
+               "short_name" : "Western",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "76 Evel Street, Prestea",
+         "geometry" : {
+            "location" : {
+               "lat" : 5.43269310,
+               "lng" : -2.14274620
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.434042080291502,
+                  "lng" : -2.141397219708498
+               },
+               "southwest" : {
+                  "lat" : 5.431344119708498,
+                  "lng" : -2.144095180291502
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Prestea",
+               "short_name" : "Prestea",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wassa West",
+               "short_name" : "Wassa West",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Western",
+               "short_name" : "Western",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Prestea, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.446746999999999,
+                  "lng" : -2.12688440
+               },
+               "southwest" : {
+                  "lat" : 5.420515399999999,
+                  "lng" : -2.15482230
+               }
+            },
+            "location" : {
+               "lat" : 5.434362999999999,
+               "lng" : -2.14344790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.446746999999999,
+                  "lng" : -2.12688440
+               },
+               "southwest" : {
+                  "lat" : 5.420515399999999,
+                  "lng" : -2.15482230
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wassa West",
+               "short_name" : "Wassa West",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Western",
+               "short_name" : "Western",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wassa West, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.65561880,
+                  "lng" : -1.75506590
+               },
+               "southwest" : {
+                  "lat" : 4.891888199999999,
+                  "lng" : -2.24052430
+               }
+            },
+            "location" : {
+               "lat" : 5.30731720,
+               "lng" : -1.90992380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.65561880,
+                  "lng" : -1.75506590
+               },
+               "southwest" : {
+                  "lat" : 4.891888199999999,
+                  "lng" : -2.24052430
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Western",
+               "short_name" : "Western",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Western, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.052660899999999,
+                  "lng" : -1.4178180
+               },
+               "southwest" : {
+                  "lat" : 4.7388150,
+                  "lng" : -3.255420
+               }
+            },
+            "location" : {
+               "lat" : 5.39019780,
+               "lng" : -2.14502450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.052660899999999,
+                  "lng" : -1.4178180
+               },
+               "southwest" : {
+                  "lat" : 4.7388150,
+                  "lng" : -3.255420
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            },
+            "location" : {
+               "lat" : 7.9465270,
+               "lng" : -1.0231940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

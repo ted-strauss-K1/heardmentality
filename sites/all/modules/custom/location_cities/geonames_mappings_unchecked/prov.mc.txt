@@ -1,8 +1,0 @@
-*3319178 mc_FV  :::  Fontvieille ~ Commune de Monaco(3319178)
-*3319178 mc_LC  :::  La Condamine ~ Commune de Monaco(3319178)
-*3319178 mc_MV  :::  Monaco-Ville ~ Commune de Monaco(3319178)
-*3319178 mc_MC  :::  Monte-Carlo ~ Commune de Monaco(3319178)
-
-NAMES:::::
-
-Commune de Monaco(3319178) 

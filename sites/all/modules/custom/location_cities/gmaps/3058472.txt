@@ -1,0 +1,399 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "6",
+               "short_name" : "6",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "45",
+               "short_name" : "45",
+               "types" : []
+            },
+            {
+               "long_name" : "M. Oláha",
+               "short_name" : "M. Oláha",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Nové Zámky",
+               "short_name" : "Nové Zámky",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Nové Zámky",
+               "short_name" : "Nové Zámky",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "940 02",
+               "short_name" : "940 02",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "M. Oláha 45/6, 940 02 Nové Zámky, Slovakia",
+         "geometry" : {
+            "location" : {
+               "lat" : 47.98546860,
+               "lng" : 18.16197660
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 47.98681758029149,
+                  "lng" : 18.16332558029151
+               },
+               "southwest" : {
+                  "lat" : 47.98411961970850,
+                  "lng" : 18.16062761970850
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nové Zámky",
+               "short_name" : "Nové Zámky",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Nové Zámky",
+               "short_name" : "Nové Zámky",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Nové Zámky",
+               "short_name" : "Nové Zámky",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Nitra Region",
+               "short_name" : "Nitra Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "940 02",
+               "short_name" : "940 02",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "940 02 Nové Zámky, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.01180080,
+                  "lng" : 18.18077340
+               },
+               "southwest" : {
+                  "lat" : 47.97148180,
+                  "lng" : 18.12317050
+               }
+            },
+            "location" : {
+               "lat" : 47.98997910,
+               "lng" : 18.16168250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.01180080,
+                  "lng" : 18.18077340
+               },
+               "southwest" : {
+                  "lat" : 47.97148180,
+                  "lng" : 18.12317050
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "940 02",
+               "short_name" : "940 02",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "940 02, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.04624840,
+                  "lng" : 18.23847150
+               },
+               "southwest" : {
+                  "lat" : 47.94406180,
+                  "lng" : 18.06936970
+               }
+            },
+            "location" : {
+               "lat" : 47.98644780,
+               "lng" : 18.15195990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.04624840,
+                  "lng" : 18.23847150
+               },
+               "southwest" : {
+                  "lat" : 47.94406180,
+                  "lng" : 18.06936970
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nové Zámky 2",
+               "short_name" : "Nové Zámky 2",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "940 02",
+               "short_name" : "940 02",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Nové Zámky 2, 940 02, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.04624840,
+                  "lng" : 18.23847150
+               },
+               "southwest" : {
+                  "lat" : 47.94406180,
+                  "lng" : 18.06936970
+               }
+            },
+            "location" : {
+               "lat" : 47.98644780,
+               "lng" : 18.15195990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.04624840,
+                  "lng" : 18.23847150
+               },
+               "southwest" : {
+                  "lat" : 47.94406180,
+                  "lng" : 18.06936970
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nové Zámky",
+               "short_name" : "Nové Zámky",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Nové Zámky",
+               "short_name" : "Nové Zámky",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Nitra Region",
+               "short_name" : "Nitra Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nové Zámky, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.04624840,
+                  "lng" : 18.23847150
+               },
+               "southwest" : {
+                  "lat" : 47.94406180,
+                  "lng" : 18.06936970
+               }
+            },
+            "location" : {
+               "lat" : 47.98606720,
+               "lng" : 18.16406490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.04624840,
+                  "lng" : 18.23847150
+               },
+               "southwest" : {
+                  "lat" : 47.94406180,
+                  "lng" : 18.06936970
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nové Zámky",
+               "short_name" : "Nové Zámky",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Nitra Region",
+               "short_name" : "Nitra Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nové Zámky, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.20689290,
+                  "lng" : 18.85604870
+               },
+               "southwest" : {
+                  "lat" : 47.7550170,
+                  "lng" : 17.96107590
+               }
+            },
+            "location" : {
+               "lat" : 48.00412810,
+               "lng" : 18.35629490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.20689290,
+                  "lng" : 18.85604870
+               },
+               "southwest" : {
+                  "lat" : 47.7550170,
+                  "lng" : 17.96107590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nitra Region",
+               "short_name" : "Nitra Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nitra Region, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.71452520,
+                  "lng" : 19.07240640
+               },
+               "southwest" : {
+                  "lat" : 47.73137830,
+                  "lng" : 17.70727340
+               }
+            },
+            "location" : {
+               "lat" : 48.01437650,
+               "lng" : 18.54165050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.71452520,
+                  "lng" : 19.07240640
+               },
+               "southwest" : {
+                  "lat" : 47.73137830,
+                  "lng" : 17.70727340
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.61380510000001,
+                  "lng" : 22.55928180
+               },
+               "southwest" : {
+                  "lat" : 47.7311590,
+                  "lng" : 16.83318210
+               }
+            },
+            "location" : {
+               "lat" : 48.6690260,
+               "lng" : 19.6990240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.61380510000001,
+                  "lng" : 22.55928180
+               },
+               "southwest" : {
+                  "lat" : 47.7311590,
+                  "lng" : 16.83318210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

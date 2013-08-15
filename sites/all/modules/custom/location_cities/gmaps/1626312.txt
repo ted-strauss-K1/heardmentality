@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Suparjo Rustam",
+               "short_name" : "Jalan Nasional 9",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Sokaraja",
+               "short_name" : "Sokaraja",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banyumas",
+               "short_name" : "Banyumas",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "53181",
+               "short_name" : "53181",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Suparjo Rustam, Sokaraja, Banyumas 53181, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.45767450,
+                  "lng" : 109.28838310
+               },
+               "southwest" : {
+                  "lat" : -7.45768080,
+                  "lng" : 109.28746140
+               }
+            },
+            "location" : {
+               "lat" : -7.45767540,
+               "lng" : 109.28792230
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.456328669708497,
+                  "lng" : 109.2892712302915
+               },
+               "southwest" : {
+                  "lat" : -7.459026630291501,
+                  "lng" : 109.2865732697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Sokaraja",
+               "short_name" : "Central Sokaraja",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Sokaraja",
+               "short_name" : "Sokaraja",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banyumas",
+               "short_name" : "Banyumas",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Sokaraja, Sokaraja, Banyumas, Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.447921900000001,
+                  "lng" : 109.2972650
+               },
+               "southwest" : {
+                  "lat" : -7.46659210,
+                  "lng" : 109.2734810
+               }
+            },
+            "location" : {
+               "lat" : -7.45985630,
+               "lng" : 109.28761360
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.447921900000001,
+                  "lng" : 109.2972650
+               },
+               "southwest" : {
+                  "lat" : -7.46659210,
+                  "lng" : 109.2734810
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sokaraja",
+               "short_name" : "Sokaraja",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banyumas",
+               "short_name" : "Banyumas",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sokaraja, Banyumas, Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.42021210,
+                  "lng" : 109.33519790
+               },
+               "southwest" : {
+                  "lat" : -7.482609999999999,
+                  "lng" : 109.249110
+               }
+            },
+            "location" : {
+               "lat" : -7.45077910,
+               "lng" : 109.28910050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.42021210,
+                  "lng" : 109.33519790
+               },
+               "southwest" : {
+                  "lat" : -7.482609999999999,
+                  "lng" : 109.249110
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "53181",
+               "short_name" : "53181",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Java 53181, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.419649999999999,
+                  "lng" : 109.34981540
+               },
+               "southwest" : {
+                  "lat" : -7.53070310,
+                  "lng" : 109.25171670
+               }
+            },
+            "location" : {
+               "lat" : -7.450243599999999,
+               "lng" : 109.30099550
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.419649999999999,
+                  "lng" : 109.33545680
+               },
+               "southwest" : {
+                  "lat" : -7.482543799999999,
+                  "lng" : 109.25171670
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banyumas",
+               "short_name" : "Banyumas",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banyumas, Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.2462920,
+                  "lng" : 109.4458340
+               },
+               "southwest" : {
+                  "lat" : -7.66371110,
+                  "lng" : 108.89131190
+               }
+            },
+            "location" : {
+               "lat" : -7.48321330,
+               "lng" : 109.1404380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.2462920,
+                  "lng" : 109.4458340
+               },
+               "southwest" : {
+                  "lat" : -7.66371110,
+                  "lng" : 108.89131190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Java",
+               "short_name" : "Central Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.4026710,
+                  "lng" : 111.6916350
+               },
+               "southwest" : {
+                  "lat" : -8.21163310,
+                  "lng" : 108.5558550
+               }
+            },
+            "location" : {
+               "lat" : -7.1509750,
+               "lng" : 110.14025940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.4026710,
+                  "lng" : 111.6916350
+               },
+               "southwest" : {
+                  "lat" : -8.21163310,
+                  "lng" : 108.5558550
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

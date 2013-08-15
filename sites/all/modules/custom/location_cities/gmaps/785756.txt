@@ -1,0 +1,235 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Димитрија Давидовића",
+               "short_name" : "Димитрија Давидовића",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Smederevo",
+               "short_name" : "Smederevo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Podunavlje District",
+               "short_name" : "Podunavlje District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Димитрија Давидовића, Smederevo, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.66308810,
+                  "lng" : 20.93019960
+               },
+               "southwest" : {
+                  "lat" : 44.66212110,
+                  "lng" : 20.92963250
+               }
+            },
+            "location" : {
+               "lat" : 44.66260560,
+               "lng" : 20.92991910
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.66395358029150,
+                  "lng" : 20.93126503029150
+               },
+               "southwest" : {
+                  "lat" : 44.66125561970850,
+                  "lng" : 20.92856706970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Smederevo",
+               "short_name" : "Smederevo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Podunavlje District",
+               "short_name" : "Podunavlje District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Smederevo, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.68296540,
+                  "lng" : 20.98062520
+               },
+               "southwest" : {
+                  "lat" : 44.61588910,
+                  "lng" : 20.84475520
+               }
+            },
+            "location" : {
+               "lat" : 44.6513820,
+               "lng" : 20.9355130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.68296540,
+                  "lng" : 20.98062520
+               },
+               "southwest" : {
+                  "lat" : 44.61588910,
+                  "lng" : 20.84475520
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Smederevo",
+               "short_name" : "Smederevo",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Podunavlje District",
+               "short_name" : "Podunavlje District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Smederevo, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.71404980,
+                  "lng" : 21.13357540
+               },
+               "southwest" : {
+                  "lat" : 44.45485910,
+                  "lng" : 20.75454720
+               }
+            },
+            "location" : {
+               "lat" : 44.60221420000001,
+               "lng" : 20.91870890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.71404980,
+                  "lng" : 21.13357540
+               },
+               "southwest" : {
+                  "lat" : 44.45485910,
+                  "lng" : 20.75454720
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Podunavlje District",
+               "short_name" : "Podunavlje District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Podunavlje District, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.72129190,
+                  "lng" : 21.2033350
+               },
+               "southwest" : {
+                  "lat" : 44.2082960,
+                  "lng" : 20.75182590
+               }
+            },
+            "location" : {
+               "lat" : 44.47291560,
+               "lng" : 20.99014260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.72129190,
+                  "lng" : 21.2033350
+               },
+               "southwest" : {
+                  "lat" : 44.2082960,
+                  "lng" : 20.75182590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

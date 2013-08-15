@@ -1,32 +1,20 @@
 <?php
 
-// Myanmar
-
-function location_province_list_mm() {
-  return array('AY' => "Ayeyarwady",
-    'BG' => "Bago",
-    'MG' => "Magway",
-    'MD' => "Mandalay",
-    'SG' => "Sagaing",
-    'TN' => "Tanintharyi",
-    'YG' => "Yangon",
-    'CH' => "Chin State",
-    'KC' => "Kachin State",
-    'KH' => "Kayah State",
-    'KN' => "Kayin State",
-    'MN' => "Mon State",
-    'RK' => "Rakhine State",
-    'SH' => "Shan State");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_mm() {
-  return array(
-    'minlng' => 92.1068,
-    'minlat' => 9.755067,
-    'maxlng' => 101.048,
-    'maxlat' => 28.184067,
-  );
+function location_province_list_mm () {
+	return array (
+		"01" => t("Sagaing"),
+		"02" => t("Bago"),
+		"03" => t("Magway"),
+		"04" => t("Mandalay"),
+		"05" => t("Tanintharyi"),
+		"06" => t("Yangon"),
+		"07" => t("Ayeyarwady"),
+		"11" => t("Kachin State"),
+		"12" => t("Kayah State"),
+		"13" => t("Kayin State"),
+		"14" => t("Chin State"),
+		"15" => t("Mon State"),
+		"16" => t("Rakhine State"),
+		"17" => t("Shan State"),
+	);
 }

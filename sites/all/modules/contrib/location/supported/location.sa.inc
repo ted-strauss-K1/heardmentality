@@ -1,31 +1,19 @@
 <?php
 
-// Saudia Arabia
-
-function location_province_list_sa() {
-  return array('BH' => "Al Bahah",
-    'HS' => "Al Hudud ash Shamaliyah",
-    'JF' => "Al Jawf",
-    'MD' => "Al Madinah",
-    'QS' => "Al Qasim",
-    'RD' => "Ar Riyad",
-    'AQ' => "Ash Sharqiyah (Eastern Province)",
-    'AS' => "'Asir",
-    'HL' => "Ha'il",
-    'JZ' => "Jizan",
-    'ML' => "Makkah",
-    'NR' => "Najran",
-    'TB' => "Tabuk");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_sa() {
-  return array(
-    'minlng' => 34.5647,
-    'minlat' => 15.518117,
-    'maxlng' => 55.028463,
-    'maxlat' => 32.275,
-  );
+function location_province_list_sa () {
+	return array (
+		"01" => t("Ar Riyad"),
+		"02" => t("Makkah"),
+		"03" => t("Al Madinah"),
+		"04" => t("Ash Sharqiyah (Eastern Province)"),
+		"05" => t("Al Qasim"),
+		"06" => t("Ha'il"),
+		"07" => t("Tabuk"),
+		"08" => t("Al Hudud ash Shamaliyah"),
+		"09" => t("Jizan"),
+		"10" => t("Najran"),
+		"11" => t("Al Bahah"),
+		"12" => t("Al Jawf"),
+		"14" => t("'Asir"),
+	);
 }

@@ -1,34 +1,23 @@
 <?php
 
-// Kazakhstan
-
-function location_province_list_kz() {
-  return array('ALA' => "Almaty",
-    'AST' => "Astana",
-    'ALM' => "Almaty",
-    'AKM' => "Aqmola",
-    'AKT' => "Aqtobe",
-    'ATY' => "Atyrau",
-    'ZAP' => "Baty Qazaqstan",
-    'MAN' => "Mangghystau",
-    'YUZ' => "Ongtustik Qazaqstan",
-    'PAV' => "Paylodar",
-    'KAR' => "Qaraghandy",
-    'KUS' => "Qustanay",
-    'KZY' => "Qyzylorda",
-    'VOS' => "Shyghys Qazaqstan",
-    'SEV' => "Soltustik Qazaqstan",
-    'ZHA' => "Zhambyl");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_kz() {
-  return array(
-    'minlng' => 46.4657,
-    'minlat' => 40.6715,
-    'maxlng' => 87.40955,
-    'maxlat' => 55.4617,
-  );
+function location_province_list_kz () {
+	return array (
+		"AKM" => t("Aqmola"),
+		"AKT" => t("Aqtobe"),
+		"ALA" => t("Almaty"),
+		"ALM" => t("Almaty"),
+		"AST" => t("Astana"),
+		"ATY" => t("Atyrau"),
+		"BAY" => t("Baykonyr"),
+		"KAR" => t("Qaraghandy"),
+		"KUS" => t("Qustanay"),
+		"KZY" => t("Qyzylorda"),
+		"MAN" => t("Mangghystau"),
+		"PAV" => t("Paylodar"),
+		"SEV" => t("Soltustik Qazaqstan "),
+		"VOS" => t("Shyghys Qazaqstan "),
+		"YUZ" => t("Ongtustik Qazaqstan"),
+		"ZAP" => t("Baty Qazaqstan"),
+		"ZHA" => t("Zhambyl"),
+	);
 }

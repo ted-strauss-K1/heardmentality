@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "DN66A",
+               "short_name" : "DN66A",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Lupeni",
+               "short_name" : "Lupeni",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Hunedoara",
+               "short_name" : "HD",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Romania",
+               "short_name" : "RO",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "DN66A, Lupeni, Romania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.36142250,
+                  "lng" : 23.24294940
+               },
+               "southwest" : {
+                  "lat" : 45.35979330,
+                  "lng" : 23.23315180
+               }
+            },
+            "location" : {
+               "lat" : 45.36091230,
+               "lng" : 23.23794510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.36195688029149,
+                  "lng" : 23.24294940
+               },
+               "southwest" : {
+                  "lat" : 45.35925891970850,
+                  "lng" : 23.23315180
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lupeni",
+               "short_name" : "Lupeni",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Hunedoara",
+               "short_name" : "HD",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Romania",
+               "short_name" : "RO",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lupeni, Romania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.36680050,
+                  "lng" : 23.24904440
+               },
+               "southwest" : {
+                  "lat" : 45.33917550,
+                  "lng" : 23.16990860
+               }
+            },
+            "location" : {
+               "lat" : 45.36027780,
+               "lng" : 23.23833330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.36680050,
+                  "lng" : 23.24904440
+               },
+               "southwest" : {
+                  "lat" : 45.33917550,
+                  "lng" : 23.16990860
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Hunedoara",
+               "short_name" : "HD",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Romania",
+               "short_name" : "RO",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Hunedoara, Romania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.3660120,
+                  "lng" : 23.59187190
+               },
+               "southwest" : {
+                  "lat" : 45.26113100000001,
+                  "lng" : 22.3541930
+               }
+            },
+            "location" : {
+               "lat" : 45.7936380,
+               "lng" : 22.99759930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.3660120,
+                  "lng" : 23.59187190
+               },
+               "southwest" : {
+                  "lat" : 45.26113100000001,
+                  "lng" : 22.3541930
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Romania",
+               "short_name" : "RO",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Romania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.2652740,
+                  "lng" : 29.75710149999999
+               },
+               "southwest" : {
+                  "lat" : 43.61861930,
+                  "lng" : 20.26175930
+               }
+            },
+            "location" : {
+               "lat" : 45.9431610,
+               "lng" : 24.966760
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.2652740,
+                  "lng" : 29.75710149999999
+               },
+               "southwest" : {
+                  "lat" : 43.61861930,
+                  "lng" : 20.26175930
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

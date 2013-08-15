@@ -1,0 +1,404 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Ahmad Yani,",
+               "short_name" : "Jl. Ahmad Yani,",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "North Jayapura",
+               "short_name" : "North Jayapura",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Jayapura",
+               "short_name" : "Jayapura",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Papua",
+               "short_name" : "Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jalan Ahmad Yani,, North Jayapura, Jayapura, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.54310590,
+                  "lng" : 140.70255660
+               },
+               "southwest" : {
+                  "lat" : -2.54360040,
+                  "lng" : 140.70124770
+               }
+            },
+            "location" : {
+               "lat" : -2.543370,
+               "lng" : 140.70190890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.542004169708498,
+                  "lng" : 140.7032511302915
+               },
+               "southwest" : {
+                  "lat" : -2.544702130291502,
+                  "lng" : 140.7005531697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "99222",
+               "short_name" : "99222",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Papua",
+               "short_name" : "Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Papua 99222, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.54116060,
+                  "lng" : 140.71173080
+               },
+               "southwest" : {
+                  "lat" : -2.55844760,
+                  "lng" : 140.69755540
+               }
+            },
+            "location" : {
+               "lat" : -2.55187850,
+               "lng" : 140.70272920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.54116060,
+                  "lng" : 140.71173080
+               },
+               "southwest" : {
+                  "lat" : -2.55844760,
+                  "lng" : 140.69755540
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Gurabesi",
+               "short_name" : "Gurabesi",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "North Jayapura",
+               "short_name" : "North Jayapura",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Jayapura",
+               "short_name" : "Jayapura",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Papua",
+               "short_name" : "Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Gurabesi, North Jayapura, Jayapura, Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.5069430,
+                  "lng" : 140.70803380
+               },
+               "southwest" : {
+                  "lat" : -2.5476790,
+                  "lng" : 140.6320770
+               }
+            },
+            "location" : {
+               "lat" : -2.52736310,
+               "lng" : 140.67159340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.5069430,
+                  "lng" : 140.70803380
+               },
+               "southwest" : {
+                  "lat" : -2.5476790,
+                  "lng" : 140.6320770
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Jayapura",
+               "short_name" : "North Jayapura",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Jayapura",
+               "short_name" : "Jayapura",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Papua",
+               "short_name" : "Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Jayapura, Jayapura, Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.47378090,
+                  "lng" : 140.74802310
+               },
+               "southwest" : {
+                  "lat" : -2.5476790,
+                  "lng" : 140.6320770
+               }
+            },
+            "location" : {
+               "lat" : -2.51438250,
+               "lng" : 140.68975410
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.47378090,
+                  "lng" : 140.74802310
+               },
+               "southwest" : {
+                  "lat" : -2.5476790,
+                  "lng" : 140.6320770
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jayapura",
+               "short_name" : "Jayapura",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Papua",
+               "short_name" : "Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jayapura, Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.47378090,
+                  "lng" : 140.99733310
+               },
+               "southwest" : {
+                  "lat" : -2.8261460,
+                  "lng" : 140.61502270
+               }
+            },
+            "location" : {
+               "lat" : -2.68271140,
+               "lng" : 140.80402710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.47378090,
+                  "lng" : 140.99733310
+               },
+               "southwest" : {
+                  "lat" : -2.8261460,
+                  "lng" : 140.61502270
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jayapura",
+               "short_name" : "Jayapura",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Jayapura",
+               "short_name" : "Jayapura",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Papua",
+               "short_name" : "Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jayapura, Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.47378090,
+                  "lng" : 140.99733310
+               },
+               "southwest" : {
+                  "lat" : -2.8261460,
+                  "lng" : 140.61502270
+               }
+            },
+            "location" : {
+               "lat" : -2.5330,
+               "lng" : 140.7170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.47378090,
+                  "lng" : 140.99733310
+               },
+               "southwest" : {
+                  "lat" : -2.8261460,
+                  "lng" : 140.61502270
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Papua",
+               "short_name" : "Papua",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Papua, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9377970000000001,
+                  "lng" : 141.0000150
+               },
+               "southwest" : {
+                  "lat" : -9.116772599999999,
+                  "lng" : 134.2956630
+               }
+            },
+            "location" : {
+               "lat" : -4.2699280,
+               "lng" : 138.08035290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.3922910,
+                  "lng" : 141.0000150
+               },
+               "southwest" : {
+                  "lat" : -9.116772599999999,
+                  "lng" : 134.5985770
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

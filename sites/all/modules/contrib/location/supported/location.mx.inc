@@ -1,50 +1,38 @@
 <?php
 
-// Mexico
-
-function location_province_list_mx() {
-  return array('AGU' => "Aguascalientes",
-    'BCN' => "Baja California",
-    'BCS' => "Baja California Sur",
-    'CAM' => "Campeche",
-    'CHP' => "Chiapas",
-    'CHH' => "Chihuahua",
-    'COA' => "Coahuila",
-    'COL' => "Colima",
-    'DUR' => "Durango",
-    'GUA' => "Guanajuato",
-    'GRO' => "Guerrero",
-    'HID' => "Hidalgo",
-    'JAL' => "Jalisco",
-    'MEX' => "Mexico",
-    'MIC' => "Michoacan",
-    'MOR' => "Morelos",
-    'NAY' => "Nayarit",
-    'NLE' => "Nuevo Leon",
-    'OAX' => "Oaxaca",
-    'PUE' => "Puebla",
-    'QUE' => "Queretaro",
-    'ROO' => "Quintana Roo",
-    'SLP' => "San Luis Potosi",
-    'SIN' => "Sinaloa",
-    'SON' => "Sonora",
-    'TAB' => "Tabasco",
-    'TAM' => "Tamaulipas",
-    'TLA' => "Tlaxcala",
-    'VER' => "Veracruz",
-    'YUC' => "Yucatan",
-    'ZAC' => "Zacatecas",
-    'DIF' => "Distrito Federal");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_mx() {
-  return array(
-    'minlng' => -118.34045,
-    'minlat' => 14.519233,
-    'maxlng' => -86.63915,
-    'maxlat' => 32.755267,
-  );
+function location_province_list_mx () {
+	return array (
+		"AGU" => t("Aguascalientes"),
+		"BCN" => t("Baja California"),
+		"BCS" => t("Baja California Sur"),
+		"CAM" => t("Campeche"),
+		"CHH" => t("Chihuahua"),
+		"CHP" => t("Chiapas"),
+		"COA" => t("Coahuila"),
+		"COL" => t("Colima"),
+		"DIF" => t("Distrito Federal"),
+		"DUR" => t("Durango"),
+		"GRO" => t("Guerrero"),
+		"GUA" => t("Guanajuato"),
+		"HID" => t("Hidalgo"),
+		"JAL" => t("Jalisco"),
+		"MEX" => t("Mexico"),
+		"MIC" => t("Michoacan"),
+		"MOR" => t("Morelos"),
+		"NAY" => t("Nayarit"),
+		"NLE" => t("Nuevo Leon"),
+		"OAX" => t("Oaxaca"),
+		"PUE" => t("Puebla"),
+		"QUE" => t("Queretaro"),
+		"ROO" => t("Quintana Roo"),
+		"SIN" => t("Sinaloa"),
+		"SLP" => t("San Luis Potosi"),
+		"SON" => t("Sonora"),
+		"TAB" => t("Tabasco"),
+		"TAM" => t("Tamaulipas"),
+		"TLA" => t("Tlaxcala"),
+		"VER" => t("Veracruz"),
+		"YUC" => t("Yucatan"),
+		"ZAC" => t("Zacatecas"),
+	);
 }

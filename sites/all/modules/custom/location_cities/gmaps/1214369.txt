@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Merdeka",
+               "short_name" : "Jl. Merdeka",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Padang Sidempuan",
+               "short_name" : "Padang Sidempuan",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "South Padangsidimpuan",
+               "short_name" : "South Padangsidimpuan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Padang Sidempuan City",
+               "short_name" : "Padang Sidempuan City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "22711",
+               "short_name" : "22711",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Merdeka, South Padangsidimpuan, Padang Sidempuan City, North Sumatra 22711, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.38119550,
+                  "lng" : 99.27328810
+               },
+               "southwest" : {
+                  "lat" : 1.38023930,
+                  "lng" : 99.27255670
+               }
+            },
+            "location" : {
+               "lat" : 1.3804620,
+               "lng" : 99.27266990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.382066380291502,
+                  "lng" : 99.27427138029151
+               },
+               "southwest" : {
+                  "lat" : 1.379368419708498,
+                  "lng" : 99.27157341970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wek VI",
+               "short_name" : "Wek VI",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "South Padangsidimpuan",
+               "short_name" : "South Padangsidimpuan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Padang Sidempuan City",
+               "short_name" : "Padang Sidempuan City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wek VI, South Padangsidimpuan, Padang Sidempuan City, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.3815050,
+                  "lng" : 99.2718110
+               },
+               "southwest" : {
+                  "lat" : 1.36249090,
+                  "lng" : 99.25791599999999
+               }
+            },
+            "location" : {
+               "lat" : 1.37101620,
+               "lng" : 99.26608560
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.3815050,
+                  "lng" : 99.2718110
+               },
+               "southwest" : {
+                  "lat" : 1.36249090,
+                  "lng" : 99.25791599999999
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South Padangsidimpuan",
+               "short_name" : "South Padangsidimpuan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Padang Sidempuan City",
+               "short_name" : "Padang Sidempuan City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Padangsidimpuan, Padang Sidempuan City, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.39645690,
+                  "lng" : 99.30057610
+               },
+               "southwest" : {
+                  "lat" : 1.3503990,
+                  "lng" : 99.24451500000001
+               }
+            },
+            "location" : {
+               "lat" : 1.37213670,
+               "lng" : 99.28410230
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.39645690,
+                  "lng" : 99.30057610
+               },
+               "southwest" : {
+                  "lat" : 1.3503990,
+                  "lng" : 99.24451500000001
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "22711",
+               "short_name" : "22711",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra 22711, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.38771480,
+                  "lng" : 99.30197899999999
+               },
+               "southwest" : {
+                  "lat" : 1.29763290,
+                  "lng" : 99.25753779999999
+               }
+            },
+            "location" : {
+               "lat" : 1.34356540,
+               "lng" : 99.28410230
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.38771480,
+                  "lng" : 99.30197899999999
+               },
+               "southwest" : {
+                  "lat" : 1.29763290,
+                  "lng" : 99.25753779999999
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Padang Sidempuan",
+               "short_name" : "Padang Sidempuan",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Padang Sidempuan City",
+               "short_name" : "Padang Sidempuan City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Padang Sidempuan, Padang Sidempuan City, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.47032410,
+                  "lng" : 99.34995710
+               },
+               "southwest" : {
+                  "lat" : 1.3034760,
+                  "lng" : 99.22175399999999
+               }
+            },
+            "location" : {
+               "lat" : 1.3804240,
+               "lng" : 99.2739720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.47032410,
+                  "lng" : 99.34995710
+               },
+               "southwest" : {
+                  "lat" : 1.3034760,
+                  "lng" : 99.22175399999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Padang Sidempuan City",
+               "short_name" : "Padang Sidempuan City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Padang Sidempuan City, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.47032410,
+                  "lng" : 99.34995710
+               },
+               "southwest" : {
+                  "lat" : 1.3034760,
+                  "lng" : 99.22175399999999
+               }
+            },
+            "location" : {
+               "lat" : 1.44376440,
+               "lng" : 99.25638590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.47032410,
+                  "lng" : 99.34995710
+               },
+               "southwest" : {
+                  "lat" : 1.3034760,
+                  "lng" : 99.22175399999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            },
+            "location" : {
+               "lat" : 2.11535470,
+               "lng" : 99.54509739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

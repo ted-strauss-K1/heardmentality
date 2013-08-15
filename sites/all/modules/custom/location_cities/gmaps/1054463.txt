@@ -1,0 +1,293 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tsiroanomandidy",
+               "short_name" : "Tsiroanomandidy",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tsiroanomandidy",
+               "short_name" : "Tsiroanomandidy",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "1, Tsiroanomandidy, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -18.77243110,
+                  "lng" : 46.05191490
+               },
+               "southwest" : {
+                  "lat" : -18.77350860,
+                  "lng" : 46.05125330
+               }
+            },
+            "location" : {
+               "lat" : -18.77295890,
+               "lng" : 46.05160370000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -18.77162086970850,
+                  "lng" : 46.05293308029150
+               },
+               "southwest" : {
+                  "lat" : -18.77431883029150,
+                  "lng" : 46.05023511970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tsiroanomandidy",
+               "short_name" : "Tsiroanomandidy",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tsiroanomandidy",
+               "short_name" : "Tsiroanomandidy",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tsiroanomandidy, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -18.75358160,
+                  "lng" : 46.06432720
+               },
+               "southwest" : {
+                  "lat" : -18.78476720,
+                  "lng" : 46.03663610
+               }
+            },
+            "location" : {
+               "lat" : -18.76980,
+               "lng" : 46.050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -18.75358160,
+                  "lng" : 46.06432720
+               },
+               "southwest" : {
+                  "lat" : -18.78476720,
+                  "lng" : 46.03663610
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tsiroanomandidy",
+               "short_name" : "Tsiroanomandidy",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tsiroanomandidy, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -18.25804510,
+                  "lng" : 46.66717530
+               },
+               "southwest" : {
+                  "lat" : -19.46304680,
+                  "lng" : 45.4820250
+               }
+            },
+            "location" : {
+               "lat" : -18.9331010,
+               "lng" : 46.05632120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -18.25804510,
+                  "lng" : 46.66717530
+               },
+               "southwest" : {
+                  "lat" : -19.46304680,
+                  "lng" : 45.4820250
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bongolava",
+               "short_name" : "Bongolava",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bongolava, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -17.7800740,
+                  "lng" : 47.12448110
+               },
+               "southwest" : {
+                  "lat" : -19.45066250,
+                  "lng" : 45.50468440
+               }
+            },
+            "location" : {
+               "lat" : -18.63368640,
+               "lng" : 46.05632120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -17.7800740,
+                  "lng" : 47.12448110
+               },
+               "southwest" : {
+                  "lat" : -19.45066250,
+                  "lng" : 45.50468440
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Antananarivo, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -17.72687410,
+                  "lng" : 48.0398660
+               },
+               "southwest" : {
+                  "lat" : -20.29286210,
+                  "lng" : 45.506330
+               }
+            },
+            "location" : {
+               "lat" : -18.70514740,
+               "lng" : 46.82528380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -17.72687410,
+                  "lng" : 48.0398660
+               },
+               "southwest" : {
+                  "lat" : -20.29286210,
+                  "lng" : 45.506330
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

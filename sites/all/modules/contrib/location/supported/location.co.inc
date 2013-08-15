@@ -1,51 +1,39 @@
 <?php
 
-// Colombia
-
-function location_province_list_co() {
-  return array('AMZ' => "Amazonas",
-    'ANT' => "Antioquia",
-    'ARA' => "Arauca",
-    'ATL' => "Atlantico",
-    'BOL' => "Bolivar",
-    'BOY' => "Boyaca",
-    'CAL' => "Caldas",
-    'CAQ' => "Caqueta",
-    'CAS' => "Casanare",
-    'CAU' => "Cauca",
-    'CES' => "Cesar",
-    'CHO' => "Choco",
-    'COR' => "Cordoba",
-    'CAM' => "Cundinamarca",
-    'GNA' => "Guainia",
-    'GJR' => "Guajira",
-    'GVR' => "Guaviare",
-    'HUI' => "Huila",
-    'MAG' => "Magdalena",
-    'MET' => "Meta",
-    'NAR' => "Narino",
-    'NDS' => "Norte de Santander",
-    'PUT' => "Putumayo",
-    'QUI' => "Quindio",
-    'RIS' => "Risaralda",
-    'SAP' => "San Andres y Providencia",
-    'SAN' => "Santander",
-    'SUC' => "Sucre",
-    'TOL' => "Tolima",
-    'VDC' => "Valle del Cauca",
-    'VAU' => "Vaupes",
-    'VIC' => "Vichada",
-    'BDC' => "Bogota D.C.");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_co() {
-  return array(
-    'minlng' => -81.8458,
-    'minlat' => -4.0608,
-    'maxlng' => -66.8912,
-    'maxlat' => 15.886067,
-  );
+function location_province_list_co () {
+	return array (
+		"AMA" => t("Amazonas"),
+		"ANT" => t("Antioquia"),
+		"ARA" => t("Arauca"),
+		"ATL" => t("Atlantico"),
+		"BOL" => t("Bolivar"),
+		"BOY" => t("Boyaca"),
+		"CAL" => t("Caldas"),
+		"CAQ" => t("Caqueta"),
+		"CAS" => t("Casanare"),
+		"CAU" => t("Cauca"),
+		"CES" => t("Cesar"),
+		"CHO" => t("Choco"),
+		"COR" => t("Cordoba"),
+		"CUN" => t("Cundinamarca"),
+		"DC" => t("Bogota D.C."),
+		"GUA" => t("Guainia"),
+		"GUV" => t("Guaviare"),
+		"HUI" => t("Huila"),
+		"LAG" => t("La Guajira"),
+		"MAG" => t("Magdalena"),
+		"MET" => t("Meta"),
+		"NAR" => t("Narino"),
+		"NSA" => t("Norte de Santander"),
+		"PUT" => t("Putumayo"),
+		"QUI" => t("Quindio"),
+		"RIS" => t("Risaralda"),
+		"SAN" => t("Santander"),
+		"SAP" => t("San Andres y Providencia"),
+		"SUC" => t("Sucre"),
+		"TOL" => t("Tolima"),
+		"VAC" => t("Valle del Cauca"),
+		"VAU" => t("Vaupes"),
+		"VID" => t("Vichada"),
+	);
 }

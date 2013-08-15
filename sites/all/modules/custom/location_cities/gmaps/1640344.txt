@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Sao-Sao",
+               "short_name" : "Jl. Sao-Sao",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Kadia",
+               "short_name" : "Kadia",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Kendari City",
+               "short_name" : "Kendari City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South East Sulawesi",
+               "short_name" : "South East Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "93111",
+               "short_name" : "93111",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Sao-Sao, Kadia, Kendari City 93111, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.9778660,
+                  "lng" : 122.51630550
+               },
+               "southwest" : {
+                  "lat" : -3.978710,
+                  "lng" : 122.5159330
+               }
+            },
+            "location" : {
+               "lat" : -3.97828850,
+               "lng" : 122.51612030
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.976939019708497,
+                  "lng" : 122.5174682302915
+               },
+               "southwest" : {
+                  "lat" : -3.979636980291502,
+                  "lng" : 122.5147702697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bende",
+               "short_name" : "Bende",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Kadia",
+               "short_name" : "Kadia",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Kendari City",
+               "short_name" : "Kendari City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South East Sulawesi",
+               "short_name" : "South East Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bende, Kadia, Kendari City, South East Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.9749660,
+                  "lng" : 122.5256610
+               },
+               "southwest" : {
+                  "lat" : -3.9955790,
+                  "lng" : 122.50626610
+               }
+            },
+            "location" : {
+               "lat" : -3.98262910,
+               "lng" : 122.51747290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.9749660,
+                  "lng" : 122.5256610
+               },
+               "southwest" : {
+                  "lat" : -3.9955790,
+                  "lng" : 122.50626610
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "93111",
+               "short_name" : "93111",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Kendari City",
+               "short_name" : "Kendari City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South East Sulawesi",
+               "short_name" : "South East Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kendari City, South East Sulawesi 93111, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.96183780,
+                  "lng" : 122.52675630
+               },
+               "southwest" : {
+                  "lat" : -3.98633570,
+                  "lng" : 122.50454730
+               }
+            },
+            "location" : {
+               "lat" : -3.96515010,
+               "lng" : 122.51747290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.96183780,
+                  "lng" : 122.52675630
+               },
+               "southwest" : {
+                  "lat" : -3.98633570,
+                  "lng" : 122.50454730
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kadia",
+               "short_name" : "Kadia",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Kendari City",
+               "short_name" : "Kendari City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South East Sulawesi",
+               "short_name" : "South East Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kadia, Kendari City, South East Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.9706270,
+                  "lng" : 122.5256610
+               },
+               "southwest" : {
+                  "lat" : -4.000535999999999,
+                  "lng" : 122.4908420
+               }
+            },
+            "location" : {
+               "lat" : -3.98312880,
+               "lng" : 122.50615630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.9706270,
+                  "lng" : 122.5256610
+               },
+               "southwest" : {
+                  "lat" : -4.000535999999999,
+                  "lng" : 122.4908420
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kendari",
+               "short_name" : "Kendari",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kendari City",
+               "short_name" : "Kendari City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South East Sulawesi",
+               "short_name" : "South East Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kendari, Kendari City, South East Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.9091440,
+                  "lng" : 122.6510270
+               },
+               "southwest" : {
+                  "lat" : -4.091318999999999,
+                  "lng" : 122.4399180
+               }
+            },
+            "location" : {
+               "lat" : -3.9722010,
+               "lng" : 122.51490280
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.9091440,
+                  "lng" : 122.6510270
+               },
+               "southwest" : {
+                  "lat" : -4.091318999999999,
+                  "lng" : 122.4399180
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kendari City",
+               "short_name" : "Kendari City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South East Sulawesi",
+               "short_name" : "South East Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kendari City, South East Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.9091440,
+                  "lng" : 122.6510270
+               },
+               "southwest" : {
+                  "lat" : -4.091318999999999,
+                  "lng" : 122.4399180
+               }
+            },
+            "location" : {
+               "lat" : -4.03976870,
+               "lng" : 122.55989940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.9091440,
+                  "lng" : 122.6510270
+               },
+               "southwest" : {
+                  "lat" : -4.091318999999999,
+                  "lng" : 122.4399180
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South East Sulawesi",
+               "short_name" : "South East Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South East Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.7793830,
+                  "lng" : 124.62190210
+               },
+               "southwest" : {
+                  "lat" : -6.2115390,
+                  "lng" : 120.85936990
+               }
+            },
+            "location" : {
+               "lat" : -4.144909999999999,
+               "lng" : 122.1746050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.7793830,
+                  "lng" : 124.62190210
+               },
+               "southwest" : {
+                  "lat" : -6.2115390,
+                  "lng" : 120.85936990
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

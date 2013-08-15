@@ -1,33 +1,22 @@
 <?php
 
-// Trinidad and Tobago
-
-function location_province_list_tt() {
-  return array('CT' => "Couva/Tabaquite/Talparo",
-    'DM' => "Diego Martin",
-    'MR' => "Mayaro/Rio Claro",
-    'PD' => "Penal/Debe",
-    'PT' => "Princes Town",
-    'SG' => "Sangre Grande",
-    'SL' => "San Juan/Laventille",
-    'SI' => "Siparia",
-    'TP' => "Tunapuna/Piarco",
-    'PS' => "Port of Spain",
-    'SF' => "San Fernando",
-    'AR' => "Arima",
-    'PF' => "Point Fortin",
-    'CH' => "Chaguanas",
-    'TO' => "Tobago");
-}
-
-/**
- * Returns minimum and maximum latitude and longitude needed to create a bounding box.
- */
-function location_bounds_tt() {
-  return array(
-    'minlng' => -61.93015,
-    'minlat' => 10.0588,
-    'maxlng' => -60.5064,
-    'maxlat' => 11.2911,
-  );
+function location_province_list_tt () {
+	return array (
+		"ARI" => t("Arima"),
+		"CHA" => t("Chaguanas"),
+		"CTT" => t("Couva/Tabaquite/Talparo"),
+		"DMN" => t("Diego Martin"),
+		"ETO" => t("Eastern Tobago"),
+		"PED" => t("Penal/Debe"),
+		"POS" => t("Port of Spain"),
+		"PRT" => t("Princes Town"),
+		"PTF" => t("Point Fortin"),
+		"RCM" => t("Mayaro/Rio Claro"),
+		"SFO" => t("San Fernando"),
+		"SGE" => t("Sangre Grande"),
+		"SIP" => t("Siparia"),
+		"SJL" => t("San Juan/Laventille"),
+		"TUP" => t("Tunapuna/Piarco"),
+		"WTO" => t("Tobago"),
+	);
 }

@@ -1,7 +1,0 @@
-  292879 ae_FU
-  290595 ae_UQ
-**292969 ae_AZ  :::  Abu Zaby ~ Abu Dhabi(292969)
-**292933 ae_AJ  :::  'Ajman ~ Ajman(292933)
-**292673 ae_SH  :::  Ash Shariqah ~ Ash Shāriqah(292673)
-**292224 ae_DU  :::  Dubayy ~ Dubai(292224)
-**291075 ae_RK  :::  R'as al Khaymah ~ Ra’s al Khaymah(291075)

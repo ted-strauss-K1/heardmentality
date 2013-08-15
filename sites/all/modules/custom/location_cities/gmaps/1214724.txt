@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Raya Lintas Sumatera",
+               "short_name" : "AH25",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Langsa",
+               "short_name" : "Langsa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Langsa Kota",
+               "short_name" : "Langsa Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Langsa",
+               "short_name" : "Langsa",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "24375",
+               "short_name" : "24375",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Jenderal Ahmad Yani, Langsa Kota, Langsa, Aceh 24375, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.470973499999999,
+                  "lng" : 97.96934019999999
+               },
+               "southwest" : {
+                  "lat" : 4.47017940,
+                  "lng" : 97.96767620
+               }
+            },
+            "location" : {
+               "lat" : 4.47056230,
+               "lng" : 97.96850110
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.471925430291503,
+                  "lng" : 97.96985718029150
+               },
+               "southwest" : {
+                  "lat" : 4.469227469708498,
+                  "lng" : 97.96715921970849
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Gampong Jawa",
+               "short_name" : "Gampong Jawa",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Langsa Kota",
+               "short_name" : "Langsa Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Langsa",
+               "short_name" : "Langsa",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Gampong Jawa, Langsa Kota, Langsa, Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.48161590,
+                  "lng" : 97.97077510
+               },
+               "southwest" : {
+                  "lat" : 4.46641480,
+                  "lng" : 97.95383090
+               }
+            },
+            "location" : {
+               "lat" : 4.47142180,
+               "lng" : 97.96064849999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.48161590,
+                  "lng" : 97.97077510
+               },
+               "southwest" : {
+                  "lat" : 4.46641480,
+                  "lng" : 97.95383090
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Langsa Kota",
+               "short_name" : "Langsa Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Langsa",
+               "short_name" : "Langsa",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Langsa Kota, Langsa, Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.48512190,
+                  "lng" : 97.99655910
+               },
+               "southwest" : {
+                  "lat" : 4.458893000000001,
+                  "lng" : 97.95383090
+               }
+            },
+            "location" : {
+               "lat" : 4.469952999999999,
+               "lng" : 97.97835929999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.48512190,
+                  "lng" : 97.99655910
+               },
+               "southwest" : {
+                  "lat" : 4.458893000000001,
+                  "lng" : 97.95383090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Langsa",
+               "short_name" : "Langsa",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Langsa, Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.5619780,
+                  "lng" : 98.0696550
+               },
+               "southwest" : {
+                  "lat" : 4.407651899999999,
+                  "lng" : 97.87740590
+               }
+            },
+            "location" : {
+               "lat" : 4.49800340,
+               "lng" : 97.98108449999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.5619780,
+                  "lng" : 98.0696550
+               },
+               "southwest" : {
+                  "lat" : 4.407651899999999,
+                  "lng" : 97.87740590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Langsa",
+               "short_name" : "Langsa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Langsa",
+               "short_name" : "Langsa",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Langsa, Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.5619780,
+                  "lng" : 98.0696550
+               },
+               "southwest" : {
+                  "lat" : 4.407651899999999,
+                  "lng" : 97.87740590
+               }
+            },
+            "location" : {
+               "lat" : 4.480,
+               "lng" : 97.96333330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.5619780,
+                  "lng" : 98.0696550
+               },
+               "southwest" : {
+                  "lat" : 4.407651899999999,
+                  "lng" : 97.87740590
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "24375",
+               "short_name" : "24375",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Aceh 24375, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.12962090,
+                  "lng" : 98.04174049999999
+               },
+               "southwest" : {
+                  "lat" : 4.38157890,
+                  "lng" : 97.00965880
+               }
+            },
+            "location" : {
+               "lat" : 4.40651050,
+               "lng" : 97.94838980
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.53225270,
+                  "lng" : 98.04174049999999
+               },
+               "southwest" : {
+                  "lat" : 4.38157890,
+                  "lng" : 97.76010130
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.076939899999999,
+                  "lng" : 98.28815890
+               },
+               "southwest" : {
+                  "lat" : 2.0047870,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : 4.6951350,
+               "lng" : 96.74939929999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 6.076939899999999,
+                  "lng" : 98.28815890
+               },
+               "southwest" : {
+                  "lat" : 2.0047870,
+                  "lng" : 95.00970699999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
