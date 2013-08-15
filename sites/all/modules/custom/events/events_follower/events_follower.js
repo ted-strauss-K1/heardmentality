@@ -28,7 +28,7 @@ function following_exec(params) {
   $.ajax({
     type:"POST",
     dataType:'json',
-    url:'/following/ajax',
+    url:'/'+Drupal.settings.language+'/following/ajax',
     data:following_params,
     success:function (response) {
       if (!response.status) {

@@ -4,7 +4,7 @@ $(document).ready(function () {
     $.ajax({
       type      : "POST",
       dataType  : "json",
-      url       : '/events/event/'+type,
+      url       : '/'+Drupal.settings.language+'/events/event/'+type,
       data      : vars,
       success   : function (response) {
         //

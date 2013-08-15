@@ -132,3 +132,48 @@ function content_translate_langcodes()
   }
   return $languages;
 }
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function content_translate_form_alter(&$form, &$form_state, $form_id) {
+  if ('system_performance_settings' == $form_id) {
+    $form['clear_cache']['clear']['#submit'][] = 'content_translate_rebuild_js';
+  }
+}
+
+/**
+ *
+ */
+function content_translate_rebuild_js() {
+  # check what we have
+  $lids = array();
+  $result = db_query("SELECT lid, source FROM {locales_source} WHERE textgroup = 'default' AND location LIKE '%%.js%%'");
+  while ($row = db_fetch_object($result)) {
+    $lids[$row->source] = $row->lid;
+  }
+  # rebuild sources
+  $records = module_invoke_all('content_translate_rebuild_js');
+  foreach ($records as $file => $strings) {
+    foreach ($strings as $string) {
+      if (!isset($lids[$string])) {
+        db_query("INSERT INTO {locales_source} (location, source, textgroup, version) VALUES ('%s', '%s', 'default', '%s')", $file, $string, VERSION);
+        unset($lids[$string]);
+      }
+    }
+  }
+  # remove old translations
+  if ($lids) {
+    sort($lids);
+    // db_query("DELETE FROM {locales_source} WHERE lid IN (".db_placeholders($lids).")", $lids);
+  }
+  # rebuild js
+  $root = $_SERVER['DOCUMENT_ROOT'];
+  include_once $root . '/includes/locale.inc';
+  $languages = i18n_language_list();
+  foreach ($languages as $langcode => $language) {
+    _locale_rebuild_js($langcode);
+  }
+}

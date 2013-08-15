@@ -93,12 +93,12 @@
           <span class="date"><?php print t('posted'); ?>&nbsp;
             <span><?php print $node->creation_time; ?></span>
           </span>
-          <a class="user-thumb" href="<?php print $account->viewlink; ?>">
+          <a class="user-thumb" href="<?php print url($account->viewlink); ?>">
             <img src="<?php print user_profile_image($account); ?>"
                  alt="<?php print $node->name; ?>" class="user-thumb">
           </a>
             <span class="name">
-              <a href="<?php print $account->viewlink; ?>"><?php print $node->name; ?></a>
+              <a href="<?php print url($account->viewlink); ?>"><?php print $node->name; ?></a>
             </span>
         </div>
         <!-- User Info: END -->
@@ -116,7 +116,7 @@
             $url = url('node/'.$node->field_issue[0]['nid'], array('absolute' => true, 'fragment' => 'forum-block-'.$nid));
             print module_exists('shorturl') ? shorturl_shorten($url, TRUE) : addslashes($url);
             ?>"
-            >link</a></li>
+            ><?php print t('link'); ?></a></li>
         <?php if ($delete = theme('argument_delete', 'node', $nid)) : ?>
         <li>&nbsp;|&nbsp;<?php print $delete; ?></li>
         <?php endif; ?>

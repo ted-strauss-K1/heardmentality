@@ -12,6 +12,18 @@ require_once 'includes/issue_search.pages.inc';
 require_once 'includes/issue_search.theme.inc';
 
 /**
+ * @return array
+ */
+function issue_search_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'issue_search');
+  return array(
+    $path . '/issue_search.js' => array(
+      'No issues for you region',
+    ),
+  );
+}
+
+/**
  * Implementation of hook_init().
  * Perform setup tasks.
  *

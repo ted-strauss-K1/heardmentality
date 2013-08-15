@@ -11,8 +11,7 @@
   <hr class="short">
   <br>
 
-  <p class="issue-meta"><?php print t('Posted'); ?>
-    <?php print t('by');?>
+  <p class="issue-meta"><?php print t('Posted by'); ?>
     <?php print l($node->name, 'user/profile/view/' . $node->uid, array('attributes' => array('class' => 'username'))); ?>
     <?php print t('on') ?>
     <br>
