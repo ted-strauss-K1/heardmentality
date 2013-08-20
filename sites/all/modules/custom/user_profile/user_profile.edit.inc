@@ -78,10 +78,10 @@ function user_profile_edit_form()
     switch ($field->type) {
       case 'selection' :
         $options = array('-1' => t($field->title));
-        if ($field->name != 'profile_country') {
-          $options += explode("\n", $field->options);
-        } elseif (module_exists('location')) {
+        if ($field->name == 'profile_country') {
           $options += location_get_iso3166_list();
+        } else {
+          $options += explode("\n", $field->options);
         }
         $form[$field->name] = array(
           '#type' => 'select',
@@ -264,15 +264,13 @@ function user_profile_location_format($city, $province, $country)
 {
   $location = array();
 
-  if (!empty($city)) {
-    $location[] = $city;
-  }
   if (!empty($country)) {
-    $country_name = location_country_name($country);
-    if (!empty($province)) {
+    $location[] = location_country_name($country);
+    if (!empty($city)) {
+      $location[] = location_city_name($country, $province, $city);
+    } else if (!empty($province)) {
       $location[] = location_province_name($country, $province);
     }
-    $location[] = $country_name;
   }
 
   return implode(', ', $location);
@@ -482,17 +480,9 @@ function user_profile_edit_form_submit_profile($form, &$form_state)
   }
 
   # additional fields
-  $output = user_profile_geocode($user->profile_country, $user->profile_zip);
-  if (!empty($output)) {
-    foreach (array('city', 'state', 'lat', 'lng') as $code) {
-      $edit['profile_' . $code] = $output[$code];
-      $user->{'profile_' . $code} = $output[$code];
-    }
-  } else {
-    foreach (array('city', 'state', 'lat', 'lng') as $code) {
-      $edit['profile_' . $code] = '';
-      $user->{'profile_' . $code} = '';
-    }
+  foreach (array('city', 'state', 'lat', 'lng') as $code) {
+    $edit['profile_' . $code] = $post['profile_' . $code];
+    $user->{'profile_' . $code} = $post['profile_' . $code];
   }
 
   if ($post['password'] != '' && $post['password'] != $form['password']['#default_value']) {
@@ -507,38 +497,6 @@ function user_profile_edit_form_submit_profile($form, &$form_state)
   user_save($user, $edit, 'profile');
   user_save($user, $edit, 'hidden');
   user_save($user, $edit, 'links');
-}
-
-/**
- * Geocoding
- *
- * @param $countrycode
- * @param $zip
- * @return array
- */
-function user_profile_geocode($countrycode, $zip)
-{
-  $output = array();
-
-  # TODO get rid of geonames
-  if (module_exists("geonames")) {
-    global $user;
-    $query = array('postalcode' => $zip, 'country' => $countrycode, 'maxrows' => 1, 'lang' => $user->language);
-    $result = @geonames_query('postalcodesearch', $query);
-    if (isset($result->results[0])) {
-      $result = $result->results[0];
-      $output += array(
-        'city' => preg_replace('/\s\d+$/', '', $result['name']),
-        'state' => $result['adminname1'],
-        'zip' => $result['postalcode'],
-        'lat' => $result['lat'],
-        'lng' => $result['lng'],
-        'country' => $result['countrycode'],
-      );
-    }
-  }
-
-  return $output;
 }
 
 /**
@@ -621,29 +579,6 @@ function user_profile_edit_form_submit_image(&$form, &$form_state)
 
   $user->picture = $dest;
   user_save($user, array('picture' => $dest));
-}
-
-/**
- * user_profile_location
- *
- * @param $countrycode
- * @param $zip
- */
-function user_profile_location($countrycode, $zip)
-{
-  $output = user_profile_geocode($countrycode, $zip);
-  if (empty($output)) {
-    print json_encode(array(
-      'status' => FALSE,
-      'message' => '',
-    ));
-  } else {
-    print json_encode(array(
-      'status' => TRUE,
-      'message' => user_profile_location_format($output['city'], $output['state'], $output['country']),
-    ));
-  }
-  exit;
 }
 
 /**

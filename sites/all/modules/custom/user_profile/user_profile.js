@@ -34,23 +34,89 @@ $(document).ready(function () {
     });
   });
 
+  $('body').on('geocode.success', function(e, location) {
+    var output = '';
+
+    // country
+    if (location['country_code']) {
+      output = location['country_name'];
+      $('#profile_country').val(location['country_code'])
+    } else {
+      $('#profile_country').val('');
+    }
+
+    // province/state
+    if (location['province_code']) {
+      $('#profile_state').val(location['province_code']);
+    } else {
+      $('#profile_state').val('');
+    }
+
+    // city
+    if (location['city_code']) {
+      output += ", " + location['city_name'];
+      $('#profile_city').val(location['city_code']);
+    } else {
+      $('#profile_city').val('');
+    }
+
+    // postal code
+    if (location['postalcode']) {
+      $('#profile_zip').val(location['postalcode']);
+    } else {
+      $('#profile_zip').val('');
+    }
+
+    if (location['province_code'] && !location['city_code']) {
+      output += ", " + location['province_name'];
+    }
+
+    // location
+    if (location['latitude'] && location['longitude']) {
+      $('#profile_lat').val(location['latitude']);
+      $('#profile_lng').val(location['longitude']);
+    } else {
+      $('#profile_lat').val('');
+      $('#profile_lng').val('');
+    }
+
+    // text
+    $('.user-profile-location .determined').html(output).slideDown(400);
+
+    // console.log(output);
+
+    // console.log(location);
+  });
+
+  $('.user-profile-location .determine').live('click', function(e) {
+    e.preventDefault();
+
+    $(this).remove();
+    $('body').trigger('geocode.latlng');
+  });
+
   $('#profile_zip').live('focusout', function () {
-    $('#user-profile-location').slideUp(400);
-    var url = '/'+Drupal.settings.language+'/user/profile/location/' + $('#profile_country').val() + '/' + $('#profile_zip').val();
-    $.ajax({
-      type:"POST",
-      dataType:'json',
-      url:url,
-      data:{},
-      success:function (response) {
-        if (response.status) {
-          $('#user-profile-location').html(response.message);
-        } else {
-          $('#user-profile-location').html('');
-        }
-        $('#user-profile-location').slideDown(400);
-      }
-    });
+    var info = $('.user-profile-location .determined');
+    info.slideUp(400, function() {});
+
+    $('body').trigger('geocode.postalcode', [$('#profile_country').val(), $('#profile_zip').val()]);
+//
+//
+//    var url = '/'+Drupal.settings.language+'/user/profile/location/' + $('#profile_country').val() + '/' + $('#profile_zip').val();
+//    $.ajax({
+//      type:"POST",
+//      dataType:'json',
+//      url:url,
+//      data:{},
+//      success:function (response) {
+//        if (response.status) {
+//          $('#user-profile-location').html(response.message);
+//        } else {
+//          $('#user-profile-location').html('');
+//        }
+//        $('#user-profile-location').slideDown(400);
+//      }
+//    });
   });
 
 });

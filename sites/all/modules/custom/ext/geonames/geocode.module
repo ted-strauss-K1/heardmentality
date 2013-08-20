@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Function to add geocode js file to page
+ */
+function geocode_js() {
+  drupal_add_js(drupal_get_path('module', 'geocode') . '/geocode.js');
+}
+
+/**
  * @return array
  */
 function geocode_menu() {
@@ -18,46 +25,47 @@ function geocode_menu() {
  *
  */
 function geocode() {
-  $error = FALSE;
-  if (!isset($_REQUEST['coords'])) {
-    $error = TRUE;
+  $location = FALSE;
+
+  # using latlng
+  if (!$location) {
+    if (isset($_REQUEST['coords'])) {
+      $coords = $_REQUEST['coords'];
+      if (isset($coords['latitude']) && isset($coords['longitude'])) {
+        $location = geocode_latlng_request($coords['latitude'], $coords['longitude']);
+      }
+    }
   }
 
-  $coords = $_REQUEST['coords'];
-  if (!isset($coords['latitude']) || !isset($coords['longitude'])) {
-    $error = TRUE;
+  # using countrycode and postalcode
+  if (!$location) {
+    if (isset($_REQUEST['countrycode']) && isset($_REQUEST['postalcode'])) {
+      $location = geocode_postalcode_request($_REQUEST['countrycode'], $_REQUEST['postalcode']);
+    }
   }
 
-  if (!$error) {
-    $location = geocode_request($coords['latitude'], $coords['longitude']);
-  }
-  if ($error || !$location) {
+  # no location
+  if (!$location) {
     exit(json_encode(array(
       'status' => FALSE,
       'message' => t('We could not determine your location'),
     )));
   }
 
+  # found location
   exit(json_encode(array(
     'status' => TRUE,
-    'message' => t('We could determine your location'),
+    'message' => t('We have determined your location'),
     'location' => $location,
   )));
 }
 
 /**
- *
- */
-function geocode_js() {
-  drupal_add_js(drupal_get_path('module', 'geocode') . '/geocode.js');
-}
-
-/**
  * @param $lat
  * @param $lng
- * @return array
+ * @return array|boolean
  */
-function geocode_request($lat, $lng) {
+function geocode_latlng_request($lat, $lng, $info = array()){
   $output = array();
 
   $response = geonames_query('extendedFindNearby',
@@ -98,6 +106,7 @@ function geocode_request($lat, $lng) {
           if (isset($city_codes[$city_code_tmp])) {
             $output['city_code'] = $city_code_tmp;
             $output['city_name'] = $city_codes[$city_code_tmp];
+            // postalcode ?
           }
         }
       }
@@ -109,7 +118,25 @@ function geocode_request($lat, $lng) {
       'latitude' => $lat,
       'longitude' => $lng,
     );
+    $output += $info;
   }
 
-  return $output;
+  return empty($output) ? FALSE : $output;
+}
+
+/**
+ * Determine the latlng of the countrycode + postalcode given and make lat+lng request
+ *
+ * @param $countrycode
+ * @param $postalcode
+ * @return array|boolean
+ */
+function geocode_postalcode_request($countrycode, $postalcode) {
+  $response = @geonames_query('postalcodesearch', array('postalcode' => $postalcode, 'country' => $countrycode, 'maxrows' => 1));
+  if ($response && isset($response->results[0])) {
+    $result = $response->results[0];
+    return geocode_latlng_request($result['lat'], $result['lng'], array('postalcode' => $result['postalcode']));
+  }
+
+  return false;
 }

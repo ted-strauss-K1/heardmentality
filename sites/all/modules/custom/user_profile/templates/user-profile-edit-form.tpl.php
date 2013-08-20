@@ -102,9 +102,18 @@ $privacy = user_profile_profile_privacy_values();
           </ul>
           <?php endif; ?>
         </li>
+          <?php if ($field->name == 'profile_name') : ?>
+            <li class="user-profile-location">
+              <div class="determine"><?php print l(t('Determine my location'), 'user/profile/edit', array(
+                  'attributes' => array(
+                    'class' => 'geocode_latlng',
+                  ),
+                )); ?></div>
+            </li>
+          <?php endif; ?>
           <?php if ($field->name == 'profile_zip') : ?>
-            <li id="user-profile-location">
-              <div><?php print drupal_render($form['location']) ?></div>
+            <li class="user-profile-location">
+              <div class="determined"><?php print drupal_render($form['location']) ?></div>
             </li>
           <?php endif; ?>
         <?php endwhile; ?>
