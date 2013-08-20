@@ -11,6 +11,13 @@
 function user_profile_user($op, &$edit, &$account, $category = NULL)
 {
   switch ($op) {
+
+    case 'login' :
+
+      drupal_goto($_GET['q']);
+
+    break;
+
     case 'load' :
 
       # user links
