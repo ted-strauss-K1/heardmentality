@@ -602,7 +602,7 @@ function moderation_issue_view_form($form_state, $nid)
       '#type' => 'submit',
       '#value' => t('Deletion request'),
       '#submit' => array('moderation_issue_view_form_delete'),
-      '#suffix' => '</div>',
+      // '#suffix' => '</div>',
     );
     unset($form['save']['#suffix']);
   }
