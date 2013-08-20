@@ -238,7 +238,6 @@ function user_profile_preprocess_page(&$vars)
 
       case 'edit' :
         array_push($vars['template_files'], 'page_empty');
-        drupal_set_subtitle(t('Edit Profile'));
       break;
     }
   }

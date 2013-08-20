@@ -27,10 +27,7 @@ $privacy = user_profile_profile_privacy_values();
 ?>
 <div class="twelve columns">
 
-  <?php if ($_title = drupal_set_subtitle()) : ?>
-  <h2 class="dinbold page-title"><?php print $_title; ?></h2>
-  <?php endif; ?>
-
+  <h2 class="dinbold page-title"><?php print t('Edit Profile'); ?></h2>
 
   <div class="grey-box clearfix" id="edit_profile">
 
