@@ -497,10 +497,10 @@ function moderation_issue_view_form($form_state, $nid)
     '#title' => t('Title'),
     '#value' => issue_translate($node, 'title'),
     '#prefix' =>
-    '<div class="dark-grey-box" style="margin:10px 0; width: 90%">' .
-      '<div style="float:right;margin-right: 30px;">' .
+    '<div class="question_section">' .
+      '<div class="view_q">' .
       l(
-        sprintf('<span class="mod-view mod-icon" title="%s"></span>', t('View')),
+        sprintf('<i class="mod-view mod-icon icon-eye-open" title="%s"></i>%s', t('View'), t('View')),
         $node->path,
         array(
           'html' => TRUE,
@@ -514,7 +514,6 @@ function moderation_issue_view_form($form_state, $nid)
     '#type' => 'textarea',
     '#title' => t('Description'),
     '#value' => issue_translate($node, 'body'),
-    '#prefix' => sprintf('<div class="dark-grey-box" style="margin:10px 0; width: 90%%">'),
     '#suffix' => '</div>',
   );
 
@@ -591,6 +590,8 @@ function moderation_issue_view_form($form_state, $nid)
     '#type' => 'submit',
     '#value' => t('Save and Approve'),
     '#submit' => array('moderation_issue_view_form_save'),
+    '#prefix' => '<div class="action_wrapper">',
+    '#suffix' => '</div>',
   );
   global $user;
   if (!moderation_history_get($form['content_id']['#value'], $form['content_type']['#value'], array(
@@ -601,7 +602,9 @@ function moderation_issue_view_form($form_state, $nid)
       '#type' => 'submit',
       '#value' => t('Deletion request'),
       '#submit' => array('moderation_issue_view_form_delete'),
+      '#suffix' => '</div>',
     );
+    unset($form['save']['#suffix']);
   }
 
   return $form;
