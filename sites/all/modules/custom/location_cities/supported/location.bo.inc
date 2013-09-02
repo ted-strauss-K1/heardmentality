@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bo_h () {
 	return array (
 		"3903987" => t("Sucre"),

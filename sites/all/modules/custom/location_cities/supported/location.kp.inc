@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_kp_04 () {
 	return array (
 		"2043572" => t("Kanggye-si"),

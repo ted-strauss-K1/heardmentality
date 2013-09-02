@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_gh_ah () {
 	return array (
 		"2294938" => t("Tafo"),

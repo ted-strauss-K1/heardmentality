@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_gt_av () {
 	return array (
 		"3590316" => t("San Cristobal Verapaz"),

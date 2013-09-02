@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_gn_b () {
 	return array (
 		"2420056" => t("Kamsar"),

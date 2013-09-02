@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_cd_bn () {
 	return array (
 		"2311968" => t("Nioki"),

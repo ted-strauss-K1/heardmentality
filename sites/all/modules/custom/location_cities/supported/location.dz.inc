@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_dz_01 () {
 	return array (
 		"2476403" => t("Timimoun"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bf_01 () {
 	return array (
 		"2354176" => t("Tougan"),

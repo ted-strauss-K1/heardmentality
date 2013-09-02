@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_tf_02 () {
 	return array (
 	);
@@ -19,7 +20,7 @@ function location_cities_list_tf_04 () {
 }
 
 
-function location_cities_list_tf_  () {
+function location_cities_list_tf__ () {
 	return array (
 	);
 }

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ht_ce () {
 	return array (
 		"3723841" => t("Hinche"),

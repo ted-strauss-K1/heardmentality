@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_sa_12 () {
 	return array (
 		"101631" => t("Tubarjal"),

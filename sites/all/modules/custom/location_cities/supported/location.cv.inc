@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_cv_bv () {
 	return array (
 	);
@@ -62,7 +63,7 @@ function location_cities_list_cv_sd () {
 }
 
 
-function location_cities_list_cv_sl* () {
+function location_cities_list_cv_sl_ () {
 	return array (
 	);
 }

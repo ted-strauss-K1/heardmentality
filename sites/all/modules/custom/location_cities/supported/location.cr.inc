@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_cr_a () {
 	return array (
 		"3621687" => t("San Rafael"),

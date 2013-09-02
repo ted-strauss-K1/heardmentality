@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ga_1 () {
 	return array (
 		"2399697" => t("Libreville"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_np_1 () {
 	return array (
 		"1282931" => t("Patan"),

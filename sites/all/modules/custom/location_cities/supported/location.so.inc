@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_so_aw () {
 	return array (
 		"8045596" => t("Baki"),

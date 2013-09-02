@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_mo_01 () {
 	return array (
 	);

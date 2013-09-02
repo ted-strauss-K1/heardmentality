@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_se_k () {
 	return array (
 		"2701713" => t("Karlskrona"),

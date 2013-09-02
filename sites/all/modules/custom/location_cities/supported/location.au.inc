@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_au_act () {
 	return array (
 		"2172517" => t("Canberra"),

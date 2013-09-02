@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bn_be () {
 	return array (
 		"1820187" => t("Seria"),

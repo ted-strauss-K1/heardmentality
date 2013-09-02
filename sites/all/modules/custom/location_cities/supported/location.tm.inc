@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_tm_a () {
 	return array (
 		"162099" => t("Buzmeyin"),

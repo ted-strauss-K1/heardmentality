@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_kz_akt () {
 	return array (
 		"608679" => t("Oktyabr'sk"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ar_c () {
 	return array (
 		"3427408" => t("Villa Lugano"),

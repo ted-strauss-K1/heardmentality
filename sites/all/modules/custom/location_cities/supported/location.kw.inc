@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_kw_ku () {
 	return array (
 		"285787" => t("Kuwait City"),

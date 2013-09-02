@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_sd_gz () {
 	return array (
 		"364103" => t("Wad Medani"),

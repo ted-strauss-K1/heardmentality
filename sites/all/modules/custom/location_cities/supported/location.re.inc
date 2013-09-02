@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_re_re () {
 	return array (
 		"935214" => t("Saint-Pierre"),

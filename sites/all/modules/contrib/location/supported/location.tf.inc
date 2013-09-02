@@ -5,6 +5,6 @@ function location_province_list_tf () {
 		"02" => t("Archipel des Crozet"),
 		"03" => t("Archipel des Kerguelen"),
 		"04" => t("La Terre-Adélie"),
-		" " => t("Îles Éparses de l'océan Indien"),
+		"_" => t("Îles Éparses de l'océan Indien"),
 	);
 }

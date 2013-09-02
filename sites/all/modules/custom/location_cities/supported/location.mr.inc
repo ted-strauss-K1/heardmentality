@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_mr_07 () {
 	return array (
 		"2381334" => t("Atar"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_tt_ari () {
 	return array (
 		"3575051" => t("Arima"),

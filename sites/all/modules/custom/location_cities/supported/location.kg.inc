@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_kg_b () {
 	return array (
 		"1222562" => t("Sulyukta"),

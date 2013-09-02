@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_my_01 () {
 	return array (
 		"1732687" => t("Batu Pahat"),

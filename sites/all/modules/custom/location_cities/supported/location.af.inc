@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_af_bds () {
 	return array (
 		"1142170" => t("Fayzabad"),

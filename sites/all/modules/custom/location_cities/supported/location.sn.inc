@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_sn_dk () {
 	return array (
 		"2246678" => t("Pikine"),

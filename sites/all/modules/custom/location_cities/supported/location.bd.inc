@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bd_a () {
 	return array (
 		"1185138" => t("Pirojpur"),

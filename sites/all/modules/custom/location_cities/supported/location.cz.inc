@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_cz_st () {
 	return array (
 		"3065903" => t("Slany"),

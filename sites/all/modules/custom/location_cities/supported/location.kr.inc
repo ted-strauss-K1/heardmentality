@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_kr_26 () {
 	return array (
 		"1838524" => t("Busan"),

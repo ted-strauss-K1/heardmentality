@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_am_ag () {
 	return array (
 		"616877" => t("Ashtarak"),

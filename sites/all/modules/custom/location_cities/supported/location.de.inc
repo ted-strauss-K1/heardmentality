@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_de_bw () {
 	return array (
 		"2807872" => t("Winnenden"),

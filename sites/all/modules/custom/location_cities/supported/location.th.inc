@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_th_10 () {
 	return array (
 		"1609350" => t("Bangkok"),

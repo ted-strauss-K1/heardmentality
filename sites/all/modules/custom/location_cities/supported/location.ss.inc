@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ss_ec () {
 	return array (
 		"363619" => t("Yei"),

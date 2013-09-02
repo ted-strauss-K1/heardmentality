@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_dj_as () {
 	return array (
 		"224152" => t("Danan"),

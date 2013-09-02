@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ug_c () {
 	return array (
 		"225858" => t("Wobulenzi"),

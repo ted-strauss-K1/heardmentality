@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bj_al () {
 	return array (
 		"2393693" => t("Kandi"),

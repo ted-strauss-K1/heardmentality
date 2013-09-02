@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_nz_auk () {
 	return array (
 		"2184155" => t("Pukekohe East"),

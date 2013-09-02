@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ma_09 () {
 	return array (
 		"2537406" => t("Settat"),

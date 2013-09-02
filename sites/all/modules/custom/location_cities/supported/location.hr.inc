@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_hr_07 () {
 	return array (
 		"3203982" => t("Bjelovar"),

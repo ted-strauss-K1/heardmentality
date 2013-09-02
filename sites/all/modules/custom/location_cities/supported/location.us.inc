@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_us_al () {
 	return array (
 		"4048023" => t("Bessemer"),

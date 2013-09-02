@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_rs_vo () {
 	return array (
 		"783814" => t("Zrenjanin"),

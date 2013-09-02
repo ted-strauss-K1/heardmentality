@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_gw_ba () {
 	return array (
 		"2375254" => t("Bafata"),

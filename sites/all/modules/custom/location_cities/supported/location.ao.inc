@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ao_bgo () {
 	return array (
 		"2242001" => t("Caxito"),

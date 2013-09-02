@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_in_wb () {
 	return array (
 		"1254131" => t("Tufanganj"),

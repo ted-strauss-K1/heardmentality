@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_et_af () {
 	return array (
 		"338554" => t("Dubti"),

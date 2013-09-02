@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_nl_fr () {
 	return array (
 		"2744194" => t("Wolvega"),

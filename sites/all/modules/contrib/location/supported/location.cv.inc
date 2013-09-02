@@ -12,7 +12,7 @@ function location_province_list_cv () {
 		"CF" => t("Concelho de Santa Catarina do Fogo"),
 		"CR" => t("Concelho de Santa Cruz"),
 		"SD" => t("Concelho de São Domingos"),
-		"SL*" => t("Concelho de São Lourenço dos Órgãos"),
+		"SL_" => t("Concelho de São Lourenço dos Órgãos"),
 		"SM" => t("Concelho de São Miguel"),
 		"SS" => t("Concelho de São Salvador do Mundo"),
 		"SV" => t("Concelho de São Vicente"),

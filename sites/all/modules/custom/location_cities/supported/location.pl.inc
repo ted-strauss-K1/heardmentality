@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_pl_wp () {
 	return array (
 		"3080071" => t("Zlotow"),

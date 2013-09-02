@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_fj_c () {
 	return array (
 		"2198148" => t("Suva"),

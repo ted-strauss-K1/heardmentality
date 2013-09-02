@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_jp_23 () {
 	return array (
 		"1849539" => t("Tsushima"),

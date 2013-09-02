@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ni_bo () {
 	return array (
 		"3620544" => t("Camoapa"),

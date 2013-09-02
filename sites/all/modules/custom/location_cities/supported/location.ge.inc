@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ge_ab () {
 	return array (
 		"611847" => t("Sokhumi"),

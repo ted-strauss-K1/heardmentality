@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_it_65 () {
 	return array (
 		"3164672" => t("Vasto"),

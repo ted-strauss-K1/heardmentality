@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ps_gz () {
 	return array (
 		"281102" => t("Rafah"),

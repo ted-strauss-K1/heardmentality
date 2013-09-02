@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_tw_01 () {
 	return array (
 		"1678008" => t("Jincheng"),

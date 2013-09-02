@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ca_ab () {
 	return array (
 		"5882799" => t("Airdrie"),

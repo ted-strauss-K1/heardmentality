@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ng_ab () {
 	return array (
 		"2320576" => t("Umuahia"),

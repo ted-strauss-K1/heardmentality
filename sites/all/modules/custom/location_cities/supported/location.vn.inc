@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_vn_44 () {
 	return array (
 		"1575627" => t("Long Xuyen"),

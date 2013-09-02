@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_al_01 () {
 	return array (
 		"3185060" => t("Kucove"),

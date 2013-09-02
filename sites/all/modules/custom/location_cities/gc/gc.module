@@ -210,11 +210,12 @@ function gc_supported() {
   foreach ($countries as $country_code => $country_name) {
 
     $file_cit = $dir_cit . '/location.'.$country_code.'.inc';
-    file_put_contents($file_cit, "<?php");
+    file_put_contents($file_cit, "<?php\n");
 
     $list_reg = array();
 
     foreach ($regions_data['data'][$country_code] as $region_code => $region_gid) {
+      $region_code = preg_replace('/\W/', '_', $region_code);
       $region_name = $regions_data['name'][$region_gid];
 
       $list_reg[$region_code] = $region_name;
@@ -245,4 +246,34 @@ function gc_supported() {
 
 }
 
+/**
+ *
+ */
+function gc_translate_reg() {
+  //
 
+  $countries = location_get_iso3166_list();
+  foreach ($countries as $country_code => $country_name) {
+    register_t($country_name, 'location');
+
+    $regions = location_get_provinces($country_code);
+    foreach ($regions as $region_code => $region_name) {
+      register_t($region_name, 'location');
+
+      $cities = location_get_cities($country_code, $region_code);
+      foreach ($cities as $city_code => $city_name) {
+        register_t($city_name, 'location');
+      }
+    }
+  }
+
+}
+
+/**
+ *
+ */
+function gc_translate_set() {
+
+  // INSERT INTO locales_target (SELECT ls.lid, ls.source, 'ru', 0,0,0,0 FROM locales_source ls WHERE ls.textgroup = 'location') 
+
+}

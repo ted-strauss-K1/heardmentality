@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_md_ca () {
 	return array (
 		"618456" => t("Cahul"),

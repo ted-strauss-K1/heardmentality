@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_gp_gp () {
 	return array (
 		"3578447" => t("Sainte-Rose"),

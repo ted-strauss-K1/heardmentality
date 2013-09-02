@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_lk_2 () {
 	return array (
 		"1232783" => t("Nuwara Eliya"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ee_37 () {
 	return array (
 		"588409" => t("Tallinn"),

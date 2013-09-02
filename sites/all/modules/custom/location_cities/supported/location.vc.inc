@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_vc_06 () {
 	return array (
 	);

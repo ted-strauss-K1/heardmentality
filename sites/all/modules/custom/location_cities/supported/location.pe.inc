@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_pe_ama () {
 	return array (
 		"3695675" => t("La Peca"),

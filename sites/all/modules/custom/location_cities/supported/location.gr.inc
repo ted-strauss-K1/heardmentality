@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_gr_i () {
 	return array (
 		"251780" => t("Voula"),

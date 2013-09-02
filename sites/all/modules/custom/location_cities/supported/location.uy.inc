@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_uy_ar () {
 	return array (
 		"3443758" => t("Artigas"),

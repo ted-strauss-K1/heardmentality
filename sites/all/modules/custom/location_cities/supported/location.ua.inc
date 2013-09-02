@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ua_43 () {
 	return array (
 		"688105" => t("Yevpatoriya"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ly_ju () {
 	return array (
 		"2209055" => t("Waddan"),

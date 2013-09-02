@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_cy_04 () {
 	return array (
 		"18918" => t("Protaras"),

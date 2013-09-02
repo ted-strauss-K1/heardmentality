@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_pw_002 () {
 	return array (
 	);

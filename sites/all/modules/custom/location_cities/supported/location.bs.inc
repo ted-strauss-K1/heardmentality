@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bs_ak () {
 	return array (
 	);

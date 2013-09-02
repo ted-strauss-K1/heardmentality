@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_pr_001 () {
 	return array (
 		"7276400" => t("Adjuntas"),

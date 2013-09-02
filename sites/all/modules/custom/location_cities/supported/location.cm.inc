@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_cm_ad () {
 	return array (
 		"2221530" => t("Tibati"),

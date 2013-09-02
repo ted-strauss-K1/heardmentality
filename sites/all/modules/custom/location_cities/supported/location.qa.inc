@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_qa_wa () {
 	return array (
 		"289915" => t("Al Wakrah"),

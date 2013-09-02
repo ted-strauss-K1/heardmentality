@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_co_atl () {
 	return array (
 		"3667849" => t("Soledad"),

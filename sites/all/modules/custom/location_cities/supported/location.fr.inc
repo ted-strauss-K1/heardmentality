@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_fr_a () {
 	return array (
 		"2967318" => t("Wittenheim"),

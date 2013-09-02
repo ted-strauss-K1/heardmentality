@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ph_14 () {
 	return array (
 		"1679678" => t("Wao"),

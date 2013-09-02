@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_id_ba () {
 	return array (
 		"1622846" => t("Ubud"),

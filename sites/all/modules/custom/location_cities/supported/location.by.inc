@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_by_br () {
 	return array (
 		"622997" => t("Pruzhany"),

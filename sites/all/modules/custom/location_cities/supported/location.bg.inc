@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bg_01 () {
 	return array (
 		"727447" => t("Sandanski"),

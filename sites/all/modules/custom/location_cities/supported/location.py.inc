@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_py_asu () {
 	return array (
 		"3439389" => t("Asuncion"),

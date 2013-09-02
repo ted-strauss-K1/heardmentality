@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_sz_hh () {
 	return array (
 		"934985" => t("Mbabane"),

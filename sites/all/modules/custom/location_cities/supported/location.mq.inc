@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_mq_mq () {
 	return array (
 		"3569915" => t("Saint-Joseph"),

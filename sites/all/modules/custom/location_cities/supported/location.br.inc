@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_br_am () {
 	return array (
 		"3393008" => t("Parintins"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_mx_agu () {
 	return array (
 		"3988651" => t("Rincon de Romos"),

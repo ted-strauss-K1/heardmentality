@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_mz_p () {
 	return array (
 		"1028918" => t("Pemba"),

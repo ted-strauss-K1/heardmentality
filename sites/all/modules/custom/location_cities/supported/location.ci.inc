@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ci_16 () {
 	return array (
 		"2288118" => t("Affery"),

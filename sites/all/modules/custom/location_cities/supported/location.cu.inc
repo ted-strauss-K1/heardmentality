@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_cu_10 () {
 	return array (
 		"3543299" => t("Puerto Padre"),

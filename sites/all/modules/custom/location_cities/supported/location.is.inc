@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_is_1 () {
 	return array (
 		"3413829" => t("Reykjavik"),

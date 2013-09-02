@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_gf_gf () {
 	return array (
 		"3380387" => t("Saint-Laurent-du-Maroni"),

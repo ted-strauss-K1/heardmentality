@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_mw_c () {
 	return array (
 		"924055" => t("Salima"),

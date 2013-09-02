@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ec_b () {
 	return array (
 		"3657571" => t("Guaranda"),

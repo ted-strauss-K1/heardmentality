@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_td_bg () {
 	return array (
 		"2427336" => t("Moussoro"),

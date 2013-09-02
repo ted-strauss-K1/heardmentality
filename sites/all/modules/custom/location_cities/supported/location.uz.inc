@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_uz_an () {
 	return array (
 		"1513271" => t("Asaka"),

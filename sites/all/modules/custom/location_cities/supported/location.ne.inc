@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ne_1 () {
 	return array (
 		"2447938" => t("Alaghsas"),

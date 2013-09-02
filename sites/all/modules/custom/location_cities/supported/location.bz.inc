@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bz_bz () {
 	return array (
 		"3582677" => t("Belize City"),

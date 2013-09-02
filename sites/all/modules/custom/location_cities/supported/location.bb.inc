@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bb_01 () {
 	return array (
 	);

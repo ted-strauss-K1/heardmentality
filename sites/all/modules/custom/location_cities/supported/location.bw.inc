@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_bw_ce () {
 	return array (
 		"933000" => t("Tonota"),

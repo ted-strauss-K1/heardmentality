@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_be_bru () {
 	return array (
 		"2800866" => t("Brussels"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_az_abs () {
 	return array (
 		"585915" => t("Khirdalan"),

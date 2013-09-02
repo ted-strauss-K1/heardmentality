@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_pg_nsa () {
 	return array (
 		"2100633" => t("Arawa"),

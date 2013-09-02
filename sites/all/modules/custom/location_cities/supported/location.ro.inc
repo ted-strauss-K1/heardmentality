@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ro_ar () {
 	return array (
 		"686254" => t("Arad"),

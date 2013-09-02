@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ml_bko () {
 	return array (
 		"2460596" => t("Bamako"),

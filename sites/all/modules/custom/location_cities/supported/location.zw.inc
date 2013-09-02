@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_zw_bu () {
 	return array (
 		"894701" => t("Bulawayo"),

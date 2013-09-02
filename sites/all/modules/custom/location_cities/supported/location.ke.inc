@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ke_10 () {
 	return array (
 		"195821" => t("Kabarnet"),

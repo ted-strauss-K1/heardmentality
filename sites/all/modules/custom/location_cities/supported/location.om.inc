@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_om_sh () {
 	return array (
 		"286245" => t("Sur"),

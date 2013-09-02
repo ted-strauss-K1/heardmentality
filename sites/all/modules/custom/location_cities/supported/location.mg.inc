@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_mg_7670851 () {
 	return array (
 		"1058532" => t("Moramanga"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_pt_20 () {
 	return array (
 		"3372783" => t("Ponta Delgada"),

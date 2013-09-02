@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_cg_bzv () {
 	return array (
 		"2260535" => t("Brazzaville"),

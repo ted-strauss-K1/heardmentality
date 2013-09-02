@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_sk_bc () {
 	return array (
 		"723736" => t("Rimavska Sobota"),

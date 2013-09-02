@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_zm_02 () {
 	return array (
 		"904422" => t("Mumbwa"),

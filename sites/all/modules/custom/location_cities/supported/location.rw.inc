@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_rw_02 () {
 	return array (
 		"201463" => t("Rwamagana"),

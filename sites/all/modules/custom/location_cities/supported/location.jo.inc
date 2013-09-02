@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_jo_aj () {
 	return array (
 		"250799" => t("'Ajlun"),

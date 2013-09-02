@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_hu_ba () {
 	return array (
 		"3046526" => t("Pecs"),

@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_na_ca () {
 	return array (
 		"877178" => t("Katima Mulilo"),

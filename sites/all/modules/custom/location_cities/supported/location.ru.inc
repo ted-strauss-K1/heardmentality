@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ru_alt () {
 	return array (
 		"1485439" => t("Zarinsk"),

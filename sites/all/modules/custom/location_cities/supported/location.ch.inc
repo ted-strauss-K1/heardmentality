@@ -1,5 +1,6 @@
 <?php
 
+
 function location_cities_list_ch_ag () {
 	return array (
 		"2658011" => t("Wettingen"),
