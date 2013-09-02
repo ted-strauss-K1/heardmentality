@@ -10,10 +10,8 @@
       <div class="medals">
         <?php if (isset($badges['#stat'])) : ?>
         <?php foreach ($badges['#stat'] as $type => $badge) : ?>
-          <div class="medal"><span class="<?php print $type ?>"
-                                   id="medal1"
-                                   title="<?php print t(ucfirst($type) . ' Medals'); ?>">&nbsp;</span><?php print $badge;?>
-          </div>
+        <span class="medal_box"><span class="medal1 <?php print $type ?>" title="<?php print t(ucfirst($type) . ' Medals'); ?>">&nbsp;</span><?php print $badge;?>
+          </span>
           <?php endforeach; ?>
         <?php endif; ?>
       </div>

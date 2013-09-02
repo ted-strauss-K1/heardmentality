@@ -105,6 +105,22 @@ function location_cities_function_name($code) {
 }
 
 /**
+ * @param $country_code
+ * @param $province_code
+ * @param $city_code
+ */
+function location_city_name($country_code, $province_code, $city_code) {
+  location_cities_load_file($country_code);
+  $cities = location_get_cities($country_code, $province_code);
+  if (isset($cities[$city_code])) {
+    return $cities[$city_code];
+  }
+  else {
+    return '';
+  }
+}
+
+/**
  * @param $countrycode
  * @return mixed
  */

@@ -7,8 +7,6 @@
   <!--  | <a name=>References</a>-->
 </div>
 
-<hr class="line">
-
 <div id="events_following">
   <?php print $content ?>
 </div>

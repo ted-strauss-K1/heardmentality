@@ -636,7 +636,7 @@ function geonames_parse_xml($data, $columns = FALSE) {
   preg_match('/<\?xml version="(.*)" encoding="([a-zA-Z\-0-9]*)"(.*)\?>/', $data, $regs);
   if ($regs[3]) {
     $subreg = explode('"', $regs[3]);
-    $result->standalone = $subreg[1];
+    @$result->standalone = $subreg[1];
   }
 
   $xml = new SimpleXMLElement($data);
