@@ -2,15 +2,15 @@
 
 function location_province_list_ls () {
 	return array (
-		"A" => t("Maseru"),
+		"D" => t("Berea"),
 		"B" => t("Butha-Buthe"),
 		"C" => t("Leribe"),
-		"D" => t("Berea"),
-		"E" => t("Mafeteng"),
-		"F" => t("Mohale's Hoek"),
-		"G" => t("Quthing"),
-		"H" => t("Qacha's Nek"),
+		"E" => t("Mafeteng District"),
+		"A" => t("Maseru"),
+		"F" => t("Mohale’s Hoek District"),
 		"J" => t("Mokhotlong"),
+		"H" => t("Qacha’s Nek"),
+		"G" => t("Quthing"),
 		"K" => t("Thaba-Tseka"),
 	);
 }

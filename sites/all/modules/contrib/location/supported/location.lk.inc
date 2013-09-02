@@ -2,14 +2,14 @@
 
 function location_province_list_lk () {
 	return array (
-		"1" => t("Western"),
-		"2" => t("Central"),
-		"3" => t("Southern"),
-		"4" => t("Northern"),
-		"5" => t("Eastern"),
-		"6" => t("North Western"),
-		"7" => t("North Central"),
-		"8" => t("Uva"),
-		"9" => t("Sabaragamuwa"),
+		"2" => t("Central Province"),
+		"5" => t("Eastern Province"),
+		"7" => t("North Central Province"),
+		"6" => t("North Western Province"),
+		"4" => t("Northern Province"),
+		"9" => t("Province of Sabaragamuwa"),
+		"8" => t("Province of Uva"),
+		"3" => t("Southern Province"),
+		"1" => t("Western Province"),
 	);
 }

@@ -2,16 +2,17 @@
 
 function location_province_list_cg () {
 	return array (
-		"11" => t("Bouenza"),
-		"12" => t("Pool "),
-		"13" => t("Sangha"),
-		"14" => t("Plateaux"),
-		"15" => t("Cuvette-Ouest"),
-		"2" => t("Lekoumou"),
-		"5" => t("Kouilou"),
-		"7" => t("Likouala"),
+		"BZV" => t("Commune de Brazzaville"),
 		"8" => t("Cuvette"),
-		"9" => t("Niari"),
-		"BZV" => t("Brazzaville"),
+		"15" => t("Cuvette-Ouest"),
+		"7" => t("Likouala"),
+		"14" => t("Plateaux"),
+		"7280295" => t("Pointe-Noire"),
+		"12" => t("Pool"),
+		"11" => t("Région de la Bouenza"),
+		"2" => t("Région de la Lékoumou"),
+		"5" => t("Région du Kouilou"),
+		"9" => t("Région du Niari"),
+		"13" => t("Sangha"),
 	);
 }

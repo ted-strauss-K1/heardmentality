@@ -2,16 +2,16 @@
 
 function location_province_list_mz () {
 	return array (
-		"A" => t("Niassa"),
-		"B" => t("Manica"),
-		"G" => t("Gaza"),
-		"I" => t("Inhambane"),
+		"P" => t("Cabo Delgado Province"),
+		"MPM" => t("Cidade de Maputo"),
+		"G" => t("Gaza Province"),
+		"I" => t("Inhambane Province"),
+		"B" => t("Manica Province"),
 		"L" => t("Maputo"),
-		"MPM" => t("Maputo (city)"),
 		"N" => t("Nampula"),
-		"P" => t("Cabo Delgado"),
-		"Q" => t("Zambezia"),
-		"S" => t("Sofala"),
-		"T" => t("Tete"),
+		"A" => t("Niassa Province"),
+		"T" => t("Province of Tete"),
+		"Q" => t("Província de Zambézia"),
+		"S" => t("Sofala Province"),
 	);
 }

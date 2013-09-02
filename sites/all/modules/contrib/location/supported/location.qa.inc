@@ -2,12 +2,16 @@
 
 function location_province_list_qa () {
 	return array (
-		"DA" => t("Ad Dawhah"),
-		"KH" => t("Al Khawr wa adh Dhakhirah"),
-		"MS" => t("Ash Shamal"),
-		"RA" => t("Ar Rayyan"),
-		"US" => t("Umm Salal"),
 		"WA" => t("Al Wakrah"),
-		"ZA" => t("Az Z a‘ayin"),
+		"11" => t("Baladīyat Jarayān al Bāţinah"),
+		"12" => t("Baladīyat Umm Sa‘īd"),
+		"US" => t("Baladīyat Umm Şalāl"),
+		"DA" => t("Baladīyat ad Dawḩah"),
+		"02" => t("Baladīyat al Ghuwayrīyah"),
+		"03" => t("Baladīyat al Jumaylīyah"),
+		"KH" => t("Baladīyat al Khawr wa adh Dhakhīrah"),
+		"RA" => t("Baladīyat ar Rayyān"),
+		"MS" => t("Baladīyat ash Shamāl"),
+		"13" => t("Baladīyat az̧ Z̧a‘āyin"),
 	);
 }

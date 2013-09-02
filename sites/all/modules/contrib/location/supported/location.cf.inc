@@ -2,22 +2,22 @@
 
 function location_province_list_cf () {
 	return array (
-		"AC" => t("Ouham"),
 		"BB" => t("Bamingui-Bangoran"),
-		"BGF" => t("Bangui"),
 		"BK" => t("Basse-Kotto"),
-		"HK" => t("Haute-Kotto"),
+		"BGF" => t("Commune de Bangui"),
 		"HM" => t("Haut-Mbomou"),
-		"HS" => t("Mambere-Kadei"),
-		"KB" => t("Nana-Grebizi"),
-		"KG" => t("Kemo"),
+		"HK" => t("Haute-Kotto"),
 		"LB" => t("Lobaye"),
+		"HS" => t("Mambéré-Kadéï"),
 		"MB" => t("Mbomou"),
-		"MP" => t("Ombella-M'Poko"),
-		"NM" => t("Nana-Mambere"),
-		"OP" => t("Ouham-Pende"),
-		"SE" => t("Sangha-Mbaere"),
+		"MP" => t("Ombella-Mpoko"),
 		"UK" => t("Ouaka"),
+		"AC" => t("Ouham"),
+		"KG" => t("Préfecture de la Kémo"),
+		"KB" => t("Préfecture de la Nana-Grébizi"),
+		"NM" => t("Préfecture de la Nana-Mambéré"),
+		"SE" => t("Préfecture de la Sangha-Mbaéré"),
+		"OP" => t("Préfecture de l’ Ouham-Pendé"),
 		"VK" => t("Vakaga"),
 	);
 }

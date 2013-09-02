@@ -2,25 +2,8 @@
 
 function location_cities_list_rw_02 () {
 	return array (
-		"202068" => t("Kibungo"),
 		"201463" => t("Rwamagana"),
-	);
-}
-
-
-function location_cities_list_rw_03 () {
-	return array (
-		"203104" => t("Byumba"),
-		"201521" => t("Musanze"),
-	);
-}
-
-
-function location_cities_list_rw_05 () {
-	return array (
-		"203112" => t("Butare"),
-		"202217" => t("Gitarama"),
-		"201865" => t("Nzega"),
+		"202068" => t("Kibungo"),
 	);
 }
 
@@ -32,12 +15,27 @@ function location_cities_list_rw_01 () {
 }
 
 
-function location_cities_list_rw_04 () {
+function location_cities_list_rw_03 () {
 	return array (
-		"202326" => t("Cyangugu"),
-		"202905" => t("Gisenyi"),
-		"202065" => t("Kibuye"),
+		"201521" => t("Musanze"),
+		"203104" => t("Byumba"),
 	);
 }
 
 
+function location_cities_list_rw_05 () {
+	return array (
+		"201865" => t("Nzega"),
+		"202217" => t("Gitarama"),
+		"203112" => t("Butare"),
+	);
+}
+
+
+function location_cities_list_rw_04 () {
+	return array (
+		"202065" => t("Kibuye"),
+		"202326" => t("Cyangugu"),
+		"202905" => t("Gisenyi"),
+	);
+}

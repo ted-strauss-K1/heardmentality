@@ -2,19 +2,19 @@
 
 function location_province_list_sy () {
 	return array (
-		"DI" => t("Dimashq"),
-		"DR" => t("Dara"),
-		"DY" => t("Dayr az Zawr"),
-		"HA" => t("Al Hasakah"),
-		"HI" => t("Hims"),
-		"HL" => t("Halab"),
-		"HM" => t("Hamah"),
+		"HA" => t("Al-Hasakah"),
+		"HL" => t("Aleppo"),
+		"RA" => t("Ar-Raqqah"),
+		"SU" => t("As-Suwayda"),
+		"DI" => t("Damascus City"),
+		"DR" => t("Daraa"),
+		"DY" => t("Deir ez-Zor"),
+		"HM" => t("Hama"),
+		"HI" => t("Homs"),
 		"ID" => t("Idlib"),
-		"LA" => t("Al Ladhiqiyah"),
-		"QU" => t("Al Qunaytirah"),
-		"RA" => t("Ar Raqqah"),
-		"RD" => t("Rif Dimashq"),
-		"SU" => t("As Suwayda"),
+		"LA" => t("Latakia"),
+		"QU" => t("Quneitra"),
+		"RD" => t("Rif-dimashq"),
 		"TA" => t("Tartus"),
 	);
 }

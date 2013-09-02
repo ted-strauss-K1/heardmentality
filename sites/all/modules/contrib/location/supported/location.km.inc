@@ -2,8 +2,8 @@
 
 function location_province_list_km () {
 	return array (
-		"A" => t("Anjouan"),
 		"G" => t("Grande Comore"),
-		"M" => t("Moheli"),
+		"M" => t("Mwali"),
+		"A" => t("Ndzuwani"),
 	);
 }

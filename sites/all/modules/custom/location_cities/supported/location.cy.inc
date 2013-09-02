@@ -2,15 +2,22 @@
 
 function location_cities_list_cy_04 () {
 	return array (
-		"146617" => t("Famagusta"),
 		"18918" => t("Protaras"),
+		"146617" => t("Famagusta"),
 	);
 }
 
 
-function location_cities_list_cy_05 () {
+function location_cities_list_cy_06 () {
 	return array (
-		"146214" => t("Paphos"),
+		"146412" => t("Kyrenia"),
+	);
+}
+
+
+function location_cities_list_cy_03 () {
+	return array (
+		"146400" => t("Larnaca"),
 	);
 }
 
@@ -29,17 +36,8 @@ function location_cities_list_cy_02 () {
 }
 
 
-function location_cities_list_cy_03 () {
+function location_cities_list_cy_05 () {
 	return array (
-		"146400" => t("Larnaca"),
+		"146214" => t("Paphos"),
 	);
 }
-
-
-function location_cities_list_cy_06 () {
-	return array (
-		"146412" => t("Kyrenia"),
-	);
-}
-
-

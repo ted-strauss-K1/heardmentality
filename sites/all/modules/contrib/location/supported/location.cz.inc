@@ -2,19 +2,19 @@
 
 function location_province_list_cz () {
 	return array (
-		"JC" => t("South Bohemian Region (Jihocesky kraj)"),
-		"JM" => t("South Moravian Region (Jihomoravsky kraj)"),
-		"KA" => t("Carlsbad Region  (Karlovarsky kraj)"),
-		"KR" => t("Hradec Kralove Region (Kralovehradecky kraj)"),
-		"LI" => t("Liberec Region (Liberecky kraj)"),
-		"MO" => t("Moravian-Silesian Region (Moravskoslezsky kraj)"),
-		"OL" => t("Olomouc Region (Olomoucky kraj)"),
-		"PA" => t("Pardubice Region (Pardubicky kraj)"),
-		"PL" => t("Plzen( Region Plzensky kraj)"),
-		"PR" => t("Prague - the Capital (Praha - hlavni mesto)"),
-		"ST" => t("Central Bohemian Region (Stredocesky kraj)"),
-		"US" => t("Usti nad Labem Region (Ustecky kraj)"),
-		"VY" => t("Vysocina Region (kraj Vysocina)"),
-		"ZL" => t("Zlin Region (Zlinsky kraj)"),
+		"ST" => t("Central Bohemian Region"),
+		"PR" => t("Hlavní město Praha"),
+		"JC" => t("Jihočeský kraj"),
+		"KA" => t("Karlovarský kraj"),
+		"VY" => t("Kraj Vysočina"),
+		"KR" => t("Královéhradecký kraj"),
+		"LI" => t("Liberecký kraj"),
+		"MO" => t("Moravskoslezský kraj"),
+		"OL" => t("Olomoucký kraj"),
+		"PA" => t("Pardubický kraj"),
+		"PL" => t("Plzeňský kraj"),
+		"JM" => t("South Moravian Region"),
+		"ZL" => t("Zlínský kraj"),
+		"US" => t("Ústecký kraj"),
 	);
 }

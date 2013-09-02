@@ -2,19 +2,19 @@
 
 function location_province_list_sn () {
 	return array (
-		"DB" => t("Diourbel"),
 		"DK" => t("Dakar"),
+		"DB" => t("Diourbel"),
 		"FK" => t("Fatick"),
-		"KA" => t("Kaffrine"),
-		"KD" => t("Kolda"),
-		"KE" => t("Kedougou"),
 		"KL" => t("Kaolack"),
+		"KD" => t("Kolda"),
 		"LG" => t("Louga"),
 		"MT" => t("Matam"),
-		"SE" => t("Sedhiou"),
+		"KA" => t("Région de Kaffrine"),
+		"KE" => t("Région de Kédougou"),
+		"SE" => t("Région de Sédhiou"),
+		"TH" => t("Région de Thiès"),
 		"SL" => t("Saint-Louis"),
 		"TC" => t("Tambacounda"),
-		"TH" => t("Thies "),
 		"ZG" => t("Ziguinchor"),
 	);
 }

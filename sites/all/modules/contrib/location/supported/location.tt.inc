@@ -2,21 +2,21 @@
 
 function location_province_list_tt () {
 	return array (
-		"ARI" => t("Arima"),
+		"ARI" => t("Borough of Arima"),
 		"CHA" => t("Chaguanas"),
-		"CTT" => t("Couva/Tabaquite/Talparo"),
+		"POS" => t("City of Port of Spain"),
+		"SFO" => t("City of San Fernando"),
+		"CTT" => t("Couva-Tabaquite-Talparo"),
 		"DMN" => t("Diego Martin"),
 		"ETO" => t("Eastern Tobago"),
+		"RCM" => t("Mayaro"),
 		"PED" => t("Penal/Debe"),
-		"POS" => t("Port of Spain"),
-		"PRT" => t("Princes Town"),
 		"PTF" => t("Point Fortin"),
-		"RCM" => t("Mayaro/Rio Claro"),
-		"SFO" => t("San Fernando"),
+		"PRT" => t("Princes Town"),
+		"SJL" => t("San Juan/Laventille"),
 		"SGE" => t("Sangre Grande"),
 		"SIP" => t("Siparia"),
-		"SJL" => t("San Juan/Laventille"),
-		"TUP" => t("Tunapuna/Piarco"),
 		"WTO" => t("Tobago"),
+		"TUP" => t("Tunapuna/Piarco"),
 	);
 }

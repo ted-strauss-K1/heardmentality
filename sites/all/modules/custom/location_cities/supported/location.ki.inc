@@ -7,3 +7,13 @@ function location_cities_list_ki_g () {
 }
 
 
+function location_cities_list_ki_l () {
+	return array (
+	);
+}
+
+
+function location_cities_list_ki_p () {
+	return array (
+	);
+}

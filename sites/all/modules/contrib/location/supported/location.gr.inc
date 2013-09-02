@@ -2,19 +2,19 @@
 
 function location_province_list_gr () {
 	return array (
-		"69" => t("Agio Oros"),
-		"A" => t("Anatoliki Makedonia kai Thraki"),
-		"B" => t("Kentriki Makedonia"),
-		"C" => t("Dytiki Makedonia"),
-		"D" => t("Ipeiros"),
-		"E" => t("Thessalia"),
-		"F" => t("Ionia Nisia"),
-		"G" => t("Dytiki Ellada"),
-		"H" => t("Sterea Ellada"),
-		"I" => t("Attiki"),
-		"J" => t("Peloponnisos"),
-		"K" => t("Voreio Aigaio"),
-		"L" => t("Notio Aigaio"),
-		"M" => t("Kriti"),
+		"I" => t("Attica"),
+		"H" => t("Central Greece"),
+		"B" => t("Central Macedonia"),
+		"M" => t("Crete"),
+		"A" => t("East Macedonia and Thrace"),
+		"D" => t("Epirus"),
+		"F" => t("Ionian Islands"),
+		"69" => t("Mount Athos"),
+		"K" => t("North Aegean"),
+		"J" => t("Peloponnese"),
+		"L" => t("South Aegean"),
+		"E" => t("Thessaly"),
+		"G" => t("West Greece"),
+		"C" => t("West Macedonia"),
 	);
 }

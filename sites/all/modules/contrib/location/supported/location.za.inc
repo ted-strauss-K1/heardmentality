@@ -2,14 +2,14 @@
 
 function location_province_list_za () {
 	return array (
-		"EC" => t("Eastern Cape"),
 		"FS" => t("Free State"),
 		"GP" => t("Gauteng"),
+		"ZN" => t("KwaZulu-Natal"),
 		"LP" => t("Limpopo"),
 		"MP" => t("Mpumalanga"),
 		"NC" => t("Northern Cape"),
-		"NW" => t("North West"),
-		"WC" => t("Western Cape"),
-		"ZN" => t("KwaZulu-Natal"),
+		"EC" => t("Province of Eastern Cape"),
+		"NW" => t("Province of North-West"),
+		"WC" => t("Province of the Western Cape"),
 	);
 }

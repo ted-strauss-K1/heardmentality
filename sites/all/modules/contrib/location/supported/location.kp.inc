@@ -2,16 +2,16 @@
 
 function location_province_list_kp () {
 	return array (
-		"01" => t("P'yongyang Special City"),
-		"02" => t("P'yongan-namdo"),
-		"03" => t("P'yongan-bukto"),
 		"04" => t("Chagang-do"),
-		"05" => t("Hwanghae-namdo"),
+		"07" => t("Gangwon"),
+		"09" => t("Hambuk"),
+		"08" => t("Hamnam"),
 		"06" => t("Hwanghae-bukto"),
-		"07" => t("Kangwon-do"),
-		"08" => t("Hamgyong-namdo"),
-		"09" => t("Hamgyong-bukto"),
-		"10" => t("Ryanggang-do (Yanggang-do)"),
-		"13" => t("Nason (Najin-Sonbong)"),
+		"05" => t("Hwanghae-namdo"),
+		"13" => t("Nasŏn-si"),
+		"03" => t("P’yŏngan-bukto"),
+		"02" => t("P’yŏngan-namdo"),
+		"01" => t("P’yŏngyang-si"),
+		"10" => t("Yanggang-do"),
 	);
 }

@@ -2,11 +2,11 @@
 
 function location_province_list_il () {
 	return array (
-		"D" => t("Southern"),
-		"HA" => t("Haifa"),
-		"JM" => t("Jerusalem"),
-		"M" => t("Central"),
+		"M" => t("Central District"),
+		"HA" => t("Haifa District"),
+		"JM" => t("Jerusalem District"),
+		"Z" => t("Northern District"),
+		"D" => t("Southern District"),
 		"TA" => t("Tel Aviv"),
-		"Z" => t("Northern"),
 	);
 }

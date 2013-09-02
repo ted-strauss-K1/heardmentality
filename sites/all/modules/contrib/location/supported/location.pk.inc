@@ -2,13 +2,13 @@
 
 function location_province_list_pk () {
 	return array (
-		"BA" => t("Balochistan"),
-		"IS" => t("Islamabad Capital Territory"),
 		"JK" => t("Azad Kashmir"),
-		"NA" => t("Gilgit-Baltistan"),
-		"NW" => t("Khyber Pakhtunkhwa"),
-		"PB" => t("Punjab"),
-		"SD" => t("Sindh "),
+		"BA" => t("Balochistān"),
 		"TA" => t("Federally Administered Tribal Areas"),
+		"NA" => t("Gilgit-Baltistan"),
+		"IS" => t("Islāmābād Capital Territory"),
+		"NW" => t("North-West Frontier Province"),
+		"PB" => t("Punjab"),
+		"SD" => t("Sindh"),
 	);
 }

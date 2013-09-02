@@ -2,17 +2,17 @@
 
 function location_province_list_al () {
 	return array (
-		"01" => t("Berat"),
-		"02" => t("Durres"),
-		"03" => t("Elbasan"),
-		"04" => t("Fier"),
-		"05" => t("Gjirokaster"),
-		"06" => t("Korce"),
-		"07" => t("Kukes"),
-		"08" => t("Lezhe"),
-		"09" => t("Diber"),
-		"10" => t("Shkoder"),
-		"11" => t("Tirane"),
-		"12" => t("Vlore"),
+		"01" => t("Qarku i Beratit"),
+		"09" => t("Qarku i Dibrës"),
+		"02" => t("Qarku i Durrësit"),
+		"03" => t("Qarku i Elbasanit"),
+		"04" => t("Qarku i Fierit"),
+		"05" => t("Qarku i Gjirokastrës"),
+		"06" => t("Qarku i Korçës"),
+		"07" => t("Qarku i Kukësit"),
+		"08" => t("Qarku i Lezhës"),
+		"10" => t("Qarku i Shkodrës"),
+		"11" => t("Qarku i Tiranës"),
+		"12" => t("Qarku i Vlorës"),
 	);
 }

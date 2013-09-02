@@ -2,11 +2,11 @@
 
 function location_province_list_kw () {
 	return array (
-		"AH" => t("Al Ahmadi"),
+		"KU" => t("Al Asimah Governorate"),
 		"FA" => t("Al Farwaniyah"),
-		"HA" => t("Hawalli"),
-		"JA" => t("Al Jahra"),
-		"KU" => t("Al Asimah"),
-		"MU" => t("Mubarak al Kabir"),
+		"MU" => t("Muḩāfaz̧at Mubārak al Kabīr"),
+		"AH" => t("Muḩāfaz̧at al Aḩmadī"),
+		"JA" => t("Muḩāfaz̧at al Jahrā’"),
+		"HA" => t("Muḩāfaz̧at Ḩawallī"),
 	);
 }

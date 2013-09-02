@@ -2,8 +2,8 @@
 
 function location_province_list_ba () {
 	return array (
-		"BIH" => t("Federacija Bosna i Hercegovina"),
-		"BRC" => t("Brcko District"),
+		"BRC" => t("Brčko"),
+		"BIH" => t("Federation of Bosnia and Herzegovina"),
 		"SRP" => t("Republika Srpska"),
 	);
 }

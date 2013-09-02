@@ -2,13 +2,14 @@
 
 function location_province_list_ht () {
 	return array (
-		"AR" => t("Artibonite"),
 		"CE" => t("Centre"),
-		"GA" => t("Grand'Anse"),
+		"15" => t("Département de Nippes"),
+		"AR" => t("Département de l'Artibonite"),
+		"OU" => t("Département de l'Ouest"),
+		"GA" => t("Département de la Grand’Anse"),
+		"NE" => t("Département du Nord-Est"),
 		"ND" => t("Nord"),
-		"NE" => t("Nord-Est"),
 		"NO" => t("Nord-Ouest"),
-		"OU" => t("Ouest"),
 		"SD" => t("Sud"),
 		"SE" => t("Sud-Est"),
 	);

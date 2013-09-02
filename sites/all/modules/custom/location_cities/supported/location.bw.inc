@@ -2,39 +2,24 @@
 
 function location_cities_list_bw_ce () {
 	return array (
-		"933535" => t("Letlhakane"),
-		"933471" => t("Mahalapye"),
-		"933182" => t("Palapye"),
-		"933099" => t("Selebi-Phikwe"),
-		"933088" => t("Serowe"),
 		"933000" => t("Tonota"),
+		"933088" => t("Serowe"),
+		"933099" => t("Selebi-Phikwe"),
+		"933182" => t("Palapye"),
+		"933471" => t("Mahalapye"),
+		"933535" => t("Letlhakane"),
 	);
 }
 
 
-function location_cities_list_bw_kw () {
+function location_cities_list_bw_gh () {
 	return array (
-		"933331" => t("Mogoditshane"),
-		"933305" => t("Molepolole"),
-		"933018" => t("Thamaga"),
 	);
 }
 
 
-function location_cities_list_bw_se () {
+function location_cities_list_bw_kg () {
 	return array (
-		"933773" => t("Gaborone"),
-		"933719" => t("Janeng"),
-		"933521" => t("Lobatse"),
-		"933141" => t("Ramotswa"),
-	);
-}
-
-
-function location_cities_list_bw_so () {
-	return array (
-		"933685" => t("Kanye"),
-		"933271" => t("Mosopa"),
 	);
 }
 
@@ -46,9 +31,11 @@ function location_cities_list_bw_kl () {
 }
 
 
-function location_cities_list_bw_nw () {
+function location_cities_list_bw_kw () {
 	return array (
-		"933366" => t("Maun"),
+		"933018" => t("Thamaga"),
+		"933305" => t("Molepolole"),
+		"933331" => t("Mogoditshane"),
 	);
 }
 
@@ -60,3 +47,26 @@ function location_cities_list_bw_ne () {
 }
 
 
+function location_cities_list_bw_nw () {
+	return array (
+		"933366" => t("Maun"),
+	);
+}
+
+
+function location_cities_list_bw_se () {
+	return array (
+		"933141" => t("Ramotswa"),
+		"933521" => t("Lobatse"),
+		"933719" => t("Janeng"),
+		"933773" => t("Gaborone"),
+	);
+}
+
+
+function location_cities_list_bw_so () {
+	return array (
+		"933271" => t("Mosopa"),
+		"933685" => t("Kanye"),
+	);
+}

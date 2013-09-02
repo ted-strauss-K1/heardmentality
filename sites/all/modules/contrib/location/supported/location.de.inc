@@ -2,21 +2,21 @@
 
 function location_province_list_de () {
 	return array (
+		"BW" => t("Baden-Württemberg Region"),
+		"BY" => t("Bavaria"),
 		"BB" => t("Brandenburg"),
-		"BE" => t("Berlin"),
-		"BW" => t("Baden-Wurttemberg"),
-		"BY" => t("Bayern"),
 		"HB" => t("Bremen"),
-		"HE" => t("Hessen"),
-		"HH" => t("Hamburg"),
+		"HH" => t("Free and Hanseatic City of Hamburg"),
+		"HE" => t("Hesse"),
+		"BE" => t("Land Berlin"),
+		"NI" => t("Lower Saxony"),
 		"MV" => t("Mecklenburg-Vorpommern"),
-		"NI" => t("Niedersachsen"),
-		"NW" => t("Nordrhein-Westfalen"),
+		"NW" => t("North Rhine-Westphalia"),
 		"RP" => t("Rheinland-Pfalz"),
-		"SH" => t("Schleswig-Holstein"),
 		"SL" => t("Saarland"),
-		"SN" => t("Sachsen"),
-		"ST" => t("Sachsen-Anhalt"),
-		"TH" => t("Thuringen"),
+		"SN" => t("Saxony"),
+		"ST" => t("Saxony-Anhalt"),
+		"SH" => t("Schleswig-Holstein"),
+		"TH" => t("Thuringia"),
 	);
 }

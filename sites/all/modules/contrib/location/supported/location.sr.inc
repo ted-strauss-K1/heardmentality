@@ -2,15 +2,15 @@
 
 function location_province_list_sr () {
 	return array (
-		"BR" => t("Brokopondo"),
-		"CM" => t("Commewijne"),
-		"CR" => t("Coronie"),
-		"MA" => t("Marowijne"),
-		"NI" => t("Nickerie"),
-		"PM" => t("Paramaribo"),
-		"PR" => t("Para"),
-		"SA" => t("Saramacca"),
-		"SI" => t("Sipaliwini"),
-		"WA" => t("Wanica"),
+		"BR" => t("Distrikt Brokopondo"),
+		"CM" => t("Distrikt Commewijne"),
+		"CR" => t("Distrikt Coronie"),
+		"MA" => t("Distrikt Marowijne"),
+		"NI" => t("Distrikt Nickerie"),
+		"PR" => t("Distrikt Para"),
+		"PM" => t("Distrikt Paramaribo"),
+		"SA" => t("Distrikt Saramacca"),
+		"SI" => t("Distrikt Sipaliwini"),
+		"WA" => t("Distrikt Wanica"),
 	);
 }

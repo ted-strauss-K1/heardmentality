@@ -2,15 +2,14 @@
 
 function location_province_list_sb () {
 	return array (
-		"CE" => t("Central"),
+		"CE" => t("Central Province"),
 		"CH" => t("Choiseul"),
-		"CT" => t("Capital Territory"),
-		"GU" => t("Guadalcanal"),
-		"IS" => t("Isabel"),
-		"MK" => t("Makira"),
-		"ML" => t("Malaita"),
+		"GU" => t("Guadalcanal Province"),
+		"IS" => t("Isabel Province"),
+		"MK" => t("Makira-Ulawa Province"),
+		"ML" => t("Malaita Province"),
 		"RB" => t("Rennell and Bellona"),
-		"TE" => t("Temotu"),
-		"WE" => t("Western"),
+		"TE" => t("Temotu Province"),
+		"WE" => t("Western Province"),
 	);
 }

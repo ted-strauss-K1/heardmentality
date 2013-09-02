@@ -1,64 +1,36 @@
 <?php
 
-function location_cities_list_bg_28 () {
+function location_cities_list_bg_01 () {
 	return array (
-		"725578" => t("Yambol"),
+		"727447" => t("Sandanski"),
+		"728288" => t("Petrich"),
+		"731108" => t("Gotse Delchev"),
+		"733191" => t("Blagoevgrad"),
 	);
 }
 
 
-function location_cities_list_bg_06 () {
+function location_cities_list_bg_02 () {
 	return array (
-		"725712" => t("Vratsa"),
+		"730559" => t("Karnobat"),
+		"732770" => t("Burgas"),
+		"733579" => t("Aytos"),
 	);
 }
 
 
-function location_cities_list_bg_05 () {
+function location_cities_list_bg_07 () {
 	return array (
-		"725905" => t("Vidin"),
-	);
-}
-
-
-function location_cities_list_bg_13 () {
-	return array (
-		"728448" => t("Panagyurishte"),
-		"728378" => t("Pazardzhik"),
-		"728317" => t("Peshtera"),
-		"725988" => t("Velingrad"),
-	);
-}
-
-
-function location_cities_list_bg_04 () {
-	return array (
-		"731233" => t("Gorna Oryakhovitsa"),
-		"726534" => t("Svishtov"),
-		"725993" => t("Veliko Turnovo"),
-	);
-}
-
-
-function location_cities_list_bg_03 () {
-	return array (
-		"726050" => t("Varna"),
-	);
-}
-
-
-function location_cities_list_bg_25 () {
-	return array (
-		"728075" => t("Popovo"),
-		"726174" => t("Targovishte"),
+		"727337" => t("Sevlievo"),
+		"731549" => t("Gabrovo"),
 	);
 }
 
 
 function location_cities_list_bg_11 () {
 	return array (
-		"729559" => t("Lovech"),
 		"726320" => t("Troyan"),
+		"729559" => t("Lovech"),
 	);
 }
 
@@ -72,19 +44,10 @@ function location_cities_list_bg_08 () {
 
 function location_cities_list_bg_26 () {
 	return array (
-		"732263" => t("Dimitrovgrad"),
+		"726546" => t("Svilengrad"),
 		"730435" => t("Haskovo"),
 		"730442" => t("Kharmanli"),
-		"726546" => t("Svilengrad"),
-	);
-}
-
-
-function location_cities_list_bg_24 () {
-	return array (
-		"732452" => t("Chirpan"),
-		"730496" => t("Kazanluk"),
-		"726848" => t("Stara Zagora"),
+		"732263" => t("Dimitrovgrad"),
 	);
 }
 
@@ -97,71 +60,26 @@ function location_cities_list_bg_10 () {
 }
 
 
-function location_cities_list_bg_22 () {
+function location_cities_list_bg_09 () {
 	return array (
-		"727011" => t("Sofia"),
+		"729794" => t("Kurdzhali"),
 	);
 }
 
 
-function location_cities_list_bg_21 () {
+function location_cities_list_bg_12 () {
 	return array (
-		"727030" => t("Smolyan"),
+		"729114" => t("Montana"),
+		"729581" => t("Lom"),
+		"733264" => t("Berkovitsa"),
 	);
 }
 
 
-function location_cities_list_bg_20 () {
+function location_cities_list_bg_15 () {
 	return array (
-		"728742" => t("Nova Zagora"),
-		"727079" => t("Sliven"),
-	);
-}
-
-
-function location_cities_list_bg_19 () {
-	return array (
-		"727221" => t("Silistra"),
-	);
-}
-
-
-function location_cities_list_bg_27 () {
-	return array (
-		"727233" => t("Shumen"),
-	);
-}
-
-
-function location_cities_list_bg_07 () {
-	return array (
-		"731549" => t("Gabrovo"),
-		"727337" => t("Sevlievo"),
-	);
-}
-
-
-function location_cities_list_bg_01 () {
-	return array (
-		"733191" => t("Blagoevgrad"),
-		"731108" => t("Gotse Delchev"),
-		"728288" => t("Petrich"),
-		"727447" => t("Sandanski"),
-	);
-}
-
-
-function location_cities_list_bg_23 () {
-	return array (
-		"733014" => t("Botevgrad"),
-		"727462" => t("Samokov"),
-	);
-}
-
-
-function location_cities_list_bg_18 () {
-	return array (
-		"727523" => t("Ruse"),
+		"728203" => t("Pleven"),
+		"732491" => t("Cherven Bryag"),
 	);
 }
 
@@ -173,20 +91,95 @@ function location_cities_list_bg_17 () {
 }
 
 
-function location_cities_list_bg_16 () {
+function location_cities_list_bg_18 () {
 	return array (
-		"733618" => t("Asenovgrad"),
-		"730565" => t("Karlovo"),
-		"728193" => t("Plovdiv"),
-		"727791" => t("Rakovski"),
+		"727523" => t("Ruse"),
 	);
 }
 
 
-function location_cities_list_bg_15 () {
+function location_cities_list_bg_27 () {
 	return array (
-		"732491" => t("Cherven Bryag"),
-		"728203" => t("Pleven"),
+		"727233" => t("Shumen"),
+	);
+}
+
+
+function location_cities_list_bg_19 () {
+	return array (
+		"727221" => t("Silistra"),
+	);
+}
+
+
+function location_cities_list_bg_20 () {
+	return array (
+		"727079" => t("Sliven"),
+		"728742" => t("Nova Zagora"),
+	);
+}
+
+
+function location_cities_list_bg_21 () {
+	return array (
+		"727030" => t("Smolyan"),
+	);
+}
+
+
+function location_cities_list_bg_24 () {
+	return array (
+		"726848" => t("Stara Zagora"),
+		"730496" => t("Kazanluk"),
+		"732452" => t("Chirpan"),
+	);
+}
+
+
+function location_cities_list_bg_25 () {
+	return array (
+		"726174" => t("Targovishte"),
+		"728075" => t("Popovo"),
+	);
+}
+
+
+function location_cities_list_bg_04 () {
+	return array (
+		"725993" => t("Veliko Turnovo"),
+		"726534" => t("Svishtov"),
+		"731233" => t("Gorna Oryakhovitsa"),
+	);
+}
+
+
+function location_cities_list_bg_05 () {
+	return array (
+		"725905" => t("Vidin"),
+	);
+}
+
+
+function location_cities_list_bg_06 () {
+	return array (
+		"725712" => t("Vratsa"),
+	);
+}
+
+
+function location_cities_list_bg_28 () {
+	return array (
+		"725578" => t("Yambol"),
+	);
+}
+
+
+function location_cities_list_bg_13 () {
+	return array (
+		"725988" => t("Velingrad"),
+		"728317" => t("Peshtera"),
+		"728378" => t("Pazardzhik"),
+		"728448" => t("Panagyurishte"),
 	);
 }
 
@@ -198,28 +191,33 @@ function location_cities_list_bg_14 () {
 }
 
 
-function location_cities_list_bg_12 () {
+function location_cities_list_bg_16 () {
 	return array (
-		"733264" => t("Berkovitsa"),
-		"729581" => t("Lom"),
-		"729114" => t("Montana"),
+		"727791" => t("Rakovski"),
+		"728193" => t("Plovdiv"),
+		"730565" => t("Karlovo"),
+		"733618" => t("Asenovgrad"),
 	);
 }
 
 
-function location_cities_list_bg_09 () {
+function location_cities_list_bg_22 () {
 	return array (
-		"729794" => t("Kurdzhali"),
+		"727011" => t("Sofia"),
 	);
 }
 
 
-function location_cities_list_bg_02 () {
+function location_cities_list_bg_23 () {
 	return array (
-		"733579" => t("Aytos"),
-		"732770" => t("Burgas"),
-		"730559" => t("Karnobat"),
+		"727462" => t("Samokov"),
+		"733014" => t("Botevgrad"),
 	);
 }
 
 
+function location_cities_list_bg_03 () {
+	return array (
+		"726050" => t("Varna"),
+	);
+}
