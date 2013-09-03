@@ -2,10 +2,10 @@
 
 function location_province_list_dk () {
 	return array (
-		"81" => t("Region Nordjylland"),
-		"82" => t("Region Midtjylland"),
-		"83" => t("Region Syddanmark"),
-		"84" => t("Region Hovedstaden"),
-		"85" => t("Region Sjaland"),
+		"84" => t("Capital Region"),
+		"82" => t("Central Jutland"),
+		"81" => t("North Denmark Region"),
+		"83" => t("South Denmark"),
+		"85" => t("Zealand"),
 	);
 }

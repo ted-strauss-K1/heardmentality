@@ -3,16 +3,16 @@
 function location_province_list_jo () {
 	return array (
 		"AJ" => t("Ajlun"),
-		"AM" => t("'Amman"),
-		"AQ" => t("Al 'Aqabah"),
-		"AT" => t("At Tafilah"),
-		"AZ" => t("Az Zarqa'"),
-		"BA" => t("Al Balqa'"),
+		"AM" => t("Amman"),
+		"AQ" => t("Aqaba"),
+		"BA" => t("Balqa"),
 		"IR" => t("Irbid"),
-		"JA" => t("Jarash"),
-		"KA" => t("Al Karak"),
-		"MA" => t("Al Mafraq"),
+		"JA" => t("Jerash"),
+		"KA" => t("Karak"),
 		"MD" => t("Madaba"),
-		"MN" => t("Ma'an"),
+		"MA" => t("Mafraq"),
+		"MN" => t("Ma’an"),
+		"AT" => t("Tafielah"),
+		"AZ" => t("Zarqa"),
 	);
 }

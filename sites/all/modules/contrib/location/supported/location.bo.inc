@@ -2,14 +2,14 @@
 
 function location_province_list_bo () {
 	return array (
-		"B" => t("Departmento Beni"),
-		"C" => t("Departmento Cochabamba"),
-		"H" => t("Departmento Chuquisaca"),
-		"L" => t("Departmento La Paz"),
-		"N" => t("Departmento Pando"),
-		"O" => t("Departmento Oruro"),
-		"P" => t("Departmento Potosi"),
-		"S" => t("Departmento Santa Cruz"),
-		"T" => t("Departmento Tarija"),
+		"H" => t("Departamento de Chuquisaca"),
+		"C" => t("Departamento de Cochabamba"),
+		"L" => t("Departamento de La Paz"),
+		"N" => t("Departamento de Pando"),
+		"P" => t("Departamento de Potosí"),
+		"S" => t("Departamento de Santa Cruz"),
+		"T" => t("Departamento de Tarija"),
+		"B" => t("Departamento del Beni"),
+		"O" => t("Oruro"),
 	);
 }

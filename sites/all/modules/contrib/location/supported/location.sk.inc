@@ -2,13 +2,13 @@
 
 function location_province_list_sk () {
 	return array (
-		"BC" => t("Banskobystricky"),
-		"BL" => t("Bratislavsky"),
-		"KI" => t("Kosicky"),
-		"NI" => t("Nitriansky"),
-		"PV" => t("Presovsky"),
-		"TA" => t("Trnavsky"),
-		"TC" => t("Trenciansky"),
-		"ZI" => t("Zilinsky"),
+		"BC" => t("Banskobystrický kraj"),
+		"BL" => t("Bratislavský kraj"),
+		"KI" => t("Košický kraj"),
+		"NI" => t("Nitriansky kraj"),
+		"PV" => t("Prešovský kraj"),
+		"TC" => t("Trenčiansky kraj"),
+		"TA" => t("Trnavský kraj"),
+		"ZI" => t("Žilinský kraj"),
 	);
 }

@@ -1,117 +1,141 @@
 <?php
 
+
 function location_cities_list_gr_i () {
 	return array (
-		"265488" => t("Acharnes"),
-		"264194" => t("Agia Paraskevi"),
-		"264111" => t("Agia Varvara"),
-		"265533" => t("Aigaleo"),
-		"6639653" => t("Alimos"),
-		"261614" => t("Alimos"),
-		"264888" => t("Ano Liosia"),
-		"264445" => t("Aspropyrgos"),
-		"264371" => t("Athens"),
-		"259949" => t("Cholargos"),
-		"262752" => t("Elefsina"),
-		"262719" => t("Elliniko"),
-		"262135" => t("Galatsi"),
-		"256601" => t("Ilion"),
-		"261743" => t("Irakleio"),
-		"261678" => t("Kaisariani"),
-		"261414" => t("Kallithea"),
-		"260204" => t("Keratsini"),
-		"260172" => t("Khalandrion"),
-		"259824" => t("Kifisia"),
-		"259251" => t("Koropi"),
-		"7522530" => t("Marousi"),
-		"265243" => t("Marousi"),
-		"257365" => t("Megara"),
-		"257302" => t("Melissia"),
-		"256750" => t("Moskhaton"),
-		"256622" => t("Nea Erythraia"),
-		"256621" => t("Nea Filadelfeia"),
-		"256614" => t("Nea Ionia"),
-		"256575" => t("Nea Smyrni"),
-		"256429" => t("Nikaia"),
-		"256075" => t("Palaio Faliro"),
-		"255588" => t("Perama"),
-		"255524" => t("Peristeri"),
-		"255377" => t("Petroupolis"),
-		"255274" => t("Piraeus"),
-		"254144" => t("Salamis"),
 		"251780" => t("Voula"),
-		"6324534" => t("Vrilissia"),
 		"251948" => t("Vyronas"),
-	);
-}
-
-
-function location_cities_list_gr_e () {
-	return array (
-		"260989" => t("Karditsa"),
-		"258576" => t("Larisa"),
-		"252664" => t("Trikala"),
-		"251833" => t("Volos"),
-	);
-}
-
-
-function location_cities_list_gr_j () {
-	return array (
-		"264670" => t("Argos"),
-		"261604" => t("Kalamata"),
-		"259289" => t("Korinthos"),
-		"253394" => t("Sparti"),
-		"252601" => t("Tripoli"),
+		"254144" => t("Salamis"),
+		"255274" => t("Piraeus"),
+		"255377" => t("Petroupolis"),
+		"255524" => t("Peristeri"),
+		"255588" => t("Perama"),
+		"256075" => t("Palaio Faliro"),
+		"256429" => t("Nikaia"),
+		"256575" => t("Nea Smyrni"),
+		"256601" => t("Ilion"),
+		"256614" => t("Nea Ionia"),
+		"256621" => t("Nea Filadelfeia"),
+		"256622" => t("Nea Erythraia"),
+		"256750" => t("Moskhaton"),
+		"257302" => t("Melissia"),
+		"257365" => t("Megara"),
+		"259251" => t("Koropi"),
+		"259824" => t("Kifisia"),
+		"259949" => t("Cholargos"),
+		"260172" => t("Khalandrion"),
+		"260204" => t("Keratsini"),
+		"261414" => t("Kallithea"),
+		"261614" => t("Alimos"),
+		"261678" => t("Kaisariani"),
+		"261743" => t("Irakleio"),
+		"262135" => t("Galatsi"),
+		"262719" => t("Elliniko"),
+		"262752" => t("Elefsina"),
+		"264111" => t("Agia Varvara"),
+		"264194" => t("Agia Paraskevi"),
+		"264371" => t("Athens"),
+		"264445" => t("Aspropyrgos"),
+		"264888" => t("Ano Liosia"),
+		"265243" => t("Marousi"),
+		"265488" => t("Acharnes"),
+		"265533" => t("Aigaleo"),
+		"6324534" => t("Vrilissia"),
+		"7522530" => t("Marousi"),
 	);
 }
 
 
 function location_cities_list_gr_h () {
 	return array (
-		"260133" => t("Chalkida"),
-		"258620" => t("Lamia"),
-		"258463" => t("Livadeia"),
 		"252910" => t("Thivai"),
+		"258463" => t("Livadeia"),
+		"258620" => t("Lamia"),
+		"260133" => t("Chalkida"),
+	);
+}
+
+
+function location_cities_list_gr_b () {
+	return array (
+		"733776" => t("Giannitsa"),
+		"733905" => t("Veroia"),
+		"734077" => t("Thessaloniki"),
+		"734301" => t("Sykies"),
+		"734330" => t("Serres"),
+		"734538" => t("Polichni"),
+		"734643" => t("Pylaia"),
+		"734712" => t("Peraia"),
+		"734771" => t("Panorama"),
+		"734883" => t("Oraiokastro"),
+		"735030" => t("Naousa"),
+		"735215" => t("Menemeni"),
+		"735736" => t("Kilkis"),
+		"735914" => t("Katerini"),
+		"736083" => t("Kalamaria"),
+		"736357" => t("Edessa"),
 	);
 }
 
 
 function location_cities_list_gr_m () {
 	return array (
+		"254352" => t("Rethymno"),
 		"260114" => t("Chania"),
 		"261745" => t("Irakleion"),
-		"254352" => t("Rethymno"),
+	);
+}
+
+
+function location_cities_list_gr_a () {
+	return array (
+		"733840" => t("Xanthi"),
+		"734880" => t("Orestiada"),
+		"735640" => t("Komotini"),
+		"735861" => t("Kavala"),
+		"736364" => t("Drama"),
+		"736928" => t("Alexandroupoli"),
 	);
 }
 
 
 function location_cities_list_gr_d () {
 	return array (
-		"264559" => t("Arta"),
-		"261779" => t("Ioannina"),
 		"254698" => t("Preveza"),
+		"261779" => t("Ioannina"),
+		"264559" => t("Arta"),
 	);
 }
 
 
-function location_cities_list_gr_g () {
+function location_cities_list_gr_f () {
 	return array (
-		"265560" => t("Agrinio"),
-		"265500" => t("Aigio"),
-		"265252" => t("Amaliada"),
-		"6693122" => t("Mesolongi"),
-		"256639" => t("Nafpaktos"),
-		"255683" => t("Patra"),
-		"255229" => t("Pyrgos"),
+		"2463679" => t("Kerkyra"),
+	);
+}
+
+
+function location_cities_list_gr_69 () {
+	return array (
 	);
 }
 
 
 function location_cities_list_gr_k () {
 	return array (
-		"259973" => t("Chios"),
 		"256866" => t("Mytilini"),
+		"259973" => t("Chios"),
+	);
+}
+
+
+function location_cities_list_gr_j () {
+	return array (
+		"252601" => t("Tripoli"),
+		"253394" => t("Sparti"),
+		"259289" => t("Korinthos"),
+		"261604" => t("Kalamata"),
+		"264670" => t("Argos"),
 	);
 }
 
@@ -124,53 +148,32 @@ function location_cities_list_gr_l () {
 }
 
 
-function location_cities_list_gr_b () {
+function location_cities_list_gr_e () {
 	return array (
-		"736357" => t("Edessa"),
-		"733776" => t("Giannitsa"),
-		"736083" => t("Kalamaria"),
-		"735914" => t("Katerini"),
-		"735736" => t("Kilkis"),
-		"735215" => t("Menemeni"),
-		"735030" => t("Naousa"),
-		"734883" => t("Oraiokastro"),
-		"734771" => t("Panorama"),
-		"734712" => t("Peraia"),
-		"734538" => t("Polichni"),
-		"734643" => t("Pylaia"),
-		"734330" => t("Serres"),
-		"734301" => t("Sykies"),
-		"734077" => t("Thessaloniki"),
-		"733905" => t("Veroia"),
+		"251833" => t("Volos"),
+		"252664" => t("Trikala"),
+		"258576" => t("Larisa"),
+		"260989" => t("Karditsa"),
 	);
 }
 
 
-function location_cities_list_gr_a () {
+function location_cities_list_gr_g () {
 	return array (
-		"736928" => t("Alexandroupoli"),
-		"736364" => t("Drama"),
-		"735861" => t("Kavala"),
-		"735640" => t("Komotini"),
-		"734880" => t("Orestiada"),
-		"733840" => t("Xanthi"),
+		"255229" => t("Pyrgos"),
+		"255683" => t("Patra"),
+		"256639" => t("Nafpaktos"),
+		"265252" => t("Amaliada"),
+		"265500" => t("Aigio"),
+		"265560" => t("Agrinio"),
 	);
 }
 
 
 function location_cities_list_gr_c () {
 	return array (
-		"736229" => t("Florina"),
-		"735563" => t("Kozani"),
 		"734426" => t("Ptolemaida"),
+		"735563" => t("Kozani"),
+		"736229" => t("Florina"),
 	);
 }
-
-
-function location_cities_list_gr_f () {
-	return array (
-		"2463679" => t("Kerkyra"),
-	);
-}
-
-

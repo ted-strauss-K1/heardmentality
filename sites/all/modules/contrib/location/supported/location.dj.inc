@@ -2,11 +2,11 @@
 
 function location_province_list_dj () {
 	return array (
-		"AR" => t("Arta"),
-		"AS" => t("'Ali Sabih"),
+		"AS" => t("Ali Sabieh Region"),
+		"AR" => t("Arta Region"),
 		"DI" => t("Dikhil"),
-		"DJ" => t("Djibouti"),
+		"DJ" => t("Djibouti Region"),
 		"OB" => t("Obock"),
-		"TA" => t("Tadjoura"),
+		"TA" => t("Tadjourah"),
 	);
 }

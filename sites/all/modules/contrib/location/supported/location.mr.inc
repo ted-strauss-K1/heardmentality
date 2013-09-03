@@ -2,18 +2,18 @@
 
 function location_province_list_mr () {
 	return array (
-		"01" => t("Hodh Ech Chargui"),
-		"02" => t("Hodh El Gharbi"),
-		"03" => t("Assaba"),
-		"04" => t("Gorgol"),
-		"05" => t("Brakna"),
-		"06" => t("Trarza"),
 		"07" => t("Adrar"),
+		"03" => t("Assaba"),
+		"05" => t("Brakna"),
 		"08" => t("Dakhlet Nouadhibou"),
-		"09" => t("Tagant"),
+		"NKC" => t("District de Nouakchott"),
+		"04" => t("Gorgol"),
 		"10" => t("Guidimaka"),
-		"11" => t("Tiris Zemmour"),
+		"01" => t("Hodh ech Chargui"),
+		"02" => t("Hodh el Gharbi"),
 		"12" => t("Inchiri"),
-		"NKC" => t("Nouakchott"),
+		"09" => t("Tagant"),
+		"11" => t("Tiris Zemmour"),
+		"06" => t("Wilaya du Trarza"),
 	);
 }

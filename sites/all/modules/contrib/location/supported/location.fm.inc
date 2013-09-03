@@ -2,9 +2,9 @@
 
 function location_province_list_fm () {
 	return array (
-		"KSA" => t("Kosrae"),
-		"PNI" => t("Pohnpei"),
-		"TRK" => t("Chuuk"),
-		"YAP" => t("Yap"),
+		"TRK" => t("State of Chuuk"),
+		"KSA" => t("State of Kosrae"),
+		"PNI" => t("State of Pohnpei"),
+		"YAP" => t("State of Yap"),
 	);
 }

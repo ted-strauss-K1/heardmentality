@@ -2,19 +2,19 @@
 
 function location_province_list_uz () {
 	return array (
-		"AN" => t("Andijon"),
-		"BU" => t("Buxoro"),
-		"FA" => t("Farg'ona"),
-		"JI" => t("Jizzax"),
-		"NG" => t("Namangan"),
-		"NW" => t("Navoiy"),
-		"QA" => t("Qashqadaryo"),
-		"QR" => t("Qoraqalpog'iston Republikasi"),
-		"SA" => t("Samarqand"),
+		"AN" => t("Andijan"),
+		"BU" => t("Bukhara"),
+		"FA" => t("Fergana"),
+		"JI" => t("Jizzakh Province"),
+		"QR" => t("Karakalpakstan"),
+		"QA" => t("Kashkadarya Province"),
+		"NG" => t("Namangan Province"),
+		"NW" => t("Navoiy Province"),
+		"SA" => t("Samarqand Viloyati"),
 		"SI" => t("Sirdaryo"),
-		"SU" => t("Surxondaryo"),
-		"TK" => t("Toshkent city"),
-		"TO" => t("Toshkent region"),
-		"XO" => t("Xorazm"),
+		"SU" => t("Surxondaryo Viloyati"),
+		"TK" => t("Toshkent Shahri"),
+		"TO" => t("Toshkent Viloyati"),
+		"XO" => t("Xorazm Viloyati"),
 	);
 }

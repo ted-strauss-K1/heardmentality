@@ -2,8 +2,8 @@
 
 function location_province_list_wf () {
 	return array (
-		"A" => t("Alo"),
-		"S" => t("Sigave"),
-		"W" => t("ʻUvea "),
+		"A" => t("Circonscription d'Alo"),
+		"W" => t("Circonscription d'Uvéa"),
+		"S" => t("Circonscription de Sigavé"),
 	);
 }

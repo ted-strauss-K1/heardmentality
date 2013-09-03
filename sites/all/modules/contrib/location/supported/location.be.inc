@@ -2,8 +2,8 @@
 
 function location_province_list_be () {
 	return array (
-		"BRU" => t("Brussels"),
+		"BRU" => t("Brussels Capital Region"),
 		"VLG" => t("Flanders"),
-		"WAL" => t("Wallonia"),
+		"WAL" => t("Walloon Region"),
 	);
 }

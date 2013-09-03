@@ -4,7 +4,7 @@ function location_province_list_li () {
 	return array (
 		"01" => t("Balzers"),
 		"02" => t("Eschen"),
-		"03" => t("Gamprin"),
+		"03" => t("Gemeinde Gamprin"),
 		"04" => t("Mauren"),
 		"05" => t("Planken"),
 		"06" => t("Ruggell"),

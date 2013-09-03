@@ -8,12 +8,12 @@ function location_province_list_na () {
 		"KA" => t("Karas"),
 		"KH" => t("Khomas"),
 		"KU" => t("Kunene"),
-		"OD" => t("Otjozondjupa"),
-		"OH" => t("Omaheke"),
-		"OK" => t("Kavango"),
-		"ON" => t("Oshana"),
-		"OS" => t("Omusati"),
-		"OT" => t("Oshikoto"),
 		"OW" => t("Ohangwena"),
+		"OK" => t("Okavango"),
+		"OH" => t("Omaheke"),
+		"OS" => t("Omusati"),
+		"ON" => t("Oshana"),
+		"OT" => t("Oshikoto"),
+		"OD" => t("Otjozondjupa"),
 	);
 }

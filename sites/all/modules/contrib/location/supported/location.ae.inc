@@ -2,12 +2,12 @@
 
 function location_province_list_ae () {
 	return array (
-		"AJ" => t("'Ajman"),
-		"AZ" => t("Abu Zaby"),
-		"DU" => t("Dubayy"),
+		"AZ" => t("Abu Dhabi"),
+		"AJ" => t("Ajman"),
 		"FU" => t("Al Fujayrah"),
-		"RK" => t("R'as al Khaymah"),
-		"SH" => t("Ash Shariqah"),
+		"SH" => t("Ash Shāriqah"),
+		"DU" => t("Dubai"),
+		"RK" => t("Ra’s al Khaymah"),
 		"UQ" => t("Umm al Qaywayn"),
 	);
 }

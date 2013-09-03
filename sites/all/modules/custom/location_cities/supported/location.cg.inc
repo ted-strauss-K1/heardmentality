@@ -1,16 +1,9 @@
 <?php
 
-function location_cities_list_cg_2 () {
-	return array (
-		"2255285" => t("Sibiti"),
-	);
-}
 
-
-function location_cities_list_cg_5 () {
+function location_cities_list_cg_bzv () {
 	return array (
-		"2258378" => t("Loandjili"),
-		"2255414" => t("Pointe-Noire"),
+		"2260535" => t("Brazzaville"),
 	);
 }
 
@@ -22,25 +15,8 @@ function location_cities_list_cg_8 () {
 }
 
 
-function location_cities_list_cg_13 () {
+function location_cities_list_cg_15 () {
 	return array (
-		"2255564" => t("Ouesso"),
-	);
-}
-
-
-function location_cities_list_cg_9 () {
-	return array (
-		"2258261" => t("Dolisie"),
-		"2256895" => t("Mossendjo"),
-	);
-}
-
-
-function location_cities_list_cg_11 () {
-	return array (
-		"2259383" => t("Kayes"),
-		"2257990" => t("Madingou"),
 	);
 }
 
@@ -59,10 +35,51 @@ function location_cities_list_cg_14 () {
 }
 
 
-function location_cities_list_cg_bzv () {
+function location_cities_list_cg_7280295 () {
 	return array (
-		"2260535" => t("Brazzaville"),
 	);
 }
 
 
+function location_cities_list_cg_12 () {
+	return array (
+	);
+}
+
+
+function location_cities_list_cg_11 () {
+	return array (
+		"2257990" => t("Madingou"),
+		"2259383" => t("Kayes"),
+	);
+}
+
+
+function location_cities_list_cg_2 () {
+	return array (
+		"2255285" => t("Sibiti"),
+	);
+}
+
+
+function location_cities_list_cg_5 () {
+	return array (
+		"2255414" => t("Pointe-Noire"),
+		"2258378" => t("Loandjili"),
+	);
+}
+
+
+function location_cities_list_cg_9 () {
+	return array (
+		"2256895" => t("Mossendjo"),
+		"2258261" => t("Dolisie"),
+	);
+}
+
+
+function location_cities_list_cg_13 () {
+	return array (
+		"2255564" => t("Ouesso"),
+	);
+}

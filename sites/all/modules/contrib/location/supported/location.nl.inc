@@ -2,17 +2,17 @@
 
 function location_province_list_nl () {
 	return array (
-		"DR" => t("Drenthe"),
-		"FL" => t("Flevoland"),
 		"FR" => t("Friesland"),
-		"GE" => t("Gelderland"),
 		"GR" => t("Groningen"),
-		"LI" => t("Limburg"),
-		"NB" => t("Noord Brabant"),
-		"NH" => t("Noord Holland"),
-		"OV" => t("Overijssel"),
-		"UT" => t("Utrecht"),
-		"ZE" => t("Zeeland"),
-		"ZH" => t("Zuid Holland"),
+		"NB" => t("North Brabant"),
+		"NH" => t("North Holland"),
+		"DR" => t("Provincie Drenthe"),
+		"FL" => t("Provincie Flevoland"),
+		"GE" => t("Provincie Gelderland"),
+		"LI" => t("Provincie Limburg"),
+		"OV" => t("Provincie Overijssel"),
+		"UT" => t("Provincie Utrecht"),
+		"ZE" => t("Provincie Zeeland"),
+		"ZH" => t("South Holland"),
 	);
 }

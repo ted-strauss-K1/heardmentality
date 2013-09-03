@@ -7,13 +7,13 @@ function location_province_list_tl () {
 		"BA" => t("Baucau"),
 		"BO" => t("Bobonaro"),
 		"CO" => t("Cova Lima"),
-		"DI" => t("Dili"),
+		"OE" => t("Distrito Oecussi-Ambeno"),
+		"DI" => t("Díli"),
 		"ER" => t("Ermera"),
-		"LA" => t("Lautem"),
-		"LI" => t("Liquica"),
-		"MF" => t("Manufahi"),
+		"LA" => t("Lautém"),
+		"LI" => t("Liquiçá"),
 		"MT" => t("Manatuto"),
-		"OE" => t("Oecussi"),
+		"MF" => t("Manufahi"),
 		"VI" => t("Viqueque"),
 	);
 }

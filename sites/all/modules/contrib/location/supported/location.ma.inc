@@ -2,21 +2,21 @@
 
 function location_province_list_ma () {
 	return array (
-		"01" => t("Tanger-Tetouan"),
-		"02" => t("Gharb-Chrarda-Beni Hssen"),
-		"03" => t("Taza-Al Hoceima-Taounate"),
-		"04" => t("Oriental"),
-		"05" => t("Fes-Boulemane"),
-		"06" => t("Meknes-Tafilalet"),
-		"07" => t("Rabat-Sale-Zemmour-Zaer"),
-		"08" => t("Grand Casablanca"),
 		"09" => t("Chaouia-Ouardigha"),
 		"10" => t("Doukkala-Abda"),
+		"02" => t("Gharb-Chrarda-Beni Hssen"),
+		"14" => t("Guelmim-Es Semara"),
+		"15" => t("Laâyoune-Boujdour-Sakia El Hamra"),
 		"11" => t("Marrakech-Tensift-Al Haouz"),
+		"04" => t("Oriental Region"),
+		"EH" => t("Oued ed Dahab-Lagouira"),
+		"05" => t("Région de Fès-Boulemane"),
+		"06" => t("Région de Meknès-Tafilalet"),
+		"07" => t("Région de Rabat-Salé-Zemmour-Zaër"),
+		"13" => t("Région de Souss-Massa-Drâa"),
+		"01" => t("Région de Tanger-Tétouan"),
+		"08" => t("Région du Grand Casablanca"),
 		"12" => t("Tadla-Azilal"),
-		"13" => t("Souss-Massa-Draa"),
-		"14" => t("Guelmim-Es Smara"),
-		"15" => t("Laayoune-Boujdour-Sakia El Hamra"),
-		"16" => t("Oued ed Dahab-Lagouira"),
+		"03" => t("Taza-Al Hoceima-Taounate"),
 	);
 }

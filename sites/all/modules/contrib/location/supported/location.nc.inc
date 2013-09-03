@@ -2,8 +2,8 @@
 
 function location_province_list_nc () {
 	return array (
-		"L" => t("Iles Loyaute"),
-		"N" => t("Nord"),
-		"S" => t("Sud"),
+		"N" => t("Province Nord"),
+		"S" => t("Province Sud"),
+		"L" => t("Province des îles Loyauté"),
 	);
 }

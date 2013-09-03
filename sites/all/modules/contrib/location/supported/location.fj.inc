@@ -2,10 +2,10 @@
 
 function location_province_list_fj () {
 	return array (
-		"C" => t("Central Division"),
-		"E" => t("Eastern Division"),
-		"N" => t("Northern Division"),
+		"C" => t("Central"),
+		"E" => t("Eastern"),
+		"N" => t("Northern"),
 		"R" => t("Rotuma"),
-		"W" => t("Western Division"),
+		"W" => t("Western"),
 	);
 }

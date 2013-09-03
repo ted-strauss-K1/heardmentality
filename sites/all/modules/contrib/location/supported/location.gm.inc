@@ -2,11 +2,11 @@
 
 function location_province_list_gm () {
 	return array (
-		"B" => t("Banjul"),
-		"L" => t("Lower River"),
-		"M" => t("Central River"),
-		"N" => t("North Bank"),
+		"M" => t("Central River Division"),
+		"B" => t("City of Banjul"),
+		"L" => t("Lower River Division"),
+		"N" => t("North Bank Division"),
 		"U" => t("Upper River"),
-		"W" => t("Western"),
+		"W" => t("Western Division"),
 	);
 }
