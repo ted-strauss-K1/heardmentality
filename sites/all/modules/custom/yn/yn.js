@@ -6,7 +6,7 @@
 $('.yn-a, .yn-d').live('click', function (e) {
   e.preventDefault();
   var el = $(this);
-  var url = '/'+Drupal.settings.language+'/yn/' + el.attr('name');
+  var url = Drupal.settings.language_prefix+'/yn/' + el.attr('name');
   $.ajax({
     type:"POST",
     dataType:'json',
