@@ -1,6 +1,11 @@
 <?php
 
 /**
+ *
+ */
+include_once "charts.inc";
+
+/**
  * Implementation of hook_theme()
  *
  * @return array
@@ -17,25 +22,37 @@ function charts_theme()
   $theme['charts_inner'] = array(
     'arguments' => array('node' => NULL),
     'template' => 'charts-inner',
-    'preprocess functions' => array('charts_common_preprocess', 'charts_inner_preprocess'),
+    'preprocess functions' => array('charts_inner_theme_preprocess'),
   );
 
   # chart parts
+  $theme['charts_legend'] = array(
+    'arguments' => array('node' => NULL),
+  );
+  $theme['charts_gmap'] = array(
+    'arguments' => array('node' => NULL),
+  );
+  $theme['charts_history'] = array(
+    'arguments' => array('node' => NULL),
+  );
+
+
+
+
+  // todo check below
+
+
+
+
   $theme['charts_filter'] = array(
     'arguments' => array('node' => NULL),
   );
   $theme['charts_quickfacts'] = array(
     'arguments' => array('node' => NULL),
   );
-  $theme['charts_legend'] = array(
-    'arguments' => array('node' => NULL),
-  );
-  $theme['charts_history'] = array(
-    'arguments' => array('node' => NULL),
-  );
-  $theme['charts_gmap'] = array(
-    'arguments' => array('node' => NULL),
-  );
+
+
+
 
   $theme['charts_strength'] = array(
     'arguments' => array('node' => NULL),
@@ -53,12 +70,417 @@ function charts_theme_preprocess(&$vars)
 {
   $node = $vars['node'];
 
+  # load js/css
+  $path = drupal_get_path('module', 'charts') . '/include/';
+  drupal_add_css($path . 'nvd3/nv.d3.css');
+  drupal_add_js($path . 'd3/d3.v3.js');
+  drupal_add_js($path . 'nvd3/nv.d3.js');
+  drupal_add_js($path . 'd3/crossfilter.js');
+
+  # save settings to js
+  $chtexts = charts_chtexts($node);
+  drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
+  drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
+  drupal_add_js(array('charts' => array('colors' => charts_colors(TRUE))), 'setting');
+  drupal_add_js(array('charts' => array('vote' => $node->vote || !$node->cpoll['active'])), 'setting');
+
+  # charts content
   $vars['charts'] = '';
   if (!$node->vote && $node->cpoll['active']) {
     $vars['charts'] = '<span class="no_show">' . t('Vote now to show results.') . '</span>';
   }
-
   $vars['charts'] .= theme('charts_inner', $node);
+}
+
+/**
+ * Preprocess function for issue_charts_inner
+ *
+ * @param $vars
+ */
+function charts_inner_theme_preprocess(&$vars)
+{
+  $node = $vars['node'];
+
+  # legend
+  $vars['legend'] = theme('charts_legend', charts_chtexts($node));
+  # Google map
+  $vars['gmap'] = theme('charts_gmap', $node);
+  # Highchart History
+  $vars['history'] = theme('charts_history', $node);
+
+//  # Highchart Filter
+//  $vars['filter'] = theme('charts_filter', $node);
+//
+//  # Legend
+//
+//
+//
+
+  # Quick facts
+  $vars['quickfacts'] = $node->votecount <= 10 ?
+    t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') :
+    theme('charts_quickfacts', $node);
+}
+
+/**
+ * Graph Legend
+ *
+ * @param $chtexts
+ * @return string
+ */
+function theme_charts_legend($chtexts)
+{
+  $output = '';
+  $pattern = '<dl><dd>%s:</dd><dt style="background-color:%s;">color</dt></dl>';
+  foreach ($chtexts as $index => $answer) {
+    $output .= sprintf($pattern, $answer, charts_colors($index));
+  }
+  return $output;
+}
+
+/**
+ * Graphs' pages Google Map
+ *
+ * @param $node
+ * @return string
+ */
+function theme_charts_gmap($node)
+{
+  $gmap = charts_gmap($node);
+
+  drupal_add_js(array('charts' => array('gmap' => $gmap)), 'setting');
+  drupal_add_js(array('charts' => array('gmap_icons' => drupal_get_path('module', 'charts') . '/include/icons')), 'setting');
+  drupal_add_js(drupal_get_path('module', 'charts') . '/include/charts.gmap.js');
+  return '
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+    <div id="map_div" style="width: 100%; min-height: 280px"></div>
+  ';
+}
+
+/**
+ * @param $node
+ * @return array
+ */
+function charts_gmap($node) {
+  $gmap = array();
+
+  $fieldmap = variable_get(PROFILE_FIELDMAP, array());
+
+  $result = db_query("
+    SELECT pv1.value lat, pv2.value lng, v.chid
+    FROM {cpoll_choices} c
+    INNER JOIN {cpoll_votes} v ON v.chid = c.chid AND v.status = 1
+    INNER JOIN {users} u ON u.uid = v.uid
+    INNER JOIN {profile_values} pv1 ON pv1.fid = '%s' AND pv1.uid = u.uid
+    INNER JOIN {profile_values} pv2 ON pv2.fid = '%s' AND pv2.uid = u.uid
+    WHERE c.nid = '%d' AND pv1.value <> '' AND pv2.value <> ''",
+    $fieldmap['profile_lat']->fid, $fieldmap['profile_lng']->fid, $node->nid
+  );
+
+
+  while ($row = db_fetch_object($result)) {
+    $gmap[] = array($row->lat, $row->lng, charts_colors($node->choices[$row->chid]['index']));
+  }
+
+  return $gmap;
+}
+
+/**
+ * History
+ *
+ * @param $node
+ * @return string
+ */
+function theme_charts_history($node)
+{
+  charts_history_preprocess($node);
+  // drupal_add_js(drupal_get_path('module', 'charts') . "/includes/highstock/highstock.js");
+  drupal_add_js(drupal_get_path('module', 'charts') . "/include/charts.history.js");
+//  return '
+//    <div id="container_graph" class="highcharts-container" style="min-height:280px; width: 100%;"></div>
+//    <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
+//  ';
+  return '<div id="chart-history"><svg style="height:280px;"></svg></div>';
+}
+
+/**
+ * Preprocess function for issue_charts_history
+ *
+ * @param $vars
+ */
+function charts_history_preprocess($node)
+{
+  $history = charts_history($node);
+
+  # Put the data to Drupal.settings
+  drupal_add_js(array('charts' => array('history' => $history)), 'setting');
+}
+
+/**
+ * @param $node
+ * @return array
+ */
+function charts_history($node) {
+  # short names for choices
+  $chtexts = charts_chtexts($node);
+
+  # Get the vote history
+  $votes = array();
+  $mindate = time();
+  $maxdate = date('Y-m-d');
+  $result = db_query("
+    SELECT v.*, DATE(v.cdate) AS date
+    FROM {cpoll_choices} c
+    INNER JOIN {cpoll_votes} v ON v.chid = c.chid
+    WHERE c.nid = '%d' ORDER BY v.cdate ASC", $node->nid);
+  $cvotes = array();
+  while ($row = db_fetch_array($result)) {
+    $row['time'] = strtotime($row['date']);
+    if ($row['time'] < $mindate) {
+      $mindate = $row['time'];
+    }
+    $row += array('index' => $node->choices[$row['chid']]['index']);
+    if (isset($cvotes[$row['uid']])) {
+      $vote = $cvotes[$row['uid']];
+      $vote['status'] = 0;
+      $vote['date'] = $row['date'];
+      $vote['time'] = $row['time'];
+      $votes[] = $vote;
+    }
+    $cvotes[$row['uid']] = $row;
+    $row['status'] = 1;
+    $votes[] = $row;
+  }
+  # Get the date range of the votes
+  $date_range = dates_range(date('Y-m-d', $mindate ), $maxdate);
+  $week = count($date_range) > 6;
+  if (!$week) {
+    $date_range = dates_range(date('Y-m-d', strtotime('-6 days', strtotime($maxdate))), $maxdate);
+  }
+  # Get the starting date for graph
+  $mindate = array(
+    'year' => date('Y', $mindate),
+    'month' => date('m', $mindate) - 1,
+    'day' => $week ? date('d', $mindate) : date("d") - 6,
+  );
+
+  # Initialize statistics array
+  $stats = array();
+  $stats_patt = array();
+  foreach ($chtexts as $i => $choice) {
+    $stats_patt[$i] = 0;
+  }
+  foreach ($date_range as $date) {
+    $stats[$date] = $stats_patt;
+  }
+
+  # Collect statistics
+  $cdate = $date_range[0];
+  $ctime = strtotime($cdate);
+  $votes_count = count($votes);
+  for ($i = 0; $i < $votes_count; $i++) {
+    $vote = $votes[$i];
+    # Copy prev results
+    if ($vote['time'] > $ctime) {
+      $tmp_date = strtotime('+1 day', $ctime);
+      while ($tmp_date <= $vote['time']) {
+        $stats[date('Y-m-d', $tmp_date)] = $stats[$cdate];
+        $tmp_date = strtotime('+1 day', $tmp_date);
+      }
+      $ctime = $vote['time'];
+      $cdate = date('Y-m-d', $ctime);
+    }
+    $m = $vote['status'] == 1 ? 1 : -1;
+    $stats[$cdate][$vote['index']] += $m;
+  }
+
+  // fix the lail of data
+  $stats_last = $stats[$cdate];
+  while ($ctime < time()) {
+    $ctime = strtotime('+1 day', $ctime);
+    $cdate = date('Y-m-d', $ctime);
+    $stats[$cdate] = $stats_last;
+  }
+
+  # Create a response arrays
+  $list = array();
+  foreach ($stats as $stat) {
+    foreach ($chtexts as $i => $choice) {
+      $list[$i][] = $stat[$i];
+    }
+  }
+
+  $history = array(
+    'date' => $mindate,
+    'stats' => $stats,
+    'cdate' => $cdate,
+  );
+  foreach ($chtexts as $i => $choice) {
+    $history += array(
+      'choice' . $i => array(
+        'name' => $choice,
+        'data' => $list[$i],
+      ));
+  }
+
+  return $history;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Quick facts
+ *
+ * @param $node
+ * @return string
+ */
+function theme_charts_quickfacts($node)
+{
+  # get the data
+  $data = charts_filter_theme_preprocess($node);
+
+  $totals_all = 0;
+  $totals = & $data['']['#results'];
+  foreach ($totals as $i => &$total) {
+    $total = $total[$i];
+    $totals_all += $total;
+  }
+
+  $list_total = array();
+  $list_choices = array();
+  foreach ($data as $key => &$dataset) {
+    if ($key == '') {
+      continue;
+    }
+    $results = $dataset['#results'];
+
+    # get "27% of voters make between $150,000 - $299,999"
+    # get "57% of votes for rumor are Hindu"
+    $tmp_total = array();
+    foreach ($results as $chorder => $counts) {
+      foreach ($counts as $optkey => $count) {
+        $tmp_total[$optkey] += $count;
+        if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
+          $list_choices[$chorder . '-' . $optkey . '-' . $key] = round(100 * $count / $totals[$chorder], 0);
+        }
+      }
+    }
+
+    foreach ($tmp_total as $optkey => $count) {
+      if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
+        $list_total[$key . '-' . $optkey] = round(100 * $count / $totals_all, 0);
+      }
+    }
+  }
+  arsort($list_total);
+  arsort($list_choices);
+
+  # output
+  $output = array();
+  #1
+  $i = 0;
+  foreach ($list_total as $key => $percent) {
+    $key = explode('-', $key);
+    $optkey = $key[1];
+    $key = $key[0];
+
+    switch ($key) {
+      case 'age' :
+        $output[] = $percent . '% ' . t('of voters are') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . ' ' . t('yo') . '</span>';
+        break;
+      case 'income' :
+        $output[] = $percent . '% ' . t('of voters make') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . '</span>';
+        break;
+      case 'gender' :
+      case 'ethnicity' :
+      case 'marital' :
+      case 'sorient' :
+      case 'education' :
+      case 'religion' :
+      default :
+        $output[] = $percent . '% ' . t('of voters are') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . '</span>';
+        break;
+    }
+    if (++$i > 1) {
+      break;
+    }
+  }
+
+  $chtexts = charts_chtexts($node);
+
+  $i = 0;
+  foreach ($list_choices as $key => $percent) {
+    $key = explode('-', $key);
+    $chorder = $key[0];
+    $optkey = $key[1];
+    $key = $key[2];
+
+    $text = $chtexts[$chorder];
+
+    $output[] = $percent . '% ' . t('of votes for') . ' <span class="highlight">' . t($text) . '</span> ' . t('are') . ' ' .
+      ($data[$key]['#options'][$optkey]);
+
+    if (++$i > 3) {
+      break;
+    }
+  } # get "57% of votes for rumor are Hindu"
+
+  return '<span>' . implode('</span></br><span>', $output) . '</span></br>';
 }
 
 /**
@@ -132,51 +554,9 @@ function charts_common_preprocess($vars)
   drupal_add_js(drupal_get_path('module', 'charts') . "/includes/chart.update.js");
 }
 
-/**
- *
- *
- * @param $node
- * @return array
- */
-function charts_chtexts($node)
-{
-  static $chtexts = NULL;
 
-  if (is_null($chtexts)) {
-    $chtexts = array();
-    if ($node->choices) {
-      foreach ($node->choices as $choice) {
-        $chtexts[] = $choice['chtext_short'];
-      }
-    }
-  }
 
-  return $chtexts;
-}
 
-/**
- * Preprocess function for issue_charts_inner
- *
- * @param $vars
- */
-function charts_inner_preprocess(&$vars)
-{
-  $node = $vars['node'];
-  drupal_add_js(array('charts' => array('vote' => $node->vote || !$node->cpoll['active'])), 'setting');
-
-  # Highchart Filter
-  $vars['filter'] = theme('charts_filter', $node);
-  # Quick facts
-  $vars['quickfacts'] = $node->votecount <= 10 ?
-    t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') :
-    theme('charts_quickfacts', $node);
-  # Legend
-  $vars['legend'] = theme('charts_legend', charts_chtexts($node));
-  # Highchart History
-  $vars['history'] = theme('charts_history', $node);
-  # Google map
-  $vars['gmap'] = theme('charts_gmap', $node);
-}
 
 /**
  * Filter (Highchart)
@@ -371,374 +751,21 @@ function charts_filter_fields()
   return array('profile_yob', 'profile_gender', 'profile_religion', 'profile_ethnicity', 'profile_sorient', 'profile_education', 'profile_income');
 }
 
-/**
- * Quick facts
- *
- * @param $node
- * @return string
- */
-function theme_charts_quickfacts($node)
-{
-  # get the data
-  $data = charts_filter_theme_preprocess($node);
-
-  $totals_all = 0;
-  $totals = & $data['']['#results'];
-  foreach ($totals as $i => &$total) {
-    $total = $total[$i];
-    $totals_all += $total;
-  }
-
-  $list_total = array();
-  $list_choices = array();
-  foreach ($data as $key => &$dataset) {
-    if ($key == '') {
-      continue;
-    }
-    $results = $dataset['#results'];
-
-    # get "27% of voters make between $150,000 - $299,999"
-    # get "57% of votes for rumor are Hindu"
-    $tmp_total = array();
-    foreach ($results as $chorder => $counts) {
-      foreach ($counts as $optkey => $count) {
-        $tmp_total[$optkey] += $count;
-        if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
-          $list_choices[$chorder . '-' . $optkey . '-' . $key] = round(100 * $count / $totals[$chorder], 0);
-        }
-      }
-    }
-
-    foreach ($tmp_total as $optkey => $count) {
-      if ($dataset['#options'][$optkey] != 'undefined' && $count != 0) {
-        $list_total[$key . '-' . $optkey] = round(100 * $count / $totals_all, 0);
-      }
-    }
-  }
-  arsort($list_total);
-  arsort($list_choices);
-
-  # output
-  $output = array();
-  #1
-  $i = 0;
-  foreach ($list_total as $key => $percent) {
-    $key = explode('-', $key);
-    $optkey = $key[1];
-    $key = $key[0];
-
-    switch ($key) {
-      case 'age' :
-        $output[] = $percent . '% ' . t('of voters are') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . ' ' . t('yo') . '</span>';
-        break;
-      case 'income' :
-        $output[] = $percent . '% ' . t('of voters make') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . '</span>';
-        break;
-      case 'gender' :
-      case 'ethnicity' :
-      case 'marital' :
-      case 'sorient' :
-      case 'education' :
-      case 'religion' :
-      default :
-        $output[] = $percent . '% ' . t('of voters are') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . '</span>';
-        break;
-    }
-    if (++$i > 1) {
-      break;
-    }
-  }
-
-  $chtexts = charts_chtexts($node);
-
-  $i = 0;
-  foreach ($list_choices as $key => $percent) {
-    $key = explode('-', $key);
-    $chorder = $key[0];
-    $optkey = $key[1];
-    $key = $key[2];
-
-    $text = $chtexts[$chorder];
-
-    $output[] = $percent . '% ' . t('of votes for') . ' <span class="highlight">' . t($text) . '</span> ' . t('are') . ' ' .
-      ($data[$key]['#options'][$optkey]);
-
-    if (++$i > 3) {
-      break;
-    }
-  } # get "57% of votes for rumor are Hindu"
-
-  return '<span>' . implode('</span></br><span>', $output) . '</span></br>';
-}
-
-/**
- * Graphs' page Legend
- *
- * @param $chtexts
- * @return string
- */
-function theme_charts_legend($chtexts)
-{
-  $output = '';
-  $pattern = '<dl><dd>%s:</dd><dt style="background-color:%s;">color</dt></dl>';
-  foreach ($chtexts as $index => $answer) {
-    $output .= sprintf($pattern, $answer, charts_colors($index));
-  }
-  return $output;
-}
-
-/**
- * Colors
- *
- * @param bool $index
- * @return array
- */
-function charts_colors($index = FALSE)
-{
-  static $i = 0;
-  static $colors = array();
-  if (empty($colors)) {
-    $colors += array(
-      '#934d9e',
-      '#ff7f00',
-      '#50c0ac',
-      '#0c6926',
-      '#ef4c8d',
-      '#362750',
-      '#e1e43c',
-      '#ef3d3b',
-      '#3cc7f4',
-      '#589a1c',
-      '#c2499b',
-      '#f89521',
-      '#cc2027',
-      '#55ba59',
-      '#d5bc29',
-      '#6ccbd5',
-      '#43b649',
-      '#f6eb16'
-    );
-  }
-  if ($index === TRUE) {
-    return $colors;
-  }
-  if ($index !== FALSE && isset($colors[$index])) {
-    return $colors[$index];
-  } else {
-    $color = $colors[$i];
-    $i = ($i + 1) % count($colors);
-    return $color;
-  }
-}
-
-/**
- * History (Highstorck)
- *
- * @param $node
- * @return string
- */
-function theme_charts_history($node)
-{
-  charts_history_preprocess($node);
-  drupal_add_js(drupal_get_path('module', 'charts') . "/includes/highstock/highstock.js");
-  drupal_add_js(drupal_get_path('module', 'charts') . "/includes/chart.history.js");
-  return '
-    <div id="container_graph" class="highcharts-container" style="min-height:280px; width: 100%;"></div>
-    <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
-  ';
-}
-
-/**
- * Preprocess function for issue_charts_history
- *
- * @param $vars
- */
-function charts_history_preprocess($node)
-{
-  $history = charts_history($node);
-
-  # Put the data to Drupal.settings
-  drupal_add_js(array('charts' => array('history' => $history)), 'setting');
-}
-
-/**
- * @param $node
- * @return array
- */
-function charts_history($node) {
-  # short names for choices
-  $chtexts = charts_chtexts($node);
-
-  # Get the vote history
-  $votes = array();
-  $mindate = time();
-  $maxdate = date('Y-m-d');
-  $result = db_query("
-    SELECT v.*, DATE(v.cdate) AS date
-    FROM {cpoll_choices} c
-    INNER JOIN {cpoll_votes} v ON v.chid = c.chid
-    WHERE c.nid = '%d' ORDER BY v.cdate ASC", $node->nid);
-  $cvotes = array();
-  while ($row = db_fetch_array($result)) {
-    $row['time'] = strtotime($row['date']);
-    if ($row['time'] < $mindate) {
-      $mindate = $row['time'];
-    }
-    $row += array('index' => $node->choices[$row['chid']]['index']);
-    if (isset($cvotes[$row['uid']])) {
-      $vote = $cvotes[$row['uid']];
-      $vote['status'] = 0;
-      $vote['date'] = $row['date'];
-      $vote['time'] = $row['time'];
-      $votes[] = $vote;
-    }
-    $cvotes[$row['uid']] = $row;
-    $row['status'] = 1;
-    $votes[] = $row;
-  }
-  # Get the date range of the votes
-  $date_range = dates_range(date('Y-m-d', $mindate ), $maxdate);
-  $week = count($date_range) > 6;
-  if (!$week) {
-    $date_range = dates_range(date('Y-m-d', strtotime('-6 days', strtotime($maxdate))), $maxdate);
-  }
-  # Get the starting date for graph
-  $mindate = array(
-    'year' => date('Y', $mindate),
-    'month' => date('m', $mindate) - 1,
-    'day' => $week ? date('d', $mindate) : date("d") - 6,
-  );
-
-  # Initialize statistics array
-  $stats = array();
-  $stats_patt = array();
-  foreach ($chtexts as $i => $choice) {
-    $stats_patt[$i] = 0;
-  }
-  foreach ($date_range as $date) {
-    $stats[$date] = $stats_patt;
-  }
-
-  # Collect statistics
-  $cdate = $date_range[0];
-  $ctime = strtotime($cdate);
-  $votes_count = count($votes);
-  for ($i = 0; $i < $votes_count; $i++) {
-    $vote = $votes[$i];
-    # Copy prev results
-    if ($vote['time'] > $ctime) {
-      $tmp_date = strtotime('+1 day', $ctime);
-      while ($tmp_date <= $vote['time']) {
-        $stats[date('Y-m-d', $tmp_date)] = $stats[$cdate];
-        $tmp_date = strtotime('+1 day', $tmp_date);
-      }
-      $ctime = $vote['time'];
-      $cdate = date('Y-m-d', $ctime);
-    }
-    $m = $vote['status'] == 1 ? 1 : -1;
-    $stats[$cdate][$vote['index']] += $m;
-  }
-
-  // fix the lail of data
-  $stats_last = $stats[$cdate];
-  while ($ctime < time()) {
-    $ctime = strtotime('+1 day', $ctime);
-    $cdate = date('Y-m-d', $ctime);
-    $stats[$cdate] = $stats_last;
-  }
-
-  # Create a response arrays
-  $list = array();
-  foreach ($stats as $stat) {
-    foreach ($chtexts as $i => $choice) {
-      $list[$i][] = $stat[$i];
-    }
-  }
-
-  $history = array(
-    'date' => $mindate,
-    'stats' => $stats,
-    'cdate' => $cdate,
-  );
-  foreach ($chtexts as $i => $choice) {
-    $history += array(
-      'choice' . $i => array(
-        'name' => $choice,
-        'data' => $list[$i],
-      ));
-  }
-
-  return $history;
-}
-
-/**
- * Range of dates - Y-m-d
- *
- * @param $date1
- * @param $date2
- * @return array
- */
-function dates_range($date1, $date2)
-{
-  $range = array();
-  if (!empty($date1) && !empty($date2) && $date1 < $date2) {
-    $date1 = strtotime($date1);
-    $date2 = strtotime($date2);
-    $range[] = date('Y-m-d', $date1);
-    while ($date1 < $date2) {
-      $date1 = strtotime('+1 day', $date1);
-      $range[] = date('Y-m-d', $date1);
-    }
-  }
-  return $range;
-}
-
-/**
- * Graphs' pages Google Map
- *
- * @param $node
- * @return string
- */
-function theme_charts_gmap($node)
-{
-  $gmap = charts_gmap($node);
-
-  drupal_add_js(array('charts' => array('gmap' => $gmap)), 'setting');
-  drupal_add_js(array('charts' => array('gmap_icons' => drupal_get_path('module', 'charts') . '/includes/icons')), 'setting');
-  drupal_add_js(drupal_get_path('module', 'charts') . '/includes/chart.gmap.js');
-  return '
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
-    <div id="map_div" style="width: 100%; min-height: 280px"></div>
-  ';
-}
-
-/**
- * @param $node
- * @return array
- */
-function charts_gmap($node) {
-  $gmap = array();
-
-  $fieldmap = variable_get(PROFILE_FIELDMAP, array());
-
-  $result = db_query("
-    SELECT pv1.value lat, pv2.value lng, v.chid
-    FROM {cpoll_choices} c
-    INNER JOIN {cpoll_votes} v ON v.chid = c.chid AND v.status = 1
-    INNER JOIN {users} u ON u.uid = v.uid
-    INNER JOIN {profile_values} pv1 ON pv1.fid = '%s' AND pv1.uid = u.uid
-    INNER JOIN {profile_values} pv2 ON pv2.fid = '%s' AND pv2.uid = u.uid
-    WHERE c.nid = '%d' AND pv1.value <> '' AND pv2.value <> ''",
-    $fieldmap['profile_lat']->fid, $fieldmap['profile_lng']->fid, $node->nid
-  );
 
 
-  while ($row = db_fetch_object($result)) {
-    $gmap[] = array($row->lat, $row->lng, charts_colors($node->choices[$row->chid]['index']));
-  }
 
-  return $gmap;
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Strength chart

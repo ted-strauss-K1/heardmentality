@@ -20,7 +20,7 @@
       </div>
     </div>
   </li>
-  <li class="part">
+  <li class="full">
     <div class="space">
       <p class="result-title dinbold"><?php print t('Vote history'); ?></p>
 
