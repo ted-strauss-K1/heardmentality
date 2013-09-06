@@ -35,7 +35,9 @@ function charts_theme()
   $theme['charts_history'] = array(
     'arguments' => array('node' => NULL),
   );
-
+  $theme['charts_filter'] = array(
+    'arguments' => array('node' => NULL),
+  );
 
 
 
@@ -44,9 +46,7 @@ function charts_theme()
 
 
 
-  $theme['charts_filter'] = array(
-    'arguments' => array('node' => NULL),
-  );
+
   $theme['charts_quickfacts'] = array(
     'arguments' => array('node' => NULL),
   );
@@ -77,6 +77,14 @@ function charts_theme_preprocess(&$vars)
   drupal_add_js($path . 'nvd3/nv.d3.js');
   drupal_add_js($path . 'd3/crossfilter.js');
 
+  # models
+
+
+  drupal_add_js($path . 'custom.js');
+
+  // <script src="../src/models/lineWithFocusChart.js"></script>
+  // models/multiBarHorizontalChart.js
+
   # save settings to js
   $chtexts = charts_chtexts($node);
   drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
@@ -105,11 +113,14 @@ function charts_inner_theme_preprocess(&$vars)
   $vars['legend'] = theme('charts_legend', charts_chtexts($node));
   # Google map
   $vars['gmap'] = theme('charts_gmap', $node);
-  # Highchart History
+  # History
   $vars['history'] = theme('charts_history', $node);
+  # Filter
+  $vars['filter'] = theme('charts_filter', $node);
 
-//  # Highchart Filter
-//  $vars['filter'] = theme('charts_filter', $node);
+  // todo
+
+//
 //
 //  # Legend
 //
@@ -325,6 +336,209 @@ function charts_history($node) {
 
   return $history;
 }
+
+/**
+ * Filter
+ *
+ * @param $node
+ * @return null|string
+ */
+function theme_charts_filter($node)
+{
+  charts_filter_theme_preprocess($node);
+  drupal_add_js(drupal_get_path('module', 'charts') . "/include/charts.filter.js");
+  return drupal_get_form('charts_filter_form');
+}
+
+/**
+ * Preprocess for Filter
+ *
+ * @param $node
+ * @return mixed
+ */
+function charts_filter_theme_preprocess($node)
+{
+  static $dataset = NULL;
+
+  if (is_null($dataset)) {
+    $dataset = array();
+
+    $chtexts = charts_chtexts($node);
+
+    # Get categories
+    $cat = charts_filter_categories();
+
+    # template for vote count
+    $pattern = array();
+    foreach ($chtexts as $i => $choice) {
+      $pattern[$i] = array();
+    }
+
+    # Initialize statistics
+    foreach ($cat as $key => &$data) {
+      if ($key == '') {
+        $data['#results'] = array();
+        $data['#options'] = $chtexts;
+      }
+      $data['#results'] = $pattern;
+      foreach ($data['#results'] as &$results) {
+        foreach ($data['#options'] as $optkey => $option) {
+          $results[$optkey] = 0;
+        }
+      }
+    }
+
+    # get total votes
+    $counts = &$cat['']['#results'];
+    foreach ($node->choices as $choice) {
+      $counts[$choice['index']][$choice['index']] = (int)$choice['votes'];
+    }
+
+    # Collect statistics
+    $y = date('Y');
+    $stat_fields = charts_filter_fields();
+    foreach ($stat_fields as $field) {
+      $result = db_query("
+        SELECT pval.value, v.chid
+        FROM cpoll_choices c
+        INNER JOIN cpoll_votes v ON v.chid = c.chid AND v.status = 1
+        LEFT JOIN profile_values pval ON v.uid = pval.uid
+          AND pval.fid = (SELECT fid FROM profile_fields WHERE name = '%s')
+        WHERE c.nid = '%d'", $field, $node->nid);
+      while ($vote = db_fetch_array($result)) {
+        $vote['index'] = $node->choices[$vote['chid']]['index'];
+        switch ($field) {
+          case 'profile_yob' :
+            $counts = & $cat['age']['#results'][$vote['index']];
+            if ($vote['value'] == '') {
+              $counts[3]++;
+            } else {
+              $age = $y - $vote['value'];
+              if ($age >= 51) {
+                $counts[2]++;
+              } elseif ($age >= 31) {
+                $counts[1]++;
+              } else {
+                $counts[0]++;
+              }
+            }
+            break;
+          default:
+            $name = str_replace('profile_', '', $field);
+            $counts = & $cat[$name]['#results'][$vote['index']];
+            if (isset($cat[$name]['#options'][$vote['value']])) {
+              $counts[$vote['value']]++;
+            } else {
+              $counts[sizeof($counts) - 1]++;
+            }
+            break;
+        }
+      }
+    }
+
+    drupal_add_js(array('charts' => array('filter' => $cat)), 'setting');
+    $dataset = $cat;
+  }
+
+  return $dataset;
+}
+
+/**
+ * Filter -- form
+ * @return array
+ */
+function charts_filter_form()
+{
+  $form = array();
+
+  $form['filter'] = array(
+    '#type' => 'select',
+    '#options' => array( //
+    ),
+    '#suffix' => '<div id="chart-filter" style="width:100%;"><svg style="height:280px;"></svg></div>',
+    '#id' => 'filter',
+  );
+  $cat = charts_filter_categories();
+  foreach ($cat as $key => $data) {
+    $form['filter']['#options'][$key] = $data['#name'];
+  }
+
+  return $form;
+}
+
+/**
+ * Filter -- categories
+ *
+ * @return mixed
+ */
+function charts_filter_categories()
+{
+  static $cat = NULL;
+
+  if (is_null($cat)) {
+    $cat = array();
+
+    $stat_fields = charts_filter_fields();
+    $fields = array();
+    $result = db_query("SELECT * FROM {profile_fields} WHERE name IN (" . db_placeholders($stat_fields, 'varchar') . ")", $stat_fields);
+    while ($row = db_fetch_object($result)) {
+      $fields[] = $row;
+    }
+
+    $cat[''] = array(
+      '#name' => t('Total Votes'),
+      '#options' => array(
+        'Total Votes',
+      ),
+    );
+
+    foreach ($fields as $field) {
+
+      switch ($field->name) {
+        case 'profile_yob' :
+          $cat['age'] = array(
+            '#name' => t('Age'),
+            '#options' => array(
+              '18-30', '30-50', '50 above', 'undefined',
+            ),
+          );
+          break;
+        default:
+          $name = str_replace('profile_', '', $field->name);
+          $cat[$name] = array(
+            '#name' => t($field->title),
+            '#options' => explode("\n", $field->options),
+          );
+          $cat[$name]['#options'][] = 'undefined';
+          break;
+      }
+    }
+  }
+
+  return $cat;
+}
+
+/**
+ * Filter -- profile fields
+ *
+ * @return array
+ */
+function charts_filter_fields()
+{
+  return array('profile_yob', 'profile_gender', 'profile_religion', 'profile_ethnicity', 'profile_sorient', 'profile_education', 'profile_income');
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -558,198 +772,15 @@ function charts_common_preprocess($vars)
 
 
 
-/**
- * Filter (Highchart)
- *
- * @param $node
- * @return null|string
- */
-function theme_charts_filter($node)
-{
-  charts_filter_theme_preprocess($node);
-  drupal_add_js(drupal_get_path('module', 'charts') . "/includes/highcharts/highcharts.js");
-  drupal_add_js(drupal_get_path('module', 'charts') . "/includes/chart.filter.js");
-  return drupal_get_form('charts_filter_form');
-}
 
-/**
- * Preprocess for Filter (Highcharts)
- *
- * @param $node
- * @return mixed
- */
-function charts_filter_theme_preprocess($node)
-{
-  static $dataset = NULL;
 
-  if (is_null($dataset)) {
-    $dataset = array();
 
-    $chtexts = charts_chtexts($node);
 
-    # Get categories
-    $cat = charts_filter_categories();
 
-    # template for vote count
-    $pattern = array();
-    foreach ($chtexts as $i => $choice) {
-      $pattern[$i] = array();
-    }
 
-    # Initialize statistics
-    foreach ($cat as $key => &$data) {
-      if ($key == '') {
-        $data['#results'] = array();
-        $data['#options'] = $chtexts;
-      }
-      $data['#results'] = $pattern;
-      foreach ($data['#results'] as &$results) {
-        foreach ($data['#options'] as $optkey => $option) {
-          $results[$optkey] = 0;
-        }
-      }
-    }
 
-    # get total votes
-    $counts = &$cat['']['#results'];
-    foreach ($node->choices as $choice) {
-      $counts[$choice['index']][$choice['index']] = (int)$choice['votes'];
-    }
 
-    # Collect statistics
-    $y = date('Y');
-    $stat_fields = charts_filter_fields();
-    foreach ($stat_fields as $field) {
-      $result = db_query("
-        SELECT pval.value, v.chid
-        FROM cpoll_choices c
-        INNER JOIN cpoll_votes v ON v.chid = c.chid AND v.status = 1
-        LEFT JOIN profile_values pval ON v.uid = pval.uid
-          AND pval.fid = (SELECT fid FROM profile_fields WHERE name = '%s')
-        WHERE c.nid = '%d'", $field, $node->nid);
-      while ($vote = db_fetch_array($result)) {
-        $vote['index'] = $node->choices[$vote['chid']]['index'];
-        switch ($field) {
-          case 'profile_yob' :
-            $counts = & $cat['age']['#results'][$vote['index']];
-            if ($vote['value'] == '') {
-              $counts[3]++;
-            } else {
-              $age = $y - $vote['value'];
-              if ($age >= 51) {
-                $counts[2]++;
-              } elseif ($age >= 31) {
-                $counts[1]++;
-              } else {
-                $counts[0]++;
-              }
-            }
-            break;
-          default:
-            $name = str_replace('profile_', '', $field);
-            $counts = & $cat[$name]['#results'][$vote['index']];
-            if (isset($cat[$name]['#options'][$vote['value']])) {
-              $counts[$vote['value']]++;
-            } else {
-              $counts[sizeof($counts) - 1]++;
-            }
-            break;
-        }
-      }
-    }
 
-    drupal_add_js(array('charts' => array('filter' => $cat)), 'setting');
-    $dataset = $cat;
-  }
-
-  return $dataset;
-}
-
-/**
- * Filter (Highcharts) -- form
- * @return array
- */
-function charts_filter_form()
-{
-  $form = array();
-
-  $form['filter'] = array(
-    '#type' => 'select',
-    '#options' => array( //
-    ),
-    '#prefix' => '<div id="contentr1"><div>',
-    '#suffix' => '</div><div id="chart_div" style="width:100%; min-height: 280px;"></div></div>',
-    '#id' => 'filter',
-  );
-  $cat = charts_filter_categories();
-  foreach ($cat as $key => $data) {
-    $form['filter']['#options'][$key] = $data['#name'];
-  }
-
-  return $form;
-}
-
-/**
- * Filter (Highcharts) -- categories
- *
- * @return mixed
- */
-function charts_filter_categories()
-{
-  static $cat = NULL;
-
-  if (is_null($cat)) {
-    $cat = array();
-
-    $stat_fields = charts_filter_fields();
-    $fields = array();
-    $result = db_query("SELECT * FROM {profile_fields} WHERE name IN (" . db_placeholders($stat_fields, 'varchar') . ")", $stat_fields);
-    while ($row = db_fetch_object($result)) {
-      $fields[] = $row;
-    }
-
-    $cat[''] = array(
-      '#name' => t('Total Votes'),
-      '#options' => array(
-        'Total Votes',
-      ),
-    );
-
-    foreach ($fields as $field) {
-
-      switch ($field->name) {
-        case 'profile_yob' :
-          $cat['age'] = array(
-            '#name' => t('Age'),
-            '#options' => array(
-              '18-30', '30-50', '50 above', 'undefined',
-            ),
-          );
-          break;
-        default:
-          $name = str_replace('profile_', '', $field->name);
-          $cat[$name] = array(
-            '#name' => t($field->title),
-            '#options' => explode("\n", $field->options),
-          );
-          $cat[$name]['#options'][] = 'undefined';
-          break;
-      }
-    }
-  }
-
-  return $cat;
-}
-
-/**
- * Filter (Highcharts) -- profile fields
- *
- * @return array
- */
-function charts_filter_fields()
-{
-  return array('profile_yob', 'profile_gender', 'profile_religion', 'profile_ethnicity', 'profile_sorient', 'profile_education', 'profile_income');
-}
 
 
 

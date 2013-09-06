@@ -12,63 +12,49 @@ function init_history() {
   nv.addGraph(function() {
     var chart = nv.models.lineWithFocusChart();
 
+    // settings
     chart
-
       .interpolate("basis")
-      .margin({left: 20, right: 10, top: 10})
+      .margin({left: 20, right: 20, top: 10})
       .height2(40)
       .showLegend(false);
-
+    // axis
+    chart.xAxis.tickFormat(timestamp2date);
+    chart.x2Axis.tickFormat(timestamp2date);
+    // chart.xAxis.rotateLabels(-45);
 
     // get data
-    var x = 0;
     var count = Drupal.settings.charts.count;
-    var data = [];
-    var stats = Drupal.settings.charts.history.stats;
-    for (var date in stats) {
-      var data_item = {};
-      data_item['x'] = new Date(date);
-      for (var i=0; i<count; i++) {
-        data_item['stream'+i] = stats[date][i];
-      }
-      data.push(data_item);
+    var dates = [], i = 0;
+    for (dates[i++] in Drupal.settings.charts.history['stats']) {
+      //
     }
-
-    // cross-filtered data
-    var data = crossfilter(data);
-
-    // get dimenasion
-    var dimension = data.dimension(function(d) { return d.y; });
-
-    // normalize data
-    var series = [];
+    var datum = [];
+    var max = 0;
     for (var i=0; i<count; i++) {
-      series.push({
-        name: Drupal.settings.charts.history['choice'+i]['name'],
-        key: 'stream'+i,
-        color: Drupal.settings.charts.colors[i]
-      });
+      var series = {};
+      series['color'] = Drupal.settings.charts.colors[i];
+      var choice_data = Drupal.settings.charts.history['choice'+i];
+      series['key'] = choice_data['name'];
+      series['values'] = [];
+      for (var j in choice_data['data']) {
+        series['values'].push({
+          series: i,
+          x: new Date(dates[j]),
+          y: choice_data['data'][j]
+        });
+      }
+
+      max = Math.max(max, Math.max.apply(null, choice_data['data']));
+
+      datum[i] = series;
     }
 
-    data = normalize_data(dimension.top(Infinity), series, 'x');
-
-    console.log(data);
-    //
-    chart.xAxis.tickFormat(function (d) {
-      console.log(d);
-      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      var date = new Date(d);
-      console.log(date);
-      return  date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
-    });
-    // chart.x2Axis.tickFormat(d3.format(',f'));
-//
-//    chart.yAxis.tickFormat(d3.format(',.2f'));
-//    chart.y2Axis.tickFormat(d3.format(',.2f'));
+    chart.forceY([0,max+1]);
 
     // exec
     d3.select('#chart-history svg')
-      .datum(data)
+      .datum(datum)
       .transition().duration(500)
       .call(chart);
 
@@ -78,28 +64,3 @@ function init_history() {
     return chart;
   });
 }
-
-function normalize_data(data, series, xAxis, xAxis_convert)
-{
-  var sort = crossfilter.quicksort.by(function(d) { return d[xAxis].getTime(); });
-  var sorted = sort(data, 0, data.length);
-
-  var result = [];
-
-  series.forEach(function(serie, index)
-  {
-    result.push({key: serie.name, values: [], color: serie.color});
-  });
-
-  data.forEach(function(data, dataIndex)
-  {
-    series.forEach(function(serie, serieIndex)
-    {
-      result[serieIndex].values.push({x: data[xAxis],  y: data[serie.key]});
-    });
-  });
-
-  return result;
-};
-
-
