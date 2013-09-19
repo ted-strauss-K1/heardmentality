@@ -21,7 +21,7 @@ function eventsStreamUpdate() {
   $.ajax({
     type      : "POST",
     dataType  : "json",
-    url       : '/'+Drupal.settings.language+'/events/latest/'+$('.uactivity .msg:first').attr('name'),
+    url       : Drupal.settings.language_prefix+'/events/latest/'+$('.uactivity .msg:first').attr('name'),
     data      : $('#uactivity').attr('name'),
     success   : function (response) {
       for (var item in response) {

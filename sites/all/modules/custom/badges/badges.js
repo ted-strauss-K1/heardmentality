@@ -8,7 +8,7 @@ $(document).ready(function () {
     $.ajax({
       type      : 'POST',
       dataType  : 'json',
-      url       : '/'+Drupal.settings.language+'/badges/queue',
+      url       : Drupal.settings.language_prefix+'/badges/queue',
       data      : { 'uid' : uid, 'badges' : badges },
       success   : function (response) {
         //
@@ -23,7 +23,7 @@ $(document).ready(function () {
     $.ajax({
       type      : 'POST',
       dataType  : 'json',
-      url       : '/'+Drupal.settings.language+'/badges/dequeue',
+      url       : Drupal.settings.language_prefix+'/badges/dequeue',
       data      : {'uid' : uid },
       success   : function (response) {
         if (response.status) {

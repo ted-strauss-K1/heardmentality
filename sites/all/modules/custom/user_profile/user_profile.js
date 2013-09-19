@@ -102,7 +102,7 @@ $(document).ready(function () {
     $('body').trigger('geocode.postalcode', [$('#profile_country').val(), $('#profile_zip').val()]);
 //
 //
-//    var url = '/'+Drupal.settings.language+'/user/profile/location/' + $('#profile_country').val() + '/' + $('#profile_zip').val();
+//    var url = Drupal.settings.language_prefix+'/user/profile/location/' + $('#profile_country').val() + '/' + $('#profile_zip').val();
 //    $.ajax({
 //      type:"POST",
 //      dataType:'json',

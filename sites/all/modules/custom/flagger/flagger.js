@@ -17,7 +17,7 @@ $('.flagger').live('click', function (e) {
   e.preventDefault();
   var flagger = $(this);
 
-  var url = '/'+Drupal.settings.language+'/flagger/' + flagger.attr('name')
+  var url = Drupal.settings.language_prefix+'/flagger/' + flagger.attr('name')
   $.ajax({
     type:"POST",
     dataType:'json',
@@ -68,7 +68,7 @@ $('.flagger_flags').live('click', function (e) {
   e.preventDefault();
   var flagger = $(this);
 
-  var url = '/'+Drupal.settings.language+'/flagger/flags/' + flagger.attr('name')
+  var url = Drupal.settings.language_prefix+'/flagger/flags/' + flagger.attr('name')
   $.ajax({
     type:"POST",
     dataType:'json',
@@ -93,7 +93,7 @@ $('.flagger_history').live('click', function (e) {
   e.preventDefault();
   var flagger = $(this);
 
-  var url = '/'+Drupal.settings.language+'/flagger/history/' + flagger.attr('name')
+  var url = Drupal.settings.language_prefix+'/flagger/history/' + flagger.attr('name')
   $.ajax({
     type:"POST",
     dataType:'json',
@@ -119,7 +119,7 @@ $('.status-1 span.remove').live('click', function (e) {
   var parent = $(this).parents('li.status-1');
   var fcid = parent.attr('name');
 
-  var url = '/'+Drupal.settings.language+'/flagger/unflag/' + parent.attr('name')
+  var url = Drupal.settings.language_prefix+'/flagger/unflag/' + parent.attr('name')
   $.ajax({
     type:"POST",
     dataType:'json',
