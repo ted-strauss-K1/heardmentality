@@ -129,7 +129,7 @@
             <h2><span><?php print t('Debate statistics'); ?></span></h2>
 
             <div id="deb-ana-load-txt"></div>
-            <div id="load-deb-statics"></div>
+            <div id="chart-strength" style="width:100%;"><svg style="height:280px;"></svg></div>
           </div>
 
         </div>

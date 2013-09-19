@@ -2,21 +2,21 @@
  *
  */
 $(function () {
-  if (Drupal.settings.charts.vote) init_highchart('');
+  if (Drupal.settings.charts.vote) init_filter('');
 });
 
 /**
  *
  */
 $('#filter').live("change", function () {
-  init_highchart($(this).val());
+  init_filter($(this).val());
 });
 
 /**
  *
  * @param arg
  */
-function init_highchart(arg) {
+function init_filter(arg) {
   var js_data = Drupal.settings.charts.filter[arg];
 
   var data = [];

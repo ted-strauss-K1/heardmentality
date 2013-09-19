@@ -15,28 +15,28 @@ function charts_theme()
   $theme = array();
 
   $theme['charts'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => null),
     'template' => 'charts',
     'preprocess functions' => array('charts_theme_preprocess'),
   );
   $theme['charts_inner'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => null),
     'template' => 'charts-inner',
     'preprocess functions' => array('charts_inner_theme_preprocess'),
   );
 
   # chart parts
   $theme['charts_legend'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => null),
   );
   $theme['charts_gmap'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => null),
   );
   $theme['charts_history'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => null),
   );
   $theme['charts_filter'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => null),
   );
 
 
@@ -48,14 +48,14 @@ function charts_theme()
 
 
   $theme['charts_quickfacts'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => null),
   );
 
 
 
 
   $theme['charts_strength'] = array(
-    'arguments' => array('node' => NULL),
+    'arguments' => array('node' => null),
   );
 
   return $theme;
@@ -77,19 +77,16 @@ function charts_theme_preprocess(&$vars)
   drupal_add_js($path . 'nvd3/nv.d3.js');
   drupal_add_js($path . 'd3/crossfilter.js');
 
-  # models
-
-
+  #
   drupal_add_js($path . 'custom.js');
+  drupal_add_js($path . 'charts.update.js');
 
-  // <script src="../src/models/lineWithFocusChart.js"></script>
-  // models/multiBarHorizontalChart.js
 
   # save settings to js
   $chtexts = charts_chtexts($node);
   drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
   drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
-  drupal_add_js(array('charts' => array('colors' => charts_colors(TRUE))), 'setting');
+  drupal_add_js(array('charts' => array('colors' => charts_colors(true))), 'setting');
   drupal_add_js(array('charts' => array('vote' => $node->vote || !$node->cpoll['active'])), 'setting');
 
   # charts content
@@ -117,16 +114,6 @@ function charts_inner_theme_preprocess(&$vars)
   $vars['history'] = theme('charts_history', $node);
   # Filter
   $vars['filter'] = theme('charts_filter', $node);
-
-  // todo
-
-//
-//
-//  # Legend
-//
-//
-//
-
   # Quick facts
   $vars['quickfacts'] = $node->votecount <= 10 ?
     t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') :
@@ -358,7 +345,7 @@ function theme_charts_filter($node)
  */
 function charts_filter_theme_preprocess($node)
 {
-  static $dataset = NULL;
+  static $dataset = null;
 
   if (is_null($dataset)) {
     $dataset = array();
@@ -473,7 +460,7 @@ function charts_filter_form()
  */
 function charts_filter_categories()
 {
-  static $cat = NULL;
+  static $cat = null;
 
   if (is_null($cat)) {
     $cat = array();
@@ -528,74 +515,60 @@ function charts_filter_fields()
   return array('profile_yob', 'profile_gender', 'profile_religion', 'profile_ethnicity', 'profile_sorient', 'profile_education', 'profile_income');
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * Strength chart
+ *
+ * @param $node
+ * @return string
+ */
+function theme_charts_strength($node)
+{
+  # settings
+  drupal_add_js(array('charts' => array('strength' => charts_strength($node))), 'setting');
+  drupal_add_js(drupal_get_path('module', 'charts') . "/include/charts.strength.js");
+
+  return '<div class="expanding stat"><h6 class="button" id="deb-ana">' . t('Stats') . '</h6></div>';
+}
+
+/**
+ * @param $node
+ *
+ * @return array
+ */
+function charts_strength($node) {
+  # Prepare the data for the debate analysis
+  $data = array();
+  foreach ($node->choices as $choice) {
+    $data[$choice['index']] = array(
+      'x' => $choice['chtext_short'],
+      'color' => '#C2499B',
+      'y' => 0,
+    );
+  }
+
+  $result = db_query("
+    SELECT ao.chid, IFNULL(SUM(vv.value)*ao.val,0) AS value
+    FROM {content_field_reference} cfr
+    INNER JOIN {cpoll_choices} c ON c.nid = cfr.field_reference_nid
+    INNER JOIN {argument_options} ao ON ao.chid = c.chid AND ao.nid = cfr.nid
+    LEFT JOIN {votingapi_vote} vv ON vv.content_id = cfr.nid AND vv.content_type = 'node'
+    WHERE c.nid = '%d'
+    GROUP BY cfr.nid, ao.chid
+    ORDER BY ao.chid ASC
+  ", $node->nid);
+  $args = array();
+  while ($row = db_fetch_array($result)) {
+    $args[$node->choices[$row['chid']]['index']] += $row['value'];
+  }
+  foreach ($node->choices as $chid => $choice) {
+    $index = $choice['index'];
+    $value = $args[$index];
+    $data[$index]['color'] = $value > 0 ? '#55BA59' : '#C2499B';
+    $data[$index]['y'] = (float)$value;
+  }
+
+  return $data;
+}
 
 /**
  * Quick facts
@@ -709,7 +682,7 @@ function charts_menu()
   $menu['charts/update'] = array(
     'page callback' => 'charts_update',
     'page arguments' => array(2),
-    'access callback' => TRUE,
+    'access callback' => true,
     'type' => MENU_CALLBACK,
   );
 
@@ -723,12 +696,12 @@ function charts_update($nid) {
   // check permission
   if (!($node = node_load($nid)) || ('issue' != $node->type)) {
     print json_encode(array(
-      'status' => FALSE,
+      'status' => false,
       'message' => t("Content does not exist"),
     ));
   } else {
     print json_encode(array(
-      'status' => TRUE,
+      'status' => true,
       'message' => t('Success'),
       'data' => array(
         'filter' => charts_filter_theme_preprocess($node),
@@ -739,120 +712,4 @@ function charts_update($nid) {
     ));
   }
   exit;
-}
-
-/**
- * Preprocess function for issue_charts_inner
- *
- * @param $vars
- */
-function charts_common_preprocess($vars)
-{
-  // run once
-  static $js_loaded;
-  if (!is_null($js_loaded)) {
-    return;
-  }
-  $js_loaded = TRUE;
-
-  # short names for choices
-  $node = $vars['node'];
-  $chtexts = charts_chtexts($node);
-
-  # save to js settings
-  drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
-  drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
-  drupal_add_js(array('charts' => array('colors' => charts_colors(TRUE))), 'setting');
-
-  # update schema
-  drupal_add_js(drupal_get_path('module', 'charts') . "/includes/chart.update.js");
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Strength chart
- *
- * @param $node
- * @return string
- */
-function theme_charts_strength($node)
-{
-  // preprocess
-  charts_common_preprocess(array('node' => $node));
-
-  $data = charts_strength($node);
-
-  # settings
-  drupal_add_js(array('charts' => array('strength' => $data)), 'setting');
-  drupal_add_js(drupal_get_path('module', 'charts') . "/includes/highcharts/highcharts.js");
-  drupal_add_js(drupal_get_path('module', 'charts') . "/includes/chart.strength.js");
-
-  return '<div class="expanding stat"><h6 class="button" id="deb-ana">' . t('Stats') . '</h6></div>';
-}
-
-/**
- * @param $node
- * @return array
- */
-function charts_strength($node) {
-  # Prepare the data for the debate analysis
-  $data = array();
-  foreach ($node->choices as $choice) {
-    $data[$choice['index']] = array(
-      'name' => t('Strength'),
-      'color' => '#C2499B',
-      'y' => 0,
-    );
-  }
-
-  $result = db_query("
-    SELECT ao.chid, IFNULL(SUM(vv.value)*ao.val,0) AS value
-    FROM {content_field_reference} cfr
-    INNER JOIN {cpoll_choices} c ON c.nid = cfr.field_reference_nid
-    INNER JOIN {argument_options} ao ON ao.chid = c.chid AND ao.nid = cfr.nid
-    LEFT JOIN {votingapi_vote} vv ON vv.content_id = cfr.nid AND vv.content_type = 'node'
-    WHERE c.nid = '%d'
-    GROUP BY cfr.nid, ao.chid
-    ORDER BY ao.chid ASC
-  ", $node->nid);
-  $args = array();
-  while ($row = db_fetch_array($result)) {
-    $args[$node->choices[$row['chid']]['index']] += $row['value'];
-  }
-  foreach ($node->choices as $chid => $choice) {
-    $value = $args[$choice['index']];
-    $data[$chid]['color'] = $value > 0 ? '#55BA59' : '#C2499B';
-    $data[$chid]['y'] = (float)$value;
-  }
-
-  return $data;
 }
