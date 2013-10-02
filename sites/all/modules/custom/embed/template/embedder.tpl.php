@@ -13,7 +13,9 @@
     @viewport { width: device-width; }
   </style>
 <body>
+<div class="content <?php print $format; ?>">
 <?php print $content; ?>
+</div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="<?php print $module_path; ?>/embed.js" data-loaded="true"></script>
 </body>

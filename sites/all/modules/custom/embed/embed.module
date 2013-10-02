@@ -6,9 +6,9 @@
 function embed_menu() {
   $menu = array();
 
-  $menu['embed/%'] = array(
+  $menu['embedder/%/%'] = array(
     'page callback' => 'embed',
-    'page arguments' => array(1),
+    'page arguments' => array(1,2),
     'access callback' => true,
     'type' => MENU_CALLBACK,
   );
@@ -17,10 +17,11 @@ function embed_menu() {
 }
 
 /**
- * @param $p
+ * @param        $id
+ * @param string $format
  */
-function embed($p) {
-  print theme('embed_common', 'regular');
+function embed($id, $format = 'regular') {
+  print theme('embedder', $id, $format);
 
   exit;
 }
@@ -31,13 +32,27 @@ function embed($p) {
 function embed_theme() {
   $theme = array();
 
-  $theme['embed_common'] = array(
+  $theme['embedder'] = array(
     'arguments' => array(
-      'format' => NULL,
+      'id' => 0,
+      'format' => null,
     ),
-    'template' => 'template/embed.wrapper',
-    'preprocess functions' => array('embed_common_theme_preprocess'),
+    'template' => 'template/embedder',
+    'preprocess functions' => array('embedder_theme_preprocess'),
   );
+
+  $formats = array('regular', 'error');
+  foreach ($formats as $format) {
+    $function = 'embedder_format_'.$format.'_theme_preprocess';
+
+    $theme['embedder_format_'.$format] = array(
+      'arguments' => array(
+        'node' => null,
+      ),
+      'template' => 'template/embedder.format.'.$format,
+      'preprocess functions' => function_exists($function) ? array($function) : array(),
+    );
+  }
 
   return $theme;
 }
@@ -45,8 +60,14 @@ function embed_theme() {
 /**
  * @param $format
  */
-function embed_common_theme_preprocess(&$vars) {
+function embedder_theme_preprocess(&$vars) {
   $vars['module_path'] = drupal_get_path('module', 'embed');
 
-  $vars['content'] = 'xxxxs';
+  $node = node_load($vars['id']);
+  if (!$node || ('issue' != $node->type)) {
+    $vars['content'] = theme('embedder_format_error', $node);
+    $vars['format'] .= ' error';
+  } else {
+    $vars['content'] = theme('embedder_format_'.$vars['format'], $node);
+  }
 }
