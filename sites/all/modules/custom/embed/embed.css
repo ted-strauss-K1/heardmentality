@@ -6,7 +6,6 @@
 body {
   background : #DDDDDD;
   width      : 100%;
-  height     : 100%;
   margin     : 0;
   padding    : 0;
 }
@@ -23,7 +22,6 @@ div.top-line-logo {
   height           : 30px;
   background-color : #362750;
   color            : white;
-  width            : auto;
   display          : inline-block;
   width            : 300px;
 }
@@ -84,7 +82,11 @@ div.regular {
 div.content a {
   color           : #000000;
   text-decoration : none;
+  display: block;
+}
 
+div.content h1 {
+  margin: 5px 0;
 }
 
 div.content table td.percent-bar-wrapper {
