@@ -3,14 +3,17 @@
 /**
  * @return array
  */
-function embed_menu() {
+function embed_menu () {
   $menu = array();
 
-  $menu['embedder/%/%'] = array(
-    'page callback' => 'embed',
-    'page arguments' => array(1,2),
+  $menu['embedder/%'] = array(
+    'page callback'   => 'embed',
+    'page arguments'  => array(
+      1,
+      2
+    ),
     'access callback' => true,
-    'type' => MENU_CALLBACK,
+    'type'            => MENU_CALLBACK,
   );
 
   return $menu;
@@ -20,8 +23,8 @@ function embed_menu() {
  * @param        $id
  * @param string $format
  */
-function embed($id, $format = 'regular') {
-  print theme('embedder', $id, $format);
+function embed ($id, $format = 'regular') {
+  print theme('embedder', $id, $format ? $format : 'regular');
 
   exit;
 }
@@ -29,27 +32,30 @@ function embed($id, $format = 'regular') {
 /**
  * @return array
  */
-function embed_theme() {
+function embed_theme () {
   $theme = array();
 
   $theme['embedder'] = array(
-    'arguments' => array(
-      'id' => 0,
+    'arguments'            => array(
+      'id'     => 0,
       'format' => null,
     ),
-    'template' => 'template/embedder',
+    'template'             => 'template/embedder',
     'preprocess functions' => array('embedder_theme_preprocess'),
   );
 
-  $formats = array('regular', 'error');
+  $formats = array(
+    'regular',
+    'error'
+  );
   foreach ($formats as $format) {
-    $function = 'embedder_format_'.$format.'_theme_preprocess';
+    $function = 'embedder_format_' . $format . '_theme_preprocess';
 
-    $theme['embedder_format_'.$format] = array(
-      'arguments' => array(
+    $theme['embedder_format_' . $format] = array(
+      'arguments'            => array(
         'node' => null,
       ),
-      'template' => 'template/embedder.format.'.$format,
+      'template'             => 'template/embedder.format.' . $format,
       'preprocess functions' => function_exists($function) ? array($function) : array(),
     );
   }
@@ -60,14 +66,21 @@ function embed_theme() {
 /**
  * @param $format
  */
-function embedder_theme_preprocess(&$vars) {
+function embedder_theme_preprocess (&$vars) {
   $vars['module_path'] = drupal_get_path('module', 'embed');
+
+  if (!user_is_logged_in()) {
+    $vars['content'] = drupal_get_form('user_login');
+    $vars['format'] .= ' login';
+    return;
+  }
 
   $node = node_load($vars['id']);
   if (!$node || ('issue' != $node->type)) {
     $vars['content'] = theme('embedder_format_error', $node);
     $vars['format'] .= ' error';
-  } else {
-    $vars['content'] = theme('embedder_format_'.$vars['format'], $node);
+  }
+  else {
+    $vars['content'] = theme('embedder_format_' . $vars['format'], $node);
   }
 }

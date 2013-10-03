@@ -13,8 +13,14 @@
     @viewport { width: device-width; }
   </style>
 <body>
+<div class="top-line">
+  <div class="top-line-logo">
+    <a href="/"> <img src="/sites/all/themes/heardmentalitylight/images/tiny_logo.png"> <span>Heard Mentality</span>
+      <span class="beta">Beta</span> </a>
+  </div>
+</div>
 <div class="content <?php print $format; ?>">
-<?php print $content; ?>
+  <?php print $content; ?>
 </div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="<?php print $module_path; ?>/embed.js" data-loaded="true"></script>
