@@ -1,5 +1,6 @@
 (function(d){
-  var id = 'hm-embed', a = "data-issue", l = 'http://hm2', w, i;
+
+  var id = 'hm-embed', a = "data-issue", l = 'http://dev.heardmentality.org', w, i;
   if ((w = document.getElementById(id)) && (i = w.getAttribute(a))) {
 
     // easyxdm
