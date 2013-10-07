@@ -1,10 +1,12 @@
 <?php if ($node->choices) : global $user, $language; ?>
   <div <?php if ($node->vote) : ?>class="voted"<?php endif; ?>>
-    <a href="<?php print url('node/' . $node->nid, array('absolute' => true)); ?>">
-      <h1><?php print $node->title; ?></h1>
-    </a>
-    <input type="hidden" name="nid" value="<?php print $node->nid; ?>">
-    <input type="hidden" name="lang" value="<?php print $language->prefix ? '/' . $language->prefix : ''; ?>">
+    <?php print l('<h1>' . $node->title . '</h1>', 'node/' . $node->nid, array(
+      'attributes' => array('target' => '_blank'),
+      'absolute'   => true,
+      'html'       => true,
+    )); ?>
+    <input type="hidden" name="nid" value="<?php print $node->nid; ?>"> <input type="hidden" name="lang"
+                                                                               value="<?php print $language->prefix ? '/' . $language->prefix : ''; ?>">
     <table width="100%">
       <?php foreach ($node->choices as $choice) : ?>
         <?php $percents = $node->votecount ? 100 * $choice['votes'] / $node->votecount : 0; ?>
