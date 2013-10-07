@@ -28,7 +28,14 @@
 <script>
   var socket = new easyXDM.Socket({
     onReady:  function(){
-      socket.postMessage(document.body.scrollHeight)
+      socket.postMessage(document.body.scrollHeight);
+
+      var results = $('tr.vote-results');
+      if (!$('div.content > div.voted').length) {
+        results.hide();
+      }
+      results.css('visibility', 'visible');
+
     }
   });
 </script>
