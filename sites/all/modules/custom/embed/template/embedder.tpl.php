@@ -24,5 +24,13 @@
 </div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="<?php print $module_path; ?>/embed.js" data-loaded="true"></script>
+<script src="/sites/all/libraries/easyxdm/easyXDM.min.js" type="text/javascript"></script>
+<script>
+  var socket = new easyXDM.Socket({
+    onReady:  function(){
+      socket.postMessage(document.body.scrollHeight)
+    }
+  });
+</script>
 </body>
 </html>
