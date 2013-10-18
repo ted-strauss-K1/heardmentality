@@ -92,7 +92,7 @@ function spamblock_form_alter(&$form, &$form_state, $form_id) {
  * @param $form_state
  * @param $form_id
  */
-function spamblock_validate(&$form, &$form_state, $form_id) {
+function spamblock_validate(&$form, &$form_state) {
   $spamblock_email_fields = spamblock_email_fields();
   $key = $spamblock_email_fields[$form_state['spamblock']];
   $values = $form_state['values'];
