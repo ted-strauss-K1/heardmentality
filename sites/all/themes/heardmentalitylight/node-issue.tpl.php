@@ -107,9 +107,13 @@
       <div id="debate_work_area">
         <div class="inner">
 
+          <?php if (ranks_permission(0, $node->uid)) : // todo has sufficient rank ?>
+
           <div class="expanding arg">
             <h6 value="Reply" id="add-arg" class="button <?php print theme('user_login_modal_class'); ?>"><?php print t('Add'); ?></h6>
           </div>
+
+          <?php endif; ?>
 
           <?php if ($node->info['all']) : ?>
             <?php print theme('charts_strength', $node); ?>
