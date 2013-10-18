@@ -99,3 +99,20 @@ function user_login_modal_preprocess_page(&$vars)
   $vars['styles'] = drupal_get_css();
   $vars['script'] = drupal_get_js();
 }
+
+/**
+ * @param $vars
+ */
+function user_login_modal_form_alter(&$form, $form_state, $form_id)
+{
+  if ('colorbox' == arg(0) && 'form' == arg(1)) {
+    if ('user_login' == $form_id) {
+      $destination = isset($_GET["destination"]) ? $_GET["destination"] : $_SERVER["HTTP_REFERER"];
+      $form['#action'] = '/user/login?destination=' . $destination;
+    }
+    if ('user_register' == $form_id) {
+      $destination = isset($_GET["destination"]) ? $_GET["destination"] : $_SERVER["HTTP_REFERER"];
+      $form['#action'] = '/user/register?destination=' . $destination;
+    }
+  }
+}
