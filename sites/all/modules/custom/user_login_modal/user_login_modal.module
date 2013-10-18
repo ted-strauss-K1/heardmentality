@@ -8,7 +8,7 @@
 function user_login_modal_form() {
   $form = array();
 
-  $form['#suffix'] = theme('user_login_modal');
+  $form['#suffix'] = theme('user_login_modal_form_content');
 
   return $form;
 }
@@ -22,7 +22,7 @@ function user_login_modal_theme()
 {
   $theme = array();
 
-  $theme['user_login_modal_form'] = array(
+  $theme['user_login_modal_form_content'] = array(
     'arguments' => array(),
     'template' => 'user_login_modal',
   );
@@ -106,13 +106,9 @@ function user_login_modal_preprocess_page(&$vars)
 function user_login_modal_form_alter(&$form, $form_state, $form_id)
 {
   if ('colorbox' == arg(0) && 'form' == arg(1)) {
-    if ('user_login' == $form_id) {
+    if ('user_login' == $form_id || 'user_register' == $form_id) {
       $destination = isset($_GET["destination"]) ? $_GET["destination"] : $_SERVER["HTTP_REFERER"];
-      $form['#action'] = '/user/login?destination=' . $destination;
-    }
-    if ('user_register' == $form_id) {
-      $destination = isset($_GET["destination"]) ? $_GET["destination"] : $_SERVER["HTTP_REFERER"];
-      $form['#action'] = '/user/register?destination=' . $destination;
+      $form['#action'] = $destination;
     }
   }
 }
