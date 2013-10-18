@@ -1,14 +1,27 @@
 $(document).ready(function () {
 
-  var options = $.browser.mobile ?
-    {inline:true, width:'100%', height:'100%', top: '0px', reposition: false} :
-    {inline:true};
+  $('.openlogin_box').live('click', function (e) {
+    e.preventDefault();
 
-  $(".inline-dialog").colorbox(options);
+    var options = $.browser.mobile ?
+      {/*inline:true, */width:'100%', height:'100%', top: '0px', reposition: false} :
+      {/*inline:true */};
+    options['href'] = Drupal.settings.language_prefix+'/colorbox/form/user_login_modal_form';
 
-  $('#dialog_link, .openlogin_box').live('click', function () {
+    $.colorbox(options);
 
-    $(".inline-dialog").click();
+    return false;
+  });
+
+  $('#dialog_link').live('click', function (e) {
+    e.preventDefault();
+
+    var options = $.browser.mobile ?
+      {inline:true, width:'100%', height:'100%', top: '0px', reposition: false} :
+      {inline:true};
+    options['href'] = '#popup-login';
+
+    $.colorbox(options);
 
     return false;
   });
