@@ -1923,6 +1923,10 @@ form#user-details {
   line-height : 1.4;
 }
 
+.user-info span {
+    display: block;
+}
+
 #profile_overview .user-info p {
   margin-bottom : 10px;
   line-height   : 1.4;
