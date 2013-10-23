@@ -6739,10 +6739,10 @@ span.beta {
 }
 
 .node-static h1 {
-    font-size: 21px;
-    line-height: 21px;
-    margin: 36px 0 16px 0;
-    color: #362750;
+    font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+    font-size: 28px;
+    line-height: 34px;
+    margin-bottom: 8px;
 }
 
 .node-static p {
