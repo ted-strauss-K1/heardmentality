@@ -6701,6 +6701,14 @@ span.beta {
     padding: 0 8px;
 }
 
+#contact-mail-page textarea {
+    border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    -khtml-border-radius: 3px 3px 0 0;
+    -o-border-radius: 3px 3px 0 0;
+}
+
 .mod-form .form-item,
 .mod-form textarea,
 .mod-form input[type=text] {

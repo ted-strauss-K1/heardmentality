@@ -1088,6 +1088,12 @@
   }
 }
 
+/*Contact*/
+
+#contact-mail-page .resizable-textarea .grippie {
+    padding: 0;
+}
+
 /* END Mobile Only
 ==================================================*/
 
