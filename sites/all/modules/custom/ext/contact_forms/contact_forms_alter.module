@@ -12,7 +12,7 @@ function contact_forms_alter_form_alter(&$form, $form_state, $form_id)
 
   # for module "contact_forms"
   if ($form_id == 'contact_mail_page' && module_exists('contact_forms')) {
-    $form['#prefix'] = t("") . ':';
+    $form['#prefix'] = t("Please let us know why you’re contacting us") . ':';
     $info = array(
       t('Site Suggestion'),
       t('Site Complaint'),
