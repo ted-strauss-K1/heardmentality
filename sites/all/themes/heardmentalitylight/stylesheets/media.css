@@ -1093,7 +1093,11 @@
 
     #contact-mail-page .resizable-textarea .grippie {
         padding: 0;
+        height: 10px;
+        border: none;
+        box-shadow: inset 1px -1px 0 0 #ddd, inset -1px 0 0 0 #ddd;
     }
+
 }
 
 /*Contact*/
