@@ -6718,6 +6718,11 @@ span.beta {
     -o-border-radius: 3px 3px 0 0;
 }
 
+#contact-mail-page textarea,
+#contact-mail-page input[type="text"] {
+    box-shadow: none;
+}
+
 #contact-mail-page input[type="checkbox"] {
     margin: 3px 3px 3px 0;
 }
