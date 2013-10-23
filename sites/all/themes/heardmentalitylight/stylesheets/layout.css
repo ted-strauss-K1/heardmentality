@@ -6697,6 +6697,11 @@ span.beta {
     padding: 6px 8px;
 }
 
+#contact-mail-page .resizable-textarea {
+    width: auto;
+    margin-right: 20px;
+}
+
 #contact-mail-page .resizable-textarea .grippie {
     padding: 0 8px;
 }

@@ -1091,6 +1091,10 @@
         width: 100%;
     }
 
+    #contact-mail-page .resizable-textarea {
+        width: 100%;
+    }
+
     #contact-mail-page .resizable-textarea .grippie {
         padding: 0;
         height: 10px;
