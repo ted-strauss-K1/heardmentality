@@ -6732,6 +6732,31 @@ span.beta {
     margin: 0;
 }
 
+/* PRIVACY POLICY */
+
+.node-static {
+    margin-bottom: 15px;
+}
+
+.node-static h1 {
+    font-size: 21px;
+    line-height: 21px;
+    margin: 36px 0 16px 0;
+    color: #362750;
+}
+
+.node-static p {
+    margin: 12px 0;
+}
+
+.node-static p br {
+    display: none;
+}
+
+.node-static {
+
+}
+
 /**** SELECTED ITEMS FOR BADGES ****/
 
 .selected-item {
