@@ -6684,6 +6684,10 @@ span.beta {
     margin-bottom: 0px;
 }
 
+#contact-mail-page {
+    margin-top: 6px;
+}
+
 #contact-mail-page #edit-name-wrapper {
     clear: both;
 }
