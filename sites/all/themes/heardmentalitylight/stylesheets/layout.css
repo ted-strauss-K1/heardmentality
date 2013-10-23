@@ -6709,6 +6709,14 @@ span.beta {
     -o-border-radius: 3px 3px 0 0;
 }
 
+#contact-mail-page input[type="checkbox"] {
+    margin: 3px 3px 3px 0;
+}
+
+#contact-mail-page input[type="submit"] {
+    margin: 3px 0 0 0;
+}
+
 .mod-form .form-item,
 .mod-form textarea,
 .mod-form input[type=text] {
