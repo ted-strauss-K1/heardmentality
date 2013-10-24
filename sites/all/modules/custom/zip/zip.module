@@ -38,6 +38,8 @@ function zip_form () {
  * @return array
  */
 function scanpath ($path) {
+  static $i;
+  $i++;
   if (is_dir($path)) {
     $result = array();
 
@@ -45,7 +47,7 @@ function scanpath ($path) {
       if ($value === '.' || $value === '..') {
         continue;
       }
-      $result += scanpath("$path/$value");
+      $result = array_merge($result, scanpath("$path/$value"));
     }
 
     return $result;
@@ -60,23 +62,16 @@ function scanpath ($path) {
  * @param $path
  */
 function zip_mtime ($path) {
-  clearstatcache();
-
   $mtime = 0;
 
-  var_dump(scanpath ($path));
+  $list = scanpath ($path);
 
-  $data = array();
-  foreach (scanpath ($path) as $file) {
+  foreach ($list as $file) {
     $mtime_file = filemtime($file);
-    $data[$mtime_file] = filemtime($file);
     if ($mtime_file > $mtime) {
       $mtime = $mtime_file;
     }
   }
-
-  asort($data);
-  var_dump($data);
 
   return $mtime;
 }
@@ -119,9 +114,6 @@ function zip_form_submit () {
         if (($mtime1 = filemtime($path_zip)) < ($mtime2 = zip_mtime($path_theme_directory))) {
           drupal_set_message("Theme's <b>$theme</b> version is not incremented.", 'warning');
         }
-        echo $mtime1 . "<br>";
-        echo $mtime2 . "<br>";
-        exit;
       }
       else {
         $command = "mv $path_zip_tmp $path_zip";
@@ -131,6 +123,9 @@ function zip_form_submit () {
       @unlink($path_zip_tmp);
     }
   }
+
+  // modules
+  
 
   //  exit;
 }
