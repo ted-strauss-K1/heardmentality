@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @return array
+ */
+function zip_menu () {
+  $menu = array();
+
+  $menu['admin/settings/zip'] = array(
+    'title' => t('Zip customs'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('zip_form'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $menu;
+}
+
+/**
+ *
+ */
+function zip_form () {
+  $form = array();
+
+  $form["submit"] = array(
+    '#type' => 'submit',
+    '#value' => 'Generate Zip Files',
+  );
+
+  return $form;
+}
+
+/**
+ *
+ */
+function zip_form_submit () {
+  $path = __DIR__ . '/files';
+
+  //
+  if (!is_writable($path)) {
+    drupal_set_message('Path <b>'.$path.'</b> is not writable.', 'warning');
+    return;
+  }
+
+  // modules
+
+
+}
