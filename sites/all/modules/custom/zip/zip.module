@@ -61,10 +61,8 @@ function scanpath ($path) {
 /**
  * @param $path
  */
-function zip_mtime ($path) {
+function zip_mtime ($list) {
   $mtime = 0;
-
-  $list = scanpath ($path);
 
   foreach ($list as $file) {
     $mtime_file = filemtime($file);
@@ -82,6 +80,7 @@ function zip_mtime ($path) {
 function zip_form_submit () {
   set_time_limit(0);
   $path = __DIR__ . '/files';
+  $path_site = "http://dev.heardmentality.net/sites/all/modules/custom/zip/files/";
 
   //
   if (!is_writable($path)) {
@@ -89,14 +88,20 @@ function zip_form_submit () {
     return;
   }
 
+  //
+  $makefile = fopen(__DIR__ . '/files/custom-' . date('Y.m.d_h.i.s') . '.make', 'w+');
+  fwrite($makefile, "core = 6.x\n");
+  fwrite($makefile, "api = 2\n");
+  fwrite($makefile, "\n\n");
+
+
   // theme
   $theme = 'heardmentalitylight';
   $filepath = $_SERVER['DOCUMENT_ROOT'] . '/' . db_result(db_query("SELECT filename FROM system WHERE name = '%s' AND type = 'theme'", $theme));
 
-  if (file_exists($filepath)) {
+  if (file_exists($filepath)) { // todo
     $info = drupal_parse_info_file($filepath);
     $version = $info['version'];
-
 
     $path_theme_info = $filepath;
     $path_theme_directory = dirname($filepath);
@@ -111,7 +116,8 @@ function zip_form_submit () {
 
     if (file_exists($path_zip_tmp)) {
       if (file_exists($path_zip)) {
-        if (($mtime1 = filemtime($path_zip)) < ($mtime2 = zip_mtime($path_theme_directory))) {
+        $list = scanpath($path_theme_directory);
+        if (($mtime1 = filemtime($path_zip)) < ($mtime2 = zip_mtime($list))) {
           drupal_set_message("Theme's <b>$theme</b> version is not incremented.", 'warning');
         }
       }
@@ -121,11 +127,84 @@ function zip_form_submit () {
       }
 
       @unlink($path_zip_tmp);
+
+      fwrite($makefile, "projects[" . $theme . "][download][type] = \"get\"\n");
+      fwrite($makefile, "projects[" . $theme . "][download][url] = \"" . $path_site . $path_zip_name . "\"\n");
+      fwrite($makefile, "projects[" . $theme . "][type] = \"theme\"\n");
+      fwrite($makefile, "projects[" . $theme . "][subdir] = \"\"\n");
+      fwrite($makefile, "projects[" . $theme . "][version] = \"" . $version . "\"\n");
+      fwrite($makefile, "\n\n");
     }
   }
 
   // modules
-  
+  $modules = array();
 
-  //  exit;
+  $zip = dirname(drupal_get_path('module', 'zip'));
+  $result = db_query("SELECT filename FROM system WHERE type = 'module' AND filename LIKE '" . $zip . "%' ORDER BY filename DESC");
+  while ($filename = db_result($result)) {
+    $modules[$_SERVER['DOCUMENT_ROOT'] . '/' . dirname($filename)] = $filename;
+  }
+  krsort($modules);
+
+  $processed = array();
+  foreach ($modules as $path_dir => $path_info) {
+    $path_info = str_replace('.module', '', $path_info) . '.info';
+    $info = drupal_parse_info_file($path_info);
+    $version = $info['version'];
+    $module = str_replace('.info', '', basename($path_info));
+    if ('zip' == $module) {
+      continue;
+    }
+    $path_zip_name = $module . '-' . $version . '.zip';
+    $path_zip_name_tmp = 'tmp_' . $path_zip_name;
+    $path_zip = $path . '/' . $path_zip_name;
+    $path_zip_tmp = $path . '/' . $path_zip_name_tmp;
+
+    # get list of files
+    $list = scanpath($path_dir);
+    foreach ($processed as $path_dir_processed) {
+      if (false !== strpos($path_dir_processed, $path_dir)) {
+        $list_exclude = scanpath($path_dir_processed);
+        $list = array_diff($list, $list_exclude);
+      }
+    }
+    $processed[] = $path_dir;
+
+    # create zip
+    $zip = new ZipArchive();
+    if ($zip->open($path_zip_tmp, ZIPARCHIVE::OVERWRITE) !== true) {
+      continue;
+    }
+    foreach ($list as $file) {
+      if ('.DS_Store' == basename($file)) {
+        continue;
+      }
+      $zip->addFile($file, str_replace($path_dir . '/', '', $file));
+    }
+    $zip->close();
+
+    # move
+    if (file_exists($path_zip)) {
+      if (($mtime1 = filemtime($path_zip)) < ($mtime2 = zip_mtime($list))) {
+        drupal_set_message("Module's <b>$module</b> version is not incremented.", 'warning');
+      }
+    }
+    else {
+      $command = "mv $path_zip_tmp $path_zip";
+      shell_exec($command);
+    }
+
+    @unlink($path_zip_tmp);
+
+    fwrite($makefile, "projects[" . $module . "][download][type] = \"get\"\n");
+    fwrite($makefile, "projects[" . $module . "][download][url] = \"" . $path_site . $path_zip_name . "\"\n");
+    fwrite($makefile, "projects[" . $module . "][type] = \"module\"\n");
+    fwrite($makefile, "projects[" . $module . "][subdir] = \"custom\"\n");
+    fwrite($makefile, "projects[" . $module . "][version] = \"" . $version . "\"\n");
+    fwrite($makefile, "\n\n");
+  }
+
+  //
+  fclose($makefile);
 }
