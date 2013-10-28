@@ -1,5 +1,4 @@
 name = Zip
-description =
-package = Custom Modules
+package = "Custom Modules"
 version = "6.x-1.0-dev"
 core = 6.x
