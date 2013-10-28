@@ -1,27 +1,16 @@
 <?php
 
 /**
- * Implementation of hook_preprocess_page()
+ * No form here. Just come along.
  *
- * @param $vars
+ * @return array
  */
-function user_login_modal_preprocess_page(&$vars)
-{
-  if (!user_is_logged_in()) {
-    $vars['user_popups'] = theme('user_login_modal_popup');
-  }
-  drupal_add_js('misc/ahah.js');
-  drupal_add_js(drupal_get_path('module', 'user_login_modal') . '/user_login_modal.js');
-  drupal_add_css(drupal_get_path('module', 'user_login_modal') . '/user_login_modal.css');
-  $vars['user_login_modal'] = theme('user_login_modal');
+function user_login_modal_form() {
+  $form = array();
 
-  if (!user_is_logged_in()) {
-    $vars['login_block'] = drupal_get_form('user_login');
-    $vars['login_register'] = drupal_get_form('user_register');
-  }
+  $form['#suffix'] = theme('user_login_modal_form_content');
 
-  $vars['styles'] = drupal_get_css();
-  $vars['script'] = drupal_get_js();
+  return $form;
 }
 
 /**
@@ -33,17 +22,31 @@ function user_login_modal_theme()
 {
   $theme = array();
 
+  $theme['user_login_modal_form_content'] = array(
+    'arguments' => array(),
+    'template' => 'user_login_modal',
+  );
+
   $theme['user_login_modal'] = array(
     'arguments' => array(),
   );
-  $theme['user_login_modal_popup'] = array(
-    'arguments' => array(),
-  );
+
   $theme['user_login_modal_class'] = array(
     'arguments' => array('force' => false),
   );
 
   return $theme;
+}
+
+/**
+ * Access to the custom forms from colorbox/form path
+ *
+ * @param $form_id
+ *
+ * @return bool
+ */
+function user_login_modal_colorbox_form_access ($form_id) {
+  return user_is_anonymous() && ('user_login_modal_form' == $form_id);
 }
 
 /**
@@ -63,41 +66,6 @@ function theme_user_login_modal()
 }
 
 /**
- * Theme "user_login_modal_popup"
- *
- * @return string
- */
-function theme_user_login_modal_popup()
-{
-  return '
-  <div style="display:none">
-
-    <a href="#popup-login" class="inline-dialog"></a>
-
-    <div id="popup-login">
-      <div class="popup-login-inner '.(is_mobile()?'mobile':'').'">
-
-      <div id="tabs-1" class="popup-tab">
-        <div id="user-login">
-          <h2>'.t('Login').'</h2>
-          ' . drupal_get_form('user_login') . '
-        </div>
-      </div>
-
-      <div id="tabs-2" class="popup-tab">
-        <div id="user-register">
-          <h2>'.t('Register').'</h2>
-          ' . drupal_get_form('user_register') . '
-        </div>
-      </div>
-
-      </div>
-
-    </div>
-  </div>';
-}
-
-/**
  * @param bool $force
  * @return string
  */
@@ -113,4 +81,34 @@ function user_login_modal_class($force = false)
 function theme_user_login_modal_class($force = false)
 {
   return user_login_modal_class($force);
+}
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function user_login_modal_preprocess_page(&$vars)
+{
+  $vars['user_login_modal'] = theme('user_login_modal');
+
+  // drupal_add_js('misc/ahah.js');
+  drupal_add_js(drupal_get_path('module', 'user_login_modal') . '/user_login_modal.js');
+  drupal_add_css(drupal_get_path('module', 'user_login_modal') . '/user_login_modal.css');
+
+  $vars['styles'] = drupal_get_css();
+  $vars['script'] = drupal_get_js();
+}
+
+/**
+ * @param $vars
+ */
+function user_login_modal_form_alter(&$form, $form_state, $form_id)
+{
+  if ('colorbox' == arg(0) && 'form' == arg(1)) {
+    if ('user_login' == $form_id || 'user_register' == $form_id) {
+      $destination = isset($_GET["destination"]) ? $_GET["destination"] : $_SERVER["HTTP_REFERER"];
+      $form['#action'] = $destination;
+    }
+  }
 }
