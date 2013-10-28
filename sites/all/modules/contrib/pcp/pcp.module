@@ -347,16 +347,14 @@ function pcp_get_complete_percentage_data($user) {
     shuffle($fields);
     
     foreach ($fields as $key => $value) {
-      # odyachenko : Fix as far default value we use is -1
-//      if (($user_values[$value['fid']] == '') || ($user_values[$value['fid']] == '0' && $value['type'] == 'selection')) {
-      if (($user_values[$value['fid']] == '') || ($user_values[$value['fid']] == '-1' && $value['type'] == 'selection')) {
+      if (($user_values[$value['fid']] == '') || ($user_values[$value['fid']] == '0' && $value['type'] == 'selection')) {
         if ($nextfield_set === FALSE) {
           $nextfield_set = TRUE;
           $fid = $value['fid'];
           $nextfield_fid = $fid;
-
+          
           if (is_numeric($fid)) {
-            $nextdata = db_fetch_array(db_query("SELECT title, name, category FROM {profile_fields} WHERE fid = '%s'", $fid));
+            $nextdata = db_fetch_array(db_query("SELECT title, name, category FROM {profile_fields} WHERE fid = %d", $fid));
             $nextfield = $nextdata['title'];
             $nextcategory = $nextdata['category'];
             $nextname = $nextdata['name'];
