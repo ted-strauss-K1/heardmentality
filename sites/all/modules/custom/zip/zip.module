@@ -103,7 +103,7 @@ function zip_form_submit () {
   $items['theme'] = array('heardmentalitylight');
   $items['module'] = array();
 
-  # get list of custom modules from
+  # get list of custom modules from custom
   $basedir = dirname(drupal_get_path('module', 'zip'));
   $modules = array();
   $result = db_query("SELECT filename, name FROM system WHERE type = 'module' AND filename LIKE '" . $basedir . "%' AND name <> 'zip' ORDER BY filename DESC");
@@ -112,8 +112,7 @@ function zip_form_submit () {
   }
   ksort($modules);
 
-  $basedir =
-
+  # roots
   $roots = array();
   foreach ($modules as $module_path => $module_name) {
     foreach ($roots as $root) {
@@ -133,22 +132,26 @@ function zip_form_submit () {
       $filename = db_result(db_query("SELECT filename FROM system WHERE name = '%s' AND type = '%s'", $name, $type));
       if (!$filename) {
         $fail = true;
-        echo ('-- No filename: '.$type.'-'.$name) . "<br>";
-        printf ("DELETE FROM system WHERE name = '%s' AND type = '%s';", $name, $type); echo "<br>";
+        echo ('-- No filename: ' . $type . '-' . $name) . "<br>";
+        printf("DELETE FROM system WHERE name = '%s' AND type = '%s';", $name, $type);
+        echo "<br>";
         continue;
       }
 
       # paths
       $path_dir = dirname($filename);
+      $path_suffix = str_replace($basedir, '', dirname($path_dir));
+      $path_subdir = 'custom' . $path_suffix;
       $path_info = $path_dir . '/' . $name . '.info';
       if (!file_exists($path_info)) {
         $fail = true;
-        echo ('-- No info: '.$type.'-'.$name) . "<br>";
-        printf ("DELETE FROM system WHERE name = '%s' AND type = '%s';", $name, $type); echo "<br>";
+        echo ('-- No info: ' . $type . '-' . $name) . "<br>";
+        printf("DELETE FROM system WHERE name = '%s' AND type = '%s';", $name, $type);
+        echo "<br>";
         continue;
       }
       $info = drupal_parse_info_file($path_info);
-      $version = '6.x-'.preg_replace('/^6\.[^-]+-/', '', $info['version']);
+      $version = '6.x-' . preg_replace('/^6\.[^-]+-/', '', $info['version']);
       $path_zip_name = $name . '-' . $version . '.zip';
       $path_zip_name_tmp = 'tmp_' . $path_zip_name;
       $path_zip = $path . '/' . $path_zip_name;
@@ -186,7 +189,7 @@ function zip_form_submit () {
       fwrite($makefile, "projects[" . $name . "][download][type] = \"get\"\n");
       fwrite($makefile, "projects[" . $name . "][download][url] = \"" . $path_site . $path_zip_name . "\"\n");
       fwrite($makefile, "projects[" . $name . "][type] = \"$type\"\n");
-      fwrite($makefile, "projects[" . $name . "][subdir] = \"".('theme' == $type ? '' : 'custom')."\"\n");
+      fwrite($makefile, "projects[" . $name . "][subdir] = \"" . ('theme' == $type ? '' : $path_subdir) . "\"\n");
       fwrite($makefile, "projects[" . $name . "][version] = \"" . $version . "\"\n");
       fwrite($makefile, "\n\n");
     }
@@ -196,8 +199,8 @@ function zip_form_submit () {
   fclose($makefile);
 
   # mv
-  shell_exec("rm -rf ".__DIR__ . '/files/custom.make');
-  shell_exec("cp ".$path_make." ".__DIR__ . '/files/custom.make');
+  shell_exec("rm -rf " . __DIR__ . '/files/custom.make');
+  shell_exec("cp " . $path_make . " " . __DIR__ . '/files/custom.make');
 
   if ($fail) {
     exit;
