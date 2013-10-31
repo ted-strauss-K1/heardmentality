@@ -1,9 +1,0 @@
-name = Issue (core)
-description = Issue - an extension of Poll content type for HeardMentality
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-
-
-
-
