@@ -1,0 +1,196 @@
+<?php
+
+/**
+ * @return array
+ */
+function zip_menu () {
+  $menu = array();
+
+  $menu['admin/settings/zip'] = array(
+    'title'            => t('Zip customs'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('zip_form'),
+    'access arguments' => array('administer site configuration'),
+    'type'             => MENU_NORMAL_ITEM,
+  );
+
+  return $menu;
+}
+
+/**
+ *
+ */
+function zip_form () {
+  $form = array();
+
+  $form["submit"] = array(
+    '#type'  => 'submit',
+    '#value' => 'Generate Zip Files',
+  );
+
+  return $form;
+}
+
+
+/**
+ * @param $dir
+ *
+ * @return array
+ */
+function scanpath ($path) {
+  static $i;
+  $i++;
+  if (is_dir($path)) {
+    $result = array();
+
+    foreach (scandir($path) as $value) {
+      if ($value === '.' || $value === '..') {
+        continue;
+      }
+      $result = array_merge($result, scanpath("$path/$value"));
+    }
+
+    return $result;
+  }
+
+  else {
+    return array($path);
+  }
+}
+
+/**
+ * @param $path
+ */
+function zip_mtime ($list) {
+  $mtime = 0;
+
+  foreach ($list as $file) {
+    $mtime_file = filemtime($file);
+    if ($mtime_file > $mtime) {
+      $mtime = $mtime_file;
+    }
+  }
+
+  return $mtime;
+}
+
+/**
+ *
+ */
+function zip_form_submit () {
+  set_time_limit(0);
+
+  # init paths
+  $path = __DIR__ . '/files';
+  $path_site = "http://dev.heardmentality.org/zip/";
+
+  # check dir
+  if (!is_writable($path)) {
+    drupal_set_message('Path <b>' . $path . '</b> is not writable.', 'warning');
+    return;
+  }
+
+  # start writing makefiles
+  $path_make = __DIR__ . '/files/custom-' . date('Y.m.d_h.i.s') . '.make';
+  $makefile = fopen($path_make, 'w+');
+  fwrite($makefile, "core = 6.x\n");
+  fwrite($makefile, "api = 2\n");
+  fwrite($makefile, "\n\n");
+
+  # items
+  $items = array();
+
+  $items['theme'] = array('heardmentalitylight');
+  $items['module'] = array();
+
+  # get list of custom modules from
+  $basedir = dirname(drupal_get_path('module', 'zip'));
+  $modules = array();
+  $result = db_query("SELECT filename, name FROM system WHERE type = 'module' AND filename LIKE '" . $basedir . "%' AND name <> 'zip' ORDER BY filename DESC");
+  while ($row = db_fetch_array($result)) {
+    $modules[$_SERVER['DOCUMENT_ROOT'] . '/' . dirname($row['filename'])] = $row['name'];
+  }
+  ksort($modules);
+
+  $basedir =
+
+  $roots = array();
+  foreach ($modules as $module_path => $module_name) {
+    foreach ($roots as $root) {
+      if (false !== strpos($module_path, $root)) {
+        continue 2;
+      }
+    }
+    $roots[] = $module_path;
+    $items['module'][] = $module_name;
+  }
+
+  # prepare zips
+  foreach ($items as $type => $list) {
+    foreach ($list as $name) {
+      # get filename
+      $filename = db_result(db_query("SELECT filename FROM system WHERE name = '%s' AND type = '%s'", $name, $type));
+      if (!$filename) {
+        exit('No filename: '.$type.'-'.$name);
+        continue;
+      }
+
+      # paths
+      $path_dir = dirname($filename);
+      $path_info = $path_dir . '/' . $name . '.info';
+      if (!file_exists($path_info)) {
+        exit('No info: '.$type.'-'.$name);
+        continue;
+      }
+      $info = drupal_parse_info_file($path_info);
+      $version = '6.x-'.preg_replace('/^6\.[^-]+-/', '', $info['version']);
+      $path_zip_name = $name . '-' . $version . '.zip';
+      $path_zip_name_tmp = 'tmp_' . $path_zip_name;
+      $path_zip = $path . '/' . $path_zip_name;
+      $path_zip_tmp = $path . '/' . $path_zip_name_tmp;
+
+      # list of files
+      $list = scanpath($path_dir);
+
+      # create zip
+      $zip = new ZipArchive();
+      if ($zip->open($path_zip_tmp, ZIPARCHIVE::OVERWRITE) !== true) {
+        continue;
+      }
+      foreach ($list as $file) {
+        if ('.DS_Store' == basename($file)) {
+          continue;
+        }
+        $zip->addFile($file, str_replace($path_dir . '/', '', $file));
+      }
+      $zip->close();
+
+      # move
+      if (file_exists($path_zip)) {
+        if (($mtime1 = filemtime($path_zip)) < ($mtime2 = zip_mtime($list))) {
+          drupal_set_message(ucwords($type) . "'s <b>$name</b> version is not incremented.", 'warning');
+        }
+      }
+      else {
+        $command = "mv $path_zip_tmp $path_zip";
+        shell_exec($command);
+      }
+      @unlink($path_zip_tmp);
+
+      # write to makefile
+      fwrite($makefile, "projects[" . $name . "][download][type] = \"get\"\n");
+      fwrite($makefile, "projects[" . $name . "][download][url] = \"" . $path_site . $path_zip_name . "\"\n");
+      fwrite($makefile, "projects[" . $name . "][type] = \"$type\"\n");
+      fwrite($makefile, "projects[" . $name . "][subdir] = \"custom\"\n");
+      fwrite($makefile, "projects[" . $name . "][version] = \"" . $version . "\"\n");
+      fwrite($makefile, "\n\n");
+    }
+  }
+
+  # save makefile
+  fclose($makefile);
+
+  # mv
+  shell_exec("rm -rf ".__DIR__ . '/files/custom.make');
+  shell_exec("cp ".$path_make." ".__DIR__ . '/files/custom.make');
+}

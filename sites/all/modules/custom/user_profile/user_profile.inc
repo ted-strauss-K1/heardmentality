@@ -443,7 +443,7 @@ function user_profile_block_preprocess(&$vars)
     drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
     global $user;
     $preprocessed['user'] = $user;
-    $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
+    $preprocessed['complete'] = pcp_alter_get_complete_percentage_data($user);
     $preprocessed['badges'] = $user->badges;
 //    if (module_exists('up')) {
 //      $preprocessed['points'] = up_userpoints_get($user->uid);
