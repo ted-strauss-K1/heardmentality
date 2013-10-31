@@ -79,31 +79,34 @@ function zip_mtime ($list) {
  */
 function zip_form_submit () {
   set_time_limit(0);
-  $path = __DIR__ . '/files';
-  $path_site = "http://dev.heardmentality.net/sites/all/modules/custom/zip/files/";
 
-  //
+  # init paths
+  $path = __DIR__ . '/files';
+  $path_site = "http://dev.heardmentality.net/zip/";
+
+  # check dir
   if (!is_writable($path)) {
     drupal_set_message('Path <b>' . $path . '</b> is not writable.', 'warning');
     return;
   }
 
-  //
-  $makefile = fopen(__DIR__ . '/files/custom-' . date('Y.m.d_h.i.s') . '.make', 'w+');
+  # start writing makefiles
+  $path_make = __DIR__ . '/files/custom-' . date('Y.m.d_h.i.s') . '.make';
+  $makefile = fopen($path_make, 'w+');
   fwrite($makefile, "core = 6.x\n");
   fwrite($makefile, "api = 2\n");
   fwrite($makefile, "\n\n");
 
 
-  // theme
+  # theme
   $theme = 'heardmentalitylight';
   $filepath = $_SERVER['DOCUMENT_ROOT'] . '/' . db_result(db_query("SELECT filename FROM system WHERE name = '%s' AND type = 'theme'", $theme));
 
-  if (file_exists($filepath)) { // todo
+  # theme
+  if (file_exists($filepath)) {
     $info = drupal_parse_info_file($filepath);
     $version = $info['version'];
 
-    $path_theme_info = $filepath;
     $path_theme_directory = dirname($filepath);
     $path_zip_name = $theme . '-' . $version . '.zip';
     $path_zip_name_tmp = 'tmp_' . $path_zip_name;
@@ -137,9 +140,8 @@ function zip_form_submit () {
     }
   }
 
-  // modules
+  # modules (list)
   $modules = array();
-
   $zip = dirname(drupal_get_path('module', 'zip'));
   $result = db_query("SELECT filename FROM system WHERE type = 'module' AND filename LIKE '" . $zip . "%' ORDER BY filename DESC");
   while ($filename = db_result($result)) {
@@ -147,6 +149,7 @@ function zip_form_submit () {
   }
   krsort($modules);
 
+  # modules (process)
   $processed = array();
   foreach ($modules as $path_dir => $path_info) {
     $path_info = str_replace('.module', '', $path_info) . '.info';
@@ -205,6 +208,10 @@ function zip_form_submit () {
     fwrite($makefile, "\n\n");
   }
 
-  //
+  # save makefile
   fclose($makefile);
+
+  # mv
+  shell_exec("rm -rf ".__DIR__ . '/files/custom.make');
+  shell_exec("cp ".$path_make." ".__DIR__ . '/files/custom.make');
 }
