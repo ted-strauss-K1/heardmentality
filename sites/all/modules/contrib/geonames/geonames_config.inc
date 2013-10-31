@@ -884,7 +884,6 @@ function geonames_config($a = NULL, $b = NULL) {
       //our style  geonames style
       'lat'      => 'lat',
       'lng'      => 'lng',
-      'style'        => 'style',
     ),
     'required_parameters'      => array( // If you have set query_defaults you should not include the parameter here
       'lat',
@@ -921,7 +920,6 @@ function geonames_config($a = NULL, $b = NULL) {
       // Ocean
       // 'name'
     ),
-    'detect_style'   => TRUE,
   );
   $config['astergdem'] = array(
     'service_full_name'        => 'Elevation - Aster Global Digital Elevation Model',
