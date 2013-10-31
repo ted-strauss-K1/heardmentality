@@ -143,7 +143,7 @@ function zip_form_submit () {
         continue;
       }
       $info = drupal_parse_info_file($path_info);
-      $version = preg_replace('/^6\.[^-]+-/', '', $info['version']);
+      $version = '6.x-'.preg_replace('/^6\.[^-]+-/', '', $info['version']);
       $path_zip_name = $name . '-' . $version . '.zip';
       $path_zip_name_tmp = 'tmp_' . $path_zip_name;
       $path_zip = $path . '/' . $path_zip_name;
@@ -161,8 +161,6 @@ function zip_form_submit () {
         if ('.DS_Store' == basename($file)) {
           continue;
         }
-
-
         $zip->addFile($file, str_replace($path_dir . '/', '', $file));
       }
       $zip->close();
