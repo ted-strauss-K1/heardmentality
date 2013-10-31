@@ -12,7 +12,7 @@
     <div class="qd">
       <?php if($page) : ?>
         <?php if ($node->moderate == MODERATION_ALLOWED) : ?>
-          <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
+          <img src="<?php print url(path_to_theme() . '/images/icons/59-flag@2x.png'); ?>" height="14px">
           <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
           <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
           <?php print theme('flagger_btn_history', $nid, 'node'); ?>

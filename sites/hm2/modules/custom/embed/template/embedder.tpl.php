@@ -15,7 +15,7 @@
 <body>
 <div class="top-line">
   <div class="top-line-logo">
-    <a href="/"> <img src="/sites/all/themes/heardmentalitylight/images/tiny_logo.png"> <span>Heard Mentality</span>
+    <a href="/"> <img src="<?php url(path_to_theme() . '/images/tiny_logo.png'); ?>"> <span>Heard Mentality</span>
       <span class="beta">Beta</span> </a>
   </div>
 </div>

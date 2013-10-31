@@ -311,13 +311,6 @@
 .ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive,
 .ie8 .vote-results .legend dt, .ie7 .vote-results .legend dt,
 .ie8 .badge, .ie7 .badge,
-  /* todo remove these ones */
-.ie7 .bronze, .ie7 .silver, .ie7 .gold,
-.ie8 .bronze, .ie8 .silver, .ie8 .gold,
-.ie7 .badge-circle, .ie8 .badge-circle {
-  behavior : url(http://localhost/hm2_git/heardmentality/sites/all/themes/heardmentalitylight/stylesheets/PIE.htc);
-  zoom     : 1;
-}
 
 .ie7 .vote-results .legend dt,
 .ie8 .vote-results .legend dt,
