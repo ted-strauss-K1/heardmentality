@@ -16,13 +16,15 @@ function imageapi_gd_requirements($phase) {
     return $requirements;
   }
 
-  // report version.
-  $info = gd_info();
-  $requirements['imageapi_gd'] = array(
-    'title' =>  $t('GD library'),
-    'value' => $info['GD Version'],
-    'severity' => REQUIREMENT_OK,
-  );
+  // If color module hasn't already do so, report the version.
+  if (!module_exists('color')) {
+    $info = gd_info();
+    $requirements['imageapi_gd'] = array(
+      'title' =>  $t('GD library'),
+      'value' => $info['GD Version'],
+      'severity' => REQUIREMENT_OK,
+    );
+  }
 
   // Check image format support
   foreach (array('gif', 'jpeg', 'png') as $format) {
@@ -75,10 +77,8 @@ function imageapi_gd_requirements($phase) {
 }
 
 /**
- * Remove the old JPEG quality setting.
+ * Implementation of hook_uninstall().
  */
-function imageapi_gd_update_7000() {
+function imageapi_gd_uninstall() {
   variable_del('imageapi_jpeg_quality');
-  return array();
 }
-

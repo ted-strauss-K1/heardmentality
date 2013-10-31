@@ -1,12 +1,12 @@
 name = ImageAPI ImageMagick
 description = Command Line ImageMagick support.
-package = ImageAPI
-core = 7.x
-files[] = imageapi_imagemagick.module
+package = ImageCache
+core = 6.x
 
-; Information added by drush on 2013-10-28
+
+; Information added by drupal.org packaging script on 2011-05-16
 version = "6.x-1.10"
 core = "6.x"
 project = "imageapi"
-datestamp = "1382942248"
+datestamp = "1305563215"
 
