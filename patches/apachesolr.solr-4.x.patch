@@ -1,0 +1,45 @@
+diff --git a/sites/all/modules/contrib/apachesolr/Drupal_Apache_Solr_Service.php b/sites/all/modules/contrib/apachesolr/Drupal_Apache_Solr_Service.php
+index 30fa48b..7e5331b 100644
+--- a/sites/all/modules/contrib/apachesolr/Drupal_Apache_Solr_Service.php
++++ b/sites/all/modules/contrib/apachesolr/Drupal_Apache_Solr_Service.php
+@@ -659,7 +659,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
+     $flushValue = $waitFlush ? 'true' : 'false';
+     $searcherValue = $waitSearcher ? 'true' : 'false';
+ 
+-    $rawPost = '<commit optimize="' . $optimizeValue . '" waitFlush="' . $flushValue . '" waitSearcher="' . $searcherValue . '" />';
++    ## $rawPost = '<commit optimize="' . $optimizeValue . '" waitFlush="' . $flushValue . '" waitSearcher="' . $searcherValue . '" />';
++    $rawPost = '<commit />';
+ 
+     $response = $this->update($rawPost, $timeout);
+     $this->_clearCache();
+@@ -732,7 +733,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
+     $flushValue = $waitFlush ? 'true' : 'false';
+     $searcherValue = $waitSearcher ? 'true' : 'false';
+ 
+-    $rawPost = '<optimize waitFlush="' . $flushValue . '" waitSearcher="' . $searcherValue . '" />';
++    ## $rawPost = '<optimize waitFlush="' . $flushValue . '" waitSearcher="' . $searcherValue . '" />';
++    $rawPost = '<optimize />';
+ 
+     return $this->update($rawPost, $timeout);
+   }
+diff --git a/sites/all/modules/contrib/apachesolr/apachesolr.admin.inc b/sites/all/modules/contrib/apachesolr/apachesolr.admin.inc
+index dbd3fa5..0e067f6 100644
+--- a/sites/all/modules/contrib/apachesolr/apachesolr.admin.inc
++++ b/sites/all/modules/contrib/apachesolr/apachesolr.admin.inc
+@@ -511,7 +511,7 @@ function apachesolr_status_page($environment = NULL) {
+     $data = new stdClass;
+     $data->fields = array();
+   }
+-
++  /*
+   $messages = array();
+   if (isset($data->index->numDocs)) {
+     try {
+@@ -561,6 +561,7 @@ function apachesolr_status_page($environment = NULL) {
+   // editing, as it is otherwise not transparent to the end user.
+   $output['apachesolr_index_action_status_prefix'] = '<h3>' . t('@environment: Search Index Content', array('@environment' => $environment['name'])) . '</h3>';
+   $output['apachesolr_index_action_status'] = theme('table', array(t('Type'), t('Value')), $messages);
++  */
+   $output['viewmore'] = l(t('View more details on the search index contents'), 'admin/reports/apachesolr');
+ 
+   $write_status = apachesolr_environment_variable_get($env_id, 'apachesolr_read_only', APACHESOLR_READ_WRITE);
