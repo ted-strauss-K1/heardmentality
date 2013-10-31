@@ -125,13 +125,16 @@ function zip_form_submit () {
     $items['module'][] = $module_name;
   }
 
+  $fail = false;
   # prepare zips
   foreach ($items as $type => $list) {
     foreach ($list as $name) {
       # get filename
       $filename = db_result(db_query("SELECT filename FROM system WHERE name = '%s' AND type = '%s'", $name, $type));
       if (!$filename) {
-        exit('No filename: '.$type.'-'.$name);
+        $fail = true;
+        echo ('-- No filename: '.$type.'-'.$name) . "<br>";
+        printf ("DELETE FROM system WHERE name = '%s' AND type = '%s';", $name, $type); echo "<br>";
         continue;
       }
 
@@ -139,7 +142,9 @@ function zip_form_submit () {
       $path_dir = dirname($filename);
       $path_info = $path_dir . '/' . $name . '.info';
       if (!file_exists($path_info)) {
-        exit('No info: '.$type.'-'.$name);
+        $fail = true;
+        echo ('-- No info: '.$type.'-'.$name) . "<br>";
+        printf ("DELETE FROM system WHERE name = '%s' AND type = '%s';", $name, $type); echo "<br>";
         continue;
       }
       $info = drupal_parse_info_file($path_info);
@@ -181,7 +186,7 @@ function zip_form_submit () {
       fwrite($makefile, "projects[" . $name . "][download][type] = \"get\"\n");
       fwrite($makefile, "projects[" . $name . "][download][url] = \"" . $path_site . $path_zip_name . "\"\n");
       fwrite($makefile, "projects[" . $name . "][type] = \"$type\"\n");
-      fwrite($makefile, "projects[" . $name . "][subdir] = \"custom\"\n");
+      fwrite($makefile, "projects[" . $name . "][subdir] = \"".('theme' == $type ? '' : 'custom')."\"\n");
       fwrite($makefile, "projects[" . $name . "][version] = \"" . $version . "\"\n");
       fwrite($makefile, "\n\n");
     }
@@ -193,4 +198,8 @@ function zip_form_submit () {
   # mv
   shell_exec("rm -rf ".__DIR__ . '/files/custom.make');
   shell_exec("cp ".$path_make." ".__DIR__ . '/files/custom.make');
+
+  if ($fail) {
+    exit;
+  }
 }
