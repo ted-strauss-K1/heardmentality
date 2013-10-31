@@ -1,6 +1,6 @@
 name = EXT - Comment: Language Field
 description = Comment language Field
 package = Custom Modules : EXT
-version = "6.x-1.0"
+version = "6.x-1.1"
 core = 6.x
 dependencies[] = "comment"

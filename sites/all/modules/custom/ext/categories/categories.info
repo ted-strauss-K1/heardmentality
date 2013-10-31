@@ -1,6 +1,6 @@
 name = EXT - Subscriptions
 package = Custom Modules : EXT
-version = "6.x-1.0"
+version = "6.x-1.1"
 core = 6.x
 dependencies[] = "subscriptions"
 dependencies[] = "taxonomy_ext"

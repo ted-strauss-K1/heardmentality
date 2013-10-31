@@ -169,7 +169,8 @@ function zip_form_submit () {
         if ('.DS_Store' == basename($file)) {
           continue;
         }
-        $zip->addFile($file, str_replace($path_dir . '/', '', $file));
+//        zip_addFile($zip, $file, str_replace($path_dir . '/', '', $file));
+         $zip->addFile($file, str_replace($path_dir . '/', '', $file));
       }
       $zip->close();
 
@@ -190,7 +191,7 @@ function zip_form_submit () {
       fwrite($makefile, "projects[" . $name . "][download][url] = \"" . $path_site . $path_zip_name . "\"\n");
       fwrite($makefile, "projects[" . $name . "][type] = \"$type\"\n");
       fwrite($makefile, "projects[" . $name . "][subdir] = \"" . ('theme' == $type ? '' : $path_subdir) . "\"\n");
-      fwrite($makefile, "projects[" . $name . "][version] = \"" . $version . "\"\n");
+      fwrite($makefile, "projects[" . $name . "][version] = \"" . str_replace('6.x-', '', $version) . "\"\n");
       fwrite($makefile, "\n\n");
     }
   }
@@ -204,5 +205,27 @@ function zip_form_submit () {
 
   if ($fail) {
     exit;
+  }
+}
+
+/**
+ * @param $zip
+ * @param $file
+ * @param $localpath
+ */
+function zip_addFile(&$zip, $file, $localpath) {
+  $list = explode("/", $localpath);
+  $path = '';
+  for ($i = 0; $i<count($list); $i++) {
+    if (0 != $i) {
+      $path .= '/';
+    }
+    $path .= $list[$i];
+    if ($i != count($list)-1) {
+      $zip->addEmptyDir($path);
+    }
+    else {
+      $zip->addFile($file, $localpath);
+    }
   }
 }
