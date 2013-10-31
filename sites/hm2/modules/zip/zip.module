@@ -112,6 +112,8 @@ function zip_form_submit () {
   }
   ksort($modules);
 
+  $basedir =
+
   $roots = array();
   foreach ($modules as $module_path => $module_name) {
     foreach ($roots as $root) {
@@ -159,7 +161,9 @@ function zip_form_submit () {
         if ('.DS_Store' == basename($file)) {
           continue;
         }
-        $zip->addFile($file, str_replace($basedir . '/', '', $file));
+
+
+        $zip->addFile($file, str_replace($path_dir . '/', '', $file));
       }
       $zip->close();
 
