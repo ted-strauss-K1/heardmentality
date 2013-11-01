@@ -274,7 +274,7 @@ function issue_search() {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : '/'+Drupal.settings.language+'/issues/ajax',
+    url       : '/issues/ajax',
     data      : search_arguments(),
     success   : function (response) {
       if (!response.status) {
