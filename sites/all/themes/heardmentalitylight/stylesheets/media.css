@@ -4,7 +4,7 @@
 /* Anything smaller than standard 1024 
 ==================================================*/
 
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width : 1023px) {
 
   .hide-on-mobiles {
     display : none;
@@ -39,10 +39,10 @@
   .new-issue .number {
     width       : 30px;
     float       : none;
-    color       : #999;
+    color       : #999999;
     font-size   : 30px;
     margin      : -10px 6px 10px 0px;
-    text-shadow : #fff 0px 1px;
+    text-shadow : #FFFFFF 0px 1px;
   }
 
   .profile-meta img {
@@ -63,7 +63,6 @@
   }
 
   /*Edit profile*/
-
   .icon.photo {
     padding : 1px 18px 0 125px;
   }
@@ -91,7 +90,6 @@
   }
 
   /*View profile*/
-
   body.profile_view_page span.activity {
     display : none;
   }
@@ -105,7 +103,6 @@
   }
 
   /*Issue details*/
-
   #debate_list_area > h2:first-child {
     padding-bottom : 35px;
   }
@@ -167,7 +164,6 @@
   }
 
   /*Moderation*/
-
   #choices-wrapper .fieldset-wrapper fieldset .form-item,
   #taxonomy-wrapper .fieldset-wrapper .form-item,
   #location-wrapper .fieldset-wrapper .form-item {
@@ -200,7 +196,7 @@
 /* iPad Portrait/Browser 
 ==================================================*/
 
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+@media only screen and (min-width : 768px) and (max-width : 1023px) {
 
   input.form-text, input.form-text.user-search {
     width : 338px;
@@ -229,6 +225,7 @@
     margin  : 10px 0px;
     padding : 0px 0px;
   }
+
   fieldset.suggest-answer li {
     width : auto;
   }
@@ -237,14 +234,14 @@
 
 /* iPad Portrait Only 
 ==================================================*/
-@media only screen and (min-width: 768px) and (max-width: 991px) and (max-device-width: 1000px) {
+@media only screen and (min-width : 768px) and (max-width : 991px) and (max-device-width : 1000px) {
 
 }
 
 /* Mobile Only
 ==================================================*/
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width : 767px) {
 
   input[type="text"], input[type="password"], input[type="email"], textarea, select {
     -moz-box-sizing    : border-box;
@@ -291,12 +288,12 @@
     margin  : 10px 0px;
     padding : 0px 0px;
   }
+
   fieldset.suggest-answer li {
     width : auto;
   }
 
   /*Edit Profile*/
-
   #edit_profile ul.privacy {
     clear       : both;
     float       : none;
@@ -312,7 +309,7 @@
     padding    : 13px 0 0;
     text-align : left;
     position   : relative;
-    color      : #0c6926;
+    color      : #0C6926;
 
   }
 
@@ -416,7 +413,6 @@
   }
 
   /* Header */
-
   .top-mobile .border-bottom {
     margin-top : 32px;
   }
@@ -454,7 +450,7 @@
   }
 
   .top-right {
-    background : #000;
+    background : #000000;
     float      : right;
     margin     : 0px 0px 0px 8px;
   }
@@ -477,7 +473,7 @@
   .top-right.login a.login {
     float            : none;
     text-align       : left !important;
-    background-color : #222 !important;
+    background-color : #222222 !important;
     padding          : 13px 12px 11px !important;
     max-width        : none;
     overflow         : visible;
@@ -486,7 +482,7 @@
   }
 
   .top-right.login a#dialog_link:hover {
-    color            : #000;
+    color            : #000000;
     background-color : #F6EB16 !important;
     padding          : 7px 12px 0;
   }
@@ -549,7 +545,6 @@
   }
 
   /*END Header*/
-
   .line-bottom {
     background : #DDDDDD;
     height     : auto;
@@ -628,6 +623,7 @@
     font-size   : 1.8em;
     line-height : 1.2em;
   }
+
   .white-box h1 {
     margin-right : 20px;
   }
@@ -699,7 +695,6 @@
   }
 
   /*Edit Profile*/
-
   ul.privacy #income li,
   #edit_profile .privacy #income .form-radios .form-item {
     margin-right : 76%;
@@ -720,7 +715,7 @@
   }
 
   #edit_profile select
-		/*#edit_profile li.country-info ul.privacy*/  {
+		/*#edit_profile li.country-info ul.privacy*/    {
     margin : 0;
   }
 
@@ -784,8 +779,8 @@
   #edit_profile {
     padding : 20px;
   }
-  /*Issues search*/
 
+  /*Issues search*/
   .poll-vote-area p.issue-meta {
     clear       : both;
     float       : none;
@@ -810,7 +805,6 @@
   /*ul.date_filter li a, ul.options_filter li a {
     font-size: 14px;
   }*/
-
   ul.date_filter li, ul.options_filter li {
     float      : none;
     border     : 0 none;
@@ -842,7 +836,6 @@
   }
 
   /*View profile*/
-
   .sort-by.profile ul {
     padding-left : 1.5em;
   }
@@ -864,7 +857,6 @@
   }
 
   /*Issue details*/
-
   .white-box.poll-box h2.din,
   .poll-box .ul_wrapper h2.din {
     font-size   : 30px;
@@ -1012,7 +1004,6 @@
   }
 
   /*Moderation*/
-
   #moderation-issues-form legend {
     float : none;
     width : 100%
@@ -1024,7 +1015,7 @@
     text-align : center;
   }
 
-  #moderation-issues-form  fieldset .form-submit {
+  #moderation-issues-form fieldset .form-submit {
     width      : 100%;
     text-align : center;
     margin-top : 16px;
@@ -1034,8 +1025,8 @@
     padding-top : 5px;
   }
 
-  #moderation-issues-form  fieldset #edit-status-wrapper,
-  #moderation-issues-form  fieldset #edit-perpage-wrapper {
+  #moderation-issues-form fieldset #edit-status-wrapper,
+  #moderation-issues-form fieldset #edit-perpage-wrapper {
     padding : 0;
     width   : 100%;
     margin  : 17px 0 0;
@@ -1086,7 +1077,21 @@
   #choices-wrapper select {
     width : 100%;
   }
+
+  #contact-mail-page .resizable-textarea {
+    width : 100%;
+  }
+
+  #contact-mail-page .resizable-textarea .grippie {
+    padding    : 0;
+    height     : 10px;
+    border     : none;
+    box-shadow : inset 1px -1px 0 0 #DDDDDD, inset -1px 0 0 0 #DDDDDD;
+  }
+
 }
+
+/*Contact*/
 
 /* END Mobile Only
 ==================================================*/
@@ -1094,7 +1099,7 @@
 /* Mobile Landscape/Browser 
 ==================================================*/
 
-@media only screen and (min-width: 480px) and (max-width: 767px) {
+@media only screen and (min-width : 480px) and (max-width : 767px) {
   input.form-text, input.form-text.user-search {
     width : 250px;
   }
@@ -1115,13 +1120,13 @@
 
 /* Mobile Landscape Only 
 ==================================================*/
-@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {
+@media only screen and (min-width : 480px) and (max-width : 767px) and (max-device-width : 1000px) {
 
 }
 
 /* Small screens 
 ==================================================*/
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width : 480px) {
 
   ul.date_filter {
     padding-left  : 1.5em;
@@ -1148,7 +1153,6 @@
   }
 
   /*Add argument*/
-
   #debate_work_area {
     padding : 0 10px 22px;
   }
