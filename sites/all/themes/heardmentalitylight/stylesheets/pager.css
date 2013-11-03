@@ -44,7 +44,7 @@
   font-weight    : bold;
   letter-spacing : 0.1em;
   font-weight    : bold;
-  color          : #999;
+  color          : #999999;
   text-shadow    : 0 1px white;
   font-size      : 11px;
   padding        : 0px 3px 0px 3px;
@@ -52,7 +52,7 @@
 
 .mod-pager a {
   font-weight   : bold;
-  color         : #444;
+  color         : #444444;
   text-shadow   : 0 1px white;
   padding       : 3px 9px 3px 9px;
   margin        : 3px 6px 3px 0px;
@@ -60,26 +60,26 @@
   border-width  : 1px;
   border-style  : solid;
   border-radius : 3px;
-  border-color  : #AAA;
+  border-color  : #AAAAAA;
   width         : auto;
 }
 
 .mod-pager a.mod-active, .mod-pager a:hover {
-  text-shadow  : 0 -1px #666;
+  text-shadow  : 0 -1px #666666;
   color        : white;
-  border-color : #666;
+  border-color : #666666;
 }
 
 .mod-pager a.mod-active {
-  background : #777;
+  background : #777777;
 }
 
 .mod-pager a:hover {
-  background : #AAA;
+  background : #AAAAAA;
 }
 
 .mod-spacer {
-  border-bottom : 2px #666 dotted;
+  border-bottom : 2px #666666 dotted;
   width         : 22px;
   display       : inline-block;
   margin-right  : 3px;
