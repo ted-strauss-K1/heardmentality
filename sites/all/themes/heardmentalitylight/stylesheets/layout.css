@@ -2,6 +2,7 @@
 ================================================== */
 body {
   background : url(../images/cross_hatch_texture.png)
+  
 }
 
 .header {
@@ -22,6 +23,7 @@ a.logo {
   text-align       : center;
   display          : block;
   text-decoration  : none;
+    
 }
 
 img.logo-img {
@@ -1919,6 +1921,10 @@ form#user-details {
   padding     : 15px 0 0;
   font-size   : 13px;
   line-height : 1.4;
+}
+
+.user-info span {
+    display: block;
 }
 
 #profile_overview .user-info p {
