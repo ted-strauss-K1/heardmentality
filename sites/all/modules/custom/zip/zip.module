@@ -183,6 +183,8 @@ function zip_form_submit () {
       else {
         $command = "mv $path_zip_tmp $path_zip";
         shell_exec($command);
+
+        drupal_set_message(ucwords($type) . "'s <b>$name</b> version was incremented to $version.", 'status');
       }
       @unlink($path_zip_tmp);
 
