@@ -106,8 +106,7 @@ function ahah_helper_register(&$form, &$form_state) {
 
   // Add our JS file, which has some Drupal core JS overrides.
   if (!isset($js_file_added)) {
-    drupal_add_js(drupal_get_path('module', 'ahah_helper') . '/ahah_helper.js', 'module');
-//    drupal_add_js(drupal_get_path('module', 'ahah_helper') . '/ahah_helper.js', 'module', 'footer');
+    drupal_add_js(drupal_get_path('module', 'ahah_helper') . '/ahah_helper.js', 'module', 'footer');
     $js_file_added = TRUE;
   }
 
@@ -234,8 +233,7 @@ function ahah_helper_render($form_item_to_render = FALSE) {
   $javascript = drupal_add_js(NULL, NULL, 'header');
   $settings = call_user_func_array('array_merge_recursive', $javascript['setting']);
 
-  //drupal_json(array(
-  print json_encode(array(
+  drupal_json(array(
     'status'   => TRUE,
     'data'     => theme('status_messages') . drupal_render($form_item),
     'settings' => array('ahah' => $settings['ahah']),

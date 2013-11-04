@@ -346,8 +346,6 @@ select.form-select {
     }
 
     table input.fluid { width:auto; }
-    /*  odyachenko */
-    table input.fluid { width:100%; }
 
   html.js input.form-autocomplete { background-position:100% 7px; }
   html.js input.throbbing { background-position:100% -13px; }

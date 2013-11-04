@@ -72,6 +72,7 @@ function heardmentalitylight_preprocess_page(&$vars) {
   # js setting for all modules to use
   global $language;
   drupal_add_js(array('language' => $language->language), 'setting');
+  drupal_add_js(array('language_prefix' => $language->prefix ? '/'.$language->prefix : ''), 'setting');
 
   # user
   global $user;

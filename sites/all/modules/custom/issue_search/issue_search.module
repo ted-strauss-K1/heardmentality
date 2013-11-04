@@ -165,6 +165,8 @@ function issue_search_preprocess_page(&$variables)
 
     // Filters sidebar.
     $variables['right'] = theme('issue_search_filter');
+
+    drupal_set_subtitle(t('Search'));
   }
 }
 

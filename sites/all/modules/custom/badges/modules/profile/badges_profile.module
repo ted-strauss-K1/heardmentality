@@ -23,7 +23,7 @@ function badges_profile_badges()
 function badges_user_profile_check($uid)
 {
   $user = user_load(array('uid' => $uid));
-  $complete_data = pcp_get_complete_percentage_data($user);
+  $complete_data = pcp_alter_get_complete_percentage_data($user);
   return $complete_data['percent'] == 100;
 }
 

@@ -1,7 +1,9 @@
-<div class="dark-grey-box">
+<div class="grey-box full icon_inside">
+  <i class="icon cat text icon-rubberstamp"></i>
+  <label class="with_icon"><?php echo t('Moderation history'); ?></label>
   <?php if ($history) : ?>
   <?php foreach ($history as $item) : ?>
-    <div style="border-bottom: 1px #ccc dotted; margin-bottom: 5px; padding: 5px 0;">
+    <div class="mh_cell">
       <?php
         $account = user_load($item['uid']);
         $link = l($account->name, $account->viewlink);
@@ -9,15 +11,15 @@
 
       <?php if ($item['type'] == 'approve') : ?>
 
-        <?php echo t('Approved by'), ' ', $link; ?>
+        <strong><?php echo t('Approved by'), ' ', $link; ?></strong>
 
       <?php elseif ($item['type'] == 'delete') : ?>
 
-        <?php echo t('Deletion requested by'), ' ', $link; ?>
+        <strong><?php echo t('Deletion requested by'), ' ', $link; ?></strong>
 
       <?php elseif ($item['type'] == 'edit') : ?>
 
-        <?php echo t('Edited by'), ' ', $link; ?>
+        <strong><?php echo t('Edited by'), ' ', $link; ?></strong>
 
         <ul><?php foreach ($item['vars'] as $main => $edit) : ?><li>
 
@@ -26,28 +28,29 @@
             <?php foreach ($edit as $choice) : ?>
               <?php if (isset($choice['chtext'])) : ?>
                 <?php if ($choice['chtext'] == '') : ?>
-                  <span><?php print t('Requested deletion of choice #') . ($choice['chorder'] + 1); ?></span>
+                  <div><span class="action"><?php print t('Requested deletion of choice #') . ($choice['chorder'] + 1); ?></span></div>
                 <?php else : ?>
-                <span><?php print t('Changed the text of choice #') . ($choice['chorder'] + 1) . ' ' . t('to') . ' "' . $choice['chtext'] . '"'; ?></span>
+                  <div><span class="action"><?php print t('Changed the text of choice #') . ($choice['chorder'] + 1) . ' ' . t('to') . '</span> "' . $choice['chtext'] . '"'; ?></div>
                 <?php endif; ?>
               <?php endif; ?>
             <?php if (isset($choice['chtext_short'])) : ?>
-              <span><?php print t('Changed the short text of choice #') . ($choice['chorder'] + 1) . ' ' . t('to') . ' "' . $choice['chtext_short'] . '"'; ?></span>
+              <div><span class="action"><?php print t('Changed the short text of choice #') . ($choice['chorder'] + 1) . ' ' . t('to') . '</span> "' . $choice['chtext_short'] . '"'; ?></div>
                 <?php endif; ?>
               <?php endforeach; ?>
 
             <?php elseif ($main == 'body') : ?>
 
-              <?php print t('Set description value to: ') . trim_better($edit, 200); ?>
+            <div><span class="action"><?php print t('Set description value to: ') ?></span><?php print trim_better($edit, 200); ?></div>
 
             <?php elseif ($main == 'title') : ?>
 
-              <?php print t('Set title to: ') . $edit; ?>
+            <div><span class="action"><?php print t('Set title to: ') ?></span><?php print $edit; ?>
 
             <?php endif; ?>
 
         </li><?php endforeach; ?></ul>
       <?php endif; ?>
+      <hr class="short" />
     </div>
     <?php endforeach; ?>
   <?php else : ?>

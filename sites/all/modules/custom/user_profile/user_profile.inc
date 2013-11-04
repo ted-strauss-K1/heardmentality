@@ -11,6 +11,13 @@
 function user_profile_user($op, &$edit, &$account, $category = NULL)
 {
   switch ($op) {
+
+    case 'login' :
+
+      drupal_goto($_GET['q']);
+
+    break;
+
     case 'load' :
 
       # user links
@@ -68,7 +75,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
             $profile_fields['profile_yob'] = $m[3];
           }
           # attempt to get a country
-          if (!empty($ulogin_data['country']) && module_exists('location')) {
+          if (!empty($ulogin_data['country'])) {
             $countries = location_get_iso3166_list();
             foreach ($countries as $iso => $country) {
               if ($country == $ulogin_data['country']) {
@@ -167,13 +174,7 @@ function user_profile_menu()
     'file' => 'user_profile.edit.inc',
     'type' => MENU_CALLBACK,
   );
-  $menu['user/profile/location/%/%'] = array(
-    'page callback' => 'user_profile_location',
-    'page arguments' => array(3, 4),
-    'access arguments' => array(USER_PROFILE_EDIT),
-    'file' => 'user_profile.edit.inc',
-    'type' => MENU_CALLBACK,
-  );
+
 
   $menu['user/profile/follow/%/%'] = array(
     'title callback' => 'user_profile_follow_title',
@@ -237,7 +238,6 @@ function user_profile_preprocess_page(&$vars)
 
       case 'edit' :
         array_push($vars['template_files'], 'page_empty');
-        drupal_set_subtitle(t('Edit Profile'));
       break;
     }
   }
@@ -443,7 +443,7 @@ function user_profile_block_preprocess(&$vars)
     drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
     global $user;
     $preprocessed['user'] = $user;
-    $preprocessed['complete'] = pcp_get_complete_percentage_data($user);
+    $preprocessed['complete'] = pcp_alter_get_complete_percentage_data($user);
     $preprocessed['badges'] = $user->badges;
 //    if (module_exists('up')) {
 //      $preprocessed['points'] = up_userpoints_get($user->uid);

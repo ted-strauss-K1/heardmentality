@@ -19,8 +19,8 @@ files[] = tests/facetapi_test.plugins.inc
 files[] = tests/facetapi.test
 
 ; Information added by drupal.org packaging script on 2012-07-05
-version = "6.x-3.0-beta1+0-dev"
+version = "6.x-3.0-beta1"
 core = "6.x"
 project = "facetapi"
-datestamp = "1341490680"
+datestamp = "1341486100"
 

@@ -1,15 +1,8 @@
 <?php
 
-function location_cities_list_bi_ma () {
-	return array (
-		"422232" => t("Makamba"),
-	);
-}
 
-
-function location_cities_list_bi_br () {
+function location_cities_list_bi_bb () {
 	return array (
-		"423328" => t("Bururi"),
 	);
 }
 
@@ -21,9 +14,27 @@ function location_cities_list_bi_bm () {
 }
 
 
-function location_cities_list_bi_mu () {
+function location_cities_list_bi_bl () {
 	return array (
-		"425551" => t("Muramvya"),
+	);
+}
+
+
+function location_cities_list_bi_br () {
+	return array (
+		"423328" => t("Bururi"),
+	);
+}
+
+
+function location_cities_list_bi_ca () {
+	return array (
+	);
+}
+
+
+function location_cities_list_bi_ci () {
+	return array (
 	);
 }
 
@@ -35,16 +46,8 @@ function location_cities_list_bi_gi () {
 }
 
 
-function location_cities_list_bi_ry () {
+function location_cities_list_bi_kr () {
 	return array (
-		"426700" => t("Ruyigi"),
-	);
-}
-
-
-function location_cities_list_bi_ng () {
-	return array (
-		"430569" => t("Ngozi"),
 	);
 }
 
@@ -56,9 +59,42 @@ function location_cities_list_bi_ky () {
 }
 
 
+function location_cities_list_bi_ki () {
+	return array (
+	);
+}
+
+
+function location_cities_list_bi_ma () {
+	return array (
+		"422232" => t("Makamba"),
+	);
+}
+
+
+function location_cities_list_bi_mu () {
+	return array (
+		"425551" => t("Muramvya"),
+	);
+}
+
+
 function location_cities_list_bi_my () {
 	return array (
 		"431748" => t("Muyinga"),
+	);
+}
+
+
+function location_cities_list_bi_ng () {
+	return array (
+		"430569" => t("Ngozi"),
+	);
+}
+
+
+function location_cities_list_bi_mw () {
+	return array (
 	);
 }
 
@@ -70,3 +106,8 @@ function location_cities_list_bi_rt () {
 }
 
 
+function location_cities_list_bi_ry () {
+	return array (
+		"426700" => t("Ruyigi"),
+	);
+}

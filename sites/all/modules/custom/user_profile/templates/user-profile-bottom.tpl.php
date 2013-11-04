@@ -35,12 +35,13 @@
     ),
     'html' => true,
   )); ?>
-  <?php if ($badges) foreach ($badges['#stat'] as $type => $badge) : ?>
-  <div class="medal">
-    <span class="<?php print $type ?>" id="medal1" title="<?php print t(ucfirst($type) . ' Medals'); ?>">&nbsp;</span>
+  <?php if ($badges) : ?><div class="medal clearfix"><?php foreach ($badges['#stat'] as $type => $badge) : ?>
+    <span class="medal_box">
+    <span class="medal1 <?php print $type ?>" title="<?php print t(ucfirst($type) . ' Medals'); ?>">&nbsp;</span>
     <?php print $badge; ?>
-  </div>
+    </span>
   <?php endforeach; ?>
+  </div><?php endif; ?>
 </div>
   <?php print l(t('Logout'), 'logout', array(
     'attributes' => array(

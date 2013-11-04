@@ -1,0 +1,37 @@
+<?php
+
+function location_province_list_cn () {
+	return array (
+		"34" => t("Anhui Sheng"),
+		"11" => t("Beijing Shi"),
+		"50" => t("Chongqing Shi"),
+		"35" => t("Fujian"),
+		"62" => t("Gansu Sheng"),
+		"44" => t("Guangdong Province"),
+		"45" => t("Guangxi Zhuangzu Zizhiqu"),
+		"52" => t("Guizhou Sheng"),
+		"46" => t("Hainan"),
+		"13" => t("Hebei"),
+		"23" => t("Heilongjiang Sheng"),
+		"41" => t("Henan Sheng"),
+		"42" => t("Hubei"),
+		"43" => t("Hunan"),
+		"15" => t("Inner Mongolia"),
+		"32" => t("Jiangsu Sheng"),
+		"36" => t("Jiangxi Sheng"),
+		"22" => t("Jilin Sheng"),
+		"21" => t("Liaoning"),
+		"64" => t("Ningxia Huizu Zizhiqu"),
+		"63" => t("Qinghai Sheng"),
+		"61" => t("Shaanxi"),
+		"37" => t("Shandong Sheng"),
+		"31" => t("Shanghai Shi"),
+		"14" => t("Shanxi Sheng"),
+		"51" => t("Sichuan Sheng"),
+		"12" => t("Tianjin Shi"),
+		"54" => t("Tibet Autonomous Region"),
+		"65" => t("Xinjiang Uygur Zizhiqu"),
+		"53" => t("Yunnan"),
+		"33" => t("Zhejiang Sheng"),
+	);
+}

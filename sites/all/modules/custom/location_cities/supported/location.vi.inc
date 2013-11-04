@@ -1,11 +1,5 @@
 <?php
 
-function location_cities_list_vi_t () {
-	return array (
-		"4795467" => t("Charlotte Amalie"),
-	);
-}
-
 
 function location_cities_list_vi_c () {
 	return array (
@@ -14,3 +8,14 @@ function location_cities_list_vi_c () {
 }
 
 
+function location_cities_list_vi_j () {
+	return array (
+	);
+}
+
+
+function location_cities_list_vi_t () {
+	return array (
+		"4795467" => t("Charlotte Amalie"),
+	);
+}
