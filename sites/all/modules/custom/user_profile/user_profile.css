@@ -14,11 +14,11 @@
   border: 2px #43b649 solid;
 }
 
-#user-profile-location div {
+.user-profile-location div {
   margin: 0 0 22px 21%;
   color: #362750;
 }
 
-#user-profile-location {
+.user-profile-location {
   margin-bottom: 0 !important;
 }

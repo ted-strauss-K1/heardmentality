@@ -5,9 +5,29 @@ define('EXTRACT_PERIOD', 'd');
 /**
  *
  */
+function extract_exec_start() {
+  db_query("CREATE VIEW th1 AS SELECT term_hierarchy.tid AS tid, term_hierarchy.tid AS code FROM term_hierarchy WHERE term_hierarchy.parent = 0;");
+  db_query("CREATE VIEW th2 AS SELECT th.tid AS tid, CONCAT(th1.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th1 ON th.parent = th1.tid;");
+  db_query("CREATE VIEW th3 AS SELECT th.tid AS tid, CONCAT(th2.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th2 ON th.parent = th2.tid;");
+}
+
+/**
+ *
+ */
+function extract_exec_end() {
+  db_query("DROP VIEW IF EXISTS th3;");
+  db_query("DROP VIEW IF EXISTS th2;");
+  db_query("DROP VIEW IF EXISTS th1;");
+}
+
+/**
+ *
+ */
 function extract_cron()
 {
+  extract_exec_start();
   extract_exec();
+  extract_exec_end();
   exit; // todo remove exit
 }
 
@@ -40,6 +60,13 @@ function extract_menu() {
  */
 function extract_exec()
 {
+  # check the path is readable
+  $dir = dirname(__FILE__) . '/data';
+  if (!is_writable($dir)) {
+    watchdog('extract', t('Error: %path is not writable.', array('%path' => $dir)));
+    return false;
+  }
+
   # file naming
   $path = 'extract.';
   switch (EXTRACT_PERIOD) {
@@ -50,18 +77,12 @@ function extract_exec()
 
   # check if file exists
   $filename = $path . '.csv';
-  $filepath = 'data/' . $filename;
-  $path_rel = drupal_get_path('module', 'extract') . '/' . $filepath;
-  $path_abs = dirname(__FILE__) . '/' . $filepath;
+  $path_rel = drupal_get_path('module', 'extract') . '/data/' . $filename;
+  $path_abs = $dir . '/' . $filename;
   if (true || !file_exists($path_abs)) {
     set_time_limit(0);
 
     $f = fopen($path_abs, 'w+');
-
-    if (!$f) {
-      exit( "Cannot write to path: " . $path_abs );
-      return;
-    }
 
     # keys to look for
     $keys = array(
@@ -195,7 +216,6 @@ function extract_exec()
     fwrite($f, implode(",", $keys));
     fwrite($f, "\n");
 
-
     $analysis = array();
     $result = db_query($query);
     while ($row = db_fetch_array($result)) {
@@ -264,7 +284,7 @@ function extract_exec()
         } elseif (in_array($k, array('zip', 'country', 'state', 'city')) && empty($v)) {
           $v = 'undefined';
         }
-        $v = "\"" . str_replace('"', '\"', $v) . "\"";
+        $v = "\"" . str_replace('"', '\"', preg_replace("/[\n\r]+/", '', $v)) . "\"";
       }
       $row['vid'] = str_replace('"', '', $row['vid']);
 

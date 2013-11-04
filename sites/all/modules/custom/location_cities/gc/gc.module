@@ -1,0 +1,582 @@
+<?php
+
+//
+include_once "gc.php";
+
+/**
+ *
+ */
+function gc_menu() {
+  $menu = array();
+
+  $menu['gc'] = array(
+    'page callback' => 'gc',
+    'access arguments' => array('administer site configuration'),
+  );
+
+  return $menu;
+}
+
+/**
+ *
+ */
+function gc() {
+  set_time_limit(0);
+
+  $function = 'gc_' . $_REQUEST['action'];
+  if (function_exists($function)) {
+    $function();
+  }
+}
+
+/**
+ * @return array
+ */
+function gc_countries() {
+  return location_get_iso3166_list();
+}
+
+/**
+ * @return array
+ */
+function gc_countries_gids() {
+  $cid = 'gc_countries_gids';
+
+  # check cache
+  if (0 !== ($cache = cache_get($cid))) {
+    return $cache->data;
+  }
+
+  # fetch data
+  $countries = gc_countries();
+  $country2gid = array();
+  $file = gc_directory('data') . '/countryInfo.txt';
+  $f = fopen($file, 'r');
+  $cols = array();
+  while ($s = fgets($f)) {
+    if (!$cols) {
+      if (false !== strpos($s, "#ISO")) {
+        $cols = gc_readtabline(substr(strtolower($s), 1));
+      }
+      continue;
+    }
+
+    $data = array_combine($cols, gc_readtabline($s));
+
+    $iso = strtolower($data['iso']);
+    $gid  = $data['geonameid'];
+
+    if (isset($countries[$iso])) {
+      $country2gid[$iso] = $gid;
+    }
+  }
+  fclose($f);
+
+  # save cache
+  cache_set($cid, $country2gid);
+
+  #
+  return $country2gid;
+}
+
+/**
+ *
+ */
+function gc_regions() {
+  $cid = 'gc_countries_regions';
+
+  # check cache
+  if (0 !== ($cache = cache_get($cid))) {
+    return $cache->data;
+  }
+
+  # fetch data
+  $regions = array();
+  $country2gid = gc_countries_gids();
+  foreach ($country2gid as $iso => $gid) {
+
+    # geonames request
+    $response = geonames_query('children',
+      array('style' => 'full', 'geonameid' => $gid),
+      array('qs' => 'f'));
+    if ($response && $response->results) {
+      foreach ($response->results as $result) {
+
+        $name = $result["name"];
+        $iso_code = $result["iso3166-2"];
+        $adm_code = $result["admincode1"];
+        $fcode = $result["fcode"];
+        $gid = $result["geonameid"];
+
+        if ('ADM1' != $fcode) {
+          continue;
+        }
+
+        if (!$iso_code) {
+          $iso_code = $adm_code;
+          // echo $iso . ' ' . $adm_code . ' ' . $name . ' '  . "\n";
+        }
+
+        if (!$adm_code) {
+          // echo $iso . ' ' . $adm_code . ' ' . $name . ' '  . "\n";
+        }
+
+        $regions['name'][$gid] = $name;
+        $regions['code'][$gid] = array('country' => $iso, 'province' => $iso_code);
+        $regions['data'][$iso][$iso_code] = $gid;
+        $regions['code_adm'][$gid] = array('country' => $iso, 'province' => $adm_code);
+        $regions['data_adm'][$iso][$adm_code] = $gid;
+
+      }
+    }
+  }
+
+  # save cache
+  cache_set($cid, $regions);
+
+  #
+  return $regions;
+}
+
+
+/**
+ *
+ */
+function gc_cities() {
+  $cid = 'gc_cities';
+  $cid_r = 'gc_countries_regions';
+
+  # check cache
+  if (0 !== ($cache = cache_get($cid))) {
+    return $cache->data;
+  }
+
+  $cities = array();
+  $regions = gc_regions();
+
+  #
+  $file = gc_directory('data') . '/cities15000.txt';
+  $f = fopen($file, 'r');
+  $cols = explode(",",
+    "geonameid,name,asciiname,alternatenames,latitude,longitude,feature class,feature code,country code,cc2,".
+      "admin1 code,admin2 code,admin3 code,admin4 code,population,elevation,dem,timezone,modification date");
+  while ($s = fgets($f)) {
+    $data = array_combine($cols, gc_readtabline($s));
+
+    $gid = $data['geonameid'];
+    $name = $data["asciiname"];
+    $iso = strtolower($data["country code"]);
+    $adm_code = $data["admin1 code"];
+
+    if (!$adm_code || !$regions['data_adm'][$iso][$adm_code]) {
+      if ($data['population'] > 3000000) {
+        $regions['name'][$gid] = $name;
+        $regions['code'][$gid] = array('country' => $iso, 'province' => $adm_code);
+        $regions['data'][$iso][$adm_code] = $gid;
+        $regions['code_adm'][$gid] = array('country' => $iso, 'province' => $adm_code);
+        $regions['data_adm'][$iso][$adm_code] = $gid;
+      }
+      continue;
+    } else {
+      $gid2 = $regions['data_adm'][$iso][$adm_code];
+
+      $cities['name'][$gid] = $name;
+      $cities['code'][$gid] = $gid2;
+      $cities['back'][$gid2][] = $gid;
+    }
+
+
+
+  }
+  fclose($f);
+
+  # save cache
+  cache_set($cid, $cities);
+  cache_set($cid_r, $regions);
+
+  #
+  return $cities;
+}
+
+/**
+ *
+ */
+function gc_supported() {
+  $countries = gc_countries();
+  $regions_data = gc_regions();
+  $cities_data = gc_cities();
+
+  $dir_reg = gc_directory('supported_reg');
+  $dir_cit = gc_directory('supported_cit');
+
+  foreach ($countries as $country_code => $country_name) {
+
+    $file_cit = $dir_cit . '/location.'.$country_code.'.inc';
+    file_put_contents($file_cit, "<?php\n");
+
+    $list_reg = array();
+
+    foreach ($regions_data['data'][$country_code] as $region_code => $region_gid) {
+      $region_code = preg_replace('/\W/', '_', $region_code);
+      $region_name = $regions_data['name'][$region_gid];
+
+      $list_reg[$region_code] = $region_name;
+
+      $list_cit = array();
+
+      $cities = $cities_data['back'][$region_gid];
+      foreach ($cities as $city_gid) {
+        $city_name = $cities_data['name'][$city_gid];
+
+        $list_cit[$city_gid] = $city_name;
+      }
+
+      //
+      $func_cit = location_cities_function_name($country_code . '_' . $region_code);
+
+      file_put_contents($file_cit, "\n\n" . gc_function_text($func_cit, $list_cit), FILE_APPEND);
+    }
+
+    //
+    $func_reg = 'location_province_list_' . $country_code;
+    $file_reg = $dir_reg . '/location.'.$country_code.'.inc';
+
+    file_put_contents($file_reg, "<?php\n\n". gc_function_text($func_reg, $list_reg));
+  }
+
+  // echo gc_function_text('x', array('x'=>'y', 't'=>'z'));
+
+}
+
+/**
+ *
+ */
+function gc_translate_reg() {
+  //
+
+  $countries = location_get_iso3166_list();
+  foreach ($countries as $country_code => $country_name) {
+    register_t($country_name, 'location');
+
+    $regions = location_get_provinces($country_code);
+    foreach ($regions as $region_code => $region_name) {
+      register_t($region_name, 'location');
+
+      $cities = location_get_cities($country_code, $region_code);
+      foreach ($cities as $city_code => $city_name) {
+        register_t($city_name, 'location');
+      }
+    }
+  }
+
+}
+
+/**
+ *
+ */
+function gc_translate_set() {
+
+  // INSERT INTO locales_target (SELECT ls.lid, ls.source, 'ru', 0,0,0,0 FROM locales_source ls WHERE ls.textgroup = 'location') 
+
+}
+
+
+function gc_cache_translations() {
+  $countries = gc_countries();
+  $countries_data = gc_countries_gids();
+  $regions_data = gc_regions();
+  $cities_data = gc_cities();
+
+  $limit = 30000;
+  $time = time();
+
+  $i = 0;
+  foreach ($countries as $country_code => $country_name) {
+    $country_gid = $countries_data[$country_code];
+    gc_geonames_get($country_gid);
+    if ($i++ > $limit) break;
+    foreach ($regions_data['data'][$country_code] as $region_code => $region_gid) {
+      gc_geonames_get($region_gid);
+      if ($i++ > $limit) break 2;
+      $cities = $cities_data['back'][$region_gid];
+      foreach ($cities as $city_gid) {
+        gc_geonames_get($city_gid);
+        if ($i++ > $limit) break 3;
+      }
+    }
+  }
+
+  echo time() - $time;
+
+  exit;
+}
+
+/**
+ * @param $gid
+ */
+function gc_geonames_get($gid) {
+  static $item = 0, $cache, $prefix;
+
+  $service = 'get';
+  if (is_null($cache)) {
+    $prefix = geonames_config($service, 'data_cache_prefix');
+
+    $cache = array();
+    $result = db_query("SELECT cid FROM cache_geonames WHERE cid LIKE '$prefix%'");
+    while ($cid = db_result($result)) {
+      $cache[$cid] = 1;
+    }
+  }
+
+  $query = array('style' => 'full', 'geonameid' => $gid);
+  $cid = $prefix . geonames_prepare_query_string($service, $query);
+  if (!isset($cache[$cid])) {
+
+    $item = ++$item%3;
+    $users = array(
+      'jnavanephp',
+      'skullhole',
+      'odyachenko',
+    );
+    $user = $users[$item];
+
+    variable_set('geonames_username', $user);
+
+    geonames_query('get', $query, array('qs' => 'f'));
+  }
+
+  // echo 'cache ';
+}
+
+
+
+
+
+function gc_lang() {
+  $service = 'get';
+  $prefix = geonames_config($service, 'data_cache_prefix');
+
+  $countries = gc_countries();
+  $countries_data = gc_countries_gids();
+  $regions_data = gc_regions();
+  $cities_data = gc_cities();
+
+  $langs = language_list();
+
+  $result = db_query("SELECT cid FROM cache_geonames WHERE cid LIKE '$prefix%'");
+  while ($cid = db_result($result)) {
+    if (0 !== ($cache = cache_get($cid, 'cache_geonames'))) {
+      $data = $cache->data;
+      $xml = new SimpleXMLElement($data);
+
+      $translations = array();
+      foreach ($xml->children() as $k => $v) {
+        if ("alternateName" == $k) {
+          $lang = (string)$v->attributes();
+          $text = (string)$v;
+          if ($lang) {
+            $translations[$lang] = $text;
+          }
+        }
+      }
+
+      //
+      $translations = array_intersect_key($translations, $langs);
+
+      // find the text using gid
+      $gid = (string)$xml->geonameId;
+      $name = false;
+
+      if (false === $name) {
+        $country_code = array_search($gid, $countries_data);
+        if (false !== $country_code) {
+          $name = $countries[$country_code];
+        }
+      }
+
+      if (false === $name) {
+        if (isset($regions_data['name'][$gid])) {
+          $name = $regions_data['name'][$gid];
+        }
+      }
+
+      if (false === $name) {
+        if (isset($cities_data['name'][$gid])) {
+          $name = $cities_data['name'][$gid];
+        }
+      }
+
+      if (false !== $name) {
+        //
+        $lid = db_result(db_query("SELECT ls.lid FROM locales_source ls WHERE ls.textgroup = 'location' AND ls.source = '%s' AND (SELECT COUNT(*) FROM locales_target lt WHERE ls.lid = lt.lid) = 0", $name));
+        if ($lid) {
+          foreach ($translations as $lang => $text) {
+            db_query("INSERT INTO locales_target VALUES ('%s', '%s', '%s', 0, 0, 0, 0)", $lid, $text, $lang);
+          }
+        }
+      }
+    }
+  }
+  exit;
+}
+
+/**
+ *
+ */
+function gc_csv() {
+  $file = gc_directory('data') . '/translations.txt';
+
+  $f = fopen($file, 'w+'); fclose($f);
+
+  $list = language_list();
+  ksort($list);
+  $en = $list['en']; unset($list['en']);
+  $ru = $list['ru']; unset($list['ru']);
+  $fr = $list['fr']; unset($list['fr']);
+  $es = $list['es']; unset($list['es']);
+  $list = array(
+    'en' => $en,
+    'ru' => $ru,
+    'fr' => $fr,
+    'es' => $es,
+  ) + $list;
+
+
+  $line = array('CODE:');
+  foreach ($list as $code => $lang) {
+    $line[] = $code;
+  }
+  file_put_contents($file, implode("\t", $line) . "\n", FILE_APPEND);
+
+  $line = array("NAME:");
+  foreach ($list as $code => $lang) {
+    $line[] = $lang->name;
+  }
+  file_put_contents($file, implode("\t", $line) . "\n", FILE_APPEND);
+
+  $line = array("NATIVE:");
+  foreach ($list as $code => $lang) {
+    $line[] = $lang->native;
+  }
+  file_put_contents($file, implode("\t", $line) . "\n", FILE_APPEND);
+
+  file_put_contents($file, "\n\n", FILE_APPEND);
+
+  file_put_contents($file, "MAIN\n", FILE_APPEND);
+  $query = "
+    SELECT ls.*
+    FROM locales_source ls
+    INNER JOIN locales_target lt ON lt.lid = ls.lid
+    WHERE ls.textgroup = 'default'
+      AND ls.location NOT LIKE '%.js'
+    ORDER BY ls.lid";
+  $result = db_query($query);
+  while ($row = db_fetch_array($result)) {
+    $line = array($row['lid']);
+    $trans = gc_get_translations($row['lid']);
+    foreach ($list as $code => $lang) {
+      $line[] = 'en' == $code ? $row['source'] : @implode("|", $trans[$code]);
+    }
+    file_put_contents($file, implode("\t", $line) . "\n", FILE_APPEND);
+  }
+
+  file_put_contents($file, "\n\n", FILE_APPEND);
+
+  file_put_contents($file, "JS MESSAGES\n", FILE_APPEND);
+  $query = "
+    SELECT ls.*
+    FROM locales_source ls
+    INNER JOIN locales_target lt ON lt.lid = ls.lid
+    WHERE ls.textgroup = 'default'
+      AND ls.location LIKE '%.js'
+    ORDER BY ls.lid";
+  $result = db_query($query);
+  while ($row = db_fetch_array($result)) {
+    $line = array($row['lid']);
+    $trans = gc_get_translations($row['lid']);
+    foreach ($list as $code => $lang) {
+      $line[] = 'en' == $code ? $row['source'] : @implode("|", $trans[$code]);
+    }
+    file_put_contents($file, implode("\t", $line) . "\n", FILE_APPEND);
+  }
+
+  foreach (array('rank', 'term', 'badges', 'events', 'flags', 'location') as $textgroup) {
+    file_put_contents($file, "\n\n", FILE_APPEND);
+
+    file_put_contents($file, strtoupper($textgroup) . "\n", FILE_APPEND);
+    $query = "
+    SELECT ls.*
+    FROM locales_source ls
+    LEFT JOIN locales_target lt ON lt.lid = ls.lid
+    WHERE ls.textgroup = '%s'
+    ORDER BY ls.lid";
+    $result = db_query($query, $textgroup);
+    while ($row = db_fetch_array($result)) {
+      $line = array($row['lid']);
+      $trans = gc_get_translations($row['lid']);
+      foreach ($list as $code => $lang) {
+        $line[] = 'en' == $code ? $row['source'] : @implode("|", $trans[$code]);
+      }
+      file_put_contents($file, implode("\t", $line) . "\n", FILE_APPEND);
+    }
+  }
+}
+
+/**
+ * @param $lid
+ * @return array
+ */
+function gc_get_translations($lid) {
+  $translations = array();
+  $result = db_query("SELECT * FROM locales_target WHERE lid = '%s'", $lid);
+  while ($row = db_fetch_array($result)) {
+    $translations[$row['language']][] = $row['translation'];
+  }
+  return $translations;
+}
+
+/**
+ *
+ */
+function gc_csv_import() {
+  $file = gc_directory('data') . '/translations.txt';
+  $list = language_list();
+
+  $cols = false;
+
+  $f = fopen($file, 'r');
+  while ($s = fgets($f)) {
+    $line = gc_readtabline($s);
+
+    if (false === $cols) {
+      $cols = $line;
+      continue;
+    }
+
+    if (!is_numeric($line[0])) {
+      continue;
+    }
+
+    db_query("DELETE FROM locales_target WHERE lid = '%s'", $line[0]);
+
+    $line = array_combine($cols, $line);
+
+    foreach ($line as $code => $translation) {
+      if ($code != 'en' && isset($list[$code]) && $translation) {
+        db_query("INSERT INTO locales_target VALUES ('%s','%s','%s',0,0,0,0)", $line['CODE:'], $translation, $code);
+      }
+    }
+  }
+  fclose($f);
+}
+
+/**
+ *
+ */
+function gc_mstapi() {
+//  $text = "qregrh";
+//  $x = mstapi_exec('en', 'ru', array($text));
+//
+//  var_dump($x);
+
+}

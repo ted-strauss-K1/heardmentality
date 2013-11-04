@@ -1,16 +1,10 @@
 <?php
 
-function location_cities_list_bn_tu () {
-	return array (
-		"1820071" => t("Tutong"),
-	);
-}
-
 
 function location_cities_list_bn_be () {
 	return array (
-		"1820491" => t("Kuala Belait"),
 		"1820187" => t("Seria"),
+		"1820491" => t("Kuala Belait"),
 	);
 }
 
@@ -22,3 +16,14 @@ function location_cities_list_bn_bm () {
 }
 
 
+function location_cities_list_bn_te () {
+	return array (
+	);
+}
+
+
+function location_cities_list_bn_tu () {
+	return array (
+		"1820071" => t("Tutong"),
+	);
+}

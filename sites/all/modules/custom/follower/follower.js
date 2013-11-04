@@ -1,5 +1,5 @@
 function follower_exec(follower) {
-  var url = '/'+Drupal.settings.language+'/follower/save/';
+  var url = Drupal.settings.language_prefix+'/follower/save/';
   $.ajax({
     type:"POST",
     dataType:'json',

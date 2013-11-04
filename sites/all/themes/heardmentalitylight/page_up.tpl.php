@@ -18,13 +18,13 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
   <?php print $styles; ?>
 
-  <link rel="shortcut icon" href="/sites/all/themes/heardmentalitylight/images/favicon.ico">
-  <link rel="apple-touch-icon" href="/sites/all/themes/heardmentalitylight/images/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/sites/all/themes/heardmentalitylight/images/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="/sites/all/themes/heardmentalitylight/images/apple-touch-icon-114x114.png" />
+  <link rel="shortcut icon" href="<?php print url(path_to_theme() . '/images/favicon.ico'); ?>">
+  <link rel="apple-touch-icon" href="<?php print url(path_to_theme() . '/images/apple-touch-icon.png'); ?>">
+  <link rel="apple-touch-icon" sizes="72x72" href="<?php print url(path_to_theme() . '/images/apple-touch-icon-72x72.png'); ?>" />
+  <link rel="apple-touch-icon" sizes="114x114" href="<?php print url(path_to_theme() . '/images/apple-touch-icon-114x114.png'); ?>" />
 
-  <meta property="og:image" content="/sites/all/themes/heardmentalitylight/images/HM_Social_IMG_5.png"/>
-  <img src="/sites/all/themes/heardmentalitylight/images/HM_Social_IMG_5.png" style="display:none" />
+  <meta property="og:image" content="<?php print url(path_to_theme() . '/images/HM_Social_IMG_5.png'); ?>"/>
+  <img src="<?php print url(path_to_theme() . '/images/HM_Social_IMG_5.png'); ?>" style="display:none" />
 
   <!-- socialize.js script should only be included once -->
   <script type="text/javascript">

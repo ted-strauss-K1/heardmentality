@@ -151,18 +151,3 @@ function location_cities_form() {
   return $form;
 }
 
-/**
- * @param $code
- * @param $list
- * @return string
- */
-function location_cities_function_text($func, $list) {
-  $output = "function $func () {\n";
-  $output .= "\treturn array (\n";
-  foreach ($list as $code => $name) {
-    $output .= "\t\t\"$code\" => t(\"$name\"),\n";
-  }
-  $output .= "\t);\n";
-  $output .= "}\n";
-  return $output;
-}

@@ -8,7 +8,7 @@
 
   <a href="#popup-login" class="inline-dialog"></a>
 
-  <div id="popup-login">
+  <div id="popup-login" class="logged_in">
     <div class="popup-login-inner <?php print is_mobile()? 'mobile' : '' ?>">
 
       <label for="profile" class="profile"></label>

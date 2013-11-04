@@ -27,10 +27,7 @@ $privacy = user_profile_profile_privacy_values();
 ?>
 <div class="twelve columns">
 
-  <?php if ($_title = drupal_set_subtitle()) : ?>
-  <h2 class="dinbold page-title"><?php print $_title; ?></h2>
-  <?php endif; ?>
-
+  <h2 class="dinbold page-title"><?php print t('Edit Profile'); ?></h2>
 
   <div class="grey-box clearfix" id="edit_profile">
 
@@ -102,9 +99,18 @@ $privacy = user_profile_profile_privacy_values();
           </ul>
           <?php endif; ?>
         </li>
+          <?php if ($field->name == 'profile_name') : ?>
+            <li class="user-profile-location">
+              <div class="determine"><?php print l(t('Determine my location'), 'user/profile/edit', array(
+                  'attributes' => array(
+                    'class' => 'geocode_latlng',
+                  ),
+                )); ?></div>
+            </li>
+          <?php endif; ?>
           <?php if ($field->name == 'profile_zip') : ?>
-            <li id="user-profile-location">
-              <div><?php print drupal_render($form['location']) ?></div>
+            <li class="user-profile-location">
+              <div class="determined"><?php print drupal_render($form['location']) ?></div>
             </li>
           <?php endif; ?>
         <?php endwhile; ?>

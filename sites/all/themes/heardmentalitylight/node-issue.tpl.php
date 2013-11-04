@@ -12,7 +12,7 @@
     <div class="qd">
       <?php if($page) : ?>
         <?php if ($node->moderate == MODERATION_ALLOWED) : ?>
-          <img src="/sites/all/themes/heardmentalitylight/images/icons/59-flag@2x.png" height="14px">
+          <img src="<?php print url(path_to_theme() . '/images/icons/59-flag@2x.png'); ?>" height="14px">
           <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
           <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
           <?php print theme('flagger_btn_history', $nid, 'node'); ?>
@@ -107,9 +107,13 @@
       <div id="debate_work_area">
         <div class="inner">
 
+          <?php if (ranks_permission(0, $node->uid)) : // todo has sufficient rank ?>
+
           <div class="expanding arg">
             <h6 value="Reply" id="add-arg" class="button <?php print theme('user_login_modal_class'); ?>"><?php print t('Add'); ?></h6>
           </div>
+
+          <?php endif; ?>
 
           <?php if ($node->info['all']) : ?>
             <?php print theme('charts_strength', $node); ?>
@@ -129,7 +133,7 @@
             <h2><span><?php print t('Debate statistics'); ?></span></h2>
 
             <div id="deb-ana-load-txt"></div>
-            <div id="load-deb-statics"></div>
+            <div id="chart-strength" style="width:100%;"><svg style="height:280px;"></svg></div>
           </div>
 
         </div>
@@ -205,4 +209,3 @@
     </li>
   </ul>
 <?php endif; ?>
-        
