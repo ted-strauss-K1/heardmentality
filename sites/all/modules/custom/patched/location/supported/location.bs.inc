@@ -1,0 +1,37 @@
+<?php
+
+function location_province_list_bs () {
+	return array (
+		"AK" => t("Acklins Island District"),
+		"EG" => t("East Grand Bahama District"),
+		"BI" => t("Bimini District"),
+		"BP" => t("Black Point District"),
+		"CI" => t("Cat Island District"),
+		"CO" => t("Governor's Harbour District"),
+		"CS" => t("High Rock District"),
+		"CE" => t("Kemps Bay District"),
+		"FP" => t("City of Freeport District"),
+		"CK" => t("Marsh Harbour District"),
+		"EX" => t("Exuma District"),
+		"GC" => t("Grand Cay District"),
+		"GT" => t("Green Turtle Cay District"),
+		"HI" => t("Harbour Island District"),
+		"HT" => t("New Providence District"),
+		"IN" => t("Inagua District"),
+		"LI" => t("Long Island District"),
+		"MC" => t("Rock Sound District"),
+		"MG" => t("Mayaguana District"),
+		"MI" => t("Sandy Point District"),
+		"NO" => t("North Abaco District"),
+		"NS" => t("North Andros District"),
+		"NE" => t("North Eleuthera District"),
+		"RI" => t("Ragged Island District"),
+		"RC" => t("Rum Cay District"),
+		"SS" => t("San Salvador District"),
+		"SO" => t("South Abaco District"),
+		"SA" => t("South Andros District"),
+		"SE" => t("South Eleuthera District"),
+		"SW" => t("Spanish Wells District"),
+		"WG" => t("West Grand Bahama District"),
+	);
+}

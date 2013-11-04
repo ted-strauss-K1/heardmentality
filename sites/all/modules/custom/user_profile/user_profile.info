@@ -1,7 +1,7 @@
 name = User Profile
 description = User Profile Management
 package = Custom Modules
-version = "6.x-1.6"
+version = "6.x-1.7"
 core = 6.x
 
 ; dependencies
@@ -15,4 +15,5 @@ dependencies[] = 'imagecache'
 dependencies[] = 'badges'
 dependencies[] = 'follower'
 dependencies[] = 'location'
-dependencies[] = 'pcp'
+dependencies[] = 'pcp_alter'
+dependencies[] = 'geocode'

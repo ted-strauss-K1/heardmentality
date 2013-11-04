@@ -200,7 +200,6 @@ Drupal.behaviors.l10nClient = function (context) {
 
       },
       error: function (xmlhttp) {
-        if (200 != xmlhttp.status)
         alert(Drupal.t('An HTTP error @status occured.', { '@status': xmlhttp.status }));
       }
     });

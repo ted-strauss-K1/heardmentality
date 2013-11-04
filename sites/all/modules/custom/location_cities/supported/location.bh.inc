@@ -1,13 +1,5 @@
 <?php
 
-function location_cities_list_bh_17 () {
-	return array (
-		"385038" => t("Ar Rifa'"),
-		"290187" => t("Madinat `Isa"),
-		"290104" => t("Sitrah"),
-	);
-}
-
 
 function location_cities_list_bh_13 () {
 	return array (
@@ -19,8 +11,8 @@ function location_cities_list_bh_13 () {
 
 function location_cities_list_bh_16 () {
 	return array (
-		"290269" => t("Dar Kulayb"),
 		"290247" => t("Madinat Hamad"),
+		"290269" => t("Dar Kulayb"),
 	);
 }
 
@@ -32,3 +24,16 @@ function location_cities_list_bh_15 () {
 }
 
 
+function location_cities_list_bh_17 () {
+	return array (
+		"290104" => t("Sitrah"),
+		"290187" => t("Madinat `Isa"),
+		"385038" => t("Ar Rifa'"),
+	);
+}
+
+
+function location_cities_list_bh_14 () {
+	return array (
+	);
+}

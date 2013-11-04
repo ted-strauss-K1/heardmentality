@@ -274,7 +274,7 @@ $('.argument-delete').live('click', function (e) {
           $.ajax({
             type:'POST',
             dataType:'json',
-            url:'/'+Drupal.settings.language+'/argument/delete/' + name,
+            url:Drupal.settings.language_prefix+'/argument/delete/' + name,
             data:{},
             success:function (response) {
               if (!response.status) {
@@ -503,7 +503,7 @@ $('#argument-add-form').live('submit', function (e) {
   $.ajax({
     type      : 'POST',
     dataType  : 'json',
-    url       : '/'+Drupal.settings.language+'/argument/create',
+    url       : Drupal.settings.language_prefix+'/argument/create',
     data      : data,
     success   : function (response) {
       // close form
@@ -586,7 +586,7 @@ $('#argument-add-form').live('submit', function (e) {
   } else if (!url_validate(nlink) && type == 'resource') {
     error = 'Please enter a valid URL. ' + nlink;
   } else if (linkbox == '' && type == 'resource') {
-    var callback_url = '/'+Drupal.settings.language+'/argument/preview/resource';
+    var callback_url = Drupal.settings.language_prefix+'/argument/preview/resource';
     var lbox = $('#linkbox');
     lbox.slideDown('slow');
     lbox.html("<span class='load'>"+Drupal.t('Loading')+"...</span>");

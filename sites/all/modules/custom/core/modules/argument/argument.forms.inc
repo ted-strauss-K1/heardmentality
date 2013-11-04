@@ -107,6 +107,7 @@ function argument_form($form, $node)
     '#type' => 'markup',
     '#value' => '<div class="clr"></div><span class="req_assign">(' . t('Required to set one or more') . ')</span>'
   );
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Add'),

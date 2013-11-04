@@ -1,6 +1,6 @@
 name = Heard Mentality Light
 description = Openwave Theme.
-version = VERSION
+version = 6.x-1.0.2
 core = 6.x
 engine = phptemplate
 screenshot = screenshot.gif
@@ -92,11 +92,3 @@ regions[right] = Right Sidebar
 regions[front_activity] = Front Page Content
 regions[front_heatmap] = Front Page Heatmap
 regions[front_right] = Front Page Right Content
-
-; Information added by drupal.org packaging script on 2010-07-16
-version = "1.0"
-project = "drupal"
-datestamp = "1260996916"
-
-
-

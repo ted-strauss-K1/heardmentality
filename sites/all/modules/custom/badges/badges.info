@@ -1,5 +1,5 @@
 name = Badges
 description = Badges Module
 package = Custom Modules :: Badges
-version = "6.x-1.0"
+version = "6.x-1.1"
 core = 6.x

@@ -1,5 +1,155 @@
-body {
-  background: #ddd;
-  width: 100%;
-  height: 100%;
+* {
+  font-family : Arial, 'Lucida Grande', sans-serif;
+  font-size   : 14px;
 }
+
+body {
+  background : #DDDDDD;
+  width      : 100%;
+  margin     : 0;
+  padding    : 0;
+}
+
+div.top-line {
+  background    : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAIAAABvrngfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTM3MkRGMkFDOUQ3MTFFMDk4OUNENjIzMEQ5MDk3OEUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTM3MkRGMkJDOUQ3MTFFMDk4OUNENjIzMEQ5MDk3OEUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MzcyREYyOEM5RDcxMUUwOTg5Q0Q2MjMwRDkwOTc4RSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1MzcyREYyOUM5RDcxMUUwOTg5Q0Q2MjMwRDkwOTc4RSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjcesJEAAABcSURBVHjaLIxLCgAhDEOlulGQLnr/g3ip4qfoSp2AU0hJH2lCKcV7v/dea8UYnXMEnXN67ymlOeePaq3MDAPaWiMzezcGDSJCOWd8PYQGVaV7L1JjDCBs+E+AAQDbKiwNdWlhIAAAAABJRU5ErkJggg==) repeat scroll 0 0 #A29CAC;
+  border-bottom : 1px solid #A29CAC;
+  height        : 30px;
+
+  text-align    : center;
+}
+
+div.top-line-logo {
+  height           : 30px;
+  background-color : #362750;
+  color            : white;
+  display          : inline-block;
+  width            : 300px;
+}
+
+div.top-line-logo a {
+  text-decoration : none;
+  color           : white;
+  display         : block;
+  font-size       : 15px;
+  letter-spacing  : 0.15em;
+  text-transform  : uppercase;
+  /*text-align      : center;*/
+  padding-right   : 10px;
+}
+
+div.top-line-logo img {
+  padding        : 5px;
+  vertical-align : middle;
+}
+
+div.top-line-logo span {
+  position : relative;
+  top      : 2px;
+}
+
+div.top-line-logo span.beta {
+  display        : inline-block;
+  font-size      : 12px;
+  letter-spacing : normal;
+  line-height    : 14px;
+  text-transform : lowercase;
+  vertical-align : top;
+  font-style     : italic;
+  font-weight    : bold;
+  color          : #3CC7F4;
+}
+
+div.content {
+  padding   : 10px;
+  min-width : 280px;
+}
+
+div.content * {
+  /*font-family : tahoma, verdana, arial, sans-serif, 'Lucida Sans';*/
+}
+
+div.content.error {
+  vertical-align : middle;
+  display        : table-cell;
+  text-align     : center;
+  height         : 100px;
+}
+
+div.regular {
+  /*width : 280px;*/
+}
+
+div.content a {
+  color           : #000000;
+  text-decoration : none;
+  display: block;
+}
+
+div.content h1 {
+  margin: 5px 0;
+}
+
+div.content table td.percent-bar-wrapper {
+  padding    : 0;
+  background : #CCCCCC;
+}
+
+div.content table td.percent-bar-wrapper .percent-bar {
+  background    : #999999;
+  height        : 100%;
+  border-top    : 1px #777777 solid;
+  border-bottom : 1px #777777 solid;
+  border-left   : 1px #777777 solid;
+  width         : 0%;
+}
+
+div.content table td.percent {
+  width      : 80px;
+  text-align : right;
+}
+
+div.content table td label {
+  font-size : 12px;
+}
+
+div.content table td.percent * {
+  font-size : 11px;
+}
+
+div.content table tr.vote-results {
+  visibility : hidden;
+}
+
+div.content div.voted table input[type=radio],
+div.content div.voted input[type=button] {
+  display : none;
+}
+
+div.content div.voted table tr.vote-results {
+  display : table-row;
+}
+
+div.content.login * {
+  font-size : 12px;
+}
+
+div.content.login label {
+  width   : 80px;
+  display : inline-block;
+}
+
+div.content.login input[type=password],
+div.content.login input[type=text] {
+  width : 180px;
+}
+
+div.content.login input[type=submit] {
+  width : 270px;
+}
+
+div.content.login form {
+  width  : 280px;
+  margin : 0 auto;
+}
+
+
