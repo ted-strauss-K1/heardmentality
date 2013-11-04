@@ -88,7 +88,9 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
             switch ($ulogin_data['network']) {
               case 'facebook':
               case 'twitter':
-                $profile_fields['profile_' . $ulogin_data['network']] = preg_replace('@.*\/@', '', $ulogin_data['identity']);
+                $profile_fields['profile_' . $ulogin_data['network']] =
+                  ('facebook' == $ulogin_data['network'] ? 'https://www.facebook.com/' : 'https://twitter.com/') .
+                    preg_replace('@.*\/@', '', $ulogin_data['identity']);
                 break;
             }
           }

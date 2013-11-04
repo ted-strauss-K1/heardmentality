@@ -23,12 +23,12 @@ if ($user->uid == $account->uid) {
         <?php switch ($field->name) :
         case 'profile_twitter' :
           ?>
-          <a href="https://twitter.com/<?php print htmlspecialchars($account->{$field->name}); ?>"
+          <a href="<?php print htmlspecialchars($account->{$field->name}); ?>"
              target="_blank"><?php print $account->{$field->name}; ?></a>
           <?php break;
         case 'profile_facebook':
           ?>
-          <a href="http://www.facebook.com/<?php print htmlspecialchars($account->{$field->name}); ?>"
+          <a href="<?php print htmlspecialchars($account->{$field->name}); ?>"
              target="_blank"><?php print $account->{$field->name}; ?></a>
           <?php break;
         case 'profile_website':
