@@ -1,0 +1,156 @@
+<?php
+
+// todo spend pennies on actions automatically
+// todo give pennies on cron
+// todo revise list of actions
+
+/**
+ *
+ */
+define('USERPOINTS_TERM_PENNIES', 'userpoints_term_pennies');
+
+/**
+ *
+ */
+define('USERPOINTS_TERM_PENNIES_PREFIX', 'userpoints_term_pennies_');
+
+/**
+ * Implements hook_menu()
+ *
+ * @return array
+ */
+function pennies_menu () {
+  $menu = array();
+
+  $menu['action/pennies'] = array(
+    'page callback'   => 'pennies_ajax',
+    'access callback' => true,
+    'type'            => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * AJAX-based actions
+ */
+function pennies_ajax () {
+  $params = $_REQUEST;
+  action_filter_keys($params);
+  $params['points'] = -1; // we can only spend pennies via ajax
+  $result = pennies_add($params);
+  print json_encode($result);
+  exit;
+}
+
+/**
+ * Wrapper to perform points tracking
+ *
+ * @param $params
+ *
+ * @return array
+ */
+function pennies_add (&$params) {
+  # user
+  action_validate_user($params);
+  #
+  if ($tid = variable_get(USERPOINTS_TERM_PENNIES, 0)) {
+    $params['tid'] = $tid;
+    $params += array('points' => -1);
+    return action_add($params);
+  }
+  return array(
+    'status' => false,
+    'reason' => t('No pennies term'),
+  );
+}
+
+/**
+ * @return array
+ */
+function pennies_actions () {
+  return array(
+    'view',
+    'visit',
+    'vote',
+    'share',
+  );
+}
+
+/**
+ * @param       $op
+ * @param array $params
+ *
+ * @return mixed
+ */
+function pennies_userpoints ($op, $params = array()) {
+  switch ($op) {
+
+    case 'setting':
+
+      if (module_exists('ranks')) {
+        $group = 'pennies_ranks';
+        $form[$group] = array(
+          '#type'        => 'fieldset',
+          '#collapsible' => true,
+          '#collapsed'   => true,
+          '#title'       => t('Pennies given weekly to users'),
+        );
+
+        $ranks = ranks_get();
+        foreach ($ranks as $rank) {
+          $id = USERPOINTS_TERM_PENNIES_PREFIX . 'rank_' . $rank['id'];
+          $form[$group][$id] = array(
+            '#type'          => 'select',
+            '#options'       => array_combine(range(1, 100), range(1, 100)),
+            '#title'         => $rank['name'],
+            '#default_value' => variable_get($id, 5),
+          );
+        }
+      }
+
+      if (module_exists('badges')) {
+        $group = 'pennies_badges';
+        $form[$group] = array(
+          '#type'        => 'fieldset',
+          '#collapsible' => true,
+          '#collapsed'   => true,
+          '#title'       => t('Pennies given for badges to users'),
+        );
+
+        foreach (badges_types() as $badge_type => $badge_type_name) {
+          $id = USERPOINTS_TERM_PENNIES_PREFIX . 'badge_' . $badge_type;
+          $form[$group][$id] = array(
+            '#type'          => 'select',
+            '#options'       => array_combine(range(1, 100), range(1, 100)),
+            '#title'         => $badge_type_name,
+            '#default_value' => variable_get($id, 3),
+          );
+        }
+      }
+
+      if (true) {
+        $group = 'pennies_actions';
+        $form[$group] = array(
+          '#type'        => 'fieldset',
+          '#collapsible' => true,
+          '#collapsed'   => true,
+          '#title'       => t('Pennies cost for actions'),
+        );
+
+        foreach (pennies_actions() as $action) {
+          $id = USERPOINTS_TERM_PENNIES_PREFIX . 'action_' . $action;
+          $form[$group][$id] = array(
+            '#type'          => 'select',
+            '#options'       => array_combine(range(-100, 0), range(-100, 0)),
+            '#title'         => t($action),
+            '#default_value' => variable_get($id, -1),
+          );
+        }
+
+
+      }
+
+      return $form;
+  }
+}
