@@ -1,37 +1,21 @@
 <?php
 
 /**
- * Define permission string
- */
-define ('RANKS_ADMIN', 'Administer Ranks');
-
-/**
- * Implementation of hook_perm()
- *
- * @return array7
- */
-function ranks_perm()
-{
-  return array(RANKS_ADMIN);
-}
-
-/**
  * Implementation of hook_menu()
  *
  * @return array
  */
-function ranks_menu()
-{
+function ranks_menu () {
   $menu = array();
 
   # ranks menu edit
   $menu['admin/settings/ranks'] = array(
-    'title' => t('Ranks'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ranks_form'),
-    'access arguments' => array(RANKS_ADMIN),
-    'type' => MENU_NORMAL_ITEM,
-    'file' => 'ranks.admin.inc',
+    'title'            => t('Ranks'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('ranks_form'),
+    'access arguments' => array('administer site configuration'),
+    'type'             => MENU_NORMAL_ITEM,
+    'file'             => 'ranks.admin.inc',
   );
 
   return $menu;
@@ -42,8 +26,7 @@ function ranks_menu()
  *
  * @return array
  */
-function ranks_theme()
-{
+function ranks_theme () {
   $theme = array();
 
   $theme['ranks'] = array(
@@ -58,9 +41,8 @@ function ranks_theme()
  *
  * @return array
  */
-function ranks_get()
-{
-  static $ranks = NULL;
+function ranks_get () {
+  static $ranks = null;
 
   if (is_null($ranks)) {
     $ranks = array();
@@ -70,7 +52,12 @@ function ranks_get()
       $ranks[] = $rank + array('index' => $index++);
     }
     if (empty($ranks)) {
-      $ranks[] = array('id' => 0, 'name' => 'Citizen', 'points' => 0, 'index' => 0);
+      $ranks[] = array(
+        'id'     => 0,
+        'name'   => 'Citizen',
+        'points' => 0,
+        'index'  => 0
+      );
     }
   }
   return $ranks;
@@ -79,8 +66,7 @@ function ranks_get()
 /**
  *
  */
-function theme_ranks()
-{
+function theme_ranks () {
   $output = '<ul>';
 
   foreach (ranks_get() as $rank) {
@@ -94,17 +80,16 @@ function theme_ranks()
 /**
  * Implementation of hook_user()
  *
- * @param $op
- * @param $edit
- * @param $account
+ * @param      $op
+ * @param      $edit
+ * @param      $account
  * @param null $category
  */
-function ranks_user($op, &$edit, &$account, $category = NULL)
-{
+function ranks_user ($op, &$edit, &$account, $category = null) {
   switch ($op) {
     case 'load' :
       $account->rank = ranks_user_rank($account->uid);
-    break;
+      break;
   }
 }
 
@@ -112,25 +97,25 @@ function ranks_user($op, &$edit, &$account, $category = NULL)
  * Get the user's rank
  *
  * @param $uid
+ *
  * @return mixed
  */
-function ranks_user_rank($uid, $reset = FALSE)
-{
+function ranks_user_rank ($uid, $reset = false) {
   static $cache = array();
 
   if (is_null($cache[$uid]) || $reset) {
     $ranks = ranks_get();
-    $up = up_userpoints_get($uid);
+    $stats = function_exists('points_since') ? points_since($uid, false, 0) : array('points' => 0);
     $rank = $ranks[0];
     for ($i = 0; $i < count($ranks); $i++) {
-      if ($up >= $ranks[$i]['points']) {
+      if ($stats['points'] >= $ranks[$i]['points']) {
         $rank = $ranks[$i];
       } else {
         break;
       }
     }
     # Adding userpoints for rules event to see if user got new rank
-    $cache[$uid] = $rank + array('up' => $up);
+    $cache[$uid] = $rank + array('points_prev' => $stats['points']);
   }
 
   return $cache[$uid];
@@ -141,8 +126,7 @@ function ranks_user_rank($uid, $reset = FALSE)
  *
  * To put rank to the $user
  */
-function ranks_init()
-{
+function ranks_init () {
   global $user;
   $edit = array();
   ranks_user('load', $edit, $user);
@@ -151,9 +135,10 @@ function ranks_init()
 /**
  * @param $rank_index
  * @param $uid
+ *
  * @return bool
  */
-function ranks_permission($rank_index, $uid) {
+function ranks_permission ($rank_index, $uid) {
   $rank = ranks_user_rank($uid);
   return $rank_index <= $rank['index'];
 }

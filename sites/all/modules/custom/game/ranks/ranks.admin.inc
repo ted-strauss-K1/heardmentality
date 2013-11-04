@@ -8,8 +8,7 @@
  * @param $name
  * @param $points
  */
-function rank_add($name, $points)
-{
+function rank_add ($name, $points) {
   db_query("INSERT INTO {ranks} SET name = '%s', points = '%d'", $name, $points);
 }
 
@@ -18,8 +17,7 @@ function rank_add($name, $points)
  *
  * @param $id
  */
-function rank_delele($id)
-{
+function rank_delele ($id) {
   db_query("DELETE FROM {ranks} WHERE id = '%d'", $id);
 }
 
@@ -30,8 +28,7 @@ function rank_delele($id)
  * @param $name
  * @param $points
  */
-function rank_update($id, $name, $points)
-{
+function rank_update ($id, $name, $points) {
   db_query("UPDATE {ranks} SET name = '%s', points = '%d' WHERE id = '%d'", $name, $points, $id);
 }
 
@@ -41,8 +38,7 @@ function rank_update($id, $name, $points)
  *
  * @return array
  */
-function ranks_form()
-{
+function ranks_form () {
   $form = array();
 
   $ranks = ranks_get();
@@ -50,29 +46,29 @@ function ranks_form()
 
   foreach ($ranks as $i => $rank) {
     $form['rank-name-' . $i] = array(
-      "#type" => "textfield",
-      "#title" => t("Rank name"),
+      "#type"        => "textfield",
+      "#title"       => t("Rank name"),
       "#description" => t("Leave empty to delete"),
-      "#value" => $rank['name'],
-      "#size" => 40,
-      '#prefix' => ($i == 0 ? '<table>' : '') . '<tr><td>',
-      '#suffix' => '</td>'
+      "#value"       => $rank['name'],
+      "#size"        => 40,
+      '#prefix'      => ($i == 0 ? '<table>' : '') . '<tr><td>',
+      '#suffix'      => '</td>'
     );
     $form['rank-points-' . $i] = array(
-      "#type" => "textfield",
-      "#title" => t("Points"),
-      "#value" => $rank['points'],
-      "#size" => 12,
+      "#type"   => "textfield",
+      "#title"  => t("Points"),
+      "#value"  => $rank['points'],
+      "#size"   => 12,
       '#prefix' => '<td>',
       '#suffix' => '</td></tr>' . ($i == count($ranks) - 1 ? '</table>' : '')
     );
     $form['rank-id-' . $i] = array(
-      "#type" => "hidden",
+      "#type"  => "hidden",
       "#value" => $rank['id'],
     );
   }
   $form["Save"] = array(
-    "#type" => "submit",
+    "#type"  => "submit",
     "#value" => t("Save"),
   );
 
@@ -85,8 +81,7 @@ function ranks_form()
  * @param $form
  * @param $form_state
  */
-function ranks_form_validate($form, $form_state)
-{
+function ranks_form_validate ($form, $form_state) {
   $post = $form_state["clicked_button"]["#post"];
   $points = array();
   for ($i = 0; $i >= 0; $i++) {
@@ -108,8 +103,7 @@ function ranks_form_validate($form, $form_state)
  * @param $form
  * @param $form_state
  */
-function ranks_form_submit($form, $form_state)
-{
+function ranks_form_submit ($form, $form_state) {
   $post = $form_state["clicked_button"]["#post"];
   for ($i = 0; $i >= 0; $i++) {
     if (isset($post['rank-id-' . $i])) {
@@ -126,5 +120,5 @@ function ranks_form_submit($form, $form_state)
       }
     } else break;
   }
-//  users_ranks_update();
+  //  users_ranks_update();
 }

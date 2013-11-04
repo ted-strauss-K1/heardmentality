@@ -3,47 +3,44 @@
 /**
  * Implementation of hook_install()
  */
-function ranks_install()
-{
+function ranks_install () {
   drupal_install_schema('ranks');
 }
 
 /**
  * Implementation of hook_install()
  */
-function ranks_uninstall()
-{
+function ranks_uninstall () {
   drupal_uninstall_schema('ranks');
 }
 
 /**
  * Implementation of hook_schema().
  */
-function ranks_schema()
-{
+function ranks_schema () {
   $schema = array();
 
   $schema['ranks'] = array(
     'description' => t('Stores the ranks.'),
-    'fields' => array(
-      'id' => array(
+    'fields'      => array(
+      'id'     => array(
         'description' => 'The primary identifier.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE
+        'type'        => 'serial',
+        'unsigned'    => true,
+        'not null'    => true
       ),
-      'name' => array(
+      'name'   => array(
         'description' => t('The name.'),
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'length' => 256,
-        'default' => '',
+        'type'        => 'varchar',
+        'not null'    => true,
+        'length'      => 256,
+        'default'     => '',
       ),
       'points' => array(
         'description' => 'The points range.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0
+        'type'        => 'int',
+        'not null'    => true,
+        'default'     => 0
       ),
     ),
     'primary key' => array('id'),
