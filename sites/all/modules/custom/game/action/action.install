@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function action_install () {
+  $ret = array();
+  db_change_field($ret, 'userpoints_txn', 'reference', 'reference', array(
+    'description' => 'Reserved for module specific use',
+    'type' => 'varchar',
+    'length' => 255,
+  ));
+}
+
+/**
+ * Implementation of hook_install()
+ */
+function action_uninstall () {
+  //
+}

@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * Implements hook_menu()
+ *
+ * @return array
+ */
+function action_menu () {
+  $menu = array();
+
+  $menu['action'] = array(
+    'page callback'   => 'action_ajax',
+    'access callback' => true,
+    'type'            => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * AJAX-based actions
+ */
+function action_ajax () {
+  print json_encode(array(
+    'status' => 'false',
+    'reason' => t('Forbidden callback'),
+  ));
+  exit;
+
+  $params = $_REQUEST;
+  action_filter_keys($params);
+  $result = action_add($params);
+  print json_encode($result);
+  exit;
+}
+
+/**
+ * Filter keys
+ *
+ * @param $params
+ */
+function action_filter_keys (&$params) {
+  $allowed = array(
+    'points',
+    'moderate',
+    'uid',
+    'time_stamp',
+    'operation',
+    'tid',
+    'expirydate',
+    'description',
+    'reference',
+    'display',
+    'txn_id',
+    'entity_id',
+    'entity_type',
+  );
+  $params = array_intersect_key($params, array_flip($allowed));
+}
+
+/**
+ * Check uid
+ *
+ * @param $params
+ *
+ * @return array
+ */
+function action_validate_user (&$params) {
+  if (!isset($params['uid'])) {
+    global $user;
+    $params['uid'] = $user->uid;
+  }
+  return (bool)$params['uid'];
+}
+
+/**
+ * Userpoints wrapper to perform action tracking
+ *
+ * @param array $params
+ *
+ * @return array
+ */
+function action_add (&$params) {
+  # validate user
+  if (!action_validate_user($params)) {
+    return array(
+      'status' => false,
+      'reason' => t('uid cannot be 0'),
+    );
+  }
+
+  # check required params
+  foreach (array(
+             'points',
+             'entity_id',
+             'entity_type',
+             'operation'
+           ) as $key) {
+    if (!isset($params[$key])) {
+      return array(
+        'status' => false,
+        'reason' => t('@key is not set', array('@key' => $key)),
+      );
+    }
+  }
+
+  # default
+  $params['moderate'] = USERPOINTS_TXN_STATUS_APPROVED; // points are always approved
+  $params['display'] = false; // do not display messages
+
+  # vars in reference
+  if (!isset($params['reference'])) {
+    $params['reference'] = array();
+  }
+  if (!is_array($params['reference'])) {
+    $params['reference'] = array($params['reference']);
+  }
+  $params['reference'] = serialize($params['reference']);
+
+  # perform write
+  //  *    'uid' => $user->uid
+  //  *    'time_stamp' => unix time of the points assignement date
+  //  *    'tid' => 'category ID'
+  //  *    'expirydate' => timestamp or 0, 0 = non-expiring; NULL = site default
+  //  *    'reference' => reserved for module specific use
+  //  *    'txn_id' => Transaction ID of points, If present an UPDATE is performed
+  $ret = _userpoints_transaction($params);
+  if ($ret == false) {
+    return array(
+      'status' => false,
+      'reason' => 'transaction failed in _userpoints_transaction, this is an internal module error',
+    );
+  }
+
+  return array(
+    'status' => true,
+    'result' => $params,
+  );
+}
+
+
+function action_init () {
+  //  $params = array(
+  //    'operation'   => 'view',
+  //    'entity_id'   => '1',
+  //    'entity_type' => '1',
+  //  );
+  //  points_add($params);
+  //
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
