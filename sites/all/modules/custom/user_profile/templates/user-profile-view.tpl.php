@@ -36,7 +36,10 @@ if ($user->uid == $account->uid) {
           <a href="<?php print htmlspecialchars($account->{$field->name}); ?>"
              target="_blank"><?php print $account->{$field->name}; ?></a>
           <?php break;
-
+        case 'profile_country':
+          ?>
+          <?php print location_country_name($account->{$field->name}); ?>
+          <?php break;
         default :
           ?>
             <?php print $account->{$field->name}; ?>
