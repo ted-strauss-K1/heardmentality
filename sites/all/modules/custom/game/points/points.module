@@ -96,7 +96,7 @@ function points_userpoints ($op, $params = array()) {
       foreach ($actions as $i => $action) {
         $form[$group][USERPOINTS_TERM_POINTS_PREFIX . $action . '_points'] = array(
           '#type'          => 'select',
-          '#options'       => range(0, 100),
+          '#options'       => array_combine(range(-50, 50), range(-50, 50)),
           '#title'         => $action,
           '#default_value' => variable_get(USERPOINTS_TERM_POINTS_PREFIX . $action . '_points', 0),
           '#prefix'        => (0 == $i ? '<table><tr>
@@ -165,16 +165,18 @@ function points_calculate ($params) {
  *
  * @return array|bool|null
  */
-function points_since ($uid, $operation, $since = false) {
+function points_since ($uid, $operation = false, $since = false) {
   if (false === $since) {
     $since = strtotime(date('Y-m-d'));
   }
   if ($tid = variable_get(USERPOINTS_TERM_POINTS, 0)) {
-    $query = "
-      SELECT IFNULL(SUM(points),0) points, IFNULL(COUNT(*),0) actions
-      FROM {userpoints_txn}
-      WHERE uid = '%s' AND time_stamp >= '%s' AND operation = '%s' AND tid = '%s'";
-    $result = db_query($query, $uid, $since, $operation, $tid);
+    $query = "SELECT IFNULL(SUM(points),0) points, IFNULL(COUNT(*),0) actions FROM {userpoints_txn} WHERE uid = '%s' AND tid = '%s' AND time_stamp >= '%s'";
+    $vars = array($uid, $tid, $since);
+    if (false !== $operation) {
+      $query .= " AND operation = '%s'";
+      $vars[] = $operation;
+    }
+    $result = db_query($query, $vars);
     if ($output = db_fetch_array($result)) {
       return $output;
     }
