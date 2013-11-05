@@ -167,7 +167,7 @@ function yn_vote($content_id, $value, $content_type, $vote_source = '', $uid = '
       'entity_id'   => $content_id,
       'entity_type' => $content_type,
     ));
-    
+
     // events
     module_invoke_all('process_event', 'yn', array(
       'content_type' => $content_type,

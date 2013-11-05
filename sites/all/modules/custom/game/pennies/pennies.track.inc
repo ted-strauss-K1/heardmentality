@@ -52,3 +52,48 @@ function pennies_cron () {
     }
   }
 }
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param      $node
+ * @param      $op
+ * @param null $a3
+ * @param null $a4
+ */
+function pennies_nodeapi (&$node, $op, $a3 = null, $a4 = null) {
+
+  switch ($op) {
+    case 'insert' :
+      if (in_array($node->type, array('resource', 'argument'))) {
+        action_queue(array(
+          'uid'         => $node->uid,
+          'operation'   => 'debate',
+          'entity_id'   => $node->nid,
+          'entity_type' => 'node',
+          'type'        => $node->type,
+        ));
+      }
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function pennies_comment(&$comment, $op)
+{
+  switch ($op) {
+    case 'insert' :
+      action_queue(array(
+        'uid'         => $comment->uid,
+        'operation'   => 'reply',
+        'entity_id'   => $comment->cid,
+        'entity_type' => 'comment',
+      ));
+      break;
+  }
+}
