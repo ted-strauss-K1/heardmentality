@@ -13,7 +13,7 @@ define('USERPOINTS_TERM_PENNIES', 'userpoints_term_pennies');
 /**
  * @return int
  */
-function pennies_term() {
+function pennies_term () {
   return (int)variable_get(USERPOINTS_TERM_PENNIES, 0);
 }
 
@@ -40,6 +40,10 @@ function pennies_operations () {
   return array(
     'register',
     'badge',
+    'yn_voteup',
+    'yn_votedn',
+    'debate',
+    'reply',
     'weekly_pennies',
     // todo revise list of operations
   );
@@ -133,7 +137,20 @@ function pennies_userpoints ($op, $params = array()) {
           '#title'       => t('Pennies cost for actions'),
         );
 
-        foreach (pennies_operations() as $action) {
+        if (module_exists('ranks')) {
+          $ranks = ranks_get();
+          foreach ($ranks as &$rank) {
+            $rank = $rank['name'];
+          }
+
+
+        }
+        foreach (array(
+                   'yn_voteup',
+                   'yn_votedn',
+                   'debate',
+                   'reply',
+                 ) as $action) {
           $id = USERPOINTS_TERM_PENNIES_PREFIX . 'action_' . $action;
           $form[$group][$id] = array(
             '#type'          => 'select',
@@ -141,6 +158,20 @@ function pennies_userpoints ($op, $params = array()) {
             '#title'         => t($action),
             '#default_value' => variable_get($id, -1),
           );
+          if (module_exists('ranks')) {
+            $form[$group][$id] += array(
+              '#prefix' => '<table><tr><td style="width:200px;">',
+              '#suffix' => '</td>',
+            );
+            $form[$group][$id . '_rank'] = array(
+              '#type'          => 'select',
+              '#options'       => $ranks,
+              '#title'         => t('Rank required to !action', array('!action' => t($action))),
+              '#default_value' => variable_get($id . '_rank', 0),
+              '#prefix'        => '<td>',
+              '#suffix'        => '</td></table>',
+            );
+          }
         }
 
         if (true) {
