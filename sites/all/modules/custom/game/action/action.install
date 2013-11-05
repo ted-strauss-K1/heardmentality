@@ -7,9 +7,11 @@ function action_install () {
   $ret = array();
   db_change_field($ret, 'userpoints_txn', 'reference', 'reference', array(
     'description' => 'Reserved for module specific use',
-    'type' => 'varchar',
-    'length' => 255,
+    'type'        => 'varchar',
+    'length'      => 255,
   ));
+
+  drupal_install_schema('action');
 }
 
 /**
@@ -17,4 +19,41 @@ function action_install () {
  */
 function action_uninstall () {
   //
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function action_schema () {
+  $schema = array();
+
+  $schema['action_queue'] = array(
+    'description' => t('Stores the action queue.'),
+    'fields'      => array(
+      'id'        => array(
+        'description' => 'The primary identifier.',
+        'type'        => 'serial',
+        'unsigned'    => true,
+        'not null'    => true
+      ),
+      'timestamp' => array(
+        'description' => 'A Unix timestamp indicating when this record was created.',
+        'type'        => 'int',
+        'not null'    => true,
+        'default'     => 0
+      ),
+      'params'    => array(
+        'description' => '',
+        'type'        => 'text',
+        'not null'    => true,
+        'size'        => 'big'
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes'     => array(
+      'timestamp' => array('timestamp'),
+    ),
+  );
+
+  return $schema;
 }
