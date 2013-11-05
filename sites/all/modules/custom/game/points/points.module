@@ -1,33 +1,36 @@
 <?php
 
-// todo add points on actions automatically
+/**
+ * todo Track points
+ */
+include_once __DIR__ . '/points.track.inc';
 
 /**
- * Implements hook_menu()
+ * Implements custom hook_invoke_action()
  *
- * @return array
+ * @param $timestamp
+ * @param $params
  */
-function points_menu () {
-  $menu = array();
-
-  $menu['action/points'] = array(
-    'page callback'   => 'points_ajax',
-    'access callback' => true,
-    'type'            => MENU_CALLBACK,
-  );
-
-  return $menu;
+function points_invoke_action ($timestamp, $params) {
+  $output = array('status' => false);
+  $operations = points_operations();
+  if (isset($params['operation']) && in_array($params['operation'], $operations)) {
+    $params['time_stamp'] = $timestamp;
+    $output = points_add($params);
+  }
+  return $output + array('params' => $params);
 }
 
 /**
- * AJAX-based actions
+ * @return array
  */
-function points_ajax () {
-  $params = $_REQUEST;
-  action_filter_keys($params);
-  $result = points_add($params);
-  print json_encode($result);
-  exit;
+function points_operations () {
+  return array(
+    'view',
+    'login',
+    'vote',
+    'share',
+  );
 }
 
 /**
@@ -36,9 +39,11 @@ function points_ajax () {
 define('USERPOINTS_TERM_POINTS', 'userpoints_term_points');
 
 /**
- *
+ * @return mixed
  */
-define('USERPOINTS_TERM_POINTS_PREFIX', 'userpoints_term_points_');
+function points_term () {
+  return $tid = variable_get(USERPOINTS_TERM_POINTS, 0);
+}
 
 /**
  * Wrapper to perform points tracking
@@ -49,12 +54,16 @@ define('USERPOINTS_TERM_POINTS_PREFIX', 'userpoints_term_points_');
  */
 function points_add (&$params) {
   # user
-  action_validate_user($params);
+  up_validate_user($params);
   #
-  if ($tid = variable_get(USERPOINTS_TERM_POINTS, 0)) {
+  if ($tid = points_term()) {
     $params['points'] = points_calculate($params);
     $params['tid'] = $tid;
-    return action_add($params);
+    $params += array(
+      'entity_id'   => $params['uid'],
+      'entity_type' => 'user',
+    );
+    return up_add($params);
   }
   return array(
     'status' => false,
@@ -63,16 +72,38 @@ function points_add (&$params) {
 }
 
 /**
- * @return array
+ * Calculate number of points we should give to user for the action
+ *
+ * @param $params
  */
-function points_actions () {
-  return array(
-    'view',
-    'visit',
-    'vote',
-    'share',
-  );
+function points_calculate ($params) {
+  $action = $params['operation'];
+  $actions = points_operations();
+
+  if (in_array($action, $actions)) {
+    # get current stats
+    $stats = up_since($params['uid'], points_term(), $action);
+    $stats['actions']++;
+
+    # get info
+    $points = variable_get(USERPOINTS_TERM_POINTS_PREFIX . $action . '_points', 0);
+    $per = variable_get(USERPOINTS_TERM_POINTS_PREFIX . $action . '_per', 1);
+    $limit = variable_get(USERPOINTS_TERM_POINTS_PREFIX . $action . '_limit', 5);
+
+    # calculate
+    if (((-1 == $limit) || ($stats['points'] < $limit)) && (0 == $stats['actions'] % $per)) {
+      return $points;
+    }
+  }
+
+  return 0;
 }
+
+/**
+ *
+ */
+define('USERPOINTS_TERM_POINTS_PREFIX', 'userpoints_term_points_');
+
 
 /**
  * @param       $op
@@ -92,7 +123,7 @@ function points_userpoints ($op, $params = array()) {
         '#title'       => t('!Points for site actions', userpoints_translation()),
       );
 
-      $actions = points_actions();
+      $actions = points_operations();
       foreach ($actions as $i => $action) {
         $form[$group][USERPOINTS_TERM_POINTS_PREFIX . $action . '_points'] = array(
           '#type'          => 'select',
@@ -126,63 +157,4 @@ function points_userpoints ($op, $params = array()) {
 
       return $form;
   }
-}
-
-/**
- * Calculate number of points we should give to user for the action
- *
- * @param $params
- */
-function points_calculate ($params) {
-  $action = $params['operation'];
-  $actions = points_actions();
-
-  if (in_array($action, $actions)) {
-    # get current stats
-    $stats = points_since($params['uid'], $action);
-    $stats['actions']++;
-
-    # get info
-    $points = variable_get(USERPOINTS_TERM_POINTS_PREFIX . $action . '_points', 0);
-    $per = variable_get(USERPOINTS_TERM_POINTS_PREFIX . $action . '_per', 1);
-    $limit = variable_get(USERPOINTS_TERM_POINTS_PREFIX . $action . '_limit', 5);
-
-    # calculate
-    if (((-1 == $limit) || ($stats['points'] < $limit)) && (0 == $stats['actions'] % $per)) {
-      return $points;
-    }
-  }
-
-  return 0;
-}
-
-/**
- * Calcualate number of points and actions received since the given timestamp
- *
- * @param      $uid
- * @param      $operation
- * @param bool $since
- *
- * @return array|bool|null
- */
-function points_since ($uid, $operation = false, $since = false) {
-  if (false === $since) {
-    $since = strtotime(date('Y-m-d'));
-  }
-  if ($tid = variable_get(USERPOINTS_TERM_POINTS, 0)) {
-    $query = "SELECT IFNULL(SUM(points),0) points, IFNULL(COUNT(*),0) actions FROM {userpoints_txn} WHERE uid = '%s' AND tid = '%s' AND time_stamp >= '%s'";
-    $vars = array($uid, $tid, $since);
-    if (false !== $operation) {
-      $query .= " AND operation = '%s'";
-      $vars[] = $operation;
-    }
-    $result = db_query($query, $vars);
-    if ($output = db_fetch_array($result)) {
-      return $output;
-    }
-  }
-  return array(
-    'points'  => 0,
-    'actions' => 0,
-  );
 }
