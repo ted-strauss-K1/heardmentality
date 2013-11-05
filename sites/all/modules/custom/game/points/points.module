@@ -1,7 +1,7 @@
 <?php
 
 /**
- * todo Track points
+ *
  */
 include_once __DIR__ . '/points.track.inc';
 
@@ -39,10 +39,10 @@ function points_operations () {
 define('USERPOINTS_TERM_POINTS', 'userpoints_term_points');
 
 /**
- * @return mixed
+ * @return int
  */
 function points_term () {
-  return $tid = variable_get(USERPOINTS_TERM_POINTS, 0);
+  return (int)variable_get(USERPOINTS_TERM_POINTS, 0);
 }
 
 /**

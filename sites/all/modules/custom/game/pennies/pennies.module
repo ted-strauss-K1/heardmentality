@@ -1,15 +1,9 @@
 <?php
 
-// todo spend pennies on actions automatically
-// todo give pennies on cron
-// todo revise list of actions
-
 /**
- * Implements hook_cron()
+ *
  */
-function pennies_cron () {
-  // todo
-}
+include_once __DIR__ . '/pennies.track.inc';
 
 /**
  *
@@ -17,37 +11,38 @@ function pennies_cron () {
 define('USERPOINTS_TERM_PENNIES', 'userpoints_term_pennies');
 
 /**
- *
+ * @return int
  */
-define('USERPOINTS_TERM_PENNIES_PREFIX', 'userpoints_term_pennies_');
-
-/**
- * Implements hook_menu()
- *
- * @return array
- */
-function pennies_menu () {
-  $menu = array();
-
-  $menu['action/pennies'] = array(
-    'page callback'   => 'pennies_ajax',
-    'access callback' => true,
-    'type'            => MENU_CALLBACK,
-  );
-
-  return $menu;
+function pennies_term() {
+  return (int)variable_get(USERPOINTS_TERM_PENNIES, 0);
 }
 
 /**
- * AJAX-based actions
+ * Implements custom hook_invoke_action()
+ *
+ * @param $timestamp
+ * @param $params
  */
-function pennies_ajax () {
-  $params = $_REQUEST;
-  action_filter_keys($params);
-  $params['points'] = -1; // we can only spend pennies via ajax
-  $result = pennies_add($params);
-  print json_encode($result);
-  exit;
+function pennies_invoke_action ($timestamp, $params) {
+  $output = array('status' => false);
+  $operations = pennies_operations();
+  if (isset($params['operation']) && in_array($params['operation'], $operations)) {
+    $params['time_stamp'] = $timestamp;
+    $output = pennies_add($params);
+  }
+  return $output + array('params' => $params);
+}
+
+/**
+ * @return array
+ */
+function pennies_operations () {
+  return array(
+    'register',
+    'badge',
+    'weekly_pennies',
+    // todo revise list of operations
+  );
 }
 
 /**
@@ -59,12 +54,12 @@ function pennies_ajax () {
  */
 function pennies_add (&$params) {
   # user
-  action_validate_user($params);
+  up_validate_user($params);
   #
-  if ($tid = variable_get(USERPOINTS_TERM_PENNIES, 0)) {
+  if ($tid = pennies_term()) {
     $params['tid'] = $tid;
     $params += array('points' => -1);
-    return action_add($params);
+    return up_add($params);
   }
   return array(
     'status' => false,
@@ -73,16 +68,9 @@ function pennies_add (&$params) {
 }
 
 /**
- * @return array
+ *
  */
-function pennies_actions () {
-  return array(
-    'view',
-    'visit',
-    'vote',
-    'share',
-  );
-}
+define('USERPOINTS_TERM_PENNIES_PREFIX', 'userpoints_term_pennies_');
 
 /**
  * @param       $op
@@ -145,7 +133,7 @@ function pennies_userpoints ($op, $params = array()) {
           '#title'       => t('Pennies cost for actions'),
         );
 
-        foreach (pennies_actions() as $action) {
+        foreach (pennies_operations() as $action) {
           $id = USERPOINTS_TERM_PENNIES_PREFIX . 'action_' . $action;
           $form[$group][$id] = array(
             '#type'          => 'select',
@@ -179,29 +167,14 @@ function pennies_userpoints ($op, $params = array()) {
 }
 
 /**
- * @param      $op
- * @param      $edit
- * @param      $account
- * @param null $category
- */
-function pennies_user ($op, &$edit, &$account, $category = NULL) {
-  if ('insert' == $op) {
-    $params = array(
-      'uid' => $account->uid,
-      'points' => variable_get(USERPOINTS_TERM_PENNIES_PREFIX . 'reg', 25),
-      'entity_id' => $account->uid,
-      'entity_type' => 'user',
-      'operation' => 'register',
-    );
-    pennies_add($params);
-  }
-}
-
-/**
- * @param null $uid
+ * @param $uid
  *
  * @return int
  */
-function pennies_count ($uid = NULL) {
-  return ($tid = variable_get(USERPOINTS_TERM_PENNIES, 0)) ? (int)userpoints_get_current_points($uid, $tid) : 0;
+function pennies_count ($uid) {
+  if ($tid = pennies_term()) {
+    $stats = up_since($uid, $tid);
+    return $stats['points'];
+  }
+  return 0;
 }

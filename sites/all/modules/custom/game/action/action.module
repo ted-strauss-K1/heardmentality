@@ -33,7 +33,11 @@ function action_queue ($params = null) {
     $params = $_REQUEST;
     unset($params['q']);
   }
-  db_query("INSERT INTO {action_queue} SET timestamp = '%d', params = '%s'", time(), serialize($params));
+  if (isset($params['operation']) && $params['operation']) {
+    $op = $params['operation'];
+    unset($params['operation']);
+    db_query("INSERT INTO {action_queue} SET op = '%s', timestamp = '%d', params = '%s'", $op, isset($params['timestamp']) ? $params['timestamp'] : time(), serialize($params));
+  }
 }
 
 /**
@@ -48,8 +52,16 @@ function action_dequeue () {
   $result = db_query($query, $vars);
   while ($item = db_fetch_array($result)) {
     var_dump($item);
+
+    $op = $item['op'];
     $params = unserialize($item['params']);
+    $params['operation'] = $op;
+    #
+    if ($params['logged'] && user_is_anonymous()) {
+      continue;
+    }
     module_invoke_all('invoke_action', $item['timestamp'], $params);
     db_query("DELETE FROM {action_queue} WHERE id = '%s'", $item['id']);
   }
+  exit;
 }
