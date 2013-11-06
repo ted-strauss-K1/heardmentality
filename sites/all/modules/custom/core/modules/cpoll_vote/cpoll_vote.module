@@ -272,12 +272,6 @@ function cpoll_vote_ajax() {
     'chid'        => $post['chid'],
   ));
 
-  // events
-  module_invoke_all('process_event', '_vote', array(
-    'content_type' => 'node',
-    'content_id' => $post['nid'],
-  ), $user->uid);
-
   // reindex
   if (module_exists('issue_search')) {
     issue_search_index_node($post['nid']);

@@ -191,12 +191,14 @@ function moderation_merge_form_submit($form, $form_state) {
 
   // todo messages
 
-  // events
+  # actions
   global $user;
-  module_invoke_all('process_event', 'merge', array(
-    'content_type' => 'node',
-    'content_id' => $merge,
-  ), $user->uid);
+  function_exists('action_queue') && action_queue(array(
+    'uid'         => $user->uid,
+    'operation'   => 'merge',
+    'entity_id'   => $merge,
+    'entity_type' => 'node',
+  ));
 
   drupal_goto('node/'.$base);
 }
