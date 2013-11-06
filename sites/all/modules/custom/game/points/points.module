@@ -11,8 +11,8 @@ include_once __DIR__ . '/points.track.inc';
  * @param $timestamp
  * @param $params
  */
-function points_invoke_action ($timestamp, $params) {
-  $output = array('status' => false);
+function points_invoke_action($timestamp, $params) {
+  $output = array('status' => FALSE);
   $operations = points_operations();
   if (isset($params['operation']) && in_array($params['operation'], $operations)) {
     $params['time_stamp'] = $timestamp;
@@ -24,7 +24,7 @@ function points_invoke_action ($timestamp, $params) {
 /**
  * @return array
  */
-function points_operations () {
+function points_operations() {
   return array(
     'view',
     'login',
@@ -41,8 +41,8 @@ define('USERPOINTS_TERM_POINTS', 'userpoints_term_points');
 /**
  * @return int
  */
-function points_term () {
-  return (int)variable_get(USERPOINTS_TERM_POINTS, 0);
+function points_term() {
+  return (int) variable_get(USERPOINTS_TERM_POINTS, 0);
 }
 
 /**
@@ -52,7 +52,7 @@ function points_term () {
  *
  * @return array
  */
-function points_add (&$params) {
+function points_add(&$params) {
   # user
   up_validate_user($params);
   #
@@ -66,7 +66,7 @@ function points_add (&$params) {
     return up_add($params);
   }
   return array(
-    'status' => false,
+    'status' => FALSE,
     'reason' => t('No points term'),
   );
 }
@@ -76,7 +76,7 @@ function points_add (&$params) {
  *
  * @param $params
  */
-function points_calculate ($params) {
+function points_calculate($params) {
   $action = $params['operation'];
   $actions = points_operations();
 
@@ -111,15 +111,15 @@ define('USERPOINTS_TERM_POINTS_PREFIX', 'userpoints_term_points_');
  *
  * @return mixed
  */
-function points_userpoints ($op, $params = array()) {
+function points_userpoints($op, $params = array()) {
   switch ($op) {
 
     case 'setting':
       $group = 'points';
       $form[$group] = array(
         '#type'        => 'fieldset',
-        '#collapsible' => true,
-        '#collapsed'   => true,
+        '#collapsible' => TRUE,
+        '#collapsed'   => TRUE,
         '#title'       => t('!Points for site actions', userpoints_translation()),
       );
 

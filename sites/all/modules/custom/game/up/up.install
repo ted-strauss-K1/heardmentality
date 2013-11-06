@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_install()
  */
-function up_install () {
+function up_install() {
   $ret = array();
   db_change_field($ret, 'userpoints_txn', 'reference', 'reference', array(
     'description' => 'Reserved for module specific use',
@@ -15,6 +15,6 @@ function up_install () {
 /**
  * Implementation of hook_install()
  */
-function up_uninstall () {
+function up_uninstall() {
   //
 }

@@ -5,7 +5,7 @@
  *
  * @param $vars
  */
-function pennies_preprocess_page (&$vars) {
+function pennies_preprocess_page(&$vars) {
   drupal_add_js(drupal_get_path('module', 'pennies') . '/pennies.track.js');
 }
 
@@ -15,7 +15,7 @@ function pennies_preprocess_page (&$vars) {
  * @param      $account
  * @param null $category
  */
-function pennies_user ($op, &$edit, &$account, $category = null) {
+function pennies_user($op, &$edit, &$account, $category = NULL) {
   if ('insert' == $op) {
     action_queue(array(
       'uid'         => $account->uid,
@@ -31,7 +31,7 @@ define('PENNIES_CRON', 'pennies_cron');
 /**
  * Implements hook_cron()
  */
-function pennies_cron () {
+function pennies_cron() {
   set_time_limit(0);
 
   if (($time = strtotime('Monday this week')) > variable_get(PENNIES_CRON, 0)) {
@@ -47,7 +47,7 @@ function pennies_cron () {
         'operation'   => 'weekly_pennies',
         'entity_id'   => $uid,
         'entity_type' => 'user',
-        'logged'      => true,
+        'logged'      => TRUE,
       ));
     }
   }
@@ -61,7 +61,7 @@ function pennies_cron () {
  * @param null $a3
  * @param null $a4
  */
-function pennies_nodeapi (&$node, $op, $a3 = null, $a4 = null) {
+function pennies_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
   switch ($op) {
     case 'insert' :
@@ -84,8 +84,7 @@ function pennies_nodeapi (&$node, $op, $a3 = null, $a4 = null) {
  * @param $a1
  * @param $op
  */
-function pennies_comment(&$comment, $op)
-{
+function pennies_comment(&$comment, $op) {
   switch ($op) {
     case 'insert' :
       action_queue(array(

@@ -3,21 +3,21 @@
 /**
  * Implementation of hook_install()
  */
-function action_install () {
+function action_install() {
   drupal_install_schema('action');
 }
 
 /**
  * Implementation of hook_install()
  */
-function action_uninstall () {
+function action_uninstall() {
   //
 }
 
 /**
  * Implementation of hook_schema().
  */
-function action_schema () {
+function action_schema() {
   $schema = array();
 
   $schema['action_queue'] = array(
@@ -26,13 +26,13 @@ function action_schema () {
       'id'        => array(
         'description' => 'The primary identifier.',
         'type'        => 'serial',
-        'unsigned'    => true,
-        'not null'    => true
+        'unsigned'    => TRUE,
+        'not null'    => TRUE
       ),
       'uid'       => array(
         'description' => 'The {users}.uid initiated this action.',
         'type'        => 'int',
-        'not null'    => true,
+        'not null'    => TRUE,
         'default'     => 0
       ),
       'op'        => array(
@@ -43,13 +43,13 @@ function action_schema () {
       'timestamp' => array(
         'description' => 'A Unix timestamp indicating when this record was created.',
         'type'        => 'int',
-        'not null'    => true,
+        'not null'    => TRUE,
         'default'     => 0
       ),
       'params'    => array(
         'description' => '',
         'type'        => 'text',
-        'not null'    => true,
+        'not null'    => TRUE,
         'size'        => 'big'
       ),
     ),

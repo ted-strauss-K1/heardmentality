@@ -8,8 +8,8 @@ include_once __DIR__ . "/points.module";
 /**
  * Implementation of hook_install()
  */
-function points_install () {
-  $vocabularies = taxonomy_get_vocabularies(null);
+function points_install() {
+  $vocabularies = taxonomy_get_vocabularies(NULL);
   foreach ($vocabularies as $vocabulary) {
     if ('Userpoints' == $vocabulary->name) {
       $vid = $vocabulary->vid;
@@ -28,6 +28,6 @@ function points_install () {
 /**
  * Implementation of hook_install()
  */
-function points_uninstall () {
+function points_uninstall() {
   //
 }

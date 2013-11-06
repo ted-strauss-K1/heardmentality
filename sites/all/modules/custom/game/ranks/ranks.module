@@ -5,7 +5,7 @@
  *
  * @return array
  */
-function ranks_menu () {
+function ranks_menu() {
   $menu = array();
 
   # ranks menu edit
@@ -26,7 +26,7 @@ function ranks_menu () {
  *
  * @return array
  */
-function ranks_theme () {
+function ranks_theme() {
   $theme = array();
 
   $theme['ranks'] = array(
@@ -41,8 +41,8 @@ function ranks_theme () {
  *
  * @return array
  */
-function ranks_get () {
-  static $ranks = null;
+function ranks_get() {
+  static $ranks = NULL;
 
   if (is_null($ranks)) {
     $ranks = array();
@@ -66,7 +66,7 @@ function ranks_get () {
 /**
  *
  */
-function theme_ranks () {
+function theme_ranks() {
   $output = '<ul>';
 
   foreach (ranks_get() as $rank) {
@@ -85,7 +85,7 @@ function theme_ranks () {
  * @param      $account
  * @param null $category
  */
-function ranks_user ($op, &$edit, &$account, $category = null) {
+function ranks_user($op, &$edit, &$account, $category = NULL) {
   switch ($op) {
     case 'load' :
       $account->rank = ranks_user_rank($account->uid);
@@ -100,17 +100,18 @@ function ranks_user ($op, &$edit, &$account, $category = null) {
  *
  * @return mixed
  */
-function ranks_user_rank ($uid, $reset = false) {
+function ranks_user_rank($uid, $reset = FALSE) {
   static $cache = array();
 
   if (is_null($cache[$uid]) || $reset) {
     $ranks = ranks_get();
-    $stats = function_exists('up_since') ? up_since($uid, false, 0) : array('points' => 0);
+    $stats = function_exists('up_since') ? up_since($uid, FALSE, 0) : array('points' => 0);
     $rank = $ranks[0];
     for ($i = 0; $i < count($ranks); $i++) {
       if ($stats['points'] >= $ranks[$i]['points']) {
         $rank = $ranks[$i];
-      } else {
+      }
+      else {
         break;
       }
     }
@@ -126,7 +127,7 @@ function ranks_user_rank ($uid, $reset = false) {
  *
  * To put rank to the $user
  */
-function ranks_init () {
+function ranks_init() {
   global $user;
   $edit = array();
   ranks_user('load', $edit, $user);
@@ -138,7 +139,7 @@ function ranks_init () {
  *
  * @return bool
  */
-function ranks_permission ($rank_index, $uid) {
+function ranks_permission($rank_index, $uid) {
   $rank = ranks_user_rank($uid);
   return $rank_index <= $rank['index'];
 }

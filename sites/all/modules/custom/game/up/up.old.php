@@ -3,13 +3,12 @@
 /**
  * Implementation of hook_nodeapi()
  *
- * @param $node
- * @param $op
+ * @param      $node
+ * @param      $op
  * @param null $a3
  * @param null $a4
  */
-function up_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
+function up_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   switch ($op) {
     case 'delete' :
       up_cleanup($node->nid, 'node');
@@ -23,8 +22,7 @@ function up_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
  * @param $a1
  * @param $op
  */
-function up_comment(&$a1, $op)
-{
+function up_comment(&$a1, $op) {
   switch ($op) {
     case 'delete' :
       up_cleanup($a1->cid, 'comment');
@@ -38,8 +36,7 @@ function up_comment(&$a1, $op)
  * @param $content_id
  * @param $content_type
  */
-function up_cleanup($content_id, $content_type)
-{
+function up_cleanup($content_id, $content_type) {
   //
 }
 
@@ -48,14 +45,14 @@ function up_cleanup($content_id, $content_type)
  *
  * @param string $uid
  * @param string $operation
- * @param bool $reset
+ * @param bool   $reset
+ *
  * @return bool
  */
-function up_userpoints_get($uid = false, $operation = '', $reset = false)
-{
+function up_userpoints_get($uid = FALSE, $operation = '', $reset = FALSE) {
   static $cache = array();
 
-  if ($uid === false) {
+  if ($uid === FALSE) {
     global $user;
     $uid = $user->uid;
   }
@@ -69,20 +66,22 @@ function up_userpoints_get($uid = false, $operation = '', $reset = false)
     $uid[] = $operation;
     $result = db_query($query, $uid);
     while ($row = db_fetch_array($result)) {
-      $cache[$row['uid']][$operation] = (int)$row['count'];
+      $cache[$row['uid']][$operation] = (int) $row['count'];
     }
-  } else { # otherwise
+  }
+  else { # otherwise
     if (!isset($cache[$uid][$operation]) || $reset) {
       if (empty($operation)) {
-        $cache[$uid][$operation] = (int)userpoints_get_current_points($uid, 'all');
-      } else {
-        $cache[$uid][$operation] = (int)db_result(db_query("SELECT SUM(points) FROM {userpoints_txn} WHERE uid = '%d' AND operation = '%s'", $uid, $operation));
+        $cache[$uid][$operation] = (int) userpoints_get_current_points($uid, 'all');
+      }
+      else {
+        $cache[$uid][$operation] = (int) db_result(db_query("SELECT SUM(points) FROM {userpoints_txn} WHERE uid = '%d' AND operation = '%s'", $uid, $operation));
       }
     }
     return $cache[$uid][$operation];
   }
 
-  return true;
+  return TRUE;
 }
 
 /**
@@ -95,11 +94,11 @@ define('UP_REPUTATION_PER_DAY', 200);
  *
  * @param string $uid
  * @param string $operation
+ *
  * @return int
  */
-function up_userpoints_today($uid = false, $operation = '')
-{
-  if ($uid === false) {
+function up_userpoints_today($uid = FALSE, $operation = '') {
+  if ($uid === FALSE) {
     global $user;
     $uid = $user->uid;
   }
@@ -107,23 +106,23 @@ function up_userpoints_today($uid = false, $operation = '')
   if (!empty($operation)) {
     $query .= " AND operation = '%s'";
   }
-  return (int)db_result(db_query($query, $uid, $operation));
+  return (int) db_result(db_query($query, $uid, $operation));
 }
 
 /**
  * Check if operation was made today
  *
- * @param $operation
+ * @param        $operation
  * @param string $uid
+ *
  * @return bool
  */
-function up_check_operation_today($operation, $uid = false)
-{
-  if ($uid === false) {
+function up_check_operation_today($operation, $uid = FALSE) {
+  if ($uid === FALSE) {
     global $user;
     $uid = $user->uid;
   }
-  return false != db_result(db_query("SELECT txn_id FROM {userpoints_txn} WHERE uid = '%d' AND time_stamp > CURDATE() AND operation = '%s'", $uid, $operation));
+  return FALSE != db_result(db_query("SELECT txn_id FROM {userpoints_txn} WHERE uid = '%d' AND time_stamp > CURDATE() AND operation = '%s'", $uid, $operation));
 }
 
 /**
@@ -133,8 +132,7 @@ function up_check_operation_today($operation, $uid = false)
  * @param $form_state
  * @param $form_id
  */
-function up_form_alter(&$form, $form_state, $form_id)
-{
+function up_form_alter(&$form, $form_state, $form_id) {
   # for "UR-API" module
   if ($form_id == 'user_relationships_ui_request') {
     $form['#submit'][] = 'up_userpoints_follow';
@@ -150,8 +148,7 @@ function up_form_alter(&$form, $form_state, $form_id)
  * @param $form
  * @param $form_state
  */
-function up_userpoints_follow(&$form, $form_state)
-{
+function up_userpoints_follow(&$form, $form_state) {
   if (module_exists('rules') && module_exists('UR-API')) {
     global $user;
     $followed = user_load(arg(1));
@@ -165,8 +162,7 @@ function up_userpoints_follow(&$form, $form_state)
  * @param $form
  * @param $form_state
  */
-function up_userpoints_unfollow(&$form, $form_state)
-{
+function up_userpoints_unfollow(&$form, $form_state) {
   if (module_exists('rules') && module_exists('UR-API')) {
     global $user;
     $relationship = user_relationships_load(arg(3));
@@ -178,21 +174,17 @@ function up_userpoints_unfollow(&$form, $form_state)
 // Userpoints for sharing
 
 
-
-
-
 /**
  * Implementation of hook_rules_condition_info()
  */
-function up_rules_condition_info()
-{
+function up_rules_condition_info() {
   return array(
     'up_userpoints_limit' => array(
-      'label' => t('User Hit the Userpoints Limit Today'),
+      'label'     => t('User Hit the Userpoints Limit Today'),
       'arguments' => array(
         'user' => array('type' => 'user', 'label' => t('Acting user')),
       ),
-      'module' => 'UserPoints Extension',
+      'module'    => 'UserPoints Extension',
     ),
   );
   // todo not used
@@ -224,12 +216,12 @@ function up_rules_condition_info()
 }
 
 /**
- * @param $user
+ * @param       $user
  * @param array $settings
+ *
  * @return bool
  */
-function up_userpoints_limit($user, $settings = array())
-{
+function up_userpoints_limit($user, $settings = array()) {
   return ($settings['number'] != 0) && (up_userpoints_today($user->uid) >= $settings['number']);
 }
 
@@ -237,21 +229,19 @@ function up_userpoints_limit($user, $settings = array())
  * @param $settings
  * @param $form
  */
-function up_userpoints_limit_form($settings, &$form)
-{
+function up_userpoints_limit_form($settings, &$form) {
   $form['settings']['number'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Number of Points'),
+    '#type'          => 'textfield',
+    '#title'         => t('Number of Points'),
     '#default_value' => isset($settings['number']) ? $settings['number'] : 0,
-    '#required' => TRUE,
+    '#required'      => TRUE,
   );
 }
 
 /**
  * Condition: up_user_shared_posts_today
  */
-function up_userpoints_limit_form_validate(&$form, &$form_state)
-{
+function up_userpoints_limit_form_validate(&$form, &$form_state) {
   $post = $form_state["clicked_button"]["#post"];
   if (!is_numeric($post['number'])) {
     form_set_error('up_userpoints_limit', t('Number of Points should be numeric'));
@@ -262,49 +252,45 @@ function up_userpoints_limit_form_validate(&$form, &$form_state)
 /**
  * Condition: up_user_logged_in_today
  */
-function up_user_logged_in_today($user)
-{
+function up_user_logged_in_today($user) {
   return up_check_operation_today('login', $user->uid);
 }
 
 /**
  * Condition: up_user_visited_node_today
  */
-function up_user_visited_node_today($user, $node)
-{
+function up_user_visited_node_today($user, $node) {
   if (arg(0) == 'node' && arg(1) == $node->nid) {
-    return false != db_result(db_query("SELECT COUNT(*) FROM {userpoints_txn} WHERE uid = '%d' AND entity_type = '%s' AND operation = '%s' AND entity_id = '%d'", $user->uid, 'node', 'visit', $node->nid));
-  } else {
-    return true;
+    return FALSE != db_result(db_query("SELECT COUNT(*) FROM {userpoints_txn} WHERE uid = '%d' AND entity_type = '%s' AND operation = '%s' AND entity_id = '%d'", $user->uid, 'node', 'visit', $node->nid));
+  }
+  else {
+    return TRUE;
   }
 }
 
 /**
  * Condition: up_user_shared_posts_today
  */
-function up_user_shared_posts_today($user, $settings = array())
-{
+function up_user_shared_posts_today($user, $settings = array()) {
   return $settings['number'] == 0 || (up_userpoints_today($user->uid, 'share') < $settings['number']);
 }
 
 /**
  * Condition: up_user_shared_posts_today
  */
-function up_user_shared_posts_today_form($settings = array(), &$form)
-{
+function up_user_shared_posts_today_form($settings = array(), &$form) {
   $form['settings']['number'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Number of points for shares per day'),
+    '#type'          => 'textfield',
+    '#title'         => t('Number of points for shares per day'),
     '#default_value' => isset($settings['number']) ? $settings['number'] : 0,
-    '#required' => TRUE,
+    '#required'      => TRUE,
   );
 }
 
 /**
  * Condition: up_user_shared_posts_today
  */
-function up_user_shared_posts_today_form_validate(&$form, &$form_state)
-{
+function up_user_shared_posts_today_form_validate(&$form, &$form_state) {
   $post = $form_state["clicked_button"]["#post"];
   if (!is_numeric($post['number'])) {
     form_set_error('up_user_shared_posts_today_form_numeric', t('Number of shares should be numeric'));

@@ -5,19 +5,19 @@
  *
  * @return array
  */
-function action_menu () {
+function action_menu() {
   $menu = array();
 
   // callbacks to queue and de-queue actions
   $menu['action/queue'] = array(
     'page callback'   => 'action_queue',
     'page arguments'  => array(),
-    'access callback' => true,
+    'access callback' => TRUE,
   );
   $menu['action/dequeue'] = array(
     'page callback'   => 'action_dequeue',
     'page arguments'  => array(),
-    'access callback' => true,
+    'access callback' => TRUE,
   );
 
   return $menu;
@@ -28,7 +28,7 @@ function action_menu () {
  *
  * @param array $params
  */
-function action_queue ($params = null) {
+function action_queue($params = NULL) {
   if (is_null($params)) {
     $params = $_REQUEST;
     unset($params['q']);
@@ -41,18 +41,32 @@ function action_queue ($params = null) {
     $uid = intval($params['uid']);
     unset($params['uid']);
 
-    db_query("INSERT INTO {action_queue} SET uid = '%s', op = '%s', timestamp = '%d', params = '%s'", $uid, $op, isset($params['timestamp']) ? $params['timestamp'] : time(), serialize($params));
+    if ($uid > 0) {
+      db_query("INSERT INTO {action_queue} SET uid = '%s', op = '%s', timestamp = '%d', params = '%s'", $uid, $op, isset($params['timestamp']) ? $params['timestamp'] : time(), serialize($params));
+    }
   }
 }
 
 /**
  * Function to dequeue actions
  */
-function action_dequeue () {
+function action_dequeue() {
+  # get uid
+  if (isset($_REQUEST['uid'])) {
+    $uid = $_REQUEST['uid'];
+  }
+  # with no uid - skip
+  if (!$uid) {
+    return;
+  }
+
+
   // todo execute actions
 
   $query = "SELECT * FROM {action_queue}";
   $vars = array();
+
+  drupal_set_message();
 
   $result = db_query($query, $vars);
   while ($item = db_fetch_array($result)) {

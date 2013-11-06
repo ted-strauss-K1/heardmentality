@@ -8,7 +8,7 @@
  * @param $name
  * @param $points
  */
-function rank_add ($name, $points) {
+function rank_add($name, $points) {
   db_query("INSERT INTO {ranks} SET name = '%s', points = '%d'", $name, $points);
 }
 
@@ -17,7 +17,7 @@ function rank_add ($name, $points) {
  *
  * @param $id
  */
-function rank_delele ($id) {
+function rank_delele($id) {
   db_query("DELETE FROM {ranks} WHERE id = '%d'", $id);
 }
 
@@ -28,7 +28,7 @@ function rank_delele ($id) {
  * @param $name
  * @param $points
  */
-function rank_update ($id, $name, $points) {
+function rank_update($id, $name, $points) {
   db_query("UPDATE {ranks} SET name = '%s', points = '%d' WHERE id = '%d'", $name, $points, $id);
 }
 
@@ -38,7 +38,7 @@ function rank_update ($id, $name, $points) {
  *
  * @return array
  */
-function ranks_form () {
+function ranks_form() {
   $form = array();
 
   $ranks = ranks_get();
@@ -81,7 +81,7 @@ function ranks_form () {
  * @param $form
  * @param $form_state
  */
-function ranks_form_validate ($form, $form_state) {
+function ranks_form_validate($form, $form_state) {
   $post = $form_state["clicked_button"]["#post"];
   $points = array();
   for ($i = 0; $i >= 0; $i++) {
@@ -93,7 +93,10 @@ function ranks_form_validate ($form, $form_state) {
       if (!empty($post['rank-name-' . $i]) && !is_numeric($post['rank-points-' . $i])) {
         form_set_error('numeric_points', t('Points values should be numeric'));
       }
-    } else break;
+    }
+    else {
+      break;
+    }
   }
 }
 
@@ -103,7 +106,7 @@ function ranks_form_validate ($form, $form_state) {
  * @param $form
  * @param $form_state
  */
-function ranks_form_submit ($form, $form_state) {
+function ranks_form_submit($form, $form_state) {
   $post = $form_state["clicked_button"]["#post"];
   for ($i = 0; $i >= 0; $i++) {
     if (isset($post['rank-id-' . $i])) {
@@ -111,14 +114,19 @@ function ranks_form_submit ($form, $form_state) {
         if (!empty($post['rank-name-' . $i])) { # new
           rank_add($post['rank-name-' . $i], $post['rank-points-' . $i]);
         }
-      } else {
+      }
+      else {
         if (empty($post['rank-name-' . $i])) { # delete
           rank_delele($post['rank-id-' . $i]);
-        } else { # update
+        }
+        else { # update
           rank_update($post['rank-id-' . $i], $post['rank-name-' . $i], $post['rank-points-' . $i]);
         }
       }
-    } else break;
+    }
+    else {
+      break;
+    }
   }
   //  users_ranks_update();
 }

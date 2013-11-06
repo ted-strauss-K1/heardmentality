@@ -5,7 +5,7 @@
  *
  * @param $params
  */
-function up_filter_keys (&$params) {
+function up_filter_keys(&$params) {
   $allowed = array(
     'points',
     'moderate',
@@ -31,12 +31,12 @@ function up_filter_keys (&$params) {
  *
  * @return array
  */
-function up_validate_user (&$params) {
+function up_validate_user(&$params) {
   if (!isset($params['uid'])) {
     global $user;
     $params['uid'] = $user->uid;
   }
-  return (bool)$params['uid'];
+  return (bool) $params['uid'];
 }
 
 /**
@@ -46,11 +46,11 @@ function up_validate_user (&$params) {
  *
  * @return array
  */
-function up_add (&$params) {
+function up_add(&$params) {
   # validate user
   if (!up_validate_user($params)) {
     return array(
-      'status' => false,
+      'status' => FALSE,
       'reason' => t('uid cannot be 0'),
     );
   }
@@ -64,7 +64,7 @@ function up_add (&$params) {
            ) as $key) {
     if (!isset($params[$key])) {
       return array(
-        'status' => false,
+        'status' => FALSE,
         'reason' => t('@key is not set', array('@key' => $key)),
       );
     }
@@ -72,7 +72,7 @@ function up_add (&$params) {
 
   # default
   $params['moderate'] = USERPOINTS_TXN_STATUS_APPROVED; // points are always approved
-  $params['display'] = false; // do not display messages
+  $params['display'] = FALSE; // do not display messages
 
   # vars in reference
   if (!isset($params['reference'])) {
@@ -91,15 +91,15 @@ function up_add (&$params) {
   //  *    'reference' => reserved for module specific use
   //  *    'txn_id' => Transaction ID of points, If present an UPDATE is performed
   $ret = _userpoints_transaction($params);
-  if ($ret == false) {
+  if ($ret == FALSE) {
     return array(
-      'status' => false,
+      'status' => FALSE,
       'reason' => 'transaction failed in _userpoints_transaction, this is an internal module error',
     );
   }
 
   return array(
-    'status' => true,
+    'status' => TRUE,
     'result' => $params,
   );
 }
@@ -113,8 +113,8 @@ function up_add (&$params) {
  *
  * @return array|bool|null
  */
-function up_since ($uid, $tid, $operation = false, $since = false) {
-  if (false === $since) {
+function up_since($uid, $tid, $operation = FALSE, $since = FALSE) {
+  if (FALSE === $since) {
     $since = strtotime(date('Y-m-d'));
   }
 
@@ -124,7 +124,7 @@ function up_since ($uid, $tid, $operation = false, $since = false) {
     $tid,
     $since
   );
-  if (false !== $operation) {
+  if (FALSE !== $operation) {
     $query .= " AND operation = '%s'";
     $vars[] = $operation;
   }
