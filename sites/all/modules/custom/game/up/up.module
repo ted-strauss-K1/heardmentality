@@ -138,3 +138,56 @@ function up_since($uid, $tid, $operation = FALSE, $since = FALSE) {
     'actions' => 0,
   );
 }
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * @param      $node
+ * @param      $op
+ * @param null $a3
+ * @param null $a4
+ */
+function up_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case 'delete' :
+      up_cleanup($node->nid, 'node');
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_comment()
+ *
+ * @param $a1
+ * @param $op
+ */
+function up_comment(&$a1, $op) {
+  switch ($op) {
+    case 'delete' :
+      up_cleanup($a1->cid, 'comment');
+      break;
+  }
+}
+
+/*
+ * Implementation of hook_user()
+ *
+ */
+function up_user($op, &$edit, &$account, $category = '') {
+  switch ($op) {
+    case 'delete':
+      up_cleanup($account->uid, 'user');
+      break;
+  }
+}
+
+/**
+ * Remove all the userpoints for that
+ *
+ * @param $content_id
+ * @param $content_type
+ */
+function up_cleanup($entity_id, $entity_type) {
+  // todo cleanup
+  // db_query("DELETE FROM {userpoints_txn} WHERE entity_type = '%s' AND entity_id = '%s'", $entity_type, $entity_id);
+}

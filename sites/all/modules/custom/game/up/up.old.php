@@ -1,44 +1,6 @@
 <?php
 
-/**
- * Implementation of hook_nodeapi()
- *
- * @param      $node
- * @param      $op
- * @param null $a3
- * @param null $a4
- */
-function up_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-  switch ($op) {
-    case 'delete' :
-      up_cleanup($node->nid, 'node');
-      break;
-  }
-}
 
-/**
- * Implementation of hook_comment()
- *
- * @param $a1
- * @param $op
- */
-function up_comment(&$a1, $op) {
-  switch ($op) {
-    case 'delete' :
-      up_cleanup($a1->cid, 'comment');
-      break;
-  }
-}
-
-/**
- * Remove all the userpoints for that
- *
- * @param $content_id
- * @param $content_type
- */
-function up_cleanup($content_id, $content_type) {
-  //
-}
 
 /**
  * Get the number of userpoints
