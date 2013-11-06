@@ -51,6 +51,8 @@ function action_queue($params = NULL) {
  * Function to dequeue actions
  */
 function action_dequeue() {
+  global $user;
+
   # get uid
   $uid = 0;
   if (isset($_REQUEST['uid'])) {
@@ -100,8 +102,19 @@ function action_dequeue() {
         $params_temp = $params;
         $output = $function($item['timestamp'], $params_temp);
         if ($output['status'] && $output['message']) {
-          // todo do not display messages to wrong user
-          $json['message'][] = $output['message'];
+          $message_to = isset($output['message_to']) ? $output['message_to'] : $item['uid'];
+          if (user_is_logged_in() && ($message_to == $user->uid)) {
+            $json['message'][] = t($output['message']);
+          }
+          else {
+            action_queue(array(
+              'uid'         => $message_to,
+              'operation'   => 'message',
+              'entity_id'   => $message_to,
+              'entity_type' => 'user',
+              'message'     => $output['message'],
+            ));
+          }
         }
       }
     }
