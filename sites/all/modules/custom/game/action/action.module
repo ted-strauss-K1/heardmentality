@@ -52,26 +52,34 @@ function action_queue($params = NULL) {
  */
 function action_dequeue() {
   # get uid
+  $uid = 0;
   if (isset($_REQUEST['uid'])) {
-    $uid = $_REQUEST['uid'];
-  }
-  # with no uid - skip
-  if (!$uid) {
-    return;
+    $uid = intval($_REQUEST['uid']);
   }
 
-
-  // todo execute actions
-
-  $query = "SELECT * FROM {action_queue}";
+  # query
+  $query = "SELECT * FROM {action_queue} WHERE 1 ";
   $vars = array();
 
-  drupal_set_message();
+  # order
+  $query .= "ORDER BY ";
+  $order = array();
+  # for logged in - firstly user's events
+  if ($uid > 0) {
+    $order[] = "(CASE WHEN uid = '%s' THEN 1 ELSE 0 END) DESC";
+    $vars[] = $uid;
+  }
+  # lower the message event
+  $order[] = "(CASE WHEN op = 'message' THEN 1 ELSE 0 END) DESC";
+  # timestamp
+  $order[] = "timestamp ASC";
+  $query .= implode(', ', $order);
 
+  #
   $result = db_query($query, $vars);
   while ($item = db_fetch_array($result)) {
-    var_dump($item);
-
+//    var_dump($item);
+//    continue;
     $op = $item['op'];
     $params = unserialize($item['params']);
     $params['operation'] = $op;
