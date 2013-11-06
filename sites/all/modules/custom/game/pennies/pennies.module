@@ -137,14 +137,7 @@ function pennies_userpoints ($op, $params = array()) {
           '#title'       => t('Pennies cost for actions'),
         );
 
-        if (module_exists('ranks')) {
-          $ranks = ranks_get();
-          foreach ($ranks as &$rank) {
-            $rank = $rank['name'];
-          }
 
-
-        }
         foreach (array(
                    'yn_voteup',
                    'yn_votedn',
@@ -158,20 +151,6 @@ function pennies_userpoints ($op, $params = array()) {
             '#title'         => t($action),
             '#default_value' => variable_get($id, -1),
           );
-          if (module_exists('ranks')) {
-            $form[$group][$id] += array(
-              '#prefix' => '<table><tr><td style="width:200px;">',
-              '#suffix' => '</td>',
-            );
-            $form[$group][$id . '_rank'] = array(
-              '#type'          => 'select',
-              '#options'       => $ranks,
-              '#title'         => t('Rank required to !action', array('!action' => t($action))),
-              '#default_value' => variable_get($id . '_rank', 0),
-              '#prefix'        => '<td>',
-              '#suffix'        => '</td></table>',
-            );
-          }
         }
 
         if (true) {
