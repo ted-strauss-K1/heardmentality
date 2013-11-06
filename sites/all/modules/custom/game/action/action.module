@@ -78,17 +78,49 @@ function action_dequeue() {
   #
   $result = db_query($query, $vars);
   while ($item = db_fetch_array($result)) {
-//    var_dump($item);
-//    continue;
+    //    var_dump($item);
+    //    continue;
     $op = $item['op'];
     $params = unserialize($item['params']);
     $params['operation'] = $op;
-    #
+    # skip actions that require user being logged in
     if ($params['logged'] && user_is_anonymous()) {
       continue;
     }
-    module_invoke_all('invoke_action', $item['timestamp'], $params);
+    # delete processed action
     db_query("DELETE FROM {action_queue} WHERE id = '%s'", $item['id']);
+    # process
+    $json = array(
+      'status'  => TRUE,
+      'message' => array(),
+    );
+    foreach (module_implements('invoke_action') as $module) {
+      $function = $module . '_invoke_action';
+      if (function_exists($function)) {
+        $params_temp = $params;
+        $output = $function($item['timestamp'], $params_temp);
+        if ($output['status'] && $output['message']) {
+          // todo do not display messages to wrong user
+          $json['message'][] = $output['message'];
+        }
+      }
+    }
+
+    print json_encode($json);
+    exit;
   }
+  print json_encode(array(
+    'status' => FALSE,
+    'reason' => 'empty queue',
+  ));
   exit;
+}
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function action_preprocess_page(&$vars) {
+  drupal_add_js(drupal_get_path('module', 'action') . '/action.js');
 }
