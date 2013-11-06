@@ -7,6 +7,7 @@
       <?php endforeach; ?>
     </ul>
     <br clear="both">
+
     <p class="action-comment-ref">
       <?php print t('New issue posted') . ' ' . $link ?>
       <br clear="both">

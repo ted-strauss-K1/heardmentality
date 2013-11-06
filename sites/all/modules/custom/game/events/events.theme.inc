@@ -91,7 +91,7 @@ function theme_events_item($item) {
   $classes[] = 'entity_id-' . $item['entity_id'];
   $classes[] = 'entity_type-' . $item['entity_type'];
 
-  return isset($themes[$item['type']]) ? '<div name="' . $item['id'] . '" id="msg-' . $item['id'] . '" class="' . implode(' ', $classes) . '">' . theme($item['type'], $item) . '</div>' : '';
+  return isset($themes[$item['type']]) && ($content = theme($item['type'], $item)) ? '<div name="' . $item['id'] . '" id="msg-' . $item['id'] . '" class="' . implode(' ', $classes) . '">' . $content . '</div>' : '';
 }
 
 /**
@@ -165,14 +165,10 @@ function theme_events_item_follow_theme_preprocess(&$vars) {
 
   $vars['text'] = t('now following');
   $vars['link'] = '<span class="name"><a href="' . url($target->viewlink) . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
-  $vars['text2'] = l(
-    sprintf('<img class="following-user listed" src="%s" />', user_profile_image($target)),
-    $target->viewlink,
-    array('html' => true)
-  );
+  $vars['text2'] = l(sprintf('<img class="following-user listed" src="%s" />', user_profile_image($target)), $target->viewlink, array('html' => TRUE));
 
   if ($target->uid == 0 || $target->status != 1) {
-    $vars['skip'] = true;
+    $vars['skip'] = TRUE;
   }
 }
 
@@ -183,7 +179,8 @@ function theme_events_item_debate_theme_preprocess(&$vars) {
   theme_events_item__debate_theme_preprocess($vars);
   if ('resource' == $vars['debate_type']) {
     $vars['text'] = t('posted a reference on the issue');
-  } else {
+  }
+  else {
     $vars['text'] = t('posted an argument on the issue');
   }
 }
@@ -203,7 +200,7 @@ function theme_events_item_taxonomy_theme_preprocess(&$vars) {
   theme_events_item__issue_theme_preprocess($vars);
 
   if (!module_exists('categories')) {
-    $vars['skip'] = true;
+    $vars['skip'] = TRUE;
     return;
   }
 
@@ -212,9 +209,9 @@ function theme_events_item_taxonomy_theme_preprocess(&$vars) {
   if (is_null($data)) {
     $data = subscriptions_get(array(
       'recipient_uid' => $user->uid,
-      'module' => 'node',
-      'field' => 'tid',
-      'author_uid' => -1,
+      'module'        => 'node',
+      'field'         => 'tid',
+      'author_uid'    => -1,
     ));
   }
 
@@ -228,7 +225,7 @@ function theme_events_item_taxonomy_theme_preprocess(&$vars) {
   }
 
   if (empty($vars['categories'])) {
-    $vars['skip'] = true;
+    $vars['skip'] = TRUE;
   }
 }
 
@@ -259,15 +256,11 @@ function theme_events_item_yn_votedn_theme_preprocess(&$vars) {
 function theme_events_item__issue_theme_preprocess(&$vars) {
   $node = node_load($vars['item']['entity_id']);
 
-  $vars['link'] = l(
-    issue_translate($node, 'title'),
-    $node->path,
-    array()
-  );
+  $vars['link'] = l(issue_translate($node, 'title'), $node->path, array());
   $vars['text2'] = '';
 
   if ($node->status != 1) {
-    $vars['skip'] = true;
+    $vars['skip'] = TRUE;
   }
 }
 
@@ -278,21 +271,15 @@ function theme_events_item__debate_theme_preprocess(&$vars) {
   $debate = node_load($vars['item']['entity_id']);
   $node = node_load($debate->field_reference[0]['nid']);
 
-  $vars['link'] = l(
-    issue_translate($node, 'title'),
-    $node->path,
-    empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid)
-  );
+  $vars['link'] = l(issue_translate($node, 'title'), $node->path, empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid));
   $vars['text2'] = '
     <!-- google translate -->
-    <span class="goog-trans-section events_google_translate">'.
-    $debate->title .
-    '&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
+    <span class="goog-trans-section events_google_translate">' . $debate->title . '&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
   </span>';
   $vars['debate_type'] = $debate->type;
 
   if (($node->status != 1) || ($debate->status != 1)) {
-    $vars['skip'] = true;
+    $vars['skip'] = TRUE;
   }
 }
 
@@ -304,22 +291,18 @@ function theme_events_item__reply_theme_preprocess(&$vars) {
   $debate = node_load($comment->nid);
   $node = node_load($debate->field_reference[0]['nid']);
 
-  $vars['link'] = l(
-    issue_translate($node, 'title'),
-    $node->path,
-    empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid)
-  );
+  $vars['link'] = l(issue_translate($node, 'title'), $node->path, empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid));
   $vars['text2'] = '
     <!-- google translate -->
-    <span class="goog-trans-section events_google_translate">'.
-    $comment->comment .
-    '&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
+    <span class="goog-trans-section events_google_translate">' . $comment->comment . '&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
   </span>';
 
-  if (!$comment->support) yn_invert_vote_value($vars['item']['vars']['vote']);
+  if (!$comment->support) {
+    yn_invert_vote_value($vars['item']['vars']['vote']);
+  }
 
   if (($node->status != 1) || ($debate->status != 1) || ($comment->status == COMMENT_NOT_PUBLISHED)) {
-    $vars['skip'] = true;
+    $vars['skip'] = TRUE;
   }
 }
 
@@ -330,18 +313,14 @@ function theme_events_item__yn_theme_preprocess(&$vars) {
   switch ($vars['item']['entity_type']) {
     case 'node' :
       theme_events_item__debate_theme_preprocess($vars);
-      $vars['text'] = (
-        $vars['item']['vars']['vote'] == VOTE_AGREE ?
-          t('agreed') : t('disagreed')
-        ) . ' ' . t('with an argument on the issue');
+      $vars['text'] = ($vars['item']['vars']['vote'] == VOTE_AGREE ? t('agreed') : t('disagreed')) . ' ' . t('with an argument on the issue');
       break;
     case 'comment' :
       theme_events_item__reply_theme_preprocess($vars);
-      $vars['text'] = (
-        $vars['item']['vars']['vote'] == VOTE_AGREE ? t('strenghtened') : t('weakened')
-        ) . ' ' . t('an argument on the issue');
+      $vars['text'] = ($vars['item']['vars']['vote'] == VOTE_AGREE ? t('strenghtened') : t('weakened')) . ' ' . t('an argument on the issue');
       break;
-    default : $vars['skip'] = true;
+    default :
+      $vars['skip'] = TRUE;
   }
 }
 
@@ -349,12 +328,12 @@ function theme_events_item__yn_theme_preprocess(&$vars) {
  * Implementation of hook_block
  *
  * @param string $op
- * @param int $delta
- * @param array $edit
+ * @param int    $delta
+ * @param array  $edit
+ *
  * @return mixed
  */
-function events_block($op = 'list', $delta = 0, $edit = array())
-{
+function events_block($op = 'list', $delta = 0, $edit = array()) {
   switch ($op) {
     case 'list':
       $blocks['events-front'] = array(

@@ -8,8 +8,7 @@ include_once __DIR__ . "/events.module";
 /**
  * Implementation of hook_install()
  */
-function events_install()
-{
+function events_install() {
   $vocabularies = taxonomy_get_vocabularies(NULL);
   foreach ($vocabularies as $vocabulary) {
     if ('Userpoints' == $vocabulary->name) {
@@ -29,7 +28,6 @@ function events_install()
 /**
  * Implementation of hook_uninstall()
  */
-function events_uninstall()
-{
+function events_uninstall() {
   //
 }

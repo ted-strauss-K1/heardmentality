@@ -91,7 +91,7 @@ function events_invoke_action($timestamp, $params) {
  *
  * @return array
  */
-function events_get($input, $vars = null) {
+function events_get($input, $vars = NULL) {
   static $users = array();
 
   $items = array();
@@ -172,7 +172,7 @@ function events_build_query($params = array(), $limits = array()) {
   }
 
   # limits
-  $query = "SELECT DISTINCT * FROM (" . (1 == count($queries) ? $queries[0] : '(' . implode(') UNION (', $queries) . ')').') merge';
+  $query = "SELECT DISTINCT * FROM (" . (1 == count($queries) ? $queries[0] : '(' . implode(') UNION (', $queries) . ')') . ') merge';
   $query .= " WHERE 1";
   if (isset($limits['since'])) {
     $query .= " AND txn_id > '%s'";
@@ -182,7 +182,7 @@ function events_build_query($params = array(), $limits = array()) {
     $query .= " AND txn_id < '%s'";
     $vars[] = $limits['before'];
   }
-  $query .= ' ORDER BY time_stamp DESC LIMIT '.(isset($limits['count']) ? $limits['count'] : 30);
+  $query .= ' ORDER BY time_stamp DESC LIMIT ' . (isset($limits['count']) ? $limits['count'] : 30);
 
 
   return array(
@@ -193,11 +193,12 @@ function events_build_query($params = array(), $limits = array()) {
 
 /**
  * @param bool $uid
+ *
  * @return array
  */
 function events_build_query_subscriptions($uid = FALSE) {
   if (!module_exists('subscriptions')) {
-    return false;
+    return FALSE;
   }
 
   # uid
@@ -222,9 +223,9 @@ function events_menu() {
   $menu = array();
 
   $menu['events/ajax'] = array(
-    'page callback' => 'events_ajax',
-    'access callback' => true,
-    'type' => MENU_CALLBACK,
+    'page callback'   => 'events_ajax',
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
   );
 
   return $menu;
@@ -233,7 +234,7 @@ function events_menu() {
 /**
  *
  */
-function events_ajax () {
+function events_ajax() {
   $request = events_build_query(array(
     array(
       'operation' => array(
@@ -255,8 +256,6 @@ function events_ajax () {
     array_unshift($output, theme('events_item', $item));
   }
 
-  print json_encode(
-    $output
-  );
+  print json_encode($output);
   exit;
 }

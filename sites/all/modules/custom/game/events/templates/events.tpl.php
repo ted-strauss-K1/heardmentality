@@ -3,10 +3,10 @@
     <?php $viewed = 0; ?>
     <?php foreach ($items as $item) : ?>
       <?php
-        if ($content = theme('events_item', $item)) {
-          $viewed++;
-          print $content;
-        }
+      if ($content = theme('events_item', $item)) {
+        $viewed++;
+        print $content;
+      }
       ?>
     <?php endforeach; ?>
     <?php if (!$viewed) : ?>

@@ -5,21 +5,20 @@
  *
  * @return array
  */
-function events_follower_menu()
-{
+function events_follower_menu() {
   $menu = array();
 
   $menu['following'] = array(
-    'title' => t('Following'),
-    'page callback' => 'theme',
-    'page arguments' => array('events_follower_content'),
+    'title'           => t('Following'),
+    'page callback'   => 'theme',
+    'page arguments'  => array('events_follower_content'),
     'access callback' => 'user_is_logged_in',
-    'type' => MENU_CALLBACK,
+    'type'            => MENU_CALLBACK,
   );
   $menu['following/ajax'] = array(
-    'page callback' => 'events_follower_ajax',
+    'page callback'   => 'events_follower_ajax',
     'access callback' => 'user_is_logged_in',
-    'type' => MENU_CALLBACK,
+    'type'            => MENU_CALLBACK,
   );
 
   return $menu;
@@ -30,23 +29,22 @@ function events_follower_menu()
  *
  * @return array
  */
-function events_follower_theme()
-{
+function events_follower_theme() {
   $theme = array();
 
   $theme['events_follower_content'] = array(
-    'arguments' => array(),
-    'template' => 'events-follower-content',
+    'arguments'            => array(),
+    'template'             => 'events-follower-content',
     'preprocess functions' => array('events_follower_content_preprocess'),
   );
   $theme['events_follower_block'] = array(
-    'arguments' => array(),
-    'template' => 'events-follower-block',
+    'arguments'            => array(),
+    'template'             => 'events-follower-block',
     'preprocess functions' => array('events_follower_block_preprocess'),
   );
   $theme['events_follower_block_content'] = array(
     'arguments' => array('users' => array()),
-    'template' => 'events-follower-block-content',
+    'template'  => 'events-follower-block-content',
   );
 
   return $theme;
@@ -57,8 +55,7 @@ function events_follower_theme()
  *
  * @param $vars
  */
-function events_follower_content_preprocess(&$vars)
-{
+function events_follower_content_preprocess(&$vars) {
   $request = events_build_query(array(
     array(
       'operation' => array(
@@ -75,8 +72,7 @@ function events_follower_content_preprocess(&$vars)
 /**
  * @return array
  */
-function events_follower_uids()
-{
+function events_follower_uids() {
   $p = array();
 
   global $user;
@@ -93,8 +89,7 @@ function events_follower_uids()
  *
  * @param $vars
  */
-function events_follower_preprocess_page(&$vars)
-{
+function events_follower_preprocess_page(&$vars) {
   if ('following' == arg(0)) {
     # set page template
     array_push($vars['template_files'], 'page_11_5');
@@ -110,8 +105,7 @@ function events_follower_preprocess_page(&$vars)
  *
  * @param $vars
  */
-function events_follower_block_preprocess(&$vars)
-{
+function events_follower_block_preprocess(&$vars) {
   drupal_add_js(drupal_get_path('module', 'events_follower') . '/events_follower.js');
 
   global $user;
@@ -125,8 +119,7 @@ function events_follower_block_preprocess(&$vars)
 /**
  *
  */
-function events_follower_ajax()
-{
+function events_follower_ajax() {
   $post = $_POST;
 
   $p = array();
@@ -156,10 +149,10 @@ function events_follower_ajax()
       ));
       $content = theme('events', events_get($request['query'], $request['vars']));
       exit(json_encode(array(
-        'status' => TRUE,
+        'status'  => TRUE,
         'message' => $content,
       )));
-    break;
+      break;
   }
 
   # all except default
@@ -168,7 +161,7 @@ function events_follower_ajax()
   ));
   $content = theme('events', events_get($request['query'], $request['vars']));
   exit(json_encode(array(
-    'status' => TRUE,
+    'status'  => TRUE,
     'message' => $content,
   )));
 }
