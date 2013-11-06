@@ -34,7 +34,7 @@ function action_queue($params = NULL) {
     unset($params['q']);
   }
   if (isset($params['operation']) && $params['operation']) {
-
+    return;
     $op = $params['operation'];
     unset($params['operation']);
 

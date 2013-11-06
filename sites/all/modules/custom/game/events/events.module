@@ -1,0 +1,262 @@
+<?php
+
+/**
+ *
+ */
+include_once __DIR__ . "/events.theme.inc";
+
+/**
+ *
+ */
+define('USERPOINTS_TERM_EVENTS', 'userpoints_term_events');
+
+/**
+ * @return int
+ */
+function events_term() {
+  return (int) variable_get(USERPOINTS_TERM_EVENTS, 0);
+}
+
+/**
+ * @return array
+ */
+function events_operations() {
+  return array(
+    'create', // user created issue
+    'vote', // user voted on issue
+    'follow', // user follows another
+    'debate', // user created a debate
+    'reply', // user created a reply
+    'taxonomy', // moderator has changed taxonomy
+    'user_update', // user updated profile
+    'yn_voteup', //
+    'yn_votedn', //
+  );
+}
+
+/**
+ * Wrapper to perform points tracking
+ *
+ * @param $params
+ *
+ * @return array
+ */
+function events_add(&$params) {
+  # user
+  up_validate_user($params);
+  #
+  if ($tid = events_term()) {
+    if (!$params['uid']) {
+      return array(
+        'status' => FALSE,
+        'reason' => t('No user selected'),
+      );
+    }
+    if (!in_array($params['operation'], events_operations())) {
+      return array(
+        'status' => FALSE,
+        'reason' => t('Operation not supported'),
+      );
+    }
+    $params['tid'] = $tid;
+    $params['points'] = 0;
+    // todo cases for events
+
+    return up_add($params);
+  }
+  return array(
+    'status' => FALSE,
+    'reason' => t('No events term'),
+  );
+}
+
+/**
+ * Implements custom hook_invoke_action()
+ *
+ * @param $timestamp
+ * @param $params
+ */
+function events_invoke_action($timestamp, $params) {
+  $output = array('status' => FALSE);
+  $operations = events_operations();
+  if (isset($params['operation']) && in_array($params['operation'], $operations)) {
+    $params['time_stamp'] = $timestamp;
+    $output = events_add($params);
+  }
+  return $output + array('params' => $params);
+}
+
+/**
+ * @param array $ids
+ *
+ * @return array
+ */
+function events_get($input, $vars = null) {
+  static $users = array();
+
+  $items = array();
+
+  if (is_array($input)) {
+    $query = "SELECT * FROM {userpoints_txn} WHERE txn_id IN (" . db_placeholders($input) . ") AND tid = '%s'";
+    $vars = $input;
+    $vars[] = events_term();
+  }
+  elseif (is_string($input)) {
+    $query = $input;
+    $vars = is_null($vars) ? array() : $vars;
+  }
+  else {
+    return $items;
+  }
+
+  $result = db_query($query, $vars);
+  while ($item = db_fetch_array($result)) {
+    $item['vars'] = unserialize($item['reference']);
+    if (!$users[$item['uid']]) {
+      $users[$item['uid']] = user_load($item['uid']);
+    }
+    $item['account'] = $users[$item['uid']];
+    $item['timestamp'] = $item['time_stamp'];
+    $item['date_added'] = time_interval($item['time_stamp'], TRUE);
+    $item['id'] = $item['txn_id'];
+    $items[$item['txn_id']] = $item;
+  }
+
+  return $items;
+}
+
+/**
+ * Build query for regular filtering search
+ *
+ * @param array $p
+ *
+ * @return array
+ */
+function events_build_query($params = array(), $limits = array()) {
+  $tid = events_term();
+
+  $vars = array();
+
+  $queries = array();
+  foreach ($params as $p) {
+    if (!$p) {
+      continue;
+    }
+    if (is_string($p)) {
+      $queries[] = $p;
+    }
+    else {
+      $query = "SELECT * FROM {userpoints_txn} WHERE tid = '%s'";
+      $vars[] = $tid;
+
+      foreach ($p as $key => $val) {
+        $exclude = '-' == $key[0];
+        if ($exclude) {
+          $key = substr($key, 1);
+        }
+
+        if (is_array($val)) {
+          if (!empty($val)) {
+            $query .= " AND " . $key . ' ' . ($exclude ? 'NOT IN' : 'IN') . " (" . db_placeholders($val, 'varchar') . ")";
+            $vars = array_merge($vars, $val);
+          }
+        }
+        else {
+          $query .= " AND " . $key . " " . ($exclude ? '<>' : '=') . " '%s'";
+          $vars[] = $val;
+        }
+      }
+
+      $queries[] = $query;
+    }
+  }
+
+  # limits
+  $query = "SELECT DISTINCT * FROM (" . (1 == count($queries) ? $queries[0] : '(' . implode(') UNION (', $queries) . ')').') merge';
+  $query .= " WHERE 1";
+  if (isset($limits['since'])) {
+    $query .= " AND txn_id > '%s'";
+    $vars[] = $limits['since'];
+  }
+  if (isset($limits['before'])) {
+    $query .= " AND txn_id < '%s'";
+    $vars[] = $limits['before'];
+  }
+  $query .= ' ORDER BY time_stamp DESC LIMIT '.(isset($limits['count']) ? $limits['count'] : 30);
+
+
+  return array(
+    'query' => $query,
+    'vars'  => $vars,
+  );
+}
+
+/**
+ * @param bool $uid
+ * @return array
+ */
+function events_build_query_subscriptions($uid = FALSE) {
+  if (!module_exists('subscriptions')) {
+    return false;
+  }
+
+  # uid
+  if ($uid === FALSE) {
+    global $user;
+    $uid = $user->uid;
+  }
+
+  return sprintf("
+    SELECT u.*
+    FROM {userpoints_txn} u
+    INNER JOIN {node} n ON u.entity_id = n.nid AND u.entity_type = 'node'
+    INNER JOIN {term_node} tn ON tn.nid = n.nid
+    INNER JOIN {subscriptions} s ON s.module = 'node' AND s.field = 'tid' AND s.value = tn.tid
+    WHERE u.tid = '%s' AND n.type = 'issue' AND s.recipient_uid = '%s'", events_term(), $uid);
+}
+
+/**
+ * @return array
+ */
+function events_menu() {
+  $menu = array();
+
+  $menu['events/ajax'] = array(
+    'page callback' => 'events_ajax',
+    'access callback' => true,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ *
+ */
+function events_ajax () {
+  $request = events_build_query(array(
+    array(
+      'operation' => array(
+        'create',
+        'debate',
+        'reply',
+        'vote',
+        'follow',
+        'yn_voteup',
+        'yn_votedn',
+        'taxonomy',
+      ),
+    ),
+  ), intval($_REQUEST['since']) ? array('since' => intval($_REQUEST['since'])) : array('before' => 0));
+  $events = events_get($request['query'], $request['vars']);
+
+  $output = array();
+  foreach ($events as $item) {
+    array_unshift($output, theme('events_item', $item));
+  }
+
+  print json_encode(
+    $output
+  );
+  exit;
+}
