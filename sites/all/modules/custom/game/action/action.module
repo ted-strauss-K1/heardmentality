@@ -34,9 +34,14 @@ function action_queue ($params = null) {
     unset($params['q']);
   }
   if (isset($params['operation']) && $params['operation']) {
+
     $op = $params['operation'];
     unset($params['operation']);
-    db_query("INSERT INTO {action_queue} SET op = '%s', timestamp = '%d', params = '%s'", $op, isset($params['timestamp']) ? $params['timestamp'] : time(), serialize($params));
+
+    $uid = intval($params['uid']);
+    unset($params['uid']);
+
+    db_query("INSERT INTO {action_queue} SET uid = '%s', op = '%s', timestamp = '%d', params = '%s'", $uid, $op, isset($params['timestamp']) ? $params['timestamp'] : time(), serialize($params));
   }
 }
 

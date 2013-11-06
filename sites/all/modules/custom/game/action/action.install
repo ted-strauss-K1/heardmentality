@@ -4,13 +4,6 @@
  * Implementation of hook_install()
  */
 function action_install () {
-  $ret = array();
-  db_change_field($ret, 'userpoints_txn', 'reference', 'reference', array(
-    'description' => 'Reserved for module specific use',
-    'type'        => 'varchar',
-    'length'      => 255,
-  ));
-
   drupal_install_schema('action');
 }
 
@@ -35,6 +28,12 @@ function action_schema () {
         'type'        => 'serial',
         'unsigned'    => true,
         'not null'    => true
+      ),
+      'uid'       => array(
+        'description' => 'The {users}.uid initiated this action.',
+        'type'        => 'int',
+        'not null'    => true,
+        'default'     => 0
       ),
       'op'        => array(
         'description' => 'operation',
