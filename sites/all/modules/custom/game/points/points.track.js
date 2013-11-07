@@ -1,5 +1,7 @@
 $(document).ready(function () {
-  stLight.subscribe("click", points_share);
+  if (typeof stLight != "undefined") {
+    stLight.subscribe("click", points_share);
+  }
 });
 
 /**

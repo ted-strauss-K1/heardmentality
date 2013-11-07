@@ -78,10 +78,12 @@ function events_add(&$params) {
  */
 function events_invoke_action($timestamp, $params) {
   $output = array('status' => FALSE);
-  $operations = events_operations();
-  if (isset($params['operation']) && in_array($params['operation'], $operations)) {
+  if (isset($params['operation'])) {
     $params['time_stamp'] = $timestamp;
     $output = events_add($params);
+    var_dump($output);
+    var_dump($params);
+    exit;
   }
   return $output + array('params' => $params);
 }
