@@ -79,17 +79,22 @@ function action_dequeue() {
   #
   $result = db_query($query, $vars);
   while ($item = db_fetch_array($result)) {
-    //    var_dump($item);
-    //    continue;
-    $op = $item['op'];
     $params = unserialize($item['params']);
+
+    $op = $item['op'];
     $params['operation'] = $op;
+
+    $uid = $item['uid'];
+    $params['uid'] = $uid;
+
     # skip actions that require user being logged in
     if ($params['logged'] && user_is_anonymous()) {
       continue;
     }
+
     # delete processed action
     db_query("DELETE FROM {action_queue} WHERE id = '%s'", $item['id']);
+
     # process
     $json = array(
       'status'  => TRUE,

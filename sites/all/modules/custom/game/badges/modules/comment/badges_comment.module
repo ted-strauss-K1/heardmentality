@@ -5,15 +5,14 @@
  *
  * @return array
  */
-function badges_comment_badges()
-{
+function badges_comment_badges() {
   $badges = array();
 
   $badges['comment_bronze'] = array(
-    'function' => 'badges_comment_check',
-    'name' => t('Commentator'),
-    'info' => t('Left 10 Comments'),
-    'type' => 'bronze',
+    'function'  => 'badges_comment_check',
+    'name'      => t('Commentator'),
+    'info'      => t('Left 10 Comments'),
+    'type'      => 'bronze',
     'arguments' => array('comment_count' => 10),
   );
 
@@ -22,10 +21,10 @@ function badges_comment_badges()
 
 /**
  * @param $uid
+ *
  * @return bool
  */
-function badges_comment_check($uid, $arguments = array())
-{
+function badges_comment_check($uid, $arguments = array()) {
   static $cache;
 
   if (is_null($cache)) {
@@ -37,5 +36,20 @@ function badges_comment_check($uid, $arguments = array())
     }
   }
 
-  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : false;
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : FALSE;
+}
+
+/**
+ * @param $params
+ */
+function badges_comment_queue_action($params) {
+  if ('reply' == $params['operation']) {
+    action_queue(array(
+      'uid'         => $params['uid'],
+      'operation'   => 'badge',
+      'entity_id'   => 0,
+      'entity_type' => 'comment_bronze',
+      'time_stamp'  => $params['timestamp'],
+    ));
+  }
 }

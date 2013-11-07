@@ -5,29 +5,28 @@
  *
  * @return array
  */
-function badges_argument_badges()
-{
+function badges_argument_badges() {
   $badges = array();
 
   $badges['argument_bronze'] = array(
-    'function' => 'badges_argument_check',
-    'name' => t('Conversation Piece'),
-    'info' => t('Created a question that resulted in 20 debate posts or resource posts (including replies)'),
-    'type' => 'bronze',
+    'function'  => 'badges_argument_check',
+    'name'      => t('Conversation Piece'),
+    'info'      => t('Created a question that resulted in 20 debate posts or resource posts (including replies)'),
+    'type'      => 'bronze',
     'arguments' => array('count' => 20),
   );
   $badges['argument_silver'] = array(
-    'function' => 'badges_argument_check',
-    'name' => t('Cocktail Party'),
-    'info' => t('Created a question that resulted in 50 debate posts or resource posts (including replies)'),
-    'type' => 'silver',
+    'function'  => 'badges_argument_check',
+    'name'      => t('Cocktail Party'),
+    'info'      => t('Created a question that resulted in 50 debate posts or resource posts (including replies)'),
+    'type'      => 'silver',
     'arguments' => array('count' => 50),
   );
   $badges['argument_gold'] = array(
-    'function' => 'badges_argument_check',
-    'name' => t('Healthy Debate'),
-    'info' => t('Created a question that resulted in 100 debate posts or resource posts (including replies)'),
-    'type' => 'gold',
+    'function'  => 'badges_argument_check',
+    'name'      => t('Healthy Debate'),
+    'info'      => t('Created a question that resulted in 100 debate posts or resource posts (including replies)'),
+    'type'      => 'gold',
     'arguments' => array('count' => 100),
   );
 
@@ -36,10 +35,10 @@ function badges_argument_badges()
 
 /**
  * @param $uid
+ *
  * @return bool
  */
-function badges_argument_check($uid, $arguments = array())
-{
+function badges_argument_check($uid, $arguments = array()) {
   static $cache;
 
   if (is_null($cache)) {
@@ -58,5 +57,26 @@ function badges_argument_check($uid, $arguments = array())
     }
   }
 
-  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['count'] : false;
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['count'] : FALSE;
+}
+
+/**
+ * @param $params
+ */
+function badges_argument_queue_action($params) {
+  if ('debate' == $params['operation']) {
+    if ($debate = node_load($params['entity_id'])) {
+      if ($node = node_load($debate->field_reference[0]['nid'])) {
+        foreach (array('argument_bronze', 'argument_silver', 'argument_gold') as $badge) {
+          action_queue(array(
+            'uid'         => $node->uid,
+            'operation'   => 'badge',
+            'entity_id'   => 0,
+            'entity_type' => $badge,
+            'time_stamp'  => $params['timestamp'],
+          ));
+        }
+      }
+    }
+  }
 }

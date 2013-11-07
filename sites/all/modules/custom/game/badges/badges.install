@@ -53,42 +53,5 @@ function badges_schema()
     'primary key' => array('id'),
   );
 
-  $schema['badges_queue'] = array(
-    'description' => t('Stores the badges queue.'),
-    'fields' => array(
-      'id' => array(
-        'description' => 'The primary identifier.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
-      'uid' => array(
-        'description' => 'The {users}.uid that got the badge.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0
-      ),
-      'badge' => array(
-        'description' => t('The badge name.'),
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'length' => 256,
-        'default' => '',
-      ),
-      'locked' => array(
-        'description' => 'Lock for the badge calculation.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0
-      ),
-      'date_added' => array(
-        'type' => 'datetime',
-        'not null' => TRUE,
-      ),
-    ),
-    'primary key' => array('id'),
-  );
-
-
   return $schema;
 }

@@ -27,7 +27,7 @@ include_once "badges.queue.inc";
  */
 function badges_menu()
 {
-  return badges_pages_menu() + badges_admin_menu() + badges_queue_menu();
+  return badges_pages_menu() + badges_admin_menu();
 }
 
 /**

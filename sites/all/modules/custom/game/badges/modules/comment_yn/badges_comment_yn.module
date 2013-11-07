@@ -5,22 +5,21 @@
  *
  * @return array
  */
-function badges_comment_yn_badges()
-{
+function badges_comment_yn_badges() {
   $badges = array();
-  
+
   $badges['comment_agreed_bronze'] = array(
-    'function' => 'badges_comment_yn_check',
-    'name' => t('Pamphleteer'),
-    'info' => t('Left 10 Comments that Got a Minimum of One Agree'),
-    'type' => 'bronze',
+    'function'  => 'badges_comment_yn_check',
+    'name'      => t('Pamphleteer'),
+    'info'      => t('Left 10 Comments that Got a Minimum of One Agree'),
+    'type'      => 'bronze',
     'arguments' => array('comment_count' => 10),
   );
   $badges['comment_agreed_gold'] = array(
-    'function' => 'badges_comment_yn_check',
-    'name' => t('Senator'),
-    'info' => t('Left 500 Comments that Got a Minimum of One Agree'),
-    'type' => 'bronze',
+    'function'  => 'badges_comment_yn_check',
+    'name'      => t('Senator'),
+    'info'      => t('Left 500 Comments that Got a Minimum of One Agree'),
+    'type'      => 'bronze',
     'arguments' => array('comment_count' => 500),
   );
 
@@ -29,10 +28,10 @@ function badges_comment_yn_badges()
 
 /**
  * @param $uid
+ *
  * @return bool
  */
-function badges_comment_yn_agreed_check($uid, $arguments = array())
-{
+function badges_comment_yn_agreed_check($uid, $arguments = array()) {
   static $cache;
 
   if (is_null($cache)) {
@@ -49,5 +48,24 @@ function badges_comment_yn_agreed_check($uid, $arguments = array())
     }
   }
 
-  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : false;
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['comment_count'] : FALSE;
+}
+
+/**
+ * @param $params
+ */
+function badges_comment_yn_queue_action($params) {
+  if ('yn_voteup' == $params['operation']) {
+    if ($comment = _comment_load($params['entity_id'])) {
+      foreach (array('comment_agreed_bronze', 'comment_agreed_gold') as $badge) {
+        action_queue(array(
+          'uid'         => $comment->uid,
+          'operation'   => 'badge',
+          'entity_id'   => 0,
+          'entity_type' => $badge,
+          'time_stamp'  => $params['timestamp'],
+        ));
+      }
+    }
+  }
 }
