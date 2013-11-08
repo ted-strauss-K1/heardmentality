@@ -3,28 +3,20 @@
 /**
  * Implementation of hook_user()
  *
- * @param $op
- * @param $edit
- * @param $account
+ * @param      $op
+ * @param      $edit
+ * @param      $account
  * @param null $category
  */
-function user_profile_user($op, &$edit, &$account, $category = NULL)
-{
+function user_profile_user($op, &$edit, &$account, $category = NULL) {
   switch ($op) {
-
-    case 'login' :
-
-      drupal_goto($_GET['q']);
-
-    break;
-
     case 'load' :
 
       # user links
       $account->viewlink = 'user/profile/view/' . $account->name;
       $account->editlink = 'user/profile/edit';
 
-    break;
+      break;
 
     case 'insert' :
 
@@ -42,7 +34,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
 
           # user name
           if (!empty($ulogin_data['nickname'])) {
-            if (0 == (int)db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s'", $ulogin_data['nickname']))) {
+            if (0 == (int) db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s'", $ulogin_data['nickname']))) {
               if (db_query("UPDATE {users} SET name = '%s' WHERE uid = '%d'", $ulogin_data['nickname'], $account->uid)) {
                 $edit['name'] = $ulogin_data['nickname']; // update in the user array for access by other modules
                 $account->name = $ulogin_data['nickname']; // update in the user array for access by other modules
@@ -95,34 +87,13 @@ function user_profile_user($op, &$edit, &$account, $category = NULL)
 
           # save generic fields
           foreach ($profile_fields as $key => $value) {
-            db_query("REPLACE INTO {profile_values} (value, fid, uid) SELECT '%s', pf.fid, '%d' FROM {profile_fields} pf WHERE pf.name = '%s'",
-              $value, $account->uid, $key
-            );
+            db_query("REPLACE INTO {profile_values} (value, fid, uid) SELECT '%s', pf.fid, '%d' FROM {profile_fields} pf WHERE pf.name = '%s'", $value, $account->uid, $key);
           }
 
         }
       }
 
-    break;
-
-    case 'logout':
-
-      # handle redirects
-      if (
-        (arg(0, $_REQUEST['destination']) == 'user') &&
-        (arg(1, $_REQUEST['destination']) == 'profile')
-      ) {
-        $uid = arg(3, $_REQUEST['destination']);
-        $_REQUEST['destination'] = 'user/profile/view';
-        if (is_numeric($uid)) {
-          $_REQUEST['destination'] .= '/' . $uid;
-        } else {
-          $_REQUEST['destination'] .= '/' . $account->uid;
-        }
-        drupal_goto();
-      }
-
-    break;
+      break;
   }
 }
 
@@ -141,8 +112,7 @@ define('USER_PROFILE_VIEW', 'View User Profile');
  *
  * @return array
  */
-function user_profile_perm()
-{
+function user_profile_perm() {
   return array(USER_PROFILE_EDIT, USER_PROFILE_VIEW);
 }
 
@@ -151,39 +121,38 @@ function user_profile_perm()
  *
  * @return array
  */
-function user_profile_menu()
-{
+function user_profile_menu() {
   $menu = array();
 
   # view page
   $menu['user/profile/view'] = array(
-    'title' => t('View Profile'),
-    'page callback' => 'theme',
-    'page arguments' => array('user_profile_view'),
-    'access callback' => 'user_profile_access_user_profile',
+    'title'            => t('View Profile'),
+    'page callback'    => 'theme',
+    'page arguments'   => array('user_profile_view'),
+    'access callback'  => 'user_profile_access_user_profile',
     'access arguments' => array(USER_PROFILE_VIEW, 3),
-    'type' => MENU_CALLBACK,
+    'type'             => MENU_CALLBACK,
   );
 
   # edit page
   $menu['user/profile/edit'] = array(
-    'title' => t('Edit Profile'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('user_profile_edit_form'),
+    'title'            => t('Edit Profile'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('user_profile_edit_form'),
     'access arguments' => array(USER_PROFILE_EDIT),
-    'file' => 'user_profile.edit.inc',
-    'type' => MENU_CALLBACK,
+    'file'             => 'user_profile.edit.inc',
+    'type'             => MENU_CALLBACK,
   );
 
 
   $menu['user/profile/follow/%/%'] = array(
-    'title callback' => 'user_profile_follow_title',
-    'title arguments' => array(4, TRUE),
-    'page callback' => 'theme',
-    'page arguments' => array('user_profile_follow', 3, 4),
-    'access callback' => 'user_profile_access_user_profile',
+    'title callback'   => 'user_profile_follow_title',
+    'title arguments'  => array(4, TRUE),
+    'page callback'    => 'theme',
+    'page arguments'   => array('user_profile_follow', 3, 4),
+    'access callback'  => 'user_profile_access_user_profile',
     'access arguments' => array(USER_PROFILE_VIEW, 3),
-    'type' => MENU_CALLBACK,
+    'type'             => MENU_CALLBACK,
   );
 
   return $menu;
@@ -194,8 +163,7 @@ function user_profile_menu()
  *
  * @param $vars
  */
-function user_profile_preprocess_page(&$vars)
-{
+function user_profile_preprocess_page(&$vars) {
   # user profile pages
   if ('user' == arg(0) && 'profile' == arg(1)) {
     drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');
@@ -217,15 +185,18 @@ function user_profile_preprocess_page(&$vars)
           if ($account) {
             $events = events_get(array(
               'q' => array(
-                events_build_query(array('uid' => $account->uid, 'type' => array(
-                  'create',
-                  'debate',
-                  'reply',
-                  'vote',
-                  'follow',
-                  'yn',
-                  'user_update',
-                ),)),
+                events_build_query(array(
+                  'uid'  => $account->uid,
+                  'type' => array(
+                    'create',
+                    'debate',
+                    'reply',
+                    'vote',
+                    'follow',
+                    'yn',
+                    'user_update',
+                  ),
+                )),
                 events_subscriptions_build_query($account->uid),
               )
             ));
@@ -234,11 +205,11 @@ function user_profile_preprocess_page(&$vars)
           drupal_set_subtitle(t('View Profile'));
         }
         array_push($vars['template_files'], 'page_11_5');
-      break;
+        break;
 
       case 'edit' :
         array_push($vars['template_files'], 'page_empty');
-      break;
+        break;
     }
   }
 
@@ -253,20 +224,22 @@ function user_profile_preprocess_page(&$vars)
  *
  * @param $user_access
  * @param $string
+ *
  * @return bool
  */
-function user_profile_access_user_profile($user_access, $string)
-{
+function user_profile_access_user_profile($user_access, $string) {
   if (empty($string) && !user_is_logged_in()) {
     return FALSE;
-  } else {
+  }
+  else {
     $user = _user_profile_get_user($string);
     if ($user === FALSE) {
       if (arg(0) == 'user' && arg(1) == 'profile') {
-        drupal_not_found();
+        drupal_goto('user/login');
       }
       return FALSE;
-    } else {
+    }
+    else {
       return user_access($user_access);
     }
   }
@@ -276,10 +249,10 @@ function user_profile_access_user_profile($user_access, $string)
  * Get user by string
  *
  * @param $string
+ *
  * @return bool
  */
-function _user_profile_get_user($string)
-{
+function _user_profile_get_user($string) {
   static $account = NULL;
 
   if (is_null($account)) {
@@ -287,13 +260,16 @@ function _user_profile_get_user($string)
       if (user_is_logged_in()) {
         global $user;
         $account = $user;
-      } else {
+      }
+      else {
         $account = FALSE;
       }
-    } elseif (!is_numeric($string)) {
+    }
+    elseif (!is_numeric($string)) {
       $string = strtolower($string);
       $account = user_load(array('name' => $string));
-    } else {
+    }
+    else {
       $account = user_load(array('uid' => $string));
     }
   }
@@ -306,26 +282,25 @@ function _user_profile_get_user($string)
  *
  * @return array
  */
-function user_profile_theme()
-{
+function user_profile_theme() {
   $theme = array();
 
   # view page
   $theme['user_profile_view'] = array(
-    'arguments' => array(),
-    'template' => 'templates/user-profile-view',
+    'arguments'            => array(),
+    'template'             => 'templates/user-profile-view',
     'preprocess functions' => array('user_profile_view_preprocess'),
   );
   $theme['user_profile_info'] = array(
-    'arguments' => array('user' => NULL,),
-    'template' => 'templates/user-profile-info',
+    'arguments'            => array('user' => NULL,),
+    'template'             => 'templates/user-profile-info',
     'preprocess functions' => array('user_profile_info_preprocess'),
   );
 
   # edit page - form
   $theme['user_profile_edit_form'] = array(
     'arguments' => array('form' => NULL),
-    'template' => 'templates/user-profile-edit-form',
+    'template'  => 'templates/user-profile-edit-form',
   );
   # edit page - avatar selection
   $theme['user_profile_avatar_selection'] = array(
@@ -334,19 +309,19 @@ function user_profile_theme()
 
   # follow page
   $theme['user_profile_follow'] = array(
-    'arguments' => array(
-      'uid' => NULL,
+    'arguments'            => array(
+      'uid'  => NULL,
       'code' => NULL,
     ),
-    'template' => 'templates/user-profile-follow',
+    'template'             => 'templates/user-profile-follow',
     'preprocess functions' => array('user_profile_follow_preprocess'),
   );
 
   # popups/blocks
   foreach (array('popup', 'right', 'bottom') as $place) {
     $theme['user_profile_' . $place] = array(
-      'arguments' => array('user' => NULL,),
-      'template' => 'templates/user-profile-' . $place,
+      'arguments'            => array('user' => NULL,),
+      'template'             => 'templates/user-profile-' . $place,
       'preprocess functions' => array('user_profile_block_preprocess'),
     );
   }
@@ -359,8 +334,7 @@ function user_profile_theme()
  *
  * @param $vars
  */
-function user_profile_view_preprocess(&$vars)
-{
+function user_profile_view_preprocess(&$vars) {
   $vars['account'] = _user_profile_get_user(arg(3));
   $vars['rank'] = $vars['account']->rank['name'];
 }
@@ -370,8 +344,7 @@ function user_profile_view_preprocess(&$vars)
  *
  * @param $vars
  */
-function user_profile_info_preprocess(&$vars)
-{
+function user_profile_info_preprocess(&$vars) {
   if (!isset($vars['account'])) {
     $vars['account'] = _user_profile_get_user(arg(3));
     if ($vars['account'] === FALSE) {
@@ -388,7 +361,7 @@ function user_profile_info_preprocess(&$vars)
   # votes
   $vars['votes'] = cpoll_uservotes($uid);
   # references
-  $vars['references'] = (int)db_result(db_query("SELECT COUNT(*) FROM {node} n WHERE n.uid = '%d' AND n.type IN ('argument', 'resource') AND n.status = '%d'", $uid, 1));
+  $vars['references'] = (int) db_result(db_query("SELECT COUNT(*) FROM {node} n WHERE n.uid = '%d' AND n.type IN ('argument', 'resource') AND n.status = '%d'", $uid, 1));
   # following
   $vars['followers_count'] = follower_get_followers($uid, TRUE);
   $vars['followers'] = follower_get_followers($uid, FALSE, 8);
@@ -398,10 +371,10 @@ function user_profile_info_preprocess(&$vars)
 
 /**
  * @param $code
+ *
  * @return null|string
  */
-function user_profile_follow_title($code, $set_as_title = FALSE)
-{
+function user_profile_follow_title($code, $set_as_title = FALSE) {
   $title = $code == 'following' ? t('Following Users') : t('Followers');
   return $set_as_title ? drupal_set_subtitle($title) : $title;
 }
@@ -411,8 +384,7 @@ function user_profile_follow_title($code, $set_as_title = FALSE)
  *
  * @param $vars
  */
-function user_profile_follow_preprocess(&$vars)
-{
+function user_profile_follow_preprocess(&$vars) {
   switch ($vars['code']) {
     case 'following' :
       $vars['users'] = follower_get_following($vars['uid']);
@@ -430,8 +402,7 @@ function user_profile_follow_preprocess(&$vars)
  *
  * @param $vars
  */
-function user_profile_block_preprocess(&$vars)
-{
+function user_profile_block_preprocess(&$vars) {
   if (!user_is_logged_in()) {
     $vars['denied'] = TRUE;
     return;
@@ -445,9 +416,9 @@ function user_profile_block_preprocess(&$vars)
     $preprocessed['user'] = $user;
     $preprocessed['complete'] = pcp_alter_get_complete_percentage_data($user);
     $preprocessed['badges'] = $user->badges;
-//    if (module_exists('up')) {
-//      $preprocessed['points'] = up_userpoints_get($user->uid);
-//    }
+    //    if (module_exists('up')) {
+    //      $preprocessed['points'] = up_userpoints_get($user->uid);
+    //    }
   }
 
   foreach ($preprocessed as $key => $value) {
