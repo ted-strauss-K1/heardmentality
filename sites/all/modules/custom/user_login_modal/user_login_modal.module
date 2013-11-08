@@ -100,6 +100,9 @@ function user_login_modal_preprocess_page(&$vars) {
  */
 function user_login_modal_form_alter(&$form, &$form_state, $form_id) {
   if ('user_login' == $form_id || 'user_register' == $form_id) {
+    if (('colorbox' == arg(0)) && ('form' == arg(1))) {
+      $form['#action'] = url(str_replace('_', '/', $form_id));
+    }
     user_login_modal_form_redirect($form);
   }
 }
