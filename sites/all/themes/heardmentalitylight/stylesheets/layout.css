@@ -6445,6 +6445,11 @@ span.coins_char {
 
 #about_us_page_content h2.din {
     color: #364E79;
+    margin-top: 0.7em;
+}
+
+#about_us_page_content h3.din {
+    margin-top: 0.5em;
 }
 
 #about_us_page_content .innn ul {
@@ -6509,6 +6514,7 @@ span.coins_char {
 
 #about_us_page_content #guide table td {
     padding: 5px 5px 5px 10px;
+    border: 1px solid #c0c0c0;
 }
 
 #about_us_page_content #guide table td ul {
