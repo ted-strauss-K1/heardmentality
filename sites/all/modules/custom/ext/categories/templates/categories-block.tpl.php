@@ -11,9 +11,14 @@
   <hr class="short">
   <br>
 
-  <p class="issue-meta"><?php print t('Posted by'); ?>
-    <?php print l($node->name, 'user/profile/view/' . $node->uid, array('attributes' => array('class' => 'username'))); ?>
-    <?php print t('on') ?>
+  <p class="issue-meta">
+    <?php if ($author_status) : ?>
+      <?php print t('Posted by'); ?>
+      <?php print l($node->name, 'user/profile/view/' . $node->uid, array('attributes' => array('class' => 'username'))); ?>
+      <?php print t('on') ?>
+    <?php else : ?>
+      <?php print t('Posted on'); ?>
+    <?php endif; ?>
     <br>
     <?php print date('M j, Y @ H:i', $node->created); ?>.
     <?php if ($orig_langcode != $display_language) : ?>
