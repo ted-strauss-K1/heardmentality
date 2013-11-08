@@ -32,7 +32,7 @@ function badges_queue($uid = FALSE, $badges = FALSE) {
   # through the list of badges
   foreach ($badges as $badge) {
     if (isset($userbadges[$badge])) {
-      if ((true !== $userbadges[$badge]['count']) && ($userbadges[$badge]['#count'] >= $userbadges[$badge]['count'])) {
+      if ((TRUE !== $userbadges[$badge]['count']) && ($userbadges[$badge]['#count'] >= $userbadges[$badge]['count'])) {
         continue;
       }
     }
@@ -41,8 +41,7 @@ function badges_queue($uid = FALSE, $badges = FALSE) {
     }
     db_query("
       INSERT INTO {badges_queue}
-      SET uid = '%s', badge = '%s', date_added = '%s'",
-        $uid, $badge, date("y-m-d H:i:s"));
+      SET uid = '%s', badge = '%s', date_added = '%s'", $uid, $badge, date("y-m-d H:i:s"));
   }
 }
 
@@ -60,7 +59,7 @@ function badges_dequeue($uid = FALSE) {
   }
   if (!$uid) {
     exit(json_encode(array(
-      'status' => false,
+      'status'  => FALSE,
       'message' => t('No uid provided or user is anonymous'),
     )));
   }
@@ -72,26 +71,27 @@ function badges_dequeue($uid = FALSE) {
     if (!empty($output)) {
       $badge = badges_list($item->badge);
       exit(json_encode(array(
-        'status' => $uid == $item->uid,
-        'message' => t('You have got the badge') . ' "'.$badge['name'].'"',
-        'data' => array(
-          'uid' => $item->uid,
+        'status'  => $uid == $item->uid,
+        'message' => t('You have got the badge') . ' "' . $badge['name'] . '"',
+        'data'    => array(
+          'uid'   => $item->uid,
           'badge' => $item->badge,
         ),
       )));
-    } else {
+    }
+    else {
       exit(json_encode(array(
-        'status' => false,
+        'status'  => FALSE,
         'message' => t('Badge is not granted'),
-        'data' => array(
-          'uid' => $item->uid,
+        'data'    => array(
+          'uid'   => $item->uid,
           'badge' => $item->badge,
         ),
       )));
     }
   }
   exit(json_encode(array(
-    'status' => false,
+    'status'  => FALSE,
     'message' => t('Queue is empty'),
   )));
 }
@@ -101,18 +101,17 @@ function badges_dequeue($uid = FALSE) {
  *
  * @return array
  */
-function badges_queue_menu()
-{
+function badges_queue_menu() {
   $menu = array();
 
   $menu['badges/queue'] = array(
-    'page callback' => 'badges_queue',
-    'page arguments' => array(),
+    'page callback'   => 'badges_queue',
+    'page arguments'  => array(),
     'access callback' => TRUE,
   );
   $menu['badges/dequeue'] = array(
-    'page callback' => 'badges_dequeue',
-    'page arguments' => array(),
+    'page callback'   => 'badges_dequeue',
+    'page arguments'  => array(),
     'access callback' => TRUE,
   );
 

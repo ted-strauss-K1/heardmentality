@@ -1,5 +1,7 @@
 <?php
 
+define('BADGES_ACTION_PREFIX', 'badge:');
+
 /**
  * Implements custom hook_invoke_action()
  *
@@ -11,11 +13,13 @@ function badges_invoke_action($timestamp, $params) {
   if (isset($params['operation'])) {
     $params['time_stamp'] = $timestamp;
 
-    if ('badge' == $params['operation']) {
-      badges_queue_action($params);
+    if ('badge' == $params['entity_type']) {
+      $uid = $params['uid'];
+      $badge = str_replace(BADGES_ACTION_PREFIX, '', $params['operation']);
+      badges_dequeue_badge($uid, $badge, $timestamp);
     }
     else {
-      // todo queue badge
+      badges_queue_action($params);
     }
 
     $output = events_add($params);
@@ -24,20 +28,11 @@ function badges_invoke_action($timestamp, $params) {
 }
 
 /**
- * @param $uid
- * @param $badge
- */
-function badges_queue_badge ($uid, $badge, $timestamp = false) {
-  // todo check if the badge can be assigned to user
-  // todo check if the badge is already queued
-  // todo remove already queued badges (up to limit) (we currently support only 1 badge to user)
-  // todo put the badge to the queue
-}
-
-/**
+ * Attempts
+ *
  * @param $params
  */
-function badges_queue_action ($params) {
+function badges_queue_action($params) {
   foreach (module_implements('queue_action') as $module) {
     if ('badges' == $module) {
       continue;
@@ -47,73 +42,82 @@ function badges_queue_action ($params) {
       $function($params);
     }
   }
-
-
-  switch ($params['operation']) {
-    case 'create' : break;
-    case 'vote' : break;
-
-    case 'debate' : break;
-    case 'reply' : break;
-
-    case 'yn_voteup' : break;
-    case 'yn_votedn' : break;
-
-    case 'user_update' : break;
-
-
-
-    case 'follow' : break;
-    case 'unfollow' : break;
-    case 'message' : break;
-    case 'weekly_pennies' : break;
-    case 'register' : break;
-    case 'view' : break;
-    case 'login' : break;
-    case 'merge' : break;
-    case 'taxonomy' : break;
-  }
 }
 
-/*
-
-
-
-
-
-  body.on('badge.cpoll_vote', function(e, uid) {
-    // uid - voter
-    body.trigger('badges.queue', [uid, ['poll_votes_bronze', 'poll_votes_silver', 'poll_votes_gold', 'poll_votes_taxonomy_bronze', 'poll_votes_taxonomy_silver', 'poll_votes_taxonomy_gold']]);
-  });
-
-  body.on('badge.cpoll_voted', function(e, uid) {
-    // uid - cpoll author
-    body.trigger('badges.queue', [uid, ['poll_votes_count_bronze', 'poll_votes_count_silver', 'poll_votes_count_gold']]);
-  });
-
-  body.on('badge.comment_yn_voteup', function(e, uid) {
-    // uid - content author
-    body.trigger('badges.queue', [uid, [, 'yn_comment_bronze', 'yn_comment_silver', 'yn_comment_gold']]);
-  });
-
-  body.on('badge.resource_yn_voteup', function(e, uid) {
-    // uid - content author
-    body.trigger('badges.queue', [uid, ['yn_argument_agreed_resource_bronze', 'yn_argument_agreed_resource_silver', 'yn_argument_agreed_resource_gold']]);
-  });
-
-  body.on('badge.argument_yn_voteup', function(e, uid) {
-    // uid - content author
-    body.trigger('badges.queue', [uid, ['yn_argument_agreed_debate_bronze', 'yn_argument_agreed_debate_silver', 'yn_argument_agreed_debate_gold']]);
-  });
-
-  body.on('badge.yn_voteup', function(e, uid) {
-    // uid - voter
-    body.trigger('badges.queue', [uid, ['yn_upfirst']]);
-  });
-
-  body.on('badge.yn_predict', function(e, uid) {
-    // uid - voter
-    body.trigger('badges.queue', [uid, ['yn_predict_bronze', 'yn_predict_silver']]);
-  });
-
+/**
+ * @param null $params
  */
+function badges_queue_badge($params = NULL) {
+  $uid = $params['uid'];
+  $badge = str_replace(BADGES_ACTION_PREFIX, '', $params['operation']);
+
+  // user badges
+  $userbadges = badges_userbadges($uid);
+  $userbadges = $userbadges['#list'];
+
+  // check if badge can be assigned to user
+  if (isset($userbadges[$badge])) {
+    if ((TRUE !== $userbadges[$badge]['count']) && ($userbadges[$badge]['#count'] >= $userbadges[$badge]['count'])) {
+      db_query("DELETE FROM {action_queue} WHERE uid = '%s' AND op = '%s'", $uid, $params['operation']);
+      return FALSE;
+    }
+  }
+
+  // check if badge is already queued
+  if (isset($userbadges[$badge]) && (TRUE !== $userbadges[$badge]['count'])) {
+    if ($queued = (int)db_query("SELECT COUNT(*) FROM {action_queue} WHERE uid = '%s' AND op = '%s'", $uid, $params['operation'])) {
+      if ($userbadges[$badge]['count'] - $userbadges[$badge]['#count'] <= $queued) {
+        return FALSE;
+      }
+    }
+  }
+
+  // queue
+  action_queue($params);
+}
+
+/**
+ * @param $uid
+ * @param $badge
+ */
+function badges_dequeue_badge($uid, $badge, $timestamp = FALSE) {
+  $output = badges_grant($uid, $badge);
+  if (!empty($output)) {
+    $badge = badges_list($item->badge);
+    exit(json_encode(array(
+      'status'  => $uid == $item->uid,
+      'message' => t('You have got the badge') . ' "' . $badge['name'] . '"',
+      'data'    => array(
+        'uid'   => $item->uid,
+        'badge' => $item->badge,
+      ),
+    )));
+  }
+
+
+  db_query("DELETE FROM {badges_queue} WHERE id = '%d'", $item->id);
+  if (!empty($output)) {
+    $badge = badges_list($item->badge);
+    exit(json_encode(array(
+      'status'  => $uid == $item->uid,
+      'message' => t('You have got the badge') . ' "' . $badge['name'] . '"',
+      'data'    => array(
+        'uid'   => $item->uid,
+        'badge' => $item->badge,
+      ),
+    )));
+  }
+  else {
+    exit(json_encode(array(
+      'status'  => FALSE,
+      'message' => t('Badge is not granted'),
+      'data'    => array(
+        'uid'   => $item->uid,
+        'badge' => $item->badge,
+      ),
+    )));
+  }
+
+
+  // todo put the badge to the queue
+}

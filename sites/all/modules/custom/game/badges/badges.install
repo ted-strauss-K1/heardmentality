@@ -3,50 +3,47 @@
 /*
  * Implementation of hook_install()
  */
-function badges_install()
-{
+function badges_install() {
   drupal_install_schema('badges');
 }
 
 /*
  * Implementation of hook_install()
  */
-function badges_uninstall()
-{
+function badges_uninstall() {
   drupal_uninstall_schema('badges');
 }
 
 /**
  * Implementation of hook_schema()
  */
-function badges_schema()
-{
+function badges_schema() {
   $schema = array();
 
   $schema['badges'] = array(
     'description' => t('Stores the badges.'),
-    'fields' => array(
-      'id' => array(
+    'fields'      => array(
+      'id'         => array(
         'description' => 'The primary identifier.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
       ),
-      'uid' => array(
+      'uid'        => array(
         'description' => 'The {users}.uid that got the badge.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0
       ),
-      'badge' => array(
+      'badge'      => array(
         'description' => t('The badge name.'),
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'length' => 256,
-        'default' => '',
+        'type'        => 'varchar',
+        'not null'    => TRUE,
+        'length'      => 256,
+        'default'     => '',
       ),
       'date_added' => array(
-        'type' => 'datetime',
+        'type'     => 'datetime',
         'not null' => TRUE,
       ),
     ),

@@ -5,43 +5,38 @@
  *
  * @return array
  */
-function badges_profile_badges()
-{
+function badges_profile_badges() {
   return array(
     'user_profile' => array(
       'function' => 'badges_user_profile_check',
-      'name' => t('Autobiographer'),
-      'info' => t('Completed all user profile fields'),
+      'name'     => t('Autobiographer'),
+      'info'     => t('Completed all user profile fields'),
     ),
   );
 }
 
 /**
  * @param $uid
+ *
  * @return bool
  */
-function badges_user_profile_check($uid)
-{
+function badges_user_profile_check($uid) {
   $user = user_load(array('uid' => $uid));
   $complete_data = pcp_alter_get_complete_percentage_data($user);
   return $complete_data['percent'] == 100;
 }
 
 /**
- * Implementation of hook_user()
- *
- * @param $op
- * @param $edit
- * @param $account
- * @param null $category
+ * @param $params
  */
-function badges_profile_user($op, &$edit, &$account, $category = NULL)
-{
-  switch ($op) {
-    case 'update' :
-      badges_queue($account->uid, array(
-        'user_profile'
-      ));
-    break;
+function badges_profile_queue_action($params) {
+  if ('user_update' == $params['operation']) {
+    badges_queue_badge(array(
+      'uid'         => $params['uid'],
+      'operation'   => BADGES_ACTION_PREFIX . 'user_profile',
+      'entity_id'   => 0,
+      'entity_type' => 'badge',
+      'time_stamp'  => $params['timestamp'],
+    ));
   }
 }

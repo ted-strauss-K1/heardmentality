@@ -5,15 +5,14 @@
  *
  * @return array
  */
-function badges_poll_suggest_badges()
-{
+function badges_poll_suggest_badges() {
   $badges = array();
 
   $badges['poll_suggest_bronze'] = array(
     'function' => 'badges_poll_suggest_check',
-    'name' => t('Suggest Answer'),
-    'info' => t('Suggesting answers to the questions'),
-    'type' => 'bronze',
+    'name'     => t('Suggest Answer'),
+    'info'     => t('Suggesting answers to the questions'),
+    'type'     => 'bronze',
   );
 
   return $badges;
@@ -21,10 +20,10 @@ function badges_poll_suggest_badges()
 
 /**
  * @param $uid
+ *
  * @return bool
  */
-function badges_poll_suggest_check($uid, $arguments = array())
-{
+function badges_poll_suggest_check($uid, $arguments = array()) {
   static $cache;
 
   if (is_null($cache)) {
@@ -36,5 +35,5 @@ function badges_poll_suggest_check($uid, $arguments = array())
     }
   }
 
-  return isset($cache[$uid]) ? $cache[$uid] > 0 : false;
+  return isset($cache[$uid]) ? $cache[$uid] > 0 : FALSE;
 }

@@ -5,13 +5,12 @@
  *
  * @return array
  */
-function badges_userpoints_badges()
-{
+function badges_userpoints_badges() {
   return array(
     'userpoints_yearling' => array(
-      'function' => 'badges_userpoints_yearling_check',
-      'name' => t('Yearling'),
-      'info' => t('Active member for a year, earning at least 200 reputation'),
+      'function'  => 'badges_userpoints_yearling_check',
+      'name'      => t('Yearling'),
+      'info'      => t('Active member for a year, earning at least 200 reputation'),
       'arguments' => array('count' => 200, 'days' => 365),
     ),
   );
@@ -19,10 +18,10 @@ function badges_userpoints_badges()
 
 /**
  * @param $uid
+ *
  * @return bool
  */
-function badges_userpoints_yearling_check($uid, $arguments = array())
-{
+function badges_userpoints_yearling_check($uid, $arguments = array()) {
   static $cache;
 
   if (is_null($cache)) {
@@ -43,22 +42,17 @@ function badges_userpoints_yearling_check($uid, $arguments = array())
   return ($cache[$uid]['count'] >= $arguments['count']) && ($cache[$uid]['days'] >= $arguments['days']);
 }
 
-
 /**
- * Implementation of hook_user()
- *
- * @param $op
- * @param $edit
- * @param $account
- * @param null $category
+ * @param $params
  */
-function badges_userpoints_user($op, &$edit, &$account, $category = NULL)
-{
-  switch ($op) {
-    case 'login' :
-      badges_queue($account->uid, array(
-        'userpoints_yearling'
-      ));
-      break;
+function badges_userpoints_queue_action($params) {
+  if ('login' == $params['operation']) {
+    badges_queue_badge(array(
+      'uid'         => $params['uid'],
+      'operation'   => BADGES_ACTION_PREFIX . 'userpoints_yearling',
+      'entity_id'   => 0,
+      'entity_type' => 'badge',
+      'time_stamp'  => $params['timestamp'],
+    ));
   }
 }

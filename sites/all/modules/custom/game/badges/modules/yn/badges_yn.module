@@ -5,100 +5,99 @@
  *
  * @return array
  */
-function badges_yn_badges()
-{
+function badges_yn_badges() {
   $badges = array();
 
   # vote ups
   $badges['yn_comment_bronze'] = array(
-    'function' => 'badges_yn_check',
-    'name' => t('Nice Reply'),
-    'info' => t('Reply voted up 10 times'),
-    'type' => 'bronze',
+    'function'  => 'badges_yn_check',
+    'name'      => t('Nice Reply'),
+    'info'      => t('Reply voted up 10 times'),
+    'type'      => 'bronze',
     'arguments' => array('content_type' => 'comment', 'count' => 10),
   );
   $badges['yn_comment_silver'] = array(
-    'function' => 'badges_yn_check',
-    'name' => t('Good Reply'),
-    'info' => t('Reply voted up 25 times'),
-    'type' => 'silver',
+    'function'  => 'badges_yn_check',
+    'name'      => t('Good Reply'),
+    'info'      => t('Reply voted up 25 times'),
+    'type'      => 'silver',
     'arguments' => array('content_type' => 'comment', 'count' => 25),
   );
   $badges['yn_comment_gold'] = array(
-    'function' => 'badges_yn_check',
-    'name' => t('Great Reply'),
-    'info' => t('Reply voted up 100 times'),
-    'type' => 'gold',
+    'function'  => 'badges_yn_check',
+    'name'      => t('Great Reply'),
+    'info'      => t('Reply voted up 100 times'),
+    'type'      => 'gold',
     'arguments' => array('content_type' => 'comment', 'count' => 100),
   );
 
   # vote ups for resources
   $badges['yn_argument_agreed_resource_bronze'] = array(
-    'function' => 'badges_yn_argument_agreed_check',
-    'name' => t('Paperboy'),
-    'info' => t('Resource posted by user gets 5 agrees'),
-    'type' => 'bronze',
+    'function'  => 'badges_yn_argument_agreed_check',
+    'name'      => t('Paperboy'),
+    'info'      => t('Resource posted by user gets 5 agrees'),
+    'type'      => 'bronze',
     'arguments' => array('count' => 5, 'argument_type' => 'resource'),
   );
   $badges['yn_argument_agreed_resource_silver'] = array(
-    'function' => 'badges_yn_argument_agreed_check',
-    'name' => t('Newsstand'),
-    'info' => t('Resource posted by user gets 20 agrees'),
-    'type' => 'silver',
+    'function'  => 'badges_yn_argument_agreed_check',
+    'name'      => t('Newsstand'),
+    'info'      => t('Resource posted by user gets 20 agrees'),
+    'type'      => 'silver',
     'arguments' => array('count' => 20, 'argument_type' => 'resource'),
   );
   $badges['yn_argument_agreed_resource_gold'] = array(
-    'function' => 'badges_yn_argument_agreed_check',
-    'name' => t('Librarian'),
-    'info' => t('Resource posted by user gets 50 agrees'),
-    'type' => 'gold',
+    'function'  => 'badges_yn_argument_agreed_check',
+    'name'      => t('Librarian'),
+    'info'      => t('Resource posted by user gets 50 agrees'),
+    'type'      => 'gold',
     'arguments' => array('count' => 50, 'argument_type' => 'resource'),
   );
 
   # vote ups for arguments
   $badges['yn_argument_agreed_debate_bronze'] = array(
-    'function' => 'badges_yn_argument_agreed_check',
-    'name' => t('Nice Post'),
-    'info' => t('Argument posted by user gets 5 agrees'),
-    'type' => 'bronze',
+    'function'  => 'badges_yn_argument_agreed_check',
+    'name'      => t('Nice Post'),
+    'info'      => t('Argument posted by user gets 5 agrees'),
+    'type'      => 'bronze',
     'arguments' => array('count' => 5, 'argument_type' => 'argument'),
   );
   $badges['yn_argument_agreed_debate_silver'] = array(
-    'function' => 'badges_yn_argument_agreed_check',
-    'name' => t('Well Put'),
-    'info' => t('Argument posted by user gets 20 agrees'),
-    'type' => 'silver',
+    'function'  => 'badges_yn_argument_agreed_check',
+    'name'      => t('Well Put'),
+    'info'      => t('Argument posted by user gets 20 agrees'),
+    'type'      => 'silver',
     'arguments' => array('count' => 20, 'argument_type' => 'argument'),
   );
   $badges['yn_argument_agreed_debate_gold'] = array(
-    'function' => 'badges_yn_argument_agreed_check',
-    'name' => t('Consensus Builder'),
-    'info' => t('Argument posted by user gets 50 agrees'),
-    'type' => 'gold',
+    'function'  => 'badges_yn_argument_agreed_check',
+    'name'      => t('Consensus Builder'),
+    'info'      => t('Argument posted by user gets 50 agrees'),
+    'type'      => 'gold',
     'arguments' => array('count' => 50, 'argument_type' => 'argument'),
   );
 
   # first vote up
   $badges['yn_upfirst'] = array(
     'function' => 'badges_yn_upfirst_check',
-    'name' => t('Supporter'),
-    'info' => t('First up vote'),
-    'type' => 'bronze',
+    'name'     => t('Supporter'),
+    'info'     => t('First up vote'),
+    'type'     => 'bronze',
   );
 
   # first vote ups
   $badges['yn_predict_bronze'] = array(
-    'function' => 'badges_yn_predict_check',
-    'name' => t('Seer'),
-    'info' => t('First agree on a post or resource that eventually gets 50 agrees'),
-    'type' => 'bronze',
+    'function'  => 'badges_yn_predict_check',
+    'name'      => t('Seer'),
+    'info'      => t('First agree on a post or resource that eventually gets 50 agrees'),
+    'type'      => 'bronze',
     'arguments' => array('votes' => 50),
   );
   $badges['yn_predict_silver'] = array(
-    'function' => 'badges_yn_predict_check',
-    'name' => t('Oracle'),
-    'info' => t('First agree on a post or resource that eventually gets 100 agrees'),
-    'type' => 'silver',
+    'function'  => 'badges_yn_predict_check',
+    'name'      => t('Oracle'),
+    'info'      => t('First agree on a post or resource that eventually gets 100 agrees'),
+    'type'      => 'silver',
     'arguments' => array('votes' => 100),
   );
 
@@ -107,12 +106,12 @@ function badges_yn_badges()
 
 
 /**
- * @param $uid
+ * @param       $uid
  * @param array $arguments
+ *
  * @return bool
  */
-function badges_yn_check($uid, $arguments = array())
-{
+function badges_yn_check($uid, $arguments = array()) {
   static $cache;
 
   $content_type = $arguments['content_type'];
@@ -149,16 +148,16 @@ function badges_yn_check($uid, $arguments = array())
     }
   }
 
-  return isset($cache[$content_type][$uid]) ? $cache[$content_type][$uid][0] >= $arguments['count'] : false;
+  return isset($cache[$content_type][$uid]) ? $cache[$content_type][$uid][0] >= $arguments['count'] : FALSE;
 }
 
 /**
- * @param $uid
+ * @param       $uid
  * @param array $arguments
+ *
  * @return bool
  */
-function badges_yn_argument_agreed_check($uid, $arguments = array())
-{
+function badges_yn_argument_agreed_check($uid, $arguments = array()) {
   static $cache;
 
   if (is_null($cache)) {
@@ -174,21 +173,20 @@ function badges_yn_argument_agreed_check($uid, $arguments = array())
     while ($row = db_fetch_array($result)) {
       if (!isset($cache[$row['uid']]) || ($cache[$row['uid']] < $row['count'])) {
         $cache[$row['uid']] = $row['count'];
-      }
-      ;
+      };
     }
   }
 
-  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['count'] : false;
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['count'] : FALSE;
 }
 
 /**
- * @param $uid
+ * @param       $uid
  * @param array $arguments
+ *
  * @return bool
  */
-function badges_yn_upfirst_check($uid, $arguments = array())
-{
+function badges_yn_upfirst_check($uid, $arguments = array()) {
   static $cache;
 
   if (is_null($cache)) {
@@ -196,7 +194,7 @@ function badges_yn_upfirst_check($uid, $arguments = array())
 
     $result = db_query("SELECT uid FROM {votingapi_vote} GROUP BY content_type, content_id ORDER BY timestamp ASC");
     while ($row = db_fetch_array($result)) {
-      $cache[$row['uid']] = true;
+      $cache[$row['uid']] = TRUE;
     }
   }
 
@@ -204,12 +202,12 @@ function badges_yn_upfirst_check($uid, $arguments = array())
 }
 
 /**
- * @param $uid
+ * @param       $uid
  * @param array $arguments
+ *
  * @return bool
  */
-function badges_yn_predict_check($uid, $arguments = array())
-{
+function badges_yn_predict_check($uid, $arguments = array()) {
   static $cache;
 
   if (is_null($cache)) {
@@ -223,5 +221,72 @@ function badges_yn_predict_check($uid, $arguments = array())
     }
   }
 
-  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['votes'] : false;
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['votes'] : FALSE;
+}
+
+/**
+ * @param $params
+ */
+function badges_yn_queue_action($params) {
+  if ('yn_voteup' == $params['operation']) {
+
+    // voting user
+    foreach (array('yn_upfirst', 'yn_predict_bronze', 'yn_predict_silver') as $badge) {
+      badges_queue_badge(array(
+        'uid'         => $params['uid'],
+        'operation'   => BADGES_ACTION_PREFIX . $badge,
+        'entity_id'   => 0,
+        'entity_type' => 'badge',
+        'time_stamp'  => $params['timestamp'],
+      ));
+    }
+
+    // content author
+    switch ($params['entity_type']) {
+      case 'node':
+        if ($debate = node_load($params['entity_id'])) {
+          $badges = array();
+          switch ($debate->type) {
+            case 'argument' :
+              $badges = array(
+                'yn_argument_agreed_debate_bronze',
+                'yn_argument_agreed_debate_silver',
+                'yn_argument_agreed_debate_gold'
+              );
+              break;
+            case 'resource' :
+              $badges = array(
+                'yn_argument_agreed_resource_bronze',
+                'yn_argument_agreed_resource_silver',
+                'yn_argument_agreed_resource_gold'
+              );
+              break;
+          }
+
+          foreach ($badges as $badge) {
+            badges_queue_badge(array(
+              'uid'         => $debate->uid,
+              'operation'   => BADGES_ACTION_PREFIX . $badge,
+              'entity_id'   => 0,
+              'entity_type' => 'badge',
+              'time_stamp'  => $params['timestamp'],
+            ));
+          }
+        }
+        break;
+      case 'comment':
+        if ($comment = _comment_load($params['entity_id'])) {
+          foreach (array('yn_comment_bronze', 'yn_comment_silver', 'yn_comment_gold') as $badge) {
+            badges_queue_badge(array(
+              'uid'         => $comment->uid,
+              'operation'   => BADGES_ACTION_PREFIX . $badge,
+              'entity_id'   => 0,
+              'entity_type' => 'badge',
+              'time_stamp'  => $params['timestamp'],
+            ));
+          }
+        }
+        break;
+    }
+  }
 }

@@ -68,11 +68,11 @@ function badges_argument_queue_action($params) {
     if ($debate = node_load($params['entity_id'])) {
       if ($node = node_load($debate->field_reference[0]['nid'])) {
         foreach (array('argument_bronze', 'argument_silver', 'argument_gold') as $badge) {
-          action_queue(array(
+          badges_queue_badge(array(
             'uid'         => $node->uid,
-            'operation'   => 'badge',
+            'operation'   => BADGES_ACTION_PREFIX . $badge,
             'entity_id'   => 0,
-            'entity_type' => $badge,
+            'entity_type' => 'badge',
             'time_stamp'  => $params['timestamp'],
           ));
         }

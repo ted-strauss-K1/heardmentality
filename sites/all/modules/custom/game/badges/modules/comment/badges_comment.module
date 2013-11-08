@@ -44,11 +44,11 @@ function badges_comment_check($uid, $arguments = array()) {
  */
 function badges_comment_queue_action($params) {
   if ('reply' == $params['operation']) {
-    action_queue(array(
+    badges_queue_badge(array(
       'uid'         => $params['uid'],
-      'operation'   => 'badge',
+      'operation'   => BADGES_ACTION_PREFIX . 'comment_bronze',
       'entity_id'   => 0,
-      'entity_type' => 'comment_bronze',
+      'entity_type' => 'badge',
       'time_stamp'  => $params['timestamp'],
     ));
   }

@@ -58,11 +58,11 @@ function badges_comment_yn_queue_action($params) {
   if ('yn_voteup' == $params['operation']) {
     if ($comment = _comment_load($params['entity_id'])) {
       foreach (array('comment_agreed_bronze', 'comment_agreed_gold') as $badge) {
-        action_queue(array(
+        badges_queue_badge(array(
           'uid'         => $comment->uid,
-          'operation'   => 'badge',
+          'operation'   => BADGES_ACTION_PREFIX . $badge,
           'entity_id'   => 0,
-          'entity_type' => $badge,
+          'entity_type' => 'badge',
           'time_stamp'  => $params['timestamp'],
         ));
       }

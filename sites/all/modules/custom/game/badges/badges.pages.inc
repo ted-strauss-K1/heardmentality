@@ -5,20 +5,19 @@
  *
  * @return array
  */
-function badges_pages_menu()
-{
+function badges_pages_menu() {
   $menu = array();
 
   $menu['badges'] = array(
-    'title' => t('Badges'),
-    'page callback' => 'theme',
-    'page arguments' => array('badges_list'),
+    'title'           => t('Badges'),
+    'page callback'   => 'theme',
+    'page arguments'  => array('badges_list'),
     'access callback' => TRUE,
   );
   $menu['badges/users'] = array(
-    'title' => t('Badges'),
-    'page callback' => 'theme',
-    'page arguments' => array('badges_list_users'),
+    'title'           => t('Badges'),
+    'page callback'   => 'theme',
+    'page arguments'  => array('badges_list_users'),
     'access callback' => TRUE,
   );
 
@@ -30,8 +29,7 @@ function badges_pages_menu()
  *
  * @return array
  */
-function badges_theme()
-{
+function badges_theme() {
   $theme = array();
 
   $theme['badges_list'] = array(
@@ -54,9 +52,8 @@ function badges_theme()
  *
  * @return string
  */
-function theme_badges_list($sort = 2)
-{
-//  $output = '<div class="badges">';
+function theme_badges_list($sort = 2) {
+  //  $output = '<div class="badges">';
   $output = '<div id="about_us_page_content"><div id="badges">
     <table border="0" cellspacing="0" cellpadding="0" id="badgeslist">
       <thead>
@@ -70,7 +67,7 @@ function theme_badges_list($sort = 2)
 
   $query = "SELECT badge name, COUNT(*) count FROM {badges} GROUP BY badge ";
 
-//  $sort = 2;
+  //  $sort = 2;
   switch ($sort) {
     case 0:
       $query .= "ORDER BY COUNT(*) DESC";
@@ -106,10 +103,9 @@ function theme_badges_list($sort = 2)
           <td>%s</td>
           <td>%s</td>
         </tr>
-      ', $badge_item['type'], t(badges_types($badge_item['type']) . ' Medal'), $badge->count - 1, $badge_item['name'], $badge_item['info']
-    );
+      ', $badge_item['type'], t(badges_types($badge_item['type']) . ' Medal'), $badge->count - 1, $badge_item['name'], $badge_item['info']);
   }
-//  $output .= '</div>';
+  //  $output .= '</div>';
   $output .= '</tbody></table></div></div>';
   return $output;
 }
@@ -119,22 +115,18 @@ function theme_badges_list($sort = 2)
  *
  * @return string
  */
-function theme_badges_list_users()
-{
+function theme_badges_list_users() {
   $output = '<div id="badges_list_userbadges"><ul>';
 
   $badges_userbadges = badges_userbadges(FALSE);
 
-//  var_dump($badges_userbadges);
+  //  var_dump($badges_userbadges);
 
   foreach ($badges_userbadges as $uid => $data) {
-    $output .=
-      '<li>'. l($data['#name'], 'user/profile/view/'.$uid).':&nbsp;';
+    $output .= '<li>' . l($data['#name'], 'user/profile/view/' . $uid) . ':&nbsp;';
 
     foreach ($data['#list'] as $name => $info) {
-      $output .= sprintf('<span class="selected-item %s">%s<span class="count-item">x</span><span class="number-item">%d</span></span>',
-        $info['type'], $info['name'], $info['#count']
-      );
+      $output .= sprintf('<span class="selected-item %s">%s<span class="count-item">x</span><span class="number-item">%d</span></span>', $info['type'], $info['name'], $info['#count']);
     }
 
     $output .= '</li>';

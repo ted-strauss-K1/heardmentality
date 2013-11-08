@@ -25,16 +25,14 @@ include_once "badges.queue.inc";
  *
  * @return array
  */
-function badges_menu()
-{
+function badges_menu() {
   return badges_pages_menu() + badges_admin_menu();
 }
 
 /**
  * Get user badges
  */
-function badges_userbadges($uid)
-{
+function badges_userbadges($uid) {
   static $cache;
 
   if (is_null($cache)) {
@@ -61,13 +59,12 @@ function badges_userbadges($uid)
 /**
  * Implementation of hook_user()
  *
- * @param $op
- * @param $edit
- * @param $account
+ * @param      $op
+ * @param      $edit
+ * @param      $account
  * @param null $category
  */
-function badges_user($op, &$edit, &$account, $category = NULL)
-{
+function badges_user($op, &$edit, &$account, $category = NULL) {
   switch ($op) {
     case 'load' :
       $account->badges = badges_userbadges($account->uid);
@@ -84,11 +81,15 @@ function badges_user($op, &$edit, &$account, $category = NULL)
  *
  * @param $vars
  */
-function badges_preprocess_page(&$vars)
-{
+function badges_preprocess_page(&$vars) {
   if (arg(0) == 'badges') {
     drupal_set_subtitle(t('Badges'));
   }
 
   drupal_add_js(drupal_get_path('module', 'badges') . '/badges.js');
+
+  echo "X=";
+  $list = badges_userbadges(1);
+  var_dump($list);
+  exit;
 }

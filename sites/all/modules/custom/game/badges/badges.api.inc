@@ -5,8 +5,7 @@
  *
  * @return array
  */
-function badges_types($type = FALSE)
-{
+function badges_types($type = FALSE) {
   static $types = NULL;
 
   if (is_null($types)) {
@@ -25,12 +24,11 @@ function badges_types($type = FALSE)
  *
  * @return array
  */
-function badges_badges_types()
-{
+function badges_badges_types() {
   return array(
     'bronze' => t('Bronze'),
     'silver' => t('Silver'),
-    'gold' => t('Gold'),
+    'gold'   => t('Gold'),
   );
 }
 
@@ -40,8 +38,7 @@ function badges_badges_types()
  * @param $uid
  * @param $badge
  */
-function badges_add($uid, $badge)
-{
+function badges_add($uid, $badge) {
   db_query("INSERT INTO {badges} SET uid = '%d', badge = '%s', date_added = '%s'", $uid, $badge, date("y-m-d H:i:s"));
 
   static $users = array();
@@ -57,8 +54,7 @@ function badges_add($uid, $badge)
 /**
  * @param array $p
  */
-function badges_del($p = array())
-{
+function badges_del($p = array()) {
   if (empty($p)) {
     return;
   }
@@ -80,8 +76,7 @@ function badges_del($p = array())
  *
  * @return array
  */
-function badges_list($badge = FALSE)
-{
+function badges_list($badge = FALSE) {
   static $badges = NULL;
 
   if (is_null($badges)) {
@@ -93,11 +88,11 @@ function badges_list($badge = FALSE)
 
     foreach (module_invoke_all('badges') as $name => $info) {
       $badges[$name] = $info + array(
-        'function' => '_badges_check',
-        'count' => 1,
-        'info' => '',
-        'arguments' => array(),
-      );
+          'function'  => '_badges_check',
+          'count'     => 1,
+          'info'      => '',
+          'arguments' => array(),
+        );
       // name
       if (!isset($info['name']) || empty($info['name'])) {
         $badges[$name]['name'] = ucwords(str_replace('_', ' ', $name));
@@ -122,10 +117,10 @@ function badges_list($badge = FALSE)
  * Default function to check the badge permission
  *
  * @param int $uid
+ *
  * @return bool
  */
-function _badges_check($uid = 0)
-{
+function _badges_check($uid = 0) {
   return FALSE;
 }
 
@@ -133,10 +128,10 @@ function _badges_check($uid = 0)
  * Default function to check the badge permission for multiple users
  *
  * @param array $uids
+ *
  * @return array
  */
-function _badges_check_multiple($uids = array(), $arguments = array())
-{
+function _badges_check_multiple($uids = array(), $arguments = array()) {
   $output = array();
 
   $function = isset($arguments['function']) && function_exists($arguments['function']) ? $arguments['function'] : '_badges_check';
@@ -153,8 +148,7 @@ function _badges_check_multiple($uids = array(), $arguments = array())
  *
  * @param $badge
  */
-function badges_count($badge, $uid = FALSE)
-{
+function badges_count($badge, $uid = FALSE) {
   static $counts = array();
 
   if (!isset($counts[$badge])) {
@@ -176,10 +170,10 @@ function badges_count($badge, $uid = FALSE)
 /**
  * @param $item
  * @param $badge
+ *
  * @return bool
  */
-function badges_grant($item, $badge)
-{
+function badges_grant($item, $badge) {
   // get badge
   $badge_data = badges_list($badge);
   if ($badge_data === FALSE) {
@@ -202,7 +196,8 @@ function badges_grant($item, $badge)
         $output[] = array('uid' => $uid, 'badge' => $badge);
       }
     }
-  } else {
+  }
+  else {
     $function = $badge_data['function'];
     $arguments = $badge_data['arguments'];
     $result = !function_exists($function) ? FALSE : $function($item, $arguments);

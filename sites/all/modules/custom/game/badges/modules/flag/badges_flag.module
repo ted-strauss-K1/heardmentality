@@ -1,23 +1,24 @@
 <?php
 
+// todo track flag events
+
 /**
  * Implementation of hook_badges()
  *
  * @return array
  */
-function badges_flag_badges()
-{
+function badges_flag_badges() {
   $badges = array();
 
   $badges['flag_first'] = array(
     'function' => 'badges_flag_first_check',
-    'name' => t('Citizen Patrol'),
-    'info' => t('First Flagged Post'),
+    'name'     => t('Citizen Patrol'),
+    'info'     => t('First Flagged Post'),
   );
   $badges['flag_success'] = array(
     'function' => 'badges_flag_success_check',
-    'name' => t('Scrutineer'),
-    'info' => t('Flags Post, that Eventually Results in a Change or Removal'),
+    'name'     => t('Scrutineer'),
+    'info'     => t('Flags Post, that Eventually Results in a Change or Removal'),
   );
 
   return $badges;
@@ -25,10 +26,10 @@ function badges_flag_badges()
 
 /**
  * @param $uid
+ *
  * @return bool
  */
-function badges_flag_first_check($uid)
-{
+function badges_flag_first_check($uid) {
   static $cache;
 
   if (is_null($cache)) {
@@ -38,7 +39,7 @@ function badges_flag_first_check($uid)
       GROUP BY content_type, content_id
       ORDER BY timestamp DESC");
     while ($_ = db_result($result)) {
-      $cache[$_] = true;
+      $cache[$_] = TRUE;
     }
   }
 
@@ -47,10 +48,10 @@ function badges_flag_first_check($uid)
 
 /**
  * @param $uid
+ *
  * @return bool
  */
-function badges_flag_success_check($uid)
-{
+function badges_flag_success_check($uid) {
   static $cache;
 
   if (is_null($cache)) {
@@ -62,9 +63,41 @@ function badges_flag_success_check($uid)
       ON c.content_type = fc.content_type AND c.content_id = fc.content_id
       WHERE c.status = '%d'", 0);
     while ($_ = db_result($result)) {
-      $cache[$_] = true;
+      $cache[$_] = TRUE;
     }
   }
 
   return isset($cache[$uid]);
+}
+
+/**
+ * @param $params
+ */
+function badges_flag_queue_action($params) {
+  //
+  if ('flag' == $params['operation']) {
+    badges_queue_badge(array(
+      'uid'         => $params['uid'],
+      'operation'   => BADGES_ACTION_PREFIX . 'flag_first',
+      'entity_id'   => 0,
+      'entity_type' => 'badge',
+      'time_stamp'  => $params['timestamp'],
+    ));
+  }
+
+  //
+  if (in_array($params['operation'], array('issue_update', 'issue_delete'))) {
+    $userflags = flag_get_content_flags($params['entity_type'], $params['entity_id']);
+    foreach ($userflags as $flags) {
+      foreach ($flags as $flag) {
+        badges_queue_badge(array(
+          'uid'         => $flag->uid,
+          'operation'   => BADGES_ACTION_PREFIX . 'flag_success',
+          'entity_id'   => 0,
+          'entity_type' => 'badge',
+          'time_stamp'  => $params['timestamp'],
+        ));
+      }
+    }
+  }
 }

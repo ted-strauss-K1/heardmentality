@@ -3,4 +3,4 @@ description = Badges for Visits/Logins
 package = Custom Modules :: Badges
 version = "6.x-1.0"
 core = 6.x
-dependencies[] = 'log'
+dependencies[] = 'pennies'
