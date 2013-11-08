@@ -6453,7 +6453,7 @@ span.coins_char {
 }
 
 #about_us_page_content .button_donate {
-    display: block;
+    margin: 4px 0 8px 0;
 }
 
 #about_us_page_content span.highlighted {
