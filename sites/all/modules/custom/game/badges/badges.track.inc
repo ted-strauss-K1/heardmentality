@@ -16,13 +16,12 @@ function badges_invoke_action($timestamp, $params) {
     if ('badge' == $params['entity_type']) {
       $uid = $params['uid'];
       $badge = str_replace(BADGES_ACTION_PREFIX, '', $params['operation']);
-      badges_dequeue_badge($uid, $badge, $timestamp);
+      $output = badges_dequeue_badge($uid, $badge);
     }
     else {
       badges_queue_action($params);
+      $output = array('status' => TRUE);
     }
-
-    $output = events_add($params);
   }
   return $output + array('params' => $params);
 }
@@ -64,12 +63,11 @@ function badges_queue_badge($params = NULL) {
   }
 
   // check if badge is already queued
-  if (isset($userbadges[$badge]) && (TRUE !== $userbadges[$badge]['count'])) {
-    if ($queued = (int)db_query("SELECT COUNT(*) FROM {action_queue} WHERE uid = '%s' AND op = '%s'", $uid, $params['operation'])) {
-      if ($userbadges[$badge]['count'] - $userbadges[$badge]['#count'] <= $queued) {
-        return FALSE;
-      }
-    }
+  $queued = (int) db_result(db_query("SELECT COUNT(*) FROM {action_queue} WHERE uid = '%s' AND op = '%s'", $uid, $params['operation']));
+  $badges = isset($userbadges[$badge]) ? $userbadges[$badge]['#count'] : 0;
+  $limit = isset($userbadges[$badge]) ? $userbadges[$badge]['count'] : (($badge_data = badges_list($badge)) ? $badge_data['count'] : 0);
+  if ((TRUE !== $limit) && ($limit <= $badges + $queued)) {
+    return FALSE;
   }
 
   // queue
@@ -80,44 +78,18 @@ function badges_queue_badge($params = NULL) {
  * @param $uid
  * @param $badge
  */
-function badges_dequeue_badge($uid, $badge, $timestamp = FALSE) {
+function badges_dequeue_badge($uid, $badge) {
   $output = badges_grant($uid, $badge);
-  if (!empty($output)) {
-    $badge = badges_list($item->badge);
-    exit(json_encode(array(
-      'status'  => $uid == $item->uid,
-      'message' => t('You have got the badge') . ' "' . $badge['name'] . '"',
-      'data'    => array(
-        'uid'   => $item->uid,
-        'badge' => $item->badge,
-      ),
-    )));
-  }
 
-
-  db_query("DELETE FROM {badges_queue} WHERE id = '%d'", $item->id);
   if (!empty($output)) {
-    $badge = badges_list($item->badge);
-    exit(json_encode(array(
-      'status'  => $uid == $item->uid,
-      'message' => t('You have got the badge') . ' "' . $badge['name'] . '"',
-      'data'    => array(
-        'uid'   => $item->uid,
-        'badge' => $item->badge,
-      ),
-    )));
+    $badge = badges_list($badge);
+    return array(
+      'status'     => TRUE,
+      'message'    => t('You have got the badge') . ' "' . $badge['name'] . '"',
+      'message_to' => $uid,
+    );
   }
   else {
-    exit(json_encode(array(
-      'status'  => FALSE,
-      'message' => t('Badge is not granted'),
-      'data'    => array(
-        'uid'   => $item->uid,
-        'badge' => $item->badge,
-      ),
-    )));
+    return array('status' => FALSE);
   }
-
-
-  // todo put the badge to the queue
 }
