@@ -6447,6 +6447,15 @@ span.coins_char {
   color : #364E79;
 }
 
+#about_us_page_content .din ul {
+    list-style: disc outside;
+    padding: 0 0 0 40px;
+}
+
+#about_us_page_content .button_donate {
+    display: block;
+}
+
 #about_us_page_content span.highlighted {
   color : #934D9E;
 }
