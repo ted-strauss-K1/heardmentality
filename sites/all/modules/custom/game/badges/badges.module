@@ -85,5 +85,4 @@ function badges_preprocess_page(&$vars) {
   if (arg(0) == 'badges') {
     drupal_set_subtitle(t('Badges'));
   }
-  drupal_add_js(drupal_get_path('module', 'badges') . '/badges.js');
 }
