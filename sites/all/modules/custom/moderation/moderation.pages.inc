@@ -883,21 +883,7 @@ function moderation_issue_view_form_delete(&$form, &$form_state)
 {
   moderation_delete_request($form);
 
-  moderation_badges();
-}
-
-/**
- *
- */
-function moderation_badges() {
-  if (module_exists('badges')) {
-    $result = db_query("SELECT DISTINCT(uid) FROM {flag_content}");
-    while ($uid = db_result($result)) {
-      badges_queue($uid, array(
-        'flag_success'
-      ));
-    }
-  }
+  // todo track flagging success
 }
 
 /**
@@ -1015,12 +1001,15 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     } else break;
   }
 
-  // events
-  module_invoke_all('process_event', 'taxonomy', array(
-    'content_type' => 'node',
-    'content_id' => $node->nid,
-    'tids' => $taxonomy_diff,
-  ), $user->uid);
+  # actions
+  global $user;
+  function_exists('action_queue') && action_queue(array(
+    'uid'         => $user->uid,
+    'operation'   => 'taxonomy',
+    'entity_id'   => $node->nid,
+    'entity_type' => 'node',
+    'tids'        => $taxonomy_diff,
+  ));
 
   # locations
   $node->locations = array();

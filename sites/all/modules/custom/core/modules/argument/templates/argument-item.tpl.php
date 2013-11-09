@@ -151,7 +151,7 @@
       <div class="position-question">
         <span class="line"><span>&nbsp;</span></span>
         <?php print theme('yn', 'node', $nid, $user->uid == $node->uid); ?>
-        <?php if (ranks_permission(100, $node->uid)) : // todo has sufficient rank ?>
+        <?php if (ranks_permission(0, $node->uid)) : // todo has sufficient rank ?>
         <ul class="argument_replybox">
           <div class="reply-comment hidden" style="display:none">
             <?php print drupal_get_form('reply_form', $nid); ?>

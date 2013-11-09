@@ -145,11 +145,7 @@ function flagger_page_save()
       $record->content_id = $content_id;
       flag_note_insert_note($record);
 
-      if (module_exists('badges')) {
-        badges_queue($user->uid, array(
-          'flag_first'
-        ));
-      }
+      // todo track flag event
     } else {
       $fcid = flag_ext_fcid($content_type, $content_id, $user->uid);
       $flag->flag('unflag', $content_id);

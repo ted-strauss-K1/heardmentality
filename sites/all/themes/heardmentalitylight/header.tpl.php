@@ -40,7 +40,7 @@
           <div class="expanding">
             <h6 class="inactive"><?php print t('Language'); ?></h6>
             <ul class="lang" style="display:none;" aria-hidden="true">
-              <?php if($multilanguage_area): print $multilanguage_area; endif; ?> ... <?php t('more languages coming soon'); ?>
+              <?php if($multilanguage_area): print $multilanguage_area; endif; ?> ... <?php print t('more languages coming soon'); ?>
             </ul>
           </div>
         </div>

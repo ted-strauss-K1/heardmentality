@@ -1,1 +1,0 @@
-<?php include "event-regular.tpl.php";

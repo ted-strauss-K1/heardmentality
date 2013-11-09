@@ -193,3 +193,28 @@ function register_t($string, $textgroup = 'default', $skip = false) {
       break;
   }
 }
+
+/**
+ * Get user profile image
+ *
+ * @param $user
+ * @param bool $presetname
+ * @return mixed
+ */
+function user_profile_image($user, $presetname = FALSE)
+{
+  static $imgs = array();
+  if (!isset($imgs[$user->uid][$presetname])) {
+    if ($presetname === FALSE || !imagecache_generate_image($presetname, $user->picture)) {
+      $img = $user->picture;
+    } else {
+      $img = imagecache_create_path($presetname, $user->picture);
+    }
+    if (!preg_match('/^http(s)?:\/\//', $img)) {
+      global $base_url;
+      $img = $base_url . '/' . $img;
+    }
+    $imgs[$user->uid][$presetname] = $img;
+  }
+  return $imgs[$user->uid][$presetname];
+}

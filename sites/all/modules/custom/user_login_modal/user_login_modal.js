@@ -4,9 +4,9 @@ $(document).ready(function () {
     e.preventDefault();
 
     var options = $.browser.mobile ?
-      {/*inline:true, */width:'100%', height:'100%', top: '0px', reposition: false} :
-      {/*inline:true */};
-    options['href'] = Drupal.settings.language_prefix+'/colorbox/form/user_login_modal_form';
+    {/*inline:true, */width: '100%', height: '100%', top: '0px', reposition: false} :
+    {/*inline:true */};
+    options['href'] = Drupal.settings.language_prefix + '/colorbox/form/user_login_modal_form?redirect=' + encodeURIComponent(location.pathname);
 
     $.colorbox(options);
 
@@ -17,8 +17,8 @@ $(document).ready(function () {
     e.preventDefault();
 
     var options = $.browser.mobile ?
-      {inline:true, width:'100%', height:'100%', top: '0px', reposition: false} :
-      {inline:true};
+    {inline: true, width: '100%', height: '100%', top: '0px', reposition: false} :
+    {inline: true};
     options['href'] = '#popup-login';
 
     $.colorbox(options);

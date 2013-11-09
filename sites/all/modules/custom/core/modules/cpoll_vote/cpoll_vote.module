@@ -226,7 +226,7 @@ function cpoll_vote_menu() {
  */
 function cpoll_vote_ajax() {
   global $user;
-  $post = & $_REQUEST;
+  $post = &$_REQUEST;
 
   # suppress form submission
   unset($post['form_build_id']);
@@ -263,11 +263,14 @@ function cpoll_vote_ajax() {
   # vote
   cpoll_vote($post['chid']);
 
-  // events
-  module_invoke_all('process_event', '_vote', array(
-    'content_type' => 'node',
-    'content_id' => $post['nid'],
-  ), $user->uid);
+  # actions
+  function_exists('action_queue') && action_queue(array(
+    'uid'         => $user->uid,
+    'operation'   => 'vote',
+    'entity_id'   => $post['nid'],
+    'entity_type' => 'node',
+    'chid'        => $post['chid'],
+  ));
 
   // reindex
   if (module_exists('issue_search')) {

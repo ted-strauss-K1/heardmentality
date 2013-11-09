@@ -1,0 +1,5 @@
+name = Actions
+description = Provides the API to record Actions
+package = Custom Modules :: Gameification
+version = "6.x-1.0"
+core = 6.x
