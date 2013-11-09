@@ -28,7 +28,7 @@ function extract_cron()
   extract_exec_start();
   extract_exec();
   extract_exec_end();
-  exit; // todo remove exit
+  // exit; // todo remove exit
 }
 
 /**

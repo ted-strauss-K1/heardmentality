@@ -1,0 +1,143 @@
+<?php
+
+/**
+ * Implements hook_menu()
+ *
+ * @return array
+ */
+function action_menu() {
+  $menu = array();
+
+  // callbacks to queue and de-queue actions
+  $menu['action/queue'] = array(
+    'page callback'   => 'action_queue',
+    'page arguments'  => array(),
+    'access callback' => TRUE,
+  );
+  $menu['action/dequeue'] = array(
+    'page callback'   => 'action_dequeue',
+    'page arguments'  => array(),
+    'access callback' => TRUE,
+  );
+
+  return $menu;
+}
+
+/**
+ * Function to queue action
+ *
+ * @param array $params
+ */
+function action_queue($params = NULL) {
+  if (is_null($params)) {
+    $params = $_REQUEST;
+    unset($params['q']);
+  }
+  if (isset($params['operation']) && $params['operation']) {
+    $op = $params['operation'];
+    unset($params['operation']);
+
+    $uid = intval($params['uid']);
+    unset($params['uid']);
+
+    if ($uid > 0) {
+      db_query("INSERT INTO {action_queue} SET uid = '%s', op = '%s', timestamp = '%d', params = '%s'", $uid, $op, isset($params['timestamp']) ? $params['timestamp'] : time(), serialize($params));
+    }
+  }
+}
+
+/**
+ * Function to dequeue actions
+ */
+function action_dequeue() {
+  global $user;
+
+  # get uid
+  $uid = 0;
+  if (isset($_REQUEST['uid'])) {
+    $uid = intval($_REQUEST['uid']);
+  }
+
+  # query
+  $query = "SELECT * FROM {action_queue} WHERE 1 ";
+  $vars = array();
+
+  # order
+  $query .= "ORDER BY ";
+  $order = array();
+  # for logged in - firstly user's events
+  if ($uid > 0) {
+    $order[] = "(CASE WHEN uid = '%s' THEN 1 ELSE 0 END) DESC";
+    $vars[] = $uid;
+  }
+  # lower the message event
+  $order[] = "(CASE WHEN op = 'message' THEN 1 ELSE 0 END) DESC";
+  # timestamp
+  $order[] = "timestamp ASC";
+  $query .= implode(', ', $order);
+
+  #
+  $result = db_query($query, $vars);
+  while ($item = db_fetch_array($result)) {
+    $params = unserialize($item['params']);
+
+    $op = $item['op'];
+    $params['operation'] = $op;
+
+    $uid = $item['uid'];
+    $params['uid'] = $uid;
+
+    # skip actions that require user being logged in
+    if ($params['logged'] && user_is_anonymous()) {
+      continue;
+    }
+
+    # delete processed action
+    db_query("DELETE FROM {action_queue} WHERE id = '%s'", $item['id']);
+
+    # process
+    $json = array(
+      'status'  => TRUE,
+      'message' => array(),
+    );
+    foreach (module_implements('invoke_action') as $module) {
+      $function = $module . '_invoke_action';
+      if (function_exists($function)) {
+        $params_temp = $params;
+        $output = $function($item['timestamp'], $params_temp);
+        if ($output['status'] && $output['message']) {
+          $message_to = isset($output['message_to']) ? $output['message_to'] : $item['uid'];
+          if (user_is_logged_in() && ($message_to == $user->uid)) {
+            $json['message'][] = t($output['message']);
+          }
+          else {
+            action_queue(array(
+              'uid'         => $message_to,
+              'operation'   => 'message',
+              'entity_id'   => $message_to,
+              'entity_type' => 'user',
+              'message'     => $output['message'],
+            ));
+          }
+        }
+      }
+    }
+
+    print json_encode($json);
+    exit;
+  }
+  print json_encode(array(
+    'status' => FALSE,
+    'reason' => 'empty queue',
+  ));
+  exit;
+}
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function action_preprocess_page(&$vars) {
+  drupal_add_js(drupal_get_path('module', 'action') . '/action.js');
+}

@@ -1015,12 +1015,15 @@ function moderation_issue_view_form_save(&$form, &$form_state)
     } else break;
   }
 
-  // events
-  module_invoke_all('process_event', 'taxonomy', array(
-    'content_type' => 'node',
-    'content_id' => $node->nid,
-    'tids' => $taxonomy_diff,
-  ), $user->uid);
+  # actions
+  global $user;
+  function_exists('action_queue') && action_queue(array(
+    'uid'         => $user->uid,
+    'operation'   => 'taxonomy',
+    'entity_id'   => $node->nid,
+    'entity_type' => 'node',
+    'tids'        => $taxonomy_diff,
+  ));
 
   # locations
   $node->locations = array();

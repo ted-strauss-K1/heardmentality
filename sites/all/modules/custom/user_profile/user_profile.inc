@@ -217,21 +217,23 @@ function user_profile_preprocess_page(&$vars)
         if ('view' == arg(2)) {
           $account = _user_profile_get_user(arg(3));
           if ($account) {
-            $events = events_get(array(
-              'q' => array(
-                events_build_query(array('uid' => $account->uid, 'type' => array(
+            $request = events_build_query(array(
+              array(
+                'uid' => $account->uid,
+                'operation' => array(
                   'create',
                   'debate',
                   'reply',
                   'vote',
                   'follow',
-                  'yn',
-                  'user_update',
-                ),)),
-                events_subscriptions_build_query($account->uid),
-              )
+                  'yn_voteup',
+                  'yn_votedn',
+                  'taxonomy',
+                ),
+              ),
+              events_build_query_subscriptions($account->uid),
             ));
-            $vars['content_bottom'] = theme('events', $events);
+            $vars['content_bottom'] = theme('events', events_get($request['query'], $request['vars']));
           }
           drupal_set_subtitle(t('View Profile'));
         }

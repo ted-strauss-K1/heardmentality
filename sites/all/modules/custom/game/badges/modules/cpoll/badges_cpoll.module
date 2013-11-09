@@ -1,0 +1,140 @@
+<?php
+
+/**
+ * Implementation of hook_badges()
+ *
+ * @return array
+ */
+function badges_cpoll_badges() {
+  $badges = array();
+
+  # vote count
+  $badges['poll_votes_bronze'] = array(
+    'function'  => 'badges_cpoll_votes_check',
+    'name'      => t('Civic Duty'),
+    'info'      => t('Voted 300 times'),
+    'type'      => 'bronze',
+    'arguments' => array('vote_count' => 300),
+  );
+  $badges['poll_votes_silver'] = array(
+    'function'  => 'badges_cpoll_votes_check',
+    'name'      => t('Electorate'),
+    'info'      => t('Voted 600 times'),
+    'type'      => 'silver',
+    'arguments' => array('vote_count' => 600),
+  );
+  $badges['poll_votes_gold'] = array(
+    'function'  => 'badges_cpoll_votes_check',
+    'name'      => t('Patriotic Citizen'),
+    'info'      => t('Voted 1000 times'),
+    'type'      => 'gold',
+    'arguments' => array('vote_count' => 1000),
+  );
+
+  # voted cpolls
+  $badges['poll_votes_count_bronze'] = array(
+    'function'  => 'badges_cpoll_votes_count_check',
+    'name'      => t('Nice Question'),
+    'info'      => t('Created an issue voted on 10 times'),
+    'type'      => 'bronze',
+    'arguments' => array('vote_count' => 10),
+  );
+  $badges['poll_votes_count_silver'] = array(
+    'function'  => 'badges_cpoll_votes_count_check',
+    'name'      => t('Good Question'),
+    'info'      => t('Created an issue voted on 25 times'),
+    'type'      => 'silver',
+    'arguments' => array('vote_count' => 25),
+  );
+  $badges['poll_votes_count_gold'] = array(
+    'function'  => 'badges_cpoll_votes_count_check',
+    'name'      => t('Great Question'),
+    'info'      => t('Created an issue voted on 100 times'),
+    'type'      => 'gold',
+    'arguments' => array('vote_count' => 100),
+  );
+
+  return $badges;
+}
+
+/**
+ * @param $uid
+ *
+ * @return bool
+ */
+function badges_cpoll_votes_check($uid, $arguments = array()) {
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("SELECT uid, COUNT(*) count FROM {cpoll_votes} GROUP BY uid");
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['uid']] = $row['count'];
+    }
+  }
+
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['vote_count'] : FALSE;
+}
+
+/**
+ * @param $uid
+ *
+ * @return bool
+ */
+function badges_cpoll_votes_count_check($uid, $arguments = array()) {
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("
+      SELECT n.uid, COUNT(*) count
+      FROM {node} n
+      INNER JOIN {cpoll_choices} c ON c.nid = n.nid
+      INNER JOIN {cpoll_votes} v ON v.chid = c.chid AND v.status = 1
+      GROUP BY n.nid
+      ORDER BY COUNT(*) DESC
+    ");
+    while ($row = db_fetch_array($result)) {
+      if (!isset($cache[$row['uid']])) {
+        $cache[$row['uid']] = $row['count'];
+      }
+    }
+  }
+
+  return isset($cache[$uid]) ? $cache[$uid] >= $arguments['vote_count'] : FALSE;
+}
+
+/**
+ * @param $params
+ */
+function badges_cpoll_queue_action($params) {
+  if ('vote' == $params['operation']) {
+
+    // user voted
+    foreach (array('poll_votes_bronze', 'poll_votes_silver', 'poll_votes_gold') as $badge) {
+      badges_queue_badge(array(
+        'uid'         => $params['uid'],
+        'operation'   => BADGES_ACTION_PREFIX . $badge,
+        'entity_id'   => 0,
+        'entity_type' => 'badge',
+        'time_stamp'  => $params['timestamp'],
+      ));
+    }
+
+    // issue was voted
+    if ($issue = node_load($params['entity_id'])) {
+      foreach (array('poll_votes_count_bronze', 'poll_votes_count_silver', 'poll_votes_count_gold') as $badge) {
+        badges_queue_badge(array(
+          'uid'         => $issue->uid,
+          'operation'   => BADGES_ACTION_PREFIX . $badge,
+          'entity_id'   => 0,
+          'entity_type' => 'badge',
+          'time_stamp'  => $params['timestamp'],
+        ));
+      }
+    }
+
+  }
+}

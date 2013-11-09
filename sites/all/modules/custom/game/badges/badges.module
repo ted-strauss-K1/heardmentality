@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * API
+ */
+include_once "badges.api.inc";
+
+/**
+ * ADMIN
+ */
+include_once "badges.admin.inc";
+
+/**
+ * PAGES
+ */
+include_once "badges.pages.inc";
+
+/**
+ * QUEUE
+ */
+include_once "badges.track.inc";
+
+/**
+ * Implementation of hook_menu()
+ *
+ * @return array
+ */
+function badges_menu() {
+  return badges_pages_menu() + badges_admin_menu();
+}
+
+/**
+ * Get user badges
+ */
+function badges_userbadges($uid) {
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $badges = badges_list();
+    $result = db_query("SELECT b.uid, b.badge, COUNT(*) count, u.name FROM {badges} b INNER JOIN {users} u ON u.uid = b.uid WHERE b.uid > 0 GROUP BY b.uid, b.badge ORDER BY (SELECT COUNT(*) FROM {badges} b2 WHERE b2.uid = b.uid) DESC");
+    while ($row = db_fetch_object($result)) {
+      if (isset($badges[$row->badge])) {
+        $cache[$row->uid]['#stat'][$badges[$row->badge]['type']] += $row->count;
+        $cache[$row->uid]['#name'] = $row->name;
+        $cache[$row->uid]['#list'][$row->badge] = $badges[$row->badge] + array('#count' => $row->count);
+      }
+    }
+  }
+
+  if ($uid === FALSE) {
+    return $cache;
+  }
+
+  return $cache[$uid];
+}
+
+/**
+ * Implementation of hook_user()
+ *
+ * @param      $op
+ * @param      $edit
+ * @param      $account
+ * @param null $category
+ */
+function badges_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+    case 'load' :
+      $account->badges = badges_userbadges($account->uid);
+      global $user;
+      if (!isset($user->badges)) {
+        $user->badges = badges_userbadges($user->uid);
+      }
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_preprocess_page()
+ *
+ * @param $vars
+ */
+function badges_preprocess_page(&$vars) {
+  if (arg(0) == 'badges') {
+    drupal_set_subtitle(t('Badges'));
+  }
+  drupal_add_js(drupal_get_path('module', 'badges') . '/badges.js');
+}

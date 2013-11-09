@@ -450,17 +450,14 @@ function user_profile_edit_form_submit(&$form, &$form_state)
       break;
   }
 
-  // events
+  # actions
   global $user;
-  module_invoke_all('process_event', '_user_update', array(
-    'content_type' => 'user',
-    'content_id' => $user->uid,
-    'time' => 2,
-  ), $user->uid);
-  module_invoke_all('process_event', 'user_update', array(
-    'content_type' => 'user',
-    'content_id' => $user->uid,
-  ), $user->uid);
+  function_exists('action_queue') && action_queue(array(
+    'uid'         => $user->uid,
+    'operation'   => 'user_update',
+    'entity_id'   => $user->uid,
+    'entity_type' => 'user',
+  ));
 }
 
 /**
