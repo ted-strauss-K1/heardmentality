@@ -45,15 +45,13 @@ $privacy = user_profile_profile_privacy_values();
         <li class="username">
           <label for="" class="add-on-2 small"><span class="title-2">
             <?php print t('Username'); ?>
-            <small class="red">*</small></span>
-          </label>
+              <small class="red">*</small></span> </label>
           <?php print drupal_render($form['username']); ?>
         </li>
 
         <li class="password">
           <label for="" class="add-on-2 small"><span class="title-2">
-          <?php print t('Password'); ?> </span>
-          </label>
+          <?php print t('Password'); ?> </span> </label>
           <?php print drupal_render($form['password']); ?>
         </li>
 
@@ -61,44 +59,44 @@ $privacy = user_profile_profile_privacy_values();
         <li class="email">
           <label for="" class="add-on-2 small"><span class="title-2">
           <?php print t('Email'); ?>
-            <small class="red">*</small></span>
-          </label>
+              <small class="red">*</small></span> </label>
           <?php print drupal_render($form['email']); ?>
 
           <?php if ($privacy) : ?>
-          <div class="visible-to"><?php print t('Visible to'); ?>:</div>
-          <ul class="privacy">
-            <fieldset>
-              <?php foreach ($privacy as $key => $value) : ?>
-              <li class="privacy-rules" title="<?php print $value['description'] ?>">
-                <span class="privacy-answer"><?php print $value['label']; ?></span>
-              </li>
-              <?php endforeach; ?>
-              <?php print drupal_render($form['private_profile_email']); ?>
-            </fieldset>
-          </ul>
+            <div class="visible-to"><?php print t('Visible to'); ?>:</div>
+            <ul class="privacy">
+              <fieldset>
+                <?php foreach ($privacy as $key => $value) : ?>
+                  <li class="privacy-rules" title="<?php print $value['description'] ?>">
+                    <span class="privacy-answer"><?php print $value['label']; ?></span>
+                  </li>
+                <?php endforeach; ?>
+                <?php print drupal_render($form['private_profile_email']); ?>
+              </fieldset>
+            </ul>
           <?php endif; ?>
         </li>
 
-        <?php $result = _profile_get_fields('profile'); while ($field = db_fetch_object($result)) : ?>
-        <li>
-          <label for="" class="add-on-2 small"><span class="title-2"><?php print t($field->title); ?></span></label>
-          <?php print drupal_render($form[$field->name]); ?>
+        <?php $result = _profile_get_fields('profile');
+        while ($field = db_fetch_object($result)) : ?>
+          <li>
+            <label for="" class="add-on-2 small"><span class="title-2"><?php print t($field->title); ?></span></label>
+            <?php print drupal_render($form[$field->name]); ?>
 
-          <?php if ($privacy) : ?>
-          <div class="visible-to"><?php print t('Visible to'); ?>:</div>
-          <ul class="privacy">
-            <fieldset>
-              <?php foreach ($privacy as $key => $value) : ?>
-              <li class="privacy-rules" title="<?php print $value['description'] ?>">
-                <span class="privacy-answer"><?php print $value['label']; ?></span>
-              </li>
-              <?php endforeach; ?>
-              <?php print drupal_render($form['private_' . $field->name]); ?>
-            </fieldset>
-          </ul>
-          <?php endif; ?>
-        </li>
+            <?php if ($privacy) : ?>
+              <div class="visible-to"><?php print t('Visible to'); ?>:</div>
+              <ul class="privacy">
+                <fieldset>
+                  <?php foreach ($privacy as $key => $value) : ?>
+                    <li class="privacy-rules" title="<?php print $value['description'] ?>">
+                      <span class="privacy-answer"><?php print $value['label']; ?></span>
+                    </li>
+                  <?php endforeach; ?>
+                  <?php print drupal_render($form['private_' . $field->name]); ?>
+                </fieldset>
+              </ul>
+            <?php endif; ?>
+          </li>
           <?php if ($field->name == 'profile_name') : ?>
             <li class="user-profile-location">
               <div class="determine"><?php print l(t('Determine my location'), 'user/profile/edit', array(
@@ -115,25 +113,26 @@ $privacy = user_profile_profile_privacy_values();
           <?php endif; ?>
         <?php endwhile; ?>
 
-        <?php $result = _profile_get_fields('links'); while ($field = db_fetch_object($result)) : ?>
-        <li>
-          <label for="" class="add-on-2 small"><span class="title-2"><?php print t($field->title); ?></span></label>
-          <?php print drupal_render($form[$field->name]); ?>
+        <?php $result = _profile_get_fields('links');
+        while ($field = db_fetch_object($result)) : ?>
+          <li>
+            <label for="" class="add-on-2 small"><span class="title-2"><?php print t($field->title); ?></span></label>
+            <?php print drupal_render($form[$field->name]); ?>
 
-          <?php if ($privacy) : ?>
-          <div class="visible-to"><?php print t('Visible to'); ?>:</div>
-          <ul class="privacy">
-            <fieldset>
-              <?php foreach ($privacy as $key => $value) : ?>
-              <li class="privacy-rules" title="<?php print $value['description'] ?>">
-                <span class="privacy-answer"><?php print $value['label']; ?></span>
-              </li>
-              <?php endforeach; ?>
-              <?php print drupal_render($form['private_' . $field->name]); ?>
-            </fieldset>
-          </ul>
-          <?php endif; ?>
-        </li>
+            <?php if ($privacy) : ?>
+              <div class="visible-to"><?php print t('Visible to'); ?>:</div>
+              <ul class="privacy">
+                <fieldset>
+                  <?php foreach ($privacy as $key => $value) : ?>
+                    <li class="privacy-rules" title="<?php print $value['description'] ?>">
+                      <span class="privacy-answer"><?php print $value['label']; ?></span>
+                    </li>
+                  <?php endforeach; ?>
+                  <?php print drupal_render($form['private_' . $field->name]); ?>
+                </fieldset>
+              </ul>
+            <?php endif; ?>
+          </li>
 
         <?php endwhile; ?>
 
@@ -151,27 +150,24 @@ $privacy = user_profile_profile_privacy_values();
 
   <div class="dark-grey-box top clearfix">
     <div class="profile-meta">
-      <i class="icon cat text icon-businesscardalt"></i>
-      <label for="profile" class="white_text with_icon"><?php print t('Change Photo'); ?></label>
-      <?php print drupal_render($form['image_upload']);?>
+      <i class="icon cat text icon-businesscardalt"></i> <label for="profile"
+                                                                class="white_text with_icon"><?php print t('Change Photo'); ?></label>
+      <?php print drupal_render($form['image_upload']); ?>
       <div id="brow_img_name"></div>
       <p class="choose_pic">
         ...<?php print t('or choose a picture'); ?>
         <a href="#" id="user-profile-avatar-selection-open"
            title="<?php print t('Pick a photo') ?>"> <?php print t('here'); ?> </a>
       </p>
-      <?php print drupal_render($form['image_submit']);?>
-      <?php print drupal_render($form['image_avatar']);?>
+      <?php print drupal_render($form['image_submit']); ?>
+      <?php print drupal_render($form['image_avatar']); ?>
     </div>
   </div>
 
-  <!--  <div class="grey-box full clearfix">-->
-  <!--    <label for="" class="subscriptions">--><?php //print t('Social Integration'); ?><!--</label>-->
-  <!---->
-  <!--    <p class="twelve">-->
+  <!--  <div class="grey-box full clearfix">--><!--    <label for="" class="subscriptions">-->
+  <?php //print t('Social Integration'); ?><!--</label>--><!----><!--    <p class="twelve">-->
   <!--      --><?php //print t('Stay logged in to these accounts - This makes sharing with your external networks easier.'); ?>
-  <!--    </p>-->
-  <!--    --><?php //print drupal_render($form['social']); ?>
+  <!--    </p>--><!--    --><?php //print drupal_render($form['social']); ?>
   <!--  </div>-->
 
   <div class="grey-box full clearfix">
@@ -201,7 +197,8 @@ $privacy = user_profile_profile_privacy_values();
 
 <div id="user-profile-avatar-selection-wrapper" style="display:none">
   <div id="user-profile-avatar-selection">
-    <?php global $user; print theme('user_profile_avatar_selection', $user); ?>
+    <?php global $user;
+    print theme('user_profile_avatar_selection', $user); ?>
     <br style="clear:both">
   </div>
 </div>

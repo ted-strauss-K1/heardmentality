@@ -10,13 +10,6 @@
  */
 function user_profile_user($op, &$edit, &$account, $category = NULL) {
   switch ($op) {
-
-    case 'login' :
-
-      drupal_goto($_GET['q']);
-
-      break;
-
     case 'load' :
 
       # user links
@@ -98,24 +91,6 @@ function user_profile_user($op, &$edit, &$account, $category = NULL) {
           }
 
         }
-      }
-
-      break;
-
-    case 'logout':
-
-      # handle redirects
-      if ((arg(0, $_REQUEST['destination']) == 'user') && (arg(1, $_REQUEST['destination']) == 'profile')
-      ) {
-        $uid = arg(3, $_REQUEST['destination']);
-        $_REQUEST['destination'] = 'user/profile/view';
-        if (is_numeric($uid)) {
-          $_REQUEST['destination'] .= '/' . $uid;
-        }
-        else {
-          $_REQUEST['destination'] .= '/' . $account->uid;
-        }
-        drupal_goto();
       }
 
       break;
@@ -259,7 +234,7 @@ function user_profile_access_user_profile($user_access, $string) {
     $user = _user_profile_get_user($string);
     if ($user === FALSE) {
       if (arg(0) == 'user' && arg(1) == 'profile') {
-        drupal_not_found();
+        drupal_goto('user/login');
       }
       return FALSE;
     }

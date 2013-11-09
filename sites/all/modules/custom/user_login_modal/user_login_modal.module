@@ -18,13 +18,12 @@ function user_login_modal_form() {
  *
  * @return array
  */
-function user_login_modal_theme()
-{
+function user_login_modal_theme() {
   $theme = array();
 
   $theme['user_login_modal_form_content'] = array(
     'arguments' => array(),
-    'template' => 'user_login_modal',
+    'template'  => 'user_login_modal',
   );
 
   $theme['user_login_modal'] = array(
@@ -32,7 +31,7 @@ function user_login_modal_theme()
   );
 
   $theme['user_login_modal_class'] = array(
-    'arguments' => array('force' => false),
+    'arguments' => array('force' => FALSE),
   );
 
   return $theme;
@@ -45,7 +44,7 @@ function user_login_modal_theme()
  *
  * @return bool
  */
-function user_login_modal_colorbox_form_access ($form_id) {
+function user_login_modal_colorbox_form_access($form_id) {
   return user_is_anonymous() && ('user_login_modal_form' == $form_id);
 }
 
@@ -54,32 +53,29 @@ function user_login_modal_colorbox_form_access ($form_id) {
  *
  * @return string
  */
-function theme_user_login_modal()
-{
+function theme_user_login_modal() {
   global $user;
   return '<p>
     <a id="dialog_link"
         class="ui-state-default ui-corner-all login ' . theme('user_login_modal_class') . '"
-        href="'.(user_is_logged_in() ? '#' : url('user/login')).'"><i class="icon-user"></i><span>' .
-    (user_is_logged_in() ? $user->name : t('Login')) .
-    '</span></a></p>';
+        href="' . (user_is_logged_in() ? '#' : url('user/login')) . '"><i class="icon-user"></i><span>' . (user_is_logged_in() ? $user->name : t('Login')) . '</span></a></p>';
 }
 
 /**
  * @param bool $force
+ *
  * @return string
  */
-function user_login_modal_class($force = false)
-{
+function user_login_modal_class($force = FALSE) {
   return !$force && user_is_logged_in() ? '' : 'openlogin_box';
 }
 
 /**
  * @param bool $force
+ *
  * @return string
  */
-function theme_user_login_modal_class($force = false)
-{
+function theme_user_login_modal_class($force = FALSE) {
   return user_login_modal_class($force);
 }
 
@@ -88,8 +84,7 @@ function theme_user_login_modal_class($force = false)
  *
  * @param $vars
  */
-function user_login_modal_preprocess_page(&$vars)
-{
+function user_login_modal_preprocess_page(&$vars) {
   $vars['user_login_modal'] = theme('user_login_modal');
 
   // drupal_add_js('misc/ahah.js');
@@ -103,12 +98,65 @@ function user_login_modal_preprocess_page(&$vars)
 /**
  * @param $vars
  */
-function user_login_modal_form_alter(&$form, $form_state, $form_id)
-{
-  if ('colorbox' == arg(0) && 'form' == arg(1)) {
-    if ('user_login' == $form_id || 'user_register' == $form_id) {
-      $destination = isset($_GET["destination"]) ? $_GET["destination"] : $_SERVER["HTTP_REFERER"];
-      $form['#action'] = $destination;
+function user_login_modal_form_alter(&$form, &$form_state, $form_id) {
+  if ('user_login' == $form_id || 'user_register' == $form_id) {
+    if (('colorbox' == arg(0)) && ('form' == arg(1))) {
+      $form['#action'] = url(str_replace('_', '/', $form_id));
+    }
+    user_login_modal_form_redirect($form);
+  }
+}
+
+/**
+ * This function handles redirects from login/register forms
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function user_login_modal_form_redirect(&$form) {
+  $redirect = '';
+
+  // destination
+  if ($_REQUEST['redirect']) {
+    $redirect = $_REQUEST['redirect'];
+  }
+
+  //
+  if (!$redirect && $form['#action']) {
+    $redirect = $form['#action'];
+  }
+
+  //
+  if (!$redirect && isset($_GET['q'])) {
+    $redirect = $_GET['q'];
+  }
+
+
+  // check that user has access to the path
+  $access = TRUE;
+  $redirect = trim($redirect, '/');
+
+  // get router items
+  $router = menu_get_item($redirect);
+  if (!$router || !$router['access']) {
+    $access = FALSE;
+  }
+
+  // login paths
+  $args = arg(NULL, $redirect);
+  if (('user' == $args[0]) && in_array($args[1], array('login', 'register'))) {
+    $access = FALSE;
+  }
+
+  // 403/404 paths
+  foreach (array(403, 404) as $error) {
+    if ($path = variable_get('site_' . $error, '')) {
+      if ($path == $redirect) {
+        $access = FALSE;
+      }
     }
   }
+
+  $form['#redirect'] = $access ? $redirect : 'user/profile/view';
 }

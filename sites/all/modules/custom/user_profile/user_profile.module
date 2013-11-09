@@ -8,8 +8,7 @@ include_once "user_profile.inc";
 /**
  * Implementaton of hook_enable()
  */
-function user_profile_enable()
-{
+function user_profile_enable() {
   # set correct username definition
   if (module_exists('email_registration')) {
     db_query("UPDATE {system} SET weight = '%d' WHERE name = '%s'", 100, 'user_profile');
@@ -24,8 +23,7 @@ define('USER_PROFILE_PRIVACY_PREFIX', 'private_');
 /**
  * Implementaton of hook_init()
  */
-function user_profile_init()
-{
+function user_profile_init() {
   # get privacy values for profile fields
   if (user_is_logged_in()) {
     global $user;
@@ -42,17 +40,16 @@ function user_profile_init()
  *
  * @return array
  */
-function user_profile_profile_privacy_access_info()
-{
+function user_profile_profile_privacy_access_info() {
   return array(
     'authorized' => array(
-      'label' => t('Logged In'),
-      'description' => t('All logged in users can see this piece of information about you'),
+      'label'           => t('Logged In'),
+      'description'     => t('All logged in users can see this piece of information about you'),
       'access callback' => 'user_is_logged_in',
     ),
-    'followers' => array(
-      'label' => t('Followers'),
-      'description' => t('Only followers can see this piece of information about you'),
+    'followers'  => array(
+      'label'           => t('Followers'),
+      'description'     => t('Only followers can see this piece of information about you'),
       'access callback' => 'user_profile_privacy_follower_access_callback',
     ),
   );
@@ -63,8 +60,7 @@ function user_profile_profile_privacy_access_info()
  *
  * @return array
  */
-function user_profile_profile_privacy_values()
-{
+function user_profile_profile_privacy_values() {
   static $values = NULL;
   if (is_null($values)) {
     $values = module_invoke_all('profile_privacy_access_info');
@@ -79,8 +75,7 @@ function user_profile_profile_privacy_values()
  * @param $form_state
  * @param $form_id
  */
-function user_profile_form_alter(&$form, &$form_state, $form_id)
-{
+function user_profile_form_alter(&$form, &$form_state, $form_id) {
   # alter register form
   if ($form_id == 'user_register') {
     $form['#title'] = '';
@@ -93,16 +88,13 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
     }
     $form['#validate'][] = 'user_profile_register_form_validate';
     $form['news'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Yes, send me useful news about Heard Mentality.'),
+      '#type'          => 'checkbox',
+      '#title'         => t('Yes, send me useful news about Heard Mentality.'),
       '#default_value' => 1,
     );
     $form['terms'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('I agree to the') . ' ' .
-        l(t('Terms of use'), 'terms', array('attributes' => array('target' => '_blank')))
-        . ' ' . t('and') . ' ' .
-        l(t('Privacy Policy'), 'privacy', array('attributes' => array('target' => '_blank'))),
+      '#type'  => 'checkbox',
+      '#title' => t('I agree to the') . ' ' . l(t('Terms of use'), 'terms', array('attributes' => array('target' => '_blank'))) . ' ' . t('and') . ' ' . l(t('Privacy Policy'), 'privacy', array('attributes' => array('target' => '_blank'))),
     );
   }
 
@@ -116,14 +108,14 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
   if ($form_id == 'user_register') {
     // if we want to redirect to edit page
     // $form['#redirect'] = array("user/profile/edit");
-    $form['#redirect'] = $_GET['q'];
-    unset($_REQUEST['destination']);
+    //$form['#redirect'] = $_GET['q'];
+    //unset($_REQUEST['destination']);
   }
   if ($form_id == 'user_login') {
     // if we want to redirect to view page
     // $form['#redirect'] = "user/profile/view";
-    $form['#redirect'] = $_GET['q'];
-    unset($_REQUEST['destination']);
+    //$form['#redirect'] = $_GET['q'];
+    //unset($_REQUEST['destination']);
   }
 
   # alter profile fields form to cache values
@@ -141,8 +133,7 @@ function user_profile_form_alter(&$form, &$form_state, $form_id)
  * @param $form
  * @param $form_state
  */
-function user_profile_register_form_validate($form, $form_state)
-{
+function user_profile_register_form_validate($form, $form_state) {
   $value = $form_state['values']['terms'];
   if (0 == $value) {
     form_set_error('terms', t('You must agree with the Terms of Use and Privacy Policy to get an account.'));
@@ -157,8 +148,7 @@ define('PROFILE_FIELDMAP', 'profile_fieldmap');
 /**
  * Save the field map
  */
-function user_profile_cache_fields()
-{
+function user_profile_cache_fields() {
   $result = db_query('SELECT * FROM {profile_fields}');
   $fields = array();
   while ($field = db_fetch_object($result)) {
@@ -170,73 +160,16 @@ function user_profile_cache_fields()
   variable_set(PROFILE_FIELDMAP, $fields);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Implementation of hook_block()
  *
  * @param string $op
- * @param int $delta
- * @param array $edit
+ * @param int    $delta
+ * @param array  $edit
+ *
  * @return mixed
  */
-function user_profile_block($op = 'list', $delta = 0, $edit = array())
-{
+function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
   switch ($op) {
     case 'list':
 
@@ -261,33 +194,21 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array())
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  *
  *
  * @param $account
  * @param $field
+ *
  * @return mixed
  */
-function user_profile_privacy_follower_access_callback($account, $field)
-{
+function user_profile_privacy_follower_access_callback($account, $field) {
   static $list = array();
   if (!isset($list[$account->uid])) {
     if (module_exists('follower')) {
       $list[$account->uid] = FALSE !== follower_status($account->uid);
-    } else {
+    }
+    else {
       $list[$account->uid] = FALSE;
     }
   }
