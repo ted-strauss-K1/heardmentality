@@ -95,7 +95,7 @@ function term_hierarchy($term)
  * @param array $edit
  * @return mixed
  */
-function issue_block($op = 'list', $delta = 0, $edit = array())
+function categories_block($op = 'list', $delta = 0, $edit = array())
 {
   switch ($op) {
     case 'list' :
@@ -226,6 +226,8 @@ function categories_theme_categories_block_preprocess(&$vars)
   $vars['orig_langcode'] = $node->language;
   $vars['orig_path'] = $node->path;
   $vars['orig_language'] = $languages[$node->language];
+
+  $vars['author_status'] = (bool)db_result(db_query("SELECT status FROM {users} WHERE uid = '%s'", $node->uid));
 }
 
 /**
