@@ -1,6 +1,6 @@
 $(document).ready(function () {
   setInterval(function () {
-    // action_dequeue(Drupal.settings.user.uid);
+    action_dequeue(Drupal.settings.user.uid);
   }, 5000);
 });
 
