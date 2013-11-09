@@ -378,7 +378,8 @@ function argument_delete($content_type, $content_id)
     moderation_history_set($content_id, $content_type, 'delete');
 
     module_load_include('inc', 'moderation', 'moderation.pages');
-    moderation_badges();
+
+    // todo track flagging success
   }
   print json_encode(array(
     'status' => TRUE,

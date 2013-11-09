@@ -883,21 +883,7 @@ function moderation_issue_view_form_delete(&$form, &$form_state)
 {
   moderation_delete_request($form);
 
-  moderation_badges();
-}
-
-/**
- *
- */
-function moderation_badges() {
-  if (module_exists('badges')) {
-    $result = db_query("SELECT DISTINCT(uid) FROM {flag_content}");
-    while ($uid = db_result($result)) {
-      badges_queue($uid, array(
-        'flag_success'
-      ));
-    }
-  }
+  // todo track flagging success
 }
 
 /**
