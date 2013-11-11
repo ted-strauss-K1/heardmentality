@@ -90,7 +90,7 @@ function badges_dequeue_badge($uid, $badge) {
       'operation'   => 'badge',
       'entity_id'   => $uid,
       'entity_type' => 'user',
-      'badge'       => $badge,
+      'badge'       => $badge['name'],
     ));
 
     return array(
