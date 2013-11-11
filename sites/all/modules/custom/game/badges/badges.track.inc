@@ -83,6 +83,16 @@ function badges_dequeue_badge($uid, $badge) {
 
   if (!empty($output)) {
     $badge = badges_list($badge);
+
+    // to give pennies
+    action_queue(array(
+      'uid'         => $uid,
+      'operation'   => 'badge',
+      'entity_id'   => $uid,
+      'entity_type' => 'user',
+      'badge'       => $badge,
+    ));
+
     return array(
       'status'     => TRUE,
       'message'    => t('You have got the badge') . ' "' . $badge['name'] . '"',

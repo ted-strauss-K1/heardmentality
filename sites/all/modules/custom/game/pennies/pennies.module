@@ -28,7 +28,7 @@ function pennies_invoke_action($timestamp, $params) {
   $operations = pennies_operations();
   if (isset($params['operation']) && in_array($params['operation'], $operations)) {
     $params['time_stamp'] = $timestamp;
-    // todo calculate pennies amount
+    $params['points'] = pennies_calculate($params);
     $output = pennies_add($params);
   }
   return $output + array('params' => $params);
@@ -186,6 +186,39 @@ function pennies_count($uid) {
   if ($tid = pennies_term()) {
     $stats = up_since($uid, $tid, FALSE, 0);
     return $stats['points'];
+  }
+  return 0;
+}
+
+/**
+ * @param $params
+ */
+function pennies_calculate($params) {
+  switch ($params['operation']) {
+
+    case 'yn_voteup':
+    case 'yn_votedn':
+    case 'debate':
+    case 'reply':
+      $id = USERPOINTS_TERM_PENNIES_PREFIX . 'action_' . $params['operation'];
+      return variable_get($id, -1);
+
+    case 'register':
+      $id = USERPOINTS_TERM_PENNIES_PREFIX . 'reg';
+      return variable_get($id, 25);
+
+    case 'badge':
+      $badge = $params['badge'];
+      if ($badge = badges_list($badge)) {
+        $id = USERPOINTS_TERM_PENNIES_PREFIX . 'badge_' . $badge['type'];
+        return variable_get($id, 3);
+      }
+      return 0;
+
+    case 'weekly_pennies':
+      $rank = ranks_user_rank($params['uid']);
+      $id = USERPOINTS_TERM_PENNIES_PREFIX . 'rank_' . $rank['id'];
+      return variable_get($id, 5);
   }
   return 0;
 }

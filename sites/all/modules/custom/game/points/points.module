@@ -159,6 +159,11 @@ function points_userpoints($op, $params = array()) {
   }
 }
 
+/**
+ * @param $uid
+ *
+ * @return int
+ */
 function points_count ($uid) {
   if ($tid = points_term()) {
     $stats = up_since($uid, $tid, FALSE, 0);
