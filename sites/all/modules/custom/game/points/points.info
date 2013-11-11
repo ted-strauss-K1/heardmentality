@@ -1,7 +1,7 @@
 name = Points
 description = Grants users points for actions
 package = Custom Modules :: Gameification
-version = "6.x-1.1"
+version = "6.x-1.2"
 core = 6.x
 
 dependencies[] = "action"
