@@ -60,7 +60,11 @@ function events_add(&$params) {
     }
     $params['tid'] = $tid;
     $params['points'] = 0;
-    // todo cases for events
+
+    // special case - remove update for the last hour
+    if ('user_update' == $params['operation']) {
+      db_query("DELETE FROM {userpoints_txn} WHERE uid = '%s' AND tid = '%s' AND operation = '%s' AND time_stamp > '%s'", $params['uid'], $tid, $params['operation'], time() - 60*60);
+    }
 
     return up_add($params);
   }
@@ -247,7 +251,7 @@ function events_ajax() {
         'taxonomy',
       ),
     ),
-  ), intval($_REQUEST['since']) ? array('since' => intval($_REQUEST['since'])) : array('before' => 0));
+  ), isset($_REQUEST['since']) ? array('since' => intval($_REQUEST['since'])) : array('before' => 0));
   $events = events_get($request['query'], $request['vars']);
 
   $output = array();

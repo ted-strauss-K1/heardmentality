@@ -10,10 +10,12 @@ if ($user->uid == $account->uid) {
   ));
 }
 ?>
-<h2 class="din"><?php print $account->name; ?></h2>
+<h2 class="din"><?php print $account->name; print pennies_count($account->uid); ?></h2>
 
 <div class="user-info">
-  <p><?php print t($rank); ?></p>
+  <p><?php print t($rank); ?>
+    <!-- points: <?php print points_count($account->uid); ?> --></p>
+    <!-- pennies: <?php print pennies_count($account->uid); ?> --></p>
 
   <?php $fields = profile_privacy_get_fields(); ?>
   <?php foreach ($fields as $field) : ?>

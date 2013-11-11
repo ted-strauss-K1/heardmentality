@@ -146,7 +146,7 @@ function argument_recent_comments($nid)
 {
   $comments = array();
 
-  $result = db_query("SELECT * FROM {comments} WHERE nid = '%d' AND status = '%d' AND comment <> '' ORDER BY cid DESC", $nid, COMMENT_PUBLISHED);
+  $result = db_query("SELECT c.* FROM {comments} c INNER JOIN {users} u ON u.uid = c.uid AND u.status = '%d' WHERE c.nid = '%d' AND c.status = '%d' AND comment <> '' ORDER BY cid DESC", 1, $nid, COMMENT_PUBLISHED);
   while ($comment = db_fetch_object($result)) {
     $comment->content_id = $comment->cid;
     $comment->content_type = 'comment';
