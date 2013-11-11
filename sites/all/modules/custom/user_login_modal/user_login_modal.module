@@ -132,10 +132,14 @@ function user_login_modal_form_redirect(&$form) {
     $redirect = $_GET['q'];
   }
 
-
   // check that user has access to the path
   $access = TRUE;
   $redirect = trim($redirect, '/');
+
+  // get normalized path
+  if (false !== ($src = drupal_lookup_path('source', $redirect))) {
+    $redirect = $src;
+  }
 
   // get router items
   $router = menu_get_item($redirect);
