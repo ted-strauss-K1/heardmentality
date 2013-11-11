@@ -10,7 +10,7 @@ if ($user->uid == $account->uid) {
   ));
 }
 ?>
-<h2 class="din"><?php print $account->name; print pennies_count($account->uid); ?></h2>
+<h2 class="din"><?php print $account->name; ?></h2>
 
 <div class="user-info">
   <p><?php print t($rank); ?>
