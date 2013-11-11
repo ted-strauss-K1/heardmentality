@@ -277,9 +277,11 @@ function follower_get_userdata ($uids) {
   if (empty($uids)) {
     return array();
   }
-  $result = db_query("SELECT * FROM {users} WHERE uid IN (" . db_placeholders($load) . ")", $load);
-  while ($user = db_fetch_object($result)) {
-    $users[$user->uid] = $user;
+  if ($load) {
+    $result = db_query("SELECT * FROM {users} WHERE uid IN (" . db_placeholders($load) . ")", $load);
+    while ($user = db_fetch_object($result)) {
+      $users[$user->uid] = $user;
+    }
   }
 
   return array_intersect_key($users, array_flip($uids));
