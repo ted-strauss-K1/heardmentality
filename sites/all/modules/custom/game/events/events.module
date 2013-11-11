@@ -251,7 +251,7 @@ function events_ajax() {
         'taxonomy',
       ),
     ),
-  ), intval($_REQUEST['since']) ? array('since' => intval($_REQUEST['since'])) : array('before' => 0));
+  ), isset($_REQUEST['since']) ? array('since' => intval($_REQUEST['since'])) : array('before' => 0));
   $events = events_get($request['query'], $request['vars']);
 
   $output = array();
