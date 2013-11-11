@@ -274,7 +274,7 @@ function follower_get_userdata ($uids) {
       $load[] = $uid;
     }
   }
-  if (!$load) {
+  if (empty($uids)) {
     return array();
   }
   $result = db_query("SELECT * FROM {users} WHERE uid IN (" . db_placeholders($load) . ")", $load);

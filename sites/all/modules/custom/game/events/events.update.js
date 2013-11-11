@@ -27,7 +27,8 @@ function eventsStreamUpdate() {
       for (var item in response) {
         $('.uactivity .msg:first').before(response[item]).hide().slideDown(500);
       }
-      $('.uactivity .msg').slice(100).remove()
+      $('.uactivity .msg').slice(100).remove();
+      $('.uactivity .msg.nomsg').remove()
     }
   });
   translate();

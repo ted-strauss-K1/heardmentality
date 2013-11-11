@@ -105,10 +105,10 @@ function ranks_user_rank($uid, $reset = FALSE) {
 
   if (is_null($cache[$uid]) || $reset) {
     $ranks = ranks_get();
-    $stats = function_exists('up_since') ? up_since($uid, FALSE, 0) : array('points' => 0);
+    $points = points_count($uid);
     $rank = $ranks[0];
     for ($i = 0; $i < count($ranks); $i++) {
-      if ($stats['points'] >= $ranks[$i]['points']) {
+      if ($points >= $ranks[$i]['points']) {
         $rank = $ranks[$i];
       }
       else {
@@ -116,7 +116,7 @@ function ranks_user_rank($uid, $reset = FALSE) {
       }
     }
     # Adding userpoints for rules event to see if user got new rank
-    $cache[$uid] = $rank + array('points_prev' => $stats['points']);
+    $cache[$uid] = $rank + array('points_prev' => $points);
   }
 
   return $cache[$uid];
