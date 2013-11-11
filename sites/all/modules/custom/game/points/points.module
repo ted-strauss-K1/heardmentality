@@ -158,3 +158,11 @@ function points_userpoints($op, $params = array()) {
       return $form;
   }
 }
+
+function points_count ($uid) {
+  if ($tid = points_term()) {
+    $stats = up_since($uid, $tid, FALSE, 0);
+    return $stats['points'];
+  }
+  return 0;
+}

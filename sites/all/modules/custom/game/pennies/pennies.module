@@ -184,7 +184,7 @@ function pennies_userpoints($op, $params = array()) {
  */
 function pennies_count($uid) {
   if ($tid = pennies_term()) {
-    $stats = up_since($uid, $tid);
+    $stats = up_since($uid, $tid, FALSE, 0);
     return $stats['points'];
   }
   return 0;
