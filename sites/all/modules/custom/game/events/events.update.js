@@ -24,11 +24,15 @@ function eventsStreamUpdate() {
     url     : Drupal.settings.language_prefix + '/events/ajax/?since=' + $('.uactivity .msg:first').attr('name'),
     data    : $('#uactivity').attr('name'),
     success : function (response) {
+      var ct = 0
       for (var item in response) {
         $('.uactivity .msg:first').before(response[item]).hide().slideDown(500);
+        ct++;
       }
       $('.uactivity .msg').slice(100).remove();
-      $('.uactivity .msg.nomsg').remove()
+      if (ct) {
+        $('.uactivity .msg.nomsg').remove();
+      }
     }
   });
   translate();
