@@ -90,8 +90,20 @@ function zip_form_submit () {
     return;
   }
 
+  #
+  $date = date('Y.m.d_h.i.s');
+  $path_site .= $date . '/';
+  $path .= '/'.$date;
+  @shell_exec("mkdir $path");
+
+  # check dir
+  if (!is_writable($path)) {
+    drupal_set_message('Path <b>' . $path . '</b> is not writable.', 'warning');
+    return;
+  }
+
   # start writing makefiles
-  $path_make = __DIR__ . '/files/custom-' . date('Y.m.d_h.i.s') . '.make';
+  $path_make = __DIR__ . '/files/' . $date . '.make';
   $makefile = fopen($path_make, 'w+');
   fwrite($makefile, "core = 6.x\n");
   fwrite($makefile, "api = 2\n");
