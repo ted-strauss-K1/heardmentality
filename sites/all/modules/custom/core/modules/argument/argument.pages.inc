@@ -43,6 +43,7 @@ function argument_filter($nid, $sort = NULL, $class = NULL, $chorder = NULL)
     SELECT DISTINCT(n.nid)
     FROM {content_field_reference} cfr
     INNER JOIN {node} n ON cfr.nid = n.nid
+    INNER JOIN {users} u ON n.uid = u.uid AND u.status = 1
     LEFT JOIN {argument_options} ao ON n.nid = ao.nid
     LEFT JOIN {votingapi_cache} vc ON vc.content_type = 'node' AND vc.content_id = n.nid AND vc.function = 'sum'
     LEFT JOIN {votingapi_vote} vv ON vv.content_type = 'node' AND vv.content_id = n.nid
