@@ -75,14 +75,14 @@ function issue_search_ajax()
 //    );
   $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
   $pages = ceil($rows/SEARCH_RESULTS_PER_PAGE);
-  if ($pages != $page) {
+  if ($pages && $pages != $page) {
     $message .= '<span class="issue-search-more"></span>';
   }
 
   // JSON params.
   $json = array(
     'status' => TRUE,
-    'message' => $message,
+    'message' => $pages ? $message : t('No results found'),
     'rows' => $rows,
     'time' => round(microtime(TRUE), 4) - $mtime,
   );
