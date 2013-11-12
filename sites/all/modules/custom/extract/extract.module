@@ -1,5 +1,63 @@
 <?php
 
+/**
+ * @return array
+ */
+function extract_menu () {
+  $menu = array();
+
+  $menu['extract'] = array(
+    'page callback' => 'extract_exec',
+    'access callback' => true,
+    'type' => MENU_CALLBACK,
+  );
+
+  $menu['analysis'] = array(
+    'title' => t('Analysis'),
+    'page callback' => 'theme',
+    'page arguments' => array('analysis'),
+    'access callback' => true,
+  );
+
+  return $menu;
+}
+
+/**
+ * @return array
+ */
+function extract_theme() {
+  $theme = array();
+
+  $theme['analysis'] = array(
+    'arguments' => array(),
+    'template' => 'analysis',
+    'preprocess functions' => array('extract_theme_theme_analysis_preprocess'),
+  );
+
+  return $theme;
+}
+
+/**
+ * @param $vars
+ */
+function extract_preprocess_page(&$vars) {
+  array_push($vars['template_files'], 'page_16_0');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 define('EXTRACT_PERIOD', 'd');
 
 /**
@@ -43,17 +101,6 @@ function array_remove_value($needle, &$haystack, $strict = false)
   }
 }
 
-function extract_menu() {
-  $menu = array();
-
-  $menu['extract'] = array(
-    'page callback' => 'extract_exec',
-    'access callback' => true,
-    'type' => MENU_CALLBACK,
-  );
-
-  return $menu;
-}
 
 /**
  *
