@@ -3960,8 +3960,8 @@ div.avatar-selection-pager-nav a:hover {
 }
 
 #footer #user-login input.form-text {
-    padding: 8px 5px;
-    width: 90%;
+    padding: 8px 8px;
+    width: 85%;
     background-color: #999999;
     color: #555555;
 }

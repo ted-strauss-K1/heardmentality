@@ -121,8 +121,8 @@
 
     img.dark-logo {
         position: absolute;
-        right: 5px;
-        top: 5px;
+        right: 7px;
+        top: 4px;
         z-index: 1;
         margin: 0;
     }
@@ -1004,7 +1004,7 @@
     }
 
     #footer #user-login .form-submit {
-        margin: 36px 0 0;
+        margin: 0;
     }
 
     .with_icon.maximum {
