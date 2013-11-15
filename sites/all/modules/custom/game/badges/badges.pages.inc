@@ -56,13 +56,6 @@ function theme_badges_list($sort = 2) {
   //  $output = '<div class="badges">';
   $output = '<div id="about_us_page_content"><div id="badges">
     <table border="0" cellspacing="0" cellpadding="0" id="badgeslist">
-      <thead>
-        <tr>
-          <th class="small">' . t('Type') . '/' . t('Count') . '</th>
-          <th class="medium">' . t('Name') . '</th>
-          <th class="large">' . t('Description') . '</th>
-        </tr>
-      </thead>
       <tbody>';
 
   $query = "SELECT badge name, COUNT(*) count FROM {badges} GROUP BY badge ";
@@ -99,11 +92,17 @@ function theme_badges_list($sort = 2) {
     }
     $output .= sprintf('
         <tr>
-          <td><span class="%s medal3" title="%s">&nbsp;</span> x %d</td>
+          <td><span class="medal_wrapper"><span class="%s medal3" title="%s">&nbsp;</span> %s</span></td>
           <td>%s</td>
-          <td>%s</td>
+          <td>%d '.t('awarded').'</td>
         </tr>
-      ', $badge_item['type'], t(badges_types($badge_item['type']) . ' Medal'), $badge->count - 1, $badge_item['name'], $badge_item['info']);
+      ',
+        $badge_item['type'],
+        t(badges_types($badge_item['type']) . ' Medal'),
+        $badge_item['name'],
+        $badge_item['info'],
+        $badge->count - 1
+        );
   }
   //  $output .= '</div>';
   $output .= '</tbody></table></div></div>';
