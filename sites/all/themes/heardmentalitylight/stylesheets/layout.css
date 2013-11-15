@@ -659,6 +659,9 @@ img.dark-logo {
     padding: 20px 20px 6px;
     border-radius: 3px;
 }
+.black-box:first-child {
+    margin: 30px 0px 16px 0;
+}
 
 #block-issue-issue-categories-popular .grey-box {
     padding: 20px 20px 14px;
