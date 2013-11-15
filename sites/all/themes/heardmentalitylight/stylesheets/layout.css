@@ -6507,7 +6507,6 @@ span.coins_char {
 /* todo remove these ones */
 #about_us_page_content #badges .bronze, #about_us_page_content #badges .silver, #about_us_page_content #badges .gold,
 #about_us_page_content #badges .badge-circle {
-    display: inline-block;
     height: 16px;
     margin: 0;
     padding: 0 6px;
