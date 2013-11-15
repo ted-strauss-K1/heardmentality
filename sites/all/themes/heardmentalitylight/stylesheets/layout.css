@@ -2206,13 +2206,15 @@ img.user-profile {
 }
 
 /* todo remove these ones */
+
 .bronze, .silver, .gold {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
-    -webkit-border-radius: 200px;
-    -o-border-radius: 200px;
-    -khtml-border-radius: 200px;
-    -moz-border-radius: 200px;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     border-radius: 200px;
     margin: 0px 5px 10px 0px;
     border-width: 1px;
@@ -2223,11 +2225,11 @@ img.user-profile {
 #footer .bronze, #footer .silver, #footer .gold, #badges .bronze, #badges .silver, #badges .gold {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
-    -webkit-border-radius: 200px;
-    -o-border-radius: 200px;
-    -khtml-border-radius: 200px;
-    -moz-border-radius: 200px;
-    border-radius: 200px;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     margin: 0px 5px 10px 0px;
     border-width: 0px;
     border-style: solid;
@@ -2237,11 +2239,11 @@ img.user-profile {
 .badge-circle {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
-    -webkit-border-radius: 200px;
-    -o-border-radius: 200px;
-    -khtml-border-radius: 200px;
-    -moz-border-radius: 200px;
-    border-radius: 200px;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     margin: 0px 5px 10px 0px;
     border-width: 1px;
     border-style: solid;
@@ -2251,11 +2253,11 @@ img.user-profile {
 #footer .badge-circle, #badges .badge-circle {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
-    -webkit-border-radius: 200px;
-    -o-border-radius: 200px;
-    -khtml-border-radius: 200px;
-    -moz-border-radius: 200px;
-    border-radius: 200px;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     margin: 0px 5px 10px 0px;
     border-width: 0px;
     border-style: solid;
