@@ -800,7 +800,7 @@ html[lang="ru"] .banner-text {
 }
 
 .dark-grey-box.top {
-    margin-top: 59px;
+    margin-top: 31px;
 }
 
 .thirty-top {
@@ -1650,10 +1650,10 @@ label.add-on-2.small {
     margin-top: 10px;
 }
 
-textarea#Question, input#Answer, input#Answer3, input#info, textarea#Comment, textarea#Reply {
+input#Answer, input#Answer3, input#info, textarea#Comment, textarea#Reply {
     margin: 0px 1% 30px 1px;
     resize: none;
-    border-color: #999999 #BBBBBB #BBBBBB #999999;
+    border-color: #b3b3b3;
     width: 58%;
     float: right;
     padding: 2% 1% 2% 1%;
@@ -2978,16 +2978,36 @@ h2.din a:hover {
     color: #CCCCCC;
 }
 
-textarea#q_quest {
-    margin: 0px 1% 30px 1px;
+textarea#q_quest, textarea#Question {
+    margin: 0;
     resize: none;
-    border-color: #666666 #AAAAAA #AAAAAA #666666;
-    width: 58%;
+    border-color: #b3b3b3;
+    width: 482px;
     float: right;
-    padding: 2% 1% 2% 1%;
-    -webkit-border-radius: 3px 3px;
-    -moz-border-radius: 3px/3px;
-    border-radius: 3px;
+    padding: 6px 8px;
+    border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    -khtml-border-radius: 3px 3px 0 0;
+    -o-border-radius: 3px 3px 0 0;
+}
+
+#q_quest-wrapper .resizable-textarea .grippie,
+#Question-wrapper .resizable-textarea .grippie {
+    width: 498px;
+    float: right;
+}
+
+#create_box .resizable-textarea span {
+    display: block;
+    float: right;
+    width: 500px;
+}
+
+#cpoll-create-form .grey-box.full,
+#cpoll-create-form .grey-box {
+    border: none;
+    padding: 0;
 }
 
 .eleven .grey-box {
@@ -3934,7 +3954,8 @@ div.avatar-selection-pager-nav a:hover {
     width: 49%;
 }
 
-#footer #user-login #edit-name-wrapper {
+#footer #user-login #edit-name-wrapper,
+#footer #user-login #edit-name-1-wrapper {
     margin-right: 2%;
 }
 
@@ -6514,7 +6535,7 @@ span.coins_char {
 
 #badges .medal_wrapper {
     display: inline-block;
-    height: 23px;
+    height: 24px;
     padding: 0 7px;
     background: #333333;
     -webkit-border-radius: 6px;
@@ -6687,7 +6708,7 @@ ul.sub-pages-menu a:hover {
 }
 
 #guidelines {
-    margin-top: 59px;
+    margin-top: 30px;
     padding: 15px 14px;
 }
 
