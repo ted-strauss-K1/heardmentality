@@ -92,7 +92,7 @@ function theme_badges_list($sort = 2) {
     }
     $output .= sprintf('
         <tr>
-          <td><span class="medal_wrapper"><span class="%s medal3" title="%s">&nbsp;</span> %s</span></td>
+          <td><span class="medal_wrapper"><span class="%s medal3" title="%s">&nbsp;</span><span class="medal_title"> %s</span><span class="badges_helper"></span></span></td>
           <td>%s</td>
           <td>%d '.t('awarded').'</td>
         </tr>

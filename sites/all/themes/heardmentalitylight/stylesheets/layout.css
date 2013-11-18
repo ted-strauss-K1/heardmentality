@@ -659,6 +659,7 @@ img.dark-logo {
     padding: 20px 20px 6px;
     border-radius: 3px;
 }
+
 .black-box:first-child {
     margin: 30px 0px 16px 0;
 }
@@ -766,7 +767,7 @@ img.dark-logo {
 }
 
 .banner-text {
-    font-size: 26px;
+    font-size: 28px;
     float: left;
     color: #333333;
     width: 75%;
@@ -2196,8 +2197,6 @@ img.user-profile {
 }
 
 /* todo remove these ones */
-
-
 
 .bronze, .silver, .gold {
     cursor: pointer;
@@ -3950,13 +3949,13 @@ div.avatar-selection-pager-nav a:hover {
 
 #footer #user-login input.form-text {
     padding: 8px 8px;
-    width: 85%;
+    width: 90% !important;
     background-color: #999999;
     color: #555555;
 }
 
-#footer #user-login input.form-text:last-child {
- float: right;
+#footer #user-login input[type="password"] {
+    float: right;
 }
 
 #footer #user-login input.form-text:focus {
@@ -6515,7 +6514,8 @@ span.coins_char {
 
 #badges .medal_wrapper {
     display: inline-block;
-    padding: 3px 7px 2px;
+    height: 23px;
+    padding: 0 7px;
     background: #333333;
     -webkit-border-radius: 6px;
     -o-border-radius: 6px;
@@ -6525,6 +6525,7 @@ span.coins_char {
     color: #ffffff;
     font-size: 13px;
     white-space: nowrap;
+    vertical-align: middle;
 }
 
 #badges .medal_wrapper:hover {
@@ -6532,16 +6533,30 @@ span.coins_char {
     cursor: default;
 }
 
+#badges .medal_title {
+    display: inline-block;
+    padding-left: 5px;
+    position: relative;
+    vertical-align: middle;
+}
+
 /* todo remove these ones */
 #about_us_page_content #badges .bronze, #about_us_page_content #badges .silver, #about_us_page_content #badges .gold,
 #about_us_page_content #badges .badge-circle {
     display: inline-block;
     position: relative;
-    top: 7px;
     width: 6px;
     height: 6px;
     margin: 0;
     padding: 0;
+    vertical-align: middle;
+}
+
+#badges .badges_helper {
+    display: inline-block;
+    height: 100%;
+    width: 0px;
+    vertical-align: middle;
 }
 
 #about_us_page_content #guide table {
