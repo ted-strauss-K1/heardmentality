@@ -103,8 +103,10 @@ function cpoll_create_form() {
     '#value' => '
       <label for="" class="add-on">
         <div class="number dinbold">1</div>
+        <span class="add-on-title-wrapper">
         <span class="title ">' . t('Question') . '</span>
         <span class="guides"><span id="q_counter">140</span> ' . t('chars left.') . '</span>
+        </span>
       </label>
     '
   );
@@ -119,8 +121,10 @@ function cpoll_create_form() {
     '#value' => '
       <label for="" class="add-on">
         <div class="number dinbold">2</div>
+        <span class="add-on-title-wrapper">
         <span class="title ">' . t('Context') . '</span>
         <span class="guides">' . t('Enter a brief description or backstory to provide context. You may include links.') . '</span>
+        </span>
       </label>
     '
   );
@@ -146,8 +150,10 @@ function cpoll_create_form() {
       <div id="poll-choices">
         <label for="" class="add-on">
           <div class="number dinbold">3</div>
+          <span class="add-on-title-wrapper">
           <span class="title ">' . t('Answers') . '</span>
           <span class="guides">' . t('Enter at least two answers.') . '</span>
+          </span>
         </label>
     ',
     '#suffix' => '</div><div class="clear"></div>',

@@ -31,18 +31,35 @@
         font-size: 40px;
     }
 
+
+    label.add-on, label.add-on-2 {
+        width: 100%;
+        margin: 7px 0 0 0;
+    }
+
+    #poll-choices label.add-on {
+        margin: 7px 0 1em 0;
+    }
+
     textarea#Question, input#Answer {
-        width: 97%;
+        width: 688px;
         float: none;
     }
 
     .new-issue .number {
-        width: 30px;
-        float: none;
-        color: #999999;
-        font-size: 30px;
-        margin: -10px 6px 10px 0px;
-        text-shadow: #FFFFFF 0px 1px;
+        float: left;
+    }
+
+    #create_box .resizable-textarea span {
+        width: 706px;
+    }
+
+    textarea#q_quest, textarea#Question {
+        width: 688px;
+    }
+
+    #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+        width: 704px;
     }
 
     .profile-meta img {
@@ -997,9 +1014,35 @@
         margin: 0;
     }
 
+    textarea#Question, input#Answer {
+        width: 688px;
+        float: none;
+    }
+
+
+
     .new-issue .number {
         float: left;
-        margin: 0;
+    }
+
+    #create_box .resizable-textarea span {
+        width: 378px;
+    }
+
+    textarea#q_quest, textarea#Question {
+        width: 360px;
+    }
+
+    #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+        width: 376px;
+    }
+
+    input#Answer {
+        padding: 8px;
+    }
+
+    label.before-submit {
+        margin: 0 0 20px 0;
     }
 
     #issue-create-form label span.title, #issue-create-form label span.guides {
@@ -1147,6 +1190,14 @@
     #footer #user-login input.form-text {
         width: 100% !important;
     }
+
+    #create_box .resizable-textarea span {
+        width: 100% !important;
+    }
+
+    #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+        width: 99.5% !important;
+    }
 }
 
 /* Mobile Landscape Only 
@@ -1154,6 +1205,7 @@
 @media only screen and (min-width : 480px) and (max-width : 767px) and (max-device-width : 1000px) {
 
 }
+
 
 /* Small screens 
 ==================================================*/
@@ -1189,6 +1241,22 @@
 
     .table-bor-form-item-1 ul {
         margin-left: 2em;
+    }
+
+    #create_box .resizable-textarea span {
+        width: 274px;
+    }
+
+    textarea#q_quest, textarea#Question {
+        width: 256px;
+    }
+
+    #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+        width: 272px;
+    }
+
+    #poll-choices label.add-on {
+        margin: 7px 0 1em 0;
     }
 
     /*Add argument*/

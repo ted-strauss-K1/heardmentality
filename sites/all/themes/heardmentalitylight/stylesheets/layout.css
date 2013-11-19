@@ -1627,17 +1627,23 @@ ul.map-stats li {
 
 .new-issue .number {
     width: 30px;
+    line-height: 3px;
     float: left;
     color: #999999;
     font-size: 30px;
-    margin: 10px 6px 0 0;
+    margin: 6px 6px 0 0;
     text-shadow: #FFFFFF 0px 1px;
+}
+
+.add-on-title-wrapper {
+    display: block;
+    padding-left: 35px;
 }
 
 label.add-on, label.add-on-2 {
     float: left;
-    margin: 7px 20px 0 00;
-    width: 32%;
+    margin: 7px 20px 0 0;
+    width: 350px;
     line-height: 1em;
 }
 
@@ -1654,12 +1660,20 @@ input#Answer, input#Answer3, input#info, textarea#Comment, textarea#Reply {
     margin: 0px 1% 30px 1px;
     resize: none;
     border-color: #b3b3b3;
-    width: 58%;
+    width: 482px;
     float: right;
-    padding: 2% 1% 2% 1%;
+    padding: 8px;
     -webkit-border-radius: 3px 3px;
     -moz-border-radius: 3px/3px;
     border-radius: 3px;
+}
+
+label.add-on span.title {
+    line-height: 1em;
+}
+
+label.add-on span.guides {
+    line-height: 1.3em;
 }
 
 textarea#Comment {
@@ -1711,7 +1725,7 @@ select.select-value {
 
 input#Answer {
     margin: 0px 0px 20px 0px;
-    padding: 1% 1% 1% 1%;
+    padding: 8px;
 }
 
 input#Answer3 {
@@ -1768,6 +1782,7 @@ small.red {
 }
 
 label span.guides {
+    padding-left: 4px;
     font-weight: normal;
     line-height: 1em;
     text-shadow: #FFFFFF 0px 1px;
@@ -2992,10 +3007,20 @@ textarea#q_quest, textarea#Question {
     -o-border-radius: 3px 3px 0 0;
 }
 
+#q_quest-wrapper,
+#Question-wrapper {
+    float: right;
+}
+
+#q_quest-wrapper .resizable-textarea,
+#Question-wrapper .resizable-textarea {
+    width: inherit;
+}
+
 #q_quest-wrapper .resizable-textarea .grippie,
 #Question-wrapper .resizable-textarea .grippie {
     width: 498px;
-    float: right;
+    margin-bottom: 8px;
 }
 
 #create_box .resizable-textarea span {
@@ -3008,6 +3033,10 @@ textarea#q_quest, textarea#Question {
 #cpoll-create-form .grey-box {
     border: none;
     padding: 0;
+}
+
+#create_box input.add-answer {
+    margin: 0 0 6px 0;
 }
 
 .eleven .grey-box {
