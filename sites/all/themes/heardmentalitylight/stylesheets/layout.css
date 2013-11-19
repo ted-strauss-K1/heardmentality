@@ -1828,12 +1828,12 @@ input.add-answer {
 }
 
 label.before-submit {
-    line-height: 1.2em;
+    line-height: 1.4em;
     font-weight: normal;
     font-style: italic;
     text-align: left;
     color: #444444;
-    margin: 0 0 20px 25px;
+    margin: 0 0 12px 25px;
     display: block;
 
 }
@@ -1846,6 +1846,7 @@ input.submit-issue {
     float: right;
     /*font-weight:normal;*/
     text-transform: uppercase;
+    margin-top: 15px;
 
 }
 
