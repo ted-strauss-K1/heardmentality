@@ -148,6 +148,10 @@
         margin: 0 0 15px;
     }
 
+    #footer #user-login-1 .form-submit {
+        margin: 0 0 15px;
+    }
+
     a.facebook i,
     a.twitter i,
     a.facebook.google i {
@@ -255,7 +259,8 @@
         width: auto;
     }
 
-    #footer #user-login input.form-text {
+    #footer #user-login input.form-text,
+    #footer #user-login-1 input.form-text {
         width: 85% !important;
     }
 }
@@ -1065,7 +1070,8 @@
         padding: 0;
     }
 
-    #footer #user-login .form-submit {
+    #footer #user-login .form-submit,
+    #footer #user-login-1 .form-submit {
         margin: 0;
     }
 
@@ -1187,7 +1193,8 @@
         width: 97%;
     }
 
-    #footer #user-login input.form-text {
+    #footer #user-login input.form-text,
+    #footer #user-login-1 input.form-text {
         width: 100% !important;
     }
 
@@ -1312,11 +1319,13 @@
         margin: 0 0 15px;
     }
 
-    #footer #user-login input[type="password"] {
+    #footer #user-login input[type="password"],
+    #footer #user-login-1 input[type="password"]{
         float: right !important;
     }
 
-    #footer #user-login input.form-text {
+    #footer #user-login input.form-text,
+    #footer #user-login-1 input.form-text {
         width: 95% !important;
     }
 
@@ -1334,7 +1343,8 @@
         padding: 20px 12px;
     }
 
-    #footer #user-login input[type="submit"] {
+    #footer #user-login input[type="submit"],
+    #footer #user-login-1 input[type="submit"] {
         padding: 8px 7px 6px;
     }
 
