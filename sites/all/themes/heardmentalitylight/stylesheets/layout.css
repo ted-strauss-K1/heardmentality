@@ -865,7 +865,7 @@ ul.tags li:hover {
 
 ul.tags li a {
     color: #111111;
-    display: inline-block;
+    display: inline;
     padding: 3px 2px 2px 0;
     vertical-align: middle;
 }
@@ -3152,6 +3152,7 @@ textarea#q_quest, textarea#Question {
     /*top: 4px;*/
     height: 22px;
     padding: 0;
+    background: #e4e4e4;
 }
 
 .issue-vote-wrapper fieldset .form-radios {
@@ -5526,6 +5527,7 @@ ul.control_links h6#reply:hover {
 .arg-reply-form .form-submit {
     float: left;
     margin-top: 10px;
+    margin-left: 0;
 }
 
 .show_only {
@@ -6110,6 +6112,8 @@ span.small_pos.fixes,
 .filter_search.issues_search {
     margin-top: 30px;
     padding: 15px 14px 18px;
+    width: 190px;
+    z-index: 999;
 }
 
 #uactivity .activity-stream {
@@ -7546,3 +7550,18 @@ form.issue-vote-form > div > div.choices {
 }
 
 /*--/ USER LOGIN FORM user/login */
+
+.node-unpublished {
+    margin-bottom: 10px;
+}
+
+#chart-strength {
+    left: -10px;
+    position: relative;
+}
+
+.issue-vote-wrapper .qd a,
+.issue-vote-wrapper .qd a:visited {
+    display: inline-block;
+    margin-right: 3px;
+}
