@@ -875,6 +875,11 @@ ul.tags li:hover a {
     color: #FFFFFF;
 }
 
+ul.tags input[type="checkbox"] {
+    vertical-align: middle;
+    margin: 3px 5px 3px 2px;
+}
+
 .page ul {
     margin: 0.8em 0 0.8em 3em;
     font-size: 1.1em;
