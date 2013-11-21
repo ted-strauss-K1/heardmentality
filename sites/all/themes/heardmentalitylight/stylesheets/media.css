@@ -225,6 +225,10 @@
         width: 708px;
     }
 
+    #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
+        left: -90px;
+    }
+
     /* debate */
 
     .position-question span.line,
@@ -992,7 +996,7 @@
     }
 
     #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
-        left: -85px;
+        left: -63px;
     }
 
     #debate_list_area li.one_reply ul.control_links {
@@ -1036,6 +1040,7 @@
     #chart-strength {
         left: -15px;
     }
+
 
     /* debate */
 
@@ -1477,7 +1482,7 @@
         padding: 0;
     }
 
-    /*--/ debate */
+    /*--/ debate */#debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive
 
     /* issues */
 
@@ -1507,6 +1512,11 @@
         -webkit-border-radius: 6px;
         -o-border-radius: 6px;
         -khtml-border-radius: 6px;
+    }
+
+
+    #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
+        left: -52px;
     }
 
     /*/-- issues */
