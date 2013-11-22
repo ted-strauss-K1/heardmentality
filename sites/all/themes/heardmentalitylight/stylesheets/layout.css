@@ -7576,6 +7576,14 @@ form.issue-vote-form > div > div.choices {
     word-wrap: break-word;
 }
 
+.chzn-container-multi .chzn-choices .search-choice span {
+    word-wrap: break-word;
+}
+
+
+
+
+
 
 
 

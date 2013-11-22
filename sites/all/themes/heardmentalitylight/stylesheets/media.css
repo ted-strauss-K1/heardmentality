@@ -294,6 +294,10 @@
         width: 142px;
         margin-top: 0;
     }
+
+    .chzn-container-multi .chzn-choices .search-choice {
+        max-width: 107px;
+    }
 }
 
 /* iPad Portrait Only 
@@ -621,7 +625,15 @@
     /* Footer */
 
     .black-box {
-        margin: 30px 0px 16px 0;
+        margin: 30px 0 0 0;
+    }
+
+    .black-box:first-child {
+        margin: 30px 0 0 0;
+    }
+
+    #footer .container .five.columns {
+        margin-bottom: 16px;
     }
 
     /*END Footer */
@@ -759,7 +771,7 @@
     }
 
     input.button.vote, input.submit-issue, input.save,
-    #issue-create-form input.add-answer, #search-solr-block {
+    #issue-create-form input.add-answer {
         width: 100%;
     }
 
@@ -1412,6 +1424,22 @@
         margin-left: 55px !important;
     }
 
+    /* footer */
+
+    #search-solr-block {
+        width: 100%;
+    }
+
+    #footer .medal_box {
+        margin: 0 7px 0 0;
+    }
+
+    #footer .bronze, #footer .silver, #footer .gold {
+        margin: 0px 1px 10px 0px;
+    }
+
+    /*--/ footer */
+
     #footer #user-login .form-submit {
         margin: 0 0 15px;
     }
@@ -1549,6 +1577,8 @@
     .issue-vote-wrapper .qd {
         margin: 18px 13px;
     }
+
+
 
     /*/-- issues */
 
