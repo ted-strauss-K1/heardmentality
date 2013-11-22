@@ -5070,6 +5070,7 @@ h6#deb-ana.expanded:after {
 #debate_list_area .reply_body .translate a,
 #debate_list_area .reply_body .sq {
     color: #55BA59;
+    white-space: nowrap;
 }
 
 #debate_list_area .arg .argument_body .translate a span,
@@ -5473,6 +5474,7 @@ ul.control_links h6#reply:hover {
 #debate_list_area li.one_reply span.userinfo-reply a {
     color: #000000;
     text-decoration: none;
+    font-style: italic;
 }
 
 #debate_list_area li.one_reply span.userinfo-reply a:hover {
@@ -5494,12 +5496,10 @@ ul.control_links h6#reply:hover {
 }
 
 #debate_list_area li.one_reply ul.control_links {
-    margin: 0 0 0 42px;
+    margin: 0 0 0 82px;
     float: none;
     display: inline-block;
     vertical-align: top;
-    /*position: relative;
-	top: -1px;*/
     list-style: none outside none;
     padding: 0;
     position: relative;
