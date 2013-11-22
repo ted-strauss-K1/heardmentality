@@ -7565,3 +7565,26 @@ form.issue-vote-form > div > div.choices {
     display: inline-block;
     margin-right: 3px;
 }
+
+#block-feedback-form form {
+    opacity: 0.95;
+}
+
+/*
+
+feedback
+
+#block-feedback-form .feedback-link {
+font-size: 13px;
+text-transform: uppercase;
+display: block;
+background: #3CC7F4;
+padding: 6px 12px;
+color: #ffffff;
+}
+
+#block-feedback-form .feedback-link:hover {
+background: #6CCBD5;
+}
+
+*/
