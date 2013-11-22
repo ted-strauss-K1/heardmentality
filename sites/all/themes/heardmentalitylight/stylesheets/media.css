@@ -1586,6 +1586,10 @@
         margin: 0 -12px 18px;
     }
 
+    .mod-wrapper h2.din.half {
+        font-size: 20px;
+    }
+
     /*/-- issues */
 
 }

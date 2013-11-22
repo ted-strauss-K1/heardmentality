@@ -7621,6 +7621,15 @@ html.js fieldset.collapsible {
     margin: 0 0 10px 0;
 }
 
+.mod-wrapper h2.din.half {
+    word-wrap: break-word;
+}
+
+.mod-votecount-wrapper span {
+    display: inline-block;
+    margin-top: 10px;
+}
+
 /*--/ Moderation of issues */
 
 
