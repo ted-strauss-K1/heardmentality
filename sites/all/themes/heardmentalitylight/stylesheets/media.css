@@ -1578,7 +1578,13 @@
         margin: 18px 13px;
     }
 
+    #moderation-issue-view-form {
+        margin: 0 -12px 10px;
+    }
 
+    #moderation-issues-form fieldset {
+        margin: 0 -12px 18px;
+    }
 
     /*/-- issues */
 
