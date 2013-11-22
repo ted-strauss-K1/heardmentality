@@ -57,6 +57,10 @@ a span.hi:hover {
     text-transform: none
 }
 
+div.expander {
+    word-wrap: break-word;
+}
+
 .navigation {
     display: block;
     margin: 0px 0px;
@@ -7565,3 +7569,37 @@ form.issue-vote-form > div > div.choices {
     display: inline-block;
     margin-right: 3px;
 }
+
+.issue-vote-wrapper .qd div.expander p a,
+.issue-vote-wrapper .qd div.expander p a:visited {
+    display: inline;
+    word-wrap: break-word;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
