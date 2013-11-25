@@ -6500,6 +6500,10 @@ span.coins_char {
     font-size: 10px;
 }
 
+#popup-login .form-item label.option {
+    display: inline-block;
+}
+
 /*#ui-tabs-1, #ui-tabs-2, #ui-tabs-3 {
     margin-top: 12px;
 }*/
@@ -7563,12 +7567,19 @@ form.issue-vote-form > div > div.choices {
 /* USER LOGIN FORM user/login */
 
 .container .sixteen.columns #user-login input[type="text"],
-.container .sixteen.columns #user-login input[type="password"] {
+.container .sixteen.columns #user-login input[type="password"],
+.container .sixteen.columns #user-register input[type="text"],
+.container .sixteen.columns #user-register input[type="password"] {
     padding: 8px;
 }
 
-.container .sixteen.columns #user-login input[type="submit"] {
+.container .sixteen.columns #user-login input[type="submit"],
+.container .sixteen.columns #user-register input[type="submit"] {
     margin: 0 0 30px 0;
+}
+
+.container .sixteen.columns #user-register #edit-pass-wrapper {
+    margin-top: 1.4em;
 }
 
 /*--/ USER LOGIN FORM user/login */
