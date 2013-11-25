@@ -2026,7 +2026,7 @@ select#edit-language {
 #edit_profile ul.privacy {
     margin: 0 0 0 55%;
     float: none;
-    float: none;
+padding: 2px 0 0 0;
 }
 
 #edit_profile li.country-info ul.privacy {
@@ -2051,6 +2051,12 @@ select#edit-language {
 
 #edit_profile .validate-error-wait {
     color: #43B649;
+}
+
+#edit-image-upload-wrapper input[type="file"] {
+    max-width: 100%;
+    font-size: 11px;
+    text-overflow: ellipsis;
 }
 
 p.choose_pic {
@@ -3269,13 +3275,39 @@ input.info, textarea.info {
     float: right;
     margin: 0 0 0 1%;
     text-align: center;
-    width: 22%;
+    width: 15%;
     border: 0px solid #FF0000;
 
 }
 
 #edit_profile .privacy #income .form-radios .form-item {
     margin-right: 69%;
+}
+
+#edit_profile input.info,
+#edit_profile textarea.info {
+    padding: 8px;
+    width: 91.5%;
+}
+
+#edit_profile fieldset li.privacy-rules {
+margin: 0 0 5px 0;
+}
+
+#edit_profile .form-radios .form-item:nth-child(1) {
+    margin-right: 10px;
+}
+
+#edit_profile .form-radios .form-item:nth-child(2) {
+    margin-right: 17px;
+}
+
+#edit_profile .form-radios .form-item:nth-child(3) {
+    margin-right: 18px;
+}
+
+#edit_profile .form-radios .form-item:nth-child(4) {
+    margin-right: 18px;
 }
 
 .subscription .form-radios .form-item {
