@@ -2217,7 +2217,18 @@ img.user-profile {
     margin: 0px 5px 10px 0px;
     border-width: 1px;
     border-style: solid;
-    border-color: #9A9A9A #9C9C9C #9E9E9E #9A9A9A;
+}
+
+.bronze {
+    border-color: #a98614;
+}
+
+.silver {
+    border-color: #a7a7a7;
+}
+
+.gold {
+    border-color: #bca705;
 }
 
 #footer .bronze, #footer .silver, #footer .gold, #badges .bronze, #badges .silver, #badges .gold {
