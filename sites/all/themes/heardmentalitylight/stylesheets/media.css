@@ -1602,8 +1602,10 @@
 
     /* user login pop-up */
 
-    .popup-tab input.form-text {
-        width: 80% !important;
+    .popup-tab input.form-text,
+    #user-register .description,
+    #user-register label.option{
+        max-width: 230px !important;
     }
 
     /*--/ user login pop-up */
