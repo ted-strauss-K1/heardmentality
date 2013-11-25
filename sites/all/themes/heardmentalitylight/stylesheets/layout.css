@@ -7632,6 +7632,10 @@ html.js fieldset.collapsible {
 
 /*--/ Moderation of issues */
 
+.chzn-container {
+    width: 190px !important;
+}
+
 
 
 
