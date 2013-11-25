@@ -2224,7 +2224,7 @@ img.user-profile {
 /* todo remove these ones */
 
 .bronze, .silver, .gold {
-    cursor: pointer;
+    cursor: default;
     padding: 2px 8px 2px 8px;
     -webkit-border-radius: 50%;
     -o-border-radius: 50%;
