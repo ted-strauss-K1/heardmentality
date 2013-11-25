@@ -291,6 +291,7 @@
         width: auto;
     }
 
+
     #footer #user-login input.form-text,
     #footer #user-login-1 input.form-text {
         width: 85% !important;
@@ -312,6 +313,31 @@
     #block-user_profile-user-profile-right {
         margin-top: 0;
     }
+
+    #edit_profile .privacy .form-radios .form-item {
+        width: 10%;
+    }
+
+    #edit_profile .form-radios .form-item:nth-child(1) {
+        margin-right: 13px;
+    }
+
+    #edit_profile .form-radios .form-item:nth-child(2) {
+        margin-right: 26px;
+    }
+
+    #edit_profile .form-radios .form-item:nth-child(3) {
+        margin-right: 25px;
+    }
+
+    #edit_profile .form-radios .form-item:nth-child(4) {
+        margin-right: 26px;
+    }
+
+    #edit-image-upload-wrapper input[type="file"] {
+        font-size: 9px;
+    }
+
 }
 
 /* iPad Portrait Only 
@@ -340,6 +366,10 @@
     }
 
     /*--/ user login pop-up */
+
+    #edit-image-upload-wrapper input[type="file"] {
+        font-size: 12px;
+    }
 
     .four.columns.margin-top {
         margin-top: 0;
