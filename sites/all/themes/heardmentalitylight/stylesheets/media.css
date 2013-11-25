@@ -319,6 +319,14 @@
         width: 100% !important;
     }
 
+    /* user login pop-up */
+
+    .popup-tab input.form-text {
+        width: 90% !important;
+    }
+
+    /*--/ user login pop-up */
+
     .four.columns.margin-top {
         margin-top: 0;
     }
@@ -1592,6 +1600,13 @@
 
     /*/-- issues */
 
+    /* user login pop-up */
+
+    .popup-tab input.form-text {
+        width: 80% !important;
+    }
+
+    /*--/ user login pop-up */
 }
 
 
