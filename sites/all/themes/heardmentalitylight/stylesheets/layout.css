@@ -5006,18 +5006,21 @@ h6#deb-ana.expanded:after {
 #debate_list_area .arg .argument_body .translate a,
 #debate_list_area .arg .argument_body .sq,
 #debate_list_area .reply_body .translate a,
-#debate_list_area .reply_body .sq {
+#debate_list_area .reply_body .sq,
+.activity-stream .sq {
     color: #55BA59;
 }
 
 #debate_list_area .arg .argument_body .translate a span,
 #debate_list_area .arg .argument_body .sq,
 #debate_list_area .reply_body .translate a span,
-#debate_list_area .reply_body .sq {
+#debate_list_area .reply_body .sq,
+.activity-stream .sq {
     font-size: 12px !important;
     line-height: 18px !important;
     display: inline;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 #debate_list_area .arg .argument_body .translate a:hover,
@@ -5035,11 +5038,12 @@ h6#deb-ana.expanded:after {
 
 .events_google_translate .translate span {
     color: #55BA59;
-    font-size: 11px !important;
+    font-size: 12px !important;
     text-decoration: none;
 }
 
-.events_google_translate .translate span:hover {
+.sq:hover,
+.sq span:hover{
     color: #0C6926;
     text-decoration: none;
 }
