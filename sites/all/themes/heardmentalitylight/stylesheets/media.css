@@ -227,6 +227,28 @@
         width: auto;
     }
 
+    /* error circles */
+
+    .circle-box {
+        background: none;
+        height: 285px;
+        text-align: center;
+    }
+
+    .error-banner {
+        padding: 0 0 0 0;
+        margin: 0 auto;
+    }
+
+    .error-banner span {
+        font-size: 80px;
+        letter-spacing: -0.04em;
+    }
+
+    /*--/ error circles */
+
+
+
 }
 
 /* iPad Portrait Only 
@@ -242,20 +264,48 @@
 
     /* error circles */
 
-    .main-banner-display,
-    .main-banner-display.column.centered {
+    .error-banner {
+        width: 180px;
+        height: 180px;
+        padding: 0 0 0 0 ;
+        font-size: 50px;
+        line-height: 50px;
+    }
+
+    .error-banner a {
+        vertical-align: middle;
+        width: 180px;
+        height: 180px;
+    }
+
+    .error-banner a span {
+        display: inline-block;
+        width: 180px;
+        height: 180px;
+        background-color: transparent;
+        border: none;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 50px;
+        padding: 62px 0 0 0;
+ }
+
+    .circle-box {
         display: block;
+        width: 180px;
+        height: 180px;
+        margin: 40px auto 20px;
+        background: url(../images/circle_bg.png) -67px -8px no-repeat;
     }
 
-    .circle-box:before {
-        content: "404"
+    .see-banner, .vote-banner, .share-banner {
+        font-size: 46px;
+        padding: 145px 0px 0px 0px;
     }
 
-    .error-banner span {
-        width: 0;
-        height: 0;
-        padding: 0;
-        border-top: 0;
+
+    .page-error .banner-text {
+        margin-top: 0px;
     }
 
     /*--/ error circles */
@@ -282,7 +332,7 @@
 
     .main-banner-display,
     .main-banner-display.column.centered {
-        display: none;
+        display: block;
     }
 
     .banner-text {
@@ -565,24 +615,6 @@
     .line-bottom {
         background: #DDDDDD;
         height: auto;
-    }
-
-    .circle-box {
-        background: url(../images/circle_bg.png) 0px -210px no-repeat;
-        margin: 20px auto;
-        display: block;
-        width: 300px;
-        height: 300px;
-    }
-
-    .see-banner, .vote-banner, .share-banner {
-        font-size: 40px;
-        padding: 145px 0px 0px 0px;
-    }
-
-    .error-banner {
-        padding: 145px 0px 0px 0px;
-        font-size: 80px;
     }
 
     input.form-text, input.form-text.user-search {

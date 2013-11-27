@@ -732,15 +732,15 @@ img.dark-logo {
 .see-banner p, .vote-banner p, .share-banner p, .error-banner p {
     display: block;
     background-color: #FFFFFF;
-    border-radius: 200px;
-    -o-border-radius: 200px;
-    -moz-border-radius: 200px;
-    -webkit-border-radius: 200px;
-    -khtml-border-radius: 200px;
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+    border-bottom-left-radius: 200px;
     position: absolute;
     top: 0;
     left: 0;
     border-top: 1px solid #BABCBD;
+    behavior: url(/scrollpane/PIE.htc);
 }
 
 .see-banner span, .vote-banner span, .share-banner span, .error-banner span {
