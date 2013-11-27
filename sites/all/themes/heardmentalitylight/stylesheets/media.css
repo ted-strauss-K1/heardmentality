@@ -250,9 +250,10 @@
         margin-right: 26px;
     }
 
-    #edit-image-upload-wrapper input[type="file"] {
-        font-size: 9px;
+    #edit-image-upload-wrapper {
+        width: 140px;
     }
+
 
 }
 
@@ -1237,6 +1238,10 @@
 
     p.action-comment-ref {
         margin: 10px 0 0 10px;
+    }
+
+    #edit-image-upload-wrapper {
+        width: 138px;
     }
 
     /*--/ account */
