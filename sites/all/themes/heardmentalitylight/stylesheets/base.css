@@ -829,7 +829,8 @@ textarea#Question, input#Answer, input#Answer3, input#info, textarea#Comment, te
 #moderation-issues-form legend a,
 #choices-wrapper legend a,
 #taxonomy-wrapper legend a,
-#location-wrapper legend a {
+#location-wrapper legend a,
+#edit-image-upload-wrapper {
   -webkit-transition                 : border 0.2s linear, -webkit-box-shadow 0.2s linear, background-color 0.2s linear;
   -webkit-transition-property        : border, -webkit-box-shadow, background-color;
   -webkit-transition-duration        : 0.2s, 0.2s, 0.2s;
