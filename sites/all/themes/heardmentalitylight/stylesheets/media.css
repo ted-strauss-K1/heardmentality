@@ -230,25 +230,15 @@
         width: auto;
     }
 
+    span.privacy-answer {
+        font-size: 0.8em;
+    }
+
     #edit_profile .privacy .form-radios .form-item {
-        width: 10%;
-    }
+        width: 23%;
 
-    #edit_profile .form-radios .form-item:nth-child(1) {
-        margin-right: 13px;
-    }
-
-    #edit_profile .form-radios .form-item:nth-child(2) {
-        margin-right: 26px;
-    }
-
-    #edit_profile .form-radios .form-item:nth-child(3) {
-        margin-right: 25px;
-    }
-
-    #edit_profile .form-radios .form-item:nth-child(4) {
-        margin-right: 26px;
-    }
+    ul.privacy li {
+        width: 23%;
 
     #edit-image-upload-wrapper {
         width: 140px;

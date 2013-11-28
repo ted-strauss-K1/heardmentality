@@ -1199,7 +1199,7 @@ label.vote-answer {
 }
 
 span.privacy-answer {
-    font-size: 0.7em;
+    font-size: 0.85em;
     width: 100%;
     line-height: 1em;
     padding: 0px 0px 0px 0px;
@@ -1883,6 +1883,14 @@ ul.answer-value {
 ul.privacy li, ul.subscription li, ul.answer-value li {
     float: right;
     text-align: center;
+}
+
+ul.privacy li {
+    width: 23%;
+    margin: 0;
+}
+
+ul.subscription li, ul.answer-value li {
     width: 22%;
     margin: 0px 0px 0px 1%;
 }
@@ -3308,19 +3316,6 @@ textarea#q_quest {
     color: #CC2027;
 }
 
-/*textarea#deb_title, textarea.textarea-input  {
-    margin: 7px 1% 25px 1px;
-    width: 98%;
-}
-
-textarea#deb_title, textarea.textarea-input {
-    -moz-border-radius: 3px 3px 3px 3px;
-    border-color: #666666 #AAAAAA #AAAAAA #666666;
-    float: right;
-    margin: 0 1% 30px 1px;
-    padding: 2% 1%;
-    width: 98%;
-}*/
 .ref img {
     float: left;
 }
@@ -3363,10 +3358,8 @@ input.info, textarea.info {
 
 #edit_profile .privacy .form-radios .form-item {
     float: right;
-    margin: 0 0 0 1%;
     text-align: center;
-    width: 15%;
-    border: 0px solid #FF0000;
+    width: 23%;
 
 }
 
@@ -3381,24 +3374,9 @@ input.info, textarea.info {
 }
 
 #edit_profile fieldset li.privacy-rules {
-    margin: 0 0 5px 0;
+    margin-bottom: 5px;
 }
 
-#edit_profile .form-radios .form-item:nth-child(1) {
-    margin-right: 10px;
-}
-
-#edit_profile .form-radios .form-item:nth-child(2) {
-    margin-right: 17px;
-}
-
-#edit_profile .form-radios .form-item:nth-child(3) {
-    margin-right: 18px;
-}
-
-#edit_profile .form-radios .form-item:nth-child(4) {
-    margin-right: 18px;
-}
 
 .subscription .form-radios .form-item {
     float: right;
