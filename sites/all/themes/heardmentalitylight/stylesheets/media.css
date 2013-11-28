@@ -236,14 +236,15 @@
 
     #edit_profile .privacy .form-radios .form-item {
         width: 23%;
+    }
 
     ul.privacy li {
         width: 23%;
+    }
 
     #edit-image-upload-wrapper {
         width: 140px;
     }
-
 
 }
 
@@ -734,7 +735,7 @@
     }
 
     #edit_profile select
-		/*#edit_profile li.country-info ul.privacy*/     {
+		/*#edit_profile li.country-info ul.privacy*/      {
         margin: 0;
     }
 

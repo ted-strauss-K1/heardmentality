@@ -2071,7 +2071,7 @@ select#edit-language {
     background: -webkit-linear-gradient(top, #2CCDF9, #27B4DB);
     background: -moz-linear-gradient(top, #2CCDF9, #27B4DB);
     background: -ms-linear-gradient(top, #2CCDF9, #27B4DB);
-    background: -o-linear-gradient(top, #2CCDF9,#27B4DB);
+    background: -o-linear-gradient(top, #2CCDF9, #27B4DB);
     background: linear-gradient(top, #2CCDF9, #27B4DB);
     border: 1px solid #849EB7;
     -webkit-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
@@ -2108,7 +2108,7 @@ select#edit-language {
     background: -webkit-linear-gradient(top, #2CCDF9, #27B4DB);
     background: -moz-linear-gradient(top, #2CCDF9, #27B4DB);
     background: -ms-linear-gradient(top, #2CCDF9, #27B4DB);
-    background: -o-linear-gradient(top, #2CCDF9,#27B4DB);
+    background: -o-linear-gradient(top, #2CCDF9, #27B4DB);
     background: linear-gradient(top, #2CCDF9, #27B4DB);
     border: 1px solid #849EB7;
     -webkit-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
@@ -2141,7 +2141,6 @@ select#edit-language {
     text-align: center;
     cursor: pointer;
 
-
 }
 
 #edit-image-upload-wrapper input[type="file"] {
@@ -2153,7 +2152,6 @@ select#edit-language {
     z-index: 20;
     cursor: pointer;
 }
-
 
 /*--/ change userpic */
 
@@ -3376,7 +3374,6 @@ input.info, textarea.info {
 #edit_profile fieldset li.privacy-rules {
     margin-bottom: 5px;
 }
-
 
 .subscription .form-radios .form-item {
     float: right;
