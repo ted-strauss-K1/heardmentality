@@ -3,7 +3,7 @@
 /**
  * @return array
  */
-function embed_menu () {
+function embed_menu() {
   $menu = array();
 
   $menu['embedder/%'] = array(
@@ -12,7 +12,7 @@ function embed_menu () {
       1,
       2
     ),
-    'access callback' => true,
+    'access callback' => TRUE,
     'type'            => MENU_CALLBACK,
   );
 
@@ -23,8 +23,8 @@ function embed_menu () {
  * @param        $id
  * @param string $format
  */
-function embed ($id, $format = 'regular') {
-  print theme('embedder', $id, $format ? $format : 'regular');
+function embed($id, $format = 'regular') {
+  print theme('embedder', intval($id), $format ? $format : 'regular');
 
   exit;
 }
@@ -32,13 +32,13 @@ function embed ($id, $format = 'regular') {
 /**
  * @return array
  */
-function embed_theme () {
+function embed_theme() {
   $theme = array();
 
   $theme['embedder'] = array(
     'arguments'            => array(
       'id'     => 0,
-      'format' => null,
+      'format' => NULL,
     ),
     'template'             => 'template/embedder',
     'preprocess functions' => array('embedder_theme_preprocess'),
@@ -53,7 +53,7 @@ function embed_theme () {
 
     $theme['embedder_format_' . $format] = array(
       'arguments'            => array(
-        'node' => null,
+        'node' => NULL,
       ),
       'template'             => 'template/embedder.format.' . $format,
       'preprocess functions' => function_exists($function) ? array($function) : array(),
@@ -66,7 +66,7 @@ function embed_theme () {
 /**
  * @param $format
  */
-function embedder_theme_preprocess (&$vars) {
+function embedder_theme_preprocess(&$vars) {
   $vars['module_path'] = drupal_get_path('module', 'embed');
 
   if (!user_is_logged_in()) {
@@ -81,6 +81,37 @@ function embedder_theme_preprocess (&$vars) {
     $vars['format'] .= ' error';
   }
   else {
+    $vars['node'] = $node;
     $vars['content'] = theme('embedder_format_' . $vars['format'], $node);
   }
+}
+
+/**
+ *
+ */
+function embed_form_alter(&$form, &$form_state, $form_id) {
+  if ('user_login' == $form_id) {
+    $form['#submit'][] = 'embed_user_login';
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function embed_user_login($form, $form_state) {
+  if (!user_is_logged_in()) {
+    print json_encode(array('status' => FALSE));
+  }
+  else {
+    list($embed, $id, $format) = explode('/', $_GET['q'], 3);
+
+    $vars = array(
+      'id'     => intval($id),
+      'format' => $format ? $format : 'regular',
+    );
+    embedder_theme_preprocess($vars);
+    print json_encode(array('status' => TRUE, 'content' => $vars['content'], 'voted' => $vars['node']->vote));
+  }
+  exit;
 }
