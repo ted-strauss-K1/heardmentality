@@ -420,3 +420,20 @@
 .ie7 .expanding .active {
   background-position : 100% -24px;
 }
+
+.ie7 .error-banner span,
+.ie8 .error-banner span {
+    background: url(../images/circle_big.png) no-repeat;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top: none;
+}
+
+.ie7 .error-banner,
+.ie8 .error-banner {
+    height: 285px;
+    width: 285px;
+    background: none;
+}

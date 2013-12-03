@@ -731,7 +731,7 @@ img.dark-logo {
 .see-banner span, .vote-banner span, .share-banner span, .error-banner span,
 .see-banner p, .vote-banner p, .share-banner p, .error-banner p {
     display: block;
-    background-color: #FFFFFF;
+    background: #FFFFFF;
     border-top-left-radius: 200px;
     border-top-right-radius: 200px;
     border-bottom-right-radius: 200px;
