@@ -286,8 +286,8 @@
         border: none;
         vertical-align: middle;
         text-align: center;
-        line-height: 50px;
-        padding: 62px 0 0 0;
+        line-height: 0;
+        padding: 90px 0 0 0;
  }
 
     .circle-box {
