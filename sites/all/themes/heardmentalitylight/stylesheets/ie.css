@@ -437,3 +437,7 @@
     width: 285px;
     background: none;
 }
+
+.ie .page-error .banner-text {
+    width: 100%;
+}
