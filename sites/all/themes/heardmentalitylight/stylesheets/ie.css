@@ -329,8 +329,8 @@
 
 .ie7 #debate_list_area li.one_reply span.negative, .ie7 #debate_list_area li.one_reply span.positive,
 .ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive {
-    background-color: #D7D7D7;
-    border: 1px solid red;
+    background-color: #ffffff;
+    border: 1px solid #D7D7D7;
 }
 
 /*.ie8 #debate_list_area li.one_reply span.positive {
@@ -525,7 +525,38 @@
     background: url(../images/ie_footer_google.png) no-repeat;
 }
 
+/*--/ footer */
 
+
+/* issues in ie7-8 */
+
+.ie8 .issue-vote-wrapper .poll-vote-area fieldset {
+ margin: 0 0 16px 0;
+}
+
+.ie8 .issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item {
+    margin: 24px 0 0 0;
+}
+
+.ie8 .issue-vote-wrapper .poll-vote-area .fieldset-wrapper input.form-submit {
+    margin: 23px 0 0 23px;
+}
+
+.ie8 #debate_list_area .arg span.sum span {
+    background: url(../images/ie_debate_sum.png) no-repeat;
+}
+
+.ie8 #argument-add-form .form-submit {
+    float: right;
+    margin-right: 0;
+}
+
+.ie8 #argument-add-form .add_button {
+    width: 100%;
+}
+
+
+/*--/ issues in ie7-8 */
 
 
 
