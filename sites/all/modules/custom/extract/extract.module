@@ -41,7 +41,9 @@ function extract_theme() {
  * @param $vars
  */
 function extract_preprocess_page(&$vars) {
-  array_push($vars['template_files'], 'page_16_0');
+  if ('analysis' == arg(0)) {
+    array_push($vars['template_files'], 'page_16_0');
+  }
 }
 
 

@@ -82,11 +82,11 @@ div.regular {
 div.content a {
   color           : #000000;
   text-decoration : none;
-  display: block;
+  display         : block;
 }
 
 div.content h1 {
-  margin: 5px 0;
+  margin : 5px 0;
 }
 
 div.content table td.percent-bar-wrapper {
