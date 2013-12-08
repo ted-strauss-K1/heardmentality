@@ -100,6 +100,9 @@ function embed_form_alter(&$form, &$form_state, $form_id) {
  * @param $form_state
  */
 function embed_user_login($form, $form_state) {
+  if ('embedder' != arg(0)) {
+    return;
+  }
   if (!user_is_logged_in()) {
     print json_encode(array('status' => FALSE));
   }
