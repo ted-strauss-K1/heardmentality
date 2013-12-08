@@ -1,0 +1,33 @@
+<?php
+
+/**
+ *
+ */
+include_once __DIR__ . "/events.module";
+
+/**
+ * Implementation of hook_install()
+ */
+function events_install() {
+  $vocabularies = taxonomy_get_vocabularies(NULL);
+  foreach ($vocabularies as $vocabulary) {
+    if ('Userpoints' == $vocabulary->name) {
+      $vid = $vocabulary->vid;
+      $term = array(
+        'name' => 'Events',
+        'vid'  => $vid,
+      );
+      taxonomy_save_term($term);
+      if ($term['tid']) {
+        variable_set(USERPOINTS_TERM_EVENTS, $term['tid']);
+      }
+    }
+  }
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function events_uninstall() {
+  //
+}

@@ -1,5 +1,63 @@
 <?php
 
+/**
+ * @return array
+ */
+function extract_menu () {
+  $menu = array();
+
+  $menu['extract'] = array(
+    'page callback' => 'extract_exec',
+    'access callback' => true,
+    'type' => MENU_CALLBACK,
+  );
+
+  $menu['analysis'] = array(
+    'title' => t('Analysis'),
+    'page callback' => 'theme',
+    'page arguments' => array('analysis'),
+    'access callback' => true,
+  );
+
+  return $menu;
+}
+
+/**
+ * @return array
+ */
+function extract_theme() {
+  $theme = array();
+
+  $theme['analysis'] = array(
+    'arguments' => array(),
+    'template' => 'analysis',
+    'preprocess functions' => array('extract_theme_theme_analysis_preprocess'),
+  );
+
+  return $theme;
+}
+
+/**
+ * @param $vars
+ */
+function extract_preprocess_page(&$vars) {
+  array_push($vars['template_files'], 'page_16_0');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 define('EXTRACT_PERIOD', 'd');
 
 /**
@@ -28,7 +86,7 @@ function extract_cron()
   extract_exec_start();
   extract_exec();
   extract_exec_end();
-  exit; // todo remove exit
+  // exit; // todo remove exit
 }
 
 /**
@@ -43,30 +101,12 @@ function array_remove_value($needle, &$haystack, $strict = false)
   }
 }
 
-function extract_menu() {
-  $menu = array();
-
-  $menu['extract'] = array(
-    'page callback' => 'extract_exec',
-    'access callback' => true,
-    'type' => MENU_CALLBACK,
-  );
-
-  return $menu;
-}
 
 /**
  *
  */
 function extract_exec()
 {
-  # check the path is readable
-  $dir = dirname(__FILE__) . '/data';
-  if (!is_writable($dir)) {
-    watchdog('extract', t('Error: %path is not writable.', array('%path' => $dir)));
-    return false;
-  }
-
   # file naming
   $path = 'extract.';
   switch (EXTRACT_PERIOD) {
@@ -74,12 +114,25 @@ function extract_exec()
       $path .= date('Y.m.d');
       break;
   }
-
-  # check if file exists
   $filename = $path . '.csv';
-  $path_rel = drupal_get_path('module', 'extract') . '/data/' . $filename;
-  $path_abs = $dir . '/' . $filename;
-  if (true || !file_exists($path_abs)) {
+
+  # rel path to tmp dir
+  $path_dir = file_directory_temp();
+  if ('/' == $path_dir[0]) {
+    $path_dir = str_replace($_SERVER['DOCUMENT_ROOT'] . '/', '', $path_dir);
+  }
+  $path_rel = $path_dir . '/' . $filename;
+  $path_abs = $_SERVER['DOCUMENT_ROOT'] . '/' . $path_rel;
+
+  # check the path is readable
+  $dir = $_SERVER['DOCUMENT_ROOT'] . '/' . $path_dir;
+  if (!is_writable($dir)) {
+    watchdog('extract', t('Error: %path is not writable.', array('%path' => $dir)));
+    return false;
+  }
+
+  # exec
+  if (!file_exists($path_abs)) {
     set_time_limit(0);
 
     $f = fopen($path_abs, 'w+');
@@ -321,7 +374,7 @@ function extract_exec()
     fclose($f);
   }
 
-  // todo send email
+  // send email
   if (file_exists($path_abs) && ($path_abs != variable_get('extract_file_sent', ''))) {
     $sender = variable_get('site_mail', 'dyachenko.oleg@gmail.com');
     $recipient = 'jaminstrauss@gmail.com';

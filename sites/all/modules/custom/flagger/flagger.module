@@ -10,30 +10,29 @@ define('FLAGGER_PATH', 'flagger');
  *
  * @return array
  */
-function flagger_theme()
-{
+function flagger_theme() {
   $theme = array();
 
   $theme['flagger_btn_flag'] = array(
     'arguments' => array(
-      'content_id' => NULL,
+      'content_id'   => NULL,
       'content_type' => NULL,
     ),
-    'file' => 'flagger.theme.inc',
+    'file'      => 'flagger.theme.inc',
   );
   $theme['flagger_btn_flags'] = array(
     'arguments' => array(
-      'content_id' => NULL,
+      'content_id'   => NULL,
       'content_type' => NULL,
     ),
-    'file' => 'flagger.theme.inc',
+    'file'      => 'flagger.theme.inc',
   );
   $theme['flagger_btn_history'] = array(
     'arguments' => array(
-      'content_id' => NULL,
+      'content_id'   => NULL,
       'content_type' => NULL,
     ),
-    'file' => 'flagger.theme.inc',
+    'file'      => 'flagger.theme.inc',
   );
 
   return $theme;
@@ -44,50 +43,49 @@ function flagger_theme()
  *
  * @return array
  */
-function flagger_menu()
-{
+function flagger_menu() {
   $menu = array();
 
   // flag
   $menu[FLAGGER_PATH] = array(
-    'page callback' => 'flagger_page',
-    'page arguments' => array(1, 2),
+    'page callback'    => 'flagger_page',
+    'page arguments'   => array(1, 2),
     'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-    'file' => 'flagger.pages.inc',
+    'type'             => MENU_CALLBACK,
+    'file'             => 'flagger.pages.inc',
   );
   $menu[FLAGGER_PATH . '/save'] = array(
-    'page callback' => 'flagger_page_save',
+    'page callback'    => 'flagger_page_save',
     'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-    'file' => 'flagger.pages.inc',
+    'type'             => MENU_CALLBACK,
+    'file'             => 'flagger.pages.inc',
   );
 
   // flags
   $menu[FLAGGER_PATH . '/flags/%/%'] = array(
-    'page callback' => 'flagger_page_flags',
-    'page arguments' => array(2, 3),
+    'page callback'    => 'flagger_page_flags',
+    'page arguments'   => array(2, 3),
     'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-    'file' => 'flagger.pages.inc',
+    'type'             => MENU_CALLBACK,
+    'file'             => 'flagger.pages.inc',
   );
 
   // history
   $menu[FLAGGER_PATH . '/history/%/%'] = array(
-    'page callback' => 'flagger_page_history',
-    'page arguments' => array(2, 3),
+    'page callback'    => 'flagger_page_history',
+    'page arguments'   => array(2, 3),
     'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-    'file' => 'flagger.pages.inc',
+    'type'             => MENU_CALLBACK,
+    'file'             => 'flagger.pages.inc',
   );
 
   // history
   $menu[FLAGGER_PATH . '/unflag/%'] = array(
-    'page callback' => 'flagger_page_unflag',
-    'page arguments' => array(2),
+    'page callback'    => 'flagger_page_unflag',
+    'page arguments'   => array(2),
     'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-    'file' => 'flagger.pages.inc',
+    'type'             => MENU_CALLBACK,
+    'file'             => 'flagger.pages.inc',
   );
 
   return $menu;
@@ -98,8 +96,7 @@ function flagger_menu()
  *
  * @param $vars
  */
-function flagger_preprocess_page(&$vars)
-{
+function flagger_preprocess_page(&$vars) {
   drupal_add_js(drupal_get_path('module', 'flagger') . '/flagger.js');
   drupal_add_js('misc/jquery.form.js');
 }
@@ -107,13 +104,12 @@ function flagger_preprocess_page(&$vars)
 /**
  * Implementation of hook_nodeapi()
  *
- * @param $node
- * @param $op
+ * @param      $node
+ * @param      $op
  * @param null $a3
  * @param null $a4
  */
-function flagger_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
+function flagger_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   switch ($op) {
     case 'load' :
       // let's load the flags used
@@ -125,14 +121,23 @@ function flagger_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 /**
  * Implementation of hook_flag(). Trigger actions if any are available.
  */
-function flagger_flag($action, $flag, $content_id, $account)
-{
+function flagger_flag($op, $flag, $content_id, $account, $fcid) {
+  if ($content_type = db_result(db_query("SELECT content_type FROM {flag_content} WHERE fcid = %d", $fcid))) {
+    # actions
+    function_exists('action_queue') && action_queue(array(
+      'uid'         => $account->uid,
+      'operation'   => $op,
+      'entity_id'   => $content_id,
+      'entity_type' => $content_type,
+    ));
+  }
+
   if (module_exists('rules')) {
-    $event_name = ($action == 'flag' ? 'flag_flagged' : 'flag_unflagged');
+    $event_name = ($op == 'flag' ? 'flag_flagged' : 'flag_unflagged');
     $arguments = array(
-      'flag' => $flag,
+      'flag'            => $flag,
       'flag_content_id' => $content_id,
-      'flagging_user' => $account,
+      'flagging_user'   => $account,
     );
     rules_invoke_event($event_name, $arguments);
   }
@@ -141,10 +146,10 @@ function flagger_flag($action, $flag, $content_id, $account)
 /**
  * @param string $content_type
  * @param string $content_id
+ *
  * @return mixed
  */
-function flagger_get_flags($content_type = '', $content_id = '', $reset = false)
-{
+function flagger_get_flags($content_type = '', $content_id = '', $reset = FALSE) {
   static $cache = array();
 
   if ($reset || is_null($cache[$content_type][$content_id])) {
@@ -163,9 +168,7 @@ function flagger_get_flags($content_type = '', $content_id = '', $reset = false)
       fn.fid = fc.fid AND
       fn.uid = fc.uid
     WHERE fc.content_type = '%s' AND fc.content_id = '%d'
-    ORDER BY fc.fid",
-      $content_type, $content_id
-    );
+    ORDER BY fc.fid", $content_type, $content_id);
     while ($row = db_fetch_array($result)) {
       $cache[$content_type][$content_id][$row['fid']]['name'] = $row['flag'];
       $cache[$content_type][$content_id][$row['fid']]['title'] = $row['title'];

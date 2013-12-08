@@ -17,16 +17,16 @@ $(document).ready(function () {
   $('#user-profile-avatar-selection-open').live('click', function (e) {
     e.preventDefault();
     $.hrd.noty({
-      'text':$('#user-profile-avatar-selection-wrapper').html(),
-      'type':'notification',
-      'modal':true,
-      'timeout':false,
-      'layout':'center',
-      'buttons':[
+      'text'   : $('#user-profile-avatar-selection-wrapper').html(),
+      'type'   : 'notification',
+      'modal'  : true,
+      'timeout': false,
+      'layout' : 'center',
+      'buttons': [
         {
-          addClass:'btn btn-danger',
-          text:'Close',
-          onClick:function ($noty) {
+          addClass: 'btn btn-danger',
+          text    : 'Close',
+          onClick : function ($noty) {
             $noty.close();
           }
         }
@@ -34,7 +34,7 @@ $(document).ready(function () {
     });
   });
 
-  $('body').on('geocode.success', function(e, location) {
+  $('body').on('geocode.success', function (e, location) {
     var output = '';
 
     // country
@@ -88,7 +88,7 @@ $(document).ready(function () {
     // console.log(location);
   });
 
-  $('.user-profile-location .determine').live('click', function(e) {
+  $('.user-profile-location .determine').live('click', function (e) {
     e.preventDefault();
 
     $(this).remove();
@@ -97,7 +97,8 @@ $(document).ready(function () {
 
   $('#profile_zip').live('focusout', function () {
     var info = $('.user-profile-location .determined');
-    info.slideUp(400, function() {});
+    info.slideUp(400, function () {
+    });
 
     $('body').trigger('geocode.postalcode', [$('#profile_country').val(), $('#profile_zip').val()]);
 //

@@ -1,11 +1,31 @@
 <?php
 
 /**
+ * @param int $code
+ */
+function ulogin_alter_redirect($code = 0) {
+  // parse given destination
+  $destination = $_REQUEST['destination'];
+  $destination = parse_url($destination);
+  $_GET['q'] = $destination['path'];
+  parse_str($destination['query'], $destination_params);
+  $_REQUEST = $_GET + $destination_params;
+  unset($_REQUEST['destination']);
+
+  // get redirect path
+  $form = array();
+  user_login_modal_form_redirect($form);
+
+  // redirect
+  drupal_goto($form['#redirect']);
+}
+
+/**
  * @param $form
  * @param $form_state
  * @param $form_id
  */
-function ulogin_alter_form_alter (&$form, &$form_state, $form_id) {
+function ulogin_alter_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'ulogin_settings_form') {
 
     $fields = _ulogin_fields_list();
@@ -42,17 +62,17 @@ function ulogin_alter_form_alter (&$form, &$form_state, $form_id) {
 /**
  * @param $items
  */
-function ulogin_alter_menu_alter (&$items) {
+function ulogin_alter_menu_alter(&$items) {
   $items['ulogin']['page callback'] = 'ulogin_alter_callback';
 }
 
 /**
  * @return int
  */
-function ulogin_alter_callback () {
+function ulogin_alter_callback() {
   if (!empty($_POST['token'])) {
     $data = drupal_http_request('http://ulogin.ru/token.php?token=' . $_POST['token'] . '&host=' . $_SERVER['HTTP_HOST']);
-    $data = json_decode($data->data, true);
+    $data = json_decode($data->data, TRUE);
     //check for error
     if (!empty($data['error'])) {
       drupal_set_message($data['error'], 'error');
@@ -65,9 +85,10 @@ function ulogin_alter_callback () {
     }
     //remove 'access_token' property
     unset($data['access_token']);
-  } else {
+  }
+  else {
     if (user_is_logged_in()) {
-      drupal_goto();
+      ulogin_alter_redirect(1);
       return MENU_FOUND;
     }
 
@@ -83,20 +104,17 @@ function ulogin_alter_callback () {
       //registered to this user
       if ($user->uid == $identity['uid']) {
         drupal_set_message(t('You have already registered this identity.'));
-        $destination = drupal_get_destination();
-        drupal_goto($destination['destination']);
+        ulogin_alter_redirect(2);
       } //registered to another user
       else {
         drupal_set_message(t('This identity is registered to another user.'), 'error');
-        $destination = drupal_get_destination();
-        drupal_goto($destination['destination']);
+        ulogin_alter_redirect(3);
       }
     } //identity is not registered - register it to the logged in user
     else {
       _ulogin_identity_save($data);
       drupal_set_message(t('New identity added.'));
-      $destination = drupal_get_destination();
-      drupal_goto($destination['destination']);
+      ulogin_alter_redirect(4);
     }
   }
 
@@ -114,23 +132,26 @@ function ulogin_alter_callback () {
     if (!empty($account->ulogin)) {
       $providers = _ulogin_providers_list();
       drupal_set_message(t('If you are completely sure it is your email address, try to login through %network.', array('%network' => $providers[$account->ulogin['network']])), 'status');
-    } else {
+    }
+    else {
       drupal_set_message(t('If you are completely sure it is your email address, try to login using your username and password on this site. If you don\'t remember your password - <a href="@password">request new password</a>.', array('@password' => url('user/password'))));
     }
-  } else {
+  }
+  else {
     global $ulogin_data;
     $ulogin_data = $data;
     user_external_login_register(_ulogin_make_username($data), 'ulogin');
     _ulogin_identity_save($data);
 
-    $user_save_trigger = false;
+    $user_save_trigger = FALSE;
     $edit = array();
     //save user picture
     if (variable_get('user_pictures', 0) && variable_get('ulogin_pictures', 1)) {
       $photo_url = '';
       if (!empty($data['photo_big']) && $data['photo_big'] != 'http://ulogin.ru/img/photo_big.png') {
         $photo_url = $data['photo_big'];
-      } elseif (!empty($data['photo']) && $data['photo'] != 'http://ulogin.ru/img/photo.png') {
+      }
+      elseif (!empty($data['photo']) && $data['photo'] != 'http://ulogin.ru/img/photo.png') {
         $photo_url = $data['photo'];
       }
       if ($photo_url) {
@@ -141,14 +162,14 @@ function ulogin_alter_callback () {
         $destination = variable_get('user_picture_path', 'pictures') . '/picture-' . $user->uid . '.' . $info['extension'];
         if (file_copy($file, $destination, FILE_EXISTS_REPLACE)) {
           $edit['picture'] = $file;
-          $user_save_trigger = true;
+          $user_save_trigger = TRUE;
         }
       }
     }
     //set email address
     if (!empty($data['email'])) {
       $edit['mail'] = $data['email'];
-      $user_save_trigger = true;
+      $user_save_trigger = TRUE;
     }
 
     if ($user_save_trigger) {
@@ -156,19 +177,17 @@ function ulogin_alter_callback () {
     }
   }
 
-  $destination = drupal_get_destination();
-  $destination = preg_replace('/^.*\?destination=/', '', urldecode($destination));
-  drupal_goto($destination);
+  ulogin_alter_redirect(5);
 }
 
 /**
  * Implements hook_elements().
  */
-function ulogin_alter_elements () {
+function ulogin_alter_elements() {
   $types = array();
 
   $types['ulogin_alter_widget'] = array(
-    '#input'              => false,
+    '#input'              => FALSE,
     '#theme'              => 'ulogin_widget',
     '#ulogin_id'          => 'uLogin',
     '#ulogin_display'     => variable_get('ulogin_display', 'panel'),

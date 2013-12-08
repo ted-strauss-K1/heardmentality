@@ -20,11 +20,13 @@
 				  <li><?php print l(t('Issues'), 'issues', array('attributes' => array('class'=>'issues'))); ?></li>
 <!--				  <li>--><?php //print l(t('Analysis'), $_GET['q'], array('attributes' => array('class'=>'analysis'))); ?><!--</li>-->
 
-				  <?php if (user_is_logged_in()) : ?>
+          <li class="following"><?php print l(t('Analysis'), 'analysis', array('attributes' => array('class'=>'analysis'))); ?></li>
+          
+          <?php if (user_is_logged_in()) : ?>
 					  <li class="following"><?php print l(t('Following'), 'following', array('attributes' => array('class'=>'following'))); ?></li>
 				  <?php endif; ?>
-				  
-				  <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
+
+          <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
 					  <li class="moderator"><?php print l(t('Moderator'), 'moderation', array('attributes' => array('class'=>'moderator'))); ?></li>
 				  <?php endif; ?>
 				  
@@ -40,7 +42,7 @@
           <div class="expanding">
             <h6 class="inactive"><?php print t('Language'); ?></h6>
             <ul class="lang" style="display:none;" aria-hidden="true">
-              <?php if($multilanguage_area): print $multilanguage_area; endif; ?> ... <?php t('more languages coming soon'); ?>
+              <?php if($multilanguage_area): print $multilanguage_area; endif; ?> ... <?php print t('more languages coming soon'); ?>
             </ul>
           </div>
         </div>

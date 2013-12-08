@@ -1,7 +1,0 @@
-name = Ranks
-description = Ranks based on Userpoints
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "userpoints"
-dependencies[] = "up"

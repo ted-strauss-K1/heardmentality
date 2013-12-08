@@ -5,8 +5,7 @@
  *
  * @param $vars
  */
-function follower_preprocess_page(&$vars)
-{
+function follower_preprocess_page (&$vars) {
   drupal_add_js(drupal_get_path('module', 'follower') . '/follower.js');
   drupal_add_js('misc/jquery.form.js');
 }
@@ -26,20 +25,19 @@ define('FOLLOWER_RELATION_ID', 1);
  *
  * @return array
  */
-function follower_menu()
-{
+function follower_menu () {
   $menu = array();
 
   $menu[FOLLOWER_PATH] = array(
-    'page callback' => 'follower_page',
-    'page arguments' => array(1),
+    'page callback'    => 'follower_page',
+    'page arguments'   => array(1),
     'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
+    'type'             => MENU_CALLBACK,
   );
   $menu[FOLLOWER_PATH . '/save'] = array(
-    'page callback' => 'follower_page_save',
+    'page callback'    => 'follower_page_save',
     'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
+    'type'             => MENU_CALLBACK,
   );
 
   return $menu;
@@ -50,13 +48,12 @@ function follower_menu()
  *
  * @return array
  */
-function follower_theme()
-{
+function follower_theme () {
   $theme = array();
 
   $theme['follower_button'] = array(
     'arguments' => array(
-      'follow' => NULL,
+      'follow' => null,
     ),
   );
 
@@ -67,31 +64,31 @@ function follower_theme()
  * Follower Button theme call
  *
  * @param $follow
+ *
  * @return string
  */
-function theme_follower_button($follow)
-{
+function theme_follower_button ($follow) {
   global $user;
   if (user_is_logged_in() && $user->uid != $follow->uid) {
     $text = follower_status($follow->uid) === false ? t('Follow') : t('Unfollow');
-    return l(t($text), FOLLOWER_PATH . '/' . $follow->uid . '/',
-      array('attributes' => array(
-        'class' => 'button light follower',
-        'name' => $follow->uid,
-      ))
-    );
+    return l(t($text), FOLLOWER_PATH . '/' . $follow->uid . '/', array(
+        'attributes' => array(
+          'class' => 'button light follower',
+          'name'  => $follow->uid,
+        )
+      ));
   }
 }
 
 /**
  * Check if user follows another
  *
- * @param $follow_uid
+ * @param        $follow_uid
  * @param string $uid
+ *
  * @return bool
  */
-function follower_status($follow_uid, $uid = false)
-{
+function follower_status ($follow_uid, $uid = false) {
   if ($uid === false) {
     global $user;
     $uid = $user->uid;
@@ -104,8 +101,7 @@ function follower_status($follow_uid, $uid = false)
  *
  * @param $follow_uid
  */
-function follower_page($follow_uid)
-{
+function follower_page ($follow_uid) {
   $form = drupal_get_form('follower_form', user_load($follow_uid));
   $response = array('text' => $form);
   $response += follower_strings();
@@ -118,12 +114,11 @@ function follower_page($follow_uid)
  *
  * @return array
  */
-function follower_strings()
-{
+function follower_strings () {
   return array(
-    'follow' => t('Follow'),
-    'unfollow' => t('Unfollow'),
-    'followtext' => t('You now follow this user'),
+    'follow'       => t('Follow'),
+    'unfollow'     => t('Unfollow'),
+    'followtext'   => t('You now follow this user'),
     'unfollowtext' => t('You now unfollow this user'),
   );
 }
@@ -133,10 +128,10 @@ function follower_strings()
  *
  * @param $form
  * @param $follow
+ *
  * @return array
  */
-function follower_form(&$form, $follow)
-{
+function follower_form (&$form, $follow) {
   $form = array();
 
   $form['#attributes'] = array(
@@ -148,13 +143,13 @@ function follower_form(&$form, $follow)
     $text = follower_status($follow->uid) === false ? t('follow') : t('unfollow');
     $text = t('Are you sure you want to ') . $text . t(' this user?');
     $form['title'] = array(
-      '#type' => 'markup',
+      '#type'  => 'markup',
       "#value" => $text,
     );
   }
 
   $form['follow_uid'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     "#value" => $follow->uid,
   );
 
@@ -164,8 +159,7 @@ function follower_form(&$form, $follow)
 /**
  * Follower form submit
  */
-function follower_page_save()
-{
+function follower_page_save () {
   global $user;
   $post = $_POST;
   if (($rid = follower_status($post['follow_uid'])) === false) {
@@ -175,20 +169,25 @@ function follower_page_save()
     $relationship->type = user_relationships_type_load(FOLLOWER_RELATION_ID);
     user_relationships_request_relationship($relationship);
 
-    // events
-    module_invoke_all('process_event', 'follow', array(
-      'content_type' => 'user',
-      'content_id' => $relationship->requestee->uid,
-    ), $relationship->requester->uid);
+    # actions
+    function_exists('action_queue') && action_queue(array(
+      'uid'         => $relationship->requester->uid,
+      'operation'   => 'follow',
+      'entity_id'   => $relationship->requestee->uid,
+      'entity_type' => 'user',
+    ));
+
   } else {
     $relationship = user_relationships_load($rid);
     user_relationships_delete_relationship($relationship, $user);
 
-    // events
-    module_invoke_all('process_event', '_follow', array(
-      'content_type' => 'user',
-      'content_id' => $relationship->requestee_id,
-    ), $relationship->requester_id);
+    # actions
+    function_exists('action_queue') && action_queue(array(
+      'uid'         => $relationship->requester_id,
+      'operation'   => 'unfollow',
+      'entity_id'   => $relationship->requestee_id,
+      'entity_type' => 'user',
+    ));
   }
   $response = follower_strings() + array('rel' => $relationship);
   print json_encode($response);
@@ -197,59 +196,93 @@ function follower_page_save()
 /**
  * Get followers: to be used in outer modules
  *
- * @param $uid
+ * @param      $uid
  * @param bool $count
  * @param bool $limit
+ *
  * @return array|int
  */
-function follower_get_followers($uid, $count = false, $limit = false)
-{
-  return user_relationships_load(
-    array(
-      'approved' => 1,
-      'requestee_id' => $uid,
-      'rtid' => FOLLOWER_RELATION_ID,
-    ),
-    array(
-      'include_user_info' => 1,
-      'order' => 1,
-    ) + (
-    $count !== false ?
-      array('count' => true) : (
-    $limit === false ?
-      array() :
-      array('limit' => $limit)
-    )
-    )
-  );
+function follower_get_followers ($uid, $count = false, $limit = false) {
+  return follower_get_list($uid, 'requester_id', $count, $limit);
 }
 
 /**
  * Get following: to be used in outer modules
  *
- * @param $uid
+ * @param      $uid
  * @param bool $count
  * @param bool $limit
+ *
  * @return array|int
  */
-function follower_get_following($uid, $count = false, $limit = false)
-{
-  return user_relationships_load(
-    array(
-      'approved' => 1,
-      'requester_id' => $uid,
-      'rtid' => FOLLOWER_RELATION_ID,
-    ),
-    array(
-      'include_user_info' => 1,
-      'order' => 1,
-    ) + (
-    $count !== false ?
-      array('count' => true) : (
-    $limit === false ?
-      array() :
-      array('limit' => $limit)
-    )
-    )
-  );
+function follower_get_following ($uid, $count = false, $limit = false) {
+  return follower_get_list($uid, 'requestee_id', $count, $limit);
+}
+
+/**
+ * @param      $uid
+ * @param      $key
+ * @param bool $count
+ * @param bool $limit
+ *
+ * @return array|int
+ */
+function follower_get_list ($uid, $key, $count = false, $limit = false) {
+  $key2 = 'requestee_id' == $key ? 'requester_id' : 'requestee_id';
+
+  $query = "SELECT " . ($count ? "COUNT(DISTINCT u.uid)" : "ur.*") . " " . "FROM {user_relationships} ur " . "INNER JOIN {users} u ON u.uid = ur.$key AND u.status = 1 " . "WHERE ur.$key2 = '%s' " . ($count ? "" : ($limit ? "LIMIT " . $limit : ""));
+  $result = db_query($query, $uid);
+
+  if ($count) {
+    return (int)db_result($result);
+  }
+
+  // get list
+  $uids = array();
+  $list = array();
+  while ($relation = db_fetch_object($result)) {
+    $list[] = $relation;
+    $uids[] = $relation->requestee_id;
+    $uids[] = $relation->requester_id;
+  }
+
+  // get userdata
+  $users = follower_get_userdata($uids);
+  foreach ($list as &$relation) {
+    foreach (array(
+               'requester',
+               'requestee'
+             ) as $key) {
+      $relation->{$key} = $users[$relation->{$key . '_id'}];
+    }
+  }
+
+  return $list;
+}
+
+/**
+ * @param $uids
+ *
+ * @return array|mixed
+ */
+function follower_get_userdata ($uids) {
+  static $users = array();
+
+  $load = array();
+  foreach ($uids as $uid) {
+    if (!isset($users[$uid])) {
+      $load[] = $uid;
+    }
+  }
+  if (empty($uids)) {
+    return array();
+  }
+  if ($load) {
+    $result = db_query("SELECT * FROM {users} WHERE uid IN (" . db_placeholders($load) . ")", $load);
+    while ($user = db_fetch_object($result)) {
+      $users[$user->uid] = $user;
+    }
+  }
+
+  return array_intersect_key($users, array_flip($uids));
 }
