@@ -1,12 +1,12 @@
 (function (d) {
-  var id = 'hm-embed', a = "data-issue", l = 'http://dev.heardmentality.org', w, i;
+  var id = 'hm-embed', a = "data-issue", l = 'http://www.heardmentality.org', w, i;
   if ((w = document.getElementById(id)) && (i = w.getAttribute(a))) {
 
     // easyxdm
     var js;
     js = d.createElement('script');
     js.async = true;
-    js.src = l + '/sites/all/libraries/easyxdm/easyXDM.debug.js';
+    js.src = l + '/sites/all/libraries/easyxdm/easyXDM.min.js';
     js.onreadystatechange = function () {
       if (this.readyState == 'complete') embed();
     }
