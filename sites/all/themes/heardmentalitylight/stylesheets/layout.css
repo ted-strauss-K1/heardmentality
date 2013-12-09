@@ -6111,6 +6111,24 @@ span.small_pos.fixes,
     margin-right: 3px;
 }
 
+#linkbox .node h2 {
+    font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+    font-size: 30px;
+}
+
+#linkbox .node h2 a {
+    text-decoration: none;
+}
+
+#linkbox .node h2 a:hover {
+    text-decoration: underline;
+}
+
+#linkbox .node .content .field,
+#linkbox .node .submitted {
+    line-height: 1.4em;
+}
+
 /*Solr search*/
 
 .filter_search.issues_search {
@@ -7631,6 +7649,10 @@ html.js fieldset.collapsible {
 }
 
 /*--/ Moderation of issues */
+
+.chzn-container {
+    width: 190px !important;
+}
 
 
 

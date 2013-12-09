@@ -183,6 +183,10 @@
         width: 100%;
     }
 
+    .chzn-container {
+        width: 142px !important;
+    }
+
     /*Moderation*/
     #choices-wrapper .fieldset-wrapper fieldset .form-item,
     #taxonomy-wrapper .fieldset-wrapper .form-item,
@@ -297,6 +301,14 @@
 
     .chzn-container-multi .chzn-choices .search-choice {
         max-width: 107px;
+    }
+
+    .four.columns.margin-top {
+        margin-top: 59px;
+    }
+
+    #block-user_profile-user-profile-right {
+        margin-top: 0;
     }
 }
 
@@ -1057,6 +1069,10 @@
         left: -15px;
     }
 
+    .chzn-container {
+        width: 390px !important;
+    }
+
     /* debate */
 
     #debate_list_area ul.argument_box {
@@ -1588,6 +1604,10 @@
 
     .mod-wrapper h2.din.half {
         font-size: 20px;
+    }
+
+    .chzn-container {
+        width: 270px !important;
     }
 
     /*/-- issues */
