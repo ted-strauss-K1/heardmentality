@@ -325,7 +325,6 @@
 .ie7 #debate_list_area .arg span.sum span,
 .ie8 #debate_list_area .arg span.sum span {
     position: relative;
-    line-height:
 }
 
 .ie7 #debate_list_area li.one_reply span.negative, .ie7 #debate_list_area li.one_reply span.positive,
@@ -438,9 +437,12 @@
     background: url(../images/ie_medal_footer_gold.png) no-repeat;
 }
 
-.ie7 .badge,
+.ie7 .badge {
+    padding: 0 6px;
+}
+
 .ie8 .badge {
-    padding: 0 7px;
+    padding: 2px 6px;
 }
 
 .ie7 .badge.bronze,
@@ -482,6 +484,18 @@
     padding: 4px 10px;
 }
 
+.ie7 .profile_page_wrapper .medal_box .bronze,
+.ie7 .profile_page_wrapper .medal_box .silver,
+.ie7 .profile_page_wrapper .medal_box .gold {
+    padding: 4px 10px;
+}
+
+.ie8 .profile_page_wrapper .medal_box .bronze,
+.ie8 .profile_page_wrapper .medal_box .silver,
+.ie8 .profile_page_wrapper .medal_box .gold {
+    padding: 4px 10px;
+}
+
 .ie7 .profile_page_wrapper .medal_box,
 .ie8 .profile_page_wrapper .medal_box {
     float: none;
@@ -499,18 +513,35 @@
     height: 47px;
 }
 
-.ie7 a.facebook,
-.ie8 a.facebook {
+.ie7 a.facebook {
     background: url(../images/ie_footer_facebook.png) no-repeat;
 }
 
-.ie7 a.twitter,
-.ie8 a.twitter {
+.ie7 a.twitter {
     background: url(../images/ie_footer_twitter.png) no-repeat;
 }
 
-.ie7 a.google,
-.ie8 a.google {
+.ie7 a.google {
     background: url(../images/ie_footer_google.png) no-repeat;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
