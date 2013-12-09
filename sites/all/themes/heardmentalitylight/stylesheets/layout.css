@@ -6803,8 +6803,8 @@ span.beta {
     display: none;
 }
 
-.node-static {
-
+h1.h1_privacy {
+    margin-top: 25px;
 }
 
 /**** SELECTED ITEMS FOR BADGES ****/
