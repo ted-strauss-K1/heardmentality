@@ -79,6 +79,24 @@ function heardmentalitylight_preprocess_page(&$vars) {
   drupal_add_js(array('user' => array(
     'uid' => $user->uid,
   )), 'setting');
+
+  # css files
+  global $theme_path;
+  drupal_add_css($theme_path . '/stylesheets/header.css');
+  drupal_add_css($theme_path . '/stylesheets/layout.css');
+  drupal_add_css($theme_path . '/stylesheets/footer.css');
+  if (is_node_page()) {
+    if ($node = $vars['node']) {
+      drupal_add_css($theme_path . '/stylesheets/node.css');
+      drupal_add_css($theme_path . '/stylesheets/node-'.$node->type.'.css');
+    }
+  }
+  if ('issues' == arg(0)) {
+    drupal_add_css($theme_path . '/stylesheets/search.css');
+  }
+  if (drupal_is_front_page()) {
+    drupal_add_css($theme_path . '/stylesheets/front.css');
+  }
 }
 
 /**
