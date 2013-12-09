@@ -6,251 +6,250 @@
 
 @media only screen and (max-width : 1023px) {
 
-    .hide-on-mobiles {
-        display: none;
-    }
+  .hide-on-mobiles {
+    display : none;
+  }
 
-    .top-mobile .border-bottom {
-        margin-top: 32px;
-    }
+  .top-mobile .border-bottom {
+    margin-top : 32px;
+  }
 
-    .circle-box {
-        background: url(../images/circle_bg.png) center -13px no-repeat;
-        margin: 50px 0px 10px 0px;
-        width: 100%;
-        height: 170px;
-    }
+  .circle-box {
+    background : url(../images/circle_bg.png) center -13px no-repeat;
+    margin     : 50px 0px 10px 0px;
+    width      : 100%;
+    height     : 170px;
+  }
 
-    .see-banner, .vote-banner, .share-banner {
-        font-size: 20px;
-        padding: 75px 0px 0px 0px;
-    }
+  .see-banner, .vote-banner, .share-banner {
+    font-size : 20px;
+    padding   : 75px 0px 0px 0px;
+  }
 
-    .error-banner {
-        padding: 75px 0px 0px 0px;
-        font-size: 40px;
-    }
+  .error-banner {
+    padding   : 75px 0px 0px 0px;
+    font-size : 40px;
+  }
 
-    label.add-on, label.add-on-2 {
-        width: 100%;
-        margin: 7px 0 0 0;
-    }
+  label.add-on, label.add-on-2 {
+    width  : 100%;
+    margin : 7px 0 0 0;
+  }
 
-    #poll-choices label.add-on {
-        margin: 7px 0 1em 0;
-    }
+  #poll-choices label.add-on {
+    margin : 7px 0 1em 0;
+  }
 
-    textarea#Question, input#Answer {
-        width: 688px;
-        float: none;
-    }
+  textarea#Question, input#Answer {
+    width : 688px;
+    float : none;
+  }
 
-    #create_box .resizable-textarea span {
-        width: 706px;
-    }
+  #create_box .resizable-textarea span {
+    width : 706px;
+  }
 
-    textarea#q_quest, textarea#Question {
-        width: 688px;
-    }
+  textarea#q_quest, textarea#Question {
+    width : 688px;
+  }
 
-    #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
-      width: 704px;
-    }
+  #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+    width : 704px;
+  }
 
-    .new-issue .number {
-        width: 30px;
-        float: left;
-        color: #999999;
-        font-size: 30px;
-        margin: -10px 6px 10px 0px;
-        text-shadow: #FFFFFF 0px 1px;
-    }
+  .new-issue .number {
+    width       : 30px;
+    float       : left;
+    color       : #999999;
+    font-size   : 30px;
+    margin      : -10px 6px 10px 0px;
+    text-shadow : #FFFFFF 0px 1px;
+  }
 
-    .profile-meta img {
-        width: 105px;
-        height: 105px;
-    }
+  .profile-meta img {
+    width  : 105px;
+    height : 105px;
+  }
 
-    input.add-answer {
-        margin: 0px 5px 5px 0px;
-    }
+  input.add-answer {
+    margin : 0px 5px 5px 0px;
+  }
 
-    #issue-create-form input.add-answer {
-        margin: 0;
-    }
+  #issue-create-form input.add-answer {
+    margin : 0;
+  }
 
-    .container .nine .grey-box .uactivity {
-        height: 700px;
-    }
+  .container .nine .grey-box .uactivity {
+    height : 700px;
+  }
 
-    /*Edit profile*/
-    .icon.photo {
-        padding: 1px 18px 0 125px;
-    }
+  /*Edit profile*/
+  .icon.photo {
+    padding : 1px 18px 0 125px;
+  }
 
-    .profile-meta p {
-        line-height: 1.2em;
-    }
+  .profile-meta p {
+    line-height : 1.2em;
+  }
 
-    .grey-box #divConnect {
-        width: 138px !important;
-        overflow: hidden;
-    }
+  .grey-box #divConnect {
+    width    : 138px !important;
+    overflow : hidden;
+  }
 
-    input.info.form-text, textarea.info.form-text {
-        width: 93%;
-    }
+  input.info.form-text, textarea.info.form-text {
+    width : 93%;
+  }
 
-    .profile-meta img {
-        height: 138px;
-        width: 138px;
-    }
+  .profile-meta img {
+    height : 138px;
+    width  : 138px;
+  }
 
-    .avatar-left #edit-file-upload {
-        max-width: 190px;
-    }
+  .avatar-left #edit-file-upload {
+    max-width : 190px;
+  }
 
-    /*View profile*/
-    body.profile_view_page span.activity {
-        display: none;
-    }
+  /*View profile*/
+  body.profile_view_page span.activity {
+    display : none;
+  }
 
-    .sort-by.profile a {
-        padding: 0 6px;
-    }
+  .sort-by.profile a {
+    padding : 0 6px;
+  }
 
-    .sort-by.profile li:first-child a {
-        padding-left: 0;
-    }
+  .sort-by.profile li:first-child a {
+    padding-left : 0;
+  }
 
-    /*Issue details*/
-    #debate_list_area > h2:first-child {
-        padding-bottom: 35px;
-    }
+  /*Issue details*/
+  #debate_list_area > h2:first-child {
+    padding-bottom : 35px;
+  }
 
-    #argument-add-form .add_button {
-        width: 62%;
-    }
+  #argument-add-form .add_button {
+    width : 62%;
+  }
 
-    #issue-create-form label span.title, #issue-create-form label span.guides {
-        margin: 0;
-    }
+  #issue-create-form label span.title, #issue-create-form label span.guides {
+    margin : 0;
+  }
 
-    .black-box {
-        position: relative;
-    }
+  .black-box {
+    position : relative;
+  }
 
-    img.dark-logo {
-        position: absolute;
-        right: 7px;
-        top: 4px;
-        z-index: 1;
-        margin: 0;
-    }
+  img.dark-logo {
+    position : absolute;
+    right    : 7px;
+    top      : 4px;
+    z-index  : 1;
+    margin   : 0;
+  }
 
-    #footer #user-login .form-submit {
-        margin: 0 0 15px;
-    }
+  #footer #user-login .form-submit {
+    margin : 0 0 15px;
+  }
 
-    a.facebook i,
-    a.twitter i,
-    a.facebook.google i {
-        font-size: 37px;
-    }
+  a.facebook i,
+  a.twitter i,
+  a.facebook.google i {
+    font-size : 37px;
+  }
 
-    a.facebook {
-        margin: 0 7px 15px 0;
-    }
+  a.facebook {
+    margin : 0 7px 15px 0;
+  }
 
-    a.twitter {
-        margin: 0 0px 15px 0;
-    }
+  a.twitter {
+    margin : 0 0px 15px 0;
+  }
 
-    a.facebook.google {
-        margin: 0 0 15px;
-    }
+  a.facebook.google {
+    margin : 0 0 15px;
+  }
 
-    .filter_search.issues_search input.form-text, .filter_search.issues_search select, .filter_search.issues_search textarea,
-    #subscription_email,
-    #edit-language-wrapper select {
-        width: 100% !important;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
+  .filter_search.issues_search input.form-text, .filter_search.issues_search select, .filter_search.issues_search textarea,
+  #subscription_email,
+  #edit-language-wrapper select {
+    width              : 100% !important;
+    -webkit-box-sizing : border-box;
+    -moz-box-sizing    : border-box;
+    box-sizing         : border-box;
+  }
 
-    .filter_search.issues_search #search-solr-block,
-    #submit_brow-avat, #subscription_submit, #language_submit {
-      width: 100%;
-    }
+  .filter_search.issues_search #search-solr-block,
+  #submit_brow-avat, #subscription_submit, #language_submit {
+    width : 100%;
+  }
 
-    .chzn-container {
-        width: 142px !important;
-    }
+  .chzn-container {
+    width : 142px !important;
+  }
 
-    /*Moderation*/
-    #choices-wrapper .fieldset-wrapper fieldset .form-item,
-    #taxonomy-wrapper .fieldset-wrapper .form-item,
-    #location-wrapper .fieldset-wrapper .form-item {
-        width: 49%;
-        clear: none;
-        margin: 8px 2% 0 0;
-    }
+  /*Moderation*/
+  #choices-wrapper .fieldset-wrapper fieldset .form-item,
+  #taxonomy-wrapper .fieldset-wrapper .form-item,
+  #location-wrapper .fieldset-wrapper .form-item {
+    width  : 49%;
+    clear  : none;
+    margin : 8px 2% 0 0;
+  }
 
-    #taxonomy-wrapper .fieldset-wrapper .form-item,
-    #location-wrapper .fieldset-wrapper .form-item {
-        margin-top: 13px;
-    }
+  #taxonomy-wrapper .fieldset-wrapper .form-item,
+  #location-wrapper .fieldset-wrapper .form-item {
+    margin-top : 13px;
+  }
 
-    #choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item,
-    #choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item + .form-item,
-    #taxonomy-wrapper .fieldset-wrapper .form-item + .form-item,
-    #taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item + .form-item,
-    #location-wrapper .fieldset-wrapper .form-item + .form-item,
-    #location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item + .form-item {
-        margin-right: 0;
-    }
+  #choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item,
+  #choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item + .form-item,
+  #taxonomy-wrapper .fieldset-wrapper .form-item + .form-item,
+  #taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item + .form-item,
+  #location-wrapper .fieldset-wrapper .form-item + .form-item,
+  #location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item + .form-item {
+    margin-right : 0;
+  }
 
-    #choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item,
-    #taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item,
-    #location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item {
-        margin-right: 2%;
-    }
+  #choices-wrapper .fieldset-wrapper fieldset .form-item + .form-item + .form-item,
+  #taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item,
+  #location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item {
+    margin-right : 2%;
+  }
 
-    .white-box .container {
-        width: 708px;
-    }
+  .white-box .container {
+    width : 708px;
+  }
 
-    .white-box .container .sixteen.columns {
-        width: 708px;
-    }
+  .white-box .container .sixteen.columns {
+    width : 708px;
+  }
 
-    #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
-        left: -90px;
-    }
+  #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
+    left : -90px;
+  }
 
-    /* debate */
+  /* debate */
+  .position-question span.line,
+  .position-question span.line span {
+    width : 42px;
+  }
 
-    .position-question span.line,
-    .position-question span.line span {
-        width: 42px;
-    }
+  #debate_list_area .arg {
+    padding : 0 40px 0 48px;
+  }
 
-    #debate_list_area .arg {
-        padding: 0 40px 0 48px;
-    }
+  #debate_list_area .replies {
+    padding : 0 0 0 48px;
+  }
 
-    #debate_list_area .replies {
-        padding: 0 0 0 48px;
-    }
+  .position-question {
+    padding : 5px 0 0 49px;
+  }
 
-    .position-question {
-        padding: 5px 0 0 49px;
-    }
-
-    #debate_list_area li.one_reply ul.control_links {
-        margin: 0 0 0 185px;
-    }
+  #debate_list_area li.one_reply ul.control_links {
+    margin : 0 0 0 185px;
+  }
 }
 
 /* iPad Portrait/Browser 
@@ -258,136 +257,129 @@
 
 @media only screen and (min-width : 768px) and (max-width : 1023px) {
 
-    input.form-text, input.form-text.user-search {
-        width: 338px;
-    }
+  input.form-text, input.form-text.user-search {
+    width : 338px;
+  }
 
-    .main-banner-display,
-    .main-banner-display.column.centered {
-        display: none;
-    }
+  .main-banner-display,
+  .main-banner-display.column.centered {
+    display : none;
+  }
 
-    .select-cat {
-        float: left;
-        width: 149px;
-    }
+  .select-cat {
+    float : left;
+    width : 149px;
+  }
 
-    .select-cat.moderate-cat {
-        width: 134px;
-    }
+  .select-cat.moderate-cat {
+    width : 134px;
+  }
 
-    ul.vote li.post {
-        width: 80%;
-    }
+  ul.vote li.post {
+    width : 80%;
+  }
 
-    p.suggest-answer {
-        width: 100%;
-        margin: 10px 0px;
-        padding: 0px 0px;
-    }
+  p.suggest-answer {
+    width   : 100%;
+    margin  : 10px 0px;
+    padding : 0px 0px;
+  }
 
-    fieldset.suggest-answer li {
-        width: auto;
-    }
+  fieldset.suggest-answer li {
+    width : auto;
+  }
 
+  #footer #user-login input.form-text,
+  #footer #user-login-1 input.form-text {
+    width : 85% !important;
+  }
 
+  .filter_search.issues_search {
+    width      : 142px;
+    margin-top : 0;
+  }
 
-    #footer #user-login input.form-text,
-    #footer #user-login-1 input.form-text {
-        width: 85% !important;
-    }
+  .chzn-container-multi .chzn-choices .search-choice {
+    max-width : 107px;
+  }
 
-    .filter_search.issues_search {
-        width: 142px;
-        margin-top: 0;
-    }
+  .four.columns.margin-top {
+    margin-top : 59px;
+  }
 
-    .chzn-container-multi .chzn-choices .search-choice {
-        max-width: 107px;
-    }
+  #block-user_profile-user-profile-right {
+    margin-top : 0;
+  }
 
-    .four.columns.margin-top {
-        margin-top: 59px;
-    }
+  #edit_profile .privacy .form-radios .form-item {
+    width : 10%;
+  }
 
-    #block-user_profile-user-profile-right {
-        margin-top: 0;
-    }
+  #edit_profile .form-radios .form-item:nth-child(1) {
+    margin-right : 13px;
+  }
 
+  #edit_profile .form-radios .form-item:nth-child(2) {
+    margin-right : 26px;
+  }
 
-    #edit_profile .privacy .form-radios .form-item {
-        width: 10%;
-    }
+  #edit_profile .form-radios .form-item:nth-child(3) {
+    margin-right : 25px;
+  }
 
-    #edit_profile .form-radios .form-item:nth-child(1) {
-        margin-right: 13px;
-    }
+  #edit_profile .form-radios .form-item:nth-child(4) {
+    margin-right : 26px;
+  }
 
-    #edit_profile .form-radios .form-item:nth-child(2) {
-        margin-right: 26px;
-    }
+  #edit-image-upload-wrapper input[type="file"] {
+    font-size : 9px;
+  }
 
-    #edit_profile .form-radios .form-item:nth-child(3) {
-        margin-right: 25px;
-    }
+  #edit-image-upload-wrapper {
+    width : 140px;
+  }
 
-    #edit_profile .form-radios .form-item:nth-child(4) {
-        margin-right: 26px;
-    }
+  .select-cat {
+    float : left;
+    width : 149px;
+  }
 
+  .select-cat.moderate-cat {
+    width : 134px;
+  }
 
-    #edit-image-upload-wrapper input[type="file"] {
-        font-size: 9px;
-    }
+  ul.vote li.post {
+    width : 80%;
+  }
 
+  p.suggest-answer {
+    width   : 100%;
+    margin  : 10px 0px;
+    padding : 0px 0px;
+  }
 
-    #edit-image-upload-wrapper {
-        width: 140px;
-    }
+  fieldset.suggest-answer li {
+    width : auto;
+  }
 
-    .select-cat {
-        float: left;
-        width: 149px;
-    }
+  /* error circles */
+  .circle-box {
+    background : none;
+    height     : 285px;
+    text-align : center;
+  }
 
-    .select-cat.moderate-cat {
-        width: 134px;
-    }
+  .error-banner {
+    padding : 0 0 0 0;
+    margin  : 0 auto;
+  }
 
-    ul.vote li.post {
-        width: 80%;
-    }
+  .error-banner span {
+    font-size      : 80px;
+    letter-spacing : -0.04em;
+  }
 
-    p.suggest-answer {
-        width: 100%;
-        margin: 10px 0px;
-        padding: 0px 0px;
-    }
-
-    fieldset.suggest-answer li {
-        width: auto;
-    }
-
-    /* error circles */
-
-    .circle-box {
-        background: none;
-        height: 285px;
-        text-align: center;
-    }
-
-    .error-banner {
-        padding: 0 0 0 0;
-        margin: 0 auto;
-    }
-
-    .error-banner span {
-        font-size: 80px;
-        letter-spacing: -0.04em;
-    }
-
-    /*--/ error circles */
-
+  /*--/ error circles */
 
 }
 
@@ -402,1003 +394,992 @@
 
 @media only screen and (max-width : 767px) {
 
-    input[type="text"], input[type="password"], input[type="email"], textarea, select {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-        box-sizing: border-box;
-        width: 100% !important;
-    }
-
-
-    /* user login pop-up */
-
-    .popup-tab input.form-text {
-        width: 90% !important;
-    }
-
-    /*--/ user login pop-up */
-
-    #edit-image-upload-wrapper input[type="file"] {
-        font-size: 12px;
-    /* error circles */
-
-    .error-banner {
-        width: 180px;
-        height: 180px;
-        padding: 0 0 0 0 ;
-        font-size: 50px;
-        line-height: 50px;
-    }
-
-    .error-banner a {
-        vertical-align: middle;
-        width: 180px;
-        height: 180px;
-    }
-
-    .error-banner a span {
-        display: inline-block;
-        width: 180px;
-        height: 180px;
-        background-color: transparent;
-        border: none;
-        vertical-align: middle;
-        text-align: center;
-        line-height: 0;
-        padding: 90px 0 0 0;
- }
-
-    .circle-box {
-        display: block;
-        width: 180px;
-        height: 180px;
-        margin: 40px auto 20px;
-        background: url(../images/circle_bg.png) -67px -8px no-repeat;
-    }
-
-    .see-banner, .vote-banner, .share-banner {
-        font-size: 46px;
-        padding: 145px 0px 0px 0px;
-    }
-
-
-    .page-error .banner-text {
-        margin-top: 0px;
-    }
-
-    /*--/ error circles */
-
-    input[type="text"], input[type="password"], input[type="email"], textarea, select {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-        box-sizing: border-box;
-        width: 100% !important;
-    }
-
-    .four.columns.margin-top {
-        margin-top: 0;
-    }
-
-    input.form-text, input.form-text.user-search {
-        width: 250px;
-    }
-
-    h6#reply {
-        margin: 10px 3px 10px 0px;
-    }
-
-    .main-banner-display,
-    .main-banner-display.column.centered {
-        display: none;
-    }
-
-    .banner-text {
-        font-size: 25px;
-        width: 100%;
-        padding: 0;
-        line-height: 1.24;
-    }
-
-    html[lang="ru"] .banner-text {
-        font-size: 27px;
-    }
-
-    ul.vote li.post {
-        width: auto;
-    }
-
-    p.suggest-answer {
-        width: 100%;
-        margin: 10px 0px;
-        padding: 0px 0px;
-    }
-
-    fieldset.suggest-answer li {
-        width: auto;
-    }
-
-    /*Edit Profile*/
-    #edit_profile ul.privacy {
-        clear: both;
-        float: none;
-        width: 100%;
-        margin: 0;
-        padding-top: 10px;
-    }
-
-    .visible-to {
-        display: block;
-        width: 100%;
-        top: 0;
-        padding: 13px 0 0;
-        text-align: left;
-        position: relative;
-        color: #0C6926;
-
-    }
-
-    #edit_profile ul.privacy li span {
-        font-size: 11px;
-        line-height: 13px;
-        font-style: italic;
-    }
-
-    #edit_profile ul.privacy li,
-    #edit_profile .privacy .form-radios .form-item,
-    .subscription .form-radios .form-item,
-    ul.subscription li {
-        float: right;
-        margin: 0 1% 0 0;
-        text-align: left;
-        width: 24%;
-    }
-
-    .subscription .form-radios .form-item,
-    ul.subscription li {
-        width: 32.33%;
-    }
-
-    ul.privacy #income li,
-    #edit_profile .privacy #income .form-radios .form-item {
-        margin-right: 1%;
-        width: 99%;
-    }
-
-    label.add-on-2 {
-        width: 100%;
-        margin: 0 0 5px;
-    }
-
-    label.add-on-2.small {
-        margin-top: 0;
-    }
-
-    label.add-on-2 span {
-        font-weight: bold;
-    }
-
-    #edit_profile select {
-        margin: 0;
-    }
-
-    #edit_profile li.country-info ul.privacy {
-        margin-top: 0;
-    }
-
-    #edit_profile .user-info-inputs > li .form-item {
-        width: 100%;
-    }
-
-    #edit_profile .validate-error, #edit_profile .validate-error-wait {
-        padding: 8px 0 0;
-        width: 100%;
-    }
-
-    ul.privacy li {
-        margin-top: 0;
-    }
-
-    .visible-to {
-        display: block;
-    }
-
-    form#user-details #update_submit {
-        float: left;
-    }
-
-    .dark-grey-box.top,
-    .filter_search.issues_search {
-        margin-top: 30px;
-    }
-
-    .grey-box #divConnect {
-        width: auto !important;
-        overflow: visible;
-    }
-
-    #edit_profile h2.din {
-        width: 100%;
-    }
-
-    #edit_profile .user-info-inputs > li {
-        margin-bottom: 15px;
-    }
-
-    .user-profile-location div {
-        margin: 0 0 15px;
-    }
-
-    select option {
-        padding: 0 3px;
-    }
-
-    .hide-on-mobiles {
-        display: none;
-    }
-
-    /* Header */
-    .top-mobile .border-bottom {
-        margin-top: 32px;
-    }
-
-    .top-left {
-        float: none;
-        /*background:#D81A29;*/
-        margin: 0;
-    }
-
-    ul.menu {
-        float: left;
-        margin: 0px 0px 0px 0px;
-    }
-
-    ul.menu li {
-        float: left;
-        color: white;
-        text-transform: uppercase
-    }
-
-    ul.menu li.login {
-        background: transparent;
-    }
-
-    ul.menu li a {
-        color: white;
-        text-decoration: none;
-        line-height: 15px;
-        padding: 13px 12px 12px;
-    }
-
-    ul.menu li a:hover {
-
-    }
-
-    .top-right {
-        background: #000000;
-        float: right;
-        margin: 0px 0px 0px 8px;
-    }
-
-    .top-right.login {
-        float: none;
-        width: auto;
-        margin: 0;
-        padding: 0;
-    }
-
-    a.logo {
-        width: auto;
-        margin: 0px 0px 0px 0px;
-        text-align: left;
-        float: none;
-        padding: 8px 12px 6px;
-    }
-
-    .top-right.login a.login {
-        float: none;
-        text-align: left !important;
-        background-color: #222222 !important;
-        padding: 13px 12px 11px !important;
-        max-width: none;
-        overflow: visible;
-        text-overflow: inherit;
-        white-space: normal;
-    }
-
-    .top-right.login a#dialog_link:hover {
-        color: #000000;
-        background-color: #F6EB16 !important;
-        padding: 7px 12px 0;
-    }
-
-    .top-right.login a.login i {
-        float: left;
-    }
-
-    .top-right.login a.login span {
-        display: block;
-        margin-left: 20px;
-    }
-
-    .top-left.user-menu.full {
-        float: none;
-    }
-
-    .top-left.user-menu.full:after {
-        clear: none;
-    }
-
-    .top-left.user-menu ul.menu {
-        float: none;
-        width: 100%;
-    }
-
-    .top-left.user-menu ul.menu li {
-        float: left;
-        width: 100%;
-    }
-
-    ul.menu.second.full {
-        float: left;
-        position: static;
-        right: 0;
-        width: 50%;
-    }
-
-    .top-left.user-menu ul.menu li a {
-        display: block;
-        float: none;
-        text-align: left;
-        white-space: nowrap;
-        /*font-size: 92%;*/
-    }
-
-    .top-left.user-menu ul.menu.second li.add_issue {
-        position: relative;
-        right: 0;
-        width: 100%;
-    }
-
-    .top-right.blue h6 {
-        margin-top: 8px;
-    }
-
-    ul.menu li a.add {
-        display: block;
-        float: left;
-    }
-
-    /*END Header*/
-
-    /* Footer */
-
-    .black-box {
-        margin: 30px 0 0 0;
-    }
-
-    .black-box:first-child {
-        margin: 30px 0 0 0;
-    }
-
-    #footer .container .five.columns {
-        margin-bottom: 16px;
-    }
-
-    /*END Footer */
-
-    .line-bottom {
-        background: #DDDDDD;
-        height: auto;
-    }
-
-    .circle-box {
-        background: url(../images/circle_bg.png) 0px -210px no-repeat;
-        margin: 20px auto;
-        display: block;
-        width: 300px;
-        height: 300px;
-    }
-
-    .see-banner, .vote-banner, .share-banner {
-        font-size: 40px;
-        padding: 145px 0px 0px 0px;
-    }
-
-    .error-banner {
-        padding: 145px 0px 0px 0px;
-        font-size: 80px;
-    }
-
-
-    input.form-text, input.form-text.user-search {
-        width: 120px;
-    }
-
-    textarea#Comment {
-        width: 99%;
-        margin: 0px 0px 20px 10px;
-    }
-
-    textarea#Reply {
-        width: 99%;
-        margin: 0px 0px 20px 10px;
-    }
-
-    .select-cat {
-        float: left;
-        width: 100%;
-    }
-
-    ul.privacy {
-        width: 100%;
-        margin: 5px;
-    }
-
-    ul.subscription {
-        float: left;
-    }
-
-    li.always-invisible {
-        margin: 10px 0px 0px 0px;
-        width: 200px;
-        font-size: 12px;
-    }
-
-    input#info, textarea#info {
-        margin: 2px 0px 20px 0px;
-        padding: 1% 1% 1% 1%;
-        width: 98%;
-        float: left;
-    }
-
-    .privacy-info {
-        float: left;
-        width: auto;
-        margin: 0px 0px 0px 0px;
-    }
-
-    .privacy-info p {
-        text-align: left;
-    }
-
-    h2 {
-        font-size: 1.8em;
-        line-height: 1.2em;
-    }
-
-    .white-box h1 {
-        margin-right: 20px;
-    }
-
-    input.add-answer {
-        margin: 0px 4px 5px 0px;
-    }
-
-    .button.participate {
-        margin: -10px 0px 20px 0px;
-    }
-
-    .vote-results ul li {
-        float: none;
-        width: 94.5%;
-    }
-
-    .helper {
-        display: table;
-        width: auto;
-    }
-
-    .banven {
-        display: block;
-        vertical-align: middle;
-        white-space: normal;
-        padding-top: 10px;
-        margin: 0;
-        float: left;
-        width: 100%;
-    }
-
-    .banven a.button.participate {
-        margin: 0;
-    }
-
-    .banner-text {
-        display: block;
-        width: auto;
-    }
-
-    ul.lang {
-        max-width: 100%;
-    }
-
-    .button.vote, input.submit-issue, input.save,
-    #issue-create-form input.add-answer,
-    #search-solr-block {
-        display: block;
-        text-align: center;
-        float: none;
-        white-space: normal;
-    }
-
-    input.button.vote, input.submit-issue, input.save,
-    #issue-create-form input.add-answer, #search-solr-block {
-        width: 100%;
-    }
-
-    .button.vote.floatright, input.submit-issue.floatright, input.save.floatright {
-        float: none;
-    }
-
-    #issue-create-form input.form-text,
-    .issue-vote-wrapper .button.vote, .search_list .button.vote {
-        margin-left: auto;
-        margin-right: auto;
-        float: none;
-    }
-
-    /*Edit Profile*/
-    ul.privacy #income li,
-    #edit_profile .privacy #income .form-radios .form-item {
-        margin-right: 76%;
-        width: 24%;
-    }
-
-    label.add-on-2 {
-        width: 100%;
-        margin: 0 0 5px;
-    }
-
-    label.add-on-2.small {
-        margin-top: 0;
-    }
-
-    label.add-on-2 span {
-        font-weight: bold;
-    }
-
-    #edit_profile select  {
-        margin: 0;
-    }
-
-    input.info.form-text, textarea.info.form-text {
-        width: 95%;
-    }
-
-    #edit_profile .user-info-inputs > li .form-item {
-        width: 100%;
-    }
-
-    #edit_profile .validate-error, #edit_profile .validate-error-wait {
-        padding: 8px 0 0;
-        width: 100%;
-    }
-
-    ul.privacy li {
-        margin-top: 0;
-    }
-
-    form#user-details #update_submit {
-        float: left;
-    }
-
-    .dark-grey-box.top,
-    .filter_search.issues_search,
-    #guidelines {
-        margin-top: 30px;
-    }
-
-    .grey-box #divConnect {
-        width: auto !important;
-        overflow: visible;
-    }
-
-    #edit_profile h2.din {
-        width: 100%;
-    }
-
-    #edit_profile .user-info-inputs > li {
-        margin-bottom: 15px;
-    }
-
-    #cit-stat {
-        display: block;
-        clear: left;
-    }
-
-    .user-profile-location div {
-        margin: 0 0 15px;
-    }
-
-    #edit_profile, .grey-box.full, .dark-grey-box, .filter_search.issues_search, .white-box, .message.right-message, #guidelines,
-    .grey-box.icon_inside, .four .grey-box.icon_inside, #block-issue-issue-categories .grey-box {
-        padding: 20px 20px 14px;
-    }
-
-    #create_box,
-    .dark-grey-box,
-    .filter_search.issues_search,
-    #edit_profile {
-        padding: 20px;
-    }
-
-    /*Issues search*/
-    .poll-vote-area p.issue-meta {
-        clear: both;
-        float: none;
-        margin: 0 30px;
-        padding-top: 15px;
-    }
-
-    .search_list .button.vote {
-        top: 20px;
-    }
-
-    ul.date_filter {
-        padding-left: 1em;
-        padding-right: 5em;
-    }
-
-    ul.options_filter {
-        float: left;
-        padding-left: 0;
-    }
-
-    /*ul.date_filter li a, ul.options_filter li a {
-      font-size: 14px;
-    }*/
-    ul.date_filter li, ul.options_filter li {
-        float: none;
-        border: 0 none;
-        list-style: square outside none;
-        margin-top: 10px;
-    }
-
-    ul.date_filter li a, ul.options_filter li a {
-        padding: 0 0 2px;
-        display: inline-block;
-    }
-
-    .item-list .pager li {
-        margin: 0 0 0 0.5em;
-    }
-
-    .issues_search_page .ahah-progress-throbber,
-    .issues_search_page .ahah-progress-throbber .throbber {
-        display: none;
-    }
-
-    .issue-vote-wrapper .poll-vote-area fieldset legend a, #solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
-        text-transform: none;
-    }
-
-    #issue-search-filter-form select,
-    #issue-search-filter-form select option {
-        padding: 0 3px;
-    }
-
-    /*View profile*/
-    .sort-by.profile ul {
-        padding-left: 1.5em;
-    }
-
-    .sort-by.profile li {
-        border: 0 none;
-        float: none;
-        list-style: square outside none;
-        margin-top: 10px;
-    }
-
-    .sort-by.profile li:first-child {
-        margin: 0;
-    }
-
-    .sort-by.profile li a {
-        display: inline-block;
-        padding: 0 0 2px;
-    }
-
-    /*Issue details*/
-    .white-box.poll-box h2.din,
-    .poll-box .ul_wrapper h2.din {
-        font-size: 30px;
-        line-height: 33px;
-    }
-
-    .vote-results li.part {
-        width: 100%;
-        clear: left;
-    }
-
-    .vote-results li.part.margin {
-        margin: 10px 0;
-    }
-
-    .vote-results li.full {
-        margin-top: 0;
-    }
-
-    #debate_list_area > h2:first-child {
-        border: 0 none;
-        padding-bottom: 6px;
-    }
-
-    #debate_list_area .ui-tabs-nav {
-        background-color: #FFFFFF;
-        border-bottom: 1px solid #C0C0C0;
-        float: none;
-        margin: 0;
-        padding: 0 18px;
-        top: 12px;
-        z-index: 14;
-    }
-
-    #empty_helper {
-        display: none;
-    }
-
-    .profile-message.poll-box {
-        padding: 30px 0 0;
-    }
-
-    .userinfo-debate {
-        float: none;
-        margin: 0;
-        clear: both;
-    }
-
-    #debate_list_area .arg {
-        padding: 0 0 0 58px;
-    }
-
-    ul.control_links {
-        margin: 10px 0 10px 58px;
-    }
-
-    .reply_wrapper .fieldset-wrapper {
-        margin: 20px 0 0;
-        padding: 0 0 0 15px;
-    }
-
-    #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
-        left: -63px;
-    }
-
-    #debate_list_area li.one_reply ul.control_links {
-        margin: 8px 0 0 48px;
-        width: 100%;
-    }
-
-    .filter_search.issues_search {
-        width: 390px;
-        margin-top: 30px;
-        padding: 15px 14px 18px;
-        position: relative;
-        z-index: 999;
-    }
-
-    .chzn-container-multi .chzn-choices .search-field input {
-        height: 2em !important;
-    }
-
-    .issue-vote-wrapper .qd {
-        margin: 18px 10px;
-        width: auto;
-    }
-
-    form.issue-vote-form > div > div.choices {
-        padding: 18px 10px;
-    }
-
-    .votebtn_wrap {
-        padding: 0 10px;
-    }
-
-    .issue-vote-wrapper .poll-vote-area .voting-pane .choices {
-        width: initial;
-    }
-
-    .search_list h2.din.half {
-        padding: 0 10px;
-    }
-
-    #chart-strength {
-        left: -15px;
-    }
-
-    .chzn-container {
-        width: 390px !important;
-    }
-
-    /* debate */
-
-    #debate_list_area ul.argument_box {
-        padding: 0 25px 0 32px;
-    }
-
-    .position-question span.line,
-    .position-question span.line span {
-        width: 30px;
-    }
-
-    #debate_list_area .arg {
-        padding: 0 40px 0 36px;
-    }
-
-    #debate_list_area .replies {
-        padding: 0 0 0 36px;
-    }
-
-    .position-question {
-        padding: 5px 0 0 37px;
-    }
-
-    .position-question ul.argument_replybox {
-        left: -37px;
-        width: 356px;
-        padding: 0;
-    }
-
-    .arg-reply-form .form-submit {
-        margin-left: 0;
-    }
-
-    /*--/ debate */
-
-    .ref_wrap {
-        clear: both;
-    }
-
-    #argument-add-form .add_button {
-        position: static;
-    }
-
-    #deb_title-wrapper, #edit-ref-title-wrapper {
-        padding: 0;
-    }
-
-    #argument-add-form .add_button {
-        width: 100%;
-    }
-
-    #about_us_page_content h3 {
-        font-size: 1.6em;
-        line-height: 1.2em;
-    }
-
-    .page ul {
-        margin-left: 2em;
-    }
-
-    .table-bor-form-item-1 ul {
-        margin-left: 1.3em;
-    }
-
-    #issue-create-form label.add-on {
-        margin: 0 0 20px 0;
-        width: 100%;
-    }
-
-    #issue-create-form .form-item {
-        clear: both;
-        margin: 0;
-    }
-
-    .new-issue .number {
-        float: left;
-        margin: 0;
-    }
-
-    #issue-create-form label span.title, #issue-create-form label span.guides {
-        margin: 0 0 0 35px;
-    }
-
-    #issue-create-form label span.title {
-        margin-top: -12px;
-    }
-
-    #url-wrapper input.form-text {
-        width: 94%;
-    }
-
-    .reference-form > label span {
-        display: none;
-    }
-
-    #deb_title-wrapper, #url-wrapper {
-        padding: 0;
-    }
-
-    .with_icon.maximum {
-        max-width: none;
-    }
-
-    /*Moderation*/
-    #moderation-issues-form legend {
-        float: none;
-        width: 100%
-    }
-
-    #moderation-issues-form legend a {
-        display: block;
-        float: none;
-        text-align: center;
-    }
-
-    #moderation-issues-form fieldset .form-submit {
-        width: 100%;
-        text-align: center;
-        margin-top: 16px;
-    }
-
-    #moderation-issues-form .fieldset-wrapper {
-        padding-top: 5px;
-    }
-
-    #moderation-issues-form fieldset #edit-status-wrapper,
-    #moderation-issues-form fieldset #edit-perpage-wrapper {
-        padding: 0;
-        width: 100%;
-        margin: 17px 0 0;
-    }
-
-    #choices-wrapper legend a,
-    #taxonomy-wrapper legend a,
-    #location-wrapper legend a {
-        float: none;
-        display: block;
-        text-align: center;
-    }
-
-    #choices-wrapper legend,
-    #taxonomy-wrapper legend,
-    #location-wrapper legend {
-        width: 100%;
-        float: none;
-        display: block;
-    }
-
-    #taxonomy-wrapper .fieldset-wrapper .form-item:first-child,
-    #location-wrapper .fieldset-wrapper .form-item:first-child {
-        margin-top: 17px;
-    }
-
-    #choices-wrapper .fieldset-wrapper fieldset .form-item,
-    #taxonomy-wrapper .fieldset-wrapper .form-item,
-    #location-wrapper .fieldset-wrapper .form-item {
-        margin: 14px 0 0;
-        width: 100%;
-    }
-
-    #choices-wrapper .fieldset-wrapper fieldset {
-        margin: 23px 0;
-    }
-
-    #moderation-issue-view-form .form-submit {
-        width: 100%;
-        display: block;
-        text-align: center;
-    }
-
-    #moderation-issue-view-form .form-submit + .form-submit {
-        margin: 18px 0 0 0;
-    }
-
-    #choices-wrapper select {
-        width: 100%;
-    }
-
-    #contact-mail-page .resizable-textarea {
-        width: 100%;
-    }
-
-    #contact-mail-page .resizable-textarea .grippie {
-        padding: 0;
-        height: 10px;
-        border: none;
-        box-shadow: inset 1px -1px 0 0 #DDDDDD, inset -1px 0 0 0 #DDDDDD;
-    }
+  input[type="text"], input[type="password"], input[type="email"], textarea, select {
+    -moz-box-sizing    : border-box;
+    -webkit-box-sizing : border-box;
+    -ms-box-sizing     : border-box;
+    box-sizing         : border-box;
+    width              : 100% !important;
+  }
+
+  /* user login pop-up */
+  .popup-tab input.form-text {
+    width : 90% !important;
+  }
+
+  /*--/ user login pop-up */
+  #edit-image-upload-wrapper input[type="file"] {
+    font-size : 12px;
+
+  /* error circles */
+  .error-banner {
+    width       : 180px;
+    height      : 180px;
+    padding     : 0 0 0 0;
+    font-size   : 50px;
+    line-height : 50px;
+  }
+
+  .error-banner a {
+    vertical-align : middle;
+    width          : 180px;
+    height         : 180px;
+  }
+
+  .error-banner a span {
+    display          : inline-block;
+    width            : 180px;
+    height           : 180px;
+    background-color : transparent;
+    border           : none;
+    vertical-align   : middle;
+    text-align       : center;
+    line-height      : 0;
+    padding          : 90px 0 0 0;
+  }
+
+  .circle-box {
+    display    : block;
+    width      : 180px;
+    height     : 180px;
+    margin     : 40px auto 20px;
+    background : url(../images/circle_bg.png) -67px -8px no-repeat;
+  }
+
+  .see-banner, .vote-banner, .share-banner {
+    font-size : 46px;
+    padding   : 145px 0px 0px 0px;
+  }
+
+  .page-error .banner-text {
+    margin-top : 0px;
+  }
+
+  /*--/ error circles */
+  input[type="text"], input[type="password"], input[type="email"], textarea, select {
+    -moz-box-sizing    : border-box;
+    -webkit-box-sizing : border-box;
+    -ms-box-sizing     : border-box;
+    box-sizing         : border-box;
+    width              : 100% !important;
+  }
+
+  .four.columns.margin-top {
+    margin-top : 0;
+  }
+
+  input.form-text, input.form-text.user-search {
+    width : 250px;
+  }
+
+  h6#reply {
+    margin : 10px 3px 10px 0px;
+  }
+
+  .main-banner-display,
+  .main-banner-display.column.centered {
+    display : none;
+  }
+
+  .banner-text {
+    font-size   : 25px;
+    width       : 100%;
+    padding     : 0;
+    line-height : 1.24;
+  }
+
+  html[lang="ru"] .banner-text {
+    font-size : 27px;
+  }
+
+  ul.vote li.post {
+    width : auto;
+  }
+
+  p.suggest-answer {
+    width   : 100%;
+    margin  : 10px 0px;
+    padding : 0px 0px;
+  }
+
+  fieldset.suggest-answer li {
+    width : auto;
+  }
+
+  /*Edit Profile*/
+  #edit_profile ul.privacy {
+    clear       : both;
+    float       : none;
+    width       : 100%;
+    margin      : 0;
+    padding-top : 10px;
+  }
+
+  .visible-to {
+    display    : block;
+    width      : 100%;
+    top        : 0;
+    padding    : 13px 0 0;
+    text-align : left;
+    position   : relative;
+    color      : #0C6926;
+
+  }
+
+  #edit_profile ul.privacy li span {
+    font-size   : 11px;
+    line-height : 13px;
+    font-style  : italic;
+  }
+
+  #edit_profile ul.privacy li,
+  #edit_profile .privacy .form-radios .form-item,
+  .subscription .form-radios .form-item,
+  ul.subscription li {
+    float      : right;
+    margin     : 0 1% 0 0;
+    text-align : left;
+    width      : 24%;
+  }
+
+  .subscription .form-radios .form-item,
+  ul.subscription li {
+    width : 32.33%;
+  }
+
+  ul.privacy #income li,
+  #edit_profile .privacy #income .form-radios .form-item {
+    margin-right : 1%;
+    width        : 99%;
+  }
+
+  label.add-on-2 {
+    width  : 100%;
+    margin : 0 0 5px;
+  }
+
+  label.add-on-2.small {
+    margin-top : 0;
+  }
+
+  label.add-on-2 span {
+    font-weight : bold;
+  }
+
+  #edit_profile select {
+    margin : 0;
+  }
+
+  #edit_profile li.country-info ul.privacy {
+    margin-top : 0;
+  }
+
+  #edit_profile .user-info-inputs > li .form-item {
+    width : 100%;
+  }
+
+  #edit_profile .validate-error, #edit_profile .validate-error-wait {
+    padding : 8px 0 0;
+    width   : 100%;
+  }
+
+  ul.privacy li {
+    margin-top : 0;
+  }
+
+  .visible-to {
+    display : block;
+  }
+
+  form#user-details #update_submit {
+    float : left;
+  }
+
+  .dark-grey-box.top,
+  .filter_search.issues_search {
+    margin-top : 30px;
+  }
+
+  .grey-box #divConnect {
+    width    : auto !important;
+    overflow : visible;
+  }
+
+  #edit_profile h2.din {
+    width : 100%;
+  }
+
+  #edit_profile .user-info-inputs > li {
+    margin-bottom : 15px;
+  }
+
+  .user-profile-location div {
+    margin : 0 0 15px;
+  }
+
+  select option {
+    padding : 0 3px;
+  }
+
+  .hide-on-mobiles {
+    display : none;
+  }
+
+  /* Header */
+  .top-mobile .border-bottom {
+    margin-top : 32px;
+  }
+
+  .top-left {
+    float  : none;
+    /*background:#D81A29;*/
+    margin : 0;
+  }
+
+  ul.menu {
+    float  : left;
+    margin : 0px 0px 0px 0px;
+  }
+
+  ul.menu li {
+    float          : left;
+    color          : white;
+    text-transform : uppercase
+  }
+
+  ul.menu li.login {
+    background : transparent;
+  }
+
+  ul.menu li a {
+    color           : white;
+    text-decoration : none;
+    line-height     : 15px;
+    padding         : 13px 12px 12px;
+  }
+
+  ul.menu li a:hover {
+
+  }
+
+  .top-right {
+    background : #000000;
+    float      : right;
+    margin     : 0px 0px 0px 8px;
+  }
+
+  .top-right.login {
+    float   : none;
+    width   : auto;
+    margin  : 0;
+    padding : 0;
+  }
+
+  a.logo {
+    width      : auto;
+    margin     : 0px 0px 0px 0px;
+    text-align : left;
+    float      : none;
+    padding    : 8px 12px 6px;
+  }
+
+  .top-right.login a.login {
+    float            : none;
+    text-align       : left !important;
+    background-color : #222222 !important;
+    padding          : 13px 12px 11px !important;
+    max-width        : none;
+    overflow         : visible;
+    text-overflow    : inherit;
+    white-space      : normal;
+  }
+
+  .top-right.login a#dialog_link:hover {
+    color            : #000000;
+    background-color : #F6EB16 !important;
+    padding          : 7px 12px 0;
+  }
+
+  .top-right.login a.login i {
+    float : left;
+  }
+
+  .top-right.login a.login span {
+    display     : block;
+    margin-left : 20px;
+  }
+
+  .top-left.user-menu.full {
+    float : none;
+  }
+
+  .top-left.user-menu.full:after {
+    clear : none;
+  }
+
+  .top-left.user-menu ul.menu {
+    float : none;
+    width : 100%;
+  }
+
+  .top-left.user-menu ul.menu li {
+    float : left;
+    width : 100%;
+  }
+
+  ul.menu.second.full {
+    float    : left;
+    position : static;
+    right    : 0;
+    width    : 50%;
+  }
+
+  .top-left.user-menu ul.menu li a {
+    display     : block;
+    float       : none;
+    text-align  : left;
+    white-space : nowrap;
+    /*font-size: 92%;*/
+  }
+
+  .top-left.user-menu ul.menu.second li.add_issue {
+    position : relative;
+    right    : 0;
+    width    : 100%;
+  }
+
+  .top-right.blue h6 {
+    margin-top : 8px;
+  }
+
+  ul.menu li a.add {
+    display : block;
+    float   : left;
+  }
+
+  /*END Header*/
+  /* Footer */
+  .black-box {
+    margin : 30px 0 0 0;
+  }
+
+  .black-box:first-child {
+    margin : 30px 0 0 0;
+  }
+
+  #footer .container .five.columns {
+    margin-bottom : 16px;
+  }
+
+  /*END Footer */
+  .line-bottom {
+    background : #DDDDDD;
+    height     : auto;
+  }
+
+  .circle-box {
+    background : url(../images/circle_bg.png) 0px -210px no-repeat;
+    margin     : 20px auto;
+    display    : block;
+    width      : 300px;
+    height     : 300px;
+  }
+
+  .see-banner, .vote-banner, .share-banner {
+    font-size : 40px;
+    padding   : 145px 0px 0px 0px;
+  }
+
+  .error-banner {
+    padding   : 145px 0px 0px 0px;
+    font-size : 80px;
+  }
+
+  input.form-text, input.form-text.user-search {
+    width : 120px;
+  }
+
+  textarea#Comment {
+    width  : 99%;
+    margin : 0px 0px 20px 10px;
+  }
+
+  textarea#Reply {
+    width  : 99%;
+    margin : 0px 0px 20px 10px;
+  }
+
+  .select-cat {
+    float : left;
+    width : 100%;
+  }
+
+  ul.privacy {
+    width  : 100%;
+    margin : 5px;
+  }
+
+  ul.subscription {
+    float : left;
+  }
+
+  li.always-invisible {
+    margin    : 10px 0px 0px 0px;
+    width     : 200px;
+    font-size : 12px;
+  }
+
+  input#info, textarea#info {
+    margin  : 2px 0px 20px 0px;
+    padding : 1% 1% 1% 1%;
+    width   : 98%;
+    float   : left;
+  }
+
+  .privacy-info {
+    float  : left;
+    width  : auto;
+    margin : 0px 0px 0px 0px;
+  }
+
+  .privacy-info p {
+    text-align : left;
+  }
+
+  h2 {
+    font-size   : 1.8em;
+    line-height : 1.2em;
+  }
+
+  .white-box h1 {
+    margin-right : 20px;
+  }
+
+  input.add-answer {
+    margin : 0px 4px 5px 0px;
+  }
+
+  .button.participate {
+    margin : -10px 0px 20px 0px;
+  }
+
+  .vote-results ul li {
+    float : none;
+    width : 94.5%;
+  }
+
+  .helper {
+    display : table;
+    width   : auto;
+  }
+
+  .banven {
+    display        : block;
+    vertical-align : middle;
+    white-space    : normal;
+    padding-top    : 10px;
+    margin         : 0;
+    float          : left;
+    width          : 100%;
+  }
+
+  .banven a.button.participate {
+    margin : 0;
+  }
+
+  .banner-text {
+    display : block;
+    width   : auto;
+  }
+
+  ul.lang {
+    max-width : 100%;
+  }
+
+  .button.vote, input.submit-issue, input.save,
+  #issue-create-form input.add-answer,
+  #search-solr-block {
+    display     : block;
+    text-align  : center;
+    float       : none;
+    white-space : normal;
+  }
+
+  input.button.vote, input.submit-issue, input.save,
+  #issue-create-form input.add-answer, #search-solr-block {
+    width : 100%;
+  }
+
+  .button.vote.floatright, input.submit-issue.floatright, input.save.floatright {
+    float : none;
+  }
+
+  #issue-create-form input.form-text,
+  .issue-vote-wrapper .button.vote, .search_list .button.vote {
+    margin-left  : auto;
+    margin-right : auto;
+    float        : none;
+  }
+
+  /*Edit Profile*/
+  ul.privacy #income li,
+  #edit_profile .privacy #income .form-radios .form-item {
+    margin-right : 76%;
+    width        : 24%;
+  }
+
+  label.add-on-2 {
+    width  : 100%;
+    margin : 0 0 5px;
+  }
+
+  label.add-on-2.small {
+    margin-top : 0;
+  }
+
+  label.add-on-2 span {
+    font-weight : bold;
+  }
+
+  #edit_profile select {
+    margin : 0;
+  }
+
+  input.info.form-text, textarea.info.form-text {
+    width : 95%;
+  }
+
+  #edit_profile .user-info-inputs > li .form-item {
+    width : 100%;
+  }
+
+  #edit_profile .validate-error, #edit_profile .validate-error-wait {
+    padding : 8px 0 0;
+    width   : 100%;
+  }
+
+  ul.privacy li {
+    margin-top : 0;
+  }
+
+  form#user-details #update_submit {
+    float : left;
+  }
+
+  .dark-grey-box.top,
+  .filter_search.issues_search,
+  #guidelines {
+    margin-top : 30px;
+  }
+
+  .grey-box #divConnect {
+    width    : auto !important;
+    overflow : visible;
+  }
+
+  #edit_profile h2.din {
+    width : 100%;
+  }
+
+  #edit_profile .user-info-inputs > li {
+    margin-bottom : 15px;
+  }
+
+  #cit-stat {
+    display : block;
+    clear   : left;
+  }
+
+  .user-profile-location div {
+    margin : 0 0 15px;
+  }
+
+  #edit_profile, .grey-box.full, .dark-grey-box, .filter_search.issues_search, .white-box, .message.right-message, #guidelines,
+  .grey-box.icon_inside, .four .grey-box.icon_inside, #block-issue-issue-categories .grey-box {
+    padding : 20px 20px 14px;
+  }
+
+  #create_box,
+  .dark-grey-box,
+  .filter_search.issues_search,
+  #edit_profile {
+    padding : 20px;
+  }
+
+  /*Issues search*/
+  .poll-vote-area p.issue-meta {
+    clear       : both;
+    float       : none;
+    margin      : 0 30px;
+    padding-top : 15px;
+  }
+
+  .search_list .button.vote {
+    top : 20px;
+  }
+
+  ul.date_filter {
+    padding-left  : 1em;
+    padding-right : 5em;
+  }
+
+  ul.options_filter {
+    float        : left;
+    padding-left : 0;
+  }
+
+  /*ul.date_filter li a, ul.options_filter li a {
+    font-size: 14px;
+  }*/
+  ul.date_filter li, ul.options_filter li {
+    float      : none;
+    border     : 0 none;
+    list-style : square outside none;
+    margin-top : 10px;
+  }
+
+  ul.date_filter li a, ul.options_filter li a {
+    padding : 0 0 2px;
+    display : inline-block;
+  }
+
+  .item-list .pager li {
+    margin : 0 0 0 0.5em;
+  }
+
+  .issues_search_page .ahah-progress-throbber,
+  .issues_search_page .ahah-progress-throbber .throbber {
+    display : none;
+  }
+
+  .issue-vote-wrapper .poll-vote-area fieldset legend a, #solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
+    text-transform : none;
+  }
+
+  #issue-search-filter-form select,
+  #issue-search-filter-form select option {
+    padding : 0 3px;
+  }
+
+  /*View profile*/
+  .sort-by.profile ul {
+    padding-left : 1.5em;
+  }
+
+  .sort-by.profile li {
+    border     : 0 none;
+    float      : none;
+    list-style : square outside none;
+    margin-top : 10px;
+  }
+
+  .sort-by.profile li:first-child {
+    margin : 0;
+  }
+
+  .sort-by.profile li a {
+    display : inline-block;
+    padding : 0 0 2px;
+  }
+
+  /*Issue details*/
+  .white-box.poll-box h2.din,
+  .poll-box .ul_wrapper h2.din {
+    font-size   : 30px;
+    line-height : 33px;
+  }
+
+  .vote-results li.part {
+    width : 100%;
+    clear : left;
+  }
+
+  .vote-results li.part.margin {
+    margin : 10px 0;
+  }
+
+  .vote-results li.full {
+    margin-top : 0;
+  }
+
+  #debate_list_area > h2:first-child {
+    border         : 0 none;
+    padding-bottom : 6px;
+  }
+
+  #debate_list_area .ui-tabs-nav {
+    background-color : #FFFFFF;
+    border-bottom    : 1px solid #C0C0C0;
+    float            : none;
+    margin           : 0;
+    padding          : 0 18px;
+    top              : 12px;
+    z-index          : 14;
+  }
+
+  #empty_helper {
+    display : none;
+  }
+
+  .profile-message.poll-box {
+    padding : 30px 0 0;
+  }
+
+  .userinfo-debate {
+    float  : none;
+    margin : 0;
+    clear  : both;
+  }
+
+  #debate_list_area .arg {
+    padding : 0 0 0 58px;
+  }
+
+  ul.control_links {
+    margin : 10px 0 10px 58px;
+  }
+
+  .reply_wrapper .fieldset-wrapper {
+    margin  : 20px 0 0;
+    padding : 0 0 0 15px;
+  }
+
+  #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
+    left : -63px;
+  }
+
+  #debate_list_area li.one_reply ul.control_links {
+    margin : 8px 0 0 48px;
+    width  : 100%;
+  }
+
+  .filter_search.issues_search {
+    width      : 390px;
+    margin-top : 30px;
+    padding    : 15px 14px 18px;
+    position   : relative;
+    z-index    : 999;
+  }
+
+  .chzn-container-multi .chzn-choices .search-field input {
+    height : 2em !important;
+  }
+
+  .issue-vote-wrapper .qd {
+    margin : 18px 10px;
+    width  : auto;
+  }
+
+  form.issue-vote-form > div > div.choices {
+    padding : 18px 10px;
+  }
+
+  .votebtn_wrap {
+    padding : 0 10px;
+  }
+
+  .issue-vote-wrapper .poll-vote-area .voting-pane .choices {
+    width : initial;
+  }
+
+  .search_list h2.din.half {
+    padding : 0 10px;
+  }
+
+  #chart-strength {
+    left : -15px;
+  }
+
+  .chzn-container {
+    width : 390px !important;
+  }
+
+  /* debate */
+  #debate_list_area ul.argument_box {
+    padding : 0 25px 0 32px;
+  }
+
+  .position-question span.line,
+  .position-question span.line span {
+    width : 30px;
+  }
+
+  #debate_list_area .arg {
+    padding : 0 40px 0 36px;
+  }
+
+  #debate_list_area .replies {
+    padding : 0 0 0 36px;
+  }
+
+  .position-question {
+    padding : 5px 0 0 37px;
+  }
+
+  .position-question ul.argument_replybox {
+    left    : -37px;
+    width   : 356px;
+    padding : 0;
+  }
+
+  .arg-reply-form .form-submit {
+    margin-left : 0;
+  }
+
+  /*--/ debate */
+  .ref_wrap {
+    clear : both;
+  }
+
+  #argument-add-form .add_button {
+    position : static;
+  }
+
+  #deb_title-wrapper, #edit-ref-title-wrapper {
+    padding : 0;
+  }
+
+  #argument-add-form .add_button {
+    width : 100%;
+  }
+
+  #about_us_page_content h3 {
+    font-size   : 1.6em;
+    line-height : 1.2em;
+  }
+
+  .page ul {
+    margin-left : 2em;
+  }
+
+  .table-bor-form-item-1 ul {
+    margin-left : 1.3em;
+  }
+
+  #issue-create-form label.add-on {
+    margin : 0 0 20px 0;
+    width  : 100%;
+  }
+
+  #issue-create-form .form-item {
+    clear  : both;
+    margin : 0;
+  }
+
+  .new-issue .number {
+    float  : left;
+    margin : 0;
+  }
+
+  #issue-create-form label span.title, #issue-create-form label span.guides {
+    margin : 0 0 0 35px;
+  }
+
+  #issue-create-form label span.title {
+    margin-top : -12px;
+  }
+
+  #url-wrapper input.form-text {
+    width : 94%;
+  }
+
+  .reference-form > label span {
+    display : none;
+  }
+
+  #deb_title-wrapper, #url-wrapper {
+    padding : 0;
+  }
+
+  .with_icon.maximum {
+    max-width : none;
+  }
+
+  /*Moderation*/
+  #moderation-issues-form legend {
+    float : none;
+    width : 100%
+  }
+
+  #moderation-issues-form legend a {
+    display    : block;
+    float      : none;
+    text-align : center;
+  }
+
+  #moderation-issues-form fieldset .form-submit {
+    width      : 100%;
+    text-align : center;
+    margin-top : 16px;
+  }
+
+  #moderation-issues-form .fieldset-wrapper {
+    padding-top : 5px;
+  }
+
+  #moderation-issues-form fieldset #edit-status-wrapper,
+  #moderation-issues-form fieldset #edit-perpage-wrapper {
+    padding : 0;
+    width   : 100%;
+    margin  : 17px 0 0;
+  }
+
+  #choices-wrapper legend a,
+  #taxonomy-wrapper legend a,
+  #location-wrapper legend a {
+    float      : none;
+    display    : block;
+    text-align : center;
+  }
+
+  #choices-wrapper legend,
+  #taxonomy-wrapper legend,
+  #location-wrapper legend {
+    width   : 100%;
+    float   : none;
+    display : block;
+  }
+
+  #taxonomy-wrapper .fieldset-wrapper .form-item:first-child,
+  #location-wrapper .fieldset-wrapper .form-item:first-child {
+    margin-top : 17px;
+  }
+
+  #choices-wrapper .fieldset-wrapper fieldset .form-item,
+  #taxonomy-wrapper .fieldset-wrapper .form-item,
+  #location-wrapper .fieldset-wrapper .form-item {
+    margin : 14px 0 0;
+    width  : 100%;
+  }
+
+  #choices-wrapper .fieldset-wrapper fieldset {
+    margin : 23px 0;
+  }
+
+  #moderation-issue-view-form .form-submit {
+    width      : 100%;
+    display    : block;
+    text-align : center;
+  }
+
+  #moderation-issue-view-form .form-submit + .form-submit {
+    margin : 18px 0 0 0;
+  }
+
+  #choices-wrapper select {
+    width : 100%;
+  }
+
+  #contact-mail-page .resizable-textarea {
+    width : 100%;
+  }
+
+  #contact-mail-page .resizable-textarea .grippie {
+    padding    : 0;
+    height     : 10px;
+    border     : none;
+    box-shadow : inset 1px -1px 0 0 #DDDDDD, inset -1px 0 0 0 #DDDDDD;
+  }
 
 }
 
@@ -1411,35 +1392,35 @@
 ==================================================*/
 
 @media only screen and (min-width : 480px) and (max-width : 767px) {
-    input.form-text, input.form-text.user-search {
-        width: 250px;
-    }
+  input.form-text, input.form-text.user-search {
+    width : 250px;
+  }
 
-    .select-cat {
-        float: left;
-        width: 100%;
-    }
+  .select-cat {
+    float : left;
+    width : 100%;
+  }
 
-    .select-cat.moderate-cat {
-        width: 100%;
-    }
+  .select-cat.moderate-cat {
+    width : 100%;
+  }
 
-    input.info.form-text, textarea.info.form-text {
-        width: 97%;
-    }
+  input.info.form-text, textarea.info.form-text {
+    width : 97%;
+  }
 
-    #footer #user-login input.form-text,
-    #footer #user-login-1 input.form-text {
-        width: 100% !important;
-    }
+  #footer #user-login input.form-text,
+  #footer #user-login-1 input.form-text {
+    width : 100% !important;
+  }
 
-    #create_box .resizable-textarea span {
-        width: 100% !important;
-    }
+  #create_box .resizable-textarea span {
+    width : 100% !important;
+  }
 
-    #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
-        width: 99.5% !important;
-    }
+  #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+    width : 99.5% !important;
+  }
 
 }
 
@@ -1453,298 +1434,285 @@
 ==================================================*/
 @media only screen and (max-width : 480px) {
 
-    .white-box .container {
-        width: 274px;
-    }
-
-    .white-box .container .sixteen.columns {
-        width: 274px;
-    }
-
-    ul.date_filter {
-        padding-left: 1.5em;
-        padding-right: 3em;
-    }
-
-    #debate_work_area {
-        clear: both;
-    }
-
-    body > div > object {
-        display: none;
-    }
-
-    .table-bor-form-item-1,
-    .table-bor-form-item-1:first-child {
-        float: none;
-        width: 100%;
-        padding: 0;
-    }
-
-    .table-bor-form-item-1 ul {
-        margin-left: 2em;
-    }
-
-    #create_box .resizable-textarea span {
-        width: 274px;
-    }
-
-    textarea#q_quest, textarea#Question {
-        width: 256px;
-    }
-
-    #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
-        width: 272px;
-    }
-
-    #poll-choices label.add-on {
-        margin: 7px 0 1em 0;
-    }
-
-    /*Add argument*/
-    #debate_work_area {
-        padding: 0 10px 22px;
-    }
-
-    .argument-form td {
-        display: block;
-    }
-
-    #url-wrapper input.form-text {
-        width: 92%;
-    }
-
-    #argument-add-form .assign span.label {
-        float: right;
-        display: block;
-        margin: 0 0 0 5px;
-    }
-
-    .argument-form > label, .reference-form > label {
-        text-transform: none;
-    }
-
-    #argument-add-form .assign span.small_neg, #argument-add-form .assign span.small_pos {
-        margin-top: 4px;
-    }
-
-    #argument-add-form .assign span.small_pos {
-        float: left;
-        margin: 4px 0 0 16px;
-    }
-
-    .req_assign {
-        display: none;
-    }
-
-    .value-select label {
-        margin: 2px 0 4px 16px;
-    }
-
-    .issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote, .search_list .poll-vote-area .form-radios span.teaser_count_vote {
-        font: 16px/1 'DINLightRegular', Arial, sans-serif;
-        width: 40px;
-    }
-
-    .choices .form-radios span.teaser_count_vote + .form-item, .issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item, #solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
-        margin-left: 55px !important;
-    }
-
-
-    /* footer */
-
-    #search-solr-block {
-        width: 100%;
-    }
-
-    #footer .medal_box {
-        margin: 0 7px 0 0;
-    }
-
-    #footer .bronze, #footer .silver, #footer .gold {
-        margin: 0px 1px 10px 0px;
-    }
-
-    /*--/ footer */
-
-    #footer #user-login .form-submit {
-        margin: 0 0 15px;
-    }
-
-    #footer #user-login input[type="password"],
-    #footer #user-login-1 input[type="password"] {
-        float: right !important;
-    }
-
-    #footer #user-login input.form-text,
-    #footer #user-login-1 input.form-text {
-        width: 95% !important;
-    }
-
-    /* badges */
-
-    #about_us_page_content #badges td {
-        padding: 9px 3px;
-        font-size: 12px;
-    }
-
-    #badges .medal_wrapper {
-        font-size: 11px;
-    }
-
-    .white-box {
-        padding: 20px 12px;
-    }
-
-    #footer #user-login input[type="submit"],
-    #footer #user-login-1 input[type="submit"] {
-        padding: 8px 7px 6px;
-    }
-
-    /*--/badges  */
-
-    /* debate */
-
-    #debate_list_area ul.argument_box {
-        padding: 0 25px 0 30px;
-    }
-
-    .position-question span.line,
-    .position-question span.line span {
-        width: 19px;
-    }
-
-    #debate_list_area .arg {
-        padding: 0 40px 0 25px;
-    }
-
-
-    #debate_list_area .replies {
-        padding: 0 0 0 25px;
-    }
-
-    .position-question {
-        padding: 5px 0 0 26px;
-    }
-
-    ul.control_links {
-        margin: 10px 9px 10px 0;
-    }
-
-    .comment-agree a.agree, .comment-agree a, .comment-agree a {
-        margin-left: -4px;
-    }
-
-    .position-question ul.argument_replybox {
-        left: -27px;
-        width: 242px;
-        padding: 0;
-    }
-
-    #debate_list_area li.one_reply {
-        padding: 0 20px 10px 0 !important;
-    }
-
-    #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
-        left: -52px;
-    }
-
-    ul.control_links li a, ul.control_links li a.icon.flag2 {
-        font-size: 11px !important;
-        padding: 1px 3px;
-    }
-
-    #debate_list_area li.one_reply ul.control_links {
-        margin: 8px 0 0 10px;
-    }
-
-    #debate_list_area li.one_reply .position-question strong {
-        padding-right: 4px;
-    }
-
-    .comment-agree a.agree, .comment-agree a.disagree, .comment-agree a, .comment-agree a {
-        padding: 1px 3px;
-    }
-
-    /*--/ debate */
-
-    /* issues */
-
-    .filter_search.issues_search {
-        width: 270px;
-    }
-
-    #analytics-area > h2:first-child span {
-        padding: 0 0 16px 20px;
-    }
-
-    .vote-results .legend dl {
-        margin: 0 10px 0 0;
-    }
-
-    .vote-results .legend dd {
-        font-size: 12px;
-        margin: 0 4px 0 0;
-    }
-
-    /* account */
-
-    p.action-comment-ref {
-        margin: 10px 0 0 10px;
-    }
-
-    #edit-image-upload-wrapper {
-        width: 138px;
-    }
-
-    /*--/ account */
-
-    .vote-results .legend dt {
-        width: 12px;
-        height: 12px;
-        margin-top: 2px;
-        border-radius: 6px;
-        -moz-border-radius: 6px;
-        -webkit-border-radius: 6px;
-        -o-border-radius: 6px;
-        -khtml-border-radius: 6px;
-    }
-
-    .issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper {
-        width: 93%
-    }
-
-    .issue-vote-wrapper .qd {
-        margin: 18px 13px;
-    }
-
-    #moderation-issue-view-form {
-        margin: 0 -12px 10px;
-    }
-
-    #moderation-issues-form fieldset {
-        margin: 0 -12px 18px;
-    }
-
-    .mod-wrapper h2.din.half {
-        font-size: 20px;
-    }
-
-    .chzn-container {
-        width: 270px !important;
-    }
-
-    /*/-- issues */
-
-    /* user login pop-up */
-
-    .popup-tab input.form-text,
-    #user-register .description,
-    #user-register label.option{
-        max-width: 230px !important;
-    }
-
-    /*--/ user login pop-up */
+  .white-box .container {
+    width : 274px;
+  }
+
+  .white-box .container .sixteen.columns {
+    width : 274px;
+  }
+
+  ul.date_filter {
+    padding-left  : 1.5em;
+    padding-right : 3em;
+  }
+
+  #debate_work_area {
+    clear : both;
+  }
+
+  body > div > object {
+    display : none;
+  }
+
+  .table-bor-form-item-1,
+  .table-bor-form-item-1:first-child {
+    float   : none;
+    width   : 100%;
+    padding : 0;
+  }
+
+  .table-bor-form-item-1 ul {
+    margin-left : 2em;
+  }
+
+  #create_box .resizable-textarea span {
+    width : 274px;
+  }
+
+  textarea#q_quest, textarea#Question {
+    width : 256px;
+  }
+
+  #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+    width : 272px;
+  }
+
+  #poll-choices label.add-on {
+    margin : 7px 0 1em 0;
+  }
+
+  /*Add argument*/
+  #debate_work_area {
+    padding : 0 10px 22px;
+  }
+
+  .argument-form td {
+    display : block;
+  }
+
+  #url-wrapper input.form-text {
+    width : 92%;
+  }
+
+  #argument-add-form .assign span.label {
+    float   : right;
+    display : block;
+    margin  : 0 0 0 5px;
+  }
+
+  .argument-form > label, .reference-form > label {
+    text-transform : none;
+  }
+
+  #argument-add-form .assign span.small_neg, #argument-add-form .assign span.small_pos {
+    margin-top : 4px;
+  }
+
+  #argument-add-form .assign span.small_pos {
+    float  : left;
+    margin : 4px 0 0 16px;
+  }
+
+  .req_assign {
+    display : none;
+  }
+
+  .value-select label {
+    margin : 2px 0 4px 16px;
+  }
+
+  .issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote, .search_list .poll-vote-area .form-radios span.teaser_count_vote {
+    font  : 16px/1 'DINLightRegular', Arial, sans-serif;
+    width : 40px;
+  }
+
+  .choices .form-radios span.teaser_count_vote + .form-item, .issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item, #solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
+    margin-left : 55px !important;
+  }
+
+  /* footer */
+  #search-solr-block {
+    width : 100%;
+  }
+
+  #footer .medal_box {
+    margin : 0 7px 0 0;
+  }
+
+  #footer .bronze, #footer .silver, #footer .gold {
+    margin : 0px 1px 10px 0px;
+  }
+
+  /*--/ footer */
+  #footer #user-login .form-submit {
+    margin : 0 0 15px;
+  }
+
+  #footer #user-login input[type="password"],
+  #footer #user-login-1 input[type="password"] {
+    float : right !important;
+  }
+
+  #footer #user-login input.form-text,
+  #footer #user-login-1 input.form-text {
+    width : 95% !important;
+  }
+
+  /* badges */
+  #about_us_page_content #badges td {
+    padding   : 9px 3px;
+    font-size : 12px;
+  }
+
+  #badges .medal_wrapper {
+    font-size : 11px;
+  }
+
+  .white-box {
+    padding : 20px 12px;
+  }
+
+  #footer #user-login input[type="submit"],
+  #footer #user-login-1 input[type="submit"] {
+    padding : 8px 7px 6px;
+  }
+
+  /*--/badges  */
+  /* debate */
+  #debate_list_area ul.argument_box {
+    padding : 0 25px 0 30px;
+  }
+
+  .position-question span.line,
+  .position-question span.line span {
+    width : 19px;
+  }
+
+  #debate_list_area .arg {
+    padding : 0 40px 0 25px;
+  }
+
+  #debate_list_area .replies {
+    padding : 0 0 0 25px;
+  }
+
+  .position-question {
+    padding : 5px 0 0 26px;
+  }
+
+  ul.control_links {
+    margin : 10px 9px 10px 0;
+  }
+
+  .comment-agree a.agree, .comment-agree a, .comment-agree a {
+    margin-left : -4px;
+  }
+
+  .position-question ul.argument_replybox {
+    left    : -27px;
+    width   : 242px;
+    padding : 0;
+  }
+
+  #debate_list_area li.one_reply {
+    padding : 0 20px 10px 0 !important;
+  }
+
+  #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
+    left : -52px;
+  }
+
+  ul.control_links li a, ul.control_links li a.icon.flag2 {
+    font-size : 11px !important;
+    padding   : 1px 3px;
+  }
+
+  #debate_list_area li.one_reply ul.control_links {
+    margin : 8px 0 0 10px;
+  }
+
+  #debate_list_area li.one_reply .position-question strong {
+    padding-right : 4px;
+  }
+
+  .comment-agree a.agree, .comment-agree a.disagree, .comment-agree a, .comment-agree a {
+    padding : 1px 3px;
+  }
+
+  /*--/ debate */
+  /* issues */
+  .filter_search.issues_search {
+    width : 270px;
+  }
+
+  #analytics-area > h2:first-child span {
+    padding : 0 0 16px 20px;
+  }
+
+  .vote-results .legend dl {
+    margin : 0 10px 0 0;
+  }
+
+  .vote-results .legend dd {
+    font-size : 12px;
+    margin    : 0 4px 0 0;
+  }
+
+  /* account */
+  p.action-comment-ref {
+    margin : 10px 0 0 10px;
+  }
+
+  #edit-image-upload-wrapper {
+    width : 138px;
+  }
+
+  /*--/ account */
+  .vote-results .legend dt {
+    width                 : 12px;
+    height                : 12px;
+    margin-top            : 2px;
+    border-radius         : 6px;
+    -moz-border-radius    : 6px;
+    -webkit-border-radius : 6px;
+    -o-border-radius      : 6px;
+    -khtml-border-radius  : 6px;
+  }
+
+  .issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper {
+    width : 93%
+  }
+
+  .issue-vote-wrapper .qd {
+    margin : 18px 13px;
+  }
+
+  #moderation-issue-view-form {
+    margin : 0 -12px 10px;
+  }
+
+  #moderation-issues-form fieldset {
+    margin : 0 -12px 18px;
+  }
+
+  .mod-wrapper h2.din.half {
+    font-size : 20px;
+  }
+
+  .chzn-container {
+    width : 270px !important;
+  }
+
+  /*/-- issues */
+  /* user login pop-up */
+  .popup-tab input.form-text,
+  #user-register .description,
+  #user-register label.option {
+    max-width : 230px !important;
+  }
+
+  /*--/ user login pop-up */
 }
 
 
