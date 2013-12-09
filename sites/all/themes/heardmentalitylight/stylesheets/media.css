@@ -40,21 +40,26 @@
     margin : 7px 0 1em 0;
   }
 
-  textarea#Question, input#Answer {
+  textarea#Question {
     width : 688px;
     float : none;
   }
 
+  input#Answer {
+    width: 460px;
+    float: none;
+  }
+
   #create_box .resizable-textarea span {
-    width : 706px;
+    width : 478px;
   }
 
   textarea#q_quest, textarea#Question {
-    width : 688px;
+    width : 460px;
   }
 
   #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
-    width : 704px;
+    width : 476px;
   }
 
   .new-issue .number {
@@ -62,7 +67,6 @@
     float       : left;
     color       : #999999;
     font-size   : 30px;
-    margin      : -10px 6px 10px 0px;
     text-shadow : #FFFFFF 0px 1px;
   }
 
@@ -1467,15 +1471,15 @@
   }
 
   #create_box .resizable-textarea span {
-    width : 274px;
+    width : 270px;
   }
 
   textarea#q_quest, textarea#Question {
-    width : 256px;
+    width : 252px;
   }
 
   #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
-    width : 272px;
+    width : 268px;
   }
 
   #poll-choices label.add-on {
