@@ -158,7 +158,7 @@ a.jScrollArrowDown {
 }
 
 .jspArrow {
-  background  : #50506D;
+  background  : #50506d;
   text-indent : -20000px;
   display     : block;
   cursor      : pointer;
@@ -166,7 +166,7 @@ a.jScrollArrowDown {
 
 .jspArrow.jspDisabled {
   cursor     : default;
-  background : #80808D;
+  background : #80808d;
 }
 
 .jspVerticalBar .jspArrow {
@@ -202,7 +202,7 @@ a.jScrollArrowDown {
 }
 
 .jspCorner {
-  background : #EEEEF4;
+  background : #eeeef4;
   float      : left;
   height     : 100%;
 }
