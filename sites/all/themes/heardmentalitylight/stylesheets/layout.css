@@ -884,19 +884,6 @@ ul.tags li:hover a {
     margin-bottom: 0.6em;
 }
 
-/*.page ul.badges {
-		width:190px;
-		font-family: Arial,"Lucida Grande",sans-serif;
-		list-style-type:none;
-		margin:0px 0px 20px 0px;
-	}
-	.page ul.badges li {
-	  list-style-type:none;
-		float:none;
-		padding:3px 0px 3px 6px;
-		
-	}*/
-
 ul.sub-pages li {
     padding: 1px 0px 5px 1px;
     font-size: 13px;
@@ -2210,6 +2197,8 @@ img.user-profile {
 
 /* todo remove these ones */
 
+
+
 .bronze, .silver, .gold {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
@@ -2226,7 +2215,7 @@ img.user-profile {
 }
 
 #footer .bronze, #footer .silver, #footer .gold, #badges .bronze, #badges .silver, #badges .gold {
-    cursor: pointer;
+    cursor: default;
     padding: 2px 8px 2px 8px;
     -webkit-border-radius: 50%;
     -o-border-radius: 50%;
@@ -3964,6 +3953,10 @@ div.avatar-selection-pager-nav a:hover {
     width: 85%;
     background-color: #999999;
     color: #555555;
+}
+
+#footer #user-login input.form-text:last-child {
+ float: right;
 }
 
 #footer #user-login input.form-text:focus {
@@ -6489,7 +6482,8 @@ span.coins_char {
 }
 
 #about_us_page_content #badges table {
-    margin: 0.8em 0;
+    margin: 1em 0 2em 0;
+    font-size: 13px;
 }
 
 #about_us_page_content #badges th {
@@ -6499,20 +6493,55 @@ span.coins_char {
 }
 
 #about_us_page_content #badges td {
-    padding: 8px;
+    padding: 9px 8px;
     vertical-align: middle;
 }
 
 #about_us_page_content #badges td:first-child {
-    text-align: center;
+    text-align: left;
+}
+
+#about_us_page_content #badges td:last-child {
+    white-space: nowrap;
+}
+
+#badges tr {
+    border-top: 1px solid #e5e5e5;
+}
+
+#badges tr:last-child {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#badges .medal_wrapper {
+    display: inline-block;
+    padding: 3px 7px 2px;
+    background: #333333;
+    -webkit-border-radius: 6px;
+    -o-border-radius: 6px;
+    -khtml-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+#badges .medal_wrapper:hover {
+    background: #555555;
+    cursor: default;
 }
 
 /* todo remove these ones */
 #about_us_page_content #badges .bronze, #about_us_page_content #badges .silver, #about_us_page_content #badges .gold,
 #about_us_page_content #badges .badge-circle {
-    height: 16px;
+    display: inline-block;
+    position: relative;
+    top: 7px;
+    width: 6px;
+    height: 6px;
     margin: 0;
-    padding: 0 6px;
+    padding: 0;
 }
 
 #about_us_page_content #guide table {
