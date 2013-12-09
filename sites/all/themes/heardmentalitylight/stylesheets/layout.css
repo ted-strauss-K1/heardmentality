@@ -7580,10 +7580,57 @@ form.issue-vote-form > div > div.choices {
     word-wrap: break-word;
 }
 
+/* Moderation of issues */
 
+#moderation-issue-view-form #edit-body-wrapper.form-item,
+#moderation-issue-view-form #edit-fixed-wrapper.form-item,
+#moderation-issue-view-form #edit-active-wrapper.form-item {
+    padding: 0 22px;
+}
 
+#moderation-issue-view-form #choices-wrapper legend {
+    margin-bottom: 10px;
+}
 
+#moderation-arguments-form .form-select,
+#moderation-comments-form .form-select,
+#moderation-users-form .form-select {
+    float: none;
+    margin: 10px 0;
+}
 
+#moderation-arguments-form .form-item label,
+#moderation-comments-form .form-item label,
+#moderation-users-form .form-item label {
+    margin: 2px 0;
+}
+
+#moderation-arguments-form legend.collapse-processed,
+#moderation-comments-form legend.collapse-processed,
+#moderation-users-form legend.collapse-processed {
+    margin: 0 0 10px 0;
+}
+
+#moderation-arguments-form input[type="submit"],
+#moderation-comments-form input[type="submit"],
+#moderation-users-form input[type="submit"] {
+    margin-left: 0;
+}
+
+html.js fieldset.collapsible {
+    margin: 0 0 10px 0;
+}
+
+.mod-wrapper h2.din.half {
+    word-wrap: break-word;
+}
+
+.mod-votecount-wrapper span {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/*--/ Moderation of issues */
 
 
 
