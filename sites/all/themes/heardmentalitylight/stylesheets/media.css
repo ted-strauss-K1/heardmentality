@@ -45,10 +45,6 @@
         float: none;
     }
 
-    .new-issue .number {
-        float: left;
-    }
-
     #create_box .resizable-textarea span {
         width: 706px;
     }
@@ -58,7 +54,16 @@
     }
 
     #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
-        width: 704px;
+      width: 704px;
+    }
+
+    .new-issue .number {
+        width: 30px;
+        float: left;
+        color: #999999;
+        font-size: 30px;
+        margin: -10px 6px 10px 0px;
+        text-shadow: #FFFFFF 0px 1px;
     }
 
     .profile-meta img {
@@ -119,7 +124,6 @@
     }
 
     /*Issue details*/
-
     #debate_list_area > h2:first-child {
         padding-bottom: 35px;
     }
@@ -145,10 +149,6 @@
     }
 
     #footer #user-login .form-submit {
-        margin: 0 0 15px;
-    }
-
-    #footer #user-login-1 .form-submit {
         margin: 0 0 15px;
     }
 
@@ -179,8 +179,9 @@
         box-sizing: border-box;
     }
 
+    .filter_search.issues_search #search-solr-block,
     #submit_brow-avat, #subscription_submit, #language_submit {
-        width: 100%;
+      width: 100%;
     }
 
     .chzn-container {
@@ -250,6 +251,7 @@
     #debate_list_area li.one_reply ul.control_links {
         margin: 0 0 0 185px;
     }
+
 }
 
 /* iPad Portrait/Browser 
@@ -354,14 +356,6 @@
     .main-banner-display,
     .main-banner-display.column.centered {
         display: none;
-    }
-
-    .white-box .container {
-        width: 378px;
-    }
-
-    .white-box .container .sixteen.columns {
-        width: 378px;
     }
 
     .banner-text {
@@ -657,6 +651,7 @@
     }
 
     /*END Footer */
+
     .line-bottom {
         background: #DDDDDD;
         height: auto;
@@ -792,7 +787,7 @@
 
     input.button.vote, input.submit-issue, input.save,
     #issue-create-form input.add-answer {
-        width: 100%;
+      width: 100%;
     }
 
     .button.vote.floatright, input.submit-issue.floatright, input.save.floatright {
@@ -826,8 +821,7 @@
         font-weight: bold;
     }
 
-    #edit_profile select
-		/*#edit_profile li.country-info ul.privacy*/         {
+    #edit_profile select  {
         margin: 0;
     }
 
@@ -969,7 +963,6 @@
     }
 
     /*Issue details*/
-
     .white-box.poll-box h2.din,
     .poll-box .ul_wrapper h2.din {
         font-size: 30px;
@@ -1155,33 +1148,9 @@
         margin: 0;
     }
 
-    textarea#Question, input#Answer {
-        width: 688px;
-        float: none;
-    }
-
     .new-issue .number {
         float: left;
-    }
-
-    #create_box .resizable-textarea span {
-        width: 378px;
-    }
-
-    textarea#q_quest, textarea#Question {
-        width: 360px;
-    }
-
-    #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
-        width: 376px;
-    }
-
-    input#Answer {
-        padding: 8px;
-    }
-
-    label.before-submit {
-        margin: 0 0 20px 0;
+        margin: 0;
     }
 
     #issue-create-form label span.title, #issue-create-form label span.guides {
@@ -1202,11 +1171,6 @@
 
     #deb_title-wrapper, #url-wrapper {
         padding: 0;
-    }
-
-    #footer #user-login .form-submit,
-    #footer #user-login-1 .form-submit {
-        margin: 0;
     }
 
     .with_icon.maximum {
@@ -1448,6 +1412,7 @@
         margin-left: 55px !important;
     }
 
+
     /* footer */
 
     #search-solr-block {
@@ -1582,6 +1547,14 @@
         font-size: 12px;
         margin: 0 4px 0 0;
     }
+
+    /* account */
+
+    p.action-comment-ref {
+        margin: 10px 0 0 10px;
+    }
+
+    /*--/ account */
 
     .vote-results .legend dt {
         width: 12px;

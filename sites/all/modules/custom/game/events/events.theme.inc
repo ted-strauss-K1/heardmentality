@@ -274,7 +274,7 @@ function theme_events_item__debate_theme_preprocess(&$vars) {
   $vars['link'] = l(issue_translate($node, 'title'), $node->path, empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid));
   $vars['text2'] = '
     <!-- google translate -->
-    <span class="goog-trans-section events_google_translate">' . $debate->title . '&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
+    <span class="goog-trans-section events_google_translate">' . $debate->title . '&nbsp;<span class="sq">[<span class="goog-trans-control translate"></span>]</span>
   </span>';
   $vars['debate_type'] = $debate->type;
 
@@ -294,7 +294,7 @@ function theme_events_item__reply_theme_preprocess(&$vars) {
   $vars['link'] = l(issue_translate($node, 'title'), $node->path, empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid));
   $vars['text2'] = '
     <!-- google translate -->
-    <span class="goog-trans-section events_google_translate">' . $comment->comment . '&nbsp;<span>[<span class="goog-trans-control translate"></span>]</span>
+    <span class="goog-trans-section events_google_translate">' . $comment->comment . '&nbsp;<span class="sq">[<span class="goog-trans-control translate"></span>]</span>
   </span>';
 
   if (!$comment->support) {
