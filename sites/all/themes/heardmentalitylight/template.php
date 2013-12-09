@@ -97,6 +97,8 @@ function heardmentalitylight_preprocess_page(&$vars) {
   if (drupal_is_front_page()) {
     drupal_add_css($theme_path . '/stylesheets/front.css');
   }
+  $vars['styles'] = drupal_get_css();
+
 }
 
 /**
