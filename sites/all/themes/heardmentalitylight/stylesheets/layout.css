@@ -2042,7 +2042,7 @@ select#edit-language {
 #edit_profile ul.privacy {
     margin: 0 0 0 55%;
     float: none;
-padding: 2px 0 0 0;
+    padding: 2px 0 0 0;
 }
 
 #edit_profile li.country-info ul.privacy {
@@ -2069,11 +2069,101 @@ padding: 2px 0 0 0;
     color: #43B649;
 }
 
-#edit-image-upload-wrapper input[type="file"] {
-    max-width: 100%;
-    font-size: 11px;
-    text-overflow: ellipsis;
+/* change userpic */
+
+#edit-image-upload-wrapper {
+    position: relative;
+    text-transform: uppercase;
+    background: none #3CC7F4;
+    background: -webkit-gradient(linear, left top, left bottom, from(#6CCBD5), to(#3CC7F4));
+    background: -webkit-linear-gradient(top, #6CCBD5, #3CC7F4);
+    background: -moz-linear-gradient(top, #6CCBD5, #3CC7F4);
+    background: -ms-linear-gradient(top, #6CCBD5, #3CC7F4);
+    background: -o-linear-gradient(top, #6CCBD5, #3CC7F4);
+    background: linear-gradient(top, #6CCBD5, #3CC7F4);
+    border: 1px solid #849EB7;
+    -webkit-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+    -moz-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+    -o-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+    -khtml-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+    box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    color: #FFFFFF !important;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 1px #386C9B;
+    cursor: pointer;
+    margin: 3px 0 6px 0px;
+    line-height: 19px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    -webkit-appearance: none;
+    letter-spacing: 0.02em;
+    width: 130px;
+    height: 33px;
 }
+
+#edit-image-upload-wrapper:hover {
+    background: none #3CC7F4;
+    background: -webkit-gradient(linear, left top, left bottom, from(#6CCBD5), to(#3CC7F4));
+    background: -webkit-linear-gradient(top, #6CCBD5, #3CC7F4);
+    background: -moz-linear-gradient(top, #6CCBD5, #3CC7F4);
+    background: -ms-linear-gradient(top, #6CCBD5, #3CC7F4);
+    background: -o-linear-gradient(top, #6CCBD5, #3CC7F4);
+    background: linear-gradient(top, #6CCBD5, #3CC7F4);
+    border: 1px solid #849EB7;
+    -webkit-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+    -moz-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+    -o-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+    -khtml-box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+    box-shadow: inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+    text-shadow: 0 1px #386C9B;
+    position: relative;
+    top: -3px;
+    color: #FFFFFF !important;
+    cursor: pointer;
+}
+
+#edit-image-upload-wrapper:after {
+    content: 'choose file';
+    color: #FFFFFF !important;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 1px #386C9B;
+    line-height: 19px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    -webkit-appearance: none;
+    letter-spacing: 0.02em;
+    position: absolute;
+    top: 8px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+
+
+}
+
+#edit-image-upload-wrapper input[type="file"] {
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: relative;
+    z-index: 20;
+    cursor: pointer;
+}
+
+
+/*--/ change userpic */
 
 p.choose_pic {
     margin: 0 0 1em;
@@ -3344,7 +3434,7 @@ input.info, textarea.info {
 }
 
 #edit_profile fieldset li.privacy-rules {
-margin: 0 0 5px 0;
+    margin: 0 0 5px 0;
 }
 
 #edit_profile .form-radios .form-item:nth-child(1) {
@@ -5153,7 +5243,7 @@ h6#deb-ana.expanded:after {
 }
 
 .sq:hover,
-.sq span:hover{
+.sq span:hover {
     color: #0C6926;
     text-decoration: none;
 }

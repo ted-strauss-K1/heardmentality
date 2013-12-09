@@ -292,6 +292,7 @@
     }
 
 
+
     #footer #user-login input.form-text,
     #footer #user-login-1 input.form-text {
         width: 85% !important;
@@ -314,6 +315,7 @@
         margin-top: 0;
     }
 
+
     #edit_profile .privacy .form-radios .form-item {
         width: 10%;
     }
@@ -334,9 +336,16 @@
         margin-right: 26px;
     }
 
+
     #edit-image-upload-wrapper input[type="file"] {
         font-size: 9px;
     }
+
+
+    #edit-image-upload-wrapper {
+        width: 140px;
+    }
+
 
 }
 
@@ -358,6 +367,7 @@
         box-sizing: border-box;
         width: 100% !important;
     }
+
 
     /* user login pop-up */
 
@@ -1582,6 +1592,10 @@
 
     p.action-comment-ref {
         margin: 10px 0 0 10px;
+    }
+
+    #edit-image-upload-wrapper {
+        width: 138px;
     }
 
     /*--/ account */
