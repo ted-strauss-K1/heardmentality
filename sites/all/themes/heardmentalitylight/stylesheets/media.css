@@ -23,7 +23,7 @@
 
   .see-banner, .vote-banner, .share-banner {
     font-size : 20px;
-    padding   : 75px 0px 0px 0px;
+    padding   : 0px;
   }
 
   .error-banner {
@@ -380,6 +380,49 @@
   }
 
   /*--/ error circles */
+
+  /* error circles in homepage */
+
+  .main-banner-display .circle-box {
+    background : none;
+    height     : 170px;
+    text-align : center;
+  }
+
+  .main-banner-display .see-banner,
+  .main-banner-display .vote-banner,
+  .main-banner-display .share-banner {
+    height : 170px;
+    width  : 170px;
+  }
+
+  .main-banner-display .see-banner a,
+  .main-banner-display .vote-banner a,
+  .main-banner-display .share-banner a {
+    height : 170px;
+    width  : 170px;
+  }
+
+  .main-banner-display .see-banner span, .main-banner-display .vote-banner span, .main-banner-display .share-banner span {
+    width       : 170px;
+    height      : 170px;
+    padding     : 0;
+    line-height : 170px;
+    font-size   : 36px;
+  }
+
+  .main-banner-display .see-banner p.hover, .main-banner-display .vote-banner p.hover, .main-banner-display .share-banner p.hover {
+    font-size   : 14px;
+    line-height : 1.1em;
+    width       : 170px;
+    height      : 40px;
+    padding     : 0;
+    margin-top  : 70px;
+    background  : white;
+    border      : none;
+  }
+
+  /*--/ error circles in homepage */
 
 }
 
