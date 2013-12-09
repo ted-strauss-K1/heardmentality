@@ -659,6 +659,9 @@ img.dark-logo {
     padding: 20px 20px 6px;
     border-radius: 3px;
 }
+.black-box:first-child {
+    margin: 30px 0px 16px 0;
+}
 
 #block-issue-issue-categories-popular .grey-box {
     padding: 20px 20px 14px;
@@ -2206,13 +2209,15 @@ img.user-profile {
 }
 
 /* todo remove these ones */
+
 .bronze, .silver, .gold {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
-    -webkit-border-radius: 200px;
-    -o-border-radius: 200px;
-    -khtml-border-radius: 200px;
-    -moz-border-radius: 200px;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     border-radius: 200px;
     margin: 0px 5px 10px 0px;
     border-width: 1px;
@@ -2223,11 +2228,11 @@ img.user-profile {
 #footer .bronze, #footer .silver, #footer .gold, #badges .bronze, #badges .silver, #badges .gold {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
-    -webkit-border-radius: 200px;
-    -o-border-radius: 200px;
-    -khtml-border-radius: 200px;
-    -moz-border-radius: 200px;
-    border-radius: 200px;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     margin: 0px 5px 10px 0px;
     border-width: 0px;
     border-style: solid;
@@ -2237,11 +2242,11 @@ img.user-profile {
 .badge-circle {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
-    -webkit-border-radius: 200px;
-    -o-border-radius: 200px;
-    -khtml-border-radius: 200px;
-    -moz-border-radius: 200px;
-    border-radius: 200px;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     margin: 0px 5px 10px 0px;
     border-width: 1px;
     border-style: solid;
@@ -2251,11 +2256,11 @@ img.user-profile {
 #footer .badge-circle, #badges .badge-circle {
     cursor: pointer;
     padding: 2px 8px 2px 8px;
-    -webkit-border-radius: 200px;
-    -o-border-radius: 200px;
-    -khtml-border-radius: 200px;
-    -moz-border-radius: 200px;
-    border-radius: 200px;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     margin: 0px 5px 10px 0px;
     border-width: 0px;
     border-style: solid;
@@ -3835,6 +3840,10 @@ ul.menu li a.add:hover {
     margin-bottom: 0.5em;
 }
 
+#user-register #edit-terms-wrapper {
+    margin: 0 0 1.5em 0;
+}
+
 #user-register .password-parent,
 #user-register .confirm-parent {
     position: relative;
@@ -3951,8 +3960,8 @@ div.avatar-selection-pager-nav a:hover {
 }
 
 #footer #user-login input.form-text {
-    padding: 8px 5px;
-    width: 90%;
+    padding: 8px 8px;
+    width: 85%;
     background-color: #999999;
     color: #555555;
 }
@@ -6501,7 +6510,6 @@ span.coins_char {
 /* todo remove these ones */
 #about_us_page_content #badges .bronze, #about_us_page_content #badges .silver, #about_us_page_content #badges .gold,
 #about_us_page_content #badges .badge-circle {
-    display: inline-block;
     height: 16px;
     margin: 0;
     padding: 0 6px;
@@ -7326,6 +7334,7 @@ select option {
 }
 
 /* flag history */
+
 .action .tags li {
     clear: none;
 }
@@ -7349,7 +7358,6 @@ select option {
     float: left;
     cursor: pointer;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGeYUxB9wAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAUggAARVYAAA6lwAAF2/XWh+QAAADFklEQVR42qSRS2icVRxHz//e+30z40zSNI1NJ5M0aWpj0hCToEiRqAhWS5G2ii7ERVdioSC4E7pyI5SutIsufCJaFIoQRLJQKVpKwaRYA1XTF01MWpukdJLM8/vuw0VF3HvgtzmrHxw5uWPHrvGDBz7u6u3uvvDRJ58uXr3xjktTnEBOQQZIAOcDOE+kVfuD/f3vbhvY9dyN8xdOm7GXDn0zvm/vw/HaXdSzE8fOrZWL1/+8fURpxX+xzpPRes/A2OiHW4eHB27PL8xvNGqXTDYTt6ryKmZ9hd5NJiru6Xvj+2b5qemVxhNBSTkA1ntVatt0Zmxs7FBZqdr01NTRtNH8IADyXrFILjJvPTby0LGhgt2il25SWy7z81+N1Ys1P5QTBoeiaLJUKrVfrtWn55ZuTeTiOMm3tlKrrCOndvZTW1nFJE3aI94fKegjHd5FSdMzV3eVnCNXMEbPeP/ZPesOiyiiOCaXz1OrrKNEBBMZspmYlVr65tnlxs5za+7XtbqjZEMh57z+yboTd7w/jNYEQAARQQCTpgn1pEnTWoxSVIW7SRoi5z0uQFYLmxXPLHuFDQBCYi3NahV8QD/eqNNMU3wIaOgZ9H5ut/O9VRFmjf62JSP94wXVvZBKx5plSgSch6a1JB5UCAFECNA54Nxsv/NbrBYuRerLRSUv/JjKy+tZ7V7cHh9VwiMuQOD+kwAouZ9ZDTg/0xdCm4mFP4y6eQt5NQaanskzd+xrsRZ5ssNMhuAxEv6dkgBF5z4fCr47m9WsRNr+7uV5HcAFMEDDhq++nm8e3503fdti9br84w2ggndbh9rbXikUYsgJM5YTqedKCGA9BAJZBUsN//Yv99Iro3lzXAhoQANqc6FwoO/pCdM22Iu0xCFj5FRPTtGVVXRmFaLAC0QaZjfsfnHhgU6tDuZFKIigqkm6mB0doWP/Xih1+Yb19dQHEh+wIRADERADAa7/VncnuxTDPRp6NOhHrb2WeLevZXtP8YezF08vlCtf1FNPNfVUUo8SRaQEEUGL0IDvanC+AmEDkBAC/4e/BwACT2zMWyQBIAAAAABJRU5ErkJggg==);
-
 }
 
 .resizable-textarea .grippie {
@@ -7412,4 +7420,12 @@ form.issue-vote-form > div > div.choices {
 
 #popup-login.logged_in {
     padding: 10px;
+}
+
+#popup-login .popup-tab input.form-text {
+    padding: 6px 8px;
+}
+
+#popup-login .popup-tab #edit-submit {
+    margin: 0 0 2em 0;
 }
