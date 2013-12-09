@@ -120,10 +120,6 @@
 
     /*Issue details*/
 
-    .filter_search.issues_search {
-        width: 142px;
-    }
-
     #debate_list_area > h2:first-child {
         padding-bottom: 35px;
     }
@@ -183,7 +179,6 @@
         box-sizing: border-box;
     }
 
-    .filter_search.issues_search #search-solr-block,
     #submit_brow-avat, #subscription_submit, #language_submit {
         width: 100%;
     }
@@ -247,6 +242,10 @@
     .position-question {
         padding: 5px 0 0 49px;
     }
+
+    #debate_list_area li.one_reply ul.control_links {
+        margin: 0 0 0 185px;
+    }
 }
 
 /* iPad Portrait/Browser 
@@ -289,6 +288,15 @@
     #footer #user-login input.form-text,
     #footer #user-login-1 input.form-text {
         width: 85% !important;
+    }
+
+    .filter_search.issues_search {
+        width: 142px;
+        margin-top: 0;
+    }
+
+    .chzn-container-multi .chzn-choices .search-choice {
+        max-width: 107px;
     }
 }
 
@@ -617,7 +625,15 @@
     /* Footer */
 
     .black-box {
-        margin: 30px 0px 16px 0;
+        margin: 30px 0 0 0;
+    }
+
+    .black-box:first-child {
+        margin: 30px 0 0 0;
+    }
+
+    #footer .container .five.columns {
+        margin-bottom: 16px;
     }
 
     /*END Footer */
@@ -755,7 +771,7 @@
     }
 
     input.button.vote, input.submit-issue, input.save,
-    #issue-create-form input.add-answer, #search-solr-block {
+    #issue-create-form input.add-answer {
         width: 100%;
     }
 
@@ -791,7 +807,7 @@
     }
 
     #edit_profile select
-		/*#edit_profile li.country-info ul.privacy*/       {
+		/*#edit_profile li.country-info ul.privacy*/         {
         margin: 0;
     }
 
@@ -1000,7 +1016,7 @@
     }
 
     #debate_list_area li.one_reply ul.control_links {
-        margin: 8px 0 0;
+        margin: 8px 0 0 48px;
         width: 100%;
     }
 
@@ -1040,7 +1056,6 @@
     #chart-strength {
         left: -15px;
     }
-
 
     /* debate */
 
@@ -1409,6 +1424,22 @@
         margin-left: 55px !important;
     }
 
+    /* footer */
+
+    #search-solr-block {
+        width: 100%;
+    }
+
+    #footer .medal_box {
+        margin: 0 7px 0 0;
+    }
+
+    #footer .bronze, #footer .silver, #footer .gold {
+        margin: 0px 1px 10px 0px;
+    }
+
+    /*--/ footer */
+
     #footer #user-login .form-submit {
         margin: 0 0 15px;
     }
@@ -1482,7 +1513,32 @@
         padding: 0;
     }
 
-    /*--/ debate */#debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive
+    #debate_list_area li.one_reply {
+        padding: 0 20px 10px 0 !important;
+    }
+
+    #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
+        left: -52px;
+    }
+
+    ul.control_links li a, ul.control_links li a.icon.flag2 {
+        font-size: 11px !important;
+        padding: 1px 3px;
+    }
+
+    #debate_list_area li.one_reply ul.control_links {
+        margin: 8px 0 0 10px;
+    }
+
+    #debate_list_area li.one_reply .position-question strong {
+        padding-right: 4px;
+    }
+
+    .comment-agree a.agree, .comment-agree a.disagree, .comment-agree a, .comment-agree a {
+        padding: 1px 3px;
+    }
+
+    /*--/ debate */
 
     /* issues */
 
@@ -1514,10 +1570,15 @@
         -khtml-border-radius: 6px;
     }
 
-
-    #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
-        left: -52px;
+    .issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper {
+        width: 93%
     }
+
+    .issue-vote-wrapper .qd {
+        margin: 18px 13px;
+    }
+
+
 
     /*/-- issues */
 
