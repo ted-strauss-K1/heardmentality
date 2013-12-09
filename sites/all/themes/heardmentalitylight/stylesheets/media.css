@@ -119,6 +119,11 @@
     }
 
     /*Issue details*/
+
+    .filter_search.issues_search {
+        width: 142px;
+    }
+
     #debate_list_area > h2:first-child {
         padding-bottom: 35px;
     }
@@ -782,7 +787,7 @@
     }
 
     #edit_profile select
-		/*#edit_profile li.country-info ul.privacy*/      {
+		/*#edit_profile li.country-info ul.privacy*/       {
         margin: 0;
     }
 
@@ -993,6 +998,43 @@
     #debate_list_area li.one_reply ul.control_links {
         margin: 8px 0 0;
         width: 100%;
+    }
+
+    .filter_search.issues_search {
+        width: 390px;
+        margin-top: 30px;
+        padding: 15px 14px 18px;
+        position: relative;
+        z-index: 999;
+    }
+
+    .chzn-container-multi .chzn-choices .search-field input {
+        height: 2em !important;
+    }
+
+    .issue-vote-wrapper .qd {
+        margin: 18px 10px;
+        width: auto;
+    }
+
+    form.issue-vote-form > div > div.choices {
+        padding: 18px 10px;
+    }
+
+    .votebtn_wrap {
+        padding: 0 10px;
+    }
+
+    .issue-vote-wrapper .poll-vote-area .voting-pane .choices {
+        width: initial;
+    }
+
+    .search_list h2.din.half {
+        padding: 0 10px;
+    }
+
+    #chart-strength {
+        left: -15px;
     }
 
     /* debate */
@@ -1434,7 +1476,40 @@
         width: 242px;
         padding: 0;
     }
+
     /*--/ debate */
+
+    /* issues */
+
+    .filter_search.issues_search {
+        width: 270px;
+    }
+
+    #analytics-area > h2:first-child span {
+        padding: 0 0 16px 20px;
+    }
+
+    .vote-results .legend dl {
+        margin: 0 10px 0 0;
+    }
+
+    .vote-results .legend dd {
+        font-size: 12px;
+        margin: 0 4px 0 0;
+    }
+
+    .vote-results .legend dt {
+        width: 12px;
+        height: 12px;
+        margin-top: 2px;
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        -o-border-radius: 6px;
+        -khtml-border-radius: 6px;
+    }
+
+    /*/-- issues */
 
 }
 
