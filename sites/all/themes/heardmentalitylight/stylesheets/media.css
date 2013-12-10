@@ -410,6 +410,7 @@
   /*--/ user login pop-up */
   #edit-image-upload-wrapper input[type="file"] {
     font-size : 12px;
+  }
 
   /* error circles */
   .error-banner {
@@ -1379,6 +1380,10 @@
     height     : 10px;
     border     : none;
     box-shadow : inset 1px -1px 0 0 #DDDDDD, inset -1px 0 0 0 #DDDDDD;
+  }
+
+  .cc_footer_link {
+    margin-right : 0px;
   }
 
 }
