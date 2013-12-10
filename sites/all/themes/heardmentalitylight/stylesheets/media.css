@@ -1720,7 +1720,22 @@
   /*--/ user login pop-up */
 }
 
+/*@media only screen and (min-width : 1024px) {
 
+  #footer .container .four.columns {
+    width       : 230px;
+    margin-left : 0px;
+  }
+
+  #footer .container .seven.columns {
+    width : 410px;
+  }
+
+  #footer .container .five.columns {
+    margin-right : 0px;
+  }
+
+} */
 
 
 
