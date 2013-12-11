@@ -511,6 +511,7 @@
   .main-banner-display .circle-box {
     background : none;
     height     : 285px;
+    width      : 285px;
     margin     : 10px auto;
   }
 
