@@ -508,6 +508,26 @@
     margin-top : 0px;
   }
 
+  .main-banner-display .circle-box {
+    background: none;
+    height: 285px;
+    margin: 10px auto;
+  }
+
+  .main-banner-display .see-banner,
+  .main-banner-display .vote-banner,
+  .main-banner-display .share-banner {
+    padding: 0;
+  }
+
+  .main-banner-display .one-third.column:first-child .circle-box {
+    margin-top: 20px;
+  }
+
+  .main-banner-display .one-third.column:last-child .circle-box {
+    margin-bottom: 20px;
+  }
+
   /*--/ error circles */
   input[type="text"], input[type="password"], input[type="email"], textarea, select {
     -moz-box-sizing    : border-box;
@@ -680,7 +700,7 @@
 
   /* Header */
   .top-mobile .border-bottom {
-    margin-top : 32px;
+    margin-top : 0px;
   }
 
   .top-left {
