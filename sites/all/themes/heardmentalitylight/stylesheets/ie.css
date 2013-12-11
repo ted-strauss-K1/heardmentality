@@ -560,13 +560,49 @@
 .ie7 ul.tags li,
 .ie8 ul.tags li,
 .ie9 ul.tags li {
-  padding: 0px 4px 0px 1px;
+  padding : 0px 4px 0px 1px;
 }
 
 .ie7 ul.tags input[type="checkbox"],
 .ie8 ul.tags input[type="checkbox"],
 .ie9 ul.tags input[type="checkbox"] {
   margin : 3px 5px 3px 1px;
+}
+
+.ie7 .circle-box,
+.ie8 .circle-box {
+  background : url(../images/circle_big.png);
+}
+
+.ie7 .see-banner span,
+.ie7 .vote-banner span,
+.ie7 .share-banner span,
+.ie7 .error-banner span,
+.ie8 .see-banner span,
+.ie8 .vote-banner span,
+.ie8 .share-banner span,
+.ie8 .error-banner span {
+  width      : 265px;
+  height     : 70px;
+  background : none;
+  border     : none;
+}
+
+.ie7 .see-banner p,
+.ie7 .vote-banner p,
+.ie7 .share-banner p,
+.ie7 .error-banner p,
+.ie8 .see-banner p,
+.ie8 .vote-banner p,
+.ie8 .share-banner p,
+.ie8 .error-banner p {
+  width       : 213px;
+  height      : 50px;
+  background  : #FFFFFF;
+  border      : none;
+  padding     : 20px 0 0 0;
+  margin-left : 36px;
+  margin-top  : 104px;
 }
 
 /*--/ homepage */
