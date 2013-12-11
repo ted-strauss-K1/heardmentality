@@ -555,6 +555,21 @@
 
 /*--/ issues in ie7-8 */
 
+/* homepage */
+
+.ie7 ul.tags li,
+.ie8 ul.tags li,
+.ie9 ul.tags li {
+  padding: 0px 4px 0px 1px;
+}
+
+.ie7 ul.tags input[type="checkbox"],
+.ie8 ul.tags input[type="checkbox"],
+.ie9 ul.tags input[type="checkbox"] {
+  margin : 3px 5px 3px 1px;
+}
+
+/*--/ homepage */
 
 
 
