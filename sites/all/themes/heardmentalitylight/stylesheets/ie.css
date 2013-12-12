@@ -205,10 +205,10 @@
 
 .ie8 .button.vote:hover, .ie8 input.submit-issue:hover, .ie8 input.save:hover,
 .ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
-  border-width : 1px 1px 4px 1px;
-  border-color : #849EB7;
-  top          : 24px !important;
-  margin-top   : -3px !important;
+  border-width  : 1px 1px 4px 1px;
+  border-color  : #849EB7;
+  top           : -3px !important;
+  margin-bottom : -3px !important;
 }
 
 .ie8 a.button.lighter, .ie8 input.lighter,
@@ -409,7 +409,7 @@
 
 .ie .banner-text {
   float : left;
-  width : 70%;
+  width : 100%;
 }
 
 .ie7 .expanding h6 {
