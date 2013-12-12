@@ -607,6 +607,24 @@
 
 /*--/ homepage */
 
+/* about us */
+
+.ie7 #about_us_page_content #badges .bronze,
+.ie8 #about_us_page_content #badges .bronze {
+  background : url(../images/ie_badges_medal_bronze.png);
+}
+
+.ie7 #about_us_page_content #badges .silver,
+.ie8 #about_us_page_content #badges .silver {
+  background : url(../images/ie_badges_medal_silver.png);
+}
+
+.ie7 #about_us_page_content #badges .gold,
+.ie8 #about_us_page_content #badges .gold {
+  background : url(../images/ie_badges_medal_gold.png);
+}
+
+/*--/ about us */
 
 
 
