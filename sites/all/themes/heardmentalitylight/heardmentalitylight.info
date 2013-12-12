@@ -1,6 +1,6 @@
 name = Heard Mentality Light
 description = Openwave Theme.
-version = 6.x-1.0.4
+version = 6.x-1.0.5
 core = 6.x
 engine = phptemplate
 screenshot = screenshot.gif

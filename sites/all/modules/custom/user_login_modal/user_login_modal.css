@@ -1,40 +1,53 @@
-.popup-tab {
-  width  : 325px;
-  height : 750px;
-  float  : left;
-  margin : 0;
+#tabs-1.popup-tab {
+    width: 257px;
+    height: 350px;
+    float: left;
+    margin: 0;
+    padding: 0 20px;
+}
+
+#tabs-2.popup-tab {
+    width: 301px;
+    height: 630px;
+    float: left;
+    margin: 0;
+    padding: 0 0 0 20px;
+}
+
+#tabs-2.popup-tab #user-register #edit-pass-1-wrapper {
+    margin-top: 1.4em;
 }
 
 .popup-tab h2 {
-  font-size : 25px;
-  width     : 270px;
+    font-size: 25px;
+    width: 270px;
 }
 
 .popup-tab div#user-register {
-  padding-left : 20px;
-  border-left  : 1px #CCCCCC solid;
+    padding-left: 20px;
+    border-left: 1px #CCCCCC solid;
 }
 
 .popup-login-inner {
-  padding : 15px;
+    padding: 15px 15px 15px 0;
 }
 
 .popup-login-inner.mobile {
-  width   : 300px;
-  padding : 0;
+    width: 300px;
+    padding: 0;
 }
 
 .popup-login-inner.mobile .popup-tab {
-  float : none;
+    float: none;
 }
 
 .popup-login-inner.mobile .popup-tab div#user-register {
-  padding-left : 0;
-  border-left  : none;
-  border-top   : 2px #CCCCCC solid;
-  padding-top  : 15px;
+    padding-left: 0;
+    border-left: none;
+    border-top: 2px #CCCCCC solid;
+    padding-top: 15px;
 }
 
 .popup-tab input.form-text {
-  width : 270px;
+    width: 258px;
 }

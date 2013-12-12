@@ -22,7 +22,7 @@
   bottom: 60px;
   right: 20px;
   overflow: hidden;
-  z-index: 10;
+  z-index: 9999;
 }
 /* IE6 seems to be unable to handle fixed */
 * html #block-feedback-form {

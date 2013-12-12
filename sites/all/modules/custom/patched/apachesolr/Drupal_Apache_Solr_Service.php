@@ -659,7 +659,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
     $flushValue = $waitFlush ? 'true' : 'false';
     $searcherValue = $waitSearcher ? 'true' : 'false';
 
-    $rawPost = '<commit optimize="' . $optimizeValue . '" waitFlush="' . $flushValue . '" waitSearcher="' . $searcherValue . '" />';
+    ## $rawPost = '<commit optimize="' . $optimizeValue . '" waitFlush="' . $flushValue . '" waitSearcher="' . $searcherValue . '" />';
+    $rawPost = '<commit />';
 
     $response = $this->update($rawPost, $timeout);
     $this->_clearCache();
@@ -732,7 +733,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
     $flushValue = $waitFlush ? 'true' : 'false';
     $searcherValue = $waitSearcher ? 'true' : 'false';
 
-    $rawPost = '<optimize waitFlush="' . $flushValue . '" waitSearcher="' . $searcherValue . '" />';
+    ## $rawPost = '<optimize waitFlush="' . $flushValue . '" waitSearcher="' . $searcherValue . '" />';
+    $rawPost = '<optimize />';
 
     return $this->update($rawPost, $timeout);
   }

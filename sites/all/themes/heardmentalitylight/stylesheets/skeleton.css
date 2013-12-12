@@ -16,6 +16,20 @@
   padding  : 0;
 }
 
+.white-box .container {
+  position : relative;
+  width    : 940px;
+  margin   : 0 auto;
+  padding  : 0;
+}
+
+.white-box .container .sixteen.columns {
+  position : relative;
+  width    : 900px;
+  margin   : 0 auto;
+  padding  : 0;
+}
+
 .column, .columns {
   float        : left;
   display      : inline;
@@ -474,6 +488,5 @@ or wrap each row of columns in a <div class="row"> */
   width      : 0;
   height     : 0;
 }
-    
     
     

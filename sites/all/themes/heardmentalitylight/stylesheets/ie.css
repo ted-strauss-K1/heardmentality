@@ -244,7 +244,7 @@
   background : url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzdjYmJmMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0Mjk4ZWYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 }
 
-.ie9 a.button,
+/*.ie9 a.button,
 .ie9 .button,
 .ie9 button,
 .ie9 input.add-answer,
@@ -259,9 +259,9 @@
 .ie9 h6#add-arg,
 .ie9 h6#deb-ana {
   background : url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YxZjFmMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjZWNlY2UiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-}
+}*/
 
-.ie9 a.button:hover,
+/*.ie9 a.button:hover,
 .ie9 .button:hover,
 .ie9 .button.active,
 .ie9 button:hover,
@@ -279,7 +279,7 @@
 .ie9 #debate_work_area h6.expanded,
 .ie9 #debate_work_area h6.expanded:hover {
   background : url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VmZWZlZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjNGM0YzQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-}
+}*/
 
 .ie9 a.button.lighter, .ie9 input.lighter,
 .ie9 .ui-dialog .ui-tabs-panel #user-login .form-submit,
@@ -324,14 +324,13 @@
 
 .ie7 #debate_list_area .arg span.sum span,
 .ie8 #debate_list_area .arg span.sum span {
-  position    : relative;
-  line-height :
+  position : relative;
 }
 
 .ie7 #debate_list_area li.one_reply span.negative, .ie7 #debate_list_area li.one_reply span.positive,
 .ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive {
-  background-color : #D7D7D7;
-  border           : 1px solid red;
+  background-color : #FFFFFF;
+  border           : 1px solid #D7D7D7;
 }
 
 /*.ie8 #debate_list_area li.one_reply span.positive {
@@ -420,3 +419,157 @@
 .ie7 .expanding .active {
   background-position : 100% -24px;
 }
+
+/* medals */
+
+.ie7 #footer .bronze,
+.ie8 #footer .bronze {
+  background : url(../images/ie_medal_footer_bronze.png) no-repeat;
+}
+
+.ie7 #footer .silver,
+.ie8 #footer .silver {
+  background : url(../images/ie_medal_footer_silver.png) no-repeat;
+}
+
+.ie7 #footer .gold,
+.ie8 #footer .gold {
+  background : url(../images/ie_medal_footer_gold.png) no-repeat;
+}
+
+.ie7 .badge {
+  padding : 0 6px;
+}
+
+.ie8 .badge {
+  padding : 2px 6px;
+}
+
+.ie7 .badge.bronze,
+.ie8 .badge.bronze {
+  background   : url(../images/ie_medal_badge_bronze.png) no-repeat;
+  border-width : 0;
+}
+
+.ie7 .badge.silver,
+.ie8 .badge.silver {
+  background   : url(../images/ie_medal_badge_silver.png) no-repeat;
+  border-width : 0;
+}
+
+.ie7 .badge.gold,
+.ie8 .badge.gold {
+  background   : url(../images/ie_medal_badge_gold.png) no-repeat;
+  border-width : 0;
+}
+
+.ie7 .profile_page_wrapper .medal_box .bronze,
+.ie8 .profile_page_wrapper .medal_box .bronze {
+  background   : url(../images/ie_medal_profile_bronze.png) no-repeat;
+  border-width : 0;
+  padding      : 4px 10px;
+}
+
+.ie7 .profile_page_wrapper .medal_box .silver,
+.ie8 .profile_page_wrapper .medal_box .silver {
+  background   : url(../images/ie_medal_profile_silver.png) no-repeat;
+  border-width : 0;
+  padding      : 4px 10px;
+}
+
+.ie7 .profile_page_wrapper .medal_box .gold,
+.ie8 .profile_page_wrapper .medal_box .gold {
+  background   : url(../images/ie_medal_profile_gold.png) no-repeat;
+  border-width : 0;
+  padding      : 4px 10px;
+}
+
+.ie7 .profile_page_wrapper .medal_box .bronze,
+.ie7 .profile_page_wrapper .medal_box .silver,
+.ie7 .profile_page_wrapper .medal_box .gold {
+  padding : 4px 10px;
+}
+
+.ie8 .profile_page_wrapper .medal_box .bronze,
+.ie8 .profile_page_wrapper .medal_box .silver,
+.ie8 .profile_page_wrapper .medal_box .gold {
+  padding : 4px 10px;
+}
+
+.ie7 .profile_page_wrapper .medal_box,
+.ie8 .profile_page_wrapper .medal_box {
+  float : none;
+}
+
+/*--/ medals */
+
+/* footer */
+
+.ie7 a.facebook, .ie7 a.twitter, .ie7 a.google,
+.ie8 a.facebook, .ie8 a.twitter, .ie8 a.google {
+  display : block;
+  width   : 40px;
+  height  : 47px;
+}
+
+.ie7 a.facebook {
+  background : url(../images/ie_footer_facebook.png) no-repeat;
+}
+
+.ie7 a.twitter {
+  background : url(../images/ie_footer_twitter.png) no-repeat;
+}
+
+.ie7 a.google {
+  background : url(../images/ie_footer_google.png) no-repeat;
+}
+
+/*--/ footer */
+
+/* issues in ie7-8 */
+
+.ie8 .issue-vote-wrapper .poll-vote-area fieldset {
+  margin : 0 0 16px 0;
+}
+
+.ie8 .issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item {
+  margin : 24px 0 0 0;
+}
+
+.ie8 .issue-vote-wrapper .poll-vote-area .fieldset-wrapper input.form-submit {
+  margin : 23px 0 0 23px;
+}
+
+.ie8 #debate_list_area .arg span.sum span {
+  background : url(../images/ie_debate_sum.png) no-repeat;
+}
+
+.ie8 #argument-add-form .form-submit {
+  float        : right;
+  margin-right : 0;
+}
+
+.ie8 #argument-add-form .add_button {
+  width : 100%;
+}
+
+/*--/ issues in ie7-8 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -511,7 +511,7 @@ function apachesolr_status_page($environment = NULL) {
     $data = new stdClass;
     $data->fields = array();
   }
-
+  /*
   $messages = array();
   if (isset($data->index->numDocs)) {
     try {
@@ -561,6 +561,7 @@ function apachesolr_status_page($environment = NULL) {
   // editing, as it is otherwise not transparent to the end user.
   $output['apachesolr_index_action_status_prefix'] = '<h3>' . t('@environment: Search Index Content', array('@environment' => $environment['name'])) . '</h3>';
   $output['apachesolr_index_action_status'] = theme('table', array(t('Type'), t('Value')), $messages);
+  */
   $output['viewmore'] = l(t('View more details on the search index contents'), 'admin/reports/apachesolr');
 
   $write_status = apachesolr_environment_variable_get($env_id, 'apachesolr_read_only', APACHESOLR_READ_WRITE);

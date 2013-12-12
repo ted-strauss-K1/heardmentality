@@ -31,14 +31,35 @@
     font-size : 40px;
   }
 
+  label.add-on, label.add-on-2 {
+    width  : 100%;
+    margin : 7px 0 0 0;
+  }
+
+  #poll-choices label.add-on {
+    margin : 7px 0 1em 0;
+  }
+
   textarea#Question, input#Answer {
-    width : 97%;
+    width : 688px;
     float : none;
+  }
+
+  #create_box .resizable-textarea span {
+    width : 706px;
+  }
+
+  textarea#q_quest, textarea#Question {
+    width : 688px;
+  }
+
+  #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+    width : 704px;
   }
 
   .new-issue .number {
     width       : 30px;
-    float       : none;
+    float       : left;
     color       : #999999;
     font-size   : 30px;
     margin      : -10px 6px 10px 0px;
@@ -121,8 +142,8 @@
 
   img.dark-logo {
     position : absolute;
-    right    : 5px;
-    top      : 5px;
+    right    : 7px;
+    top      : 4px;
     z-index  : 1;
     margin   : 0;
   }
@@ -163,6 +184,10 @@
     width : 100%;
   }
 
+  .chzn-container {
+    width : 142px !important;
+  }
+
   /*Moderation*/
   #choices-wrapper .fieldset-wrapper fieldset .form-item,
   #taxonomy-wrapper .fieldset-wrapper .form-item,
@@ -190,6 +215,40 @@
   #taxonomy-wrapper .fieldset-wrapper .form-item + .form-item + .form-item,
   #location-wrapper .fieldset-wrapper .form-item + .form-item + .form-item {
     margin-right : 2%;
+  }
+
+  .white-box .container {
+    width : 708px;
+  }
+
+  .white-box .container .sixteen.columns {
+    width : 708px;
+  }
+
+  #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
+    left : -90px;
+  }
+
+  /* debate */
+  .position-question span.line,
+  .position-question span.line span {
+    width : 42px;
+  }
+
+  #debate_list_area .arg {
+    padding : 0 40px 0 48px;
+  }
+
+  #debate_list_area .replies {
+    padding : 0 0 0 48px;
+  }
+
+  .position-question {
+    padding : 5px 0 0 49px;
+  }
+
+  #debate_list_area li.one_reply ul.control_links {
+    margin : 0 0 0 185px;
   }
 }
 
@@ -230,6 +289,98 @@
     width : auto;
   }
 
+  #footer #user-login input.form-text,
+  #footer #user-login-1 input.form-text {
+    width : 85% !important;
+  }
+
+  .filter_search.issues_search {
+    width      : 142px;
+    margin-top : 0;
+  }
+
+  .chzn-container-multi .chzn-choices .search-choice {
+    max-width : 107px;
+  }
+
+  .four.columns.margin-top {
+    margin-top : 59px;
+  }
+
+  #block-user_profile-user-profile-right {
+    margin-top : 0;
+  }
+
+  #edit_profile .privacy .form-radios .form-item {
+    width : 10%;
+  }
+
+  #edit_profile .form-radios .form-item:nth-child(1) {
+    margin-right : 13px;
+  }
+
+  #edit_profile .form-radios .form-item:nth-child(2) {
+    margin-right : 26px;
+  }
+
+  #edit_profile .form-radios .form-item:nth-child(3) {
+    margin-right : 25px;
+  }
+
+  #edit_profile .form-radios .form-item:nth-child(4) {
+    margin-right : 26px;
+  }
+
+  #edit-image-upload-wrapper input[type="file"] {
+    font-size : 9px;
+  }
+
+  #edit-image-upload-wrapper {
+    width : 140px;
+  }
+
+  .select-cat {
+    float : left;
+    width : 149px;
+  }
+
+  .select-cat.moderate-cat {
+    width : 134px;
+  }
+
+  ul.vote li.post {
+    width : 80%;
+  }
+
+  p.suggest-answer {
+    width   : 100%;
+    margin  : 10px 0px;
+    padding : 0px 0px;
+  }
+
+  fieldset.suggest-answer li {
+    width : auto;
+  }
+
+  /* error circles */
+  .circle-box {
+    background : none;
+    height     : 285px;
+    text-align : center;
+  }
+
+  .error-banner {
+    padding : 0 0 0 0;
+    margin  : 0 auto;
+  }
+
+  .error-banner span {
+    font-size      : 80px;
+    letter-spacing : -0.04em;
+  }
+
+  /*--/ error circles */
+
 }
 
 /* iPad Portrait Only 
@@ -243,6 +394,68 @@
 
 @media only screen and (max-width : 767px) {
 
+  input[type="text"], input[type="password"], input[type="email"], textarea, select {
+    -moz-box-sizing    : border-box;
+    -webkit-box-sizing : border-box;
+    -ms-box-sizing     : border-box;
+    box-sizing         : border-box;
+    width              : 100% !important;
+  }
+
+  /* user login pop-up */
+  .popup-tab input.form-text {
+    width : 90% !important;
+  }
+
+  /*--/ user login pop-up */
+  #edit-image-upload-wrapper input[type="file"] {
+    font-size : 12px;
+
+  /* error circles */
+  .error-banner {
+    width       : 180px;
+    height      : 180px;
+    padding     : 0 0 0 0;
+    font-size   : 50px;
+    line-height : 50px;
+  }
+
+  .error-banner a {
+    vertical-align : middle;
+    width          : 180px;
+    height         : 180px;
+  }
+
+  .error-banner a span {
+    display          : inline-block;
+    width            : 180px;
+    height           : 180px;
+    background-color : transparent;
+    border           : none;
+    vertical-align   : middle;
+    text-align       : center;
+    line-height      : 0;
+    padding          : 90px 0 0 0;
+  }
+
+  .circle-box {
+    display    : block;
+    width      : 180px;
+    height     : 180px;
+    margin     : 40px auto 20px;
+    background : url(../images/circle_bg.png) -67px -8px no-repeat;
+  }
+
+  .see-banner, .vote-banner, .share-banner {
+    font-size : 46px;
+    padding   : 145px 0px 0px 0px;
+  }
+
+  .page-error .banner-text {
+    margin-top : 0px;
+  }
+
+  /*--/ error circles */
   input[type="text"], input[type="password"], input[type="email"], textarea, select {
     -moz-box-sizing    : border-box;
     -webkit-box-sizing : border-box;
@@ -545,6 +758,20 @@
   }
 
   /*END Header*/
+  /* Footer */
+  .black-box {
+    margin : 30px 0 0 0;
+  }
+
+  .black-box:first-child {
+    margin : 30px 0 0 0;
+  }
+
+  #footer .container .five.columns {
+    margin-bottom : 16px;
+  }
+
+  /*END Footer */
   .line-bottom {
     background : #DDDDDD;
     height     : auto;
@@ -714,8 +941,7 @@
     font-weight : bold;
   }
 
-  #edit_profile select
-		/*#edit_profile li.country-info ul.privacy*/    {
+  #edit_profile select {
     margin : 0;
   }
 
@@ -913,24 +1139,94 @@
     margin : 10px 0 10px 58px;
   }
 
-  .position-question {
-    padding : 5px 0 0 59px;
-  }
-
   .reply_wrapper .fieldset-wrapper {
     margin  : 20px 0 0;
     padding : 0 0 0 15px;
   }
 
   #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
-    left : -85px;
+    left : -63px;
   }
 
   #debate_list_area li.one_reply ul.control_links {
-    margin : 8px 0 0;
+    margin : 8px 0 0 48px;
     width  : 100%;
   }
 
+  .filter_search.issues_search {
+    width      : 390px;
+    margin-top : 30px;
+    padding    : 15px 14px 18px;
+    position   : relative;
+    z-index    : 999;
+  }
+
+  .chzn-container-multi .chzn-choices .search-field input {
+    height : 2em !important;
+  }
+
+  .issue-vote-wrapper .qd {
+    margin : 18px 10px;
+    width  : auto;
+  }
+
+  form.issue-vote-form > div > div.choices {
+    padding : 18px 10px;
+  }
+
+  .votebtn_wrap {
+    padding : 0 10px;
+  }
+
+  .issue-vote-wrapper .poll-vote-area .voting-pane .choices {
+    width : initial;
+  }
+
+  .search_list h2.din.half {
+    padding : 0 10px;
+  }
+
+  #chart-strength {
+    left : -15px;
+  }
+
+  .chzn-container {
+    width : 390px !important;
+  }
+
+  /* debate */
+  #debate_list_area ul.argument_box {
+    padding : 0 25px 0 32px;
+  }
+
+  .position-question span.line,
+  .position-question span.line span {
+    width : 30px;
+  }
+
+  #debate_list_area .arg {
+    padding : 0 40px 0 36px;
+  }
+
+  #debate_list_area .replies {
+    padding : 0 0 0 36px;
+  }
+
+  .position-question {
+    padding : 5px 0 0 37px;
+  }
+
+  .position-question ul.argument_replybox {
+    left    : -37px;
+    width   : 356px;
+    padding : 0;
+  }
+
+  .arg-reply-form .form-submit {
+    margin-left : 0;
+  }
+
+  /*--/ debate */
   .ref_wrap {
     clear : both;
   }
@@ -993,10 +1289,6 @@
 
   #deb_title-wrapper, #url-wrapper {
     padding : 0;
-  }
-
-  #footer #user-login .form-submit {
-    margin : 36px 0 0;
   }
 
   .with_icon.maximum {
@@ -1116,6 +1408,20 @@
   input.info.form-text, textarea.info.form-text {
     width : 97%;
   }
+
+  #footer #user-login input.form-text,
+  #footer #user-login-1 input.form-text {
+    width : 100% !important;
+  }
+
+  #create_box .resizable-textarea span {
+    width : 100% !important;
+  }
+
+  #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+    width : 99.5% !important;
+  }
+
 }
 
 /* Mobile Landscape Only 
@@ -1124,9 +1430,17 @@
 
 }
 
-/* Small screens 
+/* Small screens
 ==================================================*/
 @media only screen and (max-width : 480px) {
+
+  .white-box .container {
+    width : 274px;
+  }
+
+  .white-box .container .sixteen.columns {
+    width : 274px;
+  }
 
   ul.date_filter {
     padding-left  : 1.5em;
@@ -1150,6 +1464,22 @@
 
   .table-bor-form-item-1 ul {
     margin-left : 2em;
+  }
+
+  #create_box .resizable-textarea span {
+    width : 274px;
+  }
+
+  textarea#q_quest, textarea#Question {
+    width : 256px;
+  }
+
+  #q_quest-wrapper .resizable-textarea .grippie, #Question-wrapper .resizable-textarea .grippie {
+    width : 272px;
+  }
+
+  #poll-choices label.add-on {
+    margin : 7px 0 1em 0;
   }
 
   /*Add argument*/
@@ -1201,8 +1531,213 @@
     margin-left : 55px !important;
   }
 
+  /* footer */
+  #search-solr-block {
+    width : 100%;
+  }
+
+  #footer .medal_box {
+    margin : 0 7px 0 0;
+  }
+
+  #footer .bronze, #footer .silver, #footer .gold {
+    margin : 0px 1px 10px 0px;
+  }
+
+  /*--/ footer */
   #footer #user-login .form-submit {
     margin : 0 0 15px;
   }
 
+  #footer #user-login input[type="password"],
+  #footer #user-login-1 input[type="password"] {
+    float : right !important;
+  }
+
+  #footer #user-login input.form-text,
+  #footer #user-login-1 input.form-text {
+    width : 95% !important;
+  }
+
+  /* badges */
+  #about_us_page_content #badges td {
+    padding   : 9px 3px;
+    font-size : 12px;
+  }
+
+  #badges .medal_wrapper {
+    font-size : 11px;
+  }
+
+  .white-box {
+    padding : 20px 12px;
+  }
+
+  #footer #user-login input[type="submit"],
+  #footer #user-login-1 input[type="submit"] {
+    padding : 8px 7px 6px;
+  }
+
+  /*--/badges  */
+  /* debate */
+  #debate_list_area ul.argument_box {
+    padding : 0 25px 0 30px;
+  }
+
+  .position-question span.line,
+  .position-question span.line span {
+    width : 19px;
+  }
+
+  #debate_list_area .arg {
+    padding : 0 40px 0 25px;
+  }
+
+  #debate_list_area .replies {
+    padding : 0 0 0 25px;
+  }
+
+  .position-question {
+    padding : 5px 0 0 26px;
+  }
+
+  ul.control_links {
+    margin : 10px 9px 10px 0;
+  }
+
+  .comment-agree a.agree, .comment-agree a, .comment-agree a {
+    margin-left : -4px;
+  }
+
+  .position-question ul.argument_replybox {
+    left    : -27px;
+    width   : 242px;
+    padding : 0;
+  }
+
+  #debate_list_area li.one_reply {
+    padding : 0 20px 10px 0 !important;
+  }
+
+  #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
+    left : -52px;
+  }
+
+  ul.control_links li a, ul.control_links li a.icon.flag2 {
+    font-size : 11px !important;
+    padding   : 1px 3px;
+  }
+
+  #debate_list_area li.one_reply ul.control_links {
+    margin : 8px 0 0 10px;
+  }
+
+  #debate_list_area li.one_reply .position-question strong {
+    padding-right : 4px;
+  }
+
+  .comment-agree a.agree, .comment-agree a.disagree, .comment-agree a, .comment-agree a {
+    padding : 1px 3px;
+  }
+
+  /*--/ debate */
+  /* issues */
+  .filter_search.issues_search {
+    width : 270px;
+  }
+
+  #analytics-area > h2:first-child span {
+    padding : 0 0 16px 20px;
+  }
+
+  .vote-results .legend dl {
+    margin : 0 10px 0 0;
+  }
+
+  .vote-results .legend dd {
+    font-size : 12px;
+    margin    : 0 4px 0 0;
+  }
+
+  /* account */
+  p.action-comment-ref {
+    margin : 10px 0 0 10px;
+  }
+
+  #edit-image-upload-wrapper {
+    width : 138px;
+  }
+
+  /*--/ account */
+  .vote-results .legend dt {
+    width                 : 12px;
+    height                : 12px;
+    margin-top            : 2px;
+    border-radius         : 6px;
+    -moz-border-radius    : 6px;
+    -webkit-border-radius : 6px;
+    -o-border-radius      : 6px;
+    -khtml-border-radius  : 6px;
+  }
+
+  .issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper {
+    width : 93%
+  }
+
+  .issue-vote-wrapper .qd {
+    margin : 18px 13px;
+  }
+
+  #moderation-issue-view-form {
+    margin : 0 -12px 10px;
+  }
+
+  #moderation-issues-form fieldset {
+    margin : 0 -12px 18px;
+  }
+
+  .mod-wrapper h2.din.half {
+    font-size : 20px;
+  }
+
+  .chzn-container {
+    width : 270px !important;
+  }
+
+  /*/-- issues */
+  /* user login pop-up */
+  .popup-tab input.form-text,
+  #user-register .description,
+  #user-register label.option {
+    max-width : 230px !important;
+  }
+
+  /*--/ user login pop-up */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

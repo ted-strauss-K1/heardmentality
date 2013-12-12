@@ -814,7 +814,8 @@ select {
 }
 
 input[type="checkbox"] {
-  display : inline;
+  display        : inline;
+  vertical-align : middle;
 }
 
 label span,
