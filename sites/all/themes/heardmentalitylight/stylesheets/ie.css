@@ -231,6 +231,10 @@
   margin-bottom : 40px;
 }
 
+.ie7 .button.vote {
+  filter : chroma(color=#000000);
+}
+
 .ie7 .part.part2 {
   margin-top : 55px;
 }
