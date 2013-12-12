@@ -555,7 +555,14 @@
 
 /*--/ issues in ie7-8 */
 
+/* add an issue in ie7-8 */
 
+.ie7 input.submit-issue:hover {
+  margin-bottom : 15px;
+  top           : 15px !important;
+}
+
+/*--/ add an issue in ie7-8 */
 
 
 
