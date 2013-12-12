@@ -82,7 +82,7 @@ function zip_form_submit () {
 
   # init paths
   $path = __DIR__ . '/files';
-  $path_site = "http://dev.heardmentality.org/zip/";
+  $path_site = "http://dev.heardmentality.aegirvps.net/zip/";
 
   # check dir
   if (!is_writable($path)) {
