@@ -211,6 +211,16 @@
   margin-bottom : -3px !important;
 }
 
+.ie8 .issue-vote-wrapper .button.vote:hover {
+  top           : 25px !important;
+  margin-bottom : 25px !important;
+}
+
+.ie8 .issue-vote-wrapper .button.vote {
+  top           : 28px !important;
+  margin-bottom : 28px;
+}
+
 .ie8 a.button.lighter, .ie8 input.lighter,
 .ie8 .ui-dialog .ui-tabs-panel #user-login .form-submit,
 .ie8 .ui-dialog .ui-tabs-panel #user-register .form-submit,
