@@ -557,7 +557,8 @@
 
 /* add an issue in ie7-8 */
 
-.ie7 input.submit-issue:hover {
+.ie7 input.submit-issue:hover,
+.ie8 input.submit-issue:hover {
   margin-bottom : 15px;
   top           : 15px !important;
 }
