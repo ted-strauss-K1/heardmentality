@@ -212,13 +212,27 @@
 }
 
 .ie8 .issue-vote-wrapper .button.vote:hover {
-  top           : 25px !important;
-  margin-bottom : 25px !important;
+  top           : 30px !important;
+  margin-bottom : 30px !important;
 }
 
 .ie8 .issue-vote-wrapper .button.vote {
-  top           : 28px !important;
-  margin-bottom : 28px;
+  top           : 33px !important;
+  margin-bottom : 33px;
+}
+
+.ie7 .issue-vote-wrapper .button.vote:hover {
+  top           : 37px !important;
+  margin-bottom : -3px !important;
+}
+
+.ie7 .issue-vote-wrapper .button.vote {
+  top           : 40px !important;
+  margin-bottom : 40px;
+}
+
+.ie7 .part.part2 {
+  margin-top : 55px;
 }
 
 .ie8 a.button.lighter, .ie8 input.lighter,
