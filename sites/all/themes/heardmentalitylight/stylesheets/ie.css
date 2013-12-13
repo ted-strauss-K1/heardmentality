@@ -201,6 +201,18 @@
   border     : none;
   width      : 60px;
   height     : 31px;
+  padding    : 8px 10px 6px;
+}
+
+.ie7 a.button.darker,
+.ie8 a.button.darker {
+  width   : 40px !important;
+  height  : 17px !important;
+  padding : 8px 10px 6px !important;
+}
+
+.ie7 a.button.darker {
+  margin-bottom : 5px;
 }
 
 .ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover {
