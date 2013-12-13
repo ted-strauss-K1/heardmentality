@@ -710,7 +710,6 @@
 
   .top-left {
     float  : none;
-    /*background:#D81A29;*/
     margin : 0;
   }
 
@@ -722,7 +721,8 @@
   ul.menu li {
     float          : left;
     color          : white;
-    text-transform : uppercase
+    text-transform : uppercase;
+    width          : 100%;
   }
 
   ul.menu li.login {
