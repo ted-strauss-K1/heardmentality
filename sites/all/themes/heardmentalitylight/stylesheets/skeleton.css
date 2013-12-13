@@ -64,11 +64,13 @@
 }
 
 .container .four.columns {
-  width : 220px;
+  width       : 230px;
+  margin-left : 0px;
 }
 
 .container .five.columns {
-  width : 280px;
+  width        : 280px;
+  margin-right : 0px;
 }
 
 .container .six.columns {
@@ -76,7 +78,7 @@
 }
 
 .container .seven.columns {
-  width : 400px;
+  width : 410px;
 }
 
 .container .eight.columns {
@@ -227,7 +229,7 @@
   }
 
   .container .five.columns {
-    width : 220px;
+    width : 230px;
   }
 
   .container .six.columns {
@@ -235,7 +237,7 @@
   }
 
   .container .seven.columns {
-    width : 316px;
+    width : 326px;
   }
 
   .container .eight.columns {
