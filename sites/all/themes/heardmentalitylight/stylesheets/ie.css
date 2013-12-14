@@ -66,7 +66,12 @@
 }
 
 .ie7 .white-box ul.map-stats {
-  float : none;
+  float : right;
+}
+
+.ie7 ul.tags li {
+  display : inline-block;
+  float   : left;
 }
 
 .ie7 .white-box {
@@ -84,47 +89,6 @@
   display : inline;
   zoom    : 1;
 }
-
-/*.ie7 body,
-.ie7 h1, .ie7 h2, .ie7 h3, .ie7 h4, .ie7 h5, .ie7 h6, 
-	.ie7 input[type="text"], 
-	.ie7 input[type="password"],
-	.ie7 input[type="email"],
-	.ie7 textarea, 
-	.ie7 select,
-	.ie7 .page ul.badges,
-	.ie7 .search input, input.upload,
-	.ie7 .add input,
-	.ie7 .ui-dialog .ui-tabs-panel #user-login label,
-	.ie7 .ui-dialog .ui-tabs-panel #user-register label,
-	.ie7 .ui-dialog .ui-tabs-panel #user-login .form-submit,
-	.ie7 .ui-dialog .ui-tabs-panel #user-register .form-submit,
-	.ie7 #new_vote .qd,
-	.ie7 #new_vote .qd p.description,
-	.ie7 #new_vote .poll-vote-area fieldset legend a,
-	.ie7 #new_vote .suggest-error,
-	.ie7 #new_vote .poll-vote-area .fieldset-wrapper .form-item .description,
-	.ie7 body,
-.ie8 h1, .ie8 h2, .ie8 h3, .ie8 h4, .ie8 h5, .ie8 h6, 
-	.ie8 input[type="text"], 
-	.ie8 input[type="password"],
-	.ie8 input[type="email"],
-	.ie8 textarea, 
-	.ie8 select,
-	.ie8 .page ul.badges,
-	.ie8 .search input, input.upload,
-	.ie8 .add input,
-	.ie8 .ui-dialog .ui-tabs-panel #user-login label,
-	.ie8 .ui-dialog .ui-tabs-panel #user-register label,
-	.ie8 .ui-dialog .ui-tabs-panel #user-login .form-submit,
-	.ie8 .ui-dialog .ui-tabs-panel #user-register .form-submit,
-	.ie8 #new_vote .qd,
-	.ie8 #new_vote .qd p.description,
-	.ie8 #new_vote .poll-vote-area fieldset legend a,
-	.ie8 #new_vote .suggest-error,
-	.ie8 #new_vote .poll-vote-area .fieldset-wrapper .form-item .description {
-		font-family: Arial,"Lucida Grande",sans-serif;
-	}*/
 
 .ie8 a.button,
 .ie8 button,
@@ -205,10 +169,63 @@
 
 .ie8 .button.vote:hover, .ie8 input.submit-issue:hover, .ie8 input.save:hover,
 .ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
-  border-width : 1px 1px 4px 1px;
-  border-color : #849EB7;
-  top          : 24px !important;
-  margin-top   : -3px !important;
+  border-width  : 1px 1px 4px 1px;
+  border-color  : #849EB7;
+  top           : -3px !important;
+  margin-bottom : -3px !important;
+}
+
+.ie8 .issue-vote-wrapper .button.vote:hover {
+  top           : 30px !important;
+  margin-bottom : 30px !important;
+}
+
+.ie8 .issue-vote-wrapper .button.vote {
+  top           : 33px !important;
+  margin-bottom : 33px;
+}
+
+.ie7 .issue-vote-wrapper .button.vote:hover {
+  top           : 37px !important;
+  margin-bottom : -3px !important;
+}
+
+.ie7 .issue-vote-wrapper .button.vote {
+  top           : 40px !important;
+  margin-bottom : 40px;
+}
+
+.ie7 .button.vote {
+  filter  : chroma(color=#000000);
+  padding : 11px 25px 8px;
+}
+
+.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover,
+.ie8 a.button.darker, .ie8 input.darker, .ie8 .foot-empty .form-submit, .ie8 .foot-empty .form-submit:hover {
+  background : url(../images/ie_footer_login_button.png) no-repeat;
+  border     : none;
+  width      : 60px;
+  height     : 31px;
+  padding    : 8px 10px 6px;
+}
+
+.ie7 a.button.darker,
+.ie8 a.button.darker {
+  width   : 40px !important;
+  height  : 17px !important;
+  padding : 8px 10px 6px !important;
+}
+
+.ie7 a.button.darker {
+  margin-bottom : 5px;
+}
+
+.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover {
+  filter : chroma(color=#000000);
+}
+
+.ie7 .part.part2 {
+  margin-top : 55px;
 }
 
 .ie8 a.button.lighter, .ie8 input.lighter,
@@ -231,55 +248,12 @@
   border-color : #BBBBBB #B0B0B0 #B0B0B0;
 }
 
-.ie8 a.button.darker, .ie8 input.darker, .ie8 .foot-empty .form-submit, .ie8 .foot-empty .form-submit:hover,
-.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover {
-  border       : 1px solid;
-  border-color : #555555;
-}
-
 /*IE9 gradients*/
 
 .ie9 .button.vote, .ie9 input.submit-issue, .ie9 input.save,
 .ie9 .button.vote:hover, .ie9 input.submit-issue:hover, .ie9 input.save:hover {
   background : url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzdjYmJmMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0Mjk4ZWYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 }
-
-/*.ie9 a.button,
-.ie9 .button,
-.ie9 button,
-.ie9 input.add-answer,
-.ie9 a.add-answer,
-.ie9 input.add-answer2,
-.ie9 a.add-answer2,
-.ie9 input.add-comment,
-.ie9 h6#reply,
-.ie9 input[type="submit"],
-.ie9 input[type="reset"],
-.ie9 input[type="button"],
-.ie9 h6#add-arg,
-.ie9 h6#deb-ana {
-  background : url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YxZjFmMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjZWNlY2UiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-}*/
-
-/*.ie9 a.button:hover,
-.ie9 .button:hover,
-.ie9 .button.active,
-.ie9 button:hover,
-.ie9 h6#reply:hover,
-.ie9 input.add-answer:hover,
-.ie9 input.add-answer2:hover,
-.ie9 a.add-answer:hover,
-.ie9 a.add-answer2:hover,
-.ie9 input.add-comment:hover,
-.ie9 input[type="submit"]:hover,
-.ie9 input[type="reset"]:hover,
-.ie9 input[type="button"]:hover,
-.ie9 h6#add-arg:hover,
-.ie9 h6#deb-ana:hover,
-.ie9 #debate_work_area h6.expanded,
-.ie9 #debate_work_area h6.expanded:hover {
-  background : url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VmZWZlZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjNGM0YzQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-}*/
 
 .ie9 a.button.lighter, .ie9 input.lighter,
 .ie9 .ui-dialog .ui-tabs-panel #user-login .form-submit,
@@ -298,10 +272,6 @@
 }
 
 /*End IE9 gradients*/
-
-/*.ie8 #new_vote .button.vote:hover, .ie7 #new_vote .button.vote:hover {
-  top: 24px !important;
-}*/
 
 /*PIE*/
 
@@ -332,10 +302,6 @@
   background-color : #FFFFFF;
   border           : 1px solid #D7D7D7;
 }
-
-/*.ie8 #debate_list_area li.one_reply span.positive {
-	line-height: 13px !important;
-}*/
 
 .ie7 .subscription .form-radios {
   width      : 190px;
@@ -409,7 +375,7 @@
 
 .ie .banner-text {
   float : left;
-  width : 70%;
+  width : 100%;
 }
 
 .ie7 .expanding h6 {
@@ -573,6 +539,81 @@
 }
 
 /*--/ add an issue in ie7-8 */
+
+/* homepage */
+
+.ie7 ul.tags li,
+.ie8 ul.tags li,
+.ie9 ul.tags li {
+  padding : 0px 4px 0px 1px;
+}
+
+.ie7 ul.tags input[type="checkbox"],
+.ie8 ul.tags input[type="checkbox"],
+.ie9 ul.tags input[type="checkbox"] {
+  margin : 3px 5px 3px 1px;
+}
+
+.ie7 .circle-box,
+.ie8 .circle-box {
+  background : url(../images/circle_big.png);
+}
+
+.ie7 .see-banner span,
+.ie7 .vote-banner span,
+.ie7 .share-banner span,
+.ie7 .error-banner span,
+.ie8 .see-banner span,
+.ie8 .vote-banner span,
+.ie8 .share-banner span,
+.ie8 .error-banner span {
+  width      : 265px;
+  height     : 70px;
+  background : none;
+  border     : none;
+}
+
+.ie7 .see-banner p,
+.ie7 .vote-banner p,
+.ie7 .share-banner p,
+.ie7 .error-banner p,
+.ie8 .see-banner p,
+.ie8 .vote-banner p,
+.ie8 .share-banner p,
+.ie8 .error-banner p {
+  width       : 213px;
+  height      : 50px;
+  background  : #FFFFFF;
+  border      : none;
+  padding     : 20px 0 0 0;
+  margin-left : 36px;
+  margin-top  : 104px;
+}
+
+/*--/ homepage */
+
+/* about us */
+
+.ie7 #about_us_page_content #badges .bronze,
+.ie8 #about_us_page_content #badges .bronze {
+  background : url(../images/ie_badges_medal_bronze.png);
+}
+
+.ie7 #about_us_page_content #badges .silver,
+.ie8 #about_us_page_content #badges .silver {
+  background : url(../images/ie_badges_medal_silver.png);
+}
+
+.ie7 #about_us_page_content #badges .gold,
+.ie8 #about_us_page_content #badges .gold {
+  background : url(../images/ie_badges_medal_gold.png);
+}
+
+/*--/ about us */
+
+.ie7 a.logo {
+  background : #362750;
+}
 
 
 
