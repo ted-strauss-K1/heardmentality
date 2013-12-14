@@ -1459,6 +1459,10 @@
     box-shadow : inset 1px -1px 0 0 #DDDDDD, inset -1px 0 0 0 #DDDDDD;
   }
 
+  .cc_footer_link {
+    margin-right : 0px;
+  }
+
 }
 
 /*Contact*/
@@ -1840,8 +1844,6 @@
 
   /* circles in homepage */
 }
-
-
 
 
 
