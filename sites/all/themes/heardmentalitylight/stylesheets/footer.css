@@ -1,0 +1,169 @@
+#footer {
+  background : #444444 url(../images/footer-shadow2.png) top repeat-x;
+  padding    : 0px 0px 10px 0px;
+}
+
+img.dark-logo {
+  float  : right;
+  margin : -8px -4px 0px 0px
+}
+
+.black-box {
+  background    : #3C3C3C;
+  margin        : 30px 0px 16px 10px;
+  padding       : 20px 20px 6px;
+  border-radius : 3px;
+}
+
+.black-box:first-child {
+  margin : 30px 0px 16px 0;
+}
+
+#footer .blurb {
+  font-size   : 25px;
+  color       : #CCCCCC;
+  line-height : 1.1em
+}
+
+#footer hr.dark {
+  border-color : #555555
+}
+
+a.facebook, a.twitter {
+  display : inline-block;
+  margin  : 0 9px 15px 0;
+}
+
+a.twitter {
+  margin : 0 2px 15px 0;
+}
+
+a.facebook.google {
+  margin : 0 0 15px;
+}
+
+a.twitter i,
+a.facebook i,
+a.google i {
+  color          : #FFFFFF;
+  font-size      : 40px;
+  line-height    : 1;
+  vertical-align : top;
+}
+
+.seven .foot-empty {
+  height : 174px;
+}
+
+#footer .profile-meta {
+  float          : left;
+  width          : 100%;
+  margin-top     : -10px;
+  padding-bottom : 10px;
+}
+
+#footer .profile-meta p {
+  line-height   : 1em;
+  font-size     : 13px;
+  color         : #999999;
+  text-shadow   : 0px -1px #111111;
+  margin-bottom : 18px;
+}
+
+#footer #user-login,
+#footer #user-login-1 {
+  margin : 0;
+}
+
+#footer #user-login .form-item,
+#footer #user-login-1 .form-item {
+  margin : 0;
+  float  : left;
+  width  : 49%;
+}
+
+#footer #user-login #edit-name-wrapper,
+#footer #user-login #edit-name-1-wrapper,
+#footer #user-login-1 #edit-name-1-wrapper {
+  margin-right : 2%;
+}
+
+#footer #user-login label,
+#footer #user-login-1 label {
+  color          : #999999;
+  font-size      : 13px;
+  line-height    : 1em;
+  text-shadow    : 0 -1px #111111;
+  font-weight    : normal;
+  padding-bottom : 8px;
+}
+
+#footer #user-login input.form-text,
+#footer #user-login-1 input.form-text {
+  padding          : 8px 8px;
+  width            : 90% !important;
+  background-color : #999999;
+  color            : #555555;
+}
+
+#footer #user-login input[type="password"],
+#footer #user-login-1 input[type="password"] {
+  float : right;
+}
+
+#footer #user-login input.form-text:focus,
+#footer #user-login-1 input.form-text:focus {
+  color : #333333;
+}
+
+p.policy {
+  margin         : 0px 6px 5px 15px;
+  color          : #888888;
+  text-align     : right;
+  font-size      : 11px;
+  line-height    : 1.2em;
+  text-transform : uppercase;
+  text-shadow    : 0 -1px #111111;
+}
+
+p.policy a {
+  padding : 0px 0px 0px 5px;
+  color   : #888888;
+
+}
+
+p.policy a:hover {
+  color : #FFFFFF;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
