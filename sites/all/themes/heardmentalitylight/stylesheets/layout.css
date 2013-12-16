@@ -7278,6 +7278,22 @@ html[lang="ru"] #count_results-wrapper span {
   margin-top : 29px;
 }
 
+.container .four.columns {
+  float: right;
+}
+
+.container .twelve.columns {
+  float: left;
+}
+
+#footer .container .four.columns {
+  float: left;
+}
+
+#footer .container .twelve.columns {
+  float: left;
+}
+
 i.icon:before {
   font-size : 22px;
 }
