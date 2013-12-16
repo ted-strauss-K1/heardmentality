@@ -20,11 +20,11 @@
 				  <li><?php print l(t('Issues'), 'issues', array('attributes' => array('class'=>'issues'))); ?></li>
 <!--				  <li>--><?php //print l(t('Analysis'), $_GET['q'], array('attributes' => array('class'=>'analysis'))); ?><!--</li>-->
 
-          <li class="following"><?php print l(t('Analysis'), 'analysis', array('attributes' => array('class'=>'analysis'))); ?></li>
-          
           <?php if (user_is_logged_in()) : ?>
 					  <li class="following"><?php print l(t('Following'), 'following', array('attributes' => array('class'=>'following'))); ?></li>
 				  <?php endif; ?>
+
+          <li class="following"><?php print l(t('Analysis'), 'analysis', array('attributes' => array('class'=>'analysis'))); ?></li>
 
           <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
 					  <li class="moderator"><?php print l(t('Moderator'), 'moderation', array('attributes' => array('class'=>'moderator'))); ?></li>
