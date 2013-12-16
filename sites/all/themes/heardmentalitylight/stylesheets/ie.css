@@ -596,6 +596,34 @@
   background : #362750;
 }
 
+.ie7 #moderation-issues-form fieldset .form-submit {
+  filter : chroma(color=#000000);
+}
+
+.ie7 #moderation-issues-form fieldset {
+  width: 100%;
+}
+
+.ie7 #moderation-issues-form fieldset.collapsible.collapsed a {
+  background-image : url(../images/moderator_arrow_filters_up.png);
+}
+
+.ie7 #moderation-issues-form fieldset.collapsible a {
+  background-image : url(../images/moderator_arrow_filters_down.png);
+}
+
+.ie7 #moderation-issues-form fieldset.collapsible a {
+  background-repeat: no-repeat;
+  background-position: 52px 15px;
+}
+
+.ie7 #moderation-issues-form fieldset.collapsible a:hover {
+  margin-top: 3px;
+}
+
+.ie7 #moderation-issues-form fieldset.collapsible legend:hover {
+  top: -3px;
+}
 
 
 
