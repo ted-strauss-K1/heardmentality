@@ -6366,12 +6366,12 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 }
 
 #count_results-wrapper span {
-  font-size   : 28px;
-  line-height : 30px;
-  font-family : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
-  font-style  : normal;
-  font-weight : normal;
-  vertical-align: bottom;
+  font-size      : 28px;
+  line-height    : 30px;
+  font-family    : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
+  font-style     : normal;
+  font-weight    : normal;
+  vertical-align : bottom;
 }
 
 #issue-search-filter-form select {
@@ -6389,7 +6389,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 }
 
 #issue-search-filter-form input[type="checkbox"] {
-  vertical-align: baseline;
+  vertical-align : baseline;
 }
 
 #my_region-wrapper,
