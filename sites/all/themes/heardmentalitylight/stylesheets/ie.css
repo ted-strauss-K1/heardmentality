@@ -625,6 +625,10 @@
   top: -3px;
 }
 
+.ie7 fieldset + .mod-wrapper {
+  margin: 15px 0 0 0;
+}
+
 
 
 
