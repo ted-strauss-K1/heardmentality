@@ -555,8 +555,14 @@
 
 /*--/ issues in ie7-8 */
 
+.ie7 #count_results-wrapper span,
+.ie8 #count_results-wrapper span {
+  vertical-align: middle;
+}
 
-
+.ie9 #count_results-wrapper span {
+  vertical-align: baseline;
+}
 
 
 
