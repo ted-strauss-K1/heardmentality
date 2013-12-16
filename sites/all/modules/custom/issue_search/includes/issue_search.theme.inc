@@ -174,7 +174,7 @@ function issue_search_filter_form($form_state)
         '#type' => 'checkbox',
         '#title' => t('My region'),
         '#id' => 'my_region',
-        '#default_value' => 'false' != $settings['my_region'],
+        '#default_value' => $settings['my_region'] && 'false' != $settings['my_region'],
       );
     } else {
       $form['region'] = array(
@@ -191,7 +191,7 @@ function issue_search_filter_form($form_state)
 //  );
   $form['voted_status'] = array(
     '#type' => 'checkbox',
-    '#default_value' => 'false' != $settings['not_voted'],
+    '#default_value' => $settings['not_voted'] && 'false' != $settings['not_voted'],
     '#title' => t('Show only not voted'),
   );
   $form['search_text'] = array(
