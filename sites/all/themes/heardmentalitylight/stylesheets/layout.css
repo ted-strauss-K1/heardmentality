@@ -566,6 +566,18 @@ img.dark-logo {
   margin                : 30px 0 0;
 }
 
+.white-box#region-content {
+  margin : 0 10px;
+}
+
+.container .twelve.columns .white-box#region-content {
+  margin : 0;
+}
+
+.container .twelve.columns h2.page-title {
+  margin-left : 0;
+}
+
 .sort-white-box {
   background   : #FFFFFF;
   border-width : 1px;
@@ -4207,7 +4219,7 @@ div.avatar-selection-pager-nav a:hover {
 
 h2.page-title {
   line-height : 19px;
-  margin      : 30px 0 10px;
+  margin      : 30px 0 10px 10px;
 }
 
 .white-box.poll-box h2.din {
