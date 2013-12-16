@@ -601,7 +601,7 @@
 }
 
 .ie7 #moderation-issues-form fieldset {
-  width: 100%;
+  width : 100%;
 }
 
 .ie7 #moderation-issues-form fieldset.collapsible.collapsed a {
@@ -613,20 +613,20 @@
 }
 
 .ie7 #moderation-issues-form fieldset.collapsible a {
-  background-repeat: no-repeat;
-  background-position: 52px 15px;
+  background-repeat   : no-repeat;
+  background-position : 52px 15px;
 }
 
 .ie7 #moderation-issues-form fieldset.collapsible a:hover {
-  margin-top: 3px;
+  margin-top : 3px;
 }
 
 .ie7 #moderation-issues-form fieldset.collapsible legend:hover {
-  top: -3px;
+  top : -3px;
 }
 
 .ie7 fieldset + .mod-wrapper {
-  margin: 15px 0 0 0;
+  margin : 15px 0 0 0;
 }
 
 
