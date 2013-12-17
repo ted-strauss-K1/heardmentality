@@ -4207,7 +4207,7 @@ div.avatar-selection-pager-nav a:hover {
 
 h2.page-title {
   line-height : 19px;
-  margin      : 30px 0 10px;
+  margin      : 30px 0 10px 10px;
 }
 
 .white-box.poll-box h2.din {
@@ -7279,19 +7279,19 @@ html[lang="ru"] #count_results-wrapper span {
 }
 
 .container .four.columns {
-  float: right;
+  float : right;
 }
 
 .container .twelve.columns {
-  float: left;
+  float : left;
 }
 
 #footer .container .four.columns {
-  float: left;
+  float : left;
 }
 
 #footer .container .twelve.columns {
-  float: left;
+  float : left;
 }
 
 i.icon:before {

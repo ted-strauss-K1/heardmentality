@@ -412,6 +412,10 @@
     font-size : 12px;
   }
 
+  h2.page-title {
+    margin : 30px 0 10px;
+  }
+
   /* error circles */
   .error-banner {
     width       : 180px;
