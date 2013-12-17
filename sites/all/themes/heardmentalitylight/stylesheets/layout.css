@@ -4207,12 +4207,12 @@ div.avatar-selection-pager-nav a:hover {
 }
 
 .page_title_wrapper {
-  height: 50px;
+  padding : 30px 10px 9px;
 }
 
 h2.page-title {
-  line-height : 68px;
-  margin      : 0 0 0 10px;
+  line-height : 1em;
+  margin      : 0;
 }
 
 .white-box.poll-box h2.din {

@@ -409,12 +409,7 @@
   }
 
   .page_title_wrapper {
-    height: 60px;
-  }
-
-  h2.page-title {
-    line-height : 80px;
-    margin      : 0;
+    padding : 30px 0 9px;
   }
 
   /* error circles */
