@@ -239,7 +239,8 @@ ul.flagthis li {
   margin : 0 10px;
 }
 
-.container .twelve.columns .white-box#region-content {
+.container .twelve.columns .white-box#region-content,
+.container .eleven.columns .white-box#region-content {
   margin : 0;
 }
 
