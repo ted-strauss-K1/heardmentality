@@ -6,11 +6,13 @@
       <div class="tabs"><?php print $tabs; ?></div>
     <?php endif; ?>
 
-    <div class="sixteen columns">
-
+    <div class="page_title_wrapper">
       <?php if ($_title = drupal_set_subtitle()) : ?>
         <h2 class="dinbold page-title"><?php print $_title; ?></h2>
       <?php endif; ?>
+    </div>
+
+    <div class="sixteen columns">
 
       <?php if ($content_top) : ?>
         <div class="grey-box clearfix full" id="region-content-top">

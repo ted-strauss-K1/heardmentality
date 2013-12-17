@@ -408,8 +408,13 @@
     font-size : 12px;
   }
 
+  .page_title_wrapper {
+    height: 60px;
+  }
+
   h2.page-title {
-    margin : 30px 0 10px;
+    line-height : 80px;
+    margin      : 0;
   }
 
   /* error circles */
