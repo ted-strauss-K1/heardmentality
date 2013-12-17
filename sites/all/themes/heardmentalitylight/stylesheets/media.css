@@ -1463,6 +1463,10 @@
     margin-right : 0px;
   }
 
+  .white-box#region-content {
+    margin: 0;
+  }
+
 }
 
 /*Contact*/
