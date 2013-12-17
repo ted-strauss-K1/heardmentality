@@ -307,10 +307,6 @@
     max-width : 107px;
   }
 
-  .four.columns.margin-top {
-    margin-top : 59px;
-  }
-
   #block-user_profile-user-profile-right {
     margin-top : 0;
   }
@@ -466,6 +462,10 @@
   /*--/ user login pop-up */
   #edit-image-upload-wrapper input[type="file"] {
     font-size : 12px;
+  }
+
+  .page_title_wrapper {
+    padding : 30px 0 9px;
   }
 
   /* error circles */
@@ -1047,7 +1047,7 @@
   .dark-grey-box.top,
   .filter_search.issues_search,
   #guidelines {
-    margin-top : 30px;
+    margin-top : 0;
   }
 
   .grey-box #divConnect {
@@ -1233,7 +1233,7 @@
 
   .filter_search.issues_search {
     width      : 390px;
-    margin-top : 30px;
+    margin-top : 0;
     padding    : 15px 14px 18px;
     position   : relative;
     z-index    : 999;

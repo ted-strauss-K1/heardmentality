@@ -648,6 +648,15 @@
   margin : 15px 0 0 0;
 }
 
+.ie7 #count_results-wrapper span,
+.ie8 #count_results-wrapper span {
+  vertical-align : middle;
+}
+
+.ie9 #count_results-wrapper span {
+  vertical-align : baseline;
+}
+
 
 
 

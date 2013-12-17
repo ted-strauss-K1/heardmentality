@@ -6,8 +6,6 @@
 
 <div class="container">
   <div class="sixteen columns">
-    <p class="din banner-text centered"><?php print t(strip_tags($content)); ?></p>
-    <br class="clear">
+    <p class="din banner-text centered"><?php print t(strip_tags($content)); ?></p><br class="clear">
   </div>
-</div>
-<br class="clear">
+</div><br class="clear">
