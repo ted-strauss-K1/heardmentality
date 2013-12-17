@@ -804,7 +804,8 @@ html[lang="ru"] .banner-text {
 }
 
 .dark-grey-box.top {
-  margin-top : 31px;
+  margin-top : 0;
+  margin-bottom: 30px;
 }
 
 .thirty-top {
@@ -4179,7 +4180,7 @@ div.avatar-selection-pager-nav a:hover {
 }
 
 #block-user_profile-user-profile-right .profile-status-toggle {
-  margin-bottom : 30px;
+  margin-bottom : 0;
 }
 
 .grey-box.poll-box {
@@ -4190,7 +4191,7 @@ div.avatar-selection-pager-nav a:hover {
   border-radius         : 4px;
   -khtml-border-radius  : 4px;
   -o-border-radius      : 4px;
-  margin                : 0;
+  margin                : 0 0 30px 0;
   position              : relative;
   top                   : 0px;
   padding               : 20px 20px 14px 14px;
@@ -6267,10 +6268,16 @@ span.small_pos.fixes,
 /*Solr search*/
 
 .filter_search.issues_search {
-  margin-top : 30px;
+  margin-top : 0;
+  margin-bottom: 30px;
   padding    : 15px 14px 18px;
   width      : 190px;
   z-index    : 999;
+}
+
+#block-categories-categories {
+  margin-top: 0;
+  margin-bottom: 30px;
 }
 
 #uactivity .activity-stream {
@@ -6917,7 +6924,8 @@ ul.sub-pages-menu a:hover {
 }
 
 #guidelines {
-  margin-top : 30px;
+  margin-top : 0;
+  margin-bottom: 30px;
   padding    : 15px 14px;
 }
 
@@ -7203,7 +7211,8 @@ h1.h1_privacy {
 #block-issue-issue-categories-popular,
 #block-issue-issue-categories,
 #block-user_profile-user-profile-right {
-  margin-top : 30px;
+  margin-top : 0;
+  margin-bottom: 30px;
 }
 
 #q_counter.over_limit {
@@ -7275,14 +7284,16 @@ html[lang="ru"] #count_results-wrapper span {
 }
 
 .four.columns.margin-top {
-  margin-top : 29px;
+  margin-top : 0;
 }
 
-.container .four.columns {
+.container .four.columns,
+.container .five.columns {
   float : right;
 }
 
-.container .twelve.columns {
+.container .twelve.columns,
+.container .eleven.columns {
   float : left;
 }
 
@@ -7292,6 +7303,10 @@ html[lang="ru"] #count_results-wrapper span {
 
 #footer .container .twelve.columns {
   float : left;
+}
+
+.container .sixteen.columns {
+  margin-bottom: 30px;
 }
 
 i.icon:before {

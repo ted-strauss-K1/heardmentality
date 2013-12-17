@@ -11,39 +11,46 @@
         <p class="blurb ryde"><?php print t("Be Heard! Don't Be Part of the Herd."); ?></p>
         <hr class="dark">
 
-        <div class="floatleft"><a class="twitter" href="http://twitter.com/HeardMentality" target="_blank"><i class="icon-twitter"></i></a></div>
-        <div class="floatleft"><a class="facebook" href="http://www.facebook.com/pages/Heard-Mentality/253846777970342?ref=ts" target="_blank"><i class="icon-facebook"></i></a></div>
-		<div class="floatleft"><a class="facebook google" href="https://plus.google.com/102365576412479164048" target="_blank"><i class="icon-googleplus"></i></a></div>
+        <div class="floatleft"><a class="twitter" href="http://twitter.com/HeardMentality" target="_blank"><i
+              class="icon-twitter"></i></a></div>
+        <div class="floatleft"><a class="facebook"
+                                  href="http://www.facebook.com/pages/Heard-Mentality/253846777970342?ref=ts"
+                                  target="_blank"><i class="icon-facebook"></i></a></div>
+        <div class="floatleft"><a class="facebook google" href="https://plus.google.com/102365576412479164048"
+                                  target="_blank"><i class="icon-googleplus"></i></a></div>
         <div class="clear"></div>
       </div>
     </div>
 
     <div class="seven columns">
       <div class="black-box clearfix">
-        <?php if ($footer_inner) print $footer_inner; ?>
+        <?php if ($footer_inner) {
+          print $footer_inner;
+        } ?>
       </div>
     </div>
 
     <div class="five columns">
       <div class="black-box">
-        <?php print l('<img src="'.url(path_to_theme() . '/images/dark_logo.png').'" class="dark-logo">', '', array('html' => true)); ?>
+        <?php print l('<img src="' . url(path_to_theme() . '/images/dark_logo.png') . '" class="dark-logo">', '', array('html' => TRUE)); ?>
         <ul class="din foot-link">
           <li><?php print l(t('ABOUT'), 'aboutus'); ?></li>
           <li><?php print l(t('CONTACT'), 'contact'); ?></li>
           <li><?php print l(t('DONATE'), 'donate'); ?></li>
-<!--          <li><a href="">--><?php //print t('VOLUNTEER'); ?><!--</a></li>-->
+          <!--          <li><a href="">--><?php //print t('VOLUNTEER'); ?><!--</a></li>-->
         </ul>
       </div>
     </div>
 
     <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/" style="float:right;margin:0px 10px 0px 10px">
-      <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" />
-    </a>
+      <img alt="Creative Commons License" style="border-width:0"
+           src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png"/> </a>
+
     <p class="policy">
       <?php print t('HEARD MENTALITY'); ?> &copy; <?php print date('Y') ?><br>
-<!--      <a>--><?php //print t('Legal'); ?><!--</a>-->
+      <!--      <a>--><?php //print t('Legal'); ?><!--</a>-->
       <a><?php print l(t('Privacy Policy'), 'privacy'); ?></a>
-<!--      <a>--><?php //print t('User Agreement'); ?><!--</a>-->
+      <!--      <a>--><?php //print t('User Agreement'); ?><!--</a>-->
     </p>
 
   </div>

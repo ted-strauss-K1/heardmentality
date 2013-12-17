@@ -1,9 +1,9 @@
 <?php include "page_up.tpl.php"; ?>
 
-<div class="container page-error">
+  <div class="container page-error">
 
-  <?php print $content; ?>
+    <?php print $content; ?>
 
-</div>
+  </div>
 
 <?php include "page_dn.tpl.php"; ?>

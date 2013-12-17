@@ -1,36 +1,43 @@
-<div
-  class="<?php if($teaser) : ?>search_item
-    <?php if (isset($node->taxonomy)) foreach ($node->taxonomy as $tid => $term) print ' tft-'.$tid; ?>
-    <?php if (isset($node->locations)) foreach ($node->locations as $location) print ' tfl-'.$location['name']; ?>
-  <?php endif; ?> issue-vote-wrapper"
-  id="<?php if($page) : ?>new_vote<?php else : ?><?php endif; ?>">
+<div class="<?php if ($teaser) : ?>search_item
+    <?php if (isset($node->taxonomy)) {
+  foreach ($node->taxonomy as $tid => $term) {
+    print ' tft-' . $tid;
+  }
+} ?>
+    <?php if (isset($node->locations)) {
+  foreach ($node->locations as $location) {
+    print ' tfl-' . $location['name'];
+  }
+} ?>
+  <?php endif; ?> issue-vote-wrapper" id="<?php if ($page) : ?>new_vote<?php else : ?><?php endif; ?>">
   <!-- Part 1 -->
-  <div class="part part1 <?php if($teaser) : ?>search_list<?php endif; ?>">
-    <h2 class="din<?php if($teaser) : ?> half<?php endif; ?>"><?php print
-      l($node->title, $node->path, array('html' => true));
-    ?></h2>
+  <div class="part part1 <?php if ($teaser) : ?>search_list<?php endif; ?>">
+    <h2 class="din<?php if ($teaser) : ?> half<?php endif; ?>"><?php print
+        l($node->title, $node->path, array('html' => true));
+      ?></h2>
+
     <div class="qd">
-      <?php if($page) : ?>
+      <?php if ($page) : ?>
         <?php if ($node->moderate == MODERATION_ALLOWED) : ?>
           <img src="<?php print url(path_to_theme() . '/images/icons/59-flag@2x.png'); ?>" height="14px">
           <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
           <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
           <?php print theme('flagger_btn_history', $nid, 'node'); ?>
           <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
-            <?php print l(t('moderation'), 'moderation/issue/'.$node->nid,
-              array('attributes' => array(
-                'class' => 'moderation',
-                'original-title' => t('moderation'),
-              ))
-            ); ?>
+            <?php print l(t('moderation'), 'moderation/issue/' . $node->nid, array(
+                'attributes' => array(
+                  'class'          => 'moderation',
+                  'original-title' => t('moderation'),
+                )
+              )); ?>
           <?php endif; ?>
 
         <?php elseif (!empty($node->field_base_issue[0]['nid'])) : ?>
 
           <?php if ($node->field_base_issue[0]['safe']['status']) : ?>
             <?php print t('Duplicates issue') ?> <?php
-              $base_issue = node_load($node->field_base_issue[0]['nid']);
-              print l(issue_translate($base_issue, 'title'), 'node/'.$base_issue->nid);
+            $base_issue = node_load($node->field_base_issue[0]['nid']);
+            print l(issue_translate($base_issue, 'title'), 'node/' . $base_issue->nid);
             ?>
           <?php else : ?>
             <?php print t('Closed as the duplicate to other content on site'); ?>
@@ -57,23 +64,24 @@
     <div class="poll-vote-area">
       <div class="voting-pane"><?php print drupal_get_form('cpoll_vote_form', $node, false, $page); ?></div>
     </div>
-  </div><!-- /div.part1 -->
+  </div>
+  <!-- /div.part1 -->
 
-  <?php if($page) : ?>
+  <?php if ($page) : ?>
     <div class="part part2">
       <div id="shareDiv" class="clearfix">
-        <span class='st_facebook_hcount' displayText='Facebook'></span>
-        <span class='st_twitter_hcount' displayText='Tweet'></span>
-        <span class='st_googleplus_hcount' displayText='Google +'></span>
-        <span class='st_linkedin_hcount' displayText='LinkedIn'></span>
-        <span class='st_sharethis_hcount' displayText='ShareThis'></span>
-        <script type="text/javascript">var switchTo5x=false;</script>
+        <span class='st_facebook_hcount' displayText='Facebook'></span> <span class='st_twitter_hcount'
+                                                                              displayText='Tweet'></span> <span
+          class='st_googleplus_hcount' displayText='Google +'></span> <span class='st_linkedin_hcount'
+                                                                            displayText='LinkedIn'></span> <span
+          class='st_sharethis_hcount' displayText='ShareThis'></span>
+        <script type="text/javascript">var switchTo5x = false;</script>
         <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
         <script type="text/javascript">
           stLight.options({
-            publisher: "1ace1433-6c6c-45c5-bb28-d33af72b78b4",
-            doNotHash: false,
-            doNotCopy: false,
+            publisher     : "1ace1433-6c6c-45c5-bb28-d33af72b78b4",
+            doNotHash     : false,
+            doNotCopy     : false,
             hashAddressBar: false
           });
         </script>
@@ -81,15 +89,15 @@
     </div>
 
     <script type="text/javascript">
-      function showDesc(){
-         jQuery('#sp-desc').css('height', 'auto');
-         jQuery('#more-desc').hide();
+      function showDesc() {
+        jQuery('#sp-desc').css('height', 'auto');
+        jQuery('#more-desc').hide();
       }
     </script>
   <?php endif; ?>
 
 </div>
-<?php if($page) : ?>
+<?php if ($page) : ?>
   <div>
     <?php print theme('charts', $node); ?>
   </div>
@@ -109,9 +117,10 @@
 
           <?php if (ranks_permission(0, $node->uid)) : // todo has sufficient rank ?>
 
-          <div class="expanding arg">
-            <h6 value="Reply" id="add-arg" class="button <?php print theme('user_login_modal_class'); ?>"><?php print t('Add'); ?></h6>
-          </div>
+            <div class="expanding arg">
+              <h6 value="Reply" id="add-arg"
+                  class="button <?php print theme('user_login_modal_class'); ?>"><?php print t('Add'); ?></h6>
+            </div>
 
           <?php endif; ?>
 
@@ -124,8 +133,8 @@
               <?php print drupal_get_form('argument_form', $node); ?>
             <?php else : ?>
               <div class="<?php print theme('user_login_modal_class', TRUE) ?>" align="center"><b>
-                <?php print t('Please log in to participate in the debate') ?>
-              </b></div>
+                  <?php print t('Please log in to participate in the debate') ?>
+                </b></div>
             <?php endif; ?>
           </div>
 
@@ -133,7 +142,9 @@
             <h2><span><?php print t('Debate statistics'); ?></span></h2>
 
             <div id="deb-ana-load-txt"></div>
-            <div id="chart-strength" style="width:100%;"><svg style="height:280px;"></svg></div>
+            <div id="chart-strength" style="width:100%;">
+              <svg style="height:280px;"></svg>
+            </div>
           </div>
 
         </div>
@@ -143,16 +154,17 @@
       <!-- LIST -->
       <div id="debate_list_area">
         <h2>
-          <span class="argcount"><?php print intval($node->info['argument']); ?></span>&nbsp;<span><?php print t('Arguments'); ?>&nbsp;&amp;&nbsp;</span>
-          <span class="rescount"><?php print intval($node->info['resource']); ?></span>&nbsp;<span><?php print t('References'); ?></span>
+          <span
+            class="argcount"><?php print intval($node->info['argument']); ?></span>&nbsp;<span><?php print t('Arguments'); ?>
+            &nbsp;&amp;&nbsp;</span> <span class="rescount"><?php print intval($node->info['resource']); ?></span>&nbsp;<span><?php print t('References'); ?></span>
 
           <div class="show_only">
             <span class="button" id="show_filter">&#9660; <?php print t('Show only'); ?></span>
 
             <div class="inc">
               <form id="inc_ref">
-                <input type="checkbox" checked="yes" value="include references" id="inc_check"/>
-                <label for="inc_check"><?php print t('Include References'); ?></label>
+                <input type="checkbox" checked="yes" value="include references" id="inc_check"/> <label
+                  for="inc_check"><?php print t('Include References'); ?></label>
               </form>
             </div>
             <div class="popup hidden" id="filter_content">
@@ -160,16 +172,9 @@
               <?php foreach ($node->choices as $choice) : ?>
                 <dl name="<?php print $choice['chid'] ?>">
                   <dd>
-                    <a href="" class="neutral">
-                      <span class="small_pos">+</span>
-                      <span class="small_neg">-</span>
-                    </a>
-                    <a href="" class="positive">
-                      <span class="small_pos">+</span>
-                    </a>
-                    <a href="" class="negative">
-                      <span class="small_neg">-</span>
-                    </a>
+                    <a href="" class="neutral"> <span class="small_pos">+</span> <span class="small_neg">-</span> </a>
+                    <a href="" class="positive"> <span class="small_pos">+</span> </a> <a href="" class="negative">
+                      <span class="small_neg">-</span> </a>
                   </dd>
                   <dt><?php print $choice['chtext_short'] ?></dt>
                 </dl>
@@ -182,14 +187,20 @@
         <div id="empty_helper">&nbsp;</div>
 
         <ul>
-          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/0/0"><?php print t('recent'); ?></a></li>
-          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/1/0"><?php print t('older'); ?></a></li>
-          <li><a href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/2/0"><?php print t('supported'); ?></a></li>
+          <li><a
+              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/0/0"><?php print t('recent'); ?></a>
+          </li>
+          <li><a
+              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/1/0"><?php print t('older'); ?></a>
+          </li>
+          <li><a
+              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/2/0"><?php print t('supported'); ?></a>
+          </li>
         </ul>
         <div id="ui-tabs-1">
           <?php
-            // todo
-            print argument_tab($node->nid);
+          // todo
+          print argument_tab($node->nid);
           ?>
         </div>
         <div id="ui-tabs-2">
@@ -203,8 +214,8 @@
           </div>
         </div>
 
-      </div><!--/#debate_list_area -->
-      <!-- END LIST -->
+      </div>
+      <!--/#debate_list_area --><!-- END LIST -->
 
     </li>
   </ul>
