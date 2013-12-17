@@ -804,8 +804,8 @@ html[lang="ru"] .banner-text {
 }
 
 .dark-grey-box.top {
-  margin-top : 0;
-  margin-bottom: 30px;
+  margin-top    : 0;
+  margin-bottom : 30px;
 }
 
 .thirty-top {
@@ -6268,16 +6268,16 @@ span.small_pos.fixes,
 /*Solr search*/
 
 .filter_search.issues_search {
-  margin-top : 0;
-  margin-bottom: 30px;
-  padding    : 15px 14px 18px;
-  width      : 190px;
-  z-index    : 999;
+  margin-top    : 0;
+  margin-bottom : 30px;
+  padding       : 15px 14px 18px;
+  width         : 190px;
+  z-index       : 999;
 }
 
 #block-categories-categories {
-  margin-top: 0;
-  margin-bottom: 30px;
+  margin-top    : 0;
+  margin-bottom : 30px;
 }
 
 #uactivity .activity-stream {
@@ -6924,9 +6924,9 @@ ul.sub-pages-menu a:hover {
 }
 
 #guidelines {
-  margin-top : 0;
-  margin-bottom: 30px;
-  padding    : 15px 14px;
+  margin-top    : 0;
+  margin-bottom : 30px;
+  padding       : 15px 14px;
 }
 
 #guidelines label.tags-on,
@@ -7211,8 +7211,8 @@ h1.h1_privacy {
 #block-issue-issue-categories-popular,
 #block-issue-issue-categories,
 #block-user_profile-user-profile-right {
-  margin-top : 0;
-  margin-bottom: 30px;
+  margin-top    : 0;
+  margin-bottom : 30px;
 }
 
 #q_counter.over_limit {
@@ -7306,7 +7306,7 @@ html[lang="ru"] #count_results-wrapper span {
 }
 
 .container .sixteen.columns {
-  margin-bottom: 30px;
+  margin-bottom : 30px;
 }
 
 i.icon:before {

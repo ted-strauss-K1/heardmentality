@@ -970,7 +970,7 @@
   .dark-grey-box.top,
   .filter_search.issues_search,
   #guidelines {
-    margin-top : 30px;
+    margin-top : 0;
   }
 
   .grey-box #divConnect {
@@ -1156,7 +1156,7 @@
 
   .filter_search.issues_search {
     width      : 390px;
-    margin-top : 30px;
+    margin-top : 0;
     padding    : 15px 14px 18px;
     position   : relative;
     z-index    : 999;
