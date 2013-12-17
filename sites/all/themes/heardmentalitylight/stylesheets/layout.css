@@ -1733,7 +1733,7 @@ select.select-value {
 }
 
 input#Answer {
-  margin  : 0px 0px 20px 0px;
+  margin  : 10px 0px 10px 0px;
   padding : 8px;
 }
 
@@ -1961,10 +1961,6 @@ form#user-details {
 #create_box,
 #region-content {
   margin : 0;
-}
-
-.new-issue {
-  padding-top : 15px;
 }
 
 form#user-profile-edit-form {
@@ -3151,7 +3147,7 @@ textarea#q_quest, textarea#Question {
 }
 
 #create_box input.add-answer {
-  margin : 0 0 6px 0;
+  margin : 8px 0 6px 0;
 }
 
 .eleven .grey-box {
@@ -7799,6 +7795,14 @@ html.js fieldset.collapsible {
 .chzn-container {
   width : 190px !important;
 }
+
+/* after merging 2013-12-09 - ad an issue */
+
+.new-issue {
+  padding : 15px;
+}
+
+/*--/ after merging 2013-12-09 - ad an issue */
 
 
 

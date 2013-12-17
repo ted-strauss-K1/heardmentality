@@ -555,7 +555,24 @@
 
 /*--/ issues in ie7-8 */
 
+/* add an issue in ie7-8 */
 
+.ie7 input.submit-issue:hover,
+.ie8 input.submit-issue:hover {
+  margin-bottom : 15px;
+  top           : 15px !important;
+}
+
+.ie7 #create_box input.add-answer {
+  filter : chroma(color=#000000);
+}
+
+.ie7 .new-issue .number {
+  line-height : 28px;
+  margin-top  : 0px;
+}
+
+/*--/ add an issue in ie7-8 */
 
 
 
