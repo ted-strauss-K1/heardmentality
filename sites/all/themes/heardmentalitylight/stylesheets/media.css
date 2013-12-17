@@ -23,7 +23,7 @@
 
   .see-banner, .vote-banner, .share-banner {
     font-size : 20px;
-    padding   : 75px 0px 0px 0px;
+    padding   : 0px;
   }
 
   .error-banner {
@@ -385,6 +385,58 @@
 
   /*--/ error circles */
 
+  /* circles in homepage */
+
+  .main-banner-display .circle-box {
+    background : none;
+    height     : 170px;
+    text-align : center;
+  }
+
+  .main-banner-display .see-banner,
+  .main-banner-display .vote-banner,
+  .main-banner-display .share-banner {
+    height : 170px;
+    width  : 170px;
+    margin : 0 auto;
+  }
+
+  .main-banner-display .see-banner a,
+  .main-banner-display .vote-banner a,
+  .main-banner-display .share-banner a {
+    height : 170px;
+    width  : 170px;
+  }
+
+  .main-banner-display .see-banner span,
+  .main-banner-display .vote-banner span,
+  .main-banner-display .share-banner span {
+    width       : 170px;
+    height      : 170px;
+    padding     : 0;
+    line-height : 170px;
+    font-size   : 36px;
+  }
+
+  .main-banner-display .see-banner p.hover,
+  .main-banner-display .vote-banner p.hover,
+  .main-banner-display .share-banner p.hover {
+    font-size   : 14px;
+    line-height : 1.1em;
+    width       : 170px;
+    height      : 40px;
+    padding     : 0;
+    margin-top  : 70px;
+    background  : white;
+    border      : none;
+  }
+
+  .banven a.button.participate {
+    margin : 15px 0 0 15px;
+  }
+
+  /*--/ circles in homepage */
+
 }
 
 /* iPad Portrait Only 
@@ -414,6 +466,7 @@
   /*--/ user login pop-up */
   #edit-image-upload-wrapper input[type="file"] {
     font-size : 12px;
+  }
 
   /* error circles */
   .error-banner {
@@ -457,6 +510,27 @@
 
   .page-error .banner-text {
     margin-top : 0px;
+  }
+
+  .main-banner-display .circle-box {
+    background : none;
+    height     : 285px;
+    width      : 285px;
+    margin     : 10px auto;
+  }
+
+  .main-banner-display .see-banner,
+  .main-banner-display .vote-banner,
+  .main-banner-display .share-banner {
+    padding : 0;
+  }
+
+  .main-banner-display .one-third.column:first-child .circle-box {
+    margin-top : 20px;
+  }
+
+  .main-banner-display .one-third.column:last-child .circle-box {
+    margin-bottom : 30px;
   }
 
   /*--/ error circles */
@@ -631,7 +705,7 @@
 
   /* Header */
   .top-mobile .border-bottom {
-    margin-top : 32px;
+    margin-top : 0px;
   }
 
   .top-left {
@@ -1717,6 +1791,54 @@
   }
 
   /*--/ user login pop-up */
+
+  /* circles in homepage */
+
+  .main-banner-display .circle-box {
+    background : none;
+    height     : 170px;
+    text-align : center;
+  }
+
+  .main-banner-display .see-banner,
+  .main-banner-display .vote-banner,
+  .main-banner-display .share-banner {
+    height : 170px;
+    width  : 170px;
+    margin : 0 auto;
+  }
+
+  .main-banner-display .see-banner a,
+  .main-banner-display .vote-banner a,
+  .main-banner-display .share-banner a {
+    height : 170px;
+    width  : 170px;
+  }
+
+  .main-banner-display .see-banner span,
+  .main-banner-display .vote-banner span,
+  .main-banner-display .share-banner span {
+    width       : 170px;
+    height      : 170px;
+    padding     : 0;
+    line-height : 170px;
+    font-size   : 36px;
+  }
+
+  .main-banner-display .see-banner p.hover,
+  .main-banner-display .vote-banner p.hover,
+  .main-banner-display .share-banner p.hover {
+    font-size   : 14px;
+    line-height : 1.1em;
+    width       : 170px;
+    height      : 40px;
+    padding     : 0;
+    margin-top  : 70px;
+    background  : white;
+    border      : none;
+  }
+
+  /* circles in homepage */
 }
 
 
