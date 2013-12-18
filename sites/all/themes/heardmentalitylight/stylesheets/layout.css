@@ -7208,16 +7208,20 @@ form.issue-vote-form > div > div.choices {
 
 /* USER LOGIN FORM user/login */
 
-.container .sixteen.columns #user-login input[type="text"],
-.container .sixteen.columns #user-login input[type="password"],
-.container .sixteen.columns #user-register input[type="text"],
-.container .sixteen.columns #user-register input[type="password"] {
+.white-box #user-login input[type="text"],
+.white-box #user-login input[type="password"],
+.white-box #user-register input[type="text"],
+.white-box #user-register input[type="password"] {
   padding : 8px;
 }
 
-.container .sixteen.columns #user-login input[type="submit"],
-.container .sixteen.columns #user-register input[type="submit"] {
+.white-box #user-login input[type="submit"],
+.white-box #user-register input[type="submit"] {
   margin : 0 0 30px 0;
+}
+
+.white-box #edit-captcha-response {
+  margin-bottom: 7px;
 }
 
 .container .sixteen.columns #user-register #edit-pass-wrapper {
