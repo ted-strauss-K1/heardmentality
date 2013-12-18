@@ -43,8 +43,8 @@ function user_profile_init() {
 function user_profile_profile_privacy_access_info() {
   return array(
     'authorized' => array(
-      'label'           => t('Logged In'),
-      'description'     => t('All logged in users can see this piece of information about you'),
+      'label'           => t('Authorized'),
+      'description'     => t('All authorized users can see this piece of information about you'),
       'access callback' => 'user_is_logged_in',
     ),
     'followers'  => array(
