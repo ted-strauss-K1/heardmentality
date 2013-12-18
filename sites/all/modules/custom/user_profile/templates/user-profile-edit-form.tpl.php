@@ -146,7 +146,7 @@ $privacy = user_profile_profile_privacy_values();
   <!-- /.grey-box.edit_profile -->
 </div><!-- /.twelve.columns -->
 
-<div class="four columns">
+<div class="four columns edit_profile_four_columns">
 
   <div class="dark-grey-box top clearfix">
     <div class="profile-meta">

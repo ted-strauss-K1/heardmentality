@@ -278,6 +278,26 @@
   filter : chroma(color=#000000);
 }
 
+.ie9 input,
+.ie9 textarea {
+  line-height : 1em;
+}
+
+.ie9 .edit_profile_four_columns input[type="submit"] {
+  height : 35px;
+}
+
+.ie7 #edit-image-upload-wrapper input[type="file"],
+.ie8 #edit-image-upload-wrapper input[type="file"] {
+  filter : alpha(opacity=0);
+}
+
+.ie7 #edit-image-upload-wrapper {
+  background          : url(../images/ie7_choose_file.png);
+  background-position : center center;
+  filter              : none;
+}
+
 /*End IE9 gradients*/
 
 /*PIE*/
