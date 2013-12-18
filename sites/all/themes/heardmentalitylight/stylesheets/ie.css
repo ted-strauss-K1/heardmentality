@@ -287,6 +287,10 @@
   height : 35px;
 }
 
+.ie8 input.submit-issue:hover {
+  margin-top : -3px;
+}
+
 .ie7 #edit-image-upload-wrapper input[type="file"],
 .ie8 #edit-image-upload-wrapper input[type="file"] {
   filter : alpha(opacity=0);
