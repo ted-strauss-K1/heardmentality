@@ -2576,7 +2576,7 @@ p.profile-status {
 }
 
 #own_info .medals {
-  float: none;
+  float : none;
 }
 
 .activity_stream .no_active {
