@@ -2,6 +2,7 @@
 
 /**
  * @param string $name
+ *
  * @return string
  */
 function gc_directory($name = '') {
@@ -10,6 +11,7 @@ function gc_directory($name = '') {
 
 /**
  * @param $line
+ *
  * @return array
  */
 function gc_readtabline($line) {
@@ -19,6 +21,7 @@ function gc_readtabline($line) {
 /**
  * @param $code
  * @param $list
+ *
  * @return string
  */
 function gc_function_text($func, $list) {

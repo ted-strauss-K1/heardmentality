@@ -1,4 +1,3 @@
-
 /**
  * Provides AJAX-like page updating via AHAH (Asynchronous HTML and HTTP).
  *
@@ -14,17 +13,17 @@
 /**
  * Attaches the ahah behavior to each ahah form element.
  */
-Drupal.behaviors.ahah = function(context) {
+Drupal.behaviors.ahah = function (context) {
   for (var base in Drupal.settings.ahah) {
-    if (!$('#'+ base + '.ahah-processed').size()) {
+    if (!$('#' + base + '.ahah-processed').size()) {
       var element_settings = Drupal.settings.ahah[base];
 
-      $(element_settings.selector).each(function() {
+      $(element_settings.selector).each(function () {
         element_settings.element = this;
         var ahah = new Drupal.ahah(base, element_settings);
       });
 
-      $('#'+ base).addClass('ahah-processed');
+      $('#' + base).addClass('ahah-processed');
     }
   }
 };
@@ -32,14 +31,14 @@ Drupal.behaviors.ahah = function(context) {
 /**
  * AHAH object.
  */
-Drupal.ahah = function(base, element_settings) {
+Drupal.ahah = function (base, element_settings) {
   // Set the properties for this object.
   this.element = element_settings.element;
   this.selector = element_settings.selector;
   this.event = element_settings.event;
   this.keypress = element_settings.keypress;
   this.url = element_settings.url;
-  this.wrapper = '#'+ element_settings.wrapper;
+  this.wrapper = '#' + element_settings.wrapper;
   this.effect = element_settings.effect;
   this.method = element_settings.method;
   this.progress = element_settings.progress;
@@ -71,12 +70,12 @@ Drupal.ahah = function(base, element_settings) {
   // The 'this' variable will not persist inside of the options object.
   var ahah = this;
   var options = {
-    url: ahah.url,
-    data: ahah.button,
-    beforeSubmit: function(form_values, element_settings, options) {
+    url         : ahah.url,
+    data        : ahah.button,
+    beforeSubmit: function (form_values, element_settings, options) {
       return ahah.beforeSubmit(form_values, element_settings, options);
     },
-    success: function(response, status) {
+    success     : function (response, status) {
       // Sanity check for browser support (object expected).
       // When using iFrame uploads, responses must be returned as a string.
       if (typeof(response) == 'string') {
@@ -84,17 +83,17 @@ Drupal.ahah = function(base, element_settings) {
       }
       return ahah.success(response, status);
     },
-    complete: function(response, status) {
+    complete    : function (response, status) {
       if (status == 'error' || status == 'parsererror') {
         return ahah.error(response, ahah.url);
       }
     },
-    dataType: 'json',
-    type: 'POST'
+    dataType    : 'json',
+    type        : 'POST'
   };
 
   // Bind the ajaxSubmit function to the element event.
-  $(element_settings.element).bind(element_settings.event, function() {
+  $(element_settings.element).bind(element_settings.event, function () {
     $(element_settings.element).parents('form').ajaxSubmit(options);
     return false;
   });
@@ -102,7 +101,7 @@ Drupal.ahah = function(base, element_settings) {
   // can be triggered through keyboard input as well as e.g. a mousedown
   // action.
   if (element_settings.keypress) {
-    $(element_settings.element).keypress(function(event) {
+    $(element_settings.element).keypress(function (event) {
       // Detect enter key.
       if (event.keyCode == 13) {
         $(element_settings.element).trigger(element_settings.event);
@@ -205,7 +204,7 @@ Drupal.ahah.prototype.success = function (response, status) {
 Drupal.ahah.prototype.error = function (response, uri) {
   alert(Drupal.ahahError(response, uri));
   // Resore the previous action and target to the form.
-  $(this.element).parent('form').attr( { action: this.form_action, target: this.form_target} );
+  $(this.element).parent('form').attr({ action: this.form_action, target: this.form_target});
   // Remove the progress element.
   if (this.progress.element) {
     $(this.progress.element).remove();

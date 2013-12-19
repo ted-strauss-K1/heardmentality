@@ -60,8 +60,8 @@ $(function () {
  */
 function cpoll_create_ahah_error() {
   $.hrd.noty({
-    'type':'error',
-    'text':Drupal.t('Maximum fields exceeded')
+    'type': 'error',
+    'text': Drupal.t('Maximum fields exceeded')
   });
 }
 
@@ -75,7 +75,9 @@ $('#cpoll-create-form').live('submit', function (e) {
   if (q.val().length > maxlength) {
     errors.push(Drupal.t('The question is too long'));
   }
-  if (2 > $('#poll-choices input').filter(function() { return $(this).val(); }).length) {
+  if (2 > $('#poll-choices input').filter(function () {
+    return $(this).val();
+  }).length) {
     errors.push(Drupal.t('Enter more that two elements'));
   }
   if (20 > q.val().length) {
@@ -86,8 +88,8 @@ $('#cpoll-create-form').live('submit', function (e) {
 
     for (var i in errors) {
       $.hrd.noty({
-        'type':'error',
-        'text':errors[i]
+        'type': 'error',
+        'text': errors[i]
       });
     }
   }
@@ -96,7 +98,7 @@ $('#cpoll-create-form').live('submit', function (e) {
 /**
  * Counter
  */
-$('#q_quest').live('keyup', function() {
+$('#q_quest').live('keyup', function () {
   var q = $("#q_quest");
   var c = $('#q_counter');
   var count = maxlength - q.val().length;

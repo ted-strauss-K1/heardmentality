@@ -3,7 +3,7 @@
 /**
  * @return array
  */
-function zip_menu () {
+function zip_menu() {
   $menu = array();
 
   $menu['admin/settings/zip'] = array(
@@ -20,7 +20,7 @@ function zip_menu () {
 /**
  *
  */
-function zip_form () {
+function zip_form() {
   $form = array();
 
   $form["submit"] = array(
@@ -37,7 +37,7 @@ function zip_form () {
  *
  * @return array
  */
-function scanpath ($path) {
+function scanpath($path) {
   static $i;
   $i++;
   if (is_dir($path)) {
@@ -61,7 +61,7 @@ function scanpath ($path) {
 /**
  * @param $path
  */
-function zip_mtime ($list) {
+function zip_mtime($list) {
   $mtime = 0;
 
   foreach ($list as $file) {
@@ -77,7 +77,7 @@ function zip_mtime ($list) {
 /**
  *
  */
-function zip_form_submit () {
+function zip_form_submit() {
   set_time_limit(0);
 
   # init paths
@@ -93,7 +93,7 @@ function zip_form_submit () {
   #
   $date = date('Y.m.d_h.i.s');
   $path_site .= $date . '/';
-  $path .= '/'.$date;
+  $path .= '/' . $date;
   @shell_exec("mkdir $path");
 
   # check dir
@@ -128,7 +128,7 @@ function zip_form_submit () {
   $roots = array();
   foreach ($modules as $module_path => $module_name) {
     foreach ($roots as $root) {
-      if (false !== strpos($module_path, $root)) {
+      if (FALSE !== strpos($module_path, $root)) {
         continue 2;
       }
     }
@@ -136,14 +136,14 @@ function zip_form_submit () {
     $items['module'][] = $module_name;
   }
 
-  $fail = false;
+  $fail = FALSE;
   # prepare zips
   foreach ($items as $type => $list) {
     foreach ($list as $name) {
       # get filename
       $filename = db_result(db_query("SELECT filename FROM system WHERE name = '%s' AND type = '%s'", $name, $type));
       if (!$filename) {
-        $fail = true;
+        $fail = TRUE;
         echo ('-- No filename: ' . $type . '-' . $name) . "<br>";
         printf("DELETE FROM system WHERE name = '%s' AND type = '%s';", $name, $type);
         echo "<br>";
@@ -156,7 +156,7 @@ function zip_form_submit () {
       $path_subdir = 'custom' . $path_suffix;
       $path_info = $path_dir . '/' . $name . '.info';
       if (!file_exists($path_info)) {
-        $fail = true;
+        $fail = TRUE;
         echo ('-- No info: ' . $type . '-' . $name) . "<br>";
         printf("DELETE FROM system WHERE name = '%s' AND type = '%s';", $name, $type);
         echo "<br>";
@@ -174,15 +174,15 @@ function zip_form_submit () {
 
       # create zip
       $zip = new ZipArchive();
-      if ($zip->open($path_zip_tmp, ZIPARCHIVE::OVERWRITE) !== true) {
+      if ($zip->open($path_zip_tmp, ZIPARCHIVE::OVERWRITE) !== TRUE) {
         continue;
       }
       foreach ($list as $file) {
         if ('.DS_Store' == basename($file)) {
           continue;
         }
-//        zip_addFile($zip, $file, str_replace($path_dir . '/', '', $file));
-         $zip->addFile($file, str_replace($path_dir . '/', '', $file));
+        //        zip_addFile($zip, $file, str_replace($path_dir . '/', '', $file));
+        $zip->addFile($file, str_replace($path_dir . '/', '', $file));
       }
       $zip->close();
 
@@ -230,12 +230,12 @@ function zip_form_submit () {
 function zip_addFile(&$zip, $file, $localpath) {
   $list = explode("/", $localpath);
   $path = '';
-  for ($i = 0; $i<count($list); $i++) {
+  for ($i = 0; $i < count($list); $i++) {
     if (0 != $i) {
       $path .= '/';
     }
     $path .= $list[$i];
-    if ($i != count($list)-1) {
+    if ($i != count($list) - 1) {
       $zip->addEmptyDir($path);
     }
     else {

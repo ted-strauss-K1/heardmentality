@@ -3,13 +3,12 @@
 /**
  * Implementation of hook_install()
  */
-function comment_support_install()
-{
+function comment_support_install() {
   $ret = array();
   $field = array(
-    'type' => 'int',
-    'unsigned' => TRUE,
-    'not null' => TRUE,
+    'type'        => 'int',
+    'unsigned'    => TRUE,
+    'not null'    => TRUE,
     'description' => 'Whether comment supports the poll or not.',
   );
   db_add_field($ret, 'comments', 'support', $field);
@@ -18,8 +17,7 @@ function comment_support_install()
 /**
  * Implementation of hook_uninstall()
  */
-function comment_support_uninstall()
-{
+function comment_support_uninstall() {
   $ret = array();
   db_drop_field($ret, 'comments', 'support');
 }
@@ -27,8 +25,7 @@ function comment_support_uninstall()
 /**
  * Implementation of hook_schema()
  */
-function comment_support_schema()
-{
+function comment_support_schema() {
   $schema = array();
 
   //

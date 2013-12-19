@@ -19,13 +19,13 @@ function cpoll_vote_content_translate_rebuild_js() {
 /**
  * Form for adding/editing the Issues' votes
  *
- * @param $form
- * @param $node
+ * @param      $form
+ * @param      $node
  * @param bool $nowrap
+ *
  * @return array
  */
-function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
-{
+function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
   global $user;
   $form = array();
 
@@ -42,15 +42,15 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
 
   # info
   $form['nid'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => $node->nid,
   );
   $form['uid'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => $node->uid,
   );
   $form['vote'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => $node->vote ? $node->vote : -1,
   );
 
@@ -58,20 +58,18 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
   if ($node->choices) {
     $options = array();
     foreach ($node->choices as $chid => $choice) {
-      $options[$chid] = '<span class="ch">' . check_plain(
-        issue_translate($node, 'chtext', $chid)
-      ) . '</span>';
+      $options[$chid] = '<span class="ch">' . check_plain(issue_translate($node, 'chtext', $chid)) . '</span>';
     }
 
     $options[-1] = '<span class="ch">&nbsp;</span>';
 
     $form['choices'] = array(
-      '#type' => 'radios',
+      '#type'          => 'radios',
       '#default_value' => $node->vote,
-      '#options' => $options,
-      '#prefix' => '<div class="choices">',
-      '#suffix' => '</div>',
-      '#disabled' => !$node->cpoll['active'],
+      '#options'       => $options,
+      '#prefix'        => '<div class="choices">',
+      '#suffix'        => '</div>',
+      '#disabled'      => !$node->cpoll['active'],
     );
   }
 
@@ -81,19 +79,19 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
   # login warning
   if (!user_is_logged_in()) {
     $form['#attributes']['class'] .= ' anonymous';
-//    $form['login_error'] = array(
-//      '#type' => 'markup',
-//      '#prefix' => '<div class="login-error">',
-//      '#value' => t('You should login to vote or post suggest answers.'),
-//      '#suffix' => '</div>',
-//    );
+    //    $form['login_error'] = array(
+    //      '#type' => 'markup',
+    //      '#prefix' => '<div class="login-error">',
+    //      '#value' => t('You should login to vote or post suggest answers.'),
+    //      '#suffix' => '</div>',
+    //    );
   }
 
   # suggestions
-  $suggestions = true;
+  $suggestions = TRUE;
   foreach ($node->choices as $choice) {
     if ($user->uid == $choice['uid'] && 'suggested' == $choice['chtype']) {
-      $suggestions = false;
+      $suggestions = FALSE;
       break;
     }
   }
@@ -101,27 +99,27 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
   if ($suggestions && !$node->cpoll['fixed'] && $node->cpoll['active']) {
     # add suggested answers
     $form['suggest'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('...Or submit a different answer'),
+      '#type'        => 'fieldset',
+      '#title'       => t('...Or submit a different answer'),
       '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-      '#tree' => TRUE,
+      '#collapsed'   => TRUE,
+      '#tree'        => TRUE,
     );
     $form['suggest']['suggest_answer'] = array(
-      '#type' => 'textfield',
-      '#size' => 38,
-      '#description' => '('.t('Answers must not exceed 140 carachters in length').')',
-      '#attributes' => array('class' => 'floatleft'),
-      '#maxlength' => 140,
-      '#prefix' => '<div class="nsa-wrapper"><table><tr><td class="first">',
-      '#suffix' => '</td><td>',
+      '#type'        => 'textfield',
+      '#size'        => 38,
+      '#description' => '(' . t('Answers must not exceed 140 carachters in length') . ')',
+      '#attributes'  => array('class' => 'floatleft'),
+      '#maxlength'   => 140,
+      '#prefix'      => '<div class="nsa-wrapper"><table><tr><td class="first">',
+      '#suffix'      => '</td><td>',
     );
     $form['suggest']['submit_suggest_answer'] = array(
-      '#type' => 'submit',
-      '#value' => t('Add Answer'),
+      '#type'       => 'submit',
+      '#value'      => t('Add Answer'),
       '#attributes' => array('class' => 'add-answer2 light'),
-      '#suffix' => '</td></tr></table></div>',
-      '#id' => 'suggest',
+      '#suffix'     => '</td></tr></table></div>',
+      '#id'         => 'suggest',
     );
   }
 
@@ -129,29 +127,30 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
   if (!$node->vote && $node->cpoll['active']) {
     $form['#attributes']['class'] .= ' not-voted';
   }
-  $form['#attributes']['class'] .= ' voteform-'.$node->nid;
+  $form['#attributes']['class'] .= ' voteform-' . $node->nid;
 
   # add vote submit button
   if (user_is_logged_in()) {
     $form['main_submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Vote'),
+      '#type'       => 'submit',
+      '#value'      => t('Vote'),
       '#attributes' => array('class' => 'button vote floatright'),
-      '#id' => 'vote',
-      '#prefix' => '<div class="votebtn_wrap clearfix">',
-      '#suffix' => '</div>',
+      '#id'         => 'vote',
+      '#prefix'     => '<div class="votebtn_wrap clearfix">',
+      '#suffix'     => '</div>',
     );
     if ($node->vote) {
       $form['main_submit']['#value'] = t('Change vote');
     }
-  } else {
+  }
+  else {
     $form['main_submit'] = array(
-      '#type' => 'button',
-      '#value' => t('Login to vote'),
-      '#attributes' => array('class' => 'button vote floatright ' . theme('user_login_modal_class', true)),
-      '#id' => 'vote-login',
-      '#prefix' => '<div class="votebtn_wrap clearfix">',
-      '#suffix' => '</div>',
+      '#type'       => 'button',
+      '#value'      => t('Login to vote'),
+      '#attributes' => array('class' => 'button vote floatright ' . theme('user_login_modal_class', TRUE)),
+      '#id'         => 'vote-login',
+      '#prefix'     => '<div class="votebtn_wrap clearfix">',
+      '#suffix'     => '</div>',
     );
     unset($form['suggest']);
   }
@@ -159,8 +158,8 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
   if (!$node->cpoll['active']) {
     unset($form['main_submit']);
     $form['main_submit'] = array(
-      '#type' => 'markup',
-      '#value' => t('Voting is closed'),
+      '#type'   => 'markup',
+      '#value'  => t('Voting is closed'),
       '#prefix' => '<div class="votebtn_wrap clearfix message">',
       '#suffix' => '</div>',
     );
@@ -172,7 +171,7 @@ function cpoll_vote_form($form, $node, $nowrap = false, $page = true)
 
   // for ajax callbacks
   $form['action'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => 'vote',
   );
 
@@ -195,10 +194,10 @@ function cpoll_vote_form_radios($form_element, &$form_state) {
 
   if ($node->choices) {
     foreach ($node->choices as $i => $choice) {
-      $vote_number = (int)$choice['votes'];
+      $vote_number = (int) $choice['votes'];
       $vote_string = t('vote' . ($vote_number == 1 ? '' : 's'));
-      $form_element[$i]['#prefix'] = '<div class="radio_wrapper choice-'.$choice['chtype'].' clearfix"><span class="teaser_count_vote vote-result-'.(-1 == $i ? 'empty' : $i).'">
-<span class="vote-result-'.$i.'">' . $vote_number . '</span>' . $vote_string . '</span>';
+      $form_element[$i]['#prefix'] = '<div class="radio_wrapper choice-' . $choice['chtype'] . ' clearfix"><span class="teaser_count_vote vote-result-' . (-1 == $i ? 'empty' : $i) . '">
+<span class="vote-result-' . $i . '">' . $vote_number . '</span>' . $vote_string . '</span>';
       $form_element[$i]['#suffix'] = '</div>';
     }
   }
@@ -213,9 +212,9 @@ function cpoll_vote_menu() {
   $menu = array();
 
   $menu['cpoll_vote/ajax'] = array(
-    'page callback' => 'cpoll_vote_ajax',
-    'access callback' => true,
-    'type' => MENU_CALLBACK,
+    'page callback'   => 'cpoll_vote_ajax',
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
   );
 
   return $menu;
@@ -226,7 +225,7 @@ function cpoll_vote_menu() {
  */
 function cpoll_vote_ajax() {
   global $user;
-  $post = &$_REQUEST;
+  $post = & $_REQUEST;
 
   # suppress form submission
   unset($post['form_build_id']);
@@ -236,9 +235,9 @@ function cpoll_vote_ajax() {
   # logged in user validation
   if (user_is_anonymous()) {
     print json_encode(array(
-      'status' => FALSE,
+      'status'  => FALSE,
       'message' => t('Please log in'),
-      'result' => cpoll_load_choices($post['nid'], true),
+      'result'  => cpoll_load_choices($post['nid'], TRUE),
     ));
     exit;
   }
@@ -248,13 +247,13 @@ function cpoll_vote_ajax() {
     $choices = cpoll_load_choices($post['nid']);
     // todo new choice validation
     $choice = array(
-      'chid' => -1,
-      'nid' => $post['nid'],
-      'uid' => $user->uid,
-      'chtext' => $post['suggestion'],
+      'chid'         => -1,
+      'nid'          => $post['nid'],
+      'uid'          => $user->uid,
+      'chtext'       => $post['suggestion'],
       'chtext_short' => $post['suggestion'],
-      'weight' => count($choices),
-      'chtype' => 'suggested',
+      'weight'       => count($choices),
+      'chtype'       => 'suggested',
     );
     $object = cpoll_choice_save($choice);
     $post['chid'] = $object->chid;
@@ -278,10 +277,10 @@ function cpoll_vote_ajax() {
   }
 
   print json_encode(array(
-    'status' => TRUE,
+    'status'  => TRUE,
     'message' => t('Your vote was added'),
-    'result' => cpoll_load_choices($post['nid'], true),
-    'chid' => $post['chid'],
+    'result'  => cpoll_load_choices($post['nid'], TRUE),
+    'chid'    => $post['chid'],
   ));
   exit;
 }

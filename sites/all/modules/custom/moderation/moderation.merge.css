@@ -1,21 +1,24 @@
 table.merge-issue {
-  margin-top: 20px;
+  margin-top : 20px;
 }
+
 table.merge-issue td {
-  border: 1px #ccc solid;
-  padding: 10px;
+  border  : 1px #CCCCCC solid;
+  padding : 10px;
 }
 
 table.merge-issue .merge-main {
-  width: 250px;
-  text-align: center;
-  font-weight: bold;
+  width       : 250px;
+  text-align  : center;
+  font-weight : bold;
 }
+
 table.merge-issue .merge-center {
-  width: 100px;
-  text-align: center;
+  width      : 100px;
+  text-align : center;
 }
+
 table.merge-issue .merge-header {
-  text-align: center;
-  font-weight: bold;
+  text-align  : center;
+  font-weight : bold;
 }

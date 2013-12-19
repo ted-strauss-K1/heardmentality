@@ -31,7 +31,7 @@ jQuery._farbtastic = function (container, callback) {
         image = this.currentStyle.backgroundImage.substring(5, image.length - 2);
         $(this).css({
           'backgroundImage': 'none',
-          'filter': "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src='" + image + "')"
+          'filter'         : "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src='" + image + "')"
         });
       }
     });
@@ -162,12 +162,12 @@ jQuery._farbtastic = function (container, callback) {
     var angle = fb.hsl[0] * 6.28;
     $('.h-marker', e).css({
       left: Math.round(Math.sin(angle) * fb.radius + fb.width / 2) + 'px',
-      top: Math.round(-Math.cos(angle) * fb.radius + fb.width / 2) + 'px'
+      top : Math.round(-Math.cos(angle) * fb.radius + fb.width / 2) + 'px'
     });
 
     $('.sl-marker', e).css({
       left: Math.round(fb.square * (.5 - fb.hsl[1]) + fb.width / 2) + 'px',
-      top: Math.round(fb.square * (.5 - fb.hsl[2]) + fb.width / 2) + 'px'
+      top : Math.round(fb.square * (.5 - fb.hsl[2]) + fb.width / 2) + 'px'
     });
 
     // Saturation/Luminance gradient
@@ -178,11 +178,11 @@ jQuery._farbtastic = function (container, callback) {
       // Set background/foreground color
       $(fb.callback).css({
         backgroundColor: fb.color,
-        color: fb.hsl[2] > 0.5 ? '#000' : '#fff'
+        color          : fb.hsl[2] > 0.5 ? '#000' : '#fff'
       });
 
       // Change linked value
-      $(fb.callback).each(function() {
+      $(fb.callback).each(function () {
         if (this.value && this.value != fb.color) {
           this.value = fb.color;
         }
@@ -199,8 +199,8 @@ jQuery._farbtastic = function (container, callback) {
     var g = Math.round(rgb[1] * 255);
     var b = Math.round(rgb[2] * 255);
     return '#' + (r < 16 ? '0' : '') + r.toString(16) +
-           (g < 16 ? '0' : '') + g.toString(16) +
-           (b < 16 ? '0' : '') + b.toString(16);
+      (g < 16 ? '0' : '') + g.toString(16) +
+      (b < 16 ? '0' : '') + b.toString(16);
   };
 
   fb.unpack = function (color) {
@@ -219,11 +219,11 @@ jQuery._farbtastic = function (container, callback) {
   fb.HSLToRGB = function (hsl) {
     var m1, m2, r, g, b;
     var h = hsl[0], s = hsl[1], l = hsl[2];
-    m2 = (l <= 0.5) ? l * (s + 1) : l + s - l*s;
+    m2 = (l <= 0.5) ? l * (s + 1) : l + s - l * s;
     m1 = l * 2 - m2;
-    return [this.hueToRGB(m1, m2, h+0.33333),
-        this.hueToRGB(m1, m2, h),
-        this.hueToRGB(m1, m2, h-0.33333)];
+    return [this.hueToRGB(m1, m2, h + 0.33333),
+      this.hueToRGB(m1, m2, h),
+      this.hueToRGB(m1, m2, h - 0.33333)];
   };
 
   fb.hueToRGB = function (m1, m2, h) {
@@ -258,7 +258,7 @@ jQuery._farbtastic = function (container, callback) {
   // Install mousedown handler (the others are set on the document on-demand)
   $('*', e).mousedown(fb.mousedown);
 
-    // Init color
+  // Init color
   fb.setColor('#000000');
 
   // Set linked elements/callback

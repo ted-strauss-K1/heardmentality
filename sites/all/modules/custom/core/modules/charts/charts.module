@@ -10,52 +10,45 @@ include_once "charts.inc";
  *
  * @return array
  */
-function charts_theme()
-{
+function charts_theme() {
   $theme = array();
 
   $theme['charts'] = array(
-    'arguments' => array('node' => null),
-    'template' => 'charts',
+    'arguments'            => array('node' => NULL),
+    'template'             => 'charts',
     'preprocess functions' => array('charts_theme_preprocess'),
   );
   $theme['charts_inner'] = array(
-    'arguments' => array('node' => null),
-    'template' => 'charts-inner',
+    'arguments'            => array('node' => NULL),
+    'template'             => 'charts-inner',
     'preprocess functions' => array('charts_inner_theme_preprocess'),
   );
 
   # chart parts
   $theme['charts_legend'] = array(
-    'arguments' => array('node' => null),
+    'arguments' => array('node' => NULL),
   );
   $theme['charts_gmap'] = array(
-    'arguments' => array('node' => null),
+    'arguments' => array('node' => NULL),
   );
   $theme['charts_history'] = array(
-    'arguments' => array('node' => null),
+    'arguments' => array('node' => NULL),
   );
   $theme['charts_filter'] = array(
-    'arguments' => array('node' => null),
+    'arguments' => array('node' => NULL),
   );
-
 
 
   // todo check below
 
 
-
-
-
   $theme['charts_quickfacts'] = array(
-    'arguments' => array('node' => null),
+    'arguments' => array('node' => NULL),
   );
 
 
-
-
   $theme['charts_strength'] = array(
-    'arguments' => array('node' => null),
+    'arguments' => array('node' => NULL),
   );
 
   return $theme;
@@ -66,8 +59,7 @@ function charts_theme()
  *
  * @param $vars
  */
-function charts_theme_preprocess(&$vars)
-{
+function charts_theme_preprocess(&$vars) {
   $node = $vars['node'];
 
   # load js/css
@@ -86,7 +78,7 @@ function charts_theme_preprocess(&$vars)
   $chtexts = charts_chtexts($node);
   drupal_add_js(array('charts' => array('choices' => $chtexts)), 'setting');
   drupal_add_js(array('charts' => array('count' => count($chtexts))), 'setting');
-  drupal_add_js(array('charts' => array('colors' => charts_colors(true))), 'setting');
+  drupal_add_js(array('charts' => array('colors' => charts_colors(TRUE))), 'setting');
   drupal_add_js(array('charts' => array('vote' => $node->vote || !$node->cpoll['active'])), 'setting');
 
   # charts content
@@ -102,8 +94,7 @@ function charts_theme_preprocess(&$vars)
  *
  * @param $vars
  */
-function charts_inner_theme_preprocess(&$vars)
-{
+function charts_inner_theme_preprocess(&$vars) {
   $node = $vars['node'];
 
   # legend
@@ -115,19 +106,17 @@ function charts_inner_theme_preprocess(&$vars)
   # Filter
   $vars['filter'] = theme('charts_filter', $node);
   # Quick facts
-  $vars['quickfacts'] = $node->votecount <= 10 ?
-    t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') :
-    theme('charts_quickfacts', $node);
+  $vars['quickfacts'] = $node->votecount <= 10 ? t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') : theme('charts_quickfacts', $node);
 }
 
 /**
  * Graph Legend
  *
  * @param $chtexts
+ *
  * @return string
  */
-function theme_charts_legend($chtexts)
-{
+function theme_charts_legend($chtexts) {
   $output = '';
   $pattern = '<dl><dd>%s:</dd><dt style="background-color:%s;">color</dt></dl>';
   foreach ($chtexts as $index => $answer) {
@@ -140,10 +129,10 @@ function theme_charts_legend($chtexts)
  * Graphs' pages Google Map
  *
  * @param $node
+ *
  * @return string
  */
-function theme_charts_gmap($node)
-{
+function theme_charts_gmap($node) {
   $gmap = charts_gmap($node);
 
   drupal_add_js(array('charts' => array('gmap' => $gmap)), 'setting');
@@ -157,6 +146,7 @@ function theme_charts_gmap($node)
 
 /**
  * @param $node
+ *
  * @return array
  */
 function charts_gmap($node) {
@@ -171,9 +161,7 @@ function charts_gmap($node) {
     INNER JOIN {users} u ON u.uid = v.uid
     INNER JOIN {profile_values} pv1 ON pv1.fid = '%s' AND pv1.uid = u.uid
     INNER JOIN {profile_values} pv2 ON pv2.fid = '%s' AND pv2.uid = u.uid
-    WHERE c.nid = '%d' AND pv1.value <> '' AND pv2.value <> ''",
-    $fieldmap['profile_lat']->fid, $fieldmap['profile_lng']->fid, $node->nid
-  );
+    WHERE c.nid = '%d' AND pv1.value <> '' AND pv2.value <> ''", $fieldmap['profile_lat']->fid, $fieldmap['profile_lng']->fid, $node->nid);
 
 
   while ($row = db_fetch_object($result)) {
@@ -187,17 +175,17 @@ function charts_gmap($node) {
  * History
  *
  * @param $node
+ *
  * @return string
  */
-function theme_charts_history($node)
-{
+function theme_charts_history($node) {
   charts_history_preprocess($node);
   // drupal_add_js(drupal_get_path('module', 'charts') . "/includes/highstock/highstock.js");
   drupal_add_js(drupal_get_path('module', 'charts') . "/include/charts.history.js");
-//  return '
-//    <div id="container_graph" class="highcharts-container" style="min-height:280px; width: 100%;"></div>
-//    <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
-//  ';
+  //  return '
+  //    <div id="container_graph" class="highcharts-container" style="min-height:280px; width: 100%;"></div>
+  //    <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
+  //  ';
   return '<div id="chart-history"><svg style="height:280px;"></svg></div>';
 }
 
@@ -206,8 +194,7 @@ function theme_charts_history($node)
  *
  * @param $vars
  */
-function charts_history_preprocess($node)
-{
+function charts_history_preprocess($node) {
   $history = charts_history($node);
 
   # Put the data to Drupal.settings
@@ -216,6 +203,7 @@ function charts_history_preprocess($node)
 
 /**
  * @param $node
+ *
  * @return array
  */
 function charts_history($node) {
@@ -250,16 +238,16 @@ function charts_history($node) {
     $votes[] = $row;
   }
   # Get the date range of the votes
-  $date_range = dates_range(date('Y-m-d', $mindate ), $maxdate);
+  $date_range = dates_range(date('Y-m-d', $mindate), $maxdate);
   $week = count($date_range) > 6;
   if (!$week) {
     $date_range = dates_range(date('Y-m-d', strtotime('-6 days', strtotime($maxdate))), $maxdate);
   }
   # Get the starting date for graph
   $mindate = array(
-    'year' => date('Y', $mindate),
+    'year'  => date('Y', $mindate),
     'month' => date('m', $mindate) - 1,
-    'day' => $week ? date('d', $mindate) : date("d") - 6,
+    'day'   => $week ? date('d', $mindate) : date("d") - 6,
   );
 
   # Initialize statistics array
@@ -309,7 +297,7 @@ function charts_history($node) {
   }
 
   $history = array(
-    'date' => $mindate,
+    'date'  => $mindate,
     'stats' => $stats,
     'cdate' => $cdate,
   );
@@ -318,7 +306,8 @@ function charts_history($node) {
       'choice' . $i => array(
         'name' => $choice,
         'data' => $list[$i],
-      ));
+      )
+    );
   }
 
   return $history;
@@ -328,10 +317,10 @@ function charts_history($node) {
  * Filter
  *
  * @param $node
+ *
  * @return null|string
  */
-function theme_charts_filter($node)
-{
+function theme_charts_filter($node) {
   charts_filter_theme_preprocess($node);
   drupal_add_js(drupal_get_path('module', 'charts') . "/include/charts.filter.js");
   return drupal_get_form('charts_filter_form');
@@ -341,11 +330,11 @@ function theme_charts_filter($node)
  * Preprocess for Filter
  *
  * @param $node
+ *
  * @return mixed
  */
-function charts_filter_theme_preprocess($node)
-{
-  static $dataset = null;
+function charts_filter_theme_preprocess($node) {
+  static $dataset = NULL;
 
   if (is_null($dataset)) {
     $dataset = array();
@@ -376,9 +365,9 @@ function charts_filter_theme_preprocess($node)
     }
 
     # get total votes
-    $counts = &$cat['']['#results'];
+    $counts = & $cat['']['#results'];
     foreach ($node->choices as $choice) {
-      $counts[$choice['index']][$choice['index']] = (int)$choice['votes'];
+      $counts[$choice['index']][$choice['index']] = (int) $choice['votes'];
     }
 
     # Collect statistics
@@ -399,13 +388,16 @@ function charts_filter_theme_preprocess($node)
             $counts = & $cat['age']['#results'][$vote['index']];
             if ($vote['value'] == '') {
               $counts[3]++;
-            } else {
+            }
+            else {
               $age = $y - $vote['value'];
               if ($age >= 51) {
                 $counts[2]++;
-              } elseif ($age >= 31) {
+              }
+              elseif ($age >= 31) {
                 $counts[1]++;
-              } else {
+              }
+              else {
                 $counts[0]++;
               }
             }
@@ -415,7 +407,8 @@ function charts_filter_theme_preprocess($node)
             $counts = & $cat[$name]['#results'][$vote['index']];
             if (isset($cat[$name]['#options'][$vote['value']])) {
               $counts[$vote['value']]++;
-            } else {
+            }
+            else {
               $counts[sizeof($counts) - 1]++;
             }
             break;
@@ -432,18 +425,18 @@ function charts_filter_theme_preprocess($node)
 
 /**
  * Filter -- form
+ *
  * @return array
  */
-function charts_filter_form()
-{
+function charts_filter_form() {
   $form = array();
 
   $form['filter'] = array(
-    '#type' => 'select',
+    '#type'    => 'select',
     '#options' => array( //
     ),
-    '#suffix' => '<div id="chart-filter" style="width:100%;"><svg style="height:280px;"></svg></div>',
-    '#id' => 'filter',
+    '#suffix'  => '<div id="chart-filter" style="width:100%;"><svg style="height:280px;"></svg></div>',
+    '#id'      => 'filter',
   );
   $cat = charts_filter_categories();
   foreach ($cat as $key => $data) {
@@ -458,9 +451,8 @@ function charts_filter_form()
  *
  * @return mixed
  */
-function charts_filter_categories()
-{
-  static $cat = null;
+function charts_filter_categories() {
+  static $cat = NULL;
 
   if (is_null($cat)) {
     $cat = array();
@@ -473,7 +465,7 @@ function charts_filter_categories()
     }
 
     $cat[''] = array(
-      '#name' => t('Total Votes'),
+      '#name'    => t('Total Votes'),
       '#options' => array(
         'Total Votes',
       ),
@@ -484,16 +476,19 @@ function charts_filter_categories()
       switch ($field->name) {
         case 'profile_yob' :
           $cat['age'] = array(
-            '#name' => t('Age'),
+            '#name'    => t('Age'),
             '#options' => array(
-              '18-30', '30-50', '50 above', 'undefined',
+              '18-30',
+              '30-50',
+              '50 above',
+              'undefined',
             ),
           );
           break;
         default:
           $name = str_replace('profile_', '', $field->name);
           $cat[$name] = array(
-            '#name' => t($field->title),
+            '#name'    => t($field->title),
             '#options' => explode("\n", $field->options),
           );
           $cat[$name]['#options'][] = 'undefined';
@@ -510,19 +505,26 @@ function charts_filter_categories()
  *
  * @return array
  */
-function charts_filter_fields()
-{
-  return array('profile_yob', 'profile_gender', 'profile_religion', 'profile_ethnicity', 'profile_sorient', 'profile_education', 'profile_income');
+function charts_filter_fields() {
+  return array(
+    'profile_yob',
+    'profile_gender',
+    'profile_religion',
+    'profile_ethnicity',
+    'profile_sorient',
+    'profile_education',
+    'profile_income'
+  );
 }
 
 /**
  * Strength chart
  *
  * @param $node
+ *
  * @return string
  */
-function theme_charts_strength($node)
-{
+function theme_charts_strength($node) {
   # settings
   drupal_add_js(array('charts' => array('strength' => charts_strength($node))), 'setting');
   drupal_add_js(drupal_get_path('module', 'charts') . "/include/charts.strength.js");
@@ -540,9 +542,9 @@ function charts_strength($node) {
   $data = array();
   foreach ($node->choices as $choice) {
     $data[$choice['index']] = array(
-      'x' => $choice['chtext_short'],
+      'x'     => $choice['chtext_short'],
       'color' => '#C2499B',
-      'y' => 0,
+      'y'     => 0,
     );
   }
 
@@ -564,7 +566,7 @@ function charts_strength($node) {
     $index = $choice['index'];
     $value = $args[$index];
     $data[$index]['color'] = $value > 0 ? '#55BA59' : '#C2499B';
-    $data[$index]['y'] = (float)$value;
+    $data[$index]['y'] = (float) $value;
   }
 
   return $data;
@@ -574,10 +576,10 @@ function charts_strength($node) {
  * Quick facts
  *
  * @param $node
+ *
  * @return string
  */
-function theme_charts_quickfacts($node)
-{
+function theme_charts_quickfacts($node) {
   # get the data
   $data = charts_filter_theme_preprocess($node);
 
@@ -659,8 +661,7 @@ function theme_charts_quickfacts($node)
 
     $text = $chtexts[$chorder];
 
-    $output[] = $percent . '% ' . t('of votes for') . ' <span class="highlight">' . t($text) . '</span> ' . t('are') . ' ' .
-      ($data[$key]['#options'][$optkey]);
+    $output[] = $percent . '% ' . t('of votes for') . ' <span class="highlight">' . t($text) . '</span> ' . t('are') . ' ' . ($data[$key]['#options'][$optkey]);
 
     if (++$i > 3) {
       break;
@@ -675,15 +676,14 @@ function theme_charts_quickfacts($node)
  *
  * @return array
  */
-function charts_menu()
-{
+function charts_menu() {
   $menu = array();
 
   $menu['charts/update'] = array(
-    'page callback' => 'charts_update',
-    'page arguments' => array(2),
-    'access callback' => true,
-    'type' => MENU_CALLBACK,
+    'page callback'   => 'charts_update',
+    'page arguments'  => array(2),
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
   );
 
   return $menu;
@@ -696,17 +696,18 @@ function charts_update($nid) {
   // check permission
   if (!($node = node_load($nid)) || ('issue' != $node->type)) {
     print json_encode(array(
-      'status' => false,
+      'status'  => FALSE,
       'message' => t("Content does not exist"),
     ));
-  } else {
+  }
+  else {
     print json_encode(array(
-      'status' => true,
+      'status'  => TRUE,
       'message' => t('Success'),
-      'data' => array(
-        'filter' => charts_filter_theme_preprocess($node),
-        'gmap' => charts_gmap($node),
-        'history' => charts_history($node),
+      'data'    => array(
+        'filter'   => charts_filter_theme_preprocess($node),
+        'gmap'     => charts_gmap($node),
+        'history'  => charts_history($node),
         'strength' => charts_strength($node),
       ),
     ));

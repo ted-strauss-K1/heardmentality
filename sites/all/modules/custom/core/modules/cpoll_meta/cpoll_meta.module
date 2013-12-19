@@ -12,10 +12,10 @@ define('CPOLL_META_AVG', 3);
 
 /**
  * @param bool $nid
+ *
  * @return array
  */
-function cpoll_meta_get()
-{
+function cpoll_meta_get() {
   static $cache = NULL;
 
   if (is_null($cache)) {
@@ -32,27 +32,24 @@ function cpoll_meta_get()
 /**
  * @param $chtext
  */
-function cpoll_meta_add($chtext)
-{
+function cpoll_meta_add($chtext) {
   db_query("INSERT INTO {cpoll_meta} SET chtext = '%s'", $chtext);
 }
 
 /**
  * @param $cid
  */
-function cpoll_meta_delete($cid)
-{
+function cpoll_meta_delete($cid) {
   db_query("DELETE FROM {cpoll_meta} WHERE cid = '%d'", $cid);
-//  Don't need this as we have the constraints
-//  db_query("DELETE FROM {cpoll_meta_values} WHERE cid = '%d'", $cid);
+  //  Don't need this as we have the constraints
+  //  db_query("DELETE FROM {cpoll_meta_values} WHERE cid = '%d'", $cid);
 }
 
 /**
  * @param $cid
  * @param $chtext
  */
-function cpoll_meta_edit($cid, $chtext)
-{
+function cpoll_meta_edit($cid, $chtext) {
   db_query("UPDATE {cpoll_meta} SET chtext = '%s' WHERE cid = '%d'", $chtext, $cid);
 }
 
@@ -62,19 +59,17 @@ function cpoll_meta_edit($cid, $chtext)
  * @param $cid
  * @param $value
  */
-function cpoll_meta_value_set($chid, $uid, $cid, $value)
-{
-  db_query("REPLACE {cpoll_meta_values} SET value = '%s', chid = '%d', uid = '%d', cid = '%d'",
-    $value, $chid, $uid, $cid);
+function cpoll_meta_value_set($chid, $uid, $cid, $value) {
+  db_query("REPLACE {cpoll_meta_values} SET value = '%s', chid = '%d', uid = '%d', cid = '%d'", $value, $chid, $uid, $cid);
 }
 
 /**
- * @param $nid
+ * @param      $nid
  * @param bool $reset
+ *
  * @return mixed
  */
-function cpoll_meta_values_get($nid, $uid, $reset = FALSE)
-{
+function cpoll_meta_values_get($nid, $uid, $reset = FALSE) {
   static $cache = NULL;
 
   if (is_null($cache[$nid][$uid]) || $reset) {
@@ -86,8 +81,7 @@ function cpoll_meta_values_get($nid, $uid, $reset = FALSE)
       JOIN cpoll_meta cm
       LEFT JOIN cpoll_meta_values cmv ON cmv.cid = cm.cid AND cmv.chid = c.chid AND cmv.uid = '%d'
       WHERE c.nid = '%d'
-      ORDER BY c.chid, cm.cid", CPOLL_META_AVG, $uid, $nid
-    );
+      ORDER BY c.chid, cm.cid", CPOLL_META_AVG, $uid, $nid);
     while ($row = db_fetch_array($result)) {
       $cache[$nid][$uid][$row['chid']][$row['cid']] = $row;
     }
@@ -97,13 +91,12 @@ function cpoll_meta_values_get($nid, $uid, $reset = FALSE)
 }
 
 /**
- * @param $node
- * @param $op
+ * @param      $node
+ * @param      $op
  * @param null $a3
  * @param null $a4
  */
-function cpoll_meta_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
+function cpoll_meta_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   if ('issue' == $node->type) {
     switch ($op) {
       case 'delete' :
@@ -111,7 +104,7 @@ function cpoll_meta_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         foreach ($choices as $chid => $choice) {
           db_query("DELETE FROM {cpoll_meta_values} WHERE chid = '%d'", $chid);
         }
-      break;
+        break;
       case 'load' :
         global $user;
         $meta = cpoll_meta_values_get($node->nid, $user->uid);
@@ -122,13 +115,13 @@ function cpoll_meta_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
               foreach ($meta[$chid] as $cid => $value) {
                 $choice['meta'][$cid] = array(
                   'chtext' => $value['chtext'],
-                  'value' => $value['val'],
+                  'value'  => $value['val'],
                 );
               }
             }
           }
         }
-      break;
+        break;
     }
   }
 }
@@ -136,17 +129,16 @@ function cpoll_meta_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 /**
  * Implementation of hook_user()
  *
- * @param $op
- * @param $edit
- * @param $account
+ * @param      $op
+ * @param      $edit
+ * @param      $account
  * @param null $category
  */
-function cpoll_meta_user($op, &$edit, &$account, $category = NULL)
-{
+function cpoll_meta_user($op, &$edit, &$account, $category = NULL) {
   switch ($op) {
     case 'delete' :
       db_query("DELETE FROM {cpoll_meta_values} WHERE uid = '%d'", $account->nid);
-    break;
+      break;
   }
 }
 

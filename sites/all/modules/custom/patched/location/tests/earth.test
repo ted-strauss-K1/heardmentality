@@ -5,15 +5,15 @@
  * Tests for earth.inc functionality.
  */
 
-require_once drupal_get_path('module', 'location') .'/earth.inc';
-require_once drupal_get_path('module', 'location') .'/tests/location_testcase.php';
+require_once drupal_get_path('module', 'location') . '/earth.inc';
+require_once drupal_get_path('module', 'location') . '/tests/location_testcase.php';
 
 class LocationEarthTest extends LocationTestCase {
   function getInfo() {
     return array(
-      'name' => t('Location earth.inc tests'),
+      'name'        => t('Location earth.inc tests'),
       'description' => t('Test earth.inc calculations.'),
-      'group' => t('Location'),
+      'group'       => t('Location'),
     );
   }
 

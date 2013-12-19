@@ -10,7 +10,7 @@ function gc_menu() {
   $menu = array();
 
   $menu['gc'] = array(
-    'page callback' => 'gc',
+    'page callback'    => 'gc',
     'access arguments' => array('administer site configuration'),
   );
 
@@ -55,7 +55,7 @@ function gc_countries_gids() {
   $cols = array();
   while ($s = fgets($f)) {
     if (!$cols) {
-      if (false !== strpos($s, "#ISO")) {
+      if (FALSE !== strpos($s, "#ISO")) {
         $cols = gc_readtabline(substr(strtolower($s), 1));
       }
       continue;
@@ -64,7 +64,7 @@ function gc_countries_gids() {
     $data = array_combine($cols, gc_readtabline($s));
 
     $iso = strtolower($data['iso']);
-    $gid  = $data['geonameid'];
+    $gid = $data['geonameid'];
 
     if (isset($countries[$iso])) {
       $country2gid[$iso] = $gid;
@@ -96,9 +96,7 @@ function gc_regions() {
   foreach ($country2gid as $iso => $gid) {
 
     # geonames request
-    $response = geonames_query('children',
-      array('style' => 'full', 'geonameid' => $gid),
-      array('qs' => 'f'));
+    $response = geonames_query('children', array('style' => 'full', 'geonameid' => $gid), array('qs' => 'f'));
     if ($response && $response->results) {
       foreach ($response->results as $result) {
 
@@ -157,9 +155,7 @@ function gc_cities() {
   #
   $file = gc_directory('data') . '/cities15000.txt';
   $f = fopen($file, 'r');
-  $cols = explode(",",
-    "geonameid,name,asciiname,alternatenames,latitude,longitude,feature class,feature code,country code,cc2,".
-      "admin1 code,admin2 code,admin3 code,admin4 code,population,elevation,dem,timezone,modification date");
+  $cols = explode(",", "geonameid,name,asciiname,alternatenames,latitude,longitude,feature class,feature code,country code,cc2," . "admin1 code,admin2 code,admin3 code,admin4 code,population,elevation,dem,timezone,modification date");
   while ($s = fgets($f)) {
     $data = array_combine($cols, gc_readtabline($s));
 
@@ -177,14 +173,14 @@ function gc_cities() {
         $regions['data_adm'][$iso][$adm_code] = $gid;
       }
       continue;
-    } else {
+    }
+    else {
       $gid2 = $regions['data_adm'][$iso][$adm_code];
 
       $cities['name'][$gid] = $name;
       $cities['code'][$gid] = $gid2;
       $cities['back'][$gid2][] = $gid;
     }
-
 
 
   }
@@ -211,7 +207,7 @@ function gc_supported() {
 
   foreach ($countries as $country_code => $country_name) {
 
-    $file_cit = $dir_cit . '/location.'.$country_code.'.inc';
+    $file_cit = $dir_cit . '/location.' . $country_code . '.inc';
     file_put_contents($file_cit, "<?php\n");
 
     $list_reg = array();
@@ -239,9 +235,9 @@ function gc_supported() {
 
     //
     $func_reg = 'location_province_list_' . $country_code;
-    $file_reg = $dir_reg . '/location.'.$country_code.'.inc';
+    $file_reg = $dir_reg . '/location.' . $country_code . '.inc';
 
-    file_put_contents($file_reg, "<?php\n\n". gc_function_text($func_reg, $list_reg));
+    file_put_contents($file_reg, "<?php\n\n" . gc_function_text($func_reg, $list_reg));
   }
 
   // echo gc_function_text('x', array('x'=>'y', 't'=>'z'));
@@ -294,14 +290,20 @@ function gc_cache_translations() {
   foreach ($countries as $country_code => $country_name) {
     $country_gid = $countries_data[$country_code];
     gc_geonames_get($country_gid);
-    if ($i++ > $limit) break;
+    if ($i++ > $limit) {
+      break;
+    }
     foreach ($regions_data['data'][$country_code] as $region_code => $region_gid) {
       gc_geonames_get($region_gid);
-      if ($i++ > $limit) break 2;
+      if ($i++ > $limit) {
+        break 2;
+      }
       $cities = $cities_data['back'][$region_gid];
       foreach ($cities as $city_gid) {
         gc_geonames_get($city_gid);
-        if ($i++ > $limit) break 3;
+        if ($i++ > $limit) {
+          break 3;
+        }
       }
     }
   }
@@ -332,7 +334,7 @@ function gc_geonames_get($gid) {
   $cid = $prefix . geonames_prepare_query_string($service, $query);
   if (!isset($cache[$cid])) {
 
-    $item = ++$item%3;
+    $item = ++$item % 3;
     $users = array(
       'jnavanephp',
       'skullhole',
@@ -347,9 +349,6 @@ function gc_geonames_get($gid) {
 
   // echo 'cache ';
 }
-
-
-
 
 
 function gc_lang() {
@@ -372,8 +371,8 @@ function gc_lang() {
       $translations = array();
       foreach ($xml->children() as $k => $v) {
         if ("alternateName" == $k) {
-          $lang = (string)$v->attributes();
-          $text = (string)$v;
+          $lang = (string) $v->attributes();
+          $text = (string) $v;
           if ($lang) {
             $translations[$lang] = $text;
           }
@@ -384,29 +383,29 @@ function gc_lang() {
       $translations = array_intersect_key($translations, $langs);
 
       // find the text using gid
-      $gid = (string)$xml->geonameId;
-      $name = false;
+      $gid = (string) $xml->geonameId;
+      $name = FALSE;
 
-      if (false === $name) {
+      if (FALSE === $name) {
         $country_code = array_search($gid, $countries_data);
-        if (false !== $country_code) {
+        if (FALSE !== $country_code) {
           $name = $countries[$country_code];
         }
       }
 
-      if (false === $name) {
+      if (FALSE === $name) {
         if (isset($regions_data['name'][$gid])) {
           $name = $regions_data['name'][$gid];
         }
       }
 
-      if (false === $name) {
+      if (FALSE === $name) {
         if (isset($cities_data['name'][$gid])) {
           $name = $cities_data['name'][$gid];
         }
       }
 
-      if (false !== $name) {
+      if (FALSE !== $name) {
         //
         $lid = db_result(db_query("SELECT ls.lid FROM locales_source ls WHERE ls.textgroup = 'location' AND ls.source = '%s' AND (SELECT COUNT(*) FROM locales_target lt WHERE ls.lid = lt.lid) = 0", $name));
         if ($lid) {
@@ -426,20 +425,25 @@ function gc_lang() {
 function gc_csv() {
   $file = gc_directory('data') . '/translations.txt';
 
-  $f = fopen($file, 'w+'); fclose($f);
+  $f = fopen($file, 'w+');
+  fclose($f);
 
   $list = language_list();
   ksort($list);
-  $en = $list['en']; unset($list['en']);
-  $ru = $list['ru']; unset($list['ru']);
-  $fr = $list['fr']; unset($list['fr']);
-  $es = $list['es']; unset($list['es']);
+  $en = $list['en'];
+  unset($list['en']);
+  $ru = $list['ru'];
+  unset($list['ru']);
+  $fr = $list['fr'];
+  unset($list['fr']);
+  $es = $list['es'];
+  unset($list['es']);
   $list = array(
-    'en' => $en,
-    'ru' => $ru,
-    'fr' => $fr,
-    'es' => $es,
-  ) + $list;
+      'en' => $en,
+      'ru' => $ru,
+      'fr' => $fr,
+      'es' => $es,
+    ) + $list;
 
 
   $line = array('CODE:');
@@ -524,6 +528,7 @@ function gc_csv() {
 
 /**
  * @param $lid
+ *
  * @return array
  */
 function gc_get_translations($lid) {
@@ -542,13 +547,13 @@ function gc_csv_import() {
   $file = gc_directory('data') . '/translations.txt';
   $list = language_list();
 
-  $cols = false;
+  $cols = FALSE;
 
   $f = fopen($file, 'r');
   while ($s = fgets($f)) {
     $line = gc_readtabline($s);
 
-    if (false === $cols) {
+    if (FALSE === $cols) {
       $cols = $line;
       continue;
     }
@@ -574,9 +579,9 @@ function gc_csv_import() {
  *
  */
 function gc_mstapi() {
-//  $text = "qregrh";
-//  $x = mstapi_exec('en', 'ru', array($text));
-//
-//  var_dump($x);
+  //  $text = "qregrh";
+  //  $x = mstapi_exec('en', 'ru', array($text));
+  //
+  //  var_dump($x);
 
 }

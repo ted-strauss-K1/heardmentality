@@ -5,10 +5,10 @@
  *
  * @param $form
  * @param $node
+ *
  * @return array
  */
-function argument_form($form, $node)
-{
+function argument_form($form, $node) {
   $form = array();
 
   $choices = $node->choices;
@@ -17,52 +17,51 @@ function argument_form($form, $node)
   $form['#id'] = 'argument-add-form';
 
   $form['nid'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => $node->nid,
   );
   $form['image'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => '',
-    '#id' => 'image',
+    '#id'    => 'image',
   );
   $form['type'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => 'argument',
-    '#id' => 'argument_type',
+    '#id'    => 'argument_type',
   );
 
   $form['head'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     '#value' => '<table><tr><td class="first">',
   );
   $form['title'] = array(
-    '#type' => 'textarea',
-    '#size' => 70,
-    '#cols' => 10,
-    '#rows' => 3,
+    '#type'      => 'textarea',
+    '#size'      => 70,
+    '#cols'      => 10,
+    '#rows'      => 3,
     '#resizable' => FALSE,
-    '#id' => 'deb_title',
-    '#prefix' => '<div class="argument-form"><label for="deb_title">' . t('What\'s your argument?') . '</label>',
-    '#suffix' => '</div>',
+    '#id'        => 'deb_title',
+    '#prefix'    => '<div class="argument-form"><label for="deb_title">' . t('What\'s your argument?') . '</label>',
+    '#suffix'    => '</div>',
   );
   $form['url'] = array(
-    '#type' => 'textfield',
+    '#type'          => 'textfield',
     '#default_value' => 'http://',
-    '#size' => 60,
-    '#maxlength' => 256,
-    '#id' => 'url',
-    '#attributes' => array('class' => 'embedly'),
-    '#prefix' => '
+    '#size'          => 60,
+    '#maxlength'     => 256,
+    '#id'            => 'url',
+    '#attributes'    => array('class' => 'embedly'),
+    '#prefix'        => '
       <div class="reference-form">
-        <label for="edit-ref-title">' . t('Post a reference') .
-      '<span>(' . t('news, blog, gov, data') . '...).</span>
+        <label for="edit-ref-title">' . t('Post a reference') . '<span>(' . t('news, blog, gov, data') . '...).</span>
         </label>',
-    '#suffix' => '
+    '#suffix'        => '
       </div>
       <span class="error-msg" id="deb-err"></span>',
   );
   $form['asgn_val'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     '#value' => '
       </td>
       <td class="argument-form">
@@ -79,12 +78,12 @@ function argument_form($form, $node)
 
   foreach ($choices as $chid => $choice) {
     $form['option_' . $chid] = array(
-      '#type' => 'select',
-      '#options' => array('-1' => '-', '0' => '-/+', '1' => '+'),
-      '#attributes' => array('class' => 'select-value'),
-      '#id' => 'sup_' . $chid,
+      '#type'          => 'select',
+      '#options'       => array('-1' => '-', '0' => '-/+', '1' => '+'),
+      '#attributes'    => array('class' => 'select-value'),
+      '#id'            => 'sup_' . $chid,
       '#default_value' => 0,
-      '#prefix' => '
+      '#prefix'        => '
         <div class="value-select">
           <table>
             <tr>
@@ -92,50 +91,49 @@ function argument_form($form, $node)
                 <label class="value floatleft">' . $choice['chtext_short'] . '</label>
               </td>
               <td>',
-      '#suffix' => '
+      '#suffix'        => '
               </td>
             </tr>
           </table>
         </div>',
     );
     $form['chorder_' . $choice['index']] = array(
-      '#type' => 'hidden',
+      '#type'  => 'hidden',
       '#value' => $choice['chid']
     );
   }
   $form['clr_div'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     '#value' => '<div class="clr"></div><span class="req_assign">(' . t('Required to set one or more') . ')</span>'
   );
 
   $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Add'),
+    '#type'       => 'submit',
+    '#value'      => t('Add'),
     '#attributes' => array('class' => 'orange-btn'),
-    '#prefix' => '</td></tr></table><div class="add_button">',
-    '#suffix' => theme('sub_loader', 'display:none; float:left; margin-right:17px; position:relative; top:2px;'),
-    '#id' => 'add_argument',
+    '#prefix'     => '</td></tr></table><div class="add_button">',
+    '#suffix'     => theme('sub_loader', 'display:none; float:left; margin-right:17px; position:relative; top:2px;'),
+    '#id'         => 'add_argument',
   );
 
   global $user;
   $allow_resources = ranks_permission(0, $user->uid); // todo has sufficient permissions
   $form['link-arg'] = array(
-    '#type' => 'item',
-    '#value' => $allow_resources ?
-      (l(t('Or post a reference') . '<br><span class="desc">('.t('News, Data, Video, etc.').')</span>', '', array('html' => TRUE,))) : ('<span class="desc">('.t('You need to have higher rank to posts resources').')</span>'),
+    '#type'   => 'item',
+    '#value'  => $allow_resources ? (l(t('Or post a reference') . '<br><span class="desc">(' . t('News, Data, Video, etc.') . ')</span>', '', array('html' => TRUE,))) : ('<span class="desc">(' . t('You need to have higher rank to posts resources') . ')</span>'),
     '#prefix' => '<div class="argument-form">',
     '#suffix' => '</div>',
-    '#id' => 'link_arg',
+    '#id'     => 'link_arg',
   );
   $form['link-ref'] = array(
-    '#type' => 'item',
-    '#value' => l(t('Or write an argument'), '#'),
+    '#type'   => 'item',
+    '#value'  => l(t('Or write an argument'), '#'),
     '#prefix' => '<div class="reference-form">',
     '#suffix' => '</div></div>',
-    '#id' => 'link_ref',
+    '#id'     => 'link_ref',
   );
   $form['linkbox'] = array(
-    '#type' => 'item',
+    '#type'  => 'item',
     '#value' => '<div class="embedly-wrapper"></div><a href="#" class="close"></a>',
   );
 
@@ -147,45 +145,46 @@ function argument_form($form, $node)
  *
  * @param $form
  * @param $nid
+ *
  * @return array
  */
-function reply_form($form, $nid)
-{
+function reply_form($form, $nid) {
   $form = array();
 
   if (!user_is_logged_in()) {
     $form['log_in'] = array(
-      '#type' => 'markup',
-      '#value' => t('Please login to post reply'),
-      '#attributes' => array('class' => theme('user_login_modal_class', true)),
+      '#type'       => 'markup',
+      '#value'      => t('Please login to post reply'),
+      '#attributes' => array('class' => theme('user_login_modal_class', TRUE)),
     );
     return $form;
   }
 
   $form['#attributes'] = array('class' => 'arg-reply-form');
-  $form['#action'] = url('argument/create/comment', array('absolute' => true));
-  $form['comment'] = array('#type' => 'textarea',
-    '#size' => 70,
-    '#cols' => 10,
-    '#id' => 'comment_' . $nid,
-    '#rows' => 3,
+  $form['#action'] = url('argument/create/comment', array('absolute' => TRUE));
+  $form['comment'] = array(
+    '#type'       => 'textarea',
+    '#size'       => 70,
+    '#cols'       => 10,
+    '#id'         => 'comment_' . $nid,
+    '#rows'       => 3,
     '#attributes' => array('class' => 'textarea-input'),
-    '#resizable' => FALSE,
+    '#resizable'  => FALSE,
   );
   $form['reply_submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit reply'),
+    '#type'   => 'submit',
+    '#value'  => t('Submit reply'),
     '#prefix' => '<div align="right">',
     '#suffix' => '</div>' . theme('sub_loader', 'display:none; margin-bottom:-15px; float:left;'),
   );
   $form['content_id'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => $nid,
   );
   $form['support'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => 1,
-    '#name' => 'support',
+    '#name'  => 'support',
   );
 
   return $form;

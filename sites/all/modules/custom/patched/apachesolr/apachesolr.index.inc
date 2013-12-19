@@ -20,7 +20,7 @@
  *
  * @param string $env_id
  *   The machine name of the environment.
- * @param int $limit
+ * @param int    $limit
  *   The number of items to process per queue table. For example, if there are
  *   two entities that are being indexed in this environment and they each have
  *   their own queue table, setting a limit of 50 will send a maximum number of
@@ -47,20 +47,20 @@ function apachesolr_index_entities($env_id, $limit) {
   if ($indexed !== FALSE) {
     $documents_submitted += count($documents);
     $index_position = apachesolr_get_last_index_position($env_id, $entity_type);
-      $max_changed = $index_position['last_changed'];
-      $max_entity_id = $index_position['last_entity_id'];
-      foreach ($rows as $row) {
-        if (!empty($row->status)) {
-          if ($row->changed > $max_changed) {
-            $max_changed = $row->changed;
-          }
-          if ($row->entity_id > $max_entity_id) {
-            $max_entity_id = $row->entity_id;
-          }
+    $max_changed = $index_position['last_changed'];
+    $max_entity_id = $index_position['last_entity_id'];
+    foreach ($rows as $row) {
+      if (!empty($row->status)) {
+        if ($row->changed > $max_changed) {
+          $max_changed = $row->changed;
+        }
+        if ($row->entity_id > $max_entity_id) {
+          $max_entity_id = $row->entity_id;
         }
       }
-      apachesolr_set_last_index_position($env_id, $entity_type, $max_changed, $max_entity_id);
-      apachesolr_set_last_index_updated($env_id, APACHESOLR_REQUEST_TIME);
+    }
+    apachesolr_set_last_index_position($env_id, $entity_type, $max_changed, $max_entity_id);
+    apachesolr_set_last_index_updated($env_id, APACHESOLR_REQUEST_TIME);
   }
   return $documents_submitted;
 }
@@ -170,17 +170,17 @@ function apachesolr_index_status($env_id) {
  * - apachesolr_index_documents_alter()
  *
  * @param stdClass $item
- *   The data returned by the queue table containing:
- *   - entity_id: An integer containing the unique identifier of the entity, for
+ *     The data returned by the queue table containing:
+ *     - entity_id: An integer containing the unique identifier of the entity, for
  *     example a node ID or comment ID.
- *   - entity_type: The unique identifier for the entity, i.e. "node", "file".
- *   - bundle: The machine-readable name of the bundle the passed entity is
+ *     - entity_type: The unique identifier for the entity, i.e. "node", "file".
+ *     - bundle: The machine-readable name of the bundle the passed entity is
  *     associated with.
- *   - status: The "published" status of the entity. The status will also be set
+ *     - status: The "published" status of the entity. The status will also be set
  *     to "0" when entity is deleted but the Apache Solr server is unavailable.
- *   - changed: A timestamp flagging when the entity was last modified.
- * @param string $env_id
- *   The machine name of the environment.
+ *     - changed: A timestamp flagging when the entity was last modified.
+ * @param string   $env_id
+ *     The machine name of the environment.
  *
  * @return array
  *   An associative array of documents that are sent to the Apache Solr server
@@ -200,7 +200,7 @@ function apachesolr_index_entity_to_documents($item, $env_id) {
   // Should indexing take place using anon ( default )
   // or as another user
   $uid = variable_get('apachesolr_index_user', 0);
-  if($uid == 0) {
+  if ($uid == 0) {
     $user = drupal_anonymous_user();
   }
   else {
@@ -290,8 +290,7 @@ function apachesolr_index_send_to_solr($env_id, $documents) {
     if (!$solr->ping(variable_get('apachesolr_ping_timeout', 4))) {
       throw new Exception(t('No Solr instance available during indexing.'));
     }
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     watchdog('Apache Solr', nl2br(check_plain($e->getMessage())), NULL, WATCHDOG_ERROR);
     return FALSE;
   }
@@ -311,15 +310,14 @@ function apachesolr_index_send_to_solr($env_id, $documents) {
       '@count' => count($documents),
     ), WATCHDOG_INFO);
     return count($documents);
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     if (!empty($docs)) {
       foreach ($docs as $doc) {
         $eids[] = $doc->entity_type . '/' . $doc->entity_id;
       }
     }
     watchdog('Apache Solr', 'Indexing failed on one of the following entity ids: @eids <br /> !message', array(
-      '@eids' => implode(', ', $eids),
+      '@eids'    => implode(', ', $eids),
       '!message' => nl2br(strip_tags($e->getMessage())),
     ), WATCHDOG_ERROR);
     return FALSE;
@@ -333,18 +331,18 @@ function apachesolr_index_send_to_solr($env_id, $documents) {
  */
 function apachesolr_index_add_tags_to_document($document, $text) {
   $tags_to_index = variable_get('apachesolr_tags_to_index', array(
-    'h1' => 'tags_h1',
-    'h2' => 'tags_h2_h3',
-    'h3' => 'tags_h2_h3',
-    'h4' => 'tags_h4_h5_h6',
-    'h5' => 'tags_h4_h5_h6',
-    'h6' => 'tags_h4_h5_h6',
-    'u' => 'tags_inline',
-    'b' => 'tags_inline',
-    'i' => 'tags_inline',
+    'h1'     => 'tags_h1',
+    'h2'     => 'tags_h2_h3',
+    'h3'     => 'tags_h2_h3',
+    'h4'     => 'tags_h4_h5_h6',
+    'h5'     => 'tags_h4_h5_h6',
+    'h6'     => 'tags_h4_h5_h6',
+    'u'      => 'tags_inline',
+    'b'      => 'tags_inline',
+    'i'      => 'tags_inline',
     'strong' => 'tags_inline',
-    'em' => 'tags_inline',
-    'a' => 'tags_a'
+    'em'     => 'tags_inline',
+    'a'      => 'tags_a'
   ));
 
   // Strip off all ignored tags.
@@ -372,8 +370,9 @@ function apachesolr_index_add_tags_to_document($document, $text) {
  *
  * @param stdClass $entity
  *   The entity for which we want a document.
- * @param string $entity_type
+ * @param string   $entity_type
  *   The type of entity we're processing.
+ *
  * @return ApacheSolrDocument
  */
 function _apachesolr_index_process_entity_get_document($entity, $entity_type) {
@@ -431,6 +430,7 @@ function _apachesolr_index_process_entity_get_document($entity, $entity_type) {
 
 /**
  * Returns an array of rows from a query based on an indexing environment.
+ *
  * @todo Remove the read only because it is not environment specific
  */
 function apachesolr_index_get_entities_to_index($env_id, $entity_type, $limit) {
@@ -474,7 +474,7 @@ function apachesolr_index_get_entities_to_index($env_id, $entity_type, $limit) {
   while ($record = db_fetch_object($result)) {
     // Check status and status callbacks before sending to the index
     if (is_array($status_callbacks)) {
-      foreach($status_callbacks as $status_callback) {
+      foreach ($status_callbacks as $status_callback) {
         if (is_callable($status_callback)) {
           // by placing $status in front we prevent calling any other callback
           // after one status callback returned false
@@ -529,8 +529,7 @@ function apachesolr_index_delete_index($env_id, $entity_type = NULL, $bundle = N
     }
 
     apachesolr_set_last_index_updated($env_id, APACHESOLR_REQUEST_TIME);
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     watchdog('Apache Solr', nl2br(check_plain($e->getMessage())), NULL, WATCHDOG_ERROR);
   }
 }
@@ -542,7 +541,7 @@ function apachesolr_index_delete_index($env_id, $entity_type = NULL, $bundle = N
  *
  * @param string $env_id
  * @param string $entity_type
- * @param array $excluded_bundles
+ * @param array  $excluded_bundles
  *
  * @return TRUE on success, FALSE on failure.
  */
@@ -563,8 +562,7 @@ function apachesolr_index_delete_bundles($env_id, $entity_type, array $excluded_
       $solr->commit();
     }
     return TRUE;
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     watchdog('Apache Solr', nl2br(check_plain($e->getMessage())), NULL, WATCHDOG_ERROR);
     return FALSE;
   }
@@ -593,8 +591,7 @@ function apachesolr_index_delete_entity_from_index($env_id, $entity_type, $entit
     $solr->deleteByQuery($query);
     apachesolr_set_last_index_updated($env_id, APACHESOLR_REQUEST_TIME);
     return TRUE;
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     watchdog('Apache Solr', nl2br(check_plain($e->getMessage())), NULL, WATCHDOG_ERROR);
     // Don't keep trying queries if they are failing.
     $failed = TRUE;
@@ -629,7 +626,7 @@ function apachesolr_index_mark_for_reindex($env_id, $entity_type = 'node') {
  *   The Solr core for which to index entities.
  * @param string $entity_type
  *   The entity type to index.
- * @param array $bundles
+ * @param array  $bundles
  *   The machine names of the bundles to index.
  *
  * @throws Exception
@@ -652,27 +649,27 @@ function apachesolr_index_set_bundles($env_id, $entity_type, array $bundles) {
 // @see http://drupal.org/node/969180
 if (!function_exists('entity_bundle_label')) {
 
-/**
- * Returns the label of a bundle.
- *
- * @param $entity_type
- *   The entity type; e.g. 'node' or 'user'.
- * @param $entity
- *   The entity for which we want the human-readable label of its bundle.
- *
- * @return
- *   A string with the human-readable name of the bundle, or FALSE if not specified.
- */
-function entity_bundle_label($entity_type, $bundle_name) {
-  static $labels = array();
-  if (empty($labels)) {
-    foreach (content_types() as $bundle => $bundle_info) {
+  /**
+   * Returns the label of a bundle.
+   *
+   * @param $entity_type
+   *   The entity type; e.g. 'node' or 'user'.
+   * @param $entity
+   *   The entity for which we want the human-readable label of its bundle.
+   *
+   * @return
+   *   A string with the human-readable name of the bundle, or FALSE if not specified.
+   */
+  function entity_bundle_label($entity_type, $bundle_name) {
+    static $labels = array();
+    if (empty($labels)) {
+      foreach (content_types() as $bundle => $bundle_info) {
         $labels['node'][$bundle] = !empty($bundle_info['name']) ? $bundle_info['name'] : FALSE;
+      }
     }
+    // Backport only supports node
+    return $labels['node'][$bundle_name];
   }
-  // Backport only supports node
-  return $labels['node'][$bundle_name];
-}
 
 }
 
@@ -686,9 +683,9 @@ function entity_bundle_label($entity_type, $bundle_name) {
  *
  * @param ApacheSolrDocument $document
  *   The Solr document we are building up.
- * @param stdClass $entity
+ * @param stdClass           $entity
  *   The entity we are indexing.
- * @param string $entity_type
+ * @param string             $entity_type
  *   The type of entity we're dealing with.
  */
 function apachesolr_index_node_solr_document(ApacheSolrDocument $document, $node, $entity_type, $env_id) {
@@ -808,7 +805,7 @@ function apachesolr_index_node_bundles_changed($env_id, $existing_bundles, $new_
 /**
  * Reindexing callback for ApacheSolr, for nodes.
  *
- * @param string $env_id
+ * @param string      $env_id
  *   The solr environment
  * @param string|null $bundle
  *   (optional) The bundle type to reindex. If not used
@@ -849,10 +846,7 @@ function apachesolr_index_node_solr_reindex($env_id, $bundle = NULL) {
     }
 
 
-
-
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     throw $e;
   }
 }
@@ -880,8 +874,8 @@ function apachesolr_term_indexing_callback($node, $field_name, $index_key, $fiel
   $field_terms = array();
 
   $vid = $field_info['field']['vid'];
-  foreach($node->taxonomy as $tid => $term) {
-    if($term->vid == $vid) {
+  foreach ($node->taxonomy as $tid => $term) {
+    if ($term->vid == $vid) {
       $field_terms[$tid] = $term;
     }
   }
@@ -904,15 +898,15 @@ function apachesolr_term_indexing_callback($node, $field_name, $index_key, $fiel
         // We would need a separate field if we were to index terms without any
         // hierarchy at all.
         $fields[] = array(
-          'key' => $index_key,
+          'key'   => $index_key,
           'value' => $ancestor->tid,
         );
         $fields[] = array(
-          'key' => 'tid',
+          'key'   => 'tid',
           'value' => $ancestor->tid,
         );
         $fields[] = array(
-          'key' => 'im_vid_' . $ancestor->vid,
+          'key'   => 'im_vid_' . $ancestor->vid,
           'value' => $ancestor->tid,
         );
         $name = apachesolr_clean_text($ancestor->name);
@@ -920,7 +914,7 @@ function apachesolr_term_indexing_callback($node, $field_name, $index_key, $fiel
         // We index each name as a string for cross-site faceting
         // using the vocab name rather than vid in field construction .
         $fields[] = array(
-          'key' => 'sm_vid_' . apachesolr_vocab_name($ancestor->vid),
+          'key'   => 'sm_vid_' . apachesolr_vocab_name($ancestor->vid),
           'value' => $name,
         );
       }
@@ -928,7 +922,7 @@ function apachesolr_term_indexing_callback($node, $field_name, $index_key, $fiel
     // Index the term names into a text field for MLT queries and keyword searching.
     foreach ($vocab_names as $vid => $names) {
       $fields[] = array(
-        'key' => 'tm_vid_' . $vid . '_names',
+        'key'   => 'tm_vid_' . $vid . '_names',
         'value' => implode(' ', $names),
       );
     }
@@ -988,7 +982,7 @@ function apachesolr_fields_default_indexing_callback($entity, $field_name, $inde
     }
     for ($i = 0; $i < count($values); $i++) {
       $fields[] = array(
-        'key' => $index_key,
+        'key'   => $index_key,
         'value' => $function($values[$i]['value']),
       );
     }
@@ -998,7 +992,7 @@ function apachesolr_fields_default_indexing_callback($entity, $field_name, $inde
       $singular_field_info['multiple'] = FALSE;
       $single_key = apachesolr_index_key($singular_field_info);
       $fields[] = array(
-        'key' => $single_key,
+        'key'   => $single_key,
         'value' => $function($values[0]['value']),
       );
     }
@@ -1013,7 +1007,7 @@ function apachesolr_index_content_text_indexing_callback($entity, $field_name, $
     foreach ($entity->$field_name as $field) {
       if ($index_value = (isset($field['safe']) && strlen($field['safe'])) ? $field['safe'] : FALSE) {
         $fields[] = array(
-          'key' => $index_key,
+          'key'   => $index_key,
           'value' => $index_value,
         );
       }
@@ -1029,7 +1023,7 @@ function apachesolr_index_content_numeric_indexing_callback($entity, $field_name
     foreach ($entity->$field_name as $field) {
       if ($index_value = isset($field['value']) ? (int) $field['value'] : FALSE) {
         $fields[] = array(
-          'key' => $index_key,
+          'key'   => $index_key,
           'value' => $index_value,
         );
       }
@@ -1056,7 +1050,7 @@ function apachesolr_date_default_indexing_callback($entity, $field_name, $index_
       if ($date = date_create($value['value'], $tz)) {
         $index_value = apachesolr_date_iso($date->format('U'));
         $fields[] = array(
-          'key' => $index_key,
+          'key'   => $index_key,
           'value' => $index_value,
         );
       }
@@ -1067,7 +1061,7 @@ function apachesolr_date_default_indexing_callback($entity, $field_name, $index_
           $fields[] = array(
             // The value2 element is the end date. Therefore it gets indexed
             // into its own Solr field.
-            'key' => $index_key . '_end',
+            'key'   => $index_key . '_end',
             'value' => $index_value,
           );
         }
@@ -1093,7 +1087,7 @@ function apachesolr_datestamp_default_indexing_callback($entity, $field_name, $i
       if (isset($value['value']) && $value['value'] != 0) {
         $index_value = apachesolr_date_iso($value['value']);
         $fields[] = array(
-          'key' => $index_key,
+          'key'   => $index_key,
           'value' => $index_value,
         );
       }
@@ -1102,7 +1096,7 @@ function apachesolr_datestamp_default_indexing_callback($entity, $field_name, $i
         $fields[] = array(
           // The value2 element is the end date. Therefore it gets indexed
           // into its own Solr field.
-          'key' => $index_key . '_end',
+          'key'   => $index_key . '_end',
           'value' => $index_value,
         );
       }
@@ -1128,13 +1122,13 @@ function apachesolr_nodereference_indexing_callback($entity, $field_name, $index
 
         // Validate that reference is an array
         // If not, skip this element
-        if(!is_array($reference)){
+        if (!is_array($reference)) {
           continue;
         }
 
         if ($index_value = (!empty($reference['nid'])) ? $reference['nid'] : FALSE) {
           $fields[] = array(
-            'key' => $index_key,
+            'key'   => $index_key,
             'value' => $index_value,
           );
         }
@@ -1157,13 +1151,13 @@ function apachesolr_userreference_indexing_callback($entity, $field_name, $index
 
         // Validate that reference is an array
         // If not, skip this element
-        if(!is_array($reference)){
+        if (!is_array($reference)) {
           continue;
         }
 
         if ($index_value = (isset($reference['uid']) && strlen($reference['uid'])) ? $reference['uid'] : FALSE) {
           $fields[] = array(
-            'key' => $index_key,
+            'key'   => $index_key,
             'value' => $index_value,
           );
         }
@@ -1180,18 +1174,18 @@ function apachesolr_userreference_indexing_callback($entity, $field_name, $index
  */
 function apachesolr_add_tags_to_document($document, $text) {
   $tags_to_index = variable_get('apachesolr_tags_to_index', array(
-    'h1' => 'tags_h1',
-    'h2' => 'tags_h2_h3',
-    'h3' => 'tags_h2_h3',
-    'h4' => 'tags_h4_h5_h6',
-    'h5' => 'tags_h4_h5_h6',
-    'h6' => 'tags_h4_h5_h6',
-    'u' => 'tags_inline',
-    'b' => 'tags_inline',
-    'i' => 'tags_inline',
+    'h1'     => 'tags_h1',
+    'h2'     => 'tags_h2_h3',
+    'h3'     => 'tags_h2_h3',
+    'h4'     => 'tags_h4_h5_h6',
+    'h5'     => 'tags_h4_h5_h6',
+    'h6'     => 'tags_h4_h5_h6',
+    'u'      => 'tags_inline',
+    'b'      => 'tags_inline',
+    'i'      => 'tags_inline',
     'strong' => 'tags_inline',
-    'em' => 'tags_inline',
-    'a' => 'tags_a'
+    'em'     => 'tags_inline',
+    'a'      => 'tags_a'
   ));
 
   // Strip off all ignored tags.
@@ -1223,9 +1217,9 @@ function apachesolr_index_node_check_table() {
   // We do not check more nodes than double the cron limit per time
   // Update or delete at most this many in each Solr query.
   $limit = variable_get('apachesolr_cron_mass_limit', 500);
-  $result = db_query("SELECT n.nid, n.status FROM {{$table}} aien INNER JOIN {node} n ON n.nid = aien.entity_id WHERE aien.status <> n.status LIMIT 0, %d", array($limit*2));
+  $result = db_query("SELECT n.nid, n.status FROM {{$table}} aien INNER JOIN {node} n ON n.nid = aien.entity_id WHERE aien.status <> n.status LIMIT 0, %d", array($limit * 2));
   $nodes = array();
-  while($record = db_fetch_array($result)) {
+  while ($record = db_fetch_array($result)) {
     $nodes[$record['nid']] = $record;
   }
 
@@ -1240,9 +1234,9 @@ function apachesolr_index_node_check_table() {
   }
 
   // Check for deleted content that wasn't deleted from the index.
-  $result = db_query("SELECT aien.entity_id FROM {{$table}} aien LEFT JOIN {node} n ON n.nid = aien.entity_id WHERE n.nid = NULL LIMIT 0, %d", array($limit*2));
+  $result = db_query("SELECT aien.entity_id FROM {{$table}} aien LEFT JOIN {node} n ON n.nid = aien.entity_id WHERE n.nid = NULL LIMIT 0, %d", array($limit * 2));
   $nodes = array();
-  while($record = db_fetch_array($result)) {
+  while ($record = db_fetch_array($result)) {
     $nodes[$record['nid']] = $record;
   }
   $node_lists = array_chunk($nodes, $limit, TRUE);
@@ -1261,6 +1255,7 @@ function apachesolr_index_node_check_table() {
  *
  * @param type $nodes
  * @param type $table
+ *
  * @return type
  */
 function apachesolr_index_nodeapi_mass_update($nodes, $table = NULL) {
@@ -1301,8 +1296,7 @@ function apachesolr_index_nodeapi_mass_update($nodes, $table = NULL) {
       db_query($query, array_merge(array(APACHESOLR_REQUEST_TIME), $unpublished_ids));
     }
     return TRUE;
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     watchdog('Apache Solr', nl2br(check_plain($e->getMessage())), NULL, WATCHDOG_ERROR);
     return FALSE;
   }
@@ -1313,6 +1307,7 @@ function apachesolr_index_nodeapi_mass_update($nodes, $table = NULL) {
  *
  * @param type $nodes
  * @param type $table
+ *
  * @return type
  */
 function apachesolr_index_nodeapi_mass_delete($nodes, $table = NULL) {
@@ -1337,11 +1332,10 @@ function apachesolr_index_nodeapi_mass_delete($nodes, $table = NULL) {
     $env_id = apachesolr_default_environment();
     $solr = apachesolr_get_solr($env_id);
     $solr->deleteByMultipleIds($ids);
-    apachesolr_set_last_index_updated($env_id, APACHESOLR_REQUEST_TIME);    // There was no exception, so update the table.
+    apachesolr_set_last_index_updated($env_id, APACHESOLR_REQUEST_TIME); // There was no exception, so update the table.
     db_query("DELETE FROM {{$table}} WHERE entity_id IN " . db_placeholders($nids), $nids);
     return TRUE;
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     watchdog('Apache Solr', nl2br(check_plain($e->getMessage())), NULL, WATCHDOG_ERROR);
     return FALSE;
   }

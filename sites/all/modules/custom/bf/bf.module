@@ -15,24 +15,24 @@ function bf_menu() {
   $menu = array();
 
   $menu['admin/settings/bill-feeds'] = array(
-    'title' => t('Bill Feeds'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('bf_admin_form'),
+    'title'            => t('Bill Feeds'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('bf_admin_form'),
     'access arguments' => array('administer content'),
-    'type' => MENU_NORMAL_ITEM,
+    'type'             => MENU_NORMAL_ITEM,
   );
   $menu['admin/settings/bill-feeds/settings'] = array(
-    'title'             => t('Bill Feeds'),
-    'type'              => MENU_DEFAULT_LOCAL_TASK,
-    'weight'            => -10,
+    'title'  => t('Bill Feeds'),
+    'type'   => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
   );
   $menu['admin/settings/bill-feeds/batch'] = array(
-    'title'             => t('Batch Update'),
-    'page callback'     => 'drupal_get_form',
-    'page arguments'    => array('bf_admin_batch_form'),
-    'access arguments'  => array('administer content'),
-    'type'              => MENU_LOCAL_TASK,
-    'weight'            => -9,
+    'title'            => t('Batch Update'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('bf_admin_batch_form'),
+    'access arguments' => array('administer content'),
+    'type'             => MENU_LOCAL_TASK,
+    'weight'           => -9,
   );
 
   return $menu;
@@ -45,8 +45,8 @@ function bf_admin_form() {
   $form = array();
 
   $form[BILL_FEEDS_PARAM] = array(
-    '#type' => 'textfield',
-    '#title' => t('Data Source URL'),
+    '#type'          => 'textfield',
+    '#title'         => t('Data Source URL'),
     '#default_value' => BILL_FEEDS_URL,
   );
 
@@ -72,10 +72,10 @@ function bf_get_list() {
   if (preg_match_all('/<a\s+href="([^\"]+.xml)"\s*>.*<\/a>\s*(\d+-[A-Z][a-z]+-\d+\s\d+\:\d+)\s*/', $data, $m)) {
     foreach ($m[0] as $i => $full) {
       $list[] = array(
-        'url' => BILL_FEEDS_URL.'/'.$m[1][$i],
+        'url'     => BILL_FEEDS_URL . '/' . $m[1][$i],
         'timeout' => strtotime($m[2][$i])
       );
-//      bf_issue(BILL_FEEDS_URL.'/'.$m[1][$i], strtotime($m[2][$i]));
+      //      bf_issue(BILL_FEEDS_URL.'/'.$m[1][$i], strtotime($m[2][$i]));
     }
   }
   return $list;
@@ -97,10 +97,10 @@ function bf_process_list($list) {
 /**
  * Process given document by url and its modification date
  *
- * @param $url
+ * @param      $url
  * @param bool $timestamp
  */
-function bf_issue($url, $timestamp = false) {
+function bf_issue($url, $timestamp = FALSE) {
   # if no timestamp given
   if (!$timestamp) {
     $timestamp = time();
@@ -113,14 +113,14 @@ function bf_issue($url, $timestamp = false) {
   return;
 
   # bad request
-  if (false === $data) {
+  if (FALSE === $data) {
     return;
   }
 
   # if nid is set then it's an update
   if (0 < $data['nid']) {
     if ($data['timestamp'] < $timestamp) {
-      $content = bf_get_feed($url, $timestamp, true);
+      $content = bf_get_feed($url, $timestamp, TRUE);
       $nid = bf_issue_update($content, $data['nid']);
       if ($nid) {
         bf_feed_nid($url, $nid);
@@ -141,6 +141,7 @@ function bf_issue($url, $timestamp = false) {
  * Create a Bill Feed issue
  *
  * @param $data
+ *
  * @return mixed
  */
 function bf_issue_create($data, $url = '') {
@@ -162,12 +163,12 @@ function bf_issue_create($data, $url = '') {
   $node->tnid = 0;
   $node->translate = 0;
   $node->format = 0;
-//  $node->name = $account->name;
-//  $node->picture = $account->picture;
+  //  $node->name = $account->name;
+  //  $node->picture = $account->picture;
   $node->body = '';
   $node->choice = array();
   $node->field_arguments = array();
-  $node->allowsuggestions = false;
+  $node->allowsuggestions = FALSE;
   $node->taxonomy = array();
 
   // active poll
@@ -185,7 +186,7 @@ function bf_issue_create($data, $url = '') {
   $statuses = $doc->getElementsByTagName('status');
   foreach ($statuses as $status) {
     foreach ($status->childNodes as $status_value) {
-      if (preg_match('/vote/', "".$status_value->tagName)) {
+      if (preg_match('/vote/', "" . $status_value->tagName)) {
         return -1;
       }
     }
@@ -200,9 +201,11 @@ function bf_issue_create($data, $url = '') {
   $title = '';
   if (isset($titles['popular'])) {
     $title = $titles['popular'][0];
-  } elseif (isset($titles['short'])) {
+  }
+  elseif (isset($titles['short'])) {
     $title = $titles['short'][0];
-  } else {
+  }
+  else {
     foreach ($titles as $list) {
       foreach ($list as $item) {
         $title = $item;
@@ -226,26 +229,26 @@ function bf_issue_create($data, $url = '') {
   $tids = array();
   foreach ($doc->getElementsByTagName('term') as $value) {
     $term = bf_term_by_name($value->getAttribute('name'));
-    $node->taxonomy[ $term->tid ] = $term;
+    $node->taxonomy[$term->tid] = $term;
     $tids[] = $term->tid;
   }
 
   # choices
   $node->choice[] = array(
-    'chtext' => 'Yay',
+    'chtext'  => 'Yay',
     'chvotes' => 0,
     'chorder' => 0,
   );
   $node->choice[] = array(
-    'chtext' => 'Nay',
+    'chtext'  => 'Nay',
     'chvotes' => 0,
     'chorder' => 0,
   );
 
   # arguments
-//    $node->field_arguments[] = array(
-//      'nid' => '',
-//    );
+  //    $node->field_arguments[] = array(
+  //      'nid' => '',
+  //    );
 
   # save
   node_save($node);
@@ -257,7 +260,7 @@ function bf_issue_create($data, $url = '') {
 }
 
 /**
- * @param $url
+ * @param      $url
  * @param bool $timestamp
  */
 function bf_issue_update($data, $nid) {
@@ -267,7 +270,9 @@ function bf_issue_update($data, $nid) {
   $doc = new DOMDocument();
   $doc->loadXML($data);
 
-  if (!$doc) return false;
+  if (!$doc) {
+    return FALSE;
+  }
 
   # terms
   $tids_old = array();
@@ -278,7 +283,7 @@ function bf_issue_update($data, $nid) {
   $tids = array();
   foreach ($doc->getElementsByTagName('term') as $value) {
     $term = bf_term_by_name($value->getAttribute('name'));
-    $node->taxonomy[ $term->tid ] = $term;
+    $node->taxonomy[$term->tid] = $term;
     if (!in_array($term->tid, $tids_old)) {
       $tids[] = $term->tid;
     }
@@ -295,14 +300,15 @@ function bf_issue_update($data, $nid) {
  *
  * @param $url
  * @param $timestamp - update date of the document
+ *
  * @return bool
  */
-function bf_get_feed($url, $timestamp, $force = false) {
+function bf_get_feed($url, $timestamp, $force = FALSE) {
   # cache?
   if ($force || ($data = db_fetch_object(db_query("SELECT * FROM {bill_feeds} WHERE url = '%s'", $url)))) {
     return array(
-      'content' => $data->content,
-      'nid' => $data->nid,
+      'content'   => $data->content,
+      'nid'       => $data->nid,
       'timestamp' => strtotime($data->document_date),
     );
   }
@@ -317,13 +323,11 @@ function bf_get_feed($url, $timestamp, $force = false) {
     # data
     $data = $result->data;
     # cache!
-    db_query("REPLACE INTO {bill_feeds} SET url = '%s', content = '%s', cache_date = '%s', document_date = '%s'",
-      $url, $data, date("y-m-d H:i:s"), date("y-m-d H:i:s", $timestamp)
-    );
+    db_query("REPLACE INTO {bill_feeds} SET url = '%s', content = '%s', cache_date = '%s', document_date = '%s'", $url, $data, date("y-m-d H:i:s"), date("y-m-d H:i:s", $timestamp));
     # output
     return array(
-      'content' => $data,
-      'nid' => 0,
+      'content'   => $data,
+      'nid'       => 0,
       'timestamp' => $timestamp,
     );
   }
@@ -338,7 +342,6 @@ function bf_feed_nid($url, $nid) {
 }
 
 
-
 /**
  * Get Bill Feeds root term
  *
@@ -346,13 +349,14 @@ function bf_feed_nid($url, $nid) {
  */
 function bf_term() {
   $terms = taxonomy_get_term_by_name('Bill Feeds');
-  return $terms ? $terms[0] : false;
+  return $terms ? $terms[0] : FALSE;
 }
 
 /**
  * Get Bill Feeds term by name (or create it)
  *
  * @param $name
+ *
  * @return array
  */
 function bf_term_by_name($name) {
@@ -369,10 +373,11 @@ function bf_term_by_name($name) {
   # get the term
   if (isset($root_term_children[$name])) {
     return $root_term_children[$name];
-  } else {
+  }
+  else {
     $term = array(
-      'name' => $name,
-      'vid' => $root_term->vid,
+      'name'   => $name,
+      'vid'    => $root_term->vid,
       'parent' => $root_term->tid,
     );
     taxonomy_save_term($term);
@@ -387,7 +392,7 @@ function bf_admin_batch_form() {
   $form = array();
 
   $form['submit'] = array(
-    '#type' => 'submit',
+    '#type'  => 'submit',
     '#value' => t('Go'),
   );
 
@@ -409,14 +414,14 @@ function bf_admin_batch_form_submit() {
 
   // maybe we could use a batch process
   $batch = array(
-    'operations' => array(
+    'operations'       => array(
       array('bf_batch', array()),
     ),
-    'finished' => 'bf_batch_finished',
-    'title' => t('Processing Bill Feeds'),
-    'init_message' => t('Bill Feeds will be loaded.'),
+    'finished'         => 'bf_batch_finished',
+    'title'            => t('Processing Bill Feeds'),
+    'init_message'     => t('Bill Feeds will be loaded.'),
     'progress_message' => t('Processed @current out of @total.'),
-    'error_message' => t('Processing has encountered an error.'),
+    'error_message'    => t('Processing has encountered an error.'),
   );
   batch_set($batch);
 }
@@ -436,12 +441,12 @@ function bf_batch(&$context) {
     $context['sandbox']['max'] = count($list);
   }
 
-  for ($i=$context['sandbox']['progress']; $i<$context['sandbox']['max']; $i++) {
+  for ($i = $context['sandbox']['progress']; $i < $context['sandbox']['max']; $i++) {
     $item = $list[$i];
 
     // todo process
 
-    $context['results'][] = t("Processed feed").': ' . $item['url'];
+    $context['results'][] = t("Processed feed") . ': ' . $item['url'];
     $context['sandbox']['progress']++;
   }
 
@@ -459,15 +464,18 @@ function bf_batch(&$context) {
 function bf_batch_finished($success, $results, $operations) {
   if ($success) {
     // Here we do something meaningful with the results.
-    $message = count($results) .' processed.';
-    $message .= theme('item_list', $results);  // D6 syntax
+    $message = count($results) . ' processed.';
+    $message .= theme('item_list', $results); // D6 syntax
     drupal_set_message($message);
   }
   else {
     // An error occurred.
     // $operations contains the operations that remained unprocessed.
     $error_operation = reset($operations);
-    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array('%error_operation' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
+    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array(
+      '%error_operation' => $error_operation[0],
+      '@arguments'       => print_r($error_operation[1], TRUE)
+    ));
     drupal_set_message($message, 'error');
   }
 }

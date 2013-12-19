@@ -18,16 +18,16 @@ class location_views_handler_filter_proximity extends views_handler_filter {
 
     $options['value'] = array(
       'default' => array(
-        'latitude' => '',
-        'longitude' => '',
-        'postal_code' => '',
-        'country' => '',
-        'php_code' => '',
-        'nid_arg' => '',
-        'nid_loc_field' => 'node',
-        'uid_arg' => '',
+        'latitude'        => '',
+        'longitude'       => '',
+        'postal_code'     => '',
+        'country'         => '',
+        'php_code'        => '',
+        'nid_arg'         => '',
+        'nid_loc_field'   => 'node',
+        'uid_arg'         => '',
         'search_distance' => 100,
-        'search_units' => 'mile',
+        'search_units'    => 'mile',
       ),
     );
 
@@ -43,7 +43,7 @@ class location_views_handler_filter_proximity extends views_handler_filter {
 
   function operator_options() {
     return array(
-      'mbr' => t('Proximity (Rectangular)'),
+      'mbr'  => t('Proximity (Rectangular)'),
       'dist' => t('Proximity (Circular)'),
     );
   }
@@ -52,36 +52,36 @@ class location_views_handler_filter_proximity extends views_handler_filter {
     parent::expose_form_left($form, $form_state);
     // @@@ Todo: autohide this.
     $form['expose']['gmap_macro'] = array(
-      '#parents' => array('options', 'gmap_macro'),
-      '#type' => 'textfield',
-      '#title' => t('GMap macro'),
-      '#description' => t('The macro to use for the Latitude / Longitude map, if applicable.'),
+      '#parents'       => array('options', 'gmap_macro'),
+      '#type'          => 'textfield',
+      '#title'         => t('GMap macro'),
+      '#description'   => t('The macro to use for the Latitude / Longitude map, if applicable.'),
       '#default_value' => $this->options['gmap_macro'],
     );
 
     $form['expose']['user_location_choose'] = array(
-      '#type' => 'checkbox',
-      '#title' => t("Allow choice of user location"),
+      '#type'          => 'checkbox',
+      '#title'         => t("Allow choice of user location"),
       '#default_value' => $this->options['expose']['user_location_choose'],
-      '#description' => t("If checked and using a user location origin, the user will be able to choose which of their locations to use.  Otherwise their first location will be used."),
+      '#description'   => t("If checked and using a user location origin, the user will be able to choose which of their locations to use.  Otherwise their first location will be used."),
     );
   }
 
   function value_form(&$form, &$form_state) {
     $form['origin'] = array(
-      '#type' => 'select',
-      '#title' => t('Origin'),
-      '#options' => array(
-        'user' => t("User's Latitude / Longitude (blank if unset)"),
-        'hybrid' => t("User's Latitude / Longitude (fall back to static if unset)"),
-        'static' => t('Static  Latitude / Longitude'),
-        'postal' => t('Postal Code / Country'),
+      '#type'          => 'select',
+      '#title'         => t('Origin'),
+      '#options'       => array(
+        'user'           => t("User's Latitude / Longitude (blank if unset)"),
+        'hybrid'         => t("User's Latitude / Longitude (fall back to static if unset)"),
+        'static'         => t('Static  Latitude / Longitude'),
+        'postal'         => t('Postal Code / Country'),
         'postal_default' => t('Postal Code (assume default country)'),
-        'php' => t('Use PHP code to determine latitude/longitude'),
-        'nid_arg' => t("Node's Latitude / Longitude from views nid argument"),
-        'uid_arg' => t("User's Latitude / Longitude from views uid argument"),
+        'php'            => t('Use PHP code to determine latitude/longitude'),
+        'nid_arg'        => t("Node's Latitude / Longitude from views nid argument"),
+        'uid_arg'        => t("User's Latitude / Longitude from views uid argument"),
       ),
-      '#description' => t('This will be the way the latitude/longitude of origin is determined.  If this filter is exposed, this will determine the default values. NOTE: The PHP code, nid argument and uid argument options will not be available when the filter is exposed and the use of map is only available when the filter is exposed.'),
+      '#description'   => t('This will be the way the latitude/longitude of origin is determined.  If this filter is exposed, this will determine the default values. NOTE: The PHP code, nid argument and uid argument options will not be available when the filter is exposed and the use of map is only available when the filter is exposed.'),
       '#default_value' => $this->options['origin'] ? $this->options['origin'] : 'user',
     );
     if (module_exists('gmap')) {
@@ -112,99 +112,99 @@ class location_views_handler_filter_proximity extends views_handler_filter {
     );
 
     $form['value']['latitude'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Latitude'),
+      '#type'          => 'textfield',
+      '#title'         => t('Latitude'),
       '#default_value' => $this->value['latitude'],
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-options-origin' => array('hybrid', 'static', 'latlon_gmap')),
-      '#weight' => 1,
+      '#process'       => array('views_process_dependency'),
+      '#dependency'    => array('edit-options-origin' => array('hybrid', 'static', 'latlon_gmap')),
+      '#weight'        => 1,
     );
     $form['value']['longitude'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Longitude'),
+      '#type'          => 'textfield',
+      '#title'         => t('Longitude'),
       '#default_value' => $this->value['longitude'],
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-options-origin' => array('hybrid', 'static', 'latlon_gmap')),
-      '#weight' => 2,
+      '#process'       => array('views_process_dependency'),
+      '#dependency'    => array('edit-options-origin' => array('hybrid', 'static', 'latlon_gmap')),
+      '#weight'        => 2,
     );
 
     $form['value']['postal_code'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Postal code'),
+      '#type'          => 'textfield',
+      '#title'         => t('Postal code'),
       '#default_value' => $this->value['postal_code'],
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-options-origin' => array('postal', 'postal_default')),
-      '#weight' => 3,
+      '#process'       => array('views_process_dependency'),
+      '#dependency'    => array('edit-options-origin' => array('postal', 'postal_default')),
+      '#weight'        => 3,
     );
     $form['value']['country'] = array(
-      '#type' => 'select',
-      '#title' => t('Country'),
-      '#options' => array('' => '') + location_get_iso3166_list(),
+      '#type'          => 'select',
+      '#title'         => t('Country'),
+      '#options'       => array('' => '') + location_get_iso3166_list(),
       '#default_value' => $this->value['country'],
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-options-origin' => array('postal')),
-      '#weight' => 4,
+      '#process'       => array('views_process_dependency'),
+      '#dependency'    => array('edit-options-origin' => array('postal')),
+      '#weight'        => 4,
     );
 
     $form['value']['php_code'] = array(
-      '#type' => 'textarea',
-      '#title' => t('PHP code for latitude, longitude'),
+      '#type'          => 'textarea',
+      '#title'         => t('PHP code for latitude, longitude'),
       '#default_value' => $this->value['php_code'],
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-options-origin' => array('php')),
-      '#description' => t("Enter PHP code that returns a latitude/longitude.  Do not use &lt;?php ?&gt;. You must return only an array with float values set for the 'latitude' and 'longitude' keys."),
-      '#weight' => 5,
+      '#process'       => array('views_process_dependency'),
+      '#dependency'    => array('edit-options-origin' => array('php')),
+      '#description'   => t("Enter PHP code that returns a latitude/longitude.  Do not use &lt;?php ?&gt;. You must return only an array with float values set for the 'latitude' and 'longitude' keys."),
+      '#weight'        => 5,
     );
 
     list($nid_argument_options, $uid_argument_options) = location_views_proximity_get_argument_options($this->view);
     $nid_loc_field_options = location_views_proximity_get_location_field_options();
 
     $form['value']['nid_arg'] = array(
-      '#type' => 'select',
-      '#title' => t('Node ID argument to use'),
-      '#options' => $nid_argument_options,
+      '#type'          => 'select',
+      '#title'         => t('Node ID argument to use'),
+      '#options'       => $nid_argument_options,
       '#default_value' => $this->value['nid_arg'],
-      '#description' => empty($nid_argument_options) ? t("Select which of the view's arguments to use as the node ID.  The latitude / longitude of the first location of that node will be used as the origin. Use the 'Global: Null' argument if you don't want to also restrict results to that node ID. You must have added arguments to the view to use this option.") : t("Select which of the view's arguments to use as the node ID.  The latitude / longitude of the first location of that node will be used as the origin. Use the 'Global: Null' argument if you don't want to also restrict results to that node ID."),
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-options-origin' => array('nid_arg')),
-      '#weight' => 6,
+      '#description'   => empty($nid_argument_options) ? t("Select which of the view's arguments to use as the node ID.  The latitude / longitude of the first location of that node will be used as the origin. Use the 'Global: Null' argument if you don't want to also restrict results to that node ID. You must have added arguments to the view to use this option.") : t("Select which of the view's arguments to use as the node ID.  The latitude / longitude of the first location of that node will be used as the origin. Use the 'Global: Null' argument if you don't want to also restrict results to that node ID."),
+      '#process'       => array('views_process_dependency'),
+      '#dependency'    => array('edit-options-origin' => array('nid_arg')),
+      '#weight'        => 6,
     );
     $form['value']['nid_loc_field'] = array(
-      '#type' => 'select',
-      '#title' => t('Location to use'),
-      '#options' => $nid_loc_field_options,
+      '#type'          => 'select',
+      '#title'         => t('Location to use'),
+      '#options'       => $nid_loc_field_options,
       '#default_value' => $this->value['nid_loc_field'],
-      '#description' => t("Select which of the node's locations to use as the origin.  Either the node locations or a CCK location field.  If the location supports multiple entries the first one will be used."),
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-options-origin' => array('nid_arg')),
-      '#weight' => 7,
+      '#description'   => t("Select which of the node's locations to use as the origin.  Either the node locations or a CCK location field.  If the location supports multiple entries the first one will be used."),
+      '#process'       => array('views_process_dependency'),
+      '#dependency'    => array('edit-options-origin' => array('nid_arg')),
+      '#weight'        => 7,
     );
     $form['value']['uid_arg'] = array(
-      '#type' => 'select',
-      '#title' => t('User ID argument to use'),
-      '#options' => $uid_argument_options,
+      '#type'          => 'select',
+      '#title'         => t('User ID argument to use'),
+      '#options'       => $uid_argument_options,
       '#default_value' => $this->value['uid_arg'],
-      '#description' => empty($uid_argument_options) ? t("Select which of the view's arguments to use as the user ID.  The latitude / longitude of the first location of that user will be used as the origin. Use the 'Global: Null' argument if you don't want to also restrict results to that user ID. You must have added arguments to the view to use this option.") : t("Select which of the view's arguments to use as the user ID.  The latitude / longitude of the first location of that user will be used as the origin. Use the 'Global: Null' argument if you don't want to also restrict results to that user ID."),
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-options-origin' => array('uid_arg')),
-      '#weight' => 8,
+      '#description'   => empty($uid_argument_options) ? t("Select which of the view's arguments to use as the user ID.  The latitude / longitude of the first location of that user will be used as the origin. Use the 'Global: Null' argument if you don't want to also restrict results to that user ID. You must have added arguments to the view to use this option.") : t("Select which of the view's arguments to use as the user ID.  The latitude / longitude of the first location of that user will be used as the origin. Use the 'Global: Null' argument if you don't want to also restrict results to that user ID."),
+      '#process'       => array('views_process_dependency'),
+      '#dependency'    => array('edit-options-origin' => array('uid_arg')),
+      '#weight'        => 8,
     );
 
     $form['value']['search_distance'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Distance'),
+      '#type'          => 'textfield',
+      '#title'         => t('Distance'),
       '#default_value' => $this->value['search_distance'],
-      '#weight' => 9,
+      '#weight'        => 9,
     );
 
     $form['value']['search_units'] = array(
-      '#type' => 'select',
-      '#options' => array(
+      '#type'          => 'select',
+      '#options'       => array(
         'mile' => t('Miles'),
-        'km' => t('Kilometers'),
+        'km'   => t('Kilometers'),
       ),
       '#default_value' => $this->value['search_units'],
-      '#weight' => 10,
+      '#weight'        => 10,
     );
   }
 
@@ -224,41 +224,46 @@ class location_views_handler_filter_proximity extends views_handler_filter {
       // Bad things happen if we try to show a gmap in the views live preview.
       if ($form_state['post']['live_preview']) {
         $form[$key]['proximity_map'] = array(
-          '#value' => t('Gmap location selection is not available during live preview.'),
+          '#value'  => t('Gmap location selection is not available during live preview.'),
           '#weight' => 0,
         );
       }
       else {
         $form[$key]['proximity_map'] = array(
-          '#value' => gmap_set_location($this->options['gmap_macro'], $form[$key], array('latitude' => 'latitude', 'longitude' => 'longitude')),
+          '#value'  => gmap_set_location($this->options['gmap_macro'], $form[$key], array(
+            'latitude'  => 'latitude',
+            'longitude' => 'longitude'
+          )),
           '#weight' => 0,
         );
       }
     }
-    else if (($origin == 'user' || $origin == 'hybrid') && $this->options['expose']['user_location_choose']) {
-      global $user;
-      $user_locations = isset($user->locations) ? $user->locations : location_load_locations($user->uid, 'uid');
-      $location_options = array();
-      if (!empty($user_locations)) {
-        foreach ($user_locations as $i => $location) {
-          if (isset($location['latitude']) && isset($location['longitude'])) {
-            if (!empty($location['name'])) {
-              $location_options[$i] = t(check_plain($location['name']));
-            }
-            else {
-              $location_options[$i] = t('Location #@num', array('@num' => $i + 1));
+    else {
+      if (($origin == 'user' || $origin == 'hybrid') && $this->options['expose']['user_location_choose']) {
+        global $user;
+        $user_locations = isset($user->locations) ? $user->locations : location_load_locations($user->uid, 'uid');
+        $location_options = array();
+        if (!empty($user_locations)) {
+          foreach ($user_locations as $i => $location) {
+            if (isset($location['latitude']) && isset($location['longitude'])) {
+              if (!empty($location['name'])) {
+                $location_options[$i] = t(check_plain($location['name']));
+              }
+              else {
+                $location_options[$i] = t('Location #@num', array('@num' => $i + 1));
+              }
             }
           }
         }
-      }
 
-      $form[$key]['user_location_delta'] = array(
-        '#type' => 'select',
-        '#title' => t('Location'),
-        '#options' => $location_options,
-        '#description' => t('Select which of your locations to use.'),
-        '#weight' => 0,
-      );
+        $form[$key]['user_location_delta'] = array(
+          '#type'        => 'select',
+          '#title'       => t('Location'),
+          '#options'     => $location_options,
+          '#description' => t('Select which of your locations to use.'),
+          '#weight'      => 0,
+        );
+      }
     }
 
     // Remove unneeded fields when exposing the form.
@@ -321,7 +326,7 @@ class location_views_handler_filter_proximity extends views_handler_filter {
 
     if ($this->operator == 'dist') {
       // Add radius check.
-      $this->query->add_where($this->options['group'], earth_distance_sql($lon, $lat, $this->table_alias) .' < %f', $distance_meters);
+      $this->query->add_where($this->options['group'], earth_distance_sql($lon, $lat, $this->table_alias) . ' < %f', $distance_meters);
     }
   }
 }

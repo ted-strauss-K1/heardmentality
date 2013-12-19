@@ -13,10 +13,10 @@
       }
     }
     var geomap = new google.visualization.GeoChart(document.getElementById('visualization'));
-    geomap.draw(data, {width:320, height:190, showLegend:true});
+    geomap.draw(data, {width: 320, height: 190, showLegend: true});
   }
 
-  google.load('visualization', '1', {packages:['geochart']});
+  google.load('visualization', '1', {packages: ['geochart']});
   google.setOnLoadCallback(init_heatmap);
 </script>
 <div id="visualization" style="cursor:pointer;"></div>
@@ -29,9 +29,10 @@
       <span class="count-title"><a href="javascript:void(0);"
                                    name="<?php print $type; ?>"><?php print($title); ?></a></span>
         <span class="fast_counter" id="fast_counter_count_<?php print $type; ?>" style="display:none;"><?php
-          $name = 'count_' . $type; print $$name; ?>
+          $name = 'count_' . $type;
+          print $$name; ?>
         </span>
     </li>
     <?php if ($i == 2) : ?><br><?php endif; ?>
-    <?php endforeach; ?>
+  <?php endforeach; ?>
 </ul>

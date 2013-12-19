@@ -7,37 +7,36 @@
  *
  * @return array
  */
-function content_translate_rules_action_info()
-{
+function content_translate_rules_action_info() {
   return array(
     'content_translate_node' => array(
-      'label' => t('Translate the node to other languages'),
+      'label'     => t('Translate the node to other languages'),
       'arguments' => array(
         'node' => array('type' => 'node', 'label' => t('Node')),
       ),
-      'module' => 'Content Translation',
+      'module'    => 'Content Translation',
     ),
   );
 }
 
 /**
- * @param $node
+ * @param       $node
  * @param array $settings
  */
-function content_translate_node(&$node, $settings = array())
-{
+function content_translate_node(&$node, $settings = array()) {
   set_time_limit(0);
 
   // skip re-runs
   global $content_translation;
   if (!$content_translation) {
     $content_translation = $node->nid;
-  } else {
+  }
+  else {
     return;
   }
 
   # get list of available languages
-  $langs = i18n_node_language_list($node, true);
+  $langs = i18n_node_language_list($node, TRUE);
   # run translations
   foreach ($langs as $lang => $name) {
     if (($lang != $node->language) && ($lang != "")) {
@@ -46,5 +45,5 @@ function content_translate_node(&$node, $settings = array())
   }
 
   // stop skipping re-runs
-  $content_translation = false;
+  $content_translation = FALSE;
 }

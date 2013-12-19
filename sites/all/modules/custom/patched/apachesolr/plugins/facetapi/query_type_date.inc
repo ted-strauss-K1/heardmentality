@@ -135,7 +135,7 @@ class ApacheSolrFacetapiDate extends FacetapiQueryTypeDate implements FacetapiQu
       // If there is a previous item, there is a parent, uses a reference so the
       // arrays are populated when they are updated.
       if (NULL !== $parent) {
-        $build[$parent]['#item_children'][$value] = &$build[$value];
+        $build[$parent]['#item_children'][$value] = & $build[$value];
         $build[$value]['#item_parents'][$parent] = $parent;
       }
 
@@ -174,7 +174,7 @@ class ApacheSolrFacetapiDate extends FacetapiQueryTypeDate implements FacetapiQu
           $new_value = '[' . $from . ' TO ' . $to . ']';
           $build[$new_value] = array('#count' => $count, '#active' => 0);
           if (NULL !== $parent) {
-            $build[$parent]['#item_children'][$new_value] = &$build[$new_value];
+            $build[$parent]['#item_children'][$new_value] = & $build[$new_value];
             $build[$new_value]['#item_parents'][$parent] = $parent;
           }
         }

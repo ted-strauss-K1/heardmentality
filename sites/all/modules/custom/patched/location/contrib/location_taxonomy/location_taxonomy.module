@@ -20,12 +20,12 @@ function location_taxonomy_taxonomy($op, $type, $array = NULL) {
       case 'insert':
       case 'update':
         if (isset($array['location_settings'])) {
-          variable_set('location_taxonomy_'. $array['vid'], $array['location_settings']);
+          variable_set('location_taxonomy_' . $array['vid'], $array['location_settings']);
         }
         break;
 
       case 'delete';
-        variable_del('location_taxonomy_'. $array['vid']);
+        variable_del('location_taxonomy_' . $array['vid']);
         break;
     }
   }
@@ -33,14 +33,14 @@ function location_taxonomy_taxonomy($op, $type, $array = NULL) {
     switch ($op) {
       case 'insert':
       case 'update':
-        $settings = variable_get('location_taxonomy_'. $array['vid'], FALSE);
+        $settings = variable_get('location_taxonomy_' . $array['vid'], FALSE);
         if ($settings && $settings['multiple']['max']) {
-          location_save_locations($array['locations'], array('genid' => 'taxonomy:'. $array['tid']));
+          location_save_locations($array['locations'], array('genid' => 'taxonomy:' . $array['tid']));
         }
         break;
       case 'delete':
         $locations = array();
-        location_save_locations($locations, array('genid' => 'taxonomy:'. $array['tid']));
+        location_save_locations($locations, array('genid' => 'taxonomy:' . $array['tid']));
         break;
     }
   }
@@ -53,17 +53,17 @@ function location_taxonomy_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'taxonomy_form_vocabulary') {
     $settings = array();
     if (isset($form['vid'])) {
-      $settings = variable_get('location_taxonomy_'. $form['vid']['#value'], array());
+      $settings = variable_get('location_taxonomy_' . $form['vid']['#value'], array());
     }
     $form['location_settings'] = location_settings($settings);
   }
   if ($form_id == 'taxonomy_form_term') {
     $vid = $form['vid']['#value'];
-    $settings = variable_get('location_taxonomy_'. $vid, FALSE);
+    $settings = variable_get('location_taxonomy_' . $vid, FALSE);
     if ($settings && $settings['multiple']['max']) {
       $locations = array();
       if (isset($form['tid']) && $form['tid']['#value']) {
-        $locations = location_load_locations('taxonomy:'. $form['tid']['#value'], 'genid');
+        $locations = location_load_locations('taxonomy:' . $form['tid']['#value'], 'genid');
       }
       $form['locations'] = location_form($settings, $locations);
     }
@@ -79,7 +79,7 @@ function location_taxonomy_form_alter(&$form, &$form_state, $form_id) {
     }
     if (isset($form['delete'])) {
       if (isset($form['delete']['#weight'])) {
-        $form['delete']['#weight']+=2;
+        $form['delete']['#weight'] += 2;
       }
       else {
         $form['delete']['#weight'] = 2;
@@ -97,7 +97,7 @@ function location_taxonomy_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 =
       foreach ($obj as $k => $v) {
         if (substr($v['genid'], 0, 9) == 'taxonomy:') {
           $data = explode(':', $v['genid']);
-          $obj[$k]['href'] = 'taxonomy/term/'. $data[1];
+          $obj[$k]['href'] = 'taxonomy/term/' . $data[1];
           $obj[$k]['title'] = t('Term location');
           $obj[$k]['type'] = t('Taxonomy location');
         }

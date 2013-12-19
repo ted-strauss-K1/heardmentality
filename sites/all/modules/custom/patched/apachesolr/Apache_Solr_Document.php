@@ -27,24 +27,23 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright Copyright 2007-2009 Conduit Internet Technologies, Inc. (http://conduit-it.com)
- * @license New BSD (http://solr-php-client.googlecode.com/svn/trunk/COPYING)
- * @version $Id: Document.php 15 2009-08-04 17:53:08Z donovan.jimenez $
+ * @copyright  Copyright 2007-2009 Conduit Internet Technologies, Inc. (http://conduit-it.com)
+ * @license    New BSD (http://solr-php-client.googlecode.com/svn/trunk/COPYING)
+ * @version    $Id: Document.php 15 2009-08-04 17:53:08Z donovan.jimenez $
  *
- * @package Apache
+ * @package    Apache
  * @subpackage Solr
- * @author Donovan Jimenez <djimenez@conduit-it.com>
+ * @author     Donovan Jimenez <djimenez@conduit-it.com>
  */
 
 /**
- * Additional code Copyright (c) 2011 by Peter Wolanin, and 
+ * Additional code Copyright (c) 2011 by Peter Wolanin, and
  * additional contributors.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
-
  *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
@@ -54,7 +53,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program as the file LICENSE.txt; if not, please see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- */ 
+ */
 
 /**
  * Holds Key / Value pairs that represent a Solr Document along with any associated boost
@@ -153,26 +152,30 @@ class ApacheSolrDocument implements IteratorAggregate {
    * </code>
    *
    * @param string $key
-   * @param mixed $value
-   * @param mixed $boost Use false for default boost, else cast to float that should be > 0 or will be treated as false
+   * @param mixed  $value
+   * @param mixed  $boost Use false for default boost, else cast to float that should be > 0 or will be treated as false
    */
   public function addField($key, $value, $boost = FALSE) {
     if (!isset($this->_fields[$key])) {
       // create holding array if this is the first value
       $this->_fields[$key] = array();
     }
-    else if (!is_array($this->_fields[$key])) {
-      // move existing value into array if it is not already an array
-      $this->_fields[$key] = array($this->_fields[$key]);
+    else {
+      if (!is_array($this->_fields[$key])) {
+        // move existing value into array if it is not already an array
+        $this->_fields[$key] = array($this->_fields[$key]);
+      }
     }
 
     if ($this->getFieldBoost($key) === FALSE) {
       // boost not already set, set it now
       $this->setFieldBoost($key, $boost);
     }
-    else if ((float) $boost > 0.0) {
-      // multiply passed boost with current field boost - similar to SolrJ implementation
-      $this->_fieldBoosts[$key] *= (float) $boost;
+    else {
+      if ((float) $boost > 0.0) {
+        // multiply passed boost with current field boost - similar to SolrJ implementation
+        $this->_fieldBoosts[$key] *= (float) $boost;
+      }
     }
 
     // add value to array
@@ -184,7 +187,7 @@ class ApacheSolrDocument implements IteratorAggregate {
    *
    * @param string $key
    * @param string $value
-   * @param mixed $boost Use false for default boost, else cast to float that should be > 0 or will be treated as false
+   * @param mixed  $boost Use false for default boost, else cast to float that should be > 0 or will be treated as false
    *
    * @deprecated Use addField(...) instead
    */
@@ -196,12 +199,13 @@ class ApacheSolrDocument implements IteratorAggregate {
    * Get field information
    *
    * @param string $key
+   *
    * @return mixed associative array of info if field exists, false otherwise
    */
   public function getField($key) {
     if (isset($this->_fields[$key])) {
       return array(
-        'name' => $key,
+        'name'  => $key,
         'value' => $this->_fields[$key],
         'boost' => $this->getFieldBoost($key)
       );
@@ -216,8 +220,8 @@ class ApacheSolrDocument implements IteratorAggregate {
    * make sure the field is an array.
    *
    * @param string $key
-   * @param mixed $value
-   * @param mixed $boost Use false for default boost, else cast to float that should be > 0 or will be treated as false
+   * @param mixed  $value
+   * @param mixed  $boost Use false for default boost, else cast to float that should be > 0 or will be treated as false
    */
   public function setField($key, $value, $boost = FALSE) {
     $this->_fields[$key] = $value;
@@ -228,6 +232,7 @@ class ApacheSolrDocument implements IteratorAggregate {
    * Get the currently set field boost for a document field
    *
    * @param string $key
+   *
    * @return float currently set field boost, false if one is not set
    */
   public function getFieldBoost($key) {
@@ -237,8 +242,8 @@ class ApacheSolrDocument implements IteratorAggregate {
   /**
    * Set the field boost for a document field
    *
-   * @param string $key field name for the boost
-   * @param mixed $boost Use false for default boost, else cast to float that should be > 0 or will be treated as false
+   * @param string $key   field name for the boost
+   * @param mixed  $boost Use false for default boost, else cast to float that should be > 0 or will be treated as false
    */
   public function setFieldBoost($key, $boost) {
     $boost = (float) $boost;
@@ -298,6 +303,7 @@ class ApacheSolrDocument implements IteratorAggregate {
    * Magic get for field values
    *
    * @param string $key
+   *
    * @return mixed
    */
   public function __get($key) {
@@ -310,7 +316,7 @@ class ApacheSolrDocument implements IteratorAggregate {
    * make sure the field is an array.
    *
    * @param string $key
-   * @param mixed $value
+   * @param mixed  $value
    */
   public function __set($key, $value) {
     $this->setField($key, $value);
@@ -324,6 +330,7 @@ class ApacheSolrDocument implements IteratorAggregate {
    * </code>
    *
    * @param string $key
+   *
    * @return boolean
    */
   public function __isset($key) {
@@ -397,6 +404,7 @@ class ApacheSolrDocument implements IteratorAggregate {
    * Replace control (non-printable) characters from string that are invalid to Solr's XML parser with a space.
    *
    * @param string $string
+   *
    * @return string
    */
   public static function stripCtrlChars($string) {

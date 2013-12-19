@@ -14,14 +14,14 @@
  * some options are configured through an interface provided by location.module.
  */
 
-include_once drupal_get_path('module', 'location') .'/earth.inc';
+include_once drupal_get_path('module', 'location') . '/earth.inc';
 
 /**
  * Get a deep-link to a mapping service such as Yahoo! Maps or MapPoint given an location.  The
  * call is delegated based on the 'country' value in the $location parameter.
  *
  * @param $location
- *   An associative array where
+ *      An associative array where
  *      'street'       => A string representing the street location
  *      'additional'   => A string for any additional portion of the street location
  *      'city'         => A string for the city name
@@ -42,22 +42,22 @@ function location_map_link($location = array(), $link_text = 'See map: ') {
 
   location_load_country($location['country']);
 
-  $default_func = 'location_map_link_'. $location['country'] .'_default_providers';
-  $providers_func = 'location_map_link_'. $location['country'] .'_providers';
+  $default_func = 'location_map_link_' . $location['country'] . '_default_providers';
+  $providers_func = 'location_map_link_' . $location['country'] . '_providers';
   $providers = function_exists($providers_func) ? $providers_func() : array();
-  $selected_providers = variable_get('location_map_link_'. $location['country'], function_exists($default_func) ? $default_func() : array());
+  $selected_providers = variable_get('location_map_link_' . $location['country'], function_exists($default_func) ? $default_func() : array());
 
   $links = array();
   foreach ($selected_providers as $mapper) {
-    $link_func = 'location_map_link_'. $location['country'] .'_'. $mapper;
+    $link_func = 'location_map_link_' . $location['country'] . '_' . $mapper;
     if (function_exists($link_func)) {
       if ($link = $link_func($location)) {
-        $links[] = '<a href="'. $link .'"'. (variable_get('location_maplink_external', 0) ? ' '. variable_get('location_maplink_external_method', 'target="_blank"') : '') .'>'. $providers[$mapper]['name'] .'</a>';
+        $links[] = '<a href="' . $link . '"' . (variable_get('location_maplink_external', 0) ? ' ' . variable_get('location_maplink_external_method', 'target="_blank"') : '') . '>' . $providers[$mapper]['name'] . '</a>';
       }
     }
   }
   if (count($links)) {
-    return '<div class="location map-link">'. t($link_text) . implode($links, ", ") .'</div>';
+    return '<div class="location map-link">' . t($link_text) . implode($links, ", ") . '</div>';
   }
   else {
     return NULL;
@@ -69,8 +69,8 @@ function location_map_link($location = array(), $link_text = 'See map: ') {
  * postal code.
  *
  * @param $location
- *   Array. the location data
- *   -> the values are:
+ *     Array. the location data
+ *     -> the values are:
  *     'street'         => the string representing the street location (REQUIRED)
  *     'additional'     => the string representing the additional street location portion in the location form
  *     'city'           => the city name (REQUIRED)
@@ -94,7 +94,7 @@ function location_get_postalcode_data($location = array()) {
     return NULL;
   }
   location_load_country($location['country']);
-  $country_specific_function = 'location_get_postalcode_data_'. $location['country'];
+  $country_specific_function = 'location_get_postalcode_data_' . $location['country'];
   if (function_exists($country_specific_function)) {
     return $country_specific_function($location);
   }
@@ -107,7 +107,7 @@ function location_get_postalcode_data($location = array()) {
  * Given two points in lat/lon form, returns the distance between them.
  *
  * @param $latlon_a
- *   An associative array where
+ *      An associative array where
  *      'lon' => is a floating point of the longitude coordinate for the point given by latlonA
  *      'lat' => is a floating point of the latitude coordinate for the point given by latlonB
  *
@@ -141,15 +141,19 @@ function location_distance_between($latlon_a = array(), $latlon_b = array(), $di
   //$conversion_factor = ($distance_unit == 'km') ? 1000.0 : 1609.347;
 
   $meters = earth_distance($latlon_a['lon'], $latlon_a['lat'], $latlon_b['lon'], $latlon_b['lat']);
-  return array('scalar' => round($meters/(($distance_unit == 'km') ? 1000.0 : 1609.347), 1), 'distance_unit' => $distance_unit);
+  return array(
+    'scalar'        => round($meters / (($distance_unit == 'km') ? 1000.0 : 1609.347), 1),
+    'distance_unit' => $distance_unit
+  );
 }
 
 /**
  * Takes two locations and tries to return a deep-link to driving directions.
  *
  * Parameters:
+ *
  * @param $location_a
- *   An associative array that represents an location where
+ *      An associative array that represents an location where
  *      'street'       => the street portions of the location
  *      'additional'   => additional street portion of the location
  *      'city'         => the city name
@@ -158,11 +162,11 @@ function location_distance_between($latlon_a = array(), $latlon_b = array(), $di
  *      'postal_code'  => the postal code
  *
  * @param $location_b
- *   An associative array that represents an location in the same way that
- *   parameter $location_a does.
+ *      An associative array that represents an location in the same way that
+ *      parameter $location_a does.
  *
  * @param $link_text
- *   The text of the HTML link that is to be generated.
+ *      The text of the HTML link that is to be generated.
  *
  * @return
  *   A deep-link to driving directions on Yahoo! or some other mapping service, if enough fields are filled in the parameters.
@@ -194,11 +198,11 @@ function location_driving_directions_link($location_a = array(), $location_b = a
   // what it will do with driving destination locationes from other countries.  As an example, Yahoo! Maps supports driving
   // direction queries for locations between the U.S. and Canada.
 
-  $driving_direction_function = 'location_driving_directions_link_'. $location_a['country'];
+  $driving_direction_function = 'location_driving_directions_link_' . $location_a['country'];
   if (function_exists($driving_direction_function)) {
     $http_link = $driving_direction_function($location_a, $location_b);
     if (strlen($http_link)) {
-      return '<a href="'. $http_link .'">'. $link_text .'</a>';
+      return '<a href="' . $http_link . '">' . $link_text . '</a>';
     }
     else {
       return '';
@@ -242,7 +246,7 @@ function _location_convert_distance_to_meters($distance, $distance_unit = 'km') 
  * data available for the given country.
  *
  * @param $location
- *   An associative array $location where
+ *     An associative array $location where
  *     'street'       => the street portion of the location
  *     'additional' => additional street portion of the location
  *     'province'     => the province, state, or territory
@@ -264,7 +268,7 @@ function location_latlon_rough($location = array()) {
 
   location_load_country($location['country']);
 
-  $latlon_function = 'location_latlon_rough_'. $location['country'];
+  $latlon_function = 'location_latlon_rough_' . $location['country'];
   if (function_exists($latlon_function)) {
     return $latlon_function($location);
   }
@@ -278,7 +282,7 @@ function location_latlon_rough($location = array()) {
  * This function is a default implementation, in case the country support doesn't implement a proper function for this.
  *
  * @param $location
- *   An associative array $location where
+ *     An associative array $location where
  *     'street'       => the street portion of the location
  *     'supplemental' => additional street portion of the location
  *     'province'     => the province, state, or territory
@@ -306,8 +310,7 @@ function location_latlon_rough_default($location = array()) {
     if ($newlatlong['lat']) {
       // and store results in zipcodes table for next lookups being internally handled
       // (yeah this is missing city/state info a.t.m., but is way better than nothing!)
-      $result = db_query("INSERT INTO {zipcodes} (latitude, longitude, country, zip) values ('%s', '%s', '%s', '%s')",
-        $newlatlong['lat'], $newlatlong['lon'], $location['country'], $location['postal_code']);
+      $result = db_query("INSERT INTO {zipcodes} (latitude, longitude, country, zip) values ('%s', '%s', '%s', '%s')", $newlatlong['lat'], $newlatlong['lon'], $location['country'], $location['postal_code']);
     }
     return $newlatlong;
   }
@@ -320,6 +323,7 @@ function location_latlon_rough_default($location = array()) {
  * Get an appropriate bounding box for showing an entire country on a map.
  * Target is a bounding box large enough to show the country in both spherical
  * mercator and mercator projections.
+ *
  * @param $location
  *   Either a location array or a country code.
  *
@@ -358,9 +362,9 @@ function location_country_bounds($location = array()) {
  * to retrieve exact lat/lon coordinates.
  *
  * @param $location
- *   An array where
- *     -> the key values are 'street', 'additional', 'province', 'country', 'postal_code'
- *     -> the values are:
+ *         An array where
+ *         -> the key values are 'street', 'additional', 'province', 'country', 'postal_code'
+ *         -> the values are:
  *         'street'         => the string representing the street location (REQUIRED)
  *         'additional'     => the string representing the additional street location portion in the location form
  *         'city'           => the city name (REQUIRED)
@@ -379,7 +383,7 @@ function location_country_bounds($location = array()) {
 function location_latlon_exact($location = array()) {
   $country = $location['country'];
   location_standardize_country_code($country);
-  $service = variable_get('location_geocode_'. $country, 'none');
+  $service = variable_get('location_geocode_' . $country, 'none');
   if (!empty($country) && $service != 'none') {
     // figure out what the exact function should be
     if (strpos($service, '|')) {
@@ -387,11 +391,11 @@ function location_latlon_exact($location = array()) {
       // The code change below fixes the problem of the country specific
       // function for geocoding not being correctly called (it removes any
       // text from the pipe (|) onwards)
-      $exact_latlon_function = 'location_geocode_'. $country .'_'. substr($service, 0, strpos($service, '|'));
+      $exact_latlon_function = 'location_geocode_' . $country . '_' . substr($service, 0, strpos($service, '|'));
     }
     else {
       location_load_geocoder($service);
-      $exact_latlon_function = $service .'_geocode_location';
+      $exact_latlon_function = $service . '_geocode_location';
     }
     if (function_exists($exact_latlon_function)) {
       return $exact_latlon_function($location);
@@ -432,9 +436,9 @@ function _location_supported_countries() {
   else {
     // '<ISO two-letter code>' => '<English name for country>'
     $iso_list = location_get_iso3166_list();
-    $path = drupal_get_path('module', 'location') .'/supported/location.';
+    $path = drupal_get_path('module', 'location') . '/supported/location.';
     foreach ($iso_list as $cc => $name) {
-      if (file_exists($path . $cc .'.inc')) {
+      if (file_exists($path . $cc . '.inc')) {
         $supported_countries[$cc] = $name;
       }
     }
@@ -458,7 +462,7 @@ function location_get_provinces($country = 'us') {
     return $provinces[$country];
   }
   location_load_country($country);
-  $func = 'location_province_list_'. $country;
+  $func = 'location_province_list_' . $country;
   if (function_exists($func)) {
     $provinces[$country] = $func();
     cache_set("provinces:$country", $provinces[$country], 'cache_location');
@@ -566,7 +570,7 @@ function location_load_country($country) {
  * Load a general geocoding service.
  */
 function location_load_geocoder($geocoder) {
-  include_once drupal_get_path('module', 'location') .'/geocoding/'. $geocoder .'.inc';
+  include_once drupal_get_path('module', 'location') . '/geocoding/' . $geocoder . '.inc';
 }
 
 /**
@@ -574,6 +578,7 @@ function location_load_geocoder($geocoder) {
  *
  * @param $location
  *   Array. The address parts
+ *
  * @return
  *   String. The single line address
  */
@@ -602,7 +607,7 @@ function location_address2singleline($location = array()) {
     }
 
     // @@@ Fix this!
-    if (substr($location['province'], 0, 3) == $location['country'] .'-') {
+    if (substr($location['province'], 0, 3) == $location['country'] . '-') {
       $address .= substr($location['province'], 3);
       watchdog('Location', 'BUG: Country found in province attribute.');
     }
@@ -619,7 +624,7 @@ function location_address2singleline($location = array()) {
   }
 
   if (!empty($location['country'])) {
-    $address .= ', '. $location['country'];
+    $address .= ', ' . $location['country'];
   }
 
   return $address;
@@ -629,7 +634,12 @@ function location_get_general_geocoder_list() {
   static $list;
 
   if (!count($list)) {
-    $files = file_scan_directory(drupal_get_path('module', 'location') .'/geocoding', '\.inc$', array('.', '..', 'CVS', '.svn'));
+    $files = file_scan_directory(drupal_get_path('module', 'location') . '/geocoding', '\.inc$', array(
+        '.',
+        '..',
+        'CVS',
+        '.svn'
+      ));
     foreach ($files as $full_path_name => $fileinfo) {
       $list[] = $fileinfo->name;
     }
@@ -656,7 +666,7 @@ function location_get_iso3166_list($upper = FALSE) {
     return $countries;
   }
 
-  $countries = array (
+  $countries = array(
     "ad" => t("Andorra"),
     "ae" => t("United Arab Emirates"),
     "af" => t("Afghanistan"),
@@ -912,253 +922,253 @@ function location_get_iso3166_list($upper = FALSE) {
   );
 
   // updated and removed with an update from http://www.geonames.org/countries/
-//  $countries = array(
-//    'ad' => t('Andorra'),
-//    'ae' => t('United Arab Emirates'),
-//    'af' => t('Afghanistan'),
-//    'ag' => t('Antigua and Barbuda'),
-//    'ai' => t('Anguilla'),
-//    'al' => t('Albania'),
-//    'am' => t('Armenia'),
-//    'an' => t('Netherlands Antilles'),
-//    'ao' => t('Angola'),
-//    'aq' => t('Antarctica'),
-//    'ar' => t('Argentina'),
-//    'as' => t('American Samoa'),
-//    'at' => t('Austria'),
-//    'au' => t('Australia'),
-//    'aw' => t('Aruba'),
-//    'ax' => t('Aland Islands'),
-//    'az' => t('Azerbaijan'),
-//    'ba' => t('Bosnia and Herzegovina'),
-//    'bb' => t('Barbados'),
-//    'bd' => t('Bangladesh'),
-//    'be' => t('Belgium'),
-//    'bf' => t('Burkina Faso'),
-//    'bg' => t('Bulgaria'),
-//    'bh' => t('Bahrain'),
-//    'bi' => t('Burundi'),
-//    'bj' => t('Benin'),
-//    'bm' => t('Bermuda'),
-//    'bn' => t('Brunei'),
-//    'bo' => t('Bolivia'),
-//    'br' => t('Brazil'),
-//    'bs' => t('Bahamas'),
-//    'bt' => t('Bhutan'),
-//    'bv' => t('Bouvet Island'),
-//    'bw' => t('Botswana'),
-//    'by' => t('Belarus'),
-//    'bz' => t('Belize'),
-//    'ca' => t('Canada'),
-//    'cc' => t('Cocos (Keeling) Islands'),
-//    'cd' => t('Congo (Kinshasa)'),
-//    'cf' => t('Central African Republic'),
-//    'cg' => t('Congo (Brazzaville)'),
-//    'ch' => t('Switzerland'),
-//    'ci' => t('Ivory Coast'),
-//    'ck' => t('Cook Islands'),
-//    'cl' => t('Chile'),
-//    'cm' => t('Cameroon'),
-//    'cn' => t('China'),
-//    'co' => t('Colombia'),
-//    'cr' => t('Costa Rica'),
-//    'cs' => t('Serbia And Montenegro'), // Transitional reservation
-//    'cu' => t('Cuba'),
-//    'cv' => t('Cape Verde'),
-//    'cx' => t('Christmas Island'),
-//    'cy' => t('Cyprus'),
-//    'cz' => t('Czech Republic'),
-//    'de' => t('Germany'),
-//    'dj' => t('Djibouti'),
-//    'dk' => t('Denmark'),
-//    'dm' => t('Dominica'),
-//    'do' => t('Dominican Republic'),
-//    'dz' => t('Algeria'),
-//    'ec' => t('Ecuador'),
-//    'ee' => t('Estonia'),
-//    'eg' => t('Egypt'),
-//    'eh' => t('Western Sahara'),
-//    'er' => t('Eritrea'),
-//    'es' => t('Spain'),
-//    'et' => t('Ethiopia'),
-//    'fi' => t('Finland'),
-//    'fj' => t('Fiji'),
-//    'fk' => t('Falkland Islands'),
-//    'fm' => t('Micronesia'),
-//    'fo' => t('Faroe Islands'),
-//    'fr' => t('France'),
-//    'ga' => t('Gabon'),
-//    'gd' => t('Grenada'),
-//    'ge' => t('Georgia'),
-//    'gf' => t('French Guiana'),
-//    'gg' => t('Guernsey'),
-//    'gh' => t('Ghana'),
-//    'gi' => t('Gibraltar'),
-//    'gl' => t('Greenland'),
-//    'gm' => t('Gambia'),
-//    'gn' => t('Guinea'),
-//    'gp' => t('Guadeloupe'),
-//    'gq' => t('Equatorial Guinea'),
-//    'gr' => t('Greece'),
-//    'gs' => t('South Georgia and the South Sandwich Islands'),
-//    'gt' => t('Guatemala'),
-//    'gu' => t('Guam'),
-//    'gw' => t('Guinea-Bissau'),
-//    'gy' => t('Guyana'),
-//    'hk' => t('Hong Kong S.A.R., China'),
-//    'hm' => t('Heard Island and McDonald Islands'),
-//    'hn' => t('Honduras'),
-//    'hr' => t('Croatia'),
-//    'ht' => t('Haiti'),
-//    'hu' => t('Hungary'),
-//    'id' => t('Indonesia'),
-//    'ie' => t('Ireland'),
-//    'il' => t('Israel'),
-//    'im' => t('Isle of Man'),
-//    'in' => t('India'),
-//    'io' => t('British Indian Ocean Territory'),
-//    'iq' => t('Iraq'),
-//    'ir' => t('Iran'),
-//    'is' => t('Iceland'),
-//    'it' => t('Italy'),
-//    'je' => t('Jersey'),
-//    'jm' => t('Jamaica'),
-//    'jo' => t('Jordan'),
-//    'jp' => t('Japan'),
-//    'ke' => t('Kenya'),
-//    'kg' => t('Kyrgyzstan'),
-//    'kh' => t('Cambodia'),
-//    'ki' => t('Kiribati'),
-//    'km' => t('Comoros'),
-//    'kn' => t('Saint Kitts and Nevis'),
-//    'kp' => t('North Korea'),
-//    'kr' => t('South Korea'),
-//    'kw' => t('Kuwait'),
-//    'ky' => t('Cayman Islands'),
-//    'kz' => t('Kazakhstan'),
-//    'la' => t('Laos'),
-//    'lb' => t('Lebanon'),
-//    'lc' => t('Saint Lucia'),
-//    'li' => t('Liechtenstein'),
-//    'lk' => t('Sri Lanka'),
-//    'lr' => t('Liberia'),
-//    'ls' => t('Lesotho'),
-//    'lt' => t('Lithuania'),
-//    'lu' => t('Luxembourg'),
-//    'lv' => t('Latvia'),
-//    'ly' => t('Libya'),
-//    'ma' => t('Morocco'),
-//    'mc' => t('Monaco'),
-//    'md' => t('Moldova'),
-//    'me' => t('Montenegro'),
-//    'mg' => t('Madagascar'),
-//    'mh' => t('Marshall Islands'),
-//    'mk' => t('Macedonia'),
-//    'ml' => t('Mali'),
-//    'mm' => t('Myanmar'),
-//    'mn' => t('Mongolia'),
-//    'mo' => t('Macao S.A.R., China'),
-//    'mp' => t('Northern Mariana Islands'),
-//    'mq' => t('Martinique'),
-//    'mr' => t('Mauritania'),
-//    'ms' => t('Montserrat'),
-//    'mt' => t('Malta'),
-//    'mu' => t('Mauritius'),
-//    'mv' => t('Maldives'),
-//    'mw' => t('Malawi'),
-//    'mx' => t('Mexico'),
-//    'my' => t('Malaysia'),
-//    'mz' => t('Mozambique'),
-//    'na' => t('Namibia'),
-//    'nc' => t('New Caledonia'),
-//    'ne' => t('Niger'),
-//    'nf' => t('Norfolk Island'),
-//    'ng' => t('Nigeria'),
-//    'ni' => t('Nicaragua'),
-//    'nl' => t('Netherlands'),
-//    'no' => t('Norway'),
-//    'np' => t('Nepal'),
-//    'nr' => t('Nauru'),
-//    'nu' => t('Niue'),
-//    'nz' => t('New Zealand'),
-//    'om' => t('Oman'),
-//    'pa' => t('Panama'),
-//    'pe' => t('Peru'),
-//    'pf' => t('French Polynesia'),
-//    'pg' => t('Papua New Guinea'),
-//    'ph' => t('Philippines'),
-//    'pk' => t('Pakistan'),
-//    'pl' => t('Poland'),
-//    'pm' => t('Saint Pierre and Miquelon'),
-//    'pn' => t('Pitcairn'),
-//    'pr' => t('Puerto Rico'),
-//    'ps' => t('Palestinian Territory'),
-//    'pt' => t('Portugal'),
-//    'pw' => t('Palau'),
-//    'py' => t('Paraguay'),
-//    'qa' => t('Qatar'),
-//    're' => t('Reunion'),
-//    'ro' => t('Romania'),
-//    'rs' => t('Serbia'),
-//    'ru' => t('Russia'),
-//    'rw' => t('Rwanda'),
-//    'sa' => t('Saudi Arabia'),
-//    'sb' => t('Solomon Islands'),
-//    'sc' => t('Seychelles'),
-//    'sd' => t('Sudan'),
-//    'se' => t('Sweden'),
-//    'sg' => t('Singapore'),
-//    'sh' => t('Saint Helena'),
-//    'si' => t('Slovenia'),
-//    'sj' => t('Svalbard and Jan Mayen'),
-//    'sk' => t('Slovakia'),
-//    'sl' => t('Sierra Leone'),
-//    'sm' => t('San Marino'),
-//    'sn' => t('Senegal'),
-//    'so' => t('Somalia'),
-//    'sr' => t('Suriname'),
-//    'st' => t('Sao Tome and Principe'),
-//    'sv' => t('El Salvador'),
-//    'sy' => t('Syria'),
-//    'sz' => t('Swaziland'),
-//    'tc' => t('Turks and Caicos Islands'),
-//    'td' => t('Chad'),
-//    'tf' => t('French Southern Territories'),
-//    'tg' => t('Togo'),
-//    'th' => t('Thailand'),
-//    'tj' => t('Tajikistan'),
-//    'tk' => t('Tokelau'),
-//    'tl' => t('Timor-Leste'),
-//    'tm' => t('Turkmenistan'),
-//    'tn' => t('Tunisia'),
-//    'to' => t('Tonga'),
-//    'tr' => t('Turkey'),
-//    'tt' => t('Trinidad and Tobago'),
-//    'tv' => t('Tuvalu'),
-//    'tw' => t('Taiwan'),
-//    'tz' => t('Tanzania'),
-//    'ua' => t('Ukraine'),
-//    'ug' => t('Uganda'),
-//    'uk' => t('United Kingdom'),
-//    'um' => t('United States Minor Outlying Islands'),
-//    'us' => t('United States'),
-//    'uy' => t('Uruguay'),
-//    'uz' => t('Uzbekistan'),
-//    'va' => t('Vatican'),
-//    'vc' => t('Saint Vincent and the Grenadines'),
-//    've' => t('Venezuela'),
-//    'vg' => t('British Virgin Islands'),
-//    'vi' => t('U.S. Virgin Islands'),
-//    'vn' => t('Vietnam'),
-//    'vu' => t('Vanuatu'),
-//    'wf' => t('Wallis and Futuna'),
-//    'ws' => t('Samoa'),
-//    'ye' => t('Yemen'),
-//    'yt' => t('Mayotte'),
-//    'za' => t('South Africa'),
-//    'zm' => t('Zambia'),
-//    'zw' => t('Zimbabwe'),
-//  );
+  //  $countries = array(
+  //    'ad' => t('Andorra'),
+  //    'ae' => t('United Arab Emirates'),
+  //    'af' => t('Afghanistan'),
+  //    'ag' => t('Antigua and Barbuda'),
+  //    'ai' => t('Anguilla'),
+  //    'al' => t('Albania'),
+  //    'am' => t('Armenia'),
+  //    'an' => t('Netherlands Antilles'),
+  //    'ao' => t('Angola'),
+  //    'aq' => t('Antarctica'),
+  //    'ar' => t('Argentina'),
+  //    'as' => t('American Samoa'),
+  //    'at' => t('Austria'),
+  //    'au' => t('Australia'),
+  //    'aw' => t('Aruba'),
+  //    'ax' => t('Aland Islands'),
+  //    'az' => t('Azerbaijan'),
+  //    'ba' => t('Bosnia and Herzegovina'),
+  //    'bb' => t('Barbados'),
+  //    'bd' => t('Bangladesh'),
+  //    'be' => t('Belgium'),
+  //    'bf' => t('Burkina Faso'),
+  //    'bg' => t('Bulgaria'),
+  //    'bh' => t('Bahrain'),
+  //    'bi' => t('Burundi'),
+  //    'bj' => t('Benin'),
+  //    'bm' => t('Bermuda'),
+  //    'bn' => t('Brunei'),
+  //    'bo' => t('Bolivia'),
+  //    'br' => t('Brazil'),
+  //    'bs' => t('Bahamas'),
+  //    'bt' => t('Bhutan'),
+  //    'bv' => t('Bouvet Island'),
+  //    'bw' => t('Botswana'),
+  //    'by' => t('Belarus'),
+  //    'bz' => t('Belize'),
+  //    'ca' => t('Canada'),
+  //    'cc' => t('Cocos (Keeling) Islands'),
+  //    'cd' => t('Congo (Kinshasa)'),
+  //    'cf' => t('Central African Republic'),
+  //    'cg' => t('Congo (Brazzaville)'),
+  //    'ch' => t('Switzerland'),
+  //    'ci' => t('Ivory Coast'),
+  //    'ck' => t('Cook Islands'),
+  //    'cl' => t('Chile'),
+  //    'cm' => t('Cameroon'),
+  //    'cn' => t('China'),
+  //    'co' => t('Colombia'),
+  //    'cr' => t('Costa Rica'),
+  //    'cs' => t('Serbia And Montenegro'), // Transitional reservation
+  //    'cu' => t('Cuba'),
+  //    'cv' => t('Cape Verde'),
+  //    'cx' => t('Christmas Island'),
+  //    'cy' => t('Cyprus'),
+  //    'cz' => t('Czech Republic'),
+  //    'de' => t('Germany'),
+  //    'dj' => t('Djibouti'),
+  //    'dk' => t('Denmark'),
+  //    'dm' => t('Dominica'),
+  //    'do' => t('Dominican Republic'),
+  //    'dz' => t('Algeria'),
+  //    'ec' => t('Ecuador'),
+  //    'ee' => t('Estonia'),
+  //    'eg' => t('Egypt'),
+  //    'eh' => t('Western Sahara'),
+  //    'er' => t('Eritrea'),
+  //    'es' => t('Spain'),
+  //    'et' => t('Ethiopia'),
+  //    'fi' => t('Finland'),
+  //    'fj' => t('Fiji'),
+  //    'fk' => t('Falkland Islands'),
+  //    'fm' => t('Micronesia'),
+  //    'fo' => t('Faroe Islands'),
+  //    'fr' => t('France'),
+  //    'ga' => t('Gabon'),
+  //    'gd' => t('Grenada'),
+  //    'ge' => t('Georgia'),
+  //    'gf' => t('French Guiana'),
+  //    'gg' => t('Guernsey'),
+  //    'gh' => t('Ghana'),
+  //    'gi' => t('Gibraltar'),
+  //    'gl' => t('Greenland'),
+  //    'gm' => t('Gambia'),
+  //    'gn' => t('Guinea'),
+  //    'gp' => t('Guadeloupe'),
+  //    'gq' => t('Equatorial Guinea'),
+  //    'gr' => t('Greece'),
+  //    'gs' => t('South Georgia and the South Sandwich Islands'),
+  //    'gt' => t('Guatemala'),
+  //    'gu' => t('Guam'),
+  //    'gw' => t('Guinea-Bissau'),
+  //    'gy' => t('Guyana'),
+  //    'hk' => t('Hong Kong S.A.R., China'),
+  //    'hm' => t('Heard Island and McDonald Islands'),
+  //    'hn' => t('Honduras'),
+  //    'hr' => t('Croatia'),
+  //    'ht' => t('Haiti'),
+  //    'hu' => t('Hungary'),
+  //    'id' => t('Indonesia'),
+  //    'ie' => t('Ireland'),
+  //    'il' => t('Israel'),
+  //    'im' => t('Isle of Man'),
+  //    'in' => t('India'),
+  //    'io' => t('British Indian Ocean Territory'),
+  //    'iq' => t('Iraq'),
+  //    'ir' => t('Iran'),
+  //    'is' => t('Iceland'),
+  //    'it' => t('Italy'),
+  //    'je' => t('Jersey'),
+  //    'jm' => t('Jamaica'),
+  //    'jo' => t('Jordan'),
+  //    'jp' => t('Japan'),
+  //    'ke' => t('Kenya'),
+  //    'kg' => t('Kyrgyzstan'),
+  //    'kh' => t('Cambodia'),
+  //    'ki' => t('Kiribati'),
+  //    'km' => t('Comoros'),
+  //    'kn' => t('Saint Kitts and Nevis'),
+  //    'kp' => t('North Korea'),
+  //    'kr' => t('South Korea'),
+  //    'kw' => t('Kuwait'),
+  //    'ky' => t('Cayman Islands'),
+  //    'kz' => t('Kazakhstan'),
+  //    'la' => t('Laos'),
+  //    'lb' => t('Lebanon'),
+  //    'lc' => t('Saint Lucia'),
+  //    'li' => t('Liechtenstein'),
+  //    'lk' => t('Sri Lanka'),
+  //    'lr' => t('Liberia'),
+  //    'ls' => t('Lesotho'),
+  //    'lt' => t('Lithuania'),
+  //    'lu' => t('Luxembourg'),
+  //    'lv' => t('Latvia'),
+  //    'ly' => t('Libya'),
+  //    'ma' => t('Morocco'),
+  //    'mc' => t('Monaco'),
+  //    'md' => t('Moldova'),
+  //    'me' => t('Montenegro'),
+  //    'mg' => t('Madagascar'),
+  //    'mh' => t('Marshall Islands'),
+  //    'mk' => t('Macedonia'),
+  //    'ml' => t('Mali'),
+  //    'mm' => t('Myanmar'),
+  //    'mn' => t('Mongolia'),
+  //    'mo' => t('Macao S.A.R., China'),
+  //    'mp' => t('Northern Mariana Islands'),
+  //    'mq' => t('Martinique'),
+  //    'mr' => t('Mauritania'),
+  //    'ms' => t('Montserrat'),
+  //    'mt' => t('Malta'),
+  //    'mu' => t('Mauritius'),
+  //    'mv' => t('Maldives'),
+  //    'mw' => t('Malawi'),
+  //    'mx' => t('Mexico'),
+  //    'my' => t('Malaysia'),
+  //    'mz' => t('Mozambique'),
+  //    'na' => t('Namibia'),
+  //    'nc' => t('New Caledonia'),
+  //    'ne' => t('Niger'),
+  //    'nf' => t('Norfolk Island'),
+  //    'ng' => t('Nigeria'),
+  //    'ni' => t('Nicaragua'),
+  //    'nl' => t('Netherlands'),
+  //    'no' => t('Norway'),
+  //    'np' => t('Nepal'),
+  //    'nr' => t('Nauru'),
+  //    'nu' => t('Niue'),
+  //    'nz' => t('New Zealand'),
+  //    'om' => t('Oman'),
+  //    'pa' => t('Panama'),
+  //    'pe' => t('Peru'),
+  //    'pf' => t('French Polynesia'),
+  //    'pg' => t('Papua New Guinea'),
+  //    'ph' => t('Philippines'),
+  //    'pk' => t('Pakistan'),
+  //    'pl' => t('Poland'),
+  //    'pm' => t('Saint Pierre and Miquelon'),
+  //    'pn' => t('Pitcairn'),
+  //    'pr' => t('Puerto Rico'),
+  //    'ps' => t('Palestinian Territory'),
+  //    'pt' => t('Portugal'),
+  //    'pw' => t('Palau'),
+  //    'py' => t('Paraguay'),
+  //    'qa' => t('Qatar'),
+  //    're' => t('Reunion'),
+  //    'ro' => t('Romania'),
+  //    'rs' => t('Serbia'),
+  //    'ru' => t('Russia'),
+  //    'rw' => t('Rwanda'),
+  //    'sa' => t('Saudi Arabia'),
+  //    'sb' => t('Solomon Islands'),
+  //    'sc' => t('Seychelles'),
+  //    'sd' => t('Sudan'),
+  //    'se' => t('Sweden'),
+  //    'sg' => t('Singapore'),
+  //    'sh' => t('Saint Helena'),
+  //    'si' => t('Slovenia'),
+  //    'sj' => t('Svalbard and Jan Mayen'),
+  //    'sk' => t('Slovakia'),
+  //    'sl' => t('Sierra Leone'),
+  //    'sm' => t('San Marino'),
+  //    'sn' => t('Senegal'),
+  //    'so' => t('Somalia'),
+  //    'sr' => t('Suriname'),
+  //    'st' => t('Sao Tome and Principe'),
+  //    'sv' => t('El Salvador'),
+  //    'sy' => t('Syria'),
+  //    'sz' => t('Swaziland'),
+  //    'tc' => t('Turks and Caicos Islands'),
+  //    'td' => t('Chad'),
+  //    'tf' => t('French Southern Territories'),
+  //    'tg' => t('Togo'),
+  //    'th' => t('Thailand'),
+  //    'tj' => t('Tajikistan'),
+  //    'tk' => t('Tokelau'),
+  //    'tl' => t('Timor-Leste'),
+  //    'tm' => t('Turkmenistan'),
+  //    'tn' => t('Tunisia'),
+  //    'to' => t('Tonga'),
+  //    'tr' => t('Turkey'),
+  //    'tt' => t('Trinidad and Tobago'),
+  //    'tv' => t('Tuvalu'),
+  //    'tw' => t('Taiwan'),
+  //    'tz' => t('Tanzania'),
+  //    'ua' => t('Ukraine'),
+  //    'ug' => t('Uganda'),
+  //    'uk' => t('United Kingdom'),
+  //    'um' => t('United States Minor Outlying Islands'),
+  //    'us' => t('United States'),
+  //    'uy' => t('Uruguay'),
+  //    'uz' => t('Uzbekistan'),
+  //    'va' => t('Vatican'),
+  //    'vc' => t('Saint Vincent and the Grenadines'),
+  //    've' => t('Venezuela'),
+  //    'vg' => t('British Virgin Islands'),
+  //    'vi' => t('U.S. Virgin Islands'),
+  //    'vn' => t('Vietnam'),
+  //    'vu' => t('Vanuatu'),
+  //    'wf' => t('Wallis and Futuna'),
+  //    'ws' => t('Samoa'),
+  //    'ye' => t('Yemen'),
+  //    'yt' => t('Mayotte'),
+  //    'za' => t('South Africa'),
+  //    'zm' => t('Zambia'),
+  //    'zw' => t('Zimbabwe'),
+  //  );
 
   // Sort the list.
   natcasesort($countries);

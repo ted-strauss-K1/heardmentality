@@ -3,87 +3,86 @@
 /**
  * Implementation of hook_install()
  */
-function donations_install()
-{
+function donations_install() {
   drupal_install_schema('donations');
 }
 
 /**
  * Implementation of hook_install()
  */
-function donations_uninstall()
-{
+function donations_uninstall() {
   drupal_uninstall_schema('donations');
 }
 
 /**
  * Implementation of hook_schema().
  */
-function donations_schema()
-{
+function donations_schema() {
   $schema = array();
 
   $schema['donations'] = array(
     'description' => t('Stores the donations.'),
-    'fields' => array(
-      'id' => array(
+    'fields'      => array(
+      'id'             => array(
         'description' => 'The primary identifier.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE),
-      'uid' => array(
-        'description' => 'The {users}.uid that made donation.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0),
-      'amount' => array(
-        'description' => t('Donation amount.'),
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'default' => 0,
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE
       ),
-      'currency' => array(
+      'uid'            => array(
+        'description' => 'The {users}.uid that made donation.',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0
+      ),
+      'amount'         => array(
+        'description' => t('Donation amount.'),
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'default'     => 0,
+      ),
+      'currency'       => array(
         'description' => t('Currency code.'),
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'length' => 12,
-        'default' => 'USD',
+        'type'        => 'varchar',
+        'not null'    => TRUE,
+        'length'      => 12,
+        'default'     => 'USD',
       ),
       'payment_method' => array(
         'description' => t('Currency code.'),
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'length' => 32,
-        'default' => '',
+        'type'        => 'varchar',
+        'not null'    => TRUE,
+        'length'      => 32,
+        'default'     => '',
       ),
-      'token' => array(
+      'token'          => array(
         'description' => t('Transaction token.'),
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => false,
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => FALSE,
       ),
       'transaction_id' => array(
         'description' => t('Transaction id.'),
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => false,
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => FALSE,
       ),
-      'comment' => array(
+      'comment'        => array(
         'description' => 'The comment for the donation.',
-        'type' => 'text',
-        'default' => ''
+        'type'        => 'text',
+        'default'     => ''
       ),
-      'status' => array(
+      'status'         => array(
         'description' => t("The donation status (0 - pending, 1 - success, 2 - error)"),
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
     ),
-//    'unique keys' => array(
-//      'token' => array('token')
-//    ),
+    //    'unique keys' => array(
+    //      'token' => array('token')
+    //    ),
     'primary key' => array('id'),
   );
 

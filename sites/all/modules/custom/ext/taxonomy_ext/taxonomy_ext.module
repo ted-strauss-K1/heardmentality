@@ -4,10 +4,10 @@
  * Get the node type vocabularies
  *
  * @param string $type
+ *
  * @return mixed
  */
-function taxonomy_node_type_vocabularies($type = 'issue')
-{
+function taxonomy_node_type_vocabularies($type = 'issue') {
   static $vids = array();
 
   if (is_null($vids[$type])) {
@@ -25,10 +25,10 @@ function taxonomy_node_type_vocabularies($type = 'issue')
  * Get Bottom-level Categories  (Leaves of taxonomy)
  *
  * @param $vid
+ *
  * @return mixed
  */
-function taxonomy_bottom_level_terms($vid)
-{
+function taxonomy_bottom_level_terms($vid) {
   static $_list = array();
 
   if (isset($list[$vid])) {
@@ -53,10 +53,10 @@ function taxonomy_bottom_level_terms($vid)
  * Get the node type terms
  *
  * @param string $type
+ *
  * @return mixed
  */
-function taxonomy_node_type_terms($type = 'issue')
-{
+function taxonomy_node_type_terms($type = 'issue') {
   static $terms = array();
 
   if (is_null($terms[$type])) {

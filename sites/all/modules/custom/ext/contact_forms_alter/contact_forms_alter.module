@@ -7,8 +7,7 @@
  * @param $form_state
  * @param $form_id
  */
-function contact_forms_alter_form_alter(&$form, $form_state, $form_id)
-{
+function contact_forms_alter_form_alter(&$form, $form_state, $form_id) {
 
   # for module "contact_forms"
   if ($form_id == 'contact_mail_page' && module_exists('contact_forms')) {
@@ -20,9 +19,9 @@ function contact_forms_alter_form_alter(&$form, $form_state, $form_id)
       t('General')
     );
     $form['info'] = array(
-      '#type' => 'select',
+      '#type'    => 'select',
       '#options' => array_combine($info, $info),
-      '#weight' => -1,
+      '#weight'  => -1,
     );
     $form['contact_information']['#weight'] = -2;
     array_unshift($form['#submit'], 'contact_mail_page_form_submit');
@@ -37,8 +36,7 @@ function contact_forms_alter_form_alter(&$form, $form_state, $form_id)
  * @param $form
  * @param $form_state
  */
-function contact_mail_page_form_submit(&$form, &$form_state)
-{
+function contact_mail_page_form_submit(&$form, &$form_state) {
   $values = & $form_state['values'];
   $values['subject'] = '[' . $values['info'] . '] ' . $values['subject'];
 }

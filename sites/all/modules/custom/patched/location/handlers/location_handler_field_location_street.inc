@@ -23,11 +23,11 @@ class location_handler_field_location_street extends views_handler_field {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
     $form['style'] = array(
-      '#title' => t('Display style'),
-      '#type' => 'select',
-      '#options' => array(
-        'both' => t('Both street and additional'),
-        'street' => t('Street only'),
+      '#title'         => t('Display style'),
+      '#type'          => 'select',
+      '#options'       => array(
+        'both'       => t('Both street and additional'),
+        'street'     => t('Street only'),
         'additional' => t('Additional only'),
       ),
       '#default_value' => $this->options['style'],

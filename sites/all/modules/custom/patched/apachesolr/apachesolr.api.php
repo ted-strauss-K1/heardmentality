@@ -48,56 +48,55 @@ function hook_apachesolr_field_mappings() {
   $mappings = array(
     // Example for a field API type. See extensive documentation below
     'number_float' => array(
-      'indexing_callback' => 'apachesolr_fields_default_indexing_callback',
-      'index_type' => 'tfloat',
-      'facets' => TRUE,
-      'query types' => array('term', 'numeric_range'),
-      'query type' => 'term',
+      'indexing_callback'      => 'apachesolr_fields_default_indexing_callback',
+      'index_type'             => 'tfloat',
+      'facets'                 => TRUE,
+      'query types'            => array('term', 'numeric_range'),
+      'query type'             => 'term',
       'facet mincount allowed' => TRUE,
     ),
     // Example for a field API field
-    'per-field' => array(
+    'per-field'    => array(
       // machine name of the field in Field API
       'field_price' => array(
         // REQUIRED FIELDS //
         // Function callback to return the value that will be put in to
         // the solr index
-        'indexing_callback' => 'apachesolr_fields_default_indexing_callback',
-
+        'indexing_callback'      => 'apachesolr_fields_default_indexing_callback',
         // NON REQUIRED FIELDS //
         // See apachesolr_index_key() for the correct type. Defaults string
-        'index_type' => 'string',
+        'index_type'             => 'string',
         // How to display the values when they return as a facet
-        'map callback' => 'apachesolr_fields_list_facet_map_callback',
+        'map callback'           => 'apachesolr_fields_list_facet_map_callback',
         // Does your facet have a dynamic name? Add function call here and will
         // have the name of the return value
-        'name callback' => FALSE,
+        'name callback'          => FALSE,
         // If a custom field needs to be searchable but does not need to be faceted you
         // can change the 'facets' parameter to FALSE.
-        'facets' => FALSE,
+        'facets'                 => FALSE,
         // Do you want to allow items without value
-        'facet missing allowed' => FALSE,
+        'facet missing allowed'  => FALSE,
         // (optional)  Whether or not the facet supports the
         //    "minimum facet count" setting. Defaults to TRUE.
         'facet mincount allowed' => FALSE,
         // Field API allows any field to be multi-valued.
         // If we set this to false we are able to sort
-        'dependency plugins' => array('bundle', 'role'),
+        'dependency plugins'     => array('bundle', 'role'),
         // Does your solr index has a hierarchy?
         // See facetapi_get_taxonomy_hierarchy for details or
         // view the mapping of taxonomy_term_reference
-        'hierarchy callback' => FALSE,
+        'hierarchy callback'     => FALSE,
         // There are different query types to return information from Solr
         // term : Regular strings
         // date : Everything regarding dates
         // numeric_range : Useful when you have widgets that depend
         //   on statistics coming from Solr
-        'query types' => array('term', 'numeric_range'),
+        'query types'            => array('term', 'numeric_range'),
         // Backwards compatible with previous facetapi versions.
         // Pick the main query type
-        'query type' => 'term',
+        'query type'             => 'term',
         // What dependencies do you have (see facetapi)
-        'multiple' => TRUE,
+        'multiple'               => TRUE,
       ),
     ),
   );
@@ -118,16 +117,16 @@ function hook_apachesolr_field_mappings() {
 function hook_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
   // Enable indexing for text fields
   $mappings['text'] = array(
-    'indexing_callback' => 'apachesolr_fields_default_indexing_callback',
-    'map callback' => '',
-    'index_type' => 'string',
-    'facets' => TRUE,
-    'facet missing allowed' => TRUE,
-    'dependency plugins' => array('bundle', 'role'),
-    'hierarchy callback' => FALSE,
-    'name callback' => '',
+    'indexing_callback'      => 'apachesolr_fields_default_indexing_callback',
+    'map callback'           => '',
+    'index_type'             => 'string',
+    'facets'                 => TRUE,
+    'facet missing allowed'  => TRUE,
+    'dependency plugins'     => array('bundle', 'role'),
+    'hierarchy callback'     => FALSE,
+    'name callback'          => '',
     'facet mincount allowed' => FALSE,
-    'multiple' => FALSE,
+    'multiple'               => FALSE,
   );
 
   // Add our per field mapping here so we can sort on the
@@ -154,7 +153,7 @@ function hook_apachesolr_field_mappings_alter(&$mappings, $entity_type) {
 function hook_apachesolr_query_prepare($query) {
   // Add a sort on the node ID.
   $query->setAvailableSort('entity_id', array(
-    'title' => t('Node ID'),
+    'title'   => t('Node ID'),
     'default' => 'asc',
   ));
 }
@@ -209,6 +208,7 @@ function hook_apachesolr_delete_by_query_alter($query) {
     $query .= ' AND hash:' . apachesolr_site_hash();
   }
 }
+
 /*
  * This is the place to look for the replacement to hook_apachesolr_node_exclude
  * You should define a replacement for the status callback and return
@@ -221,10 +221,11 @@ function hook_apachesolr_delete_by_query_alter($query) {
  * index. if any module returns TRUE, the entity is skipped for indexing.
  *
  * @param integer $entity_id
- * @param string $entity_type
+ * @param string  $entity_type
  * @param integer $row
  *   A complete set of data from the indexing table.
- * @param string $env_id
+ * @param string  $env_id
+ *
  * @return boolean
  */
 function hook_apachesolr_exclude($entity_id, $entity_type, $row, $env_id) {
@@ -243,7 +244,8 @@ function hook_apachesolr_exclude($entity_id, $entity_type, $row, $env_id) {
  * @param integer $entity_id
  * @param integer $row
  *   A complete set of data from the indexing table.
- * @param string $env_id
+ * @param string  $env_id
+ *
  * @return boolean
  */
 function hook_apachesolr_ENTITY_TYPE_exclude($entity_id, $row, $env_id) {
@@ -301,8 +303,8 @@ function hook_apachesolr_entity_info_alter(&$entity_info) {
  *
  * @param object $document
  *   The ApacheSolrDocument instance.
- * @param array $extra
- * @param array $query
+ * @param array  $extra
+ * @param array  $query
  */
 function hook_apachesolr_search_result_alter($document, &$extra, DrupalSolrQueryInterface $query) {
 }
@@ -354,8 +356,8 @@ function hook_apachesolr_search_page_alter(&$build, $search_page) {
  */
 function hook_apachesolr_search_types_alter(&$search_types) {
   $search_types['ss_language'] = array(
-    'name' => apachesolr_field_name_map('ss_language'),
-    'default menu' => 'search/language/%',
+    'name'           => apachesolr_field_name_map('ss_language'),
+    'default menu'   => 'search/language/%',
     'title callback' => 'custom_title_callback',
   );
 }
@@ -365,8 +367,8 @@ function hook_apachesolr_search_types_alter(&$search_types) {
  * The function is the follow-up for apachesolr_update_index
  *
  * @param integer $document_id
- * @param array $entity
- * @param string $entity_type
+ * @param array   $entity
+ * @param string  $entity_type
  */
 function hook_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
 
@@ -392,13 +394,14 @@ function hook_apachesolr_index_document_build_ENTITY_TYPE(ApacheSolrDocument $do
     $document->is_book_bid = (int) $entity->book['bid'];
   }
 }
+
 /**
  * Alter the prepared documents from one entity before sending them to Solr.
  *
- * @param $documents
+ * @param        $documents
  *   Array of ApacheSolrDocument objects.
- * @param $entity
- * @param $entity_type
+ * @param        $entity
+ * @param        $entity_type
  * @param string $env_id
  */
 function hook_apachesolr_index_documents_alter(array &$documents, $entity, $entity_type, $env_id) {

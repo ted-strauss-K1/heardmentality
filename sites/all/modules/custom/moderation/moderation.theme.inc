@@ -3,26 +3,25 @@
 /**
  * @param $vars
  */
-function moderation_item_preprocess(&$vars)
-{
+function moderation_item_preprocess(&$vars) {
   $entity = $vars['entity'];
   switch ($entity->type) {
     case 'issue' :
       $vars['text'] = rtrim($entity->title);
-      $vars['link'] = 'moderation/issue/'.$entity->nid;
+      $vars['link'] = 'moderation/issue/' . $entity->nid;
       $vars['fragment'] = '';
       break;
     case 'argument' :
     case 'resource' :
       $vars['text'] = rtrim($entity->title);
       $vars['link'] = 'node/' . $entity->field_reference[0]['nid'];
-      $vars['fragment'] = 'forum-block-'.$entity->nid;
+      $vars['fragment'] = 'forum-block-' . $entity->nid;
       break;
     default :
       $node = node_load($entity->nid);
       $vars['text'] = rtrim($entity->comment);
       $vars['link'] = 'node/' . $node->field_reference[0]['nid'];
-      $vars['fragment'] = 'forum-block-'.$node->nid;
+      $vars['fragment'] = 'forum-block-' . $node->nid;
       break;
   }
 }
@@ -30,12 +29,12 @@ function moderation_item_preprocess(&$vars)
 /**
  * @param $vars
  */
-function moderation_flags_preprocess(&$vars)
-{
+function moderation_flags_preprocess(&$vars) {
   if (empty($vars['content_id'])) {
     if (is_numeric(arg(2))) {
       $vars['content_id'] = arg(2);
-    } else {
+    }
+    else {
       return array();
     }
   }
@@ -60,12 +59,12 @@ function moderation_flags_preprocess(&$vars)
 /**
  * @param $vars
  */
-function moderation_related_preprocess(&$vars)
-{
+function moderation_related_preprocess(&$vars) {
   if (empty($vars['content_id'])) {
     if (is_numeric(arg(2))) {
       $vars['content_id'] = arg(2);
-    } else {
+    }
+    else {
       return array();
     }
   }

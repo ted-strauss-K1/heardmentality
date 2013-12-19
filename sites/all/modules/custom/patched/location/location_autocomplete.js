@@ -1,18 +1,17 @@
-
 /**
  * Twiddle the province autocomplete whenever the user changes the country.
  */
-Drupal.behaviors.location = function(context) {
-  $('select.location_dropdown_province option').each(function() {
+Drupal.behaviors.location = function (context) {
+  $('select.location_dropdown_province option').each(function () {
     if (!$(this).is('hidden')) {
       var country_input = $('.location_auto_country', $(this).parents('fieldset:first, .views-exposed-form:first'));
       var klass = 'location_dropdown_join_' + country_input.val();
-      if(!$(this).hasClass(klass)) {
+      if (!$(this).hasClass(klass)) {
         $(this).addClass(klass);
       }
     }
   });
-  $('select.location_auto_country:not(.location-processed)', context).change(function(e) {
+  $('select.location_auto_country:not(.location-processed)', context).change(function (e) {
     var countryItem = $(this);
     var result = this.className.match(/(location_auto_join_[^ ]*)/);
     var type, provinceItem;
@@ -33,7 +32,7 @@ Drupal.behaviors.location = function(context) {
     }
 
     if (provinceItem && provinceItem.length) {
-      switch(type) {
+      switch (type) {
         case 'select':
           location_update_provinces(countryItem, provinceItem);
           break;
@@ -42,7 +41,7 @@ Drupal.behaviors.location = function(context) {
         default:
           // Unbind events on province field and empty its value.
           provinceItem.unbind().val('');
-          provinceItem.each(function(i) {
+          provinceItem.each(function (i) {
             // Get the (hidden) *-autocomplete input element.
             var input_autocomplete = $('#' + this.id + '-autocomplete');
             // Update autocomplete url.
@@ -74,11 +73,13 @@ function location_update_provinces(countryItem, provinceItem) {
     provinceItem.find('option').remove();
     provinceItem.append('<option>Loading...</option>');
     return $.ajax({
-      url : Drupal.settings.basePath + Drupal.settings.location_fetch_provinces_url + '/' + country,
-      data : { input_id : provinceItem.attr('id'), country : country },
-      dataType : 'json',
+      url     : Drupal.settings.basePath + Drupal.settings.location_fetch_provinces_url + '/' + country,
+      data    : { input_id: provinceItem.attr('id'), country: country },
+      dataType: 'json',
       success : location_update_provinces_callback,
-      error : function() { alert('Error in network connection.  Please reload the page and try again (1).'); }
+      error   : function () {
+        alert('Error in network connection.  Please reload the page and try again (1).');
+      }
     });
   }
 }
@@ -88,11 +89,11 @@ function location_update_provinces(countryItem, provinceItem) {
  */
 function location_update_provinces_callback(data, textStatus) {
   var regexS = "[\\?&]input_id=([^&#]*)";
-  var regex = new RegExp( regexS );
+  var regex = new RegExp(regexS);
   var input_id = regex.exec(this.url);
 
   regexS = "[\\?&]country=([^&#]*)";
-  regex = new RegExp( regexS );
+  regex = new RegExp(regexS);
   var country = regex.exec(this.url);
 
   if (!input_id || input_id.length < 2 || !$('#' + input_id[1]).length) {
@@ -112,7 +113,7 @@ function locationFillProvinceList(provinceItem, country, data) {
     provinceItem.val('xx');
   }
   else {
-    $.each(data, function(key, value) {
+    $.each(data, function (key, value) {
       provinceItem.append('<option value="' + key + '" class="location_dropdown_join_' + country + '">' + value + '</option>');
     });
   }

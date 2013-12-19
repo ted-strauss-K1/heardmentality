@@ -47,12 +47,12 @@ function _location_rss_item($location, $mode = 'simple') {
       //
       case 'gml':
         $ret = array(
-          'key' => 'georss:where',
+          'key'       => 'georss:where',
           'namespace' => array(
             'xmlns:georss' => 'http://www.georss.org/georss',
-            'xmlns:gml' => 'http://www.opengis.net/gml',
+            'xmlns:gml'    => 'http://www.opengis.net/gml',
           ),
-          'value' => array(
+          'value'     => array(
             'gml:Point' => array(
               'gml:pos' => "$location[latitude] $location[longitude]",
             ),

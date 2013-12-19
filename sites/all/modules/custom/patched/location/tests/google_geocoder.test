@@ -11,16 +11,22 @@ require_once drupal_get_path('module', 'location') . '/tests/geocoder_api_keys.i
 class LocationGoogleGeocoderTest extends LocationTestCase {
   function getInfo() {
     return array(
-      'name' => t('Location Google Geocoder tests'),
+      'name'        => t('Location Google Geocoder tests'),
       'description' => t('Test address mangling for the google geocoder.'),
-      'group' => t('Location'),
+      'group'       => t('Location'),
     );
   }
 
   function setUp() {
     parent::setUp('location', 'location_node', 'devel');
     variable_set('location_geocode_google_apikey', TESTING_APIKEY_GOOGLE_MAPS);
-    $web_admin = $this->drupalCreateUser(array('administer nodes', 'submit latitude/longitude', 'administer site configuration', 'access administration pages', 'administer content types'));
+    $web_admin = $this->drupalCreateUser(array(
+      'administer nodes',
+      'submit latitude/longitude',
+      'administer site configuration',
+      'access administration pages',
+      'administer content types'
+    ));
     $this->drupalLogin($web_admin);
   }
 
@@ -38,16 +44,16 @@ class LocationGoogleGeocoderTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'      => $location_type,
       'locations' => array(
         0 => array(
-          'name' => $location1_name,
+          'name'              => $location1_name,
           'location_settings' => $settings,
-          'street' => '1600 Amphitheatre Parkway',
-          'city' => 'Mountain View',
-          'province' => 'CA',
-          'postal_code' => '94043',
-          'country' => 'us',
+          'street'            => '1600 Amphitheatre Parkway',
+          'city'              => 'Mountain View',
+          'province'          => 'CA',
+          'postal_code'       => '94043',
+          'country'           => 'us',
         ),
       ),
     ));

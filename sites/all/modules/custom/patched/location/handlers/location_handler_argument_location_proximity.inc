@@ -25,40 +25,40 @@ class location_handler_argument_location_proximity extends views_handler_argumen
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
     $form['type'] = array(
-      '#title' => t('Coordinate Type'),
-      '#type' => 'select',
-      '#options' => array(
+      '#title'         => t('Coordinate Type'),
+      '#type'          => 'select',
+      '#options'       => array(
         'postal' => t('Postal Code (Zipcode)'),
         'latlon' => t('Decimal Latitude and Longitude coordinates, comma delimited'),
       ),
       '#default_value' => $this->options['type'],
-      '#description' => t('Type of center point.') . '<br />' . t('Postal code argument format: country_postcode_distance or postcode_distance') . '<br />' . t('Lat/Lon argument format: lat,lon_distance') . '<br />' . t('where distance is either a number or a comma delimited pair of decimal degrees'),
+      '#description'   => t('Type of center point.') . '<br />' . t('Postal code argument format: country_postcode_distance or postcode_distance') . '<br />' . t('Lat/Lon argument format: lat,lon_distance') . '<br />' . t('where distance is either a number or a comma delimited pair of decimal degrees'),
     );
 
     // Units used.
     $form['search_units'] = array(
-      '#type' => 'select',
-      '#title' => t('Distance unit'),
-      '#options' => array(
-        'km' => t('Kilometers'),
-        'm' => t('Meters'),
+      '#type'          => 'select',
+      '#title'         => t('Distance unit'),
+      '#options'       => array(
+        'km'   => t('Kilometers'),
+        'm'    => t('Meters'),
         'mile' => t('Miles'),
-        'dd' => t('Decimal degrees'),
+        'dd'   => t('Decimal degrees'),
       ),
       '#default_value' => $this->options['search_units'],
-      '#description' => t('Select the unit of distance. Decimal degrees should be comma delimited.'),
+      '#description'   => t('Select the unit of distance. Decimal degrees should be comma delimited.'),
     );
 
     $form['search_method'] = array(
-      '#title' => t('Method'),
-      '#type' => 'select',
-      '#options' => array(
+      '#title'         => t('Method'),
+      '#type'          => 'select',
+      '#options'       => array(
         'dist' => t('Circular Proximity'),
-        'mbr' => t('Rectangular Proximity'),
+        'mbr'  => t('Rectangular Proximity'),
       ),
       '#default_value' => $this->options['search_method'],
-      '#description' => t('Method of determining proximity. Please note that Circular Proximity does not work with Decimal degrees.'),
-     );
+      '#description'   => t('Method of determining proximity. Please note that Circular Proximity does not work with Decimal degrees.'),
+    );
   }
 
   function calculate_coords() {
@@ -122,12 +122,14 @@ class location_handler_argument_location_proximity extends views_handler_argumen
         }
       }
     }
-    else if ($this->options['type'] == 'latlon') {
-      foreach ($this->view->argument as $argument) {
-        if ($argument->field == 'distance') {
-          list($coords, $this->value['search_distance']) = explode('_', $this->view->args[$argument->position]);
-          list($this->value['latitude'], $this->value['longitude']) = explode(',', $coords);
-          break;
+    else {
+      if ($this->options['type'] == 'latlon') {
+        foreach ($this->view->argument as $argument) {
+          if ($argument->field == 'distance') {
+            list($coords, $this->value['search_distance']) = explode('_', $this->view->args[$argument->position]);
+            list($this->value['latitude'], $this->value['longitude']) = explode(',', $coords);
+            break;
+          }
         }
       }
     }

@@ -7,18 +7,21 @@
 class DrupalApacheSolrNodeAccess extends DrupalWebTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'Node Access',
+      'name'        => 'Node Access',
       'description' => 'Test Access Control',
-      'group' => 'ApacheSolr'
+      'group'       => 'ApacheSolr'
     );
   }
 
   function setUp() {
     parent::setUp('content', 'anode_access_test', 'search', 'apachesolr', 'apachesolr_search', 'apachesolr_access');
     require_once dirname(dirname(dirname(realpath(__FILE__)))) . '/Apache_Solr_Document.php';
-    apachesolr_load_service_class('', array('file' => 'tests/Dummy_Solr', 'module' => 'apachesolr', 'class' => 'DummySolr'));
+    apachesolr_load_service_class('', array('file'   => 'tests/Dummy_Solr',
+                                            'module' => 'apachesolr',
+                                            'class'  => 'DummySolr'
+    ));
 
-     // Create a basic user, which is subject to moderation.
+    // Create a basic user, which is subject to moderation.
     $permissions = array(
       'access content',
       'create page content',
@@ -57,20 +60,20 @@ class DrupalApacheSolrNodeAccess extends DrupalWebTestCase {
     // The assigned role will be the last in the array.
     $assigned_role = end($roles);
     $role_grant = array(
-        'gid' => $assigned_role,
-        'realm' => 'nodeaccess_rid',
-        'grant_view' => '1',
-        'grant_update' => '0',
-        'grant_delete' => '0',
+      'gid'          => $assigned_role,
+      'realm'        => 'nodeaccess_rid',
+      'grant_view'   => '1',
+      'grant_update' => '0',
+      'grant_delete' => '0',
     );
     node_access_write_grants($role_restricted_node, array($role_grant));
 
     $author_grant = array(
-        'gid' => $basic_user->uid,
-        'realm' => 'nodeaccess_author',
-        'grant_view' => '1',
-        'grant_update' => '0',
-        'grant_delete' => '0',
+      'gid'          => $basic_user->uid,
+      'realm'        => 'nodeaccess_author',
+      'grant_view'   => '1',
+      'grant_update' => '0',
+      'grant_delete' => '0',
     );
 
     node_access_write_grants($author_restricted_node, array($author_grant));
@@ -91,8 +94,8 @@ class DrupalApacheSolrNodeAccess extends DrupalWebTestCase {
     $this->assertEqual($document->{$field}[0], $basic_user->uid, 'Solr Document being indexed is restricted by the proper author');
 
     $expected_criterion = array(
-      'access__all' => 0,
-      'access_node_' . apachesolr_site_hash() . '_all' => 0,
+      'access__all'                                                        => 0,
+      'access_node_' . apachesolr_site_hash() . '_all'                     => 0,
       // The anode_access_test module writes this - copied from core 7.
       'access_node_' . apachesolr_site_hash() . '_node_access_test_author' => $basic_user->uid,
     );
@@ -103,12 +106,16 @@ class DrupalApacheSolrNodeAccess extends DrupalWebTestCase {
 
     foreach ($fields as $field) {
       if (is_array($expected_criterion[$field['#name']])) {
-        $this->assertTrue(in_array($field['#value'], $expected_criterion[$field['#name']]), t('Expected node access grant @name == @value found', array('@name' => $field['#name'], '@value' => $field['#value'])));
+        $this->assertTrue(in_array($field['#value'], $expected_criterion[$field['#name']]), t('Expected node access grant @name == @value found', array('@name'  => $field['#name'],
+                                                                                                                                                        '@value' => $field['#value']
+        )));
         //This is sorta a bug
         $found_criterion[$field['#name']] = $expected_criterion[$field['#name']];
       }
       else {
-        $this->assertEqual($field['#value'], $expected_criterion[$field['#name']], t('Expected node access grant @name == @value found', array('@name' => $field['#name'], '@value' => $field['#value'])));
+        $this->assertEqual($field['#value'], $expected_criterion[$field['#name']], t('Expected node access grant @name == @value found', array('@name'  => $field['#name'],
+                                                                                                                                               '@value' => $field['#value']
+        )));
         $found_criterion[$field['#name']] = $expected_criterion[$field['#name']];
       }
     }

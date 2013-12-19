@@ -28,7 +28,7 @@ function pennies_invoke_action($timestamp, $params) {
   $operations = pennies_operations();
   if (isset($params['operation']) && in_array($params['operation'], $operations)) {
     $params['time_stamp'] = $timestamp;
-    $params['points'] = (int)pennies_calculate($params);
+    $params['points'] = (int) pennies_calculate($params);
     $output = pennies_add($params);
   }
   return $output + array('params' => $params);

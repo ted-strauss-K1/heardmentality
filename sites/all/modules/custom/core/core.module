@@ -12,13 +12,12 @@ define('MODERATION_ALLOWED', 1);
 /**
  * Implementation of hook_nodeapi()
  *
- * @param $node
- * @param $op
+ * @param      $node
+ * @param      $op
  * @param null $a3
  * @param null $a4
  */
-function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
+function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   if ('issue' == $node->type) {
     switch ($op) {
       case 'view' :
@@ -29,18 +28,25 @@ function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         # args
         $node->debate = argument_get_list($node->nid, $node->info);
 
-      break;
+        break;
       case 'insert' :
       case 'update' :
         db_query("UPDATE {url_alias} SET language = '' WHERE src = '%s'", 'node/' . $node->nid);
-      break;
+        break;
       case 'delete' :
         if ($node->debate) {
           foreach ($node->debate as $row) {
             node_delete($row->nid);
           }
         }
-      break;
+        break;
+    }
+  }
+
+  if ('resource' == $node->type || 'argument' == $node->type) {
+    if (is_node_page() && 'view' == $op) {
+      $nid = $node->field_reference[0]['nid'];
+      drupal_goto('node/' . $nid);
     }
   }
 }
@@ -48,8 +54,7 @@ function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 /**
  * @param $node
  */
-function node_reload(&$node)
-{
+function node_reload(&$node) {
   $cid = 'content:' . $node->nid . ':' . $node->vid;
   cache_clear_all($cid, content_cache_tablename());
   $node = node_load($node->nid, NULL, TRUE);
@@ -60,8 +65,7 @@ function node_reload(&$node)
  *
  * @param $vars
  */
-function core_preprocess_page(&$vars)
-{
+function core_preprocess_page(&$vars) {
   if (module_exists('rules')) {
     global $user;
     rules_invoke_event('issue_view', $user);
@@ -71,17 +75,16 @@ function core_preprocess_page(&$vars)
 /**
  * Implementation of hook_user()
  *
- * @param $op
- * @param $edit
- * @param $account
+ * @param      $op
+ * @param      $edit
+ * @param      $account
  * @param null $category
  */
-function core_user($op, &$edit, &$account, $category = NULL)
-{
+function core_user($op, &$edit, &$account, $category = NULL) {
   switch ($op) {
     case 'login' :
       //
-    break;
+      break;
   }
 }
 
@@ -90,8 +93,7 @@ function core_user($op, &$edit, &$account, $category = NULL)
  * @param $form_state
  * @param $form_id
  */
-function core_form_alter(&$form, &$form_state, $form_id)
-{
+function core_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'issue_node_form') {
     $form['title']['#maxlength'] = 256;
   }

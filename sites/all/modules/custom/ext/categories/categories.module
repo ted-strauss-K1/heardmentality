@@ -5,14 +5,13 @@
  *
  * @return array
  */
-function categories_menu()
-{
+function categories_menu() {
   $menu = array();
 
   $menu['categories/subscribe'] = array(
-    'page callback' => 'categories_subscribe',
+    'page callback'    => 'categories_subscribe',
     'access arguments' => array('subscribe to all content types'),
-    'type' => MENU_CALLBACK,
+    'type'             => MENU_CALLBACK,
   );
 
   return $menu;
@@ -28,7 +27,7 @@ function categories_subscribe() {
 
   if (!$term) {
     print json_encode(array(
-      'status' => false,
+      'status'  => FALSE,
       'message' => t('Unknown error'),
     ));
     exit;
@@ -36,25 +35,24 @@ function categories_subscribe() {
 
   // write the record
   global $user;
-  $exists = (bool)subscriptions_get_subscription($user->uid, 'node', 'tid', $term->tid);
+  $exists = (bool) subscriptions_get_subscription($user->uid, 'node', 'tid', $term->tid);
   if (!$exists) {
     subscriptions_write_subscription('node', 'tid', $term->tid, -1, $user->uid);
-  } else {
-    db_query(
-      "DELETE FROM {subscriptions}
+  }
+  else {
+    db_query("DELETE FROM {subscriptions}
       WHERE
         module = '%s' AND
         field = '%s' AND
         value = '%s' AND
         author_uid = %d AND
-        recipient_uid = %d",
-      'node', 'tid', $term->tid, -1, $user->uid);
+        recipient_uid = %d", 'node', 'tid', $term->tid, -1, $user->uid);
   }
   // output
   print json_encode(array(
-    'status' => true,
-    'message' => t('You have '.($exists ? 'un' : '').'subscribed '.($exists ? 'from' : 'to').' !name', array('!name' => $term->name)),
-    'result' => !$exists,
+    'status'  => TRUE,
+    'message' => t('You have ' . ($exists ? 'un' : '') . 'subscribed ' . ($exists ? 'from' : 'to') . ' !name', array('!name' => $term->name)),
+    'result'  => !$exists,
   ));
 
   exit;
@@ -62,10 +60,10 @@ function categories_subscribe() {
 
 /**
  * @param $term
+ *
  * @return string
  */
-function term_hierarchy($term)
-{
+function term_hierarchy($term) {
   $list = array();
 
   $terms = taxonomy_node_type_terms();
@@ -75,10 +73,11 @@ function term_hierarchy($term)
 
   while (!empty($tmp)) {
     $tid = array_shift($tmp);
-    if ($terms[$tid]->parents)
-    foreach ($terms[$tid]->parents as $ptid) {
-      if (!empty($ptid)) {
-        $tmp[] = $ptid;
+    if ($terms[$tid]->parents) {
+      foreach ($terms[$tid]->parents as $ptid) {
+        if (!empty($ptid)) {
+          $tmp[] = $ptid;
+        }
       }
     }
     $list[] = $tid;
@@ -91,12 +90,12 @@ function term_hierarchy($term)
  * Implementation of hook_block()
  *
  * @param string $op
- * @param int $delta
- * @param array $edit
+ * @param int    $delta
+ * @param array  $edit
+ *
  * @return mixed
  */
-function categories_block($op = 'list', $delta = 0, $edit = array())
-{
+function categories_block($op = 'list', $delta = 0, $edit = array()) {
   switch ($op) {
     case 'list' :
       $blocks = array();
@@ -132,32 +131,31 @@ function categories_block($op = 'list', $delta = 0, $edit = array())
  *
  * @return array
  */
-function categories_theme()
-{
+function categories_theme() {
   $theme = array();
 
   $theme['categories_subscribe'] = array(
     'arguments' => array(
-      'name' => NULL,
+      'name'      => NULL,
       'hierarchy' => '',
     ),
   );
 
   // blocks
   $theme['categories_block'] = array(
-    'arguments' => array('nid' => NULL),
-    'template' => 'templates/categories-block',
+    'arguments'            => array('nid' => NULL),
+    'template'             => 'templates/categories-block',
     'preprocess functions' => array('categories_theme_categories_block_preprocess'),
   );
   $theme['categories_popular_block'] = array(
-    'arguments' => array(),
-    'template' => 'templates/categories-popular-block',
+    'arguments'            => array(),
+    'template'             => 'templates/categories-popular-block',
     'preprocess functions' => array('categories_theme_categories_popular_block_preprocess'),
   );
 
   $theme['categories_user_block'] = array(
-    'arguments' => array(),
-    'template' => 'templates/categories-user-block',
+    'arguments'            => array(),
+    'template'             => 'templates/categories-user-block',
     'preprocess functions' => array('categories_theme_categories_user_block_preprocess'),
   );
 
@@ -179,9 +177,9 @@ function theme_categories_subscribe($name, $hierarchy) {
     global $user;
     $data = subscriptions_get(array(
       'recipient_uid' => $user->uid,
-      'module' => 'node',
-      'field' => 'tid',
-      'author_uid' => -1,
+      'module'        => 'node',
+      'field'         => 'tid',
+      'author_uid'    => -1,
     ));
     if ($data) {
       foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
@@ -191,18 +189,13 @@ function theme_categories_subscribe($name, $hierarchy) {
     // $subscriptions[$s->recipient_uid][$s->module][$s->field][$s->value][$s->author_uid] = 1;
   }
 
-  return  (
-  module_exists('subscriptions') ?
-    sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>',
-      $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $subscriptions) ? 'checked' : '') : '') .
-    l($name, 'issues', array('query' => array('tids' => $hierarchy)));
+  return (module_exists('subscriptions') ? sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $subscriptions) ? 'checked' : '') : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
 }
 
 /**
  * @param $vars
  */
-function categories_theme_categories_block_preprocess(&$vars)
-{
+function categories_theme_categories_block_preprocess(&$vars) {
   $nid = $vars['nid'];
   if (empty($nid)) {
     $vars['nid'] = $nid = arg(1);
@@ -227,22 +220,21 @@ function categories_theme_categories_block_preprocess(&$vars)
   $vars['orig_path'] = $node->path;
   $vars['orig_language'] = $languages[$node->language];
 
-  $vars['author_status'] = (bool)db_result(db_query("SELECT status FROM {users} WHERE uid = '%s'", $node->uid));
+  $vars['author_status'] = (bool) db_result(db_query("SELECT status FROM {users} WHERE uid = '%s'", $node->uid));
 }
 
 /**
  * @param $vars
  */
-function categories_theme_categories_user_block_preprocess(&$vars)
-{
+function categories_theme_categories_user_block_preprocess(&$vars) {
   $vars['categories'] = array();
 
   global $user;
   $data = subscriptions_get(array(
     'recipient_uid' => $user->uid,
-    'module' => 'node',
-    'field' => 'tid',
-    'author_uid' => -1,
+    'module'        => 'node',
+    'field'         => 'tid',
+    'author_uid'    => -1,
   ));
   if ($data) {
     foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
@@ -254,8 +246,7 @@ function categories_theme_categories_user_block_preprocess(&$vars)
 /**
  * @param $vars
  */
-function categories_theme_categories_popular_block_preprocess(&$vars)
-{
+function categories_theme_categories_popular_block_preprocess(&$vars) {
   $result = db_query_range("
     SELECT COUNT(*) count, td.*
     FROM {cpoll_choices} c

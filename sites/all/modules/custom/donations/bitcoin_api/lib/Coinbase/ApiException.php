@@ -1,5 +1,4 @@
 <?php
 
-class Coinbase_ApiException extends Coinbase_Exception
-{
+class Coinbase_ApiException extends Coinbase_Exception {
 }

@@ -11,13 +11,13 @@
 function location_search_schema() {
   $schema['location_search_work'] = array(
     'description' => 'List of lids to index.',
-    'fields' => array(
+    'fields'      => array(
       'lid' => array(
         'description' => 'Primary Key: location ID.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
     ),
     'primary key' => array('lid'),
@@ -55,13 +55,13 @@ function location_search_update_5300() {
   // Create our worklist table.
   $schema['location_search_work'] = array(
     'description' => 'List of lids to index.',
-    'fields' => array(
+    'fields'      => array(
       'lid' => array(
         'description' => 'Primary Key: location ID.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
     ),
     'primary key' => array('lid'),

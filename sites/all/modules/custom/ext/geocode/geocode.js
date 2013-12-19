@@ -1,11 +1,11 @@
 /**
  * Listeners
  */
-$('body').on('geocode.latlng', function(e) {
+$('body').on('geocode.latlng',function (e) {
   geocode_latlng();
-}).on('geocode.postalcode', function(e, countrycode, postalcode) {
-  geocode_postalcode(countrycode, postalcode);
-});
+}).on('geocode.postalcode', function (e, countrycode, postalcode) {
+    geocode_postalcode(countrycode, postalcode);
+  });
 
 /**
  * Function to ask access to location data
@@ -22,8 +22,8 @@ function geocode_latlng() {
  */
 function geocode_postalcode(countrycode, postalcode) {
   geocode_request({
-    'countrycode' : countrycode,
-    'postalcode'  : postalcode
+    'countrycode': countrycode,
+    'postalcode' : postalcode
   });
 }
 
@@ -34,22 +34,22 @@ function geocode_postalcode(countrycode, postalcode) {
  */
 function geocode_request(location) {
   $.ajax({
-    type      : 'POST',
-    dataType  : 'json',
-    url       : '/geocode',
-    data      : location,
-    success   : function (response) {
+    type    : 'POST',
+    dataType: 'json',
+    url     : '/geocode',
+    data    : location,
+    success : function (response) {
       // error
       if (!response.status) {
         $.hrd.noty({
-          type  : 'error',
-          text  : response.message
+          type: 'error',
+          text: response.message
         });
         return false;
       }
       $('body').trigger('geocode.success', [response.location]);
     },
-    complete:function () {
+    complete: function () {
       //
     }
   });

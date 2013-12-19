@@ -26,15 +26,21 @@ class CowInstanceTest extends LocationTestCase {
 
   function getInfo() {
     return array(
-      'name' => t('Location Copy on Write checks'),
+      'name'        => t('Location Copy on Write checks'),
       'description' => t('Test corner cases of the copy on write mechanism.'),
-      'group' => t('Location'),
+      'group'       => t('Location'),
     );
   }
 
   function setUp() {
     parent::setUp('location', 'location_node', 'devel');
-    $web_admin = $this->drupalCreateUser(array('administer nodes', 'submit latitude/longitude', 'administer site configuration', 'access administration pages', 'administer content types'));
+    $web_admin = $this->drupalCreateUser(array(
+      'administer nodes',
+      'submit latitude/longitude',
+      'administer site configuration',
+      'access administration pages',
+      'administer content types'
+    ));
     $this->drupalLogin($web_admin);
   }
 
@@ -45,10 +51,10 @@ class CowInstanceTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'      => $location_type,
       'locations' => array(
         0 => array(
-          'name' => $location1_name,
+          'name'              => $location1_name,
           'location_settings' => $settings,
         ),
       ),
@@ -67,11 +73,11 @@ class CowInstanceTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'      => $location_type,
       'locations' => array(
         0 => array(
-          'locpick' => array(
-            'user_latitude' => '44.25',
+          'locpick'           => array(
+            'user_latitude'  => '44.25',
             'user_longitude' => '-10.25',
           ),
           'location_settings' => $settings,
@@ -94,18 +100,18 @@ class CowInstanceTest extends LocationTestCase {
     $location3_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'      => $location_type,
       'locations' => array(
         0 => array(
-          'name' => $location1_name,
+          'name'              => $location1_name,
           'location_settings' => $settings,
         ),
         1 => array(
-          'name' => $location2_name,
+          'name'              => $location2_name,
           'location_settings' => $settings,
         ),
         2 => array(
-          'name' => $location3_name,
+          'name'              => $location3_name,
           'location_settings' => $settings,
         ),
       ),
@@ -129,10 +135,10 @@ class CowInstanceTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'      => $location_type,
       'locations' => array(
         0 => array(
-          'name' => $location1_name,
+          'name'              => $location1_name,
           'location_settings' => $settings,
         ),
       ),
@@ -145,7 +151,7 @@ class CowInstanceTest extends LocationTestCase {
     $location = $node->locations[0];
 
     $node2 = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'      => $location_type,
       'locations' => array(
         '0' => $location,
       ),
@@ -184,14 +190,14 @@ class CowInstanceTest extends LocationTestCase {
     $location3_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'      => $location_type,
       'locations' => array(
         0 => array( // First
-          'name' => $location1_name,
+          'name'              => $location1_name,
           'location_settings' => $settings,
         ),
         1 => array( // Second
-          'name' => $location2_name,
+          'name'              => $location2_name,
           'location_settings' => $settings,
         ),
       ),
@@ -201,8 +207,8 @@ class CowInstanceTest extends LocationTestCase {
     $node = node_load($node->nid, NULL, TRUE);
 
     $changes = array(
-      'revision' => TRUE,
-      'log' => $this->randomName(20),
+      'revision'  => TRUE,
+      'log'       => $this->randomName(20),
       'locations' => array(
         0 => array( // Delete First
           'delete_location' => TRUE,
@@ -213,7 +219,7 @@ class CowInstanceTest extends LocationTestCase {
       ),
     );
     $this->flattenPostData($changes);
-    $this->drupalPost('node/'. $node->nid .'/edit', $changes, 'Save');
+    $this->drupalPost('node/' . $node->nid . '/edit', $changes, 'Save');
 
     // Reload the node again.
     $node1 = node_load($node->nid, $node->vid, TRUE);
@@ -258,10 +264,10 @@ class CowInstanceTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'      => $location_type,
       'locations' => array(
         0 => array(
-          'name' => $location1_name,
+          'name'              => $location1_name,
           'location_settings' => $settings,
         ),
       ),
@@ -274,12 +280,12 @@ class CowInstanceTest extends LocationTestCase {
       'locations' => array(
         0 => array(
           // Update name.
-          'name' => $location1_name .'_CHANGE',
+          'name' => $location1_name . '_CHANGE',
         ),
       ),
     );
     $this->flattenPostData($changes);
-    $this->drupalPost('node/'. $node->nid .'/edit', $changes, 'Save');
+    $this->drupalPost('node/' . $node->nid . '/edit', $changes, 'Save');
 
     // Reload the node again.
     $node1 = node_load($node->nid, NULL, TRUE);

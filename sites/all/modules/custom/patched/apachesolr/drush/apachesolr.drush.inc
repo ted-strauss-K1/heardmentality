@@ -15,147 +15,147 @@ function apachesolr_drush_command() {
   $items = array();
 
   $items['solr-delete-index'] = array(
-    'callback' => 'apachesolr_drush_solr_delete_index',
+    'callback'    => 'apachesolr_drush_solr_delete_index',
     'description' => dt('Deletes the content from the index. Can take content types as parameters.'),
-    'arguments' => array(
+    'arguments'   => array(
       'types' => dt('Optional. A space delimited list of content types to be deleted from the index.'),
     ),
-    'examples' => array(
-      'drush solr-delete-index node' => 'Delete all node content from the index.',
-      'drush solr-delete-index node:article' => 'Delete all content of the article content type from the index.',
+    'examples'    => array(
+      'drush solr-delete-index node'                   => 'Delete all node content from the index.',
+      'drush solr-delete-index node:article'           => 'Delete all content of the article content type from the index.',
       'drush solr-delete-index node:article node:blog' => 'Delete all content of the article and blog content types from the index.',
     ),
   );
   $items['solr-mark-all'] = array(
-    'callback' => 'apachesolr_drush_solr_mark_for_reindex',
+    'callback'    => 'apachesolr_drush_solr_mark_for_reindex',
     'description' => dt('Marks content for reindexing. Can take content types as parameters.'),
-    'arguments' => array(
+    'arguments'   => array(
       'types' => dt('Optional. A space delimited list of content types to be marked for reindexing.'),
     ),
   );
   $items['solr-index'] = array(
-    'callback' => 'apachesolr_drush_solr_index',
+    'callback'    => 'apachesolr_drush_solr_index',
     'description' => dt('Reindexes content marked for (re)indexing.'),
   );
   $items['solr-get-last-indexed'] = array(
-    'callback' => 'apachesolr_drush_solr_get_last_indexed',
+    'callback'    => 'apachesolr_drush_solr_get_last_indexed',
     'description' => dt('Get the ID of the last document indexed.'),
-    'arguments' => array(
+    'arguments'   => array(
       'environment-id' => dt('Optional. The environment ID, uses the default if not passed.'),
-      'entity-type' => dt('Optional. The machine name of the entity, defaults to "node".'),
+      'entity-type'    => dt('Optional. The machine name of the entity, defaults to "node".'),
     ),
   );
   $items['solr-get-next-indexed'] = array(
-    'callback' => 'apachesolr_drush_solr_get_next_indexed',
+    'callback'    => 'apachesolr_drush_solr_get_next_indexed',
     'description' => dt('Get the ID of the next document to be indexed.'),
-    'arguments' => array(
+    'arguments'   => array(
       'environment-id' => dt('Optional. The environment ID, uses the default if not passed.'),
-      'entity-type' => dt('Optional. The machine name of the entity, defaults to "node".'),
+      'entity-type'    => dt('Optional. The machine name of the entity, defaults to "node".'),
     ),
   );
   $items['solr-search'] = array(
-    'callback' => 'apachesolr_drush_solr_search',
+    'callback'    => 'apachesolr_drush_solr_search',
     'description' => dt('Search the site for keywords using Apache Solr'),
-    'arguments' => array(
+    'arguments'   => array(
       'keywords' => dt('One or more keywords, separated by spaces.'),
     ),
   );
   $items['solr-get-env-id'] = array(
-    'callback' => 'apachesolr_drush_solr_get_env_id',
+    'callback'    => 'apachesolr_drush_solr_get_env_id',
     'description' => dt('Get the default Apache Solr environment ID, or all IDs and names'),
-    'arguments' => array(),
-    'options' => array(
+    'arguments'   => array(),
+    'options'     => array(
       'all' => array(
-         'description' => 'List all environment IDs',
+        'description' => 'List all environment IDs',
       ),
     ),
   );
   $items['solr-get-env-name'] = array(
-    'callback' => 'apachesolr_drush_solr_get_env_name',
+    'callback'    => 'apachesolr_drush_solr_get_env_name',
     'description' => dt('Get the Apache Solr environment name.'),
-    'options' => array(
+    'options'     => array(
       'id' => array(
-         'description' => 'Apache Solr environment ID to use (uses the default environment if not specified)',
+        'description' => 'Apache Solr environment ID to use (uses the default environment if not specified)',
       ),
     ),
   );
   $items['solr-get-env-url'] = array(
-    'callback' => 'apachesolr_drush_solr_get_env_url',
+    'callback'    => 'apachesolr_drush_solr_get_env_url',
     'description' => dt('Get the Apache Solr environment url.'),
-    'options' => array(
+    'options'     => array(
       'id' => array(
-         'description' => 'Apache Solr environment ID to use (uses the default environment if not specified)',
+        'description' => 'Apache Solr environment ID to use (uses the default environment if not specified)',
       ),
     ),
   );
   $items['solr-set-env-url'] = array(
-    'callback' => 'apachesolr_drush_solr_set_env_url',
-    'description' => dt('Set the url for an Apache Solr environment.'),
-    'arguments' => array(
+    'callback'           => 'apachesolr_drush_solr_set_env_url',
+    'description'        => dt('Set the url for an Apache Solr environment.'),
+    'arguments'          => array(
       'url' => dt('Apache Solr server url string.'),
     ),
     'required-arguments' => TRUE,
-    'options' => array(
+    'options'            => array(
       'id' => array(
-         'description' => 'Apache Solr environment ID to use (uses the default environment if not specified)',
+        'description' => 'Apache Solr environment ID to use (uses the default environment if not specified)',
       ),
     ),
   );
   $items['solr-variable-get'] = array(
     'description' => 'Get a list of Apache Solr environment variable names and values.',
-    'arguments' => array(
+    'arguments'   => array(
       'name' => 'A string to filter the variables by. Variables that have any part of their name matching the string will b listed.',
     ),
-    'examples' => array(
-      'drush solr-vget' => 'List all variables and values.',
+    'examples'    => array(
+      'drush solr-vget'      => 'List all variables and values.',
       'drush solr-vget user' => 'List all variables containing the string "user".',
     ),
-    'options' => array(
-      'id' => 'Apache Solr environment ID to use (uses the default environment if not specified)',
+    'options'     => array(
+      'id'     => 'Apache Solr environment ID to use (uses the default environment if not specified)',
       'format' => 'Format to output the object. Use "print_r" for print_r (default), "export" for var_export, and "json" for JSON.',
-      'pipe' => 'A synonym for --format=export. Useful for pasting into code.',
+      'pipe'   => 'A synonym for --format=export. Useful for pasting into code.',
     ),
-    'aliases' => array('solr-vget'),
+    'aliases'     => array('solr-vget'),
   );
   $items['solr-variable-set'] = array(
-    'description' => "Set an Apache Solr environment variable.",
-    'arguments' => array(
-      'name' => 'The name of a variable or the first few letters of its name.',
+    'description'        => "Set an Apache Solr environment variable.",
+    'arguments'          => array(
+      'name'  => 'The name of a variable or the first few letters of its name.',
       'value' => 'The value to assign to the variable. Use \'-\' to read the object from STDIN.',
     ),
     'required-arguments' => TRUE,
-    'options' => array(
-      'id' => 'Apache Solr environment ID to use (uses the default environment if not specified)',
-      'yes' => 'Skip confirmation if only one variable name matches.',
+    'options'            => array(
+      'id'         => 'Apache Solr environment ID to use (uses the default environment if not specified)',
+      'yes'        => 'Skip confirmation if only one variable name matches.',
       'always-set' => 'Always skip confirmation.',
-      'format' => 'Format to parse the object. Use "auto" to detect format from value (default), "string", "integer" or "boolean" for corresponding primitive type, and "json" for JSON.',
+      'format'     => 'Format to parse the object. Use "auto" to detect format from value (default), "string", "integer" or "boolean" for corresponding primitive type, and "json" for JSON.',
     ),
-    'examples' => array(
-      'drush solr-vset --yes apachesolr_read_only 1' => 'Set the apachesolr_read_only variable to 1. Skip confirmation if variable already exists.',
-      'drush solr-vset pr TRUE' => 'Choose from a list of variables beginning with "pr" to set to (bool)true.',
-      'php -r "print json_encode(array(\'drupal\', \'simpletest\'));"  | drush solr-vset --format=json project_dependency_excluded_dependencies -'=> 'Set a variable to a complex value (e.g. array)',
+    'examples'           => array(
+      'drush solr-vset --yes apachesolr_read_only 1'                                                                                               => 'Set the apachesolr_read_only variable to 1. Skip confirmation if variable already exists.',
+      'drush solr-vset pr TRUE'                                                                                                                    => 'Choose from a list of variables beginning with "pr" to set to (bool)true.',
+      'php -r "print json_encode(array(\'drupal\', \'simpletest\'));"  | drush solr-vset --format=json project_dependency_excluded_dependencies -' => 'Set a variable to a complex value (e.g. array)',
     ),
-    'aliases' => array('solr-vset'),
+    'aliases'            => array('solr-vset'),
   );
   $items['solr-variable-delete'] = array(
-    'description' => "Delete an Apache Solr environment variable.",
-    'arguments' => array(
+    'description'        => "Delete an Apache Solr environment variable.",
+    'arguments'          => array(
       'name' => 'The name of a variable or the first few letters of its name.',
     ),
     'required-arguments' => TRUE,
-    'options' => array(
-      'id' => array(
-         'description' => 'Apaches Solr environment ID to use (uses the default environment if not specified)',
+    'options'            => array(
+      'id'    => array(
+        'description' => 'Apaches Solr environment ID to use (uses the default environment if not specified)',
       ),
-      'yes' => 'Skip confirmation if only one variable name matches.',
+      'yes'   => 'Skip confirmation if only one variable name matches.',
       'exact' => 'Only delete the one variable that exactly matches the specified name.',
     ),
-    'examples' => array(
+    'examples'           => array(
       'drush solr-vdel apachesolr_read_only --id=solr2' => 'Delete the apachesolr_read_only variable for the solr2 environment.',
-      'drush solr-vdel apa' => 'Choose from a list of variables beginning with "u" to delete.',
+      'drush solr-vdel apa'                             => 'Choose from a list of variables beginning with "u" to delete.',
       'drush solr-vdel -y --exact apachesolr_read_only' => 'Delete variable, skipping confirmation.',
     ),
-    'aliases' => array('solr-vdel'),
+    'aliases'            => array('solr-vdel'),
   );
   return $items;
 }
@@ -267,8 +267,11 @@ function apachesolr_drush_solr_search() {
   $keys = implode(' ', $args);
   foreach (apachesolr_search_search_execute($keys) as $result) {
     $output = $result['fields']['path'];
-    if(isset($result['user']) && isset($result['node']->is_uid)) {
-      $output .= ' ' . dt('by @name (user/@uid)', array('@name' => strip_tags($result['user']), '@uid' => $result['node']->is_uid));
+    if (isset($result['user']) && isset($result['node']->is_uid)) {
+      $output .= ' ' . dt('by @name (user/@uid)', array(
+          '@name' => strip_tags($result['user']),
+          '@uid'  => $result['node']->is_uid
+        ));
     }
     $output .= "\n";
     $output .= dt('title: ') . $result['title'] . "\n";
@@ -295,8 +298,7 @@ function apachesolr_drush_solr_get_env_name() {
   $env_id = drush_get_option('id', apachesolr_default_environment());
   try {
     $environment = _apachesolr_drush_environment_load_and_validate($env_id);
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     return drush_set_error('APACHESOLR_ENV_ID_ERROR', $e->getMessage());
   }
   drush_print($environment['name']);
@@ -306,8 +308,7 @@ function apachesolr_drush_solr_get_env_url() {
   $env_id = drush_get_option('id', apachesolr_default_environment());
   try {
     $environment = _apachesolr_drush_environment_load_and_validate($env_id);
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     return drush_set_error('APACHESOLR_ENV_ID_ERROR', $e->getMessage());
   }
   drush_print($environment['url']);
@@ -317,8 +318,7 @@ function apachesolr_drush_solr_set_env_url($url) {
   $env_id = drush_get_option('id', apachesolr_default_environment());
   try {
     $environment = _apachesolr_drush_environment_load_and_validate($env_id);
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     return drush_set_error('APACHESOLR_ENV_ID_ERROR', $e->getMessage());
   }
   $environment['url'] = $url;
@@ -339,8 +339,7 @@ function drush_apachesolr_solr_variable_get($arg_name = NULL) {
   $env_id = drush_get_option('id', apachesolr_default_environment());
   try {
     $found = _apachesolr_drush_variable_like($env_id, $arg_name);
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     return drush_set_error('APACHESOLR_ENV_ID_ERROR', $e->getMessage());
   }
 
@@ -371,12 +370,11 @@ function drush_apachesolr_solr_variable_set($arg_name, $value) {
   $env_id = drush_get_option('id', apachesolr_default_environment());
   try {
     $found = _apachesolr_drush_variable_like($env_id, $arg_name, TRUE);
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     return drush_set_error('APACHESOLR_ENV_ID_ERROR', $e->getMessage());
   }
 
-  $options[] = "$arg_name ". dt('(new variable)');
+  $options[] = "$arg_name " . dt('(new variable)');
   $match = isset($found[$arg_name]);
   if (!$match && $found) {
     $options = array_merge($options, array_keys($found));
@@ -435,7 +433,7 @@ function _apachesolr_drush_variable_format($value, $format) {
   // Now, we parse the object.
   switch ($format) {
     case 'integer':
-      $value = (integer)$value;
+      $value = (integer) $value;
       break;
 
     case 'bool':
@@ -447,7 +445,7 @@ function _apachesolr_drush_variable_format($value, $format) {
         $value = FALSE;
       }
       else {
-        $value = (bool)$value;
+        $value = (bool) $value;
       }
       break;
 
@@ -468,8 +466,7 @@ function drush_apachesolr_solr_variable_delete($arg_name) {
   // Look for similar variable names.
   try {
     $found = _apachesolr_drush_variable_like($env_id, $arg_name, TRUE);
-  }
-  catch (Exception $e) {
+  } catch (Exception $e) {
     return drush_set_error('APACHESOLR_ENV_ID_ERROR', $e->getMessage());
   }
   drush_log(dt('Using environment ID "!env_id"', array('!env_id' => $env_id)), 'success');

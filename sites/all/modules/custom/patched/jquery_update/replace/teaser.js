@@ -1,16 +1,15 @@
-
 /**
  * Auto-attach for teaser behavior.
  *
  * Note: depends on resizable textareas.
  */
-Drupal.behaviors.teaser = function(context) {
-  $('textarea.teaser:not(.teaser-processed)', context).each(function() {
+Drupal.behaviors.teaser = function (context) {
+  $('textarea.teaser:not(.teaser-processed)', context).each(function () {
     var teaser = $(this).addClass('teaser-processed');
 
     // Move teaser textarea before body, and remove its form-item wrapper.
-    var body = $('#'+ Drupal.settings.teaser[this.id]);
-    var checkbox = $('#'+ Drupal.settings.teaserCheckbox[this.id]).parent();
+    var body = $('#' + Drupal.settings.teaser[this.id]);
+    var checkbox = $('#' + Drupal.settings.teaserCheckbox[this.id]).parent();
     var checked = $(checkbox).children('input').attr('checked') ? true : false;
     var parent = teaser[0].parentNode;
     $(body).before(teaser);
@@ -23,7 +22,7 @@ Drupal.behaviors.teaser = function(context) {
     // Join the teaser back to the body.
     function join_teaser() {
       if (teaser.val()) {
-        body.val(trim(teaser.val()) +'\r\n\r\n'+ trim(body.val()));
+        body.val(trim(teaser.val()) + '\r\n\r\n' + trim(body.val()));
       }
       // Empty, hide and disable teaser.
       teaser[0].value = '';
@@ -61,7 +60,7 @@ Drupal.behaviors.teaser = function(context) {
 
     // Add split/join button.
     var button = $('<div class="teaser-button-wrapper"><input type="button" class="teaser-button" /></div>');
-    var include = $('#'+ this.id.substring(0, this.id.length - 2) +'include');
+    var include = $('#' + this.id.substring(0, this.id.length - 2) + 'include');
     $(include).parent().parent().before(button);
 
     // Extract the teaser from the body, if set. Otherwise, stay in joined mode.
