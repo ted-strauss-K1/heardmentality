@@ -287,6 +287,20 @@
   height : 35px;
 }
 
+.ie7 .edit_profile_four_columns input[type="submit"] {
+  top: -3px;
+}
+
+.ie8 .edit_profile_four_columns input[type="submit"] {
+
+ }
+
+.ie8 .edit_profile_four_columns input[type="submit"]:hover {
+  top: -3px !important;
+  margin-bottom: -3px !important;
+  margin-top: 15px !important;
+}
+
 .ie8 input.submit-issue:hover {
   margin-top : -3px;
 }
@@ -303,6 +317,13 @@
   border: 2px solid #849EB7;
 }
 
+.ie8 #edit-image-upload-wrapper {
+  background          : url(../images/ie7_choose_file.png);
+  background-position : center center;
+  filter              : none;
+  border: 1px solid #849EB7;
+}
+
 .ie7 #edit-image-upload-wrapper:hover {
   border-top-width: 2px;
   border-right-width: 2px;
@@ -310,6 +331,15 @@
   border-left-width: 2px;
   top: -3px;
   margin-bottom: 4px;
+}
+
+.ie8 #edit-image-upload-wrapper:hover {
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 4px;
+  border-left-width: 1px;
+  top: -3px;
+  margin-bottom: 3px;
 }
 
 /*End IE9 gradients*/
