@@ -674,6 +674,18 @@
 /*--/ user info */
 
 
+/* privacy options in ie9 1023>x>767 */
+
+@media only screen and (min-width : 768px) and (max-width : 1023px) {
+  .ie9 #edit_profile ul.privacy {
+    width: 231px;
+  }
+
+}
+
+/*--/ privacy options in ie9 1023>x>767 */
+
+
 
 
 
