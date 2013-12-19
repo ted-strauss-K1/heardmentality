@@ -220,7 +220,7 @@
   margin-bottom : 5px;
 }
 
-.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover {
+.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover, .ie7 .user-info input.submit-issue {
   filter : chroma(color=#000000);
 }
 
@@ -291,10 +291,6 @@
   top: -3px;
 }
 
-.ie8 .edit_profile_four_columns input[type="submit"] {
-
- }
-
 .ie8 .edit_profile_four_columns input[type="submit"]:hover {
   top: -3px !important;
   margin-bottom: -3px !important;
@@ -314,14 +310,15 @@
   background          : url(../images/ie7_choose_file.png);
   background-position : center center;
   filter              : none;
-  border: 2px solid #849EB7;
+  border: 2px solid #669ecc;
+  height: 30px !important;
 }
 
 .ie8 #edit-image-upload-wrapper {
   background          : url(../images/ie7_choose_file.png);
   background-position : center center;
   filter              : none;
-  border: 1px solid #849EB7;
+  border: 1px solid #669ecc;
 }
 
 .ie7 #edit-image-upload-wrapper:hover {
@@ -329,6 +326,7 @@
   border-right-width: 2px;
   border-bottom-width: 4px;
   border-left-width: 2px;
+  border-bottom-color: #849EB7;
   top: -3px;
   margin-bottom: 4px;
 }
@@ -338,8 +336,18 @@
   border-right-width: 1px;
   border-bottom-width: 4px;
   border-left-width: 1px;
+  border-bottom-color: #849EB7;
   top: -3px;
   margin-bottom: 3px;
+}
+
+.ie8 .user-info input.submit-issue:hover {
+  top: -3px !important;
+  margin-bottom: -3px !important;
+}
+
+.ie7 ul.subscription li {
+  line-height: 1em;
 }
 
 /*End IE9 gradients*/
