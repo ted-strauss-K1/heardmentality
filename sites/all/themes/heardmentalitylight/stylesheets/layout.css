@@ -1935,7 +1935,7 @@ img.profile-meta {
   border-style : solid;
   border-color : #666666 #999999 #999999 #888888;
   background   : #DDDDDD;
-  float        : left;
+  float        : none;
   margin       : -15px 12px 10px 0px;
   width        : 145px;
   height       : 145px;
@@ -2573,6 +2573,10 @@ p.profile-status {
 #own_info .medals {
   margin-top    : 0;
   margin-bottom : 15px;
+}
+
+#own_info .medals {
+  float: none;
 }
 
 .activity_stream .no_active {
