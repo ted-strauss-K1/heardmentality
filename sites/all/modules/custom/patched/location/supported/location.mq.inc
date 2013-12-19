@@ -1,7 +1,7 @@
 <?php
 
-function location_province_list_mq () {
-	return array (
-		"MQ" => t("Martinique"),
-	);
+function location_province_list_mq() {
+  return array(
+    "MQ" => t("Martinique"),
+  );
 }

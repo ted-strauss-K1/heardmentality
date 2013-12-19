@@ -67,7 +67,7 @@ function pcp_alter_get_complete_percentage_data($user) {
   $complete_data = array();
   $complete_data['uid'] = $user->uid;
   $complete_data['percent'] = $percent;
-  $complete_data['completed']  = $complete;
+  $complete_data['completed'] = $complete;
   $complete_data['incomplete'] = count($fields) - $complete;
   $complete_data['total'] = count($fields);
   $complete_data['nextfield'] = $nextfield;

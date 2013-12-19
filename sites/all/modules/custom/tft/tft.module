@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @param string $node_type     - Node type
- * @param array $tids           - List of selected taxonomy ids
+ * @param string $node_type - Node type
+ * @param array  $tids      - List of selected taxonomy ids
+ *
  * @return array
  */
-function tft_list($node_type, $tids = array(), $filter = false)
-{
+function tft_list($node_type, $tids = array(), $filter = FALSE) {
   $tft = array(
-    'list' => array(),
+    'list'    => array(),
     'checked' => array(),
   );
 
@@ -26,10 +26,12 @@ function tft_list($node_type, $tids = array(), $filter = false)
     WHERE vnt.type = '%s' GROUP BY td.tid HAVING COUNT(tn.nid) >= '%d'", $node_type, $filter);
   while ($row = db_fetch_object($result)) {
     $all[$row->parent][] = array(
-      'id' => $row->tid,
+      'id'   => $row->tid,
       'name' => t($row->name),
     );
-    if (0 == $row->parent) $tmp[$row->tid] = t($row->name);
+    if (0 == $row->parent) {
+      $tmp[$row->tid] = t($row->name);
+    }
   }
 
   // setting
@@ -69,10 +71,10 @@ function tft_list($node_type, $tids = array(), $filter = false)
  * Helper for tft_list()
  *
  * @param $tids
+ *
  * @return array
  */
-function _tft_children($tids)
-{
+function _tft_children($tids) {
   $list = array();
   if (!is_array($tids) || empty($tids)) {
     return $list;

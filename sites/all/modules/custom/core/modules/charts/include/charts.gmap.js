@@ -16,13 +16,13 @@ function init_gmap() {
     var latitude = data[0][0];
     var longitude = data[0][1];
     var myOptions = {
-      zoom:1,
-      center:new google.maps.LatLng(latitude, longitude),
-      mapTypeControl:false,
-      mapTypeControlOptions:{style:google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-      navigationControl:true,
-      navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL},
-      mapTypeId:google.maps.MapTypeId.ROADMAP
+      zoom                    : 1,
+      center                  : new google.maps.LatLng(latitude, longitude),
+      mapTypeControl          : false,
+      mapTypeControlOptions   : {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+      navigationControl       : true,
+      navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+      mapTypeId               : google.maps.MapTypeId.ROADMAP
     }
     map = new google.maps.Map(document.getElementById(selector), myOptions);
 
@@ -31,9 +31,9 @@ function init_gmap() {
       var beach = data[i];
       var myLatLng = new google.maps.LatLng(beach[0], beach[1]);
       var marker = new google.maps.Marker({
-        position:myLatLng,
-        map:map,
-        icon:'/' + Drupal.settings.charts.gmap_icons + '/' + beach[2].replace('#', '') + '.png'
+        position: myLatLng,
+        map     : map,
+        icon    : '/' + Drupal.settings.charts.gmap_icons + '/' + beach[2].replace('#', '') + '.png'
       })
     }
   }

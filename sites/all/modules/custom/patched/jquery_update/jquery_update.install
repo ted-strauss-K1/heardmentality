@@ -14,9 +14,9 @@ function jquery_update_requirements($phase) {
 
   if ($phase == 'runtime') {
     $requirements['jquery_update'] = array(
-      'title' => $t('jQuery Update'),
+      'title'    => $t('jQuery Update'),
       'severity' => REQUIREMENT_OK,
-      'value' => jquery_update_get_version(),
+      'value'    => jquery_update_get_version(),
     );
   }
 

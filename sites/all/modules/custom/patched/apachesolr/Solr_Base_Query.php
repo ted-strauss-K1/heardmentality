@@ -4,6 +4,7 @@
  * Apache Solr. methods such as adding and removing sorts, remove and replace
  * parameters, adding and removing filters, getters and setters for various
  * parameters and more
+ *
  * @file
  *   Class that defines the base query for the Apache Solr Drupal module.
  */
@@ -70,9 +71,9 @@ class SolrFilterSubQuery {
     // @todo - escape the value if it has spaces in it and is not a range query or parenthesized.
     $filter = array(
       '#exclude' => (bool) $exclude,
-      '#name' => trim($name),
-      '#value' => trim($value),
-      '#local' => trim($local),
+      '#name'    => trim($name),
+      '#value'   => trim($value),
+      '#local'   => trim($local),
     );
     $this->fields[] = $filter;
     return $this;
@@ -145,8 +146,10 @@ class SolrFilterSubQuery {
    * 2. The first opening bracket (or nothing), eg.: [
    * 3. The value of the field, eg. article or 1970-12-31T23:59:59Z TO NOW
    * 4. The last closing bracket, eg.: ]
+   *
    * @param string $filter
    *   The filter to validate
+   *
    * @return boolean
    */
   public static function validFilterValue($filter) {
@@ -157,7 +160,7 @@ class SolrFilterSubQuery {
 
     if (preg_match('/(?P<name>[^:]+):(?P<value>.+)?$/', $filter, $matches)) {
       foreach ($matches as $match_id => $match) {
-        switch($match_id) {
+        switch ($match_id) {
           case 'name' :
             $name = $match;
             break;
@@ -278,7 +281,7 @@ class SolrBaseQuery extends SolrFilterSubQuery implements DrupalSolrQueryInterfa
   protected $solrsort = array('#name' => 'score', '#direction' => 'desc');
   // A flag to allow the search to be aborted.
   public $abort_search = FALSE;
-  
+
   // A flag to check if need to retrieve another page of the result set
   public $page = 0;
 
@@ -313,10 +316,10 @@ class SolrBaseQuery extends SolrFilterSubQuery implements DrupalSolrQueryInterfa
 
   protected function defaultSorts() {
     return array(
-      'score' => array('title' => t('Relevancy'), 'default' => 'desc'),
+      'score'      => array('title' => t('Relevancy'), 'default' => 'desc'),
       'sort_label' => array('title' => t('Title'), 'default' => 'asc'),
-      'bundle' => array('title' => t('Type'), 'default' => 'asc'),
-      'sort_name' => array('title' => t('Author'), 'default' => 'asc'),
+      'bundle'     => array('title' => t('Type'), 'default' => 'asc'),
+      'sort_name'  => array('title' => t('Author'), 'default' => 'asc'),
       'ds_created' => array('title' => t('Date'), 'default' => 'desc'),
     );
   }
@@ -336,52 +339,52 @@ class SolrBaseQuery extends SolrFilterSubQuery implements DrupalSolrQueryInterfa
   }
 
   protected $single_value_params = array(
-    'q' => TRUE, // http://wiki.apache.org/solr/SearchHandler#q
-    'q.op' => TRUE, // http://wiki.apache.org/solr/SearchHandler#q.op
-    'q.alt' => TRUE, // http://wiki.apache.org/solr/SearchHandler#q
-    'df' => TRUE,
-    'qt' => TRUE,
-    'defType' => TRUE,
-    'timeAllowed' => TRUE,
-    'omitHeader' => TRUE,
-    'debugQuery' => TRUE,
-    'start' => TRUE,
-    'rows' => TRUE,
-    'stats' => TRUE,
-    'facet' => TRUE,
-    'facet.prefix' => TRUE,
-    'facet.limit' => TRUE,
-    'facet.offset' => TRUE,
-    'facet.mincount' => TRUE,
-    'facet.missing' => TRUE,
-    'facet.method' => TRUE,
-    'facet.enum.cache.minDf' => TRUE,
-    'facet.date.start' => TRUE,
-    'facet.date.end' => TRUE,
-    'facet.date.gap' => TRUE,
-    'facet.date.hardend' => TRUE,
-    'facet.date.other' => TRUE,
-    'facet.date.include' => TRUE,
-    'hl' => TRUE,
-    'hl.snippets' => TRUE,
-    'hl.fragsize' => TRUE,
-    'hl.mergeContiguous' => TRUE,
-    'hl.requireFieldMatch' => TRUE,
-    'hl.maxAnalyzedChars' => TRUE,
-    'hl.alternateField' => TRUE,
-    'hl.maxAlternateFieldLength' => TRUE,
-    'hl.formatter' => TRUE,
+    'q'                            => TRUE, // http://wiki.apache.org/solr/SearchHandler#q
+    'q.op'                         => TRUE, // http://wiki.apache.org/solr/SearchHandler#q.op
+    'q.alt'                        => TRUE, // http://wiki.apache.org/solr/SearchHandler#q
+    'df'                           => TRUE,
+    'qt'                           => TRUE,
+    'defType'                      => TRUE,
+    'timeAllowed'                  => TRUE,
+    'omitHeader'                   => TRUE,
+    'debugQuery'                   => TRUE,
+    'start'                        => TRUE,
+    'rows'                         => TRUE,
+    'stats'                        => TRUE,
+    'facet'                        => TRUE,
+    'facet.prefix'                 => TRUE,
+    'facet.limit'                  => TRUE,
+    'facet.offset'                 => TRUE,
+    'facet.mincount'               => TRUE,
+    'facet.missing'                => TRUE,
+    'facet.method'                 => TRUE,
+    'facet.enum.cache.minDf'       => TRUE,
+    'facet.date.start'             => TRUE,
+    'facet.date.end'               => TRUE,
+    'facet.date.gap'               => TRUE,
+    'facet.date.hardend'           => TRUE,
+    'facet.date.other'             => TRUE,
+    'facet.date.include'           => TRUE,
+    'hl'                           => TRUE,
+    'hl.snippets'                  => TRUE,
+    'hl.fragsize'                  => TRUE,
+    'hl.mergeContiguous'           => TRUE,
+    'hl.requireFieldMatch'         => TRUE,
+    'hl.maxAnalyzedChars'          => TRUE,
+    'hl.alternateField'            => TRUE,
+    'hl.maxAlternateFieldLength'   => TRUE,
+    'hl.formatter'                 => TRUE,
     'hl.simple.pre/hl.simple.post' => TRUE,
-    'hl.fragmenter' => TRUE,
-    'hl.fragListBuilder' => TRUE,
-    'hl.fragmentsBuilder' => TRUE,
-    'hl.useFastVectorHighlighter' => TRUE,
-    'hl.usePhraseHighlighter' => TRUE,
-    'hl.highlightMultiTerm' => TRUE,
-    'hl.regex.slop' => TRUE,
-    'hl.regex.pattern' => TRUE,
-    'hl.regex.maxAnalyzedChars' => TRUE,
-    'spellcheck' => TRUE,
+    'hl.fragmenter'                => TRUE,
+    'hl.fragListBuilder'           => TRUE,
+    'hl.fragmentsBuilder'          => TRUE,
+    'hl.useFastVectorHighlighter'  => TRUE,
+    'hl.usePhraseHighlighter'      => TRUE,
+    'hl.highlightMultiTerm'        => TRUE,
+    'hl.regex.slop'                => TRUE,
+    'hl.regex.pattern'             => TRUE,
+    'hl.regex.maxAnalyzedChars'    => TRUE,
+    'spellcheck'                   => TRUE,
   );
 
   public function getParam($name) {
@@ -472,7 +475,10 @@ class SolrBaseQuery extends SolrFilterSubQuery implements DrupalSolrQueryInterfa
       // Convert to a numerically keyed array.
       $param_values = array_values($value);
     }
-    $this->params[$name] = array_merge($this->params[$name], array_map(array($this, 'normalizeParamValue'), $param_values));
+    $this->params[$name] = array_merge($this->params[$name], array_map(array(
+      $this,
+      'normalizeParamValue'
+    ), $param_values));
 
     return $this;
   }

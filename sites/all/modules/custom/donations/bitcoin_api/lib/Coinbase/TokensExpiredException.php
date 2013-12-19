@@ -1,5 +1,4 @@
 <?php
 
-class Coinbase_TokensExpiredException extends Coinbase_Exception
-{
+class Coinbase_TokensExpiredException extends Coinbase_Exception {
 }

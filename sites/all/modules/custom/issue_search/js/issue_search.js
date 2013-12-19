@@ -13,7 +13,6 @@ $(document).ready(function () {
   select_search_hide();
 });
 
-
 function issue_search_page_clean() {
   $('input[name=page]').val(1);
 }
@@ -53,16 +52,16 @@ $('.date-solr-filter, .solr-sort').live('click', function (e) {
 /**
  *
  */
-$('#my_region').live('change', function() {
-  if($(this).prop('checked') && (typeof Drupal.settings.tfl_user != "undefined")) {
-    var tfl_user = $('select.tfl option[value="'+Drupal.settings.tfl_user+'"]');
+$('#my_region').live('change', function () {
+  if ($(this).prop('checked') && (typeof Drupal.settings.tfl_user != "undefined")) {
+    var tfl_user = $('select.tfl option[value="' + Drupal.settings.tfl_user + '"]');
     if (tfl_user.length) {
       $('select.tfl :selected').prop('selected', false);
       tfl_user.prop('selected', true);
     } else {
       $.hrd.noty({
         text: Drupal.t('No issues for you region'),
-        type:'error'
+        type: 'error'
       });
       $(this).prop('checked', false)
     }
@@ -94,7 +93,7 @@ function select_search_change() {
   // auto search after delay
   select_search_delay = select_search_delay_default;
   clearInterval(select_search_delay_timer);
-  select_search_delay_timer = setInterval(function() {
+  select_search_delay_timer = setInterval(function () {
     select_search_delay -= 1000;
     if (0 >= select_search_delay) {
       issue_search_page_clean();
@@ -108,7 +107,7 @@ function select_search_change() {
  * Hide empty selectors
  */
 function select_search_hide() {
-  $('select.solr-block-form.hideable').each(function() {
+  $('select.solr-block-form.hideable').each(function () {
     if ($(this).find('option').length) {
       $(this).parent().show();
     } else {
@@ -126,7 +125,7 @@ function select_search_expand() {
 
   // selected values
   var selected = [];
-  $('select.solr-block-form :selected').each(function(){
+  $('select.solr-block-form :selected').each(function () {
     selected.push($(this).val())
   });
   // reduced/extended filter
@@ -156,36 +155,36 @@ function select_search_expand() {
   select_search_options = selected;
   // expand the items
   var options = {};
-  $('select.solr-block-form').each(function(ind,e) {
+  $('select.solr-block-form').each(function (ind, e) {
     var select = $(this);
-    var i = parseInt(select.attr('id').replace(/.*-/,""));
+    var i = parseInt(select.attr('id').replace(/.*-/, ""));
     var prefix = select.hasClass('tft') ? '#edit-taxonomy-' : '#edit-location-';
     var data = select.hasClass('tft') ? Drupal.settings.tft : Drupal.settings.tfl;
     // items
     options = {};
-    select.find(':selected').each(function(j,element) {
-      if( typeof data[$(element).val()] != "undefined" ) {
+    select.find(':selected').each(function (j, element) {
+      if (typeof data[$(element).val()] != "undefined") {
         for (var index in data[$(element).val()]) {
           var term = data[$(element).val()][index];
-          options[ term["id"] ] = term["name"] ;
+          options[ term["id"] ] = term["name"];
         }
       }
     });
 
-    var select2 = $( prefix+(i+1) );
+    var select2 = $(prefix + (i + 1));
     // remove old
     select2.find('option').remove();
     // add new
     for (var index in options) {
       select2.append(
         $('<option></option>')
-          .val( index )
-          .html( options[index] )
+          .val(index)
+          .html(options[index])
       );
     }
     // select options
     for (var i in select_search_options) {
-      $('select.solr-block-form option[value="'+ select_search_options[i] +'"]').prop('selected', true);
+      $('select.solr-block-form option[value="' + select_search_options[i] + '"]').prop('selected', true);
     }
   });
 
@@ -238,13 +237,13 @@ function search_arguments() {
   data['location3'] = codes.join(';');
 
   // my region
-  data['my_region'] = $('#my_region').prop('checked')+'';
+  data['my_region'] = $('#my_region').prop('checked') + '';
 
   // my language
   data['my_language'] = 'false';
 
   // voted status
-  data['not_voted'] = $('#edit-voted-status').prop('checked')+'';
+  data['not_voted'] = $('#edit-voted-status').prop('checked') + '';
 
   // keyword
   data['keywords'] = $('#edit-search-text').val();
@@ -255,7 +254,7 @@ function search_arguments() {
   // Key words.
   var page = $('input[name=page]').val();
 
-  $.cookie('search_arguments', JSON.stringify(data), { expires: 7, path: '/' } );
+  $.cookie('search_arguments', JSON.stringify(data), { expires: 7, path: '/' });
 
   return data;
 }
@@ -272,15 +271,15 @@ function issue_search() {
   loader.slideDown(500);
 
   $.ajax({
-    type      : 'POST',
-    dataType  : 'json',
-    url       : Drupal.settings.language_prefix+'/issues/ajax',
-    data      : search_arguments(),
-    success   : function (response) {
+    type    : 'POST',
+    dataType: 'json',
+    url     : Drupal.settings.language_prefix + '/issues/ajax',
+    data    : search_arguments(),
+    success : function (response) {
       if (!response.status) {
         $.hrd.noty({
-          text:response.message,
-          type:'error'
+          text: response.message,
+          type: 'error'
         });
         return false;
       }
@@ -292,15 +291,13 @@ function issue_search() {
       return true;
     },
 
-    complete:function () {
+    complete: function () {
       loader.slideUp(500);
     }
   });
 }
 
-
-
-$('.issue-search-more').live('click', function() {
+$('.issue-search-more').live('click', function () {
   var $$ = $(this);
   // get page
   var page_to_show = parseInt($('input[name=page]').val()) + 1;
@@ -311,15 +308,15 @@ $('.issue-search-more').live('click', function() {
 
   // search
   $.ajax({
-    type      : 'POST',
-    dataType  : 'json',
-    url       : Drupal.settings.language_prefix+'/issues/ajax',
-    data      : search_arguments(),
-    success   : function (response) {
+    type    : 'POST',
+    dataType: 'json',
+    url     : Drupal.settings.language_prefix + '/issues/ajax',
+    data    : search_arguments(),
+    success : function (response) {
       if (!response.status) {
         $.hrd.noty({
-          text:response.message,
-          type:'error'
+          text: response.message,
+          type: 'error'
         });
         return false;
       }
@@ -335,13 +332,13 @@ $('.issue-search-more').live('click', function() {
   });
 });
 
-$(window).scroll(function(){
+$(window).scroll(function () {
   if (jQuery.browser.mobile) {
     return;
   }
   var searchmore = $('.issue-search-more');
   if (searchmore && !searchmore.hasClass('active') && searchmore.offset()) {
-    if ($(window).scrollTop() + 0.75*$(window).height() >= searchmore.offset().top) {
+    if ($(window).scrollTop() + 0.75 * $(window).height() >= searchmore.offset().top) {
       // position is right
       searchmore.trigger('click');
     }

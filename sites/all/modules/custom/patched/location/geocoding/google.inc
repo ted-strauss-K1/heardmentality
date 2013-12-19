@@ -51,11 +51,11 @@ function google_geocode_country_list() {
 
   // Loop through google data and find all valid entries.
   $regionclean = array();
-  foreach($xml->entry as $region) {
+  foreach ($xml->entry as $region) {
     $pos = strpos($region->content, 'geocoding:') + 11;
     $geocoding = substr($region->content, $pos, strpos($region->content, ',', $pos) - $pos);
     if (strpos($geocoding, "Yes") !== FALSE) {
-     $regionclean[] = t(htmlentities($region->title));
+      $regionclean[] = t(htmlentities($region->title));
     }
   }
 
@@ -95,17 +95,19 @@ function google_geocode_country_list() {
  */
 function google_geocode_info() {
   return array(
-    'name' => 'Google Maps',
-    'url' => 'http://maps.google.com',
-    'tos' => 'http://www.google.com/help/terms_local.html',
+    'name'    => 'Google Maps',
+    'url'     => 'http://maps.google.com',
+    'tos'     => 'http://www.google.com/help/terms_local.html',
     'general' => TRUE,
   );
 }
 
 /**
  * Perform a geocode on a location array.
+ *
  * @param $location
  *   The location array to process.
+ *
  * @return
  *   an associative array with keys 'lat' and 'lon' containing the coordinates.
  */
@@ -119,17 +121,17 @@ function google_geocode_location($location = array()) {
   }
 
   $query = array(
-    'key' => $key,
+    'key'    => $key,
     'sensor' => 'false', // Required by TOS.
     'output' => 'xml',
     //'ll' => 0,
     //'spn' => 0,
-    'gl' => $location['country'],
-    'q' => _google_geocode_flatten($location),
+    'gl'     => $location['country'],
+    'q'      => _google_geocode_flatten($location),
   );
 
   $url = url('http://maps.google.com/maps/geo', array(
-    'query' => $query,
+    'query'    => $query,
     'external' => TRUE,
   ));
 
@@ -148,7 +150,10 @@ function google_geocode_location($location = array()) {
   $accuracy_code = $accuracy_code_match[1];
   $min_accuracy = variable_get('location_geocode_' . $location['country'] . 'google_accuracy_code', variable_get('location_geocode_google_minimum_accuracy', '3'));
   if ($accuracy_code < $min_accuracy) {
-    watchdog('location', 'Google geocoding result for %country did not meet the minimum accuracy level of %min_accuracy. Result accuracy: %accuracy_code', array('%country' => $location['country'], '%min_accuracy' => $min_accuracy, '%accuracy_code' => $accuracy_code));
+    watchdog('location', 'Google geocoding result for %country did not meet the minimum accuracy level of %min_accuracy. Result accuracy: %accuracy_code', array('%country'       => $location['country'],
+                                                                                                                                                                 '%min_accuracy'  => $min_accuracy,
+                                                                                                                                                                 '%accuracy_code' => $accuracy_code
+    ));
     return NULL;
   }
 
@@ -172,31 +177,33 @@ function google_geocode_settings() {
 
   if (!empty($key)) {
     $form['location_geocode_google_apikey'] = array(
-      '#type' => 'item',
-      '#title' => t('Google Maps API Key'),
-      '#value' => $key,
+      '#type'        => 'item',
+      '#title'       => t('Google Maps API Key'),
+      '#value'       => $key,
       '#description' => t('The key in use was automatically provided by GMap.'),
     );
   }
   else {
     $form['location_geocode_google_apikey'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Google Maps API Key'),
-      '#size' => 64,
-      '#maxlength' => 128,
+      '#type'          => 'textfield',
+      '#title'         => t('Google Maps API Key'),
+      '#size'          => 64,
+      '#maxlength'     => 128,
       '#default_value' => variable_get('location_geocode_google_apikey', ''),
-      '#description' => t('In order to use the Google Maps API geocoding web-service, you will need a Google Maps API Key.  You can obtain one at the !sign_up_link for the !google_maps_api.  PLEASE NOTE: You will <em>not</em> have to re-enter your API key for each country for which you have selected Google Maps for geocoding.  This setting is global.', array('!sign_up_link' => '<a href="http://www.google.com/apis/maps/signup.html">sign-up page</a>', '!google_maps_api' => '<a href="http://www.google.com/apis/maps/">Google Maps API</a>'))
+      '#description'   => t('In order to use the Google Maps API geocoding web-service, you will need a Google Maps API Key.  You can obtain one at the !sign_up_link for the !google_maps_api.  PLEASE NOTE: You will <em>not</em> have to re-enter your API key for each country for which you have selected Google Maps for geocoding.  This setting is global.', array('!sign_up_link'    => '<a href="http://www.google.com/apis/maps/signup.html">sign-up page</a>',
+                                                                                                                                                                                                                                                                                                                                                                           '!google_maps_api' => '<a href="http://www.google.com/apis/maps/">Google Maps API</a>'
+      ))
     );
   }
 
   $country = arg(4);
   if ($country) {
     $form['location_geocode_' . $country . '_google_accuracy_code'] = array(
-      '#type' => 'select',
-      '#title' => t('Google Maps Geocoding Accuracy for %country', array('%country' => $country ) ),
+      '#type'          => 'select',
+      '#title'         => t('Google Maps Geocoding Accuracy for %country', array('%country' => $country)),
       '#default_value' => variable_get('location_geocode_' . $country . '_google_accuracy_code', variable_get('location_geocode_google_minimum_accuracy', '3')),
-      '#options' => location_google_geocode_accuracy_codes(),
-      '#description' => t('The minimum required accuracy for the geolocation data to be saved.'),
+      '#options'       => location_google_geocode_accuracy_codes(),
+      '#description'   => t('The minimum required accuracy for the geolocation data to be saved.'),
     );
   }
   return $form;

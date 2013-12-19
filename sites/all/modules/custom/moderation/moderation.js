@@ -15,11 +15,10 @@ $(document).ready(function () {
     e.preventDefault();
     var el = $(this);
     $.ajax({
-      type:'POST',
-      dataType:'json',
-      url:Drupal.settings.language_prefix+'/' + el.attr('name'),
-      success:function (response) {
-
+      type    : 'POST',
+      dataType: 'json',
+      url     : Drupal.settings.language_prefix + '/' + el.attr('name'),
+      success : function (response) {
 
         el.toggleClass('remove');
       }

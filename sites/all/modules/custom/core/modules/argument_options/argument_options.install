@@ -3,8 +3,7 @@
 /**
  * Implementation of hook_install()
  */
-function argument_options_install()
-{
+function argument_options_install() {
   drupal_install_schema('argument_options');
 
   //
@@ -13,45 +12,43 @@ function argument_options_install()
 /**
  * Implementation of hook_uninstall()
  */
-function argument_options_uninstall()
-{
+function argument_options_uninstall() {
   drupal_uninstall_schema('argument_options');
 }
 
 /**
  * Implementation of hook_schema()
  */
-function argument_options_schema()
-{
+function argument_options_schema() {
   $schema = array();
 
   $schema['argument_options'] = array(
     'description' => t('Stores the argument options.'),
-    'fields' => array(
-      'nid' => array(
+    'fields'      => array(
+      'nid'        => array(
         'description' => t("The argument {node}.nid"),
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
-      'chid' => array(
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
+      'chid'       => array(
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
         'description' => 'Choice id.',
       ),
-      'val' => array(
-        'type' => 'int',
-        'not null' => TRUE,
-        'unsigned' => FALSE,
-        'default' => 0,
+      'val'        => array(
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'unsigned'    => FALSE,
+        'default'     => 0,
         'description' => 'User option',
       ),
       'date_added' => array(
         'description' => 'Date the option was added',
-        'type' => 'datetime',
-        'not null' => TRUE,
+        'type'        => 'datetime',
+        'not null'    => TRUE,
       ),
     ),
     'primary key' => array('nid', 'chid'),

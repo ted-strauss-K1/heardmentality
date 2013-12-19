@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @param $nid
+ * @param      $nid
  * @param null $sort
  * @param null $print
+ *
  * @return mixed
  */
-function argument_tab($nid, $sort = NULL, $print = NULL)
-{
+function argument_tab($nid, $sort = NULL, $print = NULL) {
   $argnids = argument_filter($nid, $sort, $_REQUEST['class'], $_REQUEST['chorder']);
   $nodes = array();
   foreach ($argnids as $argnid) {
@@ -18,7 +18,8 @@ function argument_tab($nid, $sort = NULL, $print = NULL)
   # print/return
   if (is_null($print)) {
     return $output;
-  } else {
+  }
+  else {
     print $output;
     exit;
   }
@@ -27,14 +28,14 @@ function argument_tab($nid, $sort = NULL, $print = NULL)
 /**
  * Main function to filter the arguments for Debate tabs
  *
- * @param $nid
+ * @param      $nid
  * @param null $sort
  * @param null $class
  * @param null $chorder
+ *
  * @return array
  */
-function argument_filter($nid, $sort = NULL, $class = NULL, $chorder = NULL)
-{
+function argument_filter($nid, $sort = NULL, $class = NULL, $chorder = NULL) {
   $argnids = array();
 
   $params = array();
@@ -103,18 +104,17 @@ function argument_filter($nid, $sort = NULL, $class = NULL, $chorder = NULL)
 /**
  * Arguments Comment Form - Ajax Submission
  */
-function argument_create_comment()
-{
+function argument_create_comment() {
   if (!user_is_logged_in()) {
     print json_encode(array(
-      'status' => FALSE,
+      'status'  => FALSE,
       'message' => t('Please login to post reply'),
     ));
     exit();
   }
   if (!user_access('create forum topics')) {
     print json_encode(array(
-      'status' => FALSE,
+      'status'  => FALSE,
       'message' => t('You don\'t have permissions to post arguments'),
     ));
     exit();
@@ -146,17 +146,17 @@ function argument_create_comment()
 
   if (!_comment_save($comment)) {
     print json_encode(array(
-      'status' => FALSE,
+      'status'  => FALSE,
       'message' => t('Error occurred'),
     ));
     exit();
   }
 
   print json_encode(array(
-    'status' => TRUE,
+    'status'  => TRUE,
     'message' => t('Thanks, Your reply posted!'),
     'content' => theme('argument_comment', $comment),
-    'cid' => $comment->cid,
+    'cid'     => $comment->cid,
   ));
 
   exit();
@@ -166,10 +166,10 @@ function argument_create_comment()
  * Function to save comment
  *
  * @param $comment
+ *
  * @return bool
  */
-function _comment_save(&$comment)
-{
+function _comment_save(&$comment) {
   $result = db_query("INSERT INTO {comments} SET
     pid         = '%d',
     nid         = '%d',
@@ -183,12 +183,12 @@ function _comment_save(&$comment)
     thread      = '%s',
     name        = '%s',
     mail        = '%s',
-    homepage    = '%s'",
-    $comment->pid, $comment->nid, $comment->uid, $comment->subject, $comment->comment, $comment->hostname, $comment->timestamp, $comment->status, $comment->format, $comment->thread, $comment->name, $comment->mail, $comment->homepage);
+    homepage    = '%s'", $comment->pid, $comment->nid, $comment->uid, $comment->subject, $comment->comment, $comment->hostname, $comment->timestamp, $comment->status, $comment->format, $comment->thread, $comment->name, $comment->mail, $comment->homepage);
 
   if (!$result) {
     $comment = FALSE;
-  } else {
+  }
+  else {
     $comment->cid = db_last_insert_id('comments', 'cid');
     comment_invoke_comment($comment, 'insert');
   }
@@ -205,8 +205,7 @@ function _comment_save(&$comment)
  * @param $form
  * @param $form_state
  */
-function argument_create()
-{
+function argument_create() {
   $post = $_POST;
 
   $node = argument_prepare();
@@ -235,10 +234,10 @@ function argument_create()
         exit(json_encode(array(
           'success' => TRUE,
           'message' => t('Your argument posted successfully'),
-          'nid' => $node->nid,
+          'nid'     => $node->nid,
         )));
       }
-    break;
+      break;
 
     case 'resource' : # Resource
       $node->type = 'resource';
@@ -307,22 +306,23 @@ function argument_create()
         exit(json_encode(array(
           'success' => TRUE,
           'message' => t('Your argument was posted successfully!'),
-          'node' => $node,
-          'nid' => $node->nid,
+          'node'    => $node,
+          'nid'     => $node->nid,
         )));
-      } else {
+      }
+      else {
         exit(json_encode(array(
           'success' => FALSE,
           'message' => t('Error occurred. Please check you URL'),
         )));
       }
-    break;
+      break;
   }
   // error
   exit(json_encode(array(
     'success' => FALSE,
     'message' => t('Error occurred. Please try again'),
-    'post' => $post,
+    'post'    => $post,
   )));
 }
 
@@ -356,11 +356,10 @@ function argument_prepare() {
  * @param $content_type
  * @param $content_id
  */
-function argument_delete($content_type, $content_id)
-{
+function argument_delete($content_type, $content_id) {
   if (!(module_exists('moderation') && moderation_check_perm()) && !argument_check_owner($content_type, $content_id)) {
     print json_encode(array(
-      'status' => FALSE,
+      'status'  => FALSE,
       'message' => t('Sorry, you have no permissions to delete the content'),
     ));
     exit;
@@ -383,7 +382,7 @@ function argument_delete($content_type, $content_id)
     // todo track flagging success
   }
   print json_encode(array(
-    'status' => TRUE,
+    'status'  => TRUE,
     'message' => t('Successfully deleted'),
   ));
   exit();
@@ -394,10 +393,10 @@ function argument_delete($content_type, $content_id)
  *
  * @param $content_type
  * @param $content_id
+ *
  * @return bool
  */
-function argument_check_owner($content_type, $content_id)
-{
+function argument_check_owner($content_type, $content_id) {
   global $user;
   switch ($content_type) {
     case 'node' :

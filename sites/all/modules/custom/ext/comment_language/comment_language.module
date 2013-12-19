@@ -6,8 +6,7 @@
  * @param $a1
  * @param $op
  */
-function comment_language_comment(&$a1, $op)
-{
+function comment_language_comment(&$a1, $op) {
   switch ($op) {
     case 'update' :
     case 'insert' :

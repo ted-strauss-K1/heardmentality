@@ -11,6 +11,7 @@
 class ApacheSolrFacetapiNumericRange extends FacetapiQueryType implements FacetapiQueryTypeInterface {
 
   private $single_key;
+
   /**
    * Returns the query type associated with the plugin.
    *
@@ -26,6 +27,7 @@ class ApacheSolrFacetapiNumericRange extends FacetapiQueryType implements Faceta
    *
    * @param DrupalSolrQueryInterface $query
    *   An object containing the query in the backend's native API.
+   *
    * @todo Cache the values based on the filter query or any other way?
    */
   public function execute($query) {

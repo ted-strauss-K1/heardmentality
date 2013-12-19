@@ -3,8 +3,7 @@
 /**
  * Implementation of hook_install()
  */
-function flag_note_ext_install()
-{
+function flag_note_ext_install() {
   db_query("
     CREATE TRIGGER flag_note_set AFTER INSERT ON flag_note
     FOR EACH ROW BEGIN
@@ -22,7 +21,6 @@ function flag_note_ext_install()
 /**
  * Implementation of hook_uninstall()
  */
-function flag_note_ext_uninstall()
-{
+function flag_note_ext_uninstall() {
   db_query("DROP TRIGGER {flag_note_set}");
 }

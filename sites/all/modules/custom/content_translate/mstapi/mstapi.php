@@ -5,22 +5,20 @@
  *
  * @see http://msdn.microsoft.com/en-us/library/ff512434.aspx#phpexample
  */
-class AccessTokenAuthentication
-{
+class AccessTokenAuthentication {
   /**
    * Debug
    *
    * @var bool
    */
-  private $_debug = false;
+  private $_debug = FALSE;
 
   /**
    * Constructor
    *
    * @param $debug
    */
-  public function __construct($debug = false)
-  {
+  public function __construct($debug = FALSE) {
     $this->_debug = $debug;
   }
 
@@ -32,19 +30,19 @@ class AccessTokenAuthentication
    * @param $clientID       Application client ID
    * @param $clientSecret   Application client ID
    * @param $authUrl        Oauth Url
+   *
    * @return mixed
    * @throws Exception
    */
-  function getTokens($grantType, $scopeUrl, $clientID, $clientSecret, $authUrl)
-  {
+  function getTokens($grantType, $scopeUrl, $clientID, $clientSecret, $authUrl) {
     try {
       //Initialize the Curl Session.
       $ch = curl_init();
       //Create the request Array.
       $paramArr = array(
-        'grant_type' => $grantType,
-        'scope' => $scopeUrl,
-        'client_id' => $clientID,
+        'grant_type'    => $grantType,
+        'scope'         => $scopeUrl,
+        'client_id'     => $clientID,
         'client_secret' => $clientSecret
       );
       //Create an Http Query.//
@@ -58,7 +56,7 @@ class AccessTokenAuthentication
       //CURLOPT_RETURNTRANSFER- TRUE to return the transfer as a string of the return value of curl_exec().
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
       //CURLOPT_SSL_VERIFYPEER- Set FALSE to stop cURL from verifying the peer's certificate.
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
       //Execute the  cURL session.
       $strResponse = curl_exec($ch);
       //Get the Error Code returned by Curl.
@@ -80,7 +78,7 @@ class AccessTokenAuthentication
       if ($this->_debug) {
         echo "Exception-" . $e->getMessage();
       }
-      return false;
+      return FALSE;
     }
   }
 }
@@ -94,8 +92,7 @@ class AccessTokenAuthentication
  *
  * @see http://msdn.microsoft.com/en-us/library/ff512434.aspx#phpexample
  */
-class SOAPMicrosoftTranslator
-{
+class SOAPMicrosoftTranslator {
 
   /**
    * Soap Object
@@ -109,7 +106,7 @@ class SOAPMicrosoftTranslator
    *
    * @var bool
    */
-  private $_debug = false;
+  private $_debug = FALSE;
 
   /**
    * Create the SAOP object
@@ -117,8 +114,7 @@ class SOAPMicrosoftTranslator
    * @param $accessToken  Access Token string
    * @param $wsdlUrl      WSDL string
    */
-  public function __construct($accessToken, $wsdlUrl, $debug = false)
-  {
+  public function __construct($accessToken, $wsdlUrl, $debug = FALSE) {
     $this->_debug = $debug;
     try {
       //Authorization header string.
@@ -131,13 +127,13 @@ class SOAPMicrosoftTranslator
       //Create a streams context.
       $objContext = stream_context_create($contextArr);
       $optionsArr = array(
-        'soap_version' => 'SOAP_1_2',
-        'encoding' => 'UTF-8',
-        'exceptions' => true,
-        'trace' => true,
-        'cache_wsdl' => 'WSDL_CACHE_NONE',
+        'soap_version'   => 'SOAP_1_2',
+        'encoding'       => 'UTF-8',
+        'exceptions'     => TRUE,
+        'trace'          => TRUE,
+        'cache_wsdl'     => 'WSDL_CACHE_NONE',
         'stream_context' => $objContext,
-        'user_agent' => 'PHP-SOAP/' . PHP_VERSION . "\r\n" . $authHeader
+        'user_agent'     => 'PHP-SOAP/' . PHP_VERSION . "\r\n" . $authHeader
       );
       //Call Soap Client.
       $this->objSoap = new SoapClient($wsdlUrl, $optionsArr);
@@ -146,7 +142,7 @@ class SOAPMicrosoftTranslator
         echo "<h2>Exception Error!</h2>";
         echo $e->getMessage();
       }
-      $this->objSoap = false;
+      $this->objSoap = FALSE;
     }
   }
 }
@@ -155,8 +151,7 @@ class SOAPMicrosoftTranslator
 /**
  *
  */
-class MicrosoftTranslate
-{
+class MicrosoftTranslate {
   /**
    * Soap WSDL Url
    */
@@ -203,7 +198,7 @@ class MicrosoftTranslate
    *
    * @var bool
    */
-  private $_debug = false;
+  private $_debug = FALSE;
 
   /**
    * Construct object for translation
@@ -211,8 +206,7 @@ class MicrosoftTranslate
    * @param $clientID
    * @param $clientSecret
    */
-  public function __construct($clientID, $clientSecret, $debug = false)
-  {
+  public function __construct($clientID, $clientSecret, $debug = FALSE) {
     $this->_clientID = $clientID;
     $this->_clientSecret = $clientSecret;
     $this->_debug = $debug;
@@ -223,8 +217,7 @@ class MicrosoftTranslate
    *
    * @param $item
    */
-  public function queue($item)
-  {
+  public function queue($item) {
     if (is_string($item)) {
       $item = array($item);
     }
@@ -240,11 +233,11 @@ class MicrosoftTranslate
    *
    * @param bool $string
    */
-  public function dequeue($string = false)
-  {
-    if ($string === false) {
+  public function dequeue($string = FALSE) {
+    if ($string === FALSE) {
       $this->_queue = array();
-    } else {
+    }
+    else {
       unset($this->_queue[$string]);
     }
   }
@@ -254,51 +247,51 @@ class MicrosoftTranslate
    *
    * @param $lang_from
    * @param $lang_to
+   *
    * @return array
    */
-  public function exec($lang_from, $lang_to)
-  {
+  public function exec($lang_from, $lang_to) {
     // Create the Authentication object
     $authObj = new AccessTokenAuthentication($this->_debug);
     // Get the Access token
     $accessToken = $authObj->getTokens($this->_grantType, $this->_scopeUrl, $this->_clientID, $this->_clientSecret, $this->_authUrl);
-    if ($accessToken === false) {
-      return false;
+    if ($accessToken === FALSE) {
+      return FALSE;
     }
     // Create soap translator Object
     $soapTranslator = new SOAPMicrosoftTranslator($accessToken, $this->_wsdlUrl, $this->_debug);
-    if ($soapTranslator->objSoap === false) {
-      return false;
+    if ($soapTranslator->objSoap === FALSE) {
+      return FALSE;
     }
     // Create Option Array.
     $optionArg = array(
-      'Category' => "general",
+      'Category'    => "general",
       'ContentType' => "text/plain",
-      'Uri' => null,
-      'User' => 'TestUser'
+      'Uri'         => NULL,
+      'User'        => 'TestUser'
     );
     // Input text Array.
     $inputStrArr = array_keys($this->_queue);
-//      array();
-//    foreach ($this->_queue as $string => &$translation) {
-//      if (isset($translations[$string])) {
-//        $translation = $translations[$string];
-//      } else {
-//        $inputStrArr[] = $string;
-//      }
-//    }
-//    return if empty
+    //      array();
+    //    foreach ($this->_queue as $string => &$translation) {
+    //      if (isset($translations[$string])) {
+    //        $translation = $translations[$string];
+    //      } else {
+    //        $inputStrArr[] = $string;
+    //      }
+    //    }
+    //    return if empty
     if (empty($inputStrArr)) {
       return $this->_queue;
     }
     // Request argument list.
     $requestArg = array(
-      'appId' => '', // no longer used, but pass it anyway
-      'texts' => $inputStrArr,
-      'from' => $lang_from,
-      'to' => $lang_to,
+      'appId'           => '', // no longer used, but pass it anyway
+      'texts'           => $inputStrArr,
+      'from'            => $lang_from,
+      'to'              => $lang_to,
       'maxTranslations' => 5,
-      'options' => $optionArg
+      'options'         => $optionArg
     );
     try {
 
@@ -309,7 +302,8 @@ class MicrosoftTranslate
         foreach ($responseTranslation as $i => $translationObj) {
           $this->_queue[$inputStrArr[$i]] = $translationObj->Translations->TranslationMatch->TranslatedText;
         }
-      } else {
+      }
+      else {
         $this->_queue[$inputStrArr[0]] = $responseTranslation->Translations->TranslationMatch->TranslatedText;
       }
 
@@ -317,7 +311,7 @@ class MicrosoftTranslate
       if ($this->_debug) {
         echo "Exception: " . $e->getMessage() . "<br/>";
       }
-      return false;
+      return FALSE;
     }
     return $this->_queue;
   }

@@ -9,8 +9,7 @@
  * @return string
  *  Output.
  */
-function theme_issue_search_results($results = array())
-{
+function theme_issue_search_results($results = array()) {
   $output = '';
   foreach ($results as $result) {
     $node = node_load($result['node']->entity_id);
@@ -21,17 +20,14 @@ function theme_issue_search_results($results = array())
 }
 
 /**
- * @param $page
- * @param $page_active
+ * @param      $page
+ * @param      $page_active
  * @param bool $anchor
+ *
  * @return string
  */
 function theme_issue_search_pager_link($page, $page_active, $anchor = FALSE) {
-  return sprintf('<a href="#issue-search-form" name="%s" class="search-pager-link %s">%s</a>',
-    $page,
-    $page == $page_active ? 'mod-active' : '',
-    FALSE == $anchor ? $page : $anchor
-  );
+  return sprintf('<a href="#issue-search-form" name="%s" class="search-pager-link %s">%s</a>', $page, $page == $page_active ? 'mod-active' : '', FALSE == $anchor ? $page : $anchor);
 }
 
 /**
@@ -40,9 +36,8 @@ function theme_issue_search_pager_link($page, $page_active, $anchor = FALSE) {
  * @return string
  *  Output.
  */
-function theme_issue_search_filter()
-{
-  $issues_count = '<i class="icon cat text icon-binoculars-searchalt"></i><label class="tags-on search_issues" for="count_results-wrapper">'.t('Search Issues').'</label><div id="count_results-wrapper" class="form-item"><span>0</span> '.t('issues').'</div>';
+function theme_issue_search_filter() {
+  $issues_count = '<i class="icon cat text icon-binoculars-searchalt"></i><label class="tags-on search_issues" for="count_results-wrapper">' . t('Search Issues') . '</label><div id="count_results-wrapper" class="form-item"><span>0</span> ' . t('issues') . '</div>';
   return '<div class="filter_search grey-box poll-box issues_search">' . $issues_count . drupal_get_form('issue_search_filter_form') . '</div>';
 }
 
@@ -52,19 +47,18 @@ function theme_issue_search_filter()
  * @global type $user
  *  Current Drupal user.
  *
- * @param type $form_state
+ * @param type  $form_state
  *  Form state.
  *
  * @return string
  *  A set of form elements and their definitions.
  */
-function issue_search_filter_form($form_state)
-{
+function issue_search_filter_form($form_state) {
   global $user;
   $form = array();
 
   // cookie settings
-  $settings = isset($_COOKIE['search_arguments']) ? (array)json_decode($_COOKIE['search_arguments']) : array();
+  $settings = isset($_COOKIE['search_arguments']) ? (array) json_decode($_COOKIE['search_arguments']) : array();
 
   // Gather info: taxonomy.
   $tft_codes = array();
@@ -73,7 +67,7 @@ function issue_search_filter_form($form_state)
       break;
     }
     foreach ($data['taxonomy-' . $i] as $tid => $tname) {
-      $tft_codes[] = (int)$tid;
+      $tft_codes[] = (int) $tid;
     }
   }
   // Get codes.
@@ -84,7 +78,7 @@ function issue_search_filter_form($form_state)
     $tft_codes = explode(",", $_GET['tids']);
   }
 
-  $tft = tft_list('issue', $tft_codes, true);
+  $tft = tft_list('issue', $tft_codes, TRUE);
 
   // Gather info: location.
   $tfl_codes0 = array();
@@ -100,7 +94,8 @@ function issue_search_filter_form($form_state)
     $tfl_codes0 = array($user->profile_country);
     $tfl_codes1 = array();
     $tfl_codes2 = array();
-  } elseif ($settings['location1']) {
+  }
+  elseif ($settings['location1']) {
     $tfl_codes0 = explode(';', $settings['location1']);
     $tfl_codes1 = explode(';', $settings['location2']);
     $tfl_codes2 = explode(';', $settings['location3']);
@@ -109,7 +104,7 @@ function issue_search_filter_form($form_state)
   // my_region
   drupal_add_js(array('tfl_user' => $user->profile_country), 'setting');
 
-  $tfl = tfl_list($tfl_codes0, $tfl_codes1, $tfl_codes2, true);
+  $tfl = tfl_list($tfl_codes0, $tfl_codes1, $tfl_codes2, TRUE);
 
   // Lists: taxonomy.
   for ($i = 0; $i < 3 /*count($tft['list'])*/; $i++) {
@@ -121,18 +116,19 @@ function issue_search_filter_form($form_state)
     }
 
     $form['taxonomy-' . $i] = array(
-      '#type' => 'select',
-      '#multiple' => TRUE,
-      '#options' => $options,
+      '#type'          => 'select',
+      '#multiple'      => TRUE,
+      '#options'       => $options,
       '#default_value' => $checked,
-      '#size' => '4',
-      '#attributes' => array('class' => 'solr-block-form tft chzn-select'),
+      '#size'          => '4',
+      '#attributes'    => array('class' => 'solr-block-form tft chzn-select'),
     );
 
     if ($i == 0) {
       $form['taxonomy-' . $i]['#title'] = t('Narrow by');
       $form['taxonomy-' . $i]['#size'] = count($options);
-    } else {
+    }
+    else {
       $form['taxonomy-' . $i]['#attributes']['class'] .= ' hideable';
     }
   }
@@ -148,12 +144,12 @@ function issue_search_filter_form($form_state)
       }
 
       $form['location-' . $i] = array(
-        '#type' => 'select',
-        '#multiple' => TRUE,
-        '#options' => $options,
+        '#type'          => 'select',
+        '#multiple'      => TRUE,
+        '#options'       => $options,
         '#default_value' => $checked,
-        '#size' => '4',
-        '#attributes' => array(
+        '#size'          => '4',
+        '#attributes'    => array(
           'class' => 'solr-block-form tfl chzn-select',
           'width' => '190px',
         ),
@@ -161,7 +157,8 @@ function issue_search_filter_form($form_state)
 
       if ($i == 0) {
         $form['location-' . $i]['#title'] = t('Location');
-      } else {
+      }
+      else {
         $form['location-' . $i]['#attributes']['class'] .= ' hideable';
       }
     }
@@ -171,43 +168,44 @@ function issue_search_filter_form($form_state)
   if (user_is_logged_in()) {
     if (isset($user->profile_country)) {
       $form['region'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('My region'),
-        '#id' => 'my_region',
+        '#type'          => 'checkbox',
+        '#title'         => t('My region'),
+        '#id'            => 'my_region',
         '#default_value' => 'false' != $settings['my_region'],
       );
-    } else {
+    }
+    else {
       $form['region'] = array(
-        '#type' => 'item',
+        '#type'  => 'item',
         '#value' => l(t('Add location to your profile'), 'user/profile/edit/', array('fragment' => 'profile-country-wrapper')),
       );
     }
   }
 
-//  $form['my_language'] = array(
-//    '#type' => 'checkbox',
-//    '#default_value' => TRUE,
-//    '#title' => t('Show issues of my language'),
-//  );
+  //  $form['my_language'] = array(
+  //    '#type' => 'checkbox',
+  //    '#default_value' => TRUE,
+  //    '#title' => t('Show issues of my language'),
+  //  );
   $form['voted_status'] = array(
-    '#type' => 'checkbox',
+    '#type'          => 'checkbox',
     '#default_value' => 'false' != $settings['not_voted'],
-    '#title' => t('Show only not voted'),
+    '#title'         => t('Show only not voted'),
   );
   $form['search_text'] = array(
-    '#type' => 'textfield',
+    '#type'  => 'textfield',
     '#title' => t('Keyword'),
     '#value' => $settings['keywords'],
   );
   $form['search'] = array(
-    '#type' => 'submit',
+    '#type'  => 'submit',
     '#value' => t('Search'),
-    '#id' => 'search-solr-block',
+    '#id'    => 'search-solr-block',
   );
 
   // Main container.
   $form['page'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => isset($settings['page']) ? intval($settings['page']) : 1,
   );
 

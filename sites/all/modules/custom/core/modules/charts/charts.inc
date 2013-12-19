@@ -2,10 +2,10 @@
 
 /**
  * @param $node
+ *
  * @return array
  */
-function charts_chtexts($node)
-{
+function charts_chtexts($node) {
   static $chtexts = NULL;
 
   if (is_null($chtexts)) {
@@ -24,10 +24,10 @@ function charts_chtexts($node)
  * Colors
  *
  * @param bool $index
+ *
  * @return array
  */
-function charts_colors($index = FALSE)
-{
+function charts_colors($index = FALSE) {
   static $i = 0;
   static $colors = array();
   if (empty($colors)) {
@@ -57,7 +57,8 @@ function charts_colors($index = FALSE)
   }
   if ($index !== FALSE && isset($colors[$index])) {
     return $colors[$index];
-  } else {
+  }
+  else {
     $color = $colors[$i];
     $i = ($i + 1) % count($colors);
     return $color;
@@ -69,10 +70,10 @@ function charts_colors($index = FALSE)
  *
  * @param $date1
  * @param $date2
+ *
  * @return array
  */
-function dates_range($date1, $date2)
-{
+function dates_range($date1, $date2) {
   $range = array();
   if (!empty($date1) && !empty($date2) && $date1 < $date2) {
     $date1 = strtotime($date1);

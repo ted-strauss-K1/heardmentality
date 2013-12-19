@@ -16,9 +16,9 @@ class location_views_handler_field_latitude extends views_handler_field {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
     $form['style'] = array(
-      '#title' => t('Display style'),
-      '#type' => 'select',
-      '#options' => array('dd' => t('Decimal degrees'), 'dms' => t('Degrees, minutes, seconds')),
+      '#title'         => t('Display style'),
+      '#type'          => 'select',
+      '#options'       => array('dd' => t('Decimal degrees'), 'dms' => t('Degrees, minutes, seconds')),
       '#default_value' => $this->options['style'],
     );
   }

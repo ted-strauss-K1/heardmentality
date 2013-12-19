@@ -29,12 +29,12 @@
   <!-- Used to specify an alternate directory to hold all index data
        other than the default ./data under the Solr home.
        If replication is in use, this should match the replication configuration. -->
-<!--
-  <dataDir>${solr.data.dir:./solr/data}</dataDir>
--->
+  <!--
+    <dataDir>${solr.data.dir:./solr/data}</dataDir>
+  -->
 
   <indexDefaults>
-   <!-- Values here affect all index writers and act as a default unless overridden. -->
+    <!-- Values here affect all index writers and act as a default unless overridden. -->
     <useCompoundFile>false</useCompoundFile>
 
     <mergeFactor>10</mergeFactor>
@@ -73,7 +73,7 @@
 
      Other implementations of MergePolicy must have a no-argument constructor
      -->
-    <mergePolicy class="org.apache.lucene.index.LogByteSizeMergePolicy" />
+    <mergePolicy class="org.apache.lucene.index.LogByteSizeMergePolicy"/>
 
     <!--
      Expert:
@@ -154,7 +154,7 @@
 
 		For more details see http://wiki.apache.org/solr/SolrJmx
   -->
-  <jmx />
+  <jmx/>
 
   <!-- the default high-performance update handler -->
   <updateHandler class="solr.DirectUpdateHandler2">
@@ -172,7 +172,6 @@
       <maxDocs>2000</maxDocs>
       <maxTime>120000</maxTime>
     </autoCommit>
-
 
     <!-- The RunExecutableListener executes an external command.
          exe - the name of the executable to run
@@ -201,13 +200,11 @@
 
   </updateHandler>
 
-
   <query>
     <!-- Maximum number of clauses in a boolean query... can affect
         range or prefix queries that expand to big boolean
         queries.  An exception is thrown if exceeded.  -->
     <maxBooleanClauses>1024</maxBooleanClauses>
-
 
     <!-- There are two implementations of cache available for Solr,
          LRUCache, based on a synchronized LinkedHashMap, and
@@ -246,17 +243,17 @@
       />
     -->
 
-   <!-- queryResultCache caches results of searches - ordered lists of
-         document ids (DocList) based on a query, a sort, and the range
-         of documents requested.  -->
+    <!-- queryResultCache caches results of searches - ordered lists of
+          document ids (DocList) based on a query, a sort, and the range
+          of documents requested.  -->
     <queryResultCache
       class="solr.LRUCache"
       size="512"
       initialSize="512"
       autowarmCount="32"/>
 
-  <!-- documentCache caches Lucene Document objects (the stored fields for each document).
-       Since Lucene internal document ids are transient, this cache will not be autowarmed.  -->
+    <!-- documentCache caches Lucene Document objects (the stored fields for each document).
+         Since Lucene internal document ids are transient, this cache will not be autowarmed.  -->
     <documentCache
       class="solr.LRUCache"
       size="512"
@@ -286,20 +283,20 @@
       />
     -->
 
-   <!-- An optimization that attempts to use a filter to satisfy a search.
-         If the requested sort does not include score, then the filterCache
-         will be checked for a filter matching the query. If found, the filter
-         will be used as the source of document ids, and then the sort will be
-         applied to that.
-    <useFilterForSortedQuery>true</useFilterForSortedQuery>
-   -->
+    <!-- An optimization that attempts to use a filter to satisfy a search.
+          If the requested sort does not include score, then the filterCache
+          will be checked for a filter matching the query. If found, the filter
+          will be used as the source of document ids, and then the sort will be
+          applied to that.
+     <useFilterForSortedQuery>true</useFilterForSortedQuery>
+    -->
 
-   <!-- An optimization for use with the queryResultCache.  When a search
-         is requested, a superset of the requested number of document ids
-         are collected.  For example, if a search for a particular query
-         requests matching documents 10 through 19, and queryWindowSize is 50,
-         then documents 0 through 49 will be collected and cached.  Any further
-         requests in that range can be satisfied via the cache.  -->
+    <!-- An optimization for use with the queryResultCache.  When a search
+          is requested, a superset of the requested number of document ids
+          are collected.  For example, if a search for a particular query
+          requests matching documents 10 through 19, and queryWindowSize is 50,
+          then documents 0 through 49 will be collected and cached.  Any further
+          requests in that range can be satisfied via the cache.  -->
     <queryResultWindowSize>50</queryResultWindowSize>
 
     <!-- Maximum number of documents to cache for any entry in the
@@ -318,9 +315,19 @@
          local query request for each NamedList in sequence. -->
     <listener event="newSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
-        <lst> <str name="q">solr</str> <str name="start">0</str> <str name="rows">10</str> </lst>
-        <lst> <str name="q">rocks</str> <str name="start">0</str> <str name="rows">10</str> </lst>
-        <lst><str name="q">static newSearcher warming query from solrconfig.xml</str></lst>
+        <lst>
+          <str name="q">solr</str>
+          <str name="start">0</str>
+          <str name="rows">10</str>
+        </lst>
+        <lst>
+          <str name="q">rocks</str>
+          <str name="start">0</str>
+          <str name="rows">10</str>
+        </lst>
+        <lst>
+          <str name="q">static newSearcher warming query from solrconfig.xml</str>
+        </lst>
       </arr>
     </listener>
 
@@ -329,8 +336,14 @@
          requests or to gain autowarming data from. -->
     <listener event="firstSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
-        <lst> <str name="q">fast_warm</str> <str name="start">0</str> <str name="rows">10</str> </lst>
-        <lst><str name="q">static firstSearcher warming query from solrconfig.xml</str></lst>
+        <lst>
+          <str name="q">fast_warm</str>
+          <str name="start">0</str>
+          <str name="rows">10</str>
+        </lst>
+        <lst>
+          <str name="q">static firstSearcher warming query from solrconfig.xml</str>
+        </lst>
       </arr>
     </listener>
 
@@ -352,9 +365,9 @@
     handleSelect=true will use consistent error handling for /select and /update
     handleSelect=false will use solr1.1 style error formatting
     -->
-  <requestDispatcher handleSelect="true" >
+  <requestDispatcher handleSelect="true">
     <!--Make sure your system has some authentication before enabling remote streaming!  -->
-    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" />
+    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048"/>
 
     <!-- Set HTTP caching related parameters (for proxy caches and clients).
 
@@ -365,34 +378,33 @@
     <!-- <httpCaching never304="true"> -->
     <httpCaching lastModifiedFrom="openTime"
                  etagSeed="Solr">
-       <!-- lastModFrom="openTime" is the default, the Last-Modified value
-            (and validation against If-Modified-Since requests) will all be
-            relative to when the current Searcher was opened.
-            You can change it to lastModFrom="dirLastMod" if you want the
-            value to exactly corrispond to when the physical index was last
-            modified.
+      <!-- lastModFrom="openTime" is the default, the Last-Modified value
+           (and validation against If-Modified-Since requests) will all be
+           relative to when the current Searcher was opened.
+           You can change it to lastModFrom="dirLastMod" if you want the
+           value to exactly corrispond to when the physical index was last
+           modified.
 
-            etagSeed="..." is an option you can change to force the ETag
-            header (and validation against If-None-Match requests) to be
-            differnet even if the index has not changed (ie: when making
-            significant changes to your config file)
+           etagSeed="..." is an option you can change to force the ETag
+           header (and validation against If-None-Match requests) to be
+           differnet even if the index has not changed (ie: when making
+           significant changes to your config file)
 
-            lastModifiedFrom and etagSeed are both ignored if you use the
-            never304="true" option.
-       -->
-       <!-- If you include a <cacheControl> directive, it will be used to
-            generate a Cache-Control header, as well as an Expires header
-            if the value contains "max-age="
+           lastModifiedFrom and etagSeed are both ignored if you use the
+           never304="true" option.
+      -->
+      <!-- If you include a <cacheControl> directive, it will be used to
+           generate a Cache-Control header, as well as an Expires header
+           if the value contains "max-age="
 
-            By default, no Cache-Control header is generated.
+           By default, no Cache-Control header is generated.
 
-            You can use the <cacheControl> option even if you have set
-            never304="true"
-       -->
-       <!-- <cacheControl>max-age=30, public</cacheControl> -->
+           You can use the <cacheControl> option even if you have set
+           never304="true"
+      -->
+      <!-- <cacheControl>max-age=30, public</cacheControl> -->
     </httpCaching>
   </requestDispatcher>
-
 
   <!-- requestHandler plugins... incoming queries will be dispatched to the
      correct handler based on the path or the qt (query type) param.
@@ -404,36 +416,36 @@
   -->
   <requestHandler name="standard" class="solr.SearchHandler">
     <!-- default values for query parameters -->
-     <lst name="defaults">
-       <str name="echoParams">explicit</str>
-       <bool name="omitHeader">true</bool>
-       <!--
-       <int name="rows">10</int>
-       <str name="fl">*</str>
-       <str name="version">2.1</str>
-        -->
-     </lst>
+    <lst name="defaults">
+      <str name="echoParams">explicit</str>
+      <bool name="omitHeader">true</bool>
+      <!--
+      <int name="rows">10</int>
+      <str name="fl">*</str>
+      <str name="version">2.1</str>
+       -->
+    </lst>
   </requestHandler>
 
-<!-- Please refer to http://wiki.apache.org/solr/SolrReplication for details on configuring replication -->
-<!-- MASTER_REPLICATION_START
-<requestHandler name="/replication" class="solr.ReplicationHandler" >
-    <lst name="master">
-        <str name="replicateAfter">commit</str>
-        <str name="replicateAfter">startup</str>
-        <str name="confFiles">schema.xml,mapping-ISOLatin1Accent.txt,protwords.txt,stopwords.txt,synonyms.txt,elevate.xml</str>
-    </lst>
-</requestHandler>
- MASTER_REPLICATION_END -->
+  <!-- Please refer to http://wiki.apache.org/solr/SolrReplication for details on configuring replication -->
+  <!-- MASTER_REPLICATION_START
+  <requestHandler name="/replication" class="solr.ReplicationHandler" >
+      <lst name="master">
+          <str name="replicateAfter">commit</str>
+          <str name="replicateAfter">startup</str>
+          <str name="confFiles">schema.xml,mapping-ISOLatin1Accent.txt,protwords.txt,stopwords.txt,synonyms.txt,elevate.xml</str>
+      </lst>
+  </requestHandler>
+   MASTER_REPLICATION_END -->
 
-<!-- SLAVE_REPLICATION_START
-<requestHandler name="/replication" class="solr.ReplicationHandler" >
-    <lst name="slave">
-        <str name="masterUrl">$MASTER_CORE_URL/replication</str>
-        <str name="pollInterval">$POLL_TIME</str>
-     </lst>
-</requestHandler>
- SLAVE_REPLICATION_END -->
+  <!-- SLAVE_REPLICATION_START
+  <requestHandler name="/replication" class="solr.ReplicationHandler" >
+      <lst name="slave">
+          <str name="masterUrl">$MASTER_CORE_URL/replication</str>
+          <str name="pollInterval">$POLL_TIME</str>
+       </lst>
+  </requestHandler>
+   SLAVE_REPLICATION_END -->
 
   <!-- DisMaxRequestHandler allows easy searching across multiple fields
        for simple user-entered phrases.  It's implementation is now
@@ -443,9 +455,9 @@
    -->
   <requestHandler name="dismax" class="solr.SearchHandler">
     <lst name="defaults">
-     <str name="defType">dismax</str>
-     <str name="echoParams">explicit</str>
-     <bool name="omitHeader">true</bool>
+      <str name="defType">dismax</str>
+      <str name="echoParams">explicit</str>
+      <bool name="omitHeader">true</bool>
     </lst>
   </requestHandler>
 
@@ -454,37 +466,37 @@
     -->
   <requestHandler name="drupal" class="solr.SearchHandler" default="true">
     <lst name="defaults">
-     <str name="defType">dismax</str>
-     <str name="echoParams">explicit</str>
-     <bool name="omitHeader">true</bool>
-     <float name="tie">0.01</float>
-     <str name="pf">
+      <str name="defType">dismax</str>
+      <str name="echoParams">explicit</str>
+      <bool name="omitHeader">true</bool>
+      <float name="tie">0.01</float>
+      <str name="pf">
         content^2.0
-     </str>
-     <int name="ps">15</int>
-     <!-- Abort any searches longer than 4 seconds -->
-     <!-- <int name="timeAllowed">4000</int>  -->
-     <str name="mm">1</str>
-     <str name="q.alt">*:*</str>
+      </str>
+      <int name="ps">15</int>
+      <!-- Abort any searches longer than 4 seconds -->
+      <!-- <int name="timeAllowed">4000</int>  -->
+      <str name="mm">1</str>
+      <str name="q.alt">*:*</str>
 
-   <!-- example highlighter config, enable per-query with hl=true -->
-     <str name="hl">true</str>
-     <str name="hl.fl">content</str>
-     <int name="hl.snippets">3</int>
-     <str name="hl.mergeContiguous">true</str>
-   <!-- instructs Solr to return the field itself if no query terms are
-        found -->
-     <str name="f.content.hl.alternateField">teaser</str>
-     <str name="f.content.hl.maxAlternateFieldLength">256</str>
-     <!-- JS: I wasn't getting good results here... I'm turning off for now
-     because I was getting periods (.) by themselves at the beginning of
-     snippets and don't feel like debugging anymore.  Without the regex is
-     faster too -->
-     <!--<str name="f.content.hl.fragmenter">regex</str>--> <!-- defined below -->
+      <!-- example highlighter config, enable per-query with hl=true -->
+      <str name="hl">true</str>
+      <str name="hl.fl">content</str>
+      <int name="hl.snippets">3</int>
+      <str name="hl.mergeContiguous">true</str>
+      <!-- instructs Solr to return the field itself if no query terms are
+           found -->
+      <str name="f.content.hl.alternateField">teaser</str>
+      <str name="f.content.hl.maxAlternateFieldLength">256</str>
+      <!-- JS: I wasn't getting good results here... I'm turning off for now
+      because I was getting periods (.) by themselves at the beginning of
+      snippets and don't feel like debugging anymore.  Without the regex is
+      faster too -->
+      <!--<str name="f.content.hl.fragmenter">regex</str>--> <!-- defined below -->
 
-    <!-- By default, don't spell check -->
+      <!-- By default, don't spell check -->
       <str name="spellcheck">false</str>
-    <!-- Defaults for the spell checker when used -->
+      <!-- Defaults for the spell checker when used -->
       <str name="spellcheck.onlyMorePopular">true</str>
       <str name="spellcheck.extendedResults">false</str>
       <!--  The number of suggestions to return -->
@@ -509,7 +521,6 @@
       <!-- <int name="timeAllowed">1500</int> -->
     </lst>
   </requestHandler>
-
 
   <!--
    Search components are registered to SolrCore and used by Search Handlers
@@ -545,8 +556,8 @@
     </arr>
   -->
 
-   <!-- The spell check component can return a list of alternative spelling
-  suggestions.  -->
+  <!-- The spell check component can return a list of alternative spelling
+ suggestions.  -->
   <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
 
     <str name="queryAnalyzerFieldType">textSpell</str>
@@ -572,7 +583,7 @@
 
   <!-- a search component that enables you to configure the top results for
        a given query regardless of the normal lucene scoring.-->
-  <searchComponent name="elevator" class="solr.QueryElevationComponent" >
+  <searchComponent name="elevator" class="solr.QueryElevationComponent">
     <!-- pick a fieldType to analyze queries -->
     <str name="queryFieldType">string</str>
     <str name="config-file">elevate.xml</str>
@@ -588,7 +599,6 @@
     </arr>
   </requestHandler>
 
-
   <!-- Update request handler.
 
        Note: Since solr1.1 requestHandlers requires a valid content type header if posted in
@@ -597,18 +607,16 @@
 
        To enable solr1.1 behavior, remove the /update handler or change its path
     -->
-  <requestHandler name="/update" class="solr.XmlUpdateRequestHandler" />
+  <requestHandler name="/update" class="solr.XmlUpdateRequestHandler"/>
 
   <!--
    Analysis request handler.  Since Solr 1.3.  Use to returnhow a document is analyzed.  Useful
    for debugging and as a token server for other types of applications
    -->
-  <requestHandler name="/analysis" class="solr.AnalysisRequestHandler" />
-
+  <requestHandler name="/analysis" class="solr.AnalysisRequestHandler"/>
 
   <!-- CSV update handler, loaded on demand -->
-  <requestHandler name="/update/csv" class="solr.CSVRequestHandler" startup="lazy" />
-
+  <requestHandler name="/update/csv" class="solr.CSVRequestHandler" startup="lazy"/>
 
   <!--
    Admin Handlers - This will register all the standard admin RequestHandlers.  Adding
@@ -629,7 +637,7 @@
     </lst>
   </requestHandler>
   -->
-  <requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
+  <requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers"/>
 
   <!-- ping/healthcheck -->
   <requestHandler name="/admin/ping" class="PingRequestHandler">
@@ -641,55 +649,55 @@
   </requestHandler>
 
   <!-- Files that are needed to start the service -->
-  <requestHandler name="/admin/file" class="org.apache.solr.handler.admin.ShowFileRequestHandler" >
+  <requestHandler name="/admin/file" class="org.apache.solr.handler.admin.ShowFileRequestHandler">
     <lst name="invariants">
-     <str name="hidden">admin-extra.html</str>
-     <str name="hidden">scripts.conf</str>
-     <str name="hidden">xslt/example.xsl</str>
-     <str name="hidden">xslt/example_atom.xsl</str>
-     <str name="hidden">xslt/example_rss.xsl</str>
-     <str name="hidden">xslt/luke.xsl</str>
+      <str name="hidden">admin-extra.html</str>
+      <str name="hidden">scripts.conf</str>
+      <str name="hidden">xslt/example.xsl</str>
+      <str name="hidden">xslt/example_atom.xsl</str>
+      <str name="hidden">xslt/example_rss.xsl</str>
+      <str name="hidden">xslt/luke.xsl</str>
     </lst>
   </requestHandler>
 
   <!-- Echo the request contents back to the client -->
-  <requestHandler name="/debug/dump" class="solr.DumpRequestHandler" >
+  <requestHandler name="/debug/dump" class="solr.DumpRequestHandler">
     <lst name="defaults">
-     <str name="echoParams">explicit</str> <!-- for all params (including the default etc) use: 'all' -->
-     <str name="echoHandler">true</str>
+      <str name="echoParams">explicit</str>
+      <!-- for all params (including the default etc) use: 'all' -->
+      <str name="echoHandler">true</str>
     </lst>
   </requestHandler>
 
   <highlighting>
-   <!-- Configure the standard fragmenter -->
-   <!-- This could most likely be commented out in the "default" case -->
-   <fragmenter name="gap" class="org.apache.solr.highlight.GapFragmenter" default="true">
-    <lst name="defaults">
-     <int name="hl.fragsize">100</int>
-    </lst>
-   </fragmenter>
+    <!-- Configure the standard fragmenter -->
+    <!-- This could most likely be commented out in the "default" case -->
+    <fragmenter name="gap" class="org.apache.solr.highlight.GapFragmenter" default="true">
+      <lst name="defaults">
+        <int name="hl.fragsize">100</int>
+      </lst>
+    </fragmenter>
 
-   <!-- A regular-expression-based fragmenter (f.i., for sentence extraction) -->
-   <fragmenter name="regex" class="org.apache.solr.highlight.RegexFragmenter">
-    <lst name="defaults">
-      <!-- slightly smaller fragsizes work better because of slop -->
-      <int name="hl.fragsize">70</int>
-      <!-- allow 50% slop on fragment sizes -->
-      <float name="hl.regex.slop">0.5</float>
-      <!-- a basic sentence pattern -->
-      <str name="hl.regex.pattern">[-\w ,/\n\"']{20,200}</str>
-    </lst>
-   </fragmenter>
+    <!-- A regular-expression-based fragmenter (f.i., for sentence extraction) -->
+    <fragmenter name="regex" class="org.apache.solr.highlight.RegexFragmenter">
+      <lst name="defaults">
+        <!-- slightly smaller fragsizes work better because of slop -->
+        <int name="hl.fragsize">70</int>
+        <!-- allow 50% slop on fragment sizes -->
+        <float name="hl.regex.slop">0.5</float>
+        <!-- a basic sentence pattern -->
+        <str name="hl.regex.pattern">[-\w ,/\n\"']{20,200}</str>
+      </lst>
+    </fragmenter>
 
-   <!-- Configure the standard formatter -->
-   <formatter name="html" class="org.apache.solr.highlight.HtmlFormatter" default="true">
-    <lst name="defaults">
-     <str name="hl.simple.pre"><![CDATA[<strong>]]></str>
-     <str name="hl.simple.post"><![CDATA[</strong>]]></str>
-    </lst>
-   </formatter>
+    <!-- Configure the standard formatter -->
+    <formatter name="html" class="org.apache.solr.highlight.HtmlFormatter" default="true">
+      <lst name="defaults">
+        <str name="hl.simple.pre"><![CDATA[<strong>]]></str>
+        <str name="hl.simple.post"><![CDATA[</strong>]]></str>
+      </lst>
+    </formatter>
   </highlighting>
-
 
   <!-- queryResponseWriter plugins... query responses will be written using the
     writer specified by the 'wt' request parameter matching the name of a registered
@@ -715,7 +723,6 @@
   <queryResponseWriter name="xslt" class="org.apache.solr.request.XSLTResponseWriter">
     <int name="xsltCacheLifetimeSeconds">5</int>
   </queryResponseWriter>
-
 
   <!-- example of registering a query parser
   <queryParser name="lucene" class="org.apache.solr.search.LuceneQParserPlugin"/>

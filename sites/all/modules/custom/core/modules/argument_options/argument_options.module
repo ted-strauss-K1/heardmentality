@@ -3,26 +3,24 @@
 /**
  * Implementation of hook_nodeapi()
  *
- * @param $node
- * @param $op
+ * @param      $node
+ * @param      $op
  * @param null $a3
  * @param null $a4
  */
-function argument_options_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
+function argument_options_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   if ('argument' == $node->type) {
     switch ($op) {
       case 'insert' :
       case 'update' :
-        if ($node->argument_options)
+      if ($node->argument_options) {
         foreach ($node->argument_options as $chid => $choice) {
           db_query("
             REPLACE INTO {argument_options}
-            SET val = '%d', nid = '%d', chid = '%d', date_added = '%s'",
-            $choice['val'], $node->nid, $chid, date('Y-m-d h:i:s')
-          );
+            SET val = '%d', nid = '%d', chid = '%d', date_added = '%s'", $choice['val'], $node->nid, $chid, date('Y-m-d h:i:s'));
         }
-      break;
+      }
+        break;
       case 'load' :
         if (isset($node->argument_options)) {
           return;
@@ -37,11 +35,11 @@ function argument_options_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
         while ($row = db_fetch_array($result)) {
           $node->argument_options[$row['chid']] = $row;
         }
-      break;
+        break;
       case 'delete' :
         // delete records
         db_query("DELETE FROM {argument_options} WHERE nid = '%d'", $node->nid);
-      break;
+        break;
     }
   }
 }
@@ -49,13 +47,12 @@ function argument_options_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
 /**
  * @return array
  */
-function argument_options_theme()
-{
+function argument_options_theme() {
   $theme = array();
 
   $theme['argument_options'] = array(
     'arguments' => array('options' => array()),
-    'template' => 'argument-options',
+    'template'  => 'argument-options',
   );
 
   return $theme;

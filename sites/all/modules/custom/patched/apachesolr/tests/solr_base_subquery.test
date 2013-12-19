@@ -8,9 +8,9 @@ class DrupalSolrFilterSubQueryTests extends DrupalUnitTestCase {
 
   public static function getInfo() {
     return array(
-      'name' => 'SolrFilterSubQuery Unit tests',
+      'name'        => 'SolrFilterSubQuery Unit tests',
       'description' => 'Unit Tests for subqueries.',
-      'group' => 'ApacheSolr',
+      'group'       => 'ApacheSolr',
     );
   }
 
@@ -25,6 +25,7 @@ class DrupalSolrFilterSubQueryTests extends DrupalUnitTestCase {
   /**
    * Helper function to simulate the auto loading and other non-needed functions
    * that otherwise require a database
+   *
    * @see apachesolr_drupal_query().
    * @return SolrBaseQuery
    */

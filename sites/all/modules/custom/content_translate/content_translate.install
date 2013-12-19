@@ -3,70 +3,75 @@
 /**
  * Implementation of hook_install()
  */
-function content_translate_install()
-{
+function content_translate_install() {
   $v = drupal_install_schema('content_translate');
 }
 
 /**
  * Implementation of hook_uninstall()
  */
-function content_translate_uninstall()
-{
+function content_translate_uninstall() {
   drupal_uninstall_schema('content_translate');
 }
 
 /**
  * Implementation of hook_schema()
  */
-function content_translate_schema()
-{
+function content_translate_schema() {
   $schema = array();
 
   $schema['content_translate'] = array(
     'description' => 'Stores the translations.',
-    'fields' => array(
-      'id' => array(
+    'fields'      => array(
+      'id'           => array(
         'description' => 'The primary identifier.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE),
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE
+      ),
       'content_type' => array(
-        'type' => 'varchar',
-        'length' => 64,
+        'type'     => 'varchar',
+        'length'   => 64,
         'not null' => TRUE,
-        'default' => 'node'),
-      'content_id' => array(
-        'type' => 'int',
+        'default'  => 'node'
+      ),
+      'content_id'   => array(
+        'type'     => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
-        'default' => 0),
-      'language' => array(
+        'default'  => 0
+      ),
+      'language'     => array(
         'description' => 'The {languages}.language.',
-        'type' => 'varchar',
-        'length' => 12,
-        'not null' => TRUE),
-      'field' => array(
+        'type'        => 'varchar',
+        'length'      => 12,
+        'not null'    => TRUE
+      ),
+      'field'        => array(
         'description' => t('The field name.'),
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE),
-      'field_order' => array(
-        'type' => 'int',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE
+      ),
+      'field_order'  => array(
+        'type'     => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
-        'default' => 0),
-      'text' => array(
+        'default'  => 0
+      ),
+      'text'         => array(
         'description' => 'The translated text.',
-        'type' => 'text',
-        'not null' => TRUE,
-        'size' => 'big'),
-      'date_added' => array(
-        'type' => 'datetime',
+        'type'        => 'text',
+        'not null'    => TRUE,
+        'size'        => 'big'
+      ),
+      'date_added'   => array(
+        'type'        => 'datetime',
         'description' => 'The date of the vote.',
-        'not null' => TRUE),
+        'not null'    => TRUE
+      ),
     ),
-    'indexes' => array(
+    'indexes'     => array(
       'content_id' => array('content_id')
     ),
     'primary key' => array('id'),

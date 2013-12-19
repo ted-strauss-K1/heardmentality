@@ -32,8 +32,7 @@ function issue_search_content_translate_rebuild_js() {
  * @global object $_issue_search_user
  *  Copy of real user for this module.
  */
-function issue_search_init()
-{
+function issue_search_init() {
   global $user, $_issue_search_user;
   $_issue_search_user = $user;
 }
@@ -45,39 +44,37 @@ function issue_search_init()
  * @return array
  *  An associative array whose keys define paths and whose values are an associative array of properties for each path.
  */
-function issue_search_menu()
-{
+function issue_search_menu() {
   $menu = array();
 
   # search page
   $menu['issues'] = array(
-    'page callback' => 'drupal_get_form',
-    'title' => t('Issues'),
-    'page arguments' => array('issue_search_form'),
+    'page callback'   => 'drupal_get_form',
+    'title'           => t('Issues'),
+    'page arguments'  => array('issue_search_form'),
     'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-    'file' => 'includes/issue_search.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'file'            => 'includes/issue_search.pages.inc',
   );
 
   # search with ajax
   $menu['issues/ajax'] = array(
-    'page callback' => 'issue_search_ajax',
+    'page callback'   => 'issue_search_ajax',
     'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-    'file' => 'includes/issue_search.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'file'            => 'includes/issue_search.pages.inc',
   );
 
   return $menu;
 }
 
 /**
- * @param $node
- * @param $op
+ * @param      $node
+ * @param      $op
  * @param null $a3
  * @param null $a4
  */
-function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
+function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   global $user;
 
   // Enqueue a node into apachesolr node queue for indexing a new amount of views.
@@ -100,47 +97,46 @@ function issue_search_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
  * @return array
  *  Search results.
  */
-function issue_search()
-{
+function issue_search() {
   $keywords = $_POST['keywords'];
   $params = array(
     'q' => $keywords,
   );
   $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
 
-  $results = apachesolr_search_run('apachesolr', $params, '', '', $page-1);
+  $results = apachesolr_search_run('apachesolr', $params, '', '', $page - 1);
 
   return $results;
 }
 
 /**
- * @param array $existing
+ * @param array  $existing
  * @param string $type
  * @param string $theme
  * @param string $path
+ *
  * @return array
  */
-function issue_search_theme()
-{
+function issue_search_theme() {
   $theme = array();
 
   $theme['issue_search_results'] = array(
     'arguments' => array(
       'results' => array()
     ),
-    'file' => 'includes/issue_search.theme.inc',
+    'file'      => 'includes/issue_search.theme.inc',
   );
   $theme['issue_search_pager_link'] = array(
     'arguments' => array(
-      'page' => 1,
+      'page'        => 1,
       'page_active' => 1,
-      'anchor' => FALSE,
+      'anchor'      => FALSE,
     ),
-    'file' => 'includes/issue_search.theme.inc',
+    'file'      => 'includes/issue_search.theme.inc',
   );
   $theme['issue_search_filter'] = array(
     'arguments' => array(),
-    'file' => 'includes/issue_search.theme.inc',
+    'file'      => 'includes/issue_search.theme.inc',
   );
 
   return $theme;
@@ -153,8 +149,7 @@ function issue_search_theme()
  * @param type $variables
  *  The variables array (modify in place).
  */
-function issue_search_preprocess_page(&$variables)
-{
+function issue_search_preprocess_page(&$variables) {
   #
   if (arg(0) == 'issues') {
     // Set page template.
@@ -179,11 +174,10 @@ function issue_search_preprocess_page(&$variables)
  * @global object $user
  *  Current Drupal user.
  *
- * @param string $destination
+ * @param string  $destination
  *  If this hook is invoked as part of a drupal_goto() call, then this argument will be a fully-qualified URL that is the destination of the redirect.
  */
-function issue_search_exit($destination = NULL)
-{
+function issue_search_exit($destination = NULL) {
   global $user;
 
   // Check if we are counting views.

@@ -17,20 +17,20 @@ function location_taxonomy_views_data() {
   $data['location']['table']['join']['term_data'] = array(
     'left_table' => 'location_instance',
     'left_field' => 'lid',
-    'field' => 'lid',
+    'field'      => 'lid',
   );
   // location_instance table.
   $data['location_instance']['table']['join']['term_data'] = array(
-    'handler' => 'location_join_taxonomy',
+    'handler'    => 'location_join_taxonomy',
     'left_field' => 'tid',
-    'field' => 'genid',
+    'field'      => 'genid',
   );
   // term_data table
   $data['term_data']['table']['join']['location'] = array(
-    'handler' => 'location_join_taxonomy',
+    'handler'    => 'location_join_taxonomy',
     'left_table' => 'location_instance',
     'left_field' => 'genid',
-    'field' => 'tid',
+    'field'      => 'tid',
   );
 
   return $data;
@@ -59,10 +59,10 @@ class location_join_taxonomy extends views_join {
           case 'mysql':
           case 'mysqli':
             $output = " {$this->type} JOIN {{$this->table}} {$table['alias']} ON CONCAT('taxonomy:', {$left['alias']}.{$this->left_field}) = {$table['alias']}.{$this->field}";
-          break;
+            break;
           case 'pgsql':
             $output = " {$this->type} JOIN {{this->table}} {$table['alias']} ON ('taxonomy:' || {$left['alias']}.{$this->left_field}) = {$table['alias']}.{$this->field}";
-          break;
+            break;
         }
         break;
       case 'tid':
@@ -70,10 +70,10 @@ class location_join_taxonomy extends views_join {
           case 'mysql':
           case 'mysqli':
             $output = " {$this->type} JOIN {{$this->table}} {$table['alias']} ON {$left['alias']}.{$this->left_field} = CONCAT('taxonomy:', {$table['alias']}.{$this->field})";
-          break;
+            break;
           case 'pgsql':
             $output = " {$this->type} JOIN {{$this->table}} {$table['alias']} ON {$left['alias']}.{$this->left_field} = ('taxonomy:' || {$table['alias']}.{$this->field})";
-          break;
+            break;
         }
         break;
     }
@@ -127,8 +127,10 @@ class location_join_taxonomy extends views_join {
           }
         }
       }
-      else if ($this->extra && is_string($this->extra)) {
-        $output .= " AND ($this->extra)";
+      else {
+        if ($this->extra && is_string($this->extra)) {
+          $output .= " AND ($this->extra)";
+        }
       }
     }
     return $output;

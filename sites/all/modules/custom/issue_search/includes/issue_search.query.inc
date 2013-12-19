@@ -9,8 +9,7 @@
  * @param DrupalSolrQueryInterface $query
  *  An object implementing DrupalSolrQueryInterface.
  */
-function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query)
-{
+function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query) {
   global $language;
 
   // Params
@@ -47,8 +46,7 @@ function issue_search_apachesolr_query_prepare(DrupalSolrQueryInterface $query)
  * @param DrupalSolrQueryInterface $query
  *  An object implementing DrupalSolrQueryInterface
  */
-function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
-{
+function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query) {
   global $_issue_search_user;
 
   // Taxonomy.
@@ -62,7 +60,8 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
   if ($_POST['my_region'] == 'true') {
     $value = $_issue_search_user->profile_country;
     $query->addFilter('sm_location_codes', $value);
-  } elseif (!empty($_POST['location1'])) {
+  }
+  elseif (!empty($_POST['location1'])) {
     $countries = explode(';', $_POST['location1']);
     $provinces = explode(';', $_POST['location2']);
     $cities = explode(';', $_POST['location3']);
@@ -96,23 +95,23 @@ function issue_search_apachesolr_query_alter(DrupalSolrQueryInterface $query)
  * Implementation of hook_apachesolr_process_results().
  * This is invoked by apachesolr_search.module for the whole resultset returned in a search.
  *
- * @param type $results
+ * @param type                     $results
  *  Resultset.
  * @param DrupalSolrQueryInterface $query
  *  Query.
  */
-function issue_search_apachesolr_process_results(&$results, DrupalSolrQueryInterface $query)
-{
+function issue_search_apachesolr_process_results(&$results, DrupalSolrQueryInterface $query) {
   //
 }
 
 /**
- * @param $query
- * @param $field
- * @param $values
+ * @param      $query
+ * @param      $field
+ * @param      $values
  * @param bool $flag
- *    @code true for OR joining
- *    @code false for AND joining
+ *
+ * @code true for OR joining
+ * @code false for AND joining
  */
 function issue_search_alter_filterquery(&$query, $field, $values, $flag = FALSE) {
   if ($flag) {
@@ -121,7 +120,8 @@ function issue_search_alter_filterquery(&$query, $field, $values, $flag = FALSE)
       $subquery->addFilter($field, $value);
     }
     $query->addFilterSubQuery($subquery, 'AND', 'AND');
-  } else {
+  }
+  else {
     foreach ($values as $value) {
       $subquery = apachesolr_drupal_query('apachesolr');
       $subquery->addFilter($field, $value);

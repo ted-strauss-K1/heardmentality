@@ -7,8 +7,8 @@ $('#suggest').live('click', function (e) {
   // activated form
   if (form.hasClass('active')) {
     $.hrd.noty({
-      type:'error',
-      text:Drupal.t('Multiple submissions are not allowed')+'. '+Drupal.t('Wait for few seconds to add your suggestion')
+      type: 'error',
+      text: Drupal.t('Multiple submissions are not allowed') + '. ' + Drupal.t('Wait for few seconds to add your suggestion')
     });
     return;
   }
@@ -24,8 +24,8 @@ $('#suggest').live('click', function (e) {
   // update not-voted status
   form.removeClass('not-voted');
   $.hrd.noty({
-    type:'success',
-    text: Drupal.t('Your suggestion was added')+'!'
+    type: 'success',
+    text: Drupal.t('Your suggestion was added') + '!'
   });
 
   // update the text
@@ -46,18 +46,18 @@ $('#suggest').live('click', function (e) {
   // activate form
   form.addClass('active');
   $.ajax({
-    type:'POST',
-    dataType:'json',
-    url:Drupal.settings.language_prefix+'/cpoll_vote/ajax',
-    data: {
-      "nid"         : form.find('input[name=nid]').val(),
-      "suggestion"  : input.val()
+    type    : 'POST',
+    dataType: 'json',
+    url     : Drupal.settings.language_prefix + '/cpoll_vote/ajax',
+    data    : {
+      "nid"       : form.find('input[name=nid]').val(),
+      "suggestion": input.val()
     },
-    success:function (response) {
+    success : function (response) {
       if (!response.status) {
         $.hrd.noty({
-          type:'error',
-          text:response.message
+          type: 'error',
+          text: response.message
         });
 
         // show form
@@ -91,9 +91,9 @@ $('#suggest').live('click', function (e) {
       var body = $('body');
       body.trigger('cpoll_update');
       body.trigger('events', ['suggest', {
-        'chid'          : response.chid,
-        'content_type'  : 'node',
-        'content_id'    : form.find('input[name=nid]').val()
+        'chid'        : response.chid,
+        'content_type': 'node',
+        'content_id'  : form.find('input[name=nid]').val()
       }]);
 
       // badges
@@ -111,8 +111,8 @@ $('#vote').live('click', function (e) {
   // activated form
   if (form.hasClass('active')) {
     $.hrd.noty({
-      type:'error',
-      text:Drupal.t('Multiple submissions are not allowed')+'. '+Drupal.t('Wait for few seconds to change your vote')
+      type: 'error',
+      text: Drupal.t('Multiple submissions are not allowed') + '. ' + Drupal.t('Wait for few seconds to change your vote')
     });
     return;
   }
@@ -126,34 +126,34 @@ $('#vote').live('click', function (e) {
 
   // counters
   vote_ux(form, vote.val(), -1);
-  vote_ux(form, chid.val(),  1);
+  vote_ux(form, chid.val(), 1);
 
   // update not-voted status
   form.removeClass('not-voted');
   $.hrd.noty({
-    type:'success',
+    type: 'success',
     text: Drupal.t('Your vote is accepted') + '!'
   });
 
   // activate form
   form.addClass('active');
   $.ajax({
-    type:'POST',
-    dataType:'json',
-    url:Drupal.settings.language_prefix+'/cpoll_vote/ajax',
-    data: {
-      "nid"         : form.find('input[name=nid]').val(),
-      "chid"        : chid.val()
+    type    : 'POST',
+    dataType: 'json',
+    url     : Drupal.settings.language_prefix + '/cpoll_vote/ajax',
+    data    : {
+      "nid" : form.find('input[name=nid]').val(),
+      "chid": chid.val()
     },
-    success:function (response) {
+    success : function (response) {
       if (!response.status) {
         $.hrd.noty({
-          type:'error',
-          text:response.message
+          type: 'error',
+          text: response.message
         });
 
         // show form
-        vote_ux(form, vote.val(),  1);
+        vote_ux(form, vote.val(), 1);
         vote_ux(form, chid.val(), -1);
 
         form.removeClass('active');
@@ -175,9 +175,9 @@ $('#vote').live('click', function (e) {
       var body = $('body');
       body.trigger('cpoll_update', [false]);
       body.trigger('events', ['vote', {
-        'chid'          : response.chid,
-        'content_type'  : 'node',
-        'content_id'    : form.find('input[name=nid]').val()
+        'chid'        : response.chid,
+        'content_type': 'node',
+        'content_id'  : form.find('input[name=nid]').val()
       }]);
 
       // badges
@@ -194,7 +194,7 @@ $('#vote').live('click', function (e) {
  * @param delta
  */
 function vote_ux(form, value, delta) {
-  var radio = form.find('input[name=choices][value='+value+']');
+  var radio = form.find('input[name=choices][value=' + value + ']');
   radio.prop('checked', -1 != delta);
   var count = radio.parents('.radio_wrapper').find('.teaser_count_vote span');
   count.html(delta + parseInt(count.html()));
@@ -207,5 +207,5 @@ function vote_ux(form, value, delta) {
  * @param delta
  */
 function vote_ux_set(form, value, votes) {
-  form.find('input[name=choices][value='+value+']').parents('.radio_wrapper').find('.teaser_count_vote span').html(votes);
+  form.find('input[name=choices][value=' + value + ']').parents('.radio_wrapper').find('.teaser_count_vote span').html(votes);
 }

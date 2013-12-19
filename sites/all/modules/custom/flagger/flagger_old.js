@@ -1,36 +1,36 @@
 function flagger_exec(flagger) {
   var url = '/flagger/' + flagger.attr('name')
   $.ajax({
-    type:"POST",
-    dataType:'json',
-    url:url,
-    data:{},
-    success:function (response) {
+    type    : "POST",
+    dataType: 'json',
+    url     : url,
+    data    : {},
+    success : function (response) {
       $.hrd.noty({
-        'layout':'center',
-        'type':'alert',
-        'text':response.text,
-        'modal':true,
-        'timeout':false,
-        'buttons':[
+        'layout' : 'center',
+        'type'   : 'alert',
+        'text'   : response.text,
+        'modal'  : true,
+        'timeout': false,
+        'buttons': [
           {
-            addClass:'btn btn-primary',
-            text:'Flag!',
-            onClick:function ($noty) {
+            addClass: 'btn btn-primary',
+            text    : 'Flag!',
+            onClick : function ($noty) {
               $('#flagger-form').submit();
               $noty.close();
               $.hrd.noty({
-                'layout':'center',
-                'type':'success',
-                'text':'Thank you for helping us keep this place in order',
-                'modal':true
+                'layout': 'center',
+                'type'  : 'success',
+                'text'  : 'Thank you for helping us keep this place in order',
+                'modal' : true
               });
             }
           },
           {
-            addClass:'btn btn-danger',
-            text:'Cancel',
-            onClick:function ($noty) {
+            addClass: 'btn btn-danger',
+            text    : 'Cancel',
+            onClick : function ($noty) {
               $noty.close();
             }
           }

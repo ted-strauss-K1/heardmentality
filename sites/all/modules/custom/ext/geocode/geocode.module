@@ -14,7 +14,7 @@ function geocode_menu() {
   $menu = array();
 
   $menu['geocode'] = array(
-    'page callback' => 'geocode',
+    'page callback'   => 'geocode',
     'access callback' => TRUE,
   );
 
@@ -47,15 +47,15 @@ function geocode() {
   # no location
   if (!$location) {
     exit(json_encode(array(
-      'status' => FALSE,
+      'status'  => FALSE,
       'message' => t('We could not determine your location'),
     )));
   }
 
   # found location
   exit(json_encode(array(
-    'status' => TRUE,
-    'message' => t('We have determined your location'),
+    'status'   => TRUE,
+    'message'  => t('We have determined your location'),
     'location' => $location,
   )));
 }
@@ -63,17 +63,20 @@ function geocode() {
 /**
  * @param $lat
  * @param $lng
+ *
  * @return array|boolean
  */
-function geocode_latlng_request($lat, $lng, $info = array()){
+function geocode_latlng_request($lat, $lng, $info = array()) {
   $output = array();
 
-  $response = geonames_query('extendedFindNearby',
-    array('lat' => $lat, 'lng' => $lng, 'style' => 'full'),
-    array('qs' => 'f'));
+  $response = geonames_query('extendedFindNearby', array(
+      'lat'   => $lat,
+      'lng'   => $lng,
+      'style' => 'full'
+    ), array('qs' => 'f'));
   if ($response && $response->results) {
     $count = count($response->results);
-    for ($i=$count-1; $i>=0; $i--) {
+    for ($i = $count - 1; $i >= 0; $i--) {
       $result = $response->results[$i];
 
       # detect country
@@ -115,7 +118,7 @@ function geocode_latlng_request($lat, $lng, $info = array()){
 
   if (!empty($output)) {
     $output += array(
-      'latitude' => $lat,
+      'latitude'  => $lat,
       'longitude' => $lng,
     );
     $output += $info;
@@ -129,14 +132,19 @@ function geocode_latlng_request($lat, $lng, $info = array()){
  *
  * @param $countrycode
  * @param $postalcode
+ *
  * @return array|boolean
  */
 function geocode_postalcode_request($countrycode, $postalcode) {
-  $response = @geonames_query('postalcodesearch', array('postalcode' => $postalcode, 'country' => $countrycode, 'maxrows' => 1));
+  $response = @geonames_query('postalcodesearch', array(
+    'postalcode' => $postalcode,
+    'country'    => $countrycode,
+    'maxrows'    => 1
+  ));
   if ($response && isset($response->results[0])) {
     $result = $response->results[0];
     return geocode_latlng_request($result['lat'], $result['lng'], array('postalcode' => $result['postalcode']));
   }
 
-  return false;
+  return FALSE;
 }

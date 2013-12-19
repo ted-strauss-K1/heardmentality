@@ -10,14 +10,13 @@
  * @param $content_type
  * @param $content_id
  */
-function flagger_page($content_type, $content_id)
-{
+function flagger_page($content_type, $content_id) {
   print json_encode(array(
     'message' => drupal_get_form('flagger_form', $content_id, $content_type),
-    'texts' => array(
-        t('Flag'),
-        t('Cancel'),
-        t('Thank you for helping us keep this place in order'),
+    'texts'   => array(
+      t('Flag'),
+      t('Cancel'),
+      t('Thank you for helping us keep this place in order'),
     ),
   ));
 }
@@ -28,10 +27,10 @@ function flagger_page($content_type, $content_id)
  * @param $form
  * @param $content_id
  * @param $content_type
+ *
  * @return array
  */
-function flagger_form(&$form, $content_id, $content_type)
-{
+function flagger_form(&$form, $content_id, $content_type) {
   global $user;
   $form = array();
 
@@ -41,11 +40,11 @@ function flagger_form(&$form, $content_id, $content_type)
   $form['#action'] = '/' . FLAGGER_PATH . '/save';
 
   $form['title'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     "#value" => t("Which one of Heard Mentality's Guidelines and Principles is this debate posting infringing?"),
   );
   $form['guide'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     "#value" => l(t('Read Guidelines'), '<front>'),
   );
 
@@ -72,10 +71,10 @@ function flagger_form(&$form, $content_id, $content_type)
     if ($flag->is_flagged($content_id)) {
       $value = $flag->fid;
       $notes = flag_note_get_notes(array(
-        'uid' => $user->uid,
-        'content_id' => $content_id,
+        'uid'          => $user->uid,
+        'content_id'   => $content_id,
         'content_type' => $content_type,
-        'fid' => $flag->fid,
+        'fid'          => $flag->fid,
       ));
       if ($notes) {
         $note = $notes[0]['note'];
@@ -83,23 +82,23 @@ function flagger_form(&$form, $content_id, $content_type)
     }
   }
   $form['flag'] = array(
-    '#type' => 'radios',
+    '#type'          => 'radios',
     '#default_value' => $value,
-    '#options' => $options,
+    '#options'       => $options,
   );
 
   $form['note'] = array(
-    '#type' => 'textarea',
+    '#type'  => 'textarea',
     '#title' => t('Note'),
     "#value" => $note,
   );
 
   $form['content_id'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     "#value" => $content_id,
   );
   $form['content_type'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     "#value" => $content_type,
   );
 
@@ -109,8 +108,7 @@ function flagger_form(&$form, $content_id, $content_type)
 /**
  * Flagger form submit
  */
-function flagger_page_save()
-{
+function flagger_page_save() {
   $post = $_POST;
 
   global $user;
@@ -146,7 +144,8 @@ function flagger_page_save()
       flag_note_insert_note($record);
 
       // todo track flag event
-    } else {
+    }
+    else {
       $fcid = flag_ext_fcid($content_type, $content_id, $user->uid);
       $flag->flag('unflag', $content_id);
       flag_ext_unset($fcid, $user->uid);
@@ -154,9 +153,9 @@ function flagger_page_save()
   }
 
   print json_encode(array(
-    'content_id' => $content_id,
+    'content_id'   => $content_id,
     'content_type' => $content_type,
-    'flagged' => (bool)flagger_get_flags($content_type, $content_id, true),
+    'flagged'      => (bool) flagger_get_flags($content_type, $content_id, TRUE),
   ));
   exit;
 }
@@ -170,8 +169,7 @@ function flagger_page_save()
  * @param $content_type
  * @param $content_id
  */
-function flagger_page_flags($content_type, $content_id)
-{
+function flagger_page_flags($content_type, $content_id) {
   if (!module_exists('moderation') || !moderation_check_perm()) {
     print json_encode(array(
       'status'  => FALSE,
@@ -188,8 +186,7 @@ function flagger_page_flags($content_type, $content_id)
     $output .= '<hr style="margin:3px 0 5px 0"/>';
     $output .= '<ul>';
     foreach ($flag['users'] as $uid => $data) {
-      $output .= '<li><b>'. l($data['name'],'user/profile/view/'.$uid) . '</b>' .
-        (empty($data['note']) ? '' : ': '.$data['note']) .'</li>';
+      $output .= '<li><b>' . l($data['name'], 'user/profile/view/' . $uid) . '</b>' . (empty($data['note']) ? '' : ': ' . $data['note']) . '</li>';
     }
     $output .= '</ul>';
   }
@@ -230,25 +227,23 @@ function flagger_page_history($content_type, $content_id) {
     INNER JOIN users u ON u.uid = fch.uid
     LEFT JOIN users u1 ON fch.uid_moderator = u1.uid
     WHERE fch.content_type = '%s' AND fch.content_id = '%d'
-    ORDER BY GREATEST(timestamp_set, timestamp_unset) DESC, status DESC",
-    $content_type, $content_id, 0, 100
-  );
+    ORDER BY GREATEST(timestamp_set, timestamp_unset) DESC, status DESC", $content_type, $content_id, 0, 100);
   $output .= '<ul class="flags-history">';
   while ($row = db_fetch_array($result)) {
     $output .= sprintf('<li name="%d" class="status-%d"><span class="remove" title="%s"></span>', $row['fcid'], $row['status'], t('Remove flag'));
     $output .= sprintf('<span class="flag-name status-%d">%s</span>', $row['status'], t($row['title']));
-    $output .= ' ' . t('by') . ' ' . l($row['name'],'user/profile/view/'.$row['uid'], array(
-      'attributes' => array(
-        'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_set']),
-      ),
-    ));
+    $output .= ' ' . t('by') . ' ' . l($row['name'], 'user/profile/view/' . $row['uid'], array(
+          'attributes' => array(
+            'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_set']),
+          ),
+        ));
     $output .= ' ';
     if (!$row['status']) {
-      $output .= ' (' . t('removed by') . ' ' . l($row['name_moderator'],'user/profile/view/'.$row['uid_moderator'], array(
-        'attributes' => array(
-          'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_unset']),
-        ),
-      )) . ')';
+      $output .= ' (' . t('removed by') . ' ' . l($row['name_moderator'], 'user/profile/view/' . $row['uid_moderator'], array(
+            'attributes' => array(
+              'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_unset']),
+            ),
+          )) . ')';
     }
     $output .= '</li>';
   }
@@ -280,17 +275,17 @@ function flagger_page_unflag($fcid) {
   if ($flag) {
     $content_id = $flag->content_id;
     $content_type = $flag->content_type;
-    $flag = flag_get_flag(null, $flag->fid);
+    $flag = flag_get_flag(NULL, $flag->fid);
     $flag->flag('unflag', $content_id);
     global $user;
     flag_ext_unset($fcid, $user->uid);
   }
   print json_encode(array(
-    'status'  => TRUE,
-    'message' => t('Flag was removed'),
-    'content_id' => $content_id,
+    'status'       => TRUE,
+    'message'      => t('Flag was removed'),
+    'content_id'   => $content_id,
     'content_type' => $content_type,
-    'flagged' => (bool)flagger_get_flags($content_type, $content_id, true),
+    'flagged'      => (bool) flagger_get_flags($content_type, $content_id, TRUE),
   ));
   exit;
 }

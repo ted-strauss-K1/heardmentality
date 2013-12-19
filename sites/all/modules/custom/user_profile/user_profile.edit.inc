@@ -311,7 +311,7 @@ function user_profile_edit_form_validate(&$form, &$form_state) {
  */
 function user_profile_edit_form_validate_profile(&$form, &$form_state) {
   global $user;
-  $post = &$form_state["clicked_button"]["#post"];
+  $post = & $form_state["clicked_button"]["#post"];
 
   # username
   if ($post['username'] != $user->name) {
@@ -349,20 +349,20 @@ function user_profile_edit_form_validate_profile(&$form, &$form_state) {
 
   # facebook || twitter
   foreach (array('facebook', 'twitter') as $provider) {
-    $input = $post['profile_'.$provider];
+    $input = $post['profile_' . $provider];
     if (!empty($input)) {
       $input = trim($input);
       if (preg_match('/^https?:\/\//', $input)) {
         $parse = parse_url($input);
-        if (!in_array($parse['host'], array($provider.'.com', 'www.'.$provider.'.com'))) {
-          form_set_error('profile_'.$provider, t('The URL you entered does not seem to be a !provider URL', array('!provider' => $provider)));
+        if (!in_array($parse['host'], array($provider . '.com', 'www.' . $provider . '.com'))) {
+          form_set_error('profile_' . $provider, t('The URL you entered does not seem to be a !provider URL', array('!provider' => $provider)));
         }
       }
       else {
-        form_set_error('profile_'.$provider, t('The input should be a !provider profile URL', array('!provider' => $provider)));
+        form_set_error('profile_' . $provider, t('The input should be a !provider profile URL', array('!provider' => $provider)));
       }
     }
-    $post['profile_'.$provider] = $input;
+    $post['profile_' . $provider] = $input;
   }
 
   # website

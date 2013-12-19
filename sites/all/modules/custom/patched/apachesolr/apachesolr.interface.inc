@@ -18,9 +18,9 @@ interface DrupalSolrQueryInterface {
   /**
    * Tests whether a filter is already present in the query.
    *
-   * @param string $name
+   * @param string  $name
    *   The facet field name to check.
-   * @param string $value
+   * @param string  $value
    *   The facet value to check.
    * @param boolean $exclude
    *   Optional, defaults to FALSE, must match the filter.
@@ -33,13 +33,13 @@ interface DrupalSolrQueryInterface {
   /**
    * Adds a filter to the query.
    *
-   * @param string $name
+   * @param string  $name
    *   The facet field name.
-   * @param string $value
+   * @param string  $value
    *   The facet field value.
    * @param boolean $exclude
    *   Set to TRUE to filter out documents matching $value.
-   * @param string $local
+   * @param string  $local
    *   Solr LocalParams.
    *
    * @return DrupalSolrQueryInterface
@@ -50,9 +50,9 @@ interface DrupalSolrQueryInterface {
   /**
    * Removes a filter from the query.
    *
-   * @param string $name
+   * @param string  $name
    *   The name of the facet field to remove.
-   * @param string $value
+   * @param string  $value
    *   The value of the facet field to remove. If NULL, all filters matching
    *   $name are removed.
    * @param boolean $exclude
@@ -77,9 +77,9 @@ interface DrupalSolrQueryInterface {
    *
    * @param SolrFilterSubQuery $query
    *   The query to add to the orginal query - may have keywords or filters.
-   * @param string $fq_operator
+   * @param string             $fq_operator
    *   The operator to use within the filter part of the subquery
-   * @param string $q_operator
+   * @param string             $q_operator
    *   The operator to use in joining the subquery to the main keywords. Note:
    *   this is unlikely to work with the Dismax handler when the main query is
    *   only keywords.
@@ -114,7 +114,7 @@ interface DrupalSolrQueryInterface {
    * @param array $filter
    *   A filter as an array with the keys '#name', for the facet field name,
    *   '#value', for the facet field value, '#local', for Solr LocalParams, and
-       '#exclude' set to TRUE if it is an exclusion filter.
+   *   '#exclude' set to TRUE if it is an exclusion filter.
    *
    * @return string
    *   A Solr fq parameter value.
@@ -156,7 +156,7 @@ interface DrupalSolrQueryInterface {
    *
    * @param string $name
    *   A Solr param name, e.g. 'q' or 'fl'.
-   * @param $value
+   * @param        $value
    *   A Solr param value: an array of values, or a string for a single value.
    *
    * @return DrupalSolrQueryInterface
@@ -196,7 +196,7 @@ interface DrupalSolrQueryInterface {
    *
    * @param string $name
    *   A Solr param name, e.g. 'q' or 'fl'.
-   * @param $value
+   * @param        $value
    *   A Solr param value: an array of values, or a string for a single value.
    *
    * @return DrupalSolrQueryInterface
@@ -226,7 +226,7 @@ interface DrupalSolrQueryInterface {
    *
    * @param string $name
    *  The name of the field in the Solr index to sort on.
-   * @param array $sort
+   * @param array  $sort
    *  An array with the keys 'title', for the human name of the sort, and
    *  'default', for the default sort direction ('asc' or 'desc').
    *
@@ -320,6 +320,7 @@ interface DrupalApacheSolrServiceInterface {
    *
    * @param $timeout
    *   maximum time to wait for ping in seconds, -1 for unlimited (default 2).
+   *
    * @return
    *   (float) seconds taken to ping the server, FALSE if timeout occurs.
    */
@@ -380,11 +381,12 @@ interface DrupalApacheSolrServiceInterface {
    * @param string $servlet
    *   A path to be added to the base Solr path. e.g. 'extract/tika'
    *
-   * @param array $params
+   * @param array  $params
    *   Any request parameters when constructing the URL.
    *
-   * @param array $options
-   *  @see drupal_http_request() $options.
+   * @param array  $options
+   *
+   * @see   drupal_http_request() $options.
    *
    * @return
    *  response object
@@ -414,7 +416,7 @@ interface DrupalApacheSolrServiceInterface {
    * should be a complete and well formed xml document.
    *
    * @param string $rawPost
-   * @param float $timeout Maximum expected duration (in seconds)
+   * @param float  $timeout Maximum expected duration (in seconds)
    *
    * @return response object
    *
@@ -425,7 +427,7 @@ interface DrupalApacheSolrServiceInterface {
   /**
    * Add an array of Solr Documents to the index all at once
    *
-   * @param array $documents Should be an array of ApacheSolrDocument instances
+   * @param array   $documents Should be an array of ApacheSolrDocument instances
    * @param boolean $allowDups
    * @param boolean $overwritePending
    * @param boolean $overwriteCommitted
@@ -439,22 +441,22 @@ interface DrupalApacheSolrServiceInterface {
   /**
    * Send a commit command.  Will be synchronous unless both wait parameters are set to false.
    *
-   * @param boolean $optimize Defaults to true
-   * @param boolean $waitFlush Defaults to true
+   * @param boolean $optimize     Defaults to true
+   * @param boolean $waitFlush    Defaults to true
    * @param boolean $waitSearcher Defaults to true
-   * @param float $timeout Maximum expected duration (in seconds) of the commit operation on the server (otherwise, will throw a communication exception). Defaults to 1 hour
+   * @param float   $timeout      Maximum expected duration (in seconds) of the commit operation on the server (otherwise, will throw a communication exception). Defaults to 1 hour
    *
    * @return response object
    *
    * @throws Exception If an error occurs during the service call
    */
-  function commit($optimize = true, $waitFlush = true, $waitSearcher = true, $timeout = 3600);
+  function commit($optimize = TRUE, $waitFlush = TRUE, $waitSearcher = TRUE, $timeout = 3600);
 
   /**
    * Create a delete document based on document ID
    *
-   * @param string $id Expected to be utf-8 encoded
-   * @param float $timeout Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
+   * @param string $id      Expected to be utf-8 encoded
+   * @param float  $timeout Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
    *
    * @return response object
    *
@@ -465,7 +467,7 @@ interface DrupalApacheSolrServiceInterface {
   /**
    * Create and post a delete document based on multiple document IDs.
    *
-   * @param array $ids Expected to be utf-8 encoded strings
+   * @param array $ids     Expected to be utf-8 encoded strings
    * @param float $timeout Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
    *
    * @return response object
@@ -478,7 +480,8 @@ interface DrupalApacheSolrServiceInterface {
    * Create a delete document based on a query and submit it
    *
    * @param string $rawQuery Expected to be utf-8 encoded
-   * @param float $timeout Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
+   * @param float  $timeout  Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
+   *
    * @return stdClass response object
    *
    * @throws Exception If an error occurs during the service call
@@ -491,19 +494,19 @@ interface DrupalApacheSolrServiceInterface {
    *
    * @param boolean $waitFlush
    * @param boolean $waitSearcher
-   * @param float $timeout Maximum expected duration of the commit operation on the server (otherwise, will throw a communication exception)
+   * @param float   $timeout Maximum expected duration of the commit operation on the server (otherwise, will throw a communication exception)
    *
    * @return response object
    *
    * @throws Exception If an error occurs during the service call
    */
-  function optimize($waitFlush = true, $waitSearcher = true, $timeout = 3600);
+  function optimize($waitFlush = TRUE, $waitSearcher = TRUE, $timeout = 3600);
 
   /**
    * Simple Search interface
    *
-   * @param string $query The raw query string
-   * @param array $params key / value pairs for other query parameters (see Solr documentation), use arrays for parameter keys used more than once (e.g. facet.field)
+   * @param string $query  The raw query string
+   * @param array  $params key / value pairs for other query parameters (see Solr documentation), use arrays for parameter keys used more than once (e.g. facet.field)
    *
    * @return response object
    *

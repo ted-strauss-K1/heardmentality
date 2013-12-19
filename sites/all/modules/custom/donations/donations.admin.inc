@@ -8,21 +8,20 @@ define('DONATIONS_ADMIN', 'Administer Donations');
 /**
  * @return array
  */
-function donations_admin_menu()
-{
+function donations_admin_menu() {
   $menu = array();
 
   $menu['admin/settings/donations'] = array(
-    'title' => t('Donations'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('donations_admin_form'),
+    'title'            => t('Donations'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('donations_admin_form'),
     'access arguments' => array(DONATIONS_ADMIN),
-    'type' => MENU_NORMAL_ITEM,
+    'type'             => MENU_NORMAL_ITEM,
   );
   $menu['admin/settings/donations/settings'] = array(
-    'title'             => t('Donations'),
-    'type'              => MENU_DEFAULT_LOCAL_TASK,
-    'weight'            => -10,
+    'title'  => t('Donations'),
+    'type'   => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
   );
 
   return $menu;
@@ -38,12 +37,11 @@ function donations_admin_perm() {
 /**
  * Donation Admin form
  */
-function donations_admin_form()
-{
+function donations_admin_form() {
   $form = array();
 
   $form['prefix'] = array(
-    "#type" => "textarea",
+    "#type"  => "textarea",
     "#title" => t("Prefix text"),
     "#value" => variable_get('donations_prefix', ''),
   );
@@ -55,20 +53,20 @@ function donations_admin_form()
   }
 
   $form['values'] = array(
-    "#type" => "textarea",
-    "#title" => t("Values"),
-    "#value" => implode("\n", $tmp),
+    "#type"        => "textarea",
+    "#title"       => t("Values"),
+    "#value"       => implode("\n", $tmp),
     '#description' => t('On value per row in format "50|50$"')
   );
 
   $form['suffix'] = array(
-    "#type" => "textarea",
+    "#type"  => "textarea",
     "#title" => t("Suffix text"),
     "#value" => variable_get('donations_suffix', ''),
   );
 
   $form['submit'] = array(
-    '#type' => 'submit',
+    '#type'  => 'submit',
     '#value' => t('Submit'),
   );
 
@@ -78,8 +76,7 @@ function donations_admin_form()
 /**
  * Donation Admin form - Submission
  */
-function donations_admin_form_submit($form, $form_state)
-{
+function donations_admin_form_submit($form, $form_state) {
   $post = $form_state["clicked_button"]["#post"];
   $values = explode("\n", $post['values']);
   $list = array();

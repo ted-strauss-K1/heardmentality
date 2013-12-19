@@ -1,11 +1,11 @@
 <div class="grey-box full clearfix" id="guidelines">
 
-  <i class="icon cat text icon-roadsignleft"></i>
-  <label for="guidelines" class="tags-on"><?php print t('Guidelines'); ?></label>
+  <i class="icon cat text icon-roadsignleft"></i> <label for="guidelines"
+                                                         class="tags-on"><?php print t('Guidelines'); ?></label>
 
   <p class="issue-meta"><?php print t('Please follow Heard Mentality\'s'); ?>
     <a class="bolded"> <?php print l(t('Guidelines and Principles'), 'aboutus', array('fragment' => 'guide')); ?></a>
-    <?php print t('when creating a new Issue. All issues should be');?>:
+    <?php print t('when creating a new Issue. All issues should be'); ?>:
   <ul class="issue-meta">
     <li><?php print t('concise'); ?></li>
     <li><?php print t('clean'); ?></li>

@@ -16,9 +16,9 @@ class location_handler_field_location_country extends views_handler_field {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
     $form['style'] = array(
-      '#title' => t('Display style'),
-      '#type' => 'select',
-      '#options' => array('name' => t('Country name'), 'code' => t('Country code')),
+      '#title'         => t('Display style'),
+      '#type'          => 'select',
+      '#options'       => array('name' => t('Country name'), 'code' => t('Country code')),
       '#default_value' => $this->options['style'],
     );
   }
