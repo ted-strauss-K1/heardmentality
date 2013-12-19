@@ -1740,64 +1740,64 @@ select#edit-language {
 /* change userpic */
 
 #edit-image-upload-wrapper {
-  position              : relative;
-  text-transform        : uppercase;
-  background: #3dccf7; /* Old browsers */
-  background: -moz-linear-gradient(top, #3dccf7 1%, #14b0e0 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#3dccf7), color-stop(100%,#14b0e0)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #3dccf7 1%,#14b0e0 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #3dccf7 1%,#14b0e0 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #3dccf7 1%,#14b0e0 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #3dccf7 1%,#14b0e0 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3dccf7', endColorstr='#14b0e0',GradientType=0 ); /* IE6-9 */
-  border                : 1px solid #849EB7;
-  -webkit-box-shadow    : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  -moz-box-shadow       : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  -o-box-shadow         : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  -khtml-box-shadow     : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  box-shadow            : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  -webkit-border-radius : 3px;
-  -moz-border-radius    : 3px;
-  border-radius         : 3px;
-  -khtml-border-radius  : 3px;
-  -o-border-radius      : 3px;
-  -ms-border-radius     : 3px;
-  color                 : #FFFFFF !important;
-  display               : inline-block;
-  font-size             : 16px;
-  font-weight           : bold;
-  text-decoration       : none;
-  text-shadow           : 0 1px #386C9B;
-  cursor                : pointer;
-  margin                : 3px 0 6px 0px;
-  line-height           : 19px;
-  font-family           : Arial, sans-serif;
-  font-weight           : bold;
-  -webkit-appearance    : none;
-  letter-spacing        : 0.02em;
-  width                 : 130px;
-  height                : 33px;
-  -webkit-transition: border 0.2s linear, -webkit-box-shadow 0.2s linear, background-color 0.2s linear;
-  -webkit-transition-property: border, -webkit-box-shadow, background-color;
-  -webkit-transition-duration: 0.2s, 0.2s, 0.2s;
-  -webkit-transition-timing-function: linear, linear, linear;
-  -webkit-transition-delay: initial, initial;
-  -moz-transition: border 0.2s linear, -moz-box-shadow 0.2s linear, background-color 0.2s linear;
-  -moz-transition-property: border, -moz-box-shadow, background-color;
-  -moz-transition-duration: 0.2s, 0.2s, 0.2s;
-  -moz-transition-timing-function: linear, linear, linear;
-  -moz-transition-delay: initial, initial;
+  position                           : relative;
+  text-transform                     : uppercase;
+  background                         : #3DCCF7; /* Old browsers */
+  background                         : -moz-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* FF3.6+ */
+  background                         : -webkit-gradient(linear, left top, left bottom, color-stop(1%, #3DCCF7), color-stop(100%, #14B0E0)); /* Chrome,Safari4+ */
+  background                         : -webkit-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Chrome10+,Safari5.1+ */
+  background                         : -o-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Opera 11.10+ */
+  background                         : -ms-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* IE10+ */
+  background                         : linear-gradient(to bottom, #3DCCF7 1%, #14B0E0 100%); /* W3C */
+  filter                             : progid:DXImageTransform.Microsoft.gradient(startColorstr='#3dccf7', endColorstr='#14b0e0', GradientType=0); /* IE6-9 */
+  border                             : 1px solid #849EB7;
+  -webkit-box-shadow                 : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  -moz-box-shadow                    : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  -o-box-shadow                      : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  -khtml-box-shadow                  : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  box-shadow                         : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  -webkit-border-radius              : 3px;
+  -moz-border-radius                 : 3px;
+  border-radius                      : 3px;
+  -khtml-border-radius               : 3px;
+  -o-border-radius                   : 3px;
+  -ms-border-radius                  : 3px;
+  color                              : #FFFFFF !important;
+  display                            : inline-block;
+  font-size                          : 16px;
+  font-weight                        : bold;
+  text-decoration                    : none;
+  text-shadow                        : 0 1px #386C9B;
+  cursor                             : pointer;
+  margin                             : 3px 0 6px 0px;
+  line-height                        : 19px;
+  font-family                        : Arial, sans-serif;
+  font-weight                        : bold;
+  -webkit-appearance                 : none;
+  letter-spacing                     : 0.02em;
+  width                              : 130px;
+  height                             : 33px;
+  -webkit-transition                 : border 0.2s linear, -webkit-box-shadow 0.2s linear, background-color 0.2s linear;
+  -webkit-transition-property        : border, -webkit-box-shadow, background-color;
+  -webkit-transition-duration        : 0.2s, 0.2s, 0.2s;
+  -webkit-transition-timing-function : linear, linear, linear;
+  -webkit-transition-delay           : initial, initial;
+  -moz-transition                    : border 0.2s linear, -moz-box-shadow 0.2s linear, background-color 0.2s linear;
+  -moz-transition-property           : border, -moz-box-shadow, background-color;
+  -moz-transition-duration           : 0.2s, 0.2s, 0.2s;
+  -moz-transition-timing-function    : linear, linear, linear;
+  -moz-transition-delay              : initial, initial;
 }
 
 #edit-image-upload-wrapper:hover {
-  background: #3dccf7; /* Old browsers */
-  background: -moz-linear-gradient(top, #3dccf7 1%, #14b0e0 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#3dccf7), color-stop(100%,#14b0e0)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #3dccf7 1%,#14b0e0 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #3dccf7 1%,#14b0e0 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #3dccf7 1%,#14b0e0 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #3dccf7 1%,#14b0e0 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3dccf7', endColorstr='#14b0e0',GradientType=0 ); /* IE6-9 */
+  background         : #3DCCF7; /* Old browsers */
+  background         : -moz-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* FF3.6+ */
+  background         : -webkit-gradient(linear, left top, left bottom, color-stop(1%, #3DCCF7), color-stop(100%, #14B0E0)); /* Chrome,Safari4+ */
+  background         : -webkit-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Chrome10+,Safari5.1+ */
+  background         : -o-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Opera 11.10+ */
+  background         : -ms-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* IE10+ */
+  background         : linear-gradient(to bottom, #3DCCF7 1%, #14B0E0 100%); /* W3C */
+  filter             : progid:DXImageTransform.Microsoft.gradient(startColorstr='#3dccf7', endColorstr='#14b0e0', GradientType=0); /* IE6-9 */
   border             : 1px solid #849EB7;
   -webkit-box-shadow : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
   -moz-box-shadow    : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;

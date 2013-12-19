@@ -451,7 +451,7 @@
   }
 
   label.add-on-2 span {
-    font-weight: bold;
+    font-weight : bold;
   }
 
 }
@@ -643,11 +643,11 @@
   .subscription .form-radios .form-item,
   ul.subscription li {
     text-align : center;
-    width : 32.33%;
+    width      : 32.33%;
   }
 
   ul.subscription li {
-    line-height: 1em;
+    line-height : 1em;
   }
 
   #edit_profile ul.privacy li,
