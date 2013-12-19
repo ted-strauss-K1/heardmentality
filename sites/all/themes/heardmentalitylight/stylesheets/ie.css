@@ -657,6 +657,22 @@
   vertical-align : baseline;
 }
 
+/* user info */
+
+.ie7 .dark-grey-box .profile_page_wrapper,
+.ie7 .dark-grey-box .profile-meta {
+  background-image    : url(../images/ie_account_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
+.ie7 .dark-grey-box i,
+.ie7 .dark-grey-box i {
+  display : none;
+}
+
+/*--/ user info */
+
 
 
 
