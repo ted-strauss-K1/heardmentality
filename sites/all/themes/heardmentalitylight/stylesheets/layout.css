@@ -235,7 +235,8 @@ ul.flagthis li {
 }
 
 .container .twelve.columns .white-box#region-content,
-.container .eleven.columns .white-box#region-content {
+.container .eleven.columns .white-box#region-content,
+.container .sixteen.columns .white-box#region-content {
   margin : 0;
 }
 
