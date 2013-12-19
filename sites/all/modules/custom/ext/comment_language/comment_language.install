@@ -3,14 +3,13 @@
 /**
  * Implementation of hook_install()
  */
-function comment_language_install()
-{
+function comment_language_install() {
   $ret = array();
   $field = array(
-    'type' => 'varchar',
-    'length' => 128,
-    'not null' => TRUE,
-    'default' => 'en',
+    'type'        => 'varchar',
+    'length'      => 128,
+    'not null'    => TRUE,
+    'default'     => 'en',
     'description' => 'Comment language.',
   );
   db_add_field($ret, 'comments', 'language', $field);
@@ -19,8 +18,7 @@ function comment_language_install()
 /**
  * Implementation of hook_uninstall()
  */
-function comment_language_uninstall()
-{
+function comment_language_uninstall() {
   $ret = array();
   db_drop_field($ret, 'comments', 'language');
 }
@@ -28,8 +26,7 @@ function comment_language_uninstall()
 /**
  * Implementation of hook_schema()
  */
-function comment_language_schema()
-{
+function comment_language_schema() {
   $schema = array();
 
   //

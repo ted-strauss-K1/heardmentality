@@ -28,13 +28,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright Copyright 2007-2009 Conduit Internet Technologies, Inc. (http://conduit-it.com)
- * @license New BSD (http://solr-php-client.googlecode.com/svn/trunk/COPYING)
- * @version $Id: Service.php 22 2009-11-09 22:46:54Z donovan.jimenez $
+ * @copyright  Copyright 2007-2009 Conduit Internet Technologies, Inc. (http://conduit-it.com)
+ * @license    New BSD (http://solr-php-client.googlecode.com/svn/trunk/COPYING)
+ * @version    $Id: Service.php 22 2009-11-09 22:46:54Z donovan.jimenez $
  *
- * @package Apache
+ * @package    Apache
  * @subpackage Solr
- * @author Donovan Jimenez <djimenez@conduit-it.com>
+ * @author     Donovan Jimenez <djimenez@conduit-it.com>
  */
 
 /**
@@ -45,7 +45,6 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
-
  *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
@@ -111,6 +110,7 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    *
    * @param $timeout
    *   maximum time to wait for ping in seconds, -1 for unlimited (default 2).
+   *
    * @return
    *   (float) seconds taken to ping the server, FALSE if timeout occurs.
    */
@@ -123,7 +123,7 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
     $pingUrl = $this->_constructUrl(self::PING_SERVLET);
     // Attempt a HEAD request to the solr ping url.
     $options = array(
-      'method' => 'HEAD',
+      'method'  => 'HEAD',
       'timeout' => $timeout,
     );
     $response = $this->_makeHttpRequest($pingUrl, $options);
@@ -182,8 +182,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
     if (empty($this->luke[$num_terms])) {
       $params = array(
         'numTerms' => "$num_terms",
-        'wt' => 'json',
-        'json.nl' => self::NAMED_LIST_FORMAT,
+        'wt'       => 'json',
+        'json.nl'  => self::NAMED_LIST_FORMAT,
       );
       $url = $this->_constructUrl(self::LUKE_SERVLET, $params);
       if ($this->env_id) {
@@ -264,15 +264,15 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
   public function getStatsSummary() {
     $stats = $this->getStats();
     $summary = array(
-     '@pending_docs' => '',
-     '@autocommit_time_seconds' => '',
-     '@autocommit_time' => '',
-     '@deletes_by_id' => '',
-     '@deletes_by_query' => '',
-     '@deletes_total' => '',
-     '@schema_version' => '',
-     '@core_name' => '',
-     '@index_size' => '',
+      '@pending_docs'            => '',
+      '@autocommit_time_seconds' => '',
+      '@autocommit_time'         => '',
+      '@deletes_by_id'           => '',
+      '@deletes_by_query'        => '',
+      '@deletes_total'           => '',
+      '@schema_version'          => '',
+      '@core_name'               => '',
+      '@index_size'              => '',
     );
 
     if (!empty($stats)) {
@@ -376,11 +376,12 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    * @param string $servlet
    *   A path to be added to the base Solr path. e.g. 'extract/tika'
    *
-   * @param array $params
+   * @param array  $params
    *   Any request parameters when constructing the URL.
    *
-   * @param array $options
-   *  @see drupal_http_request() $options.
+   * @param array  $options
+   *
+   * @see   drupal_http_request() $options.
    *
    * @return
    *  response object
@@ -390,7 +391,7 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
   public function makeServletRequest($servlet, $params = array(), $options = array()) {
     // Add default params.
     $params += array(
-      'wt' => 'json',
+      'wt'      => 'json',
       'json.nl' => self::NAMED_LIST_FORMAT,
     );
 
@@ -434,8 +435,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
     // Add our default params. This does not override our existing values
     $options += array(
       'headers' => array(),
-      'method' => 'GET',
-      'data' => NULL,
+      'method'  => 'GET',
+      'data'    => NULL,
     );
     $result = drupal_http_request($url, $options['headers'], $options['method'], $options['data']);
 
@@ -471,10 +472,10 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    * NOTE: inside a phrase fewer characters need escaped, use {@link DrupalApacheSolrService::escapePhrase()} instead
    *
    * @param string $value
+   *
    * @return string
    */
-  static public function escape($value)
-  {
+  static public function escape($value) {
     //list taken from http://lucene.apache.org/java/docs/queryparsersyntax.html#Escaping%20Special%20Characters
     $pattern = '/(\+|-|&&|\|\||!|\(|\)|\{|}|\[|]|\^|"|~|\*|\?|:|\\\)/';
     $replace = '\\\$1';
@@ -486,10 +487,10 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    * Escape a value meant to be contained in a phrase for special query characters
    *
    * @param string $value
+   *
    * @return string
    */
-  static public function escapePhrase($value)
-  {
+  static public function escapePhrase($value) {
     $pattern = '/("|\\\)/';
     $replace = '\\\$1';
 
@@ -500,10 +501,10 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    * Convenience function for creating phrase syntax from a value
    *
    * @param string $value
+   *
    * @return string
    */
-  static public function phrase($value)
-  {
+  static public function phrase($value) {
     return '"' . self::escapePhrase($value) . '"';
   }
 
@@ -511,7 +512,7 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    * Return a valid http URL given this server's host, port and path and a provided servlet name
    *
    * @param $servlet
-   *  A string path to a Solr request handler.
+   *   A string path to a Solr request handler.
    * @param $params
    * @param $parsed_url
    *   A url to use instead of the stored one.
@@ -589,7 +590,7 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    * should be a complete and well formed xml document.
    *
    * @param string $rawPost
-   * @param float $timeout Maximum expected duration (in seconds)
+   * @param float  $timeout Maximum expected duration (in seconds)
    *
    * @return response object
    *
@@ -612,7 +613,7 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
   /**
    * Add an array of Solr Documents to the index all at once
    *
-   * @param array $documents Should be an array of ApacheSolrDocument instances
+   * @param array   $documents Should be an array of ApacheSolrDocument instances
    * @param boolean $allowDups
    * @param boolean $overwritePending
    * @param boolean $overwriteCommitted
@@ -645,16 +646,16 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
   /**
    * Send a commit command.  Will be synchronous unless both wait parameters are set to false.
    *
-   * @param boolean $optimize Defaults to true
-   * @param boolean $waitFlush Defaults to true
+   * @param boolean $optimize     Defaults to true
+   * @param boolean $waitFlush    Defaults to true
    * @param boolean $waitSearcher Defaults to true
-   * @param float $timeout Maximum expected duration (in seconds) of the commit operation on the server (otherwise, will throw a communication exception). Defaults to 1 hour
+   * @param float   $timeout      Maximum expected duration (in seconds) of the commit operation on the server (otherwise, will throw a communication exception). Defaults to 1 hour
    *
    * @return response object
    *
    * @throws Exception If an error occurs during the service call
    */
-  public function commit($optimize = true, $waitFlush = true, $waitSearcher = true, $timeout = 3600) {
+  public function commit($optimize = TRUE, $waitFlush = TRUE, $waitSearcher = TRUE, $timeout = 3600) {
     $optimizeValue = $optimize ? 'true' : 'false';
     $flushValue = $waitFlush ? 'true' : 'false';
     $searcherValue = $waitSearcher ? 'true' : 'false';
@@ -670,8 +671,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
   /**
    * Create a delete document based on document ID
    *
-   * @param string $id Expected to be utf-8 encoded
-   * @param float $timeout Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
+   * @param string $id      Expected to be utf-8 encoded
+   * @param float  $timeout Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
    *
    * @return response object
    *
@@ -684,7 +685,7 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
   /**
    * Create and post a delete document based on multiple document IDs.
    *
-   * @param array $ids Expected to be utf-8 encoded strings
+   * @param array $ids     Expected to be utf-8 encoded strings
    * @param float $timeout Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
    *
    * @return response object
@@ -706,7 +707,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    * Create a delete document based on a query and submit it
    *
    * @param string $rawQuery Expected to be utf-8 encoded
-   * @param float $timeout Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
+   * @param float  $timeout  Maximum expected duration of the delete operation on the server (otherwise, will throw a communication exception)
+   *
    * @return stdClass response object
    *
    * @throws Exception If an error occurs during the service call
@@ -723,13 +725,13 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    *
    * @param boolean $waitFlush
    * @param boolean $waitSearcher
-   * @param float $timeout Maximum expected duration of the commit operation on the server (otherwise, will throw a communication exception)
+   * @param float   $timeout Maximum expected duration of the commit operation on the server (otherwise, will throw a communication exception)
    *
    * @return response object
    *
    * @throws Exception If an error occurs during the service call
    */
-  public function optimize($waitFlush = true, $waitSearcher = true, $timeout = 3600) {
+  public function optimize($waitFlush = TRUE, $waitSearcher = TRUE, $timeout = 3600) {
     $flushValue = $waitFlush ? 'true' : 'false';
     $searcherValue = $waitSearcher ? 'true' : 'false';
 
@@ -767,8 +769,8 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
   /**
    * Simple Search interface
    *
-   * @param string $query The raw query string
-   * @param array $params key / value pairs for other query parameters (see Solr documentation), use arrays for parameter keys used more than once (e.g. facet.field)
+   * @param string $query  The raw query string
+   * @param array  $params key / value pairs for other query parameters (see Solr documentation), use arrays for parameter keys used more than once (e.g. facet.field)
    *
    * @return response object
    *
@@ -803,16 +805,19 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
       $searchUrl = $this->_constructUrl(self::SEARCH_SERVLET, array(), $queryString);
       return $this->_sendRawGet($searchUrl);
     }
-    else if ($method == 'POST') {
-      $searchUrl = $this->_constructUrl(self::SEARCH_SERVLET);
-      $options['data'] = $queryString;
-      $options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
-      return $this->_sendRawPost($searchUrl, $options);
-    }
     else {
-      throw new Exception("Unsupported method '$method' for search(), use GET or POST");
+      if ($method == 'POST') {
+        $searchUrl = $this->_constructUrl(self::SEARCH_SERVLET);
+        $options['data'] = $queryString;
+        $options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        return $this->_sendRawPost($searchUrl, $options);
+      }
+      else {
+        throw new Exception("Unsupported method '$method' for search(), use GET or POST");
+      }
     }
   }
+
   private function drupal_apachesolr_hash_base64($data) {
     $hash = base64_encode(hash('sha256', $data, TRUE));
     // Modify the hash so it's safe to use in URLs.

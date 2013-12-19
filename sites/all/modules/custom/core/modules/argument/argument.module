@@ -37,11 +37,11 @@ function argument_theme() {
   );
   $theme['argument_item'] = array(
     'arguments' => array('node' => NULL),
-    'template' => 'templates/argument-item',
+    'template'  => 'templates/argument-item',
   );
   $theme['argument_comment'] = array(
     'arguments' => array('comment' => NULL),
-    'template' => 'templates/argument-comment',
+    'template'  => 'templates/argument-comment',
   );
 
   $theme['argument_result_ball'] = array(
@@ -51,7 +51,7 @@ function argument_theme() {
   $theme['argument_delete'] = array(
     'arguments' => array(
       'comment_type' => NULL,
-      'comment_id' => NULL,
+      'comment_id'   => NULL,
     ),
   );
 
@@ -63,39 +63,37 @@ function argument_theme() {
  *
  * @return array
  */
-function argument_menu()
-{
+function argument_menu() {
   $menu = array();
 
   # switch tabs
   $menu['argument/tab/%/%/%'] = array(
-    'page callback' => 'argument_tab',
-    'type' => MENU_CALLBACK,
-    'page arguments' => array(2, 3, 4),
+    'page callback'    => 'argument_tab',
+    'type'             => MENU_CALLBACK,
+    'page arguments'   => array(2, 3, 4),
     'access arguments' => array('access content'),
   );
 
   # comment creation
   $menu['argument/create/comment'] = array(
-    'page callback' => 'argument_create_comment',
-    'type' => MENU_CALLBACK,
+    'page callback'    => 'argument_create_comment',
+    'type'             => MENU_CALLBACK,
     'access arguments' => array('post comments without approval'),
   );
 
   # create argument/resource
   $menu['argument/create'] = array(
-    'page callback' => 'argument_create',
-    'type' => MENU_CALLBACK,
+    'page callback'   => 'argument_create',
+    'type'            => MENU_CALLBACK,
     'access callback' => TRUE,
   );
 
   $menu['argument/delete/%/%'] = array(
-    'page callback' => 'argument_delete',
-    'page arguments' => array(2, 3),
-    'type' => MENU_CALLBACK,
+    'page callback'   => 'argument_delete',
+    'page arguments'  => array(2, 3),
+    'type'            => MENU_CALLBACK,
     'access callback' => TRUE,
   );
-
 
 
   return $menu;
@@ -104,19 +102,18 @@ function argument_menu()
 /**
  * Implementation of hook_nodeapi()
  *
- * @param $node
- * @param $op
+ * @param      $node
+ * @param      $op
  * @param null $a3
  * @param null $a4
  */
-function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
+function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   if ('argument' == $node->type || 'resource' == $node->type) {
     switch ($op) {
       case 'load' :
         $node->creation_time = time_interval($node->created, TRUE);
         $node->comments = argument_recent_comments($node->nid);
-      break;
+        break;
     }
   }
 }
@@ -127,8 +124,7 @@ function argument_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
  * @param $a1
  * @param $op
  */
-function argument_comment(&$a1, $op)
-{
+function argument_comment(&$a1, $op) {
   switch ($op) {
     case 'view' :
       $a1->creation_time = time_interval($a1->timestamp, TRUE);
@@ -140,10 +136,10 @@ function argument_comment(&$a1, $op)
  * Get recent comments
  *
  * @param $nid
+ *
  * @return array
  */
-function argument_recent_comments($nid)
-{
+function argument_recent_comments($nid) {
   $comments = array();
 
   $result = db_query("SELECT c.* FROM {comments} c INNER JOIN {users} u ON u.uid = c.uid AND u.status = '%d' WHERE c.nid = '%d' AND c.status = '%d' AND comment <> '' ORDER BY cid DESC", 1, $nid, COMMENT_PUBLISHED);
@@ -159,6 +155,7 @@ function argument_recent_comments($nid)
 /**
  * @param $nid
  * @param $info
+ *
  * @return array
  */
 function argument_get_list($nid, &$info) {

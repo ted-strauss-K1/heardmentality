@@ -53,11 +53,12 @@ class DrupalSolrOfflineEnvironmentWebTestCase extends DrupalSolrOfflineWebTestCa
 
   static function getInfo() {
     return array(
-      'name' => 'Solr Search Environments',
+      'name'        => 'Solr Search Environments',
       'description' => 'Tests search environments functionality of the Solr module',
-      'group' => 'ApacheSolr',
+      'group'       => 'ApacheSolr',
     );
   }
+
   /**
    * Implementation of setUp().
    */
@@ -259,17 +260,22 @@ class DrupalSolrOfflineSearchPagesWebTestCase extends DrupalSolrOfflineWebTestCa
 
   public static function getInfo() {
     return array(
-      'name' => 'Solr Search Pages',
+      'name'        => 'Solr Search Pages',
       'description' => 'Tests search pages functionality of the Solr module',
-      'group' => 'ApacheSolr',
+      'group'       => 'ApacheSolr',
     );
   }
+
   /**
    * Implementation of setUp().
    */
   function setUp() {
     parent::setUp('content', 'search', 'apachesolr', 'apachesolr_search');
-    apachesolr_load_service_class('', array('file' => 'tests/Dummy_Solr', 'module' => 'apachesolr', 'class' => 'DummySolr'));
+    apachesolr_load_service_class('', array(
+      'file'   => 'tests/Dummy_Solr',
+      'module' => 'apachesolr',
+      'class'  => 'DummySolr'
+    ));
     // Create a basic user, which is subject to moderation.
     $permissions = array(
       'access content',
@@ -301,7 +307,7 @@ class DrupalSolrOfflineSearchPagesWebTestCase extends DrupalSolrOfflineWebTestCa
   }
 
   /**
-   *	Asserts that we can edit a search environment
+   *  Asserts that we can edit a search environment
    */
   function testCheckCoreSearchPage() {
     // Create a new environment
@@ -311,7 +317,7 @@ class DrupalSolrOfflineSearchPagesWebTestCase extends DrupalSolrOfflineWebTestCa
   }
 
   /**
-   *	Asserts that we can edit a search environment
+   *  Asserts that we can edit a search environment
    */
   function testEditSearchPage() {
     $this->drupalLogin($this->admin_user);
@@ -319,9 +325,9 @@ class DrupalSolrOfflineSearchPagesWebTestCase extends DrupalSolrOfflineWebTestCa
     $this->clickLink(t('Edit'));
     $this->assertText(t('The human-readable name of the search page configuration'), t('Edit page was succesfully loaded'));
     $edit = array(
-      'label' => 'Test Search Page',
+      'label'       => 'Test Search Page',
       'description' => 'Test Description',
-      'page_title' => 'Test Title',
+      'page_title'  => 'Test Title',
       'search_path' => 'search/searchdifferentpath',
     );
     $this->drupalPost($this->getUrl(), $edit, t('Save'));
@@ -374,11 +380,11 @@ class DrupalSolrOfflineSearchPagesWebTestCase extends DrupalSolrOfflineWebTestCa
     $this->clickLink(t('Add search page'));
     $this->assertText(t('The human-readable name of the search page configuration.'), t('Search page creation page succesfully added'));
     $edit = array(
-      'page_id' => 'solr_testingsuite',
-      'env_id' => 'solr',
-      'label' => 'Test Search Page',
+      'page_id'     => 'solr_testingsuite',
+      'env_id'      => 'solr',
+      'label'       => 'Test Search Page',
       'description' => 'Test Description',
-      'page_title' => 'Test Title',
+      'page_title'  => 'Test Title',
       'search_path' => 'search/searchdifferentpath',
     );
     $this->drupalPost($this->getUrl(), $edit, t('Save'));
@@ -404,7 +410,12 @@ class DrupalSolrOfflineSearchPagesWebTestCase extends DrupalSolrOfflineWebTestCa
 
     $this->drupalGet('admin/settings/apachesolr/search-pages');
     $this->assertNoText(t('Test Search Page'), t('Search Environment was succesfully deleted'));
-    apachesolr_environment_save(array('env_id' => 'DummySolr', 'service_class' => 'DummySolr', 'name' => 'dummy server', 'url' => 'http://localhost:8983/solr'));
+    apachesolr_environment_save(array(
+      'env_id'        => 'DummySolr',
+      'service_class' => 'DummySolr',
+      'name'          => 'dummy server',
+      'url'           => 'http://localhost:8983/solr'
+    ));
     $solr = new DummySolr($url = NULL, $env_id = 'DummySolr');
     $params = array(
       'rows' => 5,
@@ -419,9 +430,9 @@ class DrupalSolrNodeTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
     return array(
-      'name' => 'Solr Node add and deletion tests',
+      'name'        => 'Solr Node add and deletion tests',
       'description' => 'Tests if we can succesfully add and delete nodes',
-      'group' => 'ApacheSolr',
+      'group'       => 'ApacheSolr',
     );
   }
 
@@ -430,7 +441,11 @@ class DrupalSolrNodeTestCase extends DrupalWebTestCase {
    */
   function setUp() {
     parent::setUp('content', 'apachesolr', 'apachesolr_search', 'search', 'apachesolr_test');
-    apachesolr_load_service_class('', array('file' => 'tests/Dummy_Solr', 'module' => 'apachesolr', 'class' => 'DummySolr'));
+    apachesolr_load_service_class('', array(
+      'file'   => 'tests/Dummy_Solr',
+      'module' => 'apachesolr',
+      'class'  => 'DummySolr'
+    ));
 
     // Create a basic user, which is subject to moderation.
     $permissions = array(
@@ -513,9 +528,9 @@ class DrupalSolrNodeTestCase extends DrupalWebTestCase {
 class DrupalSolrOfflineUnitTestCase extends DrupalUnitTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'Solr Base Framework Tests Unit Test',
+      'name'        => 'Solr Base Framework Tests Unit Test',
       'description' => 'Unit test functionality of the Solr module',
-      'group' => 'ApacheSolr',
+      'group'       => 'ApacheSolr',
     );
   }
 

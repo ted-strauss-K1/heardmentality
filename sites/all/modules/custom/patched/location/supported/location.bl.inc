@@ -1,6 +1,5 @@
 <?php
 
-function location_province_list_bl () {
-	return array (
-	);
+function location_province_list_bl() {
+  return array();
 }

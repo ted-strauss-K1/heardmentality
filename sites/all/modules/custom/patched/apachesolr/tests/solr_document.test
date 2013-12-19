@@ -9,9 +9,9 @@
 class DrupalSolrDocumentTest extends DrupalUnitTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'ApacheSolrDocument Unit tests',
+      'name'        => 'ApacheSolrDocument Unit tests',
       'description' => 'Unit test of ApacheSolrDocument',
-      'group' => 'ApacheSolr',
+      'group'       => 'ApacheSolr',
     );
   }
 

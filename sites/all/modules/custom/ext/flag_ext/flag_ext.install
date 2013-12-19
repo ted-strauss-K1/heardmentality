@@ -3,8 +3,7 @@
 /**
  * Implementation of hook_install()
  */
-function flag_ext_install()
-{
+function flag_ext_install() {
   drupal_install_schema('flag_ext');
 
   db_query("
@@ -38,8 +37,7 @@ function flag_ext_install()
 /**
  * Implementation of hook_uninstall()
  */
-function flag_ext_uninstall()
-{
+function flag_ext_uninstall() {
   db_query("DROP TRIGGER {flag_set}");
   db_query("DROP TRIGGER {flag_unset}");
 
@@ -49,102 +47,101 @@ function flag_ext_uninstall()
 /**
  * Implementation of hook_schema()
  */
-function flag_ext_schema()
-{
+function flag_ext_schema() {
   $schema = array();
 
   $schema['flag_content_history'] = array(
     'description' => 'Content that has been flagged.',
-    'fields' => array(
-      'id' => array(
+    'fields'      => array(
+      'id'              => array(
         'description' => 'The unique ID for this record.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
       ),
-      'fcid' => array(
+      'fcid'            => array(
         'description' => 'The unique ID for this particular tag.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
-      'fid' => array(
+      'fid'             => array(
         'description' => 'The unqiue flag ID this content has been flagged with, from {flags}.',
-        'type' => 'int',
-        'size' => 'small',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'size'        => 'small',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
-      'content_type' => array(
+      'content_type'    => array(
         'description' => 'The flag type, one of "node", "comment", "user".',
-        'type' => 'varchar',
-        'length' => '32',
-        'not null' => TRUE,
-        'default' => '',
+        'type'        => 'varchar',
+        'length'      => '32',
+        'not null'    => TRUE,
+        'default'     => '',
       ),
-      'content_id' => array(
+      'content_id'      => array(
         'description' => 'The unique ID of the content, such as either the {cid}, {uid}, or {nid}.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
-      'uid' => array(
+      'uid'             => array(
         'description' => 'The user ID by whom this content was flagged.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
-      'uid_moderator' => array(
+      'uid_moderator'   => array(
         'description' => 'The user ID by whom this content was unflagged.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
-      'sid' => array(
+      'sid'             => array(
         'description' => "The user's session id as stored in the session table.",
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
-      'status' => array(
-        'type' => 'int',
+      'status'          => array(
+        'type'     => 'int',
         'unsigned' => TRUE,
         'not null' => FALSE,
-        'default' => 1,
+        'default'  => 1,
       ),
-      'note' => array(
-        'type' => 'text',
-        'default' => '',
+      'note'            => array(
+        'type'     => 'text',
+        'default'  => '',
         'not null' => TRUE
       ),
-      'timestamp_set' => array(
+      'timestamp_set'   => array(
         'description' => 'The UNIX time stamp representing when the flag was set.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-        'disp-size' => 11,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'disp-size'   => 11,
       ),
       'timestamp_unset' => array(
         'description' => 'The UNIX time stamp representing when the flag was unset.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-        'disp-size' => 11,
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'disp-size'   => 11,
       ),
     ),
     'primary key' => array('id'),
-    'indexes' => array(
-      'content_type_uid_sid' => array('content_type', 'uid', 'sid'),
+    'indexes'     => array(
+      'content_type_uid_sid'            => array('content_type', 'uid', 'sid'),
       'content_type_content_id_uid_sid' => array('content_type', 'content_id', 'uid', 'sid'),
-      'content_id_fid' => array('content_id', 'fid'),
+      'content_id_fid'                  => array('content_id', 'fid'),
     ),
   );
   return $schema;

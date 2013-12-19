@@ -21,12 +21,12 @@ function location_phone_locationapi(&$location, $op, $a3 = NULL, $a4 = NULL) {
     case 'field_expand':
       if ($a3 == 'phone') {
         return array(
-          '#type' => 'textfield',
-          '#title' => t('Phone number'),
-          '#size' => 31,
-          '#maxlength' => 31,
-          '#description' => NULL,
-          '#required' => ($a4 == 2),
+          '#type'          => 'textfield',
+          '#title'         => t('Phone number'),
+          '#size'          => 31,
+          '#maxlength'     => 31,
+          '#description'   => NULL,
+          '#required'      => ($a4 == 2),
           '#default_value' => $location,
         );
       }

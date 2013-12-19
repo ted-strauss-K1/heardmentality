@@ -16,8 +16,8 @@ class location_handler_filter_location_province extends views_handler_filter {
 
   function admin_summary() {
     return '';
-//    $options = $this->operator_options('short');
-//    return (!empty($this->options['exposed']) ? t('exposed') : $options[$this->operator]);
+    //    $options = $this->operator_options('short');
+    //    return (!empty($this->options['exposed']) ? t('exposed') : $options[$this->operator]);
   }
 
   /**
@@ -26,40 +26,40 @@ class location_handler_filter_location_province extends views_handler_filter {
   function value_form(&$form, &$form_state) {
     $country = $this->grovel_country();
 
-    drupal_add_js(drupal_get_path('module', 'location') .'/location_autocomplete.js');
+    drupal_add_js(drupal_get_path('module', 'location') . '/location_autocomplete.js');
 
     $ac = $country;
     if (is_array($ac)) {
       $ac = implode(',', $ac);
     }
     $form['value'] = array(
-      '#type' => 'textfield',
-      '#title' => t('State/Province'),
-      '#autocomplete_path' => 'location/autocomplete/'. $ac,
-      '#default_value' => $this->value,
-      '#size' => 64,
-      '#maxlength' => 64,
+      '#type'              => 'textfield',
+      '#title'             => t('State/Province'),
+      '#autocomplete_path' => 'location/autocomplete/' . $ac,
+      '#default_value'     => $this->value,
+      '#size'              => 64,
+      '#maxlength'         => 64,
       // Used by province autocompletion js.
-      '#attributes' => array('class' => 'location_auto_province'),
-      '#multiple' => TRUE, //$this->options['multiple'],
+      '#attributes'        => array('class' => 'location_auto_province'),
+      '#multiple'          => TRUE, //$this->options['multiple'],
     );
 
     // Let location_autocomplete.js find the correct fields to attach.
     if ($this->location_country_identifier) {
-      $form['value']['#attributes']['class'] .= ' location_auto_join_'. $this->location_country_identifier;
+      $form['value']['#attributes']['class'] .= ' location_auto_join_' . $this->location_country_identifier;
     }
   }
 
   function operator_options() {
     if ($this->options['multiple']) {
       return array(
-        'is' => t('Is one of'),
+        'is'     => t('Is one of'),
         'is not' => t('Is not one of'),
       );
     }
     else {
       return array(
-        'is' => t('Is'),
+        'is'     => t('Is'),
         'is not' => t('Is not'),
       );
     }
@@ -67,15 +67,16 @@ class location_handler_filter_location_province extends views_handler_filter {
 
   function grovel_country() {
     $country = variable_get('location_default_country', 'us');
-    if (!empty($this->view->filter))
-    foreach ($this->view->filter as $k => $v) {
-      if ($v->table == 'location' && $v->field == 'country' && $v->options['relationship'] == $this->options['relationship']) {
-        $country = $v->value;
-        if (!empty($v->options['expose']['identifier'])) {
-          if (isset($this->view->exposed_input[$v->options['expose']['identifier']])) {
-            $country = $this->view->exposed_input[$v->options['expose']['identifier']];
+    if (!empty($this->view->filter)) {
+      foreach ($this->view->filter as $k => $v) {
+        if ($v->table == 'location' && $v->field == 'country' && $v->options['relationship'] == $this->options['relationship']) {
+          $country = $v->value;
+          if (!empty($v->options['expose']['identifier'])) {
+            if (isset($this->view->exposed_input[$v->options['expose']['identifier']])) {
+              $country = $this->view->exposed_input[$v->options['expose']['identifier']];
+            }
+            $this->location_country_identifier = $v->options['expose']['identifier'];
           }
-          $this->location_country_identifier = $v->options['expose']['identifier'];
         }
       }
     }

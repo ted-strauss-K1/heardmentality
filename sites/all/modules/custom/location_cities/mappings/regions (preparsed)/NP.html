@@ -1,31 +1,420 @@
-
 <script type="text/javascript" src="/sorttable.js"></script>
 <table class="restable sortable" id="subdivtable1">
-<tr><th></th><th>ISO-3166-2</th><th>Fips</th><th>GN</th><th>Name of Subdivision</th><th>Type</th><th>Capital</th><th>Population</th><th>area in km&sup2;</th><th>lang</th><th>continent</th><th>From</th><th>Till</th></tr>
-<tr class="odd"><td><small>1</small></td><td><span id="isoSpan.4873">1</span></td><td><span id="fipsSpan.4873"></span></td><td>CR</td><td><span id="nameSpan.4873"><a href="http://www.geonames.org/7289707/madhyamanchal.html">Madhyamanchal</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Central_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.4873"></span></td><td><span id="capitalSpan.4873"><a href="http://www.geonames.org/1283240/kathmandu.html">Kathmandu</a></span></td><td class="rightalign"><span id="populationSpan.4873"></span></td><td class="rightalign"><span id="areaSpan.4873"></span></td><td><span id="langSpan.4873"></span></td><td><span id="continentSpan.4873">AS</span></td><td><span id="fromSpan.4873"></span></td><td><span id="tillSpan.4873"></span></td></tr>
-<tr><td><small>2</small></td><td><span id="isoSpan.4875">2</span></td><td><span id="fipsSpan.4875"></span></td><td>MR</td><td><span id="nameSpan.4875"><a href="http://www.geonames.org/7289706/madhya-pashchimanchal.html">Madhya Pashchimanchal</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Mid-Western_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.4875"></span></td><td><span id="capitalSpan.4875"><a href="http://www.geonames.org/6254843/birendranagar.html">Birendranagar</a></span></td><td class="rightalign"><span id="populationSpan.4875"></span></td><td class="rightalign"><span id="areaSpan.4875"></span></td><td><span id="langSpan.4875"></span></td><td><span id="continentSpan.4875">AS</span></td><td><span id="fromSpan.4875"></span></td><td><span id="tillSpan.4875"></span></td></tr>
-<tr class="odd"><td><small>3</small></td><td><span id="isoSpan.4876">3</span></td><td><span id="fipsSpan.4876"></span></td><td>WR</td><td><span id="nameSpan.4876"><a href="http://www.geonames.org/7289709/pashchimanchal.html">Pashchimanchal</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Western_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.4876"></span></td><td><span id="capitalSpan.4876"><a href="http://www.geonames.org/1282898/pokhara.html">Pokhara</a></span></td><td class="rightalign"><span id="populationSpan.4876"></span></td><td class="rightalign"><span id="areaSpan.4876"></span></td><td><span id="langSpan.4876"></span></td><td><span id="continentSpan.4876">AS</span></td><td><span id="fromSpan.4876"></span></td><td><span id="tillSpan.4876"></span></td></tr>
-<tr><td><small>4</small></td><td><span id="isoSpan.4874">4</span></td><td><span id="fipsSpan.4874"></span></td><td>ER</td><td><span id="nameSpan.4874"><a href="http://www.geonames.org/7289708/purwanchal.html">Purwanchal</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Eastern_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.4874"></span></td><td><span id="capitalSpan.4874"><a href="http://www.geonames.org/1283465/dhankuta.html">Dhankutā</a></span></td><td class="rightalign"><span id="populationSpan.4874"></span></td><td class="rightalign"><span id="areaSpan.4874"></span></td><td><span id="langSpan.4874"></span></td><td><span id="continentSpan.4874">AS</span></td><td><span id="fromSpan.4874"></span></td><td><span id="tillSpan.4874"></span></td></tr>
-<tr class="odd"><td><small>5</small></td><td><span id="isoSpan.4877">5</span></td><td><span id="fipsSpan.4877"></span></td><td>FR</td><td><span id="nameSpan.4877"><a href="http://www.geonames.org/7289705/sudur-pashchimanchal.html">Sudur Pashchimanchal</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Far-Western_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.4877"></span></td><td><span id="capitalSpan.4877"><a href="http://www.geonames.org/6254845/dipayal.html">Dipayal</a></span></td><td class="rightalign"><span id="populationSpan.4877"></span></td><td class="rightalign"><span id="areaSpan.4877"></span></td><td><span id="langSpan.4877"></span></td><td><span id="continentSpan.4877">AS</span></td><td><span id="fromSpan.4877"></span></td><td><span id="tillSpan.4877"></span></td></tr>
-</table>
-<br/><br/>
+  <tr>
+    <th></th>
+    <th>ISO-3166-2</th>
+    <th>Fips</th>
+    <th>GN</th>
+    <th>Name of Subdivision</th>
+    <th>Type</th>
+    <th>Capital</th>
+    <th>Population</th>
+    <th>area in km&sup2;</th>
+    <th>lang</th>
+    <th>continent</th>
+    <th>From</th>
+    <th>Till</th>
+  </tr>
+  <tr class="odd">
+    <td>
+      <small>1</small>
+    </td>
+    <td><span id="isoSpan.4873">1</span></td>
+    <td><span id="fipsSpan.4873"></span></td>
+    <td>CR</td>
+    <td><span id="nameSpan.4873"><a href="http://www.geonames.org/7289707/madhyamanchal.html">Madhyamanchal</a>&nbsp;&nbsp;<a
+      href="http://en.wikipedia.org/wiki/Central_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                       border="0" alt="wikipedia article"></a></span>
+    </td>
+    <td><span id="type.4873"></span></td>
+    <td><span id="capitalSpan.4873"><a href="http://www.geonames.org/1283240/kathmandu.html">Kathmandu</a></span></td>
+    <td class="rightalign"><span id="populationSpan.4873"></span></td>
+    <td class="rightalign"><span id="areaSpan.4873"></span></td>
+    <td><span id="langSpan.4873"></span></td>
+    <td><span id="continentSpan.4873">AS</span></td>
+    <td><span id="fromSpan.4873"></span></td>
+    <td><span id="tillSpan.4873"></span></td>
+  </tr>
+  <tr>
+    <td>
+      <small>2</small>
+    </td>
+    <td><span id="isoSpan.4875">2</span></td>
+    <td><span id="fipsSpan.4875"></span></td>
+    <td>MR</td>
+    <td><span id="nameSpan.4875"><a href="http://www.geonames.org/7289706/madhya-pashchimanchal.html">Madhya
+                                                                                                      Pashchimanchal</a>&nbsp;&nbsp;<a
+      href="http://en.wikipedia.org/wiki/Mid-Western_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                           border="0"
+                                                                           alt="wikipedia article"></a></span></td>
+    <td><span id="type.4875"></span></td>
+    <td><span id="capitalSpan.4875"><a
+      href="http://www.geonames.org/6254843/birendranagar.html">Birendranagar</a></span></td>
+    <td class="rightalign"><span id="populationSpan.4875"></span></td>
+    <td class="rightalign"><span id="areaSpan.4875"></span></td>
+    <td><span id="langSpan.4875"></span></td>
+    <td><span id="continentSpan.4875">AS</span></td>
+    <td><span id="fromSpan.4875"></span></td>
+    <td><span id="tillSpan.4875"></span></td>
+  </tr>
+  <tr class="odd">
+    <td>
+      <small>3</small>
+    </td>
+    <td><span id="isoSpan.4876">3</span></td>
+    <td><span id="fipsSpan.4876"></span></td>
+    <td>WR</td>
+    <td><span id="nameSpan.4876"><a href="http://www.geonames.org/7289709/pashchimanchal.html">Pashchimanchal</a>&nbsp;&nbsp;<a
+      href="http://en.wikipedia.org/wiki/Western_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                       border="0" alt="wikipedia article"></a></span>
+    </td>
+    <td><span id="type.4876"></span></td>
+    <td><span id="capitalSpan.4876"><a href="http://www.geonames.org/1282898/pokhara.html">Pokhara</a></span></td>
+    <td class="rightalign"><span id="populationSpan.4876"></span></td>
+    <td class="rightalign"><span id="areaSpan.4876"></span></td>
+    <td><span id="langSpan.4876"></span></td>
+    <td><span id="continentSpan.4876">AS</span></td>
+    <td><span id="fromSpan.4876"></span></td>
+    <td><span id="tillSpan.4876"></span></td>
+  </tr>
+  <tr>
+    <td>
+      <small>4</small>
+    </td>
+    <td><span id="isoSpan.4874">4</span></td>
+    <td><span id="fipsSpan.4874"></span></td>
+    <td>ER</td>
+    <td><span id="nameSpan.4874"><a href="http://www.geonames.org/7289708/purwanchal.html">Purwanchal</a>&nbsp;&nbsp;<a
+      href="http://en.wikipedia.org/wiki/Eastern_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                       border="0" alt="wikipedia article"></a></span>
+    </td>
+    <td><span id="type.4874"></span></td>
+    <td><span id="capitalSpan.4874"><a href="http://www.geonames.org/1283465/dhankuta.html">Dhankutā</a></span></td>
+    <td class="rightalign"><span id="populationSpan.4874"></span></td>
+    <td class="rightalign"><span id="areaSpan.4874"></span></td>
+    <td><span id="langSpan.4874"></span></td>
+    <td><span id="continentSpan.4874">AS</span></td>
+    <td><span id="fromSpan.4874"></span></td>
+    <td><span id="tillSpan.4874"></span></td>
+  </tr>
+  <tr class="odd">
+    <td>
+      <small>5</small>
+    </td>
+    <td><span id="isoSpan.4877">5</span></td>
+    <td><span id="fipsSpan.4877"></span></td>
+    <td>FR</td>
+    <td><span id="nameSpan.4877"><a href="http://www.geonames.org/7289705/sudur-pashchimanchal.html">Sudur
+                                                                                                     Pashchimanchal</a>&nbsp;&nbsp;<a
+      href="http://en.wikipedia.org/wiki/Far-Western_Region%2C_Nepal"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                           border="0"
+                                                                           alt="wikipedia article"></a></span></td>
+    <td><span id="type.4877"></span></td>
+    <td><span id="capitalSpan.4877"><a href="http://www.geonames.org/6254845/dipayal.html">Dipayal</a></span></td>
+    <td class="rightalign"><span id="populationSpan.4877"></span></td>
+    <td class="rightalign"><span id="areaSpan.4877"></span></td>
+    <td><span id="langSpan.4877"></span></td>
+    <td><span id="continentSpan.4877">AS</span></td>
+    <td><span id="fromSpan.4877"></span></td>
+    <td><span id="tillSpan.4877"></span></td>
+  </tr>
+</table><br/><br/>
 <script type="text/javascript" src="/sorttable.js"></script>
 <table class="restable sortable" id="subdivtable2">
-<tr><th></th><th>ISO-3166-2</th><th>ISO Region</th><th>Fips</th><th>GN</th><th>Name of Subdivision</th><th>Type</th><th>Capital</th><th>Population</th><th>area in km&sup2;</th><th>lang</th><th>continent</th><th>From</th><th>Till</th></tr>
-<tr class="odd"><td><small>1</small></td><td><span id="isoSpan.704">BA</span></td><td>1</td><td><span id="fipsSpan.704">01</span></td><td>01</td><td><span id="nameSpan.704"><a href="http://www.geonames.org/1283710/bagmati.html">Bagmati</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Bagmati_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.704"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.704"><a href="http://www.geonames.org/1283240/kathmandu.html">Kathmandu</a></span></td><td class="rightalign"><span id="populationSpan.704"></span></td><td class="rightalign"><span id="areaSpan.704">10,119.8</span></td><td><span id="langSpan.704"></span></td><td><span id="continentSpan.704">AS</span></td><td><span id="fromSpan.704"></span></td><td><span id="tillSpan.704"></span></td></tr>
-<tr><td><small>2</small></td><td><span id="isoSpan.1035">BH</span></td><td>2</td><td><span id="fipsSpan.1035">02</span></td><td>02</td><td><span id="nameSpan.1035"><a href="http://www.geonames.org/1283606/bheri.html">Bheri</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Bheri_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1035"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.1035"></span></td><td class="rightalign"><span id="populationSpan.1035"></span></td><td class="rightalign"><span id="areaSpan.1035">9,935.7</span></td><td><span id="langSpan.1035"></span></td><td><span id="continentSpan.1035">AS</span></td><td><span id="fromSpan.1035"></span></td><td><span id="tillSpan.1035"></span></td></tr>
-<tr class="odd"><td><small>3</small></td><td><span id="isoSpan.1036">DH</span></td><td>3</td><td><span id="fipsSpan.1036">03</span></td><td>03</td><td><span id="nameSpan.1036"><a href="http://www.geonames.org/1283454/dhawalagiri.html">Dhawalagiri</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Dhawalagiri_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1036"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.1036"></span></td><td class="rightalign"><span id="populationSpan.1036"></span></td><td class="rightalign"><span id="areaSpan.1036">8,298.9</span></td><td><span id="langSpan.1036"></span></td><td><span id="continentSpan.1036">AS</span></td><td><span id="fromSpan.1036"></span></td><td><span id="tillSpan.1036"></span></td></tr>
-<tr><td><small>4</small></td><td><span id="isoSpan.705">GA</span></td><td>3</td><td><span id="fipsSpan.705">04</span></td><td>04</td><td><span id="nameSpan.705"><a href="http://www.geonames.org/1283410/gandaki.html">Gandaki</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Gandaki_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.705"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.705"></span></td><td class="rightalign"><span id="populationSpan.705"></span></td><td class="rightalign"><span id="areaSpan.705">12,719.7</span></td><td><span id="langSpan.705"></span></td><td><span id="continentSpan.705">AS</span></td><td><span id="fromSpan.705"></span></td><td><span id="tillSpan.705"></span></td></tr>
-<tr class="odd"><td><small>5</small></td><td><span id="isoSpan.659">JA</span></td><td>1</td><td><span id="fipsSpan.659">05</span></td><td>05</td><td><span id="nameSpan.659"><a href="http://www.geonames.org/1283316/janakpur.html">Janakpur</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Janakpur_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.659"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.659"></span></td><td class="rightalign"><span id="populationSpan.659"></span></td><td class="rightalign"><span id="areaSpan.659">9,708.2</span></td><td><span id="langSpan.659"></span></td><td><span id="continentSpan.659">AS</span></td><td><span id="fromSpan.659"></span></td><td><span id="tillSpan.659"></span></td></tr>
-<tr><td><small>6</small></td><td><span id="isoSpan.706">KA</span></td><td>2</td><td><span id="fipsSpan.706">06</span></td><td>06</td><td><span id="nameSpan.706"><a href="http://www.geonames.org/1283245/karnali.html">Karnali</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Karnali_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.706"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.706"></span></td><td class="rightalign"><span id="populationSpan.706"></span></td><td class="rightalign"><span id="areaSpan.706">21,710.6</span></td><td><span id="langSpan.706"></span></td><td><span id="continentSpan.706">AS</span></td><td><span id="fromSpan.706"></span></td><td><span id="tillSpan.706"></span></td></tr>
-<tr class="odd"><td><small>7</small></td><td><span id="isoSpan.6">KO</span></td><td>4</td><td><span id="fipsSpan.6">07</span></td><td>07</td><td><span id="nameSpan.6"><a href="http://www.geonames.org/1283182/kosi.html">Kosi</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Kosi_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.6"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.6"></span></td><td class="rightalign"><span id="populationSpan.6"></span></td><td class="rightalign"><span id="areaSpan.6">9,721.2</span></td><td><span id="langSpan.6"></span></td><td><span id="continentSpan.6">AS</span></td><td><span id="fromSpan.6"></span></td><td><span id="tillSpan.6"></span></td></tr>
-<tr><td><small>8</small></td><td><span id="isoSpan.709">LU</span></td><td>3</td><td><span id="fipsSpan.709">08</span></td><td>08</td><td><span id="nameSpan.709"><a href="http://www.geonames.org/1283112/lumbini.html">Lumbini</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Lumbini_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.709"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.709"></span></td><td class="rightalign"><span id="populationSpan.709"></span></td><td class="rightalign"><span id="areaSpan.709">8,609.2</span></td><td><span id="langSpan.709"></span></td><td><span id="continentSpan.709">AS</span></td><td><span id="fromSpan.709"></span></td><td><span id="tillSpan.709"></span></td></tr>
-<tr class="odd"><td><small>9</small></td><td><span id="isoSpan.1038">MA</span></td><td>5</td><td><span id="fipsSpan.1038">09</span></td><td>09</td><td><span id="nameSpan.1038"><a href="http://www.geonames.org/1283098/mahakali.html">Mahakali</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Mahakali_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1038"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.1038"></span></td><td class="rightalign"><span id="populationSpan.1038"></span></td><td class="rightalign"><span id="areaSpan.1038">7,243.9</span></td><td><span id="langSpan.1038"></span></td><td><span id="continentSpan.1038">AS</span></td><td><span id="fromSpan.1038"></span></td><td><span id="tillSpan.1038"></span></td></tr>
-<tr><td><small>10</small></td><td><span id="isoSpan.1039">ME</span></td><td>4</td><td><span id="fipsSpan.1039">10</span></td><td>10</td><td><span id="nameSpan.1039"><a href="http://www.geonames.org/1283047/mechi.html">Mechi</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Mechi_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1039"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.1039"></span></td><td class="rightalign"><span id="populationSpan.1039"></span></td><td class="rightalign"><span id="areaSpan.1039">8,278.2</span></td><td><span id="langSpan.1039"></span></td><td><span id="continentSpan.1039">AS</span></td><td><span id="fromSpan.1039"></span></td><td><span id="tillSpan.1039"></span></td></tr>
-<tr class="odd"><td><small>11</small></td><td><span id="isoSpan.710">NA</span></td><td>1</td><td><span id="fipsSpan.710">11</span></td><td>11</td><td><span id="nameSpan.710"><a href="http://www.geonames.org/1283000/narayani.html">Narayani</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Narayani_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.710"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.710"></span></td><td class="rightalign"><span id="populationSpan.710"></span></td><td class="rightalign"><span id="areaSpan.710">7,744.0</span></td><td><span id="langSpan.710"></span></td><td><span id="continentSpan.710">AS</span></td><td><span id="fromSpan.710"></span></td><td><span id="tillSpan.710"></span></td></tr>
-<tr><td><small>12</small></td><td><span id="isoSpan.711">RA</span></td><td>2</td><td><span id="fipsSpan.711">12</span></td><td>12</td><td><span id="nameSpan.711"><a href="http://www.geonames.org/1282865/rapti.html">Rapti</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Rapti_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.711"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.711"></span></td><td class="rightalign"><span id="populationSpan.711"></span></td><td class="rightalign"><span id="areaSpan.711">10,663.4</span></td><td><span id="langSpan.711"></span></td><td><span id="continentSpan.711">AS</span></td><td><span id="fromSpan.711"></span></td><td><span id="tillSpan.711"></span></td></tr>
-<tr class="odd"><td><small>13</small></td><td><span id="isoSpan.1043">SA</span></td><td>4</td><td><span id="fipsSpan.1043">13</span></td><td>13</td><td><span id="nameSpan.1043"><a href="http://www.geonames.org/1282836/sagarmatha.html">Sagarmatha</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Sagarmatha_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1043"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.1043"></span></td><td class="rightalign"><span id="populationSpan.1043"></span></td><td class="rightalign"><span id="areaSpan.1043">10,007.3</span></td><td><span id="langSpan.1043"></span></td><td><span id="continentSpan.1043">AS</span></td><td><span id="fromSpan.1043"></span></td><td><span id="tillSpan.1043"></span></td></tr>
-<tr><td><small>14</small></td><td><span id="isoSpan.1044">SE</span></td><td>5</td><td><span id="fipsSpan.1044">14</span></td><td>14</td><td><span id="nameSpan.1044"><a href="http://www.geonames.org/1282797/seti.html">Seti</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Seti_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1044"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td><td><span id="capitalSpan.1044"></span></td><td class="rightalign"><span id="populationSpan.1044"></span></td><td class="rightalign"><span id="areaSpan.1044">12,532.5</span></td><td><span id="langSpan.1044"></span></td><td><span id="continentSpan.1044">AS</span></td><td><span id="fromSpan.1044"></span></td><td><span id="tillSpan.1044"></span></td></tr>
-</table>
-<br/>
-<br/>
+<tr>
+  <th></th>
+  <th>ISO-3166-2</th>
+  <th>ISO Region</th>
+  <th>Fips</th>
+  <th>GN</th>
+  <th>Name of Subdivision</th>
+  <th>Type</th>
+  <th>Capital</th>
+  <th>Population</th>
+  <th>area in km&sup2;</th>
+  <th>lang</th>
+  <th>continent</th>
+  <th>From</th>
+  <th>Till</th>
+</tr>
+<tr class="odd">
+  <td>
+    <small>1</small>
+  </td>
+  <td><span id="isoSpan.704">BA</span></td>
+  <td>1</td>
+  <td><span id="fipsSpan.704">01</span></td>
+  <td>01</td>
+  <td><span id="nameSpan.704"><a href="http://www.geonames.org/1283710/bagmati.html">Bagmati</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Bagmati_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                          alt="wikipedia article"></a></span></td>
+  <td><span id="type.704"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.704"><a href="http://www.geonames.org/1283240/kathmandu.html">Kathmandu</a></span></td>
+  <td class="rightalign"><span id="populationSpan.704"></span></td>
+  <td class="rightalign"><span id="areaSpan.704">10,119.8</span></td>
+  <td><span id="langSpan.704"></span></td>
+  <td><span id="continentSpan.704">AS</span></td>
+  <td><span id="fromSpan.704"></span></td>
+  <td><span id="tillSpan.704"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>2</small>
+  </td>
+  <td><span id="isoSpan.1035">BH</span></td>
+  <td>2</td>
+  <td><span id="fipsSpan.1035">02</span></td>
+  <td>02</td>
+  <td><span id="nameSpan.1035"><a href="http://www.geonames.org/1283606/bheri.html">Bheri</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Bheri_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                        alt="wikipedia article"></a></span></td>
+  <td><span id="type.1035"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.1035"></span></td>
+  <td class="rightalign"><span id="populationSpan.1035"></span></td>
+  <td class="rightalign"><span id="areaSpan.1035">9,935.7</span></td>
+  <td><span id="langSpan.1035"></span></td>
+  <td><span id="continentSpan.1035">AS</span></td>
+  <td><span id="fromSpan.1035"></span></td>
+  <td><span id="tillSpan.1035"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>3</small>
+  </td>
+  <td><span id="isoSpan.1036">DH</span></td>
+  <td>3</td>
+  <td><span id="fipsSpan.1036">03</span></td>
+  <td>03</td>
+  <td><span id="nameSpan.1036"><a href="http://www.geonames.org/1283454/dhawalagiri.html">Dhawalagiri</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Dhawalagiri_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                              alt="wikipedia article"></a></span></td>
+  <td><span id="type.1036"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.1036"></span></td>
+  <td class="rightalign"><span id="populationSpan.1036"></span></td>
+  <td class="rightalign"><span id="areaSpan.1036">8,298.9</span></td>
+  <td><span id="langSpan.1036"></span></td>
+  <td><span id="continentSpan.1036">AS</span></td>
+  <td><span id="fromSpan.1036"></span></td>
+  <td><span id="tillSpan.1036"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>4</small>
+  </td>
+  <td><span id="isoSpan.705">GA</span></td>
+  <td>3</td>
+  <td><span id="fipsSpan.705">04</span></td>
+  <td>04</td>
+  <td><span id="nameSpan.705"><a href="http://www.geonames.org/1283410/gandaki.html">Gandaki</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Gandaki_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                          alt="wikipedia article"></a></span></td>
+  <td><span id="type.705"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.705"></span></td>
+  <td class="rightalign"><span id="populationSpan.705"></span></td>
+  <td class="rightalign"><span id="areaSpan.705">12,719.7</span></td>
+  <td><span id="langSpan.705"></span></td>
+  <td><span id="continentSpan.705">AS</span></td>
+  <td><span id="fromSpan.705"></span></td>
+  <td><span id="tillSpan.705"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>5</small>
+  </td>
+  <td><span id="isoSpan.659">JA</span></td>
+  <td>1</td>
+  <td><span id="fipsSpan.659">05</span></td>
+  <td>05</td>
+  <td><span id="nameSpan.659"><a href="http://www.geonames.org/1283316/janakpur.html">Janakpur</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Janakpur_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                           alt="wikipedia article"></a></span></td>
+  <td><span id="type.659"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.659"></span></td>
+  <td class="rightalign"><span id="populationSpan.659"></span></td>
+  <td class="rightalign"><span id="areaSpan.659">9,708.2</span></td>
+  <td><span id="langSpan.659"></span></td>
+  <td><span id="continentSpan.659">AS</span></td>
+  <td><span id="fromSpan.659"></span></td>
+  <td><span id="tillSpan.659"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>6</small>
+  </td>
+  <td><span id="isoSpan.706">KA</span></td>
+  <td>2</td>
+  <td><span id="fipsSpan.706">06</span></td>
+  <td>06</td>
+  <td><span id="nameSpan.706"><a href="http://www.geonames.org/1283245/karnali.html">Karnali</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Karnali_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                          alt="wikipedia article"></a></span></td>
+  <td><span id="type.706"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.706"></span></td>
+  <td class="rightalign"><span id="populationSpan.706"></span></td>
+  <td class="rightalign"><span id="areaSpan.706">21,710.6</span></td>
+  <td><span id="langSpan.706"></span></td>
+  <td><span id="continentSpan.706">AS</span></td>
+  <td><span id="fromSpan.706"></span></td>
+  <td><span id="tillSpan.706"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>7</small>
+  </td>
+  <td><span id="isoSpan.6">KO</span></td>
+  <td>4</td>
+  <td><span id="fipsSpan.6">07</span></td>
+  <td>07</td>
+  <td><span id="nameSpan.6"><a href="http://www.geonames.org/1283182/kosi.html">Kosi</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Kosi_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                       alt="wikipedia article"></a></span></td>
+  <td><span id="type.6"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.6"></span></td>
+  <td class="rightalign"><span id="populationSpan.6"></span></td>
+  <td class="rightalign"><span id="areaSpan.6">9,721.2</span></td>
+  <td><span id="langSpan.6"></span></td>
+  <td><span id="continentSpan.6">AS</span></td>
+  <td><span id="fromSpan.6"></span></td>
+  <td><span id="tillSpan.6"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>8</small>
+  </td>
+  <td><span id="isoSpan.709">LU</span></td>
+  <td>3</td>
+  <td><span id="fipsSpan.709">08</span></td>
+  <td>08</td>
+  <td><span id="nameSpan.709"><a href="http://www.geonames.org/1283112/lumbini.html">Lumbini</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Lumbini_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                          alt="wikipedia article"></a></span></td>
+  <td><span id="type.709"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.709"></span></td>
+  <td class="rightalign"><span id="populationSpan.709"></span></td>
+  <td class="rightalign"><span id="areaSpan.709">8,609.2</span></td>
+  <td><span id="langSpan.709"></span></td>
+  <td><span id="continentSpan.709">AS</span></td>
+  <td><span id="fromSpan.709"></span></td>
+  <td><span id="tillSpan.709"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>9</small>
+  </td>
+  <td><span id="isoSpan.1038">MA</span></td>
+  <td>5</td>
+  <td><span id="fipsSpan.1038">09</span></td>
+  <td>09</td>
+  <td><span id="nameSpan.1038"><a href="http://www.geonames.org/1283098/mahakali.html">Mahakali</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Mahakali_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                           alt="wikipedia article"></a></span></td>
+  <td><span id="type.1038"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.1038"></span></td>
+  <td class="rightalign"><span id="populationSpan.1038"></span></td>
+  <td class="rightalign"><span id="areaSpan.1038">7,243.9</span></td>
+  <td><span id="langSpan.1038"></span></td>
+  <td><span id="continentSpan.1038">AS</span></td>
+  <td><span id="fromSpan.1038"></span></td>
+  <td><span id="tillSpan.1038"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>10</small>
+  </td>
+  <td><span id="isoSpan.1039">ME</span></td>
+  <td>4</td>
+  <td><span id="fipsSpan.1039">10</span></td>
+  <td>10</td>
+  <td><span id="nameSpan.1039"><a href="http://www.geonames.org/1283047/mechi.html">Mechi</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Mechi_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                        alt="wikipedia article"></a></span></td>
+  <td><span id="type.1039"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.1039"></span></td>
+  <td class="rightalign"><span id="populationSpan.1039"></span></td>
+  <td class="rightalign"><span id="areaSpan.1039">8,278.2</span></td>
+  <td><span id="langSpan.1039"></span></td>
+  <td><span id="continentSpan.1039">AS</span></td>
+  <td><span id="fromSpan.1039"></span></td>
+  <td><span id="tillSpan.1039"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>11</small>
+  </td>
+  <td><span id="isoSpan.710">NA</span></td>
+  <td>1</td>
+  <td><span id="fipsSpan.710">11</span></td>
+  <td>11</td>
+  <td><span id="nameSpan.710"><a href="http://www.geonames.org/1283000/narayani.html">Narayani</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Narayani_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                           alt="wikipedia article"></a></span></td>
+  <td><span id="type.710"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.710"></span></td>
+  <td class="rightalign"><span id="populationSpan.710"></span></td>
+  <td class="rightalign"><span id="areaSpan.710">7,744.0</span></td>
+  <td><span id="langSpan.710"></span></td>
+  <td><span id="continentSpan.710">AS</span></td>
+  <td><span id="fromSpan.710"></span></td>
+  <td><span id="tillSpan.710"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>12</small>
+  </td>
+  <td><span id="isoSpan.711">RA</span></td>
+  <td>2</td>
+  <td><span id="fipsSpan.711">12</span></td>
+  <td>12</td>
+  <td><span id="nameSpan.711"><a href="http://www.geonames.org/1282865/rapti.html">Rapti</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Rapti_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                        alt="wikipedia article"></a></span></td>
+  <td><span id="type.711"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.711"></span></td>
+  <td class="rightalign"><span id="populationSpan.711"></span></td>
+  <td class="rightalign"><span id="areaSpan.711">10,663.4</span></td>
+  <td><span id="langSpan.711"></span></td>
+  <td><span id="continentSpan.711">AS</span></td>
+  <td><span id="fromSpan.711"></span></td>
+  <td><span id="tillSpan.711"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>13</small>
+  </td>
+  <td><span id="isoSpan.1043">SA</span></td>
+  <td>4</td>
+  <td><span id="fipsSpan.1043">13</span></td>
+  <td>13</td>
+  <td><span id="nameSpan.1043"><a href="http://www.geonames.org/1282836/sagarmatha.html">Sagarmatha</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Sagarmatha_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                             alt="wikipedia article"></a></span></td>
+  <td><span id="type.1043"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.1043"></span></td>
+  <td class="rightalign"><span id="populationSpan.1043"></span></td>
+  <td class="rightalign"><span id="areaSpan.1043">10,007.3</span></td>
+  <td><span id="langSpan.1043"></span></td>
+  <td><span id="continentSpan.1043">AS</span></td>
+  <td><span id="fromSpan.1043"></span></td>
+  <td><span id="tillSpan.1043"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>14</small>
+  </td>
+  <td><span id="isoSpan.1044">SE</span></td>
+  <td>5</td>
+  <td><span id="fipsSpan.1044">14</span></td>
+  <td>14</td>
+  <td><span id="nameSpan.1044"><a href="http://www.geonames.org/1282797/seti.html">Seti</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Seti_Zone"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                       alt="wikipedia article"></a></span></td>
+  <td><span id="type.1044"><a href="/servlet/geonames?srv=573&typeId=216">zone</a></span></td>
+  <td><span id="capitalSpan.1044"></span></td>
+  <td class="rightalign"><span id="populationSpan.1044"></span></td>
+  <td class="rightalign"><span id="areaSpan.1044">12,532.5</span></td>
+  <td><span id="langSpan.1044"></span></td>
+  <td><span id="continentSpan.1044">AS</span></td>
+  <td><span id="fromSpan.1044"></span></td>
+  <td><span id="tillSpan.1044"></span></td>
+</tr>
+</table><br/><br/>

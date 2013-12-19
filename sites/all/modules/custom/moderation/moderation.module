@@ -3,8 +3,7 @@
 /**
  * Implementation of hook_init()
  */
-function moderation_init()
-{
+function moderation_init() {
   //
 }
 
@@ -18,20 +17,18 @@ define('MODERATION_ADMIN', 'Administer Moderation module');
  *
  * @return array
  */
-function moderation_perm()
-{
+function moderation_perm() {
   return array(MODERATION_ADMIN);
 }
 
 /**
  * Implementation of hook_preprocess_page()
  */
-function moderation_preprocess_page(&$vars)
-{
+function moderation_preprocess_page(&$vars) {
   if ('moderation' == arg(0)) {
     drupal_set_subtitle(t('Moderator'));
 
-    if (in_array(arg(1), array('issue', 'argument', 'comment', ))) {
+    if (in_array(arg(1), array('issue', 'argument', 'comment',))) {
       $type = arg(1);
       $content_id = arg(2);
       switch ($type) {
@@ -72,7 +69,6 @@ function moderation_preprocess_page(&$vars)
     }
 
 
-
     # set page template
     array_push($vars['template_files'], 'page_12_4');
   }
@@ -87,16 +83,18 @@ define('MODERATION_USERS', 'moderation_users');
  * Check if user has the moderation permissions
  *
  * @param string $uid
+ *
  * @return bool
  */
-function moderation_check_perm($uid = false)
-{
-  if (false === $uid) {
+function moderation_check_perm($uid = FALSE) {
+  if (FALSE === $uid) {
     global $user;
     $account = $user;
-  } elseif (is_object($uid)) {
+  }
+  elseif (is_object($uid)) {
     $account = $uid;
-  } else {
+  }
+  else {
     $account = user_load($uid);
   }
   $perms = variable_get(MODERATION_USERS, array());
@@ -108,105 +106,104 @@ function moderation_check_perm($uid = false)
  *
  * @return array
  */
-function moderation_menu()
-{
+function moderation_menu() {
   $menu = array();
 
   $menu['moderation'] = array(
-    'title' => t('Moderation'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_issues_form'),
+    'title'           => t('Moderation'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('moderation_issues_form'),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'file' => 'moderation.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/issues'] = array(
-    'title' => t('Issues'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_issues_form'),
+    'title'           => t('Issues'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('moderation_issues_form'),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'weight' => -2,
-    'file' => 'moderation.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'weight'          => -2,
+    'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/arguments'] = array(
-    'title' => t('Arguments'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_arguments_form'),
+    'title'           => t('Arguments'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('moderation_arguments_form'),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'weight' => -1,
-    'file' => 'moderation.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'weight'          => -1,
+    'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/comments'] = array(
-    'title' => t('Comments'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_comments_form'),
+    'title'           => t('Comments'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('moderation_comments_form'),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'weight' => 0,
-    'file' => 'moderation.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'weight'          => 0,
+    'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/users'] = array(
-    'title' => t('Moderators'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_users_form'),
+    'title'            => t('Moderators'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('moderation_users_form'),
     'access arguments' => array(MODERATION_ADMIN),
-    'type' => MENU_CALLBACK,
-    'weight' => 1,
-    'file' => 'moderation.pages.inc',
+    'type'             => MENU_CALLBACK,
+    'weight'           => 1,
+    'file'             => 'moderation.pages.inc',
   );
 
   $menu['moderation/issue/%'] = array(
-    'title' => t('Issue'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_issue_view_form', 2),
+    'title'           => t('Issue'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('moderation_issue_view_form', 2),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'file' => 'moderation.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/argument/%'] = array(
-    'title' => t('Argument'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_argument_view_form', 2),
+    'title'           => t('Argument'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('moderation_argument_view_form', 2),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'file' => 'moderation.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/comment/%'] = array(
-    'title' => t('Comment'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_comment_view_form', 2),
+    'title'           => t('Comment'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('moderation_comment_view_form', 2),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'file' => 'moderation.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/user/%'] = array(
-    'page callback' => 'moderation_perms',
-    'page arguments' => array(2),
+    'page callback'    => 'moderation_perms',
+    'page arguments'   => array(2),
     'access arguments' => array(MODERATION_ADMIN),
-    'type' => MENU_CALLBACK,
-    'file' => 'moderation.pages.inc',
+    'type'             => MENU_CALLBACK,
+    'file'             => 'moderation.pages.inc',
   );
 
   // ahah to add choices
   $menu['moderation/ahah/%'] = array(
-    'page callback' => 'moderation_ahah',
-    'page arguments' => array(2),
+    'page callback'   => 'moderation_ahah',
+    'page arguments'  => array(2),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'file' => 'moderation.pages.inc',
+    'type'            => MENU_CALLBACK,
+    'file'            => 'moderation.pages.inc',
   );
 
   // merge
   $menu['moderation/merge/%/%'] = array(
-    'title' => t('Merge Issues'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('moderation_merge_form', 2, 3),
+    'title'           => t('Merge Issues'),
+    'page callback'   => 'drupal_get_form',
+    'page arguments'  => array('moderation_merge_form', 2, 3),
     'access callback' => 'moderation_check_perm',
-    'type' => MENU_CALLBACK,
-    'weight' => -2,
-    'file' => 'moderation.merge.inc',
+    'type'            => MENU_CALLBACK,
+    'weight'          => -2,
+    'file'            => 'moderation.merge.inc',
   );
 
   return $menu;
@@ -217,61 +214,60 @@ function moderation_menu()
  *
  * @return array
  */
-function moderation_theme()
-{
+function moderation_theme() {
   $theme = array();
 
   $theme['moderation_main'] = array(
     'arguments' => array('page' => 'issues'),
-    'template' => 'templates/moderation-main',
+    'template'  => 'templates/moderation-main',
   );
   $theme['moderation_item'] = array(
-    'arguments' => array(
+    'arguments'            => array(
       'entity' => '',
     ),
-    'template' => 'templates/moderation-item',
+    'template'             => 'templates/moderation-item',
     'preprocess functions' => array('moderation_item_preprocess'),
-    'file' => 'moderation.theme.inc',
+    'file'                 => 'moderation.theme.inc',
   );
 
   // blocks
   $theme['moderation_related'] = array(
-    'arguments' => array(
+    'arguments'            => array(
       'content_id' => '',
     ),
     'preprocess functions' => array('moderation_related_preprocess'),
-    'template' => 'templates/moderation-related',
-    'file' => 'moderation.theme.inc',
+    'template'             => 'templates/moderation-related',
+    'file'                 => 'moderation.theme.inc',
   );
   $theme['moderation_history'] = array(
     'arguments' => array(
       'history' => array(),
     ),
-    'template' => 'templates/moderation-history',
+    'template'  => 'templates/moderation-history',
   );
   $theme['moderation_flags'] = array(
-    'arguments' => array(
+    'arguments'            => array(
       'content_type' => '',
-      'content_id' => '',
+      'content_id'   => '',
     ),
-    'template' => 'templates/moderation-flags',
+    'template'             => 'templates/moderation-flags',
     'preprocess functions' => array('moderation_flags_preprocess'),
-    'file' => 'moderation.theme.inc',
+    'file'                 => 'moderation.theme.inc',
   );
 
   return $theme;
 }
 
 /**
- * @param $content_id
- * @param $content_type
- * @param $change
+ * @param       $content_id
+ * @param       $content_type
+ * @param       $change
  * @param array $vars
- * @param bool $uid
+ * @param bool  $uid
  */
-function moderation_history_set($content_id, $content_type, $change, $vars = array(), $uid = false) {
+function moderation_history_set($content_id, $content_type, $change, $vars = array(), $uid = FALSE) {
   global $language;
-  if (false === $uid) {
+  if (FALSE === $uid) {
     global $user;
     $uid = $user->uid;
   }
@@ -279,8 +275,8 @@ function moderation_history_set($content_id, $content_type, $change, $vars = arr
 }
 
 /**
- * @param $content_id
- * @param $content_type
+ * @param       $content_id
+ * @param       $content_type
  * @param array $p
  */
 function moderation_history_del($content_id, $content_type, $p = array()) {
@@ -289,11 +285,12 @@ function moderation_history_del($content_id, $content_type, $p = array()) {
   $params[] = $content_type;
   foreach ($p as $key => $value) {
     if ('!' != $key[0]) {
-      $query .= " AND ".$key." = '%s'";
+      $query .= " AND " . $key . " = '%s'";
       $params[] = $value;
-    } else {
+    }
+    else {
       $key = substr($key, 1);
-      $query .= " AND ".$key." <> '%s'";
+      $query .= " AND " . $key . " <> '%s'";
       $params[] = $value;
     }
   }
@@ -301,27 +298,29 @@ function moderation_history_del($content_id, $content_type, $p = array()) {
 }
 
 /**
- * @param $content_id
- * @param $content_type
- * @param $p
+ * @param      $content_id
+ * @param      $content_type
+ * @param      $p
  * @param bool $count
+ *
  * @return array
  */
-function moderation_history_get($content_id, $content_type, $p, $count = false) {
+function moderation_history_get($content_id, $content_type, $p, $count = FALSE) {
   global $language;
   $query = "SELECT * FROM {moderation_history} WHERE status = 1 AND content_id = '%d' AND content_type = '%s' AND language = '%s'";
   $params = array($content_id, $content_type, $language->language);
   foreach ($p as $key => $value) {
     if ('!' != $key[0]) {
-      $query .= " AND ".$key." = '%s'";
+      $query .= " AND " . $key . " = '%s'";
       $params[] = $value;
-    } else {
+    }
+    else {
       $key = substr($key, 1);
-      $query .= " AND ".$key." <> '%s'";
+      $query .= " AND " . $key . " <> '%s'";
     }
   }
   $query .= " ORDER BY date_added DESC";
-  if ($count !== false) {
+  if ($count !== FALSE) {
     $query .= " LIMIT " . $count;
   }
   $result = db_query($query, $params);
@@ -336,12 +335,11 @@ function moderation_history_get($content_id, $content_type, $p, $count = false) 
 /**
  * Implementation of hook_nodeapi()
  */
-function moderation_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
-{
+function moderation_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   switch ($op) {
     case 'delete' :
       moderation_history_del($node->nid, 'node');
-    break;
+      break;
   }
 }
 
@@ -351,11 +349,10 @@ function moderation_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL)
  * @param $a1
  * @param $op
  */
-function moderation_comment(&$a1, $op)
-{
+function moderation_comment(&$a1, $op) {
   switch ($op) {
     case 'delete' :
       moderation_history_del($a1->cid, 'comment');
-    break;
+      break;
   }
 }

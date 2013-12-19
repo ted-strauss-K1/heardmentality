@@ -5,8 +5,7 @@
  * @param $form_state
  * @param $form_id
  */
-function feedback_mail_form_alter(&$form, &$form_state, $form_id)
-{
+function feedback_mail_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'feedback_form') {
     unset($form['messages']);
     array_unshift($form['#submit'], 'feedback_mail_send');
@@ -22,7 +21,7 @@ function feedback_mail_send(&$form, &$form_state) {
     global $user;
     $to = variable_get('site_mail', ini_get('sendmail_from'));
     drupal_mail('feedback_mail', 'notify', $to, 'en', array(
-      'name' => $user->name,
+      'name'    => $user->name,
       'message' => $form_state['values']['message'],
     ));
   }

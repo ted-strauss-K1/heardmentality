@@ -1,37 +1,390 @@
-
 <script type="text/javascript" src="/sorttable.js"></script>
 <table class="restable sortable" id="subdivtable1">
-<tr><th></th><th>ISO-3166-2</th><th>Fips</th><th>GN</th><th>Name of Subdivision</th><th>Type</th><th>Capital</th><th>Population</th><th>area in km&sup2;</th><th>lang</th><th>continent</th><th>From</th><th>Till</th></tr>
-<tr class="odd"><td><small>1</small></td><td><span id="isoSpan.4012">BRU</span></td><td><span id="fipsSpan.4012">11</span></td><td><font color="red">BRU</font></td><td><span id="nameSpan.4012"><a href="http://www.geonames.org/2800867/brussels.html">Brussels</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Brussels"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.4012"><a href="/servlet/geonames?srv=573&typeId=22">Bruxelles-Capitale</a></span></td><td><span id="capitalSpan.4012"><a href="http://www.geonames.org/2800866/brussels.html">Brussels</a></span></td><td class="rightalign"><span id="populationSpan.4012"></span></td><td class="rightalign"><span id="areaSpan.4012"></span></td><td><span id="langSpan.4012">fr,nl</span></td><td><span id="continentSpan.4012">EU</span></td><td><span id="fromSpan.4012"></span></td><td><span id="tillSpan.4012"></span></td></tr>
-<tr><td><small>2</small></td><td><span id="isoSpan.4011">VLG</span></td><td><span id="fipsSpan.4011">13</span></td><td><font color="red">VLG</font></td><td><span id="nameSpan.4011"><a href="http://www.geonames.org/3337388/flanders.html">Flanders</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Flemish_Region"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.4011"><a href="/servlet/geonames?srv=573&typeId=23">region</a></span></td><td><span id="capitalSpan.4011"></span></td><td class="rightalign"><span id="populationSpan.4011"></span></td><td class="rightalign"><span id="areaSpan.4011"></span></td><td><span id="langSpan.4011">nl</span></td><td><span id="continentSpan.4011">EU</span></td><td><span id="fromSpan.4011"></span></td><td><span id="tillSpan.4011"></span></td></tr>
-<tr class="odd"><td><small>3</small></td><td><span id="isoSpan.4010">WAL</span></td><td><span id="fipsSpan.4010">14</span></td><td><font color="red">WAL</font></td><td><span id="nameSpan.4010"><a href="http://www.geonames.org/3337387/wallonia.html">Wallonia</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Wallonia"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.4010"><a href="/servlet/geonames?srv=573&typeId=23">region</a></span></td><td><span id="capitalSpan.4010"><a href="http://www.geonames.org/2790471/namur.html">Namur</a></span></td><td class="rightalign"><span id="populationSpan.4010"></span></td><td class="rightalign"><span id="areaSpan.4010"></span></td><td><span id="langSpan.4010">fr,de</span></td><td><span id="continentSpan.4010">EU</span></td><td><span id="fromSpan.4010"></span></td><td><span id="tillSpan.4010"></span></td></tr>
-</table>
-<br/><br/>
+  <tr>
+    <th></th>
+    <th>ISO-3166-2</th>
+    <th>Fips</th>
+    <th>GN</th>
+    <th>Name of Subdivision</th>
+    <th>Type</th>
+    <th>Capital</th>
+    <th>Population</th>
+    <th>area in km&sup2;</th>
+    <th>lang</th>
+    <th>continent</th>
+    <th>From</th>
+    <th>Till</th>
+  </tr>
+  <tr class="odd">
+    <td>
+      <small>1</small>
+    </td>
+    <td><span id="isoSpan.4012">BRU</span></td>
+    <td><span id="fipsSpan.4012">11</span></td>
+    <td><font color="red">BRU</font></td>
+    <td><span id="nameSpan.4012"><a href="http://www.geonames.org/2800867/brussels.html">Brussels</a>&nbsp;&nbsp;<a
+      href="http://en.wikipedia.org/wiki/Brussels"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                        alt="wikipedia article"></a></span></td>
+    <td><span id="type.4012"><a href="/servlet/geonames?srv=573&typeId=22">Bruxelles-Capitale</a></span></td>
+    <td><span id="capitalSpan.4012"><a href="http://www.geonames.org/2800866/brussels.html">Brussels</a></span></td>
+    <td class="rightalign"><span id="populationSpan.4012"></span></td>
+    <td class="rightalign"><span id="areaSpan.4012"></span></td>
+    <td><span id="langSpan.4012">fr,nl</span></td>
+    <td><span id="continentSpan.4012">EU</span></td>
+    <td><span id="fromSpan.4012"></span></td>
+    <td><span id="tillSpan.4012"></span></td>
+  </tr>
+  <tr>
+    <td>
+      <small>2</small>
+    </td>
+    <td><span id="isoSpan.4011">VLG</span></td>
+    <td><span id="fipsSpan.4011">13</span></td>
+    <td><font color="red">VLG</font></td>
+    <td><span id="nameSpan.4011"><a href="http://www.geonames.org/3337388/flanders.html">Flanders</a>&nbsp;&nbsp;<a
+      href="http://en.wikipedia.org/wiki/Flemish_Region"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                              alt="wikipedia article"></a></span></td>
+    <td><span id="type.4011"><a href="/servlet/geonames?srv=573&typeId=23">region</a></span></td>
+    <td><span id="capitalSpan.4011"></span></td>
+    <td class="rightalign"><span id="populationSpan.4011"></span></td>
+    <td class="rightalign"><span id="areaSpan.4011"></span></td>
+    <td><span id="langSpan.4011">nl</span></td>
+    <td><span id="continentSpan.4011">EU</span></td>
+    <td><span id="fromSpan.4011"></span></td>
+    <td><span id="tillSpan.4011"></span></td>
+  </tr>
+  <tr class="odd">
+    <td>
+      <small>3</small>
+    </td>
+    <td><span id="isoSpan.4010">WAL</span></td>
+    <td><span id="fipsSpan.4010">14</span></td>
+    <td><font color="red">WAL</font></td>
+    <td><span id="nameSpan.4010"><a href="http://www.geonames.org/3337387/wallonia.html">Wallonia</a>&nbsp;&nbsp;<a
+      href="http://en.wikipedia.org/wiki/Wallonia"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                        alt="wikipedia article"></a></span></td>
+    <td><span id="type.4010"><a href="/servlet/geonames?srv=573&typeId=23">region</a></span></td>
+    <td><span id="capitalSpan.4010"><a href="http://www.geonames.org/2790471/namur.html">Namur</a></span></td>
+    <td class="rightalign"><span id="populationSpan.4010"></span></td>
+    <td class="rightalign"><span id="areaSpan.4010"></span></td>
+    <td><span id="langSpan.4010">fr,de</span></td>
+    <td><span id="continentSpan.4010">EU</span></td>
+    <td><span id="fromSpan.4010"></span></td>
+    <td><span id="tillSpan.4010"></span></td>
+  </tr>
+</table><br/><br/>
 <script type="text/javascript" src="/sorttable.js"></script>
 <table class="restable sortable" id="subdivtable2">
-<tr><th></th><th>ISO-3166-2</th><th>ISO Region</th><th>Fips</th><th>GN</th><th>Name of Subdivision</th><th>Type</th><th>Capital</th><th>Population</th><th>area in km&sup2;</th><th>lang</th><th>continent</th><th>From</th><th>Till</th></tr>
-<tr class="odd"><td><small>1</small></td><td><span id="isoSpan.3486">BRU</span></td><td></td><td><span id="fipsSpan.3486"></span></td><td></td><td><span id="nameSpan.3486">Brussels</span></td><td><span id="type.3486"></span></td><td><span id="capitalSpan.3486"><a href="http://www.geonames.org/2800866/brussels.html">Brussels</a></span></td><td class="rightalign"><span id="populationSpan.3486"></span></td><td class="rightalign"><span id="areaSpan.3486"></span></td><td><span id="langSpan.3486"></span></td><td><span id="continentSpan.3486">EU</span></td><td><span id="fromSpan.3486"></span></td><td><span id="tillSpan.3486"></span></td></tr>
-<tr><td><small>2</small></td><td><span id="isoSpan.1825">VAN</span></td><td>VLG</td><td><span id="fipsSpan.1825">01</span></td><td><font color="red">VAN</font></td><td><span id="nameSpan.1825"><a href="http://www.geonames.org/2803136/antwerpen.html">Antwerpen</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Antwerp_%28province%29"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1825"></span></td><td><span id="capitalSpan.1825"><a href="http://www.geonames.org/2803138/antwerp.html">Antwerp</a></span></td><td class="rightalign"><span id="populationSpan.1825"></span></td><td class="rightalign"><span id="areaSpan.1825">2,858.2</span></td><td><span id="langSpan.1825"></span></td><td><span id="continentSpan.1825">EU</span></td><td><span id="fromSpan.1825"></span></td><td><span id="tillSpan.1825"></span></td></tr>
-<tr class="odd"><td><small>3</small></td><td><span id="isoSpan.1800">VBR</span></td><td>VLG</td><td><span id="fipsSpan.1800">12</span></td><td><font color="red">VBR</font></td><td><span id="nameSpan.1800"><a href="http://www.geonames.org/3333250/vlaams-brabant.html">Vlaams Brabant</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Flemish_Brabant"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1800"></span></td><td><span id="capitalSpan.1800"><a href="http://www.geonames.org/2792482/leuven.html">Leuven</a></span></td><td class="rightalign"><span id="populationSpan.1800">1,037,335</span></td><td class="rightalign"><span id="areaSpan.1800"></span></td><td><span id="langSpan.1800"></span></td><td><span id="continentSpan.1800">EU</span></td><td><span id="fromSpan.1800"></span></td><td><span id="tillSpan.1800"></span></td></tr>
-<tr><td><small>4</small></td><td><span id="isoSpan.1776">VLI</span></td><td>VLG</td><td><span id="fipsSpan.1776">05</span></td><td><font color="red">VLI</font></td><td><span id="nameSpan.1776"><a href="http://www.geonames.org/2792347/limburg.html">Limburg</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Limburg_%28Belgium%29"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1776"></span></td><td><span id="capitalSpan.1776"><a href="http://www.geonames.org/2796491/hasselt.html">Hasselt</a></span></td><td class="rightalign"><span id="populationSpan.1776"></span></td><td class="rightalign"><span id="areaSpan.1776">2,429.9</span></td><td><span id="langSpan.1776"></span></td><td><span id="continentSpan.1776">EU</span></td><td><span id="fromSpan.1776"></span></td><td><span id="tillSpan.1776"></span></td></tr>
-<tr class="odd"><td><small>5</small></td><td><span id="isoSpan.1816">VOV</span></td><td>VLG</td><td><span id="fipsSpan.1816">08</span></td><td><font color="red">VOV</font></td><td><span id="nameSpan.1816"><a href="http://www.geonames.org/2789733/oost-vlaanderen.html">Oost-Vlaanderen</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/East_Flanders"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1816"></span></td><td><span id="capitalSpan.1816"><a href="http://www.geonames.org/2797656/gent.html">Gent</a></span></td><td class="rightalign"><span id="populationSpan.1816">1,376,407</span></td><td class="rightalign"><span id="areaSpan.1816">2,987.1</span></td><td><span id="langSpan.1816"></span></td><td><span id="continentSpan.1816">EU</span></td><td><span id="fromSpan.1816"></span></td><td><span id="tillSpan.1816"></span></td></tr>
-<tr><td><small>6</small></td><td><span id="isoSpan.1818">VWV</span></td><td>VLG</td><td><span id="fipsSpan.1818">09</span></td><td><font color="red">VWV</font></td><td><span id="nameSpan.1818"><a href="http://www.geonames.org/2783770/west-vlaanderen.html">West-Vlaanderen</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/West_Flanders"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1818"></span></td><td><span id="capitalSpan.1818"><a href="http://www.geonames.org/2800931/brugge.html">Brugge</a></span></td><td class="rightalign"><span id="populationSpan.1818">1,136,692</span></td><td class="rightalign"><span id="areaSpan.1818">3,169.1</span></td><td><span id="langSpan.1818"></span></td><td><span id="continentSpan.1818">EU</span></td><td><span id="fromSpan.1818"></span></td><td><span id="tillSpan.1818"></span></td></tr>
-<tr class="odd"><td><small>7</small></td><td><span id="isoSpan.2002">WBR</span></td><td>WAL</td><td><span id="fipsSpan.2002">10</span></td><td><font color="red">WBR</font></td><td><span id="nameSpan.2002"><a href="http://www.geonames.org/3333251/brabant-wallon.html">Brabant Wallon</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Walloon_Brabant"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.2002"></span></td><td><span id="capitalSpan.2002"><a href="http://www.geonames.org/2783941/wavre.html">Wavre</a></span></td><td class="rightalign"><span id="populationSpan.2002">363,442</span></td><td class="rightalign"><span id="areaSpan.2002"></span></td><td><span id="langSpan.2002"></span></td><td><span id="continentSpan.2002">EU</span></td><td><span id="fromSpan.2002"></span></td><td><span id="tillSpan.2002"></span></td></tr>
-<tr><td><small>8</small></td><td><span id="isoSpan.1796">WHT</span></td><td>WAL</td><td><span id="fipsSpan.1796">03</span></td><td><font color="red">WHT</font></td><td><span id="nameSpan.1796"><a href="http://www.geonames.org/2796741/hainaut.html">Hainaut</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Hainaut_%28province%29"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1796"></span></td><td><span id="capitalSpan.1796"><a href="http://www.geonames.org/2790869/mons.html">Mons</a></span></td><td class="rightalign"><span id="populationSpan.1796"></span></td><td class="rightalign"><span id="areaSpan.1796">3,829.9</span></td><td><span id="langSpan.1796"></span></td><td><span id="continentSpan.1796">EU</span></td><td><span id="fromSpan.1796"></span></td><td><span id="tillSpan.1796"></span></td></tr>
-<tr class="odd"><td><small>9</small></td><td><span id="isoSpan.1363">WLG</span></td><td>WAL</td><td><span id="fipsSpan.1363">04</span></td><td><font color="red">WLG</font></td><td><span id="nameSpan.1363"><a href="http://www.geonames.org/2792411/liege.html">Liege</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Li%C3%A8ge_%28province%29"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1363"></span></td><td><span id="capitalSpan.1363"><a href="http://www.geonames.org/2792413/liege.html">Liège</a></span></td><td class="rightalign"><span id="populationSpan.1363"></span></td><td class="rightalign"><span id="areaSpan.1363">3,797.7</span></td><td><span id="langSpan.1363"></span></td><td><span id="continentSpan.1363">EU</span></td><td><span id="fromSpan.1363"></span></td><td><span id="tillSpan.1363"></span></td></tr>
-<tr><td><small>10</small></td><td><span id="isoSpan.1779">WLX</span></td><td>WAL</td><td><span id="fipsSpan.1779">06</span></td><td><font color="red">WLX</font></td><td><span id="nameSpan.1779"><a href="http://www.geonames.org/2791993/luxembourg.html">Luxembourg</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Luxembourg_%28Belgium%29"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1779"></span></td><td><span id="capitalSpan.1779"><a href="http://www.geonames.org/2803073/arlon.html">Arlon</a></span></td><td class="rightalign"><span id="populationSpan.1779">255,945</span></td><td class="rightalign"><span id="areaSpan.1779">4,416.6</span></td><td><span id="langSpan.1779"></span></td><td><span id="continentSpan.1779">EU</span></td><td><span id="fromSpan.1779"></span></td><td><span id="tillSpan.1779"></span></td></tr>
-<tr class="odd"><td><small>11</small></td><td><span id="isoSpan.1797">WNA</span></td><td>WAL</td><td><span id="fipsSpan.1797">07</span></td><td><font color="red">WNA</font></td><td><span id="nameSpan.1797"><a href="http://www.geonames.org/2790469/namur.html">Namur</a>&nbsp;&nbsp;<a href="http://en.wikipedia.org/wiki/Namur_%28province%29"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0" alt="wikipedia article"></a></span></td><td><span id="type.1797"></span></td><td><span id="capitalSpan.1797"><a href="http://www.geonames.org/2790471/namur.html">Namur</a></span></td><td class="rightalign"><span id="populationSpan.1797"></span></td><td class="rightalign"><span id="areaSpan.1797">3,647.4</span></td><td><span id="langSpan.1797"></span></td><td><span id="continentSpan.1797">EU</span></td><td><span id="fromSpan.1797"></span></td><td><span id="tillSpan.1797"></span></td></tr>
-</table>
-<br/>
-<br/>
-<h3>FIPS (Federal Information Processing Standard) Updates</h3>
+<tr>
+  <th></th>
+  <th>ISO-3166-2</th>
+  <th>ISO Region</th>
+  <th>Fips</th>
+  <th>GN</th>
+  <th>Name of Subdivision</th>
+  <th>Type</th>
+  <th>Capital</th>
+  <th>Population</th>
+  <th>area in km&sup2;</th>
+  <th>lang</th>
+  <th>continent</th>
+  <th>From</th>
+  <th>Till</th>
+</tr>
+<tr class="odd">
+  <td>
+    <small>1</small>
+  </td>
+  <td><span id="isoSpan.3486">BRU</span></td>
+  <td></td>
+  <td><span id="fipsSpan.3486"></span></td>
+  <td></td>
+  <td><span id="nameSpan.3486">Brussels</span></td>
+  <td><span id="type.3486"></span></td>
+  <td><span id="capitalSpan.3486"><a href="http://www.geonames.org/2800866/brussels.html">Brussels</a></span></td>
+  <td class="rightalign"><span id="populationSpan.3486"></span></td>
+  <td class="rightalign"><span id="areaSpan.3486"></span></td>
+  <td><span id="langSpan.3486"></span></td>
+  <td><span id="continentSpan.3486">EU</span></td>
+  <td><span id="fromSpan.3486"></span></td>
+  <td><span id="tillSpan.3486"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>2</small>
+  </td>
+  <td><span id="isoSpan.1825">VAN</span></td>
+  <td>VLG</td>
+  <td><span id="fipsSpan.1825">01</span></td>
+  <td><font color="red">VAN</font></td>
+  <td><span id="nameSpan.1825"><a href="http://www.geonames.org/2803136/antwerpen.html">Antwerpen</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Antwerp_%28province%29"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                    border="0" alt="wikipedia article"></a></span>
+  </td>
+  <td><span id="type.1825"></span></td>
+  <td><span id="capitalSpan.1825"><a href="http://www.geonames.org/2803138/antwerp.html">Antwerp</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1825"></span></td>
+  <td class="rightalign"><span id="areaSpan.1825">2,858.2</span></td>
+  <td><span id="langSpan.1825"></span></td>
+  <td><span id="continentSpan.1825">EU</span></td>
+  <td><span id="fromSpan.1825"></span></td>
+  <td><span id="tillSpan.1825"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>3</small>
+  </td>
+  <td><span id="isoSpan.1800">VBR</span></td>
+  <td>VLG</td>
+  <td><span id="fipsSpan.1800">12</span></td>
+  <td><font color="red">VBR</font></td>
+  <td><span id="nameSpan.1800"><a href="http://www.geonames.org/3333250/vlaams-brabant.html">Vlaams Brabant</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Flemish_Brabant"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                             alt="wikipedia article"></a></span></td>
+  <td><span id="type.1800"></span></td>
+  <td><span id="capitalSpan.1800"><a href="http://www.geonames.org/2792482/leuven.html">Leuven</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1800">1,037,335</span></td>
+  <td class="rightalign"><span id="areaSpan.1800"></span></td>
+  <td><span id="langSpan.1800"></span></td>
+  <td><span id="continentSpan.1800">EU</span></td>
+  <td><span id="fromSpan.1800"></span></td>
+  <td><span id="tillSpan.1800"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>4</small>
+  </td>
+  <td><span id="isoSpan.1776">VLI</span></td>
+  <td>VLG</td>
+  <td><span id="fipsSpan.1776">05</span></td>
+  <td><font color="red">VLI</font></td>
+  <td><span id="nameSpan.1776"><a href="http://www.geonames.org/2792347/limburg.html">Limburg</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Limburg_%28Belgium%29"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                   border="0" alt="wikipedia article"></a></span></td>
+  <td><span id="type.1776"></span></td>
+  <td><span id="capitalSpan.1776"><a href="http://www.geonames.org/2796491/hasselt.html">Hasselt</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1776"></span></td>
+  <td class="rightalign"><span id="areaSpan.1776">2,429.9</span></td>
+  <td><span id="langSpan.1776"></span></td>
+  <td><span id="continentSpan.1776">EU</span></td>
+  <td><span id="fromSpan.1776"></span></td>
+  <td><span id="tillSpan.1776"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>5</small>
+  </td>
+  <td><span id="isoSpan.1816">VOV</span></td>
+  <td>VLG</td>
+  <td><span id="fipsSpan.1816">08</span></td>
+  <td><font color="red">VOV</font></td>
+  <td><span id="nameSpan.1816"><a href="http://www.geonames.org/2789733/oost-vlaanderen.html">Oost-Vlaanderen</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/East_Flanders"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                           alt="wikipedia article"></a></span></td>
+  <td><span id="type.1816"></span></td>
+  <td><span id="capitalSpan.1816"><a href="http://www.geonames.org/2797656/gent.html">Gent</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1816">1,376,407</span></td>
+  <td class="rightalign"><span id="areaSpan.1816">2,987.1</span></td>
+  <td><span id="langSpan.1816"></span></td>
+  <td><span id="continentSpan.1816">EU</span></td>
+  <td><span id="fromSpan.1816"></span></td>
+  <td><span id="tillSpan.1816"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>6</small>
+  </td>
+  <td><span id="isoSpan.1818">VWV</span></td>
+  <td>VLG</td>
+  <td><span id="fipsSpan.1818">09</span></td>
+  <td><font color="red">VWV</font></td>
+  <td><span id="nameSpan.1818"><a href="http://www.geonames.org/2783770/west-vlaanderen.html">West-Vlaanderen</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/West_Flanders"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                           alt="wikipedia article"></a></span></td>
+  <td><span id="type.1818"></span></td>
+  <td><span id="capitalSpan.1818"><a href="http://www.geonames.org/2800931/brugge.html">Brugge</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1818">1,136,692</span></td>
+  <td class="rightalign"><span id="areaSpan.1818">3,169.1</span></td>
+  <td><span id="langSpan.1818"></span></td>
+  <td><span id="continentSpan.1818">EU</span></td>
+  <td><span id="fromSpan.1818"></span></td>
+  <td><span id="tillSpan.1818"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>7</small>
+  </td>
+  <td><span id="isoSpan.2002">WBR</span></td>
+  <td>WAL</td>
+  <td><span id="fipsSpan.2002">10</span></td>
+  <td><font color="red">WBR</font></td>
+  <td><span id="nameSpan.2002"><a href="http://www.geonames.org/3333251/brabant-wallon.html">Brabant Wallon</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Walloon_Brabant"><img src="/img/20px-Wikipedia-logo.png" width="15" border="0"
+                                                             alt="wikipedia article"></a></span></td>
+  <td><span id="type.2002"></span></td>
+  <td><span id="capitalSpan.2002"><a href="http://www.geonames.org/2783941/wavre.html">Wavre</a></span></td>
+  <td class="rightalign"><span id="populationSpan.2002">363,442</span></td>
+  <td class="rightalign"><span id="areaSpan.2002"></span></td>
+  <td><span id="langSpan.2002"></span></td>
+  <td><span id="continentSpan.2002">EU</span></td>
+  <td><span id="fromSpan.2002"></span></td>
+  <td><span id="tillSpan.2002"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>8</small>
+  </td>
+  <td><span id="isoSpan.1796">WHT</span></td>
+  <td>WAL</td>
+  <td><span id="fipsSpan.1796">03</span></td>
+  <td><font color="red">WHT</font></td>
+  <td><span id="nameSpan.1796"><a href="http://www.geonames.org/2796741/hainaut.html">Hainaut</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Hainaut_%28province%29"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                    border="0" alt="wikipedia article"></a></span>
+  </td>
+  <td><span id="type.1796"></span></td>
+  <td><span id="capitalSpan.1796"><a href="http://www.geonames.org/2790869/mons.html">Mons</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1796"></span></td>
+  <td class="rightalign"><span id="areaSpan.1796">3,829.9</span></td>
+  <td><span id="langSpan.1796"></span></td>
+  <td><span id="continentSpan.1796">EU</span></td>
+  <td><span id="fromSpan.1796"></span></td>
+  <td><span id="tillSpan.1796"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>9</small>
+  </td>
+  <td><span id="isoSpan.1363">WLG</span></td>
+  <td>WAL</td>
+  <td><span id="fipsSpan.1363">04</span></td>
+  <td><font color="red">WLG</font></td>
+  <td><span id="nameSpan.1363"><a href="http://www.geonames.org/2792411/liege.html">Liege</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Li%C3%A8ge_%28province%29"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                       border="0" alt="wikipedia article"></a></span>
+  </td>
+  <td><span id="type.1363"></span></td>
+  <td><span id="capitalSpan.1363"><a href="http://www.geonames.org/2792413/liege.html">Liège</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1363"></span></td>
+  <td class="rightalign"><span id="areaSpan.1363">3,797.7</span></td>
+  <td><span id="langSpan.1363"></span></td>
+  <td><span id="continentSpan.1363">EU</span></td>
+  <td><span id="fromSpan.1363"></span></td>
+  <td><span id="tillSpan.1363"></span></td>
+</tr>
+<tr>
+  <td>
+    <small>10</small>
+  </td>
+  <td><span id="isoSpan.1779">WLX</span></td>
+  <td>WAL</td>
+  <td><span id="fipsSpan.1779">06</span></td>
+  <td><font color="red">WLX</font></td>
+  <td><span id="nameSpan.1779"><a href="http://www.geonames.org/2791993/luxembourg.html">Luxembourg</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Luxembourg_%28Belgium%29"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                      border="0" alt="wikipedia article"></a></span>
+  </td>
+  <td><span id="type.1779"></span></td>
+  <td><span id="capitalSpan.1779"><a href="http://www.geonames.org/2803073/arlon.html">Arlon</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1779">255,945</span></td>
+  <td class="rightalign"><span id="areaSpan.1779">4,416.6</span></td>
+  <td><span id="langSpan.1779"></span></td>
+  <td><span id="continentSpan.1779">EU</span></td>
+  <td><span id="fromSpan.1779"></span></td>
+  <td><span id="tillSpan.1779"></span></td>
+</tr>
+<tr class="odd">
+  <td>
+    <small>11</small>
+  </td>
+  <td><span id="isoSpan.1797">WNA</span></td>
+  <td>WAL</td>
+  <td><span id="fipsSpan.1797">07</span></td>
+  <td><font color="red">WNA</font></td>
+  <td><span id="nameSpan.1797"><a href="http://www.geonames.org/2790469/namur.html">Namur</a>&nbsp;&nbsp;<a
+    href="http://en.wikipedia.org/wiki/Namur_%28province%29"><img src="/img/20px-Wikipedia-logo.png" width="15"
+                                                                  border="0" alt="wikipedia article"></a></span></td>
+  <td><span id="type.1797"></span></td>
+  <td><span id="capitalSpan.1797"><a href="http://www.geonames.org/2790471/namur.html">Namur</a></span></td>
+  <td class="rightalign"><span id="populationSpan.1797"></span></td>
+  <td class="rightalign"><span id="areaSpan.1797">3,647.4</span></td>
+  <td><span id="langSpan.1797"></span></td>
+  <td><span id="continentSpan.1797">EU</span></td>
+  <td><span id="fromSpan.1797"></span></td>
+  <td><span id="tillSpan.1797"></span></td>
+</tr>
+</table><br/><br/><h3>FIPS (Federal Information Processing Standard) Updates</h3>
 <table class="restable sortable" id="fipschangetable">
-<tr><th>Date</th><th>modification</th><th>fips</th><th>name</th><th>new country</th><th>new fips</th><th>new name</th></tr>
-<tr class="odd"><td>2002.01.10</td><td>delete</td><td>02</td><td>Brabant</td><td>  </td><td></td><td></td></tr>
-<tr><td>2002.01.10</td><td>add</td><td>10</td><td>Brabant Wallon</td><td>  </td><td></td><td></td></tr>
-<tr class="odd"><td>2002.01.10</td><td>add</td><td>11</td><td>Brussels Hoofdstedelijk Gewest [Dutch];</td><td>  </td><td></td><td></td></tr>
-<tr><td>2002.01.10</td><td>add</td><td>11</td><td>Région de Bruxelles-Capitale [French]</td><td>  </td><td></td><td></td></tr>
-<tr class="odd"><td>2002.01.10</td><td>add</td><td>12</td><td>Vlaams-Brabant</td><td>  </td><td></td><td></td></tr>
-<tr><td>2011.08.31</td><td>add</td><td>11</td><td>Brussels-Capital Region [conventional] / Brussels Hoofdstedelijk [Dutch] /</td><td></td><td></td><td></td></tr>
-<tr class="odd"><td>2011.11.30</td><td>change</td><td>11</td><td>Brussels-Capital Region [conventional] /</td><td></td><td></td><td></td></tr>
+  <tr>
+    <th>Date</th>
+    <th>modification</th>
+    <th>fips</th>
+    <th>name</th>
+    <th>new country</th>
+    <th>new fips</th>
+    <th>new name</th>
+  </tr>
+  <tr class="odd">
+    <td>2002.01.10</td>
+    <td>delete</td>
+    <td>02</td>
+    <td>Brabant</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>2002.01.10</td>
+    <td>add</td>
+    <td>10</td>
+    <td>Brabant Wallon</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="odd">
+    <td>2002.01.10</td>
+    <td>add</td>
+    <td>11</td>
+    <td>Brussels Hoofdstedelijk Gewest [Dutch];</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>2002.01.10</td>
+    <td>add</td>
+    <td>11</td>
+    <td>Région de Bruxelles-Capitale [French]</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="odd">
+    <td>2002.01.10</td>
+    <td>add</td>
+    <td>12</td>
+    <td>Vlaams-Brabant</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>2011.08.31</td>
+    <td>add</td>
+    <td>11</td>
+    <td>Brussels-Capital Region [conventional] / Brussels Hoofdstedelijk [Dutch] /</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="odd">
+    <td>2011.11.30</td>
+    <td>change</td>
+    <td>11</td>
+    <td>Brussels-Capital Region [conventional] /</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
 </table>

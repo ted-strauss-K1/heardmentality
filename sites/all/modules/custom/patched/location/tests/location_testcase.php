@@ -15,7 +15,10 @@ class LocationTestCase extends DrupalWebTestCase {
       $lower = $test - $epsilon;
       $upper = $test + $epsilon;
       if ($result[$k] < $lower || $result[$k] > $upper) {
-        $this->_assert('fail', $message ? $message : t('Value deviates by @amt, which is more than @maxdev.', array('@amt' => abs($test - $result[$k]), '@maxdev' => $epsilon)), $group);
+        $this->_assert('fail', $message ? $message : t('Value deviates by @amt, which is more than @maxdev.', array(
+          '@amt'    => abs($test - $result[$k]),
+          '@maxdev' => $epsilon
+        )), $group);
       }
       else {
         $this->_assert('pass', $message ? $message : t('Value within expected margin.'), $group);
@@ -73,14 +76,14 @@ class LocationTestCase extends DrupalWebTestCase {
     $defaults = $this->getLocationFieldDefaults();
 
     $settings = array(
-      'name' => $name,
-      'type' => $name,
+      'name'              => $name,
+      'type'              => $name,
       'location_settings' => array(
         'multiple' => array(
           'max' => 1,
           'add' => 1,
         ),
-        'form' => array(
+        'form'     => array(
           'fields' => $defaults,
         ),
       ),
@@ -93,7 +96,7 @@ class LocationTestCase extends DrupalWebTestCase {
     $settings = array_merge($settings, $add);
     $this->drupalPost('admin/content/types/add', $settings, 'Save content type');
     $this->refreshVariables();
-    $settings = variable_get('location_settings_node_'. $name, array());
+    $settings = variable_get('location_settings_node_' . $name, array());
     return $name;
   }
 
@@ -144,13 +147,14 @@ class LocationTestCase extends DrupalWebTestCase {
    * @param values
    *   An associative array of values to change from the defaults, keys are
    *   node properties, for example 'body' => 'Hello, world!'.
+   *
    * @return object Created node object.
    */
   function drupalCreateNodeViaForm($values = array()) {
     $defaults = array(
-      'type' => 'page',
+      'type'  => 'page',
       'title' => $this->randomName(8),
-     );
+    );
 
     $edit = ($values + $defaults);
 
@@ -164,10 +168,13 @@ class LocationTestCase extends DrupalWebTestCase {
     $type = $edit['type'];
     unset($edit['type']); // Only used in URL.
     $this->flattenPostData($edit); // Added by me.
-    $this->drupalPost('node/add/'. str_replace('_', '-', $type), $edit, t('Save'));
+    $this->drupalPost('node/add/' . str_replace('_', '-', $type), $edit, t('Save'));
 
     $node = node_load(array('title' => $edit['title']));
-    $this->assertRaw(t('@type %title has been created.', array('@type' => node_get_types('name', $node), '%title' => $edit['title'])), t('Node created successfully.'));
+    $this->assertRaw(t('@type %title has been created.', array(
+      '@type'  => node_get_types('name', $node),
+      '%title' => $edit['title']
+    )), t('Node created successfully.'));
 
     return $node;
   }

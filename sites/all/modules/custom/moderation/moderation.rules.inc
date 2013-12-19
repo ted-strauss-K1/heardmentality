@@ -7,23 +7,22 @@
  *
  * @return array
  */
-function moderation_rules_event_info()
-{
+function moderation_rules_event_info() {
   return array(
     'moderation_taxonomy' => array(
-      'label' => t('Moderator updated the categories'),
-      'module' => 'Moderation',
+      'label'     => t('Moderator updated the categories'),
+      'module'    => 'Moderation',
       'arguments' => array(
         'user' => array(
-          'type' => 'user',
+          'type'  => 'user',
           'label' => t('Acting User')
         ),
         'node' => array(
-          'type' => 'node',
+          'type'  => 'node',
           'label' => t('Issue')
         ),
         'tids' => array(
-          'type' => 'string',
+          'type'  => 'string',
           'label' => t('Taxonomy ids')
         ),
       ),

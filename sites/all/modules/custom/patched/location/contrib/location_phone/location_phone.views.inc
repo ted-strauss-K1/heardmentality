@@ -20,27 +20,27 @@ function location_phone_views_data() {
   // Join location_phone to all the tables that would be useful
   $data['location_phone']['table']['join'] = array(
     // location_phone links to location via lid.
-    'location' => array(
+    'location'       => array(
       'left_field' => 'lid',
-      'field' => 'lid',
+      'field'      => 'lid',
     ),
     // location_phone links to node through location_instance via lid.
-    'node' => array(
+    'node'           => array(
       'left_table' => 'location_instance',
       'left_field' => 'lid',
-      'field' => 'lid',
+      'field'      => 'lid',
     ),
     // location_phone links to node_revisions through location_instance via lid.
     'node_revisions' => array(
       'left_table' => 'location_instance',
       'left_field' => 'lid',
-      'field' => 'lid',
+      'field'      => 'lid',
     ),
     // location_phone links to users through location_instance via lid.
-    'users' => array(
+    'users'          => array(
       'left_table' => 'location_instance',
       'left_field' => 'lid',
-      'field' => 'lid',
+      'field'      => 'lid',
     ),
   );
 
@@ -48,17 +48,17 @@ function location_phone_views_data() {
   // location_phone table -- fields
 
   $data['location_phone']['phone'] = array(
-    'title' => t('Phone'),
-    'help' => t('The phone number of the selected location.'),
-    'field' => array(
+    'title'    => t('Phone'),
+    'help'     => t('The phone number of the selected location.'),
+    'field'    => array(
       'click sortable' => TRUE,
     ),
     'argument' => array(
-      'handler' => 'views_handler_argument_string',
+      'handler'          => 'views_handler_argument_string',
       'empty field name' => t('None'),
     ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
+    'filter'   => array(
+      'handler'     => 'views_handler_filter_string',
       'allow empty' => TRUE,
     ),
   );

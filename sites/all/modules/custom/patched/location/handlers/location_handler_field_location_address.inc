@@ -16,9 +16,9 @@ class location_handler_field_location_address extends views_handler_field {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
     $form['hide'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('Hide fields from display'),
-      '#options' => location_field_names(TRUE),
+      '#type'          => 'checkboxes',
+      '#title'         => t('Hide fields from display'),
+      '#options'       => location_field_names(TRUE),
       '#default_value' => $this->options['hide'],
     );
   }

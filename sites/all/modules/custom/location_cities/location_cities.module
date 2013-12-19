@@ -6,10 +6,10 @@
  * Canonicalize a state/province code.
  *
  * @param $province
+ *
  * @return bool
  */
-function location_standardize_province_code(&$province)
-{
+function location_standardize_province_code(&$province) {
   $province = trim($province);
   $province = strtoupper($province);
 
@@ -22,11 +22,10 @@ function location_standardize_province_code(&$province)
  * todo
  *
  * @param &$location A location object.
- * @param $op A string containing the name of the locationapi operation.
- * @param $a3, $a4, $a5 Arguments to pass on to the hook.
+ * @param $op        A string containing the name of the locationapi operation.
+ * @param $a3        , $a4, $a5 Arguments to pass on to the hook.
  */
-function location_cities_locationapi(&$location, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL)
-{
+function location_cities_locationapi(&$location, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
   switch ($op) {
     case 'load' :
       //
@@ -45,10 +44,10 @@ function location_cities_locationapi(&$location, $op, $a3 = NULL, $a4 = NULL, $a
  *
  * @param $country
  * @param $code
+ *
  * @return array
  */
-function location_get_cities($ccode, $pcode)
-{
+function location_get_cities($ccode, $pcode) {
   static $cities = array();
   location_standardize_country_code($ccode);
   location_standardize_province_code($pcode);
@@ -84,8 +83,7 @@ function location_get_cities($ccode, $pcode)
  * @return
  *   TRUE if the file was found and loaded, FALSE otherwise.
  */
-function location_cities_load_file($code)
-{
+function location_cities_load_file($code) {
   location_standardize_country_code($code);
 
   $file = dirname(__FILE__) . '/supported/location.' . $code . '.inc';
@@ -98,6 +96,7 @@ function location_cities_load_file($code)
 
 /**
  * @param $code
+ *
  * @return string
  */
 function location_cities_function_name($code) {
@@ -122,10 +121,10 @@ function location_city_name($country_code, $province_code, $city_code) {
 
 /**
  * @param $countrycode
+ *
  * @return mixed
  */
-function _location_supported_provinces($country)
-{
+function _location_supported_provinces($country) {
   static $supported = array();
 
   location_standardize_country_code($country);
@@ -138,7 +137,8 @@ function _location_supported_provinces($country)
   // Try first to load from cache, it's much faster than the scan below.
   if ($cache = cache_get('location:supported-provinces:' . $country, 'cache_location')) {
     $supported[$country] = $cache->data;
-  } else {
+  }
+  else {
     $iso_list = location_get_provinces();
     $path = drupal_get_path('module', 'location_cities') . '/supported/location.';
     foreach ($iso_list as $cc => $name) {

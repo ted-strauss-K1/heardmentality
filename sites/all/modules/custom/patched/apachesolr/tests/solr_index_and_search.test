@@ -119,11 +119,8 @@ class DrupalSolrOnlineWebTestCase extends AbstractDrupalSolrOnlineWebTestCase {
    */
   function setUp() {
     parent::setUp();
-    parent::setUpSolr(
-      // The Solr 1.4 conf will work in both 1.4 and 3.5.
-      dirname(__FILE__) . '/../solr-conf/solr-1.4/*',
-      dirname(__FILE__) . '/conf/*'
-    );
+    parent::setUpSolr( // The Solr 1.4 conf will work in both 1.4 and 3.5.
+      dirname(__FILE__) . '/../solr-conf/solr-1.4/*', dirname(__FILE__) . '/conf/*');
   }
 }
 
@@ -131,9 +128,9 @@ class DrupalSolrOnlineWebTestCase extends AbstractDrupalSolrOnlineWebTestCase {
 class DrupalSolrMatchTestCase extends DrupalSolrOnlineWebTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'Solr Index Data and test live queries',
+      'name'        => 'Solr Index Data and test live queries',
       'description' => 'Indexes content and queries it.',
-      'group' => 'ApacheSolr',
+      'group'       => 'ApacheSolr',
     );
   }
 
@@ -170,7 +167,7 @@ class DrupalSolrMatchTestCase extends DrupalSolrOnlineWebTestCase {
   protected function buildDocument($values = array()) {
     $document = new ApacheSolrDocument();
     if (!isset($values['entity_type'])) {
-       $values['entity_type'] = 'fake.';
+      $values['entity_type'] = 'fake.';
     }
     $document->id = apachesolr_document_id($values['entity_id'], $values['entity_type']);
     foreach ($values as $key => $value) {
@@ -215,44 +212,44 @@ class DrupalSolrMatchTestCase extends DrupalSolrOnlineWebTestCase {
     */
     $queries = array(
       // Simple AND queries.
-      'ipsum' => array(1),
-      'enim' => array(4, 5, 6),
-      'xxxxx' => array(),
+      'ipsum'                                => array(1),
+      'enim'                                 => array(4, 5, 6),
+      'xxxxx'                                => array(),
       // Mixed queries.
       '"minim am veniam es" OR "dolore sit"' => array(2),
       '"minim am veniam es" OR "sit dolore"' => array(),
-      '"am minim veniam es" -eu' => array(6),
-      '"am minim veniam" -"cillum dolore"' => array(5, 6),
+      '"am minim veniam es" -eu'             => array(6),
+      '"am minim veniam" -"cillum dolore"'   => array(5, 6),
     );
     $broken = array(
-      'enim minim' => array(5, 6),
-      'enim xxxxx' => array(),
-      'dolore eu' => array(7),
-      'dolore xx' => array(),
-      'ut minim' => array(5),
-      'xx minim' => array(),
-      'enim veniam am minim ut' => array(5),
+      'enim minim'                           => array(5, 6),
+      'enim xxxxx'                           => array(),
+      'dolore eu'                            => array(7),
+      'dolore xx'                            => array(),
+      'ut minim'                             => array(5),
+      'xx minim'                             => array(),
+      'enim veniam am minim ut'              => array(5),
       // Simple OR queries.
-      'dolore OR ipsum' => array(1, 2, 7),
-      'dolore OR xxxxx' => array(2, 7),
-      'dolore OR ipsum OR enim' => array(1, 2, 4, 5, 6, 7),
-      'minim dolore OR ipsum OR enim' => array(5, 6, 7),
-      'xxxxx dolore OR ipsum' => array(),
+      'dolore OR ipsum'                      => array(1, 2, 7),
+      'dolore OR xxxxx'                      => array(2, 7),
+      'dolore OR ipsum OR enim'              => array(1, 2, 4, 5, 6, 7),
+      'minim dolore OR ipsum OR enim'        => array(5, 6, 7),
+      'xxxxx dolore OR ipsum'                => array(),
       // Negative queries.
-      'dolore -sit' => array(7),
-      'dolore -eu' => array(2),
-      'dolore -xxxxx' => array(2, 7),
-      'dolore -xx' => array(2, 7),
+      'dolore -sit'                          => array(7),
+      'dolore -eu'                           => array(2),
+      'dolore -xxxxx'                        => array(2, 7),
+      'dolore -xx'                           => array(2, 7),
       // Phrase queries.
-      '"dolore sit"' => array(2),
-      '"sit dolore"' => array(),
-      '"am minim veniam es"' => array(6, 7),
-      '"minim am veniam es"' => array(),
+      '"dolore sit"'                         => array(2),
+      '"sit dolore"'                         => array(),
+      '"am minim veniam es"'                 => array(6, 7),
+      '"minim am veniam es"'                 => array(),
       'xxxxx "minim am veniam es" OR dolore' => array(),
-      'xx "minim am veniam es" OR dolore' => array(),
+      'xx "minim am veniam es" OR dolore'    => array(),
       // Mixed queries.
-      '"am minim veniam es" OR dolore' => array(2, 6, 7),
-      '"am minim veniam" -"dolore cillum"' => array(5, 6, 7),
+      '"am minim veniam es" OR dolore'       => array(2, 6, 7),
+      '"am minim veniam" -"dolore cillum"'   => array(5, 6, 7),
     );
     foreach ($queries as $query => $results) {
       $response = $this->solr->search($query, array('qt' => 'standard'));
@@ -276,7 +273,10 @@ class DrupalSolrMatchTestCase extends DrupalSolrOnlineWebTestCase {
     // Compare $results and $found.
     sort($found);
     sort($results);
-    $this->assertEqual($found, $results, strtr("Query matching '$query' found: @found expected: @expected", array('@found' => implode(',', $found), '@expected' => implode(',', $results))));
+    $this->assertEqual($found, $results, strtr("Query matching '$query' found: @found expected: @expected", array(
+      '@found'    => implode(',', $found),
+      '@expected' => implode(',', $results)
+    )));
   }
 
   /**

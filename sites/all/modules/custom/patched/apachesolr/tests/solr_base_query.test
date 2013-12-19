@@ -5,10 +5,10 @@
  */
 class SolrBaseQueryTests extends DrupalUnitTestCase {
   public static function getInfo() {
-        return array(
-      'name' => 'SolrBaseQuery Unit tests',
+    return array(
+      'name'        => 'SolrBaseQuery Unit tests',
       'description' => 'Unit Tests for queries.',
-      'group' => 'ApacheSolr',
+      'group'       => 'ApacheSolr',
     );
   }
 
@@ -23,6 +23,7 @@ class SolrBaseQueryTests extends DrupalUnitTestCase {
   /**
    * Helper function to simulate the auto loading and other non-needed functions
    * that otherwise require a database
+   *
    * @see apachesolr_drupal_query().
    * @return SolrBaseQuery
    */
@@ -42,7 +43,10 @@ class SolrBaseQueryTests extends DrupalUnitTestCase {
   function testParseFilters() {
     $fq = array('tid:3', 'sort_label:hello', 'tid:11', 'tid:1', 'tid:12', 'label:hello');
     // Setup dummy Solr object.
-    $query = $this->_apachesolr_drupal_query("apachesolr_tests", array('q' => 'mykeys', 'fq' => $fq), 'sort_label asc', 'search/test');
+    $query = $this->_apachesolr_drupal_query("apachesolr_tests", array(
+      'q'  => 'mykeys',
+      'fq' => $fq
+    ), 'sort_label asc', 'search/test');
     // Check sortsort
     $this->assertEqual(array('solrsort' => 'sort_label asc'), $query->getSolrsortUrlQuery());
     $query->setSolrsort('sort_name', 'desc');
@@ -80,70 +84,74 @@ class SolrBaseQueryTests extends DrupalUnitTestCase {
     $subquery->addFilter('hash', 'randomhash');
     $query->addFilterSubQuery($subquery);
     $this->assertEqual(count($query->getParam('fq')), 3, count($query->getParam('fq')) . ' fq params found, expected 3 after adding subquery');
-    $this->assertEqual(array('sort_label:hello', 'label:hello', '(access__all:0 OR hash:randomhash' . ')'), $query->getParam('fq'));
+    $this->assertEqual(array(
+      'sort_label:hello',
+      'label:hello',
+      '(access__all:0 OR hash:randomhash' . ')'
+    ), $query->getParam('fq'));
   }
 
   function testAddParams() {
     $examples = array();
     $examples['{!cache=false}inStock:true'] = array(
-      '#local' => 'cache=false',
+      '#local'   => 'cache=false',
       '#exclude' => FALSE,
-      '#name' => 'inStock',
-      '#value' => 'true',
+      '#name'    => 'inStock',
+      '#value'   => 'true',
     );
     $examples['{!frange l=1 u=4 cache=false}sqrt(popularity)'] = array(
-      '#local' => 'frange l=1 u=4 cache=false',
+      '#local'   => 'frange l=1 u=4 cache=false',
       '#exclude' => FALSE,
-      '#name' => NULL,
-      '#value' => 'sqrt(popularity)',
+      '#name'    => NULL,
+      '#value'   => 'sqrt(popularity)',
     );
     $examples['{!cache=false cost=5}inStock:true'] = array(
-      '#local' => 'cache=false cost=5',
+      '#local'   => 'cache=false cost=5',
       '#exclude' => FALSE,
-      '#name' => 'inStock',
-      '#value' => 'true',
+      '#name'    => 'inStock',
+      '#value'   => 'true',
     );
     $examples['{!tag=impala}model:Impala'] = array(
-      '#local' => 'tag=impala',
+      '#local'   => 'tag=impala',
       '#exclude' => FALSE,
-      '#name' => 'model',
-      '#value' => 'Impala',
+      '#name'    => 'model',
+      '#value'   => 'Impala',
     );
     $examples['{!anything that appears to be local}'] = array(
-      '#local' => 'anything that appears to be local',
+      '#local'   => 'anything that appears to be local',
       '#exclude' => FALSE,
-      '#name' => NULL,
-      '#value' => NULL,
+      '#name'    => NULL,
+      '#value'   => NULL,
     );
     $examples['bundle:(article OR page)'] = array(
-      '#local' => NULL,
+      '#local'   => NULL,
       '#exclude' => FALSE,
-      '#name' => 'bundle',
-      '#value' => '(article OR page)',
+      '#name'    => 'bundle',
+      '#value'   => '(article OR page)',
     );
     $examples['-bundle:(article OR page)'] = array(
-      '#local' => NULL,
+      '#local'   => NULL,
       '#exclude' => TRUE,
-      '#name' => 'bundle',
-      '#value' => '(article OR page)',
+      '#name'    => 'bundle',
+      '#value'   => '(article OR page)',
     );
     $examples['-{!anything that appears to be local}'] = array(
-      '#local' => 'anything that appears to be local',
+      '#local'   => 'anything that appears to be local',
       '#exclude' => TRUE,
-      '#name' => NULL,
-      '#value' => NULL,
+      '#name'    => NULL,
+      '#value'   => NULL,
     );
     $examples['title:"double words"'] = array(
-      '#local' => NULL,
+      '#local'   => NULL,
       '#exclude' => FALSE,
-      '#name' => 'title',
-      '#value' => '"double words"',
+      '#name'    => 'title',
+      '#value'   => '"double words"',
     );
     $examples['field_date:[1970-12-31T23:59:59Z TO NOW]'] = array(
-      '#local' => NULL,
+      '#local'   => NULL,
       '#exclude' => FALSE,
-      '#name' => 'field_date',
-      '#value' => '[1970-12-31T23:59:59Z TO NOW]',
+      '#name'    => 'field_date',
+      '#value'   => '[1970-12-31T23:59:59Z TO NOW]',
     );
 
     $query = $this->_apachesolr_drupal_query("apachesolr_tests");
@@ -157,7 +165,10 @@ class SolrBaseQueryTests extends DrupalUnitTestCase {
 
       $query->addParam('fq', $fq);
       // Check if filter was added
-      $message = t('hasFilter(@name, @value) is True', array('@name' => $example['#name'], '@value' => $example['#value']));
+      $message = t('hasFilter(@name, @value) is True', array(
+        '@name'  => $example['#name'],
+        '@value' => $example['#value']
+      ));
       $this->assertTrue($query->hasFilter($example['#name'], $example['#value'], $example['#exclude']), $message);
       $filters = $query->getFilters();
       $filter = reset($filters);
@@ -173,22 +184,22 @@ class SolrBaseQueryTests extends DrupalUnitTestCase {
 
     // Check for invalid combinations
     $bad_examples['wrong name:"double words"'] = array(
-      '#local' => NULL,
+      '#local'   => NULL,
       '#exclude' => FALSE,
-      '#name' => 'wrong name',
-      '#value' => '"double words"',
+      '#name'    => 'wrong name',
+      '#value'   => '"double words"',
     );
     $bad_examples['field_date:[1970-12-31 TO NOW]'] = array(
-      '#local' => NULL,
+      '#local'   => NULL,
       '#exclude' => FALSE,
-      '#name' => 'field_date',
-      '#value' => '[1970-12-31 TO NOW]',
+      '#name'    => 'field_date',
+      '#value'   => '[1970-12-31 TO NOW]',
     );
     $bad_examples['bundle:((article OR page)]'] = array(
-      '#local' => NULL,
+      '#local'   => NULL,
       '#exclude' => FALSE,
-      '#name' => 'bundle',
-      '#value' => '((article OR page)]',
+      '#name'    => 'bundle',
+      '#value'   => '((article OR page)]',
     );
 
     foreach ($bad_examples as $fq => $example) {

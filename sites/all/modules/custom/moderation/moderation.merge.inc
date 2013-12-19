@@ -7,11 +7,11 @@ function moderation_merge_form($form_state, $merge, $base) {
   $form = array();
 
   $form['merge'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => $merge,
   );
   $form['base'] = array(
-    '#type' => 'hidden',
+    '#type'  => 'hidden',
     '#value' => $base,
   );
 
@@ -22,8 +22,8 @@ function moderation_merge_form($form_state, $merge, $base) {
   $merge_link = l(issue_translate($merge, 'title'), $merge->path);
 
   $form['warning'] = array(
-    '#type' => 'markup',
-    '#value' => t('The action cannot be undone. Merged issue will be removed.'),
+    '#type'   => 'markup',
+    '#value'  => t('The action cannot be undone. Merged issue will be removed.'),
     '#prefix' => '<div class="warning">',
     '#suffix' => '</div>',
   );
@@ -33,9 +33,8 @@ function moderation_merge_form($form_state, $merge, $base) {
 
   if (!$base_allow) {
     $form['warning2'] = array(
-      '#type' => 'markup',
-      '#value' => t('You cannot merge to issue duplicating another one.') .
-        '<span>('.$base_link.')<//span>',
+      '#type'   => 'markup',
+      '#value'  => t('You cannot merge to issue duplicating another one.') . '<span>(' . $base_link . ')<//span>',
       '#prefix' => '<div class="warning">',
       '#suffix' => '</div>',
     );
@@ -43,9 +42,8 @@ function moderation_merge_form($form_state, $merge, $base) {
 
   if (!$merge_allow) {
     $form['warning3'] = array(
-      '#type' => 'markup',
-      '#value' => t('This issue is duplicating another one already.') .
-        '<span>('.$merge_link.')</span>',
+      '#type'   => 'markup',
+      '#value'  => t('This issue is duplicating another one already.') . '<span>(' . $merge_link . ')</span>',
       '#prefix' => '<div class="warning">',
       '#suffix' => '</div>',
     );
@@ -57,59 +55,57 @@ function moderation_merge_form($form_state, $merge, $base) {
 
   $base_choices = array();
   foreach ($base->choices as $chid => $choice) {
-    $base_choices[$chid] = t('Merge into '). ' "'.$choice['chtext'].'"';
+    $base_choices[$chid] = t('Merge into ') . ' "' . $choice['chtext'] . '"';
   }
   $base_choices[0] = t('Transfer the answer');
   $base_choices[-1] = t('Remove the answer');
 
   $form['table'] = array(
-    '#type' => 'markup',
-    '#value' => '&nbsp;',
+    '#type'   => 'markup',
+    '#value'  => '&nbsp;',
     '#prefix' => '<table class="merge-issue"><th><tr>
-      <td class="merge-main">'.t('Merged Issue').'<br>'.$merge_link.'</td>
-      <td class="merge-center">' .
-        l(t('Swap Issues'), 'moderation/merge/'.$base->nid.'/'.$merge->nid) .
-      '</td>
-      <td class="merge-main">'.t('Base Issue').'<br>'.$base_link.'</td>
+      <td class="merge-main">' . t('Merged Issue') . '<br>' . $merge_link . '</td>
+      <td class="merge-center">' . l(t('Swap Issues'), 'moderation/merge/' . $base->nid . '/' . $merge->nid) . '</td>
+      <td class="merge-main">' . t('Base Issue') . '<br>' . $base_link . '</td>
     </tr></th>',
     '#suffix' => '</table>',
   );
   $form['table']['item'] = array(
-    '#type' => 'markup',
-    '#value' => t('Choices'),
+    '#type'   => 'markup',
+    '#value'  => t('Choices'),
     '#prefix' => '<tr><td class="merge-header" colspan=3>',
     '#suffix' => '</td><tr>',
   );
   $form['table']['choices'] = array(
     '#type' => 'fieldset',
-//    '#prefix' => '<tr>',
-//    '#suffix' => '</tr>',
+    //    '#prefix' => '<tr>',
+    //    '#suffix' => '</tr>',
     '#tree' => TRUE,
   );
   foreach ($merge->choices as $chid => $choice) {
     $form['table']['choices'][$chid]['name'] = array(
-      '#type' => 'markup',
-      '#value' => $choice['chtext'],
+      '#type'   => 'markup',
+      '#value'  => $choice['chtext'],
       '#prefix' => '<tr><td>',
       '#suffix' => '</td>',
     );
     $form['table']['choices'][$chid]['chid'] = array(
-      '#type' => 'hidden',
-      '#value' => $chid,
+      '#type'   => 'hidden',
+      '#value'  => $chid,
       '#prefix' => '<td>&gt;&gt;',
       '#suffix' => '</td>',
     );
     $form['table']['choices'][$chid]['chid_to'] = array(
-      '#type' => 'select',
-      '#options' => $base_choices,
-      '#prefix' => '<td>',
-      '#suffix' => '</td></tr>',
+      '#type'       => 'select',
+      '#options'    => $base_choices,
+      '#prefix'     => '<td>',
+      '#suffix'     => '</td></tr>',
       '#attributes' => array('class' => 'chosen-select'),
     );
   }
 
   $form['submit'] = array(
-    '#type' => 'submit',
+    '#type'  => 'submit',
     '#value' => t('Merge'),
   );
 
@@ -134,13 +130,13 @@ function moderation_merge_form_submit($form, $form_state) {
     if (0 == $info['chid_to']) {
       if ($choice = $merge_choices[$chid]) {
         $choice_new = array(
-          'chid' => -1,
-          'nid' => $base,
-          'uid' => $choice['uid'],
-          'chtext' => $choice['chtext'],
+          'chid'         => -1,
+          'nid'          => $base,
+          'uid'          => $choice['uid'],
+          'chtext'       => $choice['chtext'],
           'chtext_short' => $choice['chtext_short'],
-          'weight' => count($base_choices),
-          'chtype' => $choice['chtype'],
+          'weight'       => count($base_choices),
+          'chtype'       => $choice['chtype'],
         );
         if ($object = cpoll_choice_save($choice_new)) {
           $info['chid_to'] = $object->chid;
@@ -154,9 +150,7 @@ function moderation_merge_form_submit($form, $form_state) {
         INSERT IGNORE INTO {cpoll_meta_values} (
           SELECT '%d', uid, cid, value
           FROM {cpoll_meta_values}
-          WHERE chid = '%d')",
-        $info['chid_to'], $chid
-      );
+          WHERE chid = '%d')", $info['chid_to'], $chid);
     }
   }
 
@@ -179,10 +173,10 @@ function moderation_merge_form_submit($form, $form_state) {
   }
   db_query("
     INSERT INTO cpoll_votes (chid, uid, status, cdate) (
-	    SELECT (CASE v.chid WHEN 0 THEN 0 ".$case." END) chid, v.uid, v.status, v.cdate
+	    SELECT (CASE v.chid WHEN 0 THEN 0 " . $case . " END) chid, v.uid, v.status, v.cdate
 	    FROM cpoll_choices c
 	    INNER JOIN cpoll_votes v ON v.chid = c.chid
-	    WHERE c.nid = '%d' AND v.uid NOT IN (".$voters."))", $merge);
+	    WHERE c.nid = '%d' AND v.uid NOT IN (" . $voters . "))", $merge);
 
   # make them duplicate each other
   $merge_node = node_load($merge);
@@ -200,5 +194,5 @@ function moderation_merge_form_submit($form, $form_state) {
     'entity_type' => 'node',
   ));
 
-  drupal_goto('node/'.$base);
+  drupal_goto('node/' . $base);
 }

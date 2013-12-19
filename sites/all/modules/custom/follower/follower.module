@@ -5,7 +5,7 @@
  *
  * @param $vars
  */
-function follower_preprocess_page (&$vars) {
+function follower_preprocess_page(&$vars) {
   drupal_add_js(drupal_get_path('module', 'follower') . '/follower.js');
   drupal_add_js('misc/jquery.form.js');
 }
@@ -25,7 +25,7 @@ define('FOLLOWER_RELATION_ID', 1);
  *
  * @return array
  */
-function follower_menu () {
+function follower_menu() {
   $menu = array();
 
   $menu[FOLLOWER_PATH] = array(
@@ -48,12 +48,12 @@ function follower_menu () {
  *
  * @return array
  */
-function follower_theme () {
+function follower_theme() {
   $theme = array();
 
   $theme['follower_button'] = array(
     'arguments' => array(
-      'follow' => null,
+      'follow' => NULL,
     ),
   );
 
@@ -67,10 +67,10 @@ function follower_theme () {
  *
  * @return string
  */
-function theme_follower_button ($follow) {
+function theme_follower_button($follow) {
   global $user;
   if (user_is_logged_in() && $user->uid != $follow->uid) {
-    $text = follower_status($follow->uid) === false ? t('Follow') : t('Unfollow');
+    $text = follower_status($follow->uid) === FALSE ? t('Follow') : t('Unfollow');
     return l(t($text), FOLLOWER_PATH . '/' . $follow->uid . '/', array(
         'attributes' => array(
           'class' => 'button light follower',
@@ -88,8 +88,8 @@ function theme_follower_button ($follow) {
  *
  * @return bool
  */
-function follower_status ($follow_uid, $uid = false) {
-  if ($uid === false) {
+function follower_status($follow_uid, $uid = FALSE) {
+  if ($uid === FALSE) {
     global $user;
     $uid = $user->uid;
   }
@@ -101,7 +101,7 @@ function follower_status ($follow_uid, $uid = false) {
  *
  * @param $follow_uid
  */
-function follower_page ($follow_uid) {
+function follower_page($follow_uid) {
   $form = drupal_get_form('follower_form', user_load($follow_uid));
   $response = array('text' => $form);
   $response += follower_strings();
@@ -114,7 +114,7 @@ function follower_page ($follow_uid) {
  *
  * @return array
  */
-function follower_strings () {
+function follower_strings() {
   return array(
     'follow'       => t('Follow'),
     'unfollow'     => t('Unfollow'),
@@ -131,7 +131,7 @@ function follower_strings () {
  *
  * @return array
  */
-function follower_form (&$form, $follow) {
+function follower_form(&$form, $follow) {
   $form = array();
 
   $form['#attributes'] = array(
@@ -140,7 +140,7 @@ function follower_form (&$form, $follow) {
   $form['#action'] = '/' . FOLLOWER_PATH . '/save';
 
   if (user_is_logged_in()) {
-    $text = follower_status($follow->uid) === false ? t('follow') : t('unfollow');
+    $text = follower_status($follow->uid) === FALSE ? t('follow') : t('unfollow');
     $text = t('Are you sure you want to ') . $text . t(' this user?');
     $form['title'] = array(
       '#type'  => 'markup',
@@ -159,10 +159,10 @@ function follower_form (&$form, $follow) {
 /**
  * Follower form submit
  */
-function follower_page_save () {
+function follower_page_save() {
   global $user;
   $post = $_POST;
-  if (($rid = follower_status($post['follow_uid'])) === false) {
+  if (($rid = follower_status($post['follow_uid'])) === FALSE) {
     $relationship = new stdClass();
     $relationship->requester = $user;
     $relationship->requestee = user_load($post['follow_uid']);
@@ -177,7 +177,8 @@ function follower_page_save () {
       'entity_type' => 'user',
     ));
 
-  } else {
+  }
+  else {
     $relationship = user_relationships_load($rid);
     user_relationships_delete_relationship($relationship, $user);
 
@@ -202,7 +203,7 @@ function follower_page_save () {
  *
  * @return array|int
  */
-function follower_get_followers ($uid, $count = false, $limit = false) {
+function follower_get_followers($uid, $count = FALSE, $limit = FALSE) {
   return follower_get_list($uid, 'requester_id', $count, $limit);
 }
 
@@ -215,7 +216,7 @@ function follower_get_followers ($uid, $count = false, $limit = false) {
  *
  * @return array|int
  */
-function follower_get_following ($uid, $count = false, $limit = false) {
+function follower_get_following($uid, $count = FALSE, $limit = FALSE) {
   return follower_get_list($uid, 'requestee_id', $count, $limit);
 }
 
@@ -227,14 +228,14 @@ function follower_get_following ($uid, $count = false, $limit = false) {
  *
  * @return array|int
  */
-function follower_get_list ($uid, $key, $count = false, $limit = false) {
+function follower_get_list($uid, $key, $count = FALSE, $limit = FALSE) {
   $key2 = 'requestee_id' == $key ? 'requester_id' : 'requestee_id';
 
   $query = "SELECT " . ($count ? "COUNT(DISTINCT u.uid)" : "ur.*") . " " . "FROM {user_relationships} ur " . "INNER JOIN {users} u ON u.uid = ur.$key AND u.status = 1 " . "WHERE ur.$key2 = '%s' " . ($count ? "" : ($limit ? "LIMIT " . $limit : ""));
   $result = db_query($query, $uid);
 
   if ($count) {
-    return (int)db_result($result);
+    return (int) db_result($result);
   }
 
   // get list
@@ -265,7 +266,7 @@ function follower_get_list ($uid, $key, $count = false, $limit = false) {
  *
  * @return array|mixed
  */
-function follower_get_userdata ($uids) {
+function follower_get_userdata($uids) {
   static $users = array();
 
   $load = array();

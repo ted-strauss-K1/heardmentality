@@ -15,8 +15,8 @@ class location_handler_filter_location_country extends views_handler_filter_in_o
 
   function admin_summary() {
     return '';
-//    $options = $this->operator_options('short');
-//    return (!empty($this->options['exposed']) ? t('exposed') : $options[$this->operator]);
+    //    $options = $this->operator_options('short');
+    //    return (!empty($this->options['exposed']) ? t('exposed') : $options[$this->operator]);
   }
 
   function get_value_options() {
@@ -58,41 +58,43 @@ class location_handler_filter_location_country extends views_handler_filter_in_o
         if (!empty($this->options['expose']['optional']) && (empty($default_value) || !empty($this->options['expose']['reduce']))) {
           $default_value = 'All';
         }
-        else if (empty($default_value)) {
-          $keys = array_keys($options);
-          $default_value = array_shift($keys);
-        }
         else {
-          $copy = $default_value;
-          $default_value = array_shift($copy);
+          if (empty($default_value)) {
+            $keys = array_keys($options);
+            $default_value = array_shift($keys);
+          }
+          else {
+            $copy = $default_value;
+            $default_value = array_shift($copy);
+          }
         }
       }
     }
 
     $form['value'] = array(
-      '#type' => 'select',
-      '#title' => t('Country'),
+      '#type'          => 'select',
+      '#title'         => t('Country'),
       '#default_value' => $default_value,
-      '#options' => $options,
+      '#options'       => $options,
       // Used by province autocompletion js.
-      '#attributes' => array('class' => 'location_auto_country'),
-      '#multiple' => TRUE, // views will change this as necessary when exposed.
+      '#attributes'    => array('class' => 'location_auto_country'),
+      '#multiple'      => TRUE, // views will change this as necessary when exposed.
     );
 
     // Let location_autocomplete.js find the correct fields to attach.
-    $form['value']['#attributes']['class'] .= ' location_auto_join_'. $this->options['expose']['identifier'];
+    $form['value']['#attributes']['class'] .= ' location_auto_join_' . $this->options['expose']['identifier'];
   }
 
   function operator_options() {
     if ($this->options['multiple']) {
       return array(
-        'is' => t('Is one of'),
+        'is'     => t('Is one of'),
         'is not' => t('Is not one of'),
       );
     }
     else {
       return array(
-        'is' => t('Is'),
+        'is'     => t('Is'),
         'is not' => t('Is not'),
       );
     }

@@ -15,7 +15,7 @@ if ($user->uid == $account->uid) {
 <div class="user-info">
   <p><?php print t($rank); ?>
     <!-- points: <?php print points_count($account->uid); ?> --></p>
-    <!-- pennies: <?php print pennies_count($account->uid); ?> --></p>
+  <!-- pennies: <?php print pennies_count($account->uid); ?> --></p>
 
   <?php $fields = profile_privacy_get_fields(); ?>
   <?php foreach ($fields as $field) : ?>

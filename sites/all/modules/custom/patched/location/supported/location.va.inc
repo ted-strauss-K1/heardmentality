@@ -1,6 +1,5 @@
 <?php
 
-function location_province_list_va () {
-	return array (
-	);
+function location_province_list_va() {
+  return array();
 }

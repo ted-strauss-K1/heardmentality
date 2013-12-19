@@ -137,7 +137,7 @@ function user_login_modal_form_redirect(&$form) {
   $redirect = trim($redirect, '/');
 
   // get normalized path
-  if (false !== ($src = drupal_lookup_path('source', $redirect))) {
+  if (FALSE !== ($src = drupal_lookup_path('source', $redirect))) {
     $redirect = $src;
   }
 

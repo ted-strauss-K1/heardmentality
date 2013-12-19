@@ -3,8 +3,7 @@
 /**
  * Implementation of hook_install()
  */
-function bf_install()
-{
+function bf_install() {
   // Create database tables.
   drupal_install_schema('bf');
 }
@@ -12,37 +11,36 @@ function bf_install()
 /**
  * Implementation of hook_schema().
  */
-function bf_schema()
-{
+function bf_schema() {
   $schema = array();
 
   $schema['bill_feeds'] = array(
     'description' => t('Stores the bill feeds content.'),
-    'fields' => array(
-      'url' => array(
-        'type' => 'varchar',
-        'not null' => TRUE,
-        'length' => 256,
+    'fields'      => array(
+      'url'           => array(
+        'type'        => 'varchar',
+        'not null'    => TRUE,
+        'length'      => 256,
         'description' => t('The url of document'),
       ),
-      'content' => array(
-        'type' => 'text',
+      'content'       => array(
+        'type'     => 'text',
         'not null' => TRUE,
-        'size' => 'big',
+        'size'     => 'big',
       ),
-      'nid' => array(
-        'type' => 'int',
-        'not null' => TRUE,
-        'unsigned' => TRUE,
-        'default' => 0,
+      'nid'           => array(
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'unsigned'    => TRUE,
+        'default'     => 0,
         'description' => 'The {node}.nid of issue created',
       ),
-      'cache_date' => array(
-        'type' => 'datetime',
+      'cache_date'    => array(
+        'type'     => 'datetime',
         'not null' => TRUE,
       ),
       'document_date' => array(
-        'type' => 'datetime',
+        'type'     => 'datetime',
         'not null' => TRUE,
       ),
     ),

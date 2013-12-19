@@ -35,7 +35,7 @@
       <li>&nbsp;|&nbsp;<?php print theme('flagger_btn_flags', $comment->cid, 'comment'); ?></li>
       <li>&nbsp;|&nbsp;<?php print theme('flagger_btn_history', $comment->cid, 'comment'); ?></li>
       <?php if ($delete = theme('argument_delete', 'comment', $comment->content_id)) : ?>
-      <li>&nbsp;|&nbsp;<?php print $delete; ?></li>
+        <li>&nbsp;|&nbsp;<?php print $delete; ?></li>
       <?php endif; ?>
     </ul>
   </div>

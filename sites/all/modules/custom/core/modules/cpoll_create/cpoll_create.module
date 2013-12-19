@@ -20,20 +20,19 @@ function cpoll_create_content_translate_rebuild_js() {
  *
  * @return array
  */
-function cpoll_create_menu()
-{
+function cpoll_create_menu() {
   $menu = array();
 
   $menu['create'] = array(
-    'title' => t('Add an Issue'),
-    'page callback' => 'cpoll_create',
+    'title'            => t('Add an Issue'),
+    'page callback'    => 'cpoll_create',
     'access arguments' => array('create issue content'),
-    'type' => MENU_CALLBACK,
+    'type'             => MENU_CALLBACK,
   );
   $menu['create/ahah'] = array(
-    'page callback' => 'cpoll_create_ahah',
+    'page callback'    => 'cpoll_create_ahah',
     'access arguments' => array('create issue content'),
-    'type' => MENU_CALLBACK,
+    'type'             => MENU_CALLBACK,
   );
 
   return $menu;
@@ -59,13 +58,12 @@ function cpoll_create_preprocess_page(&$vars) {
  *
  * @return array
  */
-function cpoll_create_theme()
-{
+function cpoll_create_theme() {
   $theme = array();
 
   $theme['guidelines'] = array(
     'arguments' => array(),
-    'template' => 'template-guidelines',
+    'template'  => 'template-guidelines',
   );
 
   return $theme;
@@ -74,8 +72,7 @@ function cpoll_create_theme()
 /**
  * @return null|string
  */
-function cpoll_create()
-{
+function cpoll_create() {
   return drupal_get_form('cpoll_create_form');
 }
 
@@ -89,17 +86,17 @@ function cpoll_create_form() {
   drupal_add_js('misc/ahah.js');
   drupal_add_js(drupal_get_path('module', 'cpoll_create') . '/cpoll_create.js');
 
-//  $form['#attributes'] = array('onsubmit' => 'return limitChars(true)');
+  //  $form['#attributes'] = array('onsubmit' => 'return limitChars(true)');
 
   $form['issue_cont'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     '#value' => '
       <div class="grey-box full" id="create_box">
         <div class="new-issue clearfix">
     '
   );
   $form['title_div'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     '#value' => '
       <label for="" class="add-on">
         <div class="number dinbold">1</div>
@@ -111,13 +108,13 @@ function cpoll_create_form() {
     '
   );
   $form['q_quest'] = array(
-    '#type' => 'textarea',
-    '#id' => 'q_quest',
+    '#type'       => 'textarea',
+    '#id'         => 'q_quest',
     '#attributes' => array('rows' => 0, 'cols' => 0),
-    '#suffix' => '<hr class="short2">',
+    '#suffix'     => '<hr class="short2">',
   );
   $form['desc_div'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     '#value' => '
       <label for="" class="add-on">
         <div class="number dinbold">2</div>
@@ -129,19 +126,20 @@ function cpoll_create_form() {
     '
   );
   $form['q_context'] = array(
-    '#type' => 'textarea',
-    '#rows' => 4,
-    '#id' => 'Question',
-    '#suffix' => '<hr class="short2">',
+    '#type'       => 'textarea',
+    '#rows'       => 4,
+    '#id'         => 'Question',
+    '#suffix'     => '<hr class="short2">',
     '#attributes' => array('rows' => 0, 'cols' => 0)
   );
   if (isset($form_state['choice_count'])) {
     $choice_count = $form_state['choice_count'];
-  } else {
+  }
+  else {
     $choice_count = 2;
   }
   $form['choice_wrapper'] = array(
-    '#tree' => FALSE,
+    '#tree'   => FALSE,
     '#prefix' => '<div class="clear-block" id="poll-choice-wrapper">',
     '#suffix' => '</div>',
   );
@@ -162,32 +160,32 @@ function cpoll_create_form() {
     $form['choice_wrapper']['answer'][$delta] = cpoll_create_form_textfield($delta);
   }
   $form['choice_wrapper']['poll_more'] = array(
-    '#type' => 'submit',
-    '#value' => '+ ' . t('Add another answer'),
+    '#type'        => 'submit',
+    '#value'       => '+ ' . t('Add another answer'),
     '#description' => t("If the amount of boxes above isn't enough, click here to add more choices."),
-    '#weight' => 1,
-    '#ahah' => array(
-      'path' => 'create/ahah',
+    '#weight'      => 1,
+    '#ahah'        => array(
+      'path'    => 'create/ahah',
       'wrapper' => 'poll-choices',
-      'method' => 'replace',
-      'effect' => 'fade',
+      'method'  => 'replace',
+      'effect'  => 'fade',
     ),
-    '#attributes' => array('class' => 'add-answer light'),
-    '#suffix' => '<div class="clear"></div><hr class="bottom">',
+    '#attributes'  => array('class' => 'add-answer light'),
+    '#suffix'      => '<div class="clear"></div><hr class="bottom">',
   );
   $form['submit'] = array(
-    '#type' => 'submit',
+    '#type'       => 'submit',
     '#attributes' => array('class' => 'submit-issue'),
-    '#value' => t('SUBMIT NEW ISSUE'),
-    '#id' => 'save_issue',
-    '#prefix' => '
+    '#value'      => t('SUBMIT NEW ISSUE'),
+    '#id'         => 'save_issue',
+    '#prefix'     => '
       <label class="before-submit">' . t('Our moderators also check every issue to ensure our Policy and Guidelines have been followed. Your original text may be edited to conform.') . '</label>
       <label class="before-submit">' . t('Site moderators will generate interest for your issue by classifying it so other users can find it easier and by submitting it to be translated into into our worlds major language so you can poll people from around the world.') . '</label>
     ',
-    '#suffix' => ' <div class="clear"></div>'
+    '#suffix'     => ' <div class="clear"></div>'
   );
   $form['issue_cont_close'] = array(
-    '#type' => 'markup',
+    '#type'  => 'markup',
     '#value' => '</div></div>'
   );
   $form['#cache'] = TRUE;
@@ -197,8 +195,7 @@ function cpoll_create_form() {
 /**
  * "issue/create/ahah/answer" menu callback
  */
-function cpoll_create_ahah()
-{
+function cpoll_create_ahah() {
   $delta = count($_POST['answer']);
   # build form element
   $form_element = cpoll_create_form_textfield($delta);
@@ -214,7 +211,7 @@ function cpoll_create_ahah()
   }
   form_set_cache($form_build_id, $form, $form_state);
   $form += array(
-    '#post' => $_POST,
+    '#post'       => $_POST,
     '#programmed' => FALSE,
   );
   $form_state['post'] = $_POST;
@@ -228,9 +225,7 @@ function cpoll_create_ahah()
   unset($_SESSION['messages']);
   $choice_form = $form['choice_wrapper']['answer'];
   //unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
-  $choice_form[$delta]['#attributes']['class'] =
-    empty($choice_form[$delta]['#attributes']['class']) ?
-      'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] . ' ahah-new-content';
+  $choice_form[$delta]['#attributes']['class'] = empty($choice_form[$delta]['#attributes']['class']) ? 'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] . ' ahah-new-content';
   $output = drupal_render($choice_form);
 
   $ahah = array('status' => TRUE, 'data' => $output);
@@ -243,21 +238,20 @@ function cpoll_create_ahah()
 /**
  * "issue/create/ahah/answer" callback
  */
-function cpoll_create_form_textfield($delta, $value = '')
-{
+function cpoll_create_form_textfield($delta, $value = '') {
   if ($delta < 10) {
     $form = array(
       '#tree' => TRUE,
     );
     $form['chtext'] = array(
-      '#type' => 'textfield',
+      '#type'          => 'textfield',
       '#default_value' => $value,
-      '#parents' => array('answer', $delta),
-      '#id' => 'Answer',
+      '#parents'       => array('answer', $delta),
+      '#id'            => 'Answer',
     );
     return $form;
   }
-  return false;
+  return FALSE;
 }
 
 /**
@@ -266,8 +260,7 @@ function cpoll_create_form_textfield($delta, $value = '')
  * @param $form
  * @param $form_state
  */
-function cpoll_create_form_validate($form, &$form_state)
-{
+function cpoll_create_form_validate($form, &$form_state) {
   $post = $form_state['values'];
   if ($post['q_quest'] == '') {
     form_set_error('error', t('Please enter your question'));
@@ -283,8 +276,7 @@ function cpoll_create_form_validate($form, &$form_state)
  * @param $form
  * @param $form_state
  */
-function cpoll_create_form_submit($form, &$form_state)
-{
+function cpoll_create_form_submit($form, &$form_state) {
   global $user, $language;
   $post = $form_state['clicked_button']['#post'];
 
@@ -294,9 +286,8 @@ function cpoll_create_form_submit($form, &$form_state)
   $node->uid = $user->uid;
   $node->status = 1;
   $node->moderate = MODERATION_ALLOWED;
-  $node->title =
-    trim($post['q_quest']);
-    // preg_replace('/\?$/', '', trim($post['q_quest']));
+  $node->title = trim($post['q_quest']);
+  // preg_replace('/\?$/', '', trim($post['q_quest']));
   $node->body = $post['q_context'];
   $node->name = $user->name;
   node_save($node);
@@ -304,16 +295,18 @@ function cpoll_create_form_submit($form, &$form_state)
   $allowed = array('chid', 'nid', 'uid', 'chtext', 'chtext_short', 'weight', 'chtype', 'cdate');
   $i = 0;
   foreach ($post['answer'] as $text) {
-    if (empty($text)) continue;
+    if (empty($text)) {
+      continue;
+    }
 
     $choice = array(
-      'chid' => -1,
-      'nid' => $node->nid,
-      'uid' => $user->uid,
-      'chtext' => $text,
+      'chid'         => -1,
+      'nid'          => $node->nid,
+      'uid'          => $user->uid,
+      'chtext'       => $text,
       'chtext_short' => $text,
-      'weight' => $i,
-      'chtype' => 'regular',
+      'weight'       => $i,
+      'chtype'       => 'regular',
     );
     cpoll_choice_save($choice);
 

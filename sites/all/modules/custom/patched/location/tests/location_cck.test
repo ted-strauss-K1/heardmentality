@@ -25,15 +25,21 @@ class LocationCCKTest extends LocationTestCase {
 
   function getInfo() {
     return array(
-      'name' => t('Location CCK checks'),
+      'name'        => t('Location CCK checks'),
       'description' => t('Test corner cases of the CCK Location module.'),
-      'group' => t('Location'),
+      'group'       => t('Location'),
     );
   }
 
   function setUp() {
     parent::setUp('location', 'content', 'location_cck', 'devel');
-    $this->admin_user = $this->drupalCreateUser(array('administer nodes', 'submit latitude/longitude', 'administer site configuration', 'access administration pages', 'administer content types'));
+    $this->admin_user = $this->drupalCreateUser(array(
+      'administer nodes',
+      'submit latitude/longitude',
+      'administer site configuration',
+      'access administration pages',
+      'administer content types'
+    ));
     $this->normal_user = $this->drupalCreateUser(array('access content'));
 
     $this->drupalLogin($this->admin_user);
@@ -68,16 +74,16 @@ class LocationCCKTest extends LocationTestCase {
 
     $form = array(
       '_add_new_field' => array(
-        'label' => 'Location',
-        'weight' => 10,
-//        'hidden_name' => '_add_new_field',
-        'field_name' => $field_name,
-        'type' => 'location',
+        'label'       => 'Location',
+        'weight'      => 10,
+        //        'hidden_name' => '_add_new_field',
+        'field_name'  => $field_name,
+        'type'        => 'location',
         'widget_type' => 'location',
       ),
     );
     $this->flattenPostData($form);
-    $this->drupalPost('admin/content/node-type/'. str_replace('_', '-', $name) .'/fields', $form, 'Save');
+    $this->drupalPost('admin/content/node-type/' . str_replace('_', '-', $name) . '/fields', $form, 'Save');
 
     $this->refreshVariables();
     drupal_get_schema(NULL, TRUE);
@@ -86,8 +92,8 @@ class LocationCCKTest extends LocationTestCase {
     $defaults = $this->getLocationFieldDefaults();
 
     $form = array(
-      'required' => $required,
-      'multiple' => $multiple,
+      'required'          => $required,
+      'multiple'          => $multiple,
       'location_settings' => array(
         'form' => array(
           'fields' => $defaults,
@@ -133,14 +139,14 @@ class LocationCCKTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'          => $location_type,
       'field_loctest' => array(
         array(
-          'name' => $location1_name,
-          'street' => '48072 289th St.',
+          'name'     => $location1_name,
+          'street'   => '48072 289th St.',
           'province' => 'SD',
-          'country' => 'us',
-  //        'location_settings' => $settings,
+          'country'  => 'us',
+          //        'location_settings' => $settings,
         ),
       ),
     ));
@@ -161,14 +167,14 @@ class LocationCCKTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'          => $location_type,
       'field_loctest' => array(
         array(
           'locpick' => array(
-            'user_latitude' => '44.25',
+            'user_latitude'  => '44.25',
             'user_longitude' => '-10.25',
           ),
-//          'location_settings' => $settings,
+          //          'location_settings' => $settings,
         ),
       ),
     ));
@@ -188,19 +194,19 @@ class LocationCCKTest extends LocationTestCase {
     $location3_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'          => $location_type,
       'field_loctest' => array(
         array(
           'name' => $location1_name,
-//          'location_settings' => $settings,
+          //          'location_settings' => $settings,
         ),
         array(
           'name' => $location2_name,
-//          'location_settings' => $settings,
+          //          'location_settings' => $settings,
         ),
         array(
           'name' => $location3_name,
-//          'location_settings' => $settings,
+          //          'location_settings' => $settings,
         ),
       ),
     ));
@@ -223,11 +229,11 @@ class LocationCCKTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'          => $location_type,
       'field_loctest' => array(
         array(
           'name' => $location1_name,
-//          'location_settings' => $settings,
+          //          'location_settings' => $settings,
         ),
       ),
     ));
@@ -239,7 +245,7 @@ class LocationCCKTest extends LocationTestCase {
     $location = $node->field_loctest[0];
 
     $node2 = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'          => $location_type,
       'field_loctest' => array(
         0 => $location,
       ),
@@ -280,15 +286,15 @@ class LocationCCKTest extends LocationTestCase {
     $location3_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'          => $location_type,
       'field_loctest' => array(
         0 => array( // First
           'name' => $location1_name,
-//          'location_settings' => $settings,
+          //          'location_settings' => $settings,
         ),
         1 => array( // Second
           'name' => $location2_name,
-//          'location_settings' => $settings,
+          //          'location_settings' => $settings,
         ),
       ),
     ));
@@ -297,8 +303,8 @@ class LocationCCKTest extends LocationTestCase {
     $node = node_load($node->nid, NULL, TRUE);
 
     $changes = array(
-      'revision' => TRUE,
-      'log' => $this->randomName(20),
+      'revision'      => TRUE,
+      'log'           => $this->randomName(20),
       'field_loctest' => array(
         0 => array( // Delete First
           'delete_location' => TRUE,
@@ -309,7 +315,7 @@ class LocationCCKTest extends LocationTestCase {
       ),
     );
     $this->flattenPostData($changes);
-    $this->drupalPost('node/'. $node->nid .'/edit', $changes, 'Save');
+    $this->drupalPost('node/' . $node->nid . '/edit', $changes, 'Save');
 
     // Reload the node again.
     $node1 = node_load($node->nid, $node->vid, TRUE);
@@ -356,11 +362,11 @@ class LocationCCKTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'          => $location_type,
       'field_loctest' => array(
         array( // First
           'name' => $location1_name,
-//          'location_settings' => $settings,
+          //          'location_settings' => $settings,
         ),
       ),
     ));
@@ -370,13 +376,13 @@ class LocationCCKTest extends LocationTestCase {
 
     $changes = array(
       'revision' => TRUE,
-      'log' => $this->randomName(20),
-//      'field_loctest' => array(
-//        $node->field_loctest[0],
-//      ),
+      'log'      => $this->randomName(20),
+      //      'field_loctest' => array(
+      //        $node->field_loctest[0],
+      //      ),
     );
     $this->flattenPostData($changes);
-    $this->drupalPost('node/'. $node->nid .'/edit', $changes, 'Save');
+    $this->drupalPost('node/' . $node->nid . '/edit', $changes, 'Save');
 
     // Reload the node again.
     $node1 = node_load($node->nid, $node->vid, TRUE);
@@ -400,10 +406,10 @@ class LocationCCKTest extends LocationTestCase {
     $location1_name = $this->randomName();
 
     $node = $this->drupalCreateNode(array(
-      'type' => $location_type,
+      'type'          => $location_type,
       'field_loctest' => array(
         0 => array(
-          'name' => $location1_name,
+          'name'              => $location1_name,
           'location_settings' => $settings,
         ),
       ),
@@ -416,12 +422,12 @@ class LocationCCKTest extends LocationTestCase {
       'field_loctest' => array(
         0 => array(
           // Update name.
-          'name' => $location1_name .'_CHANGE',
+          'name' => $location1_name . '_CHANGE',
         ),
       ),
     );
     $this->flattenPostData($changes);
-    $this->drupalPost('node/'. $node->nid .'/edit', $changes, 'Save');
+    $this->drupalPost('node/' . $node->nid . '/edit', $changes, 'Save');
 
     // Reload the node again.
     $node1 = node_load($node->nid, NULL, TRUE);

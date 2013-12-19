@@ -4,10 +4,10 @@
  * Search Form
  *
  * @param $form_state
+ *
  * @return array
  */
-function issue_search_form($form_state)
-{
+function issue_search_form($form_state) {
   $form = array();
 
   //
@@ -15,8 +15,8 @@ function issue_search_form($form_state)
 
   # date filters
   $form['date_filters'] = array(
-    '#type' => 'item',
-    '#value' => '
+    '#type'   => 'item',
+    '#value'  => '
       <ul class="date-filter date_filter">
         <li><a class="date-solr-filter first" href="issues" interval="week">' . t('This Week') . '</a></li>
         <li><a class="date-solr-filter" href="issues" interval="month">' . t('This Month') . '</a></li>
@@ -27,8 +27,8 @@ function issue_search_form($form_state)
 
   # sort filters
   $form['sorting'] = array(
-    '#type' => 'item',
-    '#value' => '
+    '#type'   => 'item',
+    '#value'  => '
       <ul class="sort-filter options_filter">
         <li><a href="issues" class="solr-sort first active" solrsort="ds_created" direction="desc">' . t('Latest') . '</a></li>
         <li><a href="issues" class="solr-sort" solrsort="is_views_count" direction="desc">' . t('By Views') . '</a></li>
@@ -38,10 +38,7 @@ function issue_search_form($form_state)
   );
 
   // Search results area.
-  $form['#suffix'] = '<div id="loading_wrapper" style="padding: 20px 5%; width: 90%; text-align: center;">' .
-    theme('sub_loader', 'margin-top: 15px auto; display: block; ') .
-  '</div>' .
-  '<div id="linkbox"></div>';
+  $form['#suffix'] = '<div id="loading_wrapper" style="padding: 20px 5%; width: 90%; text-align: center;">' . theme('sub_loader', 'margin-top: 15px auto; display: block; ') . '</div>' . '<div id="linkbox"></div>';
 
   return $form;
 }
@@ -52,8 +49,7 @@ function issue_search_form($form_state)
  * @return string
  *  Data in JSON format.
  */
-function issue_search_ajax()
-{
+function issue_search_ajax() {
   $mtime = round(microtime(TRUE), 4);
 
   # search
@@ -66,25 +62,25 @@ function issue_search_ajax()
   }
 
   $message = theme('issue_search_results', $results);
-//    theme('gpager',
-//      isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1,
-//      NULL,
-//      $rows,
-//      SEARCH_RESULTS_PER_PAGE,
-//      'issue_search_pager_link'
-//    );
+  //    theme('gpager',
+  //      isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1,
+  //      NULL,
+  //      $rows,
+  //      SEARCH_RESULTS_PER_PAGE,
+  //      'issue_search_pager_link'
+  //    );
   $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
-  $pages = ceil($rows/SEARCH_RESULTS_PER_PAGE);
+  $pages = ceil($rows / SEARCH_RESULTS_PER_PAGE);
   if ($pages && $pages != $page) {
     $message .= '<span class="issue-search-more"></span>';
   }
 
   // JSON params.
   $json = array(
-    'status' => TRUE,
+    'status'  => TRUE,
     'message' => $pages ? $message : t('No results found'),
-    'rows' => $rows,
-    'time' => round(microtime(TRUE), 4) - $mtime,
+    'rows'    => $rows,
+    'time'    => round(microtime(TRUE), 4) - $mtime,
   );
 
   print json_encode($json);

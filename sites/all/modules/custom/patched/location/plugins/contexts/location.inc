@@ -10,15 +10,15 @@
  */
 function location_location_ctools_contexts() {
   return array(
-    'title' => t('Location'),
-    'description' => t('Location'),
-    'context' => 'location_context_create_location',
-    'context name' => 'location',
+    'title'         => t('Location'),
+    'description'   => t('Location'),
+    'context'       => 'location_context_create_location',
+    'context name'  => 'location',
     'settings form' => 'location_context_location_settings_form',
-    'keyword' => 'location',
-    'context name' => 'location',
-    'convert list' => 'location_context_location_convert_list',
-    'convert' => 'location_context_location_convert',
+    'keyword'       => 'location',
+    'context name'  => 'location',
+    'convert list'  => 'location_context_location_convert_list',
+    'convert'       => 'location_context_location_convert',
   );
 }
 
@@ -53,7 +53,7 @@ function location_context_create_location($empty, $data = NULL, $conf = FALSE) {
     }
   }
 
-  if (!empty($data))  {
+  if (!empty($data)) {
     $context->data = $data;
     $context->title = $data['city'];
     $context->argument = $data['lid'];

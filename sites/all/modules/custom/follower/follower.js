@@ -1,14 +1,14 @@
 function follower_exec(follower) {
-  var url = Drupal.settings.language_prefix+'/follower/save/';
+  var url = Drupal.settings.language_prefix + '/follower/save/';
   $.ajax({
-    type:"POST",
-    dataType:'json',
-    url:url,
-    data:{
-      'rtid':1,
-      'follow_uid':follower.attr('name')
+    type    : "POST",
+    dataType: 'json',
+    url     : url,
+    data    : {
+      'rtid'      : 1,
+      'follow_uid': follower.attr('name')
     },
-    success:function (response) {
+    success : function (response) {
       var successtext = '', buttontext = '';
       if (follower.html() != response.follow) {
         successtext = response.unfollowtext;
@@ -19,9 +19,9 @@ function follower_exec(follower) {
       }
       follower.html(buttontext);
       $.hrd.noty({
-        'layout':'topRight',
-        'type':'success',
-        'text':successtext
+        'layout': 'topRight',
+        'type'  : 'success',
+        'text'  : successtext
       });
     }
   });

@@ -7,12 +7,12 @@
 
 function jquery_alter_allowed_path() {
   if (arg(0) == 'admin') {
-    return false;
+    return FALSE;
   }
   if (arg(0) == 'node' && arg(2) == 'edit') {
-    return false;
+    return FALSE;
   }
-  return true;
+  return TRUE;
 }
 
 /**
@@ -51,13 +51,13 @@ function jquery_update_get_replacements() {
   return array(
     'module' => array(
       'misc/farbtastic/farbtastic.js' => 'farbtastic.js',
-      'misc/teaser.js' => 'teaser.js',
-      'misc/jquery.form.js' => 'jquery.form.js',
-      'misc/ahah.js' => 'ahah.js',
+      'misc/teaser.js'                => 'teaser.js',
+      'misc/jquery.form.js'           => 'jquery.form.js',
+      'misc/ahah.js'                  => 'ahah.js',
       // Certain versions of Views re-add tabledrag.js as $type 'module'.
-      'misc/tabledrag.js' => 'tabledrag.js',
+      'misc/tabledrag.js'             => 'tabledrag.js',
     ),
-    'core' => array(
+    'core'   => array(
       'misc/tabledrag.js' => 'tabledrag.js',
     ),
   );
@@ -124,7 +124,7 @@ function jquery_update_get_version($jquery_path = NULL) {
 
   // Return the version provided by jQuery Update.
   $jquery = file_get_contents($jquery_path);
-//  echo $jquery;
+  //  echo $jquery;
   if (preg_match($pattern, $jquery, $matches)) {
     $version = $matches[1];
   }
@@ -150,10 +150,10 @@ function jquery_update_flush_caches() {
  */
 function jquery_update_menu() {
   $items['admin/settings/jquery_update'] = array(
-    'title' => 'jQuery Update',
-    'description' => 'Configure settings for jQuery Update module.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('jquery_update_settings'),
+    'title'            => 'jQuery Update',
+    'description'      => 'Configure settings for jQuery Update module.',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('jquery_update_settings'),
     'access arguments' => array('administer site configuration'),
   );
   return $items;
@@ -168,23 +168,23 @@ function jquery_update_settings() {
   $form['#submit'][] = 'jquery_update_flush_caches';
 
   $form['jquery_update_compression_type'] = array(
-    '#type' => 'radios',
-    '#title' => t('Choose jQuery compression level'),
-    '#options' => array(
-      'min' => t('Production (Minified)'),
+    '#type'          => 'radios',
+    '#title'         => t('Choose jQuery compression level'),
+    '#options'       => array(
+      'min'  => t('Production (Minified)'),
       'none' => t('Development (Uncompressed Code)'),
     ),
     '#default_value' => variable_get('jquery_update_compression_type', 'min'),
   );
   $form['jquery_update_jquery_version'] = array(
-    '#type' => 'select',
-    '#title' => t('jQuery Version'),
-    '#options' => array(
+    '#type'          => 'select',
+    '#title'         => t('jQuery Version'),
+    '#options'       => array(
       '1.3' => '1.3',
       '1.7' => '1.7',
     ),
     '#default_value' => variable_get('jquery_update_jquery_version', '1.3'),
-    '#description' => t('Select which jQuery version branch to use.'),
+    '#description'   => t('Select which jQuery version branch to use.'),
   );
 
   return system_settings_form($form);
@@ -197,12 +197,12 @@ function jquery_update_jquery_path() {
   // Check whether we are to retrieve the minified version.
   $jquery_file = array(
     'none' => 'jquery.js',
-    'min' => 'jquery.min.js',
+    'min'  => 'jquery.min.js',
   );
   $type = variable_get('jquery_update_compression_type', 'min');
 
   // Find the jQuery version to use.
   $version = variable_get('jquery_update_jquery_version', '1.3');
-  $path = drupal_get_path('module', 'jquery_update') .'/replace/jquery/'. $version .'/';
+  $path = drupal_get_path('module', 'jquery_update') . '/replace/jquery/' . $version . '/';
   return $path . $jquery_file[$type];
 }

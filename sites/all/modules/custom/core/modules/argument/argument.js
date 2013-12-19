@@ -6,11 +6,11 @@ $(document).ready(function () {
     var select = $('.value-select .form-item select');
     select.each(function (e) {
       var slider = $("<div id='slider-" + e + "'><span class='left'></span><span class='right'></span></div>").insertAfter($(this)).slider({
-        min:1,
-        max:3,
-        range:2,
-        value:select[e].selectedIndex + 1,
-        slide:function (event, ui) {
+        min  : 1,
+        max  : 3,
+        range: 2,
+        value: select[e].selectedIndex + 1,
+        slide: function (event, ui) {
           select[e].selectedIndex = ui.value - 1;
         }
       });
@@ -137,7 +137,7 @@ function circle_update(element, count) {
  * Success event on YN callback
  */
 
-$('body').on('yn', function(e, el, data) {
+$('body').on('yn', function (e, el, data) {
   var body = $('body');
 
   var parent = el.closest('.comment-agree');
@@ -151,7 +151,7 @@ $('body').on('yn', function(e, el, data) {
     votes_update('node', data.parent_id, true, data.pvote_up);
     votes_update('node', data.parent_id, false, data.pvote_dn);
   }
-  parent.children('.yn').attr({'title':'You have rated this!'}).removeClass('yn-a yn-d');
+  parent.children('.yn').attr({'title': 'You have rated this!'}).removeClass('yn-a yn-d');
 
   // update strenght chart
   body.trigger('cpoll_update', true);
@@ -162,7 +162,7 @@ $('body').on('yn', function(e, el, data) {
       body.trigger('badge.comment_yn_voteup', [data['content_uid']]);
     }
     if ('node' == data['content_type']) {
-      body.trigger('badge.'+data['node_type'] + '_yn_voteup', [data['content_uid']]);
+      body.trigger('badge.' + data['node_type'] + '_yn_voteup', [data['content_uid']]);
     }
     body.trigger('badge.yn_voteup', [Drupal.settings.user.uid]);
     body.trigger('badge.yn_predict', [data['first_voter']]);
@@ -177,10 +177,10 @@ $('#url').focusin(function () {
     $(this).val('');
   }
 }).focusout(function () {
-  if ($(this).val() == '') {
-    $(this).val($(this).prop('defaultValue'));
-  }
-});
+    if ($(this).val() == '') {
+      $(this).val($(this).prop('defaultValue'));
+    }
+  });
 
 /**
  * Reply Form Submit
@@ -190,8 +190,8 @@ $('.arg-reply-form').live('submit', function (e) {
   var form = $(this);
   if (form.find('textarea').val().length < 2) {
     $.hrd.noty({
-      'type':'error',
-      'text':Drupal.t('Please enter your reply')
+      'type': 'error',
+      'text': Drupal.t('Please enter your reply')
     });
     return;
   }
@@ -204,17 +204,17 @@ $('.arg-reply-form').live('submit', function (e) {
   var parent_id = parent.attr('name');
 
   $.ajax({
-    type:'POST',
-    dataType:'json',
-    url:form.attr('action'),
-    data:form.serialize(),
-    success:function (response) {
+    type    : 'POST',
+    dataType: 'json',
+    url     : form.attr('action'),
+    data    : form.serialize(),
+    success : function (response) {
       if (!response.status) {
-        $.hrd.noty({text:response.message, type:'error'});
+        $.hrd.noty({text: response.message, type: 'error'});
         return false;
       }
       // show message
-      $.hrd.noty({text:response.message, type:'success'});
+      $.hrd.noty({text: response.message, type: 'success'});
       // reset form
       form.reset();
       // add the comment to the list
@@ -230,9 +230,9 @@ $('.arg-reply-form').live('submit', function (e) {
 
       var body = $('body');
       body.trigger('events', ['reply', {
-        'cid'           : response.cid,
-        'content_type'  : 'comment',
-        'content_id'    : response.cid
+        'cid'         : response.cid,
+        'content_type': 'comment',
+        'content_id'  : response.cid
       }])
 
       // badges
@@ -242,7 +242,7 @@ $('.arg-reply-form').live('submit', function (e) {
       // add the translate to the new comment
       translate();
     },
-    complete:function () {
+    complete: function () {
       // show submit button
       form.find('input[type=submit]').show();
       // hide sub loader
@@ -261,28 +261,28 @@ $('.argument-delete').live('click', function (e) {
   var name = el.attr('name');
 
   $.hrd.noty({
-    'layout':'center',
-    'type':'alert',
-    'text':Drupal.t('Are you sure you want to delete?'),
-    'modal':true,
-    'timeout':false,
-    'buttons':[
+    'layout' : 'center',
+    'type'   : 'alert',
+    'text'   : Drupal.t('Are you sure you want to delete?'),
+    'modal'  : true,
+    'timeout': false,
+    'buttons': [
       {
-        addClass:'btn btn-primary',
-        text:Drupal.t('Delete')+'!',
-        onClick:function ($noty) {
+        addClass: 'btn btn-primary',
+        text    : Drupal.t('Delete') + '!',
+        onClick : function ($noty) {
           $.ajax({
-            type:'POST',
-            dataType:'json',
-            url:Drupal.settings.language_prefix+'/argument/delete/' + name,
-            data:{},
-            success:function (response) {
+            type    : 'POST',
+            dataType: 'json',
+            url     : Drupal.settings.language_prefix + '/argument/delete/' + name,
+            data    : {},
+            success : function (response) {
               if (!response.status) {
-                $.hrd.noty({text:response.message, type:'error'});
+                $.hrd.noty({text: response.message, type: 'error'});
                 return false;
               }
               // show message
-              $.hrd.noty({text:response.message, type:'success'});
+              $.hrd.noty({text: response.message, type: 'success'});
               // delete content from page
               var params = name.split('/');
               var container = false;
@@ -294,10 +294,10 @@ $('.argument-delete').live('click', function (e) {
                 case 'comment' :
                   container = el.closest('.one_reply');
                   counter = container.parents('div.replies').find('.replycount');
-                break;
+                  break;
               }
               if (container) {
-                counter.html( parseInt(counter.html()) - 1 );
+                counter.html(parseInt(counter.html()) - 1);
                 container.slideUp(400, function () {
                   container.remove();
                 });
@@ -308,9 +308,9 @@ $('.argument-delete').live('click', function (e) {
         }
       },
       {
-        addClass:'btn btn-danger',
-        text:Drupal.t('Cancel'),
-        onClick:function ($noty) {
+        addClass: 'btn btn-danger',
+        text    : Drupal.t('Cancel'),
+        onClick : function ($noty) {
           $noty.close();
         }
       }
@@ -340,8 +340,8 @@ Drupal.behaviors.translate = function (context) {
  */
 $(document).ready(function () {
   $("#debate_list_area").tabs({
-    cache:false,
-    load:function (event, ui) {
+    cache: false,
+    load : function (event, ui) {
       Drupal.attachBehaviors();
     }
   });
@@ -450,10 +450,10 @@ $('#argument-add-form').live('submit', function (e) {
     // flags
     var flag_set = false;
     data['options'] = {};
-    form.find('input[name^="chorder_"]').each(function (i,e) {
+    form.find('input[name^="chorder_"]').each(function (i, e) {
       var
         chid = $(e).val(),
-        val = form.find('[name="option_'+chid+'"]').val();
+        val = form.find('[name="option_' + chid + '"]').val();
       data['options'][chid] = val;
       if (0 != val) {
         flag_set = true;
@@ -467,7 +467,7 @@ $('#argument-add-form').live('submit', function (e) {
     data['text'] = form.find('textarea').val();
   }
 
-  var ifnull = function(text) {
+  var ifnull = function (text) {
     return 'null' == text || !text ? '' : text;
   }
 
@@ -488,8 +488,8 @@ $('#argument-add-form').live('submit', function (e) {
   // handle errors
   if (error) {
     $.hrd.noty({
-      type:'error',
-      text:error
+      type: 'error',
+      text: error
     });
     return false;
   }
@@ -501,26 +501,26 @@ $('#argument-add-form').live('submit', function (e) {
   // submit form
   // without errors submit form
   $.ajax({
-    type      : 'POST',
-    dataType  : 'json',
-    url       : Drupal.settings.language_prefix+'/argument/create',
-    data      : data,
-    success   : function (response) {
+    type    : 'POST',
+    dataType: 'json',
+    url     : Drupal.settings.language_prefix + '/argument/create',
+    data    : data,
+    success : function (response) {
       // close form
       argument_form_toggle($('h6#add-arg'));
       // work with response
       if (response.success) {
         // success message
         $.hrd.noty({
-          type  : 'success',
-          text  : response.message
+          type: 'success',
+          text: response.message
         });
         // reset form
         form.reset();
         // reset choices
         for (var i = 0; i < choices_count; i++) {
           $('#sup_' + i + ' option').removeAttr('selected');
-          $('#slider-' + i).slider({value:2});
+          $('#slider-' + i).slider({value: 2});
           $('#sup_' + i + ' :nth-child(2)').attr("selected", "selected");
         }
         // reset embedly
@@ -533,9 +533,9 @@ $('#argument-add-form').live('submit', function (e) {
         // event
         var body = $('body');
         body.trigger('events', ['debate', {
-          'nid'           : response.nid,
-          'content_type'  : 'node',
-          'content_id'    : response.nid
+          'nid'         : response.nid,
+          'content_type': 'node',
+          'content_id'  : response.nid
         }]);
 
         // badges
@@ -543,12 +543,12 @@ $('#argument-add-form').live('submit', function (e) {
 
       } else {
         $.hrd.noty({
-          type:'error',
-          text:response.message
+          type: 'error',
+          text: response.message
         });
       }
     },
-    complete:function () {
+    complete: function () {
       // hide sub loader
       $('#sub_loader').hide();
       // show submit button
@@ -565,12 +565,9 @@ $('#argument-add-form').live('submit', function (e) {
 
   return false;
 
-
   // todo check below
 
-
   // debate title
-
 
   // resource link & regexp
   var nlink = url_prepare($('#url').val());
@@ -586,35 +583,33 @@ $('#argument-add-form').live('submit', function (e) {
   } else if (!url_validate(nlink) && type == 'resource') {
     error = 'Please enter a valid URL. ' + nlink;
   } else if (linkbox == '' && type == 'resource') {
-    var callback_url = Drupal.settings.language_prefix+'/argument/preview/resource';
+    var callback_url = Drupal.settings.language_prefix + '/argument/preview/resource';
     var lbox = $('#linkbox');
     lbox.slideDown('slow');
-    lbox.html("<span class='load'>"+Drupal.t('Loading')+"...</span>");
+    lbox.html("<span class='load'>" + Drupal.t('Loading') + "...</span>");
 
     $.ajax({
-      type:'POST',
-      dataType:'json',
-      url:callback_url,
-      data:{ url:nlink },
-      success:function (response) {
+      type    : 'POST',
+      dataType: 'json',
+      url     : callback_url,
+      data    : { url: nlink },
+      success : function (response) {
         if (!response.status) {
           output = false;
           lbox.slideUp('slow', function () {
             lbox.html('')
           });
           $.hrd.noty({
-            type:'error',
-            text:Drupal.t('Sorry, your URL cannot be attached')
+            type: 'error',
+            text: Drupal.t('Sorry, your URL cannot be attached')
           });
           return false;
         }
         lbox.html(response.message);
 
-
-
         $.hrd.noty({
-          type:'success',
-          text:Drupal.t('You can now submit your resource')
+          type: 'success',
+          text: Drupal.t('You can now submit your resource')
         });
         $('#add_argument').val(Drupal.t('Add'));
       }
@@ -626,10 +621,8 @@ $('#argument-add-form').live('submit', function (e) {
   // image
   form.find('input[name=image]').val($('input[name=uimg]').val());
 
-
   return false;
 });
-
 
 /**
  * Show popup
@@ -698,11 +691,11 @@ $('a.permalink').live('click', function (e) {
 //  var link = window.location.href.replace(/#.*/, '') + '#' + $(this).parents('.one-forum').attr('id');
   var link = $(this).attr('name');
   $.hrd.noty({
-    'layout':'center',
-    'type':'alert',
-    'text':'<a href="' + link + '">' + link + '</a>',
-    'modal':true,
-    'timeout':false,
-    'closeWith':['button']
+    'layout'   : 'center',
+    'type'     : 'alert',
+    'text'     : '<a href="' + link + '">' + link + '</a>',
+    'modal'    : true,
+    'timeout'  : false,
+    'closeWith': ['button']
   });
 });

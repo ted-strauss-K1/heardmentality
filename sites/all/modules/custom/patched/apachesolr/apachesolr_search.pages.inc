@@ -35,7 +35,7 @@ function apachesolr_search_custom_page($page_id, $keys = '', $path_replacer = NU
   $build_results = apachesolr_search_search_page_custom($results, $search_page, $build);
 
   $build_output = NULL;
-  foreach($build_results as $build_result) {
+  foreach ($build_results as $build_result) {
     $build_output .= $build_result;
   }
   return $build_output;
@@ -55,20 +55,25 @@ function apachesolr_search_custom_page_search_form(&$form_state, $search_page, $
   $form['#search_page'] = $search_page;
 
   $form['basic']['keys'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Enter terms'),
+    '#type'          => 'textfield',
+    '#title'         => t('Enter terms'),
     '#default_value' => $keys,
-    '#size' => 20,
-    '#maxlength' => 255,
+    '#size'          => 20,
+    '#maxlength'     => 255,
   );
   $form['basic']['submit'] = array(
-    '#type' => 'submit',
+    '#type'  => 'submit',
     '#value' => t('Search'),
   );
 
   $form['basic']['get'] = array(
-    '#type' => 'hidden',
-    '#default_value' => json_encode(array_diff_key($_GET, array('q' => 1, 'page' => 1, 'solrsort' => 1, 'retain-filters' => 1))),
+    '#type'          => 'hidden',
+    '#default_value' => json_encode(array_diff_key($_GET, array(
+      'q'              => 1,
+      'page'           => 1,
+      'solrsort'       => 1,
+      'retain-filters' => 1
+    ))),
   );
 
   $fq = NULL;
@@ -81,8 +86,8 @@ function apachesolr_search_custom_page_search_form(&$form_state, $search_page, $
 
   if ($fq || !empty($form_state['post'])) {
     $form['basic']['retain-filters'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Retain current filters'),
+      '#type'          => 'checkbox',
+      '#title'         => t('Retain current filters'),
       '#default_value' => (int) !empty($_GET['retain-filters']),
     );
   }
@@ -98,7 +103,7 @@ function apachesolr_search_custom_page_search_form_submit(&$form, &$form_state) 
   $redirect = $search_page['search_path'];
   if (strlen($form_state['values']['keys'])) {
     // Replace keys with their rawurlencoded value
-    $keys = str_replace("/","%2f", $form_state['values']['keys']);
+    $keys = str_replace("/", "%2f", $form_state['values']['keys']);
     $redirect .= '/' . $keys;
   }
 
