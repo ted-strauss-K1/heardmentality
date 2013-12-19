@@ -15,8 +15,9 @@ class LocationTestCase extends DrupalWebTestCase {
       $lower = $test - $epsilon;
       $upper = $test + $epsilon;
       if ($result[$k] < $lower || $result[$k] > $upper) {
-        $this->_assert('fail', $message ? $message : t('Value deviates by @amt, which is more than @maxdev.', array('@amt'    => abs($test - $result[$k]),
-                                                                                                                    '@maxdev' => $epsilon
+        $this->_assert('fail', $message ? $message : t('Value deviates by @amt, which is more than @maxdev.', array(
+          '@amt'    => abs($test - $result[$k]),
+          '@maxdev' => $epsilon
         )), $group);
       }
       else {
@@ -170,8 +171,9 @@ class LocationTestCase extends DrupalWebTestCase {
     $this->drupalPost('node/add/' . str_replace('_', '-', $type), $edit, t('Save'));
 
     $node = node_load(array('title' => $edit['title']));
-    $this->assertRaw(t('@type %title has been created.', array('@type'  => node_get_types('name', $node),
-                                                               '%title' => $edit['title']
+    $this->assertRaw(t('@type %title has been created.', array(
+      '@type'  => node_get_types('name', $node),
+      '%title' => $edit['title']
     )), t('Node created successfully.'));
 
     return $node;

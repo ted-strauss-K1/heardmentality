@@ -220,7 +220,7 @@ function location_cck_widget_info() {
       'label'       => t('Location Field'),
       'field types' => array('location'),
       // Location will set its own custom values.
-      'callbacks'   => array(//'default value' => CONTENT_CALLBACK_MODULE,
+      'callbacks'   => array( //'default value' => CONTENT_CALLBACK_MODULE,
       ),
     ),
   );

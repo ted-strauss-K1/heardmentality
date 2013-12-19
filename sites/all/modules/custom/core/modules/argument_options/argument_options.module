@@ -13,13 +13,13 @@ function argument_options_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     switch ($op) {
       case 'insert' :
       case 'update' :
-      if ($node->argument_options) {
-        foreach ($node->argument_options as $chid => $choice) {
-          db_query("
+        if ($node->argument_options) {
+          foreach ($node->argument_options as $chid => $choice) {
+            db_query("
             REPLACE INTO {argument_options}
             SET val = '%d', nid = '%d', chid = '%d', date_added = '%s'", $choice['val'], $node->nid, $chid, date('Y-m-d h:i:s'));
+          }
         }
-      }
         break;
       case 'load' :
         if (isset($node->argument_options)) {

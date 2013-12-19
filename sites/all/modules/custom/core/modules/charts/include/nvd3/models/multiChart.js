@@ -223,19 +223,19 @@ nv.models.multiChart = function () {
       var extraValue1 = dataStack1.length ? dataStack1.map(function (a) {
         return a.values
       }).reduce(function (a, b) {
-        return a.map(function (aVal, i) {
-          return {x: aVal.x, y: aVal.y + b[i].y}
-        })
-      }).concat([
+          return a.map(function (aVal, i) {
+            return {x: aVal.x, y: aVal.y + b[i].y}
+          })
+        }).concat([
           {x: 0, y: 0}
         ]) : []
       var extraValue2 = dataStack2.length ? dataStack2.map(function (a) {
         return a.values
       }).reduce(function (a, b) {
-        return a.map(function (aVal, i) {
-          return {x: aVal.x, y: aVal.y + b[i].y}
-        })
-      }).concat([
+          return a.map(function (aVal, i) {
+            return {x: aVal.x, y: aVal.y + b[i].y}
+          })
+        }).concat([
           {x: 0, y: 0}
         ]) : []
 

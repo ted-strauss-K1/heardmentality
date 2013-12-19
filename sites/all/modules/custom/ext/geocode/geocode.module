@@ -70,10 +70,10 @@ function geocode_latlng_request($lat, $lng, $info = array()) {
   $output = array();
 
   $response = geonames_query('extendedFindNearby', array(
-      'lat'   => $lat,
-      'lng'   => $lng,
-      'style' => 'full'
-    ), array('qs' => 'f'));
+    'lat'   => $lat,
+    'lng'   => $lng,
+    'style' => 'full'
+  ), array('qs' => 'f'));
   if ($response && $response->results) {
     $count = count($response->results);
     for ($i = $count - 1; $i >= 0; $i--) {

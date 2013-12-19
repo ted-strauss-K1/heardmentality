@@ -24,9 +24,9 @@ function apachesolr_environment_delete_form(&$form_state, $environment) {
     $verb = t('Delete');
   }
   return confirm_form($form, t('Are you sure you want to !verb search environment %name?', array(
-      '%name' => $environment['name'],
-      '!verb' => strtolower($verb)
-    )), 'admin/settings/apachesolr', t('This action cannot be undone.'), $verb, t('Cancel'));
+    '%name' => $environment['name'],
+    '!verb' => strtolower($verb)
+  )), 'admin/settings/apachesolr', t('This action cannot be undone.'), $verb, t('Cancel'));
 }
 
 function apachesolr_environment_delete_form_submit($form, &$form_state) {

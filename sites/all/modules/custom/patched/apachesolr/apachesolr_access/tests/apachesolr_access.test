@@ -16,9 +16,10 @@ class DrupalApacheSolrNodeAccess extends DrupalWebTestCase {
   function setUp() {
     parent::setUp('content', 'anode_access_test', 'search', 'apachesolr', 'apachesolr_search', 'apachesolr_access');
     require_once dirname(dirname(dirname(realpath(__FILE__)))) . '/Apache_Solr_Document.php';
-    apachesolr_load_service_class('', array('file'   => 'tests/Dummy_Solr',
-                                            'module' => 'apachesolr',
-                                            'class'  => 'DummySolr'
+    apachesolr_load_service_class('', array(
+      'file'   => 'tests/Dummy_Solr',
+      'module' => 'apachesolr',
+      'class'  => 'DummySolr'
     ));
 
     // Create a basic user, which is subject to moderation.
@@ -106,15 +107,17 @@ class DrupalApacheSolrNodeAccess extends DrupalWebTestCase {
 
     foreach ($fields as $field) {
       if (is_array($expected_criterion[$field['#name']])) {
-        $this->assertTrue(in_array($field['#value'], $expected_criterion[$field['#name']]), t('Expected node access grant @name == @value found', array('@name'  => $field['#name'],
-                                                                                                                                                        '@value' => $field['#value']
+        $this->assertTrue(in_array($field['#value'], $expected_criterion[$field['#name']]), t('Expected node access grant @name == @value found', array(
+          '@name'  => $field['#name'],
+          '@value' => $field['#value']
         )));
         //This is sorta a bug
         $found_criterion[$field['#name']] = $expected_criterion[$field['#name']];
       }
       else {
-        $this->assertEqual($field['#value'], $expected_criterion[$field['#name']], t('Expected node access grant @name == @value found', array('@name'  => $field['#name'],
-                                                                                                                                               '@value' => $field['#value']
+        $this->assertEqual($field['#value'], $expected_criterion[$field['#name']], t('Expected node access grant @name == @value found', array(
+          '@name'  => $field['#name'],
+          '@value' => $field['#value']
         )));
         $found_criterion[$field['#name']] = $expected_criterion[$field['#name']];
       }

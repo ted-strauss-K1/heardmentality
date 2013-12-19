@@ -105,13 +105,13 @@ function issue_search() {
   $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
 
   try {
-    $results = apachesolr_search_run('apachesolr', $params, '', '', $page-1);
+    $results = apachesolr_search_run('apachesolr', $params, '', '', $page - 1);
   } catch (Exception $e) {
     $json = array(
-      'status' => TRUE,
-      'message' => t('No results found') . '<!-- ' .$e->getMessage() . ' -->',
-      'rows' => 0,
-      'time' => 0,
+      'status'  => TRUE,
+      'message' => t('No results found') . '<!-- ' . $e->getMessage() . ' -->',
+      'rows'    => 0,
+      'time'    => 0,
     );
 
     print json_encode($json);

@@ -150,9 +150,10 @@ function google_geocode_location($location = array()) {
   $accuracy_code = $accuracy_code_match[1];
   $min_accuracy = variable_get('location_geocode_' . $location['country'] . 'google_accuracy_code', variable_get('location_geocode_google_minimum_accuracy', '3'));
   if ($accuracy_code < $min_accuracy) {
-    watchdog('location', 'Google geocoding result for %country did not meet the minimum accuracy level of %min_accuracy. Result accuracy: %accuracy_code', array('%country'       => $location['country'],
-                                                                                                                                                                 '%min_accuracy'  => $min_accuracy,
-                                                                                                                                                                 '%accuracy_code' => $accuracy_code
+    watchdog('location', 'Google geocoding result for %country did not meet the minimum accuracy level of %min_accuracy. Result accuracy: %accuracy_code', array(
+      '%country'       => $location['country'],
+      '%min_accuracy'  => $min_accuracy,
+      '%accuracy_code' => $accuracy_code
     ));
     return NULL;
   }
@@ -190,8 +191,9 @@ function google_geocode_settings() {
       '#size'          => 64,
       '#maxlength'     => 128,
       '#default_value' => variable_get('location_geocode_google_apikey', ''),
-      '#description'   => t('In order to use the Google Maps API geocoding web-service, you will need a Google Maps API Key.  You can obtain one at the !sign_up_link for the !google_maps_api.  PLEASE NOTE: You will <em>not</em> have to re-enter your API key for each country for which you have selected Google Maps for geocoding.  This setting is global.', array('!sign_up_link'    => '<a href="http://www.google.com/apis/maps/signup.html">sign-up page</a>',
-                                                                                                                                                                                                                                                                                                                                                                           '!google_maps_api' => '<a href="http://www.google.com/apis/maps/">Google Maps API</a>'
+      '#description'   => t('In order to use the Google Maps API geocoding web-service, you will need a Google Maps API Key.  You can obtain one at the !sign_up_link for the !google_maps_api.  PLEASE NOTE: You will <em>not</em> have to re-enter your API key for each country for which you have selected Google Maps for geocoding.  This setting is global.', array(
+        '!sign_up_link'    => '<a href="http://www.google.com/apis/maps/signup.html">sign-up page</a>',
+        '!google_maps_api' => '<a href="http://www.google.com/apis/maps/">Google Maps API</a>'
       ))
     );
   }

@@ -588,9 +588,9 @@ function apachesolr_search_delete_search_page_confirm(&$form_state, $search_page
 
   // Sets the message, or the title of the page.
   $message = t('Are you sure you want to !verb the %label search page configuration?', array(
-      '%label' => $form['label']['#value'],
-      '!verb'  => strtolower($verb)
-    ));
+    '%label' => $form['label']['#value'],
+    '!verb'  => strtolower($verb)
+  ));
 
   // Builds caption.
   $caption = '<p>';

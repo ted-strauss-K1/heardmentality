@@ -68,10 +68,11 @@ function apachesolr_search_custom_page_search_form(&$form_state, $search_page, $
 
   $form['basic']['get'] = array(
     '#type'          => 'hidden',
-    '#default_value' => json_encode(array_diff_key($_GET, array('q'              => 1,
-                                                                'page'           => 1,
-                                                                'solrsort'       => 1,
-                                                                'retain-filters' => 1
+    '#default_value' => json_encode(array_diff_key($_GET, array(
+      'q'              => 1,
+      'page'           => 1,
+      'solrsort'       => 1,
+      'retain-filters' => 1
     ))),
   );
 

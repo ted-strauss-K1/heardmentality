@@ -69,9 +69,10 @@ function apachesolr_access_apachesolr_query_alter(DrupalSolrQueryInterface $quer
     $subquery = apachesolr_access_build_subquery($user);
     $query->addFilterSubQuery($subquery);
   } catch (Exception $e) {
-    watchdog("apachesolr_access", 'User %name (UID:!uid) cannot search: @message', array('%name'    => $user->name,
-                                                                                         '!uid'     => $user->uid,
-                                                                                         '@message' => $e->getMessage()
+    watchdog("apachesolr_access", 'User %name (UID:!uid) cannot search: @message', array(
+      '%name'    => $user->name,
+      '!uid'     => $user->uid,
+      '@message' => $e->getMessage()
     ));
     $query->abort_search = TRUE;
   }

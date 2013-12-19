@@ -810,10 +810,10 @@ function location_update_6301() {
   // {location}.lid -- Becomes a serial.
   db_drop_primary_key($ret, 'location');
   db_change_field($ret, 'location', 'lid', 'lid', array(
-      'type'     => 'serial',
-      'unsigned' => TRUE,
-      'not null' => TRUE
-    ), array('primary key' => array('lid')));
+    'type'     => 'serial',
+    'unsigned' => TRUE,
+    'not null' => TRUE
+  ), array('primary key' => array('lid')));
 
   // (The rest of the changes to this table were moved to update 6302 due to a bug.)
 

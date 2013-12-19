@@ -168,17 +168,10 @@ function issue_search_filter_form($form_state) {
   if (user_is_logged_in()) {
     if (isset($user->profile_country)) {
       $form['region'] = array(
-<<<<<<< HEAD
-        '#type' => 'checkbox',
-        '#title' => t('My region'),
-        '#id' => 'my_region',
-        '#default_value' => $settings['my_region'] && 'false' != $settings['my_region'],
-=======
         '#type'          => 'checkbox',
         '#title'         => t('My region'),
         '#id'            => 'my_region',
-        '#default_value' => 'false' != $settings['my_region'],
->>>>>>> 20131219---Redirects-to-the-issues
+        '#default_value' => $settings['my_region'] && 'false' != $settings['my_region'],
       );
     }
     else {
@@ -195,15 +188,9 @@ function issue_search_filter_form($form_state) {
   //    '#title' => t('Show issues of my language'),
   //  );
   $form['voted_status'] = array(
-<<<<<<< HEAD
-    '#type' => 'checkbox',
-    '#default_value' => $settings['not_voted'] && 'false' != $settings['not_voted'],
-    '#title' => t('Show only not voted'),
-=======
     '#type'          => 'checkbox',
-    '#default_value' => 'false' != $settings['not_voted'],
+    '#default_value' => $settings['not_voted'] && 'false' != $settings['not_voted'],
     '#title'         => t('Show only not voted'),
->>>>>>> 20131219---Redirects-to-the-issues
   );
   $form['search_text'] = array(
     '#type'  => 'textfield',

@@ -2605,9 +2605,9 @@ function theme_apachesolr_settings_title($vars) {
     $url = url('admin/settings/apachesolr/settings/', array('query' => array('destination' => $_GET['q'])));
     $output .= '<h3>';
     $output .= t('Settings for: @environment (<a href="@url">Overview</a>)', array(
-        '@url'         => $url,
-        '@environment' => $environment['name']
-      ));
+      '@url'         => $url,
+      '@environment' => $environment['name']
+    ));
     $output .= "</h3>\n";
   }
 

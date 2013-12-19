@@ -111,10 +111,10 @@
       else {
         var g = b.extend({}, b.ajaxSettings, a), q = b.extend(true, {}, b.extend(true, {}, b.ajaxSettings), g), z = "jqFormIO" + (new Date).getTime(), t = b('<iframe id="' + z + '" name="' + z + '" src="' + g.iframeSrc + '" onload="(jQuery(this).data(\'form-plugin-onload\'))()" />'), v = t[0];
         t.css({position: "absolute", top: "-1000px", left: "-1000px"});
-        var i = {aborted: 0, responseText: null, responseXML: null, status: 0, statusText: "n/a", getAllResponseHeaders: function () {
+        var i = {aborted    : 0, responseText: null, responseXML: null, status: 0, statusText: "n/a", getAllResponseHeaders: function () {
         }, getResponseHeader: function () {
-        }, setRequestHeader: function () {
-        }, abort: function () {
+        }, setRequestHeader : function () {
+        }, abort            : function () {
           this.aborted =
             1;
           t.attr("src", g.iframeSrc)
@@ -209,29 +209,29 @@
       d.preventDefault();
       b(this).ajaxSubmit(a)
     }).bind("click.form-plugin", function (d) {
-      var e = d.target, f = b(e);
-      if (!f.is(":submit,input:image")) {
-        e = f.closest(":submit");
-        if (e.length == 0)return;
-        e = e[0]
-      }
-      var c = this;
-      c.clk = e;
-      if (e.type == "image")if (d.offsetX != undefined) {
-        c.clk_x = d.offsetX;
-        c.clk_y = d.offsetY
-      } else if (typeof b.fn.offset == "function") {
-        f = f.offset();
-        c.clk_x = d.pageX - f.left;
-        c.clk_y = d.pageY - f.top
-      } else {
-        c.clk_x = d.pageX - e.offsetLeft;
-        c.clk_y = d.pageY - e.offsetTop
-      }
-      setTimeout(function () {
-        c.clk = c.clk_x = c.clk_y = null
-      }, 100)
-    })
+        var e = d.target, f = b(e);
+        if (!f.is(":submit,input:image")) {
+          e = f.closest(":submit");
+          if (e.length == 0)return;
+          e = e[0]
+        }
+        var c = this;
+        c.clk = e;
+        if (e.type == "image")if (d.offsetX != undefined) {
+          c.clk_x = d.offsetX;
+          c.clk_y = d.offsetY
+        } else if (typeof b.fn.offset == "function") {
+          f = f.offset();
+          c.clk_x = d.pageX - f.left;
+          c.clk_y = d.pageY - f.top
+        } else {
+          c.clk_x = d.pageX - e.offsetLeft;
+          c.clk_y = d.pageY - e.offsetTop
+        }
+        setTimeout(function () {
+          c.clk = c.clk_x = c.clk_y = null
+        }, 100)
+      })
   };
   b.fn.ajaxFormUnbind = function () {
     return this.unbind("submit.form-plugin click.form-plugin")

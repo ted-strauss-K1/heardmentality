@@ -271,9 +271,10 @@ class DrupalSolrOfflineSearchPagesWebTestCase extends DrupalSolrOfflineWebTestCa
    */
   function setUp() {
     parent::setUp('content', 'search', 'apachesolr', 'apachesolr_search');
-    apachesolr_load_service_class('', array('file'   => 'tests/Dummy_Solr',
-                                            'module' => 'apachesolr',
-                                            'class'  => 'DummySolr'
+    apachesolr_load_service_class('', array(
+      'file'   => 'tests/Dummy_Solr',
+      'module' => 'apachesolr',
+      'class'  => 'DummySolr'
     ));
     // Create a basic user, which is subject to moderation.
     $permissions = array(
@@ -409,10 +410,11 @@ class DrupalSolrOfflineSearchPagesWebTestCase extends DrupalSolrOfflineWebTestCa
 
     $this->drupalGet('admin/settings/apachesolr/search-pages');
     $this->assertNoText(t('Test Search Page'), t('Search Environment was succesfully deleted'));
-    apachesolr_environment_save(array('env_id'        => 'DummySolr',
-                                      'service_class' => 'DummySolr',
-                                      'name'          => 'dummy server',
-                                      'url'           => 'http://localhost:8983/solr'
+    apachesolr_environment_save(array(
+      'env_id'        => 'DummySolr',
+      'service_class' => 'DummySolr',
+      'name'          => 'dummy server',
+      'url'           => 'http://localhost:8983/solr'
     ));
     $solr = new DummySolr($url = NULL, $env_id = 'DummySolr');
     $params = array(
@@ -439,9 +441,10 @@ class DrupalSolrNodeTestCase extends DrupalWebTestCase {
    */
   function setUp() {
     parent::setUp('content', 'apachesolr', 'apachesolr_search', 'search', 'apachesolr_test');
-    apachesolr_load_service_class('', array('file'   => 'tests/Dummy_Solr',
-                                            'module' => 'apachesolr',
-                                            'class'  => 'DummySolr'
+    apachesolr_load_service_class('', array(
+      'file'   => 'tests/Dummy_Solr',
+      'module' => 'apachesolr',
+      'class'  => 'DummySolr'
     ));
 
     // Create a basic user, which is subject to moderation.

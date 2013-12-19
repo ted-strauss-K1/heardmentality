@@ -3400,12 +3400,12 @@ d3 = function () {
       return graticule;
     };
     return graticule.majorExtent([
-      [ -180, -90 + ε ],
-      [ 180, 90 - ε ]
-    ]).minorExtent([
-      [ -180, -80 - ε ],
-      [ 180, 80 + ε ]
-    ]);
+        [ -180, -90 + ε ],
+        [ 180, 90 - ε ]
+      ]).minorExtent([
+        [ -180, -80 - ε ],
+        [ 180, 80 + ε ]
+      ]);
   };
   function d3_geo_graticuleX(y0, y1, dy) {
     var y = d3.range(y0, y1 - ε, dy).concat(y1);
