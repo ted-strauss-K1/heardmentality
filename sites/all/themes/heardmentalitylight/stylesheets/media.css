@@ -380,9 +380,7 @@
   }
 
   /*--/ error circles */
-
   /* circles in homepage */
-
   .main-banner-display .circle-box {
     background : none;
     height     : 170px;
@@ -1464,7 +1462,7 @@
   }
 
   .white-box#region-content {
-    margin: 0;
+    margin : 0;
   }
 
 }
@@ -1799,9 +1797,7 @@
   }
 
   /*--/ user login pop-up */
-
   /* circles in homepage */
-
   .main-banner-display .circle-box {
     background : none;
     height     : 170px;
