@@ -48,7 +48,7 @@ function profile_privacy_profile_privacy_access_info() {
     ),
     'public' => array(
       'label' => t('Public'),
-      'description' => t('Public to everyone who has the <em>access user profiles</em> permission.'),
+      'description' => t('Public to everyone who has the access user profiles permission.'),
       'access callback' => TRUE,
     ),
   );

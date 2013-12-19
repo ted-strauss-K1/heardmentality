@@ -171,8 +171,8 @@
 .ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
   border-width  : 1px 1px 4px 1px;
   border-color  : #849EB7;
-  top           : -3px !important;
-  margin-bottom : -3px !important;
+  top           : -3px;
+  margin-bottom : -3px;
 }
 
 .ie8 .issue-vote-wrapper .button.vote:hover {
@@ -220,7 +220,7 @@
   margin-bottom : 5px;
 }
 
-.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover {
+.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover, .ie7 .user-info input.submit-issue {
   filter : chroma(color=#000000);
 }
 
@@ -272,6 +272,91 @@
 }
 
 /*End IE9 gradients*/
+
+.ie7 .white-box #user-login input[type="submit"],
+.ie7 .white-box #user-register input[type="submit"],
+.ie7 #popup-login #user-login input[type="submit"],
+.ie7 #popup-login #user-register input[type="submit"] {
+  filter : chroma(color=#000000);
+}
+
+.ie9 input,
+.ie9 textarea {
+  line-height : 1em;
+}
+
+/* edit profile */
+
+.ie9 .edit_profile_four_columns input[type="submit"] {
+  height : 35px;
+}
+
+.ie7 .edit_profile_four_columns input[type="submit"] {
+  top : -3px;
+}
+
+.ie8 .edit_profile_four_columns input[type="submit"]:hover {
+  top           : -3px !important;
+  margin-bottom : -3px !important;
+  margin-top    : 15px !important;
+}
+
+.ie8 input.submit-issue:hover {
+  margin-top : -3px;
+}
+
+.ie7 #edit-image-upload-wrapper input[type="file"],
+.ie8 #edit-image-upload-wrapper input[type="file"] {
+  filter : alpha(opacity=0);
+}
+
+.ie7 #edit-image-upload-wrapper {
+  background          : url(../images/ie7_choose_file.png);
+  background-position : center center;
+  filter              : none;
+  border              : 2px solid #669ECC;
+  height              : 30px !important;
+}
+
+.ie8 #edit-image-upload-wrapper {
+  background          : url(../images/ie7_choose_file.png);
+  background-position : center center;
+  filter              : none;
+  border              : 1px solid #669ECC;
+}
+
+.ie7 #edit-image-upload-wrapper:hover {
+  border-top-width    : 2px;
+  border-right-width  : 2px;
+  border-bottom-width : 4px;
+  border-left-width   : 2px;
+  border-bottom-color : #849EB7;
+  top                 : -3px;
+  margin-bottom       : 4px;
+}
+
+.ie8 #edit-image-upload-wrapper:hover {
+  border-top-width    : 1px;
+  border-right-width  : 1px;
+  border-bottom-width : 4px;
+  border-left-width   : 1px;
+  border-bottom-color : #849EB7;
+  top                 : -3px;
+  margin-bottom       : 3px;
+}
+
+.ie8 .user-info input.submit-issue:hover {
+  top           : 15px !important;
+  margin-bottom : 15px !important;
+}
+
+.ie8 #edit_profile .privacy .form-radios .form-item {
+  width : 21%;
+}
+
+.ie7 ul.subscription li {
+  line-height : 1em;
+}
 
 /*PIE*/
 
@@ -523,10 +608,9 @@
 
 /* add an issue in ie7-8 */
 
-.ie7 input.submit-issue:hover,
-.ie8 input.submit-issue:hover {
+.ie8 .new-issue input.submit-issue:hover {
   margin-bottom : 15px;
-  top           : 15px !important;
+  top           : 15px;
 }
 
 .ie7 #create_box input.add-answer {
@@ -656,6 +740,7 @@
 .ie9 #count_results-wrapper span {
   vertical-align : baseline;
 }
+
 
 
 

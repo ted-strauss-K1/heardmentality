@@ -311,10 +311,6 @@
     margin-top : 0;
   }
 
-  #edit_profile .privacy .form-radios .form-item {
-    width : 10%;
-  }
-
   #edit_profile .form-radios .form-item:nth-child(1) {
     margin-right : 13px;
   }
@@ -430,6 +426,31 @@
   }
 
   /*--/ circles in homepage */
+
+  #edit_profile ul.privacy {
+    width  : 55%;
+    margin : 0 0 0 45%;
+  }
+
+  #edit_profile ul.privacy li {
+    width : 25%;
+  }
+
+  #edit_profile .user-info-inputs > li {
+    margin-bottom : 8px;
+  }
+
+  .user-profile-location div {
+    margin : 12px 0 8px 0;
+  }
+
+  #edit_profile select {
+    margin : 0;
+  }
+
+  label.add-on-2 span {
+    font-weight : bold;
+  }
 
 }
 
@@ -612,15 +633,24 @@
   #edit_profile .privacy .form-radios .form-item,
   .subscription .form-radios .form-item,
   ul.subscription li {
-    float      : right;
-    margin     : 0 1% 0 0;
-    text-align : left;
-    width      : 24%;
+    float  : right;
+    margin : 0 1% 0 0;
+    width  : 24%;
   }
 
   .subscription .form-radios .form-item,
   ul.subscription li {
-    width : 32.33%;
+    text-align : center;
+    width      : 32.33%;
+  }
+
+  ul.subscription li {
+    line-height : 1em;
+  }
+
+  #edit_profile ul.privacy li,
+  #edit_profile .privacy .form-radios .form-item {
+    text-align : center;
   }
 
   ul.privacy #income li,

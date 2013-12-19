@@ -30,7 +30,7 @@ $privacy = user_profile_profile_privacy_values();
   <h2 class="dinbold page-title"><?php print t('Edit Profile'); ?></h2>
 </div>
 
-<div class="four columns">
+<div class="four columns edit_profile_four_columns">
 
   <div class="dark-grey-box top clearfix">
     <div class="profile-meta">
