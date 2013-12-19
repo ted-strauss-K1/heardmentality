@@ -171,8 +171,8 @@
 .ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
   border-width  : 1px 1px 4px 1px;
   border-color  : #849EB7;
-  top           : -3px !important;
-  margin-bottom : -3px !important;
+  top           : -3px;
+  margin-bottom : -3px;
 }
 
 .ie8 .issue-vote-wrapper .button.vote:hover {
@@ -300,6 +300,16 @@
   background          : url(../images/ie7_choose_file.png);
   background-position : center center;
   filter              : none;
+  border: 2px solid #849EB7;
+}
+
+.ie7 #edit-image-upload-wrapper:hover {
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 4px;
+  border-left-width: 2px;
+  top: -3px;
+  margin-bottom: 4px;
 }
 
 /*End IE9 gradients*/
@@ -554,10 +564,9 @@
 
 /* add an issue in ie7-8 */
 
-.ie7 input.submit-issue:hover,
-.ie8 input.submit-issue:hover {
+.ie8 .new-issue input.submit-issue:hover {
   margin-bottom : 15px;
-  top           : 15px !important;
+  top           : 15px;
 }
 
 .ie7 #create_box input.add-answer {
