@@ -458,9 +458,9 @@ html[lang="ru"] .banner-text {
 }
 
 .page-error .banner-text {
-   width      : 80%;
-   margin : 40px 10% 0 10%;
- }
+  width  : 80%;
+  margin : 40px 10% 0 10%;
+}
 
 .dark-grey-box {
   background            : url(../images/cross_hatch_texture_dark.png);

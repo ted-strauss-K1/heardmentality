@@ -273,7 +273,7 @@
   }
 
   .main-banner-display.column.centered {
-    display: block;
+    display : block;
   }
 
   .select-cat {
@@ -371,8 +371,9 @@
   /* error circles */
 
   .main-banner-display.centered .circle-box {
-height: 285px;
+    height : 285px;
   }
+
   .circle-box {
     background : none;
     height     : 285px;
@@ -390,8 +391,8 @@ height: 285px;
   }
 
   .page-error .banner-text {
-    width      : 90%;
-    margin: 40px 5% 0 5%;
+    width  : 90%;
+    margin : 40px 5% 0 5%;
   }
 
   /*--/ error circles */
@@ -531,8 +532,8 @@ height: 285px;
   }
 
   .page-error .banner-text {
-    width: 100%;
-    margin: 20px 0 0 0;
+    width  : 100%;
+    margin : 20px 0 0 0;
   }
 
   .main-banner-display .circle-box {
@@ -582,7 +583,7 @@ height: 285px;
   }
 
   .main-banner-display.column.centered {
-    display: block;
+    display : block;
   }
 
   .banner-text {
