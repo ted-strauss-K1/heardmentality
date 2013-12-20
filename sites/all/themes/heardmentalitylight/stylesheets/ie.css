@@ -659,16 +659,15 @@
 
 /* user info */
 
-.ie7 .dark-grey-box .profile_page_wrapper,
-.ie7 .dark-grey-box .profile-meta {
+.ie7 .dark-grey-box .icon-businesscardalt {
   background-image    : url(../images/ie_account_icon.png);
   background-position : right top;
   background-repeat   : no-repeat;
 }
 
-.ie7 .dark-grey-box i,
 .ie7 .dark-grey-box i {
-  display : none;
+  height : 23px;
+  width  : 23px;
 }
 
 /*--/ user info */
