@@ -817,6 +817,9 @@
 
 /*--/ privacy options in ie9 1023>x>767 */
 
+.ie7 .dark-grey-box label.white_text {
+  margin-top : -23px;
+}
 
 
 
