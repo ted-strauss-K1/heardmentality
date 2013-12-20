@@ -1843,6 +1843,15 @@
   }
 
   /* circles in homepage */
+
+  /* following */
+
+  .sort-wrapper a,
+  .sort-wrapper a.active {
+    font-size : 11px;
+  }
+
+  /*--/ following */
 }
 
 
