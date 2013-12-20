@@ -733,7 +733,8 @@
   background : #362750;
 }
 
-.ie7 #moderation-issues-form fieldset .form-submit {
+.ie7 #moderation-issues-form fieldset .form-submit,
+.ie7 #issue-search-filter-form input[type="submit"] {
   filter : chroma(color=#000000);
 }
 
@@ -783,8 +784,20 @@
   background-repeat   : no-repeat;
 }
 
+.ie7 .icon-binoculars-searchalt {
+  background-image    : url(../images/ie_issue_search_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
 .ie7 .dark-grey-box .icon-groups-friends {
   background-image    : url(../images/ie_following_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
+.ie7 .icon-tag {
+  background-image    : url(../images/ie_issue_tag_icon.png);
   background-position : right top;
   background-repeat   : no-repeat;
 }
@@ -819,6 +832,28 @@
 
 .ie7 .dark-grey-box label.white_text {
   margin-top : -23px;
+}
+
+.ie7 a.profile-close-icon {
+  background-image    : url(../images/ie_close_icon.png);
+  background-position : center center;
+  background-repeat   : no-repeat;
+  width               : 10px;
+  height              : 10px;
+}
+
+.ie7 .grey-box i {
+  width  : 23px;
+  height : 23px;
+}
+
+.ie7 label.search_issues,
+.ie7 label.tags-on {
+  margin-top : -23px;
+}
+
+.ie7 label.tags-on {
+  width : 140px;
 }
 
 

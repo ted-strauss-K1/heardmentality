@@ -3568,7 +3568,7 @@ h2.page-title {
   font-size   : 39px;
   line-height : 43px;
   margin      : 0 0 18px;
-  padding     : 18px 30px 0;
+  padding     : 18px 20px 0;
   position    : relative;
 }
 
@@ -5642,12 +5642,11 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 }
 
 #count_results-wrapper span {
-  font-size      : 28px;
-  line-height    : 30px;
-  font-family    : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
-  font-style     : normal;
-  font-weight    : normal;
-  vertical-align : bottom;
+  font-size   : 28px;
+  line-height : 30px;
+  font-family : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
+  font-style  : normal;
+  font-weight : normal;
 }
 
 #issue-search-filter-form select {

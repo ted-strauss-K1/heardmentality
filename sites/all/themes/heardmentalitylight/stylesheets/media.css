@@ -1150,7 +1150,7 @@
   }
 
   .search_list .button.vote {
-    top : 20px;
+    top : 24px;
   }
 
   ul.date_filter {
@@ -1522,6 +1522,14 @@
 
   .white-box#region-content {
     margin : 0;
+  }
+
+  #new_vote .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 372px;
+  }
+
+  #new_vote .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 307px;
   }
 
 }
@@ -1911,6 +1919,15 @@
   }
 
   /*--/ following */
+
+  #new_vote .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 252px;
+  }
+
+  #new_vote .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 197px;
+  }
+
 }
 
 
