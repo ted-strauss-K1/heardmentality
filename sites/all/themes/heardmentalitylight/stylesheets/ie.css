@@ -783,7 +783,8 @@
   background-repeat   : no-repeat;
 }
 
-.ie7 .dark-grey-box i {
+.ie7 .dark-grey-box i,
+.ie7 .black-box i {
   height : 23px;
   width  : 23px;
 }
