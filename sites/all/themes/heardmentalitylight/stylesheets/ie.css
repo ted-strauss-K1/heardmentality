@@ -676,6 +676,15 @@
 
 /*--/ homepage */
 
+/* error circles */
+
+.ie7 .page-error .banner-text,
+.ie8 .page-error .banner-text {
+  width : 752px;
+}
+
+/*--/ error circles */
+
 /* about us */
 
 .ie7 #about_us_page_content #badges .bronze,
