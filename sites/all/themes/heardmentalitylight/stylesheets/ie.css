@@ -615,7 +615,8 @@
   background : #362750;
 }
 
-.ie7 #moderation-issues-form fieldset .form-submit {
+.ie7 #moderation-issues-form fieldset .form-submit,
+.ie7 #issue-search-filter-form input[type="submit"] {
   filter : chroma(color=#000000);
 }
 
