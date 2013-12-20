@@ -657,6 +657,12 @@
   vertical-align : baseline;
 }
 
+.ie7 .dark-grey-box .icon-groups-friends {
+  background-image    : url(../images/ie_following_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
 
 
 
