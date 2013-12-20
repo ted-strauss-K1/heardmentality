@@ -490,6 +490,12 @@
   background : url(../images/ie_footer_google.png) no-repeat;
 }
 
+.ie7 #footer #block-user_profile-user-profile-bottom .profile-dark {
+  background-image    : url(../images/ie_account_footer_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
 /*--/ footer */
 
 /* issues in ie7-8 */
