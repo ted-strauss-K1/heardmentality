@@ -783,6 +783,12 @@
   background-repeat   : no-repeat;
 }
 
+.ie7 .dark-grey-box .icon-groups-friends {
+  background-image    : url(../images/ie_following_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
 .ie7 .dark-grey-box i,
 .ie7 .black-box i {
   height : 23px;
@@ -810,7 +816,6 @@
 }
 
 /*--/ privacy options in ie9 1023>x>767 */
-
 
 
 
