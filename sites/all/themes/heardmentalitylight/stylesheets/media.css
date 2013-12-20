@@ -254,6 +254,9 @@
   #debate_list_area li.one_reply ul.control_links {
     margin : 0 0 0 185px;
   }
+
+  /*--/ debate */
+
 }
 
 /* iPad Portrait/Browser 
@@ -265,9 +268,12 @@
     width : 338px;
   }
 
-  .main-banner-display,
-  .main-banner-display.column.centered {
+  .main-banner-display {
     display : none;
+  }
+
+  .main-banner-display.column.centered {
+    display: block;
   }
 
   .select-cat {
@@ -363,6 +369,10 @@
   }
 
   /* error circles */
+
+  .main-banner-display.centered .circle-box {
+height: 285px;
+  }
   .circle-box {
     background : none;
     height     : 285px;
@@ -379,11 +389,17 @@
     letter-spacing : -0.04em;
   }
 
+  .page-error .banner-text {
+    width      : 90%;
+    margin: 40px 5% 0 5%;
+  }
+
   /*--/ error circles */
   /* circles in homepage */
+
   .main-banner-display .circle-box {
     background : none;
-    height     : 170px;
+    height     : 180px;
     text-align : center;
   }
 
@@ -467,7 +483,15 @@
   }
 
   /* error circles */
-  .error-banner {
+
+  .main-banner-display.centered {
+    background : none;
+    height     : 180px;
+    width      : 180px;
+    margin     : 10px auto;
+  }
+
+  .main-banner-display.centered .error-banner {
     width       : 180px;
     height      : 180px;
     padding     : 0 0 0 0;
@@ -475,13 +499,13 @@
     line-height : 50px;
   }
 
-  .error-banner a {
+  .main-banner-display.centered .error-banner a {
     vertical-align : middle;
     width          : 180px;
     height         : 180px;
   }
 
-  .error-banner a span {
+  .main-banner-display.centered .error-banner a span {
     display          : inline-block;
     width            : 180px;
     height           : 180px;
@@ -489,11 +513,11 @@
     border           : none;
     vertical-align   : middle;
     text-align       : center;
-    line-height      : 0;
-    padding          : 90px 0 0 0;
+    line-height      : 180px;
+    padding          : 0;
   }
 
-  .circle-box {
+  .main-banner-display.centered .circle-box {
     display    : block;
     width      : 180px;
     height     : 180px;
@@ -507,7 +531,8 @@
   }
 
   .page-error .banner-text {
-    margin-top : 0px;
+    width: 100%;
+    margin: 20px 0 0 0;
   }
 
   .main-banner-display .circle-box {
@@ -552,9 +577,12 @@
     margin : 10px 3px 10px 0px;
   }
 
-  .main-banner-display,
-  .main-banner-display.column.centered {
+  .main-banner-display {
     display : none;
+  }
+
+  .main-banner-display.column.centered {
+    display: block;
   }
 
   .banner-text {
