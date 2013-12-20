@@ -291,8 +291,27 @@
   height : 35px;
 }
 
-.ie7 .edit_profile_four_columns input[type="submit"] {
-  top : -3px;
+.ie7 .edit_profile_four_columns input[type="submit"],
+.ie7 .user-info input.submit-issue {
+  filter : chroma(color=#000000);
+  border : 1px solid #6E8BAD;
+}
+
+.ie7 .user-info input.submit-issue:hover {
+  border-bottom-color : #849EB7;
+  border-top-width    : 1px;
+  border-right-width  : 1px;
+  border-bottom-width : 4px;
+  border-left-width   : 1px;
+}
+
+.ie7 .edit_profile_four_columns input[type="submit"]:hover {
+  top                 : -3px;
+  border-top-width    : 1px;
+  border-right-width  : 1px;
+  border-bottom-width : 4px;
+  border-left-width   : 1px;
+  border-bottom-color : #849EB7;
 }
 
 .ie8 .edit_profile_four_columns input[type="submit"]:hover {
@@ -314,7 +333,7 @@
   background          : url(../images/ie7_choose_file.png);
   background-position : center center;
   filter              : none;
-  border              : 2px solid #669ECC;
+  border              : 1px solid #669ECC;
   height              : 30px !important;
 }
 
@@ -326,13 +345,13 @@
 }
 
 .ie7 #edit-image-upload-wrapper:hover {
-  border-top-width    : 2px;
-  border-right-width  : 2px;
+  border-top-width    : 1px;
+  border-right-width  : 1px;
   border-bottom-width : 4px;
-  border-left-width   : 2px;
+  border-left-width   : 1px;
   border-bottom-color : #849EB7;
   top                 : -3px;
-  margin-bottom       : 4px;
+  margin-bottom       : 3px;
 }
 
 .ie8 #edit-image-upload-wrapper:hover {
@@ -771,11 +790,15 @@
 @media only screen and (min-width : 768px) and (max-width : 1023px) {
   .ie9 #edit_profile ul.privacy {
     width       : 283px;
-    margin-left : 180px;
+    margin-left : 200px;
   }
 
   .ie9 #edit_profile .privacy .form-radios .form-item {
     width : 12%;
+  }
+
+  .ie9 #edit_profile ul.privacy li {
+    width : 22%;
   }
 
 }
