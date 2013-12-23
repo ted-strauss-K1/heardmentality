@@ -7316,7 +7316,7 @@ html.js fieldset.collapsible {
 /*--/ after merging 2013-12-09 - ad an issue */
 
 .four.columns.margin-top .dark-grey-box {
-  z-index: 9999;
+  z-index : 9999;
 }
 
 
