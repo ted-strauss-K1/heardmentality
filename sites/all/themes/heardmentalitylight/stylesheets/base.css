@@ -1073,7 +1073,7 @@ hr.line {
 .sort-wrapper a.active {
   padding        : 3px 9px 3px 9px;
   font-size      : 12px;
-  margin         : 3px 6px 3px 0px;
+  margin         : 4px 0px;
   letter-spacing : 1px;
   background     : #777777;
   border-radius  : 3px;

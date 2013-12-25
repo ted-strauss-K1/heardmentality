@@ -25,9 +25,61 @@ print drupal_render($form['current_image']);
 $privacy = user_profile_profile_privacy_values();
 
 ?>
-<div class="twelve columns">
 
+<div class="page_title_wrapper">
   <h2 class="dinbold page-title"><?php print t('Edit Profile'); ?></h2>
+</div>
+
+<div class="four columns edit_profile_four_columns">
+
+  <div class="dark-grey-box top clearfix">
+    <div class="profile-meta">
+      <i class="icon cat text icon-businesscardalt"></i> <label for="profile"
+                                                                class="white_text with_icon"><?php print t('Change Photo'); ?></label>
+      <?php print drupal_render($form['image_upload']); ?>
+      <div id="brow_img_name"></div>
+      <p class="choose_pic">
+        ...<?php print t('or choose a picture'); ?>
+        <a href="#" id="user-profile-avatar-selection-open"
+           title="<?php print t('Pick a photo') ?>"> <?php print t('here'); ?> </a>
+      </p>
+      <?php print drupal_render($form['image_submit']); ?>
+      <?php print drupal_render($form['image_avatar']); ?>
+    </div>
+  </div>
+
+  <!--  <div class="grey-box full clearfix">--><!--    <label for="" class="subscriptions">-->
+  <?php //print t('Social Integration'); ?><!--</label>--><!----><!--    <p class="twelve">-->
+  <!--      --><?php //print t('Stay logged in to these accounts - This makes sharing with your external networks easier.'); ?>
+  <!--    </p>--><!--    --><?php //print drupal_render($form['social']); ?>
+  <!--  </div>-->
+
+  <div class="grey-box full clearfix">
+    <label for="" class="subscriptions"><?php print t('Subscriptions'); ?></label>
+
+    <p class="twelve"><?php print t('Send me a summary of what\'s happening on Heard Mentality to my email'); ?></p>
+    <ul class="subscription">
+      <li><span class="privacy-answer"><?php print t('Never'); ?></span><br></li>
+      <li><span class="privacy-answer"><?php print t('Monthly'); ?></span><br></li>
+      <li><span class="privacy-answer"><?php print t('Weekly'); ?></span></li>
+
+      <?php print drupal_render($form['subscription_notify']); ?>
+      <?php print drupal_render($form['subscription_email']); ?>
+      <?php print drupal_render($form['subscription_submit']); ?>
+    </ul>
+  </div>
+
+  <div class="grey-box full clearfix">
+    <label for="" class="subscriptions"><?php print t('Language settings'); ?></label>
+
+    <p class="twelve"><?php print t('Set your default language'); ?></p>
+    <?php print drupal_render($form['language']); ?>
+    <?php print drupal_render($form['language_submit']); ?>
+  </div>
+
+</div>
+
+<div class="twelve columns">
 
   <div class="grey-box clearfix" id="edit_profile">
 
@@ -145,55 +197,6 @@ $privacy = user_profile_profile_privacy_values();
   </div>
   <!-- /.grey-box.edit_profile -->
 </div><!-- /.twelve.columns -->
-
-<div class="four columns">
-
-  <div class="dark-grey-box top clearfix">
-    <div class="profile-meta">
-      <i class="icon cat text icon-businesscardalt"></i> <label for="profile"
-                                                                class="white_text with_icon"><?php print t('Change Photo'); ?></label>
-      <?php print drupal_render($form['image_upload']); ?>
-      <div id="brow_img_name"></div>
-      <p class="choose_pic">
-        ...<?php print t('or choose a picture'); ?>
-        <a href="#" id="user-profile-avatar-selection-open"
-           title="<?php print t('Pick a photo') ?>"> <?php print t('here'); ?> </a>
-      </p>
-      <?php print drupal_render($form['image_submit']); ?>
-      <?php print drupal_render($form['image_avatar']); ?>
-    </div>
-  </div>
-
-  <!--  <div class="grey-box full clearfix">--><!--    <label for="" class="subscriptions">-->
-  <?php //print t('Social Integration'); ?><!--</label>--><!----><!--    <p class="twelve">-->
-  <!--      --><?php //print t('Stay logged in to these accounts - This makes sharing with your external networks easier.'); ?>
-  <!--    </p>--><!--    --><?php //print drupal_render($form['social']); ?>
-  <!--  </div>-->
-
-  <div class="grey-box full clearfix">
-    <label for="" class="subscriptions"><?php print t('Subscriptions'); ?></label>
-
-    <p class="twelve"><?php print t('Send me a summary of what\'s happening on Heard Mentality to my email'); ?></p>
-    <ul class="subscription">
-      <li><span class="privacy-answer"><?php print t('Never'); ?></span><br></li>
-      <li><span class="privacy-answer"><?php print t('Monthly'); ?></span><br></li>
-      <li><span class="privacy-answer"><?php print t('Weekly'); ?></span></li>
-
-      <?php print drupal_render($form['subscription_notify']); ?>
-      <?php print drupal_render($form['subscription_email']); ?>
-      <?php print drupal_render($form['subscription_submit']); ?>
-    </ul>
-  </div>
-
-  <div class="grey-box full clearfix">
-    <label for="" class="subscriptions"><?php print t('Language settings'); ?></label>
-
-    <p class="twelve"><?php print t('Set your default language'); ?></p>
-    <?php print drupal_render($form['language']); ?>
-    <?php print drupal_render($form['language_submit']); ?>
-  </div>
-
-</div>
 
 <div id="user-profile-avatar-selection-wrapper" style="display:none">
   <div id="user-profile-avatar-selection">

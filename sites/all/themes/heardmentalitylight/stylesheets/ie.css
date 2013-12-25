@@ -171,8 +171,8 @@
 .ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
   border-width  : 1px 1px 4px 1px;
   border-color  : #849EB7;
-  top           : -3px !important;
-  margin-bottom : -3px !important;
+  top           : -3px;
+  margin-bottom : -3px;
 }
 
 .ie8 .issue-vote-wrapper .button.vote:hover {
@@ -220,7 +220,7 @@
   margin-bottom : 5px;
 }
 
-.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover {
+.ie7 a.button.darker, .ie7 input.darker, .ie7 .foot-empty .form-submit, .ie7 .foot-empty .form-submit:hover, .ie7 .user-info input.submit-issue {
   filter : chroma(color=#000000);
 }
 
@@ -272,6 +272,110 @@
 }
 
 /*End IE9 gradients*/
+
+.ie7 .white-box #user-login input[type="submit"],
+.ie7 .white-box #user-register input[type="submit"],
+.ie7 #popup-login #user-login input[type="submit"],
+.ie7 #popup-login #user-register input[type="submit"] {
+  filter : chroma(color=#000000);
+}
+
+.ie9 input,
+.ie9 textarea {
+  line-height : 1em;
+}
+
+/* edit profile */
+
+.ie9 .edit_profile_four_columns input[type="submit"] {
+  height : 35px;
+}
+
+.ie7 .edit_profile_four_columns input[type="submit"],
+.ie7 .user-info input.submit-issue {
+  filter : chroma(color=#000000);
+  border : 1px solid #6E8BAD;
+}
+
+.ie7 .user-info input.submit-issue:hover {
+  border-bottom-color : #849EB7;
+  border-top-width    : 1px;
+  border-right-width  : 1px;
+  border-bottom-width : 4px;
+  border-left-width   : 1px;
+}
+
+.ie7 .edit_profile_four_columns input[type="submit"]:hover {
+  top                 : -3px;
+  border-top-width    : 1px;
+  border-right-width  : 1px;
+  border-bottom-width : 4px;
+  border-left-width   : 1px;
+  border-bottom-color : #849EB7;
+}
+
+.ie8 .edit_profile_four_columns input[type="submit"]:hover {
+  top           : -3px !important;
+  margin-bottom : -3px !important;
+  margin-top    : 15px !important;
+}
+
+.ie8 input.submit-issue:hover {
+  margin-top : -3px;
+}
+
+.ie7 #edit-image-upload-wrapper input[type="file"],
+.ie8 #edit-image-upload-wrapper input[type="file"] {
+  filter : alpha(opacity=0);
+}
+
+.ie7 #edit-image-upload-wrapper {
+  background          : url(../images/ie7_choose_file.png);
+  background-position : center center;
+  filter              : none;
+  border              : 1px solid #669ECC;
+  height              : 30px !important;
+}
+
+.ie8 #edit-image-upload-wrapper {
+  background          : url(../images/ie7_choose_file.png);
+  background-position : center center;
+  filter              : none;
+  border              : 1px solid #669ECC;
+}
+
+.ie7 #edit-image-upload-wrapper:hover {
+  border-top-width    : 1px;
+  border-right-width  : 1px;
+  border-bottom-width : 4px;
+  border-left-width   : 1px;
+  border-bottom-color : #849EB7;
+  top                 : -3px;
+  margin-bottom       : 3px;
+}
+
+.ie8 #edit-image-upload-wrapper:hover {
+  border-top-width    : 1px;
+  border-right-width  : 1px;
+  border-bottom-width : 4px;
+  border-left-width   : 1px;
+  border-bottom-color : #849EB7;
+  top                 : -3px;
+  margin-bottom       : 3px;
+}
+
+.ie8 .user-info input.submit-issue:hover {
+  top           : 15px !important;
+  margin-bottom : 15px !important;
+}
+
+.ie8 #edit_profile .privacy .form-radios .form-item {
+  width : 21%;
+}
+
+.ie7 ul.subscription li {
+  line-height : 1em;
+}
 
 /*PIE*/
 
@@ -490,6 +594,12 @@
   background : url(../images/ie_footer_google.png) no-repeat;
 }
 
+.ie7 .icon-businesscardalt {
+  background-image    : url(../images/ie_account_footer_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
 /*--/ footer */
 
 /* issues in ie7-8 */
@@ -523,10 +633,9 @@
 
 /* add an issue in ie7-8 */
 
-.ie7 input.submit-issue:hover,
-.ie8 input.submit-issue:hover {
+.ie8 .new-issue input.submit-issue:hover {
   margin-bottom : 15px;
-  top           : 15px !important;
+  top           : 15px;
 }
 
 .ie7 #create_box input.add-answer {
@@ -592,6 +701,15 @@
 
 /*--/ homepage */
 
+/* error circles */
+
+.ie7 .page-error .banner-text,
+.ie8 .page-error .banner-text {
+  width : 752px;
+}
+
+/*--/ error circles */
+
 /* about us */
 
 .ie7 #about_us_page_content #badges .bronze,
@@ -615,7 +733,8 @@
   background : #362750;
 }
 
-.ie7 #moderation-issues-form fieldset .form-submit {
+.ie7 #moderation-issues-form fieldset .form-submit,
+.ie7 #issue-search-filter-form input[type="submit"] {
   filter : chroma(color=#000000);
 }
 
@@ -657,6 +776,85 @@
   vertical-align : baseline;
 }
 
+/* user info */
+
+.ie7 .dark-grey-box .icon-businesscardalt {
+  background-image    : url(../images/ie_account_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
+.ie7 .icon-binoculars-searchalt {
+  background-image    : url(../images/ie_issue_search_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
+.ie7 .dark-grey-box .icon-groups-friends {
+  background-image    : url(../images/ie_following_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
+.ie7 .icon-tag {
+  background-image    : url(../images/ie_issue_tag_icon.png);
+  background-position : right top;
+  background-repeat   : no-repeat;
+}
+
+.ie7 .dark-grey-box i,
+.ie7 .black-box i {
+  height : 23px;
+  width  : 23px;
+}
+
+/*--/ user info */
+
+/* privacy options in ie9 1023>x>767 */
+
+@media only screen and (min-width : 768px) and (max-width : 1023px) {
+  .ie9 #edit_profile ul.privacy {
+    width       : 283px;
+    margin-left : 200px;
+  }
+
+  .ie9 #edit_profile .privacy .form-radios .form-item {
+    width : 12%;
+  }
+
+  .ie9 #edit_profile ul.privacy li {
+    width : 22%;
+  }
+
+}
+
+/*--/ privacy options in ie9 1023>x>767 */
+
+.ie7 .dark-grey-box label.white_text {
+  margin-top : -23px;
+}
+
+.ie7 a.profile-close-icon {
+  background-image    : url(../images/ie_close_icon.png);
+  background-position : center center;
+  background-repeat   : no-repeat;
+  width               : 10px;
+  height              : 10px;
+}
+
+.ie7 .grey-box i {
+  width  : 23px;
+  height : 23px;
+}
+
+.ie7 label.search_issues,
+.ie7 label.tags-on {
+  margin-top : -23px;
+}
+
+.ie7 label.tags-on {
+  width : 140px;
+}
 
 
 

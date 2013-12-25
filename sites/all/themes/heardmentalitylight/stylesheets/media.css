@@ -254,6 +254,9 @@
   #debate_list_area li.one_reply ul.control_links {
     margin : 0 0 0 185px;
   }
+
+  /*--/ debate */
+
 }
 
 /* iPad Portrait/Browser 
@@ -265,9 +268,12 @@
     width : 338px;
   }
 
-  .main-banner-display,
-  .main-banner-display.column.centered {
+  .main-banner-display {
     display : none;
+  }
+
+  .main-banner-display.column.centered {
+    display : block;
   }
 
   .select-cat {
@@ -309,10 +315,6 @@
 
   #block-user_profile-user-profile-right {
     margin-top : 0;
-  }
-
-  #edit_profile .privacy .form-radios .form-item {
-    width : 10%;
   }
 
   #edit_profile .form-radios .form-item:nth-child(1) {
@@ -363,6 +365,11 @@
   }
 
   /* error circles */
+
+  .main-banner-display.centered .circle-box {
+    height : 285px;
+  }
+
   .circle-box {
     background : none;
     height     : 285px;
@@ -379,11 +386,17 @@
     letter-spacing : -0.04em;
   }
 
+  .page-error .banner-text {
+    width  : 90%;
+    margin : 40px 5% 0 5%;
+  }
+
   /*--/ error circles */
   /* circles in homepage */
+
   .main-banner-display .circle-box {
     background : none;
-    height     : 170px;
+    height     : 180px;
     text-align : center;
   }
 
@@ -431,6 +444,31 @@
 
   /*--/ circles in homepage */
 
+  #edit_profile ul.privacy {
+    width  : 55%;
+    margin : 0 0 0 45%;
+  }
+
+  #edit_profile ul.privacy li {
+    width : 25%;
+  }
+
+  #edit_profile .user-info-inputs > li {
+    margin-bottom : 8px;
+  }
+
+  .user-profile-location div {
+    margin : 12px 0 8px 0;
+  }
+
+  #edit_profile select {
+    margin : 0;
+  }
+
+  label.add-on-2 span {
+    font-weight : bold;
+  }
+
 }
 
 /* iPad Portrait Only 
@@ -467,7 +505,15 @@
   }
 
   /* error circles */
-  .error-banner {
+
+  .main-banner-display.centered {
+    background : none;
+    height     : 180px;
+    width      : 180px;
+    margin     : 10px auto;
+  }
+
+  .main-banner-display.centered .error-banner {
     width       : 180px;
     height      : 180px;
     padding     : 0 0 0 0;
@@ -475,13 +521,13 @@
     line-height : 50px;
   }
 
-  .error-banner a {
+  .main-banner-display.centered .error-banner a {
     vertical-align : middle;
     width          : 180px;
     height         : 180px;
   }
 
-  .error-banner a span {
+  .main-banner-display.centered .error-banner a span {
     display          : inline-block;
     width            : 180px;
     height           : 180px;
@@ -489,11 +535,11 @@
     border           : none;
     vertical-align   : middle;
     text-align       : center;
-    line-height      : 0;
-    padding          : 90px 0 0 0;
+    line-height      : 180px;
+    padding          : 0;
   }
 
-  .circle-box {
+  .main-banner-display.centered .circle-box {
     display    : block;
     width      : 180px;
     height     : 180px;
@@ -507,7 +553,8 @@
   }
 
   .page-error .banner-text {
-    margin-top : 0px;
+    width  : 100%;
+    margin : 20px 0 0 0;
   }
 
   .main-banner-display .circle-box {
@@ -552,9 +599,12 @@
     margin : 10px 3px 10px 0px;
   }
 
-  .main-banner-display,
-  .main-banner-display.column.centered {
+  .main-banner-display {
     display : none;
+  }
+
+  .main-banner-display.column.centered {
+    display : block;
   }
 
   .banner-text {
@@ -612,15 +662,24 @@
   #edit_profile .privacy .form-radios .form-item,
   .subscription .form-radios .form-item,
   ul.subscription li {
-    float      : right;
-    margin     : 0 1% 0 0;
-    text-align : left;
-    width      : 24%;
+    float  : right;
+    margin : 0 1% 0 0;
+    width  : 24%;
   }
 
   .subscription .form-radios .form-item,
   ul.subscription li {
-    width : 32.33%;
+    text-align : center;
+    width      : 32.33%;
+  }
+
+  ul.subscription li {
+    line-height : 1em;
+  }
+
+  #edit_profile ul.privacy li,
+  #edit_profile .privacy .form-radios .form-item {
+    text-align : center;
   }
 
   ul.privacy #income li,
@@ -1091,7 +1150,7 @@
   }
 
   .search_list .button.vote {
-    top : 20px;
+    top : 24px;
   }
 
   ul.date_filter {
@@ -1465,6 +1524,14 @@
     margin : 0;
   }
 
+  #new_vote .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 372px;
+  }
+
+  #new_vote .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 307px;
+  }
+
 }
 
 /*Contact*/
@@ -1721,7 +1788,7 @@
   }
 
   .comment-agree a.agree, .comment-agree a.disagree, .comment-agree a, .comment-agree a {
-    padding : 1px 3px;
+    padding : 1px 2px;
   }
 
   /*--/ debate */
@@ -1843,6 +1910,24 @@
   }
 
   /* circles in homepage */
+
+  /* following */
+
+  .sort-wrapper a,
+  .sort-wrapper a.active {
+    font-size : 11px;
+  }
+
+  /*--/ following */
+
+  #new_vote .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 252px;
+  }
+
+  #new_vote .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 197px;
+  }
+
 }
 
 
