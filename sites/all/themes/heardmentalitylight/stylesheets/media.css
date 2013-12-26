@@ -6,12 +6,16 @@
 
 @media only screen and (max-width : 1023px) {
 
-  .hide-on-mobiles {
-    display : none;
-  }
+  /* header */
 
   .top-mobile .border-bottom {
     margin-top : 32px;
+  }
+
+  /*--/ header */
+
+  .hide-on-mobiles {
+    display : none;
   }
 
   .circle-box {
@@ -482,6 +486,141 @@
 
 @media only screen and (max-width : 767px) {
 
+  /* header */
+
+  a.logo {
+    width      : auto;
+    margin     : 0px 0px 0px 0px;
+    text-align : left;
+    float      : none;
+    padding    : 8px 12px 6px;
+  }
+
+  .line-bottom {
+    background : #DDDDDD;
+    height     : auto;
+  }
+
+  .top-mobile .border-bottom {
+    margin-top : 0px;
+  }
+
+  .top-left {
+    float  : none;
+    margin : 0;
+  }
+
+  .top-left.user-menu.full {
+    float : none;
+  }
+
+  .top-left.user-menu.full:after {
+    clear : none;
+  }
+
+  .top-left.user-menu ul.menu {
+    float : none;
+    width : 100%;
+  }
+
+  .top-left.user-menu ul.menu li {
+    float : left;
+    width : 100%;
+  }
+
+  .top-left.user-menu ul.menu li a {
+    display     : block;
+    float       : none;
+    text-align  : left;
+    white-space : nowrap;
+  }
+
+  .top-left.user-menu ul.menu.second li.add_issue {
+    position : relative;
+    right    : 0;
+    width    : 100%;
+  }
+
+  .top-right {
+    background : #000000;
+    float      : right;
+    margin     : 0px 0px 0px 8px;
+  }
+
+  .top-right.login {
+    float   : none;
+    width   : auto;
+    margin  : 0;
+    padding : 0;
+  }
+
+  .top-right.login a.login {
+    float            : none;
+    text-align       : left !important;
+    background-color : #222222 !important;
+    padding          : 13px 12px 11px !important;
+    max-width        : none;
+    overflow         : visible;
+    text-overflow    : inherit;
+    white-space      : normal;
+  }
+
+  .top-right.login a#dialog_link:hover {
+    color            : #000000;
+    background-color : #F6EB16 !important;
+    padding          : 7px 12px 0;
+  }
+
+  .top-right.login a.login i {
+    float : left;
+  }
+
+  .top-right.login a.login span {
+    display     : block;
+    margin-left : 20px;
+  }
+
+  .top-right.blue h6 {
+    margin-top : 8px;
+  }
+
+  ul.menu {
+    float  : left;
+    margin : 0px 0px 0px 0px;
+  }
+
+  ul.menu li {
+    float          : left;
+    color          : white;
+    text-transform : uppercase;
+    width          : 100%;
+  }
+
+  ul.menu li.login {
+    background : transparent;
+  }
+
+  ul.menu li a {
+    color           : white;
+    text-decoration : none;
+    line-height     : 15px;
+    padding         : 13px 12px 12px;
+  }
+
+  ul.menu.second.full {
+    float    : left;
+    position : static;
+    right    : 0;
+    width    : 50%;
+  }
+
+  ul.menu li a.add {
+    display : block;
+    float   : left;
+  }
+
+  /*--/ header */
+
   input[type="text"], input[type="password"], input[type="email"], textarea, select {
     -moz-box-sizing    : border-box;
     -webkit-box-sizing : border-box;
@@ -760,139 +899,6 @@
     display : none;
   }
 
-  /* Header */
-  .top-mobile .border-bottom {
-    margin-top : 0px;
-  }
-
-  .top-left {
-    float  : none;
-    margin : 0;
-  }
-
-  ul.menu {
-    float  : left;
-    margin : 0px 0px 0px 0px;
-  }
-
-  ul.menu li {
-    float          : left;
-    color          : white;
-    text-transform : uppercase;
-    width          : 100%;
-  }
-
-  ul.menu li.login {
-    background : transparent;
-  }
-
-  ul.menu li a {
-    color           : white;
-    text-decoration : none;
-    line-height     : 15px;
-    padding         : 13px 12px 12px;
-  }
-
-  ul.menu li a:hover {
-
-  }
-
-  .top-right {
-    background : #000000;
-    float      : right;
-    margin     : 0px 0px 0px 8px;
-  }
-
-  .top-right.login {
-    float   : none;
-    width   : auto;
-    margin  : 0;
-    padding : 0;
-  }
-
-  a.logo {
-    width      : auto;
-    margin     : 0px 0px 0px 0px;
-    text-align : left;
-    float      : none;
-    padding    : 8px 12px 6px;
-  }
-
-  .top-right.login a.login {
-    float            : none;
-    text-align       : left !important;
-    background-color : #222222 !important;
-    padding          : 13px 12px 11px !important;
-    max-width        : none;
-    overflow         : visible;
-    text-overflow    : inherit;
-    white-space      : normal;
-  }
-
-  .top-right.login a#dialog_link:hover {
-    color            : #000000;
-    background-color : #F6EB16 !important;
-    padding          : 7px 12px 0;
-  }
-
-  .top-right.login a.login i {
-    float : left;
-  }
-
-  .top-right.login a.login span {
-    display     : block;
-    margin-left : 20px;
-  }
-
-  .top-left.user-menu.full {
-    float : none;
-  }
-
-  .top-left.user-menu.full:after {
-    clear : none;
-  }
-
-  .top-left.user-menu ul.menu {
-    float : none;
-    width : 100%;
-  }
-
-  .top-left.user-menu ul.menu li {
-    float : left;
-    width : 100%;
-  }
-
-  ul.menu.second.full {
-    float    : left;
-    position : static;
-    right    : 0;
-    width    : 50%;
-  }
-
-  .top-left.user-menu ul.menu li a {
-    display     : block;
-    float       : none;
-    text-align  : left;
-    white-space : nowrap;
-    /*font-size: 92%;*/
-  }
-
-  .top-left.user-menu ul.menu.second li.add_issue {
-    position : relative;
-    right    : 0;
-    width    : 100%;
-  }
-
-  .top-right.blue h6 {
-    margin-top : 8px;
-  }
-
-  ul.menu li a.add {
-    display : block;
-    float   : left;
-  }
-
-  /*END Header*/
   /* Footer */
   .black-box {
     margin : 30px 0 0 0;
@@ -907,10 +913,7 @@
   }
 
   /*END Footer */
-  .line-bottom {
-    background : #DDDDDD;
-    height     : auto;
-  }
+
 
   .circle-box {
     background : url(../images/circle_bg.png) 0px -210px no-repeat;
@@ -1543,6 +1546,7 @@
 ==================================================*/
 
 @media only screen and (min-width : 480px) and (max-width : 767px) {
+
   input.form-text, input.form-text.user-search {
     width : 250px;
   }
@@ -1584,6 +1588,10 @@
 /* Small screens
 ==================================================*/
 @media only screen and (max-width : 480px) {
+
+  /* header */
+
+  /*--/ header */
 
   .white-box .container {
     width : 274px;
