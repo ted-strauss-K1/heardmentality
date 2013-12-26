@@ -29,7 +29,7 @@
   width : 33%;
 }
 
-/*--/ MAIN ELEMENTS */
+/*---/ MAIN ELEMENTS */
 
 /* FOUR COLUMNS */
 
@@ -74,9 +74,9 @@ a.google i {
   vertical-align : top;
 }
 
-/*--/ social links */
+/*---/ social links */
 
-/*--/ FOUR COLUMNS */
+/*---/ FOUR COLUMNS */
 
 /* SEVEN COLUMNS */
 
@@ -142,7 +142,7 @@ a.google i {
   float : right;
 }
 
-/*--/ login form */
+/*---/ login form */
 
 #block-user_profile-user-profile-bottom i {
   color        : #898989;
@@ -212,9 +212,9 @@ p.profile-links a:hover {
   border-radius         : 50%;
 }
 
-/*--/ medals */
+/*---/ medals */
 
-/*--/ SEVEN COLUMNS */
+/*---/ SEVEN COLUMNS */
 
 /* FIVE COLUMNS */
 
@@ -238,7 +238,7 @@ img.dark-logo {
   text-shadow : 0 -1px #000000;
 }
 
-/*--/ FIVE COLUMNS */
+/*---/ FIVE COLUMNS */
 
 /* POLICY */
 
@@ -261,7 +261,7 @@ p.policy a:hover {
   color : #FFFFFF;
 }
 
-/*--/ POLICY */
+/*---/ POLICY */
 
 
 

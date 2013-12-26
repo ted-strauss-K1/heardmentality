@@ -33,7 +33,7 @@
   margin     : 0px 10px 0px 0px;
 }
 
-/*--/ MAIN ELEMENTS */
+/*---/ MAIN ELEMENTS */
 
 /* LINE-TOP ELEMENTS */
 
@@ -73,7 +73,7 @@ span.beta {
   color          : #3CC7F4;
 }
 
-/*--/ logo */
+/*---/ logo */
 
 /* login */
 
@@ -142,9 +142,9 @@ a.login:hover {
   top            : -1px;
 }
 
-/*--/ login */
+/*---/ login */
 
-/*--/ LINE-TOP ELEMENTS */
+/*---/ LINE-TOP ELEMENTS */
 
 /* LINE-BOTTOM ELEMENTS */
 
@@ -216,7 +216,7 @@ ul.menu li a.moderator:hover {
   float : left;
 }
 
-/*--/ menu on the left */
+/*---/ menu on the left */
 
 /* menu on the right */
 
@@ -333,9 +333,9 @@ ul.lang:after {
   height     : 0;
 }
 
-/*--/ menu on the right */
+/*---/ menu on the right */
 
-/*--/ LINE-BOTTOM ELEMENTS */
+/*---/ LINE-BOTTOM ELEMENTS */
 
 
 

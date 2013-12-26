@@ -12,7 +12,7 @@
     margin-top : 32px;
   }
 
-  /*--/ header */
+  /*---/ header */
 
   /* footer */
 
@@ -50,11 +50,9 @@
     margin : 0 0 15px;
   }
 
-  /*--/ footer */
+  /*---/ footer */
 
-  .hide-on-mobiles {
-    display : none;
-  }
+  /* error circles & circles in homepage */
 
   .circle-box {
     background : url(../images/circle_bg.png) center -13px no-repeat;
@@ -71,6 +69,12 @@
   .error-banner {
     padding   : 75px 0px 0px 0px;
     font-size : 40px;
+  }
+
+  /*---/ error circles & circles in homepage */
+
+  .hide-on-mobiles {
+    display : none;
   }
 
   label.add-on, label.add-on-2 {
@@ -272,6 +276,83 @@
 
 @media only screen and (min-width : 768px) and (max-width : 1023px) {
 
+  /* error circles & circles in homepage */
+
+  .main-banner-display.centered .circle-box {
+    height : 285px;
+  }
+
+  .circle-box {
+    background : none;
+    height     : 285px;
+    text-align : center;
+  }
+
+  .error-banner {
+    padding : 0 0 0 0;
+    margin  : 0 auto;
+  }
+
+  .error-banner span {
+    font-size      : 80px;
+    letter-spacing : -0.04em;
+  }
+
+  .main-banner-display .circle-box {
+    background : none;
+    height     : 180px;
+    text-align : center;
+  }
+
+  .main-banner-display .see-banner,
+  .main-banner-display .vote-banner,
+  .main-banner-display .share-banner {
+    height : 170px;
+    width  : 170px;
+    margin : 0 auto;
+  }
+
+  .main-banner-display .see-banner a,
+  .main-banner-display .vote-banner a,
+  .main-banner-display .share-banner a {
+    height : 170px;
+    width  : 170px;
+  }
+
+  .main-banner-display .see-banner span,
+  .main-banner-display .vote-banner span,
+  .main-banner-display .share-banner span {
+    width       : 170px;
+    height      : 170px;
+    padding     : 0;
+    line-height : 170px;
+    font-size   : 36px;
+  }
+
+  .main-banner-display .see-banner p.hover,
+  .main-banner-display .vote-banner p.hover,
+  .main-banner-display .share-banner p.hover {
+    font-size   : 14px;
+    line-height : 1.1em;
+    width       : 170px;
+    height      : 40px;
+    padding     : 0;
+    margin-top  : 70px;
+    background  : white;
+    border      : none;
+  }
+
+  .banven a.button.participate {
+    margin : 15px 0 0 15px;
+  }
+
+  .page-error .banner-text {
+    width  : 90%;
+    margin : 40px 5% 0 5%;
+  }
+
+  /*---/ error circles & circles in homepage */
+
   input.form-text, input.form-text.user-search {
     width : 338px;
   }
@@ -371,86 +452,6 @@
   fieldset.suggest-answer li {
     width : auto;
   }
-
-  /* error circles */
-
-  .main-banner-display.centered .circle-box {
-    height : 285px;
-  }
-
-  .circle-box {
-    background : none;
-    height     : 285px;
-    text-align : center;
-  }
-
-  .error-banner {
-    padding : 0 0 0 0;
-    margin  : 0 auto;
-  }
-
-  .error-banner span {
-    font-size      : 80px;
-    letter-spacing : -0.04em;
-  }
-
-  .page-error .banner-text {
-    width  : 90%;
-    margin : 40px 5% 0 5%;
-  }
-
-  /*--/ error circles */
-  /* circles in homepage */
-
-  .main-banner-display .circle-box {
-    background : none;
-    height     : 180px;
-    text-align : center;
-  }
-
-  .main-banner-display .see-banner,
-  .main-banner-display .vote-banner,
-  .main-banner-display .share-banner {
-    height : 170px;
-    width  : 170px;
-    margin : 0 auto;
-  }
-
-  .main-banner-display .see-banner a,
-  .main-banner-display .vote-banner a,
-  .main-banner-display .share-banner a {
-    height : 170px;
-    width  : 170px;
-  }
-
-  .main-banner-display .see-banner span,
-  .main-banner-display .vote-banner span,
-  .main-banner-display .share-banner span {
-    width       : 170px;
-    height      : 170px;
-    padding     : 0;
-    line-height : 170px;
-    font-size   : 36px;
-  }
-
-  .main-banner-display .see-banner p.hover,
-  .main-banner-display .vote-banner p.hover,
-  .main-banner-display .share-banner p.hover {
-    font-size   : 14px;
-    line-height : 1.1em;
-    width       : 170px;
-    height      : 40px;
-    padding     : 0;
-    margin-top  : 70px;
-    background  : white;
-    border      : none;
-  }
-
-  .banven a.button.participate {
-    margin : 15px 0 0 15px;
-  }
-
-  /*--/ circles in homepage */
 
   #edit_profile ul.privacy {
     width  : 55%;
@@ -623,31 +624,27 @@
     float   : left;
   }
 
-  /*--/ header */
+  /*---/ header */
 
-  input[type="text"], input[type="password"], input[type="email"], textarea, select {
-    -moz-box-sizing    : border-box;
-    -webkit-box-sizing : border-box;
-    -ms-box-sizing     : border-box;
-    box-sizing         : border-box;
-    width              : 100% !important;
+  /* error circles & circles in homepage */
+
+  .circle-box {
+    background : url(../images/circle_bg.png) 0px -210px no-repeat;
+    margin     : 20px auto;
+    display    : block;
+    width      : 300px;
+    height     : 300px;
   }
 
-  /* user login pop-up */
-  .popup-tab input.form-text {
-    width : 90% !important;
+  .see-banner, .vote-banner, .share-banner {
+    font-size : 40px;
+    padding   : 145px 0px 0px 0px;
   }
 
-  /*--/ user login pop-up */
-  #edit-image-upload-wrapper input[type="file"] {
-    font-size : 12px;
+  .error-banner {
+    padding   : 145px 0px 0px 0px;
+    font-size : 80px;
   }
-
-  .page_title_wrapper {
-    padding : 30px 0 9px;
-  }
-
-  /* error circles */
 
   .main-banner-display.centered {
     background : none;
@@ -721,13 +718,28 @@
     margin-bottom : 30px;
   }
 
-  /*--/ error circles */
+  /*---/ error circles & circles in homepage */
+
   input[type="text"], input[type="password"], input[type="email"], textarea, select {
     -moz-box-sizing    : border-box;
     -webkit-box-sizing : border-box;
     -ms-box-sizing     : border-box;
     box-sizing         : border-box;
     width              : 100% !important;
+  }
+
+  /* user login pop-up */
+  .popup-tab input.form-text {
+    width : 90% !important;
+  }
+
+  /*--/ user login pop-up */
+  #edit-image-upload-wrapper input[type="file"] {
+    font-size : 12px;
+  }
+
+  .page_title_wrapper {
+    padding : 30px 0 9px;
   }
 
   .four.columns.margin-top {
@@ -920,23 +932,7 @@
   /*--/ footer */
 
 
-  .circle-box {
-    background : url(../images/circle_bg.png) 0px -210px no-repeat;
-    margin     : 20px auto;
-    display    : block;
-    width      : 300px;
-    height     : 300px;
-  }
 
-  .see-banner, .vote-banner, .share-banner {
-    font-size : 40px;
-    padding   : 145px 0px 0px 0px;
-  }
-
-  .error-banner {
-    padding   : 145px 0px 0px 0px;
-    font-size : 80px;
-  }
 
   input.form-text, input.form-text.user-search {
     width : 120px;
@@ -1884,7 +1880,10 @@
   }
 
   /*--/ user login pop-up */
-  /* circles in homepage */
+
+
+  /* error circles & circles in homepage */
+
   .main-banner-display .circle-box {
     background : none;
     height     : 170px;
@@ -1929,7 +1928,9 @@
     border      : none;
   }
 
-  /* circles in homepage */
+  /*---/ error circles & circles in homepage */
+
+
 
   /* following */
 
