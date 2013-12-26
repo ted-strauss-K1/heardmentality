@@ -488,7 +488,7 @@
 
   /* header */
 
-  a.logo {
+  .top-left a.logo {
     width      : auto;
     margin     : 0px 0px 0px 0px;
     text-align : left;
