@@ -139,3 +139,10 @@ p.policy a:hover {
   float  : right;
   margin : 0px 10px;
 }
+
+.line-bottom2 {
+  background    : #CDCDCD;
+  border-bottom : #CECECE 1px solid;
+  border-top    : #CECECE 1px solid;
+  height        : 32px;
+}

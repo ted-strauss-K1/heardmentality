@@ -1,3 +1,5 @@
+/* MAIN ELEMENTS */
+
 .header {
   margin  : 0px 0px;
   padding : 0px 0px
@@ -9,10 +11,14 @@
   border-width : 1px 0;
 }
 
+.line-bottom {
+  background : #DDDDDD;
+}
+
 .navigation {
   display : block;
   margin  : 0px 0px;
-  padding : 0px 0px
+  padding : 0px 0px;
 }
 
 .top-left {
@@ -21,7 +27,19 @@
   padding : 0px;
 }
 
-a.logo {
+.top-right {
+  background : #000000;
+  float      : right;
+  margin     : 0px 10px 0px 0px;
+}
+
+/*--/ MAIN ELEMENTS */
+
+/* LINE-TOP ELEMENTS */
+
+/* logo */
+
+.top-left a.logo {
   float            : left;
   background-color : #362750;
   color            : white;
@@ -34,10 +52,6 @@ a.logo {
   text-align       : center;
   display          : block;
   text-decoration  : none;
-}
-
-a.logo:hover {
-  background : #362750;
 }
 
 img.logo-img {
@@ -59,38 +73,9 @@ span.beta {
   color          : #3CC7F4;
 }
 
-a.login {
-  color          : white;
-  padding        : 10px 12px 0px 12px;
-  font-size      : 13px;
-  letter-spacing : 0.15em;
-  text-transform : none;
-  float          : right
-}
+/*--/ logo */
 
-a.login:hover {
-  color : yellow
-}
-
-span.hi {
-  color          : #AAAAAA;
-  text-transform : none
-}
-
-a span.hi:hover {
-  color          : yellow;
-  text-transform : none
-}
-
-.top-left.user-menu.full {
-  float : left;
-}
-
-.top-right {
-  background : #000000;
-  float      : right;
-  margin     : 0px 10px 0px 0px;
-}
+/* login */
 
 .top-right.login {
   float      : right;
@@ -121,18 +106,6 @@ a span.hi:hover {
   cursor : pointer;
 }
 
-.dialog {
-  width : 100px
-}
-
-.dialog p {
-  font-size : 15px;
-}
-
-#block-block-28 p {
-  margin : 0;
-}
-
 .top-right.login a.login {
   display          : block;
   float            : right;
@@ -148,6 +121,19 @@ a span.hi:hover {
   white-space      : nowrap;
 }
 
+a.login {
+  color          : white;
+  padding        : 10px 12px 0px 12px;
+  font-size      : 13px;
+  letter-spacing : 0.15em;
+  text-transform : none;
+  float          : right;
+}
+
+a.login:hover {
+  color : yellow;
+}
+
 .top-right.login a.login i {
   margin-right   : 5px;
   vertical-align : top;
@@ -156,69 +142,13 @@ a span.hi:hover {
   top            : -1px;
 }
 
-.top-right.blue {
-  background : #DDDDDD;
-  height     : auto;
-  float      : none;
-}
+/*--/ login */
 
-.line-bottom {
-  background : #DDDDDD;
-}
+/*--/ LINE-TOP ELEMENTS */
 
-.line-bottom2 {
-  background    : #CDCDCD;
-  border-bottom : #CECECE 1px solid;
-  border-top    : #CECECE 1px solid;
-  height        : 32px;
-}
+/* LINE-BOTTOM ELEMENTS */
 
-.top-right.blue h6 {
-  color          : #444444;
-  text-transform : uppercase;
-  font-size      : 12px;
-  letter-spacing : 0.15em;
-  margin         : 4px 0 2px 0;
-  line-height    : 15px;
-  font-weight    : normal;
-  text-align     : right;
-  min-width      : 83px;
-  float          : right;
-  padding-right  : 18px;
-  padding-top    : 5px;
-  position       : relative;
-}
-
-.top-right.blue h6:after {
-  border-color : #444444 transparent transparent;
-  border-style : solid;
-  border-width : 5px;
-  content      : "";
-  display      : block;
-  height       : 0;
-  margin-top   : -1px;
-  position     : absolute;
-  right        : 5px;
-  top          : 50%;
-  width        : 0;
-}
-
-.top-right.blue h6.active:after {
-  margin-top   : -6px;
-  border-color : transparent transparent #444444;
-}
-
-.top-right.blue h6 a {
-  font-weight    : normal;
-  padding        : 0;
-  text-shadow    : none;
-  color          : #444444;
-  text-transform : uppercase;
-}
-
-.top-right.blue h6 a:hover {
-  color : #000000;
-}
+/* menu on the left */
 
 ul.menu {
   float   : left;
@@ -251,7 +181,115 @@ ul.menu li a {
   -moz-transition-property           : border, -moz-box-shadow, background-color;
   -moz-transition-duration           : 0.2s, 0.2s, 0.2s;
   -moz-transition-timing-function    : linear, linear, linear;
-  -moz-transition-delay              : initial, initial
+  -moz-transition-delay              : initial, initial;
+  background-color                   : #CC2027;
+  color                              : #FFFFFF;
+}
+
+ul.menu li a:hover,
+ul.menu li a:active,
+ul.menu li a.active {
+  background-color : #3CC7F4;
+  color            : #222222;
+}
+
+ul.menu li.following a {
+  background-color : #EF3D3B;
+}
+
+ul.menu li a.analysis {
+  background-color : #EF3D3B;
+  color            : #FFFFFF;
+}
+
+ul.menu li a.moderator {
+  background-color : #E1E43C;
+  color            : #000000;
+}
+
+ul.menu li a.moderator:hover {
+  background-color : #6CCBD5;
+  color            : #FFFFFF;
+}
+
+.top-left.user-menu.full {
+  float : left;
+}
+
+/*--/ menu on the left */
+
+/* menu on the right */
+
+ul.menu.second {
+  float : right;
+}
+
+ul.menu.second.full {
+  position : absolute;
+  right    : 118px;
+}
+
+ul.menu li a.add {
+  background-color : #F6EB16;
+  color            : #000000;
+}
+
+ul.menu li a.add:hover {
+  background-color : #362750;
+  color            : #FFFFFF;
+}
+
+.top-right.blue {
+  background : #DDDDDD;
+  height     : auto;
+  float      : none;
+}
+
+.top-right.blue h6 {
+  color          : #444444;
+  text-transform : uppercase;
+  font-size      : 12px;
+  letter-spacing : 0.15em;
+  margin         : 4px 0 2px 0;
+  line-height    : 15px;
+  font-weight    : normal;
+  text-align     : right;
+  min-width      : 83px;
+  float          : right;
+  padding-right  : 18px;
+  padding-top    : 5px;
+  position       : relative;
+}
+
+.top-right.blue h6 a {
+  font-weight    : normal;
+  padding        : 0;
+  text-shadow    : none;
+  color          : #444444;
+  text-transform : uppercase;
+}
+
+.top-right.blue h6 a:hover {
+  color : #000000;
+}
+
+.top-right.blue h6.active:after {
+  margin-top   : -6px;
+  border-color : transparent transparent #444444;
+}
+
+.top-right.blue h6:after {
+  border-color : #444444 transparent transparent;
+  border-style : solid;
+  border-width : 5px;
+  content      : "";
+  display      : block;
+  height       : 0;
+  margin-top   : -1px;
+  position     : absolute;
+  right        : 5px;
+  top          : 50%;
+  width        : 0;
 }
 
 ul.lang {
@@ -285,56 +323,19 @@ ul.lang li a:hover {
   text-decoration : underline;
 }
 
-ul.menu li a {
-  background-color : #CC2027;
-  color            : #FFFFFF;
+.top-right.login:after,
+ul.lang:after {
+  visibility : hidden;
+  display    : block;
+  font-size  : 0;
+  content    : " ";
+  clear      : both;
+  height     : 0;
 }
 
-ul.menu li.following a {
-  background-color : #EF3D3B;
-}
+/*--/ menu on the right */
 
-ul.menu li a.analysis {
-  background-color : #EF3D3B;
-  color            : #FFFFFF;
-}
-
-ul.menu li a:hover,
-ul.menu li a:active,
-ul.menu li a.active {
-  background-color : #3CC7F4;
-  color            : #222222;
-}
-
-ul.menu li a.moderator {
-  background-color : #E1E43C;
-  color            : #000000;
-}
-
-ul.menu li a.moderator:hover {
-  background-color : #6CCBD5;
-  color            : #FFFFFF;
-}
-
-ul.menu.second {
-  float : right;
-}
-
-ul.menu.second.full {
-  position : absolute;
-  right    : 118px;
-}
-
-ul.menu li a.add {
-  background-color : #F6EB16;
-  color            : #000000;
-}
-
-ul.menu li a.add:hover {
-  background-color : #362750;
-  color            : #FFFFFF;
-}
-
+/*--/ LINE-BOTTOM ELEMENTS */
 
 
 

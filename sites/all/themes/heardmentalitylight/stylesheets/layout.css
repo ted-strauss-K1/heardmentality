@@ -3198,8 +3198,6 @@ p {
 
 /*Clear*/
 
-.top-right.login:after,
-ul.lang:after,
 #moderation-issues-form .fieldset-wrapper:after {
   visibility : hidden;
   display    : block;
@@ -7212,8 +7210,27 @@ textarea#Question,
   z-index : 9999;
 }
 
+span.hi {
+  color          : #AAAAAA;
+  text-transform : none
+}
 
+a span.hi:hover {
+  color          : yellow;
+  text-transform : none
+}
 
+.dialog {
+  width : 100px
+}
+
+.dialog p {
+  font-size : 15px;
+}
+
+#block-block-28 p {
+  margin : 0;
+}
 
 
 
