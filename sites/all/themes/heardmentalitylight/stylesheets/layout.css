@@ -352,10 +352,6 @@ ul.flagthis li {
   margin-bottom  : 16px;
 }
 
-.black-box input.form-text {
-  width : 250px;
-}
-
 .circle-box {
   background : none #FFFFFF;
   margin     : 50px auto 10px;
@@ -667,26 +663,6 @@ label.queue {
 
 }
 
-label.profile-dark {
-  color          : #888888;
-  text-shadow    : 0 -1px #000000;
-  font-size      : 16px;
-  line-height    : 1em;
-  text-transform : uppercase;
-  padding        : 0px 0px 10px 0px;
-  margin         : -2px 0px 25px 0px;
-}
-
-p.profile-links {
-  color          : #999999;
-  text-shadow    : 0 -1px #000000;
-  font-size      : 14px;
-  line-height    : 1em;
-  text-transform : none;
-  padding        : 0px 0px 10px 0px;
-  margin         : -20px 0px 25px 0px;
-}
-
 p.profile-links.quick-profile {
   color          : #666666;
   font-size      : 13px;
@@ -699,12 +675,6 @@ p.profile-links.quick-profile {
   clear          : both;
 }
 
-p.profile-links a {
-  color       : #CCCCCC;
-  line-height : 1em;
-  cursor      : pointer;
-}
-
 p.profile-links.quick-profile a {
   color       : #0181C3;
   line-height : 1em;
@@ -715,10 +685,6 @@ p.profile-links.quick-profile a {
 
 p.profile-links.quick-profile a:hover {
   color : #CC2027;
-}
-
-p.profile-links a:hover {
-  color : #FFFFFF;
 }
 
 #dialog .medals {
@@ -1932,7 +1898,7 @@ img.user-profile {
   border-color : #BCA705;
 }
 
-#footer .bronze, #footer .silver, #footer .gold, #badges .bronze, #badges .silver, #badges .gold {
+#badges .bronze, #badges .silver, #badges .gold {
   cursor       : default;
   padding      : 2px 8px 2px 8px;
   margin       : 0px 5px 10px 0px;
@@ -1978,15 +1944,6 @@ img.user-profile {
   margin      : 0;
 }
 
-#footer .medal {
-  font-weight : bold;
-  font-size   : 12px;
-  text-shadow : 0px -1px #000000;
-  color       : #777777;
-  margin      : 0px 0 10px 0px;
-  float       : left;
-}
-
 .medals {
   float  : left;
   margin : -12px 0px 0px 0px;
@@ -2000,10 +1957,6 @@ img.user-profile {
 .medal_box {
   float  : left;
   margin : 0 10px 10px 0;
-}
-
-#footer .medal_box {
-  margin : 0 10px 0 0;
 }
 
 .vertical .medal_box {
@@ -2527,25 +2480,6 @@ p.profile-status {
 /* #Footer
 ================================================== */
 
-.foot-link {
-  text-align : left;
-}
-
-.foot-link a {
-  color       : #CCCCCC;
-  text-shadow : 0 -1px #111111;
-  font-size   : 1.3em;
-}
-
-.foot-link a:hover {
-  color       : #FFFFFF;
-  text-shadow : 0 -1px #000000;
-}
-
-.footerfloat {
-  width : 33%;
-}
-
 .din {
   font-family : 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
   font-weight : normal;
@@ -2564,12 +2498,6 @@ p.profile-status {
 
 .halfgrey {
   color : #555555;
-}
-
-.ryde {
-  font-family : 'StRydeRegular', Arial, sans-serif;
-  font-weight : normal;
-  font-style  : normal;
 }
 
 .dinbold {
@@ -6512,10 +6440,6 @@ html[lang="ru"] #count_results-wrapper span {
   float : left;
 }
 
-#footer .container .four.columns {
-  float : left;
-}
-
 #footer .container .twelve.columns {
   float : left;
 }
@@ -6530,13 +6454,6 @@ i.icon:before {
 
 i.icon-businesscardalt:before {
   font-size : 24px;
-}
-
-#block-user_profile-user-profile-bottom i {
-  color        : #898989;
-  opacity      : 1;
-  filter       : alpha(opacity=100);
-  margin-right : 0;
 }
 
 .note_icon {
@@ -7165,9 +7082,6 @@ ul.control_links h6#reply:hover,
 .bronze,
 .silver,
 .gold,
-#footer .bronze,
-#footer .silver,
-#footer .gold,
 #badges .bronze,
 #badges .silver,
 #badges .gold,
@@ -7232,16 +7146,12 @@ a span.hi:hover {
   margin : 0;
 }
 
-
-
-
-
-
-
-
-
-
-
+.line-bottom2 {
+  background    : #CDCDCD;
+  border-bottom : #CECECE 1px solid;
+  border-top    : #CECECE 1px solid;
+  height        : 32px;
+}
 
 
 
