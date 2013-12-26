@@ -1,0 +1,220 @@
+/* CIRCLES */
+
+.circle-box {
+  background            : none #FFFFFF;
+  margin                : 50px auto 10px;
+  display               : block;
+  width                 : 285px;
+  height                : 285px;
+  border-radius         : 200px;
+  -o-border-radius      : 200px;
+  -moz-border-radius    : 200px;
+  -webkit-border-radius : 200px;
+  -khtml-border-radius  : 200px;
+}
+
+.see-banner, .vote-banner, .share-banner {
+  text-align     : center;
+  font-family    : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
+  text-transform : uppercase;
+  font-size      : 70px;
+  padding        : 0;
+  direction      : ltr;
+  height         : 285px;
+  width          : 285px;
+  letter-spacing : -0.04em;
+}
+
+.see-banner a, .vote-banner a, .share-banner a {
+  color           : #111111;
+  display         : block;
+  height          : 285px;
+  width           : 285px;
+  text-decoration : none;
+  position        : relative;
+}
+
+.see-banner span, .vote-banner span, .share-banner span,
+.see-banner p, .vote-banner p, .share-banner p {
+  display                    : block;
+  background                 : #FFFFFF;
+  border-top-left-radius     : 200px;
+  border-top-right-radius    : 200px;
+  border-bottom-right-radius : 200px;
+  border-bottom-left-radius  : 200px;
+  position                   : absolute;
+  top                        : 0;
+  left                       : 0;
+  border-top                 : 1px solid #BABCBD;
+}
+
+.see-banner span, .vote-banner span, .share-banner span {
+  width                  : 265px;
+  height                 : 70px;
+  padding                : 109px 10px 106px;
+  line-height            : 70px;
+  -webkit-font-smoothing : antialiased;
+}
+
+.see-banner p.hover, .vote-banner p.hover, .share-banner p.hover {
+  display        : none;
+  font-size      : 19px;
+  line-height    : 23px;
+  letter-spacing : normal;
+  text-transform : none;
+  width          : 213px;
+  height         : 145px;
+  padding        : 120px 36px 20px;
+}
+
+/*--/ CIRCLES */
+
+/* BANNER */
+
+.helper {
+  display : table;
+  width   : 100%;
+}
+
+/*--/ BANNER */
+
+/* CONTENT */
+
+/* nine columns */
+
+span.activity {
+  font-weight    : bold;
+  font-weight    : bold;
+  color          : #999999;
+  text-shadow    : 0 1px #FFFFFF;
+  font-size      : 13px;
+  padding        : 0px 3px 0px 3px;
+  text-transform : uppercase;
+}
+
+.container .nine .grey-box .uactivity {
+  height     : 795px;
+  min-width  : 263px;
+  overflow   : auto;
+  overflow-y : auto;
+  overflow-x : hidden;
+}
+
+.container .nine .grey-box .uactivity.mobile {
+  overflow-y : hidden;
+}
+
+/*--/ nine columns */
+
+/* seven columns */
+
+/* map */
+
+.activity.map-title {
+  font-weight    : bold;
+  color          : #999999;
+  text-shadow    : 0 1px #FFFFFF;
+  font-size      : 13px;
+  border-bottom  : 1px solid #C0C0C0;
+  margin         : 0 0 16px;
+  padding        : 0 3px 11px;
+  text-transform : uppercase;
+}
+
+#visualization > div {
+  margin : 0 auto;
+}
+
+.white-box ul.map-stats {
+  float  : left;
+  margin : 5px 13px 15px;
+}
+
+ul.map-stats li {
+  float        : right;
+  padding      : 10px 0px 10px 0px;
+  margin       : 0px 0px 0px 20px;
+  border-width : 1px;
+  border-style : solid;
+  border-color : #FFFFFF #FFFFFF #E2E2E2 #FFFFFF;
+}
+
+.count {
+  font-size   : 24px;
+  font-family : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
+  font-weight : normal;
+  font-style  : normal;
+}
+
+.count-title {
+  font-size   : 19px;
+  padding     : 0px 8px 0px 8px;
+  font-family : 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+}
+
+.map-stats .count-title a {
+  color           : #000000;
+  text-decoration : none;
+}
+
+/*--/ map */
+
+/* popular categories */
+
+.grey-box-cat {
+  background            : url(../images/white_50.png) repeat 0 0;
+  border                : 1px solid #C0C0C0;
+  margin                : 30px 0 0;
+  padding               : 20px;
+  -webkit-border-radius : 4px;
+  -moz-border-radius    : 4px;
+  border-radius         : 4px;
+  -khtml-border-radius  : 4px;
+  -o-border-radius      : 4px;
+}
+
+.grey-box-cat ul.tags {
+  margin  : 0;
+  padding : 0;
+}
+
+.icon.cat {
+  float   : right;
+  padding : 0;
+  margin  : -3px 5px 0 0;
+  filter  : alpha(opacity=90);
+  opacity : 0.75;
+  height  : auto;
+}
+
+.grey-box-cat .tags-on {
+  border-bottom : 1px solid #C0C0C0;
+  color         : #999999;
+  font-size     : 13px;
+  line-height   : 21px;
+  font-weight   : bold;
+  margin        : 0 0 12px;
+  padding       : 0 3px 10px;
+  text-shadow   : 0 1px #FFFFFF;
+}
+
+/*--/ popular categories */
+
+/*--/ seven columns */
+
+/*--/ CONTENT */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

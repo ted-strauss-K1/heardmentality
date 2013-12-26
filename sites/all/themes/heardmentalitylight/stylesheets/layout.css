@@ -100,15 +100,6 @@ ul.flagthis li {
   height     : 27px;
 }
 
-.icon.cat {
-  float   : right;
-  padding : 0;
-  margin  : -3px 5px 0 0;
-  filter  : alpha(opacity=90);
-  opacity : 0.75;
-  height  : auto;
-}
-
 .icon.cat2 {
   background : url(../images/icons/14-tag.png) top right no-repeat;
   float      : right;
@@ -360,7 +351,7 @@ ul.flagthis li {
   height     : 285px;
 }
 
-.see-banner, .vote-banner, .share-banner, .error-banner {
+.error-banner {
   text-align     : center;
   font-family    : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
   text-transform : uppercase;
@@ -376,7 +367,7 @@ ul.flagthis li {
   font-size : 80px;
 }
 
-.see-banner a, .vote-banner a, .share-banner a, .error-banner a {
+.error-banner a {
   color           : #111111;
   display         : block;
   height          : 285px;
@@ -385,8 +376,8 @@ ul.flagthis li {
   position        : relative;
 }
 
-.see-banner span, .vote-banner span, .share-banner span, .error-banner span,
-.see-banner p, .vote-banner p, .share-banner p, .error-banner p {
+.error-banner span,
+.error-banner p {
   display                    : block;
   background                 : #FFFFFF;
   border-top-left-radius     : 200px;
@@ -397,10 +388,9 @@ ul.flagthis li {
   top                        : 0;
   left                       : 0;
   border-top                 : 1px solid #BABCBD;
-  behavior                   : url(/scrollpane/PIE.htc);
 }
 
-.see-banner span, .vote-banner span, .share-banner span, .error-banner span {
+.error-banner span {
   width                  : 265px;
   height                 : 70px;
   padding                : 109px 10px 106px;
@@ -408,7 +398,7 @@ ul.flagthis li {
   -webkit-font-smoothing : antialiased;
 }
 
-.see-banner p.hover, .vote-banner p.hover, .share-banner p.hover, .error-banner p.hover {
+.error-banner p.hover {
   display        : none;
   font-size      : 19px;
   line-height    : 23px;
@@ -461,22 +451,6 @@ ul.tags, ul.badges {
   line-height    : 1.1;
   text-transform : uppercase;
   padding        : 0px 0px 10px 0px;
-}
-
-.grey-box-cat .tags-on {
-  border-bottom : 1px solid #C0C0C0;
-  color         : #999999;
-  font-size     : 13px;
-  line-height   : 21px;
-  font-weight   : bold;
-  margin        : 0 0 12px;
-  padding       : 0 3px 10px;
-  text-shadow   : 0 1px #FFFFFF;
-}
-
-.grey-box-cat ul.tags {
-  margin  : 0;
-  padding : 0;
 }
 
 ul.tags li {
@@ -1191,28 +1165,6 @@ ul.queue li {
   border-width : 1px;
   border-style : solid;
   border-color : #AAAAAA #DDDDDD #AAAAAA #DDDDDD;
-}
-
-ul.map-stats li {
-  float        : right;
-  padding      : 10px 0px 10px 0px;
-  margin       : 0px 0px 0px 20px;
-  border-width : 1px;
-  border-style : solid;
-  border-color : #FFFFFF #FFFFFF #E2E2E2 #FFFFFF;
-}
-
-.count {
-  font-size   : 24px;
-  font-family : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
-  font-weight : normal;
-  font-style  : normal;
-}
-
-.count-title {
-  font-size   : 19px;
-  padding     : 0px 8px 0px 8px;
-  font-family : 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
 }
 
 /* #FORMS (ISSUE, NEW ISSUE, PROFILE EDIT, )
@@ -2134,27 +2086,6 @@ span.sort {
   margin      : 0px 3px 0px -15px;
 }
 
-span.activity {
-  font-weight    : bold;
-  font-weight    : bold;
-  color          : #999999;
-  text-shadow    : 0 1px #FFFFFF;
-  font-size      : 13px;
-  padding        : 0px 3px 0px 3px;
-  text-transform : uppercase;
-}
-
-.activity.map-title {
-  font-weight    : bold;
-  color          : #999999;
-  text-shadow    : 0 1px #FFFFFF;
-  font-size      : 13px;
-  border-bottom  : 1px solid #C0C0C0;
-  margin         : 0 0 16px;
-  padding        : 0 3px 11px;
-  text-transform : uppercase;
-}
-
 .action span.date {
   color : #EF3D3B;
 }
@@ -2532,12 +2463,6 @@ h2.din a:hover {
 }
 
 /*openwave*/
-.grey-box-cat {
-  background : url(../images/white_50.png) repeat 0 0;
-  border     : 1px solid #C0C0C0;
-  margin     : 30px 0 0;
-  padding    : 20px;
-}
 
 .activity-stream p a,
 .activity_stream p a {
@@ -2551,16 +2476,6 @@ h2.din a:hover {
   font-size  : 11px;
   display    : block;
   text-align : right;
-}
-
-.map-stats .count-title a {
-  color           : #000000;
-  text-decoration : none;
-}
-
-.white-box ul.map-stats {
-  float  : left;
-  margin : 5px 13px 15px;
 }
 
 .black-box .medals .points {
@@ -2618,18 +2533,6 @@ textarea#q_quest, textarea#Question {
 
 .grey-box textarea.error {
   border : 2px solid red;
-}
-
-.container .nine .grey-box .uactivity {
-  height     : 795px;
-  min-width  : 263px;
-  overflow   : auto;
-  overflow-y : auto;
-  overflow-x : hidden;
-}
-
-.container .nine .grey-box .uactivity.mobile {
-  overflow-y : hidden;
 }
 
 .twelve .white-box h2 a {
@@ -3154,11 +3057,6 @@ p {
   width       : 100%;
   padding-top : 4px;
   line-height : 1.1;
-}
-
-.helper {
-  display : table;
-  width   : 100%;
 }
 
 .container .nine .grey-box ul {
@@ -6042,10 +5940,6 @@ ul.sub-pages-menu a:hover {
   margin-top : 10px;
 }
 
-#visualization > div {
-  margin : 0 auto;
-}
-
 /*Create Issue*/
 
 #issue-create-form {
@@ -6975,7 +6869,6 @@ html.js fieldset.collapsible {
 
 .white-box,
 .grey-box.full,
-.grey-box-cat,
 .grey-box.poll-box,
 .dark-grey-box,
 #edit_profile,
