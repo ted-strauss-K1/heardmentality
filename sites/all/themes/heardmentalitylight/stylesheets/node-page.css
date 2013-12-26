@@ -1,0 +1,88 @@
+/* CIRCLES */
+
+.circle-box {
+  background            : none #FFFFFF;
+  margin                : 50px auto 10px;
+  display               : block;
+  width                 : 285px;
+  height                : 285px;
+  border-radius         : 200px;
+  -o-border-radius      : 200px;
+  -moz-border-radius    : 200px;
+  -webkit-border-radius : 200px;
+  -khtml-border-radius  : 200px;
+}
+
+.circle-box .error-banner {
+  text-align     : center;
+  font-family    : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
+  text-transform : uppercase;
+  font-size      : 80px;
+  padding        : 0;
+  direction      : ltr;
+  height         : 285px;
+  width          : 285px;
+  letter-spacing : -0.04em;
+}
+
+.circle-box .error-banner a {
+  color           : #111111;
+  display         : block;
+  height          : 285px;
+  width           : 285px;
+  text-decoration : none;
+  position        : relative;
+}
+
+.circle-box .error-banner span {
+  display                    : block;
+  background                 : #FFFFFF;
+  border-top-left-radius     : 200px;
+  border-top-right-radius    : 200px;
+  border-bottom-right-radius : 200px;
+  border-bottom-left-radius  : 200px;
+  position                   : absolute;
+  top                        : 0;
+  left                       : 0;
+  border-top                 : 1px solid #BABCBD;
+  width                      : 265px;
+  height                     : 70px;
+  padding                    : 109px 10px 106px;
+  line-height                : 70px;
+  -webkit-font-smoothing     : antialiased;
+}
+
+.circle-box .error-banner p {
+  display                    : block;
+  background                 : #FFFFFF;
+  border-top-left-radius     : 200px;
+  border-top-right-radius    : 200px;
+  border-bottom-right-radius : 200px;
+  border-bottom-left-radius  : 200px;
+  position                   : absolute;
+  top                        : 0;
+  left                       : 0;
+  border-top                 : 1px solid #BABCBD;
+}
+
+.circle-box .error-banner p.hover {
+  display        : none;
+  font-size      : 19px;
+  line-height    : 23px;
+  letter-spacing : normal;
+  text-transform : none;
+  width          : 213px;
+  height         : 145px;
+  padding        : 120px 36px 20px;
+}
+
+/*--/ CIRCLES */
+
+/* BANNER */
+
+.page-error .banner-text {
+  width  : 80%;
+  margin : 40px 10% 0 10%;
+}
+
+/*--/ BANNER */

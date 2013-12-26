@@ -343,72 +343,6 @@ ul.flagthis li {
   margin-bottom  : 16px;
 }
 
-.circle-box {
-  background : none #FFFFFF;
-  margin     : 50px auto 10px;
-  display    : block;
-  width      : 285px;
-  height     : 285px;
-}
-
-.error-banner {
-  text-align     : center;
-  font-family    : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
-  text-transform : uppercase;
-  font-size      : 70px;
-  padding        : 0;
-  direction      : ltr;
-  height         : 285px;
-  width          : 285px;
-  letter-spacing : -0.04em;
-}
-
-.error-banner {
-  font-size : 80px;
-}
-
-.error-banner a {
-  color           : #111111;
-  display         : block;
-  height          : 285px;
-  width           : 285px;
-  text-decoration : none;
-  position        : relative;
-}
-
-.error-banner span,
-.error-banner p {
-  display                    : block;
-  background                 : #FFFFFF;
-  border-top-left-radius     : 200px;
-  border-top-right-radius    : 200px;
-  border-bottom-right-radius : 200px;
-  border-bottom-left-radius  : 200px;
-  position                   : absolute;
-  top                        : 0;
-  left                       : 0;
-  border-top                 : 1px solid #BABCBD;
-}
-
-.error-banner span {
-  width                  : 265px;
-  height                 : 70px;
-  padding                : 109px 10px 106px;
-  line-height            : 70px;
-  -webkit-font-smoothing : antialiased;
-}
-
-.error-banner p.hover {
-  display        : none;
-  font-size      : 19px;
-  line-height    : 23px;
-  letter-spacing : normal;
-  text-transform : none;
-  width          : 213px;
-  height         : 145px;
-  padding        : 120px 36px 20px;
-}
-
 .banner-text {
   font-size   : 28px;
   float       : left;
@@ -423,11 +357,6 @@ ul.flagthis li {
 
 html[lang="ru"] .banner-text {
   font-size : 28px;
-}
-
-.page-error .banner-text {
-  width  : 80%;
-  margin : 40px 10% 0 10%;
 }
 
 .dark-grey-box {
@@ -6902,7 +6831,6 @@ html.js fieldset.collapsible {
   -o-border-radius      : 0 0 4px 4px;
 }
 
-.circle-box,
 .vote-results .legend dt,
 span.coins_char,
 #debate_list_area li.one_reply span.negative,

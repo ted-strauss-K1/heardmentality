@@ -25,7 +25,7 @@
   letter-spacing : -0.04em;
 }
 
-.see-banner a, .vote-banner a, .share-banner a {
+.main-banner-display .see-banner a, .main-banner-display .vote-banner a, .main-banner-display .share-banner a {
   color           : #111111;
   display         : block;
   height          : 285px;
