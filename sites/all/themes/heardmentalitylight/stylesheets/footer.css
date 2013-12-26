@@ -223,17 +223,17 @@ img.dark-logo {
   margin : -8px -4px 0px 0px
 }
 
-.foot-link {
+#footer .foot-link {
   text-align : left;
 }
 
-.foot-link a {
+#footer .foot-link a {
   color       : #CCCCCC;
   text-shadow : 0 -1px #111111;
   font-size   : 1.3em;
 }
 
-.foot-link a:hover {
+#footer .foot-link a:hover {
   color       : #FFFFFF;
   text-shadow : 0 -1px #000000;
 }
