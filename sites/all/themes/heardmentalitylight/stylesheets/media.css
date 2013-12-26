@@ -14,6 +14,44 @@
 
   /*--/ header */
 
+  /* footer */
+
+  .black-box {
+    position : relative;
+  }
+
+  img.dark-logo {
+    position : absolute;
+    right    : 7px;
+    top      : 4px;
+    z-index  : 1;
+    margin   : 0;
+  }
+
+  #footer #user-login .form-submit {
+    margin : 0 0 15px;
+  }
+
+  a.facebook i,
+  a.twitter i,
+  a.facebook.google i {
+    font-size : 37px;
+  }
+
+  a.facebook {
+    margin : 0 7px 15px 0;
+  }
+
+  a.twitter {
+    margin : 0 0px 15px 0;
+  }
+
+  a.facebook.google {
+    margin : 0 0 15px;
+  }
+
+  /*--/ footer */
+
   .hide-on-mobiles {
     display : none;
   }
@@ -142,40 +180,6 @@
 
   #issue-create-form label span.title, #issue-create-form label span.guides {
     margin : 0;
-  }
-
-  .black-box {
-    position : relative;
-  }
-
-  img.dark-logo {
-    position : absolute;
-    right    : 7px;
-    top      : 4px;
-    z-index  : 1;
-    margin   : 0;
-  }
-
-  #footer #user-login .form-submit {
-    margin : 0 0 15px;
-  }
-
-  a.facebook i,
-  a.twitter i,
-  a.facebook.google i {
-    font-size : 37px;
-  }
-
-  a.facebook {
-    margin : 0 7px 15px 0;
-  }
-
-  a.twitter {
-    margin : 0 0px 15px 0;
-  }
-
-  a.facebook.google {
-    margin : 0 0 15px;
   }
 
   .filter_search.issues_search input.form-text, .filter_search.issues_search select, .filter_search.issues_search textarea,
@@ -899,7 +903,8 @@
     display : none;
   }
 
-  /* Footer */
+  /* footer */
+
   .black-box {
     margin : 30px 0 0 0;
   }
@@ -912,7 +917,7 @@
     margin-bottom : 16px;
   }
 
-  /*END Footer */
+  /*--/ footer */
 
 
   .circle-box {
@@ -1564,10 +1569,14 @@
     width : 97%;
   }
 
+  /* footer */
+
   #footer #user-login input.form-text,
   #footer #user-login-1 input.form-text {
     width : 100% !important;
   }
+
+  /*--/ footer */
 
   #create_box .resizable-textarea span {
     width : 100% !important;
@@ -1690,10 +1699,11 @@
     margin-left : 55px !important;
   }
 
-  /* footer */
   #search-solr-block {
     width : 100%;
   }
+
+  /* footer */
 
   #footer .medal_box {
     margin : 0 7px 0 0;
@@ -1703,7 +1713,6 @@
     margin : 0px 1px 10px 0px;
   }
 
-  /*--/ footer */
   #footer #user-login .form-submit {
     margin : 0 0 15px;
   }
@@ -1717,6 +1726,9 @@
   #footer #user-login-1 input.form-text {
     width : 95% !important;
   }
+
+  /*--/ footer */
+
 
   /* badges */
   #about_us_page_content #badges td {
