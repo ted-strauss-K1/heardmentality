@@ -1,5 +1,20 @@
 <script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/viz_v1.js"></script>
-<div class="tableauPlaceholder" style="width:100%; height:657px;">
+<div class="tableauPlaceholder" style="width:100%; height:657px; position: relative;">
+  <div style="position: absolute;
+text-align: center;
+width: 100%;
+padding: 200px 0;">
+    <div style="font-size: 36px;
+line-height: 60px;
+padding: 36px;
+width: 240px;
+margin: 0 auto;
+display: inline-block;
+background: #EEE;
+border: #BBB 2px solid;">
+      Coming Soon
+    </div>
+  </div>
   <noscript><a href="#"><img alt="Demographics "
                              src="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;An&#47;Analysis_5&#47;Users&#47;1_rss.png"
                              style="border: none"/></a></noscript>
