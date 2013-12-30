@@ -782,7 +782,7 @@ function moderation_issue_view_form_taxonomy(&$form, $tft_codes = FALSE) {
       }
     }
   }
-  $tft = tft_list('poll', $tft_codes);
+  $tft = tft_list('issue', $tft_codes);
 
   // taxonomy depth::
   $tree = taxonomy_node_type_terms();
