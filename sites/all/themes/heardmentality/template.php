@@ -66,11 +66,9 @@
  */
 function heardmentality_theme(&$existing, $type, $theme, $path) {
   $hooks = zen_theme($existing, $type, $theme, $path);
-  // Add your theme hooks like this:
-  /*
-  $hooks['hook_name_here'] = array( // Details go here );
-  */
-  // @TODO: Needs detailed comments. Patches welcome!
+
+  //
+
   return $hooks;
 }
 
@@ -82,11 +80,9 @@ function heardmentality_theme(&$existing, $type, $theme, $path) {
  * @param $hook
  *   The name of the template being rendered (name of the .tpl.php file.)
  */
-/* -- Delete this line if you want to use this function
 function heardmentality_preprocess(&$vars, $hook) {
-  $vars['sample_variable'] = t('Lorem ipsum.');
+  //
 }
-// */
 
 /**
  * Override or insert variables into the page templates.
@@ -96,14 +92,33 @@ function heardmentality_preprocess(&$vars, $hook) {
  * @param $hook
  *   The name of the template being rendered ("page" in this case.)
  */
-/* -- Delete this line if you want to use this function
 function heardmentality_preprocess_page(&$vars, $hook) {
-  $vars['sample_variable'] = t('Lorem ipsum.');
+  global $theme_path;
 
-  // To remove a class from $classes_array, use array_diff().
-  //$vars['classes_array'] = array_diff($vars['classes_array'], array('class-to-remove'));
+  # js settings
+  global $user;
+  drupal_add_js(array(
+    'user' => array(
+      'uid' => $user->uid,
+    )
+  ), 'setting');
+
+  # js files
+  drupal_add_js($theme_path . '/custom/js/header.js');
+  drupal_add_js($theme_path . '/custom/js/global.js');
+  drupal_add_js($theme_path . '/custom/js/footer.js');
+  if (drupal_is_front_page()) {
+    drupal_add_js($theme_path . '/custom/js/front.js');
+  }
+
+  # css files
+  drupal_add_css($theme_path . '/custom/css/header.css');
+  drupal_add_css($theme_path . '/custom/css/global.css');
+  drupal_add_css($theme_path . '/custom/css/footer.css');
+  if (drupal_is_front_page()) {
+    drupal_add_css($theme_path . '/custom/css/front.css');
+  }
 }
-// */
 
 /**
  * Override or insert variables into the node templates.
@@ -113,18 +128,31 @@ function heardmentality_preprocess_page(&$vars, $hook) {
  * @param $hook
  *   The name of the template being rendered ("node" in this case.)
  */
-/* -- Delete this line if you want to use this function
 function heardmentality_preprocess_node(&$vars, $hook) {
-  $vars['sample_variable'] = t('Lorem ipsum.');
+  global $theme_path;
 
-  // Optionally, run node-type-specific preprocess functions, like
-  // heardmentality_preprocess_node_page() or heardmentality_preprocess_node_story().
+  # preprocess functions for node types
   $function = __FUNCTION__ . '_' . $vars['node']->type;
   if (function_exists($function)) {
     $function($vars, $hook);
   }
+
+  # js settings
+  drupal_add_js(array(
+    'node' => array(
+      'nid' => $vars['node']->nid,
+      'uid' => $vars['node']->uid,
+    )
+  ), 'setting');
+
+  # js files
+  drupal_add_js($theme_path . '/custom/js/node.js');
+  drupal_add_js($theme_path . '/custom/js/node-'.$vars['node']->type.'.js');
+
+  # css files
+  drupal_add_css($theme_path . '/custom/css/node.css');
+  drupal_add_css($theme_path . '/custom/css/node-'.$vars['node']->type.'.css');
 }
-// */
 
 /**
  * Override or insert variables into the comment templates.
