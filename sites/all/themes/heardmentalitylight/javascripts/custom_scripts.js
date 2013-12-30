@@ -57,41 +57,4 @@ Drupal.behaviors.fix_circle = function (context) {
     });
 };
 
-// Fixed right sidebar in static pages
-$(window).scroll(function () {
-  var sidebar = $('.four.columns.margin-top .dark-grey-box, .filter_search.issues_search');
-  var scroll = $(window).scrollTop();
-  var display_width = $(window).width();
-  console.log(scroll);
-  if (scroll < 121 && display_width > 1023) {
-    $(sidebar).css('position', 'relative')
-      .css('top', '0px')
-      .css('width', '190px');
-  }
-  else {
-    if (scroll >= 121 && display_width > 1023) {
-      $(sidebar).css('position', 'fixed')
-        .css('top', '30px')
-        .css('width', '190px');
-    }
-    else {
-      if (scroll < 121 && display_width > 767 && display_width <= 1023) {
-        $(sidebar).css('position', 'relative')
-          .css('top', '0px')
-          .css('width', '142px');
-      }
-      else {
-        if (scroll >= 121 && display_width > 767 && display_width <= 1023) {
-          $(sidebar).css('position', 'fixed')
-            .css('top', '30px')
-            .css('width', '142px');
-        }
-        else {
-          if (display_width <= 767) {
-            $(sidebar).css('position', 'relative');
-          }
-        }
-      }
-    }
-  }
-});
+
