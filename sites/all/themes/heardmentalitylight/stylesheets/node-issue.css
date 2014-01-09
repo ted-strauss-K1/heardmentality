@@ -1,0 +1,289 @@
+.white-box.poll-box ul.tabs-content > li {
+  margin : 0;
+}
+
+/* DEBATE SECTION */
+
+/* debate work area */
+
+#debate_work_area {
+  padding   : 0 30px 22px;
+  direction : ltr;
+}
+
+h6#add-arg.expanded {
+  display : none;
+}
+
+h6#add-arg,
+h6#deb-ana {
+  display : inline-block;
+  float   : right;
+  margin  : 0 0 0 7px;
+}
+
+h6#add-arg a,
+h6#deb-ana a {
+  color : #7B7D01;
+}
+
+h6#add-arg:after,
+h6#deb-ana:after {
+  border-color : #7B7D01 transparent transparent;
+  margin-top   : -2px;
+}
+
+h6#add-arg.expanded:after,
+h6#deb-ana.expanded:after {
+  border-color : transparent transparent #7B7D01;
+  margin-top   : -6px;
+}
+
+.stat {
+  color       : #000000;
+  text-shadow : 0px 1px #EEEEEE;
+  font-size   : 30px;
+}
+
+.leave-a-comment,
+#analytics-area {
+  clear       : both;
+  padding-top : 21px;
+}
+
+#argument-add-form {
+  margin   : 0;
+  position : relative;
+  padding  : 0;
+}
+
+#argument-add-form table {
+  width : 100%;
+}
+
+#argument-add-form table td {
+  vertical-align : top;
+}
+
+#argument-add-form table td.first {
+  width : 100%;
+}
+
+.argument-form > label,
+.reference-form > label {
+  display        : block;
+  cursor         : text;
+  color          : #362750;
+  font           : italic bold 12px/15px Arial, "Lucida Grande", sans-serif;
+  padding-bottom : 8px;
+  text-transform : uppercase;
+}
+
+#argument-add-form .form-item {
+  margin : 0;
+}
+
+#deb_title {
+  margin     : 0;
+  min-height : 90px;
+  width      : 98%;
+}
+
+.reference-form > label span {
+  color          : #666666;
+  font           : 12px/15px Arial, "Lucida Grande", sans-serif;
+  font-weight    : normal;
+  font-style     : normal;
+  text-transform : none;
+}
+
+#deb_title-wrapper,
+#url-wrapper {
+  padding-bottom : 46px;
+}
+
+#argument-add-form span#deb-err {
+  display : block;
+}
+
+#deb-err {
+  color : #CC2027;
+}
+
+#argument-add-form .assign {
+  float       : none;
+  margin      : 0;
+  padding     : 0 0 12px;
+  text-align  : left;
+  font-size   : 12px/15px inherit;
+  font-weight : bold;
+  color       : #4C4C4C;
+  width       : 100%;
+  white-space : nowrap;
+}
+
+#argument-add-form .assign span.label {
+  font-size   : 12px;
+  line-height : 15px;
+  font-weight : bold;
+  margin      : 0 0 0 26px;
+  float       : left;
+}
+
+#argument-add-form .assign span.small_neg,
+#argument-add-form .assign span.small_pos {
+  position : relative;
+  top      : 1px;
+}
+
+#argument-add-form .assign span {
+  float  : right;
+  margin : 0 0 0 12px;
+}
+
+/* small circles (plus & minus)*/
+
+span.small_neg,
+span.small_pos,
+#debate_list_area .arg p.position-minus strong,
+#debate_list_area .arg p.position-plus strong {
+  background-color : #C2499B;
+  display          : inline-block;
+  font-family      : Verdana, Arial, sans-serif !important;
+  font-size        : 13px;
+  height           : 13px;
+  line-height      : 12px;
+  text-align       : center;
+  width            : 13px;
+  color            : #FFFFFF;
+}
+
+span.small_pos,
+#debate_list_area .arg p.position-plus strong {
+  background-color : #55BA59;
+  font-size        : 12px;
+  line-height      : 13px;
+  font-family      : Arial, sans-serif !important;
+}
+
+span.small_pos.fixes,
+#debate_list_area .arg p.position-plus strong.fixes {
+  line-height : 14px;
+}
+
+/* value select */
+
+#argument-add-form .value-select {
+  width   : 100%;
+  margin  : 0 0 6px;
+  padding : 0;
+}
+
+.value-select {
+  float   : right;
+  margin  : 0px 0px -10px 0px;
+  padding : 0px 0px;
+}
+
+.value-select table,
+.value-select table td.first {
+  width : 100%;
+}
+
+.value-select table td {
+  vertical-align : top;
+}
+
+.value-select label {
+  font-size   : 12px;
+  line-height : 15px;
+  padding     : 0;
+  margin      : 0 8px 0 26px;
+  position    : relative;
+  top         : -2px;
+  max-width   : 140px;
+  overflow    : hidden;
+}
+
+label.value {
+  float       : left;
+  font-weight : normal;
+  padding     : 0px 10px 0px 0px;
+}
+
+.value-select .form-item {
+  float       : right;
+  margin-left : 8px;
+}
+
+.value-select .form-item select {
+  margin     : 0;
+  display    : block;
+  visibility : hidden;
+}
+
+/*---/ value select */
+
+#argument-add-form .add_button {
+  position : absolute;
+  top      : 127px;
+  width    : 70%; /*63% on small devaces*/
+}
+
+#argument-add-form .form-submit {
+  float  : left;
+  left   : 0;
+  margin : 12px 15px 0 0;
+}
+
+#argument-add-form .add_button .argument-form,
+#argument-add-form .add_button .reference-form {
+  padding-top : 20px;
+}
+
+#argument-add-form .add_button .argument-form a,
+#argument-add-form .add_button .reference-form a {
+  color : #924C9D;
+  font  : bold 12px/15px Arial, "Lucida Grande", sans-serif;
+}
+
+#argument-add-form .add_button .argument-form a:hover,
+#argument-add-form .add_button .reference-form a:hover {
+  color           : #924C9D;
+  text-decoration : underline;
+}
+
+.argument-form #link_arg-wrapper a span.desc {
+  color      : #777777;
+  font-style : italic;
+  font-size  : 10px;
+  position   : relative;
+  top        : -6px;
+}
+
+.argument-form #link_arg-wrapper a span.desc:hover {
+  text-decoration : none;
+}
+
+/*---/ small circles (plus & minus)*/
+
+/*---/ debate work area */
+
+/* debate list area */
+
+#debate_list_area {
+  background            : 0 none;
+  border                : 0 none;
+  font                  : 12px/15px Arial, "Lucida Grande", sans-serif;
+  padding               : 0;
+  min-height            : 182px;
+  border-radius         : 0px;
+  -moz-border-radius    : 0px;
+  -webkit-border-radius : 0px;
+  -o-border-radius      : 0px;
+  -khtml-border-radius  : 0px;
+}
+
+/*---/ debate list area */
+
+/*---/ DEBATE SECTION */
