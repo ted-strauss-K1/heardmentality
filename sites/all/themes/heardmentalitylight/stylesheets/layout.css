@@ -566,46 +566,12 @@ label.queue {
 
 }
 
-p.profile-links.quick-profile {
-  color          : #666666;
-  font-size      : 13px;
-  line-height    : 1.4em;
-  font-weight    : normal;
-  text-transform : none;
-  text-shadow    : 0 -1px #FFFFFF;
-  margin         : 0;
-  text-shadow    : none;
-  clear          : both;
-}
-
-p.profile-links.quick-profile a {
-  color       : #0181C3;
-  line-height : 1em;
-  cursor      : pointer;
-  text-shadow : 0 -1px #FFFFFF;
-  font-weight : normal;
-}
-
-p.profile-links.quick-profile a:hover {
-  color : #CC2027;
-}
-
 #dialog .medals {
   margin : 0 1em 0.3em;
 }
 
 #dialog .profile-links.quick-profile + .floatleft + a.button {
   margin-right : 1.4em;
-}
-
-label.following, label.badges {
-  color          : #FEFEFE;
-  text-shadow    : 0 -1px #999999;
-  font-size      : 12px;
-  text-transform : uppercase;
-  padding        : 0px 0px 10px;
-  margin         : 0px 0px 0px 0px;
-  line-height    : 1.2em;
 }
 
 hr.short {
@@ -805,22 +771,6 @@ ul.badges li {
 }
 
 /* #STATS AND GRAPHS
-================================================== */
-/*.vote-results ul {padding:0px 0px 0px 0px;}
-
-.vote-results ul li img{width:100%}
-.vote-results ul li p{padding:10px;}
-.vote-results ul li #map_div {padding:0px 2%;width:95px;}
-.anecdotal-result-stats {margin:5px 0px 0px 0px;font-size:13px;}
-
-.anecdotal-result-stats span.number{font-size:18px;}
-	
-.filter-stats	{margin:0px 0px 10px 0px;padding:0px 0px 30px 0px;color:#000;float:right;width:100px;}
-
-.filter-stats-2	{margin:0px 0px 10px 10px;padding:0px 0px 30px 0px;color:#000;float:right;width:140px;}
-p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted #ddd;margin:0px 0px 10px 10px;padding:0px 0px 10px 0px;color:#999;text-shadow: 0 1px #fff;}*/
-
-/* #DEBATE
 ================================================== */
 
 p.comment-meta {
@@ -1093,52 +1043,17 @@ ul.queue li {
 /* #FORMS (ISSUE, NEW ISSUE, PROFILE EDIT, )
 ================================================== */
 
-.new-issue .number {
-  width       : 30px;
-  line-height : 3px;
-  float       : left;
-  color       : #999999;
-  font-size   : 30px;
-  margin      : 6px 6px 0 0;
-  text-shadow : #FFFFFF 0px 1px;
-}
-
-.add-on-title-wrapper {
-  display      : block;
-  padding-left : 35px;
-}
-
-label.add-on, label.add-on-2 {
-  float       : left;
-  margin      : 7px 20px 0 0;
-  width       : 350px;
-  line-height : 1em;
-}
-
-label.add-on-2 {
-  width        : 18%;
-  margin-right : 3%;
-}
-
 label.add-on-2.small {
   margin-top : 10px;
 }
 
-input#Answer, input#Answer3, input#info, textarea#Comment, textarea#Reply {
+input#Answer3, input#info, textarea#Comment, textarea#Reply {
   margin       : 0px 1% 30px 1px;
   resize       : none;
   border-color : #B3B3B3;
   width        : 482px;
   float        : right;
   padding      : 8px;
-}
-
-label.add-on span.title {
-  line-height : 1em;
-}
-
-label.add-on span.guides {
-  line-height : 1.3em;
 }
 
 textarea#Comment {
@@ -1265,36 +1180,8 @@ label span.guides {
   border-bottom : 1px solid #999999;
 }
 
-input.add-answer {
-  float  : right;
-  margin : -15px 2px 5px 0px;
-}
-
-#issue-create-form input.add-answer {
-  margin : 0;
-}
-
-label.before-submit {
-  line-height : 1.4em;
-  font-weight : normal;
-  font-style  : italic;
-  text-align  : left;
-  color       : #444444;
-  margin      : 0 0 12px 25px;
-  display     : block;
-
-}
-
 hr.bottom {
   margin : 20px 0px;
-}
-
-input.submit-issue {
-  float          : right;
-  /*font-weight:normal;*/
-  text-transform : uppercase;
-  margin-top     : 15px;
-
 }
 
 a.dupes {
@@ -1658,12 +1545,6 @@ p.choose_pic {
   display : inline-block;
 }
 
-.profile-meta p {
-  line-height : 1.2em;
-  font-size   : 13px;
-  text-shadow : 0px 1px #CECECE;
-}
-
 .avatar-left p {
   line-height : 1.1em;
 }
@@ -1679,26 +1560,10 @@ p.choose_pic {
   max-width : 190px;
 }
 
-.profile-meta.quick-profile {
-  margin-top : -20px;
-
-}
-
 .profile-meta-2 p {
   line-height : 1em;
   font-size   : 14px;
   text-shadow : 0px 1px #FEFEFE;
-}
-
-img.profile-meta {
-  border-width : 1px;
-  border-style : solid;
-  border-color : #666666 #999999 #999999 #888888;
-  background   : #DDDDDD;
-  float        : none;
-  margin       : -15px 12px 10px 0px;
-  width        : 145px;
-  height       : 145px;
 }
 
 img.user-profile-edit {
@@ -1733,10 +1598,6 @@ img.user-profile {
 
 #dialog .profile-meta .profile-meta {
   margin : 0;
-}
-
-.small-prog {
-  width : 210px;
 }
 
 /* todo remove these ones */
@@ -1817,11 +1678,6 @@ img.user-profile {
   float  : left;
 }
 
-.medal_box {
-  float  : left;
-  margin : 0 10px 10px 0;
-}
-
 .vertical .medal_box {
   margin-top : 2px;
 }
@@ -1851,35 +1707,10 @@ p.points.white {
   color : #CCCCCC;
 }
 
-span.user-title, span.user-data {
-  font-size   : 12px;
-  color       : #333333;
-  text-shadow : 0px 1px #CECECE;
-  line-height : 0.6em;
-}
-
-span.user-data {
-  font-weight : bold;
-}
-
 span.user-info {
   color       : #333333;
   font-size   : 12px;
   line-height : 0.1em;
-}
-
-.profile_page_wrapper .user_info {
-  border-top : 1px dotted #888888;
-  margin     : 0;
-  padding    : 0;
-  clear      : both;
-}
-
-.profile_page_wrapper .user_info .section,
-div.following {
-  border-bottom : 1px dotted #888888;
-  margin        : 7px 0 0;
-  padding       : 0 0 15px;
 }
 
 div.following.one,
@@ -1892,10 +1723,6 @@ div.following:last-child {
 #profile_overview h2.din {
   float  : left;
   margin : 0;
-}
-
-ul.badges.profile {
-  margin : 7px 0 0;
 }
 
 .right_wrapper {
@@ -2103,16 +1930,6 @@ p.profile.action-comment-ref {
   text-align  : right;
 }
 
-img.following-user, img.user-thumb {
-  width        : 44px;
-  height       : 44px;
-  margin       : 5px 2px 0;
-  border-width : 1px;
-  border-style : solid;
-  border-color : #666666 #999999 #999999 #888888;
-  background   : #DDDDDD;
-}
-
 img.following-user-2 {
   float        : left;
   width        : 60px;
@@ -2175,39 +1992,9 @@ a.more:hover, a.find:hover {
   top            : -1px;
 }
 
-.badge.gold {
-  background : #F7DB07;
-}
-
-.badge.bronze {
-  background : #D1A619;
-}
-
-.badge.silver {
-  background : #ECECEC;
-}
-
-.profile-complete {
-  height     : 7px;
-  background : #A39D8C;
-  opacity    : 0.9;
-  margin     : -5px 0px 15px 1px;
-}
-
 .profile-message .profile-complete {
   width : 80.5%;
 
-}
-
-.profile-complete .progress {
-  width      : 75%;
-  height     : 7px;
-  background : #99F279;
-}
-
-p.profile-status {
-  font-size  : 14px;
-  min-height : 34px;
 }
 
 .sort-by.profile ul {
@@ -2265,16 +2052,6 @@ p.profile-status {
 .pagination {
   margin  : 0px;
   padding : 0px 0px;
-}
-
-#own_info img.profile-meta,
-#own_info .medals {
-  margin-top    : 0;
-  margin-bottom : 15px;
-}
-
-#own_info .medals {
-  float : none;
 }
 
 .activity_stream .no_active {
@@ -2393,45 +2170,10 @@ h2.din a:hover {
   color : #CCCCCC;
 }
 
-textarea#q_quest, textarea#Question {
-  margin       : 0;
-  resize       : none;
-  border-color : #B3B3B3;
-  width        : 482px;
-  float        : right;
-  padding      : 6px 8px;
-}
-
-#q_quest-wrapper,
-#Question-wrapper {
-  float : right;
-}
-
-#q_quest-wrapper .resizable-textarea,
-#Question-wrapper .resizable-textarea {
-  width : inherit;
-}
-
-#q_quest-wrapper .resizable-textarea .grippie,
-#Question-wrapper .resizable-textarea .grippie {
-  width         : 498px;
-  margin-bottom : 8px;
-}
-
-#create_box .resizable-textarea span {
-  display : block;
-  float   : right;
-  width   : 500px;
-}
-
 #cpoll-create-form .grey-box.full,
 #cpoll-create-form .grey-box {
   border  : none;
   padding : 0;
-}
-
-#create_box input.add-answer {
-  margin : 8px 0 6px 0;
 }
 
 .eleven .grey-box {
@@ -2646,10 +2388,6 @@ textarea#q_quest, textarea#Question {
 
 .listbox1 {
   width : 99%;
-}
-
-.vote-results ul li img {
-  width : auto;
 }
 
 input.info, textarea.info {
@@ -2934,17 +2672,6 @@ p {
   line-height : 1.2em;
 }
 
-/*Clear*/
-
-#moderation-issues-form .fieldset-wrapper:after {
-  visibility : hidden;
-  display    : block;
-  font-size  : 0;
-  content    : " ";
-  clear      : both;
-  height     : 0;
-}
-
 /*New styles*/
 
 .ajax-loader {
@@ -3115,98 +2842,6 @@ p {
   padding : 9px 14px 18px;
 }
 
-#user-register .description {
-  font : 11px/15px Arial, sans-serif;
-}
-
-#user-register .confirm-parent {
-  margin : 0 !important;
-}
-
-#user-register #edit-mail-wrapper input#edit-mail,
-#user-register input.password-confirm {
-  margin-bottom : 5px;
-}
-
-#user-register .password-description {
-  display : none;
-}
-
-#user-register .password-description {
-  border           : 0;
-  background-color : transparent;
-  font             : 11px/15px Arial, sans-serif;
-  margin           : 0 0 5px;
-  padding          : 0;
-}
-
-#user-register .password-description ul {
-  list-style : disc outside none;
-  padding    : 0 0 0 30px;
-}
-
-#user-register .password-description li {
-  margin     : 0;
-  list-style : disc outside none;
-}
-
-#user-register .password-description.error {
-  color : #CD2027;
-}
-
-#user-register #edit-news-wrapper label,
-#user-register #edit-terms-wrapper label {
-  font-size : 12px;
-}
-
-#user-register #edit-news-wrapper {
-  margin-bottom : 0.5em;
-}
-
-#user-register #edit-terms-wrapper {
-  margin : 0 0 1.5em 0;
-}
-
-#user-register .password-parent,
-#user-register .confirm-parent {
-  position : relative;
-}
-
-#user-register .password-strength,
-#user-register span.password-confirm {
-  position         : absolute;
-  left             : 0;
-  top              : 107%;
-  background-color : #000000;
-  color            : #FFFFFF;
-  padding          : 10px;
-  text-align       : left;
-  font-size        : 11px;
-  line-height      : 1.2em;
-  width            : 24em;
-  z-index          : 1000;
-  white-space      : nowrap;
-}
-
-#user-register .password-strength .password-title,
-#user-register span.password-confirm div.inner_confirm {
-  background : url(../images/black_arr.png) no-repeat 0 0;
-}
-
-#user-register .password-strength span,
-#user-register span.password-confirm div.inner_confirm {
-  position      : relative;
-  top           : -15px;
-  padding-top   : 15px;
-  margin-bottom : -15px;
-  float         : left;
-  padding-right : 3px;
-}
-
-#user-register span.password-confirm div.inner_confirm {
-  padding-right : 0;
-}
-
 #dialog-profile-pic {
   margin : 0 0.5em 0 1em;
 }
@@ -3267,10 +2902,6 @@ div.avatar-selection-pager-nav a:hover {
 
 .white-box.page {
   margin : 0;
-}
-
-#block-user_profile-user-profile-right .profile-status-toggle {
-  margin-bottom : 0;
 }
 
 .grey-box.poll-box {
@@ -3375,11 +3006,6 @@ h2.page-title {
 
 .issue-vote-wrapper .poll-vote-area .voting-pane .choices .choices.regular {
   width : 100%;
-}
-
-.search_list .poll-vote-area .voting-pane .choices {
-  /*width: auto;*/
-  /*margin: 0 12% 0 30px;*/
 }
 
 .search_list .poll-vote-area .voting-pane .choices .choices.regular {
@@ -3818,146 +3444,6 @@ h2.page-title {
   background : url(../images/slider_corners.png) no-repeat -16px 0 transparent;
 }
 
-#debate_list_area .ui-tabs-panel {
-  border  : 0 none;
-  padding : 0;
-}
-
-#debate_list_area .ui-tabs-nav {
-  margin     : -25px 0 0;
-  padding    : 0 30px 0 0;
-  position   : relative;
-  float      : right;
-  border     : 0 none;
-  color      : #666666;
-  background : 0 none;
-}
-
-#debate_list_area .ui-tabs-nav li {
-  background  : none transparent;
-  border      : 0 none;
-  color       : #666666;
-  font-weight : normal;
-  display     : block;
-  float       : left;
-  height      : auto;
-  margin      : 0 0 0 12px;
-  padding     : 0;
-  width       : auto;
-  line-height : 18px;
-  top         : 0;
-}
-
-#debate_list_area .ui-tabs-nav li a {
-  float           : none;
-  display         : block;
-  text-decoration : none;
-  width           : auto;
-  height          : auto;
-  padding         : 8px 10px !important;
-  line-height     : 16px;
-  margin          : 0;
-  font-size       : 13px;
-  color           : #666666;
-  font-weight     : bold;
-  text-transform  : lowercase;
-  font-style      : normal;
-}
-
-#debate_list_area .ui-tabs-nav li a:hover {
-  text-decoration : underline;
-}
-
-#debate_list_area .ui-tabs-nav li.ui-state-active a {
-  background   : #FFFFFF;
-  position     : relative;
-  top          : 1px;
-  padding      : 6px 9px 9px !important;
-  border       : solid #C0C0C0;
-  border-width : 1px 1px 0;
-}
-
-#debate_list_area .ui-tabs-nav li.ui-state-active a:hover {
-  text-decoration : none;
-}
-
-#debate_list_area .ui-tabs .ui-tabs-panel {
-  border  : 0 none;
-  padding : 0;
-}
-
-#debate_list_area > h2:first-child {
-  margin         : 0;
-  color          : #362750;
-  font           : bold italic 12px/15px Arial, sans-serif;
-  text-transform : uppercase;
-  padding        : 0 30px 6px;
-  border-bottom  : 1px solid #C0C0C0;
-  position       : relative;
-  z-index        : 15;
-}
-
-#analytics-area > h2:first-child {
-  margin      : 0;
-  line-height : 15px;
-  font-size   : 12px;
-}
-
-#debate_list_area > h2:first-child span {
-  display : inline-block;
-  float   : left;
-  padding : 0 0 16px;
-}
-
-#analytics-area > h2:first-child span {
-  color          : #362750;
-  font           : bold italic 12px/15px Arial, sans-serif;
-  text-transform : uppercase;
-  padding        : 0 30px 0;
-  display        : inline-block;
-  padding        : 0 0 16px;
-}
-
-#load-deb-statics iframe {
-  width : 100% !important;
-}
-
-#debate_list_area ul.argument_box {
-  padding    : 0 25px 0 42px;
-  border     : 0 none;
-  margin     : 0;
-  font-size  : 12px;
-  list-style : none outside none;
-  position   : relative;
-  z-index    : 1000;
-  font-size  : 12px;
-}
-
-#debate_list_area ul.argument_box li {
-  border      : 0 none;
-  padding     : 0;
-  margin      : 0;
-  border-left : 1px solid #D7D7D7;
-}
-
-#debate_list_area ul.argument_box > li {
-  padding    : 12px 0 0;
-  margin     : 11px 0 0;
-  background : url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
-}
-
-#debate_list_area .arg {
-  position : relative;
-  padding  : 0 40px 0 58px;
-  margin   : 0;
-}
-
-/*#debate_list_area .one-forum:first-child .arg {
-	background: none transparent;
-	margin: 0;
-	padding: 0 30px 0 58px;
-}*/
-
 #empty_helper {
   background-color : #FFFFFF;
   height           : 4px;
@@ -3966,104 +3452,17 @@ h2.page-title {
   z-index          : 14;
 }
 
-#debate_list_area .replies {
-  padding    : 0 0 0 58px;
-  clear      : both;
-  min-height : 17px;
-  position   : relative;
-}
-
-#debate_list_area .arg span.sum {
-  background-color : #FFFFFF;
-  left             : -30px;
-  padding          : 18px 0 5px;
-  position         : absolute;
-  top              : -11px;
-}
-
-#debate_list_area .arg span.sum.small {
-  left : -20px;
-}
-
-#debate_list_area .arg span.sum.middle {
-  left : -25px;
-}
-
-/*#debate_list_area .one-forum:first-child .arg span.sum {
-    padding-top: 8px;
-    top: 0;
-}*/
-
-#debate_list_area .arg .argument_body,
-#debate_list_area .reply_body {
-  /*margin: 0;
-	font-size: 12px;
-	line-height: 18px;
-	color: #4c4c4c;
-	padding: 0 0 9px;
-    float: left;
-    width: 400px;*/
-  margin      : 0;
-  font-size   : 12px;
-  line-height : 18px;
-  color       : #4C4C4C;
-  padding     : 0 0 9px;
-}
-
-#debate_list_area .reply_body {
-  display : inline;
-  padding : 0;
-}
-
-#debate_list_area .arg .argument_body p,
-#debate_list_area .reply_body p {
-  margin      : 0;
-  font-size   : 12px;
-  line-height : 18px;
-  display     : inline;
-  word-wrap   : break-word;
-}
-
-#debate_list_area .arg .argument_body .translate,
-#debate_list_area .reply_body .translate {
-  color       : #55BA59;
-  font-weight : bold;
-  display     : inline;
-}
-
-#debate_list_area .arg .argument_body .translate *,
-#debate_list_area .reply_body .translate * {
-  display : inline;
-}
-
-#debate_list_area .arg .argument_body .translate a,
-#debate_list_area .arg .argument_body .sq,
-#debate_list_area .reply_body .translate a,
-#debate_list_area .reply_body .sq,
 .activity-stream .sq {
   color       : #55BA59;
   white-space : nowrap;
 }
 
-#debate_list_area .arg .argument_body .translate a span,
-#debate_list_area .arg .argument_body .sq,
-#debate_list_area .reply_body .translate a span,
-#debate_list_area .reply_body .sq,
 .activity-stream .sq {
   font-size   : 12px !important;
   line-height : 18px !important;
   display     : inline;
   font-weight : bold;
   white-space : nowrap;
-}
-
-#debate_list_area .arg .argument_body .translate a:hover,
-#debate_list_area .arg .argument_body .sq:hover,
-#debate_list_area .arg .argument_body .sq:hover a,
-#debate_list_area .reply_body .translate a:hover,
-#debate_list_area .reply_body .sq:hover,
-#debate_list_area .reply_body .sq:hover a {
-  color : #0C6926;
 }
 
 .container .nine .grey-box .uactivity .events_google_translate a:hover {
@@ -4084,36 +3483,6 @@ h2.page-title {
 
 .events_google_translate .translate div {
   display : inline;
-}
-
-#debate_list_area .arg .argument_body font:first-child,
-#debate_list_area .reply_body font:first-child {
-  background : none #E1E43C !important;
-}
-
-#debate_list_area .arg .position {
-  padding : 0 0 12px;
-  color   : #888888;
-  float   : left;
-}
-
-#debate_list_area .arg p.position-minus,
-#debate_list_area .arg p.position-plus {
-  float       : left;
-  margin      : 0 17px 0 0;
-  font-size   : 12px;
-  line-height : 18px;
-}
-
-#debate_list_area .arg p.position-minus:last-child,
-#debate_list_area .arg p.position-plus:last-child {
-  margin : 0;
-}
-
-#debate_list_area .arg p.position-minus strong,
-#debate_list_area .arg p.position-plus strong {
-  margin-right : 1px;
-  font-weight  : normal;
 }
 
 .userinfo-debate {
@@ -4245,10 +3614,6 @@ h2.page-title {
   font-weight : normal;
 }
 
-#debate_list_area li.one_reply .position-question strong.motivat {
-  display : none !important;
-}
-
 ul.control_links {
   border    : 0 none;
   float     : right;
@@ -4329,41 +3694,6 @@ ul.control_links h6#reply:hover {
   color : #FFFFFF !important;
 }
 
-#debate_list_area .reply_wrapper {
-  margin : 0;
-}
-
-#debate_list_area .reply_wrapper legend a,
-#debate_list_area .reply_wrapper legend,
-#debate_list_area .reply_wrapper legend span {
-  background  : none transparent;
-  padding     : 0;
-  color       : #888888; /* was #ccc */
-  font-size   : 12px;
-  line-height : 15px;
-  font-weight : bold;
-  cursor      : pointer;
-}
-
-#debate_list_area .reply_wrapper legend span {
-  display : inline-block;
-  padding : 1px 4px;
-}
-
-#debate_list_area .reply_wrapper legend span:hover,
-#debate_list_area .reply_wrapper legend a:hover span {
-  background : none #777777; /* was #ccc */
-  color      : #FFFFFF;
-}
-
-#debate_list_area fieldset.collapsible legend {
-  display : block;
-}
-
-#debate_list_area fieldset.collapsible.collapsed legend {
-  display : block;
-}
-
 .reply_wrapper .fieldset-wrapper {
   padding  : 0 0 0 30px;
   margin   : 32px 0 0;
@@ -4385,96 +3715,6 @@ ul.control_links h6#reply:hover {
   font-size  : 12px;
 }
 
-#debate_list_area .ui-tabs-panel {
-  position   : relative;
-  z-index    : 13;
-  min-height : 100px;
-}
-
-#debate_list_area li.one_reply {
-  position   : relative;
-  padding    : 0 40px 10px 0 !important;
-  margin     : 0 0 12px !important;
-  border     : 0 none !important;
-  background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-}
-
-#debate_list_area li.one_reply span.negative,
-#debate_list_area li.one_reply span.positive {
-  position         : absolute;
-  top              : 14px;
-  left             : -100px;
-  display          : block;
-  height           : 19px;
-  width            : 20px;
-  padding          : 0 0 2px 0px;
-  border           : 1px solid #D7D7D7;
-  font             : 22px/18px Verdana, sans-serif;
-  background-color : #FFFFFF;
-  text-align       : center;
-  color            : #C2499B;
-}
-
-#debate_list_area li.one_reply span.negative.fixes,
-#debate_list_area li.one_reply span.positive.fixes {
-  width   : 19px;
-  padding : 0 0 2px 1px;
-}
-
-#debate_list_area li.one_reply span.positive {
-  color : #55BA59;
-  font  : 19px/18px Verdana, sans-serif;
-}
-
-#debate_list_area li.one_reply span.userinfo-reply {
-  color     : #4C4C4C;
-  font-size : 12px;
-}
-
-#debate_list_area li.one_reply span.userinfo-reply a {
-  color           : #000000;
-  text-decoration : none;
-  font-style      : italic;
-}
-
-#debate_list_area li.one_reply span.userinfo-reply a:hover {
-  text-decoration : underline;
-}
-
-#debate_list_area li.one_reply span.userinfo-reply span.date {
-  color : #CCCCCC;
-}
-
-#debate_list_area li.one_reply .position-question {
-  background-color : transparent;
-  left             : 0;
-  padding          : 13px 0 0;
-}
-
-#debate_list_area li.one_reply .position-question .comment-agree {
-  vertical-align : top;
-}
-
-#debate_list_area li.one_reply ul.control_links {
-  margin         : 0 0 0 82px;
-  float          : none;
-  display        : inline-block;
-  vertical-align : top;
-  list-style     : none outside none;
-  padding        : 0;
-  position       : relative;
-  z-index        : 1000;
-  font-size      : 12px;
-}
-
-#debate_list_area .no_debate {
-  padding          : 40px 30px;
-  font-style       : italic;
-  color            : #4C4C4C;
-  border           : 0 none;
-  background-color : transparent;
-}
-
 .arg-reply-form .form-item {
   margin-bottom : 0;
 }
@@ -4488,162 +3728,6 @@ ul.control_links h6#reply:hover {
   float       : left;
   margin-top  : 10px;
   margin-left : 0;
-}
-
-.show_only {
-  position : relative;
-  float    : left;
-  clear    : left;
-}
-
-.white-box .show_only span.button {
-  font-style      : normal;
-  padding         : 6px 12px 4px 10px !important;
-  text-decoration : none;
-  text-transform  : none;
-  position        : relative;
-  top             : -5px;
-  margin-right    : 16px;
-}
-
-.show_only .inc {
-  display : inline-block;
-}
-
-.show_only .inc form {
-  margin      : 0;
-  padding-top : 8px;
-}
-
-.show_only .inc form input[type="checkbox"] {
-  margin   : 0 5px 0 0;
-  position : relative;
-  top      : 1px;
-}
-
-.show_only .inc form label {
-  color          : #666666;
-  text-transform : none;
-  font-style     : normal;
-  display        : inline;
-}
-
-.show_only .popup {
-  background-color   : #FFFFFF;
-  border             : 1px solid #C3C3C3;
-  box-shadow         : 2px 3px 3px rgba(195, 195, 195, 0.6);
-  -moz-box-shadow    : 2px 3px 3px rgba(195, 195, 195, 0.6);
-  -webkit-box-shadow : 2px 3px 3px rgba(195, 195, 195, 0.6);
-  -o-box-shadow      : 2px 3px 3px rgba(195, 195, 195, 0.6);
-  -khtml-box-shadow  : 2px 3px 3px rgba(195, 195, 195, 0.6);
-  left               : 0;
-  position           : absolute;
-  top                : 26px;
-  z-index            : 1001;
-  padding            : 7px 5px;
-  white-space        : nowrap;
-}
-
-.show_only .popup.hidden {
-  display : none;
-}
-
-.show_only .popup.visible {
-  display : block;
-}
-
-/*.show_only:hover .popup {
-	display: block;
-}*/
-
-.show_only span.title {
-  color          : #666666;
-  font-weight    : bold;
-  font-size      : 13px;
-  text-transform : none;
-  font-style     : normal;
-  display        : block !important;
-  float          : none !important;
-  padding        : 0 0 4px !important;
-}
-
-.show_only span.title.reset {
-  cursor      : pointer;
-  font-style  : italic;
-  font-weight : normal;
-  padding     : 8px 0 0 !important;
-  text-align  : right;
-}
-
-.show_only span.title.reset:hover {
-  text-decoration : underline;
-}
-
-.show_only dl {
-  overflow   : hidden;
-  margin-top : 4px;
-}
-
-.show_only dd {
-  float : right;
-  width : 85px;
-}
-
-.show_only dt {
-  margin-right   : 95px;
-  color          : #4C4C4C;
-  font-size      : 12px;
-  line-height    : 15px;
-  text-transform : none;
-  font-style     : normal;
-  font-weight    : normal;
-  padding        : 3px 0 0;
-}
-
-.show_only dd a {
-  float              : left;
-  display            : block;
-  width              : 18px;
-  height             : 14px;
-  border             : 1px solid #C3C3C3;
-  padding            : 2px;
-  text-align         : center;
-  margin             : 0 0 0 4px;
-  background-color   : #CECECE;
-  background         : -webkit-gradient(linear, left top, left bottom, from(#F1F1F1), to(#CECECE));
-  background         : -webkit-linear-gradient(top, #F1F1F1, #CECECE);
-  background         : -moz-linear-gradient(top, #F1F1F1, #CECECE);
-  background         : -ms-linear-gradient(top, #F1F1F1, #CECECE);
-  background         : -o-linear-gradient(top, #F1F1F1, #CECECE);
-  background         : linear-gradient(top, #F1F1F1, #CECECE);
-  -webkit-box-shadow : inset 0px 0px 2px 0px #FFFFFF;
-  -moz-box-shadow    : inset 0px 0px 2px 0px #FFFFFF;
-  -o-box-shadow      : inset 0px 0px 2px 0px #FFFFFF;
-  -khtml-box-shadow  : inset 0px 0px 2px 0px #FFFFFF;
-  box-shadow         : inset 0px 0px 2px 0px #FFFFFF;
-}
-
-.show_only dd a:hover {
-  background-color : #C4C4C4;
-  background       : -webkit-gradient(linear, left top, left bottom, from(#EFEFEF), to(#C4C4C4));
-  background       : -webkit-linear-gradient(top, #EFEFEF, #C4C4C4);
-  background       : -moz-linear-gradient(top, #EFEFEF, #C4C4C4);
-  background       : -ms-linear-gradient(top, #EFEFEF, #C4C4C4);
-  background       : -o-linear-gradient(top, #EFEFEF, #C4C4C4);
-  background       : linear-gradient(top, #EFEFEF, #C4C4C4);
-}
-
-.show_only dd span {
-  float          : none !important;
-  padding        : 0 !important;
-  font-weight    : normal;
-  font-style     : normal;
-  text-transform : none;
-}
-
-.show_only dd a.neutral span.small_neg {
-  position : relative;
-  left     : -8px;
 }
 
 .ref_wrap {
@@ -4697,179 +3781,12 @@ h5.ref_title a {
 
 /*Vote results*/
 
-#results {
-  border-top       : 1px solid #C0C0C0;
-  background-color : #FFFFFF;
-  background-image : -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#F7F7F7));
-  background-image : -webkit-linear-gradient(top, #FFFFFF, #F7F7F7);
-  background-image : -moz-linear-gradient(top, #FFFFFF, #F7F7F7);
-  background-image : -ms-linear-gradient(top, #FFFFFF, #F7F7F7);
-  background-image : -o-linear-gradient(top, #FFFFFF, #F7F7F7);
-  background-image : linear-gradient(top, #FFFFFF, #F7F7F7);
-  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 );
-    zoom: 1;*/
-  padding-bottom   : 18px;
-}
-
-.vote-results {
-  padding : 0 2%;
-}
-
-.vote-results ul {
-  margin  : 0;
-  padding : 0;
-}
-
-.vote-results li div.space {
-  border           : 1px solid #D7D7D7;
-  padding          : 2%;
-  background-color : #E4E4E4;
-}
-
-.vote-results li.full div.space {
-  padding : 2% 2% 0;
-}
-
-.vote-results li.part {
-  float  : left;
-  width  : 49.3%;
-  margin : 0;
-}
-
-.vote-results li.part.margin {
-  margin-left : 1.4%;
-}
-
-.vote-results li.full {
-  clear  : left;
-  float  : left;
-  margin : 10px 0;
-  width  : 100%;
-}
-
-.vote-results .filter form {
-  float  : left;
-  margin : 0;
-  width  : 100%;
-}
-
-.vote-results .filter form select {
-  margin    : 0 0 12px;
-  width     : auto;
-  min-width : 150px;
-  float     : none;
-}
-
-.vote-results .filter form .form-item {
-  margin : 0;
-}
-
-.vote-results .filter #chart_div {
-  clear            : left;
-  float            : left;
-  width            : 100% !important;
-  background-color : #FFFFFF;
-}
-
-.vote-results #insight-view {
-  clear      : left;
-  min-height : 284px;
-}
-
-.vote-results #container_graph,
-.vote-results .map {
-  clear            : left;
-  background-color : #FFFFFF;
-}
-
-p.result-title {
-  font-size   : 15px;
-  color       : #777777;
-  text-shadow : 0 1px #FFFFFF;
-  line-height : 18px;
-  margin      : 0 0 10px;
-  float       : left;
-  width       : 100%;
-}
-
-.vote-results .legend {
-  clear : both;
-}
-
-.vote-results .legend dd {
-  float       : left;
-  margin      : 0 5px 0 0;
-  font-family : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
-  font-style  : normal;
-  font-weight : normal;
-  font-size   : 12px;
-}
-
-.vote-results .legend dl {
-  display        : inline-block;
-  margin         : 0 14px 0 0;
-  vertical-align : top;
-  padding-bottom : 2%;
-}
-
-.vote-results .legend dt {
-  float            : left;
-  text-indent      : -9999%;
-  background-color : #CCCCCC;
-  width            : 18px;
-}
-
-.vote-results span.highlight {
-  padding : 0 5px;
-  color   : #FFFFFF;
-}
-
-span.no_show {
-  padding    : 0 17px;
-  color      : #EF3D3B;
-  font-style : italic;
-  display    : inline-block;
-}
-
 /*Big circle*/
-
-#debate_list_area .arg span.sum span {
-  color            : #FFFFFF;
-  display          : inline-block;
-  font             : 24px/28px Arial, sans-serif;
-  height           : 28px;
-  padding          : 17px 5px 15px;
-  text-align       : center;
-  width            : 50px;
-  background-color : #D7D7D7;
-}
 
 .one-forum.resources span.sum span {
   opacity : 0.75;
   /*filter: alpha(opacity=75);*/
   zoom    : 1;
-}
-
-#debate_list_area .arg span.sum.middle span {
-  font    : 22px/26px Arial, sans-serif;
-  height  : 26px;
-  padding : 13px 8px 11px;
-  width   : 34px;
-}
-
-#debate_list_area .arg span.sum.small span {
-  font    : 18px/20px Arial, sans-serif;
-  height  : 20px;
-  padding : 10px 7px;
-  width   : 26px;
-}
-
-#debate_list_area .arg span.sum span.positive {
-  background-color : #55BA59;
-}
-
-#debate_list_area .arg span.sum span.negative {
-  background-color : #C2499B;
 }
 
 #reply_err span {
@@ -5059,68 +3976,15 @@ form#solr-issues-search-form {
   padding : 0;
 }
 
-.search_top_filters, .moderation_header, .sort-wrapper {
+.search_top_filters, .sort-wrapper {
   padding       : 0 3px 15px;
   border-bottom : 1px solid #C0C0C0;
   margin        : 0 0 18px;
 }
 
 form#solr-issues-search-form .form-item,
-.search_top_filters .form-item, .moderation_header .form-item {
+.search_top_filters .form-item {
   margin : 0;
-}
-
-ul.date_filter {
-  margin : 0;
-  float  : left;
-}
-
-ul.options_filter {
-  margin : 0;
-  float  : right;
-}
-
-ul.date_filter li, ul.options_filter li {
-  float       : left;
-  margin      : 0;
-  border-left : 1px solid #666666;
-}
-
-ul.date_filter li:first-child, ul.options_filter li:first-child {
-  border : 0 none;
-  margin : 0;
-}
-
-ul.date_filter li a, ul.options_filter li a {
-  color           : #666666;
-  display         : block;
-  font-size       : 13px;
-  font-style      : normal;
-  font-weight     : bold;
-  line-height     : 15px;
-  margin          : 0;
-  padding         : 0px 10px;
-  text-decoration : none;
-}
-
-ul.date_filter li a.first,
-ul.options_filter li a.first {
-  padding-left : 0;
-}
-
-ul.date_filter li a.last,
-ul.options_filter li a.last {
-  padding-right : 0;
-}
-
-ul.date_filter li a:hover, ul.options_filter li a:hover {
-  text-decoration : underline;
-}
-
-ul.date_filter li a.active, ul.options_filter li a.active,
-ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
-  color           : #EF3D3B;
-  text-decoration : none;
 }
 
 #issue-search-filter-form {
@@ -5192,8 +4056,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
   margin-bottom : 1em;
 }
 
-#issue-search-filter-form .ahah-progress-throbber,
-#moderation-issue-view-form .ahah-progress-throbber {
+#issue-search-filter-form .ahah-progress-throbber {
   float      : none;
   width      : 100%;
   text-align : center;
@@ -5204,8 +4067,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
   background : url(../images/grey_trnsp.png) repeat scroll 0 0 transparent;
 }
 
-#issue-search-filter-form .ahah-progress-throbber .throbber,
-#moderation-issue-view-form .ahah-progress-throbber .throbber {
+#issue-search-filter-form .ahah-progress-throbber .throbber {
   float    : none;
   margin   : 0 auto;
   position : absolute;
@@ -5364,20 +4226,6 @@ div.tabs {
   background : url(../images/loading.gif) no-repeat scroll 0 0 transparent !important;
 }
 
-/* User register */
-#user-login .messages.error,
-#user-register .messages.error {
-  font-size     : 11px;
-  margin-bottom : 5px;
-}
-
-#user-login .messages.error ul,
-#user-login .messages.error ul li,
-#user-register .messages.error ul,
-#user-register .messages.error ul li {
-  margin-bottom : 0;
-}
-
 span.coins_char {
   border           : 0 none;
   margin           : 0;
@@ -5390,11 +4238,6 @@ span.coins_char {
 
 #footer span.coins_char {
   padding : 1px 6px;
-}
-
-.profile-complete .progress {
-  background : none repeat scroll 0 0 #99F279;
-  height     : 7px;
 }
 
 #admin-menu li li a {
@@ -5490,13 +4333,6 @@ span.coins_char {
   width   : 95%;
 }
 
-#guidelines {
-  margin-top    : 0;
-  margin-bottom : 30px;
-  padding       : 15px 14px;
-}
-
-#guidelines label.tags-on,
 .search_issues,
 .with_icon {
   padding        : 3px 0 16px;
@@ -5518,11 +4354,6 @@ span.coins_char {
 
 .with_icon.maximum {
   max-width : 150px;
-}
-
-#guidelines p.issue-meta {
-  margin-top : 0;
-  padding    : 0;
 }
 
 #flagger-form input.form-checkbox {
@@ -5567,39 +4398,6 @@ span.coins_char {
 
 #noty_topRight_layout_container li, #noty_center_layout_container li {
   margin-bottom : 0px;
-}
-
-#contact-mail-page {
-  margin-top : 6px;
-}
-
-#contact-mail-page #edit-name-wrapper {
-  clear : both;
-}
-
-#contact-mail-page .form-select {
-  margin : 3px 0 16px 0;
-}
-
-#contact-mail-page input.form-text, #contact-mail-page textarea {
-  padding : 8px;
-}
-
-#contact-mail-page .resizable-textarea {
-  width        : auto;
-  margin-right : 20px;
-}
-
-#contact-mail-page .resizable-textarea .grippie {
-  padding : 0 8px;
-}
-
-#contact-mail-page input[type="checkbox"] {
-  margin : 3px 3px 3px 0;
-}
-
-#contact-mail-page input[type="submit"] {
-  margin : 3px 0 0 0;
 }
 
 .mod-form .form-item,
@@ -5714,11 +4512,6 @@ span.coins_char {
   background : #F7DB07
 }
 
-#debate_list_area div.warning {
-  margin  : 25px 30px;
-  padding : 7px 5px 5px;
-}
-
 #block-issue-issue-categories-popular,
 #block-issue-issue-categories,
 #block-user_profile-user-profile-right {
@@ -5815,10 +4608,6 @@ i.icon-businesscardalt:before {
   line-height : 1;
 }
 
-/*Moderation*/
-
-#moderation-issues-form legend,
-#moderation-issues-form legend a,
 #choices-wrapper legend a,
 #taxonomy-wrapper legend a,
 #location-wrapper a,
@@ -5828,34 +4617,6 @@ i.icon-businesscardalt:before {
   float : right;
 }
 
-.mod-wrapper {
-  padding             : 12px 0 0;
-  margin              : 11px 0 0;
-  background-position : 0 0;
-  clear               : both;
-}
-
-fieldset + .mod-wrapper {
-  padding    : 0;
-  margin     : 0;
-  background : none transparent;
-}
-
-.mod-wrapper h2.din.half {
-  margin      : 0;
-  padding     : 0;
-  font-size   : 24px;
-  line-height : 1.2em;
-}
-
-#moderation-issues-form fieldset {
-  height        : auto;
-  margin        : 0 -20px 18px;
-  padding       : 0 20px 18px;
-  border-bottom : 1px solid #C0C0C0;
-}
-
-#moderation-issues-form fieldset,
 #choices-wrapper,
 #taxonomy-wrapper,
 #location-wrapper {
@@ -5874,63 +4635,11 @@ fieldset + .mod-wrapper {
   background : url(../images/ui-bg_diagonals40x40.png) repeat scroll 0 0 #E9E9E9;
 }
 
-#moderation-issues-form {
-  margin-bottom : 10px;
-}
-
 #moderation-issues-form .fieldset-wrapper,
 #choices-wrapper .fieldset-wrapper,
 #taxonomy-wrapper .fieldset-wrapper,
 #location-wrapper .fieldset-wrapper {
   clear : both;
-}
-
-#moderation-issues-form fieldset .form-item {
-  float  : left;
-  margin : 0;
-  width  : 49%;
-}
-
-#moderation-issues-form fieldset select {
-  margin             : 0;
-  width              : 99%;
-  -moz-box-sizing    : border-box;
-  -webkit-box-sizing : border-box;
-  box-sizing         : border-box;
-}
-
-select option {
-  -moz-box-sizing    : border-box;
-  -webkit-box-sizing : border-box;
-  box-sizing         : border-box;
-}
-
-#moderation-issues-form fieldset #edit-status-wrapper {
-  padding-right : 1%;
-}
-
-#moderation-issues-form fieldset #edit-perpage-wrapper {
-  padding-left : 1%;
-}
-
-#moderation-issues-form fieldset #edit-perpage {
-  float : right;
-}
-
-#moderation-issues-form fieldset label,
-#moderation-issue-view-form label {
-  font-size      : 13px;
-  font-weight    : bold;
-  line-height    : 1.5em;
-  padding-bottom : 5px;
-}
-
-#moderation-issues-form fieldset .form-submit {
-  margin : 14px 0 0;
-}
-
-#moderation-issue-view-form {
-  margin : 0 -20px 10px;
 }
 
 .question_section,
@@ -5976,47 +4685,6 @@ select option {
 .view_q a:hover i,
 .view_q a:hover {
   color : #CC2027;
-}
-
-#moderation-issue-view-form .form-item {
-  margin : 17px 0 0;
-  clear  : both;
-}
-
-#moderation-issue-view-form input.form-text,
-#moderation-issue-view-form textarea,
-#moderation-issue-view-form select {
-  box-sizing         : border-box;
-  -webkit-box-sizing : border-box;
-  -moz-box-sizing    : border-box;
-}
-
-#moderation-issue-view-form input.form-text,
-#moderation-issue-view-form textarea {
-  padding : 8px 5px;
-  width   : 100%;
-}
-
-#moderation-issue-view-form textarea {
-  height     : 90px;
-  overflow-y : auto;
-}
-
-#moderation-issue-view-form .grippie {
-  display : none;
-}
-
-#moderation-issue-view-form .resizable-textarea {
-  width : 100%;
-}
-
-#moderation-issue-view-form select {
-  float              : none;
-  margin             : 0;
-  width              : 100%;
-  box-sizing         : border-box;
-  -webkit-box-sizing : border-box;
-  -moz-box-sizing    : border-box
 }
 
 #choices-wrapper select {
@@ -6071,14 +4739,6 @@ select option {
 #location-wrapper fieldset {
   margin : 0;
   height : auto;
-}
-
-#moderation-issue-view-form .action_wrapper {
-  padding : 20px 20px 0;
-}
-
-#moderation-issue-view-form .form-submit + .form-submit {
-  margin : 0 0 0 10px;
 }
 
 .mh_cell strong {
@@ -6198,31 +4858,7 @@ form.issue-vote-form > div > div.choices {
   cursor              : pointer;
 }
 
-#popup-login.logged_in {
-  padding : 10px;
-}
-
-#popup-login .popup-tab input.form-text {
-  padding : 6px 8px;
-}
-
-#popup-login .popup-tab #edit-submit {
-  margin : 0 0 2em 0;
-}
-
 /* USER LOGIN FORM user/login */
-
-.white-box #user-login input[type="text"],
-.white-box #user-login input[type="password"],
-.white-box #user-register input[type="text"],
-.white-box #user-register input[type="password"] {
-  padding : 8px;
-}
-
-.white-box #user-login input[type="submit"],
-.white-box #user-register input[type="submit"] {
-  margin : 0 0 30px 0;
-}
 
 .white-box #edit-captcha-response {
   margin-bottom : 7px;
@@ -6236,11 +4872,6 @@ form.issue-vote-form > div > div.choices {
 
 .node-unpublished {
   margin-bottom : 10px;
-}
-
-#chart-strength {
-  left     : -10px;
-  position : relative;
 }
 
 .issue-vote-wrapper .qd a,
@@ -6259,57 +4890,14 @@ form.issue-vote-form > div > div.choices {
   word-wrap : break-word;
 }
 
-/* Moderation of issues */
-
-#moderation-issue-view-form #edit-body-wrapper.form-item,
-#moderation-issue-view-form #edit-fixed-wrapper.form-item,
-#moderation-issue-view-form #edit-active-wrapper.form-item {
-  padding : 0 22px;
-}
-
-#moderation-issue-view-form #choices-wrapper legend {
-  margin-bottom : 10px;
-}
-
-#moderation-arguments-form .form-select,
-#moderation-comments-form .form-select,
-#moderation-users-form .form-select {
-  float  : none;
-  margin : 10px 0;
-}
-
-#moderation-arguments-form .form-item label,
-#moderation-comments-form .form-item label,
-#moderation-users-form .form-item label {
-  margin : 2px 0;
-}
-
-#moderation-arguments-form legend.collapse-processed,
-#moderation-comments-form legend.collapse-processed,
-#moderation-users-form legend.collapse-processed {
-  margin : 0 0 10px 0;
-}
-
-#moderation-arguments-form input[type="submit"],
-#moderation-comments-form input[type="submit"],
-#moderation-users-form input[type="submit"] {
-  margin-left : 0;
-}
-
 html.js fieldset.collapsible {
   margin : 0 0 10px 0;
-}
-
-.mod-wrapper h2.din.half {
-  word-wrap : break-word;
 }
 
 .mod-votecount-wrapper span {
   display    : inline-block;
   margin-top : 10px;
 }
-
-/*--/ Moderation of issues */
 
 .chzn-container {
   width : 190px !important;
@@ -6360,11 +4948,7 @@ html.js fieldset.collapsible {
   -o-border-radius      : 0 0 4px 4px;
 }
 
-.vote-results .legend dt,
-span.coins_char,
-#debate_list_area li.one_reply span.negative,
-#debate_list_area li.one_reply span.positive,
-#debate_list_area .arg span.sum span {
+span.coins_char {
   border-radius         : 200px;
   -o-border-radius      : 200px;
   -moz-border-radius    : 200px;
@@ -6414,8 +4998,6 @@ textarea#Answer,
 .item-list .pager .pager-first a:hover,
 .item-list .pager .pager-next a:hover,
 .item-list .pager .pager-previous a:hover,
-#debate_list_area .ui-tabs-panel,
-#debate_list_area .ui-tabs-nav,
 ul.control_links h6#reply,
 ul.control_links h6#reply:hover,
 #item_results-wrapper span.del-item,
@@ -6445,9 +5027,7 @@ ul.control_links h6#reply:hover,
 .badge,
 #badges .medal_wrapper,
 span.small_neg,
-span.small_pos,
-#debate_list_area .arg p.position-minus strong,
-#debate_list_area .arg p.position-plus strong {
+span.small_pos {
   -moz-border-radius    : 6px;
   -webkit-border-radius : 6px;
   -o-border-radius      : 6px;
@@ -6458,7 +5038,6 @@ span.small_pos,
 textarea#q_quest,
 textarea#Question,
 .ui-dialog.ui-widget-content .ui-tabs-nav .ui-tabs-selected,
-#debate_list_area .ui-tabs-nav li.ui-state-active a,
 #contact-mail-page textarea {
   -webkit-border-radius : 3px 3px 0 0;
   -moz-border-radius    : 3px 3px 0 0;
@@ -6502,9 +5081,779 @@ a span.hi:hover {
   height        : 32px;
 }
 
+/* USER LOGIN/REGISTER */
 
+/* popup login/register */
 
+#popup-login .popup-tab input.form-text {
+  padding : 6px 8px;
+}
 
+#popup-login .popup-tab #edit-submit {
+  margin : 0 0 2em 0;
+}
+
+/*---/ popup login/register */
+
+/* login/register form */
+
+.white-box #user-login input[type="text"],
+.white-box #user-login input[type="password"],
+.white-box #user-register input[type="text"],
+.white-box #user-register input[type="password"] {
+  padding : 8px;
+}
+
+.white-box #user-login input[type="submit"],
+.white-box #user-register input[type="submit"] {
+  margin : 0 0 30px 0;
+}
+
+#user-register .password-parent,
+#user-register .confirm-parent {
+  position : relative;
+}
+
+#user-register #edit-mail-wrapper input#edit-mail,
+#user-register input.password-confirm {
+  margin-bottom : 5px;
+}
+
+#user-register .password-strength,
+#user-register span.password-confirm {
+  position         : absolute;
+  left             : 0;
+  top              : 107%;
+  background-color : #000000;
+  color            : #FFFFFF;
+  padding          : 10px;
+  text-align       : left;
+  font-size        : 11px;
+  line-height      : 1.2em;
+  width            : 24em;
+  z-index          : 1000;
+  white-space      : nowrap;
+}
+
+#user-register .password-strength .password-title,
+#user-register span.password-confirm div.inner_confirm {
+  background : url(../images/black_arr.png) no-repeat 0 0;
+}
+
+#user-register .password-strength span,
+#user-register span.password-confirm div.inner_confirm {
+  position      : relative;
+  top           : -15px;
+  padding-top   : 15px;
+  margin-bottom : -15px;
+  float         : left;
+  padding-right : 3px;
+}
+
+#user-register span.password-confirm div.inner_confirm {
+  padding-right : 0;
+}
+
+#user-register .password-description {
+  display          : none;
+  border           : 0;
+  background-color : transparent;
+  font             : 11px/15px Arial, sans-serif;
+  margin           : 0 0 5px;
+  padding          : 0;
+}
+
+#user-register #edit-news-wrapper {
+  margin-bottom : 0.5em;
+}
+
+#user-register #edit-news-wrapper label,
+#user-register #edit-terms-wrapper label {
+  font-size : 12px;
+}
+
+#user-register #edit-terms-wrapper {
+  margin : 0 0 1.5em 0;
+}
+
+#user-register .description {
+  font : 11px/15px Arial, sans-serif;
+}
+
+#user-register .confirm-parent {
+  margin : 0 !important;
+}
+
+#user-register .password-description ul {
+  list-style : disc outside none;
+  padding    : 0 0 0 30px;
+}
+
+#user-register .password-description li {
+  margin     : 0;
+  list-style : disc outside none;
+}
+
+#user-register .password-description.error {
+  color : #CD2027;
+}
+
+#user-login .messages.error,
+#user-register .messages.error {
+  font-size     : 11px;
+  margin-bottom : 5px;
+}
+
+#user-login .messages.error ul,
+#user-login .messages.error ul li,
+#user-register .messages.error ul,
+#user-register .messages.error ul li {
+  margin-bottom : 0;
+}
+
+/*---/ login/register form */
+
+/* popup edit/logout */
+
+#popup-login.logged_in {
+  padding : 10px;
+}
+
+.small-prog {
+  width : 210px;
+}
+
+.profile-meta.quick-profile {
+  margin-top : -20px;
+}
+
+.profile-meta p {
+  line-height : 1.2em;
+  font-size   : 13px;
+  text-shadow : 0px 1px #CECECE;
+}
+
+p.profile-links.quick-profile {
+  color          : #666666;
+  font-size      : 13px;
+  line-height    : 1.4em;
+  font-weight    : normal;
+  text-transform : none;
+  text-shadow    : 0 -1px #FFFFFF;
+  margin         : 0;
+  text-shadow    : none;
+  clear          : both;
+}
+
+p.profile-links.quick-profile a {
+  color       : #0181C3;
+  line-height : 1em;
+  cursor      : pointer;
+  text-shadow : 0 -1px #FFFFFF;
+  font-weight : normal;
+}
+
+p.profile-links.quick-profile a:hover {
+  color : #CC2027;
+}
+
+/*---/ popup edit/logout */
+
+/* profile completeness */
+
+#block-user_profile-user-profile-right .profile-status-toggle {
+  margin-bottom : 0;
+}
+
+p.profile-status {
+  font-size  : 14px;
+  min-height : 34px;
+}
+
+.profile-complete {
+  height     : 7px;
+  background : #A39D8C;
+  opacity    : 0.9;
+  margin     : -5px 0px 15px 1px;
+}
+
+.profile-complete .progress {
+  background : none repeat scroll 0 0 #99F279;
+  width      : 75%;
+  height     : 7px;
+}
+
+/*---/ profile completeness */
+
+/*---/ USER LOGIN/REGISTER */
+
+/* ADD NEW ISSUE */
+
+/* guidelines */
+
+#guidelines {
+  margin-top    : 0;
+  margin-bottom : 30px;
+  padding       : 15px 14px;
+}
+
+#guidelines label.tags-on {
+  padding        : 3px 0 16px;
+  width          : 100%;
+  font-size      : 12px;
+  line-height    : 1em;
+  text-transform : uppercase;
+  margin         : 0;
+  line-height    : 1.2em;
+}
+
+#guidelines p.issue-meta {
+  margin-top : 0;
+  padding    : 0;
+}
+
+/*---/ guidelines */
+
+/* add form */
+
+label.add-on, label.add-on-2 {
+  float       : left;
+  margin      : 7px 20px 0 0;
+  width       : 350px;
+  line-height : 1em;
+}
+
+label.add-on-2 {
+  width        : 18%;
+  margin-right : 3%;
+}
+
+.new-issue .number {
+  width       : 30px;
+  line-height : 3px;
+  float       : left;
+  color       : #999999;
+  font-size   : 30px;
+  margin      : 6px 6px 0 0;
+  text-shadow : #FFFFFF 0px 1px;
+}
+
+.add-on-title-wrapper {
+  display      : block;
+  padding-left : 35px;
+}
+
+label.add-on span.title {
+  line-height : 1em;
+}
+
+label.add-on span.guides {
+  line-height : 1.3em;
+}
+
+#q_quest-wrapper,
+#Question-wrapper {
+  float : right;
+}
+
+#q_quest-wrapper .resizable-textarea,
+#Question-wrapper .resizable-textarea {
+  width : inherit;
+}
+
+#q_quest-wrapper .resizable-textarea .grippie,
+#Question-wrapper .resizable-textarea .grippie {
+  width         : 498px;
+  margin-bottom : 8px;
+}
+
+textarea#q_quest, textarea#Question {
+  margin       : 0;
+  resize       : none;
+  border-color : #B3B3B3;
+  width        : 482px;
+  float        : right;
+  padding      : 6px 8px;
+}
+
+#create_box .resizable-textarea span {
+  display : block;
+  float   : right;
+  width   : 500px;
+}
+
+input#Answer {
+  margin       : 0px 1% 30px 1px;
+  resize       : none;
+  border-color : #B3B3B3;
+  width        : 482px;
+  float        : right;
+  padding      : 8px;
+}
+
+#create_box input.add-answer {
+  margin : 8px 0 6px 0;
+}
+
+input.add-answer {
+  float  : right;
+  margin : -15px 2px 5px 0px;
+}
+
+#issue-create-form input.add-answer {
+  margin : 0;
+}
+
+label.before-submit {
+  line-height : 1.4em;
+  font-weight : normal;
+  font-style  : italic;
+  text-align  : left;
+  color       : #444444;
+  margin      : 0 0 12px 25px;
+  display     : block;
+}
+
+input.submit-issue {
+  float          : right;
+  text-transform : uppercase;
+  margin-top     : 15px;
+}
+
+/*---/ add form */
+
+/*---/ ADD NEW ISSUE */
+
+/* DATE FILTER */
+
+ul.date_filter {
+  margin : 0;
+  float  : left;
+}
+
+ul.options_filter {
+  margin : 0;
+  float  : right;
+}
+
+ul.date_filter li, ul.options_filter li {
+  float       : left;
+  margin      : 0;
+  border-left : 1px solid #666666;
+}
+
+ul.date_filter li:first-child, ul.options_filter li:first-child {
+  border : 0 none;
+  margin : 0;
+}
+
+ul.date_filter li a, ul.options_filter li a {
+  color           : #666666;
+  display         : block;
+  font-size       : 13px;
+  font-style      : normal;
+  font-weight     : bold;
+  line-height     : 15px;
+  margin          : 0;
+  padding         : 0px 10px;
+  text-decoration : none;
+}
+
+ul.date_filter li a.first,
+ul.options_filter li a.first {
+  padding-left : 0;
+}
+
+ul.date_filter li a.last,
+ul.options_filter li a.last {
+  padding-right : 0;
+}
+
+ul.date_filter li a:hover, ul.options_filter li a:hover {
+  text-decoration : underline;
+}
+
+ul.date_filter li a.active, ul.options_filter li a.active,
+ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
+  color           : #EF3D3B;
+  text-decoration : none;
+}
+
+/*---/ DATE FILTER */
+
+/* MODERATION */
+
+.moderation_header {
+  padding       : 0 3px 15px;
+  border-bottom : 1px solid #C0C0C0;
+  margin        : 0 0 18px;
+}
+
+.moderation_header .form-item {
+  margin : 0;
+}
+
+#moderation-issues-form {
+  margin-bottom : 10px;
+}
+
+#moderation-issues-form fieldset {
+  height        : auto;
+  margin        : 0 -20px 18px;
+  padding       : 0 20px 18px;
+  border-bottom : 1px solid #C0C0C0;
+  background    : #FFFFFF; /* Old browsers */
+  background    : -moz-linear-gradient(top, #FFFFFF 0%, #F5F5F5 100%); /* FF3.6+ */
+  background    : -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #F5F5F5)); /* Chrome,Safari4+ */
+  background    : -webkit-linear-gradient(top, #FFFFFF 0%, #F5F5F5 100%); /* Chrome10+,Safari5.1+ */
+  background    : -o-linear-gradient(top, #FFFFFF 0%, #F5F5F5 100%); /* Opera 11.10+ */
+  background    : -ms-linear-gradient(top, #FFFFFF 0%, #F5F5F5 100%); /* IE10+ */
+  background    : linear-gradient(to bottom, #FFFFFF 0%, #F5F5F5 100%); /* W3C */
+  filter        : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=0); /* IE6-8 */
+  zoom          : 1;
+}
+
+#moderation-issues-form legend,
+#moderation-issues-form legend a {
+  float : right;
+}
+
+#moderation-issues-form .fieldset-wrapper {
+  clear : both;
+}
+
+#moderation-issues-form .fieldset-wrapper:after {
+  visibility : hidden;
+  display    : block;
+  font-size  : 0;
+  content    : " ";
+  clear      : both;
+  height     : 0;
+}
+
+#moderation-issues-form fieldset .form-item {
+  float  : left;
+  margin : 0;
+  width  : 49%;
+}
+
+#moderation-issues-form fieldset select {
+  margin             : 0;
+  width              : 99%;
+  -moz-box-sizing    : border-box;
+  -webkit-box-sizing : border-box;
+  box-sizing         : border-box;
+}
+
+select option {
+  -moz-box-sizing    : border-box;
+  -webkit-box-sizing : border-box;
+  box-sizing         : border-box;
+}
+
+#moderation-issues-form fieldset #edit-status-wrapper {
+  padding-right : 1%;
+}
+
+#moderation-issues-form fieldset #edit-perpage-wrapper {
+  padding-left : 1%;
+}
+
+#moderation-issues-form fieldset #edit-perpage {
+  float : right;
+}
+
+#moderation-issues-form fieldset label,
+#moderation-issue-view-form label {
+  font-size      : 13px;
+  font-weight    : bold;
+  line-height    : 1.5em;
+  padding-bottom : 5px;
+}
+
+#moderation-issues-form fieldset .form-submit {
+  margin : 14px 0 0;
+}
+
+#moderation-issue-view-form {
+  margin : 0 -20px 10px;
+}
+
+.mod-wrapper {
+  padding             : 12px 0 0;
+  margin              : 11px 0 0;
+  background-position : 0 0;
+  clear               : both;
+}
+
+fieldset + .mod-wrapper {
+  padding    : 0;
+  margin     : 0;
+  background : none transparent;
+}
+
+.mod-wrapper h2.din.half {
+  margin      : 0;
+  padding     : 0;
+  font-size   : 24px;
+  line-height : 1.2em;
+}
+
+.mod-wrapper h2.din.half {
+  word-wrap : break-word;
+}
+
+#moderation-issue-view-form #edit-body-wrapper.form-item,
+#moderation-issue-view-form #edit-fixed-wrapper.form-item,
+#moderation-issue-view-form #edit-active-wrapper.form-item {
+  padding : 0 22px;
+}
+
+#moderation-issue-view-form #choices-wrapper legend {
+  margin-bottom : 10px;
+}
+
+#moderation-arguments-form .form-select,
+#moderation-comments-form .form-select,
+#moderation-users-form .form-select {
+  float  : none;
+  margin : 10px 0;
+}
+
+#moderation-arguments-form .form-item label,
+#moderation-comments-form .form-item label,
+#moderation-users-form .form-item label {
+  margin : 2px 0;
+}
+
+#moderation-arguments-form legend.collapse-processed,
+#moderation-comments-form legend.collapse-processed,
+#moderation-users-form legend.collapse-processed {
+  margin : 0 0 10px 0;
+}
+
+#moderation-arguments-form input[type="submit"],
+#moderation-comments-form input[type="submit"],
+#moderation-users-form input[type="submit"] {
+  margin-left : 0;
+}
+
+#moderation-issue-view-form .ahah-progress-throbber {
+  float      : none;
+  width      : 100%;
+  text-align : center;
+  position   : absolute;
+  bottom     : 0;
+  left       : 0;
+  top        : 0;
+  background : url(../images/grey_trnsp.png) repeat scroll 0 0 transparent;
+}
+
+#moderation-issue-view-form .ahah-progress-throbber .throbber {
+  float    : none;
+  margin   : 0 auto;
+  position : absolute;
+  top      : 50%;
+  left     : 50%;
+  margin   : -7px 0 0 -7px;
+}
+
+#moderation-issue-view-form .form-item {
+  margin : 17px 0 0;
+  clear  : both;
+}
+
+#moderation-issue-view-form input.form-text,
+#moderation-issue-view-form textarea,
+#moderation-issue-view-form select {
+  box-sizing         : border-box;
+  -webkit-box-sizing : border-box;
+  -moz-box-sizing    : border-box;
+}
+
+#moderation-issue-view-form input.form-text,
+#moderation-issue-view-form textarea {
+  padding : 8px 5px;
+  width   : 100%;
+}
+
+#moderation-issue-view-form textarea {
+  height     : 90px;
+  overflow-y : auto;
+}
+
+#moderation-issue-view-form .grippie {
+  display : none;
+}
+
+#moderation-issue-view-form .resizable-textarea {
+  width : 100%;
+}
+
+#moderation-issue-view-form select {
+  float              : none;
+  margin             : 0;
+  width              : 100%;
+  box-sizing         : border-box;
+  -webkit-box-sizing : border-box;
+  -moz-box-sizing    : border-box
+}
+
+#moderation-issue-view-form .action_wrapper {
+  padding : 20px 20px 0;
+}
+
+#moderation-issue-view-form .form-submit + .form-submit {
+  margin : 0 0 0 10px;
+}
+
+/*---/ MODERATION */
+
+/* CONTACT PAGE */
+
+#contact-mail-page {
+  margin-top : 6px;
+}
+
+#contact-mail-page #edit-name-wrapper {
+  clear : both;
+}
+
+#contact-mail-page .form-select {
+  margin : 3px 0 16px 0;
+}
+
+#contact-mail-page input.form-text,
+#contact-mail-page textarea {
+  padding : 8px;
+}
+
+#contact-mail-page .resizable-textarea {
+  width        : auto;
+  margin-right : 20px;
+}
+
+#contact-mail-page .resizable-textarea .grippie {
+  padding : 0 8px;
+}
+
+#contact-mail-page input[type="checkbox"] {
+  margin : 3px 3px 3px 0;
+}
+
+#contact-mail-page input[type="submit"] {
+  margin : 3px 0 0 0;
+}
+
+/*---/ CONTACT PAGE */
+
+/* USER ACCOUNT */
+
+/* user info - right block */
+
+#own_info img.profile-meta,
+#own_info .medals {
+  margin-top    : 0;
+  margin-bottom : 15px;
+}
+
+#own_info .medals {
+  float : none;
+}
+
+img.profile-meta {
+  border-width : 1px;
+  border-style : solid;
+  border-color : #666666 #999999 #999999 #888888;
+  background   : #DDDDDD;
+  float        : none;
+  margin       : -15px 12px 10px 0px;
+  width        : 145px;
+  height       : 145px;
+}
+
+.medal_box {
+  float  : left;
+  margin : 0 10px 10px 0;
+}
+
+.profile_page_wrapper .user_info {
+  border-top : 1px dotted #888888;
+  margin     : 0;
+  padding    : 0;
+  clear      : both;
+}
+
+.profile_page_wrapper .user_info .section {
+  border-bottom : 1px dotted #888888;
+  margin        : 7px 0 0;
+  padding       : 0 0 15px;
+}
+
+span.user-title, span.user-data {
+  font-size   : 12px;
+  color       : #333333;
+  text-shadow : 0px 1px #CECECE;
+  line-height : 0.6em;
+}
+
+span.user-data {
+  font-weight : bold;
+}
+
+div.following {
+  border-bottom : 1px dotted #888888;
+  margin        : 7px 0 0;
+  padding       : 0 0 15px;
+}
+
+label.following, label.badges {
+  color          : #FEFEFE;
+  text-shadow    : 0 -1px #999999;
+  font-size      : 12px;
+  text-transform : uppercase;
+  padding        : 0px 0px 10px;
+  margin         : 0px 0px 0px 0px;
+  line-height    : 1.2em;
+}
+
+img.following-user, img.user-thumb {
+  width        : 44px;
+  height       : 44px;
+  margin       : 5px 2px 0;
+  border-width : 1px;
+  border-style : solid;
+  border-color : #666666 #999999 #999999 #888888;
+  background   : #DDDDDD;
+}
+
+ul.badges.profile {
+  margin : 7px 0 0;
+}
+
+.badge.gold {
+  background : #F7DB07;
+}
+
+.badge.bronze {
+  background : #D1A619;
+}
+
+.badge.silver {
+  background : #ECECEC;
+}
+
+/*---/ user info - right block */
+
+/* VIEW PROFILE */
+
+/*---/ VIEW PROFILE */
+
+/* EDIT PROFILE */
+
+/*---/ EDIT PROFILE */
+
+/*---/ USER ACCOUNT */
 
 
 
