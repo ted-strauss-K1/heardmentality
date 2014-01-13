@@ -670,14 +670,6 @@ label.vote-answer {
   cursor      : pointer;
 }
 
-span.privacy-answer {
-  font-size      : 0.7em;
-  width          : 100%;
-  line-height    : 1em;
-  padding        : 0px 0px 0px 0px;
-  vertical-align : top;
-}
-
 .wait {
   font-size  : 15px;
   font-style : italic;
@@ -1191,28 +1183,10 @@ a.dupes {
 /* #USER PROFILE
 ================================================== */
 
-ul.privacy, ul.subscription, ul.answer-value {
+ul.privacy, ul.answer-value {
   margin : -5px 0px 5px 0px;
   width  : 45%;
   float  : right;
-}
-
-ul.subscription {
-  margin : -5px 0px 0 0px;
-  width  : 100%;
-  float  : right;
-}
-
-#subscription_email-wrapper {
-  clear  : both;
-  margin : 0;
-}
-
-#subscription_email-wrapper input.form-text {
-  padding : 8px 5px;
-  width   : 93%;
-  margin  : 0.5em 0 1em;
-  display : inline-block;
 }
 
 ul.answer-value {
@@ -1221,7 +1195,7 @@ ul.answer-value {
   float  : right;
 }
 
-ul.privacy li, ul.subscription li, ul.answer-value li {
+ul.privacy li, ul.answer-value li {
   float      : right;
   text-align : center;
   width      : 22%;
@@ -1230,13 +1204,6 @@ ul.privacy li, ul.subscription li, ul.answer-value li {
 
 ul.privacy #income li {
   margin-right : 69%;
-}
-
-ul.subscription li {
-  float      : right;
-  text-align : center;
-  width      : 32%;
-  margin     : 0 1% 0 0;
 }
 
 ul.answer-value li {
@@ -1252,18 +1219,6 @@ span.left {
 
 form#user-details {
   margin : 0;
-}
-
-.user-info {
-  margin      : 0;
-  clear       : both;
-  padding     : 15px 0 0;
-  font-size   : 13px;
-  line-height : 1.4;
-}
-
-.user-info span {
-  display : block;
 }
 
 #profile_overview .user-info p {
@@ -1295,16 +1250,6 @@ form#user-profile-edit-form {
 #edit_profile h2.din {
   float : left;
   width : 50%;
-}
-
-#edit-language-wrapper {
-  margin : 0;
-}
-
-select#edit-language {
-  float  : none;
-  margin : 0 0 1em;
-  width  : 100%;
 }
 
 .privacy-info {
@@ -1390,116 +1335,6 @@ select#edit-language {
   color : #43B649;
 }
 
-/* change userpic */
-
-#edit-image-upload-wrapper {
-  position                           : relative;
-  text-transform                     : uppercase;
-  background                         : #3DCCF7; /* Old browsers */
-  background                         : -moz-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* FF3.6+ */
-  background                         : -webkit-gradient(linear, left top, left bottom, color-stop(1%, #3DCCF7), color-stop(100%, #14B0E0)); /* Chrome,Safari4+ */
-  background                         : -webkit-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Chrome10+,Safari5.1+ */
-  background                         : -o-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Opera 11.10+ */
-  background                         : -ms-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* IE10+ */
-  background                         : linear-gradient(to bottom, #3DCCF7 1%, #14B0E0 100%); /* W3C */
-  filter                             : progid:DXImageTransform.Microsoft.gradient(startColorstr='#3dccf7', endColorstr='#14b0e0', GradientType=0); /* IE6-9 */
-  border                             : 1px solid #849EB7;
-  -webkit-box-shadow                 : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  -moz-box-shadow                    : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  -o-box-shadow                      : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  -khtml-box-shadow                  : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  box-shadow                         : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
-  -webkit-border-radius              : 3px;
-  -moz-border-radius                 : 3px;
-  border-radius                      : 3px;
-  -khtml-border-radius               : 3px;
-  -o-border-radius                   : 3px;
-  -ms-border-radius                  : 3px;
-  color                              : #FFFFFF !important;
-  display                            : inline-block;
-  font-size                          : 16px;
-  font-weight                        : bold;
-  text-decoration                    : none;
-  text-shadow                        : 0 1px #386C9B;
-  cursor                             : pointer;
-  margin                             : 3px 0 6px 0px;
-  line-height                        : 19px;
-  font-family                        : Arial, sans-serif;
-  font-weight                        : bold;
-  -webkit-appearance                 : none;
-  letter-spacing                     : 0.02em;
-  width                              : 130px;
-  height                             : 33px;
-  -webkit-transition                 : border 0.2s linear, -webkit-box-shadow 0.2s linear, background-color 0.2s linear;
-  -webkit-transition-property        : border, -webkit-box-shadow, background-color;
-  -webkit-transition-duration        : 0.2s, 0.2s, 0.2s;
-  -webkit-transition-timing-function : linear, linear, linear;
-  -webkit-transition-delay           : initial, initial;
-  -moz-transition                    : border 0.2s linear, -moz-box-shadow 0.2s linear, background-color 0.2s linear;
-  -moz-transition-property           : border, -moz-box-shadow, background-color;
-  -moz-transition-duration           : 0.2s, 0.2s, 0.2s;
-  -moz-transition-timing-function    : linear, linear, linear;
-  -moz-transition-delay              : initial, initial;
-}
-
-#edit-image-upload-wrapper:hover {
-  background         : #3DCCF7; /* Old browsers */
-  background         : -moz-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* FF3.6+ */
-  background         : -webkit-gradient(linear, left top, left bottom, color-stop(1%, #3DCCF7), color-stop(100%, #14B0E0)); /* Chrome,Safari4+ */
-  background         : -webkit-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Chrome10+,Safari5.1+ */
-  background         : -o-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Opera 11.10+ */
-  background         : -ms-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* IE10+ */
-  background         : linear-gradient(to bottom, #3DCCF7 1%, #14B0E0 100%); /* W3C */
-  filter             : progid:DXImageTransform.Microsoft.gradient(startColorstr='#3dccf7', endColorstr='#14b0e0', GradientType=0); /* IE6-9 */
-  border             : 1px solid #849EB7;
-  -webkit-box-shadow : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
-  -moz-box-shadow    : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
-  -o-box-shadow      : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
-  -khtml-box-shadow  : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
-  box-shadow         : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
-  text-shadow        : 0 1px #386C9B;
-  position           : relative;
-  top                : -3px;
-  color              : #FFFFFF !important;
-  cursor             : pointer;
-}
-
-#edit-image-upload-wrapper:after {
-  content            : 'choose file';
-  color              : #FFFFFF !important;
-  font-size          : 13px;
-  font-weight        : bold;
-  text-decoration    : none;
-  text-shadow        : 0 1px #386C9B;
-  line-height        : 19px;
-  font-family        : Arial, sans-serif;
-  font-weight        : bold;
-  -webkit-appearance : none;
-  letter-spacing     : 0.02em;
-  position           : absolute;
-  top                : 8px;
-  width              : 100%;
-  text-align         : center;
-  cursor             : pointer;
-
-}
-
-#edit-image-upload-wrapper input[type="file"] {
-  display  : block;
-  width    : 100%;
-  height   : 100%;
-  opacity  : 0;
-  position : relative;
-  z-index  : 20;
-  cursor   : pointer;
-}
-
-/*--/ change userpic */
-
-p.choose_pic {
-  margin : 0 0 1em;
-}
-
 .visible-to {
   font-size   : 11px;
   line-height : 13px;
@@ -1543,10 +1378,6 @@ p.choose_pic {
 
 .message.right-message a.bolded {
   display : inline-block;
-}
-
-.avatar-left p {
-  line-height : 1.1em;
 }
 
 .profile-meta.top-message .profile-meta p {
@@ -1828,28 +1659,9 @@ span.sort {
   color : #EF3D3B;
 }
 
-.action span.name {
-  color       : #EF3D3B;
-  font-weight : bold
-}
-
-.action span.name a {
-  color       : #EF3D3B;
-  font-weight : bold
-}
-
-.action ul {
-}
-
 .action ul.ref {
   margin  : 0px 0px 0px 0px;
   padding : 0px;
-}
-
-.action li {
-  padding : 0px 5px 10px 5px;
-  margin  : 0;
-  clear   : both;
 }
 
 .action ul.ref li {
@@ -1858,28 +1670,10 @@ span.sort {
   clear   : both;
 }
 
-.action li:first-child {
-  padding : 0px 5px 10px 5px;
-}
-
-p.action-item, div.action-item {
-  padding   : 0px 4px 0px 0px;
-  margin    : 0px 0px 0px 60px;
-  font-size : 13px;
-}
-
 p.profile.action-item, div.profile.action-item {
   padding   : 0px 4px 0px 0px;
   margin    : 0px 0px 0px 10px;
   font-size : 13px;
-}
-
-p.action-comment-ref {
-  padding     : 0px 10px 0px 10px;
-  margin      : 10px 0px 0px 60px;
-  font-size   : 13px;
-  white-space : inherit;
-  border-left : 3px solid #CCCCCC;
 }
 
 p.action-ref {
@@ -1930,17 +1724,6 @@ p.profile.action-comment-ref {
   text-align  : right;
 }
 
-img.following-user-2 {
-  float        : left;
-  width        : 60px;
-  height       : 60px;
-  margin       : 8px 10px 0px 2px;
-  border-width : 1px;
-  border-style : solid;
-  border-color : #666666 #999999 #999999 #888888;
-  background   : #DDDDDD;
-}
-
 img.user-thumb {
   margin : 5px 10px 0px 2px;
 }
@@ -1954,17 +1737,6 @@ img.reference-thumb {
   border-color : #666666 #999999 #999999 #888888;
   background   : #DDDDDD;
   float        : left;
-}
-
-img.following-user.listed {
-  width        : 44px;
-  height       : 44px;
-  margin       : 5px 13px 0px 2px;
-  border-width : 1px;
-  border-style : solid;
-  border-color : #666666 #999999 #999999 #888888;
-  background   : #DDDDDD;
-  float        : left
 }
 
 .following a.more, .following a.find {
@@ -2157,13 +1929,6 @@ h2.din a:hover {
   font-weight     : normal;
   color           : #0181C3;
   text-decoration : none;
-}
-
-.activity-stream .submitted,
-.activity_stream .submitted {
-  font-size  : 11px;
-  display    : block;
-  text-align : right;
 }
 
 .black-box .medals .points {
@@ -2436,28 +2201,10 @@ input.info, textarea.info {
   margin-right : 18px;
 }
 
-.subscription .form-radios .form-item {
-  float      : right;
-  margin     : 0 1% 0 0;
-  text-align : center;
-  width      : 32%;
-}
-
 .user-avatar-select img {
   width          : 44px;
   height         : 44px;
   vertical-align : top;
-}
-
-.avatar-left img {
-  background   : none repeat scroll 0 0 #DDDDDD;
-  border-color : #666666 #999999 #999999 #888888;
-  border-style : solid;
-  border-width : 1px;
-  float        : left;
-  height       : 75px;
-  margin       : 0 12px 10px 0;
-  width        : 75px;
 }
 
 #edit_profile .follow-links {
@@ -2496,12 +2243,6 @@ input.info, textarea.info {
 
 input.form-text.upload {
   width : 90%;
-}
-
-.action a, .action a:visited {
-  color           : #0181C3;
-  font-weight     : normal;
-  text-decoration : none;
 }
 
 .now-foll-txt, .foll-user-area {
@@ -2695,16 +2436,6 @@ p {
 
 .container .nine .grey-box ul {
   margin : 0;
-}
-
-.container .nine .grey-box .uactivity a {
-  text-decoration : none;
-}
-
-.container .nine .grey-box .uactivity a:hover,
-.activity_stream a:hover,
-.activity-stream p a:hover, .activity_stream p a:hover {
-  text-decoration : underline;
 }
 
 .action-comment-ref a.goog-te-gadget-link:hover {
@@ -3452,19 +3183,6 @@ h2.page-title {
   z-index          : 14;
 }
 
-.activity-stream .sq {
-  color       : #55BA59;
-  white-space : nowrap;
-}
-
-.activity-stream .sq {
-  font-size   : 12px !important;
-  line-height : 18px !important;
-  display     : inline;
-  font-weight : bold;
-  white-space : nowrap;
-}
-
 .container .nine .grey-box .uactivity .events_google_translate a:hover {
   text-decoration : none;
 }
@@ -3965,10 +3683,6 @@ h5.ref_title a {
 #block-categories-categories {
   margin-top    : 0;
   margin-bottom : 30px;
-}
-
-#uactivity .activity-stream {
-  display : block !important;
 }
 
 form#solr-issues-search-form {
@@ -4526,10 +4240,6 @@ span.coins_char {
 
 .block-locale > div {
   display : none;
-}
-
-.button.light.editlink, .button.light.follower {
-  float : right;
 }
 
 .argument-form #link_arg-wrapper a {
@@ -5747,6 +5457,117 @@ fieldset + .mod-wrapper {
 
 /*---/ CONTACT PAGE */
 
+/* IMAGES WITH USERS IN DIFFERENT PAGES*/
+
+img.following-user.listed {
+  width        : 44px;
+  height       : 44px;
+  margin       : 5px 13px 0px 2px;
+  border-width : 1px;
+  border-style : solid;
+  border-color : #666666 #999999 #999999 #888888;
+  background   : #DDDDDD;
+  float        : left
+}
+
+img.following-user-2 {
+  float        : left;
+  width        : 60px;
+  height       : 60px;
+  margin       : 8px 10px 0px 2px;
+  border-width : 1px;
+  border-style : solid;
+  border-color : #666666 #999999 #999999 #888888;
+  background   : #DDDDDD;
+}
+
+img.following-user, img.user-thumb {
+  width        : 44px;
+  height       : 44px;
+  margin       : 5px 2px 0;
+  border-width : 1px;
+  border-style : solid;
+  border-color : #666666 #999999 #999999 #888888;
+  background   : #DDDDDD;
+}
+
+/*---/ IMAGES WITH USERS IN DIFFERENT PAGES*/
+
+/* USER ACTIVITY */
+
+.action li {
+  padding : 0px 5px 10px 5px;
+  margin  : 0;
+  clear   : both;
+}
+
+.action li:first-child {
+  padding : 0px 5px 10px 5px;
+}
+
+.action a, .action a:visited {
+  color           : #0181C3;
+  font-weight     : normal;
+  text-decoration : none;
+}
+
+#uactivity .activity-stream {
+  display : block !important;
+}
+
+.container .nine .grey-box .uactivity a {
+  text-decoration : none;
+}
+
+.container .nine .grey-box .uactivity a:hover,
+.activity_stream a:hover,
+.activity-stream p a:hover, .activity_stream p a:hover {
+  text-decoration : underline;
+}
+
+p.action-item, div.action-item {
+  padding   : 0px 4px 0px 0px;
+  margin    : 0px 0px 0px 60px;
+  font-size : 13px;
+}
+
+.action span.name {
+  color       : #EF3D3B;
+  font-weight : bold
+}
+
+.action span.name a {
+  color       : #EF3D3B;
+  font-weight : bold
+}
+
+p.action-comment-ref {
+  padding     : 0px 10px 0px 10px;
+  margin      : 10px 0px 0px 60px;
+  font-size   : 13px;
+  white-space : inherit;
+  border-left : 3px solid #CCCCCC;
+}
+
+.activity-stream .sq {
+  color       : #55BA59;
+  white-space : nowrap;
+  font-size   : 12px !important;
+  line-height : 18px !important;
+  display     : inline;
+  font-weight : bold;
+  white-space : nowrap;
+}
+
+.activity-stream .submitted,
+.activity_stream .submitted {
+  font-size  : 11px;
+  display    : block;
+  text-align : right;
+}
+
+/*---/ USER ACTIVITY */
+
 /* USER ACCOUNT */
 
 /* user info - right block */
@@ -5817,16 +5638,6 @@ label.following, label.badges {
   line-height    : 1.2em;
 }
 
-img.following-user, img.user-thumb {
-  width        : 44px;
-  height       : 44px;
-  margin       : 5px 2px 0;
-  border-width : 1px;
-  border-style : solid;
-  border-color : #666666 #999999 #999999 #888888;
-  background   : #DDDDDD;
-}
-
 ul.badges.profile {
   margin : 7px 0 0;
 }
@@ -5847,14 +5658,212 @@ ul.badges.profile {
 
 /* VIEW PROFILE */
 
+.button.light.editlink, .button.light.follower {
+  float : right;
+}
+
+.user-info {
+  margin      : 0;
+  clear       : both;
+  padding     : 15px 0 0;
+  font-size   : 13px;
+  line-height : 1.4;
+}
+
+.user-info span {
+  display : block;
+}
+
 /*---/ VIEW PROFILE */
 
 /* EDIT PROFILE */
 
+/* edit user info - right block */
+
+.avatar-left img {
+  background   : none repeat scroll 0 0 #DDDDDD;
+  border-color : #666666 #999999 #999999 #888888;
+  border-style : solid;
+  border-width : 1px;
+  float        : left;
+  height       : 75px;
+  margin       : 0 12px 10px 0;
+  width        : 75px;
+}
+
+.avatar-left p {
+  line-height : 1.1em;
+}
+
+/* change userpic */
+
+#edit-image-upload-wrapper {
+  position                           : relative;
+  text-transform                     : uppercase;
+  background                         : #3DCCF7; /* Old browsers */
+  background                         : -moz-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* FF3.6+ */
+  background                         : -webkit-gradient(linear, left top, left bottom, color-stop(1%, #3DCCF7), color-stop(100%, #14B0E0)); /* Chrome,Safari4+ */
+  background                         : -webkit-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Chrome10+,Safari5.1+ */
+  background                         : -o-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Opera 11.10+ */
+  background                         : -ms-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* IE10+ */
+  background                         : linear-gradient(to bottom, #3DCCF7 1%, #14B0E0 100%); /* W3C */
+  filter                             : progid:DXImageTransform.Microsoft.gradient(startColorstr='#3dccf7', endColorstr='#14b0e0', GradientType=0); /* IE6-9 */
+  border                             : 1px solid #849EB7;
+  -webkit-box-shadow                 : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  -moz-box-shadow                    : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  -o-box-shadow                      : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  -khtml-box-shadow                  : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  box-shadow                         : inset 0px 0px 2px 0px #FFFFFF, 0 1px #849EB7;
+  -webkit-border-radius              : 3px;
+  -moz-border-radius                 : 3px;
+  border-radius                      : 3px;
+  -khtml-border-radius               : 3px;
+  -o-border-radius                   : 3px;
+  -ms-border-radius                  : 3px;
+  color                              : #FFFFFF !important;
+  display                            : inline-block;
+  font-size                          : 16px;
+  font-weight                        : bold;
+  text-decoration                    : none;
+  text-shadow                        : 0 1px #386C9B;
+  cursor                             : pointer;
+  margin                             : 3px 0 6px 0px;
+  line-height                        : 19px;
+  font-family                        : Arial, sans-serif;
+  font-weight                        : bold;
+  -webkit-appearance                 : none;
+  letter-spacing                     : 0.02em;
+  width                              : 130px;
+  height                             : 33px;
+  -webkit-transition                 : border 0.2s linear, -webkit-box-shadow 0.2s linear, background-color 0.2s linear;
+  -webkit-transition-property        : border, -webkit-box-shadow, background-color;
+  -webkit-transition-duration        : 0.2s, 0.2s, 0.2s;
+  -webkit-transition-timing-function : linear, linear, linear;
+  -webkit-transition-delay           : initial, initial;
+  -moz-transition                    : border 0.2s linear, -moz-box-shadow 0.2s linear, background-color 0.2s linear;
+  -moz-transition-property           : border, -moz-box-shadow, background-color;
+  -moz-transition-duration           : 0.2s, 0.2s, 0.2s;
+  -moz-transition-timing-function    : linear, linear, linear;
+  -moz-transition-delay              : initial, initial;
+}
+
+#edit-image-upload-wrapper:hover {
+  background         : #3DCCF7; /* Old browsers */
+  background         : -moz-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* FF3.6+ */
+  background         : -webkit-gradient(linear, left top, left bottom, color-stop(1%, #3DCCF7), color-stop(100%, #14B0E0)); /* Chrome,Safari4+ */
+  background         : -webkit-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Chrome10+,Safari5.1+ */
+  background         : -o-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* Opera 11.10+ */
+  background         : -ms-linear-gradient(top, #3DCCF7 1%, #14B0E0 100%); /* IE10+ */
+  background         : linear-gradient(to bottom, #3DCCF7 1%, #14B0E0 100%); /* W3C */
+  filter             : progid:DXImageTransform.Microsoft.gradient(startColorstr='#3dccf7', endColorstr='#14b0e0', GradientType=0); /* IE6-9 */
+  border             : 1px solid #849EB7;
+  -webkit-box-shadow : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+  -moz-box-shadow    : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+  -o-box-shadow      : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+  -khtml-box-shadow  : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+  box-shadow         : inset 0px 0px 2px 0px #FFFFFF, 0 4px #849EB7;
+  text-shadow        : 0 1px #386C9B;
+  position           : relative;
+  top                : -3px;
+  color              : #FFFFFF !important;
+  cursor             : pointer;
+}
+
+#edit-image-upload-wrapper:after {
+  content            : 'choose file';
+  color              : #FFFFFF !important;
+  font-size          : 13px;
+  font-weight        : bold;
+  text-decoration    : none;
+  text-shadow        : 0 1px #386C9B;
+  line-height        : 19px;
+  font-family        : Arial, sans-serif;
+  font-weight        : bold;
+  -webkit-appearance : none;
+  letter-spacing     : 0.02em;
+  position           : absolute;
+  top                : 8px;
+  width              : 100%;
+  text-align         : center;
+  cursor             : pointer;
+
+}
+
+#edit-image-upload-wrapper input[type="file"] {
+  display  : block;
+  width    : 100%;
+  height   : 100%;
+  opacity  : 0;
+  position : relative;
+  z-index  : 20;
+  cursor   : pointer;
+}
+
+p.choose_pic {
+  margin : 0 0 1em;
+}
+
+/*---/ change userpic */
+
+/* subscription */
+
+ul.subscription {
+  margin : -5px 0px 0 0px;
+  width  : 100%;
+  float  : right;
+}
+
+ul.subscription li {
+  float      : right;
+  text-align : center;
+  width      : 32%;
+  margin     : 0 1% 0 0;
+}
+
+span.privacy-answer {
+  font-size      : 0.7em;
+  width          : 100%;
+  line-height    : 1em;
+  padding        : 0px 0px 0px 0px;
+  vertical-align : top;
+}
+
+.subscription .form-radios .form-item {
+  float      : right;
+  margin     : 0 1% 0 0;
+  text-align : center;
+  width      : 32%;
+}
+
+#subscription_email-wrapper {
+  clear  : both;
+  margin : 0;
+}
+
+#subscription_email-wrapper input.form-text {
+  padding : 8px 5px;
+  width   : 93%;
+  margin  : 0.5em 0 1em;
+  display : inline-block;
+}
+
+/*---/ subscription */
+
+#edit-language-wrapper {
+  margin : 0;
+}
+
+select#edit-language {
+  float  : none;
+  margin : 0 0 1em;
+  width  : 100%;
+}
+
+/*---/ edit user info - right block */
+
 /*---/ EDIT PROFILE */
 
 /*---/ USER ACCOUNT */
-
 
 
 
