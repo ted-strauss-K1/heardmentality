@@ -1,5 +1,5 @@
-/* #Site Styles
-================================================== */
+/* SITE STYLES
+==================================================== */
 body {
   background : url(../images/cross_hatch_texture.png)
 }
@@ -8,8 +8,10 @@ div.expander {
   word-wrap : break-word;
 }
 
-/* #FLAG DIALOG
-================================================== */
+/*---/ SITE STYLES */
+
+/* FLAG DIALOG
+==================================================== */
 
 ul.flagthis li {
   float  : left;
@@ -17,8 +19,10 @@ ul.flagthis li {
   width  : 26%
 }
 
-/* #Icons
-================================================== */
+/*---/ FLAG DIALOG */
+
+/* ICONS
+==================================================== */
 
 .icon, .icon2 {
   height  : 34px;
@@ -203,8 +207,11 @@ ul.flagthis li {
   line-height     : 1em
 }
 
-/* #Page Styles
-================================================== */
+/*---/ ICONS */
+
+/* PAGE STYLES
+==================================================== */
+
 .page-title {
   color          : #777777;
   font-size      : 16px;
@@ -477,13 +484,10 @@ p.description {
   margin      : 20px 0px 40px 0px;
 }
 
-/**Rallydev:525**/
 #shareDiv_gig_containerParent p.description {
   width       : 100%;
   line-height : 1.3em;
 }
-
-/***************/
 
 .sharing {
   float  : right;
@@ -563,7 +567,6 @@ label.queue {
   text-shadow : 0 1px #FFFFFF;
   width       : auto;
   margin      : -5px 0px -15px 10px;
-
 }
 
 #dialog .medals {
@@ -762,8 +765,10 @@ ul.badges li {
   border-color : #DEDEDE;
 }
 
-/* #STATS AND GRAPHS
-================================================== */
+/*---/ PAGE STYLES */
+
+/* STATS AND GRAPHS
+==================================================== */
 
 p.comment-meta {
   text-shadow : 0 1px #FFFFFF;
@@ -828,8 +833,10 @@ p.comment-meta {
   background-color : transparent;
 }
 
-/* #SEARCH
-================================================== */
+/*---/ STATS AND GRAPHS */
+
+/* SEARCH
+==================================================== */
 
 .search {
   margin  : -10px 0px 0px 0px;
@@ -1007,21 +1014,10 @@ ul.queue li {
   margin : 0px 0px 0px 0px;
 }
 
-/* #MAP
-================================================== */
+/*---/ SEARCH */
 
-.map {
-  /*margin: 0 10px;
-	height: 200px;
-	text-align: center;*/
-}
-
-.map img {
-  /*border-width:1px;
-	border-style:solid;
-	border-color:#aaa #ddd #aaa #ddd;
-	width:100%;*/
-}
+/* MAP
+==================================================== */
 
 .map2 {
   width        : 100%;
@@ -1032,8 +1028,8 @@ ul.queue li {
   border-color : #AAAAAA #DDDDDD #AAAAAA #DDDDDD;
 }
 
-/* #FORMS (ISSUE, NEW ISSUE, PROFILE EDIT, )
-================================================== */
+/* FORMS
+==================================================== */
 
 label.add-on-2.small {
   margin-top : 10px;
@@ -1180,8 +1176,10 @@ a.dupes {
   margin : -15px 5px 10px 0px
 }
 
-/* #USER PROFILE
-================================================== */
+/*---/ FORMS  */
+
+/* USER PROFILE
+==================================================== */
 
 ul.privacy, ul.answer-value {
   margin : -5px 0px 5px 0px;
@@ -1226,10 +1224,6 @@ form#user-details {
   line-height   : 1.4;
 }
 
-.user-info .user-info-inputs {
-  margin : 0;
-}
-
 #profile_overview span.block {
   display     : block;
   word-wrap   : break-word;
@@ -1247,94 +1241,6 @@ form#user-profile-edit-form {
   margin : 0;
 }
 
-#edit_profile h2.din {
-  float : left;
-  width : 50%;
-}
-
-.privacy-info {
-  float  : right;
-  width  : 43%;
-  color  : #777777;
-  margin : 0;
-}
-
-.privacy-info strong {
-  display : block;
-}
-
-.privacy-info p {
-  margin : 0;
-}
-
-#edit_profile .z_wrapper {
-  clear       : both;
-  padding-top : 8px;
-}
-
-#edit_profile .user-info-inputs > li {
-  float         : left;
-  width         : 100%;
-  margin-bottom : 22px;
-}
-
-#edit_profile .user-info-inputs > li .form-item {
-  margin : 0;
-  float  : left;
-  width  : 33%;
-}
-
-#edit_profile .user-info-inputs > li.country-info .form-item .form-item {
-  width : 100%;
-}
-
-#edit_profile select {
-  width  : 100%;
-  margin : 9px 0 0;
-}
-
-#edit_profile fieldset,
-#edit_profile .form-radios,
-#edit_profile input.form-radio {
-  margin : 0;
-}
-
-#edit_profile .form-radios {
-  clear    : both;
-  overflow : hidden;
-  width    : 100%;
-}
-
-#edit_profile ul.privacy {
-  margin  : 0 0 0 55%;
-  float   : none;
-  padding : 2px 0 0 0;
-}
-
-#edit_profile li.country-info ul.privacy {
-  margin-top : -18px;
-}
-
-#edit_profile .validate-error,
-#edit_profile .validate-error-wait {
-  clear   : left;
-  float   : left;
-  padding : 8px 0 0 21%;
-  width   : 33%;
-  font    : 11px/13px Arial, sans-serif;
-  color   : #CC2027;
-}
-
-#edit_profile .country-info .validate-error,
-#edit_profile .country-info .validate-error-wait {
-  padding : 8px 0 0;
-  width   : auto;
-}
-
-#edit_profile .validate-error-wait {
-  color : #43B649;
-}
-
 .visible-to {
   font-size   : 11px;
   line-height : 13px;
@@ -1343,41 +1249,6 @@ form#user-profile-edit-form {
   clear       : both;
   font-style  : italic;
   padding-top : 10px;
-}
-
-.privacy-info p {
-  font-size   : 12px;
-  text-align  : right;
-  line-height : 1.3em;
-  text-shadow : 0px 1px #FEFEFE;
-
-}
-
-.message.top-message {
-  background   : url(../images/ui-bg_diagonals40x40_green.png);
-  border-width : 1px;
-  border-style : solid;
-  border-color : #C0C0C0 #E5E5E5 #E5E5E5 #DDDDDD;
-  margin       : 30px 0px 0px 10px;
-  padding      : 22px 22px 10px 22px;
-}
-
-.message.right-message {
-  background : url(../images/ui-bg_diagonals40x40.png);
-  padding    : 17px 14px 15px;
-  border     : 1px solid #C0C0C0;
-}
-
-.top-message p {
-  width : 70%;
-}
-
-.right-message p {
-  width : auto;
-}
-
-.message.right-message a.bolded {
-  display : inline-block;
 }
 
 .profile-meta.top-message .profile-meta p {
@@ -1568,16 +1439,6 @@ div.following:last-child {
   text-shadow : 0 1px #CECECE;
 }
 
-#button.hide-message {
-  padding : 4px 11px 4px 4px;
-}
-
-#button.hide-message2 {
-  padding     : 8px;
-  line-height : 1;
-  font-size   : 9px;
-}
-
 .close_icon,
 #button:hover .close_icon {
   color          : #242224;
@@ -1766,7 +1627,6 @@ a.more:hover, a.find:hover {
 
 .profile-message .profile-complete {
   width : 80.5%;
-
 }
 
 .sort-by.profile ul {
@@ -1868,8 +1728,10 @@ a.more:hover, a.find:hover {
   padding-bottom : 12px;
 }
 
-/* #Footer
-================================================== */
+/*---/ USER PROFILE */
+
+/* #FOOTER
+==================================================== */
 
 .din {
   font-family : 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
@@ -1906,8 +1768,8 @@ h2.din a:hover {
   color         : #000000
 }
 
-/* #Misc
-================================================== */
+/* MISC
+==================================================== */
 
 .no-bg {
   background : none;
@@ -1922,7 +1784,7 @@ h2.din a:hover {
   height : auto;
 }
 
-/*openwave*/
+/* openwave */
 
 .activity-stream p a,
 .activity_stream p a {
@@ -2043,47 +1905,8 @@ h2.din a:hover {
   width : 100%;
 }
 
-/*.pagination .pager a{
-    font-weight: normal;
-}
-.pagination .pager .pager-current{
-    background: none repeat scroll 0 0 #777777;
-    border: 1px solid #666666;
-    color: #FFFFFF;
-    padding: 1px 5px 2px;
-    text-shadow: 0 -1px #666666;
-    width: auto;
-}
-.pagination .pager .pager-item a{
-    text-decoration: none;
-    background: none;
-    border: 0;
-    color: #777777;
-    padding: 1px 5px 2px;
-    text-shadow: 0 -1px #666666;
-    width: auto;
-}
-.pagination .pager .item-list .pager li {
-    background-image: none;
-    display: inline;
-    list-style-type: none;
-    padding: 5px;
-}
-.pager-next a.active, .pager-previous a.active{
-    background: none;
-    text-decoration: none;
-    border: 0;
-    color: #777777;
-    padding: 1px 5px 2px;
-}
+/* active category */
 
-.pagination ul li {
-    float: none;
-}
-.pagination .pager a:hover{
-    color: #EF00D3;
-}*/
-/*Active Category*/
 .twelve .suggest {
   float : right;
   width : 73%;
@@ -2162,56 +1985,6 @@ input.info, textarea.info {
   width   : 95%;
 }
 
-#edit_profile .privacy .form-radios .form-item {
-  float      : right;
-  margin     : 0 0 0 1%;
-  text-align : center;
-  width      : 15%;
-  border     : 0px solid #FF0000;
-
-}
-
-#edit_profile .privacy #income .form-radios .form-item {
-  margin-right : 69%;
-}
-
-#edit_profile input.info,
-#edit_profile textarea.info {
-  padding : 8px;
-  width   : 91.5%;
-}
-
-#edit_profile fieldset li.privacy-rules {
-  margin : 0 0 5px 0;
-}
-
-#edit_profile .form-radios .form-item:nth-child(1) {
-  margin-right : 10px;
-}
-
-#edit_profile .form-radios .form-item:nth-child(2) {
-  margin-right : 17px;
-}
-
-#edit_profile .form-radios .form-item:nth-child(3) {
-  margin-right : 18px;
-}
-
-#edit_profile .form-radios .form-item:nth-child(4) {
-  margin-right : 18px;
-}
-
-.user-avatar-select img {
-  width          : 44px;
-  height         : 44px;
-  vertical-align : top;
-}
-
-#edit_profile .follow-links {
-  clear : both;
-  color : #444444;
-}
-
 .follow-links .form-select {
   clear : both;
   float : left;
@@ -2269,7 +2042,8 @@ div.action-item span.name {
   padding-top : 5px;
 }
 
-/*moderator*/
+/* moderator */
+
 #poll-choices .privacy-answer {
   width        : 400px;
   padding-left : 244px;
@@ -2343,10 +2117,6 @@ div.action-item span.name {
   margin-bottom : 12px;
 }
 
-.poll-vote-area {
-
-}
-
 .poll-vote-area p a:visited {
   text-decoration : none;
 }
@@ -2396,14 +2166,6 @@ div.action-item span.name {
   position    : absolute;
 }
 
-/*.choices .form-radios .staygreen{
-    background:#D3EDEA;
-    border-width:1px;
-    color:#000;
-    border-style:solid;
-    border-color:#82D1C8;
-    cursor: pointer;
-}*/
 .v-msg {
   color          : #2A720C;
   padding-bottom : 7px;
@@ -2413,7 +2175,7 @@ p {
   line-height : 1.2em;
 }
 
-/*New styles*/
+/* new styles */
 
 .ajax-loader {
   background : url(../images/ajax-loader.gif) no-repeat;
@@ -2442,7 +2204,7 @@ p {
   text-decoration : none;
 }
 
-/*Custom dialog*/
+/* custom dialog */
 
 .ui-dialog.ui-widget-content {
   border  : 1px solid #C0C0C0;
@@ -2619,7 +2381,7 @@ div.avatar-selection-pager-nav a:hover {
   color           : #EF3D3B;
 }
 
-/*Vote/Debate page*/
+/* vote / debate page */
 
 .white-box.poll-box {
   padding : 0 0 20px;
@@ -2770,10 +2532,6 @@ h2.page-title {
 
 .issue-vote-wrapper .poll-vote-area fieldset {
   margin : 0;
-}
-
-.search_list .poll-vote-area fieldset {
-  /*margin: 0 30px 2px !important;*/
 }
 
 .issue-vote-wrapper .poll-vote-area fieldset legend,
@@ -2943,7 +2701,7 @@ h2.page-title {
   margin : 0;
 }
 
-/*Pager*/
+/* pager */
 
 .item-list {
   padding : 0 20px;
@@ -3068,15 +2826,11 @@ h2.page-title {
   float         : left;
 }
 
-/*.poll-box ul.tabs {
-	
-}*/
-
 .issue-vote-wrapper + .icon.share.text {
   display : none;
 }
 
-/*Add Argument*/
+/* add argument */
 
 #debate_statistic {
   height   : 350px;
@@ -3133,7 +2887,7 @@ h2.page-title {
   top         : -2px;
 }
 
-/*Slider*/
+/* slider */
 
 .ui-slider {
   width      : 38px;
@@ -3304,7 +3058,7 @@ h2.page-title {
 }
 
 .position-question strong {
-  color : #888888; /* was #ccc */
+  color : #888888;
 }
 
 .position-question, .position-question a {
@@ -3378,7 +3132,7 @@ ul.control_links h6#reply:hover {
 
 ul.control_links li a,
 ul.control_links li a.icon.flag2 {
-  color           : #888888; /* was #ccc */
+  color           : #888888;
   text-decoration : none;
   font-weight     : normal;
   padding         : 1px 4px;
@@ -3405,7 +3159,7 @@ ul.control_links li:hover a.icon.flag2,
 ul.control_links h6#reply:hover,
 ul.control_links h6#reply:hover a {
   color            : #FFFFFF;
-  background-color : #777777; /* was #ccc */
+  background-color : #777777;
 }
 
 ul.control_links h6#reply:hover {
@@ -3497,13 +3251,10 @@ h5.ref_title a {
   text-decoration : underline;
 }
 
-/*Vote results*/
-
-/*Big circle*/
+/* big circle */
 
 .one-forum.resources span.sum span {
   opacity : 0.75;
-  /*filter: alpha(opacity=75);*/
   zoom    : 1;
 }
 
@@ -3519,17 +3270,7 @@ h5.ref_title a {
   display     : inline-block;
 }
 
-/*.gmnoprint {
-	display: none;
-}*/
-
-/*Add references - PREVIEW*/
-
-#linkbox {
-  /*margin-top: 16px;
-	padding-top: 12px;
-	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;*/
-}
+/* add references - PREVIEW */
 
 #linkbox .linkbox_inner,
 #linkbox span.load {
@@ -3670,7 +3411,7 @@ h5.ref_title a {
   line-height : 1.4em;
 }
 
-/*Solr search*/
+/* solr search */
 
 .filter_search.issues_search {
   margin-top    : 0;
@@ -3878,7 +3619,6 @@ form#solr-issues-search-form .form-item,
   border          : 0 none;
 }
 
-/*.search_list .vote-form*/
 .search_list {
   background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
   padding    : 0 0 17px;
@@ -3899,7 +3639,7 @@ form#solr-issues-search-form .form-item,
   display : none;
 }
 
-/*Clear*/
+/* clear */
 
 .ui-dialog .ui-tabs-panel #user-login:after,
 .ui-dialog .ui-tabs-panel #user-register:after,
@@ -3962,7 +3702,7 @@ span.coins_char {
   display : inline-block;
 }
 
-/* todo remove these ones */
+/* to do remove these ones */
 
 .table-bor-form-item-1 {
   float         : left;
@@ -3978,7 +3718,7 @@ span.coins_char {
   margin-left : 2em;
 }
 
-/*Jumping*/
+/* jumping */
 
 .columns.jumping {
   position : absolute;
@@ -3996,7 +3736,7 @@ span.coins_char {
   margin-top : 10px;
 }
 
-/*Create Issue*/
+/* create issue */
 
 #issue-create-form {
   margin : 0;
@@ -4075,40 +3815,7 @@ span.coins_char {
   top      : 2px;
 }
 
-/*Feedback*/
-
-#block-feedback-form .feedback-link {
-  color          : #0181C3;
-  font-weight    : bold;
-  font-size      : 13px;
-  text-transform : lowercase;
-}
-
-#block-feedback-form .feedback-link:hover {
-  color : #CC2027
-}
-
-#feedback-form .form-item {
-  margin-top : 0.6em;
-}
-
-#block-feedback-form #feedback-throbber {
-  height : auto;
-}
-
-#block-feedback-form form {
-  padding : 10px;
-}
-
-#block-feedback-form form {
-  overflow-y : auto;
-}
-
-#block-feedback-form .grippie {
-  display : none;
-}
-
-/* NOTY */
+/* noty */
 
 #noty_topRight_layout_container li, #noty_center_layout_container li {
   margin-bottom : 0px;
@@ -4120,7 +3827,7 @@ span.coins_char {
   margin : 0;
 }
 
-/* DONATE */
+/* donate */
 
 #donations-donate-form input.form-text {
   padding : 6px 8px;
@@ -4130,7 +3837,7 @@ span.coins_char {
   margin : 0;
 }
 
-/**** SELECTED ITEMS FOR BADGES ****/
+/* SELECTED ITEMS FOR BADGES */
 
 .selected-item {
   font-family  : Arial, "Lucida Grande", sans-serif;
@@ -4151,12 +3858,10 @@ span.coins_char {
   background   : none repeat scroll 0 0 #76D2DC;
   border-color : #92B7DD;
   color        : #111111;
-  /*text-shadow: 0 1px #C8E2FC;*/
 }
 
 .selected-item:hover {
   color        : #FFFFFF;
-  /*text-shadow: 0 -1px #3b536c;*/
   border-color : #53789D;
   background   : #53789D;
 }
@@ -4578,7 +4283,7 @@ form.issue-vote-form > div > div.choices {
   margin-top : 1.4em;
 }
 
-/*--/ USER LOGIN FORM user/login */
+/*---/ USER LOGIN FORM user/login */
 
 .node-unpublished {
   margin-bottom : 10px;
@@ -4791,7 +4496,8 @@ a span.hi:hover {
   height        : 32px;
 }
 
-/* USER LOGIN/REGISTER */
+/* USER LOGIN/REGISTER
+==================================================== */
 
 /* popup login/register */
 
@@ -4997,7 +4703,8 @@ p.profile-status {
 
 /*---/ USER LOGIN/REGISTER */
 
-/* ADD NEW ISSUE */
+/* ADD NEW ISSUE
+==================================================== */
 
 /* guidelines */
 
@@ -5134,7 +4841,8 @@ input.submit-issue {
 
 /*---/ ADD NEW ISSUE */
 
-/* DATE FILTER */
+/* DATE FILTER
+==================================================== */
 
 ul.date_filter {
   margin : 0;
@@ -5191,7 +4899,8 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 /*---/ DATE FILTER */
 
-/* MODERATION */
+/* MODERATION
+==================================================== */
 
 .moderation_header {
   padding       : 0 3px 15px;
@@ -5419,7 +5128,8 @@ fieldset + .mod-wrapper {
 
 /*---/ MODERATION */
 
-/* CONTACT PAGE */
+/* CONTACT PAGE
+==================================================== */
 
 #contact-mail-page {
   margin-top : 6px;
@@ -5457,7 +5167,8 @@ fieldset + .mod-wrapper {
 
 /*---/ CONTACT PAGE */
 
-/* IMAGES WITH USERS IN DIFFERENT PAGES*/
+/* IMAGES WITH USERS IN DIFFERENT PAGES
+==================================================== */
 
 img.following-user.listed {
   width        : 44px;
@@ -5493,7 +5204,8 @@ img.following-user, img.user-thumb {
 
 /*---/ IMAGES WITH USERS IN DIFFERENT PAGES*/
 
-/* USER ACTIVITY */
+/* USER ACTIVITY
+==================================================== */
 
 .action li {
   padding : 0px 5px 10px 5px;
@@ -5568,7 +5280,8 @@ p.action-comment-ref {
 
 /*---/ USER ACTIVITY */
 
-/* USER ACCOUNT */
+/* USER ACCOUNT
+==================================================== */
 
 /* user info - right block */
 
@@ -5803,6 +5516,12 @@ p.choose_pic {
   margin : 0 0 1em;
 }
 
+.user-avatar-select img {
+  width          : 44px;
+  height         : 44px;
+  vertical-align : top;
+}
+
 /*---/ change userpic */
 
 /* subscription */
@@ -5861,9 +5580,258 @@ select#edit-language {
 
 /*---/ edit user info - right block */
 
+/* profile settings - left block */
+
+#edit_profile h2.din {
+  float : left;
+  width : 50%;
+}
+
+.privacy-info {
+  float  : right;
+  width  : 43%;
+  color  : #777777;
+  margin : 0;
+}
+
+.privacy-info p {
+  margin      : 0;
+  font-size   : 12px;
+  text-align  : right;
+  line-height : 1.3em;
+  text-shadow : 0px 1px #FEFEFE;
+}
+
+.privacy-info strong {
+  display : block;
+}
+
+.user-info .user-info-inputs {
+  margin : 0;
+}
+
+#edit_profile .user-info-inputs > li {
+  float         : left;
+  width         : 100%;
+  margin-bottom : 22px;
+}
+
+#edit_profile .user-info-inputs > li .form-item {
+  margin : 0;
+  float  : left;
+  width  : 33%;
+}
+
+#edit_profile input.info,
+#edit_profile textarea.info {
+  padding : 8px;
+  width   : 91.5%;
+}
+
+#edit_profile select {
+  width  : 100%;
+  margin : 9px 0 0;
+}
+
+#edit_profile ul.privacy {
+  margin  : 0 0 0 55%;
+  float   : none;
+  padding : 2px 0 0 0;
+}
+
+#edit_profile fieldset,
+#edit_profile .form-radios,
+#edit_profile input.form-radio {
+  margin : 0;
+}
+
+#edit_profile fieldset li.privacy-rules {
+  margin : 0 0 5px 0;
+}
+
+#edit_profile .form-radios {
+  clear    : both;
+  overflow : hidden;
+  width    : 100%;
+}
+
+#edit_profile .privacy .form-radios .form-item {
+  float      : right;
+  margin     : 0 0 0 1%;
+  text-align : center;
+  width      : 15%;
+  border     : 0px solid #FF0000;
+
+}
+
+#edit_profile .form-radios .form-item:nth-child(1) {
+  margin-right : 10px;
+}
+
+#edit_profile .form-radios .form-item:nth-child(2) {
+  margin-right : 17px;
+}
+
+#edit_profile .form-radios .form-item:nth-child(3) {
+  margin-right : 18px;
+}
+
+#edit_profile .form-radios .form-item:nth-child(4) {
+  margin-right : 18px;
+}
+
+#edit_profile .z_wrapper {
+  clear       : both;
+  padding-top : 8px;
+}
+
+#edit_profile .user-info-inputs > li.country-info .form-item .form-item {
+  width : 100%;
+}
+
+#edit_profile li.country-info ul.privacy {
+  margin-top : -18px;
+}
+
+#edit_profile .validate-error,
+#edit_profile .validate-error-wait {
+  clear   : left;
+  float   : left;
+  padding : 8px 0 0 21%;
+  width   : 33%;
+  font    : 11px/13px Arial, sans-serif;
+  color   : #CC2027;
+}
+
+#edit_profile .country-info .validate-error,
+#edit_profile .country-info .validate-error-wait {
+  padding : 8px 0 0;
+  width   : auto;
+}
+
+#edit_profile .validate-error-wait {
+  color : #43B649;
+}
+
+#edit_profile .privacy #income .form-radios .form-item {
+  margin-right : 69%;
+}
+
+#edit_profile .follow-links {
+  clear : both;
+  color : #444444;
+}
+
+/*---/ profile settings - left block */
+
 /*---/ EDIT PROFILE */
 
 /*---/ USER ACCOUNT */
+
+/* MESSAGE
+==================================================== */
+
+.message.top-message {
+  background   : url(../images/ui-bg_diagonals40x40_green.png);
+  border-width : 1px;
+  border-style : solid;
+  border-color : #C0C0C0 #E5E5E5 #E5E5E5 #DDDDDD;
+  margin       : 30px 0px 0px 10px;
+  padding      : 22px 22px 10px 22px;
+}
+
+.message.right-message {
+  background : url(../images/ui-bg_diagonals40x40.png);
+  padding    : 17px 14px 15px;
+  border     : 1px solid #C0C0C0;
+}
+
+.top-message p {
+  width : 70%;
+}
+
+.right-message p {
+  width : auto;
+}
+
+.message.right-message a.bolded {
+  display : inline-block;
+}
+
+#button.hide-message {
+  padding : 4px 11px 4px 4px;
+}
+
+#button.hide-message2 {
+  padding     : 8px;
+  line-height : 1;
+  font-size   : 9px;
+}
+
+/*---/ MESSAGE */
+
+/* FEEDBACK
+==================================================== */
+
+#block-feedback-form .feedback-link {
+  color          : #0181C3;
+  font-weight    : bold;
+  font-size      : 13px;
+  text-transform : lowercase;
+}
+
+#block-feedback-form .feedback-link:hover {
+  color : #CC2027
+}
+
+#feedback-form .form-item {
+  margin-top : 0.6em;
+}
+
+#block-feedback-form #feedback-throbber {
+  height : auto;
+}
+
+#block-feedback-form form {
+  padding    : 10px;
+  overflow-y : auto;
+}
+
+#block-feedback-form .grippie {
+  display : none;
+}
+
+/*---/ FEEDBACK */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
