@@ -142,7 +142,7 @@
 
   /*---/ DEBATE */
 
-  /* OTHER */
+  /* MAIN ELEMENTS */
 
   .white-box .container {
     width : 708px;
@@ -160,6 +160,10 @@
     width  : 100%;
     margin : 7px 0 0 0;
   }
+
+  /*---/ MAIN ELEMENTS */
+
+  /* OTHER */
 
   #poll-choices label.add-on {
     margin : 7px 0 1em 0;
