@@ -1,5 +1,4 @@
-/* SITE STYLES
-==================================================== */
+/* SITE STYLES */
 body {
   background : url(../images/cross_hatch_texture.png)
 }
@@ -10,8 +9,7 @@ div.expander {
 
 /*---/ SITE STYLES */
 
-/* FLAG DIALOG
-==================================================== */
+/* FLAG DIALOG */
 
 ul.flagthis li {
   float  : left;
@@ -21,8 +19,7 @@ ul.flagthis li {
 
 /*---/ FLAG DIALOG */
 
-/* ICONS
-==================================================== */
+/* ICONS */
 
 .icon, .icon2 {
   height  : 34px;
@@ -209,8 +206,7 @@ ul.flagthis li {
 
 /*---/ ICONS */
 
-/* PAGE STYLES
-==================================================== */
+/* PAGE STYLES */
 
 .page-title {
   color          : #777777;
@@ -767,8 +763,7 @@ ul.badges li {
 
 /*---/ PAGE STYLES */
 
-/* STATS AND GRAPHS
-==================================================== */
+/* STATS AND GRAPHS */
 
 p.comment-meta {
   text-shadow : 0 1px #FFFFFF;
@@ -835,8 +830,7 @@ p.comment-meta {
 
 /*---/ STATS AND GRAPHS */
 
-/* SEARCH
-==================================================== */
+/* SEARCH */
 
 .search {
   margin  : -10px 0px 0px 0px;
@@ -1016,8 +1010,7 @@ ul.queue li {
 
 /*---/ SEARCH */
 
-/* MAP
-==================================================== */
+/* MAP */
 
 .map2 {
   width        : 100%;
@@ -1028,8 +1021,7 @@ ul.queue li {
   border-color : #AAAAAA #DDDDDD #AAAAAA #DDDDDD;
 }
 
-/* FORMS
-==================================================== */
+/* FORMS */
 
 label.add-on-2.small {
   margin-top : 10px;
@@ -1178,8 +1170,7 @@ a.dupes {
 
 /*---/ FORMS  */
 
-/* USER PROFILE
-==================================================== */
+/* USER PROFILE */
 
 ul.privacy, ul.answer-value {
   margin : -5px 0px 5px 0px;
@@ -1730,8 +1721,7 @@ a.more:hover, a.find:hover {
 
 /*---/ USER PROFILE */
 
-/* #FOOTER
-==================================================== */
+/* #FOOTER */
 
 .din {
   font-family : 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
@@ -1768,8 +1758,7 @@ h2.din a:hover {
   color         : #000000
 }
 
-/* MISC
-==================================================== */
+/* MISC */
 
 .no-bg {
   background : none;
@@ -4496,8 +4485,7 @@ a span.hi:hover {
   height        : 32px;
 }
 
-/* USER LOGIN/REGISTER
-==================================================== */
+/* USER LOGIN/REGISTER */
 
 /* popup login/register */
 
@@ -4703,8 +4691,7 @@ p.profile-status {
 
 /*---/ USER LOGIN/REGISTER */
 
-/* ADD NEW ISSUE
-==================================================== */
+/* ADD NEW ISSUE */
 
 /* guidelines */
 
@@ -4841,8 +4828,7 @@ input.submit-issue {
 
 /*---/ ADD NEW ISSUE */
 
-/* DATE FILTER
-==================================================== */
+/* DATE FILTER */
 
 ul.date_filter {
   margin : 0;
@@ -4899,8 +4885,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 
 /*---/ DATE FILTER */
 
-/* MODERATION
-==================================================== */
+/* MODERATION */
 
 .moderation_header {
   padding       : 0 3px 15px;
@@ -5128,8 +5113,7 @@ fieldset + .mod-wrapper {
 
 /*---/ MODERATION */
 
-/* CONTACT PAGE
-==================================================== */
+/* CONTACT PAGE */
 
 #contact-mail-page {
   margin-top : 6px;
@@ -5167,8 +5151,7 @@ fieldset + .mod-wrapper {
 
 /*---/ CONTACT PAGE */
 
-/* IMAGES WITH USERS IN DIFFERENT PAGES
-==================================================== */
+/* IMAGES WITH USERS IN DIFFERENT PAGES */
 
 img.following-user.listed {
   width        : 44px;
@@ -5204,8 +5187,7 @@ img.following-user, img.user-thumb {
 
 /*---/ IMAGES WITH USERS IN DIFFERENT PAGES*/
 
-/* USER ACTIVITY
-==================================================== */
+/* USER ACTIVITY */
 
 .action li {
   padding : 0px 5px 10px 5px;
@@ -5280,8 +5262,7 @@ p.action-comment-ref {
 
 /*---/ USER ACTIVITY */
 
-/* USER ACCOUNT
-==================================================== */
+/* USER ACCOUNT */
 
 /* user info - right block */
 
@@ -5728,8 +5709,7 @@ select#edit-language {
 
 /*---/ USER ACCOUNT */
 
-/* MESSAGE
-==================================================== */
+/* MESSAGE */
 
 .message.top-message {
   background   : url(../images/ui-bg_diagonals40x40_green.png);
@@ -5770,8 +5750,7 @@ select#edit-language {
 
 /*---/ MESSAGE */
 
-/* FEEDBACK
-==================================================== */
+/* FEEDBACK */
 
 #block-feedback-form .feedback-link {
   color          : #0181C3;
@@ -5803,7 +5782,78 @@ select#edit-language {
 
 /*---/ FEEDBACK */
 
+/* BADGES (table in "/about us" and "/badges") */
 
+#about_us_page_content #badges table {
+  margin    : 1em 0 2em 0;
+  font-size : 13px;
+}
+
+#about_us_page_content #badges td {
+  padding        : 9px 8px;
+  vertical-align : middle;
+}
+
+#about_us_page_content #badges td:first-child {
+  text-align : left;
+}
+
+#about_us_page_content #badges td:last-child {
+  white-space : nowrap;
+}
+
+#badges tr {
+  border-top : 1px solid #E5E5E5;
+}
+
+#badges tr:last-child {
+  border-bottom : 1px solid #E5E5E5;
+}
+
+#badges .medal_wrapper {
+  display        : inline-block;
+  height         : 24px;
+  padding        : 0 7px;
+  background     : #333333;
+  color          : #FFFFFF;
+  font-size      : 13px;
+  white-space    : nowrap;
+  vertical-align : middle;
+}
+
+#badges .medal_wrapper:hover {
+  background : #555555;
+  cursor     : default;
+}
+
+#about_us_page_content #badges .bronze,
+#about_us_page_content #badges .silver,
+#about_us_page_content #badges .gold,
+#about_us_page_content #badges .badge-circle {
+  display        : inline-block;
+  position       : relative;
+  width          : 6px;
+  height         : 6px;
+  margin         : 0;
+  padding        : 0;
+  vertical-align : middle;
+}
+
+#badges .medal_title {
+  display        : inline-block;
+  padding-left   : 5px;
+  position       : relative;
+  vertical-align : middle;
+}
+
+#badges .badges_helper {
+  display        : inline-block;
+  height         : 100%;
+  width          : 0px;
+  vertical-align : middle;
+}
+
+/*---/ BADGES */
 
 
 
