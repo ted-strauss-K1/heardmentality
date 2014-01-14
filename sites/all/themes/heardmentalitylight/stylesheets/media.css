@@ -114,6 +114,7 @@
     color       : #999999;
     font-size   : 30px;
     text-shadow : #FFFFFF 0px 1px;
+    line-height : 0.5em;
   }
 
   .profile-meta img {
@@ -931,9 +932,6 @@
 
   /*--/ footer */
 
-
-
-
   input.form-text, input.form-text.user-search {
     width : 120px;
   }
@@ -1167,9 +1165,6 @@
     padding-left : 0;
   }
 
-  /*ul.date_filter li a, ul.options_filter li a {
-    font-size: 14px;
-  }*/
   ul.date_filter li, ul.options_filter li {
     float      : none;
     border     : 0 none;
@@ -1534,6 +1529,10 @@
 
   #new_vote .choices .form-radios span.teaser_count_vote + .form-item {
     width : 307px;
+  }
+
+  label.before-submit {
+    margin : 0 0 18px 0;
   }
 
 }
