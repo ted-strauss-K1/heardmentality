@@ -4416,7 +4416,10 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
   margin-bottom : 10px;
 }
 
-#moderation-issues-form fieldset {
+#moderation-issues-form fieldset,
+#moderation-arguments-form fieldset,
+#moderation-comments-form fieldset,
+#moderation-users-form fieldset {
   height        : auto;
   margin        : 0 -20px 18px;
   padding       : 0 20px 18px;
@@ -4433,15 +4436,27 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 }
 
 #moderation-issues-form legend,
-#moderation-issues-form legend a {
+#moderation-arguments-form legend,
+#moderation-comments-form legend,
+#moderation-users-form legend,
+#moderation-issues-form legend a,
+#moderation-arguments-form legend a,
+#moderation-comments-form legend a,
+#moderation-users-form legend a {
   float : right;
 }
 
-#moderation-issues-form .fieldset-wrapper {
+#moderation-issues-form .fieldset-wrapper,
+#moderation-arguments-form .fieldset-wrapper,
+#moderation-comments-form .fieldset-wrapper,
+#moderation-users-form .fieldset-wrapper {
   clear : both;
 }
 
-#moderation-issues-form .fieldset-wrapper:after {
+#moderation-issues-form .fieldset-wrapper:after,
+#moderation-arguments-form fieldset-wrapper:after,
+#moderation-comments-form fieldset-wrapper:after,
+#moderation-users-form fieldset-wrapper:after {
   visibility : hidden;
   display    : block;
   font-size  : 0;
@@ -4450,13 +4465,19 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
   height     : 0;
 }
 
-#moderation-issues-form fieldset .form-item {
+#moderation-issues-form fieldset .form-item,
+#moderation-arguments-form .form-item,
+#moderation-comments-form .form-item,
+#moderation-users-form .form-item{
   float  : left;
   margin : 0;
   width  : 49%;
 }
 
-#moderation-issues-form fieldset select {
+#moderation-issues-form fieldset select,
+#moderation-arguments-form fieldset select,
+#moderation-comments-form fieldset select,
+#moderation-users-form fieldset select {
   margin             : 0;
   width              : 99%;
   -moz-box-sizing    : border-box;
@@ -4490,7 +4511,10 @@ select option {
   padding-bottom : 5px;
 }
 
-#moderation-issues-form fieldset .form-submit {
+#moderation-issues-form fieldset .form-submit,
+#moderation-arguments-form fieldset .form-submit,
+#moderation-comments-form fieldset .form-submit,
+#moderation-users-form fieldset .form-submit {
   margin : 14px 0 0;
 }
 
