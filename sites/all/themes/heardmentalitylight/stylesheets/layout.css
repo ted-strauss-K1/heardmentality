@@ -1,4 +1,5 @@
 /* SITE STYLES */
+
 body {
   background : url(../images/cross_hatch_texture.png)
 }
@@ -317,7 +318,6 @@ ul.flagthis li {
 .grey-box.search {
   padding : 12px 22px 12px 22px;
   margin  : 30px 0px 10px 10px;
-
 }
 
 #block-issue-issue-categories-popular .grey-box {
@@ -344,18 +344,6 @@ ul.flagthis li {
   font-size      : 13px;
   line-height    : 21px;
   margin-bottom  : 16px;
-}
-
-.banner-text {
-  font-size   : 28px;
-  float       : left;
-  color       : #333333;
-  width       : 75%;
-  text-shadow : 0 1px #FFFFFF;
-  text-align  : left;
-  padding     : 0;
-  line-height : 1em;
-  margin      : 0;
 }
 
 html[lang="ru"] .banner-text {
@@ -759,6 +747,18 @@ ul.badges li {
   border-style : solid;
   color        : #222222;
   border-color : #DEDEDE;
+}
+
+.banner-text {
+  font-size   : 28px;
+  float       : left;
+  color       : #333333;
+  width       : 75%;
+  text-shadow : 0 1px #FFFFFF;
+  text-align  : left;
+  padding     : 0;
+  line-height : 1em;
+  margin      : 0;
 }
 
 /*---/ PAGE STYLES */
@@ -1293,7 +1293,7 @@ img.user-profile {
   margin : 0;
 }
 
-/* todo remove these ones */
+/* MEDALS */
 
 .bronze, .silver, .gold {
   cursor       : default;
@@ -1379,6 +1379,8 @@ img.user-profile {
   position : relative;
   top      : -2px;
 }
+
+/*---/ MEDALS */
 
 img.coin {
   margin : 0px 5px 0px -2px
@@ -4766,6 +4768,10 @@ p.action-comment-ref {
   white-space : nowrap;
 }
 
+.activity-stream .sq:hover {
+  color : #0C6926;
+}
+
 .activity-stream .submitted,
 .activity_stream .submitted {
   font-size  : 11px;
@@ -5629,6 +5635,21 @@ form.issue-vote-form > div > div.choices {
   font    : 12px/15px Arial, "Lucida Grande", sans-serif;
   padding : 10px 0 0;
   width   : 100%;
+}
+
+.issue-vote-wrapper .qd .read-more a,
+.issue-vote-wrapper .qd .read-less a {
+  display : block;
+}
+
+.issue-vote-wrapper .qd .read-more a .expander-control:hover,
+.issue-vote-wrapper .qd .read-less a .expander-control:hover {
+  background : #E4E4E4;
+}
+
+.issue-vote-wrapper .qd .read-more a .expander-control,
+.issue-vote-wrapper .qd .read-less a .expander-control {
+  margin : 10px 0 15px 0;
 }
 
 /* other (don't know where it is used) */
