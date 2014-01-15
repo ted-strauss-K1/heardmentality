@@ -1810,88 +1810,8 @@ h2.din a:hover {
   text-decoration : underline;
 }
 
-.choices .form-radios .form-item,
-.fieldset-wrapper .form-radios .form-item,
-#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .form-item {
-  background : none repeat scroll 0 0 #E4E4E4;
-  border     : 1px solid #D7D7D7;
-  margin     : 3px 0 10px !important;
-  padding    : 13px 12px 10px;
-  width      : auto;
-  cursor     : pointer;
-}
-
-.choices .form-radios .radio_wrapper .form-item,
-.fieldset-wrapper .form-radios .radio_wrapper .form-item,
-#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .radio_wrapper .form-item {
-  margin : 0 0 10px !important;
-}
-
 .radio_wrapper {
   margin-top : 3px;
-}
-
-.search_item {
-  margin-bottom : 15px;
-}
-
-.choices .form-radios span.teaser_count_vote + .form-item,
-.issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item,
-#linkbox .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
-  margin-left : 65px !important;
-}
-
-.poll .vote-form .choices {
-  display : inherit;
-}
-
-.choices .form-radios .form-item:hover,
-.choices .form-radios .form-item.staygreen,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item:hover,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item.staygreen {
-  background-color   : #C2FCC4;
-  border             : 1px solid #BCE0BD;
-  -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
-  -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
-  -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
-  -khtml-box-shadow  : inset 0px 0px 5px 0px #FFFFFF;
-  box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
-}
-
-.choices .form-radios .form-item label.option,
-.choices .form-radios .form-item label.option span,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
-  color   : #4C4C4C;
-  font    : 18px/1.2 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
-  display : block;
-  cursor  : pointer;
-}
-
-.choices .form-radios .form-item label.option span,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
-  margin-left : 25px;
-  overflow    : hidden;
-  display     : block;
-}
-
-.choices .form-radios .form-item label.option input.form-radio,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option input.form-radio {
-  margin     : 0;
-  float      : left;
-  position   : relative;
-  /*top: 4px;*/
-  height     : 22px;
-  padding    : 0;
-  background : #E4E4E4;
-}
-
-.issue-vote-wrapper fieldset .form-radios {
-  width : 85%;
-}
-
-.issue-vote-wrapper fieldset .choices.suggested .form-radios {
-  width : 100%;
 }
 
 /* active category */
@@ -2112,11 +2032,6 @@ div.action-item span.name {
 
 .poll .form-radios {
   width : 100%;
-}
-
-.voting-pane {
-  width : 100%;
-  float : left;
 }
 
 #dialog-flag .form-radios .form-item, .form-flag .form-radios .form-item {
@@ -2386,14 +2301,6 @@ div.avatar-selection-pager-nav a:hover {
   margin : 0;
 }
 
-.grey-box.poll-box {
-  background : url(../images/white_50.png) repeat scroll 0 0 transparent;
-  border     : 1px solid #C0C0C0;
-  position   : relative;
-  top        : 0px;
-  padding    : 20px 20px 14px 14px;
-}
-
 .profile-message.poll-box {
   padding-top : 59px;
 }
@@ -2435,259 +2342,6 @@ h2.page-title {
   filter           : progid:DXImageTransform.Microsoft.gradient(startColorstr=#ECECEC, endColorstr=#F7F7F7);
   zoom             : 1;
   padding-bottom   : 20px;
-}
-
-.issue-vote-wrapper .qd {
-  padding : 0;
-  margin  : 18px 10px 17px 30px;
-  width   : 88%;
-  color   : #362750;
-  font    : 14px/19px Arial, "Lucida Grande", sans-serif;
-}
-
-.issue-vote-wrapper .qd p.description {
-  display : inline;
-  margin  : 0;
-  padding : 0;
-  float   : none;
-  font    : 14px/19px Arial, "Lucida Grande", sans-serif;
-}
-
-.issue-vote-wrapper #new-ellipse {
-  display : inline;
-}
-
-.issue-vote-wrapper #new-ellipse a {
-  color  : #55BA59;
-  cursor : pointer;
-}
-
-.issue-vote-wrapper #new-ellipse a:hover {
-  color : #0C6926;
-}
-
-.issue-vote-wrapper span#extended-issue-description + p {
-  display : none;
-}
-
-.issue-vote-wrapper .poll-vote-area .vote-form,
-.issue-vote-wrapper .poll-vote-area fieldset {
-  background : url(../images/light_dotted.gif) repeat-x 0 0;
-  padding    : 18px 10px 2px 30px;
-}
-
-#issue-add-vote .login-error {
-  padding : 15px 10px 0 30px;
-  color   : #CD2027;
-}
-
-.issue-vote-wrapper .poll-vote-area .voting-pane .choices {
-  width  : 85%;
-  margin : 0;
-}
-
-.issue-vote-wrapper .poll-vote-area .voting-pane .choices .choices.regular {
-  width : 100%;
-}
-
-.search_list .poll-vote-area .voting-pane .choices .choices.regular {
-  margin : 0;
-}
-
-.issue-vote-wrapper .poll-vote-area .form-radios,
-.search_list .poll-vote-area .form-radios {
-  margin : 0;
-}
-
-.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote,
-.search_list .poll-vote-area .form-radios span.teaser_count_vote {
-  float            : left;
-  width            : 50px;
-  font             : 17px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
-  color            : #7B7D01;
-  padding          : 5px 3px 2px;
-  margin           : 0;
-  text-align       : center;
-  background-color : #E1E43C;
-  box-shadow       : 0 0 5px 0 #FFFFFF inset;
-  border           : 1px solid #D1D41B;
-}
-
-.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote span,
-.search_list .poll-vote-area .form-radios span.teaser_count_vote span {
-  display : block;
-  font    : 20px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset {
-  margin : 0;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset legend,
-.search_list .poll-vote-area fieldset legend {
-  width   : 100%;
-  display : block;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset legend a,
-#solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
-  color           : #924C9D;
-  display         : inline-block;
-  margin          : 0;
-  font            : bold italic 12px/15px Arial, "Lucida Grande", sans-serif;
-  position        : relative;
-  top             : 28px;
-  text-transform  : uppercase;
-  text-decoration : none;
-  padding         : 3px 26px 3px 0;
-  z-index         : 13;
-}
-
-#solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
-  top          : 10px;
-  padding-left : 0 !important;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset.collapsible legend a,
-.search_list .poll-vote-area fieldset.collapsible legend a {
-  background : url(../images/s_arrow.png) no-repeat 100% -102px;
-  display    : inline-block;
-  padding    : 3px 26px 3px 0;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset.collapsible.collapsed legend a,
-.search_list .poll-vote-area fieldset.collapsible.collapsed legend a {
-  background : url(../images/s_arrow.png) no-repeat 100% 0;
-  display    : inline-block;
-  padding    : 3px 26px 3px 0;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset legend a:hover,
-.search_list .poll-vote-area fieldset legend a:hover {
-  text-decoration : underline;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper,
-.search_list .poll-vote-area .fieldset-wrapper {
-  padding  : 22px 0 0;
-  z-index  : 12;
-  position : relative;
-  margin   : 0;
-  overflow : visible;
-}
-
-.issue-vote-wrapper .suggest-error,
-.search_list .suggest-error {
-  color   : #CD2027;
-  font    : 11px/14px Arial, "Lucida Grande", sans-serif;
-  padding : 6px 0 0;
-  width   : 78%;
-  margin  : 0 0 -4px 30px;
-}
-
-.issue-vote-wrapper fieldset.collapsible.collapsed + .suggest-error,
-.search_list fieldset.collapsible.collapsed + .suggest-error {
-  margin : 16px 0 -4px 30px;
-}
-
-.vote-count-poll,
-#edit-submit-suggest-vote-1 {
-  display : none;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item,
-.search_list .poll-vote-area .fieldset-wrapper .form-item {
-  margin : 3px 0 10px;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper,
-.search_list .poll-vote-area .fieldset-wrapper .nsa-wrapper {
-  width : 85%;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table,
-.search_list .poll-vote-area .fieldset-wrapper table {
-  width         : 100%;
-  margin-bottom : -14px;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table td,
-.search_list .poll-vote-area .fieldset-wrapper table td {
-  vertical-align : top;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table td.first,
-.search_list .poll-vote-area .fieldset-wrapper table td.first {
-  width : 100%;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item input.form-text,
-.search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text {
-  float   : left;
-  border  : 1px solid #B3B3B3;
-  color   : #4C4C4C;
-  margin  : 0;
-  padding : 7px 5px 6px;
-  width   : 97%;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus,
-.search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus {
-  border             : 1px solid #9C9C9C;
-  -moz-box-shadow    : 0 0 3px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow : 0 0 3px rgba(0, 0, 0, 0.3);
-  box-shadow         : 0 0 3px rgba(0, 0, 0, 0.3);
-  -o-box-shadow      : 0 0 3px rgba(0, 0, 0, 0.3);
-  -khtml-box-shadow  : 0 0 3px rgba(0, 0, 0, 0.3);
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item .description,
-.search_list .poll-vote-area .fieldset-wrapper .form-item .description {
-  clear   : left;
-  float   : left;
-  color   : #4C4C4C;
-  font    : 12px/15px Arial, "Lucida Grande", sans-serif;
-  padding : 10px 0 0;
-  width   : 100%;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper input.form-submit,
-.search_list .poll-vote-area .fieldset-wrapper input.form-submit {
-  display : inline-block;
-  margin  : 2px 0 0 23px;
-  padding : 8px 12px 6px;
-}
-
-.issue-vote-wrapper .button.vote,
-.search_list .button.vote {
-  clear    : both;
-  float    : left;
-  margin   : 0 0 24px 0;
-  top      : 24px;
-  position : relative;
-}
-
-.votebtn_wrap {
-  padding : 0 30px;
-}
-
-.search_list .button.vote {
-  clear : none;
-}
-
-.issue-vote-wrapper .button.vote:hover,
-.search_list .button.vote:hover,
-.issue-vote-wrapper .button.vote:focus,
-.search_list .button.vote:focus {
-  top : 21px;
-}
-
-#solr-issues-search-form .item-list {
-  padding : 18px 20px 0;
-}
-
-#solr-issues-search-form ul.pager {
-  margin : 0;
 }
 
 /* pager */
@@ -3431,68 +3085,8 @@ form#solr-issues-search-form .form-item,
   margin : 0;
 }
 
-#issue-search-filter-form {
-  margin : 0;
-}
-
-#issue-search-filter-form .form-item {
-  margin   : 0 0 1em;
-  position : relative;
-}
-
-#count_results-wrapper {
-  font-family : 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
-  font-style  : normal;
-  font-weight : normal;
-  color       : #372418;
-  font-size   : 19px;
-  line-height : 22px;
-  margin      : 0 0 0.8em !important;
-}
-
-#count_results-wrapper span {
-  font-size   : 28px;
-  line-height : 30px;
-  font-family : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
-  font-style  : normal;
-  font-weight : normal;
-}
-
-#issue-search-filter-form select {
-  float  : none;
-  margin : 0;
-  width  : 100%;
-}
-
-#issue-search-filter-form label {
-  padding-bottom : 3px;
-}
-
 #issue-search-filter-form fieldset {
   margin : 0;
-}
-
-#issue-search-filter-form input[type="checkbox"] {
-  vertical-align : baseline;
-}
-
-#my_region-wrapper,
-#edit-my-language-wrapper {
-  margin : 0 0 0.3em !important;
-}
-
-#my_region-wrapper input.form-checkbox,
-#edit-my-language-wrapper input.form-checkbox,
-#edit-voted-status-wrapper input.form-checkbox {
-  position : relative;
-  top      : 1px;
-  margin   : 0 5px 0 0;
-}
-
-#issue-search-filter-form input.form-text {
-  padding : 6px 4px;
-  margin  : 0;
-  width   : 95%;
 }
 
 #issue-search-filter-form .messages {
@@ -3587,34 +3181,6 @@ form#solr-issues-search-form .form-item,
 #item_results-wrapper span.del-item:hover,
 #item_results-wrapper span:hover span.del-item {
   background-position : 6px -20px;
-}
-
-.search_list h2.din.half {
-  padding       : 10px 30px 0;
-  margin-bottom : 15px;
-}
-
-.search_list:first-child h2.din.half {
-  padding-top : 0;
-}
-
-.search_list h2.din.half a {
-  color           : #372418;
-  text-decoration : none;
-}
-
-.search_list h2.din.half a:hover {
-  text-decoration : underline;
-  border          : 0 none;
-}
-
-.search_list {
-  background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-  padding    : 0 0 17px;
-}
-
-.search_list form {
-  margin : 0;
 }
 
 .poll .login-error {
@@ -3774,17 +3340,6 @@ span.coins_char {
   float   : right;
   padding : 8px 5px;
   width   : 95%;
-}
-
-.search_issues,
-.with_icon {
-  padding        : 3px 0 16px;
-  width          : 100%;
-  font-size      : 12px;
-  line-height    : 1em;
-  text-transform : uppercase;
-  margin         : 0;
-  line-height    : 1.2em;
 }
 
 .with_icon {
@@ -4206,48 +3761,6 @@ i.icon-businesscardalt:before {
 
 .resizable-textarea .grippie {
   width : 100%;
-}
-
-form.issue-vote-form > div > div.choices {
-  padding : 18px 10px 2px 30px;
-}
-
-.not-voted .teaser_count_vote {
-  display : none;
-}
-
-.not-voted .choices .form-radios span.teaser_count_vote + .form-item {
-  margin-left : 0 !important;
-}
-
-.vote-result-empty, .vote-result-empty + .form-item {
-  display : none;
-}
-
-.issue-search-more {
-  display             : block;
-  cursor              : pointer;
-  color               : #6A7989;
-  background-color    : #E9EDF1;
-  background-image    : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAIdJREFUSEtjGBnA2NiYB4jtgdgHiH2htClUmnKQUtjgkVXZ+R8dQ6UpB0n5Nd6jFuAFQ8cCoCYHdEPIwVDjMAFQctQCMIYahwmAkjS3QACIQZag4LSS5gogjc0wDLUgDDWOeDCa0QgCmluQXFDnSVMLAiIS5JPya3ciGx6bWToRKj0KKAEMDAAlRZ+BxD957gAAAABJRU5ErkJggg==);
-  background-repeat   : no-repeat;
-  background-position : center;
-  height              : 13px;
-  padding             : 9px 0px 12px;
-  text-decoration     : none;
-  text-align          : center;
-  font-size           : 14px;
-  margin-bottom       : 10px;
-}
-
-.issue-search-more.active {
-  background-image : url(data:image/gif;base64,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);
-}
-
-.votebtn_wrap.message {
-  color      : #EF3D3B;
-  font-style : italic;
-  display    : inline-block;
 }
 
 .embedly-wrapper .action .close {
@@ -5855,21 +5368,515 @@ select#edit-language {
 
 /*---/ BADGES */
 
+/* ISSUES - VOTE SECTION */
 
+.search_item {
+  margin-bottom : 15px;
+}
 
+.search_list {
+  background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+  padding    : 0 0 17px;
+}
 
+.search_list h2.din.half {
+  padding       : 10px 30px 0;
+  margin-bottom : 15px;
+}
 
+.search_list:first-child h2.din.half {
+  padding-top : 0;
+}
 
+.search_list h2.din.half a {
+  color           : #372418;
+  text-decoration : none;
+}
 
+.search_list h2.din.half a:hover {
+  text-decoration : underline;
+  border          : 0 none;
+}
 
+.issue-vote-wrapper .qd {
+  padding : 0;
+  margin  : 18px 10px 17px 30px;
+  width   : 88%;
+  color   : #362750;
+  font    : 14px/19px Arial, "Lucida Grande", sans-serif;
+}
 
+.voting-pane {
+  width : 100%;
+  float : left;
+}
 
+.search_list form {
+  margin : 0;
+}
 
+.issue-vote-wrapper .poll-vote-area .voting-pane .choices {
+  width  : 85%;
+  margin : 0;
+}
 
+form.issue-vote-form > div > div.choices {
+  padding : 18px 10px 2px 30px;
+}
 
+.issue-vote-wrapper .poll-vote-area .form-radios,
+.search_list .poll-vote-area .form-radios {
+  margin : 0;
+}
 
+.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote span,
+.search_list .poll-vote-area .form-radios span.teaser_count_vote span {
+  display : block;
+  font    : 20px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+}
 
+.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote,
+.search_list .poll-vote-area .form-radios span.teaser_count_vote {
+  float            : left;
+  width            : 50px;
+  font             : 17px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+  color            : #7B7D01;
+  padding          : 5px 3px 2px;
+  margin           : 0;
+  text-align       : center;
+  background-color : #E1E43C;
+  box-shadow       : 0 0 5px 0 #FFFFFF inset;
+  border           : 1px solid #D1D41B;
+}
 
+.choices .form-radios .radio_wrapper .form-item,
+.fieldset-wrapper .form-radios .radio_wrapper .form-item,
+#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .radio_wrapper .form-item {
+  margin : 0 0 10px !important;
+}
+
+.choices .form-radios span.teaser_count_vote + .form-item,
+.issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item,
+#linkbox .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
+  margin-left : 65px !important;
+}
+
+.choices .form-radios .form-item,
+.fieldset-wrapper .form-radios .form-item,
+#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .form-item {
+  background : none repeat scroll 0 0 #E4E4E4;
+  border     : 1px solid #D7D7D7;
+  margin     : 3px 0 10px !important;
+  padding    : 13px 12px 10px;
+  width      : auto;
+  cursor     : pointer;
+}
+
+.choices .form-radios .form-item:hover,
+.choices .form-radios .form-item.staygreen,
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item:hover,
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item.staygreen {
+  background-color   : #C2FCC4;
+  border             : 1px solid #BCE0BD;
+  -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
+  -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
+  -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
+  -khtml-box-shadow  : inset 0px 0px 5px 0px #FFFFFF;
+  box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
+}
+
+.choices .form-radios .form-item label.option,
+.choices .form-radios .form-item label.option span,
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option,
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
+  color   : #4C4C4C;
+  font    : 18px/1.2 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+  display : block;
+  cursor  : pointer;
+}
+
+.choices .form-radios .form-item label.option input.form-radio,
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option input.form-radio {
+  margin     : 0;
+  float      : left;
+  position   : relative;
+  height     : 22px;
+  padding    : 0;
+  background : #E4E4E4;
+}
+
+.choices .form-radios .form-item label.option span,
+.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
+  margin-left : 25px;
+  overflow    : hidden;
+  display     : block;
+}
+
+.vote-result-empty, .vote-result-empty + .form-item {
+  display : none;
+}
+
+.not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+  margin-left : 0 !important;
+}
+
+.votebtn_wrap {
+  padding : 0 30px;
+}
+
+.issue-vote-wrapper .button.vote,
+.search_list .button.vote {
+  clear    : both;
+  float    : left;
+  margin   : 0 0 24px 0;
+  top      : 24px;
+  position : relative;
+}
+
+.search_list .button.vote {
+  clear : none;
+}
+
+.issue-vote-wrapper .button.vote:hover,
+.search_list .button.vote:hover,
+.issue-vote-wrapper .button.vote:focus,
+.search_list .button.vote:focus {
+  top : 21px;
+}
+
+.issue-search-more {
+  display             : block;
+  cursor              : pointer;
+  color               : #6A7989;
+  background-color    : #E9EDF1;
+  background-image    : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAIdJREFUSEtjGBnA2NiYB4jtgdgHiH2htClUmnKQUtjgkVXZ+R8dQ6UpB0n5Nd6jFuAFQ8cCoCYHdEPIwVDjMAFQctQCMIYahwmAkjS3QACIQZag4LSS5gogjc0wDLUgDDWOeDCa0QgCmluQXFDnSVMLAiIS5JPya3ciGx6bWToRKj0KKAEMDAAlRZ+BxD957gAAAABJRU5ErkJggg==);
+  background-repeat   : no-repeat;
+  background-position : center;
+  height              : 13px;
+  padding             : 9px 0px 12px;
+  text-decoration     : none;
+  text-align          : center;
+  font-size           : 14px;
+  margin-bottom       : 10px;
+}
+
+.issue-search-more.active {
+  background-image : url(data:image/gif;base64,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);
+}
+
+.issue-vote-wrapper .poll-vote-area fieldset {
+  margin : 0;
+}
+
+.issue-vote-wrapper .poll-vote-area fieldset {
+  background : url(../images/light_dotted.gif) repeat-x 0 0;
+  padding    : 18px 10px 2px 30px;
+}
+
+.issue-vote-wrapper .poll-vote-area fieldset legend,
+.search_list .poll-vote-area fieldset legend {
+  width   : 100%;
+  display : block;
+}
+
+.issue-vote-wrapper .poll-vote-area fieldset.collapsible.collapsed legend a,
+.search_list .poll-vote-area fieldset.collapsible.collapsed legend a {
+  background : url(../images/s_arrow.png) no-repeat 100% 0;
+  display    : inline-block;
+  padding    : 3px 26px 3px 0;
+}
+
+.issue-vote-wrapper .poll-vote-area fieldset.collapsible legend a,
+.search_list .poll-vote-area fieldset.collapsible legend a {
+  background : url(../images/s_arrow.png) no-repeat 100% -102px;
+  display    : inline-block;
+  padding    : 3px 26px 3px 0;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper,
+.search_list .poll-vote-area .fieldset-wrapper .nsa-wrapper {
+  width : 85%;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table,
+.search_list .poll-vote-area .fieldset-wrapper table {
+  width         : 100%;
+  margin-bottom : -14px;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table td,
+.search_list .poll-vote-area .fieldset-wrapper table td {
+  vertical-align : top;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table td.first,
+.search_list .poll-vote-area .fieldset-wrapper table td.first {
+  width : 100%;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper input.form-submit,
+.search_list .poll-vote-area .fieldset-wrapper input.form-submit {
+  display : inline-block;
+  margin  : 2px 0 0 23px;
+  padding : 8px 12px 6px;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item .description,
+.search_list .poll-vote-area .fieldset-wrapper .form-item .description {
+  clear   : left;
+  float   : left;
+  color   : #4C4C4C;
+  font    : 12px/15px Arial, "Lucida Grande", sans-serif;
+  padding : 10px 0 0;
+  width   : 100%;
+}
+
+/* other (don't know where it is used) */
+
+.poll .vote-form .choices {
+  display : inherit;
+}
+
+.issue-vote-wrapper fieldset .form-radios {
+  width : 85%;
+}
+
+.issue-vote-wrapper fieldset .choices.suggested .form-radios {
+  width : 100%;
+}
+
+.issue-vote-wrapper .qd p.description {
+  display : inline;
+  margin  : 0;
+  padding : 0;
+  float   : none;
+  font    : 14px/19px Arial, "Lucida Grande", sans-serif;
+}
+
+.issue-vote-wrapper #new-ellipse {
+  display : inline;
+}
+
+.issue-vote-wrapper #new-ellipse a {
+  color  : #55BA59;
+  cursor : pointer;
+}
+
+.issue-vote-wrapper #new-ellipse a:hover {
+  color : #0C6926;
+}
+
+.issue-vote-wrapper span#extended-issue-description + p {
+  display : none;
+}
+
+.issue-vote-wrapper .poll-vote-area .vote-form {
+  background : url(../images/light_dotted.gif) repeat-x 0 0;
+  padding    : 18px 10px 2px 30px;
+}
+
+#issue-add-vote .login-error {
+  padding : 15px 10px 0 30px;
+  color   : #CD2027;
+}
+
+.issue-vote-wrapper .poll-vote-area .voting-pane .choices .choices.regular {
+  width : 100%;
+}
+
+.search_list .poll-vote-area .voting-pane .choices .choices.regular {
+  margin : 0;
+}
+
+.issue-vote-wrapper .poll-vote-area fieldset legend a,
+#solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
+  color           : #924C9D;
+  display         : inline-block;
+  margin          : 0;
+  font            : bold italic 12px/15px Arial, "Lucida Grande", sans-serif;
+  position        : relative;
+  top             : 28px;
+  text-transform  : uppercase;
+  text-decoration : none;
+  padding         : 3px 26px 3px 0;
+  z-index         : 13;
+}
+
+#solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
+  top          : 10px;
+  padding-left : 0 !important;
+}
+
+.issue-vote-wrapper .poll-vote-area fieldset legend a:hover,
+.search_list .poll-vote-area fieldset legend a:hover {
+  text-decoration : underline;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper,
+.search_list .poll-vote-area .fieldset-wrapper {
+  padding  : 22px 0 0;
+  z-index  : 12;
+  position : relative;
+  margin   : 0;
+  overflow : visible;
+}
+
+.issue-vote-wrapper .suggest-error,
+.search_list .suggest-error {
+  color   : #CD2027;
+  font    : 11px/14px Arial, "Lucida Grande", sans-serif;
+  padding : 6px 0 0;
+  width   : 78%;
+  margin  : 0 0 -4px 30px;
+}
+
+.issue-vote-wrapper fieldset.collapsible.collapsed + .suggest-error,
+.search_list fieldset.collapsible.collapsed + .suggest-error {
+  margin : 16px 0 -4px 30px;
+}
+
+.vote-count-poll,
+#edit-submit-suggest-vote-1 {
+  display : none;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item,
+.search_list .poll-vote-area .fieldset-wrapper .form-item {
+  margin : 3px 0 10px;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item input.form-text,
+.search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text {
+  float   : left;
+  border  : 1px solid #B3B3B3;
+  color   : #4C4C4C;
+  margin  : 0;
+  padding : 7px 5px 6px;
+  width   : 97%;
+}
+
+.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus,
+.search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus {
+  border             : 1px solid #9C9C9C;
+  -moz-box-shadow    : 0 0 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow : 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow         : 0 0 3px rgba(0, 0, 0, 0.3);
+  -o-box-shadow      : 0 0 3px rgba(0, 0, 0, 0.3);
+  -khtml-box-shadow  : 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+#solr-issues-search-form .item-list {
+  padding : 18px 20px 0;
+}
+
+#solr-issues-search-form ul.pager {
+  margin : 0;
+}
+
+.not-voted .teaser_count_vote {
+  display : none;
+}
+
+.votebtn_wrap.message {
+  color      : #EF3D3B;
+  font-style : italic;
+  display    : inline-block;
+}
+
+/*---/ other (don't know where it is used) */
+
+/*---/ ISSUES - VOTE SECTION */
+
+/* SEARCH ISSUES (right block) */
+
+.filter_search.issues_search {
+  margin-top    : 0;
+  margin-bottom : 30px;
+  padding       : 15px 14px 18px;
+  width         : 190px;
+  z-index       : 999;
+}
+
+.grey-box.poll-box {
+  background : url(../images/white_50.png) repeat scroll 0 0 transparent;
+  border     : 1px solid #C0C0C0;
+  position   : relative;
+  top        : 0px;
+  padding    : 20px 20px 14px 14px;
+}
+
+.search_issues,
+.with_icon {
+  padding        : 3px 0 16px;
+  width          : 100%;
+  font-size      : 12px;
+  line-height    : 1em;
+  text-transform : uppercase;
+  margin         : 0;
+  line-height    : 1.2em;
+}
+
+#count_results-wrapper {
+  font-family : 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+  font-style  : normal;
+  font-weight : normal;
+  color       : #372418;
+  font-size   : 19px;
+  line-height : 22px;
+  margin      : 0 0 0.8em !important;
+}
+
+#count_results-wrapper span {
+  font-size   : 28px;
+  line-height : 30px;
+  font-family : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
+  font-style  : normal;
+  font-weight : normal;
+}
+
+#issue-search-filter-form {
+  margin : 0;
+}
+
+#issue-search-filter-form .form-item {
+  margin   : 0 0 1em;
+  position : relative;
+}
+
+#issue-search-filter-form label {
+  padding-bottom : 3px;
+}
+
+#issue-search-filter-form select {
+  float  : none;
+  margin : 0;
+  width  : 100%;
+}
+
+#my_region-wrapper,
+#edit-my-language-wrapper {
+  margin : 0 0 0.3em !important;
+}
+
+#issue-search-filter-form input[type="checkbox"] {
+  vertical-align : baseline;
+}
+
+#my_region-wrapper input.form-checkbox,
+#edit-my-language-wrapper input.form-checkbox,
+#edit-voted-status-wrapper input.form-checkbox {
+  position : relative;
+  top      : 1px;
+  margin   : 0 5px 0 0;
+}
+
+#issue-search-filter-form input.form-text {
+  padding : 6px 4px;
+  margin  : 0;
+  width   : 95%;
+}
+
+/*---/ SEARCH ISSUES (right block) */
 
 
 
