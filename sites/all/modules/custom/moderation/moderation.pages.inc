@@ -488,7 +488,7 @@ function moderation_issue_view_form($form_state, $nid) {
     '#type'   => 'textfield',
     '#title'  => t('Title'),
     '#value'  => issue_translate($node, 'title'),
-    '#prefix' => '<div class="question_section">' . '<div class="view_q">' . l(sprintf('<i class="mod-view mod-icon icon-eye-open" title="%s"></i>%s', t('View'), t('View')), $node->path, array(
+    '#prefix' => '<div class="question_section">' . '<div class="view_q">' . l(sprintf('<i class="mod-view mod-icon" title="%s"></i>%s', t('View'), t('View')), $node->path, array(
         'html'       => TRUE,
         'attributes' => array('target' => '_blank'),
       )) . '</div>',
