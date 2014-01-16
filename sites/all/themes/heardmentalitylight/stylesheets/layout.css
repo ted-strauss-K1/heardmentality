@@ -102,6 +102,15 @@ ul.flagthis li {
   height     : 27px;
 }
 
+.icon.cat {
+  float   : right;
+  padding : 0;
+  margin  : -3px 5px 0 0;
+  filter  : alpha(opacity=90);
+  opacity : 0.75;
+  height  : auto;
+}
+
 .icon.cat2 {
   background : url(../images/icons/14-tag.png) top right no-repeat;
   float      : right;
