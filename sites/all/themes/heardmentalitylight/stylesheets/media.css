@@ -7,15 +7,12 @@
 @media only screen and (max-width : 1023px) {
 
   /* HEADER */
-
   .top-mobile .border-bottom {
     margin-top : 32px;
   }
 
   /*---/ HEADER */
-
   /* FOOTER */
-
   .black-box {
     position : relative;
   }
@@ -51,9 +48,7 @@
   }
 
   /*---/ FOOTER */
-
   /* ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   .circle-box {
     background : url(../images/circle_bg.png) center -13px no-repeat;
     margin     : 50px 0px 10px 0px;
@@ -72,9 +67,7 @@
   }
 
   /*---/ ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   /* MODERATION */
-
   #choices-wrapper .fieldset-wrapper fieldset .form-item,
   #taxonomy-wrapper .fieldset-wrapper .form-item,
   #location-wrapper .fieldset-wrapper .form-item {
@@ -104,9 +97,7 @@
   }
 
   /*---/ MODERATION */
-
   /* DEBATE */
-
   #debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive {
     left : -90px;
   }
@@ -141,9 +132,7 @@
   }
 
   /*---/ DEBATE */
-
   /* MAIN ELEMENTS */
-
   .white-box .container {
     width : 708px;
   }
@@ -162,9 +151,7 @@
   }
 
   /*---/ MAIN ELEMENTS */
-
   /* OTHER */
-
   #poll-choices label.add-on {
     margin : 7px 0 1em 0;
   }
@@ -287,7 +274,6 @@
 @media only screen and (min-width : 768px) and (max-width : 1023px) {
 
   /* ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   .main-banner-display.centered .circle-box {
     height : 285px;
   }
@@ -362,9 +348,7 @@
   }
 
   /*---/ ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   /* OTHER */
-
   input.form-text, input.form-text.user-search {
     width : 338px;
   }
@@ -506,7 +490,6 @@
 @media only screen and (max-width : 767px) {
 
   /* HEADER */
-
   .top-left a.logo {
     width      : auto;
     margin     : 0px 0px 0px 0px;
@@ -639,9 +622,7 @@
   }
 
   /*---/ HEADER */
-
   /* FOOTER */
-
   .black-box {
     margin : 30px 0 0 0;
   }
@@ -659,9 +640,7 @@
   }
 
   /*---/ FOOTER */
-
   /* ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   .circle-box {
     background : url(../images/circle_bg.png) 0px -210px no-repeat;
     margin     : 20px auto;
@@ -772,7 +751,6 @@
   }
 
   /*---/ ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   input[type="text"], input[type="password"], input[type="email"], textarea, select {
     -moz-box-sizing    : border-box;
     -webkit-box-sizing : border-box;
@@ -782,15 +760,12 @@
   }
 
   /* USER LOGIN POPUP */
-
   .popup-tab input.form-text {
     width : 90% !important;
   }
 
   /*---/ USER LOGIN POPUP */
-
   /* DEBATE */
-
   #debate_list_area ul.argument_box {
     padding : 0 25px 0 32px;
   }
@@ -823,18 +798,14 @@
   }
 
   /*---/ DEBATE */
-
   /* STATIC PAGES */
-
   #about_us_page_content h3 {
     font-size   : 1.6em;
     line-height : 1.2em;
   }
 
   /*---/ STATIC PAGES */
-
   /* OTHER */
-
   #edit-image-upload-wrapper input[type="file"] {
     font-size : 12px;
   }
@@ -1457,29 +1428,44 @@
   }
 
   /*Moderation*/
-  #moderation-issues-form legend {
+  #moderation-issues-form legend,
+  #moderation-arguments-form legend,
+  #moderation-comments-form legend,
+  #moderation-users-form legend {
     float : none;
     width : 100%
   }
 
-  #moderation-issues-form legend a {
+  #moderation-issues-form legend a,
+  #moderation-arguments-form legend a,
+  #moderation-comments-form legend a,
+  #moderation-users-form legend a {
     display    : block;
     float      : none;
     text-align : center;
   }
 
-  #moderation-issues-form fieldset .form-submit {
+  #moderation-issues-form fieldset .form-submit,
+  #moderation-arguments-form fieldset .form-submit,
+  #moderation-comments-form fieldset .form-submit,
+  #moderation-users-form fieldset .form-submit {
     width      : 100%;
     text-align : center;
     margin-top : 16px;
   }
 
-  #moderation-issues-form .fieldset-wrapper {
+  #moderation-issues-form .fieldset-wrapper,
+  #moderation-arguments-form .fieldset-wrapper,
+  #moderation-comments-form .fieldset-wrapper,
+  #moderation-users-form .fieldset-wrapper {
     padding-top : 5px;
   }
 
   #moderation-issues-form fieldset #edit-status-wrapper,
-  #moderation-issues-form fieldset #edit-perpage-wrapper {
+  #moderation-issues-form fieldset #edit-perpage-wrapper,
+  #moderation-arguments-form fieldset #edit-perpage-wrapper,
+  #moderation-comments-form fieldset #edit-perpage-wrapper,
+  #moderation-users-form fieldset #edit-perpage-wrapper {
     padding : 0;
     width   : 100%;
     margin  : 17px 0 0;
@@ -1571,16 +1557,13 @@
 @media only screen and (min-width : 480px) and (max-width : 767px) {
 
   /* FOOTER */
-
   #footer #user-login input.form-text,
   #footer #user-login-1 input.form-text {
     width : 100% !important;
   }
 
   /*---/ FOOTER */
-
   /* OTHER */
-
   input.form-text, input.form-text.user-search {
     width : 250px;
   }
@@ -1621,11 +1604,8 @@
 @media only screen and (max-width : 480px) {
 
   /* HEADER */
-
   /*---/ HEADER */
-
   /* FOOTER */
-
   #footer .medal_box {
     margin : 0 7px 0 0;
   }
@@ -1649,9 +1629,7 @@
   }
 
   /*--/ FOOTER */
-
   /* BADGES */
-
   #about_us_page_content #badges td {
     padding   : 9px 3px;
     font-size : 12px;
@@ -1662,7 +1640,6 @@
   }
 
   /*---/ BADGES */
-
   .white-box {
     padding : 20px 12px;
   }
@@ -1673,9 +1650,7 @@
   }
 
   /*---/ BADGES */
-
   /* DEBATE */
-
   #debate_list_area ul.argument_box {
     padding : 0 25px 0 30px;
   }
@@ -1737,9 +1712,7 @@
   }
 
   /*---/ DEBATE */
-
   /* ISSUES */
-
   .filter_search.issues_search {
     width : 270px;
   }
@@ -1780,7 +1753,10 @@
     margin : 0 -12px 10px;
   }
 
-  #moderation-issues-form fieldset {
+  #moderation-issues-form fieldset,
+  #moderation-arguments-form fieldset,
+  #moderation-comments-form fieldset,
+  #moderation-users-form fieldset {
     margin : 0 -12px 18px;
   }
 
@@ -1793,9 +1769,7 @@
   }
 
   /*---/ ISSUES */
-
   /* ACCOUNT */
-
   p.action-comment-ref {
     margin : 10px 0 0 10px;
   }
@@ -1805,9 +1779,7 @@
   }
 
   /*---/ ACCOUNT */
-
   /* USER LOGIN POPUP */
-
   .popup-tab input.form-text,
   #user-register .description,
   #user-register label.option {
@@ -1815,9 +1787,7 @@
   }
 
   /*--/ USER LOGIN POPUP */
-
   /* ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   .main-banner-display .circle-box {
     background : none;
     height     : 170px;
@@ -1863,18 +1833,14 @@
   }
 
   /*---/ ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   /* FOLLOWING */
-
   .sort-wrapper a,
   .sort-wrapper a.active {
     font-size : 11px;
   }
 
   /*---/ FOLLOWING */
-
   /* OTHER */
-
   #new_vote .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
     width : 252px;
   }

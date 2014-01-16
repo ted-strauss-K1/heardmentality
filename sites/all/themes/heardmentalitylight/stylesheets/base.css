@@ -643,7 +643,7 @@ input[type="button"].full-width {
   content      : "";
   display      : block;
   height       : 0;
-  margin-top   : -6px;
+  margin-top   : -7px;
   position     : absolute;
   right        : 11px;
   top          : 50%;
@@ -651,6 +651,9 @@ input[type="button"].full-width {
 }
 
 #moderation-issues-form .collapsed legend a:after,
+#moderation-arguments-form .collapsed legend a:after,
+#moderation-comments-form .collapsed legend a:after,
+#moderation-users-form .collapsed legend a:after,
 #choices-wrapper .collapsed legend a:after,
 #taxonomy-wrapper .collapsed legend a:after,
 #location-wrapper .collapsed legend a:after {

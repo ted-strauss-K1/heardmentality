@@ -4465,11 +4465,16 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
   height     : 0;
 }
 
-#moderation-issues-form fieldset .form-item,
+#moderation-issues-form fieldset .form-item {
+  float  : left;
+  margin : 0;
+  width  : 49%;
+}
+
 #moderation-arguments-form .form-item,
 #moderation-comments-form .form-item,
-#moderation-users-form .form-item{
-  float  : left;
+#moderation-users-form .form-item {
+  float  : none;
   margin : 0;
   width  : 49%;
 }
@@ -4479,7 +4484,7 @@ ul.date_filter li a.active:hover, ul.options_filter li a.active:hover {
 #moderation-comments-form fieldset select,
 #moderation-users-form fieldset select {
   margin             : 0;
-  width              : 99%;
+  width              : 100%;
   -moz-box-sizing    : border-box;
   -webkit-box-sizing : border-box;
   box-sizing         : border-box;
@@ -4504,7 +4509,10 @@ select option {
 }
 
 #moderation-issues-form fieldset label,
-#moderation-issue-view-form label {
+#moderation-issue-view-form label,
+#moderation-arguments-form fieldset label,
+#moderation-comments-form fieldset label,
+#moderation-users-form fieldset label {
   font-size      : 13px;
   font-weight    : bold;
   line-height    : 1.5em;
@@ -4559,20 +4567,7 @@ fieldset + .mod-wrapper {
 #moderation-arguments-form .form-select,
 #moderation-comments-form .form-select,
 #moderation-users-form .form-select {
-  float  : none;
-  margin : 10px 0;
-}
-
-#moderation-arguments-form .form-item label,
-#moderation-comments-form .form-item label,
-#moderation-users-form .form-item label {
-  margin : 2px 0;
-}
-
-#moderation-arguments-form legend.collapse-processed,
-#moderation-comments-form legend.collapse-processed,
-#moderation-users-form legend.collapse-processed {
-  margin : 0 0 10px 0;
+  float : none;
 }
 
 #moderation-arguments-form input[type="submit"],
