@@ -184,7 +184,6 @@
     color       : #999999;
     font-size   : 30px;
     text-shadow : #FFFFFF 0px 1px;
-    line-height : 0.5em;
   }
 
   .profile-meta img {
@@ -1406,7 +1405,6 @@
 
   .new-issue .number {
     float  : left;
-    margin : 0;
   }
 
   #issue-create-form label span.title, #issue-create-form label span.guides {

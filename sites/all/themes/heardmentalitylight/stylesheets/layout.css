@@ -4348,6 +4348,10 @@ input.submit-issue {
   margin-top     : 15px;
 }
 
+#poll-choices label.add-on {
+  margin: 7px 0 1em 0;
+}
+
 /*---/ add form */
 
 /*---/ ADD NEW ISSUE */
