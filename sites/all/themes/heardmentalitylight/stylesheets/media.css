@@ -1353,7 +1353,13 @@
   }
 
   .search_list h2.din.half {
-    padding : 0 10px;
+    padding       : 0 10px;
+    margin-bottom : 0px;
+    font-size     : 22px;
+  }
+
+  #moderation-comments-form .mod-wrapper h2.din.half {
+    font-size : 18px;
   }
 
   #chart-strength {
@@ -1542,6 +1548,10 @@
 
   label.before-submit {
     margin : 0 0 18px 0;
+  }
+
+  .mod-buttons {
+    padding : 15px 30px 0;
   }
 
   /*---/ OTHER */
@@ -1762,6 +1772,10 @@
 
   .mod-wrapper h2.din.half {
     font-size : 20px;
+  }
+
+  #moderation-comments-form .mod-wrapper h2.din.half {
+    font-size : 16px;
   }
 
   .chzn-container {

@@ -4543,11 +4543,24 @@ fieldset + .mod-wrapper {
   background : none transparent;
 }
 
+#moderation-issues-form fieldset + .mod-wrapper,
+#moderation-arguments-form fieldset + .mod-wrapper,
+#moderation-comments-form fieldset + .mod-wrapper,
+#moderation-users-form fieldset + .mod-wrapper {
+  padding: 0 0 17px;
+  margin: 11px 0 0;
+  background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+}
+
 .mod-wrapper h2.din.half {
-  margin      : 0;
-  padding     : 0;
-  font-size   : 24px;
-  line-height : 1.2em;
+   margin      : 0;
+   padding     : 0;
+   font-size   : 24px;
+   line-height : 1.2em;
+ }
+
+#moderation-comments-form .mod-wrapper h2.din.half {
+  font-size   : 20px;
 }
 
 .mod-wrapper h2.din.half {
@@ -5406,7 +5419,7 @@ select#edit-language {
 
 .search_list h2.din.half {
   padding       : 10px 30px 0;
-  margin-bottom : 15px;
+  margin-bottom : 10px;
 }
 
 .search_list:first-child h2.din.half {
