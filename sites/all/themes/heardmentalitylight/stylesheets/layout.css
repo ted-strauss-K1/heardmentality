@@ -3977,7 +3977,8 @@ textarea#Question,
 /*--/ border-radius */
 
 .four.columns.margin-top .dark-grey-box {
-  z-index : 9999;
+  z-index : 999;
+  margin: 0 0 30px 0;
 }
 
 span.hi {
