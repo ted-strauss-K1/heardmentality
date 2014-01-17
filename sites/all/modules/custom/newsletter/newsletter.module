@@ -1,0 +1,247 @@
+<?php
+
+/**
+ *
+ */
+require_once __DIR__ . "/newsletter.inc";
+
+/**
+ *
+ */
+define('NEWSLETTER_DATE', 'newsletter_date');
+
+/**
+ * Implements hook_cron()
+ */
+function newsletter_cron() {
+  $date = date('Y-m-d');
+  $last = variable_get(NEWSLETTER_DATE, '2014-01-01');
+  if (strtotime($date) > strtotime($last)) {
+    newsletter_schedule($date);
+  }
+}
+
+/**
+ * @param $date
+ */
+function newsletter_schedule($date) {
+  // days since last send
+  $days = array();
+  $result = db_query("SELECT uid, DATEDIFF(CURDATE(), date_added) AS days, CURDATE(), date_added FROM (SELECT * FROM newsletter WHERE status = 1 ORDER BY date_added DESC) schedule GROUP BY uid");
+  while ($pair = db_fetch_array($result)) {
+    $days[$pair['uid']] = $pair['days'];
+  }
+
+  // schedule
+  $result = db_query("SELECT u.uid, IFNULL(nf.code, '%s') code FROM {users} u LEFT JOIN {newsletter_frequency} nf ON u.uid = nf.uid WHERE u.uid > 0", NEWSLETTER_WEEKLY);
+  while ($pair = db_fetch_array($result)) {
+    switch ($pair['code']) {
+      case NEWSLETTER_NEVER :
+        // do nothing
+        break;
+      case NEWSLETTER_WEEKLY :
+      case NEWSLETTER_MONTHLY :
+        if (!isset($days[$pair['uid']]) || ($days[$pair['uid']] >= (NEWSLETTER_WEEKLY == $pair['code'] ? 7 : 30))) {
+          newsletter_save($pair['uid'], $date);
+        }
+        break;
+    }
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function newsletter_form_alter(&$form, &$form_state, $form_id) {
+  if ('user_profile_edit_form' == $form_id) {
+    global $user;
+
+    # subscription info
+    $form['subscription_notify'] = array(
+      '#type'          => 'radios',
+      '#default_value' => newsletter_frequency_get($user->uid),
+      '#options'       => array(
+        NEWSLETTER_NEVER   => '',
+        NEWSLETTER_MONTHLY => '',
+        NEWSLETTER_WEEKLY  => ''
+      ),
+    );
+    //    $form['subscription_email'] = array(
+    //      '#type'          => 'textfield',
+    //      '#title'         => t(''),
+    //      '#maxlength'     => 50,
+    //      '#default_value' => $user->subscription_email ? $user->subscription_email : $user->mail,
+    //      '#id'            => 'subscription_email',
+    //      '#required'      => TRUE,
+    //    );
+    $form['subscription_submit'] = array(
+      '#type'       => 'submit',
+      '#value'      => t('Submit'),
+      '#id'         => 'subscription_submit',
+      '#name'       => 'subscription_submit',
+      '#attributes' => array('class' => 'submit-issue leftfloat'),
+    );
+
+    $form['#submit'][] = 'newsletter_frequency_submit';
+  }
+}
+
+/**
+ * Common Validation of the form
+ *
+ * @param $form
+ * @param $form_state
+ */
+function newsletter_frequency_submit(&$form, &$form_state) {
+  $id = $form_state["clicked_button"]["#name"];
+
+  switch ($id) {
+    case 'subscription_submit' :
+      global $user;
+      $post = $form_state["clicked_button"]["#post"];
+      newsletter_frequency_set($user->uid, $post['subscription_notify']);
+      break;
+  }
+}
+
+newsletter_nodes(1, '2014-01-01');
+function newsletter_nodes($uid, $date) {
+
+  // load tids
+  $account = new stdClass();
+  $account->uid = $uid;
+  $subscription = simplenews_get_subscription($account);
+  $tids = array_keys($subscription->tids);
+
+  // load nids
+  $query = "
+    SELECT
+      n.nid,
+      n.created,
+      n.title,
+	    (
+	      SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) voted
+	      FROM cpoll_choices c INNER JOIN cpoll_votes v ON c.chid = v.chid AND v.status = 1
+	      WHERE c.nid = n.nid AND v.uid = '%s'
+	      ) voted,
+	    (
+	      SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) sent
+	      FROM newsletter ns INNER JOIN newsletter_nodes nn ON ns.hash = nn.hash
+	      WHERE ns.uid = '%s' AND ns.status = 1 AND nn.nid = n.nid
+	      ) sent,
+	    (
+	      SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) subscribed
+	      FROM term_node tn WHERE tn.nid = n.nid AND tn.tid in (" . db_placeholders($tids) . ")
+	      ) subscribed
+      FROM node n
+      WHERE n.type = '%s' AND n.created < UNIX_TIMESTAMP('%s') ORDER BY voted ASC, sent ASC, subscribed DESC, n.created DESC
+  ";
+  $params = array();
+  $params[] = $uid;
+  $params[] = $uid;
+  $params = array_merge($params, $tids);
+  $params[] = 'issue';
+  $params[] = $date;
+
+  // query
+  $data = array();
+  $result = db_query($query, $params);
+  while ($row = db_fetch_array($result)) {
+    $case = $row["voted"] . $row["sent"] . $row["subscribed"];
+    switch ($case) {
+      case "001" :
+        $status = "9";
+        break;
+      case "011" :
+        $status = "8";
+        break;
+      case "101" :
+        $status = "7";
+        break;
+      case "000" :
+        $status = "6";
+        break;
+      case "111" :
+        $status = "5";
+        break;
+      case "010" :
+        $status = "4";
+        break;
+      case "100" :
+        continue;
+        break;
+      case "110" :
+        continue;
+        break;
+    }
+
+    $data[$status . "." . $row["created"] . str_repeat("0", 11 - strlen($row['nid'])) . $row['nid']] = $row;
+  }
+  krsort($data);
+
+  // extract
+  $count = 0;
+  $nids = array();
+  foreach ($data as $row) {
+    $nids[] = intval($row["nid"]);
+    if (++$count >= 5) {
+      break;
+    }
+  }
+
+  return $nids;
+}
+
+
+/**
+ * Every day on cron we schedule the emails
+ *
+ * Schedule the email means:
+ *  - determine the current date
+ *  - find all the users subscribed to any of the categories
+ *  - send them the issues (they has not received in newsletters or voted on) that match their subscription
+ *  - create the newsletter hash code using the data above
+ *  - put the code to queue for sending
+ */
+
+
+/**
+ * @return array
+ */
+function newsletter_menu() {
+  $menu = array();
+
+  $menu['newsletter/%'] = array(
+    'page callback'   => 'theme',
+    'page arguments'  => array('newsletter', 1),
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * @return array
+ */
+function newsletter_theme() {
+  $theme = array();
+
+  $theme['newsletter'] = array(
+    'arguments'            => array('code' => NULL),
+    'template'             => 'newsletter',
+    'preprocess functions' => array('theme_newsletter_preprocess_theme'),
+  );
+
+  return $theme;
+}
+
+/**
+ * @param $vars
+ */
+function theme_newsletter_preprocess_theme(&$vars) {
+  //
+}
+
