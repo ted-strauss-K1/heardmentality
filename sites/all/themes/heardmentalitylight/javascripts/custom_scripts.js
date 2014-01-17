@@ -58,7 +58,7 @@ Drupal.behaviors.fix_circle = function (context) {
 };
 
 // Fixed right sidebar in static pages
-$(window).scroll(function () {
+/*$(window).scroll(function () {
   var sidebar = $('.four.columns.margin-top .dark-grey-box, .filter_search.issues_search');
   var scroll = $(window).scrollTop();
   var display_width = $(window).width();
@@ -94,4 +94,4 @@ $(window).scroll(function () {
       }
     }
   }
-});
+}); *)
