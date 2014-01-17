@@ -3978,7 +3978,7 @@ textarea#Question,
 
 .four.columns.margin-top .dark-grey-box {
   z-index : 999;
-  margin: 0 0 30px 0;
+  margin  : 0 0 30px 0;
 }
 
 span.hi {
@@ -5948,9 +5948,9 @@ form.issue-vote-form > div > div.choices {
 /* FIXED RIGHT SIDEBARS */
 
 .four_columns_content_wrapper {
-  position: fixed;
-  width: 220px;
-  z-index: 1;
+  position : fixed;
+  width    : 220px;
+  z-index  : 1;
 }
 
 /*---/ FIXED RIGHT SIDEBARS */
