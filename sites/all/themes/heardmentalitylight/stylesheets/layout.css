@@ -4349,7 +4349,7 @@ input.submit-issue {
 }
 
 #poll-choices label.add-on {
-  margin: 7px 0 1em 0;
+  margin : 7px 0 1em 0;
 }
 
 /*---/ add form */
@@ -4560,20 +4560,20 @@ fieldset + .mod-wrapper {
 #moderation-arguments-form fieldset + .mod-wrapper,
 #moderation-comments-form fieldset + .mod-wrapper,
 #moderation-users-form fieldset + .mod-wrapper {
-  padding: 0 0 17px;
-  margin: 11px 0 0;
-  background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+  padding    : 0 0 17px;
+  margin     : 11px 0 0;
+  background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
 }
 
 .mod-wrapper h2.din.half {
-   margin      : 0;
-   padding     : 0;
-   font-size   : 24px;
-   line-height : 1.2em;
- }
+  margin      : 0;
+  padding     : 0;
+  font-size   : 24px;
+  line-height : 1.2em;
+}
 
 #moderation-comments-form .mod-wrapper h2.din.half {
-  font-size   : 20px;
+  font-size : 20px;
 }
 
 .mod-wrapper h2.din.half {

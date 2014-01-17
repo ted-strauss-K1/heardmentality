@@ -1331,7 +1331,7 @@
   }
 
   .chzn-container-multi .chzn-choices .search-field input {
-    height : 2em !important;
+    height : 2em;
   }
 
   .issue-vote-wrapper .qd {
@@ -1404,7 +1404,7 @@
   }
 
   .new-issue .number {
-    float  : left;
+    float : left;
   }
 
   #issue-create-form label span.title, #issue-create-form label span.guides {
