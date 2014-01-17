@@ -14,9 +14,13 @@
 
   <div class="four columns margin-top">
 
-    <?php if ($right) : ?>
-      <?php print $right; ?>
-    <?php endif; ?>
+    <div class="four_columns_content_wrapper">
+
+      <?php if ($right) : ?>
+        <?php print $right; ?>
+      <?php endif; ?>
+
+    </div>
 
   </div>
 
