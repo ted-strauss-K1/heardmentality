@@ -263,6 +263,10 @@
     width : 142px !important;
   }
 
+  .four_columns_content_wrapper {
+    width: 172px;
+  }
+
   /*---/ OTHER */
 
 }
@@ -1552,6 +1556,11 @@
     padding : 15px 30px 0;
   }
 
+  .four_columns_content_wrapper {
+    position: relative;
+    width: 420px;
+  }
+
   /*---/ OTHER */
 
 }
@@ -1960,6 +1969,10 @@
 
   #search-solr-block {
     width : 100%;
+  }
+
+  .four_columns_content_wrapper {
+    width: 300px;
   }
 
   /*---/ OTHER */
