@@ -6,14 +6,14 @@
  *
  * @return bool|string
  */
-function newsletter_hash($uid, $date) {
-  $max = 9; // unlikely integer
+function newsletter_hash($uid, $date, $max = 9) {
   $i = 0;
-  while ($i <= $max) {
+  while ($i <= intval($max)) {
     $hash = md5($uid . ':' . $date . ':' . $i);
-    if (FALSE !== newsletter_load($hash)) {
+    if (FALSE === newsletter_load($hash)) {
       return $hash;
     }
+    $i++;
   }
   return FALSE;
 }
@@ -24,7 +24,7 @@ function newsletter_hash($uid, $date) {
  * @return array|bool
  */
 function newsletter_load($hash) {
-  $result = db_query("SELECT hash, uid, date_added date, sent FROM {newsletter} WHERE hash = '%s'", $hash);
+  $result = db_query("SELECT hash, uid, sent_date date, status FROM {newsletter} WHERE hash = '%s'", $hash);
   if ($newsletter = db_fetch_array($result)) {
     return $newsletter;
   }
@@ -60,7 +60,7 @@ function newsletter_delete($hash) {
  * @param bool $sent
  */
 function newsletter_set_sent($hash, $sent = TRUE) {
-  db_query("UPDATE {newsletter} SET sent = '%d' WHERE hash = '%s'", $sent ? 1 : 0, $hash);
+  db_query("UPDATE {newsletter} SET status = '%d' WHERE hash = '%s'", $sent ? 1 : 0, $hash);
 }
 
 /**
