@@ -40,8 +40,8 @@ function newsletter_schema() {
         'not null'    => TRUE,
         'default'     => 0
       ),
-      'date_added'   => array(
-        'description' => t('Date.'),
+      'send_date'   => array(
+        'description' => t('Date this newsletter should be sent.'),
         'type'        => 'varchar',
         'length'      => 255,
         'not null'    => FALSE,
