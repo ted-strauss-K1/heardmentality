@@ -31,8 +31,8 @@ function cpoll_vote_external () {
     issue_search_index_node($nid);
   }
 
-//  drupal_set_message(t('Your vote was saved'));
-//  drupal_goto('node/' . $nid);
+  drupal_set_message(t('Your vote was saved'));
+  drupal_goto('node/' . $nid);
 
   return t('Your vote was saved');
 }
