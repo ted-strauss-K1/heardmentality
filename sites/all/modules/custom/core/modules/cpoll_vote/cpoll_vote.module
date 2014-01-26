@@ -216,6 +216,12 @@ function cpoll_vote_menu() {
     'access callback' => TRUE,
     'type'            => MENU_CALLBACK,
   );
+  $menu['cpoll_vote/external'] = array(
+    'page callback'   => 'cpoll_vote_external',
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
+    'file'            => 'cpoll_vote.external.inc',
+  );
 
   return $menu;
 }
