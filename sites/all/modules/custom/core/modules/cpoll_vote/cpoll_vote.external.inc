@@ -56,7 +56,7 @@ function cpoll_vote_external_hash ($uid, $chid) {
  */
 function cpoll_vote_external_link ($uid, $chid, $short = false) {
   $url = url('cpoll_vote/external', array(
-    'fragment' => array(
+    'query' => array(
       'uid'  => $uid,
       'chid' => $chid,
       'hash' => cpoll_vote_external_hash($uid, $chid),
@@ -64,8 +64,8 @@ function cpoll_vote_external_link ($uid, $chid, $short = false) {
     'absolute' => true,
   ));
 
-  if ($short) {
-    // todo shortify
+  if ($short && module_exists('shorturl')) {
+    $url = shorturl_shorten($url, TRUE);
   }
 
   return $url;
