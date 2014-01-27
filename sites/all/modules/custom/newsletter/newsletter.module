@@ -44,6 +44,15 @@ function newsletter_theme () {
 /**
  * @param $vars
  */
+function newsletter_preprocess_page (&$vars) {
+  if ('newsletter' == arg(0)) {
+    context_set('newsletter_hash', arg(1));
+  }
+}
+
+/**
+ * @param $vars
+ */
 function theme_newsletter_preprocess_theme (&$vars) {
   if ($data = newsletter_load_data($vars['hash'])) {
     // templates
@@ -162,9 +171,6 @@ function newsletter_nodes ($snid, $send_date, $limit = 5) {
   $params[] = 'issue';
   $params[] = $send_date;
 
-
-  echo $query;
-  var_dump($params);
   // query
   $data = array();
   $result = db_query($query, $params);

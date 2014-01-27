@@ -4,5 +4,6 @@ package = Custom Modules
 core = 6.x
 
 dependencies[] = simplenews
+dependencies[] = context
 
 
