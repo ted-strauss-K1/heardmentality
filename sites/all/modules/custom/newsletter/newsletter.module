@@ -46,7 +46,7 @@ function newsletter_theme () {
  */
 function newsletter_preprocess_page (&$vars) {
   if ('newsletter' == arg(0)) {
-    context_set('newsletter_hash', arg(1));
+    context_set('newsletter', 'hash', arg(1));
   }
 }
 
