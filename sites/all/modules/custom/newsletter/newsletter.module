@@ -1,25 +1,25 @@
 <?php
 
 /**
- *
+ * Newsletter management functions
  */
 require_once __DIR__ . "/newsletter.inc";
-
-/**
- *
- */
-define('NEWSLETTER_DATE', 'newsletter_date');
+require_once __DIR__ . "/newsletter.users.inc";
 
 /**
  * @return array
  */
-function newsletter_menu() {
+function newsletter_menu () {
   $menu = array();
 
+  // the callback to open an email on site
   $menu['newsletter/%'] = array(
     'page callback'   => 'theme',
-    'page arguments'  => array('newsletter', 1),
-    'access callback' => TRUE,
+    'page arguments'  => array(
+      'newsletter',
+      1
+    ),
+    'access callback' => true,
     'type'            => MENU_CALLBACK,
   );
 
@@ -29,11 +29,11 @@ function newsletter_menu() {
 /**
  * @return array
  */
-function newsletter_theme() {
+function newsletter_theme () {
   $theme = array();
 
   $theme['newsletter'] = array(
-    'arguments'            => array('hash' => NULL),
+    'arguments'            => array('hash' => null),
     'template'             => 'newsletter',
     'preprocess functions' => array('theme_newsletter_preprocess_theme'),
   );
@@ -44,90 +44,92 @@ function newsletter_theme() {
 /**
  * @param $vars
  */
-function theme_newsletter_preprocess_theme(&$vars) {
-  if (!$vars['hash']) {
-    $vars['error'] = true;
+function theme_newsletter_preprocess_theme (&$vars) {
+  if ($data = newsletter_load_data($vars['hash'])) {
+    // templates
+    if (NEWSLETTER_WEEKLY == $data['frequency']) {
+      $vars['template_files'][] = 'newsletter-weekly';
+    }
+    if (NEWSLETTER_MONTHLY == $data['frequency']) {
+      $vars['template_files'][] = 'newsletter-monthly';
+    }
+    $vars['template_files'][] = 'newsletter-' . $data['newsletter']['send_date'];
+
+    // vars
+    $vars += $data;
+
     return;
   }
-
-  //
-  $newsletter = newsletter_load($vars['hash']);
-  $nids = newsletter_nodes($newsletter['uid'], $newsletter['date']);
-  $frequency = newsletter_frequency_get($newsletter['uid']);
-
-  //
-  if (NEWSLETTER_WEEKLY == $frequency) {
-    $vars['template_files'][] = 'newsletter-weekly';
-  }
-  if (NEWSLETTER_MONTHLY == $frequency) {
-    $vars['template_files'][] = 'newsletter-monthly';
-  }
-  $vars['template_files'][] = 'newsletter-' . $newsletter['date'];
-
-  // vars
-  $vars['newsletter'] = $newsletter;
-  $vars['nids'] = $nids;
-  $vars['frequency'] = $frequency;
+  $vars['error'] = true;
 }
 
 /**
- * Implements hook_cron()
+ * @param $hash
+ *
+ * @return array|bool
  */
-function newsletter_cron() {
+function newsletter_load_data ($hash) {
+  static $cache = array();
 
-  // schedule newsletters
-  $date = date('Y-m-d');
-  $last = variable_get(NEWSLETTER_DATE, '2014-01-01');
-  if (strtotime($date) > strtotime($last)) {
-    // todo remove the newsletters not sent
-    newsletter_schedule($date);
-  }
+  if (is_null($cache[$hash])) {
+    // load newsletter
+    $newsletter = newsletter_load($hash);
 
-  // send newsletters on cron
-  newsletters_send();
-
-}
-
-/**
- * @param $date
- */
-function newsletter_schedule($date) {
-  // query
-  $query = "SELECT * FROM (SELECT u.uid, IFNULL(nf.code, '%s') code, DATEDIFF(CURDATE(), IFNULL(n.sent_date, '2014-01-01')) days, n.sent_date, n.status FROM {users} u LEFT JOIN {newsletter_frequency} nf ON u.uid = nf.uid LEFT JOIN {newsletter} n ON n.uid = u.uid AND n.status = 1 WHERE u.status = 1 AND u.uid > 0 ORDER BY u.uid ASC, n.status DESC, n.sent_date DESC) data GROUP BY uid, status";
-
-  // schedule
-  $result = db_query($query, NEWSLETTER_WEEKLY);
-  while ($row = db_fetch_array($result)) {
-    switch ($row['code']) {
-      case NEWSLETTER_NEVER :
-        // do nothing
-        break;
-      case NEWSLETTER_WEEKLY :
-      case NEWSLETTER_MONTHLY :
-        if ($row['days'] >= (NEWSLETTER_WEEKLY == $row['code'] ? 7 : 30)) {
-          $hash = newsletter_hash($row['uid'], $date, FALSE);
-          if (newsletter_save($row['uid'], $date, $hash)) {
-            // todo queue with actions?
-          }
-        }
-        break;
+    // error
+    if (!$newsletter) {
+      return $cache[$hash] = false;
     }
+
+    // load subscription
+    $account = (object)array('snid' => $newsletter['snid']);
+    $subscription = simplenews_get_subscription($account);
+    if ($subscription->snid == 0) {
+      return $cache[$hash] = false;
+    }
+
+    // load frequency
+    $frequency = $subscription->freq;
+
+    // load nids
+    $nids = newsletter_load_nodes($newsletter['hash']);
+    if (empty($nids)) {
+      // calculate nids
+      $nids = newsletter_nodes($subscription->snid, $newsletter['send_date']);
+
+      // error
+      if (empty($nids)) {
+        return $cache[$hash] = false;
+      }
+
+      // save nids
+      newsletter_save_nodes($newsletter['hash'], $nids);
+    }
+
+    $cache[$hash] = array(
+      'newsletter' => $newsletter,
+      'nids'       => $nids,
+      'frequency'  => $frequency,
+    );
   }
+
+  return $cache[$hash];
 }
 
 /**
- * @param     $uid
- * @param     $date
+ * todo revise
+ *
+ * @param     $snid
+ * @param     $send_date
  * @param int $limit
  *
  * @return array
  */
-function newsletter_nodes($uid, $date, $limit = 5) {
-
+function newsletter_nodes ($snid, $send_date, $limit = 5) {
   // load tids
   $account = new stdClass();
-  $account->uid = $uid;
+  $account->snid = $snid;
   $subscription = simplenews_get_subscription($account);
+  $uid = $subscription->uid;
   $tids = array_keys($subscription->tids);
 
   // load nids
@@ -144,7 +146,7 @@ function newsletter_nodes($uid, $date, $limit = 5) {
 	    (
 	      SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) sent
 	      FROM newsletter ns INNER JOIN newsletter_nodes nn ON ns.hash = nn.hash
-	      WHERE ns.uid = '%s' AND ns.status = 1 AND nn.nid = n.nid
+	      WHERE ns.snid = '%s' AND ns.status = 1 AND nn.nid = n.nid
 	      ) sent,
 	    (
 	      SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) subscribed
@@ -155,11 +157,14 @@ function newsletter_nodes($uid, $date, $limit = 5) {
   ";
   $params = array();
   $params[] = $uid;
-  $params[] = $uid;
+  $params[] = $snid;
   $params = array_merge($params, $tids);
   $params[] = 'issue';
-  $params[] = $date;
+  $params[] = $send_date;
 
+
+  echo $query;
+  var_dump($params);
   // query
   $data = array();
   $result = db_query($query, $params);
@@ -209,10 +214,87 @@ function newsletter_nodes($uid, $date, $limit = 5) {
   return $nids;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ *
+ */
+define('NEWSLETTER_DATE', 'newsletter_date');
+
+
+/**
+ * Implements hook_cron()
+ */
+function newsletter_cron () {
+
+  // schedule newsletters
+  $date = date('Y-m-d');
+  $last = variable_get(NEWSLETTER_DATE, '2014-01-01');
+  if (strtotime($date) > strtotime($last)) {
+    // todo remove the newsletters not sent
+    newsletter_schedule($date);
+  }
+
+  // send newsletters on cron
+  newsletters_send();
+
+}
+
+/**
+ * @param $date
+ */
+function newsletter_schedule ($date) {
+  // query
+  $query = "SELECT * FROM (SELECT u.uid, IFNULL(nf.code, '%s') code, DATEDIFF(CURDATE(), IFNULL(n.send_date, '2014-01-01')) days, n.send_date, n.status FROM {users} u LEFT JOIN {newsletter_frequency} nf ON u.uid = nf.uid LEFT JOIN {newsletter} n ON n.uid = u.uid AND n.status = 1 WHERE u.status = 1 AND u.uid > 0 ORDER BY u.uid ASC, n.status DESC, n.send_date DESC) data GROUP BY uid, status";
+
+  // schedule
+  $result = db_query($query, NEWSLETTER_WEEKLY);
+  while ($row = db_fetch_array($result)) {
+    switch ($row['code']) {
+      case NEWSLETTER_NEVER :
+        // do nothing
+        break;
+      case NEWSLETTER_WEEKLY :
+      case NEWSLETTER_MONTHLY :
+        if ($row['days'] >= (NEWSLETTER_WEEKLY == $row['code'] ? 7 : 30)) {
+          $hash = newsletter_hash($row['uid'], $date, false);
+          if (newsletter_save($row['uid'], $date, $hash)) {
+            // todo queue with actions?
+          }
+        }
+        break;
+    }
+  }
+}
+
+
 /**
  * @param int $limit
  */
-function newsletters_bulk_send($limit = 20) {
+function newsletters_bulk_send ($limit = 20) {
   for ($i = 0; $i < $limit; $i++) {
     newsletter_send();
   }
@@ -221,7 +303,7 @@ function newsletters_bulk_send($limit = 20) {
 /**
  *
  */
-function newsletter_send($uid = false) {
+function newsletter_send ($uid = false) {
 
   // get newsletter
   $result = db_query("SELECT * FROM {newsletter} WHERE status = '0' LIMIT 1");
@@ -248,7 +330,9 @@ function newsletter_send($uid = false) {
   $subject = "Test HTML email";
   $message = $content;
   $x = drupal_mail('newsletter', $newsletter['hash'], $mailto, language_default(), // todo language??
-    array('body' => $message, 'subject' => $subject), $mailfrom, TRUE);
+    array('body'    => $message,
+          'subject' => $subject
+    ), $mailfrom, true);
 
   var_dump($x);
   exit;
@@ -259,22 +343,21 @@ function newsletter_send($uid = false) {
  * @param $message
  * @param $params
  */
-function newsletter_mail($key, &$message, $params) {
+function newsletter_mail ($key, &$message, $params) {
   $message['subject'] = $params['subject'];
   $message['body'] = $params['body'];
 
   $headers = array(
-    'MIME-Version' => '1.0',
-    'Content-Type' => 'text/html; charset=UTF-8; format=flowed',
+    'MIME-Version'              => '1.0',
+    'Content-Type'              => 'text/html; charset=UTF-8; format=flowed',
     'Content-Transfer-Encoding' => '8Bit',
-    'X-Mailer' => 'Drupal'
+    'X-Mailer'                  => 'Drupal'
   );
 
   foreach ($headers as $key => $value) {
     $message['headers'][$key] = $value;
   }
 }
-
 
 
 if (isset($_REQUEST['newsletter'])) {

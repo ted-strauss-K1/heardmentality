@@ -12,7 +12,7 @@ function newsletter_form_alter(&$form, &$form_state, $form_id) {
     # subscription info
     $form['subscription_notify'] = array(
       '#type'          => 'radios',
-      '#default_value' => newsletter_frequency_get($user->uid),
+      '#default_value' => newsletter_frequency_get($user->mail),
       '#options'       => array(
         NEWSLETTER_NEVER   => '',
         NEWSLETTER_MONTHLY => '',
@@ -52,7 +52,7 @@ function newsletter_frequency_submit(&$form, &$form_state) {
     case 'subscription_submit' :
       global $user;
       $post = $form_state["clicked_button"]["#post"];
-      newsletter_frequency_set($user->uid, $post['subscription_notify']);
+      newsletter_frequency_set($user->mail, $post['subscription_notify']);
       break;
   }
 }
