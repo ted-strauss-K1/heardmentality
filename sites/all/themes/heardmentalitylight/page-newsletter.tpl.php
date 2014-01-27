@@ -17,7 +17,7 @@
   <tr>
     <td style="height: 16px; line-height: 16px; font-size: 14px; font-family: Arial; text-align: center;">
 
-      <?php print l('View this email on website', 'newsletter/' . context_get('newsletter_hash'), array(
+      <?php print l('View this email on website', 'newsletter/' . context_get('newsletter', 'hash'), array(
         'absolute'   => true,
         'attributes' => array(
           'style' => 'text-decoration: none; color: #333;',
