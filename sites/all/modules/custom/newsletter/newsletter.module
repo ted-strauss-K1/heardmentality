@@ -154,6 +154,7 @@ function newsletter_load_data ($hash) {
       'newsletter' => $newsletter,
       'nids'       => $nids,
       'frequency'  => $frequency,
+      'uid'        => $subscription->uid,
     );
   }
 

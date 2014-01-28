@@ -9,6 +9,19 @@
         'style' => 'text-decoration: none; color: #333;',
       ),
     )); ?>
+
+    <?php if ($data['uid']) : ?>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+
+      <?php print l('Unsubscribe', 'user/profile/view/' . $data['uid'], array(
+        'absolute'   => true,
+        'query'      => array('newsletter_action' => 'unsubscribe'),
+        'attributes' => array(
+          'style' => 'text-decoration: none; color: #333;',
+        ),
+      )); ?>
+    <?php endif; ?>
+
   </td>
 </tr>
 

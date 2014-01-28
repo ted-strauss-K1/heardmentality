@@ -5,7 +5,7 @@
  * @param $form_state
  * @param $form_id
  */
-function newsletter_form_alter(&$form, &$form_state, $form_id) {
+function newsletter_form_alter (&$form, &$form_state, $form_id) {
   if ('user_profile_edit_form' == $form_id) {
     global $user;
 
@@ -45,7 +45,7 @@ function newsletter_form_alter(&$form, &$form_state, $form_id) {
  * @param $form
  * @param $form_state
  */
-function newsletter_frequency_submit(&$form, &$form_state) {
+function newsletter_frequency_submit (&$form, &$form_state) {
   $id = $form_state["clicked_button"]["#name"];
 
   switch ($id) {
@@ -54,5 +54,15 @@ function newsletter_frequency_submit(&$form, &$form_state) {
       $post = $form_state["clicked_button"]["#post"];
       newsletter_frequency_set($user->mail, $post['subscription_notify']);
       break;
+  }
+}
+
+
+/**
+ *
+ */
+function newsletter_init () {
+  if (isset($_REQUEST['newsletter_action']) && user_is_anonymous()) {
+    drupal_set_message(t('Log in to unsubscribe'));
   }
 }
