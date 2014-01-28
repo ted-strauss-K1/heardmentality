@@ -187,6 +187,11 @@ function newsletter_nodes ($snid, $send_date, $limit = 5) {
       n.nid,
       n.created,
       n.title,
+      (
+	      SELECT COUNT(*)
+	      FROM cpoll_choices c INNER JOIN cpoll_votes v ON c.chid = v.chid AND v.status = 1
+	      WHERE c.nid = n.nid
+	      ) votes,
 	    (
 	      SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) voted
 	      FROM cpoll_choices c INNER JOIN cpoll_votes v ON c.chid = v.chid AND v.status = 1
@@ -202,7 +207,7 @@ function newsletter_nodes ($snid, $send_date, $limit = 5) {
 	      FROM term_node tn WHERE tn.nid = n.nid AND tn.tid in (" . db_placeholders($tids) . ")
 	      ) subscribed
       FROM node n
-      WHERE n.type = '%s' AND n.created < UNIX_TIMESTAMP('%s') ORDER BY voted ASC, sent ASC, subscribed DESC, n.created DESC
+      WHERE n.type = '%s' AND n.created < UNIX_TIMESTAMP('%s') ORDER BY voted ASC, votes DESC, sent ASC, subscribed DESC, n.created DESC
   ";
   $params = array();
   $params[] = $uid;
