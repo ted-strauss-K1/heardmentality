@@ -49,8 +49,8 @@ function newsletter_theme () {
     'preprocess functions' => array('theme_newsletter_preprocess_theme'),
   );
   $theme['newsletter_header'] = array(
-    'arguments'            => array('data' => null),
-    'template'             => 'newsletter-header',
+    'arguments' => array('data' => null),
+    'template'  => 'newsletter-header',
   );
   $theme['newsletter_content'] = array(
     'arguments'            => array('data' => null),
@@ -58,8 +58,8 @@ function newsletter_theme () {
     'preprocess functions' => array('theme_newsletter_content_preprocess_theme'),
   );
   $theme['newsletter_footer'] = array(
-    'arguments'            => array('data' => null),
-    'template'             => 'newsletter-footer',
+    'arguments' => array('data' => null),
+    'template'  => 'newsletter-footer',
   );
 
   return $theme;
@@ -74,8 +74,12 @@ function theme_newsletter_preprocess_theme (&$vars) {
     $vars['data'] = $data;
 
     // zones
-    foreach (array('footer', 'header', 'content') as $zone) {
-      $vars[$zone] = theme('newsletter_'.$zone, $data);
+    foreach (array(
+               'footer',
+               'header',
+               'content'
+             ) as $zone) {
+      $vars[$zone] = theme('newsletter_' . $zone, $data);
     }
 
     return;
@@ -103,6 +107,7 @@ function theme_newsletter_content_preprocess_theme (&$vars) {
   $vars['template_files'][] = 'newsletter-content-' . date('Y-m', $date);
   $vars['template_files'][] = 'newsletter-content-' . date('Y-m-d', $date);
 }
+
 /**
  * @param $hash
  *
@@ -171,6 +176,9 @@ function newsletter_nodes ($snid, $send_date, $limit = 5) {
   $subscription = simplenews_get_subscription($account);
   $uid = $subscription->uid;
   $tids = array_keys($subscription->tids);
+  if (!$tids) {
+    $tids[] = 0;
+  }
 
   // load nids
   $query = "
@@ -282,8 +290,8 @@ function newsletter_schedule ($date) {
     SELECT snid, uid, mail, code, DATEDIFF(CURDATE(), IFNULL(send_date, '2014-01-01')) days, IFNULL(send_date, '2014-01-01') last_send
     FROM (
       SELECT ss.snid, ss.uid, ss.mail, ss.freq code, n.send_date
-      FROM simplenews_subscriptions ss
-      LEFT JOIN newsletter n ON ss.snid = n.snid AND n.status = 1
+      FROM {simplenews_subscriptions} ss
+      LEFT JOIN {newsletter} n ON ss.snid = n.snid AND n.status = 1
       WHERE ss.activated = 1
       ORDER BY ss.snid ASC, n.send_date DESC) data";
 
@@ -334,22 +342,37 @@ function newsletter_send ($snid = false) {
     $hash = db_result(db_query("SELECT hash FROM {newsletter} WHERE status = 0 ORDER BY send_date ASC LIMIT 1", $snid));
   }
 
-  // get newsletter
-  if ($data = newsletter_load_data($hash)) {
-    // build content
-    $content = theme('newsletter', $hash);
+  // get email
+  $email = db_result(db_query("SELECT s.mail FROM {newsletter} n INNER JOIN {simplenews_subscriptions} s ON s.snid = n.snid WHERE n.hash = '%s'", $hash));
 
-    // todo send mail
-    $mailto = "dyachenko.oleg@gmail.com";
-    $mailfrom = $mailto;
-    $subject = "Heard Mentality Newsletter (".date('d.m.Y', strtotime($data['newsletter']['send_date'])).")";
-    $message = $content;
-    $x = drupal_mail('newsletter', $hash, $mailto, language_default(), // todo language??
-      array(
-        'body'    => $message,
-        'subject' => $subject
-      ), $mailfrom, true);
+  // settings
+  $site_mail = variable_get('site_mail', 'jaminstrauss@gmail.com');
+  $simplenews_send = variable_get('simplenews_send', 0);
+  $simplenews_test = variable_get('simplenews_test_address', '');
+  $simplenews_test = $simplenews_test ? explode(',', $simplenews_test) : array($site_mail);
+
+  // send mails
+  if ((SIMPLENEWS_COMMAND_SEND_NOW == $simplenews_send) || in_array($email, $simplenews_test)) {
+    // get newsletter
+    if ($data = newsletter_load_data($hash)) {
+      // build content
+      $content = theme('newsletter', $hash);
+
+      // send mail
+      $mailto = $email;
+      $mailfrom = $site_mail;
+
+      // send mail
+      drupal_mail('newsletter', $hash, $mailto, language_default(), // todo language??
+        array(
+          'body'    => $content,
+          'subject' => "Heard Mentality Newsletter (" . date('d.m.Y', strtotime($data['newsletter']['send_date'])) . ")"
+        ), $mailfrom, true);
+    }
   }
+
+  // mark as sent
+  newsletter_set_sent($hash, true);
 }
 
 /**
@@ -371,9 +394,4 @@ function newsletter_mail ($key, &$message, $params) {
   foreach ($headers as $key => $value) {
     $message['headers'][$key] = $value;
   }
-}
-
-
-if (isset($_REQUEST['newsletter'])) {
-  newsletter_send();
 }

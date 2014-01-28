@@ -24,12 +24,12 @@
             'absolute'   => true,
             'html'       => true,
             'attributes' => array(
-              'style' => 'padding: 10px;',
+              'style' => 'padding: 5px;',
             ),
           )); ?></td>
 
         <td
-          style="font-family: Arial; font-size: 40px; padding-left: 30px;"><?php print l('Heard Mentality Newsletter', '', array(
+          style="width: 100%;text-align: center; font-family: Arial; font-size: 30px; padding-left: 10px;"><?php print l('Heard Mentality Newsletter', '', array(
             'absolute'   => true,
             'attributes' => array(
               'style' => 'text-decoration: none; color: #333;',

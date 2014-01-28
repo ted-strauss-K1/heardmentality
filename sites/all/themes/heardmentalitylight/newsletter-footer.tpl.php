@@ -8,7 +8,7 @@
 
     <p style=" padding: 0; margin: 0;">
       <a href="http://twitter.com/HeardMentality"
-         style="padding: 0 30px; text-decoration: none"
+         style="padding: 0 30px 0 10px; text-decoration: none"
          target="_blank">
         <img
           style="width: 48px; height: 48px;"
@@ -26,7 +26,7 @@
           src="<?php print url($theme_path . '/images/facebook.png', array('absolute' => true)); ?>">
       </a>
       <a href="https://plus.google.com/102365576412479164048"
-         style="padding: 0 30px; text-decoration: none"
+         style="padding: 0 10px 0 30px; text-decoration: none"
          target="_blank">
         <img
           style="width: 48px; height: 48px;"
