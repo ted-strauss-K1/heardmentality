@@ -109,6 +109,7 @@ function cpoll_create_form() {
   );
   $form['q_quest'] = array(
     '#type'       => 'textarea',
+    '#rows'       => 4,
     '#id'         => 'q_quest',
     '#attributes' => array('rows' => 0, 'cols' => 0),
     '#suffix'     => '<hr class="short2">',

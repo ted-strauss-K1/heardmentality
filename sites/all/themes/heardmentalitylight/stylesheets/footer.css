@@ -1,11 +1,12 @@
+/* MAIN ELEMENTS */
+
 #footer {
   background : #444444 url(../images/footer-shadow2.png) top repeat-x;
   padding    : 0px 0px 10px 0px;
 }
 
-img.dark-logo {
-  float  : right;
-  margin : -8px -4px 0px 0px
+#footer .container .four.columns {
+  float : left;
 }
 
 .black-box {
@@ -19,23 +20,45 @@ img.dark-logo {
   margin : 30px 0px 16px 0;
 }
 
+.cc_footer_link {
+  float  : right;
+  margin : 0px 10px;
+}
+
+.footerfloat {
+  width : 33%;
+}
+
+/*---/ MAIN ELEMENTS */
+
+/* FOUR COLUMNS */
+
 #footer .blurb {
   font-size   : 25px;
   color       : #CCCCCC;
   line-height : 1.1em
 }
 
+.ryde {
+  font-family : 'StRydeRegular', Arial, sans-serif;
+  font-weight : normal;
+  font-style  : normal;
+}
+
 #footer hr.dark {
   border-color : #555555
 }
 
-a.facebook, a.twitter {
-  display : inline-block;
-  margin  : 0 9px 15px 0;
-}
+/* social links */
 
 a.twitter {
-  margin : 0 2px 15px 0;
+  display : inline-block;
+  margin  : 0 2px 15px 0;
+}
+
+a.facebook {
+  display : inline-block;
+  margin  : 0 9px 15px 0;
 }
 
 a.facebook.google {
@@ -50,6 +73,12 @@ a.google i {
   line-height    : 1;
   vertical-align : top;
 }
+
+/*---/ social links */
+
+/*---/ FOUR COLUMNS */
+
+/* SEVEN COLUMNS */
 
 .seven .foot-empty {
   height : 174px;
@@ -69,6 +98,8 @@ a.google i {
   text-shadow   : 0px -1px #111111;
   margin-bottom : 18px;
 }
+
+/* login form */
 
 #footer #user-login,
 #footer #user-login-1 {
@@ -111,10 +142,105 @@ a.google i {
   float : right;
 }
 
-#footer #user-login input.form-text:focus,
-#footer #user-login-1 input.form-text:focus {
-  color : #333333;
+/*---/ login form */
+
+#block-user_profile-user-profile-bottom i {
+  color        : #898989;
+  opacity      : 1;
+  filter       : alpha(opacity=100);
+  margin-right : 0;
 }
+
+label.profile-dark {
+  color          : #888888;
+  text-shadow    : 0 -1px #000000;
+  font-size      : 16px;
+  line-height    : 1em;
+  text-transform : uppercase;
+  padding        : 0px 0px 10px 0px;
+  margin         : -2px 0px 25px 0px;
+}
+
+p.profile-links {
+  color          : #999999;
+  text-shadow    : 0 -1px #000000;
+  font-size      : 14px;
+  line-height    : 1em;
+  text-transform : none;
+  padding        : 0px 0px 10px 0px;
+  margin         : -20px 0px 25px 0px;
+}
+
+p.profile-links a {
+  color       : #CCCCCC;
+  line-height : 1em;
+  cursor      : pointer;
+}
+
+p.profile-links a:hover {
+  color : #FFFFFF;
+}
+
+/* medals */
+
+#footer .medal {
+  font-weight : bold;
+  font-size   : 12px;
+  text-shadow : 0px -1px #000000;
+  color       : #777777;
+  margin      : 0px 0 10px 0px;
+  float       : left;
+}
+
+#footer .medal_box {
+  margin : 0 10px 0 0;
+}
+
+#footer .bronze,
+#footer .silver,
+#footer .gold {
+  cursor                : default;
+  padding               : 2px 8px 2px 8px;
+  margin                : 0px 5px 10px 0px;
+  border-width          : 0px;
+  border-style          : solid;
+  border-color          : #444444;
+  -webkit-border-radius : 50%;
+  -o-border-radius      : 50%;
+  -khtml-border-radius  : 50%;
+  -moz-border-radius    : 50%;
+  border-radius         : 50%;
+}
+
+/*---/ medals */
+
+/*---/ SEVEN COLUMNS */
+
+/* FIVE COLUMNS */
+
+img.dark-logo {
+  float  : right;
+  margin : -8px -4px 0px 0px
+}
+
+#footer .foot-link {
+  text-align : left;
+}
+
+#footer .foot-link a {
+  color       : #CCCCCC;
+  text-shadow : 0 -1px #111111;
+  font-size   : 1.3em;
+}
+
+#footer .foot-link a:hover {
+  color       : #FFFFFF;
+  text-shadow : 0 -1px #000000;
+}
+
+/*---/ FIVE COLUMNS */
+
+/* POLICY */
 
 p.policy {
   margin         : 0px 6px 5px 15px;
@@ -135,7 +261,16 @@ p.policy a:hover {
   color : #FFFFFF;
 }
 
-.cc_footer_link {
-  float  : right;
-  margin : 0px 10px;
-}
+/*---/ POLICY */
+
+
+
+
+
+
+
+
+
+
+
+

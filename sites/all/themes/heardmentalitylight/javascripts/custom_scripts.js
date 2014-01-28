@@ -57,4 +57,3 @@ Drupal.behaviors.fix_circle = function (context) {
     });
 };
 
-

@@ -1,0 +1,1052 @@
+.white-box.poll-box ul.tabs-content > li {
+  margin : 0;
+}
+
+/* RESULTS SECTION */
+
+#results {
+  border-top       : 1px solid #C0C0C0;
+  background-color : #FFFFFF;
+  background-image : -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#F7F7F7));
+  background-image : -webkit-linear-gradient(top, #FFFFFF, #F7F7F7);
+  background-image : -moz-linear-gradient(top, #FFFFFF, #F7F7F7);
+  background-image : -ms-linear-gradient(top, #FFFFFF, #F7F7F7);
+  background-image : -o-linear-gradient(top, #FFFFFF, #F7F7F7);
+  background-image : linear-gradient(top, #FFFFFF, #F7F7F7);
+  padding-bottom   : 18px;
+}
+
+.vote-results {
+  padding : 0 2%;
+}
+
+.vote-results ul {
+  margin  : 0;
+  padding : 0;
+}
+
+.vote-results li.part {
+  float  : left;
+  width  : 49.3%;
+  margin : 0;
+}
+
+.vote-results li div.space {
+  border           : 1px solid #D7D7D7;
+  padding          : 2%;
+  background-color : #E4E4E4;
+}
+
+.vote-results .filter form {
+  float  : left;
+  margin : 0;
+  width  : 100%;
+}
+
+.vote-results .filter form .form-item {
+  margin : 0;
+}
+
+.vote-results .filter form select {
+  margin    : 0 0 12px;
+  width     : auto;
+  min-width : 150px;
+  float     : none;
+}
+
+.vote-results li.full div.space {
+  padding : 2% 2% 0;
+}
+
+.vote-results li.part.margin {
+  margin-left : 1.4%;
+}
+
+.vote-results li.full {
+  clear  : left;
+  float  : left;
+  margin : 10px 0;
+  width  : 100%;
+}
+
+.vote-results .filter #chart_div {
+  clear            : left;
+  float            : left;
+  width            : 100% !important;
+  background-color : #FFFFFF;
+}
+
+.vote-results #insight-view {
+  clear      : left;
+  min-height : 284px;
+}
+
+.vote-results #container_graph,
+.vote-results .map {
+  clear            : left;
+  background-color : #FFFFFF;
+}
+
+.vote-results .legend {
+  clear : both;
+}
+
+.vote-results .legend dd {
+  float       : left;
+  margin      : 0 5px 0 0;
+  font-family : 'DINBoldRegular', 'Open Sans Condensed', Arial, sans-serif;
+  font-style  : normal;
+  font-weight : normal;
+  font-size   : 12px;
+}
+
+.vote-results .legend dl {
+  display        : inline-block;
+  margin         : 0 14px 0 0;
+  vertical-align : top;
+  padding-bottom : 2%;
+}
+
+.vote-results .legend dt {
+  float            : left;
+  text-indent      : -9999%;
+  background-color : #CCCCCC;
+  width            : 18px;
+}
+
+.vote-results span.highlight {
+  padding : 0 5px;
+  color   : #FFFFFF;
+}
+
+p.result-title {
+  font-size   : 15px;
+  color       : #777777;
+  text-shadow : 0 1px #FFFFFF;
+  line-height : 18px;
+  margin      : 0 0 10px;
+  float       : left;
+  width       : 100%;
+}
+
+span.no_show {
+  padding    : 0 17px;
+  color      : #EF3D3B;
+  font-style : italic;
+  display    : inline-block;
+}
+
+.vote-results .legend dt {
+  border-radius         : 200px;
+  -o-border-radius      : 200px;
+  -moz-border-radius    : 200px;
+  -webkit-border-radius : 200px;
+  -khtml-border-radius  : 200px;
+}
+
+.vote-results ul li img {
+  width : auto;
+}
+
+/*---/ RESULTS SECTION */
+
+/* DEBATE SECTION */
+
+/* debate work area */
+
+#debate_work_area {
+  padding   : 0 30px 22px;
+  direction : ltr;
+}
+
+h6#add-arg.expanded {
+  display : none;
+}
+
+h6#add-arg,
+h6#deb-ana {
+  display : inline-block;
+  float   : right;
+  margin  : 0 0 0 7px;
+}
+
+h6#add-arg a,
+h6#deb-ana a {
+  color : #7B7D01;
+}
+
+h6#add-arg:after,
+h6#deb-ana:after {
+  border-color : #7B7D01 transparent transparent;
+  margin-top   : -2px;
+}
+
+h6#add-arg.expanded:after,
+h6#deb-ana.expanded:after {
+  border-color : transparent transparent #7B7D01;
+  margin-top   : -6px;
+}
+
+.stat {
+  color       : #000000;
+  text-shadow : 0px 1px #EEEEEE;
+  font-size   : 30px;
+}
+
+.leave-a-comment,
+#analytics-area {
+  clear       : both;
+  padding-top : 21px;
+}
+
+#argument-add-form {
+  margin   : 0;
+  position : relative;
+  padding  : 0;
+}
+
+#argument-add-form table {
+  width : 100%;
+}
+
+#argument-add-form table td {
+  vertical-align : top;
+}
+
+#argument-add-form table td.first {
+  width : 100%;
+}
+
+.argument-form > label,
+.reference-form > label {
+  display        : block;
+  cursor         : text;
+  color          : #362750;
+  font           : italic bold 12px/15px Arial, "Lucida Grande", sans-serif;
+  padding-bottom : 8px;
+  text-transform : uppercase;
+}
+
+#argument-add-form .form-item {
+  margin : 0;
+}
+
+#deb_title {
+  margin     : 0;
+  min-height : 90px;
+  width      : 98%;
+}
+
+.reference-form > label span {
+  color          : #666666;
+  font           : 12px/15px Arial, "Lucida Grande", sans-serif;
+  font-weight    : normal;
+  font-style     : normal;
+  text-transform : none;
+}
+
+#deb_title-wrapper,
+#url-wrapper {
+  padding-bottom : 46px;
+}
+
+#argument-add-form span#deb-err {
+  display : block;
+}
+
+#deb-err {
+  color : #CC2027;
+}
+
+#argument-add-form .assign {
+  float       : none;
+  margin      : 0;
+  padding     : 0 0 12px;
+  text-align  : left;
+  font-size   : 12px/15px inherit;
+  font-weight : bold;
+  color       : #4C4C4C;
+  width       : 100%;
+  white-space : nowrap;
+}
+
+#argument-add-form .assign span.label {
+  font-size   : 12px;
+  line-height : 15px;
+  font-weight : bold;
+  margin      : 0 0 0 26px;
+  float       : left;
+}
+
+#argument-add-form .assign span.small_neg,
+#argument-add-form .assign span.small_pos {
+  position : relative;
+  top      : 1px;
+}
+
+#argument-add-form .assign span {
+  float  : right;
+  margin : 0 0 0 12px;
+}
+
+/* small circles (plus & minus)*/
+
+span.small_neg,
+span.small_pos,
+#debate_list_area .arg p.position-minus strong,
+#debate_list_area .arg p.position-plus strong {
+  background-color : #C2499B;
+  display          : inline-block;
+  font-family      : Verdana, Arial, sans-serif !important;
+  font-size        : 13px;
+  height           : 13px;
+  line-height      : 12px;
+  text-align       : center;
+  width            : 13px;
+  color            : #FFFFFF;
+}
+
+span.small_pos,
+#debate_list_area .arg p.position-plus strong {
+  background-color : #55BA59;
+  font-size        : 12px;
+  line-height      : 13px;
+  font-family      : Arial, sans-serif !important;
+}
+
+span.small_pos.fixes,
+#debate_list_area .arg p.position-plus strong.fixes {
+  line-height : 14px;
+}
+
+/*---/ small circles (plus & minus)*/
+
+/* value select */
+
+#argument-add-form .value-select {
+  width   : 100%;
+  margin  : 0 0 6px;
+  padding : 0;
+}
+
+.value-select {
+  float   : right;
+  margin  : 0px 0px -10px 0px;
+  padding : 0px 0px;
+}
+
+.value-select table,
+.value-select table td.first {
+  width : 100%;
+}
+
+.value-select table td {
+  vertical-align : top;
+}
+
+.value-select label {
+  font-size   : 12px;
+  line-height : 15px;
+  padding     : 0;
+  margin      : 0 8px 0 26px;
+  position    : relative;
+  top         : -2px;
+  max-width   : 140px;
+  overflow    : hidden;
+}
+
+label.value {
+  float       : left;
+  font-weight : normal;
+  padding     : 0px 10px 0px 0px;
+}
+
+.value-select .form-item {
+  float       : right;
+  margin-left : 8px;
+}
+
+.value-select .form-item select {
+  margin     : 0;
+  display    : block;
+  visibility : hidden;
+}
+
+/*---/ value select */
+
+#argument-add-form .add_button {
+  position : absolute;
+  top      : 127px;
+  width    : 70%;
+}
+
+#argument-add-form .form-submit {
+  float  : left;
+  left   : 0;
+  margin : 12px 15px 0 0;
+}
+
+#argument-add-form .add_button .argument-form,
+#argument-add-form .add_button .reference-form {
+  padding-top : 20px;
+}
+
+#argument-add-form .add_button .argument-form a,
+#argument-add-form .add_button .reference-form a {
+  color : #924C9D;
+  font  : bold 12px/15px Arial, "Lucida Grande", sans-serif;
+}
+
+#argument-add-form .add_button .argument-form a:hover,
+#argument-add-form .add_button .reference-form a:hover {
+  color           : #924C9D;
+  text-decoration : underline;
+}
+
+.argument-form #link_arg-wrapper a span.desc {
+  color      : #777777;
+  font-style : italic;
+  font-size  : 10px;
+  position   : relative;
+  top        : -6px;
+}
+
+.argument-form #link_arg-wrapper a span.desc:hover {
+  text-decoration : none;
+}
+
+/* stats area */
+
+#analytics-area > h2:first-child {
+  margin      : 0;
+  line-height : 15px;
+  font-size   : 12px;
+}
+
+#analytics-area > h2:first-child span {
+  color          : #362750;
+  font           : bold italic 12px/15px Arial, sans-serif;
+  text-transform : uppercase;
+  padding        : 0 30px 0;
+  display        : inline-block;
+  padding        : 0 0 16px;
+}
+
+#chart-strength {
+  left     : -10px;
+  position : relative;
+}
+
+/*---/ stats area */
+
+/*---/ debate work area */
+
+/* debate list area */
+
+#debate_list_area {
+  background            : 0 none;
+  border                : 0 none;
+  font                  : 12px/15px Arial, "Lucida Grande", sans-serif;
+  padding               : 0;
+  min-height            : 182px;
+  border-radius         : 0px;
+  -moz-border-radius    : 0px;
+  -webkit-border-radius : 0px;
+  -o-border-radius      : 0px;
+  -khtml-border-radius  : 0px;
+}
+
+#debate_list_area > h2:first-child {
+  margin         : 0;
+  color          : #362750;
+  font           : bold italic 12px/15px Arial, sans-serif;
+  text-transform : uppercase;
+  padding        : 0 30px 6px;
+  border-bottom  : 1px solid #C0C0C0;
+  position       : relative;
+  z-index        : 15;
+}
+
+#debate_list_area > h2:first-child span {
+  display : inline-block;
+  float   : left;
+  padding : 0 0 16px;
+}
+
+/* show only */
+
+.show_only {
+  position : relative;
+  float    : left;
+  clear    : left;
+}
+
+.white-box .show_only span.button {
+  font-style      : normal;
+  padding         : 6px 12px 4px 10px !important;
+  text-decoration : none;
+  text-transform  : none;
+  position        : relative;
+  top             : -5px;
+  margin-right    : 16px;
+}
+
+.show_only .inc {
+  display : inline-block;
+}
+
+.show_only .inc form {
+  margin      : 0;
+  padding-top : 8px;
+}
+
+.show_only .inc form input[type="checkbox"] {
+  margin   : 0 5px 0 0;
+  position : relative;
+  top      : 1px;
+}
+
+.show_only .inc form label {
+  color          : #666666;
+  text-transform : none;
+  font-style     : normal;
+  display        : inline;
+}
+
+.show_only .popup {
+  background-color   : #FFFFFF;
+  border             : 1px solid #C3C3C3;
+  box-shadow         : 2px 3px 3px rgba(195, 195, 195, 0.6);
+  -moz-box-shadow    : 2px 3px 3px rgba(195, 195, 195, 0.6);
+  -webkit-box-shadow : 2px 3px 3px rgba(195, 195, 195, 0.6);
+  -o-box-shadow      : 2px 3px 3px rgba(195, 195, 195, 0.6);
+  -khtml-box-shadow  : 2px 3px 3px rgba(195, 195, 195, 0.6);
+  left               : 0;
+  position           : absolute;
+  top                : 26px;
+  z-index            : 1001;
+  padding            : 7px 5px;
+  white-space        : nowrap;
+}
+
+.show_only .popup.hidden {
+  display : none;
+}
+
+.show_only .popup.visible {
+  display : block;
+}
+
+.show_only span.title {
+  color          : #666666;
+  font-weight    : bold;
+  font-size      : 13px;
+  text-transform : none;
+  font-style     : normal;
+  display        : block !important;
+  float          : none !important;
+  padding        : 0 0 4px !important;
+}
+
+.show_only span.title.reset {
+  cursor      : pointer;
+  font-style  : italic;
+  font-weight : normal;
+  padding     : 8px 0 0 !important;
+  text-align  : right;
+}
+
+.show_only span.title.reset:hover {
+  text-decoration : underline;
+}
+
+.show_only dl {
+  overflow   : hidden;
+  margin-top : 4px;
+}
+
+.show_only dd {
+  float : right;
+  width : 85px;
+}
+
+.show_only dt {
+  margin-right   : 95px;
+  color          : #4C4C4C;
+  font-size      : 12px;
+  line-height    : 15px;
+  text-transform : none;
+  font-style     : normal;
+  font-weight    : normal;
+  padding        : 3px 0 0;
+}
+
+.show_only dd a {
+  float              : left;
+  display            : block;
+  width              : 18px;
+  height             : 14px;
+  border             : 1px solid #C3C3C3;
+  padding            : 2px;
+  text-align         : center;
+  margin             : 0 0 0 4px;
+  background-color   : #CECECE;
+  background         : -webkit-gradient(linear, left top, left bottom, from(#F1F1F1), to(#CECECE));
+  background         : -webkit-linear-gradient(top, #F1F1F1, #CECECE);
+  background         : -moz-linear-gradient(top, #F1F1F1, #CECECE);
+  background         : -ms-linear-gradient(top, #F1F1F1, #CECECE);
+  background         : -o-linear-gradient(top, #F1F1F1, #CECECE);
+  background         : linear-gradient(top, #F1F1F1, #CECECE);
+  -webkit-box-shadow : inset 0px 0px 2px 0px #FFFFFF;
+  -moz-box-shadow    : inset 0px 0px 2px 0px #FFFFFF;
+  -o-box-shadow      : inset 0px 0px 2px 0px #FFFFFF;
+  -khtml-box-shadow  : inset 0px 0px 2px 0px #FFFFFF;
+  box-shadow         : inset 0px 0px 2px 0px #FFFFFF;
+}
+
+.show_only dd a:hover {
+  background-color : #C4C4C4;
+  background       : -webkit-gradient(linear, left top, left bottom, from(#EFEFEF), to(#C4C4C4));
+  background       : -webkit-linear-gradient(top, #EFEFEF, #C4C4C4);
+  background       : -moz-linear-gradient(top, #EFEFEF, #C4C4C4);
+  background       : -ms-linear-gradient(top, #EFEFEF, #C4C4C4);
+  background       : -o-linear-gradient(top, #EFEFEF, #C4C4C4);
+  background       : linear-gradient(top, #EFEFEF, #C4C4C4);
+}
+
+.show_only dd span {
+  float          : none !important;
+  padding        : 0 !important;
+  font-weight    : normal;
+  font-style     : normal;
+  text-transform : none;
+}
+
+.show_only dd a.neutral span.small_neg {
+  position : relative;
+  left     : -8px;
+}
+
+/*---/ show only */
+
+#debate_list_area .ui-tabs-nav {
+  margin     : -25px 0 0;
+  padding    : 0 30px 0 0;
+  position   : relative;
+  float      : right;
+  border     : 0 none;
+  color      : #666666;
+  background : 0 none;
+}
+
+#debate_list_area .ui-tabs-nav li {
+  background  : none transparent;
+  border      : 0 none;
+  color       : #666666;
+  font-weight : normal;
+  display     : block;
+  float       : left;
+  height      : auto;
+  margin      : 0 0 0 12px;
+  padding     : 0;
+  width       : auto;
+  line-height : 18px;
+  top         : 0;
+}
+
+#debate_list_area .ui-tabs-nav li a {
+  float           : none;
+  display         : block;
+  text-decoration : none;
+  width           : auto;
+  height          : auto;
+  padding         : 8px 10px !important;
+  line-height     : 16px;
+  margin          : 0;
+  font-size       : 13px;
+  color           : #666666;
+  font-weight     : bold;
+  text-transform  : lowercase;
+  font-style      : normal;
+}
+
+#debate_list_area .ui-tabs-nav li a:hover {
+  text-decoration : underline;
+}
+
+#debate_list_area .ui-tabs-nav li.ui-state-active a {
+  background   : #FFFFFF;
+  position     : relative;
+  top          : 1px;
+  padding      : 6px 9px 9px !important;
+  border       : solid #C0C0C0;
+  border-width : 1px 1px 0;
+}
+
+#debate_list_area .ui-tabs-nav li.ui-state-active a:hover {
+  text-decoration : none;
+}
+
+#debate_list_area .ui-tabs-panel {
+  position   : relative;
+  min-height : 100px;
+  border     : 0 none;
+  padding    : 0;
+  z-index    : 13;
+}
+
+#debate_list_area .ui-tabs .ui-tabs-panel {
+  border  : 0 none;
+  padding : 0;
+}
+
+#load-deb-statics iframe {
+  width : 100% !important;
+}
+
+#debate_list_area ul.argument_box {
+  padding    : 0 25px 0 42px;
+  border     : 0 none;
+  margin     : 0;
+  font-size  : 12px;
+  list-style : none outside none;
+  position   : relative;
+  z-index    : 1000;
+  font-size  : 12px;
+}
+
+#debate_list_area ul.argument_box li {
+  border      : 0 none;
+  padding     : 0;
+  margin      : 0;
+  border-left : 1px solid #D7D7D7;
+}
+
+#debate_list_area ul.argument_box > li {
+  padding    : 12px 0 0;
+  margin     : 11px 0 0;
+  background : url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
+}
+
+#debate_list_area .arg {
+  position : relative;
+  padding  : 0 40px 0 58px;
+  margin   : 0;
+}
+
+#debate_list_area .replies {
+  padding    : 0 0 0 58px;
+  clear      : both;
+  min-height : 17px;
+  position   : relative;
+}
+
+#debate_list_area .arg span.sum {
+  background-color : #FFFFFF;
+  left             : -30px;
+  padding          : 18px 0 5px;
+  position         : absolute;
+  top              : -11px;
+}
+
+#debate_list_area .arg span.sum.small {
+  left : -20px;
+}
+
+#debate_list_area .arg span.sum.middle {
+  left : -25px;
+}
+
+#debate_list_area .arg .argument_body,
+#debate_list_area .reply_body {
+  margin      : 0;
+  font-size   : 12px;
+  line-height : 18px;
+  color       : #4C4C4C;
+  padding     : 0 0 9px;
+}
+
+#debate_list_area .reply_body {
+  display : inline;
+  padding : 0;
+}
+
+#debate_list_area .arg .argument_body p,
+#debate_list_area .reply_body p {
+  margin      : 0;
+  font-size   : 12px;
+  line-height : 18px;
+  display     : inline;
+  word-wrap   : break-word;
+}
+
+#debate_list_area .arg .argument_body .translate,
+#debate_list_area .reply_body .translate {
+  color       : #55BA59;
+  font-weight : bold;
+  display     : inline;
+}
+
+#debate_list_area .arg .argument_body .translate *,
+#debate_list_area .reply_body .translate * {
+  display : inline;
+}
+
+#debate_list_area .arg .argument_body .translate a,
+#debate_list_area .arg .argument_body .sq,
+#debate_list_area .reply_body .translate a,
+#debate_list_area .reply_body .sq {
+  color       : #55BA59;
+  white-space : nowrap;
+}
+
+#debate_list_area .arg .argument_body .translate a span,
+#debate_list_area .arg .argument_body .sq,
+#debate_list_area .reply_body .translate a span,
+#debate_list_area .reply_body .sq {
+  font-size   : 12px !important;
+  line-height : 18px !important;
+  display     : inline;
+  font-weight : bold;
+  white-space : nowrap;
+}
+
+#debate_list_area .arg .argument_body .translate a:hover,
+#debate_list_area .arg .argument_body .sq:hover,
+#debate_list_area .arg .argument_body .sq:hover a,
+#debate_list_area .reply_body .translate a:hover,
+#debate_list_area .reply_body .sq:hover,
+#debate_list_area .reply_body .sq:hover a {
+  color : #0C6926;
+}
+
+#debate_list_area .arg .argument_body font:first-child,
+#debate_list_area .reply_body font:first-child {
+  background : none #E1E43C !important;
+}
+
+#debate_list_area .arg .position {
+  padding : 0 0 12px;
+  color   : #888888;
+  float   : left;
+}
+
+#debate_list_area .arg p.position-minus,
+#debate_list_area .arg p.position-plus {
+  float       : left;
+  margin      : 0 17px 0 0;
+  font-size   : 12px;
+  line-height : 18px;
+}
+
+#debate_list_area .arg p.position-minus:last-child,
+#debate_list_area .arg p.position-plus:last-child {
+  margin : 0;
+}
+
+#debate_list_area .arg p.position-minus strong,
+#debate_list_area .arg p.position-plus strong {
+  margin-right : 1px;
+  font-weight  : normal;
+}
+
+#debate_list_area .reply_wrapper {
+  margin : 0;
+}
+
+#debate_list_area .reply_wrapper legend a,
+#debate_list_area .reply_wrapper legend,
+#debate_list_area .reply_wrapper legend span {
+  background  : none transparent;
+  padding     : 0;
+  color       : #888888; /* was #ccc */
+  font-size   : 12px;
+  line-height : 15px;
+  font-weight : bold;
+  cursor      : pointer;
+}
+
+#debate_list_area .reply_wrapper legend span {
+  display : inline-block;
+  padding : 1px 4px;
+}
+
+#debate_list_area .reply_wrapper legend span:hover,
+#debate_list_area .reply_wrapper legend a:hover span {
+  background : none #777777; /* was #ccc */
+  color      : #FFFFFF;
+}
+
+#debate_list_area fieldset.collapsible legend {
+  display : block;
+}
+
+#debate_list_area fieldset.collapsible.collapsed legend {
+  display : block;
+}
+
+#debate_list_area li.one_reply {
+  position   : relative;
+  padding    : 0 40px 10px 0 !important;
+  margin     : 0 0 12px !important;
+  border     : 0 none !important;
+  background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+}
+
+#debate_list_area li.one_reply span.negative,
+#debate_list_area li.one_reply span.positive {
+  position         : absolute;
+  top              : 14px;
+  left             : -100px;
+  display          : block;
+  height           : 19px;
+  width            : 20px;
+  padding          : 0 0 2px 0px;
+  border           : 1px solid #D7D7D7;
+  font             : 22px/18px Verdana, sans-serif;
+  background-color : #FFFFFF;
+  text-align       : center;
+  color            : #C2499B;
+}
+
+#debate_list_area li.one_reply span.negative.fixes,
+#debate_list_area li.one_reply span.positive.fixes {
+  width   : 19px;
+  padding : 0 0 2px 1px;
+}
+
+#debate_list_area li.one_reply span.positive {
+  color : #55BA59;
+  font  : 19px/18px Verdana, sans-serif;
+}
+
+#debate_list_area li.one_reply span.userinfo-reply {
+  color     : #4C4C4C;
+  font-size : 12px;
+}
+
+#debate_list_area li.one_reply span.userinfo-reply a {
+  color           : #000000;
+  text-decoration : none;
+  font-style      : italic;
+}
+
+#debate_list_area li.one_reply span.userinfo-reply a:hover {
+  text-decoration : underline;
+}
+
+#debate_list_area li.one_reply span.userinfo-reply span.date {
+  color : #CCCCCC;
+}
+
+#debate_list_area li.one_reply .position-question {
+  background-color : transparent;
+  left             : 0;
+  padding          : 13px 0 0;
+}
+
+#debate_list_area li.one_reply .position-question .comment-agree {
+  vertical-align : top;
+}
+
+#debate_list_area li.one_reply ul.control_links {
+  margin         : 0 0 0 82px;
+  float          : none;
+  display        : inline-block;
+  vertical-align : top;
+  list-style     : none outside none;
+  padding        : 0;
+  position       : relative;
+  z-index        : 1000;
+  font-size      : 12px;
+}
+
+#debate_list_area .no_debate {
+  padding          : 40px 30px;
+  font-style       : italic;
+  color            : #4C4C4C;
+  border           : 0 none;
+  background-color : transparent;
+}
+
+#debate_list_area .arg span.sum span {
+  color            : #FFFFFF;
+  display          : inline-block;
+  font             : 24px/28px Arial, sans-serif;
+  height           : 28px;
+  padding          : 17px 5px 15px;
+  text-align       : center;
+  width            : 50px;
+  background-color : #D7D7D7;
+}
+
+#debate_list_area .arg span.sum.middle span {
+  font    : 22px/26px Arial, sans-serif;
+  height  : 26px;
+  padding : 13px 8px 11px;
+  width   : 34px;
+}
+
+#debate_list_area .arg span.sum.small span {
+  font    : 18px/20px Arial, sans-serif;
+  height  : 20px;
+  padding : 10px 7px;
+  width   : 26px;
+}
+
+#debate_list_area .arg span.sum span.positive {
+  background-color : #55BA59;
+}
+
+#debate_list_area .arg span.sum span.negative {
+  background-color : #C2499B;
+}
+
+#debate_list_area div.warning {
+  margin  : 25px 30px;
+  padding : 7px 5px 5px;
+}
+
+#debate_list_area li.one_reply span.negative,
+#debate_list_area li.one_reply span.positive,
+#debate_list_area .arg span.sum span {
+  border-radius         : 200px;
+  -o-border-radius      : 200px;
+  -moz-border-radius    : 200px;
+  -webkit-border-radius : 200px;
+  -khtml-border-radius  : 200px;
+}
+
+#debate_list_area .ui-tabs-panel,
+#debate_list_area .ui-tabs-nav {
+  border-radius         : 0px;
+  -moz-border-radius    : 0px;
+  -webkit-border-radius : 0px;
+  -o-border-radius      : 0px;
+  -khtml-border-radius  : 0px;
+}
+
+#debate_list_area .arg p.position-minus strong,
+#debate_list_area .arg p.position-plus strong {
+  -moz-border-radius    : 6px;
+  -webkit-border-radius : 6px;
+  -o-border-radius      : 6px;
+  -khtml-border-radius  : 6px;
+  border-radius         : 6px;
+}
+
+#debate_list_area .ui-tabs-nav li.ui-state-active a {
+  -webkit-border-radius : 3px 3px 0 0;
+  -moz-border-radius    : 3px 3px 0 0;
+  border-radius         : 3px 3px 0 0;
+  -khtml-border-radius  : 3px 3px 0 0;
+  -o-border-radius      : 3px 3px 0 0;
+}
+
+#debate_list_area li.one_reply .position-question strong.motivat {
+  display : none !important;
+}
+
+/*---/ debate list area */
+
+/*---/ DEBATE SECTION */

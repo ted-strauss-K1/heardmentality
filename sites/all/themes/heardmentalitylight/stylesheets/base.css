@@ -533,6 +533,9 @@ input[type="button"].full-width {
 .dd_button,
 .dd_button:hover,
 #moderation-issues-form legend a,
+#moderation-arguments-form legend a,
+#moderation-comments-form legend a,
+#moderation-users-form legend a,
 #choices-wrapper legend a,
 #taxonomy-wrapper legend a,
 #location-wrapper legend a {
@@ -589,6 +592,9 @@ input[type="button"].full-width {
 
 .ie9 .dd_button,
 .ie9 #moderation-issues-form legend a,
+.ie9 #moderation-arguments-form legend a,
+.ie9 #moderation-comments-form legend a,
+.ie9 #moderation-users-form legend a,
 .ie9 #choices-wrapper legend a,
 .ie9 #taxonomy-wrapper legend a,
 .ie9 #location-wrapper legend a {
@@ -597,6 +603,9 @@ input[type="button"].full-width {
 
 .ie .dd_button:hover,
 .ie #moderation-issues-form legend a:hover,
+.ie #moderation-arguments-form legend a:hover,
+.ie #moderation-comments-form legend a:hover,
+.ie #moderation-users-form legend a:hover,
 .ie #choices-wrapper legend a:hover,
 .ie #taxonomy-wrapper legend a:hover,
 .ie #location-wrapper legend a:hover {
@@ -606,6 +615,9 @@ input[type="button"].full-width {
 
 .dd_button:hover,
 #moderation-issues-form legend a:hover,
+#moderation-arguments-form legend a:hover,
+#moderation-comments-form legend a:hover,
+#moderation-users-form legend a:hover,
 #choices-wrapper legend a:hover,
 #taxonomy-wrapper legend a:hover,
 #location-wrapper legend a:hover {
@@ -619,6 +631,9 @@ input[type="button"].full-width {
 
 .dd_button:after,
 #moderation-issues-form legend a:after,
+#moderation-arguments-form legend a:after,
+#moderation-comments-form legend a:after,
+#moderation-users-form legend a:after,
 #choices-wrapper legend a:after,
 #taxonomy-wrapper legend a:after,
 #location-wrapper legend a:after {
@@ -628,7 +643,7 @@ input[type="button"].full-width {
   content      : "";
   display      : block;
   height       : 0;
-  margin-top   : -6px;
+  margin-top   : -7px;
   position     : absolute;
   right        : 11px;
   top          : 50%;
@@ -636,6 +651,9 @@ input[type="button"].full-width {
 }
 
 #moderation-issues-form .collapsed legend a:after,
+#moderation-arguments-form .collapsed legend a:after,
+#moderation-comments-form .collapsed legend a:after,
+#moderation-users-form .collapsed legend a:after,
 #choices-wrapper .collapsed legend a:after,
 #taxonomy-wrapper .collapsed legend a:after,
 #location-wrapper .collapsed legend a:after {
@@ -828,6 +846,9 @@ legend span {
 textarea#Question, input#Answer, input#Answer3, input#info, textarea#Comment, textarea#Reply, input#Answer, input#Answer3, input#info, textarea#info, input.add-answer, input.submit-issue,
 .dd_button,
 #moderation-issues-form legend a,
+#moderation-arguments-form legend a,
+#moderation-comments-form legend a,
+#moderation-users-form legend a,
 #choices-wrapper legend a,
 #taxonomy-wrapper legend a,
 #location-wrapper legend a {

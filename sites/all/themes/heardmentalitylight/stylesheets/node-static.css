@@ -1,0 +1,120 @@
+/* COMMON ELEMENTS */
+
+.node-static {
+  margin-bottom : 15px;
+}
+
+.node-static p {
+  margin : 12px 0;
+}
+
+.node-static h1 {
+  font-family   : 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+  font-size     : 28px;
+  line-height   : 34px;
+  margin-bottom : 8px;
+}
+
+.node-static p br {
+  display : none;
+}
+
+h1.h1_privacy {
+  margin-top : 25px;
+}
+
+/*---/ COMMON ELEMENTS*/
+
+/* WHITE BOX */
+
+#about_us_page_content h2.din {
+  color      : #364E79;
+  margin-top : 0.7em;
+}
+
+#about_us_page_content h2.din:first-child {
+  margin-top : 0;
+}
+
+#about_us_page_content .innn {
+  padding : 0 1em 0 1.2em;
+}
+
+#about_us_page_content .innn ul {
+  list-style : disc outside;
+  padding    : 0 0 0 40px;
+}
+
+#about_us_page_content .innn ul li {
+  margin-bottom : 8px;
+}
+
+#about_us_page_content .button_donate {
+  margin : 4px 0 8px 0;
+}
+
+#about_us_page_content a.nice_reach {
+  background : url(../images/arrow_right.png) no-repeat scroll 0 3px transparent;
+  display    : inline-block;
+  color      : #934D9E;
+  padding    : 5px 0 5px 26px;
+  margin     : 3px 0;
+}
+
+#about_us_page_content a.nice_reach:hover {
+  text-decoration : underline;
+}
+
+#about_us_page_content span.highlighted {
+  color : #934D9E;
+}
+
+/* table */
+
+#about_us_page_content #guide table {
+  width  : 100%;
+  margin : 20px 0;
+}
+
+#about_us_page_content #guide table td {
+  padding : 5px 5px 5px 10px;
+  border  : 1px solid #C0C0C0;
+}
+
+#about_us_page_content #guide table td ul {
+  margin-bottom : 0;
+  padding       : 0 0 0 30px;
+}
+
+#about_us_page_content #guide table td ul li {
+  margin : 4px 0;
+}
+
+/*---/ table */
+
+/*---/ WHITE BOX */
+
+/* DARK GREY BOX */
+
+ul.sub-pages-menu {
+  padding : 0;
+}
+
+ul.sub-pages-menu ul {
+  padding : 5px 0 0 1.2em;
+}
+
+ul.sub-pages-menu li {
+  margin-bottom : 0.5em;
+}
+
+ul.sub-pages-menu a {
+  color           : #362750;
+  text-decoration : none;
+}
+
+ul.sub-pages-menu a:hover {
+  color : #FFFFFF;
+}
+
+/*---/ DARK GREY BOX */
