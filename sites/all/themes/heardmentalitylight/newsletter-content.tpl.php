@@ -12,13 +12,14 @@
       $choices_count = count($choices);
 
       $node = node_load($nid);
+      $node->debate = argument_get_list($node->nid, $node->info);
       $account = user_load($node->uid);
 
       ?>
 
-      <table width="100%" style="min-height: 200px;">
+      <table width="100%" style="margin-top: 20px;">
         <tr>
-          <td rowspan="1" colspan="1" style="padding: 20px 0 10px 0;">
+          <td rowspan="1" colspan="1" style="padding: 0; margin: 0;">
             <div style="background: #ccc; padding: 10px;"><?php
               print l($node->title, 'node/' . $nid, array(
                 'absolute'   => true,
@@ -28,6 +29,14 @@
               ));
               ?>?
             </div>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1" style="font-family: Arial; padding: 4px; height: 16px; font-size: 12px; text-align: right; background: #eee;">
+            <?php print intval($node->info['argument']); ?>&nbsp;<?php print t('Arguments'); ?>&nbsp;|&nbsp;
+            <?php print intval($node->info['resource']); ?>&nbsp;<?php print t('References'); ?>&nbsp;|&nbsp;
+            <?php print intval($node->votecount); ?>&nbsp;<?php print t('Votes'); ?>
+
           </td>
         </tr>
         <?php foreach ($choices as $chid => $choice) : $i++;
