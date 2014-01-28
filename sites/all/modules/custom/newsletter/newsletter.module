@@ -356,18 +356,25 @@ function newsletter_send ($snid = false) {
     // get newsletter
     if ($data = newsletter_load_data($hash)) {
       // build content
-      $content = theme('newsletter', $hash);
+      if ($content = theme('newsletter', $hash)) {
 
-      // send mail
-      $mailto = $email;
-      $mailfrom = $site_mail;
+        //
+        $nid = $data['nids'][0];
+        $node = node_load($nid);
+        $subject = $node->title . '?';
 
-      // send mail
-      drupal_mail('newsletter', $hash, $mailto, language_default(), // todo language??
-        array(
-          'body'    => $content,
-          'subject' => "Heard Mentality Newsletter (" . date('d.m.Y', strtotime($data['newsletter']['send_date'])) . ")"
-        ), $mailfrom, true);
+        // send mail
+        $mailto = $email;
+        $mailfrom = $site_mail;
+
+        // send mail
+        drupal_mail('newsletter', $hash, $mailto, language_default(), // todo language??
+          array(
+            'body'    => $content,
+            'subject' => $subject,
+          ), $mailfrom, true);
+
+      }
     }
   }
 
