@@ -336,16 +336,13 @@ function newsletter_send ($snid = false) {
 
   // get newsletter
   if ($data = newsletter_load_data($hash)) {
-    context_set('newsletter', 'hash', $hash);
-
     // build content
     $content = theme('newsletter', $hash);
 
     // email
-    print theme('newsletter_skeleton', $content);
+    print $content;
 
 
-    exit('zxx');
     // todo send mail
     $mailto = "dyachenko.oleg@gmail.com";
     $mailfrom = $mailto;
@@ -356,8 +353,6 @@ function newsletter_send ($snid = false) {
         'body'    => $message,
         'subject' => $subject
       ), $mailfrom, true);
-
-    context_set('newsletter', 'hash', null);
   }
 }
 
