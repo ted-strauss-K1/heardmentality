@@ -12,6 +12,7 @@
          target="_blank">
         <img
           style="width: 48px; height: 48px;"
+          alt="Twitter"
           title="Twitter"
           src="<?php print url($theme_path . '/images/twitter.png', array('absolute' => true)); ?>">
       </a>
@@ -20,6 +21,7 @@
          target="_blank">
         <img
           style="width: 48px; height: 48px;"
+          alt="Facebook"
           title="Facebook"
           src="<?php print url($theme_path . '/images/facebook.png', array('absolute' => true)); ?>">
       </a>
@@ -28,6 +30,7 @@
          target="_blank">
         <img
           style="width: 48px; height: 48px;"
+          alt="Google Plus"
           title="Google Plus"
           src="<?php print url($theme_path . '/images/gplus.png', array('absolute' => true)); ?>">
       </a>

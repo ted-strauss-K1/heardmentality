@@ -339,14 +339,10 @@ function newsletter_send ($snid = false) {
     // build content
     $content = theme('newsletter', $hash);
 
-    // email
-    print $content;
-
-
     // todo send mail
     $mailto = "dyachenko.oleg@gmail.com";
     $mailfrom = $mailto;
-    $subject = "Test HTML email";
+    $subject = "Heard Mentality Newsletter (".date('d.m.Y', strtotime($data['newsletter']['send_date'])).")";
     $message = $content;
     $x = drupal_mail('newsletter', $hash, $mailto, language_default(), // todo language??
       array(

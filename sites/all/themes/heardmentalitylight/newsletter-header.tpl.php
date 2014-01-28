@@ -20,7 +20,7 @@
       <tr>
 
         <td
-          style=""><?php print l('<img style="height: 80px; width: 140px;" alt="Heard Mentality Logo" src="' . url($theme_path . '/images/hm-logo.png', array('absolute' => true)) . '">', '', array(
+          style=""><?php print l('<img style="height: 80px; width: 140px;" title="Heard Mentality Logo" alt="Heard Mentality Logo" src="' . url($theme_path . '/images/hm-logo.png', array('absolute' => true)) . '">', '', array(
             'absolute'   => true,
             'html'       => true,
             'attributes' => array(
