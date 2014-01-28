@@ -195,28 +195,24 @@ function events_build_query($params = array(), $limits = array()) {
 }
 
 /**
- * @param bool $uid
+ * @param $email
  *
  * @return array
  */
-function events_build_query_subscriptions($uid = FALSE) {
-  if (!module_exists('subscriptions')) {
+function events_build_query_subscriptions($email) {
+  if (!module_exists('simplenews')) {
     return FALSE;
   }
 
   # uid
-  if ($uid === FALSE) {
-    global $user;
-    $uid = $user->uid;
-  }
-
   return sprintf("
     SELECT u.*
     FROM {userpoints_txn} u
     INNER JOIN {node} n ON u.entity_id = n.nid AND u.entity_type = 'node'
     INNER JOIN {term_node} tn ON tn.nid = n.nid
-    INNER JOIN {subscriptions} s ON s.module = 'node' AND s.field = 'tid' AND s.value = tn.tid
-    WHERE u.tid = '%s' AND n.type = 'issue' AND s.recipient_uid = '%s'", events_term(), $uid);
+    INNER JOIN {simplenews_snid_tid} st ON st.tid = tn.tid AND st.status = 1
+    INNER JOIN {simplenews_subscriptions} ss ON ss.snid = st.snid
+    WHERE ss.mail = '%s' AND u.tid = '%s' AND n.type = 'issue'", $email, events_term());
 }
 
 /**
