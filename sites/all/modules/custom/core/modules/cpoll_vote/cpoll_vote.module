@@ -357,6 +357,7 @@ function cpoll_vote_external_link ($uid, $chid, $short = false) {
   ));
 
   if ($short && module_exists('shorturl')) {
+    module_load_include('inc', 'shorturl', 'shorturl.engine');
     $url = shorturl_shorten($url, TRUE);
   }
 

@@ -1,83 +1,26 @@
-<?php if (!$error) : ?>
+<?php if ($error) return; ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta name="viewport" content="width=device-width"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-  <?php foreach ($nids as $nid) : $index++; ?>
-    <?php
-    $uid = 1;
+  <title><?php print t('Heard Mentality Newsletter'); ?></title>
+</head>
 
-    $i = -1;
-    $choices = cpoll_load_choices($nid);
-    $choices_count = count($choices);
-    for ($k = $choices_count + 1; $k <= 4; $k++) {
-      $choices['k-' . $k] = FALSE;
-    }
-    $choices_count = count($choices);
+<?php global $theme_path; ?>
 
-    $title = db_result(db_query("SELECT title FROM {node} WHERE nid = '%s'", $nid));
+<body bgcolor="#FFFFFF" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
 
-    ?>
+<table style="margin: 0 auto; width: 100%; max-width: 800px">
 
-    <table width="100%" style="min-height: 200px;">
-      <tr>
-        <td rowspan="1" colspan="2" style="padding: 20px 0 10px 0;">
-          <div style="background: #ccc; padding: 10px;"><?php
-            print l($title, 'node/' . $nid, array(
-              'absolute' => TRUE,
-              'attributes' => array(
-                'style' => 'text-decoration: none; color: #333;',
-              ),
-            ));
-            ?>?
-          </div>
-        </td>
-      </tr>
-      <?php foreach ($choices as $chid => $choice) : $i++;
-        $left = $index % 2 == 0; ?>
+  <?php print $header; ?>
 
-        <tr>
+  <?php print $content; ?>
 
-          <?php if ($left && $i == 0) : ?>
-            <td rowspan="<?php print $choices_count; ?>" colspan="1" width="30%"
-                style="background: #EEE; min-width: 200px;"></td>
-          <?php endif; ?>
+  <?php print $footer; ?>
 
-          <?php if (is_numeric($chid)) : ?>
-            <td rowspan="1" colspan="1" width="70%" style="height: 50px; padding: 0 10px;">
-              <a href="<?php
-              if ($uid) {
-                print cpoll_vote_external_link($uid, $chid, TRUE);
-              } else {
-                print url('node/' . $nid, array('absolute' => TRUE));
-              }
+</table>
 
-
-              ?>" style="
-                            background: none #4298EF;
-                            border: 1px solid #849EB7;
-                            padding: 10px;
-                            margin-right: 10px;
-                            color: #fff;
-                            font-weight: bold;
-                            font-size: 14px;
-                            text-decoration: none;
-              ">vote</a>
-              <?php print $choice['chtext']; ?></td>
-          <?php else: ?>
-            <td rowspan="1" colspan="1" width="70%" style="height: 50px;">&nbsp;</td>
-          <?php endif; ?>
-
-          <?php if (!$left && $i == 0) : ?>
-            <td rowspan="<?php print $choices_count; ?>" colspan="1" width="30%"
-                style="background: #EEE;min-width: 200px;"></td>
-          <?php endif; ?>
-
-        </tr>
-
-      <?php endforeach; ?>
-    </table>
-  <?php endforeach; ?>
-
-<?php else : ?>
-
-  <?php print t('ERROR'); ?>
-
-<?php endif; ?>
+</body>
+</html>
