@@ -295,7 +295,7 @@ function cpoll_vote_ajax() {
 /**
  * @return null|string
  */
-function cpoll_vote_external () {
+function cpoll_vote_external() {
   $uid = $_REQUEST['uid'];
   $chid = $_REQUEST['chid'];
   $hash = $_REQUEST['hash'];
@@ -335,7 +335,7 @@ function cpoll_vote_external () {
  *
  * @return string
  */
-function cpoll_vote_external_hash ($uid, $chid) {
+function cpoll_vote_external_hash($uid, $chid) {
   return substr(md5($uid . ':' . $chid), 0, 6);
 }
 
@@ -346,14 +346,14 @@ function cpoll_vote_external_hash ($uid, $chid) {
  *
  * @return string
  */
-function cpoll_vote_external_link ($uid, $chid, $short = false) {
+function cpoll_vote_external_link($uid, $chid, $short = FALSE) {
   $url = url('cpoll_vote/external', array(
-    'query' => array(
+    'query'    => array(
       'uid'  => $uid,
       'chid' => $chid,
       'hash' => cpoll_vote_external_hash($uid, $chid),
     ),
-    'absolute' => true,
+    'absolute' => TRUE,
   ));
 
   if ($short && module_exists('shorturl')) {

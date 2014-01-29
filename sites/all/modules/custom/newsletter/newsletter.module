@@ -9,7 +9,7 @@ require_once __DIR__ . "/newsletter.users.inc";
 /**
  * @return array
  */
-function newsletter_menu () {
+function newsletter_menu() {
   $menu = array();
 
   // the callback to open an email on site
@@ -18,7 +18,7 @@ function newsletter_menu () {
     'page arguments'  => array(
       1
     ),
-    'access callback' => true,
+    'access callback' => TRUE,
     'type'            => MENU_CALLBACK,
   );
 
@@ -28,10 +28,11 @@ function newsletter_menu () {
 /**
  * @param $hash
  */
-function newsletter_page ($hash) {
+function newsletter_page($hash) {
   if ($data = newsletter_load_data($hash)) {
     print theme('newsletter', $hash);
-  } else {
+  }
+  else {
     drupal_not_found();
   }
   exit;
@@ -40,25 +41,25 @@ function newsletter_page ($hash) {
 /**
  * @return array
  */
-function newsletter_theme () {
+function newsletter_theme() {
   $theme = array();
 
   $theme['newsletter'] = array(
-    'arguments'            => array('hash' => null),
+    'arguments'            => array('hash' => NULL),
     'template'             => 'newsletter',
     'preprocess functions' => array('theme_newsletter_preprocess_theme'),
   );
   $theme['newsletter_header'] = array(
-    'arguments' => array('data' => null),
+    'arguments' => array('data' => NULL),
     'template'  => 'newsletter-header',
   );
   $theme['newsletter_content'] = array(
-    'arguments'            => array('data' => null),
+    'arguments'            => array('data' => NULL),
     'template'             => 'newsletter-content',
     'preprocess functions' => array('theme_newsletter_content_preprocess_theme'),
   );
   $theme['newsletter_footer'] = array(
-    'arguments' => array('data' => null),
+    'arguments' => array('data' => NULL),
     'template'  => 'newsletter-footer',
   );
 
@@ -68,7 +69,7 @@ function newsletter_theme () {
 /**
  * @param $vars
  */
-function theme_newsletter_preprocess_theme (&$vars) {
+function theme_newsletter_preprocess_theme(&$vars) {
   if ($data = newsletter_load_data($vars['hash'])) {
     // data
     $vars['data'] = $data;
@@ -84,13 +85,13 @@ function theme_newsletter_preprocess_theme (&$vars) {
 
     return;
   }
-  $vars['error'] = true;
+  $vars['error'] = TRUE;
 }
 
 /**
  * @param $vars
  */
-function theme_newsletter_content_preprocess_theme (&$vars) {
+function theme_newsletter_content_preprocess_theme(&$vars) {
   $data = $vars['data'];
 
   //
@@ -113,7 +114,7 @@ function theme_newsletter_content_preprocess_theme (&$vars) {
  *
  * @return array|bool
  */
-function newsletter_load_data ($hash) {
+function newsletter_load_data($hash) {
   static $cache = array();
 
   if (is_null($cache[$hash])) {
@@ -122,14 +123,14 @@ function newsletter_load_data ($hash) {
 
     // error
     if (!$newsletter) {
-      return $cache[$hash] = false;
+      return $cache[$hash] = FALSE;
     }
 
     // load subscription
-    $account = (object)array('snid' => $newsletter['snid']);
+    $account = (object) array('snid' => $newsletter['snid']);
     $subscription = simplenews_get_subscription($account);
     if ($subscription->snid == 0) {
-      return $cache[$hash] = false;
+      return $cache[$hash] = FALSE;
     }
 
     // load frequency
@@ -143,7 +144,7 @@ function newsletter_load_data ($hash) {
 
       // error
       if (empty($nids)) {
-        return $cache[$hash] = false;
+        return $cache[$hash] = FALSE;
       }
 
       // save nids
@@ -170,7 +171,7 @@ function newsletter_load_data ($hash) {
  *
  * @return array
  */
-function newsletter_nodes ($snid, $send_date, $limit = 5) {
+function newsletter_nodes($snid, $send_date, $limit = 5) {
   // load tids
   $account = new stdClass();
   $account->snid = $snid;
@@ -273,7 +274,7 @@ define('NEWSLETTER_DATE', 'newsletter_date');
 /**
  * Implements hook_cron()
  */
-function newsletter_cron () {
+function newsletter_cron() {
 
   // schedule newsletters
   $date = date('Y-m-d');
@@ -290,7 +291,7 @@ function newsletter_cron () {
 /**
  * @param $date
  */
-function newsletter_schedule ($date) {
+function newsletter_schedule($date) {
   // query
   $query = "
     SELECT snid, uid, mail, code, DATEDIFF(CURDATE(), IFNULL(send_date, '2014-01-01')) days, IFNULL(send_date, '2014-01-01') last_send
@@ -311,7 +312,7 @@ function newsletter_schedule ($date) {
       case NEWSLETTER_WEEKLY :
       case NEWSLETTER_MONTHLY :
         if ($row['days'] >= (NEWSLETTER_WEEKLY == $row['code'] ? 7 : 30)) {
-          $hash = newsletter_hash($row['snid'], $date, false);
+          $hash = newsletter_hash($row['snid'], $date, FALSE);
           if (newsletter_save($row['uid'], $date, $hash)) {
             // todo queue with actions
           }
@@ -326,7 +327,7 @@ function newsletter_schedule ($date) {
  *
  * @param int $limit
  */
-function newsletters_bulk_send ($limit = 20) {
+function newsletters_bulk_send($limit = 20) {
   for ($i = 0; $i < $limit; $i++) {
     newsletter_send();
   }
@@ -339,12 +340,13 @@ function newsletters_bulk_send ($limit = 20) {
  *
  * @return bool
  */
-function newsletter_send ($snid = false) {
+function newsletter_send($snid = FALSE) {
 
   // get the newsletter's hash
-  if (false !== $snid) {
+  if (FALSE !== $snid) {
     $hash = db_result(db_query("SELECT hash FROM {newsletter} WHERE snid = '%s' AND status = 0 ORDER BY send_date ASC LIMIT 1", $snid));
-  } else {
+  }
+  else {
     $hash = db_result(db_query("SELECT hash FROM {newsletter} WHERE status = 0 ORDER BY send_date ASC LIMIT 1", $snid));
   }
 
@@ -378,14 +380,14 @@ function newsletter_send ($snid = false) {
           array(
             'body'    => $content,
             'subject' => $subject,
-          ), $mailfrom, true);
+          ), $mailfrom, TRUE);
 
       }
     }
   }
 
   // mark as sent
-  newsletter_set_sent($hash, true);
+  newsletter_set_sent($hash, TRUE);
 }
 
 /**
@@ -393,7 +395,7 @@ function newsletter_send ($snid = false) {
  * @param $message
  * @param $params
  */
-function newsletter_mail ($key, &$message, $params) {
+function newsletter_mail($key, &$message, $params) {
   $message['subject'] = $params['subject'];
   $message['body'] = $params['body'];
 

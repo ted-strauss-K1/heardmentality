@@ -177,10 +177,10 @@ $('#url').focusin(function () {
     $(this).val('');
   }
 }).focusout(function () {
-    if ($(this).val() == '') {
-      $(this).val($(this).prop('defaultValue'));
-    }
-  });
+  if ($(this).val() == '') {
+    $(this).val($(this).prop('defaultValue'));
+  }
+});
 
 /**
  * Reply Form Submit

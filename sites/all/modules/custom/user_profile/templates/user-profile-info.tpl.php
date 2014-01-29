@@ -49,9 +49,9 @@
         <label for="following" class="following"><?php print user_profile_follow_title('following'); ?></label>
         <?php foreach ($following as $f_user) : ?>
           <?php print l('<img class="following-user"                                                                              src="' . user_profile_image($f_user->requestee) . '" />', 'user/profile/view/' . $f_user->requestee->name, array(
-              'attributes' => array('class' => 'floatleft'),
-              'html'       => TRUE,
-            ));?>
+            'attributes' => array('class' => 'floatleft'),
+            'html'       => TRUE,
+          ));?>
         <?php endforeach; ?>
         <?php print l(t('See all') . ' (' . $following_count . ')', 'user/profile/follow/' . $account->uid . '/following', array('attributes' => array('class' => 'more'))); ?>
       </div>
@@ -62,9 +62,9 @@
         <label for="following" class="following"><?php print user_profile_follow_title('followers'); ?></label>
         <?php foreach ($followers as $f_user) : ?>
           <?php print l('<img class="following-user"                                                                              src="' . user_profile_image($f_user->requester) . '" />', 'user/profile/view/' . $f_user->requester->name, array(
-              'attributes' => array('class' => 'floatleft'),
-              'html'       => TRUE,
-            ));?>
+            'attributes' => array('class' => 'floatleft'),
+            'html'       => TRUE,
+          ));?>
         <?php endforeach; ?>
         <?php print l(t('See all') . ' (' . $followers_count . ')', 'user/profile/follow/' . $account->uid . '/followers', array('attributes' => array('class' => 'more'))); ?>
       </div>

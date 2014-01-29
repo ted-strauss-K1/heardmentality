@@ -233,17 +233,17 @@ function flagger_page_history($content_type, $content_id) {
     $output .= sprintf('<li name="%d" class="status-%d"><span class="remove" title="%s"></span>', $row['fcid'], $row['status'], t('Remove flag'));
     $output .= sprintf('<span class="flag-name status-%d">%s</span>', $row['status'], t($row['title']));
     $output .= ' ' . t('by') . ' ' . l($row['name'], 'user/profile/view/' . $row['uid'], array(
-          'attributes' => array(
-            'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_set']),
-          ),
-        ));
+        'attributes' => array(
+          'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_set']),
+        ),
+      ));
     $output .= ' ';
     if (!$row['status']) {
       $output .= ' (' . t('removed by') . ' ' . l($row['name_moderator'], 'user/profile/view/' . $row['uid_moderator'], array(
-            'attributes' => array(
-              'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_unset']),
-            ),
-          )) . ')';
+          'attributes' => array(
+            'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_unset']),
+          ),
+        )) . ')';
     }
     $output .= '</li>';
   }

@@ -27,9 +27,9 @@ function bitcoin_api_donation_make($op_id) {
     $apikey = variable_get('bitcoin_api_apikey', '');
     $coinbase = new Coinbase($apikey);
     $response = $coinbase->createButton(t('Donation to ') . variable_get('site_name', 'Heard Mentality'), $record->amount, $record->currency, $record->id, array(
-        'description'  => t('Donation to ') . variable_get('site_name', 'Heard Mentality'),
-        'choose_price' => TRUE,
-      ));
+      'description'  => t('Donation to ') . variable_get('site_name', 'Heard Mentality'),
+      'choose_price' => TRUE,
+    ));
     db_query("UPDATE {donations} SET token = '%s' WHERE id = '%d'", $response->button->code, $record->id);
     drupal_goto("https://coinbase.com/checkouts/" . $response->button->code);
   }
