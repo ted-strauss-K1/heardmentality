@@ -113,7 +113,7 @@ function cpoll_vote($chid, $uid = FALSE) {
 /**
  * @param $chid
  */
-function cpoll_nid ($chid) {
+function cpoll_nid($chid) {
   return db_result(db_query("SELECT nid FROM {cpoll_choices} WHERE chid = '%s'", $chid));
 }
 

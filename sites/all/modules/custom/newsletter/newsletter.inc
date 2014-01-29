@@ -6,12 +6,12 @@
  *
  * @return subscription
  */
-function newsletter_subscription ($email, $reset = FALSE) {
+function newsletter_subscription($email, $reset = FALSE) {
   static $cache = array();
 
   if (is_null($cache[$email]) || $reset) {
     // get subscription
-    $account = (object)array('mail' => $email);
+    $account = (object) array('mail' => $email);
     $subscription = simplenews_get_subscription($account);
 
     // subscription does not exist
@@ -21,7 +21,8 @@ function newsletter_subscription ($email, $reset = FALSE) {
       if (variable_get('language_count', 1) > 1) {
         if ($account->uid) {
           $preferred_language = $account->language;
-        } else {
+        }
+        else {
           $preferred_language = isset($preferred_language) ? $preferred_language : $language->language;
         }
       }
@@ -50,7 +51,7 @@ define('NEWSLETTER_WEEKLY', 2);
  *
  * @return int
  */
-function newsletter_frequency_get ($email) {
+function newsletter_frequency_get($email) {
   $subscription = newsletter_subscription($email);
   return intval($subscription->freq);
 }
@@ -59,7 +60,7 @@ function newsletter_frequency_get ($email) {
  * @param     $email
  * @param int $code
  */
-function newsletter_frequency_set ($email, $code = NEWSLETTER_WEEKLY) {
+function newsletter_frequency_set($email, $code = NEWSLETTER_WEEKLY) {
   $subscription = newsletter_subscription($email);
   db_query("UPDATE {simplenews_subscriptions} SET freq = '%d' WHERE snid = '%s'", $code, $subscription->snid);
   newsletter_subscription($email, TRUE);
@@ -71,7 +72,7 @@ function newsletter_frequency_set ($email, $code = NEWSLETTER_WEEKLY) {
  *
  * @return bool|string
  */
-function newsletter_hash ($snid, $send_date, $max = 9) {
+function newsletter_hash($snid, $send_date, $max = 9) {
   $i = 0;
   while ($i <= intval($max)) {
     $hash = md5($snid . ':' . $send_date . ':' . $i);
@@ -88,7 +89,7 @@ function newsletter_hash ($snid, $send_date, $max = 9) {
  *
  * @return array|bool
  */
-function newsletter_load ($hash) {
+function newsletter_load($hash) {
   $result = db_query("SELECT * FROM {newsletter} WHERE hash = '%s'", $hash);
   if ($newsletter = db_fetch_array($result)) {
     return $newsletter;
@@ -101,7 +102,7 @@ function newsletter_load ($hash) {
  * @param      $send_date
  * @param bool $hash
  */
-function newsletter_save ($snid, $send_date, $hash = FALSE) {
+function newsletter_save($snid, $send_date, $hash = FALSE) {
   if (FALSE === $hash) {
     $hash = newsletter_hash($snid, $send_date);
   }
@@ -115,7 +116,7 @@ function newsletter_save ($snid, $send_date, $hash = FALSE) {
 /**
  * @param $hash
  */
-function newsletter_delete ($hash) {
+function newsletter_delete($hash) {
   db_query("DELETE FROM {newsletter} WHERE hash = '%s'", $hash);
   db_query("DELETE FROM {newsletter_nodes} WHERE hash = '%s'", $hash);
 }
@@ -124,7 +125,7 @@ function newsletter_delete ($hash) {
  * @param      $hash
  * @param bool $sent
  */
-function newsletter_set_sent ($hash, $sent = TRUE) {
+function newsletter_set_sent($hash, $sent = TRUE) {
   db_query("UPDATE {newsletter} SET status = '%d' WHERE hash = '%s'", $sent ? 1 : 0, $hash);
 }
 
@@ -134,7 +135,7 @@ function newsletter_set_sent ($hash, $sent = TRUE) {
  *
  * @return array
  */
-function newsletter_save_nodes ($hash, $nids = array()) {
+function newsletter_save_nodes($hash, $nids = array()) {
   $params = array();
   $values = array();
   foreach ($nids as $nid) {
@@ -152,7 +153,7 @@ function newsletter_save_nodes ($hash, $nids = array()) {
  *
  * @return array
  */
-function newsletter_load_nodes ($hash) {
+function newsletter_load_nodes($hash) {
   $nids = array();
   $result = db_query("SELECT nid FROM {newsletter_nodes} WHERE hash = '%s'", $hash);
   while ($nid = db_result($result)) {

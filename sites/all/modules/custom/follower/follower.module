@@ -72,11 +72,11 @@ function theme_follower_button($follow) {
   if (user_is_logged_in() && $user->uid != $follow->uid) {
     $text = follower_status($follow->uid) === FALSE ? t('Follow') : t('Unfollow');
     return l(t($text), FOLLOWER_PATH . '/' . $follow->uid . '/', array(
-        'attributes' => array(
-          'class' => 'button light follower',
-          'name'  => $follow->uid,
-        )
-      ));
+      'attributes' => array(
+        'class' => 'button light follower',
+        'name'  => $follow->uid,
+      )
+    ));
   }
 }
 

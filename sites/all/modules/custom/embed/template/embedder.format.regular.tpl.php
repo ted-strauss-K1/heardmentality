@@ -1,10 +1,10 @@
 <?php if ($node->choices) : global $user, $language; ?>
   <div <?php if ($node->vote) : ?>class="voted"<?php endif; ?>>
     <?php print l('<h1>' . $node->title . '</h1>', 'node/' . $node->nid, array(
-        'attributes' => array('target' => '_blank'),
-        'absolute'   => TRUE,
-        'html'       => TRUE,
-      )); ?>
+      'attributes' => array('target' => '_blank'),
+      'absolute'   => TRUE,
+      'html'       => TRUE,
+    )); ?>
     <input type="hidden" name="nid" value="<?php print $node->nid; ?>"> <input type="hidden" name="lang"
                                                                                value="<?php print $language->prefix ? '/' . $language->prefix : ''; ?>">
     <table width="100%">

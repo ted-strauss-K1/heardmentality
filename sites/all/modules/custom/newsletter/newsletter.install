@@ -8,7 +8,7 @@ require_once __DIR__ . "/newsletter.inc";
 /**
  * Implementation of hook_install()
  */
-function newsletter_install () {
+function newsletter_install() {
   drupal_install_schema('newsletter');
 
   $ret = array();
@@ -24,7 +24,7 @@ function newsletter_install () {
 /**
  * Implementation of hook_install()
  */
-function newsletter_uninstall () {
+function newsletter_uninstall() {
   $ret = array();
   db_drop_field($ret, 'simplenews_subscriptions', 'freq');
 
@@ -34,7 +34,7 @@ function newsletter_uninstall () {
 /**
  * Implementation of hook_schema().
  */
-function newsletter_schema () {
+function newsletter_schema() {
   $schema = array();
 
   $schema['newsletter'] = array(
@@ -46,7 +46,7 @@ function newsletter_schema () {
         'not null'    => TRUE,
         'length'      => 64,
       ),
-      'snid'       => array(
+      'snid'      => array(
         'description' => 'Subscription id',
         'type'        => 'int',
         'not null'    => TRUE,

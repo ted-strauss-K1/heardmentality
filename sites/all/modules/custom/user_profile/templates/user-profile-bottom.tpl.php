@@ -29,11 +29,11 @@
   <?php endif; ?>
   <div class="floatleft">
     <?php print l('<img class="user-profile" src="' . user_profile_image($user) . '">', 'user/profile/view', array(
-        'attributes' => array(
-          'title' => t('View Profile'),
-        ),
-        'html'       => TRUE,
-      )); ?>
+      'attributes' => array(
+        'title' => t('View Profile'),
+      ),
+      'html'       => TRUE,
+    )); ?>
     <?php if ($badges) : ?>
       <div class="medal clearfix"><?php foreach ($badges['#stat'] as $type => $badge) : ?>
         <span class="medal_box">

@@ -207,7 +207,7 @@ function theme_events_item_taxonomy_theme_preprocess(&$vars) {
   global $user;
   static $tids;
   if (is_null($tids)) {
-    $subscription = simplenews_get_subscription((object)array('mail' => $user->mail));
+    $subscription = simplenews_get_subscription((object) array('mail' => $user->mail));
     $tids = $subscription->tids;
   }
 

@@ -4,8 +4,8 @@
 $('body').on('geocode.latlng',function (e) {
   geocode_latlng();
 }).on('geocode.postalcode', function (e, countrycode, postalcode) {
-    geocode_postalcode(countrycode, postalcode);
-  });
+  geocode_postalcode(countrycode, postalcode);
+});
 
 /**
  * Function to ask access to location data

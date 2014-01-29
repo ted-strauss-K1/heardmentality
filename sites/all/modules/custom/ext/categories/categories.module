@@ -35,12 +35,13 @@ function categories_subscribe() {
 
   // write the record
   global $user;
-  $subscription = simplenews_get_subscription((object)array('mail' => $user->mail));
+  $subscription = simplenews_get_subscription((object) array('mail' => $user->mail));
   $exists = in_array($term->tid, $subscription->tids);
   if ($exists) {
-    simplenews_unsubscribe_user($user->mail, $term->tid, false);
-  } else {
-    simplenews_subscribe_user($user->mail, $term->tid, false);
+    simplenews_unsubscribe_user($user->mail, $term->tid, FALSE);
+  }
+  else {
+    simplenews_subscribe_user($user->mail, $term->tid, FALSE);
   }
 
   // output
@@ -169,7 +170,7 @@ function theme_categories_subscribe($name, $hierarchy) {
 
   if (is_null($tids)) {
     global $user;
-    $subscription = simplenews_get_subscription((object)array('mail' => $user->mail));
+    $subscription = simplenews_get_subscription((object) array('mail' => $user->mail));
     $tids = $subscription->tids;
   }
 
@@ -214,7 +215,7 @@ function categories_theme_categories_user_block_preprocess(&$vars) {
   $vars['categories'] = array();
 
   global $user;
-  $subscription = simplenews_get_subscription((object)array('mail' => $user->mail));
+  $subscription = simplenews_get_subscription((object) array('mail' => $user->mail));
   foreach ($subscription->tids as $tid) {
     $vars['categories'][$tid] = taxonomy_get_term($tid);
   }
