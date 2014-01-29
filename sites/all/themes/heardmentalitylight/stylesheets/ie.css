@@ -397,7 +397,7 @@
 }
 
 .ie7 .white-box ul.map-stats {
-  float : right;
+  float : left;
 }
 
 .ie .banven {
@@ -408,7 +408,7 @@
 }
 
 .ie .banven a.button.participate {
-  margin : 0;
+  /* margin : 0; */
 }
 
 .ie .banner-text {
@@ -592,11 +592,11 @@
 
 .ie7 label.search_issues,
 .ie7 label.tags-on {
-  margin-top : -23px;
+  /* margin-top : -23px; */
 }
 
 .ie7 label.tags-on {
-  width : 140px;
+  /* width : 140px; */
 }
 
 /*---/ ISSUES */
@@ -669,7 +669,8 @@
 }
 
 .ie7 .dark-grey-box i,
-.ie7 .black-box i {
+.ie7 .black-box i,
+.ie7 .grey-box-cat i {
   height : 23px;
   width  : 23px;
 }
