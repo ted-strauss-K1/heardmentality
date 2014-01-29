@@ -188,7 +188,10 @@ ul.menu li a {
 
 ul.menu li a:hover,
 ul.menu li a:active,
-ul.menu li a.active {
+ul.menu li a.active,
+ul.menu li.following a:hover,
+ul.menu li.following a:active,
+ul.menu li.following a.active {
   background-color : #3CC7F4;
   color            : #222222;
 }
