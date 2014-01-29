@@ -351,6 +351,15 @@
   }
 
   /*---/ ERROR CIRCLES & CIRCLES IN HOMEPAGE */
+
+  /* FOOTER */
+
+  p.policy {
+    font-size: 9px;
+  }
+
+  /*---/ FOOTER */
+
   /* OTHER */
   input.form-text, input.form-text.user-search {
     width : 338px;
