@@ -2,6 +2,6 @@ name = "core poll - voting"
 description = "Core Poll Voting"
 core = "6.x"
 package = "Custom Modules"
-version = "6.x-1.1"
+version = "6.x-1.2"
 
 dependencies[] = "core"
