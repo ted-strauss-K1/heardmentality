@@ -205,22 +205,16 @@ function theme_events_item_taxonomy_theme_preprocess(&$vars) {
   }
 
   global $user;
-  static $data;
-  if (is_null($data)) {
-    $data = subscriptions_get(array(
-      'recipient_uid' => $user->uid,
-      'module'        => 'node',
-      'field'         => 'tid',
-      'author_uid'    => -1,
-    ));
+  static $tids;
+  if (is_null($tids)) {
+    $subscription = simplenews_get_subscription((object)array('mail' => $user->mail));
+    $tids = $subscription->tids;
   }
 
-  if ($data) {
-    foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
-      if (in_array($tid, $vars['item']['vars']['tids'])) {
-        $term = taxonomy_get_term($tid);
-        $vars['categories'][term_hierarchy($term)] = $term->name;
-      }
+  foreach ($tids as $tid) {
+    if (in_array($tid, $vars['item']['vars']['tids'])) {
+      $term = taxonomy_get_term($tid);
+      $vars['categories'][term_hierarchy($term)] = $term->name;
     }
   }
 

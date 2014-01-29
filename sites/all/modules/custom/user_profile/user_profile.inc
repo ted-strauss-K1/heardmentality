@@ -195,7 +195,7 @@ function user_profile_preprocess_page(&$vars) {
                   'taxonomy',
                 ),
               ),
-              events_build_query_subscriptions($account->uid),
+              events_build_query_subscriptions($account->mail),
             ));
             $vars['content_bottom'] = theme('events', events_get($request['query'], $request['vars']));
           }
