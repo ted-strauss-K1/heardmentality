@@ -533,9 +533,10 @@
   filter : chroma(color=#000000);
 }
 
-.ie7 .new-issue .number {
+.ie7 .new-issue .number,
+.ie8 .new-issue .number {
   line-height : 28px;
-  margin-top  : 0px;
+  margin-top  : -4px;
 }
 
 /*---/ new issue */
@@ -673,6 +674,10 @@
 .ie7 .grey-box-cat i {
   height : 23px;
   width  : 23px;
+}
+
+.ie7 .grey-box.poll-box .tags label {
+  margin-top : -23px;
 }
 
 /*---/ view profile*/
