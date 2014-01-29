@@ -1,13 +1,6 @@
 <?php
 
 /**
- * Define newsletter period values
- */
-define('SUBSCRIPTION_NEVER', 0);
-define('SUBSCRIPTION_MONTHLY', 1);
-define('SUBSCRIPTION_WEEKLY', 2);
-
-/**
  * User Profile form
  *
  * @param $form_state
@@ -174,32 +167,6 @@ function user_profile_edit_form() {
     '#value' => user_profile_location_format($user->profile_city, $user->profile_state, $user->profile_country),
   );
 
-  # subscription info
-  $form['subscription_notify'] = array(
-    '#type'          => 'radios',
-    '#default_value' => $user->subscription_notify ? $user->subscription_notify : SUBSCRIPTION_NEVER,
-    '#options'       => array(
-      SUBSCRIPTION_NEVER   => '',
-      SUBSCRIPTION_MONTHLY => '',
-      SUBSCRIPTION_WEEKLY  => ''
-    ),
-  );
-  $form['subscription_email'] = array(
-    '#type'          => 'textfield',
-    '#title'         => t(''),
-    '#maxlength'     => 50,
-    '#default_value' => $user->subscription_email ? $user->subscription_email : $user->mail,
-    '#id'            => 'subscription_email',
-    '#required'      => TRUE,
-  );
-  $form['subscription_submit'] = array(
-    '#type'       => 'submit',
-    '#value'      => t('Submit'),
-    '#id'         => 'subscription_submit',
-    '#name'       => 'subscription_submit',
-    '#attributes' => array('class' => 'submit-issue leftfloat'),
-  );
-
   # language info
   $languages = i18n_language_list();
   $form['language'] = array(
@@ -290,9 +257,6 @@ function user_profile_edit_form_validate(&$form, &$form_state) {
   switch ($id) {
     case 'submit' :
       user_profile_edit_form_validate_profile($form, $form_state);
-      break;
-    case 'subscrpition_submit' :
-      user_profile_edit_form_validate_subscriptions($form, $form_state);
       break;
     case 'language_submit' :
       //
@@ -388,22 +352,6 @@ function user_profile_edit_form_validate_zip($zip, $country) {
 }
 
 /**
- * Validate subscriptions
- *
- * @param $form
- * @param $form_state
- */
-function user_profile_edit_form_validate_subscriptions(&$form, &$form_state) {
-  $post = $form_state["clicked_button"]["#post"];
-
-  # email
-  if (!empty($post['subscription_email']) && !filter_var($post['subscription_email'], FILTER_VALIDATE_EMAIL)) {
-    form_set_error('subscription_email', t('Email is not correct'));
-    $form_state['rebuild'] = TRUE;
-  }
-}
-
-/**
  * Validate image
  *
  * @param $form
@@ -437,9 +385,6 @@ function user_profile_edit_form_submit(&$form, &$form_state) {
   switch ($id) {
     case 'submit' :
       user_profile_edit_form_submit_profile($form, $form_state);
-      break;
-    case 'subscrition_submit' :
-      user_profile_edit_form_submit_subscriptions($form, $form_state);
       break;
     case 'language_submit' :
       user_profile_edit_form_submit_language($form, $form_state);
@@ -519,24 +464,6 @@ function user_profile_edit_form_submit_profile($form, &$form_state) {
   user_save($user, $edit, 'profile');
   user_save($user, $edit, 'hidden');
   user_save($user, $edit, 'links');
-}
-
-/**
- * Submit subscriptions
- *
- * @param $form
- * @param $form_state
- */
-function user_profile_edit_form_submit_subscriptions(&$form, &$form_state) {
-  $post = $form_state["clicked_button"]["#post"];
-  global $user;
-
-  $user->subscription_notify = $post['subscription_notify'];
-  $user->subscription_email = $post['subscription_email'];
-  user_save($user, array(
-    'subscription_notify' => $post['subscription_notify'],
-    'subscription_email'  => $post['subscription_email'],
-  ));
 }
 
 /**
