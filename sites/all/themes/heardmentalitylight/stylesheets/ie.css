@@ -522,6 +522,11 @@
   vertical-align : baseline;
 }
 
+.ie8 .linkbox div.expander,
+.ie9 .linkbox div.expander {
+  margin-bottom : 20px;
+}
+
 /* new issue */
 
 .ie8 .new-issue input.submit-issue:hover {
