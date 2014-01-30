@@ -69,6 +69,14 @@ h1.h1_privacy {
   color : #934D9E;
 }
 
+.privacy_termination_ul {
+  padding : 0 0 0 40px;
+}
+
+.privacy_termination_ul li {
+  list-style : disc;
+}
+
 /* table */
 
 #about_us_page_content #guide table {
