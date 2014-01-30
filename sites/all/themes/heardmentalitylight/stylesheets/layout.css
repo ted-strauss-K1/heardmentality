@@ -5948,9 +5948,8 @@ form.issue-vote-form > div > div.choices {
 /* FIXED RIGHT SIDEBARS */
 
 .four_columns_content_wrapper {
-  position : fixed;
-  width    : 220px;
-  z-index  : 1;
+  width   : 220px;
+  z-index : 1;
 }
 
 /*---/ FIXED RIGHT SIDEBARS */
