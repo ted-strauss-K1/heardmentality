@@ -71,6 +71,10 @@ function donations_menu() {
 function donations_donate_form() {
   $form = array();
 
+  if (function_exists('drupal_set_subtitle')) {
+    drupal_set_subtitle(t('Donate'));
+  }
+
   $form['#action'] = url('donate', array('absolute' => TRUE));
 
   $form['prefix'] = array(
