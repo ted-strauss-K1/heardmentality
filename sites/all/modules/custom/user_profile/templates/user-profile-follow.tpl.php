@@ -13,8 +13,8 @@
 
         <div class="name_wrapper">
           <?php print l('<img class="following-user-2" src="' . user_profile_image($account) . '">', $account->viewlink, array(
-              'html' => true,
-            )); ?>
+            'html' => true,
+          )); ?>
           <span class="name din">
 			  <?php print l($account->name, $account->viewlink); ?>
 			</span>

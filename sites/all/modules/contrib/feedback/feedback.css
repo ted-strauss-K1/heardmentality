@@ -22,7 +22,7 @@
   bottom: 60px;
   right: 20px;
   overflow: hidden;
-  z-index: 9999;
+  z-index: 10;
 }
 /* IE6 seems to be unable to handle fixed */
 * html #block-feedback-form {
@@ -41,7 +41,7 @@
   border: 1px solid #ccc;
   padding: 6px;
   background-color: #fff;
-  opacity: 0.97;
+  opacity: 0.9;
   max-width: 200px;
 }
 /* IE6 doesn't support max-width. */

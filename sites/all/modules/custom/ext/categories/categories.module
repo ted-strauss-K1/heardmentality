@@ -35,19 +35,15 @@ function categories_subscribe() {
 
   // write the record
   global $user;
-  $exists = (bool) subscriptions_get_subscription($user->uid, 'node', 'tid', $term->tid);
-  if (!$exists) {
-    subscriptions_write_subscription('node', 'tid', $term->tid, -1, $user->uid);
+  $subscription = simplenews_get_subscription((object) array('mail' => $user->mail));
+  $exists = in_array($term->tid, $subscription->tids);
+  if ($exists) {
+    simplenews_unsubscribe_user($user->mail, $term->tid, FALSE);
   }
   else {
-    db_query("DELETE FROM {subscriptions}
-      WHERE
-        module = '%s' AND
-        field = '%s' AND
-        value = '%s' AND
-        author_uid = %d AND
-        recipient_uid = %d", 'node', 'tid', $term->tid, -1, $user->uid);
+    simplenews_subscribe_user($user->mail, $term->tid, FALSE);
   }
+
   // output
   print json_encode(array(
     'status'  => TRUE,
@@ -168,28 +164,17 @@ function categories_theme() {
  * @param $hierarchy
  */
 function theme_categories_subscribe($name, $hierarchy) {
-  static $subscriptions;
+  static $tids;
 
   drupal_add_js(drupal_get_path('module', 'categories') . "/categories_subscribe.js");
 
-  if (is_null($subscriptions)) {
-    $subscriptions = array();
+  if (is_null($tids)) {
     global $user;
-    $data = subscriptions_get(array(
-      'recipient_uid' => $user->uid,
-      'module'        => 'node',
-      'field'         => 'tid',
-      'author_uid'    => -1,
-    ));
-    if ($data) {
-      foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
-        $subscriptions[] = $tid;
-      }
-    }
-    // $subscriptions[$s->recipient_uid][$s->module][$s->field][$s->value][$s->author_uid] = 1;
+    $subscription = simplenews_get_subscription((object) array('mail' => $user->mail));
+    $tids = $subscription->tids;
   }
 
-  return (module_exists('subscriptions') ? sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $subscriptions) ? 'checked' : '') : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
+  return sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $tids) ? 'checked' : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
 }
 
 /**
@@ -230,16 +215,9 @@ function categories_theme_categories_user_block_preprocess(&$vars) {
   $vars['categories'] = array();
 
   global $user;
-  $data = subscriptions_get(array(
-    'recipient_uid' => $user->uid,
-    'module'        => 'node',
-    'field'         => 'tid',
-    'author_uid'    => -1,
-  ));
-  if ($data) {
-    foreach ($data[$user->uid]['node']['tid'] as $tid => $items) {
-      $vars['categories'][$tid] = taxonomy_get_term($tid);
-    }
+  $subscription = simplenews_get_subscription((object) array('mail' => $user->mail));
+  foreach ($subscription->tids as $tid) {
+    $vars['categories'][$tid] = taxonomy_get_term($tid);
   }
 }
 

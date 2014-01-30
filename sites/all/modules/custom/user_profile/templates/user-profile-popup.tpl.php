@@ -13,11 +13,11 @@
 
         <label for="profile" class="profile"></label>
         <?php print l('<img class="user-profile" src="' . user_profile_image($user) . '"/>', 'user/profile/view', array(
-            'attributes' => array(
-              'title' => t('View Profile'),
-            ),
-            'html'       => TRUE,
-          )); ?>
+          'attributes' => array(
+            'title' => t('View Profile'),
+          ),
+          'html'       => TRUE,
+        )); ?>
         <?php if ($complete['percent'] < 100) : ?>
           <div class="floatleft small-prog">
             <div class="profile-meta quick-profile">
