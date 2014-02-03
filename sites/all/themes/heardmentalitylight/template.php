@@ -131,7 +131,7 @@ function heardmentalitylight_theme() {
   $theme['expander'] = array(
     'arguments' => array(
       'text'  => '',
-      'chars' => 1000,
+      'chars' => 256,
     ),
   );
 
@@ -172,7 +172,7 @@ function heardmentalitylight_theme() {
  *
  * @return string
  */
-function heardmentalitylight_expander($text, $chars = 1000, $tags = '<p><a><b><br />') {
+function heardmentalitylight_expander($text, $chars = 256, $tags = '<p><a><b><br />') {
   return '<div class="expander" data-chars="' . $chars . '">' . strip_tags($text, $tags) . '</div>';
 }
 
