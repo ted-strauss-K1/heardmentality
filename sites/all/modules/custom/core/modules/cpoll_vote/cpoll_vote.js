@@ -56,7 +56,8 @@ $('#suggest').live('click', function (e) {
   form.find('input[name=choices][value=-1]').prop('checked', true);
 
   // activate form
-  form.addClass('active');
+  voteform_freeze(form, true);
+
   $.ajax({
     type    : 'POST',
     dataType: 'json',
@@ -83,7 +84,8 @@ $('#suggest').live('click', function (e) {
         }
         vote_ux(form, -1, -1);
 
-        form.removeClass('active');
+        // deactivate form
+        voteform_freeze(form, false);
 
         return;
       }
@@ -98,7 +100,9 @@ $('#suggest').live('click', function (e) {
         vote_ux_set(form, i, results[i]['votes']);
       }
       vote_set_vote(form);
-      form.removeClass('active');
+
+      // deactivate form
+      voteform_freeze(form, false);
 
       //
       var body = $('body');
@@ -141,7 +145,8 @@ $('#vote').live('click', function (e) {
   });
 
   // activate form
-  form.addClass('active');
+  voteform_freeze(form, true);
+
   $.ajax({
     type    : 'POST',
     dataType: 'json',
@@ -161,7 +166,8 @@ $('#vote').live('click', function (e) {
         vote_ux(form, vote.val(), 1);
         vote_ux(form, chid.val(), -1);
 
-        form.removeClass('active');
+        // deactivate form
+        voteform_freeze(form, false);
 
         return;
       }
@@ -175,7 +181,9 @@ $('#vote').live('click', function (e) {
         vote_ux_set(form, i, results[i]['votes']);
       }
       vote_set_vote(form);
-      form.removeClass('active');
+
+      // deactivate form
+      voteform_freeze(form, false);
 
       //
       var body = $('body');
@@ -184,6 +192,23 @@ $('#vote').live('click', function (e) {
     }
   });
 });
+
+/**
+ *
+ * @param form
+ * @param status
+ */
+function voteform_freeze(form, status) {
+  var radios = form.find('input[type=radio]');
+  if (status) {
+    form.addClass('active');
+    radios.attr('disabled', 'disabled');
+  }
+  else {
+    radios.removeAttr('disabled');
+    form.removeClass('active');
+  }
+}
 
 /**
  *
