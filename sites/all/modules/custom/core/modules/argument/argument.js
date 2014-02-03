@@ -155,18 +155,6 @@ $('body').on('yn', function (e, el, data) {
 
   // update strenght chart
   body.trigger('cpoll_update', true);
-
-  // badges
-  if (1 == data['vote_value']) {
-    if ('comment' == data['content_type']) {
-      body.trigger('badge.comment_yn_voteup', [data['content_uid']]);
-    }
-    if ('node' == data['content_type']) {
-      body.trigger('badge.' + data['node_type'] + '_yn_voteup', [data['content_uid']]);
-    }
-    body.trigger('badge.yn_voteup', [Drupal.settings.user.uid]);
-    body.trigger('badge.yn_predict', [data['first_voter']]);
-  }
 });
 
 /**
@@ -234,10 +222,6 @@ $('.arg-reply-form').live('submit', function (e) {
         'content_type': 'comment',
         'content_id'  : response.cid
       }])
-
-      // badges
-      body.trigger('badge.debate_create', [Drupal.settings.node.uid]);
-      body.trigger('badge.comment_create', [Drupal.settings.user.uid]);
 
       // add the translate to the new comment
       translate();
@@ -537,9 +521,6 @@ $('#argument-add-form').live('submit', function (e) {
           'content_type': 'node',
           'content_id'  : response.nid
         }]);
-
-        // badges
-        body.trigger('badge.debate_create', [Drupal.settings.node.uid]);
 
       } else {
         $.hrd.noty({

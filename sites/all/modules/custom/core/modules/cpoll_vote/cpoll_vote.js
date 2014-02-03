@@ -96,9 +96,6 @@ $('#suggest').live('click', function (e) {
         'content_id'  : form.find('input[name=nid]').val()
       }]);
 
-      // badges
-      body.trigger('badge.cpoll_vote', [Drupal.settings.user.uid]);
-      body.trigger('badge.cpoll_voted', [form.find('input[name=uid]').val()]);
     }
   });
 });
@@ -180,9 +177,6 @@ $('#vote').live('click', function (e) {
         'content_id'  : form.find('input[name=nid]').val()
       }]);
 
-      // badges
-      body.trigger('badge.cpoll_vote', [Drupal.settings.user.uid]);
-      body.trigger('badge.cpoll_voted', [form.find('input[name=uid]').val()]);
     }
   });
 });
