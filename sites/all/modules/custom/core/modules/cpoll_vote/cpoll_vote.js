@@ -1,7 +1,19 @@
+/**
+ *
+ */
+$('form.issue-vote-form input[name=choices]').live('change', function () {
+  var form = $(this).parents('.issue-vote-form');
+  form.find('input[type=submit]').removeClass('not-changed');
+});
+
+/**
+ *
+ */
 $('#suggest').live('click', function (e) {
   e.preventDefault();
 
   var input = $('input[name="suggest[suggest_answer]"]');
+  input.val(input.val().replace(/(^\s+|\s+$)/g, ''));
   var form = input.parents('.issue-vote-form');
 
   // activated form
@@ -85,6 +97,7 @@ $('#suggest').live('click', function (e) {
       for (var i in results) {
         vote_ux_set(form, i, results[i]['votes']);
       }
+      vote_set_vote(form);
       form.removeClass('active');
 
       //
@@ -112,7 +125,7 @@ $('#vote').live('click', function (e) {
   // validate selection
   var chid = form.find(':checked');
   var vote = form.find('[name=vote]');
-  if (!chid || (chid.val() == vote.val())) {
+  if (!chid || (chid.val() == vote.val()) || (!chid.val() && (-1 == vote.val()))) {
     return;
   }
 
@@ -161,6 +174,7 @@ $('#vote').live('click', function (e) {
       for (var i in results) {
         vote_ux_set(form, i, results[i]['votes']);
       }
+      vote_set_vote(form);
       form.removeClass('active');
 
       //
@@ -192,4 +206,12 @@ function vote_ux(form, value, delta) {
  */
 function vote_ux_set(form, value, votes) {
   form.find('input[name=choices][value=' + value + ']').parents('.radio_wrapper').find('.teaser_count_vote span').html(votes);
+}
+
+/**
+ *
+ * @param form
+ */
+function vote_set_vote(form) {
+  form.find('input#vote[type=submit]').addClass('not-changed').val(Drupal.t('Change vote'));
 }

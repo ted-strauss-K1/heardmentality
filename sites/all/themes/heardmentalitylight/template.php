@@ -93,6 +93,7 @@ function heardmentalitylight_preprocess_page(&$vars) {
     }
   }
   elseif ('issues' == arg(0)) {
+    drupal_add_css($theme_path . '/stylesheets/node-issue.css');
     drupal_add_css($theme_path . '/stylesheets/search.css');
   }
   else {

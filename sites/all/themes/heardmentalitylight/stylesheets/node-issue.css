@@ -1,3 +1,11 @@
+/* SEARCH FORM */
+.issue-vote-form input[type=submit].not-changed,
+.issue-vote-form.active input[type=submit] {
+  display : none;
+}
+
+/* SEARCH FORM END */
+
 .white-box.poll-box ul.tabs-content > li {
   margin : 0;
 }

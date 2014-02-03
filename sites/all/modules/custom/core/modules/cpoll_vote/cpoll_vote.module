@@ -13,6 +13,7 @@ function cpoll_vote_content_translate_rebuild_js() {
       'Your suggestion was added',
       'Wait for few seconds to change your vote',
       'Your vote is accepted',
+      'Change vote',
     ),
   );
 }
@@ -142,6 +143,7 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
     );
     if ($node->vote) {
       $form['main_submit']['#value'] = t('Change vote');
+      $form['main_submit']['#attributes']['class'] .= ' not-changed';
     }
   }
   else {
