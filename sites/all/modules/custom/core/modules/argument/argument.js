@@ -216,13 +216,6 @@ $('.arg-reply-form').live('submit', function (e) {
         replycount.fadeIn(1000);
       });
 
-      var body = $('body');
-      body.trigger('events', ['reply', {
-        'cid'         : response.cid,
-        'content_type': 'comment',
-        'content_id'  : response.cid
-      }])
-
       // add the translate to the new comment
       translate();
     },
@@ -513,14 +506,6 @@ $('#argument-add-form').live('submit', function (e) {
         var debate_area = $("#debate_list_area");
         var selected = debate_area.tabs("option", "selected");
         debate_area.tabs("load", selected);
-
-        // event
-        var body = $('body');
-        body.trigger('events', ['debate', {
-          'nid'         : response.nid,
-          'content_type': 'node',
-          'content_id'  : response.nid
-        }]);
 
       } else {
         $.hrd.noty({
