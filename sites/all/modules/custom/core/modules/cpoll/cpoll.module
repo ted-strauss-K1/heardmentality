@@ -12,6 +12,7 @@ function cpoll_load_choices($nid, $reset = FALSE) {
 
   if (!isset($choices[$nid]) || $reset) {
     $choices[$nid] = array();
+    $votecount = 0;
 
     $index = 0;
     $result = db_query("
@@ -26,6 +27,12 @@ function cpoll_load_choices($nid, $reset = FALSE) {
         $row['chtext_short'] = $row['chtext'];
       }
       $choices[$nid][$row['chid']] = $row + array('index' => $index++);
+      $votecount += intval($choices[$nid][$row['chid']]['votes']);
+    }
+
+    foreach ($choices[$nid] as &$choice) {
+      $choice['votes_percent'] = $votecount ? round(100 * $choice['votes'] / $votecount) : 0;
+      $choice['votes_share'] = $votecount ? round($choice['votes'] / $votecount, 4) : 0;
     }
   }
 
