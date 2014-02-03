@@ -3,7 +3,11 @@
  */
 $('form.issue-vote-form input[name=choices]').live('change', function () {
   var form = $(this).parents('.issue-vote-form');
-  form.find('input[type=submit]').removeClass('not-changed');
+  if ($(this).parents('.radio_wrapper').hasClass('current-vote')) {
+    form.find('input[type=submit]').addClass('not-changed');
+  } else {
+    form.find('input[type=submit]').removeClass('not-changed');
+  }
 });
 
 /**
@@ -205,7 +209,9 @@ function voteform_freeze(form, status) {
     radios.attr('disabled', 'disabled');
   }
   else {
+    form.find('.radio_wrapper').removeClass('current-vote')
     radios.removeAttr('disabled');
+    form.find('input[name=choices]:checked').parents('.radio_wrapper').addClass('current-vote');
     form.removeClass('active');
   }
 }
