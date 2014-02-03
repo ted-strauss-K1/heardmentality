@@ -33,6 +33,7 @@ function cpoll_load_choices($nid, $reset = FALSE) {
     foreach ($choices[$nid] as &$choice) {
       $choice['votes_percent'] = $votecount ? round(100 * $choice['votes'] / $votecount) : 0;
       $choice['votes_share'] = $votecount ? round($choice['votes'] / $votecount, 4) : 0;
+      $choice['votes_count'] = $votecount;
     }
   }
 
