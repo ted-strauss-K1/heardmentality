@@ -5513,60 +5513,12 @@ form.issue-vote-form > div > div.choices {
   margin-left : 65px !important;
 }
 
-.choices .form-radios .form-item,
-.fieldset-wrapper .form-radios .form-item,
-#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .form-item {
-  background : none repeat scroll 0 0 #E4E4E4;
-  border     : 1px solid #D7D7D7;
-  margin     : 3px 0 10px !important;
-  padding    : 13px 12px 10px;
-  width      : auto;
-  cursor     : pointer;
-}
 
-.choices .form-radios .form-item:hover,
-.choices .form-radios .form-item.staygreen,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item:hover,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item.staygreen {
-  background-color   : #C2FCC4;
-  border             : 1px solid #BCE0BD;
-  -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
-  -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
-  -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
-  -khtml-box-shadow  : inset 0px 0px 5px 0px #FFFFFF;
-  box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
-}
 
-.choices .form-radios .form-item label.option,
-.choices .form-radios .form-item label.option span,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
-  color   : #4C4C4C;
-  font    : 18px/1.2 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
-  display : block;
-  cursor  : pointer;
-}
 
-.choices .form-radios .form-item label.option input.form-radio,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option input.form-radio {
-  margin     : 0;
-  float      : left;
-  position   : relative;
-  height     : 22px;
-  padding    : 0;
-  background : #E4E4E4;
-}
 
-.choices .form-radios .form-item label.option span,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
-  margin-left : 25px;
-  overflow    : hidden;
-  display     : block;
-}
 
-.vote-result-empty, .vote-result-empty + .form-item {
-  display : none;
-}
+
 
 .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
   margin-left : 0 !important;

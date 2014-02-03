@@ -14,6 +14,9 @@ function cpoll_vote_content_translate_rebuild_js() {
       'Wait for few seconds to change your vote',
       'Your vote is accepted',
       'Change vote',
+      'The choice submitted cannot be empty',
+      'The choice was already submitted',
+
     ),
   );
 }
@@ -199,9 +202,31 @@ function cpoll_vote_form_radios($form_element, &$form_state) {
     foreach ($node->choices as $i => $choice) {
       $vote_number = (int) $choice['votes'];
       $vote_string = t('vote' . ($vote_number == 1 ? '' : 's'));
-      $form_element[$i]['#prefix'] = '<div class="radio_wrapper choice-' . $choice['chtype'] . ' ' . ($node->vote == $choice['chid'] ? 'current-vote ' : '') . 'clearfix"><span class="teaser_count_vote vote-result-' . (-1 == $i ? 'empty' : $i) . '">
-<span class="vote-result-' . $i . '">' . $vote_number . '</span>' . $vote_string . '</span>';
-      $form_element[$i]['#suffix'] = '</div>';
+
+      $classes = array();
+      $classes[] = 'choice-' . $choice['chtype'];
+      $classes[] = 'choice-' . (-1 == $i ? 'empty' : $i);
+      if ($node->vote == $choice['chid']) {
+        $classes[] = 'current-vote';
+      }
+
+      $prefix = '
+      <div class="choice-radio-wrapper clearfix ' . implode(' ', $classes) . '">
+        <div class="choice-radio-votes"><span>'.$vote_number.'</span>'.$vote_string.'</div>
+        <div class="choice-radio-title">
+          <div
+            class="choice-radio-percentage"
+          style="width:'.$choice['votes_percent'].'%"></div>';
+      $suffix = '
+        </div>
+      </div>';
+
+
+//      $prefix .= '<div class="radio_wrapper choice-' . $choice['chtype'] . ' ' . ($node->vote == $choice['chid'] ? 'current-vote ' : '') . 'clearfix"><span class="teaser_count_vote vote-result-' . (-1 == $i ? 'empty' : $i) . '"> <span class="vote-result-' . $i . '">' . $vote_number . '</span>' . $vote_string . '</span>';
+//      $suffix = '</div>';
+
+      $form_element[$i]['#prefix'] = $prefix;
+      $form_element[$i]['#suffix'] = $suffix;
     }
   }
 

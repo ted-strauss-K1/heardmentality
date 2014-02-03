@@ -1,0 +1,132 @@
+.choice-radio-wrapper {
+  position     : relative;
+  padding-left : 65px;
+}
+
+.choices .choice-radio-wrapper.choice-empty {
+  display : none;
+}
+
+.choice-radio-votes {
+  position         : absolute;
+  left             : 0;
+  width            : 50px;
+  font             : 17px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+  color            : #7B7D01;
+  padding          : 5px 3px 2px;
+  margin           : 0;
+  text-align       : center;
+  background-color : #E1E43C;
+  box-shadow       : 0 0 5px 0 #FFFFFF inset;
+  border           : 1px solid #D1D41B;
+}
+
+.choice-radio-votes > span {
+  display : block;
+  font    : 20px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+}
+
+.choice-radio-title {
+  background : none repeat scroll 0 0 #E4E4E4;
+  border     : 1px solid #D7D7D7;
+  margin     : 3px 0 10px !important;
+  padding    : 13px 12px 10px;
+  width      : auto;
+  cursor     : pointer;
+  position   : relative;
+  overflow   : hidden;
+}
+
+.choice-radio-title:hover {
+  background-color   : #C2FCC4;
+  border             : 1px solid #BCE0BD;
+  -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
+  -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
+  -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
+  -khtml-box-shadow  : inset 0px 0px 5px 0px #FFFFFF;
+  box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
+}
+
+.choice-radio-wrapper.current-vote .choice-radio-title {
+  background-color   : #C2FCC4;
+  border             : 1px solid #BCE0BD;
+  -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
+  -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
+  -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
+  -khtml-box-shadow  : inset 0px 0px 5px 0px #FFFFFF;
+  box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
+}
+
+.choice-radio-title label.option,
+.choice-radio-title label.option span {
+  color   : #4C4C4C;
+  font    : 18px/1.2 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+  display : block;
+  cursor  : pointer;
+}
+
+.choice-radio-title label.option input.form-radio {
+  margin     : 0;
+  float      : left;
+  position   : relative;
+  height     : 22px;
+  padding    : 0;
+  background : #E4E4E4;
+}
+
+.choice-radio-title label.option span {
+  margin-left : 25px;
+  overflow    : hidden;
+  display     : block;
+}
+
+.choice-radio-percentage {
+  position   : absolute;
+  top        : 0;
+  left       : 0;
+  height     : 100%;
+  background : rgba(0, 0, 0, 0.1);
+}
+
+.not-voted .choice-radio-votes {
+  display : none;
+}
+
+.not-voted .choice-radio-wrapper {
+  padding-left : 0;
+}
+
+.not-voted .choice-radio-percentage {
+  display : none;
+}
+
+/* media queries */
+
+@media only screen and (max-width : 767px) {
+  #new_vote .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 372px;
+  }
+
+  #new_vote .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 307px;
+  }
+}
+
+@media only screen and (max-width : 480px) {
+  #new_vote .not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 252px;
+  }
+
+  #new_vote .choices .form-radios span.teaser_count_vote + .form-item {
+    width : 197px;
+  }
+
+  .choice-radio-votes {
+    font  : 16px/1 'DINLightRegular', Arial, sans-serif;
+    width : 40px;
+  }
+
+  .choices .form-radios span.teaser_count_vote + .form-item, .issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item, #solr-issues-search-form .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
+    margin-left : 55px !important;
+  }
+}
