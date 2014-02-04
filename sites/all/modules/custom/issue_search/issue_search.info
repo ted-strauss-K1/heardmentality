@@ -2,7 +2,7 @@ name = Issues Search Page
 description = Issues Search Page
 package = Custom Modules
 core = "6.x"
-version = "6.x-2.1"
+version = "6.x-2.2"
 
 ; search
 dependencies[] = "apachesolr_search"
