@@ -1765,8 +1765,9 @@ h2.din a {
 }
 
 h2.din a:hover {
-  border-bottom : 1px dotted #CCCCCC;
-  color         : #000000
+  border-bottom : 1px dotted #444444;
+  color         : #000000;
+  text-decoration: none;
 }
 
 /* MISC */
@@ -1818,7 +1819,7 @@ h2.din a:hover {
 .twelve .white-box h2 a {
   color           : #333333;
   outline         : 0 none;
-  text-decoration : underline;
+  text-decoration : none;
 }
 
 /* active category */
