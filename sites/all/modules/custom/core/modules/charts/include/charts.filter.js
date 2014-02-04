@@ -13,10 +13,84 @@ $('#filter').live("change", function () {
 });
 
 /**
- *
  * @param arg
  */
 function init_filter(arg) {
+  // empty placeholder
+  $('#chart-filter svg').empty();
+
+  // get data
+  var js_data = Drupal.settings.charts.filter[arg];
+
+  // get svg
+  var svg = d3.select("#chart-filter svg");
+
+  // get data
+  var data = [];
+
+  // columns
+  var x_label = "Votes", y_label = "", options = js_data['#options'];
+
+  // collect data
+  if (!arg) {
+    y_label = "Choice";
+    for (var i in Drupal.settings.charts.choices) {
+      data.push({
+        "Votes"  : js_data['#results'][i][i],
+        "Choice" : Drupal.settings.charts.choices[i]
+      });
+    }
+  }
+  else {
+    y_label = js_data['#name'];
+    for (var i in Drupal.settings.charts.choices) {
+      for (var j in js_data['#options']) {
+        var data_item = {
+          "Votes"  : js_data['#results'][i][j],
+          "Choice" : Drupal.settings.charts.choices[i]
+        };
+        data_item[y_label] = js_data['#options'][j];
+        data.push(data_item);
+      }
+    }
+  }
+
+  // default margins
+  var margin = 8;
+  var legend = 50;
+
+  // detect the sizes of options
+  var max_label_length = 0;
+  for (var j in options) {
+    max_label_length = Math.max(max_label_length, (options[j]).length);
+  }
+
+  // change default margins
+  margin = 20 + 5 * max_label_length;
+  if (margin > 120) {
+    margin = 120;
+  }
+  legend = 20 + 5*(options.length + options.length%2);
+
+  var chart = new dimple.chart(svg, data);
+  chart.setBounds(margin, legend, 300-margin, 240 - legend)
+  var x_axis = chart.addMeasureAxis("x", x_label);
+  var y_axis = chart.addCategoryAxis("y", y_label);
+  chart.addSeries(y_label, dimple.plot.bar);
+  chart.addLegend(0, 10, 315, 30, "right");
+
+  console.log(x_axis);
+  console.log(y_axis);
+
+  chart.draw();
+}
+
+
+/**
+ *
+ * @param arg
+ */
+function init_filter_old(arg) {
   var js_data = Drupal.settings.charts.filter[arg];
 
   var data = [];
