@@ -4548,10 +4548,10 @@ fieldset + .mod-wrapper {
   background : none transparent;
 }
 
-#moderation-issues-form fieldset + .mod-wrapper,
-#moderation-arguments-form fieldset + .mod-wrapper,
-#moderation-comments-form fieldset + .mod-wrapper,
-#moderation-users-form fieldset + .mod-wrapper {
+#moderation-issues-form .mod-wrapper,
+#moderation-arguments-form .mod-wrapper,
+#moderation-comments-form .mod-wrapper,
+#moderation-users-form .mod-wrapper {
   padding    : 0 0 17px;
   margin     : 11px 0 0;
   background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
