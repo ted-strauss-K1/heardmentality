@@ -1,8 +1,12 @@
 /* MAIN ELEMENTS */
 
 .header {
-  margin  : 0px 0px;
-  padding : 0px 0px
+  margin   : 0px 0px;
+  padding  : 0px 0px;
+  width    : 100%;
+  position : fixed;
+  top      : 0;
+  z-index  : 999;
 }
 
 .line-top {
@@ -188,16 +192,15 @@ ul.menu li a {
 
 ul.menu li a:hover,
 ul.menu li a:active,
-ul.menu li a.active,
 ul.menu li.following a:hover,
-ul.menu li.following a:active,
-ul.menu li.following a.active {
+ul.menu li.following a:active {
   background-color : #3CC7F4;
   color            : #222222;
 }
 
 ul.menu li.following a {
-  background-color : #EF3D3B;
+  /*background-color : #EF3D3B;*/
+  background-color : #FF5454;
 }
 
 ul.menu li a.analysis {
