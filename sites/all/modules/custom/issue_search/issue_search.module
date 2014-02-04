@@ -65,6 +65,15 @@ function issue_search_menu() {
     'file'            => 'includes/issue_search.pages.inc',
   );
 
+  # index
+  $menu['issues/index'] = array(
+    'page callback'   => 'issue_search_index_issues',
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
+    'file'            => 'includes/issue_search.index.inc',
+  );
+
+
   return $menu;
 }
 

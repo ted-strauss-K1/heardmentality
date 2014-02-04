@@ -1,0 +1,66 @@
+.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote span,
+.search_list .poll-vote-area .form-radios span.teaser_count_vote span {
+  display : block;
+  font    : 20px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+}
+
+.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote,
+.search_list .poll-vote-area .form-radios span.teaser_count_vote {
+  float            : left;
+  width            : 50px;
+  font             : 17px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
+  color            : #7B7D01;
+  padding          : 5px 3px 2px;
+  margin           : 0;
+  text-align       : center;
+  background-color : #E1E43C;
+  box-shadow       : 0 0 5px 0 #FFFFFF inset;
+  border           : 1px solid #D1D41B;
+}
+
+.choices .form-radios .radio_wrapper .form-item,
+.fieldset-wrapper .form-radios .radio_wrapper .form-item,
+#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .radio_wrapper .form-item {
+  margin : 0 0 10px !important;
+}
+
+.choices .form-radios span.teaser_count_vote + .form-item,
+.issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item,
+#linkbox .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
+  margin-left : 65px !important;
+}
+
+.not-voted .choices .form-radios span.teaser_count_vote + .form-item {
+  margin-left : 0 !important;
+}
+
+.not-voted .teaser_count_vote {
+  display : none;
+}
+
+.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote,
+.search_list .poll-vote-area .form-radios span.teaser_count_vote {
+  border-radius         : 3px;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  -o-border-radius      : 3px;
+  -khtml-border-radius  : 3px;
+}
+
+.radio_wrapper {
+  margin-top : 3px;
+}
+
+.issue-vote-wrapper .suggest-error,
+.search_list .suggest-error {
+  color   : #CD2027;
+  font    : 11px/14px Arial, "Lucida Grande", sans-serif;
+  padding : 6px 0 0;
+  width   : 78%;
+  margin  : 0 0 -4px 30px;
+}
+
+.issue-vote-wrapper fieldset.collapsible.collapsed + .suggest-error,
+.search_list fieldset.collapsible.collapsed + .suggest-error {
+  margin : 16px 0 -4px 30px;
+}
