@@ -40,7 +40,7 @@ form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title {
   background : none repeat scroll 0 0 #E4E4E4;
   border     : 1px solid #D7D7D7;
   margin     : 3px 0 10px !important;
-  padding    : 13px 12px 10px;
+  padding    : 7px 12px 6px;
   width      : auto;
   cursor     : pointer;
   position   : relative;
@@ -96,7 +96,7 @@ form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title .choice-
   top        : 0;
   left       : 0;
   height     : 100%;
-  background : rgba(0, 0, 0, 0.1);
+  background : rgba(0, 0, 0, 0.05);
   z-index    : 2;
 }
 
