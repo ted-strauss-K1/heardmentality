@@ -1,14 +1,9 @@
-function track(msg) {
-  var time = Date.now();
-  this.time = this.time || time;
-  console.log(msg + ' >> ' + Math.round(time - this.time, 4));
-  this.time = time;
-}
-
 /**
  * click the percentage
  */
-$('.choice-radio-title').live('click', function () {
+$('.choice-radio-title, .choice-radio-percentage').live('click', function (e) {
+  e.preventDefault();
+  e.stopPropagation();
   var input = $(this).parents('.choice-radio-wrapper').find('input');
   if (!input.is(':disabled')) {
     input.attr('checked', 'checked').trigger('change');
@@ -44,7 +39,6 @@ $('#suggest').live('click', function (e) {
  * @param suggestion
  */
 function voteform_submit(form, suggestion) {
-  track('start');
   // activated form
   if (voteform_is_active(form)) {
     var message = suggestion ?
@@ -56,151 +50,47 @@ function voteform_submit(form, suggestion) {
     });
     return false;
   }
-  track('check active');
+
   // validate
   if (!voteform_validate(form, suggestion)) {
     return false;
   }
-  track('validation');
 
   // pre-execution
   voteform_preexecute(form, suggestion);
-  track('preexecute');
+
   // activate form
   voteform_activate(form);
-  track('activate');
 
   // animate vote results
   voteform_animate(form);
-  track('animate');
+
   // send data to server
   voteform_request(form, suggestion);
-  track('request');
 }
 
 /**
  * @param form
  */
-function voteform_request(form, suggestion) {
-  track('start request');
-  var dataset = {'nid': form.find('input[name=nid]').val()};
-  if (suggestion) {
-    var input = $('input[name="suggest[suggest_answer]"]');
-    dataset['suggestion'] = input.val();
-  }
-  else {
-    var chid = form.find(':checked');
-    dataset['chid'] = chid.val();
-  }
-  track('start ajax');
-  $.ajax({
-    type    : 'POST',
-    dataType: 'json',
-    url     : Drupal.settings.language_prefix + '/cpoll_vote/ajax',
-    data    : dataset,
-    success : function (response) {
-      track('end ajax');
-      if (!response.status) {
-        voteform_error(form, suggestion, response);
-        track('error');
-        return false;
-      }
-
-      voteform_postexecute(form, suggestion, response);
-      track('end postexecute');
-    }
-  });
+function voteform_activate(form) {
+  form.addClass('active');
+  form.find('input').attr('disabled', 'disabled');
 }
 
 /**
  * @param form
- * @param suggestion
- * @param response
  */
-function voteform_postexecute(form, suggestion, response) {
-  if (suggestion) {
-    // update chid
-    form.find('input[name=choices][value="-1"]').val(response.chid);
-
-    // change the classes
-    form.find('.choice-new').removeClass('choice-new').addClass('choice-' + response.chid);
-  }
-
-  // save vote chid
-  form.find('[name=vote]').val(response.chid);
-
-  // current vote
-  form.find('.choice-radio-wrapper').removeClass('current-vote');
-  form.find('.choice-' + response.chid).addClass('current-vote');
-
-  // update the form with server's data
-  var results = response.result;
-  for (var i in results) {
-    voteform_count_set(form, i, results[i]['votes'])
-  }
-
-  // change the text
-  form.find('input#vote[type=submit]').addClass('not-changed').val(Drupal.t('Change vote'));
-
-  // deactivate form
-  voteform_deactivate(form);
-
-  // animate vote results
-  voteform_animate(form);
-
-  // trigger update
-  $('body').trigger('cpoll_update', [false]);
+function voteform_deactivate(form) {
+  form.find('input').removeAttr('disabled');
+  form.removeClass('active');
 }
 
 /**
  * @param form
- * @param suggestion
- * @param response
+ * @returns {*}
  */
-function voteform_error(form, suggestion, response) {
-  $.hrd.noty({
-    type: 'error',
-    text: response.message
-  });
-
-  if (suggestion) {
-    // show the input
-    var input = $('input[name="suggest[suggest_answer]"]');
-    input.parents('fieldset').slideDown(500);
-
-    // uncheck
-    form.find('.choice-new').find('input').removeAttr('checked');
-
-    // show the new choice
-    form.find('.choice-new')
-      .addClass('choice-empty')
-      .removeClass('choice-new')
-      .find('.ch')
-      .html('');
-
-    // decrease count
-    voteform_count(form, -1, -1);
-  }
-  else {
-    // decrease count
-    var chid = form.find(':checked');
-    voteform_count(form, chid.val(), -1);
-  }
-
-  // increase count
-  var vote = form.find('[name=vote]');
-  if (-1 != vote.val()) {
-    voteform_count(form, vote.val(), 1);
-  }
-  else {
-    form.addClass('not-voted');
-  }
-
-  // deactivate form
-  voteform_deactivate(form);
-
-  // animate vote results
-  voteform_animate(form);
+function voteform_is_active(form) {
+  return form.hasClass('active');
 }
 
 /**
@@ -210,7 +100,7 @@ function voteform_error(form, suggestion, response) {
  */
 function voteform_validate(form, suggestion) {
   if (suggestion) {
-    var input = $('input[name="suggest[suggest_answer]"]');
+    var input = form.find('input[name="suggest[suggest_answer]"]');
     input.val(input.val().replace(/(^\s+|\s+$)/g, ''));
     if (!input.val()) {
       $.hrd.noty({
@@ -249,7 +139,7 @@ function voteform_validate(form, suggestion) {
 function voteform_preexecute(form, suggestion) {
   if (suggestion) {
     // hide the input
-    var input = $('input[name="suggest[suggest_answer]"]');
+    var input = form.find('input[name="suggest[suggest_answer]"]');
     input.parents('fieldset').slideUp(500);
 
     // show the new choice
@@ -259,7 +149,7 @@ function voteform_preexecute(form, suggestion) {
       .find('.ch')
       .html(input.val());
 
-    form.find('.choice-new').find('input').attr('checked', 'checked');
+    form.find('.choice-new input').attr('checked', 'checked');
   }
 
   // message
@@ -291,6 +181,23 @@ function voteform_preexecute(form, suggestion) {
 /**
  * @param form
  */
+function voteform_animate_reset(form) {
+  form.find('.choice-radio-percentage').width(0);
+}
+
+/**
+ * @param form
+ * @param value
+ * @param delta
+ */
+function voteform_count(form, value, delta) {
+  var count = form.find('.choice-' + value + ' .choice-radio-votes span');
+  count.html(delta + parseInt(count.html()));
+}
+
+/**
+ * @param form
+ */
 function voteform_animate(form) {
   var votecount = 0;
   form.find('.choice-radio-votes span').each(function (i, e) {
@@ -309,14 +216,140 @@ function voteform_animate(form) {
 }
 
 /**
- *
  * @param form
- * @param value
- * @param delta
  */
-function voteform_count(form, value, delta) {
-  var count = form.find('.choice-' + value + ' .choice-radio-votes span');
-  count.html(delta + parseInt(count.html()));
+function voteform_request(form, suggestion) {
+  var dataset = {'nid': form.find('input[name=nid]').val()};
+  if (suggestion) {
+    var input = form.find('input[name="suggest[suggest_answer]"]');
+    dataset['suggestion'] = input.val();
+  }
+  else {
+    var chid = form.find(':checked');
+    dataset['chid'] = chid.val();
+  }
+
+  $.ajax({
+    type    : 'POST',
+    dataType: 'json',
+    url     : Drupal.settings.language_prefix + '/cpoll_vote/ajax',
+    data    : dataset,
+    success : function (response) {
+      if (!response.status) {
+        voteform_error(form, suggestion, response);
+        return false;
+      }
+
+      voteform_postexecute(form, suggestion, response);
+    }
+  });
+}
+
+/**
+ * @param form
+ * @param suggestion
+ * @param response
+ */
+function voteform_error(form, suggestion, response) {
+  $.hrd.noty({
+    type: 'error',
+    text: response.message
+  });
+
+  if (suggestion) {
+    // show the input
+    var input = $('input[name="suggest[suggest_answer]"]');
+    input.parents('fieldset').slideDown(500);
+
+    // uncheck
+    form.find('.choice-new input').removeAttr('checked');
+
+    // show the new choice
+    form.find('.choice-new')
+      .addClass('choice-empty')
+      .removeClass('choice-new')
+      .find('.ch')
+      .html('');
+
+    // decrease count
+    voteform_count(form, -1, -1);
+  }
+  else {
+    // decrease count
+    var chid = form.find(':checked');
+    voteform_count(form, chid.val(), -1);
+  }
+
+  // increase count
+  var vote = form.find('[name=vote]');
+  if (-1 != vote.val()) {
+    voteform_count(form, vote.val(), 1);
+  }
+  else {
+    form.addClass('not-voted');
+  }
+
+  // check vote
+  if (-1 != vote.val()) {
+    form.find('.choice-' + vote.val() + ' input').attr('checked', 'checked').trigger('change');
+  }
+
+  // deactivate form
+  voteform_deactivate(form);
+
+  // animate vote results
+  voteform_animate(form);
+}
+
+/**
+ * @param form
+ * @param suggestion
+ * @param response
+ */
+function voteform_postexecute(form, suggestion, response) {
+  if (suggestion) {
+    // update chid
+    form.find('input[name=choices][value="-1"]').val(response.chid);
+
+    // change the classes
+    form.find('.choice-new').removeClass('choice-new').addClass('choice-' + response.chid);
+  }
+
+  // save vote chid
+  form.find('[name=vote]').val(response.chid);
+
+  // current vote
+  form.find('.choice-radio-wrapper').removeClass('current-vote');
+  form.find('.choice-' + response.chid).addClass('current-vote');
+
+  // update the form with server's data
+  var results = response.result;
+  for (var i in results) {
+    voteform_count_set(form, i, results[i]['votes'])
+  }
+
+  // change the text
+  form.find('input#vote[type=submit]').addClass('not-changed').val(Drupal.t('Change vote'));
+
+  // deactivate form
+  voteform_deactivate(form);
+
+  // animate vote results
+  voteform_animate(form);
+
+  // index
+  $.ajax({
+    type    : 'POST',
+    dataType: 'json',
+    url     : '/issues/index',
+    data    : {},
+    success : function (response) {
+      //
+    }
+  });
+
+  // trigger update
+  $('body').trigger('cpoll_update', [false]);
 }
 
 /**
@@ -327,37 +360,6 @@ function voteform_count(form, value, delta) {
  */
 function voteform_count_set(form, chid, value) {
   form.find('.choice-' + chid + ' .choice-radio-votes span').html(value);
-}
-
-/**
- * @param form
- */
-function voteform_animate_reset(form) {
-  form.find('.choice-radio-percentage').width(0);
-}
-
-/**
- * @param form
- */
-function voteform_activate(form) {
-  form.addClass('active');
-  form.find('input').attr('disabled', 'disabled');
-}
-
-/**
- * @param form
- */
-function voteform_deactivate(form) {
-  form.find('input').removeAttr('disabled');
-  form.removeClass('active');
-}
-
-/**
- * @param form
- * @returns {*}
- */
-function voteform_is_active(form) {
-  return form.hasClass('active');
 }
 
 /**
