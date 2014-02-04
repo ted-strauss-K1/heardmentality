@@ -1,12 +1,14 @@
 /**
  * click the percentage
  */
-$('.choice-radio-title, .choice-radio-percentage').live('click', function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  var input = $(this).parents('.choice-radio-wrapper').find('input');
-  if (!input.is(':disabled')) {
-    input.attr('checked', 'checked').trigger('change');
+$('.choice-radio-title, .choice-radio-title *').live('click', function (e) {
+  var $$ = $(this);
+  if ($$.hasClass('choice-radio-title')) {
+    e.stopPropagation();
+    var input = $$.find('input');
+    if (!input.is(':disabled')) {
+      input.prop('checked', true).trigger('change');
+    }
   }
 });
 
@@ -149,7 +151,7 @@ function voteform_preexecute(form, suggestion) {
       .find('.ch')
       .html(input.val());
 
-    form.find('.choice-new input').attr('checked', 'checked');
+    form.find('.choice-new input').prop('checked', true);
   }
 
   // message
@@ -262,7 +264,7 @@ function voteform_error(form, suggestion, response) {
     input.parents('fieldset').slideDown(500);
 
     // uncheck
-    form.find('.choice-new input').removeAttr('checked');
+    form.find('.choice-new input').prop('checked', false);
 
     // show the new choice
     form.find('.choice-new')
@@ -291,7 +293,7 @@ function voteform_error(form, suggestion, response) {
 
   // check vote
   if (-1 != vote.val()) {
-    form.find('.choice-' + vote.val() + ' input').attr('checked', 'checked').trigger('change');
+    form.find('.choice-' + vote.val() + ' input').prop('checked', true).trigger('change');
   }
 
   // deactivate form
