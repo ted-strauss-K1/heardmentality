@@ -351,15 +351,12 @@
   }
 
   /*---/ ERROR CIRCLES & CIRCLES IN HOMEPAGE */
-
   /* FOOTER */
-
   p.policy {
-    font-size: 9px;
+    font-size : 9px;
   }
 
   /*---/ FOOTER */
-
   /* OTHER */
   input.form-text, input.form-text.user-search {
     width : 338px;
@@ -1549,8 +1546,6 @@
     margin : 0;
   }
 
-
-
   label.before-submit {
     margin : 0 0 18px 0;
   }
@@ -1865,8 +1860,6 @@
 
   /*---/ FOLLOWING */
   /* OTHER */
-
-
   .white-box .container {
     width : 274px;
   }
@@ -1955,8 +1948,6 @@
     margin : 2px 0 4px 16px;
   }
 
-
-
   #search-solr-block {
     width : 100%;
   }
@@ -1968,28 +1959,3 @@
   /*---/ OTHER */
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5416,8 +5416,6 @@ select#edit-language {
 
 /* ISSUES - VOTE SECTION */
 
-
-
 .issue-vote-wrapper .qd {
   padding : 0;
   margin  : 18px 10px 17px 30px;
@@ -5430,25 +5428,6 @@ select#edit-language {
   width : 100%;
   float : left;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .issue-search-more {
   display             : block;
@@ -5478,8 +5457,6 @@ select#edit-language {
   background : url(../images/light_dotted.gif) repeat-x 0 0;
   padding    : 18px 10px 2px 30px;
 }
-
-
 
 .issue-vote-wrapper .qd .read-more a,
 .issue-vote-wrapper .qd .read-less a {
@@ -5549,8 +5526,6 @@ select#edit-language {
 #edit-submit-suggest-vote-1 {
   display : none;
 }
-
-
 
 #solr-issues-search-form .item-list {
   padding : 18px 20px 0;
