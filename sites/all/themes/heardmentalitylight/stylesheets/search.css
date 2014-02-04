@@ -1,0 +1,39 @@
+.search_list form {
+  margin : 0;
+}
+
+.search_list .poll-vote-area .form-radios {
+  margin : 0;
+}
+
+.search_item {
+  margin-bottom : 15px;
+}
+
+.search_list {
+  background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+  padding    : 0 0 17px;
+}
+
+.search_list h2.din.half {
+  padding       : 10px 30px 0;
+  margin-bottom : 10px;
+}
+
+.search_list:first-child h2.din.half {
+  padding-top : 0;
+}
+
+.search_list h2.din.half a {
+  color           : #372418;
+  text-decoration : none;
+}
+
+.search_list h2.din.half a:hover {
+  text-decoration : underline;
+  border          : 0 none;
+}
+
+.search_list form.issue-vote-form .button.vote {
+  clear : none;
+}

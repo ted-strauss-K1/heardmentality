@@ -1,13 +1,23 @@
-.choice-radio-wrapper {
+form.issue-vote-form .form-radios {
+  margin : 0;
+}
+
+form.issue-vote-form .choices {
+  padding : 18px 10px 2px 30px;
+  width   : 85%;
+  margin  : 0;
+}
+
+form.issue-vote-form .choices .choice-radio-wrapper {
   position     : relative;
   padding-left : 65px;
 }
 
-.choices .choice-radio-wrapper.choice-empty {
+form.issue-vote-form .choices .choice-radio-wrapper.choice-empty {
   display : none;
 }
 
-.choice-radio-votes {
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-votes {
   position         : absolute;
   left             : 0;
   width            : 50px;
@@ -21,12 +31,12 @@
   border           : 1px solid #D1D41B;
 }
 
-.choice-radio-votes > span {
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-votes > span {
   display : block;
   font    : 20px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
 }
 
-.choice-radio-title {
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title {
   background : none repeat scroll 0 0 #E4E4E4;
   border     : 1px solid #D7D7D7;
   margin     : 3px 0 10px !important;
@@ -38,7 +48,7 @@
   z-index    : 1;
 }
 
-.choice-radio-title:hover {
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title:hover {
   background-color   : #C2FCC4;
   border             : 1px solid #BCE0BD;
   -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
@@ -48,7 +58,7 @@
   box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
 }
 
-.choice-radio-wrapper.current-vote .choice-radio-title {
+form.issue-vote-form .choices .choice-radio-wrapper.current-vote .choice-radio-title {
   background-color   : #C2FCC4;
   border             : 1px solid #BCE0BD;
   -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
@@ -58,15 +68,15 @@
   box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
 }
 
-.choice-radio-title label.option,
-.choice-radio-title label.option span {
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title label.option,
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title label.option span {
   color   : #4C4C4C;
   font    : 18px/1.2 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
   display : block;
   cursor  : pointer;
 }
 
-.choice-radio-title label.option input.form-radio {
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title label.option input.form-radio {
   margin     : 0;
   float      : left;
   position   : relative;
@@ -75,13 +85,13 @@
   background : #E4E4E4;
 }
 
-.choice-radio-title label.option span {
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title label.option span {
   margin-left : 25px;
   overflow    : hidden;
   display     : block;
 }
 
-.choice-radio-percentage {
+form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title .choice-radio-percentage {
   position   : absolute;
   top        : 0;
   left       : 0;
@@ -90,16 +100,135 @@
   z-index    : 2;
 }
 
-.not-voted .choice-radio-votes {
+form.issue-vote-form.not-voted .choices .choice-radio-wrapper .choice-radio-votes {
   display : none;
 }
 
-.not-voted .choice-radio-wrapper {
+form.issue-vote-form.not-voted .choices .choice-radio-wrapper {
   padding-left : 0;
 }
 
-.not-voted .choice-radio-percentage {
+form.issue-vote-form.not-voted .choices .choice-radio-wrapper .choice-radio-title .choice-radio-percentage {
   display : none;
+}
+
+form.issue-vote-form .button.vote {
+  clear    : both;
+  float    : left;
+  margin   : 0 0 24px 0;
+  top      : 24px;
+  position : relative;
+}
+
+form.issue-vote-form .votebtn_wrap {
+  padding : 0 30px;
+}
+
+form.issue-vote-form .votebtn_wrap.message {
+  color      : #EF3D3B;
+  font-style : italic;
+  display    : inline-block;
+}
+
+form.issue-vote-form .button.vote:hover,
+form.issue-vote-form .button.vote:focus {
+  top : 21px;
+}
+
+form.issue-vote-form legend {
+  width   : 100%;
+  display : block;
+}
+
+form.issue-vote-form fieldset.collapsible.collapsed legend a {
+  background : url(../images/s_arrow.png) no-repeat 100% 0;
+  display    : inline-block;
+  padding    : 3px 26px 3px 0;
+}
+
+form.issue-vote-form fieldset.collapsible legend a {
+  background : url(../images/s_arrow.png) no-repeat 100% -102px;
+  display    : inline-block;
+  padding    : 3px 26px 3px 0;
+}
+
+form.issue-vote-form .fieldset-wrapper {
+  padding  : 22px 0 0;
+  z-index  : 12;
+  position : relative;
+  margin   : 0;
+  overflow : visible;
+}
+
+form.issue-vote-form .fieldset-wrapper .form-item {
+  margin : 3px 0 10px;
+}
+
+form.issue-vote-form .fieldset-wrapper .form-item input.form-text {
+  float   : left;
+  border  : 1px solid #B3B3B3;
+  color   : #4C4C4C;
+  margin  : 0;
+  padding : 7px 5px 6px;
+  width   : 97%;
+}
+
+form.issue-vote-form .fieldset-wrapper .form-item input.form-text:focus {
+  border             : 1px solid #9C9C9C;
+  -moz-box-shadow    : 0 0 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow : 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow         : 0 0 3px rgba(0, 0, 0, 0.3);
+  -o-box-shadow      : 0 0 3px rgba(0, 0, 0, 0.3);
+  -khtml-box-shadow  : 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+form.issue-vote-form .fieldset-wrapper .nsa-wrapper {
+  width : 85%;
+}
+
+form.issue-vote-form .fieldset-wrapper table {
+  width         : 100%;
+  margin-bottom : -14px;
+}
+
+form.issue-vote-form .fieldset-wrapper table td {
+  vertical-align : top;
+}
+
+form.issue-vote-form .fieldset-wrapper table td.first {
+  width : 100%;
+}
+
+form.issue-vote-form .fieldset-wrapper input.form-submit {
+  display : inline-block;
+  margin  : 2px 0 0 23px;
+  padding : 8px 12px 6px;
+}
+
+form.issue-vote-form .fieldset-wrapper .form-item .description {
+  clear   : left;
+  float   : left;
+  color   : #4C4C4C;
+  font    : 12px/15px Arial, "Lucida Grande", sans-serif;
+  padding : 10px 0 0;
+  width   : 100%;
+}
+
+form.issue-vote-form fieldset legend a {
+  color           : #924C9D;
+  display         : inline-block;
+  margin          : 0;
+  font            : bold italic 12px/15px Arial, "Lucida Grande", sans-serif;
+  position        : relative;
+  top             : 28px;
+  text-transform  : uppercase;
+  text-decoration : none;
+  padding         : 3px 26px 3px 0;
+  z-index         : 13;
+}
+
+form.issue-vote-form fieldset legend a:hover {
+  text-decoration : underline;
 }
 
 /* media queries */
