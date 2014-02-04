@@ -5,18 +5,26 @@
  */
 function issue_search_index_node($nid) {
   @db_query("UPDATE {apachesolr_index_entities_node} SET changed = %d WHERE entity_id = %d", time(), $nid);
-  issue_search_index_issues();
+  // moved to ajax calls
+  // issue_search_index_issues();
 }
 
 /**
  * Index issues
  */
 function issue_search_index_issues() {
+  $time = microtime(TRUE);
   module_load_include('inc', 'apachesolr', 'apachesolr.index');
 
   $env_id = apachesolr_default_environment();
   $limit = variable_get('apachesolr_cron_limit', 50);
   apachesolr_index_entities($env_id, $limit);
+
+  // exit from ajax call
+  if (arg(0) == 'issues') {
+    echo round(microtime(TRUE) - $time, 4);
+    exit;
+  }
 }
 
 /**

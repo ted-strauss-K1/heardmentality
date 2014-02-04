@@ -1821,10 +1821,6 @@ h2.din a:hover {
   text-decoration : underline;
 }
 
-.radio_wrapper {
-  margin-top : 3px;
-}
-
 /* active category */
 
 .twelve .suggest {
@@ -3905,8 +3901,6 @@ textarea#Answer,
 .ui-dialog .ui-tabs-panel #user-register .form-submit,
 #user-register .password-strength,
 #user-register span.password-confirm,
-.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote,
-.search_list .poll-vote-area .form-radios span.teaser_count_vote,
 #linkbox .rightfm a.del_ref,
 #item_results-wrapper span,
 #top_categories-wrapper span,
@@ -5422,33 +5416,7 @@ select#edit-language {
 
 /* ISSUES - VOTE SECTION */
 
-.search_item {
-  margin-bottom : 15px;
-}
 
-.search_list {
-  background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-  padding    : 0 0 17px;
-}
-
-.search_list h2.din.half {
-  padding       : 10px 30px 0;
-  margin-bottom : 10px;
-}
-
-.search_list:first-child h2.din.half {
-  padding-top : 0;
-}
-
-.search_list h2.din.half a {
-  color           : #372418;
-  text-decoration : none;
-}
-
-.search_list h2.din.half a:hover {
-  text-decoration : underline;
-  border          : 0 none;
-}
 
 .issue-vote-wrapper .qd {
   padding : 0;
@@ -5463,138 +5431,24 @@ select#edit-language {
   float : left;
 }
 
-.search_list form {
-  margin : 0;
-}
 
-.issue-vote-wrapper .poll-vote-area .voting-pane .choices {
-  width  : 85%;
-  margin : 0;
-}
 
-form.issue-vote-form > div > div.choices {
-  padding : 18px 10px 2px 30px;
-}
 
-.issue-vote-wrapper .poll-vote-area .form-radios,
-.search_list .poll-vote-area .form-radios {
-  margin : 0;
-}
 
-.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote span,
-.search_list .poll-vote-area .form-radios span.teaser_count_vote span {
-  display : block;
-  font    : 20px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
-}
 
-.issue-vote-wrapper .poll-vote-area .form-radios span.teaser_count_vote,
-.search_list .poll-vote-area .form-radios span.teaser_count_vote {
-  float            : left;
-  width            : 50px;
-  font             : 17px/1 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
-  color            : #7B7D01;
-  padding          : 5px 3px 2px;
-  margin           : 0;
-  text-align       : center;
-  background-color : #E1E43C;
-  box-shadow       : 0 0 5px 0 #FFFFFF inset;
-  border           : 1px solid #D1D41B;
-}
 
-.choices .form-radios .radio_wrapper .form-item,
-.fieldset-wrapper .form-radios .radio_wrapper .form-item,
-#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .radio_wrapper .form-item {
-  margin : 0 0 10px !important;
-}
 
-.choices .form-radios span.teaser_count_vote + .form-item,
-.issue-vote-wrapper .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item,
-#linkbox .search_list .fieldset-wrapper .form-radios span.teaser_count_vote + .form-item {
-  margin-left : 65px !important;
-}
 
-.choices .form-radios .form-item,
-.fieldset-wrapper .form-radios .form-item,
-#solr-issues-search-form .search_list .fieldset-wrapper .form-radios .form-item {
-  background : none repeat scroll 0 0 #E4E4E4;
-  border     : 1px solid #D7D7D7;
-  margin     : 3px 0 10px !important;
-  padding    : 13px 12px 10px;
-  width      : auto;
-  cursor     : pointer;
-}
 
-.choices .form-radios .form-item:hover,
-.choices .form-radios .form-item.staygreen,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item:hover,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item.staygreen {
-  background-color   : #C2FCC4;
-  border             : 1px solid #BCE0BD;
-  -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
-  -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
-  -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
-  -khtml-box-shadow  : inset 0px 0px 5px 0px #FFFFFF;
-  box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
-}
 
-.choices .form-radios .form-item label.option,
-.choices .form-radios .form-item label.option span,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
-  color   : #4C4C4C;
-  font    : 18px/1.2 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif;
-  display : block;
-  cursor  : pointer;
-}
 
-.choices .form-radios .form-item label.option input.form-radio,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option input.form-radio {
-  margin     : 0;
-  float      : left;
-  position   : relative;
-  height     : 22px;
-  padding    : 0;
-  background : #E4E4E4;
-}
 
-.choices .form-radios .form-item label.option span,
-.issue-vote-wrapper .fieldset-wrapper .form-radios .form-item label.option span {
-  margin-left : 25px;
-  overflow    : hidden;
-  display     : block;
-}
 
-.vote-result-empty, .vote-result-empty + .form-item {
-  display : none;
-}
 
-.not-voted .choices .form-radios span.teaser_count_vote + .form-item {
-  margin-left : 0 !important;
-}
 
-.votebtn_wrap {
-  padding : 0 30px;
-}
 
-.issue-vote-wrapper .button.vote,
-.search_list .button.vote {
-  clear    : both;
-  float    : left;
-  margin   : 0 0 24px 0;
-  top      : 24px;
-  position : relative;
-}
 
-.search_list .button.vote {
-  clear : none;
-}
 
-.issue-vote-wrapper .button.vote:hover,
-.search_list .button.vote:hover,
-.issue-vote-wrapper .button.vote:focus,
-.search_list .button.vote:focus {
-  top : 21px;
-}
 
 .issue-search-more {
   display             : block;
@@ -5625,63 +5479,7 @@ form.issue-vote-form > div > div.choices {
   padding    : 18px 10px 2px 30px;
 }
 
-.issue-vote-wrapper .poll-vote-area fieldset legend,
-.search_list .poll-vote-area fieldset legend {
-  width   : 100%;
-  display : block;
-}
 
-.issue-vote-wrapper .poll-vote-area fieldset.collapsible.collapsed legend a,
-.search_list .poll-vote-area fieldset.collapsible.collapsed legend a {
-  background : url(../images/s_arrow.png) no-repeat 100% 0;
-  display    : inline-block;
-  padding    : 3px 26px 3px 0;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset.collapsible legend a,
-.search_list .poll-vote-area fieldset.collapsible legend a {
-  background : url(../images/s_arrow.png) no-repeat 100% -102px;
-  display    : inline-block;
-  padding    : 3px 26px 3px 0;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .nsa-wrapper,
-.search_list .poll-vote-area .fieldset-wrapper .nsa-wrapper {
-  width : 85%;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table,
-.search_list .poll-vote-area .fieldset-wrapper table {
-  width         : 100%;
-  margin-bottom : -14px;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table td,
-.search_list .poll-vote-area .fieldset-wrapper table td {
-  vertical-align : top;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper table td.first,
-.search_list .poll-vote-area .fieldset-wrapper table td.first {
-  width : 100%;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper input.form-submit,
-.search_list .poll-vote-area .fieldset-wrapper input.form-submit {
-  display : inline-block;
-  margin  : 2px 0 0 23px;
-  padding : 8px 12px 6px;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item .description,
-.search_list .poll-vote-area .fieldset-wrapper .form-item .description {
-  clear   : left;
-  float   : left;
-  color   : #4C4C4C;
-  font    : 12px/15px Arial, "Lucida Grande", sans-serif;
-  padding : 10px 0 0;
-  width   : 100%;
-}
 
 .issue-vote-wrapper .qd .read-more a,
 .issue-vote-wrapper .qd .read-less a {
@@ -5747,90 +5545,12 @@ form.issue-vote-form > div > div.choices {
   color   : #CD2027;
 }
 
-.issue-vote-wrapper .poll-vote-area .voting-pane .choices .choices.regular {
-  width : 100%;
-}
-
-.search_list .poll-vote-area .voting-pane .choices .choices.regular {
-  margin : 0;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset legend a,
-#solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
-  color           : #924C9D;
-  display         : inline-block;
-  margin          : 0;
-  font            : bold italic 12px/15px Arial, "Lucida Grande", sans-serif;
-  position        : relative;
-  top             : 28px;
-  text-transform  : uppercase;
-  text-decoration : none;
-  padding         : 3px 26px 3px 0;
-  z-index         : 13;
-}
-
-#solr-issues-search-form .search_list .poll-vote-area fieldset legend a {
-  top          : 10px;
-  padding-left : 0 !important;
-}
-
-.issue-vote-wrapper .poll-vote-area fieldset legend a:hover,
-.search_list .poll-vote-area fieldset legend a:hover {
-  text-decoration : underline;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper,
-.search_list .poll-vote-area .fieldset-wrapper {
-  padding  : 22px 0 0;
-  z-index  : 12;
-  position : relative;
-  margin   : 0;
-  overflow : visible;
-}
-
-.issue-vote-wrapper .suggest-error,
-.search_list .suggest-error {
-  color   : #CD2027;
-  font    : 11px/14px Arial, "Lucida Grande", sans-serif;
-  padding : 6px 0 0;
-  width   : 78%;
-  margin  : 0 0 -4px 30px;
-}
-
-.issue-vote-wrapper fieldset.collapsible.collapsed + .suggest-error,
-.search_list fieldset.collapsible.collapsed + .suggest-error {
-  margin : 16px 0 -4px 30px;
-}
-
 .vote-count-poll,
 #edit-submit-suggest-vote-1 {
   display : none;
 }
 
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item,
-.search_list .poll-vote-area .fieldset-wrapper .form-item {
-  margin : 3px 0 10px;
-}
 
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item input.form-text,
-.search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text {
-  float   : left;
-  border  : 1px solid #B3B3B3;
-  color   : #4C4C4C;
-  margin  : 0;
-  padding : 7px 5px 6px;
-  width   : 97%;
-}
-
-.issue-vote-wrapper .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus,
-.search_list .poll-vote-area .fieldset-wrapper .form-item input.form-text:focus {
-  border             : 1px solid #9C9C9C;
-  -moz-box-shadow    : 0 0 3px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow : 0 0 3px rgba(0, 0, 0, 0.3);
-  box-shadow         : 0 0 3px rgba(0, 0, 0, 0.3);
-  -o-box-shadow      : 0 0 3px rgba(0, 0, 0, 0.3);
-  -khtml-box-shadow  : 0 0 3px rgba(0, 0, 0, 0.3);
-}
 
 #solr-issues-search-form .item-list {
   padding : 18px 20px 0;
@@ -5838,16 +5558,6 @@ form.issue-vote-form > div > div.choices {
 
 #solr-issues-search-form ul.pager {
   margin : 0;
-}
-
-.not-voted .teaser_count_vote {
-  display : none;
-}
-
-.votebtn_wrap.message {
-  color      : #EF3D3B;
-  font-style : italic;
-  display    : inline-block;
 }
 
 /*---/ other (don't know where it is used) */

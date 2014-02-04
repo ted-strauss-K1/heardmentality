@@ -89,11 +89,17 @@ function heardmentalitylight_preprocess_page(&$vars) {
   if (is_node_page()) {
     if ($node = $vars['node']) {
       drupal_add_css($theme_path . '/stylesheets/node.css');
+      drupal_add_css($theme_path . '/stylesheets/form-issue.css');
       drupal_add_css($theme_path . '/stylesheets/node-' . $node->type . '.css');
     }
   }
-  if ('issues' == arg(0)) {
+  elseif ('issues' == arg(0)) {
+    drupal_add_css($theme_path . '/stylesheets/form-issue.css');
+    drupal_add_css($theme_path . '/stylesheets/node-issue.css');
     drupal_add_css($theme_path . '/stylesheets/search.css');
+  }
+  else {
+    drupal_add_css($theme_path . '/stylesheets/' . arg(0) . '.css');
   }
   if (drupal_is_front_page()) {
     drupal_add_css($theme_path . '/stylesheets/front.css');
@@ -128,7 +134,7 @@ function heardmentalitylight_theme() {
   $theme['expander'] = array(
     'arguments' => array(
       'text'  => '',
-      'chars' => 1000,
+      'chars' => 256,
     ),
   );
 
@@ -169,7 +175,7 @@ function heardmentalitylight_theme() {
  *
  * @return string
  */
-function heardmentalitylight_expander($text, $chars = 1000, $tags = '<p><a><b><br />') {
+function heardmentalitylight_expander($text, $chars = 256, $tags = '<p><a><b><br />') {
   return '<div class="expander" data-chars="' . $chars . '">' . strip_tags($text, $tags) . '</div>';
 }
 
