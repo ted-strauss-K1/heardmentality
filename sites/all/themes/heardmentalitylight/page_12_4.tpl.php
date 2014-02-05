@@ -14,7 +14,7 @@
 
   <div class="four columns margin-top">
 
-    <div class="four_columns_content_wrapper">
+    <div class="sidebar_inner">
 
       <?php if ($right) : ?>
         <?php print $right; ?>

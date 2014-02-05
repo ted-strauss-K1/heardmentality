@@ -14,9 +14,13 @@
 
   <div class="five columns">
 
-    <?php if ($right) : ?>
-      <?php print $right; ?>
-    <?php endif; ?>
+    <div class="sidebar_inner">
+
+      <?php if ($right) : ?>
+        <?php print $right; ?>
+      <?php endif; ?>
+
+    </div>
 
   </div>
 

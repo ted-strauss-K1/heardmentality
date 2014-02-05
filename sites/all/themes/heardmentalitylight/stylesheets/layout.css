@@ -5632,9 +5632,14 @@ select#edit-language {
 
 /* FIXED RIGHT SIDEBARS */
 
-.four_columns_content_wrapper {
-  width   : 220px;
-  z-index : 1;
+.columns {
+  position : relative;
+}
+
+.sidebar_inner {
+  width    : 220px;
+  z-index  : 1;
+  position : relative;
 }
 
 /*---/ FIXED RIGHT SIDEBARS */
