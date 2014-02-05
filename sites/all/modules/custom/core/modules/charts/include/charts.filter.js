@@ -66,7 +66,7 @@ function init_filter(arg) {
   }
 
   // change default margins
-  margin = 20 + 5 * max_label_length;
+  margin = 30 + 5 * max_label_length;
   if (margin > 120) {
     margin = 120;
   }
@@ -78,9 +78,6 @@ function init_filter(arg) {
   var y_axis = chart.addCategoryAxis("y", y_label);
   chart.addSeries(y_label, dimple.plot.bar);
   chart.addLegend(0, 10, 315, 30, "right");
-
-  console.log(x_axis);
-  console.log(y_axis);
 
   chart.draw();
 }
@@ -117,8 +114,6 @@ function init_filter_old(arg) {
 
       data.push(data_item);
     }
-
-    console.log(JSON.stringify(data));
   }
 
   //
