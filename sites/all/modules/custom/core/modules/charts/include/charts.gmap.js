@@ -13,8 +13,27 @@ function init_gmap() {
   var selector = "map_div";
   var data = Drupal.settings.charts.gmap;
   if (data.length > 0) {
-    var latitude = data[0][0];
-    var longitude = data[0][1];
+    var latitude;
+    var longitude;
+
+    // first vote
+    latitude = data[0][0];
+    longitude = data[0][1];
+
+    // average
+    latitude = 0;
+    longitude = 0;
+    for (var i=0; i<data.length; i++) {
+      latitude += parseFloat(data[i][0]);
+      longitude += parseFloat(data[i][1]);
+    }
+    latitude /= data.length;
+    longitude /= data.length;
+
+    // atlantic
+    latitude = 35;
+    longitude = -50;
+
     var myOptions = {
       zoom                    : 1,
       center                  : new google.maps.LatLng(latitude, longitude),
