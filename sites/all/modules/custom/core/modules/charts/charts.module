@@ -322,6 +322,7 @@ function charts_history($node) {
  */
 function theme_charts_filter($node) {
   charts_filter_theme_preprocess($node);
+  drupal_add_js(drupal_get_path('module', 'charts') . "/include/dimple/dimple.v1.1.4.min.js");
   drupal_add_js(drupal_get_path('module', 'charts') . "/include/charts.filter.js");
   return drupal_get_form('charts_filter_form');
 }
