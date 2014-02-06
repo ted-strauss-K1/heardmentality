@@ -77,9 +77,10 @@ function init_filter(arg) {
   var chart = new dimple.chart(svg, data);
   chart.setBounds(margin, legend, 300 - margin, 240 - legend)
 
-  chart.addMeasureAxis("x", x_label);
-  chart.addCategoryAxis("y", y_label);
+  var x = chart.addMeasureAxis("x", x_label);
+  var y = chart.addCategoryAxis("y", y_label);
   chart.addSeries("Choice", dimple.plot.bar);
+  x.tickFormat = "d";
 
   for (var i in settings.choices) {
     chart.assignColor(settings.choices[i], settings.colors[i], settings.colors[i], 1);
