@@ -505,12 +505,12 @@
 }
 
 .ie8 form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title {
-  top: -3px;
+  top : -3px;
 }
 
 .ie8 form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-votes,
 .ie9 form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-votes {
-  top: 3px;
+  top : 3px;
 }
 
 .ie8 #argument-add-form .form-submit {
