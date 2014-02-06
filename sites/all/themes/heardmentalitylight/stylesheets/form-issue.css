@@ -14,8 +14,8 @@ form.issue-vote-form .choices .choice-radio-wrapper {
 }
 
 form.issue-vote-form .choices .choice-radio-wrapper.choice-SUGGESTED .choice-radio-title {
-  background: #d7d7d7;
-  border:1px solid #cacaca;
+  background: #cfcfcf;
+  border:1px solid #c0c0c0;
 }
 
 form.issue-vote-form .choices .choice-radio-wrapper.choice-empty {
