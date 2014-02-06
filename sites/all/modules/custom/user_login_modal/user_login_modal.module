@@ -103,6 +103,10 @@ function user_login_modal_form_alter(&$form, &$form_state, $form_id) {
     if (('colorbox' == arg(0)) && ('form' == arg(1))) {
       $form['#action'] = url(str_replace('_', '/', $form_id));
     }
+    $form['redirect'] = array(
+      '#type'  => 'hidden',
+      '#value' => $_REQUEST['redirect'],
+    );
     user_login_modal_form_redirect($form);
   }
 }
