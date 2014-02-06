@@ -81,6 +81,26 @@ function up_add(&$params) {
   if (!is_array($params['reference'])) {
     $params['reference'] = array($params['reference']);
   }
+  if (empty($params['reference'])) {
+    $params['reference'] = array_diff_key($params, array_flip(array(
+      'approver_uid',
+      'points',
+      'time_stamp',
+      'changed',
+      'status',
+      'description',
+      'reference',
+      'expirydate',
+      'expired',
+      'parent_txn_id',
+      'tid',
+      'uid',
+      'entity_id',
+      'entity_type',
+      'operation',
+      'txn_id',
+    )));
+  }
   $params['reference'] = serialize($params['reference']);
 
   # perform write
