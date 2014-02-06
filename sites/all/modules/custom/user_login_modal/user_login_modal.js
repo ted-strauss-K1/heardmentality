@@ -1,3 +1,4 @@
+var cbox;
 $(document).ready(function () {
 
   $('.openlogin_box').live('click', function (e) {
@@ -8,7 +9,7 @@ $(document).ready(function () {
     {/*inline:true */};
     options['href'] = Drupal.settings.language_prefix + '/colorbox/form/user_login_modal_form?redirect=' + encodeURIComponent(location.pathname);
 
-    $.colorbox(options);
+    cbox = $.colorbox(options);
 
     return false;
   });
@@ -21,9 +22,17 @@ $(document).ready(function () {
     {inline: true};
     options['href'] = '#popup-login';
 
-    $.colorbox(options);
+    cbox = $.colorbox(options);
 
     return false;
+  });
+
+  //
+  $('#cboxContent #popup-login.logged_in a, #cboxContent form input[type=submit]').live('click', function () {
+    if (cbox) {
+      cbox.colorbox.close();
+      cbox = null;
+    }
   });
 
 });
