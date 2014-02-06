@@ -115,7 +115,7 @@ $privacy = user_profile_profile_privacy_values();
             <ul class="privacy">
               <fieldset>
                 <?php foreach ($privacy as $key => $value) : ?>
-                  <li class="privacy-rules" title="<?php print $value['description'] ?>">
+                  <li class="privacy-rules" title="<?php print strip_tags($value['description']); ?>">
                     <span class="privacy-answer"><?php print $value['label']; ?></span>
                   </li>
                 <?php endforeach; ?>
@@ -136,7 +136,7 @@ $privacy = user_profile_profile_privacy_values();
               <ul class="privacy">
                 <fieldset>
                   <?php foreach ($privacy as $key => $value) : ?>
-                    <li class="privacy-rules" title="<?php print $value['description'] ?>">
+                    <li class="privacy-rules" title="<?php print strip_tags($value['description']); ?>">
                       <span class="privacy-answer"><?php print $value['label']; ?></span>
                     </li>
                   <?php endforeach; ?>
@@ -172,7 +172,7 @@ $privacy = user_profile_profile_privacy_values();
               <ul class="privacy">
                 <fieldset>
                   <?php foreach ($privacy as $key => $value) : ?>
-                    <li class="privacy-rules" title="<?php print $value['description'] ?>">
+                    <li class="privacy-rules" title="<?php print strip_tags($value['description']); ?>">
                       <span class="privacy-answer"><?php print $value['label']; ?></span>
                     </li>
                   <?php endforeach; ?>
