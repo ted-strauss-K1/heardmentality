@@ -1,7 +1,7 @@
 name = User Profile
 description = User Profile Management
 package = Custom Modules
-version = "6.x-1.9"
+version = "6.x-1.9.1"
 core = 6.x
 
 ; dependencies
