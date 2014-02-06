@@ -499,6 +499,10 @@
 @media only screen and (max-width : 767px) {
 
   /* HEADER */
+  .header {
+    position : relative;
+  }
+
   .top-left a.logo {
     width      : auto;
     margin     : 0px 0px 0px 0px;
@@ -815,6 +819,14 @@
 
   /*---/ STATIC PAGES */
   /* OTHER */
+  .page_title_wrapper {
+    padding : 30px 10px 9px;
+  }
+
+  .admin-menu .page_title_wrapper {
+    padding : 30px 10px 9px;
+  }
+
   #edit-image-upload-wrapper input[type="file"] {
     font-size : 12px;
   }

@@ -1765,8 +1765,9 @@ h2.din a {
 }
 
 h2.din a:hover {
-  border-bottom : 1px dotted #CCCCCC;
-  color         : #000000
+  border-bottom   : 1px dotted #444444;
+  color           : #000000;
+  text-decoration : none;
 }
 
 /* MISC */
@@ -1818,7 +1819,7 @@ h2.din a:hover {
 .twelve .white-box h2 a {
   color           : #333333;
   outline         : 0 none;
-  text-decoration : underline;
+  text-decoration : none;
 }
 
 /* active category */
@@ -2313,7 +2314,11 @@ div.avatar-selection-pager-nav a:hover {
 }
 
 .page_title_wrapper {
-  padding : 30px 10px 9px;
+  padding : 96px 10px 9px;
+}
+
+.admin-menu .page_title_wrapper {
+  padding : 76px 10px 9px;
 }
 
 h2.page-title {
@@ -3062,14 +3067,6 @@ h5.ref_title a {
 }
 
 /* solr search */
-
-.filter_search.issues_search {
-  margin-top    : 0;
-  margin-bottom : 30px;
-  padding       : 15px 14px 18px;
-  width         : 190px;
-  z-index       : 999;
-}
 
 #block-categories-categories {
   margin-top    : 0;
@@ -4551,10 +4548,10 @@ fieldset + .mod-wrapper {
   background : none transparent;
 }
 
-#moderation-issues-form fieldset + .mod-wrapper,
-#moderation-arguments-form fieldset + .mod-wrapper,
-#moderation-comments-form fieldset + .mod-wrapper,
-#moderation-users-form fieldset + .mod-wrapper {
+#moderation-issues-form .mod-wrapper,
+#moderation-arguments-form .mod-wrapper,
+#moderation-comments-form .mod-wrapper,
+#moderation-users-form .mod-wrapper {
   padding    : 0 0 17px;
   margin     : 11px 0 0;
   background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
@@ -5546,7 +5543,7 @@ select#edit-language {
   margin-bottom : 30px;
   padding       : 15px 14px 18px;
   width         : 190px;
-  z-index       : 999;
+  z-index       : 900;
 }
 
 .grey-box.poll-box {

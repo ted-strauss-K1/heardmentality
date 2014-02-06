@@ -91,7 +91,7 @@
 }
 
 .mod-wrapper h2 a:hover {
-  text-decoration : underline;
+  text-decoration : none;
   cursor          : pointer;
 }
 

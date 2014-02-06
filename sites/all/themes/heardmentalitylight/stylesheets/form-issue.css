@@ -13,6 +13,11 @@ form.issue-vote-form .choices .choice-radio-wrapper {
   padding-left : 65px;
 }
 
+form.issue-vote-form .choices .choice-radio-wrapper.choice-SUGGESTED .choice-radio-title {
+  background : #CFCFCF;
+  border     : 1px solid #C0C0C0;
+}
+
 form.issue-vote-form .choices .choice-radio-wrapper.choice-empty {
   display : none;
 }
@@ -40,7 +45,7 @@ form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title {
   background : none repeat scroll 0 0 #E4E4E4;
   border     : 1px solid #D7D7D7;
   margin     : 3px 0 10px !important;
-  padding    : 13px 12px 10px;
+  padding    : 7px 12px 6px;
   width      : auto;
   cursor     : pointer;
   position   : relative;
@@ -61,6 +66,26 @@ form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title:hover {
 form.issue-vote-form .choices .choice-radio-wrapper.current-vote .choice-radio-title {
   background-color   : #C2FCC4;
   border             : 1px solid #BCE0BD;
+  -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
+  -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
+  -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
+  -khtml-box-shadow  : inset 0px 0px 5px 0px #FFFFFF;
+  box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
+}
+
+form.issue-vote-form .choices .choice-radio-wrapper.choice-SUGGESTED .choice-radio-title:hover {
+  background-color   : #AEE5B0;
+  border             : 1px solid #A9CCA9;
+  -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
+  -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
+  -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
+  -khtml-box-shadow  : inset 0px 0px 5px 0px #FFFFFF;
+  box-shadow         : inset 0px 0px 5px 0px #FFFFFF;
+}
+
+form.issue-vote-form .choices .choice-radio-wrapper.current-vote.choice-SUGGESTED .choice-radio-title {
+  background-color   : #AEE5B0;
+  border             : 1px solid #A9CCA9;
   -webkit-box-shadow : inset 0px 0px 5px 0px #FFFFFF;
   -moz-box-shadow    : inset 0px 0px 5px 0px #FFFFFF;
   -o-box-shadow      : inset 0px 0px 5px 0px #FFFFFF;
@@ -96,7 +121,7 @@ form.issue-vote-form .choices .choice-radio-wrapper .choice-radio-title .choice-
   top        : 0;
   left       : 0;
   height     : 100%;
-  background : rgba(0, 0, 0, 0.1);
+  background : rgba(0, 0, 0, 0.05);
   z-index    : 2;
 }
 
