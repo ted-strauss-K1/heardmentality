@@ -48,9 +48,7 @@
 
     <p class="policy">
       <?php print t('HEARD MENTALITY'); ?> &copy; <?php print date('Y') ?><br>
-      <!--      <a>--><?php //print t('Legal'); ?><!--</a>-->
-      <a><?php print l(t('Privacy Policy'), 'privacy'); ?></a>
-      <!--      <a>--><?php //print t('User Agreement'); ?><!--</a>-->
+      <?php print l(t('Privacy Policy'), 'privacy'); ?>
     </p>
 
   </div>
