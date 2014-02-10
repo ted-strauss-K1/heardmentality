@@ -10,7 +10,7 @@ function categories_menu() {
 
   $menu['categories/subscribe'] = array(
     'page callback'    => 'categories_subscribe',
-    'access arguments' => array('subscribe to all content types'),
+    'access arguments' => array('subscribe to newsletters'),
     'type'             => MENU_CALLBACK,
   );
 
@@ -174,7 +174,7 @@ function theme_categories_subscribe($name, $hierarchy) {
     $tids = $subscription->tids;
   }
 
-  return sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $tids) ? 'checked' : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
+  return (user_access('subscribe to newsletters') ? sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $tids) ? 'checked' : '') : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
 }
 
 /**
