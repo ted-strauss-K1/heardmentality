@@ -81,6 +81,7 @@ function init_filter(arg) {
   var y = chart.addCategoryAxis("y", y_label);
   chart.addSeries("Choice", dimple.plot.bar);
   x.tickFormat = "d";
+  y.addOrderRule(js_data['#options'], 'asc');
 
   for (var i in settings.choices) {
     chart.assignColor(settings.choices[i], settings.colors[i], settings.colors[i], 1);
