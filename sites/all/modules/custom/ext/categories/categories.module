@@ -197,13 +197,15 @@ function categories_theme_categories_block_preprocess(&$vars) {
     $vars['categories'][term_hierarchy($term)] = $term->name;
   }
 
-  $languages = i18n_language_list();
-
   global $language;
-  $vars['disp_langcode'] = $language->language;
-  $vars['orig_langcode'] = $node->language;
-  $vars['orig_path'] = $node->path;
-  $vars['orig_language'] = $languages[$node->language];
+  if ($language->language != $node->language) {
+    $language_prefix = i18n_language_property($node->language, 'prefix');
+    $language_name = i18n_language_property($node->language, 'name');
+    $vars['original'] = array(
+      'language' => $language_name,
+      'path'     => ($language_prefix ? $language_prefix . '/' : '') . $node->path,
+    );
+  }
 
   $vars['author_status'] = (bool) db_result(db_query("SELECT status FROM {users} WHERE uid = '%s'", $node->uid));
 }

@@ -28,7 +28,7 @@
 <body>
 <div class="top-line">
   <div class="top-line-logo">
-    <a href="/"> <img src="<?php url(path_to_theme() . '/images/tiny_logo.png'); ?>"> <span>Heard Mentality</span> <span
+    <a href="/"> <img src="<?php url(path_to_theme() . '/images/tiny_logo.png', array('language' => '')); ?>"> <span>Heard Mentality</span> <span
         class="beta">Beta</span> </a>
   </div>
 </div>

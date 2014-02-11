@@ -24,15 +24,19 @@
         type='text/css'>
   <?php print $styles; ?>
 
-  <link rel="shortcut icon" href="<?php print url(path_to_theme() . '/images/favicon.ico'); ?>">
-  <link rel="apple-touch-icon" href="<?php print url(path_to_theme() . '/images/apple-touch-icon.png'); ?>">
+  <link rel="shortcut icon"
+        href="<?php print url(path_to_theme() . '/images/favicon.ico', array('language' => '')); ?>">
+  <link rel="apple-touch-icon"
+        href="<?php print url(path_to_theme() . '/images/apple-touch-icon.png', array('language' => '')); ?>">
   <link rel="apple-touch-icon" sizes="72x72"
-        href="<?php print url(path_to_theme() . '/images/apple-touch-icon-72x72.png'); ?>"/>
+        href="<?php print url(path_to_theme() . '/images/apple-touch-icon-72x72.png', array('language' => '')); ?>"/>
   <link rel="apple-touch-icon" sizes="114x114"
-        href="<?php print url(path_to_theme() . '/images/apple-touch-icon-114x114.png'); ?>"/>
+        href="<?php print url(path_to_theme() . '/images/apple-touch-icon-114x114.png', array('language' => '')); ?>"/>
 
-  <meta property="og:image" content="<?php print url(path_to_theme() . '/images/HM_Social_IMG_5.png'); ?>"/>
-  <img src="<?php print url(path_to_theme() . '/images/HM_Social_IMG_5.png'); ?>" style="display:none"/>
+  <meta property="og:image"
+        content="<?php print url(path_to_theme() . '/images/HM_Social_IMG_5.png', array('language' => '')); ?>"/>
+  <img src="<?php print url(path_to_theme() . '/images/HM_Social_IMG_5.png', array('language' => '')); ?>"
+       style="display:none"/>
 
   <!-- socialize.js script should only be included once -->
   <script type="text/javascript">

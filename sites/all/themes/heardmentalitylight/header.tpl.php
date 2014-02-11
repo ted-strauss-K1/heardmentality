@@ -3,7 +3,7 @@
     <div class="navigation">
       <div class="top-left">
         <a class="logo" href="<?php print url(); ?>"><img
-            src="/<?php print path_to_theme() . '/images/tiny_logo.png'; ?>"
+            src="<?php print url(path_to_theme() . '/images/tiny_logo.png', array('language' => '')); ?>"
             class="logo-img"/> <?php print t('Heard Mentality'); ?><span
             class="beta"><?php print t('Beta'); ?></span></a>
       </div>

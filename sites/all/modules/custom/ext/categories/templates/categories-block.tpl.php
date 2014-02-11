@@ -23,10 +23,10 @@
       <?php endif; ?>
       <br>
       <?php print date('M j, Y @ H:i', $node->created); ?>.
-      <?php if ($orig_langcode != $display_language) : ?>
+      <?php if ($original) : ?>
         <br>
         <?php print t('Read original post in'); ?>
-        <?php printf("<a href='%s'>%s</a>", sprintf('/%s/%s', $orig_langcode, $orig_path), t($orig_language)); ?>
+        <?php print l($original['language'], $original['path']); ?>
       <?php endif; ?>
     </p>
 
