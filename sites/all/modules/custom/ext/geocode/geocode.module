@@ -105,7 +105,7 @@ function geocode() {
     }
     # if there's city name
     $cityname = $_REQUEST['city_name'];
-    if (!empty($_REQUEST['postal_code'])) {
+    if (!empty($_REQUEST['postal_code']) && empty($location['postalcode'])) {
       $location['postalcode'] = $_REQUEST['postal_code'];
     }
     if (!empty($cityname) && !empty($location['country_code'])) {
