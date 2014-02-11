@@ -102,18 +102,37 @@ $nid = $node->nid;
 
       <!-- Content Control Links -->
       <ul class="control_links">
-        <li><?php print theme('flagger_btn_flag', $nid, 'node'); ?></li>
-        <li>&nbsp;|&nbsp;<?php print theme('flagger_btn_flags', $nid, 'node'); ?></li>
-        <li>&nbsp;|&nbsp;<?php print theme('flagger_btn_history', $nid, 'node'); ?></li>
-        <li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink" name="<?php
-          $url = url('node/' . $node->field_issue[0]['nid'], array(
-            'absolute' => TRUE,
-            'fragment' => 'forum-block-' . $nid
-          ));
-          print module_exists('shorturl') ? shorturl_shorten($url, TRUE) : addslashes($url);
-          ?>"><?php print t('link'); ?></a></li>
-        <?php if ($delete = theme('argument_delete', 'node', $nid)) : ?>
-          <li>&nbsp;|&nbsp;<?php print $delete; ?></li>
+        <?php
+        $links = array();
+        if ($_ = theme('flagger_btn_flag', $nid, 'node')) {
+          $links[] = $_;
+        }
+        if ($_ = theme('flagger_btn_flags', $nid, 'node')) {
+          $links[] = $_;
+        }
+        if ($_ = theme('flagger_btn_history', $nid, 'node')) {
+          $links[] = $_;
+        }
+        $url = url('node/' . $node->field_issue[0]['nid'], array(
+          'absolute' => TRUE,
+          'fragment' => 'forum-block-' . $nid
+        ));
+        $links[] = l(t('link'), 'node/' . $node->field_issue[0]['nid'], array(
+          'absolute'   => TRUE,
+          'fragment'   => 'forum-block-' . $nid,
+          'attributes' => array(
+            'class' => 'flag2 permalink',
+            'title' => 'permalink',
+            'name'  => module_exists('shorturl') ? shorturl_shorten($url, TRUE) : $url,
+          ),
+        ));
+        if ($_ = theme('argument_delete', 'node', $nid)) {
+          $links[] = $_;
+        }
+
+        if ($links) :
+          ?>
+          <li><?php print implode('</li><li>&nbsp;|&nbsp;', $links); ?></li>
         <?php endif; ?>
       </ul>
       <!-- Content Control Links: END -->
