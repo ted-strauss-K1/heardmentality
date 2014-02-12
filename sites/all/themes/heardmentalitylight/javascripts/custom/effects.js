@@ -42,8 +42,10 @@ $(document).ready(function () {
       top = 20,
       scroll = $(window).scrollTop(),
       content_top = $('.twelve.columns').offset().top,
-      sidebar = $('.sidebar_inner'),
-      sidebar_top = sidebar.offset().top;
+      sidebar = $('.sidebar_inner');
+    if (!sidebar) {
+      return;
+    }
     var baseline = scroll + top - content_top;
     if (baseline <= 0) {
       sidebar.css('top', 0);

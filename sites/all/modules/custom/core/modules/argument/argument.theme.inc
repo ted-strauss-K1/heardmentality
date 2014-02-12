@@ -8,6 +8,9 @@
  * @return string
  */
 function theme_argument_tab($nodes) {
+  // js
+  drupal_add_js('misc/collapse.js');
+
   $output = '';
   foreach ($nodes as $node) {
     $node->iid = $node->reference[0]['nid'];

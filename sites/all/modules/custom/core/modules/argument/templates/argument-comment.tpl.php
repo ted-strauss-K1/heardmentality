@@ -31,11 +31,24 @@
   <div class="position-question">
     <?php print theme('yn', 'comment', $comment->cid, $user->uid == $comment->uid); ?>
     <ul class="control_links">
-      <li><?php print theme('flagger_btn_flag', $comment->cid, 'comment'); ?></li>
-      <li>&nbsp;|&nbsp;<?php print theme('flagger_btn_flags', $comment->cid, 'comment'); ?></li>
-      <li>&nbsp;|&nbsp;<?php print theme('flagger_btn_history', $comment->cid, 'comment'); ?></li>
-      <?php if ($delete = theme('argument_delete', 'comment', $comment->content_id)) : ?>
-        <li>&nbsp;|&nbsp;<?php print $delete; ?></li>
+      <?php
+      $links = array();
+      if ($_ = theme('flagger_btn_flag', $comment->cid, 'comment')) {
+        $links[] = $_;
+      }
+      if ($_ = theme('flagger_btn_flags', $comment->cid, 'comment')) {
+        $links[] = $_;
+      }
+      if ($_ = theme('flagger_btn_history', $comment->cid, 'comment')) {
+        $links[] = $_;
+      }
+      if ($_ = theme('argument_delete', 'comment', $comment->content_id)) {
+        $links[] = $_;
+      }
+
+      if ($links) :
+        ?>
+        <li><?php print implode('</li><li>&nbsp;|&nbsp;', $links); ?></li>
       <?php endif; ?>
     </ul>
   </div>

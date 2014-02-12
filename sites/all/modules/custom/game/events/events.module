@@ -187,7 +187,6 @@ function events_build_query($params = array(), $limits = array()) {
   }
   $query .= ' ORDER BY time_stamp DESC LIMIT ' . (isset($limits['count']) ? $limits['count'] : 30);
 
-
   return array(
     'query' => $query,
     'vars'  => $vars,
