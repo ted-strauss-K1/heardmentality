@@ -56,3 +56,10 @@ $('.sort-wrapper a').live('click', function () {
 $('#events_users_more').live('click', function () {
   //
 });
+
+/**
+ * Onload
+ */
+$(document).ready(function () {
+  following_exec(following_params);
+});

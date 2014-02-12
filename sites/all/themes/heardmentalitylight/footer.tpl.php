@@ -32,7 +32,7 @@
 
     <div class="five columns">
       <div class="black-box">
-        <?php print l('<img src="/' . path_to_theme() . '/images/dark_logo.png' . '" class="dark-logo">', '', array('html' => TRUE)); ?>
+        <?php print l('<img src="' . url(path_to_theme() . '/images/dark_logo.png', array('language' => '')) . '" class="dark-logo">', '', array('html' => TRUE)); ?>
         <ul class="din foot-link">
           <li><?php print l(t('ABOUT'), 'aboutus'); ?></li>
           <li><?php print l(t('CONTACT'), 'contact'); ?></li>
@@ -48,9 +48,7 @@
 
     <p class="policy">
       <?php print t('HEARD MENTALITY'); ?> &copy; <?php print date('Y') ?><br>
-      <!--      <a>--><?php //print t('Legal'); ?><!--</a>-->
-      <a><?php print l(t('Privacy Policy'), 'privacy'); ?></a>
-      <!--      <a>--><?php //print t('User Agreement'); ?><!--</a>-->
+      <?php print l(t('Privacy Policy'), 'privacy'); ?>
     </p>
 
   </div>

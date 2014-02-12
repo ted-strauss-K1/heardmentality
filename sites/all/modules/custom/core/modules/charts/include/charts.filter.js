@@ -72,7 +72,7 @@ function init_filter(arg) {
   if (margin > 120) {
     margin = 120;
   }
-  legend = 20 + 5 * (options.length + options.length % 2);
+  legend = 20 + 5 * (settings.choices.length + settings.choices.length % 2);
 
   var chart = new dimple.chart(svg, data);
   chart.setBounds(margin, legend, 300 - margin, 240 - legend)
@@ -81,6 +81,7 @@ function init_filter(arg) {
   var y = chart.addCategoryAxis("y", y_label);
   chart.addSeries("Choice", dimple.plot.bar);
   x.tickFormat = "d";
+  y.addOrderRule(js_data['#options'], 'asc');
 
   for (var i in settings.choices) {
     chart.assignColor(settings.choices[i], settings.colors[i], settings.colors[i], 1);

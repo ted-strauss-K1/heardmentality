@@ -23,11 +23,28 @@ function events_install() {
       }
     }
   }
+
+  // alter
+  $ret = array();
+  db_drop_index($ret, 'userpoints_txn', 'reference');
+  db_change_field($ret, 'userpoints_txn', 'reference', 'reference', array(
+    'description' => 'Reserved for module specific use',
+    'type'        => 'text',
+    'size'        => 'normal',
+    'not null'    => FALSE,
+    'default'     => '',
+  ));
 }
 
 /**
  * Implementation of hook_uninstall()
  */
 function events_uninstall() {
-  //
+  $ret = array();
+  db_change_field($ret, 'userpoints_txn', 'reference', 'reference', array(
+    'description' => 'Reserved for module specific use',
+    'type'        => 'varchar',
+    'length'      => 128,
+  ));
+  db_add_index($ret, 'userpoints_txn', 'reference', array('reference'));
 }

@@ -82,10 +82,6 @@ $(document).ready(function () {
 
     // text
     $('.user-profile-location .determined').html(output).slideDown(400);
-
-    // console.log(output);
-
-    // console.log(location);
   });
 
   $('.user-profile-location .determine').live('click', function (e) {
