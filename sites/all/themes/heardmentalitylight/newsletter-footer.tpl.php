@@ -38,3 +38,28 @@
 
   </td>
 </tr>
+
+<tr>
+  <td style="height: 16px; line-height: 16px; font-size: 14px; font-family: Arial; text-align: center;">
+
+    <?php print l('View this email on website', 'newsletter/' . $data['newsletter']['hash'], array(
+      'absolute'   => true,
+      'attributes' => array(
+        'style' => 'text-decoration: none; color: #333;',
+      ),
+    )); ?>
+
+    <?php if ($data['uid']) : ?>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+
+      <?php print l('Unsubscribe', 'user/profile/view/' . $data['uid'], array(
+        'absolute'   => true,
+        'query'      => array('newsletter_action' => 'unsubscribe'),
+        'attributes' => array(
+          'style' => 'text-decoration: none; color: #333;',
+        ),
+      )); ?>
+    <?php endif; ?>
+
+  </td>
+</tr>
