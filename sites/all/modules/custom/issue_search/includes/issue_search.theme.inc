@@ -59,6 +59,8 @@ function issue_search_filter_form($form_state) {
 
   // cookie settings
   $settings = isset($_COOKIE['search_arguments']) ? (array) json_decode($_COOKIE['search_arguments']) : array();
+  $settings['my_region'] = $settings['my_region'] && ('false' != $settings['my_region']);
+  $settings['not_voted'] = $settings['not_voted'] && ('false' != $settings['not_voted']);
 
   // Gather info: taxonomy.
   $tft_codes = array();
@@ -90,7 +92,7 @@ function issue_search_filter_form($form_state) {
   }
 
   // If logged in & country set.
-  if ('false' != $settings['my_region']) {
+  if ($settings['my_region']) {
     $tfl_codes0 = array($user->profile_country);
     $tfl_codes1 = array();
     $tfl_codes2 = array();
@@ -171,7 +173,7 @@ function issue_search_filter_form($form_state) {
         '#type'          => 'checkbox',
         '#title'         => t('My region'),
         '#id'            => 'my_region',
-        '#default_value' => $settings['my_region'] && 'false' != $settings['my_region'],
+        '#default_value' => $settings['my_region'],
       );
     }
     else {
@@ -189,7 +191,7 @@ function issue_search_filter_form($form_state) {
   //  );
   $form['voted_status'] = array(
     '#type'          => 'checkbox',
-    '#default_value' => $settings['not_voted'] && 'false' != $settings['not_voted'],
+    '#default_value' => $settings['not_voted'],
     '#title'         => t('Show only not voted'),
   );
   $form['search_text'] = array(

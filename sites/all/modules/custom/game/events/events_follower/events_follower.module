@@ -56,17 +56,7 @@ function events_follower_theme() {
  * @param $vars
  */
 function events_follower_content_preprocess(&$vars) {
-  $request = events_build_query(array(
-    array(
-      'operation' => array(
-        'taxonomy',
-      ),
-    ),
-    array(
-      'uid' => events_follower_uids(),
-    ),
-  ));
-  $vars['content'] = theme('events', events_get($request['query'], $request['vars']));
+  //
 }
 
 /**
@@ -124,7 +114,8 @@ function events_follower_ajax() {
 
   $p = array();
 
-  $p['uid'] = events_follower_uids();
+  $events = array();
+  $uids = events_follower_uids();
 
   switch ($post['items']) {
     case 'arguments' :
@@ -137,29 +128,36 @@ function events_follower_ajax() {
       $p['operation'] = array('vote', 'yn_voteup', 'yn_votedn');
       break;
     default:
-      $request = events_build_query(array(
-        array(
-          'operation' => array(
-            'taxonomy',
-          ),
+      $p[] = array(
+        'operation' => array(
+          'taxonomy',
         ),
-        array(
-          'uid' => events_follower_uids(),
-        ),
-      ));
+      );
+      if (!empty($uids)) {
+        $p[] = array(
+          'uid' => $uids,
+        );
+      }
+
+      $request = events_build_query($p);
       $content = theme('events', events_get($request['query'], $request['vars']));
       exit(json_encode(array(
         'status'  => TRUE,
         'message' => $content,
+        'request' => $request
       )));
       break;
   }
 
   # all except default
-  $request = events_build_query(array(
-    $p
-  ));
-  $content = theme('events', events_get($request['query'], $request['vars']));
+  if (!empty($uids)) {
+    $request = events_build_query(array(
+      $p + array('uid' => $uids),
+    ));
+    $events = events_get($request['query'], $request['vars']);
+  }
+
+  $content = theme('events', $events);
   exit(json_encode(array(
     'status'  => TRUE,
     'message' => $content,

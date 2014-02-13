@@ -63,7 +63,7 @@ function geocode() {
   # if no coordinates
   if ((FALSE === $location['latitude']) && (FALSE === $location['longitude'])) {
     # get coordinates using countrycode + postalcode (geonames)
-    if (FALSE && $coords = geocode_geonames_postalcode_request($_REQUEST['countrycode'], $_REQUEST['postalcode'])) {
+    if ($coords = geocode_geonames_postalcode_request($_REQUEST['countrycode'], $_REQUEST['postalcode'])) {
       $location['latitude'] = $coords['latitude'];
       $location['longitude'] = $coords['longitude'];
     }
@@ -105,7 +105,7 @@ function geocode() {
     }
     # if there's city name
     $cityname = $_REQUEST['city_name'];
-    if (!empty($_REQUEST['postal_code'])) {
+    if (!empty($_REQUEST['postal_code']) && empty($location['postalcode'])) {
       $location['postalcode'] = $_REQUEST['postal_code'];
     }
     if (!empty($cityname) && !empty($location['country_code'])) {
@@ -195,7 +195,7 @@ function geocode_googlemaps_postalcode_request($address) {
 function geocode_geonames_latlng_request($lat, $lng, $info = array()) {
   $output = array();
 
-  $response = geonames_query('extendedFindNearby', array(
+  $response = @geonames_query('extendedFindNearby', array(
     'lat'   => $lat,
     'lng'   => $lng,
     'style' => 'full'
@@ -262,7 +262,7 @@ function geocode_geonames_latlng_request($lat, $lng, $info = array()) {
 function geocode_geonames_cityname_request($city_name, $country_code) {
   $output = array();
 
-  $response = geonames_query('search', array(
+  $response = @geonames_query('search', array(
     'query'   => $city_name,
     'country' => $country_code,
     'style'   => 'full'
