@@ -19,17 +19,19 @@
     <div class="qd">
       <?php if ($page) : ?>
         <?php if ($node->moderate == MODERATION_ALLOWED) : ?>
-          <img src="<?php print url(path_to_theme() . '/images/icons/59-flag@2x.png', array('language' => '')); ?>" height="14px">
-          <?php print theme('flagger_btn_flag', $nid, 'node'); // todo ?>
+          <img src="<?php print url(path_to_theme() . '/images/icons/59-flag@2x.png', array('language' => '')); ?>"
+               height="14px">
+          <?php print theme('flagger_btn_flag', $nid, 'node'); ?>
           <?php print theme('flagger_btn_flags', $nid, 'node'); ?>
           <?php print theme('flagger_btn_history', $nid, 'node'); ?>
+          <?php print theme('flagger_btn_flag', $node->uid, 'user'); ?>
           <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
             <?php print l(t('moderation'), 'moderation/issue/' . $node->nid, array(
-                'attributes' => array(
-                  'class'          => 'moderation',
-                  'original-title' => t('moderation'),
-                )
-              )); ?>
+              'attributes' => array(
+                'class'          => 'moderation',
+                'original-title' => t('moderation'),
+              )
+            )); ?>
           <?php endif; ?>
 
         <?php elseif (!empty($node->field_base_issue[0]['nid'])) : ?>
