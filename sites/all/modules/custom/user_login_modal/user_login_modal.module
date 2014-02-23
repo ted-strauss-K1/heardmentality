@@ -146,9 +146,11 @@ function user_login_modal_form_redirect(&$form) {
   }
 
   // get router items
-  $router = menu_get_item($redirect);
-  if (!$router || !$router['access']) {
-    $access = FALSE;
+  if (!empty($redirect)) {
+    $router = menu_get_item($redirect);
+    if (!$router || !$router['access']) {
+      $access = FALSE;
+    }
   }
 
   // login paths
