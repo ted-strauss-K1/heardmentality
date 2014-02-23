@@ -59,8 +59,8 @@ function issue_search_filter_form($form_state) {
 
   // cookie settings
   $settings = isset($_COOKIE['search_arguments']) ? (array) json_decode($_COOKIE['search_arguments']) : array();
-  $settings['my_region'] = $settings['my_region'] && ('false' != $settings['my_region']);
-  $settings['not_voted'] = $settings['not_voted'] && ('false' != $settings['not_voted']);
+  $settings['my_region'] = intval($settings['my_region']);
+  $settings['not_voted'] = intval($settings['not_voted']);
 
   // Gather info: taxonomy.
   $tft_codes = array();

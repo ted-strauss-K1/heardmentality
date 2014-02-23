@@ -237,13 +237,15 @@ function search_arguments() {
   data['location3'] = codes.join(';');
 
   // my region
-  data['my_region'] = $('#my_region').prop('checked') + '';
+  var my_region = $('#my_region');
+  data['my_region'] = my_region.length ? (my_region.prop('checked') ? 1 : 0) : 0;
 
   // my language
   data['my_language'] = 'false';
 
   // voted status
-  data['not_voted'] = $('#edit-voted-status').prop('checked') + '';
+  var not_voted = $('#edit-voted-status');
+  data['not_voted'] = not_voted.length ? (not_voted.prop('checked') ? 1 : 0) : 0;
 
   // keyword
   data['keywords'] = $('#edit-search-text').val();
