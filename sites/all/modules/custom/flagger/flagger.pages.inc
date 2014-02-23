@@ -10,15 +10,28 @@
  * @param $content_type
  * @param $content_id
  */
-function flagger_page($content_type, $content_id) {
-  print json_encode(array(
-    'message' => drupal_get_form('flagger_form', $content_id, $content_type),
-    'texts'   => array(
-      t('Flag'),
-      t('Cancel'),
-      t('Thank you for helping us keep this place in order'),
-    ),
-  ));
+function flagger_page ($content_type, $content_id) {
+  $output = array();
+
+  $permission = flagger_permission($content_type);
+  if ($permission) {
+    $output = array(
+      'message' => drupal_get_form('flagger_form', $content_id, $content_type),
+      'texts'   => array(
+        t('Flag'),
+        t('Cancel'),
+        t('Thank you for helping us keep this place in order'),
+      ),
+    );
+  } else {
+    $output = array(
+      'message' => t('You do not have permissions to view that page'),
+    );
+  }
+  $output['status'] = $permission;
+
+  print json_encode($output);
+  exit;
 }
 
 /**
@@ -30,7 +43,7 @@ function flagger_page($content_type, $content_id) {
  *
  * @return array
  */
-function flagger_form(&$form, $content_id, $content_type) {
+function flagger_form (&$form, $content_id, $content_type) {
   global $user;
   $form = array();
 
@@ -41,7 +54,7 @@ function flagger_form(&$form, $content_id, $content_type) {
 
   $form['title'] = array(
     '#type'  => 'markup',
-    "#value" => t("Which one of Heard Mentality's Guidelines and Principles is this debate posting infringing?"),
+    "#value" => 'user' == $content_type ? t("Which one of Heard Mentality's Guidelines and Principles is this user infringing?") : t("Which one of Heard Mentality's Guidelines and Principles is this debate posting infringing?"),
   );
   $form['guide'] = array(
     '#type'  => 'markup',
@@ -55,6 +68,9 @@ function flagger_form(&$form, $content_id, $content_type) {
     case 'node' :
       $node = node_load($content_id);
       $flags = flag_get_flags($content_type, $node->type);
+      break;
+    case 'user' :
+      $flags = flag_get_flags($content_type);
       break;
     default :
       $flags = array();
@@ -108,8 +124,8 @@ function flagger_form(&$form, $content_id, $content_type) {
 /**
  * Flagger form submit
  */
-function flagger_page_save() {
-  $post = $_POST;
+function flagger_page_save () {
+  $post = $_REQUEST;
 
   global $user;
   $note = $post['note'];
@@ -118,6 +134,17 @@ function flagger_page_save() {
   // radios
   $content_id = $post['content_id'];
   $content_type = $post['content_type'];
+
+  //
+  if (!flagger_permission($content_type)) {
+    print json_encode(array(
+      'status' => FALSE,
+      'message' => t('You do not have permissions to view that page'),
+    ));
+    exit;
+  }
+
+  // switch
   switch ($content_type) {
     case 'comment' :
       $flags = flag_get_flags($content_type);
@@ -126,12 +153,18 @@ function flagger_page_save() {
       $node = node_load($content_id);
       $flags = flag_get_flags($content_type, $node->type);
       break;
+    case 'user' :
+      $flags = flag_get_flags($content_type);
+      break;
     default :
       $flags = array();
       break;
   }
   // remove old notes
-  flag_note_remove_notes(array('content_type' => $content_type, 'content_id' => $content_id));
+  flag_note_remove_notes(array(
+    'content_type' => $content_type,
+    'content_id'   => $content_id
+  ));
 
   foreach ($flags as $flag) {
     if ($post['flag'] == $flag->fid) {
@@ -144,8 +177,7 @@ function flagger_page_save() {
       flag_note_insert_note($record);
 
       // todo track flag event
-    }
-    else {
+    } else {
       $fcid = flag_ext_fcid($content_type, $content_id, $user->uid);
       $flag->flag('unflag', $content_id);
       flag_ext_unset($fcid, $user->uid);
@@ -153,9 +185,10 @@ function flagger_page_save() {
   }
 
   print json_encode(array(
+    'status'       => TRUE,
     'content_id'   => $content_id,
     'content_type' => $content_type,
-    'flagged'      => (bool) flagger_get_flags($content_type, $content_id, TRUE),
+    'flagged'      => (bool)flagger_get_flags($content_type, $content_id, TRUE),
   ));
   exit;
 }
@@ -169,8 +202,8 @@ function flagger_page_save() {
  * @param $content_type
  * @param $content_id
  */
-function flagger_page_flags($content_type, $content_id) {
-  if (!module_exists('moderation') || !moderation_check_perm()) {
+function flagger_page_flags ($content_type, $content_id) {
+  if (!flagger_permission('moderation')) {
     print json_encode(array(
       'status'  => FALSE,
       'message' => t('You have no access to that info'),
@@ -209,8 +242,8 @@ function flagger_page_flags($content_type, $content_id) {
  * @param $content_type
  * @param $content_id
  */
-function flagger_page_history($content_type, $content_id) {
-  if (!module_exists('moderation') || !moderation_check_perm()) {
+function flagger_page_history ($content_type, $content_id) {
+  if (!flagger_permission('moderation')) {
     print json_encode(array(
       'status'  => FALSE,
       'message' => t('You have no access to that info'),
@@ -261,11 +294,11 @@ function flagger_page_history($content_type, $content_id) {
 /**
  * @param $fcid
  */
-function flagger_page_unflag($fcid) {
-  if (!module_exists('moderation') || !moderation_check_perm()) {
+function flagger_page_unflag ($fcid) {
+  if (!flagger_permission('moderation')) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('You have no access'),
+      'message' => t('You have no access to that page'),
     ));
     exit;
   }
@@ -285,7 +318,7 @@ function flagger_page_unflag($fcid) {
     'message'      => t('Flag was removed'),
     'content_id'   => $content_id,
     'content_type' => $content_type,
-    'flagged'      => (bool) flagger_get_flags($content_type, $content_id, TRUE),
+    'flagged'      => (bool)flagger_get_flags($content_type, $content_id, TRUE),
   ));
   exit;
 }

@@ -24,6 +24,14 @@ $('.flagger').live('click', function (e) {
     url     : url,
     data    : {},
     success : function (response) {
+      if (!response.status) {
+        $.hrd.noty({
+          'layout': 'center',
+          'type'  : 'warning',
+          'text'  : response.message
+        });
+        return;
+      }
       $.hrd.noty({
         'layout' : 'center',
         'type'   : 'alert',
@@ -75,6 +83,14 @@ $('.flagger_flags').live('click', function (e) {
     url     : url,
     data    : {},
     success : function (response) {
+      if (!response.status) {
+        $.hrd.noty({
+          'layout': 'center',
+          'type'  : 'warning',
+          'text'  : response.message
+        });
+        return;
+      }
       $.hrd.noty({
         'layout' : 'center',
         'type'   : 'alert',
@@ -100,6 +116,14 @@ $('.flagger_history').live('click', function (e) {
     url     : url,
     data    : {},
     success : function (response) {
+      if (!response.status) {
+        $.hrd.noty({
+          'layout': 'center',
+          'type'  : 'warning',
+          'text'  : response.message
+        });
+        return;
+      }
       $.hrd.noty({
         'layout' : 'center',
         'type'   : 'alert',
@@ -126,6 +150,14 @@ $('.status-1 span.remove').live('click', function (e) {
     url     : url,
     data    : {},
     success : function (response) {
+      if (!response.status) {
+        $.hrd.noty({
+          'layout': 'topRight',
+          'type'  : 'warning',
+          'text'  : response.message
+        });
+        return;
+      }
       $.hrd.noty({
         'layout' : 'topRight',
         'type'   : 'alert',

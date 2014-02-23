@@ -10,7 +10,7 @@ define('FLAGGER_PATH', 'flagger');
  *
  * @return array
  */
-function flagger_theme() {
+function flagger_theme () {
   $theme = array();
 
   $theme['flagger_btn_flag'] = array(
@@ -39,17 +39,48 @@ function flagger_theme() {
 }
 
 /**
+ * @param $content_type
+ *
+ * @return bool
+ */
+function flagger_permission ($content_type) {
+  //
+  if ('moderation' == $content_type) {
+    return module_exists('moderation') && moderation_check_perm();
+  }
+
+  //
+  if ('user' == $content_type) {
+    return module_exists('moderation') && moderation_check_perm();
+  }
+
+  //
+  if (in_array($content_type, array(
+    'comment',
+    'node'
+  ))
+  ) {
+    return user_is_logged_in();
+  }
+
+  return FALSE;
+}
+
+/**
  * Implementation of hook_menu()
  *
  * @return array
  */
-function flagger_menu() {
+function flagger_menu () {
   $menu = array();
 
   // flag
   $menu[FLAGGER_PATH] = array(
     'page callback'    => 'flagger_page',
-    'page arguments'   => array(1, 2),
+    'page arguments'   => array(
+      1,
+      2
+    ),
     'access arguments' => array('access content'),
     'type'             => MENU_CALLBACK,
     'file'             => 'flagger.pages.inc',
@@ -64,7 +95,10 @@ function flagger_menu() {
   // flags
   $menu[FLAGGER_PATH . '/flags/%/%'] = array(
     'page callback'    => 'flagger_page_flags',
-    'page arguments'   => array(2, 3),
+    'page arguments'   => array(
+      2,
+      3
+    ),
     'access arguments' => array('access content'),
     'type'             => MENU_CALLBACK,
     'file'             => 'flagger.pages.inc',
@@ -73,7 +107,10 @@ function flagger_menu() {
   // history
   $menu[FLAGGER_PATH . '/history/%/%'] = array(
     'page callback'    => 'flagger_page_history',
-    'page arguments'   => array(2, 3),
+    'page arguments'   => array(
+      2,
+      3
+    ),
     'access arguments' => array('access content'),
     'type'             => MENU_CALLBACK,
     'file'             => 'flagger.pages.inc',
@@ -96,7 +133,7 @@ function flagger_menu() {
  *
  * @param $vars
  */
-function flagger_preprocess_page(&$vars) {
+function flagger_preprocess_page (&$vars) {
   drupal_add_js(drupal_get_path('module', 'flagger') . '/flagger.js');
   drupal_add_js('misc/jquery.form.js');
 }
@@ -109,7 +146,7 @@ function flagger_preprocess_page(&$vars) {
  * @param null $a3
  * @param null $a4
  */
-function flagger_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+function flagger_nodeapi (&$node, $op, $a3 = NULL, $a4 = NULL) {
   switch ($op) {
     case 'load' :
       // let's load the flags used
@@ -121,7 +158,7 @@ function flagger_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 /**
  * Implementation of hook_flag(). Trigger actions if any are available.
  */
-function flagger_flag($op, $flag, $content_id, $account, $fcid) {
+function flagger_flag ($op, $flag, $content_id, $account, $fcid) {
   if ($content_type = db_result(db_query("SELECT content_type FROM {flag_content} WHERE fcid = %d", $fcid))) {
     # actions
     function_exists('action_queue') && action_queue(array(
@@ -149,7 +186,7 @@ function flagger_flag($op, $flag, $content_id, $account, $fcid) {
  *
  * @return mixed
  */
-function flagger_get_flags($content_type = '', $content_id = '', $reset = FALSE) {
+function flagger_get_flags ($content_type = '', $content_id = '', $reset = FALSE) {
   static $cache = array();
 
   if ($reset || is_null($cache[$content_type][$content_id])) {
