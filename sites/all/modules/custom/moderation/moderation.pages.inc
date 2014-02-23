@@ -526,6 +526,8 @@ function moderation_markup_user($user) {
 function moderation_issue_view_form($form_state, $nid) {
   $form = array();
 
+  $form['#redirect'] = 'moderation';
+
   drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.lists.js");
 
   $form['content_id'] = array(
