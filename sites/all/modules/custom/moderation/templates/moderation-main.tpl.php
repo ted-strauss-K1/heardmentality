@@ -26,10 +26,14 @@
     <ul class="options_filter moderation_options">
       <?php if (user_access(MODERATION_ADMIN)) : ?>
 
-        </li>
+        <li><?php print l(t('Flagged Users'), 'moderation/userflags', array(
+            'attributes' => array(
+              'class' => 'first ' . ('userflags' == $page ? 'active' : '')
+            ),
+          )); ?></li>
         <li><?php print l(t('Users'), 'moderation/users', array(
             'attributes' => array(
-              'class' => 'first last ' . ('users' == $page ? 'active' : '')
+              'class' => 'last ' . ('users' == $page ? 'active' : '')
             ),
           )); ?></li>
 

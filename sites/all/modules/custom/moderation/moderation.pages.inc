@@ -37,6 +37,16 @@ function moderation_users_form() {
 }
 
 /**
+ * Moderation for Flagged Users
+ *
+ * @return array
+ */
+function moderation_userflags_form() {
+  return _moderation_form('userflags');
+}
+
+
+/**
  * Common way to call the list form
  *
  * @param string $type
@@ -45,6 +55,8 @@ function moderation_users_form() {
  */
 function _moderation_form($type = 'issues') {
   $form = array();
+
+  $form['#attributes']['class'] = 'moderation-list-form';
 
   // get header for the form
   $form['#prefix'] = theme('moderation_main', $type);
@@ -71,6 +83,9 @@ function _moderation_form($type = 'issues') {
       case 'arguments' :
       case 'comments' :
         $value = theme('moderation_item', $item);
+        break;
+      case 'userflags' :
+        $value = moderation_markup_userflag($item);
         break;
       case 'users' :
         $value = moderation_markup_user($item);
@@ -193,7 +208,7 @@ function _moderation_form_filter_save($form, &$form_state) {
  * @param $pages
  */
 function _moderation_form_content_filter($type, $filters, $page) {
-  if (in_array($type, array('issues', 'arguments', 'comments', 'users'))) {
+  if (in_array($type, array('issues', 'arguments', 'comments', 'userflags', 'users'))) {
     $function = '_moderation_form_content_filter_' . $type;
     if (function_exists($function)) {
       return $function($filters, $page);
@@ -407,6 +422,39 @@ function _moderation_form_content_filter_comments($filters, $page) {
  *
  * @return array
  */
+function _moderation_form_content_filter_userflags($filters, $page) {
+  $items = array();
+
+  # build query
+  $query = "SELECT %% FROM {users} u INNER JOIN {flag_content} f ON f.content_type = '%s' AND f.content_id = u.uid WHERE u.uid > 0";
+  $params = array('user');
+
+  # get count and pages
+  $once = 1;
+  $query_count = str_replace('%%', 'COUNT(*) AS count', $query, $once);
+  $count = (int) db_result(db_query($query_count, $params));
+  _moderation_pages($count, $filters['perpage'], $page, $pages);
+
+  # get nodes
+  $once = 1;
+  $query = str_replace('%%', 'DISTINCT u.*', $query, $once);
+  $result = db_query_range($query, $params, $filters['perpage'] * ($page - 1), $filters['perpage']);
+  while ($node = db_fetch_object($result)) {
+    $items[] = user_load($node->uid);
+  }
+
+  return $items;
+}
+
+/**
+ * Filters the list of Users
+ *
+ * @param $filters
+ * @param $page
+ * @param $pages
+ *
+ * @return array
+ */
 function _moderation_form_content_filter_users($filters, $page) {
   $items = array();
 
@@ -429,6 +477,25 @@ function _moderation_form_content_filter_users($filters, $page) {
   }
 
   return $items;
+}
+
+/**
+ * Markup for the User in moderation list
+ *
+ * @param $user
+ *
+ * @return string
+ */
+function moderation_markup_userflag($user) {
+  return '<div class="mod-wrapper part part1 search_list">
+    <h2 class="din half">' . ucwords($user->name) . ' <div class="open"></div> </h2>
+    <div class="mod-buttons">'
+  . sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>',
+        url($user->viewlink),
+        t('View Profile')
+      )
+  . theme('flagger_btn_history', $user->uid, 'user') . '</div>
+  </div>';
 }
 
 /**
