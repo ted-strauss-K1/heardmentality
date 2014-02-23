@@ -59,16 +59,17 @@ function theme_flagger_btn_flags ($content_id, $content_type, $flagged = NULL, $
  *
  * @return string
  */
-function theme_flagger_btn_history ($content_id, $content_type, $uid = FALSE) {
+function theme_flagger_btn_history ($content_id, $content_type, $text = false) {
   if (!flagger_permission('moderation')) {
     return '';
   }
 
-  return l(t('history'), '', array(
+  return l(false === $text ? t('history') : $text, '', array(
     'attributes' => array(
       'class'          => 'flagger_history flagger-btn-flags-history-' . $content_type . '-' . $content_id,
       'name'           => $content_type . '/' . $content_id,
       'original-title' => t('flags history'),
-    )
+    ),
+    array('html' => true),
   ));
 }

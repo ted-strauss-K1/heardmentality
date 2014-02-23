@@ -138,7 +138,7 @@ function flagger_page_save () {
   //
   if (!flagger_permission($content_type)) {
     print json_encode(array(
-      'status' => FALSE,
+      'status'  => FALSE,
       'message' => t('You do not have permissions to view that page'),
     ));
     exit;
@@ -175,6 +175,14 @@ function flagger_page_save () {
       $record->tid = $tid;
       $record->content_id = $content_id;
       flag_note_insert_note($record);
+
+      // for user flags
+      if ('user' == $content_type) {
+        $flagged_moderator = module_exists('moderation') && moderation_check_perm($content_id);
+        if (!$flagged_moderator) {
+          db_query("UPDATE {users} SET status = '%d' WHERE uid = '%s'", 0, $content_id);
+        }
+      }
 
       // todo track flag event
     } else {
@@ -312,6 +320,14 @@ function flagger_page_unflag ($fcid) {
     $flag->flag('unflag', $content_id);
     global $user;
     flag_ext_unset($fcid, $user->uid);
+
+    // for user flags
+    if ('user' == $content_type) {
+      $flagged = (bool)flagger_get_flags($content_type, $content_id, TRUE);
+      if (!$flagged) {
+        db_query("UPDATE {users} SET status = '%d' WHERE uid = '%s'", 1, $content_id);
+      }
+    }
   }
   print json_encode(array(
     'status'       => TRUE,
