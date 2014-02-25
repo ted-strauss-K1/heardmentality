@@ -256,7 +256,9 @@ function search_arguments() {
   // Key words.
   var page = $('input[name=page]').val();
 
-  $.cookie('search_arguments', JSON.stringify(data), { expires: 1, path: '/' });
+  var date = new Date(), minutes = 30;
+  date.setTime(date.getTime() + (minutes * 60 * 1000));
+  $.cookie('search_arguments', JSON.stringify(data), { expires: date, path: '/' });
 
   return data;
 }
