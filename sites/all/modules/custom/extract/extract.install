@@ -1,14 +1,66 @@
 <?php
 
 /**
- * VIEWS
+ * Implementation of hook_install()
  */
+function extract_install () {
+  // Create tables.
+  drupal_install_schema('extract');
+}
 
-/*
-
-CREATE VIEW th1 AS SELECT term_hierarchy.tid AS tid, term_hierarchy.tid AS code FROM term_hierarchy WHERE term_hierarchy.parent = 0;
-CREATE VIEW th2 AS SELECT th.tid AS tid, CONCAT(th1.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th1 ON th.parent = th1.tid;
-CREATE VIEW th3 AS SELECT th.tid AS tid, CONCAT(th2.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th2 ON th.parent = th2.tid;
-
+/**
+ * Implementation of hook_uninstall()
  */
+function extract_uninstall () {
+  // Remove tables.
+  drupal_uninstall_schema('extract');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function extract_schema () {
+  $schema = array();
+
+  $schema['extract_cache_taxonomy'] = array(
+    'description' => '',
+    'fields'      => array(
+      'tid'    => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => ""
+      ),
+      'code'   => array(
+        'type'        => 'varchar',
+        'length'      => 128,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'depth'  => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => '',
+      ),
+      'parent' => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => '',
+      ),
+    ),
+    'primary key' => array('tid'),
+    'indexes'     => array(
+      'tid'    => array('tid'),
+      'parent' => array('parent'),
+    ),
+  );
+
+  return $schema;
+}
 
