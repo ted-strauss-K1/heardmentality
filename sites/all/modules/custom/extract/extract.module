@@ -1,6 +1,11 @@
 <?php
 
 /**
+ *
+ */
+require_once __DIR__ . '/extract.inc';
+
+/**
  * @return array
  */
 function extract_menu() {
