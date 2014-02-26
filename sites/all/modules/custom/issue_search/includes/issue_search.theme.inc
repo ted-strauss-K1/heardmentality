@@ -77,7 +77,7 @@ function issue_search_filter_form($form_state) {
     $tft_codes = explode(";", $settings['taxonomy']);
   }
   if (isset($_GET['tids']) && empty($data['taxonomy-0'])) {
-    $tft_codes = explode(",", $_GET['tids']);
+    $tft_codes = explode("-", $_GET['tids']);
   }
 
   $tft = tft_list('issue', $tft_codes, TRUE);
