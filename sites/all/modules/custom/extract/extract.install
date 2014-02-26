@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_install()
  */
-function extract_install () {
+function extract_install() {
   // Create tables.
   drupal_install_schema('extract');
 }
@@ -11,7 +11,7 @@ function extract_install () {
 /**
  * Implementation of hook_uninstall()
  */
-function extract_uninstall () {
+function extract_uninstall() {
   // Remove tables.
   drupal_uninstall_schema('extract');
 }
@@ -19,27 +19,27 @@ function extract_uninstall () {
 /**
  * Implementation of hook_schema()
  */
-function extract_schema () {
+function extract_schema() {
   $schema = array();
 
   $schema['extract_cache_taxonomy'] = array(
     'description' => '',
     'fields'      => array(
-      'tid'    => array(
+      'tid'   => array(
         'type'        => 'int',
         'unsigned'    => TRUE,
         'not null'    => TRUE,
         'default'     => 0,
         'description' => ""
       ),
-      'code'   => array(
+      'code'  => array(
         'type'        => 'varchar',
         'length'      => 128,
         'not null'    => TRUE,
         'default'     => '',
         'description' => '',
       ),
-      'depth'  => array(
+      'depth' => array(
         'type'        => 'int',
         'unsigned'    => TRUE,
         'not null'    => TRUE,
@@ -49,15 +49,15 @@ function extract_schema () {
     ),
     'primary key' => array('tid'),
     'indexes'     => array(
-      'tid'    => array('tid'),
+      'tid' => array('tid'),
     ),
   );
 
   $schema['extract_cache_profile'] = array(
     'description' => '',
     'fields'      => array(
-      'uid'       => array(
-        'description' => 'The {users}.uid initiated this action.',
+      'uid' => array(
+        'description' => '',
         'type'        => 'int',
         'not null'    => TRUE,
         'default'     => 0
@@ -65,10 +65,9 @@ function extract_schema () {
     ),
     'primary key' => array('uid'),
     'indexes'     => array(
-      'uid'    => array('uid'),
+      'uid' => array('uid'),
     ),
   );
-
   $result = db_query("SELECT * FROM profile_fields");
   while ($field = db_fetch_object($result)) {
     $schema['extract_cache_profile']['fields'] += array(
@@ -76,6 +75,36 @@ function extract_schema () {
         'type'        => 'text',
         'not null'    => FALSE,
         'description' => 'The value for the field ' . $field->title . '.',
+      ),
+    );
+  }
+
+  $schema['extract_cache_cpoll_meta'] = array(
+    'description' => '',
+    'fields'      => array(
+      'chid' => array(
+        'description' => '',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0
+      ),
+    ),
+    'primary key' => array('chid'),
+    'indexes'     => array(
+      'chid' => array('chid'),
+    ),
+  );
+  foreach (cpoll_meta_get() as $chtext) {
+    $name = cpoll_meta_code($chtext);
+    $schema['extract_cache_cpoll_meta']['fields'] += array(
+      $name => array(
+        'type'        => 'numeric',
+        'size'        => 'normal',
+        'not null'    => TRUE,
+        'default'     => CPOLL_META_AVG,
+        'precision'   => 3,
+        'scale'       => 2,
+        'description' => 'The value for the field ' . $chtext . '.',
       ),
     );
   }

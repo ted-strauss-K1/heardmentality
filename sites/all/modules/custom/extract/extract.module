@@ -24,6 +24,13 @@ function extract_menu() {
     'access callback' => TRUE,
   );
 
+  $menu['admin/build/extract'] = array(
+    'title'            => t('Rebuild Extract Caches'),
+    'page callback'    => 'extract_rebuild',
+    'access arguments' => array('administer site configuration'),
+    'type'             => MENU_NORMAL_ITEM,
+  );
+
   return $menu;
 }
 
