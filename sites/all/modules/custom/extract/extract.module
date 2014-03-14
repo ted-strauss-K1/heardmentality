@@ -10,7 +10,7 @@ require_once __DIR__ . '/extract.inc';
  */
 function extract_menu() {
   $menu = array();
-  
+
   $menu['analysis'] = array(
     'title'           => t('Analysis'),
     'page callback'   => 'theme',
