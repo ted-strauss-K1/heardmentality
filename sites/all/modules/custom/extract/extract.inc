@@ -41,7 +41,7 @@ function extract_rebuild() {
   extract_cache_taxonomy();
 
   // init locations
-  // extract_cache_location();
+  extract_cache_location();
 
   // init user profiles
   extract_cache_profiles();
