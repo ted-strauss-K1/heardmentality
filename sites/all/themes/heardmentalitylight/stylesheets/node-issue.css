@@ -180,18 +180,23 @@ h6#deb-ana {
 
 h6#add-arg a,
 h6#deb-ana a {
-  color : #7B7D01;
+  color : #999999;
+}
+
+h6#add-arg:hover a,
+h6#deb-ana:hover a {
+  color : #777777;
 }
 
 h6#add-arg:after,
 h6#deb-ana:after {
-  border-color : #7B7D01 transparent transparent;
+  border-color : #999999 transparent transparent;
   margin-top   : -2px;
 }
 
 h6#add-arg.expanded:after,
 h6#deb-ana.expanded:after {
-  border-color : transparent transparent #7B7D01;
+  border-color : transparent transparent #999999;
   margin-top   : -6px;
 }
 
