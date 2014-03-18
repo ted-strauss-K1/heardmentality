@@ -162,6 +162,14 @@ function user_profile_menu() {
  * @param $vars
  */
 function user_profile_preprocess_page(&$vars) {
+  #
+  if ('user' == arg(0)) {
+    $uid = arg(1);
+    if (is_numeric($uid)) {
+      drupal_goto('user/profile/view/'.$uid);
+    }
+  }
+
   # user profile pages
   if ('user' == arg(0) && 'profile' == arg(1)) {
     drupal_add_js(drupal_get_path('module', 'user_profile') . '/user_profile.js');

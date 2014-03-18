@@ -11,6 +11,9 @@ $(document).ready(function () {
     }
   });
 
+  //
+  $('.flagger_history').addClass('mod-edit').addClass('mod-icon').html('');
+
   $('a.permission').live('click', function (e) {
     e.preventDefault();
     var el = $(this);

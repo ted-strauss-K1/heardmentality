@@ -146,8 +146,8 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
     );
     if ($node->vote) {
       $form['main_submit']['#value'] = t('Change vote');
-      $form['main_submit']['#attributes']['class'] .= ' not-changed';
     }
+    $form['main_submit']['#attributes']['class'] .= ' not-changed';
   }
   else {
     $form['main_submit'] = array(

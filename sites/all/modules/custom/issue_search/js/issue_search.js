@@ -237,13 +237,15 @@ function search_arguments() {
   data['location3'] = codes.join(';');
 
   // my region
-  data['my_region'] = $('#my_region').prop('checked') + '';
+  var my_region = $('#my_region');
+  data['my_region'] = my_region.length ? (my_region.prop('checked') ? 1 : 0) : 0;
 
   // my language
   data['my_language'] = 'false';
 
   // voted status
-  data['not_voted'] = $('#edit-voted-status').prop('checked') + '';
+  var not_voted = $('#edit-voted-status');
+  data['not_voted'] = not_voted.length ? (not_voted.prop('checked') ? 1 : 0) : 0;
 
   // keyword
   data['keywords'] = $('#edit-search-text').val();
@@ -254,7 +256,9 @@ function search_arguments() {
   // Key words.
   var page = $('input[name=page]').val();
 
-  $.cookie('search_arguments', JSON.stringify(data), { expires: 1, path: '/' });
+  var date = new Date(), minutes = 30;
+  date.setTime(date.getTime() + (minutes * 60 * 1000));
+  $.cookie('search_arguments', JSON.stringify(data), { expires: date, path: '/' });
 
   return data;
 }

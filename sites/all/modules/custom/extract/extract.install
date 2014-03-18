@@ -1,14 +1,318 @@
 <?php
 
 /**
- * VIEWS
+ * Implementation of hook_install()
  */
+function extract_install() {
+  // Create tables.
+  drupal_install_schema('extract');
 
-/*
+  // Create views.
+  db_query("
+    CREATE VIEW {extract_cache_issue} AS (
+      SELECT
+        n.nid issue_id,
+        n.title issue_text,
+        tn.tid category_id,
+        l.name location_id,
+        n.uid
+      FROM {node} n
+      LEFT JOIN {term_node} tn ON tn.nid = n.nid
+      LEFT JOIN {location_instance} li ON li.nid = n.nid
+      LEFT JOIN {location} l ON li.lid = l.lid
+      WHERE
+        n.type = 'issue' AND
+        n.status = 1
+    );");
 
-CREATE VIEW th1 AS SELECT term_hierarchy.tid AS tid, term_hierarchy.tid AS code FROM term_hierarchy WHERE term_hierarchy.parent = 0;
-CREATE VIEW th2 AS SELECT th.tid AS tid, CONCAT(th1.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th1 ON th.parent = th1.tid;
-CREATE VIEW th3 AS SELECT th.tid AS tid, CONCAT(th2.code,',',th.tid) AS code FROM term_hierarchy th INNER JOIN th2 ON th.parent = th2.tid;
+  db_query("
+    CREATE VIEW {extract_cache_choices} AS (
+      SELECT
+        n.nid issue_id,
+        cc.chtext,
+        eccm.*
+      FROM {node} n
+      INNER JOIN {cpoll_choices} cc ON n.nid = cc.nid
+      LEFT JOIN {extract_cache_cpoll_meta} eccm ON eccm.chid = cc.chid
+      WHERE
+        n.type = 'issue' AND
+        n.status = 1
+    );");
 
+  db_query("
+    CREATE VIEW {extract_cache_votes} AS (
+      SELECT
+        cc.nid issue_id,
+        cc.chid,
+        cv.uid,
+        cv.cdate timestamp
+      FROM {cpoll_choices} cc
+      INNER JOIN {cpoll_votes} cv ON cc.chid = cv.chid AND status = 1
+    );");
+
+  db_query("
+    CREATE VIEW {extract_cache_threads} AS (
+      SELECT
+        cfr.nid thread_id,
+        n2.uid,
+        n.nid issue_id,
+        cc.chid,
+        IFNULL(ao.val,0) pro_con,
+        n2.created timestamp
+      FROM {node} n
+      INNER JOIN {content_field_reference} cfr ON cfr.field_reference_nid = n.nid
+      INNER JOIN {node} n2 ON n2.nid = cfr.nid AND n2.type IN ('argument', 'resource') AND n2.status = 1
+      INNER JOIN {cpoll_choices} cc ON cc.nid = n.nid
+      LEFT JOIN {argument_options} ao ON ao.chid = cc.chid AND ao.nid = cfr.nid
+      WHERE
+        n.type = 'issue' AND
+        n.status = 1
+    );");
+
+  db_query("
+    CREATE VIEW {extract_cache_replies} AS (
+      SELECT
+        cid reply_id,
+        nid thread_id,
+        uid,
+        timestamp,
+        support agree
+      FROM {comments}
+      WHERE status = '%d'
+    );", COMMENT_PUBLISHED);
+
+  db_query("
+    CREATE VIEW {extract_cache_agrees} AS (
+      SELECT
+        uid,
+        content_type,
+        content_id,
+        value agree_disagree,
+        timestamp
+      FROM {votingapi_vote}
+      WHERE vote_source = 'yn'
+    );");
+}
+
+/**
+ * Implementation of hook_uninstall()
  */
+function extract_uninstall() {
+  // Remove views.
+  db_query("DROP VIEW {extract_cache_issue}");
+  db_query("DROP VIEW {extract_cache_choices}");
+  db_query("DROP VIEW {extract_cache_votes}");
+  db_query("DROP VIEW {extract_cache_threads}");
+  db_query("DROP VIEW {extract_cache_replies}");
+  db_query("DROP VIEW {extract_cache_agrees}");
+
+  // Remove tables.
+  drupal_uninstall_schema('extract');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function extract_schema() {
+  $schema = array();
+
+  $schema['extract_cache_taxonomy'] = array(
+    'description' => '',
+    'fields'      => array(
+      'category_id'    => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => ""
+      ),
+      'code'           => array(
+        'type'        => 'varchar',
+        'length'      => 128,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'depth'          => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => '',
+      ),
+      'category1'      => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => ""
+      ),
+      'category2'      => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => ""
+      ),
+      'category3'      => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => ""
+      ),
+      'category1_name' => array(
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'category2_name' => array(
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'category3_name' => array(
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+    ),
+    'primary key' => array('category_id'),
+    'indexes'     => array(
+      'category_id' => array('category_id'),
+      'code'        => array('code'),
+    ),
+  );
+
+  $schema['extract_cache_location'] = array(
+    'description' => '',
+    'fields'      => array(
+      'location_id'    => array(
+        'type'        => 'varchar',
+        'length'      => 128,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'depth'          => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => '',
+      ),
+      'location1'      => array(
+        'type'        => 'varchar',
+        'length'      => 128,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'location2'      => array(
+        'type'        => 'varchar',
+        'length'      => 128,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'location3'      => array(
+        'type'        => 'varchar',
+        'length'      => 128,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'location1_name' => array(
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'location2_name' => array(
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+      'location3_name' => array(
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
+      ),
+    ),
+    'primary key' => array('location_id'),
+    'indexes'     => array(
+      'location_id' => array('location_id'),
+    ),
+  );
+
+
+  $schema['extract_cache_profile'] = array(
+    'description' => '',
+    'fields'      => array(
+      'uid' => array(
+        'description' => '',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0
+      ),
+    ),
+    'primary key' => array('uid'),
+    'indexes'     => array(
+      'uid' => array('uid'),
+    ),
+  );
+  $result = db_query("SELECT * FROM profile_fields");
+  while ($field = db_fetch_object($result)) {
+    $schema['extract_cache_profile']['fields'] += array(
+      $field->name => array(
+        'type'        => 'text',
+        'not null'    => FALSE,
+        'description' => 'The value for the field ' . $field->title . '.',
+      ),
+    );
+  }
+
+  $schema['extract_cache_cpoll_meta'] = array(
+    'description' => '',
+    'fields'      => array(
+      'chid' => array(
+        'description' => '',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0
+      ),
+    ),
+    'primary key' => array('chid'),
+    'indexes'     => array(
+      'chid' => array('chid'),
+    ),
+  );
+  foreach (cpoll_meta_get() as $chtext) {
+    $name = cpoll_meta_code($chtext);
+    $schema['extract_cache_cpoll_meta']['fields'] += array(
+      $name => array(
+        'type'        => 'numeric',
+        'size'        => 'normal',
+        'not null'    => TRUE,
+        'default'     => CPOLL_META_AVG,
+        'precision'   => 3,
+        'scale'       => 2,
+        'description' => 'The value for the field ' . $chtext . '.',
+      ),
+    );
+  }
+
+  return $schema;
+}
 

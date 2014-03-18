@@ -54,7 +54,7 @@ function moderation_preprocess_page(&$vars) {
       drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.css");
     }
 
-    if ('users' == arg(1)) {
+    if ('userflags' == arg(1) || 'users' == arg(1)) {
       # css/js
       drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.js");
       drupal_add_css(drupal_get_path("module", "moderation") . "/moderation.css");
@@ -148,6 +148,15 @@ function moderation_menu() {
     'title'            => t('Moderators'),
     'page callback'    => 'drupal_get_form',
     'page arguments'   => array('moderation_users_form'),
+    'access arguments' => array(MODERATION_ADMIN),
+    'type'             => MENU_CALLBACK,
+    'weight'           => 1,
+    'file'             => 'moderation.pages.inc',
+  );
+  $menu['moderation/userflags'] = array(
+    'title'            => t('Moderators'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('moderation_userflags_form'),
     'access arguments' => array(MODERATION_ADMIN),
     'type'             => MENU_CALLBACK,
     'weight'           => 1,

@@ -148,3 +148,12 @@ function cpoll_meta_user($op, &$edit, &$account, $category = NULL) {
 function cpoll_meta_cpoll_choice_delete($chid) {
   db_query("DELETE FROM {cpoll_meta_values} WHERE chid = '%d'", $chid);
 }
+
+/**
+ * @param $chtext
+ *
+ * @return string
+ */
+function cpoll_meta_code($chtext) {
+  return trim(preg_replace('/[^a-z]+/', '_', strtolower($chtext)));
+}

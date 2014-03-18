@@ -117,3 +117,8 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
 
   return $tfl;
 }
+
+
+function location_code($c1, $c2 = NULL, $c3 = NULL) {
+  return $c1 . (is_null($c2) ? '' : '_' . $c2 . (is_null($c3) ? '' : '_' . $c3));
+}

@@ -42,6 +42,9 @@
       if ($_ = theme('flagger_btn_history', $comment->cid, 'comment')) {
         $links[] = $_;
       }
+      if ($_ = theme('flagger_btn_flag', $comment->uid, 'user')) {
+        $links[] = $_;
+      }
       if ($_ = theme('argument_delete', 'comment', $comment->content_id)) {
         $links[] = $_;
       }

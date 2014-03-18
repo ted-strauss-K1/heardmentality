@@ -126,6 +126,9 @@ $nid = $node->nid;
             'name'  => module_exists('shorturl') ? shorturl_shorten($url, TRUE) : $url,
           ),
         ));
+        if ($_ = theme('flagger_btn_flag', $node->uid, 'user')) {
+          $links[] = $_;
+        }
         if ($_ = theme('argument_delete', 'node', $nid)) {
           $links[] = $_;
         }

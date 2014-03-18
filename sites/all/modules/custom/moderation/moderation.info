@@ -1,7 +1,7 @@
 name = Moderation module for Issues
 description = Provides common way for moderation: Issues, Debates, Resources and their Replies
 package = Custom Modules
-version = "6.x-1.2"
+version = "6.x-1.3"
 core = 6.x
 
 dependencies[] = "core"

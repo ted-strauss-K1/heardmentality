@@ -1,7 +1,7 @@
 name = Analysis Extract
 description = Creates the site's overall data extraction
 package = Custom Modules
-version = "6.x-1.5"
+version = "6.x-2.0"
 core = 6.x
 
 dependencies[] = 'mimemail'
@@ -9,3 +9,5 @@ dependencies[] = 'taxonomy'
 dependencies[] = 'cpoll'
 dependencies[] = 'cpoll_meta'
 dependencies[] = 'profile'
+dependencies[] = 'location'
+dependencies[] = 'location_cities'
