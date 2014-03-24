@@ -80,6 +80,11 @@ function jquery_update_theme_registry_alter(&$theme_registry) {
     // Now tack it on at the end so it runs after everything else.
     $theme_registry['page']['preprocess functions'][] = 'jquery_update_preprocess_page';
   }
+
+  if (isset($theme_registry['maintenance_page'])) {
+    // Now tack it on at the end so it runs after everything else.
+    $theme_registry['maintenance_page']['preprocess functions'][] = 'jquery_update_preprocess_page';
+  }
 }
 
 /**
