@@ -16,6 +16,8 @@
 
     <?php if ($content) : ?>
       <div class="white-box clearfix full" id="region-content">
+        <?php if ('user' == arg(0) && in_array(arg(1), array('', 'login', 'password', 'register'))) print $tabs; ?>
+
         <?php print $content; ?>
       </div>
     <?php endif; ?>
