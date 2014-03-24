@@ -30,6 +30,7 @@ function extract_install() {
       SELECT
         n.nid issue_id,
         cc.chtext,
+        cc.chtext_short,
         eccm.*
       FROM {node} n
       INNER JOIN {cpoll_choices} cc ON n.nid = cc.nid
@@ -265,6 +266,13 @@ function extract_schema() {
         'type'        => 'int',
         'not null'    => TRUE,
         'default'     => 0
+      ),
+      'uhash' => array(
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => '',
       ),
     ),
     'primary key' => array('uid'),

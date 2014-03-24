@@ -241,8 +241,8 @@ function extract_cache_profile($uid = FALSE) {
   module_load_include('inc', 'location', 'location');
 
   // query building
-  $query = "REPLACE INTO extract_cache_profile SET uid = '%s'";
-  $params = array($uid);
+  $query = "REPLACE INTO extract_cache_profile SET uid = '%s', uhash = MD5('%s')";
+  $params = array($uid, 'user-' . $uid);
 
   // locations
   $country = '';
@@ -275,12 +275,18 @@ function extract_cache_profile($uid = FALSE) {
               $state = $field->value;
               $states = location_get_provinces($country);
               $options = $states;
+              if (!isset($options[$field->value])) {
+                $state = '';
+              };
             }
             break;
           case 'profile_country' :
             $country = $field->value;
             $countries = location_get_iso3166_list();
             $options = $countries;
+            if (!isset($options[$field->value])) {
+              $country = '';
+            };
             break;
           default :
             $options = explode("\n", $field->options);
