@@ -1,51 +1,27 @@
 <?php global $theme_path; ?>
 
-<tr>
-  <td style="height: 16px; line-height: 16px; font-size: 14px; font-family: Arial; text-align: center;">
 
-    <?php print l('View this email on website', 'newsletter/' . $data['newsletter']['hash'], array(
-      'absolute'   => true,
-      'attributes' => array(
-        'style' => 'text-decoration: none; color: #333;',
-      ),
-    )); ?>
-
-    <?php if ($data['uid']) : ?>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-
-      <?php print l('Unsubscribe', 'user/profile/view/' . $data['uid'], array(
-        'absolute'   => true,
-        'query'      => array('newsletter_action' => 'unsubscribe'),
-        'attributes' => array(
-          'style' => 'text-decoration: none; color: #333;',
-        ),
-      )); ?>
-    <?php endif; ?>
-
-  </td>
-</tr>
 
 <tr>
-  <td
-    style="background : url(<?php print url($theme_path . '/images/cross_hatch_texture_dark.png', array('absolute' => true)); ?>) repeat scroll 0 0 #A29CAC;border       : solid #A29CAC;border-width : 1px 0;height: 100px;">
+  <td style="background : #362750; height: 80px;">
 
     <table>
       <tr>
 
         <td
-          style=""><?php print l('<img style="height: 80px; width: 140px;" title="Heard Mentality Logo" alt="Heard Mentality Logo" src="' . url($theme_path . '/images/hm-logo.png', array('absolute' => true)) . '">', '', array(
-            'absolute'   => true,
-            'html'       => true,
+          style=""><?php print l('<img style="height: 44px; width: 81px;" title="Heard Mentality Logo" alt="Heard Mentality Logo" src="' . url($theme_path . '/images/logo_emails.png', array('absolute' => TRUE)) . '">', '', array(
+            'absolute'   => TRUE,
+            'html'       => TRUE,
             'attributes' => array(
-              'style' => 'padding: 5px;',
+              'style' => 'display: block; padding-left: 10px;',
             ),
           )); ?></td>
 
         <td
-          style="width: 100%;text-align: center; font-family: Arial; font-size: 30px; padding-left: 10px;"><?php print l('Heard Mentality Newsletter', '', array(
-            'absolute'   => true,
+          style="width: 100%; text-align: center; font-family: Arial; font-size: 30px; padding: 10px; letter-spacing: 1px;"><?php print l('HEARD MENTALITY newsletter', '', array(
+            'absolute'   => TRUE,
             'attributes' => array(
-              'style' => 'text-decoration: none; color: #333;',
+              'style' => 'text-decoration: none; color: #ffffff; font-size: 0.9em;',
             ),
           )); ?></td>
 

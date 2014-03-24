@@ -12,7 +12,7 @@
 
 <body bgcolor="#FFFFFF" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
 
-<table style="margin: 0 auto; width: 100%; max-width: 800px">
+<table style="margin: 0 auto; width: 100%; max-width: 600px; border-spacing: 0;">
 
   <?php print $header; ?>
 
