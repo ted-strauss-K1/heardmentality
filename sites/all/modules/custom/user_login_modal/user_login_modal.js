@@ -4,7 +4,7 @@ $(document).ready(function () {
   $('.openlogin_box').live('click', function (e) {
     e.preventDefault();
 
-    if ("undefined" == typeof $.browser.mobile || $.browser.mobile) {
+    if ($.browser.mobile) {
       location.href = '/user/login';
       return;
     }
@@ -21,6 +21,11 @@ $(document).ready(function () {
 
   $('#dialog_link').live('click', function (e) {
     e.preventDefault();
+
+    if ($.browser.mobile) {
+      location.href = '/user/profile/view';
+      return;
+    }
 
     var options = $.browser.mobile ?
     {inline: true, width: '100%', height: '100%', top: '0px', reposition: false} :
