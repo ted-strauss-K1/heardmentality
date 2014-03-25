@@ -41,12 +41,12 @@ $(document).ready(function () {
     var
       top = 20,
       scroll = $(window).scrollTop(),
-      content_top = $('.twelve.columns').offset().top,
+      content = $('.twelve.columns'),
       sidebar = $('.sidebar_inner');
-    if (!sidebar) {
+    if (!sidebar || !content || !content.offset()) {
       return;
     }
-    var baseline = scroll + top - content_top;
+    var baseline = scroll + top - content.offset().top;
     if (baseline <= 0) {
       sidebar.css('top', 0);
     }
