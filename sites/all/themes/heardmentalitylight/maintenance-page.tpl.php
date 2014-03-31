@@ -1,32 +1,15 @@
-<?php include "page_up.tpl.php"; ?>
+<div class="maintenance_wrapper">
 
-  <div class="container">
+  <div class="maintenance_top" style="width: 100%; height: 52%; background-color: #362750; background-position: bottom center; background-repeat: no-repeat;">
+  </div>
 
-    <div class="page_title_wrapper">
-      <?php if ($_title = drupal_set_subtitle()) : ?>
-        <h2 class="dinbold page-title"><?php print $_title; ?></h2>
-      <?php endif; ?>
-    </div>
-
-    <?php if ($content_top) : ?>
-      <div class="grey-box clearfix full" id="region-content-top">
-        <?php print $content_top; ?>
-      </div>
-    <?php endif; ?>
-
+  <div class="maintenance_bottom" style="width: 100%; height: 48%; background-color: #251b38;">
     <?php if ($content) : ?>
-      <div class="white-box clearfix full" id="region-content">
+      <div class="white-box clearfix full din" id="region-content" style="width: 80%; font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif; font-size: 50px; color: white; padding: 20px 0 0 0; margin: 0 auto; text-align: center;">
         We're terribly sorry but we've down for maintenance.
         <?php print $content; ?>
       </div>
     <?php endif; ?>
-
-    <?php if ($content_bottom) : ?>
-      <div class="white-box clearfix full" id="region-content-bottom">
-        <?php print $content_bottom; ?>
-      </div>
-    <?php endif; ?>
-
-  </div><? theme(); ?>
-
-<?php include "page_dn.tpl.php"; ?>
+  </div>
+</div>
+<? theme(); ?>
