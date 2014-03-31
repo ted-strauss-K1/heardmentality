@@ -1576,7 +1576,7 @@
   /* TABS */
 
   ul.tabs li:first-child {
-    margin-left : 4px;
+    margin-left : 3px;
   }
 
   ul.tabs li a {
