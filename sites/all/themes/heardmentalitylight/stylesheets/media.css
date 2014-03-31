@@ -1968,6 +1968,18 @@
     width : 300px;
   }
 
+  .following_page span.name {
+    font-size: 20px;
+    max-width: 115px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .following_page span.name:hover {
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
   /*---/ OTHER */
 
 }
