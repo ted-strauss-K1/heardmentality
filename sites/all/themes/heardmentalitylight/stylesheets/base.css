@@ -665,7 +665,7 @@ input[type="button"].full-width {
 ================================================== */
 ul.tabs {
   display       : block;
-  margin        : 0 0 12px;
+  margin        : 0 0 35px;
   padding       : 0;
   border-bottom : 1px solid #C0C0C0;
 }
@@ -680,7 +680,7 @@ ul.tabs li {
 }
 
 ul.tabs li:first-child {
-  margin-left : 50px;
+  margin-left : 0;
 }
 
 ul.tabs li a {
@@ -688,7 +688,7 @@ ul.tabs li a {
   text-decoration : none;
   width           : auto;
   height          : auto;
-  padding         : 8px 10px;
+  padding         : 6px 10px;
   line-height     : 16px;
   margin          : 0;
   font-size       : 13px;
@@ -697,21 +697,21 @@ ul.tabs li a {
 }
 
 ul.tabs li a.active {
-  background            : #FFFFFF;
-  position              : relative;
-  top                   : 1px;
-  padding               : 6px 9px 9px;
-  border                : solid #C0C0C0;
-  border-width          : 1px 1px 0;
-  -webkit-border-radius : 3px 3px 0 0;
+  background   : #FFFFFF;
+  position     : relative;
+  top          : 0;
+  padding      : 6px 10px;
+  border       : solid #C0C0C0;
+  border-width : 1px 1px 0;
+  /*-webkit-border-radius : 3px 3px 0 0;
   -moz-border-radius    : 3px 3px 0 0;
   border-radius         : 3px 3px 0 0;
   -khtml-border-radius  : 3px 3px 0 0;
-  -o-border-radius      : 3px 3px 0 0
+  -o-border-radius      : 3px 3px 0 0*/
 }
 
 ul.tabs li a:hover {
-  text-decoration : underline;
+  /*  text-decoration : underline; */
 }
 
 ul.tabs li a.active:hover {

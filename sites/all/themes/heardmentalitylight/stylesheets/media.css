@@ -1573,6 +1573,18 @@
 
   /*---/ OTHER */
 
+  /* TABS */
+
+  ul.tabs li:first-child {
+    margin-left : 4px;
+  }
+
+  ul.tabs li a {
+    font-size : 12px;
+  }
+
+  /*---/ TABS */
+
 }
 
 /* END Mobile Only
@@ -1981,5 +1993,24 @@
   }
 
   /*---/ OTHER */
+
+  /* TABS */
+
+  ul.tabs li {
+    width  : 100%;
+    margin : 0;
+  }
+
+  ul.tabs li:first-child {
+    margin-left : 0px;
+  }
+
+  ul.tabs li a.active {
+    top          : 0;
+    border-width : 1px 1px 0;
+    padding      : 6px 10px;
+  }
+
+  /*---/ TABS */
 
 }
