@@ -5409,6 +5409,21 @@ select#edit-language {
   vertical-align : middle;
 }
 
+.medal_wrapper {
+  *zoom : 1;
+}
+
+.medal_wrapper:before,
+.medal_wrapper:after{
+  display     : table;
+  line-height : 0;
+  content     : "";
+}
+
+.medal_wrapper:after {
+  clear : both;
+}
+
 /*---/ BADGES */
 
 /* ISSUES - VOTE SECTION */
@@ -5624,7 +5639,7 @@ select#edit-language {
   margin  : 0;
   width   : 95%;
 }
-
+ul.primary li.active a
 /*---/ SEARCH ISSUES (right block) */
 
 /* FIXED RIGHT SIDEBARS */

@@ -1688,6 +1688,29 @@
     padding : 8px 7px 6px;
   }
 
+  #badges .medal_title {
+    white-space : normal;
+  }
+
+  #badges .medal_wrapper {
+    height  : auto;
+    padding : 5px 7px;
+  }
+
+  .badges_third .awarded_awarded {
+    font-size : 11px;
+  }
+
+  .badges_third .number_awarded,
+  .badges_third .awarded_awarded {
+    text-align : center;
+    display    : block;
+  }
+
+  #about_us_page_content #badges td:last-child {
+    color: #000000;
+  }
+
   /*---/ BADGES */
   /* DEBATE */
   #debate_list_area ul.argument_box {
