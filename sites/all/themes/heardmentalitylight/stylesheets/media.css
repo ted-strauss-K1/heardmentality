@@ -4,6 +4,31 @@
 /* Anything smaller than standard 1024 
 ==================================================*/
 
+@media only screen and (max-width : 1400px) {
+  .img_earth_wrapper {
+    padding-top : 35% !important;
+  }
+}
+
+@media only screen and (max-width : 1200px) {
+  .img_earth_wrapper {
+    background      : url(/sites/all/themes/heardmentalitylight/images/earth_600.png) bottom center no-repeat !important;
+    background-size : 100% !important;
+  }
+}
+
+@media only screen and (max-width : 800px) {
+  .img_earth_wrapper {
+    background      : url(/sites/all/themes/heardmentalitylight/images/earth_400.png) bottom center no-repeat !important;
+    background-size : 100% !important;
+  }
+
+  .maintenance_bottom div {
+    font-size   : 34px !important;
+    line-height : 34px !important;
+  }
+}
+
 @media only screen and (max-width : 1023px) {
 
   /* HEADER */
@@ -1708,7 +1733,7 @@
   }
 
   #about_us_page_content #badges td:last-child {
-    color: #000000;
+    color : #000000;
   }
 
   /*---/ BADGES */
@@ -2004,15 +2029,15 @@
   }
 
   .following_page span.name {
-    font-size: 20px;
-    max-width: 115px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size     : 20px;
+    max-width     : 115px;
+    overflow      : hidden;
+    text-overflow : ellipsis;
   }
 
   .following_page span.name:hover {
-    overflow: visible;
-    word-wrap: break-word;
+    overflow  : visible;
+    word-wrap : break-word;
   }
 
   /*---/ OTHER */
@@ -2035,5 +2060,21 @@
   }
 
   /*---/ TABS */
+
+  .img_earth_wrapper {
+    padding-top : 50% !important;
+  }
+
+  .maintenance_bottom div {
+    font-size   : 24px !important;
+    line-height : 24px !important;
+  }
+
+  .logo_maintenance {
+    background      : url(/sites/all/themes/heardmentalitylight/images/logo_maintenance.png) left 16px no-repeat !important;
+    padding         : 14px 0 0 33px !important;
+    font-size       : 14px !important;
+    background-size : 28px !important;
+  }
 
 }
