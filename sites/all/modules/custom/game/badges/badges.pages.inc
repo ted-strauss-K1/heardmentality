@@ -92,9 +92,9 @@ function theme_badges_list($sort = 2) {
     }
     $output .= sprintf('
         <tr>
-          <td><span class="medal_wrapper"><span class="%s medal3" title="%s">&nbsp;</span><span class="medal_title"> %s</span><span class="badges_helper"></span></span></td>
-          <td>%s</td>
-          <td>%d ' . t('awarded') . '</td>
+          <td class="badges_first"><span class="medal_wrapper"><span class="%s medal3" title="%s">&nbsp;</span><span class="medal_title"> %s</span><span class="badges_helper"></span></span></td>
+          <td class="badges_second">%s</td>
+          <td class="badges_third"><span class="number_awarded">%d</span><span class="awarded_awarded"> ' . t('awarded') . '</span></td>
         </tr>
       ', $badge_item['type'], t(badges_types($badge_item['type']) . ' Medal'), $badge_item['name'], $badge_item['info'], $badge->count - 1);
   }

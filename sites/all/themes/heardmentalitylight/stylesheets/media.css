@@ -4,6 +4,31 @@
 /* Anything smaller than standard 1024 
 ==================================================*/
 
+@media only screen and (max-width : 1400px) {
+  .img_earth_wrapper {
+    padding-top : 35% !important;
+  }
+}
+
+@media only screen and (max-width : 1200px) {
+  .img_earth_wrapper {
+    background      : url(/sites/all/themes/heardmentalitylight/images/earth_600.png) bottom center no-repeat !important;
+    background-size : 100% !important;
+  }
+}
+
+@media only screen and (max-width : 800px) {
+  .img_earth_wrapper {
+    background      : url(/sites/all/themes/heardmentalitylight/images/earth_400.png) bottom center no-repeat !important;
+    background-size : 100% !important;
+  }
+
+  .maintenance_bottom div {
+    font-size   : 34px !important;
+    line-height : 34px !important;
+  }
+}
+
 @media only screen and (max-width : 1023px) {
 
   /* HEADER */
@@ -1573,6 +1598,18 @@
 
   /*---/ OTHER */
 
+  /* TABS */
+
+  ul.tabs li:first-child {
+    margin-left : 3px;
+  }
+
+  ul.tabs li a {
+    font-size : 12px;
+  }
+
+  /*---/ TABS */
+
 }
 
 /* END Mobile Only
@@ -1674,6 +1711,29 @@
   #footer #user-login input[type="submit"],
   #footer #user-login-1 input[type="submit"] {
     padding : 8px 7px 6px;
+  }
+
+  #badges .medal_title {
+    white-space : normal;
+  }
+
+  #badges .medal_wrapper {
+    height  : auto;
+    padding : 5px 7px;
+  }
+
+  .badges_third .awarded_awarded {
+    font-size : 11px;
+  }
+
+  .badges_third .number_awarded,
+  .badges_third .awarded_awarded {
+    text-align : center;
+    display    : block;
+  }
+
+  #about_us_page_content #badges td:last-child {
+    color : #000000;
   }
 
   /*---/ BADGES */
@@ -1969,17 +2029,52 @@
   }
 
   .following_page span.name {
-    font-size: 20px;
-    max-width: 115px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size     : 20px;
+    max-width     : 115px;
+    overflow      : hidden;
+    text-overflow : ellipsis;
   }
 
   .following_page span.name:hover {
-    overflow: visible;
-    word-wrap: break-word;
+    overflow  : visible;
+    word-wrap : break-word;
   }
 
   /*---/ OTHER */
+
+  /* TABS */
+
+  ul.tabs li {
+    width  : 100%;
+    margin : 0;
+  }
+
+  ul.tabs li:first-child {
+    margin-left : 0px;
+  }
+
+  ul.tabs li a.active {
+    top          : 0;
+    border-width : 1px 1px 0;
+    padding      : 6px 10px;
+  }
+
+  /*---/ TABS */
+
+  .img_earth_wrapper {
+    padding-top : 50% !important;
+  }
+
+  .maintenance_bottom div {
+    font-size   : 24px !important;
+    line-height : 24px !important;
+  }
+
+  .logo_maintenance {
+    background      : url(/sites/all/themes/heardmentalitylight/images/logo_maintenance.png) left 16px no-repeat !important;
+    padding         : 14px 0 0 33px !important;
+    font-size       : 14px !important;
+    background-size : 28px !important;
+  }
 
 }
