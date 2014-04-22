@@ -9,6 +9,9 @@ function jquery_alter_allowed_path() {
   if (arg(0) == 'admin') {
     return FALSE;
   }
+  if (arg(0) == 'batch') {
+    return FALSE;
+  }
   if (arg(0) == 'node' && arg(2) == 'edit') {
     return FALSE;
   }
