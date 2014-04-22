@@ -62,12 +62,11 @@
     <?php if ($content) : ?>
       <div class="clearfix full din" id="region-content"
            style="width: 80%; font-family: 'DINLightRegular', 'Open Sans Condensed', Arial, sans-serif; line-height: 48px; font-size: 50px; color: white; padding: 20px 0; margin: 0 auto; text-align: center;">
-        We're terribly sorry but we've down for maintenance. HM should be back shortly. Thank you for your patience.
+        <?php print $content; ?>
       </div>
     <?php endif; ?>
   </div>
 </div>
-<? theme(); ?>
 
 </body>
 </html>
