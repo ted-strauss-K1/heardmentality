@@ -1,7 +1,7 @@
 name = Badges
 description = Badges Module
 package = Custom Modules :: Gameification
-version = "6.x-1.4"
+version = "6.x-1.5"
 core = 6.x
 
 dependencies[] = "action"
