@@ -42,6 +42,9 @@ function cpoll_create_menu() {
  * @param $vars
  */
 function cpoll_create_preprocess_page(&$vars) {
+  if (('node' == arg(0)) && ('add' == arg(1))) {
+    drupal_goto('create');
+  }
   if (arg(0) == 'create') {
     drupal_set_subtitle(t('Add an Issue'));
     array_push($vars['template_files'], 'page_11_5');
