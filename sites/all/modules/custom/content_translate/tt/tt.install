@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function tt_install() {
+  $ret = array();
+  $field = array(
+    'type'        => 'varchar',
+    'length'      => 255,
+    'not null'    => TRUE,
+    'default'     => '',
+    'description' => 'Code.',
+  );
+  db_add_field($ret, 'locales_source', 'code', $field);
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function tt_uninstall() {
+  $ret = array();
+  db_drop_field($ret, 'locales_source', 'code');
+}
+
+/**
+ * @param $schema
+ */
+function tt_schema_alter(&$schema) {
+  // Add field to existing schema.
+  $schema['locales_source']['fields']['code'] = array(
+    'type'        => 'varchar',
+    'length'      => 255,
+    'not null'    => TRUE,
+    'default'     => '',
+    'description' => 'Code.',
+  );
+}

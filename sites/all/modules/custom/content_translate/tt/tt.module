@@ -1,0 +1,216 @@
+<?php
+
+/**
+ * This function is a wrapper for the t-function
+ *
+ * @param        $code
+ * @param        $string
+ * @param array  $args
+ * @param null   $langcode
+ * @param string $textgroup
+ *
+ * @see t()
+ * @see format_plural()
+ *
+ */
+function __($code, $string, $args = array(), $langcode = NULL, $textgroup = 'default') {
+  // detect language
+  global $language;
+  $langcode = isset($langcode) ? $langcode : $language->language;
+
+  // check if this text allows plurality (has @count arg)
+  if (isset($args['@count'])) {
+    $count = $args['@count'];
+    unset($args['@count']);
+    $index = (function_exists('locale_get_plural')) ? locale_get_plural($count, $langcode) : -1;
+    $args['@count[' . $index . ']'] = $count;
+    return __($code, strtr($string, array('@count' => '@count[' . $index . ']')), $args, $langcode, $textgroup);
+  }
+
+  // create record in the database if not exists
+  tt_src_set($code, $string, $textgroup, $location = '');
+
+  //
+  return __t($code, $string, $args, $langcode);
+}
+
+define('TT_SRC_LID', 'tt_src_lid');
+
+/**
+ * @param bool   $code
+ * @param string $string
+ * @param bool   $reset
+ *
+ * @return int
+ */
+function tt_src_lid($code = FALSE, $string = '', $reset = FALSE) {
+  static $lids = NULL;
+
+  if (is_null($lids) || $reset) {
+    if ($reset) {
+      $lids_tmp = array();
+
+      $results = db_query("SELECT lid, source, code FROM {locales_source} WHERE code <> ''");
+      while ($row = db_fetch_object($results)) {
+        $lids_tmp[$row->code][md5($row->source)] = $row->lid;
+      }
+
+      variable_set(TT_SRC_LID, $lids_tmp);
+    }
+
+    $lids = variable_get(TT_SRC_LID, array());
+  }
+
+  if (FALSE === $code) {
+    return $lids;
+  }
+
+  return isset($lids[$code][md5($string)]) ? $lids[$code][md5($string)] : 0;
+}
+
+/**
+ * @param        $code
+ * @param        $string
+ * @param string $textgroup
+ * @param string $location
+ */
+function tt_src_set($code, $string, $textgroup = 'default', $location = '') {
+  // check if exists
+  if ($lid = tt_src_lid($code, $string)) {
+    return $lid;
+  }
+
+  // insert
+  $object = array(
+    'code'      => $code,
+    'source'    => $string,
+    'textgroup' => $textgroup,
+    'location'  => $location,
+    'version'   => VERSION,
+  );
+  drupal_write_record('locales_source', $object);
+
+  // save lid
+  $lids = tt_src_lid();
+  $lids[$code][md5($string)] = $object["lid"];
+  variable_set(TT_SRC_LID, $lids);
+}
+
+/**
+ *
+ */
+define('TT_PREFIX', 'tt');
+
+/**
+ * Analogue of t-function that can translate textgroup != 'default'
+ *
+ * @param       $code
+ * @param       $string
+ * @param array $args
+ * @param null  $langcode
+ *
+ * @return null|string
+ */
+function __t($code, $string, $args = array(), $langcode = NULL) {
+  //
+  global $language;
+  $langcode = isset($langcode) ? $langcode : $language->language;
+
+  //
+  if ($langcode != 'en') {
+    $string = __locale($code, $string, $langcode, FALSE);
+  }
+
+  //
+  if (empty($args)) {
+    return $string;
+  }
+  else {
+    // Transform arguments before inserting them.
+    foreach ($args as $key => $value) {
+      switch ($key[0]) {
+        case '@':
+          // Escaped only.
+          $args[$key] = check_plain($value);
+          break;
+
+        case '%':
+        default:
+          // Escaped and placeholder.
+          $args[$key] = theme('placeholder', $value);
+          break;
+
+        case '!':
+          // Pass-through.
+      }
+    }
+    return strtr($string, $args);
+  }
+}
+
+/**
+ * Analogue of locale-function that can translate textgroup != 'default'
+ *
+ * @param      $code
+ * @param null $string
+ * @param null $langcode
+ * @param bool $reset
+ *
+ * @return null
+ */
+function __locale($code, $string = NULL, $langcode = NULL, $reset = FALSE) {
+  //
+  global $language;
+  $langcode = isset($langcode) ? $langcode : $language->language;
+
+  //
+  $cache_id = TT_PREFIX . '_locale:' . $langcode;
+  $semaphore_id = TT_PREFIX . '_locale_' . $langcode;
+
+  //
+  static $locale_t;
+
+  // Reset in-memory cache.
+  if ($reset) {
+    $locale_t = NULL;
+    cache_clear_all(TT_PREFIX . '_locale:*', 'cache', TRUE);
+  }
+
+  // Return all cached strings if no string was specified
+  if (!isset($string)) {
+    return $locale_t;
+  }
+
+  //
+  if (!isset($locale_t[$langcode])) {
+    $locale_t[$langcode] = array();
+
+    //
+    if ($cache = cache_get($cache_id, 'cache')) {
+      $locale_t[$langcode] = $cache->data;
+    }
+
+    //
+    elseif (lock_acquire($semaphore_id)) {
+      $result = db_query("
+        SELECT s.source, t.translation, t.language, s.code
+        FROM {locales_source} s
+        LEFT JOIN {locales_target} t ON s.lid = t.lid AND t.language = '%s'
+        WHERE s.version = '%s' AND s.code <> ''", $langcode, VERSION);
+      while ($data = db_fetch_object($result)) {
+        $locale_t[$langcode][$data->code][md5($data->source)] = (empty($data->translation) ? TRUE : $data->translation);
+      }
+      cache_set($cache_id, $locale_t[$langcode]);
+      lock_release($semaphore_id);
+    }
+  }
+
+  return ($locale_t[$langcode][$code][md5($string)] === TRUE ? $string : $locale_t[$langcode][$code][md5($string)]);
+}
+
+/**
+ *
+ */
+function tt_init() {
+  //
+}
