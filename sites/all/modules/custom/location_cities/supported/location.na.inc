@@ -3,37 +3,37 @@
 
 function location_cities_list_na_ca() {
   return array(
-    "877178" => t("Katima Mulilo"),
+    "877178" => "Katima Mulilo",
   );
 }
 
 
 function location_cities_list_na_er() {
   return array(
-    "3352844" => t("Swakopmund"),
-    "3359638" => t("Walvis Bay"),
+    "3352844" => "Swakopmund",
+    "3359638" => "Walvis Bay",
   );
 }
 
 
 function location_cities_list_na_ha() {
   return array(
-    "3353540" => t("Rehoboth"),
+    "3353540" => "Rehoboth",
   );
 }
 
 
 function location_cities_list_na_ka() {
   return array(
-    "3355672" => t("Luderitz"),
-    "3356264" => t("Keetmanshoop"),
+    "3355672" => "Luderitz",
+    "3356264" => "Keetmanshoop",
   );
 }
 
 
 function location_cities_list_na_kh() {
   return array(
-    "3352136" => t("Windhoek"),
+    "3352136" => "Windhoek",
   );
 }
 
@@ -50,14 +50,14 @@ function location_cities_list_na_ow() {
 
 function location_cities_list_na_ok() {
   return array(
-    "3353383" => t("Rundu"),
+    "3353383" => "Rundu",
   );
 }
 
 
 function location_cities_list_na_oh() {
   return array(
-    "3357247" => t("Gobabis"),
+    "3357247" => "Gobabis",
   );
 }
 
@@ -69,7 +69,7 @@ function location_cities_list_na_os() {
 
 function location_cities_list_na_on() {
   return array(
-    "3354021" => t("Oshakati"),
+    "3354021" => "Oshakati",
   );
 }
 
@@ -81,8 +81,8 @@ function location_cities_list_na_ot() {
 
 function location_cities_list_na_od() {
   return array(
-    "3353811" => t("Otjiwarongo"),
-    "3354898" => t("Okahandja"),
-    "3357114" => t("Grootfontein"),
+    "3353811" => "Otjiwarongo",
+    "3354898" => "Okahandja",
+    "3357114" => "Grootfontein",
   );
 }

@@ -8,42 +8,42 @@ function location_cities_list_la_at() {
 
 function location_cities_list_la_bl() {
   return array(
-    "1655140" => t("Muang Pakxan"),
+    "1655140" => "Muang Pakxan",
   );
 }
 
 
 function location_cities_list_la_ch() {
   return array(
-    "1654379" => t("Pakxe"),
+    "1654379" => "Pakxe",
   );
 }
 
 
 function location_cities_list_la_ho() {
   return array(
-    "1652203" => t("Xam Nua"),
+    "1652203" => "Xam Nua",
   );
 }
 
 
 function location_cities_list_la_kh() {
   return array(
-    "1655199" => t("Thakhek"),
+    "1655199" => "Thakhek",
   );
 }
 
 
 function location_cities_list_la_bk() {
   return array(
-    "1904391" => t("Ban Houakhoua"),
+    "1904391" => "Ban Houakhoua",
   );
 }
 
 
 function location_cities_list_la_ou() {
   return array(
-    "1655078" => t("Muang Xay"),
+    "1655078" => "Muang Xay",
   );
 }
 
@@ -55,7 +55,7 @@ function location_cities_list_la_ph() {
 
 function location_cities_list_la_sv() {
   return array(
-    "1653316" => t("Savannakhet"),
+    "1653316" => "Savannakhet",
   );
 }
 
@@ -72,7 +72,7 @@ function location_cities_list_la_lm() {
 
 function location_cities_list_la_lp() {
   return array(
-    "1655559" => t("Louangphabang"),
+    "1655559" => "Louangphabang",
   );
 }
 
@@ -84,14 +84,14 @@ function location_cities_list_la_sl() {
 
 function location_cities_list_la_vt() {
   return array(
-    "1651944" => t("Vientiane"),
+    "1651944" => "Vientiane",
   );
 }
 
 
 function location_cities_list_la_vi() {
   return array(
-    "1655087" => t("Vangviang"),
+    "1655087" => "Vangviang",
   );
 }
 
@@ -103,7 +103,7 @@ function location_cities_list_la_xa() {
 
 function location_cities_list_la_xi() {
   return array(
-    "1655123" => t("Muang Phonsavan"),
-    "1952156" => t("Ban Phonsavan"),
+    "1655123" => "Muang Phonsavan",
+    "1952156" => "Ban Phonsavan",
   );
 }

@@ -18,7 +18,7 @@ function location_cities_list_hk_nis() {
 
 function location_cities_list_hk_kkc() {
   return array(
-    "1819609" => t("Kowloon"),
+    "1819609" => "Kowloon",
   );
 }
 
@@ -45,7 +45,7 @@ function location_cities_list_hk_nsk() {
 
 function location_cities_list_hk_nst() {
   return array(
-    "1818920" => t("Sha Tin"),
+    "1818920" => "Sha Tin",
   );
 }
 
@@ -62,21 +62,21 @@ function location_cities_list_hk_hso() {
 
 function location_cities_list_hk_ntp() {
   return array(
-    "1818673" => t("Tai Po"),
+    "1818673" => "Tai Po",
   );
 }
 
 
 function location_cities_list_hk_ntw() {
   return array(
-    "1818209" => t("Tsuen Wan"),
+    "1818209" => "Tsuen Wan",
   );
 }
 
 
 function location_cities_list_hk_ntm() {
   return array(
-    "1818446" => t("Tuen Mun"),
+    "1818446" => "Tuen Mun",
   );
 }
 
@@ -98,13 +98,13 @@ function location_cities_list_hk_kyt() {
 
 function location_cities_list_hk_nyl() {
   return array(
-    "1818223" => t("Yuen Long Kau Hui"),
+    "1818223" => "Yuen Long Kau Hui",
   );
 }
 
 
 function location_cities_list_hk_00() {
   return array(
-    "1819729" => t("Hong Kong"),
+    "1819729" => "Hong Kong",
   );
 }

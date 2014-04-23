@@ -8,7 +8,7 @@ function location_cities_list_lr_bm() {
 
 function location_cities_list_lr_bg() {
   return array(
-    "2277060" => t("Gbarnga"),
+    "2277060" => "Gbarnga",
   );
 }
 
@@ -20,7 +20,7 @@ function location_cities_list_lr_21() {
 
 function location_cities_list_lr_gb() {
   return array(
-    "2278158" => t("Buchanan"),
+    "2278158" => "Buchanan",
   );
 }
 
@@ -32,7 +32,7 @@ function location_cities_list_lr_cm() {
 
 function location_cities_list_lr_gg() {
   return array(
-    "2272491" => t("Zwedru"),
+    "2272491" => "Zwedru",
   );
 }
 
@@ -44,36 +44,36 @@ function location_cities_list_lr_gk() {
 
 function location_cities_list_lr_lo() {
   return array(
-    "2273312" => t("Voinjama"),
+    "2273312" => "Voinjama",
   );
 }
 
 
 function location_cities_list_lr_mg() {
   return array(
-    "2276086" => t("Kakata"),
+    "2276086" => "Kakata",
   );
 }
 
 
 function location_cities_list_lr_my() {
   return array(
-    "2276492" => t("Harper"),
+    "2276492" => "Harper",
   );
 }
 
 
 function location_cities_list_lr_mo() {
   return array(
-    "2274895" => t("Monrovia"),
-    "2278682" => t("Bensonville"),
+    "2274895" => "Monrovia",
+    "2278682" => "Bensonville",
   );
 }
 
 
 function location_cities_list_lr_ni() {
   return array(
-    "2272790" => t("New Yekepa"),
+    "2272790" => "New Yekepa",
   );
 }
 
@@ -90,6 +90,6 @@ function location_cities_list_lr_22() {
 
 function location_cities_list_lr_si() {
   return array(
-    "2276600" => t("Greenville"),
+    "2276600" => "Greenville",
   );
 }

@@ -3,8 +3,8 @@
 
 function location_cities_list_ee_37() {
   return array(
-    "588409" => t("Tallinn"),
-    "590447" => t("Maardu"),
+    "588409" => "Tallinn",
+    "590447" => "Maardu",
   );
 }
 
@@ -16,9 +16,9 @@ function location_cities_list_ee_39() {
 
 function location_cities_list_ee_44() {
   return array(
-    "588686" => t("Sillamae"),
-    "590031" => t("Narva"),
-    "591260" => t("Kohtla-Jarve"),
+    "588686" => "Sillamae",
+    "590031" => "Narva",
+    "591260" => "Kohtla-Jarve",
   );
 }
 
@@ -40,14 +40,14 @@ function location_cities_list_ee_57() {
 
 function location_cities_list_ee_59() {
   return array(
-    "589165" => t("Rakvere"),
+    "589165" => "Rakvere",
   );
 }
 
 
 function location_cities_list_ee_67() {
   return array(
-    "589580" => t("Parnu"),
+    "589580" => "Parnu",
   );
 }
 
@@ -69,7 +69,7 @@ function location_cities_list_ee_74() {
 
 function location_cities_list_ee_78() {
   return array(
-    "588335" => t("Tartu"),
+    "588335" => "Tartu",
   );
 }
 
@@ -81,7 +81,7 @@ function location_cities_list_ee_82() {
 
 function location_cities_list_ee_84() {
   return array(
-    "587577" => t("Viljandi"),
+    "587577" => "Viljandi",
   );
 }
 

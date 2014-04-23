@@ -3,145 +3,145 @@
 
 function location_cities_list_kr_26() {
   return array(
-    "1838524" => t("Busan"),
-    "1842966" => t("Kijang"),
+    "1838524" => "Busan",
+    "1842966" => "Kijang",
   );
 }
 
 
 function location_cities_list_kr_27() {
   return array(
-    "1835329" => t("Daegu"),
-    "1925943" => t("Hwawon"),
+    "1835329" => "Daegu",
+    "1925943" => "Hwawon",
   );
 }
 
 
 function location_cities_list_kr_30() {
   return array(
-    "1835235" => t("Daejeon"),
+    "1835235" => "Daejeon",
   );
 }
 
 
 function location_cities_list_kr_42() {
   return array(
-    "1832257" => t("Neietsu"),
-    "1832909" => t("Yanggu"),
-    "1833105" => t("Wonju"),
-    "1835515" => t("T'aebaek"),
-    "1836553" => t("Sogcho"),
-    "1838069" => t("Santyoku"),
-    "1840179" => t("Kosong"),
-    "1843137" => t("Kang-neung"),
-    "1844045" => t("Hwacheon"),
-    "1844191" => t("Hongch'on"),
-    "1845136" => t("Chuncheon"),
-    "1892823" => t("Tonghae"),
+    "1832257" => "Neietsu",
+    "1832909" => "Yanggu",
+    "1833105" => "Wonju",
+    "1835515" => "T'aebaek",
+    "1836553" => "Sogcho",
+    "1838069" => "Santyoku",
+    "1840179" => "Kosong",
+    "1843137" => "Kang-neung",
+    "1844045" => "Hwacheon",
+    "1844191" => "Hongch'on",
+    "1845136" => "Chuncheon",
+    "1892823" => "Tonghae",
   );
 }
 
 
 function location_cities_list_kr_29() {
   return array(
-    "1841811" => t("Gwangju"),
+    "1841811" => "Gwangju",
   );
 }
 
 
 function location_cities_list_kr_41() {
   return array(
-    "1832743" => t("Yeoju"),
-    "1832830" => t("Yangp'yong"),
-    "1832847" => t("Yangju"),
-    "1833788" => t("Vijongbu"),
-    "1835553" => t("Suigen"),
-    "1838716" => t("Bucheon"),
-    "1839652" => t("Osan"),
-    "1840862" => t("Munsan"),
-    "1841810" => t("Kwangju"),
-    "1841988" => t("Kuri"),
-    "1842485" => t("Goyang"),
-    "1843082" => t("Gapyeong"),
-    "1843702" => t("Ich'on"),
-    "1843847" => t("Hwaseong"),
-    "1846898" => t("Anyang"),
-    "1846912" => t("Anseong"),
-    "1846918" => t("Ansan"),
-    "1896953" => t("Pubal"),
-    "1897000" => t("Seongnam"),
-    "1897007" => t("Hanam"),
-    "1897118" => t("Hwado"),
-    "1897122" => t("Yanggok"),
-    "1912209" => t("Wabu"),
-    "1948005" => t("Kwangmyong"),
+    "1832743" => "Yeoju",
+    "1832830" => "Yangp'yong",
+    "1832847" => "Yangju",
+    "1833788" => "Vijongbu",
+    "1835553" => "Suigen",
+    "1838716" => "Bucheon",
+    "1839652" => "Osan",
+    "1840862" => "Munsan",
+    "1841810" => "Kwangju",
+    "1841988" => "Kuri",
+    "1842485" => "Goyang",
+    "1843082" => "Gapyeong",
+    "1843702" => "Ich'on",
+    "1843847" => "Hwaseong",
+    "1846898" => "Anyang",
+    "1846912" => "Anseong",
+    "1846918" => "Ansan",
+    "1896953" => "Pubal",
+    "1897000" => "Seongnam",
+    "1897007" => "Hanam",
+    "1897118" => "Hwado",
+    "1897122" => "Yanggok",
+    "1912209" => "Wabu",
+    "1948005" => "Kwangmyong",
   );
 }
 
 
 function location_cities_list_kr_28() {
   return array(
-    "1843163" => t("Ganghwa"),
-    "1843564" => t("Incheon"),
+    "1843163" => "Ganghwa",
+    "1843564" => "Incheon",
   );
 }
 
 
 function location_cities_list_kr_49() {
   return array(
-    "1846266" => t("Jeju"),
-    "1847050" => t("Gaigeturi"),
+    "1846266" => "Jeju",
+    "1847050" => "Gaigeturi",
   );
 }
 
 
 function location_cities_list_kr_43() {
   return array(
-    "1832566" => t("Yong-dong"),
-    "1839873" => t("Okcheon"),
-    "1842800" => t("Koesan"),
-    "1845604" => t("Cheongju"),
-    "1846095" => t("Chinch'on"),
+    "1832566" => "Yong-dong",
+    "1839873" => "Okcheon",
+    "1842800" => "Koesan",
+    "1845604" => "Cheongju",
+    "1846095" => "Chinch'on",
   );
 }
 
 
 function location_cities_list_kr_47() {
   return array(
-    "1832015" => t("Heung-hai"),
-    "1832215" => t("Enjitsu"),
-    "1832384" => t("Eisen"),
-    "1832617" => t("Eisen"),
-    "1833514" => t("Waegwan"),
-    "1835967" => t("Jenzan"),
-    "1837706" => t("Sangju"),
-    "1839071" => t("Pohang"),
-    "1840886" => t("Mungyeong"),
-    "1841598" => t("Keizan"),
-    "1841603" => t("Kyonju"),
-    "1842016" => t("Kunwi"),
-    "1842225" => t("Gumi"),
-    "1842944" => t("Gimcheon"),
-    "1844308" => t("Hayang"),
-    "1845519" => t("Cheongsong gun"),
-    "1846986" => t("Andong"),
+    "1832015" => "Heung-hai",
+    "1832215" => "Enjitsu",
+    "1832384" => "Eisen",
+    "1832617" => "Eisen",
+    "1833514" => "Waegwan",
+    "1835967" => "Jenzan",
+    "1837706" => "Sangju",
+    "1839071" => "Pohang",
+    "1840886" => "Mungyeong",
+    "1841598" => "Keizan",
+    "1841603" => "Kyonju",
+    "1842016" => "Kunwi",
+    "1842225" => "Gumi",
+    "1842944" => "Gimcheon",
+    "1844308" => "Hayang",
+    "1845519" => "Cheongsong gun",
+    "1846986" => "Andong",
   );
 }
 
 
 function location_cities_list_kr_45() {
   return array(
-    "1833466" => t("Wanju"),
-    "1838722" => t("Puan"),
-    "1840379" => t("Nangen"),
-    "1842025" => t("Kunsan"),
-    "1842859" => t("Koch'ang"),
-    "1842939" => t("Kimje"),
-    "1843491" => t("Iksan"),
-    "1843585" => t("Imsil"),
-    "1845457" => t("Jeonju"),
-    "1846114" => t("jin-angun"),
-    "1846355" => t("Changsu"),
+    "1833466" => "Wanju",
+    "1838722" => "Puan",
+    "1840379" => "Nangen",
+    "1842025" => "Kunsan",
+    "1842859" => "Koch'ang",
+    "1842939" => "Kimje",
+    "1843491" => "Iksan",
+    "1843585" => "Imsil",
+    "1845457" => "Jeonju",
+    "1846114" => "jin-angun",
+    "1846355" => "Changsu",
   );
 }
 
@@ -153,70 +153,70 @@ function location_cities_list_kr_22() {
 
 function location_cities_list_kr_11() {
   return array(
-    "1835848" => t("Seoul"),
+    "1835848" => "Seoul",
   );
 }
 
 
 function location_cities_list_kr_44() {
   return array(
-    "1832771" => t("Yesan"),
-    "1834885" => t("Tangjin"),
-    "1835096" => t("Taesal-li"),
-    "1835447" => t("Taisen-ri"),
-    "1835895" => t("Suisan"),
-    "1836208" => t("Songwon"),
-    "1838508" => t("Fuyo"),
-    "1839726" => t("Asan"),
-    "1840211" => t("Nonsan"),
-    "1842153" => t("Kinzan"),
-    "1842616" => t("Kongju"),
-    "1844174" => t("Hongsung"),
-    "1845759" => t("Tenan"),
-    "1886598" => t("Yonmu"),
+    "1832771" => "Yesan",
+    "1834885" => "Tangjin",
+    "1835096" => "Taesal-li",
+    "1835447" => "Taisen-ri",
+    "1835895" => "Suisan",
+    "1836208" => "Songwon",
+    "1838508" => "Fuyo",
+    "1839726" => "Asan",
+    "1840211" => "Nonsan",
+    "1842153" => "Kinzan",
+    "1842616" => "Kongju",
+    "1844174" => "Hongsung",
+    "1845759" => "Tenan",
+    "1886598" => "Yonmu",
   );
 }
 
 
 function location_cities_list_kr_48() {
   return array(
-    "1832828" => t("Yangsan"),
-    "1841149" => t("Miryang"),
-    "1841245" => t("Masan"),
-    "1842518" => t("Goseong"),
-    "1842754" => t("Kyosai"),
-    "1842943" => t("Kimhae"),
-    "1846052" => t("Chinju"),
-    "1846069" => t("Chinhae"),
-    "1846326" => t("Changwon"),
-    "1882056" => t("Sinhyeon"),
-    "1912205" => t("Ungsang"),
-    "1925936" => t("Naeso"),
-    "6903078" => t("Changnyeong"),
+    "1832828" => "Yangsan",
+    "1841149" => "Miryang",
+    "1841245" => "Masan",
+    "1842518" => "Goseong",
+    "1842754" => "Kyosai",
+    "1842943" => "Kimhae",
+    "1846052" => "Chinju",
+    "1846069" => "Chinhae",
+    "1846326" => "Changwon",
+    "1882056" => "Sinhyeon",
+    "1912205" => "Ungsang",
+    "1925936" => "Naeso",
+    "6903078" => "Changnyeong",
   );
 }
 
 
 function location_cities_list_kr_46() {
   return array(
-    "1832501" => t("Reiko"),
-    "1835648" => t("Suncheon"),
-    "1839011" => t("Beolgyo"),
-    "1840536" => t("Naju"),
-    "1840982" => t("Muan"),
-    "1841066" => t("Moppo"),
-    "1841775" => t("Kwangyang"),
-    "1841976" => t("Kurye"),
-    "1843841" => t("Hwasun"),
-    "1844751" => t("Haenam"),
-    "1884138" => t("Yeosu"),
-    "6395804" => t("Sinan"),
+    "1832501" => "Reiko",
+    "1835648" => "Suncheon",
+    "1839011" => "Beolgyo",
+    "1840536" => "Naju",
+    "1840982" => "Muan",
+    "1841066" => "Moppo",
+    "1841775" => "Kwangyang",
+    "1841976" => "Kurye",
+    "1843841" => "Hwasun",
+    "1844751" => "Haenam",
+    "1884138" => "Yeosu",
+    "6395804" => "Sinan",
   );
 }
 
 
 function location_cities_list_kr_31() {
   return array(
-    "1833747" => t("Ulsan"),
+    "1833747" => "Ulsan",
   );
 }

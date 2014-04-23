@@ -58,7 +58,7 @@ function location_cities_list_ax_438() {
 
 function location_cities_list_ax_478() {
   return array(
-    "3041732" => t("Mariehamn"),
+    "3041732" => "Mariehamn",
   );
 }
 

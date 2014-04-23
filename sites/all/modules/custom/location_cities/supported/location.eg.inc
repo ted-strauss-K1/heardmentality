@@ -3,113 +3,113 @@
 
 function location_cities_list_eg_alx() {
   return array(
-    "361058" => t("Alexandria"),
+    "361058" => "Alexandria",
   );
 }
 
 
 function location_cities_list_eg_suz() {
   return array(
-    "359796"  => t("Suez"),
-    "7521348" => t("Ain Sukhna"),
+    "359796"  => "Suez",
+    "7521348" => "Ain Sukhna",
   );
 }
 
 
 function location_cities_list_eg_bh() {
   return array(
-    "350203" => t("Rosetta"),
-    "353828" => t("Kawm Hamadah"),
-    "354775" => t("Kafr ad Dawwar"),
-    "355628" => t("Idku"),
-    "356000" => t("Hawsh `Isa"),
-    "358448" => t("Damanhur"),
-    "361827" => t("Ad Dilinjat"),
-    "362882" => t("Abu al Matamir"),
+    "350203" => "Rosetta",
+    "353828" => "Kawm Hamadah",
+    "354775" => "Kafr ad Dawwar",
+    "355628" => "Idku",
+    "356000" => "Hawsh `Isa",
+    "358448" => "Damanhur",
+    "361827" => "Ad Dilinjat",
+    "362882" => "Abu al Matamir",
   );
 }
 
 
 function location_cities_list_eg_shr() {
   return array(
-    "352679" => t("Mashtul as Suq"),
-    "354105" => t("Kafr Saqr"),
-    "355939" => t("Hihya"),
-    "356989" => t("Faqus"),
-    "358095" => t("Diyarb Najm"),
-    "358840" => t("Bilbays"),
-    "359493" => t("Zagazig"),
-    "360542" => t("Al Qurayn"),
-    "360612" => t("Al Qanayat"),
-    "361103" => t("Al Ibrahimiyah"),
-    "362485" => t("Abu Kabir"),
+    "352679" => "Mashtul as Suq",
+    "354105" => "Kafr Saqr",
+    "355939" => "Hihya",
+    "356989" => "Faqus",
+    "358095" => "Diyarb Najm",
+    "358840" => "Bilbays",
+    "359493" => "Zagazig",
+    "360542" => "Al Qurayn",
+    "360612" => "Al Qanayat",
+    "361103" => "Al Ibrahimiyah",
+    "362485" => "Abu Kabir",
   );
 }
 
 
 function location_cities_list_eg_is() {
   return array(
-    "359710" => t("At Tall al Kabir"),
-    "361055" => t("Ismailia"),
+    "359710" => "At Tall al Kabir",
+    "361055" => "Ismailia",
   );
 }
 
 
 function location_cities_list_eg_kfs() {
   return array(
-    "348112" => t("Sidi Salim"),
-    "354502" => t("Kafr ash Shaykh"),
-    "356806" => t("Fuwah"),
-    "358108" => t("Disuq"),
-    "361213" => t("Al Hamul"),
+    "348112" => "Sidi Salim",
+    "354502" => "Kafr ash Shaykh",
+    "356806" => "Fuwah",
+    "358108" => "Disuq",
+    "361213" => "Al Hamul",
   );
 }
 
 
 function location_cities_list_eg_asn() {
   return array(
-    "353802" => t("Kawm Umbu"),
-    "359792" => t("Aswan"),
-    "411165" => t("Idfu"),
+    "353802" => "Kawm Umbu",
+    "359792" => "Aswan",
+    "411165" => "Idfu",
   );
 }
 
 
 function location_cities_list_eg_ast() {
   return array(
-    "352913" => t("Manfalut"),
-    "358269" => t("Dayrut"),
-    "359783" => t("Asyut"),
-    "360526" => t("Al Qusiyah"),
-    "361478" => t("Al Badari"),
-    "362004" => t("Abu Tij"),
-    "362973" => t("Abnub"),
+    "352913" => "Manfalut",
+    "358269" => "Dayrut",
+    "359783" => "Asyut",
+    "360526" => "Al Qusiyah",
+    "361478" => "Al Badari",
+    "362004" => "Abu Tij",
+    "362973" => "Abnub",
   );
 }
 
 
 function location_cities_list_eg_bns() {
   return array(
-    "347749" => t("Sumusta as Sultani"),
-    "358600" => t("Bush"),
-    "359173" => t("Bani Suwayf"),
-    "361329" => t("Al Fashn"),
+    "347749" => "Sumusta as Sultani",
+    "358600" => "Bush",
+    "359173" => "Bani Suwayf",
+    "361329" => "Al Fashn",
   );
 }
 
 
 function location_cities_list_eg_pts() {
   return array(
-    "358619" => t("Port Said"),
+    "358619" => "Port Said",
   );
 }
 
 
 function location_cities_list_eg_dt() {
   return array(
-    "356945" => t("Faraskur"),
-    "358048" => t("Damietta"),
-    "419435" => t("Az Zarqa"),
+    "356945" => "Faraskur",
+    "358048" => "Damietta",
+    "419435" => "Az Zarqa",
   );
 }
 
@@ -121,161 +121,161 @@ function location_cities_list_eg_js() {
 
 function location_cities_list_eg_mt() {
   return array(
-    "352733" => t("Marsa Matruh"),
+    "352733" => "Marsa Matruh",
   );
 }
 
 
 function location_cities_list_eg_kn() {
   return array(
-    "350422" => t("Kousa"),
-    "350550" => t("Qina"),
-    "351434" => t("Naj` Hammadi"),
-    "355449" => t("Isna"),
-    "356933" => t("Farshut"),
-    "358115" => t("Dishna"),
+    "350422" => "Kousa",
+    "350550" => "Qina",
+    "351434" => "Naj` Hammadi",
+    "355449" => "Isna",
+    "356933" => "Farshut",
+    "358115" => "Dishna",
   );
 }
 
 
 function location_cities_list_eg_sin() {
   return array(
-    "361546" => t("Arish"),
+    "361546" => "Arish",
   );
 }
 
 
 function location_cities_list_eg_shg() {
   return array(
-    "347634" => t("Tahta"),
-    "347796" => t("Suhaj"),
-    "354981" => t("Juhaynah"),
-    "355026" => t("Jirja"),
-    "360773" => t("Al Manshah"),
-    "361435" => t("Al Balyana"),
-    "361661" => t("Akhmim"),
+    "347634" => "Tahta",
+    "347796" => "Suhaj",
+    "354981" => "Juhaynah",
+    "355026" => "Jirja",
+    "360773" => "Al Manshah",
+    "361435" => "Al Balyana",
+    "361661" => "Akhmim",
   );
 }
 
 
 function location_cities_list_eg_dk() {
   return array(
-    "347591" => t("Talkha"),
-    "349114" => t("Shirbin"),
-    "352344" => t("Minyat an Nasr"),
-    "355392" => t("`Izbat al Burj"),
-    "358172" => t("Dikirnis"),
-    "358821" => t("Bilqas"),
-    "360716" => t("Al Matariyah"),
-    "360754" => t("Al Manzilah"),
-    "360761" => t("Al Mansurah"),
-    "361029" => t("Al Jamaliyah"),
-    "361702" => t("Aja"),
+    "347591" => "Talkha",
+    "349114" => "Shirbin",
+    "352344" => "Minyat an Nasr",
+    "355392" => "`Izbat al Burj",
+    "358172" => "Dikirnis",
+    "358821" => "Bilqas",
+    "360716" => "Al Matariyah",
+    "360754" => "Al Manzilah",
+    "360761" => "Al Mansurah",
+    "361029" => "Al Jamaliyah",
+    "361702" => "Aja",
   );
 }
 
 
 function location_cities_list_eg_ba() {
   return array(
-    "358620" => t("Bur Safajah"),
-    "360531" => t("Al Qusayr"),
-    "361291" => t("Al Ghardaqah"),
+    "358620" => "Bur Safajah",
+    "360531" => "Al Qusayr",
+    "361291" => "Al Ghardaqah",
   );
 }
 
 
 function location_cities_list_eg_fym() {
   return array(
-    "347542" => t("Tamiyah"),
-    "355420" => t("Itsa"),
-    "355648" => t("Ibshaway"),
-    "360464" => t("Al Wasitah"),
-    "361320" => t("Al Fayyum"),
+    "347542" => "Tamiyah",
+    "355420" => "Itsa",
+    "355648" => "Ibshaway",
+    "360464" => "Al Wasitah",
+    "361320" => "Al Fayyum",
   );
 }
 
 
 function location_cities_list_eg_gh() {
   return array(
-    "346030" => t("Zifta"),
-    "347497" => t("Tanda"),
-    "349715" => t("Samannud"),
-    "350376" => t("Qutur"),
-    "354365" => t("Kafr az Zayyat"),
-    "358970" => t("Basyun"),
-    "360829" => t("Al Mahallah al Kubra"),
+    "346030" => "Zifta",
+    "347497" => "Tanda",
+    "349715" => "Samannud",
+    "350376" => "Qutur",
+    "354365" => "Kafr az Zayyat",
+    "358970" => "Basyun",
+    "360829" => "Al Mahallah al Kubra",
   );
 }
 
 
 function location_cities_list_eg_gz() {
   return array(
-    "353219" => t("Madinat Sittah Uktubar"),
-    "359576" => t("Awsim"),
-    "359900" => t("As Saff"),
-    "360995" => t("Al Jizah"),
-    "361179" => t("Al Hawamidiyah"),
-    "361394" => t("Al Bawiti"),
-    "361495" => t("Al `Ayyat"),
+    "353219" => "Madinat Sittah Uktubar",
+    "359576" => "Awsim",
+    "359900" => "As Saff",
+    "360995" => "Al Jizah",
+    "361179" => "Al Hawamidiyah",
+    "361394" => "Al Bawiti",
+    "361495" => "Al `Ayyat",
   );
 }
 
 
 function location_cities_list_eg_mn() {
   return array(
-    "349717" => t("Samalut"),
-    "352628" => t("Matay"),
-    "352951" => t("Mallawi"),
-    "358274" => t("Dayr Mawas"),
-    "359212" => t("Bani Mazar"),
-    "360686" => t("Al Minya"),
-    "362277" => t("Abu Qurqas"),
+    "349717" => "Samalut",
+    "352628" => "Matay",
+    "352951" => "Mallawi",
+    "358274" => "Dayr Mawas",
+    "359212" => "Bani Mazar",
+    "360686" => "Al Minya",
+    "362277" => "Abu Qurqas",
   );
 }
 
 
 function location_cities_list_eg_mnf() {
   return array(
-    "347612" => t("Tala"),
-    "349158" => t("Shibin al Kawm"),
-    "350370" => t("Quwaysina"),
-    "352354" => t("Minuf"),
-    "359953" => t("Ash Shuhada'"),
-    "360048" => t("Ashmun"),
-    "361457" => t("Al Bajur"),
+    "347612" => "Tala",
+    "349158" => "Shibin al Kawm",
+    "350370" => "Quwaysina",
+    "352354" => "Minuf",
+    "359953" => "Ash Shuhada'",
+    "360048" => "Ashmun",
+    "361457" => "Al Bajur",
   );
 }
 
 
 function location_cities_list_eg_kb() {
   return array(
-    "347236" => t("Toukh"),
-    "349156" => t("Shibin al Qanatir"),
-    "350789" => t("Qalyub"),
-    "359280" => t("Banha"),
-    "360615" => t("Al Qanatir al Khayriyah"),
-    "360928" => t("Al Khankah"),
+    "347236" => "Toukh",
+    "349156" => "Shibin al Qanatir",
+    "350789" => "Qalyub",
+    "359280" => "Banha",
+    "360615" => "Al Qanatir al Khayriyah",
+    "360928" => "Al Khankah",
   );
 }
 
 
 function location_cities_list_eg_c() {
   return array(
-    "355795" => t("Halwan"),
-    "360630" => t("Cairo"),
+    "355795" => "Halwan",
+    "360630" => "Cairo",
   );
 }
 
 
 function location_cities_list_eg_lx() {
   return array(
-    "360502" => t("Luxor"),
+    "360502" => "Luxor",
   );
 }
 
 
 function location_cities_list_eg_wad() {
   return array(
-    "360923" => t("Al Kharijah"),
+    "360923" => "Al Kharijah",
   );
 }

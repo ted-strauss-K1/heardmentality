@@ -3,15 +3,15 @@
 
 function location_cities_list_td_bg() {
   return array(
-    "2427336" => t("Moussoro"),
+    "2427336" => "Moussoro",
   );
 }
 
 
 function location_cities_list_td_ba() {
   return array(
-    "2426370" => t("Oum Hadjer"),
-    "2436400" => t("Ati"),
+    "2426370" => "Oum Hadjer",
+    "2436400" => "Ati",
   );
 }
 
@@ -23,38 +23,38 @@ function location_cities_list_td_bo() {
 
 function location_cities_list_td_cb() {
   return array(
-    "2427123" => t("N'Djamena"),
-    "2433055" => t("Dourbali"),
+    "2427123" => "N'Djamena",
+    "2433055" => "Dourbali",
   );
 }
 
 
 function location_cities_list_td_en() {
   return array(
-    "244128" => t("Fada"),
+    "244128" => "Fada",
   );
 }
 
 
 function location_cities_list_td_gr() {
   return array(
-    "2427637" => t("Mongo"),
-    "2435124" => t("Bitkine"),
+    "2427637" => "Mongo",
+    "2435124" => "Bitkine",
   );
 }
 
 
 function location_cities_list_td_hl() {
   return array(
-    "2428228" => t("Massakory"),
-    "2428231" => t("Massaguet"),
+    "2428228" => "Massakory",
+    "2428231" => "Massaguet",
   );
 }
 
 
 function location_cities_list_td_ka() {
   return array(
-    "2428394" => t("Mao"),
+    "2428394" => "Mao",
   );
 }
 
@@ -66,59 +66,59 @@ function location_cities_list_td_lc() {
 
 function location_cities_list_td_lo() {
   return array(
-    "2427455" => t("Moundou"),
-    "2435508" => t("Benoy"),
+    "2427455" => "Moundou",
+    "2435508" => "Benoy",
   );
 }
 
 
 function location_cities_list_td_lr() {
   return array(
-    "2433437" => t("Doba"),
+    "2433437" => "Doba",
   );
 }
 
 
 function location_cities_list_td_ma() {
   return array(
-    "2429605" => t("Koumra"),
+    "2429605" => "Koumra",
   );
 }
 
 
 function location_cities_list_td_me() {
   return array(
-    "2434910" => t("Bongor"),
+    "2434910" => "Bongor",
   );
 }
 
 
 function location_cities_list_td_mo() {
   return array(
-    "2426240" => t("Pala"),
-    "2428042" => t("Mboursou Lere"),
+    "2426240" => "Pala",
+    "2428042" => "Mboursou Lere",
   );
 }
 
 
 function location_cities_list_td_mc() {
   return array(
-    "2425791" => t("Sagh"),
-    "2429344" => t("Kyabe"),
+    "2425791" => "Sagh",
+    "2429344" => "Kyabe",
   );
 }
 
 
 function location_cities_list_td_od() {
   return array(
-    "245785" => t("Abeche"),
+    "245785" => "Abeche",
   );
 }
 
 
 function location_cities_list_td_sa() {
   return array(
-    "245338" => t("Am Timan"),
+    "245338" => "Am Timan",
   );
 }
 
@@ -130,8 +130,8 @@ function location_cities_list_td_si() {
 
 function location_cities_list_td_ta() {
   return array(
-    "2429296" => t("Lai"),
-    "2430506" => t("Kelo"),
+    "2429296" => "Lai",
+    "2430506" => "Kelo",
   );
 }
 

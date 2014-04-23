@@ -13,7 +13,7 @@ function location_cities_list_kn_02() {
 
 function location_cities_list_kn_03() {
   return array(
-    "3575551" => t("Basseterre"),
+    "3575551" => "Basseterre",
   );
 }
 

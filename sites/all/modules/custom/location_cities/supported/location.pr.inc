@@ -3,7 +3,7 @@
 
 function location_cities_list_pr_001() {
   return array(
-    "7276400" => t("Adjuntas"),
+    "7276400" => "Adjuntas",
   );
 }
 
@@ -15,7 +15,7 @@ function location_cities_list_pr_003() {
 
 function location_cities_list_pr_005() {
   return array(
-    "4562506" => t("Aguadilla"),
+    "4562506" => "Aguadilla",
   );
 }
 
@@ -32,7 +32,7 @@ function location_cities_list_pr_009() {
 
 function location_cities_list_pr_013() {
   return array(
-    "4562635" => t("Arecibo"),
+    "4562635" => "Arecibo",
   );
 }
 
@@ -49,7 +49,7 @@ function location_cities_list_pr_011() {
 
 function location_cities_list_pr_017() {
   return array(
-    "4562768" => t("Barceloneta"),
+    "4562768" => "Barceloneta",
   );
 }
 
@@ -61,7 +61,7 @@ function location_cities_list_pr_019() {
 
 function location_cities_list_pr_021() {
   return array(
-    "4562831" => t("Bayamon"),
+    "4562831" => "Bayamon",
   );
 }
 
@@ -73,7 +73,7 @@ function location_cities_list_pr_023() {
 
 function location_cities_list_pr_025() {
   return array(
-    "4563008" => t("Caguas"),
+    "4563008" => "Caguas",
   );
 }
 
@@ -90,21 +90,21 @@ function location_cities_list_pr_029() {
 
 function location_cities_list_pr_031() {
   return array(
-    "4563243" => t("Carolina"),
+    "4563243" => "Carolina",
   );
 }
 
 
 function location_cities_list_pr_033() {
   return array(
-    "4563298" => t("Catano"),
+    "4563298" => "Catano",
   );
 }
 
 
 function location_cities_list_pr_035() {
   return array(
-    "4563308" => t("Cayey"),
+    "4563308" => "Cayey",
   );
 }
 
@@ -151,7 +151,7 @@ function location_cities_list_pr_051() {
 
 function location_cities_list_pr_053() {
   return array(
-    "4564946" => t("Fajardo"),
+    "4564946" => "Fajardo",
   );
 }
 
@@ -163,7 +163,7 @@ function location_cities_list_pr_054() {
 
 function location_cities_list_pr_057() {
   return array(
-    "4565105" => t("Guayama"),
+    "4565105" => "Guayama",
   );
 }
 
@@ -175,7 +175,7 @@ function location_cities_list_pr_059() {
 
 function location_cities_list_pr_061() {
   return array(
-    "4565119" => t("Guaynabo"),
+    "4565119" => "Guaynabo",
   );
 }
 
@@ -202,7 +202,7 @@ function location_cities_list_pr_067() {
 
 function location_cities_list_pr_069() {
   return array(
-    "4565564" => t("Humacao"),
+    "4565564" => "Humacao",
   );
 }
 
@@ -244,7 +244,7 @@ function location_cities_list_pr_089() {
 
 function location_cities_list_pr_091() {
   return array(
-    "4566137" => t("Manati"),
+    "4566137" => "Manati",
   );
 }
 
@@ -261,7 +261,7 @@ function location_cities_list_pr_095() {
 
 function location_cities_list_pr_097() {
   return array(
-    "4566385" => t("Mayagueez"),
+    "4566385" => "Mayagueez",
   );
 }
 
@@ -318,7 +318,7 @@ function location_cities_list_pr_111() {
 
 function location_cities_list_pr_113() {
   return array(
-    "4566880" => t("Ponce"),
+    "4566880" => "Ponce",
   );
 }
 
@@ -355,7 +355,7 @@ function location_cities_list_pr_125() {
 
 function location_cities_list_pr_127() {
   return array(
-    "4568127" => t("San Juan"),
+    "4568127" => "San Juan",
   );
 }
 
@@ -382,15 +382,15 @@ function location_cities_list_pr_135() {
 
 function location_cities_list_pr_137() {
   return array(
-    "4563122" => t("Candelaria"),
-    "4566002" => t("Levittown"),
+    "4563122" => "Candelaria",
+    "4566002" => "Levittown",
   );
 }
 
 
 function location_cities_list_pr_139() {
   return array(
-    "4568451" => t("Trujillo Alto"),
+    "4568451" => "Trujillo Alto",
   );
 }
 
@@ -407,7 +407,7 @@ function location_cities_list_pr_143() {
 
 function location_cities_list_pr_145() {
   return array(
-    "4568533" => t("Vega Baja"),
+    "4568533" => "Vega Baja",
   );
 }
 
@@ -429,6 +429,6 @@ function location_cities_list_pr_151() {
 
 function location_cities_list_pr_153() {
   return array(
-    "4568917" => t("Yauco"),
+    "4568917" => "Yauco",
   );
 }

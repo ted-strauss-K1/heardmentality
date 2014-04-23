@@ -18,7 +18,7 @@ function location_cities_list_vu_sam() {
 
 function location_cities_list_vu_see() {
   return array(
-    "2135171" => t("Port-Vila"),
+    "2135171" => "Port-Vila",
   );
 }
 

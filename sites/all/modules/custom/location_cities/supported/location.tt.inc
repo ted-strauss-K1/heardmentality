@@ -3,30 +3,30 @@
 
 function location_cities_list_tt_ari() {
   return array(
-    "3575051" => t("Arima"),
+    "3575051" => "Arima",
   );
 }
 
 
 function location_cities_list_tt_cha() {
   return array(
-    "3574810" => t("Chaguanas"),
+    "3574810" => "Chaguanas",
   );
 }
 
 
 function location_cities_list_tt_pos() {
   return array(
-    "3573890" => t("Port-of-Spain"),
+    "3573890" => "Port-of-Spain",
   );
 }
 
 
 function location_cities_list_tt_sfo() {
   return array(
-    "3573738" => t("San Fernando"),
-    "3574116" => t("Mon Repos"),
-    "3574194" => t("Marabella"),
+    "3573738" => "San Fernando",
+    "3574116" => "Mon Repos",
+    "3574194" => "Marabella",
   );
 }
 
@@ -48,7 +48,7 @@ function location_cities_list_tt_eto() {
 
 function location_cities_list_tt_rcm() {
   return array(
-    "3573840" => t("Rio Claro"),
+    "3573840" => "Rio Claro",
   );
 }
 
@@ -60,7 +60,7 @@ function location_cities_list_tt_ped() {
 
 function location_cities_list_tt_ptf() {
   return array(
-    "3573899" => t("Point Fortin"),
+    "3573899" => "Point Fortin",
   );
 }
 
@@ -72,14 +72,14 @@ function location_cities_list_tt_prt() {
 
 function location_cities_list_tt_sjl() {
   return array(
-    "3574309" => t("Laventille"),
+    "3574309" => "Laventille",
   );
 }
 
 
 function location_cities_list_tt_sge() {
   return array(
-    "3573732" => t("Sangre Grande"),
+    "3573732" => "Sangre Grande",
   );
 }
 
@@ -91,14 +91,14 @@ function location_cities_list_tt_sip() {
 
 function location_cities_list_tt_wto() {
   return array(
-    "3573703" => t("Scarborough"),
+    "3573703" => "Scarborough",
   );
 }
 
 
 function location_cities_list_tt_tup() {
   return array(
-    "3573576" => t("Tunapuna"),
-    "3573989" => t("Paradise"),
+    "3573576" => "Tunapuna",
+    "3573989" => "Paradise",
   );
 }

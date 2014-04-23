@@ -3,8 +3,8 @@
 
 function location_cities_list_dj_as() {
   return array(
-    "224152" => t("Danan"),
-    "225284" => t("'Ali Sabieh"),
+    "224152" => "Danan",
+    "225284" => "'Ali Sabieh",
   );
 }
 
@@ -21,20 +21,20 @@ function location_cities_list_dj_di() {
 
 function location_cities_list_dj_dj() {
   return array(
-    "223817" => t("Djibouti"),
+    "223817" => "Djibouti",
   );
 }
 
 
 function location_cities_list_dj_ob() {
   return array(
-    "221527" => t("Obock"),
+    "221527" => "Obock",
   );
 }
 
 
 function location_cities_list_dj_ta() {
   return array(
-    "220782" => t("Tadjoura"),
+    "220782" => "Tadjoura",
   );
 }

@@ -3,56 +3,56 @@
 
 function location_cities_list_mr_07() {
   return array(
-    "2381334" => t("Atar"),
+    "2381334" => "Atar",
   );
 }
 
 
 function location_cities_list_mr_03() {
   return array(
-    "2378538" => t("Kiffa"),
+    "2378538" => "Kiffa",
   );
 }
 
 
 function location_cities_list_mr_05() {
   return array(
-    "2381659" => t("Aleg"),
+    "2381659" => "Aleg",
   );
 }
 
 
 function location_cities_list_mr_08() {
   return array(
-    "2377457" => t("Nouadhibou"),
+    "2377457" => "Nouadhibou",
   );
 }
 
 
 function location_cities_list_mr_nkc() {
   return array(
-    "2377450" => t("Nouakchott"),
+    "2377450" => "Nouakchott",
   );
 }
 
 
 function location_cities_list_mr_04() {
   return array(
-    "2378736" => t("Kaedi"),
+    "2378736" => "Kaedi",
   );
 }
 
 
 function location_cities_list_mr_10() {
   return array(
-    "2376719" => t("Selibabi"),
+    "2376719" => "Selibabi",
   );
 }
 
 
 function location_cities_list_mr_01() {
   return array(
-    "2377539" => t("Nema"),
+    "2377539" => "Nema",
   );
 }
 
@@ -74,14 +74,14 @@ function location_cities_list_mr_09() {
 
 function location_cities_list_mr_11() {
   return array(
-    "2375558" => t("Zouerat"),
+    "2375558" => "Zouerat",
   );
 }
 
 
 function location_cities_list_mr_06() {
   return array(
-    "2376189" => t("Tekane"),
-    "2376898" => t("Rosso"),
+    "2376189" => "Tekane",
+    "2376898" => "Rosso",
   );
 }

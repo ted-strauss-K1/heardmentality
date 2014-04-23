@@ -3,52 +3,52 @@
 
 function location_cities_list_hr_07() {
   return array(
-    "3203982" => t("Bjelovar"),
+    "3203982" => "Bjelovar",
   );
 }
 
 
 function location_cities_list_hr_12() {
   return array(
-    "3190586" => t("Slavonski Brod"),
+    "3190586" => "Slavonski Brod",
   );
 }
 
 
 function location_cities_list_hr_19() {
   return array(
-    "3201047" => t("Dubrovnik"),
+    "3201047" => "Dubrovnik",
   );
 }
 
 
 function location_cities_list_hr_21() {
   return array(
-    "3186886" => t("Zagreb"),
-    "3190966" => t("Sesvete"),
-    "3209380" => t("Stenjevec"),
-    "6618983" => t("Zagreb - Centar"),
+    "3186886" => "Zagreb",
+    "3190966" => "Sesvete",
+    "3209380" => "Stenjevec",
+    "6618983" => "Zagreb - Centar",
   );
 }
 
 
 function location_cities_list_hr_18() {
   return array(
-    "3192224" => t("Pula"),
+    "3192224" => "Pula",
   );
 }
 
 
 function location_cities_list_hr_04() {
   return array(
-    "3198259" => t("Karlovac"),
+    "3198259" => "Karlovac",
   );
 }
 
 
 function location_cities_list_hr_06() {
   return array(
-    "3197728" => t("Koprivnica"),
+    "3197728" => "Koprivnica",
   );
 }
 
@@ -65,87 +65,87 @@ function location_cities_list_hr_09() {
 
 function location_cities_list_hr_20() {
   return array(
-    "3202888" => t("Cakovec"),
+    "3202888" => "Cakovec",
   );
 }
 
 
 function location_cities_list_hr_14() {
   return array(
-    "3193935" => t("Osijek"),
+    "3193935" => "Osijek",
   );
 }
 
 
 function location_cities_list_hr_11() {
   return array(
-    "3190589" => t("Pozega"),
+    "3190589" => "Pozega",
   );
 }
 
 
 function location_cities_list_hr_08() {
   return array(
-    "3191648" => t("Rijeka"),
+    "3191648" => "Rijeka",
   );
 }
 
 
 function location_cities_list_hr_03() {
   return array(
-    "3190813" => t("Sisak"),
+    "3190813" => "Sisak",
   );
 }
 
 
 function location_cities_list_hr_17() {
   return array(
-    "3190261" => t("Split"),
-    "3190359" => t("Solin"),
+    "3190261" => "Split",
+    "3190359" => "Solin",
   );
 }
 
 
 function location_cities_list_hr_05() {
   return array(
-    "3188383" => t("Varazdin"),
+    "3188383" => "Varazdin",
   );
 }
 
 
 function location_cities_list_hr_10() {
   return array(
-    "3187694" => t("Virovitica"),
+    "3187694" => "Virovitica",
   );
 }
 
 
 function location_cities_list_hr_16() {
   return array(
-    "3187047" => t("Vukovar"),
-    "3187719" => t("Vinkovci"),
+    "3187047" => "Vukovar",
+    "3187719" => "Vinkovci",
   );
 }
 
 
 function location_cities_list_hr_13() {
   return array(
-    "3186952" => t("Zadar"),
+    "3186952" => "Zadar",
   );
 }
 
 
 function location_cities_list_hr_01() {
   return array(
-    "3186781" => t("Zapresic"),
-    "3188244" => t("Velika Gorica"),
-    "3191316" => t("Samobor"),
+    "3186781" => "Zapresic",
+    "3188244" => "Velika Gorica",
+    "3191316" => "Samobor",
   );
 }
 
 
 function location_cities_list_hr_15() {
   return array(
-    "3190941" => t("Sibenik"),
+    "3190941" => "Sibenik",
   );
 }

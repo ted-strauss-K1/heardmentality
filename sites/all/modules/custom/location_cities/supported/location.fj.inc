@@ -3,7 +3,7 @@
 
 function location_cities_list_fj_c() {
   return array(
-    "2198148" => t("Suva"),
+    "2198148" => "Suva",
   );
 }
 
@@ -15,7 +15,7 @@ function location_cities_list_fj_e() {
 
 function location_cities_list_fj_n() {
   return array(
-    "2204582" => t("Lambasa"),
+    "2204582" => "Lambasa",
   );
 }
 
@@ -27,7 +27,7 @@ function location_cities_list_fj_r() {
 
 function location_cities_list_fj_w() {
   return array(
-    "2202064" => t("Nadi"),
-    "2204506" => t("Lautoka"),
+    "2202064" => "Nadi",
+    "2204506" => "Lautoka",
   );
 }

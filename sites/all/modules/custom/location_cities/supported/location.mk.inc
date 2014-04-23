@@ -13,7 +13,7 @@ function location_cities_list_mk_03() {
 
 function location_cities_list_mk_04() {
   return array(
-    "792578" => t("Bitola"),
+    "792578" => "Bitola",
   );
 }
 
@@ -25,8 +25,8 @@ function location_cities_list_mk_05() {
 
 function location_cities_list_mk_06() {
   return array(
-    "789611" => t("Kamenjane"),
-    "792501" => t("Bogovinje"),
+    "789611" => "Kamenjane",
+    "792501" => "Bogovinje",
   );
 }
 
@@ -38,21 +38,21 @@ function location_cities_list_mk_07() {
 
 function location_cities_list_mk_08() {
   return array(
-    "792227" => t("Brvenica"),
+    "792227" => "Brvenica",
   );
 }
 
 
 function location_cities_list_mk_09() {
   return array(
-    "833260" => t("Butel"),
+    "833260" => "Butel",
   );
 }
 
 
 function location_cities_list_mk_21() {
   return array(
-    "791606" => t("Debar"),
+    "791606" => "Debar",
   );
 }
 
@@ -89,14 +89,14 @@ function location_cities_list_mk_17() {
 
 function location_cities_list_mk_18() {
   return array(
-    "790744" => t("Gevgelija"),
+    "790744" => "Gevgelija",
   );
 }
 
 
 function location_cities_list_mk_19() {
   return array(
-    "790295" => t("Gostivar"),
+    "790295" => "Gostivar",
   );
 }
 
@@ -108,7 +108,7 @@ function location_cities_list_mk_20() {
 
 function location_cities_list_mk_34() {
   return array(
-    "833357" => t("Ilinden"),
+    "833357" => "Ilinden",
   );
 }
 
@@ -125,14 +125,14 @@ function location_cities_list_mk_37() {
 
 function location_cities_list_mk_36() {
   return array(
-    "789541" => t("Kavadarci"),
+    "789541" => "Kavadarci",
   );
 }
 
 
 function location_cities_list_mk_39() {
   return array(
-    "863675" => t("Kisela Voda"),
+    "863675" => "Kisela Voda",
   );
 }
 
@@ -144,14 +144,14 @@ function location_cities_list_mk_43() {
 
 function location_cities_list_mk_44() {
   return array(
-    "789045" => t("Kriva Palanka"),
+    "789045" => "Kriva Palanka",
   );
 }
 
 
 function location_cities_list_mk_47() {
   return array(
-    "788886" => t("Kumanovo"),
+    "788886" => "Kumanovo",
   );
 }
 
@@ -178,7 +178,7 @@ function location_cities_list_mk_53() {
 
 function location_cities_list_mk_54() {
   return array(
-    "787716" => t("Negotino"),
+    "787716" => "Negotino",
   );
 }
 
@@ -195,7 +195,7 @@ function location_cities_list_mk_56() {
 
 function location_cities_list_mk_58() {
   return array(
-    "787487" => t("Ohrid"),
+    "787487" => "Ohrid",
   );
 }
 
@@ -207,7 +207,7 @@ function location_cities_list_mk_29() {
 
 function location_cities_list_mk_48() {
   return array(
-    "788654" => t("Lipkovo"),
+    "788654" => "Lipkovo",
   );
 }
 
@@ -229,14 +229,14 @@ function location_cities_list_mk_077() {
 
 function location_cities_list_mk_78() {
   return array(
-    "7886881" => t("Centar Zupa"),
+    "7886881" => "Centar Zupa",
   );
 }
 
 
 function location_cities_list_mk_23() {
   return array(
-    "791559" => t("Delchevo"),
+    "791559" => "Delchevo",
   );
 }
 
@@ -248,14 +248,14 @@ function location_cities_list_mk_26() {
 
 function location_cities_list_mk_38() {
   return array(
-    "785842" => t("Skopje"),
+    "785842" => "Skopje",
   );
 }
 
 
 function location_cities_list_mk_40() {
   return array(
-    "789527" => t("Kicevo"),
+    "789527" => "Kicevo",
   );
 }
 
@@ -267,7 +267,7 @@ function location_cities_list_mk_41() {
 
 function location_cities_list_mk_42() {
   return array(
-    "789403" => t("Kochani"),
+    "789403" => "Kochani",
   );
 }
 
@@ -299,7 +299,7 @@ function location_cities_list_mk_63() {
 
 function location_cities_list_mk_64() {
   return array(
-    "786565" => t("Radovish"),
+    "786565" => "Radovish",
   );
 }
 
@@ -316,7 +316,7 @@ function location_cities_list_mk_84() {
 
 function location_cities_list_mk_73() {
   return array(
-    "785345" => t("Studenichani"),
+    "785345" => "Studenichani",
   );
 }
 
@@ -333,14 +333,14 @@ function location_cities_list_mk_15() {
 
 function location_cities_list_mk_16() {
   return array(
-    "787715" => t("Negotino"),
+    "787715" => "Negotino",
   );
 }
 
 
 function location_cities_list_mk_79() {
   return array(
-    "833262" => t("Cair"),
+    "833262" => "Cair",
   );
 }
 
@@ -362,21 +362,21 @@ function location_cities_list_mk_82() {
 
 function location_cities_list_mk_70() {
   return array(
-    "785482" => t("Shtip"),
+    "785482" => "Shtip",
   );
 }
 
 
 function location_cities_list_mk_74() {
   return array(
-    "833258" => t("Suto Orizare"),
+    "833258" => "Suto Orizare",
   );
 }
 
 
 function location_cities_list_mk_30() {
   return array(
-    "783926" => t("Zhelino"),
+    "783926" => "Zhelino",
   );
 }
 
@@ -398,14 +398,14 @@ function location_cities_list_mk_61() {
 
 function location_cities_list_mk_62() {
   return array(
-    "786735" => t("Prilep"),
+    "786735" => "Prilep",
   );
 }
 
 
 function location_cities_list_mk_66() {
   return array(
-    "786341" => t("Resen"),
+    "786341" => "Resen",
   );
 }
 
@@ -417,21 +417,21 @@ function location_cities_list_mk_67() {
 
 function location_cities_list_mk_68() {
   return array(
-    "786093" => t("Saraj"),
+    "786093" => "Saraj",
   );
 }
 
 
 function location_cities_list_mk_71() {
   return array(
-    "785387" => t("Struga"),
+    "785387" => "Struga",
   );
 }
 
 
 function location_cities_list_mk_72() {
   return array(
-    "785380" => t("Strumica"),
+    "785380" => "Strumica",
   );
 }
 
@@ -443,14 +443,14 @@ function location_cities_list_mk_69() {
 
 function location_cities_list_mk_75() {
   return array(
-    "785113" => t("Tearce"),
+    "785113" => "Tearce",
   );
 }
 
 
 function location_cities_list_mk_76() {
   return array(
-    "785082" => t("Tetovo"),
+    "785082" => "Tetovo",
   );
 }
 
@@ -467,14 +467,14 @@ function location_cities_list_mk_11() {
 
 function location_cities_list_mk_13() {
   return array(
-    "785058" => t("Veles"),
+    "785058" => "Veles",
   );
 }
 
 
 function location_cities_list_mk_14() {
   return array(
-    "784424" => t("Vinica"),
+    "784424" => "Vinica",
   );
 }
 

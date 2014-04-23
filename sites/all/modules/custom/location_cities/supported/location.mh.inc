@@ -98,8 +98,8 @@ function location_cities_list_mh_lik() {
 
 function location_cities_list_mh_maj() {
   return array(
-    "2113779" => t("Majuro"),
-    "7874852" => t("RMI Capitol"),
+    "2113779" => "Majuro",
+    "7874852" => "RMI Capitol",
   );
 }
 

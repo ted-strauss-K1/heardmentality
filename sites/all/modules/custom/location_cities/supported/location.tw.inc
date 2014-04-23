@@ -3,43 +3,43 @@
 
 function location_cities_list_tw_01() {
   return array(
-    "1678008" => t("Jincheng"),
+    "1678008" => "Jincheng",
   );
 }
 
 
 function location_cities_list_tw_02() {
   return array(
-    "1673820" => t("Kaohsiung"),
+    "1673820" => "Kaohsiung",
   );
 }
 
 
 function location_cities_list_tw_03() {
   return array(
-    "1668341" => t("Taipei"),
-    "1670029" => t("Banqiao"),
+    "1668341" => "Taipei",
+    "1670029" => "Banqiao",
   );
 }
 
 
 function location_cities_list_tw_04() {
   return array(
-    "1665196" => t("Douliu"),
-    "1665357" => t("Yujing"),
-    "1668355" => t("Tainan"),
-    "1668399" => t("Taichung"),
-    "1668467" => t("Daxi"),
-    "1670310" => t("Buli"),
-    "1671566" => t("Nantou"),
-    "1672228" => t("Ma-kung"),
-    "1672551" => t("Lugu"),
-    "1674199" => t("Yilan"),
-    "1674504" => t("Hualian"),
-    "1675151" => t("Hsinchu"),
-    "1676242" => t("Hengchun"),
-    "1678228" => t("Keelung"),
-    "6696918" => t("Taoyuan City"),
-    "7601921" => t("Zhongxing New Village"),
+    "1665196" => "Douliu",
+    "1665357" => "Yujing",
+    "1668355" => "Tainan",
+    "1668399" => "Taichung",
+    "1668467" => "Daxi",
+    "1670310" => "Buli",
+    "1671566" => "Nantou",
+    "1672228" => "Ma-kung",
+    "1672551" => "Lugu",
+    "1674199" => "Yilan",
+    "1674504" => "Hualian",
+    "1675151" => "Hsinchu",
+    "1676242" => "Hengchun",
+    "1678228" => "Keelung",
+    "6696918" => "Taoyuan City",
+    "7601921" => "Zhongxing New Village",
   );
 }

@@ -3,7 +3,7 @@
 
 function location_cities_list_gw_ba() {
   return array(
-    "2375254" => t("Bafata"),
+    "2375254" => "Bafata",
   );
 }
 
@@ -15,7 +15,7 @@ function location_cities_list_gw_bm() {
 
 function location_cities_list_gw_bs() {
   return array(
-    "2374775" => t("Bissau"),
+    "2374775" => "Bissau",
   );
 }
 

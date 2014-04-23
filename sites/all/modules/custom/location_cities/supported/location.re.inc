@@ -3,18 +3,18 @@
 
 function location_cities_list_re_re() {
   return array(
-    "935214" => t("Saint-Pierre"),
-    "935221" => t("Saint-Paul"),
-    "935223" => t("Saint-Louis"),
-    "935225" => t("Saint-Leu"),
-    "935227" => t("Saint-Joseph"),
-    "935248" => t("Sainte-Suzanne"),
-    "935255" => t("Sainte-Marie"),
-    "935264" => t("Saint-Denis"),
-    "935267" => t("Saint-Benoit"),
-    "935268" => t("Saint-Andre"),
-    "935582" => t("Le Tampon"),
-    "935616" => t("Le Port"),
-    "935691" => t("La Possession"),
+    "935214" => "Saint-Pierre",
+    "935221" => "Saint-Paul",
+    "935223" => "Saint-Louis",
+    "935225" => "Saint-Leu",
+    "935227" => "Saint-Joseph",
+    "935248" => "Sainte-Suzanne",
+    "935255" => "Sainte-Marie",
+    "935264" => "Saint-Denis",
+    "935267" => "Saint-Benoit",
+    "935268" => "Saint-Andre",
+    "935582" => "Le Tampon",
+    "935616" => "Le Port",
+    "935691" => "La Possession",
   );
 }
