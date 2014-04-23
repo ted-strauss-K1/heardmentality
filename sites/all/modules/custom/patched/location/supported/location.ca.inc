@@ -2,18 +2,18 @@
 
 function location_province_list_ca() {
   return array(
-    "AB" => t("Alberta"),
-    "BC" => t("British Columbia"),
-    "MB" => t("Manitoba"),
-    "NB" => t("New Brunswick"),
-    "NL" => t("Newfoundland and Labrador"),
-    "NT" => t("Northwest Territories"),
-    "NS" => t("Nova Scotia"),
-    "NU" => t("Nunavut"),
-    "ON" => t("Ontario"),
-    "PE" => t("Prince Edward Island"),
-    "QC" => t("Quebec"),
-    "SK" => t("Saskatchewan"),
-    "YT" => t("Yukon"),
+    "AB" => "Alberta",
+    "BC" => "British Columbia",
+    "MB" => "Manitoba",
+    "NB" => "New Brunswick",
+    "NL" => "Newfoundland and Labrador",
+    "NT" => "Northwest Territories",
+    "NS" => "Nova Scotia",
+    "NU" => "Nunavut",
+    "ON" => "Ontario",
+    "PE" => "Prince Edward Island",
+    "QC" => "Quebec",
+    "SK" => "Saskatchewan",
+    "YT" => "Yukon",
   );
 }

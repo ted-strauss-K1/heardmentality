@@ -2,10 +2,10 @@
 
 function location_province_list_to() {
   return array(
-    "01" => t("Eua"),
-    "02" => t("Ha`apai"),
-    "03" => t("Niuas"),
-    "04" => t("Tongatapu"),
-    "05" => t("Vava`u"),
+    "01" => "Eua",
+    "02" => "Ha`apai",
+    "03" => "Niuas",
+    "04" => "Tongatapu",
+    "05" => "Vava`u",
   );
 }

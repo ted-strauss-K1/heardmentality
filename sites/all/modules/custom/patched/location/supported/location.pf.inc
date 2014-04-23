@@ -2,10 +2,10 @@
 
 function location_province_list_pf() {
   return array(
-    "I" => t("Îles Australes"),
-    "M" => t("Îles Marquises"),
-    "S" => t("Îles Sous-le-Vent"),
-    "T" => t("Îles Tuamotu-Gambier"),
-    "V" => t("Îles du Vent"),
+    "I" => "Îles Australes",
+    "M" => "Îles Marquises",
+    "S" => "Îles Sous-le-Vent",
+    "T" => "Îles Tuamotu-Gambier",
+    "V" => "Îles du Vent",
   );
 }

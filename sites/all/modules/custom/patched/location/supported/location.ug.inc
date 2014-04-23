@@ -2,9 +2,9 @@
 
 function location_province_list_ug() {
   return array(
-    "C" => t("Central Region"),
-    "E" => t("Eastern Region"),
-    "N" => t("Northern Region"),
-    "W" => t("Western Region"),
+    "C" => "Central Region",
+    "E" => "Eastern Region",
+    "N" => "Northern Region",
+    "W" => "Western Region",
   );
 }

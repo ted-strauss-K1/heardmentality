@@ -2,13 +2,13 @@
 
 function location_province_list_gn() {
   return array(
-    "B" => t("Boke Region"),
-    "C" => t("Conakry Region"),
-    "F" => t("Faranah Region"),
-    "K" => t("Kankan Region"),
-    "D" => t("Kindia Region"),
-    "L" => t("Labé Region"),
-    "M" => t("Mamou Region"),
-    "N" => t("Nzerekore Region"),
+    "B" => "Boke Region",
+    "C" => "Conakry Region",
+    "F" => "Faranah Region",
+    "K" => "Kankan Region",
+    "D" => "Kindia Region",
+    "L" => "Labé Region",
+    "M" => "Mamou Region",
+    "N" => "Nzerekore Region",
   );
 }

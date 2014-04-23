@@ -2,10 +2,10 @@
 
 function location_province_list_rw() {
   return array(
-    "02" => t("Eastern Province"),
-    "01" => t("Kigali Province"),
-    "03" => t("Northern Province"),
-    "05" => t("Southern Province"),
-    "04" => t("Western Province"),
+    "02" => "Eastern Province",
+    "01" => "Kigali Province",
+    "03" => "Northern Province",
+    "05" => "Southern Province",
+    "04" => "Western Province",
   );
 }

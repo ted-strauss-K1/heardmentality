@@ -2,17 +2,17 @@
 
 function location_province_list_mu() {
   return array(
-    "AG" => t("Agalega Islands"),
-    "BL" => t("Black River District"),
-    "CC" => t("Cargados Carajos"),
-    "FL" => t("Flacq District"),
-    "GP" => t("Grand Port District"),
-    "MO" => t("Moka District"),
-    "PA" => t("Pamplemousses District"),
-    "PW" => t("Plaines Wilhems District"),
-    "PL" => t("Port Louis District"),
-    "RR" => t("Rivière du Rempart District"),
-    "RO" => t("Rodrigues"),
-    "SA" => t("Savanne District"),
+    "AG" => "Agalega Islands",
+    "BL" => "Black River District",
+    "CC" => "Cargados Carajos",
+    "FL" => "Flacq District",
+    "GP" => "Grand Port District",
+    "MO" => "Moka District",
+    "PA" => "Pamplemousses District",
+    "PW" => "Plaines Wilhems District",
+    "PL" => "Port Louis District",
+    "RR" => "Rivière du Rempart District",
+    "RO" => "Rodrigues",
+    "SA" => "Savanne District",
   );
 }

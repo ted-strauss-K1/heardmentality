@@ -2,17 +2,17 @@
 
 function location_province_list_ge() {
   return array(
-    "AB" => t("Abkhazia"),
-    "AJ" => t("Ajaria"),
-    "GU" => t("Guria"),
-    "IM" => t("Imereti"),
-    "TB" => t("K'alak'i T'bilisi"),
-    "KA" => t("Kakheti"),
-    "KK" => t("Kvemo Kartli"),
-    "MM" => t("Mtskheta-Mtianeti"),
-    "RL" => t("Racha-Lechkhumi and Kvemo Svaneti"),
-    "SZ" => t("Samegrelo and Zemo Svaneti"),
-    "SJ" => t("Samtskhe-Javakheti"),
-    "SK" => t("Shida Kartli"),
+    "AB" => "Abkhazia",
+    "AJ" => "Ajaria",
+    "GU" => "Guria",
+    "IM" => "Imereti",
+    "TB" => "K'alak'i T'bilisi",
+    "KA" => "Kakheti",
+    "KK" => "Kvemo Kartli",
+    "MM" => "Mtskheta-Mtianeti",
+    "RL" => "Racha-Lechkhumi and Kvemo Svaneti",
+    "SZ" => "Samegrelo and Zemo Svaneti",
+    "SJ" => "Samtskhe-Javakheti",
+    "SK" => "Shida Kartli",
   );
 }

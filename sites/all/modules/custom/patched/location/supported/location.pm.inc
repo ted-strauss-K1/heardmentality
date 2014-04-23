@@ -2,7 +2,7 @@
 
 function location_province_list_pm() {
   return array(
-    "M" => t("Commune de Miquelon-Langlade"),
-    "P" => t("Commune de Saint-Pierre"),
+    "M" => "Commune de Miquelon-Langlade",
+    "P" => "Commune de Saint-Pierre",
   );
 }

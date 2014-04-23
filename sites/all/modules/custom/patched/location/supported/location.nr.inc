@@ -2,19 +2,19 @@
 
 function location_province_list_nr() {
   return array(
-    "01" => t("Aiwo"),
-    "02" => t("Anabar"),
-    "03" => t("Anetan"),
-    "04" => t("Anibare"),
-    "05" => t("Baiti"),
-    "06" => t("Boe"),
-    "07" => t("Buada"),
-    "08" => t("Denigomodu"),
-    "09" => t("Ewa"),
-    "10" => t("Ijuw"),
-    "11" => t("Meneng"),
-    "12" => t("Nibok"),
-    "13" => t("Uaboe"),
-    "14" => t("Yaren"),
+    "01" => "Aiwo",
+    "02" => "Anabar",
+    "03" => "Anetan",
+    "04" => "Anibare",
+    "05" => "Baiti",
+    "06" => "Boe",
+    "07" => "Buada",
+    "08" => "Denigomodu",
+    "09" => "Ewa",
+    "10" => "Ijuw",
+    "11" => "Meneng",
+    "12" => "Nibok",
+    "13" => "Uaboe",
+    "14" => "Yaren",
   );
 }
