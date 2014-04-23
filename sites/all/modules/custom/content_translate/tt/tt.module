@@ -75,25 +75,29 @@ function tt_src_lid($code = FALSE, $string = '', $reset = FALSE) {
  * @param string $location
  */
 function tt_src_set($code, $string, $textgroup = 'default', $location = '') {
-  // check if exists
+  // check if exists in cache
   if ($lid = tt_src_lid($code, $string)) {
     return $lid;
   }
 
-  // insert
-  $object = array(
-    'code'      => $code,
-    'source'    => $string,
-    'textgroup' => $textgroup,
-    'location'  => $location,
-    'version'   => VERSION,
-  );
-  drupal_write_record('locales_source', $object);
+  // check if exists in db
+  if ($lid = db_result(db_query("SELECT lid FROM {locales_source} WHERE source = '%s' AND code = '%s'", $string, $code))) {
+    __locale(NULL, NULL, NULL, TRUE);
+  }
+  else {
+    // create
+    $object = array(
+      'code'      => $code,
+      'source'    => $string,
+      'textgroup' => $textgroup,
+      'location'  => $location,
+      'version'   => VERSION,
+    );
+    drupal_write_record('locales_source', $object);
 
-  // save lid
-  $lids = tt_src_lid();
-  $lids[$code][md5($string)] = $object["lid"];
-  variable_set(TT_SRC_LID, $lids);
+    // rebuild cache
+    tt_src_lid(FALSE, '', TRUE);
+  }
 }
 
 /**
@@ -118,7 +122,7 @@ function __t($code, $string, $args = array(), $langcode = NULL) {
 
   //
   if ($langcode != 'en') {
-    $string = __locale($code, $string, $langcode, FALSE);
+    $string = __locale($code, $string, $langcode, TRUE);
   }
 
   //
