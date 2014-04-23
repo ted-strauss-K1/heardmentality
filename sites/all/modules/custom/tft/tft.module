@@ -27,10 +27,10 @@ function tft_list($node_type, $tids = array(), $filter = FALSE) {
   while ($row = db_fetch_object($result)) {
     $all[$row->parent][] = array(
       'id'   => $row->tid,
-      'name' => t($row->name),
+      'name' => __('term-' . $row->tid, $row->name, array(), NULL, 'term'),
     );
     if (0 == $row->parent) {
-      $tmp[$row->tid] = t($row->name);
+      $tmp[$row->tid] = __('term-' . $row->tid, $row->name, array(), NULL, 'term');
     }
   }
 
