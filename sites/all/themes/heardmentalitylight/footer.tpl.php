@@ -8,7 +8,7 @@
 
     <div class="four columns">
       <div class="black-box">
-        <p class="blurb ryde"><?php print t("Be Heard! Don't Be Part of the Herd."); ?></p>
+        <p class="blurb ryde"><?php print __("footer-slug", "Be Heard! Don't Be Part of the Herd."); ?></p>
         <hr class="dark">
 
         <div class="floatleft"><a class="twitter" href="http://twitter.com/HeardMentality" target="_blank"><i
@@ -34,10 +34,9 @@
       <div class="black-box">
         <?php print l('<img src="' . url(path_to_theme() . '/images/dark_logo.png', array('language' => '')) . '" class="dark-logo">', '', array('html' => TRUE)); ?>
         <ul class="din foot-link">
-          <li><?php print l(t('ABOUT'), 'aboutus'); ?></li>
-          <li><?php print l(t('CONTACT'), 'contact'); ?></li>
-          <li><?php print l(t('DONATE'), 'donate'); ?></li>
-          <!--          <li><a href="">--><?php //print t('VOLUNTEER'); ?><!--</a></li>-->
+          <li><?php print l(__('footer-link-about', 'ABOUT'), 'aboutus'); ?></li>
+          <li><?php print l(__('footer-link-contact', 'CONTACT'), 'contact'); ?></li>
+          <li><?php print l(__('footer-link-donate', 'DONATE'), 'donate'); ?></li>
         </ul>
       </div>
     </div>
@@ -47,8 +46,8 @@
     </a>
 
     <p class="policy">
-      <?php print t('HEARD MENTALITY'); ?> &copy; <?php print date('Y') ?><br>
-      <?php print l(t('Privacy Policy'), 'privacy'); ?>
+      <?php print __('footer-name', 'HEARD MENTALITY'); ?> &copy; <?php print date('Y') ?><br>
+      <?php print l(__('footer-link-privacy', 'Privacy Policy'), 'privacy'); ?>
     </p>
 
   </div>

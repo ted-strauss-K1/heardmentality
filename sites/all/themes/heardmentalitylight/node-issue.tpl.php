@@ -26,10 +26,10 @@
           <?php print theme('flagger_btn_history', $nid, 'node'); ?>
           <?php print theme('flagger_btn_flag', $node->uid, 'user'); ?>
           <?php if (module_exists('moderation') && moderation_check_perm()) : ?>
-            <?php print l(t('moderation'), 'moderation/issue/' . $node->nid, array(
+            <?php print l(__('issue-page-moderation', 'moderation'), 'moderation/issue/' . $node->nid, array(
               'attributes' => array(
                 'class'          => 'moderation',
-                'original-title' => t('moderation'),
+                'original-title' => __('issue-page-moderation', 'moderation'),
               )
             )); ?>
           <?php endif; ?>
@@ -37,12 +37,12 @@
         <?php elseif (!empty($node->field_base_issue[0]['nid'])) : ?>
 
           <?php if ($node->field_base_issue[0]['safe']['status']) : ?>
-            <?php print t('Duplicates issue') ?> <?php
+            <?php print __('issue-page-duplicates', 'Duplicates issue') ?> <?php
             $base_issue = node_load($node->field_base_issue[0]['nid']);
             print l(issue_translate($base_issue, 'title'), 'node/' . $base_issue->nid);
             ?>
           <?php else : ?>
-            <?php print t('Closed as the duplicate to other content on site'); ?>
+            <?php print __('issue-page-duplicates-closed', 'Closed as the duplicate to other content on site'); ?>
           <?php endif; ?>
 
         <?php endif; ?>
@@ -108,7 +108,7 @@
   <?php drupal_add_js(drupal_get_path('module', 'argument') . "/argument.js"); ?>
 
   <div class="ul_wrapper">
-    <h2 class="din"><?php print t('Debate'); ?></h2>
+    <h2 class="din"><?php print __('issue-page-debate', 'Debate'); ?></h2>
   </div>
   <ul class="tabs-content" style="margin: 22px 0 0;">
     <li class="active" id="simpleTab">
@@ -121,7 +121,7 @@
 
             <div class="expanding arg">
               <h6 value="Reply" id="add-arg"
-                  class="button <?php print theme('user_login_modal_class'); ?>"><?php print t('Add'); ?></h6>
+                  class="button <?php print theme('user_login_modal_class'); ?>"><?php print __('issue-page-debate-add', 'Add'); ?></h6>
             </div>
 
           <?php endif; ?>
@@ -135,13 +135,13 @@
               <?php print drupal_get_form('argument_form', $node); ?>
             <?php else : ?>
               <div class="<?php print theme('user_login_modal_class', TRUE) ?>" align="center"><b>
-                  <?php print t('Please log in to participate in the debate') ?>
+                  <?php print __('issue-page-debate-signin', 'Please log in to participate in the debate') ?>
                 </b></div>
             <?php endif; ?>
           </div>
 
           <div id="analytics-area" class="hidden_deb" style="display: none;">
-            <h2><span><?php print t('Debate statistics'); ?></span></h2>
+            <h2><span><?php print __('issue-page-debate-stats', 'Debate statistics'); ?></span></h2>
 
             <div id="deb-ana-load-txt"></div>
             <div id="chart-strength" style="width:100%;">
@@ -157,20 +157,20 @@
       <div id="debate_list_area">
         <h2>
           <span
-            class="argcount"><?php print intval($node->info['argument']); ?></span>&nbsp;<span><?php print t('Arguments'); ?>
-            &nbsp;&amp;&nbsp;</span> <span class="rescount"><?php print intval($node->info['resource']); ?></span>&nbsp;<span><?php print t('References'); ?></span>
+            class="argcount"><?php print intval($node->info['argument']); ?></span>&nbsp;<span><?php print __('issue-page-info-arguments', 'Arguments'); ?>
+            &nbsp;&amp;&nbsp;</span> <span class="rescount"><?php print intval($node->info['resource']); ?></span>&nbsp;<span><?php print __('issue-page-info-references', 'References'); ?></span>
 
           <div class="show_only">
-            <span class="button" id="show_filter">&#9660; <?php print t('Show only'); ?></span>
+            <span class="button" id="show_filter">&#9660; <?php print __('issue-page-debate-filter-showonly', 'Show only'); ?></span>
 
             <div class="inc">
               <form id="inc_ref">
                 <input type="checkbox" checked="yes" value="include references" id="inc_check"/> <label
-                  for="inc_check"><?php print t('Include References'); ?></label>
+                  for="inc_check"><?php print __('issue-page-debate-filter-references', 'Include References'); ?></label>
               </form>
             </div>
             <div class="popup hidden" id="filter_content">
-              <span class="title"><?php print t('Show all'); ?></span>
+              <span class="title"><?php print __('issue-page-debate-filter-showall', 'Show all'); ?></span>
               <?php foreach ($node->choices as $choice) : ?>
                 <dl name="<?php print $choice['chid'] ?>">
                   <dd>
@@ -181,7 +181,7 @@
                   <dt><?php print $choice['chtext_short'] ?></dt>
                 </dl>
               <?php endforeach; ?>
-              <span class="title reset"><?php print t('Reset filters'); ?></span>
+              <span class="title reset"><?php print __('issue-page-debate-filter-reset', 'Reset filters'); ?></span>
             </div>
           </div>
         </h2>
@@ -190,13 +190,13 @@
 
         <ul>
           <li><a
-              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/0/0"><?php print t('recent'); ?></a>
+              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/0/0"><?php print __('issue-page-debate-tab-recent', 'recent'); ?></a>
           </li>
           <li><a
-              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/1/0"><?php print t('older'); ?></a>
+              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/1/0"><?php print __('issue-page-debate-tab-older', 'older'); ?></a>
           </li>
           <li><a
-              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/2/0"><?php print t('supported'); ?></a>
+              href="<?php print url('argument/tab'); ?>/<?php print $node->nid; ?>/2/0"><?php print __('issue-page-debate-tab-supported', 'supported'); ?></a>
           </li>
         </ul>
         <div id="ui-tabs-1">
