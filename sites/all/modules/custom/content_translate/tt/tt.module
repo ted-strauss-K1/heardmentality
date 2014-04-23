@@ -15,8 +15,10 @@
  */
 function __($code, $string, $args = array(), $langcode = NULL, $textgroup = 'default') {
   // detect language
-  global $language;
-  $langcode = isset($langcode) ? $langcode : $language->language;
+  if (is_null($langcode)) {
+    global $language;
+    $langcode = $language->language;
+  }
 
   // check if this text allows plurality (has @count arg)
   if (isset($args['@count'])) {
@@ -27,12 +29,25 @@ function __($code, $string, $args = array(), $langcode = NULL, $textgroup = 'def
     return __($code, strtr($string, array('@count' => '@count[' . $index . ']')), $args, $langcode, $textgroup);
   }
 
+  // location
+  $location = '';
+
+  // check if there is a special function that handles translation
+//  $function = '__t_' . $textgroup;
+//  if (function_exists($function)) {
+//    return $function($code, $string, $location);
+//  }
+
+
   // create record in the database if not exists
-  tt_src_set($code, $string, $textgroup, $location = '');
+  tt_src_set($code, $string, $textgroup, $location);
 
   //
   return __t($code, $string, $args, $langcode);
 }
+
+
+
 
 define('TT_SRC_LID', 'tt_src_lid');
 
@@ -75,6 +90,16 @@ function tt_src_lid($code = FALSE, $string = '', $reset = FALSE) {
  * @param string $location
  */
 function tt_src_set($code, $string, $textgroup = 'default', $location = '') {
+  static $i, $mtime = NULL;
+  if (is_null($mtime)) $mtime = microtime(true);
+  if ($i++ > 1000) {
+    Kint::trace();
+    dd(round($mtime - microtime(true), 4));
+  }
+  else {
+    echo $i  . ' - ' . $string . ' - ' . round(microtime(true) - $mtime, 4), "<br>";
+  }
+
   // check if exists in cache
   if ($lid = tt_src_lid($code, $string)) {
     return $lid;
@@ -82,7 +107,7 @@ function tt_src_set($code, $string, $textgroup = 'default', $location = '') {
 
   // check if exists in db
   if ($lid = db_result(db_query("SELECT lid FROM {locales_source} WHERE source = '%s' AND code = '%s'", $string, $code))) {
-    __locale(NULL, NULL, NULL, TRUE);
+    // __locale(NULL, NULL, NULL, TRUE);
   }
   else {
     // create
@@ -96,7 +121,7 @@ function tt_src_set($code, $string, $textgroup = 'default', $location = '') {
     drupal_write_record('locales_source', $object);
 
     // rebuild cache
-    tt_src_lid(FALSE, '', TRUE);
+    // tt_src_lid(FALSE, '', TRUE);
   }
 }
 
@@ -116,13 +141,15 @@ define('TT_PREFIX', 'tt');
  * @return null|string
  */
 function __t($code, $string, $args = array(), $langcode = NULL) {
-  //
-  global $language;
-  $langcode = isset($langcode) ? $langcode : $language->language;
+  // detect language
+  if (is_null($langcode)) {
+    global $language;
+    $langcode = $language->language;
+  }
 
   //
   if ($langcode != 'en') {
-    $string = __locale($code, $string, $langcode, TRUE);
+    $string = __locale($code, $string, $langcode, FALSE);
   }
 
   //
@@ -163,9 +190,11 @@ function __t($code, $string, $args = array(), $langcode = NULL) {
  * @return null
  */
 function __locale($code, $string = NULL, $langcode = NULL, $reset = FALSE) {
-  //
-  global $language;
-  $langcode = isset($langcode) ? $langcode : $language->language;
+  // detect language
+  if (is_null($langcode)) {
+    global $language;
+    $langcode = $language->language;
+  }
 
   //
   $cache_id = TT_PREFIX . '_locale:' . $langcode;
@@ -215,6 +244,50 @@ function __locale($code, $string = NULL, $langcode = NULL, $reset = FALSE) {
 /**
  *
  */
+function tt_enable () {
+  // terms
+  db_query("DELETE FROM {locales_source} WHERE textgroup = '%s'", 'term');
+  db_query("
+    INSERT INTO {locales_source}
+    SELECT NULL, '', 'term', name, '%s', CONCAT('term-', tid)
+    FROM {term_data}", VERSION);
+
+  // locations
+  db_query("DELETE FROM {locales_source} WHERE textgroup = '%s'", 'location');
+  if (module_exists('extract')) {
+    extract_cache_location();
+    db_query("
+      INSERT INTO {locales_source}
+      SELECT
+        NULL,
+        '',
+        'location',
+        (CASE
+          WHEN location3_name <> '' THEN location3_name
+          WHEN location2_name <> '' THEN location2_name
+          ELSE location1_name
+          END),
+        '%s',
+        CONCAT('location-', location_id)
+      FROM {extract_cache_location}", VERSION);
+  }
+}
+
+/**
+ *
+ */
+function tt_flush_caches () {
+  __locale(NULL, NULL, NULL, TRUE);
+  return array();
+}
+
+/**
+ *
+ */
 function tt_init() {
-  //
+  // if (isset($_REQUEST['translate'])) tt_enable();
+//  if () {
+//
+//  }
+
 }
