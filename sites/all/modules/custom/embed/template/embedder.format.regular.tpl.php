@@ -31,6 +31,6 @@
         </tr>
       <?php endforeach; ?>
     </table>
-    <input type="button" value="<?php print t('Vote'); ?>">
+    <input type="button" value="<?php print __('Vote', array('@code' => 'embed-button')); ?>">
   </div>
 <?php endif; ?>
