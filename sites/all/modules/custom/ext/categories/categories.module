@@ -28,7 +28,7 @@ function categories_subscribe() {
   if (!$term) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('Unknown error'),
+      'message' => __('Unknown error', array('@code' => 'categories-error-unknown')),
     ));
     exit;
   }
@@ -45,9 +45,13 @@ function categories_subscribe() {
   }
 
   // output
+  $termname = __($term->name, array('@code' => 'term-' . $term->tid, '@textgroup' => 'term'));
   print json_encode(array(
     'status'  => TRUE,
-    'message' => t('You have ' . ($exists ? 'un' : '') . 'subscribed ' . ($exists ? 'from' : 'to') . ' !name', array('!name' => $term->name)),
+    'message' => $exists ? __('You have unsubscribed from !name', array(
+        '@code' => 'categories-unsubscribed',
+        '!name' => $termname
+      )) : __('You have subscribed to !name', array('@code' => 'categories-subscribed', '!name' => $termname)),
     'result'  => !$exists,
   ));
 
@@ -97,10 +101,10 @@ function categories_block($op = 'list', $delta = 0, $edit = array()) {
       $blocks = array();
 
       $blocks['categories'] = array(
-        'info' => t('Active Categories'),
+        'info' => 'Active Categories',
       );
       $blocks['categories-popular'] = array(
-        'info' => t('Popular Categories'),
+        'info' => 'Popular Categories',
       );
 
       return $blocks;
@@ -109,11 +113,11 @@ function categories_block($op = 'list', $delta = 0, $edit = array()) {
 
       switch ($delta) {
         case 'categories' :
-          $block['subject'] = t('');
+          $block['subject'] = '';
           $block['content'] = theme('categories_block');
           break;
         case 'categories-popular' :
-          $block['subject'] = t('');
+          $block['subject'] = '';
           $block['content'] = theme('categories_popular_block');
           break;
       }
@@ -155,7 +159,6 @@ function categories_theme() {
     'preprocess functions' => array('categories_theme_categories_user_block_preprocess'),
   );
 
-
   return $theme;
 }
 
@@ -174,7 +177,7 @@ function theme_categories_subscribe($name, $hierarchy) {
     $tids = $subscription->tids;
   }
 
-  return (user_access('subscribe to newsletters') ? sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $tids) ? 'checked' : '') : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
+  return (user_access('subscribe to newsletters') ? sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, __('Check to subscribe', array('@code' => 'categories-subscribe')), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $tids) ? 'checked' : '') : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
 }
 
 /**
@@ -204,6 +207,7 @@ function categories_theme_categories_block_preprocess(&$vars) {
     $vars['original'] = array(
       'language' => $language_name,
       'path'     => ($language_prefix ? $language_prefix . '/' : '') . $node->path,
+      'langcode' => $node->language,
     );
   }
 
@@ -219,7 +223,11 @@ function categories_theme_categories_user_block_preprocess(&$vars) {
   global $user;
   $subscription = simplenews_get_subscription((object) array('mail' => $user->mail));
   foreach ($subscription->tids as $tid) {
-    $vars['categories'][$tid] = taxonomy_get_term($tid);
+    $term = taxonomy_get_term($tid);
+    $vars['categories'][$tid] = __($term->name, array(
+      '@code'      => 'term-' . $term->tid,
+      '@textgroup' => 'term'
+    ));
   }
 }
 
@@ -238,6 +246,9 @@ function categories_theme_categories_popular_block_preprocess(&$vars) {
     ORDER BY count DESC
   ", 0, 15);
   while ($term = db_fetch_object($result)) {
-    $vars['categories'][term_hierarchy($term)] = $term->name;
+    $vars['categories'][term_hierarchy($term)] = __($term->name, array(
+      '@code'      => 'term-' . $term->tid,
+      '@textgroup' => 'term'
+    ));
   }
 }

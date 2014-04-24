@@ -44,7 +44,6 @@ function ulogin_alter_form_alter(&$form, &$form_state, $form_id) {
       '#description'   => t('Select optional fields you need to have.'),
     );
     $form['fset_ulogin_other']['ulogin_duplicate_emails']['#options'][2] = t("Allow duplicate email addresses, log in using the existing account with that email");
-
   }
 
   if (user_access('use ulogin') && user_is_anonymous() && in_array($form_id, array_filter(variable_get('ulogin_forms', array(
@@ -103,17 +102,17 @@ function ulogin_alter_callback() {
     if ($identity = _ulogin_identity_load($data)) {
       //registered to this user
       if ($user->uid == $identity['uid']) {
-        drupal_set_message(t('You have already registered this identity.'));
+        drupal_set_message(__('You have already registered this identity.', array('@code' => 'ulogin-error-already-registered')));
         ulogin_alter_redirect(2);
       } //registered to another user
       else {
-        drupal_set_message(t('This identity is registered to another user.'), 'error');
+        drupal_set_message(__('This identity is registered to another user.', array('@code' => 'ulogin-error-another-registered')), 'error');
         ulogin_alter_redirect(3);
       }
     } //identity is not registered - register it to the logged in user
     else {
       _ulogin_identity_save($data);
-      drupal_set_message(t('New identity added.'));
+      drupal_set_message(__('New identity added.', array('@code' => 'ulogin-success-new')));
       ulogin_alter_redirect(4);
     }
   }
@@ -128,13 +127,13 @@ function ulogin_alter_callback() {
 
   //handle duplicate email addresses
   elseif (variable_get('ulogin_duplicate_emails', 1) && !empty($data['email']) && $account = ulogin_user_load_by_mail($data['email'])) {
-    drupal_set_message(t('You are trying to login with email address of another user.'), 'error');
+    drupal_set_message(__('You are trying to login with email address of another user.', array('@code' => 'ulogin-error-another-user')), 'error');
     if (!empty($account->ulogin)) {
       $providers = _ulogin_providers_list();
-      drupal_set_message(t('If you are completely sure it is your email address, try to login through %network.', array('%network' => $providers[$account->ulogin['network']])), 'status');
+      drupal_set_message(__('If you are completely sure it is your email address, try to login through %network.', array('%network' => $providers[$account->ulogin['network']], '@code' => 'ulogin-error-network')), 'status');
     }
     else {
-      drupal_set_message(t('If you are completely sure it is your email address, try to login using your username and password on this site. If you don\'t remember your password - <a href="@password">request new password</a>.', array('@password' => url('user/password'))));
+      drupal_set_message(__('If you are completely sure it is your email address, try to login using your username and password on this site. If you don\'t remember your password - <a href="@password">request new password</a>.', array('@code' => 'ulogin-error-request-password', '@password' => url('user/password'))));
     }
   }
   else {

@@ -137,21 +137,21 @@ function time_interval($date, $is_timestamp = FALSE) {
   $interval = $date->diff($date_now);
   # convert to string
   if ($interval->y != 0) {
-    return $interval->y . ' ' . t('year' . ($interval->y > 1 ? 's' : '')) . ' ' . t('ago');
+    return __('@count year(s) ago', array('@code' => 'time-ago-y', '@count' => $interval->y));
   }
   if ($interval->m != 0) {
-    return $interval->m . ' ' . t('month' . ($interval->m > 1 ? 's' : '')) . ' ' . t('ago');
+    return __('@count month(s) ago', array('@code' => 'time-ago-m', '@count' => $interval->m));
   }
   if ($interval->d != 0) {
-    return $interval->d . ' ' . t('day' . ($interval->d > 1 ? 's' : '')) . ' ' . t('ago');
+    return __('@count day(s) ago', array('@code' => 'time-ago-d', '@count' => $interval->d));
   }
   if ($interval->h != 0) {
-    return $interval->h . ' ' . t('hour' . ($interval->h > 1 ? 's' : '')) . ' ' . t('ago');
+    return __('@count hour(s) ago', array('@code' => 'time-ago-h', '@count' => $interval->h));
   }
   if ($interval->i != 0) {
-    return $interval->i . ' ' . t('minute' . ($interval->i > 1 ? 's' : '')) . ' ' . t('ago');
+    return __('@count minute(s) ago', array('@code' => 'time-ago-i', '@count' => $interval->i));
   }
-  return t('just now');
+  return __('just now', array('@code' => 'time-ago-n'));
 }
 
 /**

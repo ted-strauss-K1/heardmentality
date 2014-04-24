@@ -21,7 +21,9 @@ function __($string, $args = array(), $langcode = NULL) {
 
   // detect code
   if (!isset($args['@code'])) {
-    return t($string, $args, $langcode);
+    $args['@code'] = 'nocode';
+    $args['@textgroup'] = 'nocode';
+    // return t($string, $args, $langcode);
   }
 
   // detect textgroup

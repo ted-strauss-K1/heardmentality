@@ -11,12 +11,12 @@ function contact_forms_alter_form_alter(&$form, $form_state, $form_id) {
 
   # for module "contact_forms"
   if ($form_id == 'contact_mail_page' && module_exists('contact_forms')) {
-    $form['#prefix'] = t("");
+    $form['#prefix'] = "";
     $info = array(
-      t('Site Suggestion'),
-      t('Site Complaint'),
-      t('Volunteer'),
-      t('General')
+      __('Site Suggestion', array('@code' => 'contact-info-suggestion')),
+      __('Site Complaint', array('@code' => 'contact-info-complaint')),
+      __('Volunteer', array('@code' => 'contact-info-volunteer')),
+      __('General', array('@code' => 'contact-info-general')),
     );
     $form['info'] = array(
       '#type'    => 'select',
@@ -28,10 +28,10 @@ function contact_forms_alter_form_alter(&$form, $form_state, $form_id) {
 
     $form['copy'] = array(
       '#type'  => 'checkbox',
-      '#title' => t('Send yourself a copy.'),
+      '#title' => __('Send yourself a copy.', array('@code' => 'contact-copy')),
     );
 
-    drupal_set_subtitle(t('Contact'));
+    drupal_set_subtitle(__('Contact', array('@code' => 'contact-page-title')));
   }
 }
 
