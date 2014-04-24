@@ -49,12 +49,14 @@ function ranks_get() {
     $result = db_query('SELECT * FROM {ranks} ORDER BY points ASC');
     $index = 0;
     while ($rank = db_fetch_array($result)) {
-      $ranks[] = $rank + array('index' => $index++);
+      $index++;
+      $rank['name'] = __($rank['name'], array('@code' => 'rank-' . $index, '@textgroup' => 'rank'));
+      $ranks[] = $rank + array('index' => $index);
     }
     if (empty($ranks)) {
       $ranks[] = array(
         'id'     => 0,
-        'name'   => 'Citizen',
+        'name'   => __('Citizen', array('@code' => 'rank-0', '@textgroup' => 'rank')),
         'points' => 0,
         'index'  => 0
       );
