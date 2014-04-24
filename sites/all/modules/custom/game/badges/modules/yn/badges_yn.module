@@ -11,22 +11,22 @@ function badges_yn_badges() {
   # vote ups
   $badges['yn_comment_bronze'] = array(
     'function'  => 'badges_yn_check',
-    'name'      => t('Nice Reply'),
-    'info'      => t('Reply voted up 10 times'),
+    'name'      => 'Nice Reply',
+    'info'      => 'Reply voted up 10 times',
     'type'      => 'bronze',
     'arguments' => array('content_type' => 'comment', 'count' => 10),
   );
   $badges['yn_comment_silver'] = array(
     'function'  => 'badges_yn_check',
-    'name'      => t('Good Reply'),
-    'info'      => t('Reply voted up 25 times'),
+    'name'      => 'Good Reply',
+    'info'      => 'Reply voted up 25 times',
     'type'      => 'silver',
     'arguments' => array('content_type' => 'comment', 'count' => 25),
   );
   $badges['yn_comment_gold'] = array(
     'function'  => 'badges_yn_check',
-    'name'      => t('Great Reply'),
-    'info'      => t('Reply voted up 100 times'),
+    'name'      => 'Great Reply',
+    'info'      => 'Reply voted up 100 times',
     'type'      => 'gold',
     'arguments' => array('content_type' => 'comment', 'count' => 100),
   );
@@ -34,22 +34,22 @@ function badges_yn_badges() {
   # vote ups for resources
   $badges['yn_argument_agreed_resource_bronze'] = array(
     'function'  => 'badges_yn_argument_agreed_check',
-    'name'      => t('Paperboy'),
-    'info'      => t('Resource posted by user gets 5 agrees'),
+    'name'      => 'Paperboy',
+    'info'      => 'Resource posted by user gets 5 agrees',
     'type'      => 'bronze',
     'arguments' => array('count' => 5, 'argument_type' => 'resource'),
   );
   $badges['yn_argument_agreed_resource_silver'] = array(
     'function'  => 'badges_yn_argument_agreed_check',
-    'name'      => t('Newsstand'),
-    'info'      => t('Resource posted by user gets 20 agrees'),
+    'name'      => 'Newsstand',
+    'info'      => 'Resource posted by user gets 20 agrees',
     'type'      => 'silver',
     'arguments' => array('count' => 20, 'argument_type' => 'resource'),
   );
   $badges['yn_argument_agreed_resource_gold'] = array(
     'function'  => 'badges_yn_argument_agreed_check',
-    'name'      => t('Librarian'),
-    'info'      => t('Resource posted by user gets 50 agrees'),
+    'name'      => 'Librarian',
+    'info'      => 'Resource posted by user gets 50 agrees',
     'type'      => 'gold',
     'arguments' => array('count' => 50, 'argument_type' => 'resource'),
   );
@@ -57,22 +57,22 @@ function badges_yn_badges() {
   # vote ups for arguments
   $badges['yn_argument_agreed_debate_bronze'] = array(
     'function'  => 'badges_yn_argument_agreed_check',
-    'name'      => t('Nice Post'),
-    'info'      => t('Argument posted by user gets 5 agrees'),
+    'name'      => 'Nice Post',
+    'info'      => 'Argument posted by user gets 5 agrees',
     'type'      => 'bronze',
     'arguments' => array('count' => 5, 'argument_type' => 'argument'),
   );
   $badges['yn_argument_agreed_debate_silver'] = array(
     'function'  => 'badges_yn_argument_agreed_check',
-    'name'      => t('Well Put'),
-    'info'      => t('Argument posted by user gets 20 agrees'),
+    'name'      => 'Well Put',
+    'info'      => 'Argument posted by user gets 20 agrees',
     'type'      => 'silver',
     'arguments' => array('count' => 20, 'argument_type' => 'argument'),
   );
   $badges['yn_argument_agreed_debate_gold'] = array(
     'function'  => 'badges_yn_argument_agreed_check',
-    'name'      => t('Consensus Builder'),
-    'info'      => t('Argument posted by user gets 50 agrees'),
+    'name'      => 'Consensus Builder',
+    'info'      => 'Argument posted by user gets 50 agrees',
     'type'      => 'gold',
     'arguments' => array('count' => 50, 'argument_type' => 'argument'),
   );
@@ -80,23 +80,23 @@ function badges_yn_badges() {
   # first vote up
   $badges['yn_upfirst'] = array(
     'function' => 'badges_yn_upfirst_check',
-    'name'     => t('Supporter'),
-    'info'     => t('First up vote'),
+    'name'     => 'Supporter',
+    'info'     => 'First up vote',
     'type'     => 'bronze',
   );
 
   # first vote ups
   $badges['yn_predict_bronze'] = array(
     'function'  => 'badges_yn_predict_check',
-    'name'      => t('Seer'),
-    'info'      => t('First agree on a post or resource that eventually gets 50 agrees'),
+    'name'      => 'Seer',
+    'info'      => 'First agree on a post or resource that eventually gets 50 agrees',
     'type'      => 'bronze',
     'arguments' => array('votes' => 50),
   );
   $badges['yn_predict_silver'] = array(
     'function'  => 'badges_yn_predict_check',
-    'name'      => t('Oracle'),
-    'info'      => t('First agree on a post or resource that eventually gets 100 agrees'),
+    'name'      => 'Oracle',
+    'info'      => 'First agree on a post or resource that eventually gets 100 agrees',
     'type'      => 'silver',
     'arguments' => array('votes' => 100),
   );

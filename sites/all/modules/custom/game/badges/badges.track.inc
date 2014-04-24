@@ -76,13 +76,13 @@ function badges_queue_badge($params = NULL) {
 
 /**
  * @param $uid
- * @param $badge
+ * @param $badgename
  */
-function badges_dequeue_badge($uid, $badge) {
-  $output = badges_grant($uid, $badge);
+function badges_dequeue_badge($uid, $badgename) {
+  $output = badges_grant($uid, $badgename);
 
   if (!empty($output)) {
-    $badge = badges_list($badge);
+    $badge = badges_list($badgename);
 
     // to give pennies
     action_queue(array(
@@ -95,7 +95,7 @@ function badges_dequeue_badge($uid, $badge) {
 
     return array(
       'status'     => TRUE,
-      'message'    => t('You have got the badge') . ' "' . $badge['name'] . '"',
+      'message'    => __('You have got the badge', array('@code' => 'badge-message', '@textgroup' => 'badge')) . ' "' . __($badge['name'], array('@code' => 'badge-name-'.$badgename, '@textgroup' => 'badge')) . '"',
       'message_to' => $uid,
     );
   }

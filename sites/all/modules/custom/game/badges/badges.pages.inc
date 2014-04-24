@@ -9,13 +9,13 @@ function badges_pages_menu() {
   $menu = array();
 
   $menu['badges'] = array(
-    'title'           => t('Badges'),
+    'title'           => __('Badges', array('@code' => 'badges-title', '@textgroup' => 'badge')),
     'page callback'   => 'theme',
     'page arguments'  => array('badges_list'),
     'access callback' => TRUE,
   );
   $menu['badges/users'] = array(
-    'title'           => t('Badges'),
+    'title'           => __('Badges', array('@code' => 'badges-title', '@textgroup' => 'badge')),
     'page callback'   => 'theme',
     'page arguments'  => array('badges_list_users'),
     'access callback' => TRUE,
@@ -94,9 +94,14 @@ function theme_badges_list($sort = 2) {
         <tr>
           <td class="badges_first"><span class="medal_wrapper"><span class="%s medal3" title="%s">&nbsp;</span><span class="medal_title"> %s</span><span class="badges_helper"></span></span></td>
           <td class="badges_second">%s</td>
-          <td class="badges_third"><span class="number_awarded">%d</span><span class="awarded_awarded"> ' . t('awarded') . '</span></td>
+          <td class="badges_third"><span class="number_awarded">%d</span><span class="awarded_awarded"> ' . __('awarded', array('@code' => 'badge-message-list', '@textgroup' => 'badge')) . '</span></td>
         </tr>
-      ', $badge_item['type'], t(badges_types($badge_item['type']) . ' Medal'), $badge_item['name'], $badge_item['info'], $badge->count - 1);
+      ',
+        $badge_item['type'],
+        __(badges_types($badge_item['type']) . ' Medal', array('@code' => 'badge-type-'.$badge_item['type'].'-medal', '@textgroup' => 'badge')),
+        __($badge_item['name'], array('@code' => 'badge-name-'.$badge->name, '@textgroup' => 'badge')),
+        __($badge_item['info'], array('@code' => 'badge-info-'.$badge->name, '@textgroup' => 'badge')),
+        $badge->count - 1);
   }
   //  $output .= '</div>';
   $output .= '</tbody></table></div></div>';
