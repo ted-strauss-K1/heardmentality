@@ -1,6 +1,24 @@
 <?php
 
 /**
+ * Soft dependency from T-Function module
+ */
+if (!function_exists('__')) {
+  /**
+   * See tt.module
+   *
+   * @param       $string
+   * @param array $args
+   * @param null  $langcode
+   *
+   * @return null|string
+   */
+  function __($string, $args = array(), $langcode = NULL) {
+    return t($string, $args, $langcode);
+  }
+}
+
+/**
  * Preprocess Drupal Status Messages
  *
  * @author odyachenko
@@ -28,18 +46,16 @@ function heardmentalitylight_status_messages($display = NULL) {
     }
     if ($noty_type !== FALSE) {
       foreach ($messages as $message) {
-        //        $noty[] = sprintf($noty_pattern, addslashes($message), $noty_type);
         $noty[] = sprintf($noty_pattern, json_encode(array(
-          'text' => $message,
-          'type' => $noty_type,
-        ) + ($noty_type == 'error' && preg_match('/password/', $message) ? array('timeout' => FALSE) : array())));
+            'text' => $message,
+            'type' => $noty_type,
+          ) + ($noty_type == 'error' && preg_match('/password/', $message) ? array('timeout' => FALSE) : array())));
       }
     }
   }
   drupal_add_js('$(document).ready(function(){' . implode('', $noty) . '});', 'inline');
   return FALSE;
 }
-
 
 /**
  * Preprocess Pages
@@ -105,7 +121,6 @@ function heardmentalitylight_preprocess_page(&$vars) {
     drupal_add_css($theme_path . '/stylesheets/front.css');
   }
   $vars['styles'] = drupal_get_css();
-
 }
 
 /**
