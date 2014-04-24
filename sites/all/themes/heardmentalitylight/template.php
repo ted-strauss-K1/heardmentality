@@ -56,12 +56,12 @@ function heardmentalitylight_preprocess_page(&$vars) {
       switch ($node->type) {
         case 'issue' :
           # set specific page templates
-          drupal_set_subtitle(__('issue-page-subtitle', 'Issue'));
+          drupal_set_subtitle(t('Issue'));
           array_push($vars['template_files'], 'page_12_4');
           $vars['content_class'] = 'poll-box';
           break;
         case 'static' :
-          drupal_set_subtitle(__('node-page-title-'.$node->nid, drupal_get_title()));
+          drupal_set_subtitle(drupal_get_title());
           array_push($vars['template_files'], 'page_12_4');
           break;
       }

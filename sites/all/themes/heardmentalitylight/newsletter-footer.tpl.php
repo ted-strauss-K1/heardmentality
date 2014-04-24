@@ -4,7 +4,7 @@
   <td align="center" style="border-top: 3px solid #3c3c3c; background : #444444; padding: 30px 0 40px 0;">
 
     <p
-      style="background: #3c3c3c; font-size: 22px; color: #cccccc; font-family: Arial; padding: 30px 5px 10px 5px; margin: 0 85px;"><?php print __("footer-slug", "Be Heard! Don't Be Part of the Herd."); ?></p>
+      style="background: #3c3c3c; font-size: 22px; color: #cccccc; font-family: Arial; padding: 30px 5px 10px 5px; margin: 0 85px;"><?php print t("Be Heard! Don't Be Part of the Herd."); ?></p>
 
     <p style=" background: #3c3c3c; padding: 10px 5px 40px 5px; margin: 0 85px; letter-spacing: 0; word-spacing: 0; font-size: 0; text-align: center">
       <a href="http://twitter.com/HeardMentality"
