@@ -108,7 +108,7 @@ function action_dequeue() {
         if ($output['status'] && $output['message']) {
           $message_to = isset($output['message_to']) ? $output['message_to'] : $item['uid'];
           if (user_is_logged_in() && ($message_to == $user->uid)) {
-            $json['message'][] = t($output['message']);
+            $json['message'][] = $output['message']; // todo translate ??
           }
           else {
             action_queue(array(
