@@ -159,7 +159,7 @@ function __locale($string, $args = array(), $langcode = NULL, $reset = FALSE) {
   }
 
   // check database if not found
-  if (('default' == $textgroup) && !isset($locale[$langcode][$textgroup][$code][$string])) {
+  if (!isset($locale[$langcode][$textgroup][$code][$string])) {
     //
     $query = "
       SELECT s.source, t.translation, t.language, s.code
