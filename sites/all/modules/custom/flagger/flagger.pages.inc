@@ -18,14 +18,14 @@ function flagger_page ($content_type, $content_id) {
     $output = array(
       'message' => drupal_get_form('flagger_form', $content_id, $content_type),
       'texts'   => array(
-        t('Flag'),
-        t('Cancel'),
-        t('Thank you for helping us keep this place in order'),
+        __('Flag', array('@code' => 'flag-form-flag')),
+        __('Cancel', array('@code' => 'flag-form-cancel')),
+        __('Thank you for helping us keep this place in order', array('@code' => 'flag-form-success')),
       ),
     );
   } else {
     $output = array(
-      'message' => t('You do not have permissions to view that page'),
+      'message' => __('You do not have permissions to view that page', array('@code' => 'flag-form-error-permissions')),
     );
   }
   $output['status'] = $permission;
@@ -54,11 +54,13 @@ function flagger_form (&$form, $content_id, $content_type) {
 
   $form['title'] = array(
     '#type'  => 'markup',
-    "#value" => 'user' == $content_type ? t("Which one of Heard Mentality's Guidelines and Principles is this user infringing?") : t("Which one of Heard Mentality's Guidelines and Principles is this debate posting infringing?"),
+    "#value" => 'user' == $content_type ?
+        __("Which one of Heard Mentality's Guidelines and Principles is this user infringing?", array('@code' => 'flag-form-message-'.$content_type)) :
+        __("Which one of Heard Mentality's Guidelines and Principles is this debate posting infringing?", array('@code' => 'flag-form-message-'.$content_type)),
   );
   $form['guide'] = array(
     '#type'  => 'markup',
-    "#value" => l(t('Read Guidelines'), '<front>'),
+    "#value" => l(__('Read Guidelines', array('@code' => 'guidelines')), '<front>'),
   );
 
   switch ($content_type) {
@@ -83,7 +85,7 @@ function flagger_form (&$form, $content_id, $content_type) {
   $value = -1;
   $options = array();
   foreach ($flags as $flag) {
-    $options[$flag->fid] = t($flag->title);
+    $options[$flag->fid] = __($flag->title, array('@code' => 'flag-'.$flag->fid, '@textgroup' => 'flag'));
     if ($flag->is_flagged($content_id)) {
       $value = $flag->fid;
       $notes = flag_note_get_notes(array(
@@ -105,7 +107,7 @@ function flagger_form (&$form, $content_id, $content_type) {
 
   $form['note'] = array(
     '#type'  => 'textarea',
-    '#title' => t('Note'),
+    '#title' => __('Note', array('@code' => 'flag-form-note')),
     "#value" => $note,
   );
 
@@ -139,7 +141,7 @@ function flagger_page_save () {
   if (!flagger_permission($content_type)) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('You do not have permissions to view that page'),
+      'message' => __('You do not have permissions to view that page', array('@code' => 'flag-form-error-permissions')),
     ));
     exit;
   }
@@ -214,7 +216,7 @@ function flagger_page_flags ($content_type, $content_id) {
   if (!flagger_permission('moderation')) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('You have no access to that info'),
+      'message' => __('You have no access to that info', array('@code' => 'flags-form-error-permissions')),
     ));
     exit;
   }
@@ -223,7 +225,7 @@ function flagger_page_flags ($content_type, $content_id) {
 
   $flags = flagger_get_flags($content_type, $content_id);
   foreach ($flags as $fid => $flag) {
-    $output .= t($flag['title']);
+    $output .= __($flag['title'], array('@code' => 'flag-'.$fid, '@textgroup' => 'flag'));
     $output .= '<hr style="margin:3px 0 5px 0"/>';
     $output .= '<ul>';
     foreach ($flag['users'] as $uid => $data) {
@@ -233,7 +235,7 @@ function flagger_page_flags ($content_type, $content_id) {
   }
 
   if (!$flags) {
-    $output = t('No flags');
+    $output = __('No flags', array('@code' => 'flags-form-noflags'));
   }
 
   print json_encode(array(
@@ -254,13 +256,14 @@ function flagger_page_history ($content_type, $content_id) {
   if (!flagger_permission('moderation')) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('You have no access to that info'),
+      'message' => __('You have no access to that info', array('@code' => 'flags-form-error-permissions')),
     ));
     exit;
   }
 
   $output = '<div class="scrollable">';
 
+  $text_remove = __('Remove flag', array('@code' => 'flags-form-remove-flag'));
   $result = db_query_range("
     SELECT fch.*, f.title, u.name, u1.name name_moderator
     FROM flag_content_history fch
@@ -271,19 +274,31 @@ function flagger_page_history ($content_type, $content_id) {
     ORDER BY GREATEST(timestamp_set, timestamp_unset) DESC, status DESC", $content_type, $content_id, 0, 100);
   $output .= '<ul class="flags-history">';
   while ($row = db_fetch_array($result)) {
-    $output .= sprintf('<li name="%d" class="status-%d"><span class="remove" title="%s"></span>', $row['fcid'], $row['status'], t('Remove flag'));
-    $output .= sprintf('<span class="flag-name status-%d">%s</span>', $row['status'], t($row['title']));
-    $output .= ' ' . t('by') . ' ' . l($row['name'], 'user/profile/view/' . $row['uid'], array(
-        'attributes' => array(
-          'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_set']),
-        ),
-      ));
+    $output .= sprintf('<li name="%d" class="status-%d"><span class="remove" title="%s"></span>', $row['fcid'], $row['status'], $text_remove);
+    $output .= sprintf('<span class="flag-name status-%d">%s</span>', $row['status'], __($row['title'], array('@code' => 'flag-'.$row['fid'], '@textgroup' => 'flag')));
     $output .= ' ';
+    $output .= __('by !name', array(
+      '@code' => 'flags-form-by-name',
+      '!name' => l($row['name'], 'user/profile/view/' . $row['uid'], array(
+        'attributes' => array(
+          'title' => __('at !time', array(
+              '@code' => 'flags-form-at-time',
+              '!time' => date('Y.m.d H:i:s', $row['timestamp_set'])
+            )),
+        ),
+      )),
+    ));
     if (!$row['status']) {
-      $output .= ' (' . t('removed by') . ' ' . l($row['name_moderator'], 'user/profile/view/' . $row['uid_moderator'], array(
-          'attributes' => array(
-            'title' => t('at') . ' ' . date('Y.m.d H:i:s', $row['timestamp_unset']),
-          ),
+      $output .= ' (' . __('removed by !name', array(
+          '@code' => 'flags-form-by-name-removed',
+          '!name' => l($row['name_moderator'], 'user/profile/view/' . $row['uid_moderator'], array(
+            'attributes' => array(
+              'title' => __('at !time', array(
+                '@code' => 'flags-form-at-time',
+                '!time' => date('Y.m.d H:i:s', $row['timestamp_unset']),
+              )),
+            ),
+          ))
         )) . ')';
     }
     $output .= '</li>';
@@ -306,7 +321,7 @@ function flagger_page_unflag ($fcid) {
   if (!flagger_permission('moderation')) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('You have no access to that page'),
+      'message' => __('You have no access to that page', array('@code' => 'flags-form-unflag-error-permissions')),
     ));
     exit;
   }
@@ -331,7 +346,7 @@ function flagger_page_unflag ($fcid) {
   }
   print json_encode(array(
     'status'       => TRUE,
-    'message'      => t('Flag was removed'),
+    'message'      => __('Flag was removed', array('@code' => 'flags-form-flag-removed')),
     'content_id'   => $content_id,
     'content_type' => $content_type,
     'flagged'      => (bool)flagger_get_flags($content_type, $content_id, TRUE),

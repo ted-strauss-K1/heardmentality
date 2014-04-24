@@ -60,10 +60,10 @@ function __t($string, $args = array(), $langcode = NULL) {
     $langcode = $language->language;
   }
 
-  //
-  if ($langcode != 'en') {
-    $string = __locale($string, $args, $langcode);
-  }
+  // allow changing default translations
+  // if ($langcode != 'en') {
+  $string = __locale($string, $args, $langcode);
+  // }
 
   //
   if (empty($args)) {

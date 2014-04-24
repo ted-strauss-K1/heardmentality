@@ -45,7 +45,6 @@ function moderation_userflags_form() {
   return _moderation_form('userflags');
 }
 
-
 /**
  * Common way to call the list form
  *
@@ -100,7 +99,7 @@ function _moderation_form($type = 'issues') {
   if (empty($items)) {
     $form['item_none'] = array(
       '#type'  => 'markup',
-      '#value' => '<span>' . t('No items found') . '</span>',
+      '#value' => '<span>' . __('No items found', array('@code' => 'moderation-notfound')) . '</span>',
     );
   }
 
@@ -148,7 +147,7 @@ function _moderation_form_filter_elements($filters) {
 
   $form['filters'] = array(
     '#type'        => 'fieldset',
-    '#title'       => t('Filters'),
+    '#title'       => __('Filters', array('@code' => 'moderation-filters')),
     '#collapsible' => TRUE,
     '#collapsed'   => TRUE,
   );
@@ -156,8 +155,11 @@ function _moderation_form_filter_elements($filters) {
   if (isset($filters['status'])) {
     $form['filters']['status'] = array(
       '#type'          => 'select',
-      '#title'         => t('Content'),
-      '#options'       => array(1 => t('Flagged'), 2 => t('Not moderated')),
+      '#title'         => __('Content', array('@code' => 'moderation-filters-content')),
+      '#options'       => array(
+        1 => __('Flagged', array('@code' => 'moderation-filters-content-flagged')),
+        2 => __('Not moderated', array('@code' => 'moderation-filters-content-notmoderated'))
+      ),
       '#default_value' => $filters['status'],
     );
   }
@@ -165,7 +167,7 @@ function _moderation_form_filter_elements($filters) {
   if (isset($filters['perpage'])) {
     $form['filters']['perpage'] = array(
       '#type'          => 'select',
-      '#title'         => t('Per page'),
+      '#title'         => __('Per page', array('@code' => 'moderation-filters-perpage')),
       '#options'       => array(10 => 10, 15 => 15, 20 => 20, 25 => 25),
       '#default_value' => $filters['perpage'],
     );
@@ -174,7 +176,7 @@ function _moderation_form_filter_elements($filters) {
   if (!empty($filters)) {
     $form['filters']['submit'] = array(
       '#type'   => 'submit',
-      '#value'  => t('Save'),
+      '#value'  => __('Save', array('@code' => 'moderation-filters-button')),
       '#submit' => array('_moderation_form_filter_save'),
     );
   }
@@ -489,12 +491,7 @@ function _moderation_form_content_filter_users($filters, $page) {
 function moderation_markup_userflag($user) {
   return '<div class="mod-wrapper part part1 search_list">
     <h2 class="din half">' . ucwords($user->name) . ' <div class="open"></div> </h2>
-    <div class="mod-buttons">'
-  . sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>',
-        url($user->viewlink),
-        t('View Profile')
-      )
-  . theme('flagger_btn_history', $user->uid, 'user') . '</div>
+    <div class="mod-buttons">' . sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', url($user->viewlink), __('View Profile', array('@code' => 'view-profile'))) . theme('flagger_btn_history', $user->uid, 'user') . '</div>
   </div>';
 }
 
@@ -514,7 +511,7 @@ function moderation_markup_user($user) {
 
   return user_access(MODERATION_ADMIN, $user) ? '' : '<div class="mod-wrapper part part1 search_list">
     <h2 class="din half">' . ucwords($user->name) . ' <div class="open"></div> </h2>
-    <div class="mod-buttons">' . sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', url($user->viewlink), t('View Profile')) . sprintf('<a href="#" class="permission %s" name="%s"><span class="mod-edit mod-icon" title="%s"></span></a>', !moderation_check_perm($user->uid) ? '' : 'remove', 'moderation/user/' . $user->uid, t('Change permissions')) . '</div>
+    <div class="mod-buttons">' . sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>', url($user->viewlink), __('View Profile', array('@code' => 'view-profile'))) . sprintf('<a href="#" class="permission %s" name="%s"><span class="mod-edit mod-icon" title="%s"></span></a>', !moderation_check_perm($user->uid) ? '' : 'remove', 'moderation/user/' . $user->uid, __('Change permissions', array('@code' => 'moderation-change-permissions'))) . '</div>
   </div>';
 }
 
@@ -545,7 +542,7 @@ function moderation_issue_view_form($form_state, $nid) {
   $node = node_load($nid);
 
   if ($node->moderate != MODERATION_ALLOWED) {
-    drupal_set_message(t('Moderation of that issue is not allowed'), 'warning');
+    drupal_set_message(__('Moderation of that issue is not allowed', array('@code' => 'moderation-not-allowed')), 'warning');
   }
 
   if ('issue' != $node->type) {
@@ -555,9 +552,9 @@ function moderation_issue_view_form($form_state, $nid) {
   //
   $form['title'] = array(
     '#type'   => 'textfield',
-    '#title'  => t('Title'),
+    '#title'  => __('Title', array('@code' => 'moderation-edit-title')),
     '#value'  => issue_translate($node, 'title'),
-    '#prefix' => '<div class="question_section">' . '<div class="view_q">' . l(sprintf('<i class="mod-view mod-icon" title="%s"></i>%s', t('View'), t('View')), $node->path, array(
+    '#prefix' => '<div class="question_section">' . '<div class="view_q">' . l(sprintf('<i class="mod-view mod-icon" title="%s"></i>%s', __('View', array('@code' => 'moderation-edit-view-issue')), __('View', array('@code' => 'moderation-edit-view-issue'))), $node->path, array(
         'html'       => TRUE,
         'attributes' => array('target' => '_blank'),
       )) . '</div>',
@@ -565,25 +562,25 @@ function moderation_issue_view_form($form_state, $nid) {
   );
   $form['body'] = array(
     '#type'   => 'textarea',
-    '#title'  => t('Description'),
+    '#title'  => __('Description', array('@code' => 'moderation-edit-body')),
     '#value'  => issue_translate($node, 'body'),
     '#suffix' => '</div>',
   );
 
   $form['fixed'] = array(
     '#type'  => 'checkbox',
-    '#title' => t('Forbid suggesting answers'),
+    '#title' => __('Forbid suggesting answers', array('@code' => 'moderation-edit-forbid')),
     '#value' => $node->cpoll['fixed'],
   );
   $form['active'] = array(
     '#type'  => 'checkbox',
-    '#title' => t('Active Poll'),
+    '#title' => __('Active Poll', array('@code' => 'moderation-edit-active')),
     '#value' => $node->cpoll['active'],
   );
 
   $form['choices'] = array(
     '#type'        => 'fieldset',
-    '#title'       => t('Leave the choice text empty to request its deletion'),
+    '#title'       => __('Leave the choice text empty to request its deletion', array('@code' => 'moderation-edit-deletion')),
     '#prefix'      => '<div id="choices-wrapper">',
     '#suffix'      => '</div>',
     '#collapsible' => TRUE,
@@ -607,7 +604,7 @@ function moderation_issue_view_form($form_state, $nid) {
     // add more
     $form['choices']['add_more'] = array(
       '#type'   => 'submit',
-      '#value'  => '+ ' . t('Add another choice'),
+      '#value'  => '+ ' . __('Add another choice', array('@code' => 'moderation-edit-add-choice')),
       '#weight' => 1,
       '#ahah'   => array(
         'path'    => 'moderation/ahah/choices',
@@ -641,7 +638,7 @@ function moderation_issue_view_form($form_state, $nid) {
 
   $form['save'] = array(
     '#type'   => 'submit',
-    '#value'  => t('Save and Approve'),
+    '#value'  => __('Save and Approve', array('@code' => 'moderation-edit-button-save')),
     '#submit' => array('moderation_issue_view_form_save'),
     '#prefix' => '<div class="action_wrapper">',
     '#suffix' => '</div>',
@@ -654,7 +651,7 @@ function moderation_issue_view_form($form_state, $nid) {
   ) {
     $form['delete'] = array(
       '#type'   => 'submit',
-      '#value'  => t('Deletion request'),
+      '#value'  => __('Deletion request', array('@code' => 'moderation-edit-button-delete')),
       '#submit' => array('moderation_issue_view_form_delete'),
       // '#suffix' => '</div>',
     );
@@ -695,17 +692,19 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0) {
   // their values appear in the $form_state['values']['choice'] array.
   $form['votes'] = array(
     '#type'  => 'markup',
-    '#value' => '<div class="mod-votecount-wrapper"><span>' . t('Votes') . ': ' . intval($choice['votes']) . '</span></div>',
+    '#value' => '<div class="mod-votecount-wrapper"><span>' .
+      __('@count votes', array('@code' => 'moderation-edit-votecount', '@count' => intval($choice['votes'])))
+      . '</span></div>',
   );
   $form['chtext'] = array(
     '#type'          => 'textfield',
-    '#title'         => t('Choice @n', array('@n' => ($delta + 1))),
+    '#title'         => __('Choice @n', array('@code' => 'moderation-edit-chtext', '@n' => ($delta + 1))),
     '#default_value' => $choice['chtext'],
     '#parents'       => array('choices', $delta, 'chtext'),
   );
   $form['chtext_short'] = array(
     '#type'          => 'textfield',
-    '#title'         => t('Choice short text @n', array('@n' => ($delta + 1))),
+    '#title'         => __('Choice short text @n', array('@code' => 'moderation-edit-chtext_short', '@n' => ($delta + 1))),
     '#default_value' => $choice['chtext_short'],
     '#parents'       => array('choices', $delta, 'chtext_short'),
   );
@@ -723,7 +722,7 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0) {
   global $user;
   $form['meta'] = array(
     '#type'        => 'fieldset',
-    '#title'       => t('Metadata'),
+    '#title'       => __('Metadata', array('@code' => 'moderation-edit-meta')),
     '#collapsible' => FALSE,
     '#collapsed'   => FALSE,
   );
@@ -732,7 +731,7 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0) {
     foreach ($meta[$choice['chid']] as $cid => $value) {
       $form['meta']['char' . $cid] = array(
         '#type'    => 'select',
-        '#title'   => t($value['chtext']),
+        '#title'   => __($value['chtext'], array('@code' => 'cpoll_meta-'.$cid)),
         '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
         '#value'   => $value['val'],
         '#size'    => 5,
@@ -747,7 +746,7 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0) {
     foreach ($meta as $cid => $text) {
       $form['meta']['char' . $cid] = array(
         '#type'    => 'select',
-        '#title'   => t($text),
+        '#title'   => __($text, array('@code' => 'cpoll_meta-'.$cid)),
         '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5),
         '#value'   => CPOLL_META_AVG,
         '#size'    => 5,
@@ -757,7 +756,6 @@ function _moderation_ahah_choice($delta, $choice = FALSE, $nid = 0) {
       );
     }
   }
-
 
   return $form;
 }
@@ -830,7 +828,7 @@ function moderation_issue_view_form_taxonomy(&$form, $tft_codes = FALSE) {
   // taxonomy container
   $form['taxonomy'] = array(
     '#type'        => 'fieldset',
-    '#title'       => t('Categories'),
+    '#title'       => __('Categories', array('@code' => 'moderation-edit-categories')),
     '#prefix'      => '<div id="taxonomy-wrapper">',
     '#suffix'      => '</div>',
     '#tree'        => TRUE,
@@ -893,7 +891,7 @@ function moderation_issue_view_form_location(&$form, $tfl_codes = FALSE) {
   // location container
   $form['location'] = array(
     '#type'        => 'fieldset',
-    '#title'       => t('Location'),
+    '#title'       => __('Location', array('@code' => 'moderation-edit-location')),
     '#prefix'      => '<div id="location-wrapper">',
     '#suffix'      => '</div>',
     '#tree'        => TRUE,
@@ -934,7 +932,6 @@ function moderation_issue_view_form_location(&$form, $tfl_codes = FALSE) {
  */
 function moderation_issue_view_form_delete(&$form, &$form_state) {
   moderation_delete_request($form);
-
   // todo track flagging success
 }
 
@@ -961,10 +958,13 @@ function moderation_delete_request($form) {
         db_query("UPDATE node SET status = '%d' WHERE nid = '%d'", 0, $form['content_id']['#value']);
         break;
     }
-    drupal_set_message(t('Content deletion approved.'));
+    drupal_set_message(__('Content deletion approved.', array('@code' => 'moderation-deletion-approved')));
   }
   else {
-    drupal_set_message(t('Content deletion not approved.') . ' ' . (MODERATION_DELETE_COUNT - $delete_requests) . ' ' . t('deletion requests from other moderators are required.'));
+    drupal_set_message(__('Content deletion not approved. @count deletion requests from other moderators are required.', array(
+      '@code' => 'moderation-deletion-approved-not',
+      '@count' => MODERATION_DELETE_COUNT - $delete_requests,
+    )));
   }
 }
 
@@ -994,7 +994,6 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
 
   // there we store changes
   $changed = array();
-
 
   // title changed
   $title = issue_translate($node, 'title');

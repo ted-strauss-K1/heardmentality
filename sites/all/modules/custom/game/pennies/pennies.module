@@ -149,7 +149,7 @@ function pennies_userpoints($op, $params = array()) {
           $form[$group][$id] = array(
             '#type'          => 'select',
             '#options'       => array_combine(range(-100, 0), range(-100, 0)),
-            '#title'         => t($action),
+            '#title'         => $action,
             '#default_value' => variable_get($id, -1),
           );
         }

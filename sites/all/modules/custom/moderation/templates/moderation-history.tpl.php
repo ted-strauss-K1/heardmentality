@@ -1,5 +1,5 @@
 <div class="grey-box full icon_inside">
-  <i class="icon cat text icon-rubberstamp"></i> <label class="with_icon"><?php echo t('Moderation history'); ?></label>
+  <i class="icon cat text icon-rubberstamp"></i> <label class="with_icon"><?php echo __('Moderation history', array('@code' => 'moderation-block-history')); ?></label>
   <?php if ($history) : ?>
     <?php foreach ($history as $item) : ?>
       <div class="mh_cell">
@@ -10,16 +10,16 @@
 
         <?php if ($item['type'] == 'approve') : ?>
 
-          <strong><?php echo t('Approved by'), ' ', $link; ?></strong>
+          <strong><?php echo __('Approved by', array('@code' => 'moderation-block-history-approved')), ' ', $link; ?></strong>
 
         <?php elseif ($item['type'] == 'delete') : ?>
 
-          <strong><?php echo t('Deletion requested by'), ' ', $link; ?></strong>
+          <strong><?php echo __('Deletion requested by', array('@code' => 'moderation-block-history-deletion')), ' ', $link; ?></strong>
 
         <?php
         elseif ($item['type'] == 'edit') : ?>
 
-          <strong><?php echo t('Edited by'), ' ', $link; ?></strong>
+          <strong><?php echo __('Edited by', array('@code' => 'moderation-block-history-edited')), ' ', $link; ?></strong>
 
           <ul><?php foreach ($item['vars'] as $main => $edit) : ?>
               <li>
@@ -30,17 +30,24 @@
                 <?php if (isset($choice['chtext'])) : ?>
                   <?php if ($choice['chtext'] == '') : ?>
                     <div><span
-                        class="action"><?php print t('Requested deletion of choice #') . ($choice['chorder'] + 1); ?></span>
+                        class="action"><?php print __('Requested deletion of choice #!chorder', array(
+                            '@code' => 'moderation-block-history-choice-deletion',
+                            '!chorder' => $choice['chorder'] + 1,
+                          )); ?></span>
                     </div>
                   <?php else : ?>
-                    <div><span
-                        class="action"><?php print t('Changed the text of choice #') . ($choice['chorder'] + 1) . ' ' . t('to') . '</span> "' . $choice['chtext'] . '"'; ?>
+                    <div><span class="action"><?php print __('Changed the text of choice #!chorder to', array(
+                            '@code' => 'moderation-block-history-choice-chtext',
+                            '!chorder' => $choice['chorder'] + 1,
+                          )) . '</span> "' . $choice['chtext'] . '"'; ?>
                     </div>
                   <?php endif; ?>
                 <?php endif; ?>
                 <?php if (isset($choice['chtext_short'])) : ?>
-                  <div><span
-                      class="action"><?php print t('Changed the short text of choice #') . ($choice['chorder'] + 1) . ' ' . t('to') . '</span> "' . $choice['chtext_short'] . '"'; ?>
+                  <div><span class="action"><?php print __('Changed the short text of choice #!chorder to', array(
+                          '@code' => 'moderation-block-history-choice-chtext_short',
+                          '!chorder' => $choice['chorder'] + 1,
+                        )) . '</span> "' . $choice['chtext_short'] . '"'; ?>
                   </div>
                 <?php endif; ?>
               <?php endforeach; ?>
@@ -48,13 +55,13 @@
             <?php elseif ($main == 'body') : ?>
 
               <div><span
-                  class="action"><?php print t('Set description value to: ') ?></span><?php print trim_better($edit, 200); ?>
+                  class="action"><?php print __('Set description value to', array('@code' => 'moderation-block-history-body')) ?>: </span><?php print trim_better($edit, 200); ?>
               </div>
 
             <?php
             elseif ($main == 'title') : ?>
 
-              <div><span class="action"><?php print t('Set title to: ') ?></span><?php print $edit; ?>
+              <div><span class="action"><?php print __('Set title to', array('@code' => 'moderation-block-history-title')) ?>: </span><?php print $edit; ?>
 
             <?php endif; ?>
 
@@ -64,6 +71,6 @@
       </div>
     <?php endforeach; ?>
   <?php else : ?>
-    <?php print t('Moderation history is empty'); ?>
+    <?php print __('Moderation history is empty', array('@code' => 'moderation-block-history-empty')); ?>
   <?php endif; ?>
 </div>

@@ -50,7 +50,7 @@ function issue_search_menu() {
   # search page
   $menu['issues'] = array(
     'page callback'   => 'drupal_get_form',
-    'title'           => t('Issues'),
+    'title'           => __('Issues', array('@code' => 'search-page-title')),
     'page arguments'  => array('issue_search_form'),
     'access callback' => TRUE,
     'type'            => MENU_CALLBACK,
@@ -118,7 +118,7 @@ function issue_search() {
   } catch (Exception $e) {
     $json = array(
       'status'  => TRUE,
-      'message' => t('No results found') . '<!-- ' . $e->getMessage() . ' -->',
+      'message' => __('No results found', array('@code' => 'search-page-notfound')) . '<!-- ' . $e->getMessage() . ' -->',
       'rows'    => 0,
       'time'    => 0,
     );
@@ -183,7 +183,7 @@ function issue_search_preprocess_page(&$variables) {
     // Filters sidebar.
     $variables['right'] = theme('issue_search_filter');
 
-    drupal_set_subtitle(t('Search'));
+    drupal_set_subtitle(__('Search', array('@code' => 'search-page-title')));
   }
 }
 
