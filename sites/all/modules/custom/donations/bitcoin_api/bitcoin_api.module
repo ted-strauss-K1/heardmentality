@@ -14,7 +14,7 @@ require_once "lib/Coinbase.php";
  * @return array
  */
 function bitcoin_api_donations() {
-  return array('bitcoin_api' => t('Bitcoin'));
+  return array('bitcoin_api' => 'Bitcoin');
 }
 
 /**

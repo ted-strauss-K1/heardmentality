@@ -41,21 +41,19 @@ function donations_menu() {
   $menu = array();
 
   $menu['donate'] = array(
-    'title'            => t('Donate'),
+    'title'            => __('Donate', array('@code' => 'page-donate-title')),
     'page callback'    => 'drupal_get_form',
     'page arguments'   => array('donations_donate_form'),
     'access arguments' => array(DONATIONS_MAKE),
     'type'             => MENU_CALLBACK,
   );
   $menu['donate/success/%'] = array(
-    'title'            => t('Donate'),
     'page callback'    => 'donations_success',
     'page arguments'   => array(2),
     'access arguments' => array(DONATIONS_MAKE),
     'type'             => MENU_CALLBACK,
   );
   $menu['donate/cancel/%'] = array(
-    'title'            => t('Donate'),
     'page callback'    => 'donations_cancel',
     'page arguments'   => array(2),
     'access arguments' => array(DONATIONS_MAKE),
@@ -72,7 +70,7 @@ function donations_donate_form() {
   $form = array();
 
   if (function_exists('drupal_set_subtitle')) {
-    drupal_set_subtitle(t('Donate'));
+    drupal_set_subtitle(__('Donate', array('@code' => 'donate-page-title')));
   }
 
   $form['#action'] = url('donate', array('absolute' => TRUE));
@@ -85,14 +83,14 @@ function donations_donate_form() {
   $values = variable_get('donations_values', array());
   $values['other'] = 'Other';
   if (!empty($values)) {
-    foreach ($values as &$value) {
-      $value = t($value);
-    }
+//    foreach ($values as &$value) {
+//      $value = t($value);
+//    }
     $keys = array_keys($values);
     $rand_key = array_rand($values, 1);
     $form['values'] = array(
       "#type"          => "radios",
-      "#title"         => t("Donation amount"),
+      "#title"         => __("Donation amount", array('@code' => 'donate-page-amount')),
       '#default_value' => $rand_key == count($values) - 1 ? $keys[0] : $rand_key,
       '#options'       => $values,
     );
@@ -100,14 +98,14 @@ function donations_donate_form() {
 
   $form['other'] = array(
     "#type"  => "textfield",
-    "#title" => t("Other amount"),
+    "#title" => __("Other amount", array('@code' => 'donate-page-amount-other')),
     "#value" => '',
   );
 
   $payment_methods = donations_api();
   $form['api'] = array(
     "#type"          => "radios",
-    "#title"         => t("Payment method"),
+    "#title"         => __("Payment method", array('@code' => 'donate-page-payment-system')),
     '#default_value' => array_key_exists('paypal_api', $payment_methods) ? 'paypal_api' : @key($payment_methods),
     '#options'       => $payment_methods,
   );
@@ -119,7 +117,7 @@ function donations_donate_form() {
 
   $form['submit'] = array(
     '#type'  => 'submit',
-    '#value' => t('Donate'),
+    '#value' => __('Donate', array('@code' => 'donate-page-button')),
   );
 
   return $form;
@@ -131,10 +129,10 @@ function donations_donate_form() {
 function donations_donate_form_validate($form, $form_state) {
   $post = $form_state["clicked_button"]["#post"];
   if ($post['values'] == 'other' && !is_numeric($post['other'])) {
-    form_set_error('other', t('Value should be numeric'));
+    form_set_error('other', __('Value should be numeric', array('@code' => 'donate-page-error-numeric')));
   }
   if (empty($post['api'])) {
-    form_set_error('api', t('Select a payment method'));
+    form_set_error('api', __('Select a payment method', array('@code' => 'donate-page-error-system')));
   }
 }
 
@@ -150,7 +148,7 @@ function donations_donate_form_submit($form, $form_state) {
     donations_make($payment_method, $amount);
   } catch (Exception $e) {
     $payment_methods = donations_api();
-    form_set_error('api', t('Error has happened when trying to access') . ' ' . $payment_methods[$payment_method]);
+    form_set_error('api', __('Error has happened when trying to access', array('@code' => 'donate-page-error-api')) . ' ' . __($payment_methods[$payment_method], array('@code' => 'donate-page-api-'.$payment_method)));
   }
 }
 
