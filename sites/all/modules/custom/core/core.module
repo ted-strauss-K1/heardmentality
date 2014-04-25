@@ -37,6 +37,10 @@ function core_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
         db_query("UPDATE {url_alias} SET language = '' WHERE src = '%s'", 'node/' . $node->nid);
         break;
       case 'delete' :
+        # args
+        $node->debate = argument_get_list($node->nid, $node->info);
+
+        # delete them
         if ($node->debate) {
           foreach ($node->debate as $row) {
             node_delete($row->nid);
