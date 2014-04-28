@@ -1,0 +1,4 @@
+name = T-Function Wrapper
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x
