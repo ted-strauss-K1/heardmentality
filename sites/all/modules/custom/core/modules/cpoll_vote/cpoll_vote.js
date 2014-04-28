@@ -44,8 +44,8 @@ function voteform_submit(form, suggestion) {
   // activated form
   if (voteform_is_active(form)) {
     var message = suggestion ?
-      Drupal.t('Multiple submissions are not allowed') + '. ' + Drupal.t('Wait for few seconds to add your suggestion') :
-      Drupal.t('Multiple submissions are not allowed') + '. ' + Drupal.t('Wait for few seconds to change your vote');
+      Drupal.tt('Multiple submissions are not allowed', {"@code": "cpoll_vote-error-multiple"}) + '. ' + Drupal.tt('Wait for few seconds to add your suggestion', {"@code": "cpoll_vote-wait-choice"}) :
+      Drupal.tt('Multiple submissions are not allowed', {"@code": "cpoll_vote-error-multiple"}) + '. ' + Drupal.tt('Wait for few seconds to change your vote', {"@code": "cpoll_vote-wait-vote"});
     $.hrd.noty({
       type: 'error',
       text: message
@@ -107,7 +107,7 @@ function voteform_validate(form, suggestion) {
     if (!input.val()) {
       $.hrd.noty({
         type: 'error',
-        text: Drupal.t('The choice submitted cannot be empty') + '. '
+        text: Drupal.tt('The choice submitted cannot be empty', {"@code": "cpoll_vote-error-empty"}) + '. '
       });
       return false;
     }
@@ -118,14 +118,14 @@ function voteform_validate(form, suggestion) {
     if (!chid || (!chid.val() && (-1 == vote.val()))) {
       $.hrd.noty({
         type: 'error',
-        text: Drupal.t('The choice submitted cannot be empty') + '. '
+        text: Drupal.tt('The choice submitted cannot be empty', {"@code": "cpoll_vote-error-empty"}) + '. '
       });
       return false;
     }
     if (chid.val() == vote.val()) {
       $.hrd.noty({
         type: 'error',
-        text: Drupal.t('The choice was already submitted') + '. '
+        text: Drupal.tt('The choice was already submitted', {"@code": "cpoll_vote-error-duplicate"}) + '. '
       });
       return false;
     }
@@ -156,8 +156,8 @@ function voteform_preexecute(form, suggestion) {
 
   // message
   var message = suggestion ?
-    Drupal.t('Your suggestion was added') + '!' :
-    Drupal.t('Your vote is accepted') + '!';
+    Drupal.tt('Your suggestion was added', {"@code": "cpoll_vote-msg-added"}) + '!' :
+    Drupal.tt('Your vote is accepted', {"@code": "cpoll_vote-msg-accepted"}) + '!';
   $.hrd.noty({
     type: 'success',
     text: message
@@ -211,7 +211,7 @@ function voteform_animate(form) {
     $(e).find('.choice-radio-percentage').animate({
       'width': Math.round(100 * count / votecount) + '%'
     }, {
-      queue   : false,
+      queue: false,
       duration: 500
     });
   });
@@ -232,11 +232,11 @@ function voteform_request(form, suggestion) {
   }
 
   $.ajax({
-    type    : 'POST',
+    type: 'POST',
     dataType: 'json',
-    url     : Drupal.settings.language_prefix + '/cpoll_vote/ajax',
-    data    : dataset,
-    success : function (response) {
+    url: Drupal.settings.language_prefix + '/cpoll_vote/ajax',
+    data: dataset,
+    success: function (response) {
       if (!response.status) {
         voteform_error(form, suggestion, response);
         return false;
@@ -331,7 +331,7 @@ function voteform_postexecute(form, suggestion, response) {
   }
 
   // change the text
-  form.find('input#vote[type=submit]').addClass('not-changed').val(Drupal.t('Change vote'));
+  form.find('input#vote[type=submit]').addClass('not-changed').val(Drupal.tt('Change vote', {"@code": "cpoll_vote-btn-change"}));
 
   // deactivate form
   voteform_deactivate(form);
@@ -341,11 +341,11 @@ function voteform_postexecute(form, suggestion, response) {
 
   // index
   $.ajax({
-    type    : 'POST',
+    type: 'POST',
     dataType: 'json',
-    url     : '/issues/index',
-    data    : {},
-    success : function (response) {
+    url: '/issues/index',
+    data: {},
+    success: function (response) {
       //
     }
   });

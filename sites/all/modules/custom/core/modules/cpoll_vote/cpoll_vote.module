@@ -4,20 +4,16 @@
 /**
  * @return array
  */
-function cpoll_vote_content_translate_rebuild_js() {
-  $path = drupal_get_path('module', 'cpoll_vote');
+function cpoll_vote_tt_js() {
   return array(
-    $path . '/cpoll_vote.js' => array(
-      'Multiple submissions are not allowed',
-      'Wait for few seconds to add your suggestion',
-      'Your suggestion was added',
-      'Wait for few seconds to change your vote',
-      'Your vote is accepted',
-      'Change vote',
-      'The choice submitted cannot be empty',
-      'The choice was already submitted',
-
-    ),
+    'cpoll_vote-error-multiple'  => 'Multiple submissions are not allowed',
+    'cpoll_vote-wait-choice'     => 'Wait for few seconds to add your suggestion',
+    'cpoll_vote-msg-added'       => 'Your suggestion was added',
+    'cpoll_vote-wait-vote'       => 'Wait for few seconds to change your vote',
+    'cpoll_vote-msg-accepted'    => 'Your vote is accepted',
+    'cpoll_vote-btn-change'      => 'Change vote',
+    'cpoll_vote-error-empty'     => 'The choice submitted cannot be empty',
+    'cpoll_vote-error-duplicate' => 'The choice was already submitted',
   );
 }
 
@@ -224,7 +220,6 @@ function cpoll_vote_form_radios($form_element, &$form_state) {
         </div>
       </div>';
 
-
       //      $prefix .= '<div class="radio_wrapper choice-' . $choice['chtype'] . ' ' . ($node->vote == $choice['chid'] ? 'current-vote ' : '') . 'clearfix"><span class="teaser_count_vote vote-result-' . (-1 == $i ? 'empty' : $i) . '"> <span class="vote-result-' . $i . '">' . $vote_number . '</span>' . $vote_string . '</span>';
       //      $suffix = '</div>';
 
@@ -320,7 +315,6 @@ function cpoll_vote_ajax() {
   ));
   exit;
 }
-
 
 /**
  * @return null|string

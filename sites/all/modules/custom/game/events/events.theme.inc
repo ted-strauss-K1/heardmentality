@@ -3,27 +3,15 @@
 /**
  * @return array
  */
-function events_content_translate_rebuild_js() {
-  $path = drupal_get_path('module', 'events');
+function events_tt_js() {
   return array(
-    $path . '/events.js' => array(
-      'second',
-      'seconds',
-      'minute',
-      'minutes',
-      'hour',
-      'hours',
-      'day',
-      'days',
-      'week',
-      'weeks',
-      'month',
-      'months',
-      'year',
-      'years',
-      'ago',
-      'just now',
-    ),
+    "events-time-now" => "just now",
+    "events-time-s"   => "@count second(s) ago",
+    "events-time-i"   => "@count minute(s) ago",
+    "events-time-h"   => "@count hour(s) ago",
+    "events-time-d"   => "@count day(s) ago",
+    "events-time-m"   => "@count month(s) ago",
+    "events-time-y"   => "@count year(s) ago",
   );
 }
 

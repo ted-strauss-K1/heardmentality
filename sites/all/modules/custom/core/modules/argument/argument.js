@@ -6,8 +6,8 @@ $(document).ready(function () {
     var select = $('.value-select .form-item select');
     select.each(function (e) {
       var slider = $("<div id='slider-" + e + "'><span class='left'></span><span class='right'></span></div>").insertAfter($(this)).slider({
-        min  : 1,
-        max  : 3,
+        min: 1,
+        max: 3,
         range: 2,
         value: select[e].selectedIndex + 1,
         slide: function (event, ui) {
@@ -179,7 +179,7 @@ $('.arg-reply-form').live('submit', function (e) {
   if (form.find('textarea').val().length < 2) {
     $.hrd.noty({
       'type': 'error',
-      'text': Drupal.t('Please enter your reply')
+      'text': Drupal.tt('Please enter your reply', {"@code": "argument-enter-reply"})
     });
     return;
   }
@@ -192,11 +192,11 @@ $('.arg-reply-form').live('submit', function (e) {
   var parent_id = parent.attr('name');
 
   $.ajax({
-    type    : 'POST',
+    type: 'POST',
     dataType: 'json',
-    url     : form.attr('action'),
-    data    : form.serialize(),
-    success : function (response) {
+    url: form.attr('action'),
+    data: form.serialize(),
+    success: function (response) {
       if (!response.status) {
         $.hrd.noty({text: response.message, type: 'error'});
         return false;
@@ -238,22 +238,22 @@ $('.argument-delete').live('click', function (e) {
   var name = el.attr('name');
 
   $.hrd.noty({
-    'layout' : 'center',
-    'type'   : 'alert',
-    'text'   : Drupal.t('Are you sure you want to delete?'),
-    'modal'  : true,
+    'layout': 'center',
+    'type': 'alert',
+    'text': Drupal.tt('Are you sure you want to delete?', {"@code": "argument-sure"}),
+    'modal': true,
     'timeout': false,
     'buttons': [
       {
         addClass: 'btn btn-primary',
-        text    : Drupal.t('Delete') + '!',
-        onClick : function ($noty) {
+        text: Drupal.tt('Delete', {"@code": "argument-btn-delete"}) + '!',
+        onClick: function ($noty) {
           $.ajax({
-            type    : 'POST',
+            type: 'POST',
             dataType: 'json',
-            url     : Drupal.settings.language_prefix + '/argument/delete/' + name,
-            data    : {},
-            success : function (response) {
+            url: Drupal.settings.language_prefix + '/argument/delete/' + name,
+            data: {},
+            success: function (response) {
               if (!response.status) {
                 $.hrd.noty({text: response.message, type: 'error'});
                 return false;
@@ -286,8 +286,8 @@ $('.argument-delete').live('click', function (e) {
       },
       {
         addClass: 'btn btn-danger',
-        text    : Drupal.t('Cancel'),
-        onClick : function ($noty) {
+        text: Drupal.tt('Cancel', {"@code": "argument-btn-cancel"}),
+        onClick: function ($noty) {
           $noty.close();
         }
       }
@@ -318,7 +318,7 @@ Drupal.behaviors.translate = function (context) {
 $(document).ready(function () {
   $("#debate_list_area").tabs({
     cache: false,
-    load : function (event, ui) {
+    load: function (event, ui) {
       Drupal.attachBehaviors();
     }
   });
@@ -356,7 +356,7 @@ $(document).ready(function () {
     $('.reference-form').hide();
     $('.argument-form').show();
     $('#argument_type').val('argument');
-    $('#add_argument').val(Drupal.t('Add'));
+    $('#add_argument').val(Drupal.tt('Add', {"@code": "argument-btn-create"}));
     $(this).parents('.add_button').removeClass('reduce');
     return false;
   });
@@ -421,7 +421,7 @@ $('#argument-add-form').live('submit', function (e) {
     // title
     var title = $('#deb_title').val();
     if (title.length < 2) {
-      error = Drupal.t('Please let us know what you think');
+      error = Drupal.tt('Please let us know what you think', {"@code": "argument-letknow"});
     }
 
     // flags
@@ -437,7 +437,7 @@ $('#argument-add-form').live('submit', function (e) {
       }
     });
     if (!flag_set) {
-      error = Drupal.t('You must choose at least one suppose or oppose');
+      error = Drupal.tt('You must choose at least one suppose or oppose', {"@code": "argument-must-choose"});
     }
 
     // data collect
@@ -458,7 +458,7 @@ $('#argument-add-form').live('submit', function (e) {
       data['description'] = ifnull(preview['description']);
       data['image'] = ifnull(preview['thumbnail_url']);
     } else {
-      error = Drupal.t('The URL you entered was not processed. Try pasiting it again.');
+      error = Drupal.tt('The URL you entered was not processed. Try pasiting it again.', {"@code": "argument-url-not-processed"});
     }
   }
 
@@ -478,11 +478,11 @@ $('#argument-add-form').live('submit', function (e) {
   // submit form
   // without errors submit form
   $.ajax({
-    type    : 'POST',
+    type: 'POST',
     dataType: 'json',
-    url     : Drupal.settings.language_prefix + '/argument/create',
-    data    : data,
-    success : function (response) {
+    url: Drupal.settings.language_prefix + '/argument/create',
+    data: data,
+    success: function (response) {
       // close form
       argument_form_toggle($('h6#add-arg'));
       // work with response
@@ -552,14 +552,14 @@ $('#argument-add-form').live('submit', function (e) {
     var callback_url = Drupal.settings.language_prefix + '/argument/preview/resource';
     var lbox = $('#linkbox');
     lbox.slideDown('slow');
-    lbox.html("<span class='load'>" + Drupal.t('Loading') + "...</span>");
+    lbox.html("<span class='load'>" + Drupal.tt('Loading', {"@code": "argument-url-loading"}) + "...</span>");
 
     $.ajax({
-      type    : 'POST',
+      type: 'POST',
       dataType: 'json',
-      url     : callback_url,
-      data    : { url: nlink },
-      success : function (response) {
+      url: callback_url,
+      data: { url: nlink },
+      success: function (response) {
         if (!response.status) {
           output = false;
           lbox.slideUp('slow', function () {
@@ -567,7 +567,7 @@ $('#argument-add-form').live('submit', function (e) {
           });
           $.hrd.noty({
             type: 'error',
-            text: Drupal.t('Sorry, your URL cannot be attached')
+            text: Drupal.tt('Sorry, your URL cannot be attached', {"@code": "argument-url-error"})
           });
           return false;
         }
@@ -575,9 +575,9 @@ $('#argument-add-form').live('submit', function (e) {
 
         $.hrd.noty({
           type: 'success',
-          text: Drupal.t('You can now submit your resource')
+          text: Drupal.tt('You can now submit your resource', {"@code": "argument-ready"})
         });
-        $('#add_argument').val(Drupal.t('Add'));
+        $('#add_argument').val(Drupal.tt('Add', {"@code": "argument-btn-create"}));
       }
     });
 
@@ -657,11 +657,11 @@ $('a.permalink').live('click', function (e) {
 //  var link = window.location.href.replace(/#.*/, '') + '#' + $(this).parents('.one-forum').attr('id');
   var link = $(this).attr('name');
   $.hrd.noty({
-    'layout'   : 'center',
-    'type'     : 'alert',
-    'text'     : '<a href="' + link + '">' + link + '</a>',
-    'modal'    : true,
-    'timeout'  : false,
+    'layout': 'center',
+    'type': 'alert',
+    'text': '<a href="' + link + '">' + link + '</a>',
+    'modal': true,
+    'timeout': false,
     'closeWith': ['button']
   });
 });

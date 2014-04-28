@@ -161,6 +161,11 @@ function __locale($string, $args = array(), $langcode = NULL, $reset = FALSE) {
     }
   }
 
+  //
+  if (is_null($string)) {
+    return $locale[$langcode][$textgroup];
+  }
+
   // check database if not found
   if (!isset($locale[$langcode][$textgroup][$code][$string])) {
     //
@@ -200,6 +205,8 @@ function __locale($string, $args = array(), $langcode = NULL, $reset = FALSE) {
  */
 function tt_flush_caches() {
   __locale(NULL, NULL, NULL, TRUE);
+  tt_js();
+
   return array();
 }
 
@@ -241,16 +248,40 @@ function tt_enable() {
  * @param $form_id
  */
 function tt_form_alter(&$form, &$form_state, $form_id) {
-  // 
+  //
+}
+
+/**
+ * Translate JS Functions
+ */
+function tt_js() {
+  // collect js
+  $js = module_invoke_all('tt_js');
+  foreach ($js as $code => $text) {
+    if (FALSE === strpos($text, '@count')) {
+      __($text, array('@code' => $code, '@textgroup' => 'js'));
+    }
+    else {
+      __($text, array('@code' => $code, '@textgroup' => 'js', '@count' => 0));
+      __($text, array('@code' => $code, '@textgroup' => 'js', '@count' => 1));
+    }
+  }
+}
+
+/**
+ *
+ */
+function tt_preprocess_page() {
+  $js = __locale(NULL, array('@textgroup' => 'js'), NULL, FALSE);
+  drupal_add_js(array('tt' => $js), 'setting');
+  drupal_add_js(drupal_get_path('module', 'tt') . '/tt.js');
 }
 
 /**
  *
  */
 function tt_init() {
-  if (isset($_REQUEST['translate'])) tt_enable();
-  //  if () {
-  //
-  //  }
-
+  if (isset($_REQUEST['translate'])) {
+    // tt_enable();
+  }
 }
