@@ -5,6 +5,24 @@
  */
 
 /**
+ * Soft dependency from T-Function module
+ */
+if (!module_exists('tt')) {
+  /**
+   * See tt.module
+   *
+   * @param       $string
+   * @param array $args
+   * @param null  $langcode
+   *
+   * @return null|string
+   */
+  function __($string, $args = array(), $langcode = NULL) {
+    return t($string, $args, $langcode);
+  }
+}
+
+/**
  *
  */
 function bootstrap_functions_enable() {
