@@ -236,6 +236,15 @@ function tt_enable() {
 }
 
 /**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function tt_form_alter(&$form, &$form_state, $form_id) {
+  // 
+}
+
+/**
  *
  */
 function tt_init() {
