@@ -3,301 +3,301 @@
 
 function location_cities_list_co_atl() {
   return array(
-    "3667849" => t("Soledad"),
-    "3668332" => t("Santo Tomas"),
-    "3668655" => t("Santa Lucia"),
-    "3670502" => t("Sabanalarga"),
-    "3670513" => t("Sabanagrande"),
-    "3670874" => t("Repelon"),
-    "3671497" => t("Puerto Colombia"),
-    "3673220" => t("Palmar de Varela"),
-    "3675595" => t("Malambo"),
-    "3682238" => t("Galapa"),
-    "3687758" => t("Campo de la Cruz"),
-    "3689147" => t("Barranquilla"),
-    "3689235" => t("Baranoa"),
+    "3667849" => "Soledad",
+    "3668332" => "Santo Tomas",
+    "3668655" => "Santa Lucia",
+    "3670502" => "Sabanalarga",
+    "3670513" => "Sabanagrande",
+    "3670874" => "Repelon",
+    "3671497" => "Puerto Colombia",
+    "3673220" => "Palmar de Varela",
+    "3675595" => "Malambo",
+    "3682238" => "Galapa",
+    "3687758" => "Campo de la Cruz",
+    "3689147" => "Barranquilla",
+    "3689235" => "Baranoa",
   );
 }
 
 
 function location_cities_list_co_dc() {
   return array(
-    "3688689" => t("Bogota"),
+    "3688689" => "Bogota",
   );
 }
 
 
 function location_cities_list_co_cun() {
   return array(
-    "3665542" => t("Zipaquira"),
-    "3665895" => t("Villeta"),
-    "3666519" => t("Ubate"),
-    "3667905" => t("Soacha"),
-    "3668087" => t("Sibate"),
-    "3673424" => t("Pacho"),
-    "3674292" => t("Mosquera"),
-    "3675707" => t("Madrid"),
-    "3678405" => t("La Mesa"),
-    "3682028" => t("Girardot"),
-    "3682274" => t("Fusagasuga"),
-    "3682281" => t("Funza"),
-    "3682516" => t("Facatativa"),
-    "3686675" => t("Chia"),
-    "3688006" => t("Cajica"),
+    "3665542" => "Zipaquira",
+    "3665895" => "Villeta",
+    "3666519" => "Ubate",
+    "3667905" => "Soacha",
+    "3668087" => "Sibate",
+    "3673424" => "Pacho",
+    "3674292" => "Mosquera",
+    "3675707" => "Madrid",
+    "3678405" => "La Mesa",
+    "3682028" => "Girardot",
+    "3682274" => "Fusagasuga",
+    "3682281" => "Funza",
+    "3682516" => "Facatativa",
+    "3686675" => "Chia",
+    "3688006" => "Cajica",
   );
 }
 
 
 function location_cities_list_co_ant() {
   return array(
-    "3665566" => t("Zaragoza"),
-    "3665741" => t("Yarumal"),
-    "3666395" => t("Urrao"),
-    "3666570" => t("Turbo"),
-    "3667820" => t("Sonson"),
-    "3668175" => t("Segovia"),
-    "3668323" => t("Santuario"),
-    "3669998" => t("San Carlos"),
-    "3670475" => t("Sabaneta"),
-    "3670730" => t("Rionegro"),
-    "3671540" => t("Puerto Berrio"),
-    "3674962" => t("Medellin"),
-    "3675263" => t("Marinilla"),
-    "3679065" => t("La Estrella"),
-    "3679554" => t("La Ceja"),
-    "3680450" => t("Itagui"),
-    "3682631" => t("Envigado"),
-    "3684945" => t("El Bagre"),
-    "3685949" => t("Municipio de Copacabana"),
-    "3686636" => t("Chigorodo"),
-    "3687025" => t("Caucasia"),
-    "3687318" => t("Carmen de Viboral"),
-    "3687952" => t("Caldas"),
-    "3688928" => t("Bello"),
-    "3689205" => t("Barbosa"),
-    "3689798" => t("Apartado"),
-    "3689899" => t("Los Andes"),
-    "3792375" => t("Carepa"),
-    "3792376" => t("Ciudad Bolivar"),
+    "3665566" => "Zaragoza",
+    "3665741" => "Yarumal",
+    "3666395" => "Urrao",
+    "3666570" => "Turbo",
+    "3667820" => "Sonson",
+    "3668175" => "Segovia",
+    "3668323" => "Santuario",
+    "3669998" => "San Carlos",
+    "3670475" => "Sabaneta",
+    "3670730" => "Rionegro",
+    "3671540" => "Puerto Berrio",
+    "3674962" => "Medellin",
+    "3675263" => "Marinilla",
+    "3679065" => "La Estrella",
+    "3679554" => "La Ceja",
+    "3680450" => "Itagui",
+    "3682631" => "Envigado",
+    "3684945" => "El Bagre",
+    "3685949" => "Municipio de Copacabana",
+    "3686636" => "Chigorodo",
+    "3687025" => "Caucasia",
+    "3687318" => "Carmen de Viboral",
+    "3687952" => "Caldas",
+    "3688928" => "Bello",
+    "3689205" => "Barbosa",
+    "3689798" => "Apartado",
+    "3689899" => "Los Andes",
+    "3792375" => "Carepa",
+    "3792376" => "Ciudad Bolivar",
   );
 }
 
 
 function location_cities_list_co_ara() {
   return array(
-    "3667478" => t("Tame"),
-    "3689718" => t("Arauca"),
+    "3667478" => "Tame",
+    "3689718" => "Arauca",
   );
 }
 
 
 function location_cities_list_co_bol() {
   return array(
-    "3666577" => t("Turbaco"),
-    "3669454" => t("San Juan Nepomuceno"),
-    "3669736" => t("San Jacinto"),
-    "3674412" => t("Morales"),
-    "3674597" => t("Mompos"),
-    "3675287" => t("Maria la Baja"),
-    "3675692" => t("Magangue"),
-    "3684666" => t("El Carmen de Bolivar"),
-    "3687238" => t("Cartagena"),
-    "3689570" => t("Arjona"),
+    "3666577" => "Turbaco",
+    "3669454" => "San Juan Nepomuceno",
+    "3669736" => "San Jacinto",
+    "3674412" => "Morales",
+    "3674597" => "Mompos",
+    "3675287" => "Maria la Baja",
+    "3675692" => "Magangue",
+    "3684666" => "El Carmen de Bolivar",
+    "3687238" => "Cartagena",
+    "3689570" => "Arjona",
   );
 }
 
 
 function location_cities_list_co_boy() {
   return array(
-    "3666608" => t("Tunja"),
-    "3667873" => t("Sogamoso"),
-    "3671531" => t("Puerto Boyaca"),
-    "3685084" => t("Duitama"),
-    "3686513" => t("Chiquinquira"),
+    "3666608" => "Tunja",
+    "3667873" => "Sogamoso",
+    "3671531" => "Puerto Boyaca",
+    "3685084" => "Duitama",
+    "3686513" => "Chiquinquira",
   );
 }
 
 
 function location_cities_list_co_cal() {
   return array(
-    "3665851" => t("Viterbo"),
-    "3665973" => t("Villamaria"),
-    "3670370" => t("Salamina"),
-    "3670719" => t("Riosucio"),
-    "3675409" => t("Manzanares"),
-    "3675443" => t("Manizales"),
-    "3679277" => t("La Dorada"),
-    "3686561" => t("Chinchina"),
-    "3690431" => t("Aguadas"),
+    "3665851" => "Viterbo",
+    "3665973" => "Villamaria",
+    "3670370" => "Salamina",
+    "3670719" => "Riosucio",
+    "3675409" => "Manzanares",
+    "3675443" => "Manizales",
+    "3679277" => "La Dorada",
+    "3686561" => "Chinchina",
+    "3690431" => "Aguadas",
   );
 }
 
 
 function location_cities_list_co_cas() {
   return array(
-    "3665688" => t("Yopal"),
-    "3665951" => t("Villanueva"),
-    "3690316" => t("Aguazul"),
+    "3665688" => "Yopal",
+    "3665951" => "Villanueva",
+    "3690316" => "Aguazul",
   );
 }
 
 
 function location_cities_list_co_cor() {
   return array(
-    "3667158" => t("Tierralta"),
-    "3669997" => t("San Carlos"),
-    "3670419" => t("Sahagun"),
-    "3672068" => t("Planeta Rica"),
-    "3674453" => t("Monteria"),
-    "3674470" => t("Montelibano"),
-    "3676397" => t("Lorica"),
-    "3686272" => t("Cienaga de Oro"),
-    "3686540" => t("Chinu"),
-    "3686922" => t("Cerete"),
-    "3689381" => t("Ayapel"),
+    "3667158" => "Tierralta",
+    "3669997" => "San Carlos",
+    "3670419" => "Sahagun",
+    "3672068" => "Planeta Rica",
+    "3674453" => "Monteria",
+    "3674470" => "Montelibano",
+    "3676397" => "Lorica",
+    "3686272" => "Cienaga de Oro",
+    "3686540" => "Chinu",
+    "3686922" => "Cerete",
+    "3689381" => "Ayapel",
   );
 }
 
 
 function location_cities_list_co_lag() {
   return array(
-    "3665934" => t("Villanueva"),
-    "3669469" => t("San Juan del Cesar"),
-    "3670745" => t("Riohacha"),
-    "3675657" => t("Maicao"),
-    "3682374" => t("Fonseca"),
-    "3689162" => t("Barrancas"),
+    "3665934" => "Villanueva",
+    "3669469" => "San Juan del Cesar",
+    "3670745" => "Riohacha",
+    "3675657" => "Maicao",
+    "3682374" => "Fonseca",
+    "3689162" => "Barrancas",
   );
 }
 
 
 function location_cities_list_co_nar() {
   return array(
-    "3666582" => t("Tuquerres"),
-    "3666640" => t("Tumaco"),
-    "3672778" => t("Pasto"),
-    "3676934" => t("La Union"),
-    "3680539" => t("Ipiales"),
-    "3684579" => t("El Charco"),
+    "3666582" => "Tuquerres",
+    "3666640" => "Tumaco",
+    "3672778" => "Pasto",
+    "3676934" => "La Union",
+    "3680539" => "Ipiales",
+    "3684579" => "El Charco",
   );
 }
 
 
 function location_cities_list_co_nsa() {
   return array(
-    "3665913" => t("Villa del Rosario"),
-    "3671325" => t("Puerto Santander"),
-    "3673045" => t("Pamplona"),
-    "3673662" => t("Ocana"),
-    "3675975" => t("Los Patios"),
-    "3685533" => t("Cucuta"),
+    "3665913" => "Villa del Rosario",
+    "3671325" => "Puerto Santander",
+    "3673045" => "Pamplona",
+    "3673662" => "Ocana",
+    "3675975" => "Los Patios",
+    "3685533" => "Cucuta",
   );
 }
 
 
 function location_cities_list_co_ris() {
   return array(
-    "3668454" => t("Santa Rosa de Cabal"),
-    "3672486" => t("Pereira"),
-    "3676720" => t("La Virginia"),
-    "3685095" => t("Dos Quebradas"),
-    "3688989" => t("Belen de Umbria"),
-    "3689833" => t("Anserma"),
+    "3668454" => "Santa Rosa de Cabal",
+    "3672486" => "Pereira",
+    "3676720" => "La Virginia",
+    "3685095" => "Dos Quebradas",
+    "3688989" => "Belen de Umbria",
+    "3689833" => "Anserma",
   );
 }
 
 
 function location_cities_list_co_san() {
   return array(
-    "3667887" => t("Socorro"),
-    "3669808" => t("San Gil"),
-    "3672328" => t("Piedecuesta"),
-    "3675605" => t("Malaga"),
-    "3682018" => t("Giron"),
-    "3682385" => t("Floridablanca"),
-    "3688465" => t("Bucaramanga"),
-    "3689169" => t("Barrancabermeja"),
-    "3689206" => t("Barbosa"),
+    "3667887" => "Socorro",
+    "3669808" => "San Gil",
+    "3672328" => "Piedecuesta",
+    "3675605" => "Malaga",
+    "3682018" => "Giron",
+    "3682385" => "Floridablanca",
+    "3688465" => "Bucaramanga",
+    "3689169" => "Barrancabermeja",
+    "3689206" => "Barbosa",
   );
 }
 
 
 function location_cities_list_co_suc() {
   return array(
-    "3666939" => t("Tolu"),
-    "3667728" => t("Sucre"),
-    "3667983" => t("Sincelejo"),
-    "3667991" => t("Since"),
-    "3669218" => t("San Onofre"),
-    "3669346" => t("San Marcos"),
-    "3670038" => t("San Benito Abad"),
-    "3670280" => t("Sampues"),
-    "3685823" => t("Corozal"),
+    "3666939" => "Tolu",
+    "3667728" => "Sucre",
+    "3667983" => "Sincelejo",
+    "3667991" => "Since",
+    "3669218" => "San Onofre",
+    "3669346" => "San Marcos",
+    "3670038" => "San Benito Abad",
+    "3670280" => "Sampues",
+    "3685823" => "Corozal",
   );
 }
 
 
 function location_cities_list_co_tol() {
   return array(
-    "3674885" => t("Melgar"),
-    "3675252" => t("Mariquita"),
-    "3676604" => t("Libano"),
-    "3676626" => t("Lerida"),
-    "3680656" => t("Ibague"),
-    "3680840" => t("Honda"),
-    "3682330" => t("Fresno"),
-    "3682458" => t("Flandes"),
-    "3682573" => t("Espinal"),
-    "3686793" => t("Chaparral"),
+    "3674885" => "Melgar",
+    "3675252" => "Mariquita",
+    "3676604" => "Libano",
+    "3676626" => "Lerida",
+    "3680656" => "Ibague",
+    "3680840" => "Honda",
+    "3682330" => "Fresno",
+    "3682458" => "Flandes",
+    "3682573" => "Espinal",
+    "3686793" => "Chaparral",
   );
 }
 
 
 function location_cities_list_co_ama() {
   return array(
-    "3676623" => t("Leticia"),
+    "3676623" => "Leticia",
   );
 }
 
 
 function location_cities_list_co_caq() {
   return array(
-    "3682426" => t("Florencia"),
+    "3682426" => "Florencia",
   );
 }
 
 
 function location_cities_list_co_cau() {
   return array(
-    "3668572" => t("Santander de Quilichao"),
-    "3671315" => t("Puerto Tejada"),
-    "3671916" => t("Popayan"),
-    "3672761" => t("Patia"),
-    "3673398" => t("Belalcazar"),
-    "3685871" => t("Corinto"),
-    "3770718" => t("Morales"),
+    "3668572" => "Santander de Quilichao",
+    "3671315" => "Puerto Tejada",
+    "3671916" => "Popayan",
+    "3672761" => "Patia",
+    "3673398" => "Belalcazar",
+    "3685871" => "Corinto",
+    "3770718" => "Morales",
   );
 }
 
 
 function location_cities_list_co_ces() {
   return array(
-    "3666304" => t("Valledupar"),
-    "3678674" => t("La Jagua de Ibirico"),
-    "3684452" => t("El Copey"),
-    "3685335" => t("Curumani"),
-    "3686479" => t("Chiriguana"),
-    "3686585" => t("Chimichagua"),
-    "3689589" => t("Ariguani"),
-    "3690465" => t("Aguachica"),
-    "3792383" => t("Agustin Codazzi"),
+    "3666304" => "Valledupar",
+    "3678674" => "La Jagua de Ibirico",
+    "3684452" => "El Copey",
+    "3685335" => "Curumani",
+    "3686479" => "Chiriguana",
+    "3686585" => "Chimichagua",
+    "3689589" => "Ariguani",
+    "3690465" => "Aguachica",
+    "3792383" => "Agustin Codazzi",
   );
 }
 
 
 function location_cities_list_co_cho() {
   return array(
-    "3671116" => t("Quibdo"),
+    "3671116" => "Quibdo",
   );
 }
 
@@ -309,77 +309,77 @@ function location_cities_list_co_gua() {
 
 function location_cities_list_co_guv() {
   return array(
-    "3828545" => t("San Jose del Guaviare"),
+    "3828545" => "San Jose del Guaviare",
   );
 }
 
 
 function location_cities_list_co_hui() {
   return array(
-    "3672110" => t("Pitalito"),
-    "3673899" => t("Neiva"),
-    "3678097" => t("La Plata"),
-    "3682108" => t("Garzon"),
-    "3687806" => t("Campoalegre"),
+    "3672110" => "Pitalito",
+    "3673899" => "Neiva",
+    "3678097" => "La Plata",
+    "3682108" => "Garzon",
+    "3687806" => "Campoalegre",
   );
 }
 
 
 function location_cities_list_co_mag() {
   return array(
-    "3668605" => t("Santa Marta"),
-    "3672093" => t("Pivijay"),
-    "3682292" => t("Fundacion"),
-    "3683233" => t("El Reten"),
-    "3684917" => t("El Banco"),
-    "3686279" => t("Cienaga"),
-    "3689759" => t("Aracataca"),
-    "3792392" => t("Plato"),
+    "3668605" => "Santa Marta",
+    "3672093" => "Pivijay",
+    "3682292" => "Fundacion",
+    "3683233" => "El Reten",
+    "3684917" => "El Banco",
+    "3686279" => "Cienaga",
+    "3689759" => "Aracataca",
+    "3792392" => "Plato",
   );
 }
 
 
 function location_cities_list_co_met() {
   return array(
-    "3665900" => t("Villavicencio"),
-    "3669332" => t("San Martin"),
-    "3671418" => t("Puerto Lopez"),
-    "3681957" => t("Granada"),
-    "3690577" => t("Acacias"),
+    "3665900" => "Villavicencio",
+    "3669332" => "San Martin",
+    "3671418" => "Puerto Lopez",
+    "3681957" => "Granada",
+    "3690577" => "Acacias",
   );
 }
 
 
 function location_cities_list_co_put() {
   return array(
-    "3671549" => t("Puerto Asis"),
-    "3674654" => t("Mocoa"),
+    "3671549" => "Puerto Asis",
+    "3674654" => "Mocoa",
   );
 }
 
 
 function location_cities_list_co_vac() {
   return array(
-    "3665559" => t("Zarzal"),
-    "3665657" => t("Yumbo"),
-    "3666645" => t("Tulua"),
-    "3668132" => t("Sevilla"),
-    "3670644" => t("Roldanillo"),
-    "3671772" => t("Pradera"),
-    "3673164" => t("Palmira"),
-    "3676928" => t("La Union"),
-    "3680387" => t("Jamundi"),
-    "3681797" => t("Guacari"),
-    "3682393" => t("Florida"),
-    "3684615" => t("El Cerrito"),
-    "3687230" => t("Cartago"),
-    "3687644" => t("Candelaria"),
-    "3687925" => t("Cali"),
-    "3688071" => t("Caicedonia"),
-    "3688256" => t("Buga"),
-    "3688451" => t("Buenaventura"),
-    "3688452" => t("Buenaventura"),
-    "3689905" => t("Andalucia"),
+    "3665559" => "Zarzal",
+    "3665657" => "Yumbo",
+    "3666645" => "Tulua",
+    "3668132" => "Sevilla",
+    "3670644" => "Roldanillo",
+    "3671772" => "Pradera",
+    "3673164" => "Palmira",
+    "3676928" => "La Union",
+    "3680387" => "Jamundi",
+    "3681797" => "Guacari",
+    "3682393" => "Florida",
+    "3684615" => "El Cerrito",
+    "3687230" => "Cartago",
+    "3687644" => "Candelaria",
+    "3687925" => "Cali",
+    "3688071" => "Caicedonia",
+    "3688256" => "Buga",
+    "3688451" => "Buenaventura",
+    "3688452" => "Buenaventura",
+    "3689905" => "Andalucia",
   );
 }
 
@@ -396,18 +396,18 @@ function location_cities_list_co_vid() {
 
 function location_cities_list_co_sap() {
   return array(
-    "3670218" => t("San Andres"),
+    "3670218" => "San Andres",
   );
 }
 
 
 function location_cities_list_co_qui() {
   return array(
-    "3671098" => t("Quimbaya"),
-    "3674463" => t("Montenegro"),
-    "3677010" => t("La Tebaida"),
-    "3686233" => t("Circasia"),
-    "3687964" => t("Calarca"),
-    "3689560" => t("Armenia"),
+    "3671098" => "Quimbaya",
+    "3674463" => "Montenegro",
+    "3677010" => "La Tebaida",
+    "3686233" => "Circasia",
+    "3687964" => "Calarca",
+    "3689560" => "Armenia",
   );
 }

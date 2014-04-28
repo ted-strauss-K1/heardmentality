@@ -48,7 +48,7 @@ function location_cities_list_si_152() {
 
 function location_cities_list_si_011() {
   return array(
-    "3202781" => t("Celje"),
+    "3202781" => "Celje",
   );
 }
 
@@ -245,7 +245,7 @@ function location_cities_list_si_164() {
 
 function location_cities_list_si_050() {
   return array(
-    "3197753" => t("Koper"),
+    "3197753" => "Koper",
   );
 }
 
@@ -267,7 +267,7 @@ function location_cities_list_si_051() {
 
 function location_cities_list_si_052() {
   return array(
-    "3197378" => t("Kranj"),
+    "3197378" => "Kranj",
   );
 }
 
@@ -339,7 +339,7 @@ function location_cities_list_si_198() {
 
 function location_cities_list_si_070() {
   return array(
-    "3195506" => t("Maribor"),
+    "3195506" => "Maribor",
   );
 }
 
@@ -356,7 +356,7 @@ function location_cities_list_si_071() {
 
 function location_cities_list_si_085() {
   return array(
-    "3194351" => t("Novo Mesto"),
+    "3194351" => "Novo Mesto",
   );
 }
 
@@ -753,7 +753,7 @@ function location_cities_list_si_125() {
 
 function location_cities_list_si_194() {
   return array(
-    "3190495" => t("Smartno pri Litiji"),
+    "3190495" => "Smartno pri Litiji",
   );
 }
 
@@ -860,7 +860,7 @@ function location_cities_list_si_175() {
 
 function location_cities_list_si_096() {
   return array(
-    "3192241" => t("Ptuj"),
+    "3192241" => "Ptuj",
   );
 }
 
@@ -947,7 +947,7 @@ function location_cities_list_si_184() {
 
 function location_cities_list_si_129() {
   return array(
-    "3188915" => t("Trbovlje"),
+    "3188915" => "Trbovlje",
   );
 }
 
@@ -964,7 +964,7 @@ function location_cities_list_si_186() {
 
 function location_cities_list_si_133() {
   return array(
-    "3189075" => t("Velenje"),
+    "3189075" => "Velenje",
   );
 }
 

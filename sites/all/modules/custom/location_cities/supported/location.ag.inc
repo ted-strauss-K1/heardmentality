@@ -13,7 +13,7 @@ function location_cities_list_ag_03() {
 
 function location_cities_list_ag_04() {
   return array(
-    "3576022" => t("Saint John's"),
+    "3576022" => "Saint John's",
   );
 }
 

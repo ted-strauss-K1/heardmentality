@@ -2,11 +2,11 @@
 
 function location_province_list_vc() {
   return array(
-    "06" => t("Grenadines"),
-    "01" => t("Parish of Charlotte"),
-    "02" => t("Parish of Saint Andrew"),
-    "03" => t("Parish of Saint David"),
-    "04" => t("Parish of Saint George"),
-    "05" => t("Parish of Saint Patrick"),
+    "06" => "Grenadines",
+    "01" => "Parish of Charlotte",
+    "02" => "Parish of Saint Andrew",
+    "03" => "Parish of Saint David",
+    "04" => "Parish of Saint George",
+    "05" => "Parish of Saint Patrick",
   );
 }

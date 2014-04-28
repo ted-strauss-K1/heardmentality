@@ -2,18 +2,18 @@
 
 function location_province_list_tl() {
   return array(
-    "AL" => t("Aileu"),
-    "AN" => t("Ainaro"),
-    "BA" => t("Baucau"),
-    "BO" => t("Bobonaro"),
-    "CO" => t("Cova Lima"),
-    "OE" => t("Distrito Oecussi-Ambeno"),
-    "DI" => t("Díli"),
-    "ER" => t("Ermera"),
-    "LA" => t("Lautém"),
-    "LI" => t("Liquiçá"),
-    "MT" => t("Manatuto"),
-    "MF" => t("Manufahi"),
-    "VI" => t("Viqueque"),
+    "AL" => "Aileu",
+    "AN" => "Ainaro",
+    "BA" => "Baucau",
+    "BO" => "Bobonaro",
+    "CO" => "Cova Lima",
+    "OE" => "Distrito Oecussi-Ambeno",
+    "DI" => "Díli",
+    "ER" => "Ermera",
+    "LA" => "Lautém",
+    "LI" => "Liquiçá",
+    "MT" => "Manatuto",
+    "MF" => "Manufahi",
+    "VI" => "Viqueque",
   );
 }

@@ -18,7 +18,7 @@ function location_cities_list_to_03() {
 
 function location_cities_list_to_04() {
   return array(
-    "4032402" => t("Nuku`alofa"),
+    "4032402" => "Nuku`alofa",
   );
 }
 

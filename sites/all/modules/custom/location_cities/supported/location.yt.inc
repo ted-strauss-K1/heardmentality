@@ -38,7 +38,7 @@ function location_cities_list_yt_97607() {
 
 function location_cities_list_yt_97608() {
   return array(
-    "921900" => t("Dzaoudzi"),
+    "921900" => "Dzaoudzi",
   );
 }
 
@@ -50,7 +50,7 @@ function location_cities_list_yt_97609() {
 
 function location_cities_list_yt_97610() {
   return array(
-    "1090225" => t("Koungou"),
+    "1090225" => "Koungou",
   );
 }
 
@@ -62,7 +62,7 @@ function location_cities_list_yt_97613() {
 
 function location_cities_list_yt_97611() {
   return array(
-    "921815" => t("Mamoudzou"),
+    "921815" => "Mamoudzou",
   );
 }
 

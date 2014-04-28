@@ -13,14 +13,14 @@ function location_cities_list_gy_cu() {
 
 function location_cities_list_gy_de() {
   return array(
-    "3378644" => t("Georgetown"),
+    "3378644" => "Georgetown",
   );
 }
 
 
 function location_cities_list_gy_eb() {
   return array(
-    "3376762" => t("New Amsterdam"),
+    "3376762" => "New Amsterdam",
   );
 }
 
@@ -47,7 +47,7 @@ function location_cities_list_gy_pt() {
 
 function location_cities_list_gy_ud() {
   return array(
-    "3377408" => t("Linden"),
+    "3377408" => "Linden",
   );
 }
 

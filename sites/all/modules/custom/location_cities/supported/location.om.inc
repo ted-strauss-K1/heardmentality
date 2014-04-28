@@ -3,85 +3,85 @@
 
 function location_cities_list_om_sh() {
   return array(
-    "286245" => t("Sur"),
+    "286245" => "Sur",
   );
 }
 
 
 function location_cities_list_om_za() {
   return array(
-    "287830" => t("`Ibri"),
-    "411849" => t("Yanqul"),
+    "287830" => "`Ibri",
+    "411849" => "Yanqul",
   );
 }
 
 
 function location_cities_list_om_mu() {
   return array(
-    "287614" => t("Khasab"),
+    "287614" => "Khasab",
   );
 }
 
 
 function location_cities_list_om_ba() {
   return array(
-    "288789" => t("Barka'"),
-    "289011" => t("Rustaq"),
+    "288789" => "Barka'",
+    "289011" => "Rustaq",
   );
 }
 
 
 function location_cities_list_om_ma() {
   return array(
-    "287286" => t("Muscat"),
-    "288764" => t("Bawshar"),
-    "288967" => t("As Sib al Jadidah"),
+    "287286" => "Muscat",
+    "288764" => "Bawshar",
+    "288967" => "As Sib al Jadidah",
   );
 }
 
 
 function location_cities_list_om_11() {
   return array(
-    "286282" => t("Al Sohar"),
-    "286402" => t("Shinas"),
-    "286647" => t("Saham"),
-    "288955" => t("As Suwayq"),
-    "289174" => t("Al Liwa'"),
-    "289199" => t("Al Khaburah"),
+    "286282" => "Al Sohar",
+    "286402" => "Shinas",
+    "286647" => "Saham",
+    "288955" => "As Suwayq",
+    "289174" => "Al Liwa'",
+    "289199" => "Al Khaburah",
   );
 }
 
 
 function location_cities_list_om_12() {
   return array(
-    "287832" => t("Ibra'"),
-    "288902" => t("Badiyah"),
+    "287832" => "Ibra'",
+    "288902" => "Badiyah",
   );
 }
 
 
 function location_cities_list_om_zu() {
   return array(
-    "286621" => t("Salalah"),
+    "286621" => "Salalah",
   );
 }
 
 
 function location_cities_list_om_da() {
   return array(
-    "286293" => t("Sufalat Sama'il"),
-    "286987" => t("Nizwa"),
-    "287814" => t("Izki"),
-    "288721" => t("Bidbid"),
-    "288899" => t("Bahla'"),
-    "289433" => t("Adam"),
+    "286293" => "Sufalat Sama'il",
+    "286987" => "Nizwa",
+    "287814" => "Izki",
+    "288721" => "Bidbid",
+    "288899" => "Bahla'",
+    "289433" => "Adam",
   );
 }
 
 
 function location_cities_list_om_bu() {
   return array(
-    "289317" => t("Al Buraymi"),
+    "289317" => "Al Buraymi",
   );
 }
 

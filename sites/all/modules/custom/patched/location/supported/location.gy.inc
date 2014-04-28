@@ -2,15 +2,15 @@
 
 function location_province_list_gy() {
   return array(
-    "BA" => t("Barima-Waini Region"),
-    "CU" => t("Cuyuni-Mazaruni Region"),
-    "DE" => t("Demerara-Mahaica Region"),
-    "EB" => t("East Berbice-Corentyne Region"),
-    "ES" => t("Essequibo Islands-West Demerara Region"),
-    "MA" => t("Mahaica-Berbice Region"),
-    "PM" => t("Pomeroon-Supenaam Region"),
-    "PT" => t("Potaro-Siparuni Region"),
-    "UD" => t("Upper Demerara-Berbice Region"),
-    "UT" => t("Upper Takutu-Upper Essequibo Region"),
+    "BA" => "Barima-Waini Region",
+    "CU" => "Cuyuni-Mazaruni Region",
+    "DE" => "Demerara-Mahaica Region",
+    "EB" => "East Berbice-Corentyne Region",
+    "ES" => "Essequibo Islands-West Demerara Region",
+    "MA" => "Mahaica-Berbice Region",
+    "PM" => "Pomeroon-Supenaam Region",
+    "PT" => "Potaro-Siparuni Region",
+    "UD" => "Upper Demerara-Berbice Region",
+    "UT" => "Upper Takutu-Upper Essequibo Region",
   );
 }

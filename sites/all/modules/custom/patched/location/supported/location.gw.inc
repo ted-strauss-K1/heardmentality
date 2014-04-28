@@ -2,14 +2,14 @@
 
 function location_province_list_gw() {
   return array(
-    "BA" => t("Bafatá"),
-    "BM" => t("Biombo"),
-    "BS" => t("Bissau Autonomous Region"),
-    "BL" => t("Bolama and Bijagos"),
-    "CA" => t("Cacheu Region"),
-    "GA" => t("Gabú"),
-    "OI" => t("Oio Region"),
-    "QU" => t("Quinara"),
-    "TO" => t("Tombali"),
+    "BA" => "Bafatá",
+    "BM" => "Biombo",
+    "BS" => "Bissau Autonomous Region",
+    "BL" => "Bolama and Bijagos",
+    "CA" => "Cacheu Region",
+    "GA" => "Gabú",
+    "OI" => "Oio Region",
+    "QU" => "Quinara",
+    "TO" => "Tombali",
   );
 }

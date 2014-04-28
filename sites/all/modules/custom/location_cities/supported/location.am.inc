@@ -3,64 +3,64 @@
 
 function location_cities_list_am_ag() {
   return array(
-    "616877" => t("Ashtarak"),
+    "616877" => "Ashtarak",
   );
 }
 
 
 function location_cities_list_am_ar() {
   return array(
-    "174979" => t("Artashat"),
-    "174991" => t("Ararat"),
-    "616435" => t("Masis"),
+    "174979" => "Artashat",
+    "174991" => "Ararat",
+    "616435" => "Masis",
   );
 }
 
 
 function location_cities_list_am_av() {
   return array(
-    "616062" => t("Ejmiatsin"),
-    "616631" => t("Armavir"),
+    "616062" => "Ejmiatsin",
+    "616631" => "Armavir",
   );
 }
 
 
 function location_cities_list_am_gr() {
   return array(
-    "616250" => t("Sevan"),
-    "616599" => t("Gavarr"),
+    "616250" => "Sevan",
+    "616599" => "Gavarr",
   );
 }
 
 
 function location_cities_list_am_kt() {
   return array(
-    "616629" => t("Hrazdan"),
-    "617026" => t("Abovyan"),
+    "616629" => "Hrazdan",
+    "617026" => "Abovyan",
   );
 }
 
 
 function location_cities_list_am_lo() {
   return array(
-    "616199" => t("Spitak"),
-    "616530" => t("Vanadzor"),
+    "616199" => "Spitak",
+    "616530" => "Vanadzor",
   );
 }
 
 
 function location_cities_list_am_sh() {
   return array(
-    "616635" => t("Gyumri"),
+    "616635" => "Gyumri",
   );
 }
 
 
 function location_cities_list_am_su() {
   return array(
-    "174875" => t("Kapan"),
-    "174895" => t("Goris"),
-    "174972" => t("Hats'avan"),
+    "174875" => "Kapan",
+    "174895" => "Goris",
+    "174972" => "Hats'avan",
   );
 }
 
@@ -77,6 +77,6 @@ function location_cities_list_am_vd() {
 
 function location_cities_list_am_er() {
   return array(
-    "616052" => t("Yerevan"),
+    "616052" => "Yerevan",
   );
 }

@@ -8,6 +8,6 @@ function location_cities_list_st_p() {
 
 function location_cities_list_st_s() {
   return array(
-    "2410763" => t("Sao Tome"),
+    "2410763" => "Sao Tome",
   );
 }

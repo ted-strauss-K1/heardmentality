@@ -3,174 +3,174 @@
 
 function location_cities_list_th_10() {
   return array(
-    "1609350" => t("Bangkok"),
+    "1609350" => "Bangkok",
   );
 }
 
 
 function location_cities_list_th_37() {
   return array(
-    "1621060" => t("Amnat Charoen"),
+    "1621060" => "Amnat Charoen",
   );
 }
 
 
 function location_cities_list_th_15() {
   return array(
-    "1605018" => t("Wiset Chaichan"),
+    "1605018" => "Wiset Chaichan",
   );
 }
 
 
 function location_cities_list_th_81() {
   return array(
-    "1152633" => t("Krabi"),
+    "1152633" => "Krabi",
   );
 }
 
 
 function location_cities_list_th_31() {
   return array(
-    "1607257" => t("Prakhon Chai"),
-    "1608424" => t("Nang Rong"),
-    "1611453" => t("Buriram"),
+    "1607257" => "Prakhon Chai",
+    "1608424" => "Nang Rong",
+    "1611453" => "Buriram",
   );
 }
 
 
 function location_cities_list_th_24() {
   return array(
-    "1607801" => t("Phanom Sarakham"),
-    "1611439" => t("Chachoengsao"),
-    "1619363" => t("Bang Pakong"),
+    "1607801" => "Phanom Sarakham",
+    "1611439" => "Chachoengsao",
+    "1619363" => "Bang Pakong",
   );
 }
 
 
 function location_cities_list_th_18() {
   return array(
-    "1611416" => t("Chai Nat"),
+    "1611416" => "Chai Nat",
   );
 }
 
 
 function location_cities_list_th_36() {
   return array(
-    "1607439" => t("Phu Khiao"),
-    "1610187" => t("Kaset Sombun"),
-    "1610505" => t("Kaeng Khro"),
-    "1611407" => t("Chaiyaphum"),
+    "1607439" => "Phu Khiao",
+    "1610187" => "Kaset Sombun",
+    "1610505" => "Kaeng Khro",
+    "1611407" => "Chaiyaphum",
   );
 }
 
 
 function location_cities_list_th_22() {
   return array(
-    "1605601" => t("Tha Mai"),
-    "1609278" => t("Laem Sing"),
-    "1611269" => t("Chanthaburi"),
+    "1605601" => "Tha Mai",
+    "1609278" => "Laem Sing",
+    "1611269" => "Chanthaburi",
   );
 }
 
 
 function location_cities_list_th_57() {
   return array(
-    "1152194" => t("Mae Sai"),
-    "1152227" => t("Mae Chan"),
-    "1153669" => t("Chiang Rai"),
+    "1152194" => "Mae Sai",
+    "1152227" => "Mae Chan",
+    "1153669" => "Chiang Rai",
   );
 }
 
 
 function location_cities_list_th_20() {
   return array(
-    "1606250" => t("Si Racha"),
-    "1606386" => t("Sattahip"),
-    "1607793" => t("Phan Thong"),
-    "1607838" => t("Phanat Nikhom"),
-    "1611110" => t("Chon Buri"),
-    "1614295" => t("Phatthaya"),
-    "1619423" => t("Bang Lamung"),
-    "1620442" => t("Ban Talat Bueng"),
+    "1606250" => "Si Racha",
+    "1606386" => "Sattahip",
+    "1607793" => "Phan Thong",
+    "1607838" => "Phanat Nikhom",
+    "1611110" => "Chon Buri",
+    "1614295" => "Phatthaya",
+    "1619423" => "Bang Lamung",
+    "1620442" => "Ban Talat Bueng",
   );
 }
 
 
 function location_cities_list_th_86() {
   return array(
-    "1152432" => t("Lang Suan"),
-    "1153557" => t("Chumphon"),
+    "1152432" => "Lang Suan",
+    "1153557" => "Chumphon",
   );
 }
 
 
 function location_cities_list_th_46() {
   return array(
-    "1595679" => t("Nong Kung Si"),
-    "1609345" => t("Kuchinarai"),
-    "1609990" => t("Khao Wong"),
-    "1610459" => t("Kamalasai"),
-    "1610469" => t("Kalasin"),
+    "1595679" => "Nong Kung Si",
+    "1609345" => "Kuchinarai",
+    "1609990" => "Khao Wong",
+    "1610459" => "Kamalasai",
+    "1610469" => "Kalasin",
   );
 }
 
 
 function location_cities_list_th_62() {
   return array(
-    "1152953" => t("Khanu Woralaksaburi"),
-    "1153090" => t("Kamphaeng Phet"),
+    "1152953" => "Khanu Woralaksaburi",
+    "1153090" => "Kamphaeng Phet",
   );
 }
 
 
 function location_cities_list_th_71() {
   return array(
-    "1150246" => t("Tha Muang"),
-    "1150275" => t("Tha Maka"),
-    "1153081" => t("Kanchanaburi"),
-    "1153850" => t("Bo Phloi"),
+    "1150246" => "Tha Muang",
+    "1150275" => "Tha Maka",
+    "1153081" => "Kanchanaburi",
+    "1153850" => "Bo Phloi",
   );
 }
 
 
 function location_cities_list_th_40() {
   return array(
-    "1609776" => t("Khon Kaen"),
-    "1611026" => t("Chum Phae"),
-    "1614455" => t("Ban Phai"),
+    "1609776" => "Khon Kaen",
+    "1611026" => "Chum Phae",
+    "1614455" => "Ban Phai",
   );
 }
 
 
 function location_cities_list_th_52() {
   return array(
-    "1150154" => t("Thoen"),
-    "1152473" => t("Lampang"),
+    "1150154" => "Thoen",
+    "1152473" => "Lampang",
   );
 }
 
 
 function location_cities_list_th_51() {
   return array(
-    "1151528" => t("Pa Sang"),
-    "1152468" => t("Lamphun"),
+    "1151528" => "Pa Sang",
+    "1152468" => "Lamphun",
   );
 }
 
 
 function location_cities_list_th_42() {
   return array(
-    "1605102" => t("Wang Saphung"),
-    "1607435" => t("Phu Kradueng"),
-    "1609071" => t("Loei"),
+    "1605102" => "Wang Saphung",
+    "1607435" => "Phu Kradueng",
+    "1609071" => "Loei",
   );
 }
 
 
 function location_cities_list_th_16() {
   return array(
-    "1609032" => t("Lop Buri"),
-    "1611424" => t("Chai Badan"),
+    "1609032" => "Lop Buri",
+    "1611424" => "Chai Badan",
   );
 }
 
@@ -182,132 +182,132 @@ function location_cities_list_th_58() {
 
 function location_cities_list_th_44() {
   return array(
-    "1608900" => t("Maha Sarakham"),
+    "1608900" => "Maha Sarakham",
   );
 }
 
 
 function location_cities_list_th_49() {
   return array(
-    "1608597" => t("Mukdahan"),
+    "1608597" => "Mukdahan",
   );
 }
 
 
 function location_cities_list_th_26() {
   return array(
-    "1608539" => t("Nakhon Nayok"),
+    "1608539" => "Nakhon Nayok",
   );
 }
 
 
 function location_cities_list_th_73() {
   return array(
-    "1606638" => t("Sam Phran"),
-    "1608534" => t("Nakhon Pathom"),
-    "1619415" => t("Bang Len"),
+    "1606638" => "Sam Phran",
+    "1608534" => "Nakhon Pathom",
+    "1619415" => "Bang Len",
   );
 }
 
 
 function location_cities_list_th_48() {
   return array(
-    "1608531" => t("Nakhon Phanom"),
+    "1608531" => "Nakhon Phanom",
   );
 }
 
 
 function location_cities_list_th_30() {
   return array(
-    "1603235" => t("Ban Huai Thalaeng"),
-    "1608057" => t("Pak Chong"),
-    "1608136" => t("Non Sung"),
-    "1608529" => t("Nakhon Ratchasima"),
-    "1609795" => t("Khon Buri"),
-    "1610963" => t("Dan Khun Thot"),
-    "1611135" => t("Chok Chai"),
-    "1611492" => t("Bua Yai"),
-    "1948015" => t("Amphoe Sikhiu"),
+    "1603235" => "Ban Huai Thalaeng",
+    "1608057" => "Pak Chong",
+    "1608136" => "Non Sung",
+    "1608529" => "Nakhon Ratchasima",
+    "1609795" => "Khon Buri",
+    "1610963" => "Dan Khun Thot",
+    "1611135" => "Chok Chai",
+    "1611492" => "Bua Yai",
+    "1948015" => "Amphoe Sikhiu",
   );
 }
 
 
 function location_cities_list_th_60() {
   return array(
-    "1152377" => t("Lat Yao"),
-    "1608527" => t("Nakhon Sawan"),
+    "1152377" => "Lat Yao",
+    "1608527" => "Nakhon Sawan",
   );
 }
 
 
 function location_cities_list_th_80() {
   return array(
-    "1150085" => t("Thung Song"),
-    "1150921" => t("Ron Phibun"),
-    "1151933" => t("Nakhon Si Thammarat"),
-    "1608033" => t("Pak Phanang"),
+    "1150085" => "Thung Song",
+    "1150921" => "Ron Phibun",
+    "1151933" => "Nakhon Si Thammarat",
+    "1608033" => "Pak Phanang",
   );
 }
 
 
 function location_cities_list_th_55() {
   return array(
-    "1608452" => t("Nan"),
+    "1608452" => "Nan",
   );
 }
 
 
 function location_cities_list_th_96() {
   return array(
-    "1605957" => t("Tak Bai"),
-    "1606050" => t("Su-ngai Kolok"),
-    "1607083" => t("Ra-ngae"),
-    "1608409" => t("Narathiwat"),
+    "1605957" => "Tak Bai",
+    "1606050" => "Su-ngai Kolok",
+    "1607083" => "Ra-ngae",
+    "1608409" => "Narathiwat",
   );
 }
 
 
 function location_cities_list_th_39() {
   return array(
-    "1604654" => t("Na Klang"),
-    "1608269" => t("Nong Bua Lamphu"),
+    "1604654" => "Na Klang",
+    "1608269" => "Nong Bua Lamphu",
   );
 }
 
 
 function location_cities_list_th_43() {
   return array(
-    "1605677" => t("Tha Bo"),
-    "1607615" => t("Phon Charoen"),
-    "1608232" => t("Nong Khai"),
+    "1605677" => "Tha Bo",
+    "1607615" => "Phon Charoen",
+    "1608232" => "Nong Khai",
   );
 }
 
 
 function location_cities_list_th_12() {
   return array(
-    "1608048" => t("Pak Kret"),
-    "1608133" => t("Mueang Nonthaburi"),
-    "1619434" => t("Bang Kruai"),
-    "1619602" => t("Bang Bua Thong"),
+    "1608048" => "Pak Kret",
+    "1608133" => "Mueang Nonthaburi",
+    "1619434" => "Bang Kruai",
+    "1619602" => "Bang Bua Thong",
   );
 }
 
 
 function location_cities_list_th_13() {
   return array(
-    "1607983" => t("Pathum Thani"),
-    "1609899" => t("Khlong Luang"),
-    "1613769" => t("Ban Rangsit"),
-    "1617111" => t("Ban Lam Luk Ka"),
+    "1607983" => "Pathum Thani",
+    "1609899" => "Khlong Luang",
+    "1613769" => "Ban Rangsit",
+    "1617111" => "Ban Lam Luk Ka",
   );
 }
 
 
 function location_cities_list_th_94() {
   return array(
-    "1604771" => t("Yaring"),
-    "1607978" => t("Pattani"),
+    "1604771" => "Yaring",
+    "1607978" => "Pattani",
   );
 }
 
@@ -319,355 +319,355 @@ function location_cities_list_th_82() {
 
 function location_cities_list_th_93() {
   return array(
-    "1607779" => t("Phatthalung"),
+    "1607779" => "Phatthalung",
   );
 }
 
 
 function location_cities_list_th_56() {
   return array(
-    "1151426" => t("Phayao"),
-    "1153464" => t("Dok Kham Tai"),
+    "1151426" => "Phayao",
+    "1153464" => "Dok Kham Tai",
   );
 }
 
 
 function location_cities_list_th_67() {
   return array(
-    "1605024" => t("Wichian Buri"),
-    "1607737" => t("Phetchabun"),
-    "1608191" => t("Nong Phai"),
-    "1609043" => t("Lom Sak"),
-    "1611106" => t("Chon Daen"),
+    "1605024" => "Wichian Buri",
+    "1607737" => "Phetchabun",
+    "1608191" => "Nong Phai",
+    "1609043" => "Lom Sak",
+    "1611106" => "Chon Daen",
   );
 }
 
 
 function location_cities_list_th_76() {
   return array(
-    "1149698" => t("Phetchaburi"),
-    "1152919" => t("Khao Yoi"),
-    "1153807" => t("Cha-am"),
-    "1605467" => t("Tha Yang"),
+    "1149698" => "Phetchaburi",
+    "1152919" => "Khao Yoi",
+    "1153807" => "Cha-am",
+    "1605467" => "Tha Yang",
   );
 }
 
 
 function location_cities_list_th_66() {
   return array(
-    "1605538" => t("Thap Khlo"),
-    "1605754" => t("Taphan Hin"),
-    "1607725" => t("Phichit"),
-    "1619400" => t("Bang Mun Nak"),
+    "1605538" => "Thap Khlo",
+    "1605754" => "Taphan Hin",
+    "1607725" => "Phichit",
+    "1619400" => "Bang Mun Nak",
   );
 }
 
 
 function location_cities_list_th_65() {
   return array(
-    "1607708" => t("Phitsanulok"),
-    "1619276" => t("Bang Rakam"),
-    "1619437" => t("Bang Krathum"),
+    "1607708" => "Phitsanulok",
+    "1619276" => "Bang Rakam",
+    "1619437" => "Bang Krathum",
   );
 }
 
 
 function location_cities_list_th_14() {
   return array(
-    "1605118" => t("Wang Noi"),
-    "1605509" => t("Tha Ruea"),
-    "1607532" => t("Phra Nakhon Si Ayutthaya"),
-    "1607865" => t("Phak Hai"),
-    "1608541" => t("Nakhon Luang"),
-    "1619369" => t("Bang Pa-in"),
-    "1619616" => t("Bang Ban"),
-    "1620875" => t("Ban Bang Kadi Pathum Thani"),
+    "1605118" => "Wang Noi",
+    "1605509" => "Tha Ruea",
+    "1607532" => "Phra Nakhon Si Ayutthaya",
+    "1607865" => "Phak Hai",
+    "1608541" => "Nakhon Luang",
+    "1619369" => "Bang Pa-in",
+    "1619616" => "Bang Ban",
+    "1620875" => "Ban Bang Kadi Pathum Thani",
   );
 }
 
 
 function location_cities_list_th_54() {
   return array(
-    "1607552" => t("Phrae"),
-    "1610943" => t("Den Chai"),
+    "1607552" => "Phrae",
+    "1610943" => "Den Chai",
   );
 }
 
 
 function location_cities_list_th_25() {
   return array(
-    "1607280" => t("Prachin Buri"),
-    "1610538" => t("Kabin Buri"),
+    "1607280" => "Prachin Buri",
+    "1610538" => "Kabin Buri",
   );
 }
 
 
 function location_cities_list_th_77() {
   return array(
-    "1117823" => t("Sam Roi Yot"),
-    "1151063" => t("Pran Buri"),
-    "1151074" => t("Prachuap Khiri Khan"),
-    "1152562" => t("Kui Buri"),
-    "1153269" => t("Hua Hin"),
-    "1157662" => t("Bang Saphan"),
+    "1117823" => "Sam Roi Yot",
+    "1151063" => "Pran Buri",
+    "1151074" => "Prachuap Khiri Khan",
+    "1152562" => "Kui Buri",
+    "1153269" => "Hua Hin",
+    "1157662" => "Bang Saphan",
   );
 }
 
 
 function location_cities_list_th_85() {
   return array(
-    "1150965" => t("Ranong"),
+    "1150965" => "Ranong",
   );
 }
 
 
 function location_cities_list_th_70() {
   return array(
-    "1150954" => t("Ratchaburi"),
-    "1151340" => t("Photharam"),
-    "1153513" => t("Damnoen Saduak"),
-    "1153646" => t("Chom Bueng"),
-    "1155139" => t("Ban Pong"),
-    "1157683" => t("Bang Phae"),
+    "1150954" => "Ratchaburi",
+    "1151340" => "Photharam",
+    "1153513" => "Damnoen Saduak",
+    "1153646" => "Chom Bueng",
+    "1155139" => "Ban Pong",
+    "1157683" => "Bang Phae",
   );
 }
 
 
 function location_cities_list_th_21() {
   return array(
-    "1607017" => t("Rayong"),
-    "1609610" => t("Klaeng"),
-    "1620254" => t("Ban Chang"),
+    "1607017" => "Rayong",
+    "1609610" => "Klaeng",
+    "1620254" => "Ban Chang",
   );
 }
 
 
 function location_cities_list_th_45() {
   return array(
-    "1607001" => t("Roi Et"),
-    "1610185" => t("Kaset Wisai"),
-    "1613284" => t("Ban Selaphum"),
+    "1607001" => "Roi Et",
+    "1610185" => "Kaset Wisai",
+    "1613284" => "Ban Selaphum",
   );
 }
 
 
 function location_cities_list_th_27() {
   return array(
-    "1605119" => t("Wang Nam Yen"),
-    "1606807" => t("Sa Kaeo"),
-    "1621020" => t("Aranyaprathet"),
+    "1605119" => "Wang Nam Yen",
+    "1606807" => "Sa Kaeo",
+    "1621020" => "Aranyaprathet",
   );
 }
 
 
 function location_cities_list_th_47() {
   return array(
-    "1606350" => t("Sawang Daen Din"),
-    "1606790" => t("Sakon Nakhon"),
+    "1606350" => "Sawang Daen Din",
+    "1606790" => "Sakon Nakhon",
   );
 }
 
 
 function location_cities_list_th_11() {
   return array(
-    "1604452" => t("Ban Khlong Bang Sao Thong"),
-    "1606590" => t("Samut Prakan"),
-    "1607508" => t("Phra Pradaeng"),
-    "1620919" => t("Ban Bang Bo (1)"),
+    "1604452" => "Ban Khlong Bang Sao Thong",
+    "1606590" => "Samut Prakan",
+    "1607508" => "Phra Pradaeng",
+    "1620919" => "Ban Bang Bo (1)",
   );
 }
 
 
 function location_cities_list_th_74() {
   return array(
-    "1606588" => t("Samut Sakhon"),
-    "1609395" => t("Krathum Baen"),
-    "1614465" => t("Ban Phaeo"),
+    "1606588" => "Samut Sakhon",
+    "1609395" => "Krathum Baen",
+    "1614465" => "Ban Phaeo",
   );
 }
 
 
 function location_cities_list_th_75() {
   return array(
-    "1606586" => t("Samut Songkhram"),
+    "1606586" => "Samut Songkhram",
   );
 }
 
 
 function location_cities_list_th_19() {
   return array(
-    "1606418" => t("Saraburi"),
-    "1607512" => t("Phra Phutthabat"),
-    "1608239" => t("Nong Khae"),
-    "1610503" => t("Kaeng Khoi"),
-    "1616658" => t("Ban Mo"),
+    "1606418" => "Saraburi",
+    "1607512" => "Phra Phutthabat",
+    "1608239" => "Nong Khae",
+    "1610503" => "Kaeng Khoi",
+    "1616658" => "Ban Mo",
   );
 }
 
 
 function location_cities_list_th_91() {
   return array(
-    "1606376" => t("Satun"),
+    "1606376" => "Satun",
   );
 }
 
 
 function location_cities_list_th_17() {
   return array(
-    "1606270" => t("Sing Buri"),
-    "1619281" => t("Bang Racham"),
+    "1606270" => "Sing Buri",
+    "1619281" => "Bang Racham",
   );
 }
 
 
 function location_cities_list_th_33() {
   return array(
-    "1606239" => t("Si Sa Ket"),
-    "1610227" => t("Kantharalak"),
+    "1606239" => "Si Sa Ket",
+    "1610227" => "Kantharalak",
   );
 }
 
 
 function location_cities_list_th_90() {
   return array(
-    "1601579" => t("Ban Mai"),
-    "1606147" => t("Songkhla"),
-    "1606939" => t("Sadao"),
-    "1607068" => t("Ranot"),
-    "1610780" => t("Hat Yai"),
+    "1601579" => "Ban Mai",
+    "1606147" => "Songkhla",
+    "1606939" => "Sadao",
+    "1607068" => "Ranot",
+    "1610780" => "Hat Yai",
   );
 }
 
 
 function location_cities_list_th_64() {
   return array(
-    "1150533" => t("Sukhothai"),
-    "1150624" => t("Si Satchanalai"),
-    "1150681" => t("Sawankhalok"),
-    "1156257" => t("Ban Na"),
+    "1150533" => "Sukhothai",
+    "1150624" => "Si Satchanalai",
+    "1150681" => "Sawankhalok",
+    "1156257" => "Ban Na",
   );
 }
 
 
 function location_cities_list_th_72() {
   return array(
-    "1606033" => t("Suphan Buri"),
+    "1606033" => "Suphan Buri",
   );
 }
 
 
 function location_cities_list_th_84() {
   return array(
-    "1150515" => t("Surat Thani"),
-    "1151211" => t("Phunphin"),
-    "1154689" => t("Ko Samui"),
-    "1156046" => t("Ban Na San"),
+    "1150515" => "Surat Thani",
+    "1151211" => "Phunphin",
+    "1154689" => "Ko Samui",
+    "1156046" => "Ban Na San",
   );
 }
 
 
 function location_cities_list_th_32() {
   return array(
-    "1606030" => t("Surin"),
+    "1606030" => "Surin",
   );
 }
 
 
 function location_cities_list_th_63() {
   return array(
-    "1150490" => t("Tak"),
-    "1152188" => t("Mae Sot"),
-    "1152202" => t("Mae Ramat"),
-    "1154677" => t("Ban Tak"),
+    "1150490" => "Tak",
+    "1152188" => "Mae Sot",
+    "1152202" => "Mae Ramat",
+    "1154677" => "Ban Tak",
   );
 }
 
 
 function location_cities_list_th_92() {
   return array(
-    "1150007" => t("Trang"),
-    "1153241" => t("Huai Yot"),
+    "1150007" => "Trang",
+    "1153241" => "Huai Yot",
   );
 }
 
 
 function location_cities_list_th_23() {
   return array(
-    "1605279" => t("Trat"),
+    "1605279" => "Trat",
   );
 }
 
 
 function location_cities_list_th_34() {
   return array(
-    "1605069" => t("Warin Chamrap"),
-    "1605245" => t("Ubon Ratchathani"),
-    "1607730" => t("Phibun Mangsahan"),
-    "1610940" => t("Det Udom"),
+    "1605069" => "Warin Chamrap",
+    "1605245" => "Ubon Ratchathani",
+    "1607730" => "Phibun Mangsahan",
+    "1610940" => "Det Udom",
   );
 }
 
 
 function location_cities_list_th_41() {
   return array(
-    "1599640" => t("Ban Nong Wua So"),
-    "1605239" => t("Udon Thani"),
-    "1608462" => t("Nam Som"),
-    "1609324" => t("Kut Chap"),
-    "1614336" => t("Ban Phan Don"),
-    "1619650" => t("Ban Dung"),
+    "1599640" => "Ban Nong Wua So",
+    "1605239" => "Udon Thani",
+    "1608462" => "Nam Som",
+    "1609324" => "Kut Chap",
+    "1614336" => "Ban Phan Don",
+    "1619650" => "Ban Dung",
   );
 }
 
 
 function location_cities_list_th_61() {
   return array(
-    "1150210" => t("Thap Than"),
-    "1605221" => t("Uthai Thani"),
+    "1150210" => "Thap Than",
+    "1605221" => "Uthai Thani",
   );
 }
 
 
 function location_cities_list_th_53() {
   return array(
-    "1605215" => t("Uttaradit"),
+    "1605215" => "Uttaradit",
   );
 }
 
 
 function location_cities_list_th_95() {
   return array(
-    "1604870" => t("Yala"),
-    "1611635" => t("Betong"),
+    "1604870" => "Yala",
+    "1611635" => "Betong",
   );
 }
 
 
 function location_cities_list_th_35() {
   return array(
-    "1604769" => t("Yasothon"),
+    "1604769" => "Yasothon",
   );
 }
 
 
 function location_cities_list_th_50() {
   return array(
-    "1150728" => t("San Pa Tong"),
-    "1150732" => t("San Kamphaeng"),
-    "1153386" => t("Hang Dong"),
-    "1153671" => t("Chiang Mai"),
+    "1150728" => "San Pa Tong",
+    "1150732" => "San Kamphaeng",
+    "1153386" => "Hang Dong",
+    "1153671" => "Chiang Mai",
   );
 }
 
 
 function location_cities_list_th_83() {
   return array(
-    "1117652" => t("Ban Talat Yai"),
-    "1117656" => t("Ban Talat Nua"),
-    "1151254" => t("Phuket"),
-    "1153035" => t("Kathu"),
-    "6696291" => t("Wichit"),
-    "7091861" => t("Ban Chalong"),
-    "7091912" => t("Ban Ratsada"),
+    "1117652" => "Ban Talat Yai",
+    "1117656" => "Ban Talat Nua",
+    "1151254" => "Phuket",
+    "1153035" => "Kathu",
+    "6696291" => "Wichit",
+    "7091861" => "Ban Chalong",
+    "7091912" => "Ban Ratsada",
   );
 }

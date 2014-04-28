@@ -18,7 +18,7 @@ function location_cities_list_fo_sa() {
 
 function location_cities_list_fo_st() {
   return array(
-    "2611396" => t("Torshavn"),
+    "2611396" => "Torshavn",
   );
 }
 

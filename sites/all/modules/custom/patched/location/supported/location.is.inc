@@ -2,13 +2,13 @@
 
 function location_province_list_is() {
   return array(
-    "1" => t("Capital Region"),
-    "7" => t("East"),
-    "6" => t("Northeast"),
-    "5" => t("Northwest"),
-    "8" => t("South"),
-    "2" => t("Southern Peninsula"),
-    "3" => t("West"),
-    "4" => t("Westfjords"),
+    "1" => "Capital Region",
+    "7" => "East",
+    "6" => "Northeast",
+    "5" => "Northwest",
+    "8" => "South",
+    "2" => "Southern Peninsula",
+    "3" => "West",
+    "4" => "Westfjords",
   );
 }

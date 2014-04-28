@@ -3,43 +3,43 @@
 
 function location_cities_list_md_ca() {
   return array(
-    "618456" => t("Cahul"),
+    "618456" => "Cahul",
   );
 }
 
 
 function location_cities_list_md_dr() {
   return array(
-    "618370" => t("Drochia"),
+    "618370" => "Drochia",
   );
 }
 
 
 function location_cities_list_md_ga() {
   return array(
-    "618405" => t("Comrat"),
-    "618450" => t("Ceadir-Lunga"),
+    "618405" => "Comrat",
+    "618450" => "Ceadir-Lunga",
   );
 }
 
 
 function location_cities_list_md_bd() {
   return array(
-    "618577" => t("Bender"),
+    "618577" => "Bender",
   );
 }
 
 
 function location_cities_list_md_ba() {
   return array(
-    "618605" => t("Balti"),
+    "618605" => "Balti",
   );
 }
 
 
 function location_cities_list_md_cu() {
   return array(
-    "618426" => t("Chisinau"),
+    "618426" => "Chisinau",
   );
 }
 
@@ -81,7 +81,7 @@ function location_cities_list_md_cl() {
 
 function location_cities_list_md_cs() {
   return array(
-    "618120" => t("Causeni"),
+    "618120" => "Causeni",
   );
 }
 
@@ -98,14 +98,14 @@ function location_cities_list_md_du() {
 
 function location_cities_list_md_ed() {
   return array(
-    "617076" => t("Edinet"),
+    "617076" => "Edinet",
   );
 }
 
 
 function location_cities_list_md_fl() {
   return array(
-    "618329" => t("Floresti"),
+    "618329" => "Floresti",
   );
 }
 
@@ -122,7 +122,7 @@ function location_cities_list_md_gl() {
 
 function location_cities_list_md_hi() {
   return array(
-    "617993" => t("Hincesti"),
+    "617993" => "Hincesti",
   );
 }
 
@@ -149,7 +149,7 @@ function location_cities_list_md_oc() {
 
 function location_cities_list_md_or() {
   return array(
-    "617638" => t("Orhei"),
+    "617638" => "Orhei",
   );
 }
 
@@ -166,14 +166,14 @@ function location_cities_list_md_ri() {
 
 function location_cities_list_md_so() {
   return array(
-    "617367" => t("Soroca"),
+    "617367" => "Soroca",
   );
 }
 
 
 function location_cities_list_md_si() {
   return array(
-    "617345" => t("Bilicenii Vechi"),
+    "617345" => "Bilicenii Vechi",
   );
 }
 
@@ -200,23 +200,23 @@ function location_cities_list_md_sv() {
 
 function location_cities_list_md_st() {
   return array(
-    "617302" => t("Straseni"),
+    "617302" => "Straseni",
   );
 }
 
 
 function location_cities_list_md_un() {
   return array(
-    "617180" => t("Ungheni"),
+    "617180" => "Ungheni",
   );
 }
 
 
 function location_cities_list_md_sn() {
   return array(
-    "617239" => t("Tiraspol"),
-    "617381" => t("Slobozia"),
-    "617486" => t("Ribnita"),
-    "618365" => t("Dubasari"),
+    "617239" => "Tiraspol",
+    "617381" => "Slobozia",
+    "617486" => "Ribnita",
+    "618365" => "Dubasari",
   );
 }

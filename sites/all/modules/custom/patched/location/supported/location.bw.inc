@@ -2,14 +2,14 @@
 
 function location_province_list_bw() {
   return array(
-    "CE" => t("Central District"),
-    "GH" => t("Ghanzi District"),
-    "KG" => t("Kgalagadi District"),
-    "KL" => t("Kgatleng District"),
-    "KW" => t("Kweneng District"),
-    "NE" => t("North East District"),
-    "NW" => t("North West District"),
-    "SE" => t("South East District"),
-    "SO" => t("Southern District"),
+    "CE" => "Central District",
+    "GH" => "Ghanzi District",
+    "KG" => "Kgalagadi District",
+    "KL" => "Kgatleng District",
+    "KW" => "Kweneng District",
+    "NE" => "North East District",
+    "NW" => "North West District",
+    "SE" => "South East District",
+    "SO" => "Southern District",
   );
 }

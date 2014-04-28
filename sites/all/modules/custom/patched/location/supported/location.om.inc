@@ -2,16 +2,16 @@
 
 function location_province_list_om() {
   return array(
-    "SH" => t("Ash Sharqiyah South"),
-    "ZA" => t("Az̧ Z̧āhirah"),
-    "MU" => t("Musandam"),
-    "BA" => t("Muḩāfaz̧at Janūb al Bāţinah"),
-    "MA" => t("Muḩāfaz̧at Masqaţ"),
-    "11" => t("Muḩāfaz̧at Shamāl al Bāţinah"),
-    "12" => t("Muḩāfaz̧at Shamāl ash Sharqīyah"),
-    "ZU" => t("Muḩāfaz̧at Z̧ufār"),
-    "DA" => t("Muḩāfaz̧at ad Dākhilīyah"),
-    "BU" => t("Muḩāfaz̧at al Buraymī"),
-    "WU" => t("Muḩāfaz̧at al Wusţá"),
+    "SH" => "Ash Sharqiyah South",
+    "ZA" => "Az̧ Z̧āhirah",
+    "MU" => "Musandam",
+    "BA" => "Muḩāfaz̧at Janūb al Bāţinah",
+    "MA" => "Muḩāfaz̧at Masqaţ",
+    "11" => "Muḩāfaz̧at Shamāl al Bāţinah",
+    "12" => "Muḩāfaz̧at Shamāl ash Sharqīyah",
+    "ZU" => "Muḩāfaz̧at Z̧ufār",
+    "DA" => "Muḩāfaz̧at ad Dākhilīyah",
+    "BU" => "Muḩāfaz̧at al Buraymī",
+    "WU" => "Muḩāfaz̧at al Wusţá",
   );
 }

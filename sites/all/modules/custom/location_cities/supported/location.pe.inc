@@ -3,262 +3,262 @@
 
 function location_cities_list_pe_ama() {
   return array(
-    "3695675" => t("La Peca"),
-    "3698540" => t("Chachapoyas"),
-    "3699484" => t("Bagua Grande"),
+    "3695675" => "La Peca",
+    "3698540" => "Chachapoyas",
+    "3699484" => "Bagua Grande",
   );
 }
 
 
 function location_cities_list_pe_anc() {
   return array(
-    "3696378" => t("Huaraz"),
-    "3697990" => t("Coishco"),
-    "3698304" => t("Chimbote"),
-    "3939168" => t("Huarmey"),
+    "3696378" => "Huaraz",
+    "3697990" => "Coishco",
+    "3698304" => "Chimbote",
+    "3939168" => "Huarmey",
   );
 }
 
 
 function location_cities_list_pe_apu() {
   return array(
-    "3947740" => t("Andahuaylas"),
-    "3948642" => t("Abancay"),
+    "3947740" => "Andahuaylas",
+    "3948642" => "Abancay",
   );
 }
 
 
 function location_cities_list_pe_are() {
   return array(
-    "3934707" => t("Mollendo"),
-    "3945985" => t("Camana"),
-    "3947322" => t("Arequipa"),
+    "3934707" => "Mollendo",
+    "3945985" => "Camana",
+    "3947322" => "Arequipa",
   );
 }
 
 
 function location_cities_list_pe_aya() {
   return array(
-    "3939386" => t("Huanta"),
-    "3947019" => t("Ayacucho"),
+    "3939386" => "Huanta",
+    "3947019" => "Ayacucho",
   );
 }
 
 
 function location_cities_list_pe_caj() {
   return array(
-    "3696150" => t("Jaen"),
-    "3699088" => t("Cajamarca"),
+    "3696150" => "Jaen",
+    "3699088" => "Cajamarca",
   );
 }
 
 
 function location_cities_list_pe_cal() {
   return array(
-    "3946083" => t("Callao"),
+    "3946083" => "Callao",
   );
 }
 
 
 function location_cities_list_pe_cus() {
   return array(
-    "3928679" => t("Sicuani"),
-    "3929295" => t("Santa Ana"),
-    "3941584" => t("Cusco"),
+    "3928679" => "Sicuani",
+    "3929295" => "Santa Ana",
+    "3941584" => "Cusco",
   );
 }
 
 
 function location_cities_list_pe_moq() {
   return array(
-    "3934608" => t("Moquegua"),
-    "3938415" => t("Ilo"),
+    "3934608" => "Moquegua",
+    "3938415" => "Ilo",
   );
 }
 
 
 function location_cities_list_pe_huv() {
   return array(
-    "3939470" => t("Huancavelica"),
+    "3939470" => "Huancavelica",
   );
 }
 
 
 function location_cities_list_pe_ica() {
   return array(
-    "3929768" => t("San Clemente"),
-    "3932145" => t("Pisco"),
-    "3934356" => t("Nazca"),
-    "3935288" => t("Minas de Marcona"),
-    "3938527" => t("Ica"),
-    "3943789" => t("Chincha Alta"),
+    "3929768" => "San Clemente",
+    "3932145" => "Pisco",
+    "3934356" => "Nazca",
+    "3935288" => "Minas de Marcona",
+    "3938527" => "Ica",
+    "3943789" => "Chincha Alta",
   );
 }
 
 
 function location_cities_list_pe_jun() {
   return array(
-    "3927758" => t("Tarma"),
-    "3928924" => t("Satipo"),
-    "3936952" => t("La Oroya"),
-    "3937486" => t("Junin"),
-    "3937733" => t("Jauja"),
-    "3939459" => t("Huancayo"),
+    "3927758" => "Tarma",
+    "3928924" => "Satipo",
+    "3936952" => "La Oroya",
+    "3937486" => "Junin",
+    "3937733" => "Jauja",
+    "3939459" => "Huancayo",
   );
 }
 
 
 function location_cities_list_pe_lal() {
   return array(
-    "3690875" => t("Viru"),
-    "3691175" => t("Trujillo"),
-    "3692073" => t("Santiago de Cao"),
-    "3692310" => t("San Pedro de Lloc"),
-    "3694119" => t("Paijan"),
-    "3694178" => t("Pacasmayo"),
-    "3694725" => t("Moche"),
-    "3695617" => t("Laredo"),
-    "3696509" => t("Huamachuco"),
-    "3696847" => t("Guadalupe"),
-    "3698194" => t("Chocope"),
-    "3698390" => t("Chepen"),
+    "3690875" => "Viru",
+    "3691175" => "Trujillo",
+    "3692073" => "Santiago de Cao",
+    "3692310" => "San Pedro de Lloc",
+    "3694119" => "Paijan",
+    "3694178" => "Pacasmayo",
+    "3694725" => "Moche",
+    "3695617" => "Laredo",
+    "3696509" => "Huamachuco",
+    "3696847" => "Guadalupe",
+    "3698194" => "Chocope",
+    "3698390" => "Chepen",
   );
 }
 
 
 function location_cities_list_pe_lam() {
   return array(
-    "3692667" => t("Zana"),
-    "3693584" => t("Pimentel"),
-    "3693645" => t("Picsi"),
-    "3694666" => t("Monsefu"),
-    "3695754" => t("Lambayeque"),
-    "3697033" => t("Ferrenafe"),
-    "3698176" => t("Chongoyape"),
-    "3698350" => t("Chiclayo"),
+    "3692667" => "Zana",
+    "3693584" => "Pimentel",
+    "3693645" => "Picsi",
+    "3694666" => "Monsefu",
+    "3695754" => "Lambayeque",
+    "3697033" => "Ferrenafe",
+    "3698176" => "Chongoyape",
+    "3698350" => "Chiclayo",
   );
 }
 
 
 function location_cities_list_pe_lim() {
   return array(
-    "3928245" => t("Surco"),
-    "3928993" => t("San Vicente de Canete"),
-    "3929631" => t("San Isidro"),
-    "3933024" => t("Paramonga"),
-    "3934239" => t("Nuevo Imperial"),
-    "3935572" => t("Mala"),
-    "3938396" => t("Imperial"),
-    "3939023" => t("Huaura"),
-    "3939285" => t("Huaral"),
-    "3939761" => t("Hualmay"),
-    "3940002" => t("Huacho"),
-    "3943423" => t("Chosica"),
-    "3944399" => t("Chancay"),
-    "3946820" => t("Barranca"),
+    "3928245" => "Surco",
+    "3928993" => "San Vicente de Canete",
+    "3929631" => "San Isidro",
+    "3933024" => "Paramonga",
+    "3934239" => "Nuevo Imperial",
+    "3935572" => "Mala",
+    "3938396" => "Imperial",
+    "3939023" => "Huaura",
+    "3939285" => "Huaral",
+    "3939761" => "Hualmay",
+    "3940002" => "Huacho",
+    "3943423" => "Chosica",
+    "3944399" => "Chancay",
+    "3946820" => "Barranca",
   );
 }
 
 
 function location_cities_list_pe_lor() {
   return array(
-    "3690654" => t("Yurimaguas"),
-    "3696183" => t("Iquitos"),
+    "3690654" => "Yurimaguas",
+    "3696183" => "Iquitos",
   );
 }
 
 
 function location_cities_list_pe_mdd() {
   return array(
-    "3927942" => t("Tambopata"),
-    "3931470" => t("Puerto Maldonado"),
+    "3927942" => "Tambopata",
+    "3931470" => "Puerto Maldonado",
   );
 }
 
 
 function location_cities_list_pe_pas() {
   return array(
-    "3944179" => t("Chaupimarca"),
-    "3944797" => t("Cerro de Pasco"),
+    "3944179" => "Chaupimarca",
+    "3944797" => "Cerro de Pasco",
   );
 }
 
 
 function location_cities_list_pe_piu() {
   return array(
-    "3691530" => t("Tambo Grande"),
-    "3691582" => t("Talara"),
-    "3691674" => t("Sullana"),
-    "3691954" => t("Sechura"),
-    "3693057" => t("Querecotillo"),
-    "3693528" => t("Piura"),
-    "3694112" => t("Paita"),
-    "3694939" => t("Marcavelica"),
-    "3695466" => t("La Union"),
-    "3698105" => t("Chulucanas"),
-    "3698658" => t("Catacaos"),
-    "3814568" => t("La Breita"),
+    "3691530" => "Tambo Grande",
+    "3691582" => "Talara",
+    "3691674" => "Sullana",
+    "3691954" => "Sechura",
+    "3693057" => "Querecotillo",
+    "3693528" => "Piura",
+    "3694112" => "Paita",
+    "3694939" => "Marcavelica",
+    "3695466" => "La Union",
+    "3698105" => "Chulucanas",
+    "3698658" => "Catacaos",
+    "3814568" => "La Breita",
   );
 }
 
 
 function location_cities_list_pe_lma() {
   return array(
-    "3936456" => t("Lima"),
+    "3936456" => "Lima",
   );
 }
 
 
 function location_cities_list_pe_pun() {
   return array(
-    "3925476" => t("Yunguyo"),
-    "3931276" => t("Puno"),
-    "3937513" => t("Juliaca"),
-    "3938451" => t("Ilave"),
-    "3946985" => t("Ayaviri"),
-    "7626291" => t("La Rinconada"),
+    "3925476" => "Yunguyo",
+    "3931276" => "Puno",
+    "3937513" => "Juliaca",
+    "3938451" => "Ilave",
+    "3946985" => "Ayaviri",
+    "7626291" => "La Rinconada",
   );
 }
 
 
 function location_cities_list_pe_huc() {
   return array(
-    "3691348" => t("Tingo Maria"),
-    "3696417" => t("Huanuco"),
-    "3925863" => t("Yanacancha"),
+    "3691348" => "Tingo Maria",
+    "3696417" => "Huanuco",
+    "3925863" => "Yanacancha",
   );
 }
 
 
 function location_cities_list_pe_sam() {
   return array(
-    "3691094" => t("Uchiza"),
-    "3691324" => t("Tocache Nuevo"),
-    "3692863" => t("Rioja"),
-    "3694564" => t("Moyobamba"),
-    "3696057" => t("Juanjui"),
-    "3699364" => t("Bellavista"),
+    "3691094" => "Uchiza",
+    "3691324" => "Tocache Nuevo",
+    "3692863" => "Rioja",
+    "3694564" => "Moyobamba",
+    "3696057" => "Juanjui",
+    "3699364" => "Bellavista",
   );
 }
 
 
 function location_cities_list_pe_tac() {
   return array(
-    "3928128" => t("Tacna"),
+    "3928128" => "Tacna",
   );
 }
 
 
 function location_cities_list_pe_tum() {
   return array(
-    "3691148" => t("Tumbes"),
-    "3818398" => t("Zarumilla"),
+    "3691148" => "Tumbes",
+    "3818398" => "Zarumilla",
   );
 }
 
 
 function location_cities_list_pe_uca() {
   return array(
-    "3693345" => t("Pucallpa"),
+    "3693345" => "Pucallpa",
   );
 }

@@ -2,13 +2,13 @@
 
 function location_province_list_lb() {
   return array(
-    "BA" => t("Beyrouth"),
-    "AK" => t("Mohafazat Aakkâr"),
-    "BH" => t("Mohafazat Baalbek-Hermel"),
-    "BI" => t("Mohafazat Béqaa"),
-    "AS" => t("Mohafazat Liban-Nord"),
-    "JA" => t("Mohafazat Liban-Sud"),
-    "JL" => t("Mohafazat Mont-Liban"),
-    "NA" => t("Mohafazat Nabatîyé"),
+    "BA" => "Beyrouth",
+    "AK" => "Mohafazat Aakkâr",
+    "BH" => "Mohafazat Baalbek-Hermel",
+    "BI" => "Mohafazat Béqaa",
+    "AS" => "Mohafazat Liban-Nord",
+    "JA" => "Mohafazat Liban-Sud",
+    "JL" => "Mohafazat Mont-Liban",
+    "NA" => "Mohafazat Nabatîyé",
   );
 }

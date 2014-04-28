@@ -2,14 +2,14 @@
 
 function location_province_list_um() {
   return array(
-    "81" => t("Baker Island"),
-    "84" => t("Howland Island"),
-    "86" => t("Jarvis Island"),
-    "67" => t("Johnston Atoll"),
-    "89" => t("Kingman Reef"),
-    "71" => t("Midway Islands"),
-    "76" => t("Navassa Island"),
-    "95" => t("Palmyra Atoll"),
-    "79" => t("Wake Island"),
+    "81" => "Baker Island",
+    "84" => "Howland Island",
+    "86" => "Jarvis Island",
+    "67" => "Johnston Atoll",
+    "89" => "Kingman Reef",
+    "71" => "Midway Islands",
+    "76" => "Navassa Island",
+    "95" => "Palmyra Atoll",
+    "79" => "Wake Island",
   );
 }

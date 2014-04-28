@@ -8,7 +8,7 @@ function location_cities_list_tf_02() {
 
 function location_cities_list_tf_03() {
   return array(
-    "1546102" => t("Port-aux-Francais"),
+    "1546102" => "Port-aux-Francais",
   );
 }
 

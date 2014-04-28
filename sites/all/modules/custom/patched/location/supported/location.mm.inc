@@ -2,19 +2,19 @@
 
 function location_province_list_mm() {
   return array(
-    "07" => t("Ayeyawady Region"),
-    "02" => t("Bago Region"),
-    "14" => t("Chin State"),
-    "11" => t("Kachin State"),
-    "12" => t("Kayah State"),
-    "13" => t("Kayin State"),
-    "03" => t("Magway Region"),
-    "04" => t("Mandalay Region"),
-    "15" => t("Mon State"),
-    "16" => t("Rakhine State"),
-    "01" => t("Sagaing Region"),
-    "17" => t("Shan State"),
-    "05" => t("Taninthayi Region"),
-    "06" => t("Yangon Region"),
+    "07" => "Ayeyawady Region",
+    "02" => "Bago Region",
+    "14" => "Chin State",
+    "11" => "Kachin State",
+    "12" => "Kayah State",
+    "13" => "Kayin State",
+    "03" => "Magway Region",
+    "04" => "Mandalay Region",
+    "15" => "Mon State",
+    "16" => "Rakhine State",
+    "01" => "Sagaing Region",
+    "17" => "Shan State",
+    "05" => "Taninthayi Region",
+    "06" => "Yangon Region",
   );
 }

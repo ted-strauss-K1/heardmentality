@@ -2,10 +2,10 @@
 
 function location_province_list_tm() {
   return array(
-    "A" => t("Ahal"),
-    "B" => t("Balkan"),
-    "D" => t("Daşoguz Welaýaty"),
-    "L" => t("Lebap"),
-    "M" => t("Mary"),
+    "A" => "Ahal",
+    "B" => "Balkan",
+    "D" => "Daşoguz Welaýaty",
+    "L" => "Lebap",
+    "M" => "Mary",
   );
 }

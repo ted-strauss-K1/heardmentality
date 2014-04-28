@@ -2,18 +2,18 @@
 
 function location_province_list_sa() {
   return array(
-    "12" => t("Al Jawf"),
-    "05" => t("Al-Qassim Province"),
-    "04" => t("Eastern Province"),
-    "02" => t("Makkah"),
-    "09" => t("Minţaqat Jīzān"),
-    "10" => t("Minţaqat Najrān"),
-    "07" => t("Minţaqat Tabūk"),
-    "11" => t("Minţaqat al Bāḩah"),
-    "03" => t("Minţaqat al Madīnah"),
-    "01" => t("Minţaqat ar Riyāḑ"),
-    "06" => t("Minţaqat Ḩā’il"),
-    "14" => t("Minţaqat ‘Asīr"),
-    "08" => t("Northern Borders Region"),
+    "12" => "Al Jawf",
+    "05" => "Al-Qassim Province",
+    "04" => "Eastern Province",
+    "02" => "Makkah",
+    "09" => "Minţaqat Jīzān",
+    "10" => "Minţaqat Najrān",
+    "07" => "Minţaqat Tabūk",
+    "11" => "Minţaqat al Bāḩah",
+    "03" => "Minţaqat al Madīnah",
+    "01" => "Minţaqat ar Riyāḑ",
+    "06" => "Minţaqat Ḩā’il",
+    "14" => "Minţaqat ‘Asīr",
+    "08" => "Northern Borders Region",
   );
 }

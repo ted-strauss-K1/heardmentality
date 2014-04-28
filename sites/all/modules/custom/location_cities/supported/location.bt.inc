@@ -8,7 +8,7 @@ function location_cities_list_bt_33() {
 
 function location_cities_list_bt_12() {
   return array(
-    "1252484" => t("Phuntsholing"),
+    "1252484" => "Phuntsholing",
   );
 }
 
@@ -50,7 +50,7 @@ function location_cities_list_bt_43() {
 
 function location_cities_list_bt_23() {
   return array(
-    "1252479" => t("Punakha"),
+    "1252479" => "Punakha",
   );
 }
 
@@ -72,7 +72,7 @@ function location_cities_list_bt_31() {
 
 function location_cities_list_bt_15() {
   return array(
-    "1252416" => t("Thimphu"),
+    "1252416" => "Thimphu",
   );
 }
 
@@ -94,7 +94,7 @@ function location_cities_list_bt_32() {
 
 function location_cities_list_bt_21() {
   return array(
-    "1252608" => t("Tsirang"),
+    "1252608" => "Tsirang",
   );
 }
 

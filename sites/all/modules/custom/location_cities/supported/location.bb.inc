@@ -38,7 +38,7 @@ function location_cities_list_bb_07() {
 
 function location_cities_list_bb_08() {
   return array(
-    "3374036" => t("Bridgetown"),
+    "3374036" => "Bridgetown",
   );
 }
 

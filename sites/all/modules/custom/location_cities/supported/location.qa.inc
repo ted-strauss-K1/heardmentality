@@ -3,7 +3,7 @@
 
 function location_cities_list_qa_wa() {
   return array(
-    "289915" => t("Al Wakrah"),
+    "289915" => "Al Wakrah",
   );
 }
 
@@ -20,14 +20,14 @@ function location_cities_list_qa_12() {
 
 function location_cities_list_qa_us() {
   return array(
-    "289523" => t("Umm Salal Muhammad"),
+    "289523" => "Umm Salal Muhammad",
   );
 }
 
 
 function location_cities_list_qa_da() {
   return array(
-    "290030" => t("Doha"),
+    "290030" => "Doha",
   );
 }
 
@@ -44,14 +44,14 @@ function location_cities_list_qa_03() {
 
 function location_cities_list_qa_kh() {
   return array(
-    "289962" => t("Al Khawr"),
+    "289962" => "Al Khawr",
   );
 }
 
 
 function location_cities_list_qa_ra() {
   return array(
-    "289888" => t("Ar Rayyan"),
+    "289888" => "Ar Rayyan",
   );
 }
 

@@ -2,16 +2,16 @@
 
 function location_province_list_lc() {
   return array(
-    "AR" => t("Quarter of Anse-la-Raye"),
-    "CA" => t("Quarter of Castries"),
-    "CH" => t("Quarter of Choiseul"),
-    "DA" => t("Quarter of Dauphin"),
-    "DE" => t("Quarter of Dennery"),
-    "GI" => t("Quarter of Gros-Islet"),
-    "LA" => t("Quarter of Laborie"),
-    "MI" => t("Quarter of Micoud"),
-    "PR" => t("Quarter of Praslin"),
-    "SO" => t("Quarter of Soufrière"),
-    "VF" => t("Quarter of Vieux-Fort"),
+    "AR" => "Quarter of Anse-la-Raye",
+    "CA" => "Quarter of Castries",
+    "CH" => "Quarter of Choiseul",
+    "DA" => "Quarter of Dauphin",
+    "DE" => "Quarter of Dennery",
+    "GI" => "Quarter of Gros-Islet",
+    "LA" => "Quarter of Laborie",
+    "MI" => "Quarter of Micoud",
+    "PR" => "Quarter of Praslin",
+    "SO" => "Quarter of Soufrière",
+    "VF" => "Quarter of Vieux-Fort",
   );
 }

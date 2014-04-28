@@ -2,11 +2,11 @@
 
 function location_province_list_fo() {
   return array(
-    "OS" => t("Eysturoy"),
-    "NO" => t("Norðoyar"),
-    "SA" => t("Sandoy"),
-    "ST" => t("Streymoy"),
-    "SU" => t("Suðuroy"),
-    "VG" => t("Vágar"),
+    "OS" => "Eysturoy",
+    "NO" => "Norðoyar",
+    "SA" => "Sandoy",
+    "ST" => "Streymoy",
+    "SU" => "Suðuroy",
+    "VG" => "Vágar",
   );
 }

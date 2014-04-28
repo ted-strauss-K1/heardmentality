@@ -2,15 +2,15 @@
 
 function location_province_list_gh() {
   return array(
-    "AH" => t("Ashanti Region"),
-    "BA" => t("Brong-Ahafo"),
-    "CP" => t("Central Region"),
-    "EP" => t("Eastern Region"),
-    "AA" => t("Greater Accra Region"),
-    "NP" => t("Northern Region"),
-    "UE" => t("Upper East Region"),
-    "UW" => t("Upper West Region"),
-    "TV" => t("Volta Region"),
-    "WP" => t("Western Region"),
+    "AH" => "Ashanti Region",
+    "BA" => "Brong-Ahafo",
+    "CP" => "Central Region",
+    "EP" => "Eastern Region",
+    "AA" => "Greater Accra Region",
+    "NP" => "Northern Region",
+    "UE" => "Upper East Region",
+    "UW" => "Upper West Region",
+    "TV" => "Volta Region",
+    "WP" => "Western Region",
   );
 }

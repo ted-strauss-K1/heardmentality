@@ -2,17 +2,17 @@
 
 function location_province_list_bj() {
   return array(
-    "AL" => t("Alibori"),
-    "AK" => t("Atakora Department"),
-    "AQ" => t("Atlantique Department"),
-    "BO" => t("Borgou Department"),
-    "CO" => t("Collines Department"),
-    "DO" => t("Donga"),
-    "OU" => t("Département de l’ Ouémé"),
-    "KO" => t("Kouffo Department"),
-    "LI" => t("Littoral"),
-    "MO" => t("Mono"),
-    "PL" => t("Plateau Department"),
-    "ZO" => t("Zou Department"),
+    "AL" => "Alibori",
+    "AK" => "Atakora Department",
+    "AQ" => "Atlantique Department",
+    "BO" => "Borgou Department",
+    "CO" => "Collines Department",
+    "DO" => "Donga",
+    "OU" => "Département de l’ Ouémé",
+    "KO" => "Kouffo Department",
+    "LI" => "Littoral",
+    "MO" => "Mono",
+    "PL" => "Plateau Department",
+    "ZO" => "Zou Department",
   );
 }

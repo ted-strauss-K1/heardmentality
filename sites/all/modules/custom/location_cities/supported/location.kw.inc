@@ -3,52 +3,52 @@
 
 function location_cities_list_kw_ku() {
   return array(
-    "285787" => t("Kuwait City"),
-    "285856" => t("Ad Dasmah"),
-    "388065" => t("Ar Rabiyah"),
+    "285787" => "Kuwait City",
+    "285856" => "Ad Dasmah",
+    "388065" => "Ar Rabiyah",
   );
 }
 
 
 function location_cities_list_kw_fa() {
   return array(
-    "285603" => t("Janub as Surrah"),
-    "285815" => t("Al Farwaniyah"),
+    "285603" => "Janub as Surrah",
+    "285815" => "Al Farwaniyah",
   );
 }
 
 
 function location_cities_list_kw_mu() {
   return array(
-    "412800" => t("Sabah as Salim"),
+    "412800" => "Sabah as Salim",
   );
 }
 
 
 function location_cities_list_kw_ah() {
   return array(
-    "285728" => t("Ar Riqqah"),
-    "285778" => t("Al Manqaf"),
-    "285782" => t("Al Mahbulah"),
-    "285811" => t("Al Fahahil"),
-    "285812" => t("Al Fintas"),
-    "285839" => t("Al Ahmadi"),
+    "285728" => "Ar Riqqah",
+    "285778" => "Al Manqaf",
+    "285782" => "Al Mahbulah",
+    "285811" => "Al Fahahil",
+    "285812" => "Al Fintas",
+    "285839" => "Al Ahmadi",
   );
 }
 
 
 function location_cities_list_kw_ja() {
   return array(
-    "285799" => t("Al Jahra'"),
+    "285799" => "Al Jahra'",
   );
 }
 
 
 function location_cities_list_kw_ha() {
   return array(
-    "285629" => t("Hawalli"),
-    "285704" => t("As Salimiyah"),
-    "285726" => t("Ar Rumaythiyah"),
-    "387958" => t("Salwa"),
+    "285629" => "Hawalli",
+    "285704" => "As Salimiyah",
+    "285726" => "Ar Rumaythiyah",
+    "387958" => "Salwa",
   );
 }

@@ -3,50 +3,50 @@
 
 function location_cities_list_ie_c() {
   return array(
-    "2961423" => t("Sligo"),
-    "2964180" => t("Gaillimh"),
+    "2961423" => "Sligo",
+    "2964180" => "Gaillimh",
   );
 }
 
 
 function location_cities_list_ie_l() {
   return array(
-    "2960964" => t("Loch Garman"),
-    "2961284" => t("Tallaght"),
-    "2961297" => t("Swords"),
-    "2962290" => t("Droichead Nua"),
-    "2962308" => t("Navan"),
-    "2962334" => t("Naas"),
-    "2962361" => t("An Muileann gCearr"),
-    "2962974" => t("Leixlip"),
-    "2963398" => t("Kilkenny"),
-    "2964506" => t("Dun Laoghaire"),
-    "2964540" => t("Dundalk"),
-    "2964574" => t("Dublin"),
-    "2964661" => t("Drogheda"),
-    "2965529" => t("Celbridge"),
-    "2965768" => t("Carlow"),
-    "2966022" => t("Bray"),
-    "2966131" => t("Blackrock"),
-    "2966839" => t("Athlone"),
+    "2960964" => "Loch Garman",
+    "2961284" => "Tallaght",
+    "2961297" => "Swords",
+    "2962290" => "Droichead Nua",
+    "2962308" => "Navan",
+    "2962334" => "Naas",
+    "2962361" => "An Muileann gCearr",
+    "2962974" => "Leixlip",
+    "2963398" => "Kilkenny",
+    "2964506" => "Dun Laoghaire",
+    "2964540" => "Dundalk",
+    "2964574" => "Dublin",
+    "2964661" => "Drogheda",
+    "2965529" => "Celbridge",
+    "2965768" => "Carlow",
+    "2966022" => "Bray",
+    "2966131" => "Blackrock",
+    "2966839" => "Athlone",
   );
 }
 
 
 function location_cities_list_ie_m() {
   return array(
-    "2960992" => t("Waterford"),
-    "2961123" => t("Tralee"),
-    "2962943" => t("Luimneach"),
-    "2964405" => t("Ennis"),
-    "2965140" => t("Cork"),
-    "2965353" => t("Cluain Meala"),
+    "2960992" => "Waterford",
+    "2961123" => "Tralee",
+    "2962943" => "Luimneach",
+    "2964405" => "Ennis",
+    "2965140" => "Cork",
+    "2965353" => "Cluain Meala",
   );
 }
 
 
 function location_cities_list_ie_u() {
   return array(
-    "2962961" => t("Letterkenny"),
+    "2962961" => "Letterkenny",
   );
 }

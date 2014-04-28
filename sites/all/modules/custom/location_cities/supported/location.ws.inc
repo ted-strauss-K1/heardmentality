@@ -43,7 +43,7 @@ function location_cities_list_ws_sa() {
 
 function location_cities_list_ws_tu() {
   return array(
-    "4035413" => t("Apia"),
+    "4035413" => "Apia",
   );
 }
 

@@ -3,7 +3,7 @@
 
 function location_cities_list_tl_al() {
   return array(
-    "1651816" => t("Aileu"),
+    "1651816" => "Aileu",
   );
 }
 
@@ -15,22 +15,22 @@ function location_cities_list_tl_an() {
 
 function location_cities_list_tl_ba() {
   return array(
-    "1649539" => t("Baucau"),
-    "1943235" => t("Venilale"),
+    "1649539" => "Baucau",
+    "1943235" => "Venilale",
   );
 }
 
 
 function location_cities_list_tl_bo() {
   return array(
-    "1636670" => t("Maliana"),
+    "1636670" => "Maliana",
   );
 }
 
 
 function location_cities_list_tl_co() {
   return array(
-    "1626459" => t("Suai"),
+    "1626459" => "Suai",
   );
 }
 
@@ -42,7 +42,7 @@ function location_cities_list_tl_oe() {
 
 function location_cities_list_tl_di() {
   return array(
-    "1645457" => t("Dili"),
+    "1645457" => "Dili",
   );
 }
 
@@ -54,15 +54,15 @@ function location_cities_list_tl_er() {
 
 function location_cities_list_tl_la() {
   return array(
-    "1937274" => t("Lospalos"),
+    "1937274" => "Lospalos",
   );
 }
 
 
 function location_cities_list_tl_li() {
   return array(
-    "1635826" => t("Maubara"),
-    "1637730" => t("Liquica"),
+    "1635826" => "Maubara",
+    "1637730" => "Liquica",
   );
 }
 
@@ -74,7 +74,7 @@ function location_cities_list_tl_mt() {
 
 function location_cities_list_tl_mf() {
   return array(
-    "1937031" => t("Same"),
+    "1937031" => "Same",
   );
 }
 

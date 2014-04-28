@@ -28,15 +28,15 @@ function location_cities_list_gu_cp() {
 
 function location_cities_list_gu_dd() {
   return array(
-    "4043909" => t("Dededo Village"),
+    "4043909" => "Dededo Village",
   );
 }
 
 
 function location_cities_list_gu_an() {
   return array(
-    "4043547" => t("Guam Government House"),
-    "4044012" => t("Hagatna"),
+    "4043547" => "Guam Government House",
+    "4044012" => "Hagatna",
   );
 }
 
@@ -48,7 +48,7 @@ function location_cities_list_gu_in() {
 
 function location_cities_list_gu_ma() {
   return array(
-    "7268049" => t("Mangilao Village"),
+    "7268049" => "Mangilao Village",
   );
 }
 
@@ -85,7 +85,7 @@ function location_cities_list_gu_tf() {
 
 function location_cities_list_gu_tm() {
   return array(
-    "4038659" => t("Tamuning-Tumon-Harmon Village"),
+    "4038659" => "Tamuning-Tumon-Harmon Village",
   );
 }
 
@@ -97,7 +97,7 @@ function location_cities_list_gu_um() {
 
 function location_cities_list_gu_yg() {
   return array(
-    "4038794" => t("Yigo Village"),
+    "4038794" => "Yigo Village",
   );
 }
 

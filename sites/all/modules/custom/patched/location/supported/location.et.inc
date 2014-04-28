@@ -2,16 +2,16 @@
 
 function location_province_list_et() {
   return array(
-    "AF" => t("Afar Region"),
-    "AM" => t("Amhara Region"),
-    "BE" => t("Benishangul-Gumuz Region"),
-    "DD" => t("Dire Dawa Region"),
-    "GA" => t("Gambela"),
-    "HA" => t("Harari Region"),
-    "OR" => t("Oromiya Region"),
-    "SO" => t("Somali Region"),
-    "SN" => t("Southern Nations, Nationalities, and People's Region"),
-    "TI" => t("Tigray Region"),
-    "AA" => t("Ādīs Ābeba Āstedader"),
+    "AF" => "Afar Region",
+    "AM" => "Amhara Region",
+    "BE" => "Benishangul-Gumuz Region",
+    "DD" => "Dire Dawa Region",
+    "GA" => "Gambela",
+    "HA" => "Harari Region",
+    "OR" => "Oromiya Region",
+    "SO" => "Somali Region",
+    "SN" => "Southern Nations, Nationalities, and People's Region",
+    "TI" => "Tigray Region",
+    "AA" => "Ādīs Ābeba Āstedader",
   );
 }

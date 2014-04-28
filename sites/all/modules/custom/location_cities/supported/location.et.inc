@@ -3,143 +3,143 @@
 
 function location_cities_list_et_af() {
   return array(
-    "338554" => t("Dubti"),
-    "343409" => t("Asaita"),
+    "338554" => "Dubti",
+    "343409" => "Asaita",
   );
 }
 
 
 function location_cities_list_et_am() {
   return array(
-    "326206" => t("Werota"),
-    "329586" => t("Robit"),
-    "333356" => t("Kemise"),
-    "333373" => t("Kombolcha"),
-    "336014" => t("Gonder"),
-    "337712" => t("Finote Selam"),
-    "339219" => t("Dese"),
-    "339686" => t("Debre Tabor"),
-    "339708" => t("Debre Mark'os"),
-    "339734" => t("Debre Birhan"),
-    "339823" => t("Debark'"),
-    "341397" => t("Bure"),
-    "342190" => t("Bichena"),
-    "342641" => t("Bati"),
-    "342884" => t("Bahir Dar"),
-    "344923" => t("Adis Zemen"),
-    "345353" => t("Addiet Canna"),
-    "345704" => t("Abomsa"),
+    "326206" => "Werota",
+    "329586" => "Robit",
+    "333356" => "Kemise",
+    "333373" => "Kombolcha",
+    "336014" => "Gonder",
+    "337712" => "Finote Selam",
+    "339219" => "Dese",
+    "339686" => "Debre Tabor",
+    "339708" => "Debre Mark'os",
+    "339734" => "Debre Birhan",
+    "339823" => "Debark'",
+    "341397" => "Bure",
+    "342190" => "Bichena",
+    "342641" => "Bati",
+    "342884" => "Bahir Dar",
+    "344923" => "Adis Zemen",
+    "345353" => "Addiet Canna",
+    "345704" => "Abomsa",
   );
 }
 
 
 function location_cities_list_et_be() {
   return array(
-    "343292" => t("Asosa"),
+    "343292" => "Asosa",
   );
 }
 
 
 function location_cities_list_et_dd() {
   return array(
-    "338832" => t("Dire Dawa"),
+    "338832" => "Dire Dawa",
   );
 }
 
 
 function location_cities_list_et_ga() {
   return array(
-    "337405" => t("Gambela"),
+    "337405" => "Gambela",
   );
 }
 
 
 function location_cities_list_et_ha() {
   return array(
-    "335035" => t("Harar"),
+    "335035" => "Harar",
   );
 }
 
 
 function location_cities_list_et_or() {
   return array(
-    "325579" => t("Ziway"),
-    "326036" => t("Yabelo"),
-    "326308" => t("Wenji"),
-    "328689" => t("Shashemene"),
-    "328709" => t("Shambu"),
-    "328716" => t("Shakiso"),
-    "329114" => t("Sebeta"),
-    "330120" => t("Nejo"),
-    "330186" => t("Nazret"),
-    "330491" => t("Mojo"),
-    "330764" => t("Metu"),
-    "330811" => t("Metahara"),
-    "331038" => t("Mendi"),
-    "333103" => t("Kibre Mengist"),
-    "333772" => t("Jima"),
-    "335288" => t("Hagere Hiywet"),
-    "336350" => t("Goba"),
-    "336372" => t("Giyon"),
-    "336454" => t("Ginir"),
-    "336496" => t("Gimbi"),
-    "336931" => t("Genet"),
-    "337010" => t("Gelemso"),
-    "337152" => t("Gebre Guracha"),
-    "337771" => t("Fiche"),
-    "338726" => t("Dodola"),
-    "339448" => t("Dembi Dolo"),
-    "339666" => t("Debre Zeyit"),
-    "342559" => t("Bedesa"),
-    "342567" => t("Bedele"),
-    "343402" => t("Asbe Teferi"),
-    "343413" => t("Asasa"),
-    "344620" => t("Hagere Maryam"),
-    "344661" => t("Agaro"),
+    "325579" => "Ziway",
+    "326036" => "Yabelo",
+    "326308" => "Wenji",
+    "328689" => "Shashemene",
+    "328709" => "Shambu",
+    "328716" => "Shakiso",
+    "329114" => "Sebeta",
+    "330120" => "Nejo",
+    "330186" => "Nazret",
+    "330491" => "Mojo",
+    "330764" => "Metu",
+    "330811" => "Metahara",
+    "331038" => "Mendi",
+    "333103" => "Kibre Mengist",
+    "333772" => "Jima",
+    "335288" => "Hagere Hiywet",
+    "336350" => "Goba",
+    "336372" => "Giyon",
+    "336454" => "Ginir",
+    "336496" => "Gimbi",
+    "336931" => "Genet",
+    "337010" => "Gelemso",
+    "337152" => "Gebre Guracha",
+    "337771" => "Fiche",
+    "338726" => "Dodola",
+    "339448" => "Dembi Dolo",
+    "339666" => "Debre Zeyit",
+    "342559" => "Bedesa",
+    "342567" => "Bedele",
+    "343402" => "Asbe Teferi",
+    "343413" => "Asasa",
+    "344620" => "Hagere Maryam",
+    "344661" => "Agaro",
   );
 }
 
 
 function location_cities_list_et_so() {
   return array(
-    "333795" => t("Jijiga"),
+    "333795" => "Jijiga",
   );
 }
 
 
 function location_cities_list_et_sn() {
   return array(
-    "325780" => t("Yirga `Alem"),
-    "327694" => t("Tippi"),
-    "332880" => t("K'olito"),
-    "333750" => t("Jinka"),
-    "337853" => t("Felege Neway"),
-    "338998" => t("Dila"),
-    "341297" => t("Butajira"),
-    "341742" => t("Bonga"),
-    "341877" => t("Boditi"),
-    "342856" => t("Bako"),
-    "343137" => t("Hawassa"),
-    "343593" => t("Areka"),
-    "343663" => t("Arba Minch'"),
+    "325780" => "Yirga `Alem",
+    "327694" => "Tippi",
+    "332880" => "K'olito",
+    "333750" => "Jinka",
+    "337853" => "Felege Neway",
+    "338998" => "Dila",
+    "341297" => "Butajira",
+    "341742" => "Bonga",
+    "341877" => "Boditi",
+    "342856" => "Bako",
+    "343137" => "Hawassa",
+    "343593" => "Areka",
+    "343663" => "Arba Minch'",
   );
 }
 
 
 function location_cities_list_et_ti() {
   return array(
-    "331180" => t("Mekele"),
-    "331416" => t("Maych'ew"),
-    "332746" => t("Korem"),
-    "334227" => t("Inda Silase"),
-    "344420" => t("Aksum"),
-    "345149" => t("Adigrat"),
+    "331180" => "Mekele",
+    "331416" => "Maych'ew",
+    "332746" => "Korem",
+    "334227" => "Inda Silase",
+    "344420" => "Aksum",
+    "345149" => "Adigrat",
   );
 }
 
 
 function location_cities_list_et_aa() {
   return array(
-    "344979" => t("Addis Ababa"),
+    "344979" => "Addis Ababa",
   );
 }
