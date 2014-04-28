@@ -10,15 +10,15 @@ function badges_pennies_badges() {
 
   $badges['visits_silver'] = array(
     'function'  => 'badges_pennies_check',
-    'name'      => t('Enthusiast'),
-    'info'      => t('Visited the site each day for 30 consecutive days'),
+    'name'      => 'Enthusiast',
+    'info'      => 'Visited the site each day for 30 consecutive days',
     'type'      => 'silver',
     'arguments' => array('days' => 30),
   );
   $badges['visits_gold'] = array(
     'function'  => 'badges_pennies_check',
-    'name'      => t('Fanatic'),
-    'info'      => t('Visited the site each day for 100 consecutive days'),
+    'name'      => 'Fanatic',
+    'info'      => 'Visited the site each day for 100 consecutive days',
     'type'      => 'silver',
     'arguments' => array('days' => 100),
   );

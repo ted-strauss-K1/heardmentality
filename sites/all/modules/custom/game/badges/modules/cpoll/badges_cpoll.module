@@ -11,22 +11,22 @@ function badges_cpoll_badges() {
   # vote count
   $badges['poll_votes_bronze'] = array(
     'function'  => 'badges_cpoll_votes_check',
-    'name'      => t('Civic Duty'),
-    'info'      => t('Voted 300 times'),
+    'name'      => 'Civic Duty',
+    'info'      => 'Voted 300 times',
     'type'      => 'bronze',
     'arguments' => array('vote_count' => 300),
   );
   $badges['poll_votes_silver'] = array(
     'function'  => 'badges_cpoll_votes_check',
-    'name'      => t('Electorate'),
-    'info'      => t('Voted 600 times'),
+    'name'      => 'Electorate',
+    'info'      => 'Voted 600 times',
     'type'      => 'silver',
     'arguments' => array('vote_count' => 600),
   );
   $badges['poll_votes_gold'] = array(
     'function'  => 'badges_cpoll_votes_check',
-    'name'      => t('Patriotic Citizen'),
-    'info'      => t('Voted 1000 times'),
+    'name'      => 'Patriotic Citizen',
+    'info'      => 'Voted 1000 times',
     'type'      => 'gold',
     'arguments' => array('vote_count' => 1000),
   );
@@ -34,22 +34,22 @@ function badges_cpoll_badges() {
   # voted cpolls
   $badges['poll_votes_count_bronze'] = array(
     'function'  => 'badges_cpoll_votes_count_check',
-    'name'      => t('Nice Question'),
-    'info'      => t('Created an issue voted on 10 times'),
+    'name'      => 'Nice Question',
+    'info'      => 'Created an issue voted on 10 times',
     'type'      => 'bronze',
     'arguments' => array('vote_count' => 10),
   );
   $badges['poll_votes_count_silver'] = array(
     'function'  => 'badges_cpoll_votes_count_check',
-    'name'      => t('Good Question'),
-    'info'      => t('Created an issue voted on 25 times'),
+    'name'      => 'Good Question',
+    'info'      => 'Created an issue voted on 25 times',
     'type'      => 'silver',
     'arguments' => array('vote_count' => 25),
   );
   $badges['poll_votes_count_gold'] = array(
     'function'  => 'badges_cpoll_votes_count_check',
-    'name'      => t('Great Question'),
-    'info'      => t('Created an issue voted on 100 times'),
+    'name'      => 'Great Question',
+    'info'      => 'Created an issue voted on 100 times',
     'type'      => 'gold',
     'arguments' => array('vote_count' => 100),
   );

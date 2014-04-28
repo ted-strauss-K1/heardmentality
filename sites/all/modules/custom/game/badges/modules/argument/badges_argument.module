@@ -10,22 +10,22 @@ function badges_argument_badges() {
 
   $badges['argument_bronze'] = array(
     'function'  => 'badges_argument_check',
-    'name'      => t('Conversation Piece'),
-    'info'      => t('Created a question that resulted in 20 debate posts or resource posts (including replies)'),
+    'name'      => 'Conversation Piece',
+    'info'      => 'Created a question that resulted in 20 debate posts or resource posts (including replies)',
     'type'      => 'bronze',
     'arguments' => array('count' => 20),
   );
   $badges['argument_silver'] = array(
     'function'  => 'badges_argument_check',
-    'name'      => t('Cocktail Party'),
-    'info'      => t('Created a question that resulted in 50 debate posts or resource posts (including replies)'),
+    'name'      => 'Cocktail Party',
+    'info'      => 'Created a question that resulted in 50 debate posts or resource posts (including replies)',
     'type'      => 'silver',
     'arguments' => array('count' => 50),
   );
   $badges['argument_gold'] = array(
     'function'  => 'badges_argument_check',
-    'name'      => t('Healthy Debate'),
-    'info'      => t('Created a question that resulted in 100 debate posts or resource posts (including replies)'),
+    'name'      => 'Healthy Debate',
+    'info'      => 'Created a question that resulted in 100 debate posts or resource posts (including replies)',
     'type'      => 'gold',
     'arguments' => array('count' => 100),
   );

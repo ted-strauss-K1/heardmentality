@@ -1,6 +1,0 @@
-name = Badges for Poll Suggestions
-description = Badges for Poll Suggestions
-package = Custom Modules :: Badges
-version = "6.x-1.0"
-core = 6.x
-dependencies[] = 'poll_suggest'

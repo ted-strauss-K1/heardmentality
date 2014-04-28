@@ -10,15 +10,15 @@ function badges_comment_yn_badges() {
 
   $badges['comment_agreed_bronze'] = array(
     'function'  => 'badges_comment_yn_check',
-    'name'      => t('Pamphleteer'),
-    'info'      => t('Left 10 Comments that Got a Minimum of One Agree'),
+    'name'      => 'Pamphleteer',
+    'info'      => 'Left 10 Comments that Got a Minimum of One Agree',
     'type'      => 'bronze',
     'arguments' => array('comment_count' => 10),
   );
   $badges['comment_agreed_gold'] = array(
     'function'  => 'badges_comment_yn_check',
-    'name'      => t('Senator'),
-    'info'      => t('Left 500 Comments that Got a Minimum of One Agree'),
+    'name'      => 'Senator',
+    'info'      => 'Left 500 Comments that Got a Minimum of One Agree',
     'type'      => 'bronze',
     'arguments' => array('comment_count' => 500),
   );

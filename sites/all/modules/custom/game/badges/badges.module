@@ -83,6 +83,6 @@ function badges_user($op, &$edit, &$account, $category = NULL) {
  */
 function badges_preprocess_page(&$vars) {
   if (arg(0) == 'badges') {
-    drupal_set_subtitle(t('Badges'));
+    drupal_set_subtitle(__('Badges', array('@code' => 'badges-title', '@textgroup' => 'badge')));
   }
 }

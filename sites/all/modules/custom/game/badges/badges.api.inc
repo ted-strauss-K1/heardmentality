@@ -26,9 +26,9 @@ function badges_types($type = FALSE) {
  */
 function badges_badges_types() {
   return array(
-    'bronze' => t('Bronze'),
-    'silver' => t('Silver'),
-    'gold'   => t('Gold'),
+    'bronze' => 'Bronze',
+    'silver' => 'Silver',
+    'gold'   => 'Gold',
   );
 }
 
