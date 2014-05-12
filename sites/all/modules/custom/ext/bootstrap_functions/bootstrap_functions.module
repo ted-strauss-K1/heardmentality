@@ -224,15 +224,18 @@ function register_t($string, $textgroup = 'default', $skip = FALSE) {
 function user_profile_image($user, $presetname = FALSE) {
   static $imgs = array();
   if (!isset($imgs[$user->uid][$presetname])) {
-    if ($presetname === FALSE || !imagecache_generate_image($presetname, $user->picture)) {
-      $img = $user->picture;
-    }
-    else {
-      $img = imagecache_create_path($presetname, $user->picture);
-    }
+    $img = $user->picture;
     if (!preg_match('/^http(s)?:\/\//', $img)) {
-      global $base_url;
-      $img = $base_url . '/' . $img;
+      if ($presetname === FALSE || !imagecache_generate_image($presetname, $user->picture)) {
+        $img = file_directory_path() . '/' . $user->picture;
+      }
+      else {
+        $img = imagecache_create_path($presetname, file_directory_path() . '/' . $user->picture);
+      }
+      if (!preg_match('/^http(s)?:\/\//', $img)) {
+        global $base_url;
+        $img = $base_url . '/' . $img;
+      }
     }
     $imgs[$user->uid][$presetname] = $img;
   }
