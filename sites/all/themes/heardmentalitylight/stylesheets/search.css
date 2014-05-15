@@ -17,13 +17,7 @@
 .search_item:hover {
   /*  box-shadow: 0 0 8px 5px #eeeeee; */
   box-shadow       : 0 4px 4px 0px #E4E4E4, 0 -4px 4px 0 #E4E4E4;
-  background-color : #FDFDFD;
-  background-image : -webkit-gradient(linear, left top, left bottom, from(#FDFDFD), to(#F7F7F7));
-  background-image : -webkit-linear-gradient(top, #FDFDFD, #F7F7F7);
-  background-image : -moz-linear-gradient(top, #FDFDFD, #F7F7F7);
-  background-image : -ms-linear-gradient(top, #FDFDFD, #F7F7F7);
-  background-image : -o-linear-gradient(top, #FDFDFD, #F7F7F7);
-  background-image : linear-gradient(top, #FDFDFD, #F7F7F7);
+  background : #FDFDFD;
 }
 
 .search_list {
