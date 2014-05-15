@@ -1859,6 +1859,11 @@
     width : 270px !important;
   }
 
+  .search_item {
+    padding: 10px;
+    margin: 0 -13px 0 -13px;
+  }
+
   /*---/ ISSUES */
   /* ACCOUNT */
   p.action-comment-ref {
