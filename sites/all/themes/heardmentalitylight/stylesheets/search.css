@@ -7,12 +7,27 @@
 }
 
 .search_item {
-  margin-bottom : 15px;
+  padding      : 20px;
+  margin       : 0 -21px 0 -21px;
+  border-left  : 1px solid #C0C0C0;
+  border-right : 1px solid #C0C0C0;
+  background   : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
+}
+
+.search_item:hover {
+  /*  box-shadow: 0 0 8px 5px #eeeeee; */
+  box-shadow       : 0 4px 4px 0px #E4E4E4, 0 -4px 4px 0 #E4E4E4;
+  background-color : #FDFDFD;
+  background-image : -webkit-gradient(linear, left top, left bottom, from(#FDFDFD), to(#F7F7F7));
+  background-image : -webkit-linear-gradient(top, #FDFDFD, #F7F7F7);
+  background-image : -moz-linear-gradient(top, #FDFDFD, #F7F7F7);
+  background-image : -ms-linear-gradient(top, #FDFDFD, #F7F7F7);
+  background-image : -o-linear-gradient(top, #FDFDFD, #F7F7F7);
+  background-image : linear-gradient(top, #FDFDFD, #F7F7F7);
 }
 
 .search_list {
-  background : url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
-  padding    : 0 0 17px;
+  padding : 0 0 17px;
 }
 
 .search_list h2.din.half {
