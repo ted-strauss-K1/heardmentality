@@ -15,9 +15,14 @@
 }
 
 .search_item:hover {
-  /*  box-shadow: 0 0 8px 5px #eeeeee; */
-  box-shadow       : 0 4px 4px 0px #E4E4E4, 0 -4px 4px 0 #E4E4E4;
-  background : #FDFDFD;
+  box-shadow       : 0 4px 4px 0px #C9C9C9, 0 -4px 4px 0 #C9C9C9;
+  background-color : #F1F1F1;
+  background-image : -webkit-gradient(linear, left top, left bottom, from(#F1F1F1), to(#FBFBFB));
+  background-image : -webkit-linear-gradient(top, #F1F1F1, #FBFBFB);
+  background-image : -moz-linear-gradient(top, #F1F1F1, #FBFBFB);
+  background-image : -ms-linear-gradient(top, #F1F1F1, #FBFBFB);
+  background-image : -o-linear-gradient(top, #F1F1F1, #FBFBFB);
+  background-image : linear-gradient(top, #F1F1F1, #FBFBFB);
 }
 
 .search_list {
