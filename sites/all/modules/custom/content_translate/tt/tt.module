@@ -1,6 +1,11 @@
 <?php
 
 /**
+ *
+ */
+require_once __DIR__ . '/tt.admin.inc';
+
+/**
  * This function is a wrapper for the t-function
  *
  * @param       $string
