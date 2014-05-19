@@ -117,9 +117,11 @@ function theme_newsletter_content_preprocess_theme(&$vars) {
 function newsletter_load_data($hash) {
   static $cache = array();
 
+
   if (is_null($cache[$hash])) {
     // load newsletter
     $newsletter = newsletter_load($hash);
+
 
     // error
     if (!$newsletter) {
@@ -129,7 +131,7 @@ function newsletter_load_data($hash) {
     // load subscription
     $account = (object) array('snid' => $newsletter['snid']);
     $subscription = simplenews_get_subscription($account);
-    if ($subscription->snid == 0) {
+    if (!newsletter_is_test() && ($subscription->snid == 0)) {
       return $cache[$hash] = FALSE;
     }
 
@@ -138,6 +140,18 @@ function newsletter_load_data($hash) {
 
     // load nids
     $nids = newsletter_load_nodes($newsletter['hash']);
+      if (newsletter_is_test()) {
+          $query = "SELECT
+      n.nid,
+      FROM node n
+      WHERE n.type = '%s' ORDER BY RAND()";
+      $nids = array();
+          $result = db_query($query);
+          while ($nid = db_result($result)) {
+              $nids[] = $nid;
+          }
+
+      }
     if (empty($nids)) {
       // calculate nids
       $nids = newsletter_nodes($subscription->snid, $newsletter['send_date']);
@@ -210,12 +224,15 @@ function newsletter_nodes($snid, $send_date, $limit = 5) {
       FROM node n
       WHERE n.type = '%s' AND n.created < UNIX_TIMESTAMP('%s') ORDER BY voted ASC, votes DESC, sent ASC, subscribed DESC, n.created DESC
   ";
-  $params = array();
-  $params[] = $uid;
-  $params[] = $snid;
-  $params = array_merge($params, $tids);
-  $params[] = 'issue';
-  $params[] = $send_date;
+
+    $params = array();
+    $params[] = $uid;
+    $params[] = $snid;
+    $params = array_merge($params, $tids);
+    $params[] = 'issue';
+    $params[] = $send_date;
+
+
 
   // query
   $data = array();
@@ -288,6 +305,11 @@ function newsletter_cron() {
   newsletters_bulk_send();
 }
 
+function newsletter_is_test() {
+    $simplenews_send = variable_get('simplenews_send', 0);
+    return SIMPLENEWS_COMMAND_SEND_TEST == $simplenews_send;
+}
+
 /**
  * @param $date
  */
@@ -328,6 +350,12 @@ function newsletter_schedule($date) {
  * @param int $limit
  */
 function newsletters_bulk_send($limit = 20) {
+  // one for test purposes
+  if (newsletter_is_test()) {
+    $limit = 1;
+  }
+
+  // send
   for ($i = 0; $i < $limit; $i++) {
     newsletter_send();
   }
@@ -358,6 +386,11 @@ function newsletter_send($snid = FALSE) {
   $simplenews_send = variable_get('simplenews_send', 0);
   $simplenews_test = variable_get('simplenews_test_address', '');
   $simplenews_test = $simplenews_test ? explode(',', $simplenews_test) : array($site_mail);
+
+  // send
+  if (newsletter_is_test()) {
+    $email = $simplenews_test[0];
+  }
 
   // send mails
   if ((SIMPLENEWS_COMMAND_SEND_NOW == $simplenews_send) || in_array($email, $simplenews_test)) {
