@@ -20,6 +20,23 @@ if (!module_exists('tt')) {
   function __($string, $args = array(), $langcode = NULL) {
     return t($string, $args, $langcode);
   }
+
+  /**
+   * @param       $code
+   * @param array $args
+   * @param null  $langcode
+   *
+   * @return null|string
+   */
+  function __t($code, $args = array(), $langcode = NULL) {
+    if (is_string($args)) {
+      $args['@default'] = $args;
+    }
+    else {
+      $args['@default'] = isset($args['@default']) ? $args['@default'] : '';
+    }
+    return __($args['@default'], array('@code' => $code) + $args, $langcode);
+  }
 }
 
 /**
