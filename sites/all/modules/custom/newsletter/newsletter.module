@@ -117,11 +117,9 @@ function theme_newsletter_content_preprocess_theme(&$vars) {
 function newsletter_load_data($hash) {
   static $cache = array();
 
-
   if (is_null($cache[$hash])) {
     // load newsletter
     $newsletter = newsletter_load($hash);
-
 
     // error
     if (!$newsletter) {
@@ -140,18 +138,18 @@ function newsletter_load_data($hash) {
 
     // load nids
     $nids = newsletter_load_nodes($newsletter['hash']);
-      if (newsletter_is_test()) {
-          $query = "SELECT
-      n.nid,
-      FROM node n
-      WHERE n.type = '%s' ORDER BY RAND()";
-      $nids = array();
-          $result = db_query($query);
-          while ($nid = db_result($result)) {
-              $nids[] = $nid;
-          }
 
+    // for test we grab random nodes
+    if (newsletter_is_test()) {
+      $nids = array();
+      $query = "SELECT n.nid FROM node n WHERE n.type = '%s' ORDER BY RAND()";
+      $result = db_query($query);
+      while ($nid = db_result($result)) {
+        $nids[] = $nid;
       }
+    }
+
+    // generate nids if not generated yet
     if (empty($nids)) {
       // calculate nids
       $nids = newsletter_nodes($subscription->snid, $newsletter['send_date']);
@@ -177,8 +175,6 @@ function newsletter_load_data($hash) {
 }
 
 /**
- * todo revise
- *
  * @param     $snid
  * @param     $send_date
  * @param int $limit
@@ -225,14 +221,12 @@ function newsletter_nodes($snid, $send_date, $limit = 5) {
       WHERE n.type = '%s' AND n.created < UNIX_TIMESTAMP('%s') ORDER BY voted ASC, votes DESC, sent ASC, subscribed DESC, n.created DESC
   ";
 
-    $params = array();
-    $params[] = $uid;
-    $params[] = $snid;
-    $params = array_merge($params, $tids);
-    $params[] = 'issue';
-    $params[] = $send_date;
-
-
+  $params = array();
+  $params[] = $uid;
+  $params[] = $snid;
+  $params = array_merge($params, $tids);
+  $params[] = 'issue';
+  $params[] = $send_date;
 
   // query
   $data = array();
@@ -305,9 +299,12 @@ function newsletter_cron() {
   newsletters_bulk_send();
 }
 
+/**
+ * @return bool
+ */
 function newsletter_is_test() {
-    $simplenews_send = variable_get('simplenews_send', 0);
-    return SIMPLENEWS_COMMAND_SEND_TEST == $simplenews_send;
+  $simplenews_send = variable_get('simplenews_send', 0);
+  return SIMPLENEWS_COMMAND_SEND_TEST == $simplenews_send;
 }
 
 /**
@@ -369,7 +366,6 @@ function newsletters_bulk_send($limit = 20) {
  * @return bool
  */
 function newsletter_send($snid = FALSE) {
-
   // get the newsletter's hash
   if (FALSE !== $snid) {
     $hash = db_result(db_query("SELECT hash FROM {newsletter} WHERE snid = '%s' AND status = 0 ORDER BY send_date ASC LIMIT 1", $snid));
@@ -380,6 +376,7 @@ function newsletter_send($snid = FALSE) {
 
   // get email
   $email = db_result(db_query("SELECT s.mail FROM {newsletter} n INNER JOIN {simplenews_subscriptions} s ON s.snid = n.snid WHERE n.hash = '%s'", $hash));
+  $emails = array($email);
 
   // settings
   $site_mail = variable_get('site_mail', 'jaminstrauss@gmail.com');
@@ -387,25 +384,23 @@ function newsletter_send($snid = FALSE) {
   $simplenews_test = variable_get('simplenews_test_address', '');
   $simplenews_test = $simplenews_test ? explode(',', $simplenews_test) : array($site_mail);
 
-  // send
+  // send to test emails
   if (newsletter_is_test()) {
-    $email = $simplenews_test[0];
+    $emails = $simplenews_test;
   }
 
-  // send mails
-  if ((SIMPLENEWS_COMMAND_SEND_NOW == $simplenews_send) || in_array($email, $simplenews_test)) {
-    // get newsletter
-    if ($data = newsletter_load_data($hash)) {
-      // build content
-      if ($content = theme('newsletter', $hash)) {
+  // get newsletter
+  if ($data = newsletter_load_data($hash)) {
+    // build content
+    if ($content = theme('newsletter', $hash)) {
 
-        //
-        $nid = $data['nids'][0];
-        $node = node_load($nid);
-        $subject = $node->title . '?';
+      //
+      $nid = $data['nids'][0];
+      $node = node_load($nid);
+      $subject = $node->title . '?';
 
-        // send mail
-        $mailto = $email;
+      // send mails
+      foreach ($emails as $mailto) {
         $mailfrom = $site_mail;
 
         // send mail
@@ -414,7 +409,6 @@ function newsletter_send($snid = FALSE) {
             'body'    => $content,
             'subject' => $subject,
           ), $mailfrom, TRUE);
-
       }
     }
   }
