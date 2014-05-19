@@ -21,7 +21,7 @@ function user_profile_user($op, &$edit, &$account, $category = NULL) {
     case 'insert' :
 
       # random avatar selection
-      $picture = file_directory_path() . '/' . avatar_selection_get_random_image($account);
+      $picture = avatar_selection_get_random_image($account);
       $account->picture = $picture;
       db_query("UPDATE {users} SET picture = '%s' WHERE uid = '%d'", $picture, $account->uid);
 
