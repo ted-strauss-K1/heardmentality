@@ -10,6 +10,9 @@ $('.choice-radio-title, .choice-radio-title *').live('click', function (e) {
       input.prop('checked', true).trigger('change');
     }
   }
+
+  // remove focus
+  $$.blur();
 });
 
 /**

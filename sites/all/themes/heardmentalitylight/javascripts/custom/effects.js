@@ -24,15 +24,6 @@ $(document).ready(function () {
     circle_state(circle_count);
     circle_timer = setInterval('circle_next()', 5000);
   });
-//  $('.see, .vote-now, .share-now').each(function () {
-//    var $span = $('> p.hover', this).css('opacity', 0);
-//    $(this).hover(function () {
-//      $p.stop().fadeTo(200, 1);
-//
-//    }, function () {
-//      $p.stop().fadeTo(200, 0);
-//    });
-//  });
 });
 
 // Fixed sidebar
@@ -52,6 +43,18 @@ $(document).ready(function () {
     }
     else {
       sidebar.css('top', baseline);
+    }
+  });
+});
+
+// Search Item Click
+$(document).ready(function () {
+  $('.search_item').live('click', function (e) {
+    if ("DIV" == e.target.nodeName) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      location.href = $(this).find('h2 > a').attr('href');
     }
   });
 });
