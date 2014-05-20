@@ -1,6 +1,0 @@
-name = Ranks
-description = Ranks based on Userpoints
-package = Custom Modules :: Gameification
-version = "6.x-1.9"
-core = 6.x
-dependencies[] = "points"

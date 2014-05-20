@@ -1,7 +1,0 @@
-name = Userpoints Extension
-description = Provides the API to grant Userpoints
-package = Custom Modules :: Gameification
-version = "6.x-1.0.1"
-core = 6.x
-
-dependencies[] = "userpoints"

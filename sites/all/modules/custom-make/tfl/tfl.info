@@ -1,7 +1,0 @@
-name = Tree Filter for Locations
-description = Tree Filter for Locations
-package = Custom Modules
-version = "6.x-1.2"
-core = 6.x
-dependencies[] = "location"
-dependencies[] = "location_cities"

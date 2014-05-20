@@ -1,7 +1,0 @@
-name = Badges for Votes/Taxonomy
-description = Badges for Votes/Taxonomy
-package = Custom Modules :: Badges
-version = "6.x-1.0"
-core = 6.x
-dependencies[] = 'cpoll'
-dependencies[] = 'taxonomy_ext'

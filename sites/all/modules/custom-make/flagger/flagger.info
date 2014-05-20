@@ -1,9 +1,0 @@
-name = Flag Button
-description = Provides Flag Buttons for Issue Pages
-package = Custom Modules
-version = "6.x-1.11"
-core = 6.x
-dependencies[] = "flag"
-dependencies[] = "flag_note"
-dependencies[] = "flag_ext"
-dependencies[] = "flag_note_ext"

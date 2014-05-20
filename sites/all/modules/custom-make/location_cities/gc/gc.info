@@ -1,7 +1,0 @@
-name = Locations Geonames
-package = Custom Modules
-version = "6.x-1.0"
-core = 6.x
-dependencies[] = "location_cities"
-dependencies[] = "geonames"
-; jnavanephp

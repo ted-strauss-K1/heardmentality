@@ -1,7 +1,0 @@
-name = Heatmap
-description = Heatmap
-package = Custom Modules
-version = "6.x-1.8"
-core = 6.x
-dependencies[] = "profile"
-dependencies[] = "location"

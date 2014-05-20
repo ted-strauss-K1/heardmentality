@@ -1,6 +1,0 @@
-name = Badges for Arguments/Replies
-description = Badges for Arguments/Replies
-package = Custom Modules :: Badges
-version = "6.x-1.0"
-core = 6.x
-dependencies[] = 'argument'

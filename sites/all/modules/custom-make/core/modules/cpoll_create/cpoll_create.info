@@ -1,7 +1,0 @@
-name = "core poll - creation"
-description = "Core Poll Creation"
-core = "6.x"
-package = "Custom Modules"
-version = "6.x-1.2"
-
-dependencies[] = "core"

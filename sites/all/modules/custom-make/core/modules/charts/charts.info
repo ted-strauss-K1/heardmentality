@@ -1,7 +1,0 @@
-name = "core poll - charts"
-description = "Core Poll charts"
-core = "6.x"
-package = "Custom Modules"
-version = "6.x-1.2"
-
-dependencies[] = "cpoll"
