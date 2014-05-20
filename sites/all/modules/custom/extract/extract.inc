@@ -170,7 +170,7 @@ function extract_cache_location() {
   $countries = location_get_iso3166_list();
   foreach ($countries as $location1 => $location1_name) {
     $locations[] = array(
-      location_code($location1),
+      location_encode($location1),
       1,
       $location1,
       '',
@@ -181,7 +181,7 @@ function extract_cache_location() {
     );
     foreach (location_get_provinces($location1) as $location2 => $location2_name) {
       $locations[] = array(
-        location_code($location1, $location2),
+        location_encode($location1, $location2),
         2,
         $location1,
         $location2,
@@ -192,7 +192,7 @@ function extract_cache_location() {
       );
       foreach (location_get_cities($location1, $location2) as $location3 => $location3_name) {
         $locations[] = array(
-          location_code($location1, $location2, $location3),
+          location_encode($location1, $location2, $location3),
           3,
           $location1,
           $location2,
