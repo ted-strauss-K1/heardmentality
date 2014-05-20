@@ -53,7 +53,7 @@ if (!function_exists('__')) {
    */
   function __t($code, $args = array(), $langcode = NULL) {
     if (is_string($args)) {
-      $args['@default'] = $args;
+      $args = array('@default' => $args);
     }
     else {
       $args['@default'] = isset($args['@default']) ? $args['@default'] : '';
