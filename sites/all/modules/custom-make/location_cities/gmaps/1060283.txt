@@ -1,0 +1,293 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "5",
+               "short_name" : "5",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Maroantsetra",
+               "short_name" : "Maroantsetra",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Maroantsetra",
+               "short_name" : "Maroantsetra",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toamasina",
+               "short_name" : "Toamasina",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "5, Maroantsetra, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -15.43666910,
+                  "lng" : 49.73989719999999
+               },
+               "southwest" : {
+                  "lat" : -15.43756320,
+                  "lng" : 49.73986619999999
+               }
+            },
+            "location" : {
+               "lat" : -15.43711620,
+               "lng" : 49.73988170000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -15.43576716970850,
+                  "lng" : 49.74123068029149
+               },
+               "southwest" : {
+                  "lat" : -15.43846513029150,
+                  "lng" : 49.73853271970849
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Maroantsetra",
+               "short_name" : "Maroantsetra",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Maroantsetra",
+               "short_name" : "Maroantsetra",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toamasina",
+               "short_name" : "Toamasina",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Maroantsetra, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -15.41297430,
+                  "lng" : 49.75891650
+               },
+               "southwest" : {
+                  "lat" : -15.44871650,
+                  "lng" : 49.67824460
+               }
+            },
+            "location" : {
+               "lat" : -15.437450,
+               "lng" : 49.738770
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -15.41297430,
+                  "lng" : 49.75891650
+               },
+               "southwest" : {
+                  "lat" : -15.44871650,
+                  "lng" : 49.67824460
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Maroantsetra",
+               "short_name" : "Maroantsetra",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toamasina",
+               "short_name" : "Toamasina",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Maroantsetra, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -14.88440520,
+                  "lng" : 50.05577090
+               },
+               "southwest" : {
+                  "lat" : -15.93227930,
+                  "lng" : 48.95301810
+               }
+            },
+            "location" : {
+               "lat" : -15.28378980,
+               "lng" : 49.52799960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -14.88440520,
+                  "lng" : 50.05577090
+               },
+               "southwest" : {
+                  "lat" : -15.93227930,
+                  "lng" : 48.95301810
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Analanjirofo",
+               "short_name" : "Analanjirofo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toamasina",
+               "short_name" : "Toamasina",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Analanjirofo, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -14.93350640,
+                  "lng" : 50.03723140
+               },
+               "southwest" : {
+                  "lat" : -17.72841260,
+                  "lng" : 48.70376580
+               }
+            },
+            "location" : {
+               "lat" : -16.5075370,
+               "lng" : 49.52799960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -14.93350640,
+                  "lng" : 50.03723140
+               },
+               "southwest" : {
+                  "lat" : -17.72841260,
+                  "lng" : 48.70376580
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Toamasina",
+               "short_name" : "Toamasina",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Toamasina, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -14.93889110,
+                  "lng" : 50.132710
+               },
+               "southwest" : {
+                  "lat" : -20.4658020,
+                  "lng" : 47.68663799999999
+               }
+            },
+            "location" : {
+               "lat" : -17.77452910,
+               "lng" : 49.0413120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -14.93889110,
+                  "lng" : 50.132710
+               },
+               "southwest" : {
+                  "lat" : -20.4658020,
+                  "lng" : 47.68663799999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

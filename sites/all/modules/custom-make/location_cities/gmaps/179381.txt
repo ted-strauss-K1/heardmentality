@@ -1,0 +1,182 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "C 92",
+               "short_name" : "C 92",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tharaka Nithi",
+               "short_name" : "Tharaka Nithi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "C 92, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.27902890,
+                  "lng" : 37.88931760
+               },
+               "southwest" : {
+                  "lat" : -0.28078240,
+                  "lng" : 37.88878290
+               }
+            },
+            "location" : {
+               "lat" : -0.27990570,
+               "lng" : 37.88905030
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.2785566697084980,
+                  "lng" : 37.89039923029150
+               },
+               "southwest" : {
+                  "lat" : -0.2812546302915021,
+                  "lng" : 37.88770126970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mwingi District",
+               "short_name" : "Mwingi District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Kitui",
+               "short_name" : "Kitui",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mwingi District, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.05819320000000001,
+                  "lng" : 38.70809560
+               },
+               "southwest" : {
+                  "lat" : -1.11032210,
+                  "lng" : 37.8566550
+               }
+            },
+            "location" : {
+               "lat" : -0.59240880,
+               "lng" : 38.1477270
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.05819320000000001,
+                  "lng" : 38.70809560
+               },
+               "southwest" : {
+                  "lat" : -1.11032210,
+                  "lng" : 37.8566550
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kitui",
+               "short_name" : "Kitui",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kitui, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.05295910,
+                  "lng" : 39.0827620
+               },
+               "southwest" : {
+                  "lat" : -3.0627390,
+                  "lng" : 37.5972560
+               }
+            },
+            "location" : {
+               "lat" : -1.68328220,
+               "lng" : 38.31657250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.05295910,
+                  "lng" : 39.0827620
+               },
+               "southwest" : {
+                  "lat" : -3.0627390,
+                  "lng" : 37.5972560
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

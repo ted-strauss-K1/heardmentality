@@ -1,0 +1,235 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "2-18",
+               "short_name" : "2-18",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Rue du Général Lambert",
+               "short_name" : "Rue du Général Lambert",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Saint Joseph",
+               "short_name" : "Saint Joseph",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint Pierre",
+               "short_name" : "Saint Pierre",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "2-18 Rue du Général Lambert, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.37752440,
+                  "lng" : 55.61906550
+               },
+               "southwest" : {
+                  "lat" : -21.37884240,
+                  "lng" : 55.61890570
+               }
+            },
+            "location" : {
+               "lat" : -21.37835510,
+               "lng" : 55.61897020
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.37683441970850,
+                  "lng" : 55.62033458029151
+               },
+               "southwest" : {
+                  "lat" : -21.37953238029150,
+                  "lng" : 55.61763661970851
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint-Joseph",
+               "short_name" : "Saint-Joseph",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Saint Pierre",
+               "short_name" : "Saint Pierre",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint-Joseph, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.19337490,
+                  "lng" : 55.70565089999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.58210850
+               }
+            },
+            "location" : {
+               "lat" : -21.32461830,
+               "lng" : 55.64675829999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.19337490,
+                  "lng" : 55.70565089999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.58210850
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint Joseph",
+               "short_name" : "Saint Joseph",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint Joseph, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.19469520,
+                  "lng" : 55.70574760
+               },
+               "southwest" : {
+                  "lat" : -21.38882760,
+                  "lng" : 55.58215149999999
+               }
+            },
+            "location" : {
+               "lat" : -21.32461830,
+               "lng" : 55.64675829999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.19469520,
+                  "lng" : 55.70574760
+               },
+               "southwest" : {
+                  "lat" : -21.38882760,
+                  "lng" : 55.58215149999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint Pierre",
+               "short_name" : "Saint Pierre",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint Pierre, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.0856620,
+                  "lng" : 55.8104610
+               },
+               "southwest" : {
+                  "lat" : -21.38695070,
+                  "lng" : 55.31915340
+               }
+            },
+            "location" : {
+               "lat" : -21.23661450,
+               "lng" : 55.53581519999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.0856620,
+                  "lng" : 55.8104610
+               },
+               "southwest" : {
+                  "lat" : -21.38695070,
+                  "lng" : 55.31915340
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            },
+            "location" : {
+               "lat" : -21.1151410,
+               "lng" : 55.5363840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

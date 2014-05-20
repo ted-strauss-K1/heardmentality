@@ -1,0 +1,424 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Kapten Pala Bangun",
+               "short_name" : "Jl. Kapten Pala Bangun",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Kabanjahe",
+               "short_name" : "Kabanjahe",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kabanjahe",
+               "short_name" : "Kabanjahe",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Karo",
+               "short_name" : "Karo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "22111",
+               "short_name" : "22111",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Kapten Pala Bangun, Kabanjahe, Karo, North Sumatra 22111, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.0997090,
+                  "lng" : 98.4899860
+               },
+               "southwest" : {
+                  "lat" : 3.0984240,
+                  "lng" : 98.4895660
+               }
+            },
+            "location" : {
+               "lat" : 3.09906650,
+               "lng" : 98.48977599999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.100415480291502,
+                  "lng" : 98.49112498029150
+               },
+               "southwest" : {
+                  "lat" : 3.097717519708498,
+                  "lng" : 98.48842701970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lau Cimba",
+               "short_name" : "Lau Cimba",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Kabanjahe",
+               "short_name" : "Kabanjahe",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Karo",
+               "short_name" : "Karo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lau Cimba, Kabanjahe, Karo, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.11021110,
+                  "lng" : 98.49515509999999
+               },
+               "southwest" : {
+                  "lat" : 3.0877260,
+                  "lng" : 98.47933599999999
+               }
+            },
+            "location" : {
+               "lat" : 3.09608160,
+               "lng" : 98.48699049999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.11021110,
+                  "lng" : 98.49515509999999
+               },
+               "southwest" : {
+                  "lat" : 3.0877260,
+                  "lng" : 98.47933599999999
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kabanjahe",
+               "short_name" : "Kabanjahe",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kabanjahe",
+               "short_name" : "Kabanjahe",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Karo",
+               "short_name" : "Karo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kabanjahe, Karo, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.14584290,
+                  "lng" : 98.52844089999999
+               },
+               "southwest" : {
+                  "lat" : 3.06733310,
+                  "lng" : 98.37874509999999
+               }
+            },
+            "location" : {
+               "lat" : 3.0967990,
+               "lng" : 98.4875340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.14584290,
+                  "lng" : 98.52844089999999
+               },
+               "southwest" : {
+                  "lat" : 3.06733310,
+                  "lng" : 98.37874509999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kabanjahe",
+               "short_name" : "Kabanjahe",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Karo",
+               "short_name" : "Karo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kabanjahe, Karo, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.14584290,
+                  "lng" : 98.52844089999999
+               },
+               "southwest" : {
+                  "lat" : 3.06733310,
+                  "lng" : 98.37874509999999
+               }
+            },
+            "location" : {
+               "lat" : 3.09854020,
+               "lng" : 98.48973450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.14584290,
+                  "lng" : 98.52844089999999
+               },
+               "southwest" : {
+                  "lat" : 3.06733310,
+                  "lng" : 98.37874509999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "22111",
+               "short_name" : "22111",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Karo",
+               "short_name" : "Karo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Karo, North Sumatra 22111, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.13687490,
+                  "lng" : 98.51348120
+               },
+               "southwest" : {
+                  "lat" : 3.04774180,
+                  "lng" : 98.40194700000001
+               }
+            },
+            "location" : {
+               "lat" : 3.06904360,
+               "lng" : 98.45681279999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.13687490,
+                  "lng" : 98.51348120
+               },
+               "southwest" : {
+                  "lat" : 3.04774180,
+                  "lng" : 98.40194700000001
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Karo",
+               "short_name" : "Karo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Karo, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.3310950,
+                  "lng" : 98.62908390
+               },
+               "southwest" : {
+                  "lat" : 2.8681560,
+                  "lng" : 97.91428300000001
+               }
+            },
+            "location" : {
+               "lat" : 3.10529090,
+               "lng" : 98.2650580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.3310950,
+                  "lng" : 98.62908390
+               },
+               "southwest" : {
+                  "lat" : 2.8681560,
+                  "lng" : 97.91428300000001
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            },
+            "location" : {
+               "lat" : 2.11535470,
+               "lng" : 99.54509739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

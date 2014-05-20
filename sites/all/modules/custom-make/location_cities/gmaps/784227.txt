@@ -1,0 +1,235 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Доситејева",
+               "short_name" : "Доситејева",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Vranje",
+               "short_name" : "Vranje",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pčinja District",
+               "short_name" : "Pčinja District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Доситејева, Vranje, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.55210570,
+                  "lng" : 21.90112710
+               },
+               "southwest" : {
+                  "lat" : 42.55103330,
+                  "lng" : 21.90031840
+               }
+            },
+            "location" : {
+               "lat" : 42.55156780,
+               "lng" : 21.90071810
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.55291848029150,
+                  "lng" : 21.90207173029150
+               },
+               "southwest" : {
+                  "lat" : 42.55022051970850,
+                  "lng" : 21.89937376970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Vranje",
+               "short_name" : "Vranje",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pčinja District",
+               "short_name" : "Pčinja District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Vranje, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.56967520,
+                  "lng" : 21.93313120
+               },
+               "southwest" : {
+                  "lat" : 42.52076280,
+                  "lng" : 21.87665460
+               }
+            },
+            "location" : {
+               "lat" : 42.550,
+               "lng" : 21.90
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.56967520,
+                  "lng" : 21.93313120
+               },
+               "southwest" : {
+                  "lat" : 42.52076280,
+                  "lng" : 21.87665460
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Municipality of Vranje",
+               "short_name" : "Municipality of Vranje",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pčinja District",
+               "short_name" : "Pčinja District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Municipality of Vranje, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.79892750,
+                  "lng" : 22.11856840
+               },
+               "southwest" : {
+                  "lat" : 42.3981080,
+                  "lng" : 21.75430310
+               }
+            },
+            "location" : {
+               "lat" : 42.58040840,
+               "lng" : 21.88070640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.79892750,
+                  "lng" : 22.11856840
+               },
+               "southwest" : {
+                  "lat" : 42.3981080,
+                  "lng" : 21.75430310
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pčinja District",
+               "short_name" : "Pčinja District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pčinja District, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.84362090,
+                  "lng" : 22.56903610
+               },
+               "southwest" : {
+                  "lat" : 42.24482990,
+                  "lng" : 21.5269590
+               }
+            },
+            "location" : {
+               "lat" : 42.58363620,
+               "lng" : 22.14302150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.84362090,
+                  "lng" : 22.56903610
+               },
+               "southwest" : {
+                  "lat" : 42.24482990,
+                  "lng" : 21.5269590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

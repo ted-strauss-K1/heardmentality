@@ -1,0 +1,9 @@
+name = Issue Translation
+description = Issue Translation: translate polls, manage voting to translated polls
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = "mstapi"
+dependencies[] = "cpoll"
+dependencies[] = "translation"
+dependencies[] = "i18n"

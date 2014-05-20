@@ -1,0 +1,7 @@
+name = Location Cities
+description = Cities Support for Locations
+package = Custom Modules
+version = "6.x-1.1"
+core = 6.x
+dependencies[] = "location"
+; dependencies[] = "geonames"

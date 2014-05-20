@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rua Che-Guevara",
+               "short_name" : "Rua Che-Guevara",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Praia",
+               "short_name" : "Praia",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Praia",
+               "short_name" : "Praia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cape Verde",
+               "short_name" : "CV",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rua Che-Guevara, Praia, Cape Verde",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.9297640,
+                  "lng" : -23.50940540
+               },
+               "southwest" : {
+                  "lat" : 14.92966220,
+                  "lng" : -23.50957170
+               }
+            },
+            "location" : {
+               "lat" : 14.92971930,
+               "lng" : -23.50948310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.93106208029150,
+                  "lng" : -23.50813956970850
+               },
+               "southwest" : {
+                  "lat" : 14.92836411970850,
+                  "lng" : -23.51083753029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Praia",
+               "short_name" : "Praia",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Praia",
+               "short_name" : "Praia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cape Verde",
+               "short_name" : "CV",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Praia, Cape Verde",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.97272970,
+                  "lng" : -23.47061620
+               },
+               "southwest" : {
+                  "lat" : 14.90016540,
+                  "lng" : -23.54284290
+               }
+            },
+            "location" : {
+               "lat" : 14.9304640,
+               "lng" : -23.5126690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.97272970,
+                  "lng" : -23.47061620
+               },
+               "southwest" : {
+                  "lat" : 14.90016540,
+                  "lng" : -23.54284290
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Praia",
+               "short_name" : "Praia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cape Verde",
+               "short_name" : "CV",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Praia, Cape Verde",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.9910340,
+                  "lng" : -23.46666080
+               },
+               "southwest" : {
+                  "lat" : 14.902010,
+                  "lng" : -23.59589790
+               }
+            },
+            "location" : {
+               "lat" : 14.95231650,
+               "lng" : -23.53713680
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.9910340,
+                  "lng" : -23.46666080
+               },
+               "southwest" : {
+                  "lat" : 14.902010,
+                  "lng" : -23.59589790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cape Verde",
+               "short_name" : "CV",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cape Verde",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 17.20528650,
+                  "lng" : -22.65777820
+               },
+               "southwest" : {
+                  "lat" : 14.80235130,
+                  "lng" : -25.36099440
+               }
+            },
+            "location" : {
+               "lat" : 15.12172880,
+               "lng" : -23.60508170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 15.34378880,
+                  "lng" : -23.42883380
+               },
+               "southwest" : {
+                  "lat" : 14.89966870,
+                  "lng" : -23.78132960
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

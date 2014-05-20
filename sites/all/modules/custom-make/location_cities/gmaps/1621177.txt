@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Diponegoro",
+               "short_name" : "Jl. Diponegoro",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Yogyakarta",
+               "short_name" : "Yogyakarta",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Jetis",
+               "short_name" : "Jetis",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Yogyakarta City",
+               "short_name" : "Yogyakarta City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "55231",
+               "short_name" : "55231",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Diponegoro, Jetis, Yogyakarta City, Special District of Yogyakarta 55231, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.782775300000001,
+                  "lng" : 110.36176860
+               },
+               "southwest" : {
+                  "lat" : -7.78282520,
+                  "lng" : 110.36080820
+               }
+            },
+            "location" : {
+               "lat" : -7.782790299999999,
+               "lng" : 110.361290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.781451269708498,
+                  "lng" : 110.3626373802915
+               },
+               "southwest" : {
+                  "lat" : -7.784149230291503,
+                  "lng" : 110.3599394197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "55231",
+               "short_name" : "55231",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Yogyakarta City",
+               "short_name" : "Yogyakarta City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Yogyakarta City, Special District of Yogyakarta 55231, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.77968210,
+                  "lng" : 110.36362440
+               },
+               "southwest" : {
+                  "lat" : -7.78899240,
+                  "lng" : 110.3552780
+               }
+            },
+            "location" : {
+               "lat" : -7.784805700000001,
+               "lng" : 110.35918070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.77968210,
+                  "lng" : 110.36362440
+               },
+               "southwest" : {
+                  "lat" : -7.78899240,
+                  "lng" : 110.3552780
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bumijo",
+               "short_name" : "Bumijo",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Jetis",
+               "short_name" : "Jetis",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Yogyakarta City",
+               "short_name" : "Yogyakarta City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bumijo, Jetis, Yogyakarta City, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.779782999999998,
+                  "lng" : 110.363490
+               },
+               "southwest" : {
+                  "lat" : -7.7894460,
+                  "lng" : 110.355140
+               }
+            },
+            "location" : {
+               "lat" : -7.784805700000001,
+               "lng" : 110.35918070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.779782999999998,
+                  "lng" : 110.363490
+               },
+               "southwest" : {
+                  "lat" : -7.7894460,
+                  "lng" : 110.355140
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jetis",
+               "short_name" : "Jetis",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Yogyakarta City",
+               "short_name" : "Yogyakarta City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jetis, Yogyakarta City, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.773232999999999,
+                  "lng" : 110.37150
+               },
+               "southwest" : {
+                  "lat" : -7.789970100000001,
+                  "lng" : 110.355140
+               }
+            },
+            "location" : {
+               "lat" : -7.783296999999998,
+               "lng" : 110.3636490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.773232999999999,
+                  "lng" : 110.37150
+               },
+               "southwest" : {
+                  "lat" : -7.789970100000001,
+                  "lng" : 110.355140
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Yogyakarta City",
+               "short_name" : "Yogyakarta City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Yogyakarta City, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.76635090,
+                  "lng" : 110.4050840
+               },
+               "southwest" : {
+                  "lat" : -7.840149999999999,
+                  "lng" : 110.34460590
+               }
+            },
+            "location" : {
+               "lat" : -7.806303499999999,
+               "lng" : 110.3666280
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.76635090,
+                  "lng" : 110.4050840
+               },
+               "southwest" : {
+                  "lat" : -7.840149999999999,
+                  "lng" : 110.34460590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Yogyakarta",
+               "short_name" : "Yogyakarta",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Yogyakarta City",
+               "short_name" : "Yogyakarta City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Yogyakarta, Yogyakarta City, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.76635090,
+                  "lng" : 110.4050840
+               },
+               "southwest" : {
+                  "lat" : -7.840149999999999,
+                  "lng" : 110.34460590
+               }
+            },
+            "location" : {
+               "lat" : -7.7972240,
+               "lng" : 110.3687970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.76635090,
+                  "lng" : 110.4050840
+               },
+               "southwest" : {
+                  "lat" : -7.840149999999999,
+                  "lng" : 110.34460590
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.2041880,
+                  "lng" : 110.0139420
+               }
+            },
+            "location" : {
+               "lat" : -7.875384899999999,
+               "lng" : 110.42620880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.2041880,
+                  "lng" : 110.0139420
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "B 3",
+               "short_name" : "B 3",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Bukombe",
+               "short_name" : "Bukombe",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Shinyanga",
+               "short_name" : "Shinyanga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "B 3, Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.31284790,
+                  "lng" : 31.50121460
+               },
+               "southwest" : {
+                  "lat" : -3.31713770,
+                  "lng" : 31.49548530
+               }
+            },
+            "location" : {
+               "lat" : -3.31499280,
+               "lng" : 31.49834990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.31284790,
+                  "lng" : 31.50121460
+               },
+               "southwest" : {
+                  "lat" : -3.31713770,
+                  "lng" : 31.49548530
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bukombe",
+               "short_name" : "Bukombe",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Shinyanga",
+               "short_name" : "Shinyanga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bukombe, Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.05275380,
+                  "lng" : 32.38393950
+               },
+               "southwest" : {
+                  "lat" : -4.36558180,
+                  "lng" : 31.16266860
+               }
+            },
+            "location" : {
+               "lat" : -3.53300070,
+               "lng" : 31.71954590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.05275380,
+                  "lng" : 32.38393950
+               },
+               "southwest" : {
+                  "lat" : -4.36558180,
+                  "lng" : 31.16266860
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Shinyanga",
+               "short_name" : "Shinyanga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Shinyanga, Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.2609170,
+                  "lng" : 35.24259190
+               },
+               "southwest" : {
+                  "lat" : -4.4575550,
+                  "lng" : 31.16773010
+               }
+            },
+            "location" : {
+               "lat" : -3.36949420,
+               "lng" : 34.15319470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.2609170,
+                  "lng" : 35.24259190
+               },
+               "southwest" : {
+                  "lat" : -4.4575550,
+                  "lng" : 31.16773010
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tanzania",
+               "short_name" : "TZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tanzania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.9843970,
+                  "lng" : 40.44496530
+               },
+               "southwest" : {
+                  "lat" : -11.76125360,
+                  "lng" : 29.340
+               }
+            },
+            "location" : {
+               "lat" : -6.3690280,
+               "lng" : 34.8888220
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.9843970,
+                  "lng" : 40.44496530
+               },
+               "southwest" : {
+                  "lat" : -11.76125360,
+                  "lng" : 29.340
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

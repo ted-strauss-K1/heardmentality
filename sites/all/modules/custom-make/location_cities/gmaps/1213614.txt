@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Sunggal Medan",
+               "short_name" : "Jl. Sunggal Medan",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Medan",
+               "short_name" : "Medan",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Medan Sunggal",
+               "short_name" : "Medan Sunggal",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Medan",
+               "short_name" : "Medan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "20127",
+               "short_name" : "20127",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Sunggal Medan, Medan Sunggal, Medan, North Sumatra 20127, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.57560850,
+                  "lng" : 98.61529499999999
+               },
+               "southwest" : {
+                  "lat" : 3.5754190,
+                  "lng" : 98.61439279999999
+               }
+            },
+            "location" : {
+               "lat" : 3.57551380,
+               "lng" : 98.61484390
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.576862730291502,
+                  "lng" : 98.61619288029149
+               },
+               "southwest" : {
+                  "lat" : 3.574164769708498,
+                  "lng" : 98.61349491970849
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "20127",
+               "short_name" : "20127",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra 20127, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.5927320,
+                  "lng" : 98.62365720
+               },
+               "southwest" : {
+                  "lat" : 3.57334880,
+                  "lng" : 98.60360709999999
+               }
+            },
+            "location" : {
+               "lat" : 3.58354390,
+               "lng" : 98.61331880000002
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.5927320,
+                  "lng" : 98.62365720
+               },
+               "southwest" : {
+                  "lat" : 3.57334880,
+                  "lng" : 98.60360709999999
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sunggal",
+               "short_name" : "Sunggal",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Medan Sunggal",
+               "short_name" : "Medan Sunggal",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Medan",
+               "short_name" : "Medan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sunggal, Medan Sunggal, Medan, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.59064410,
+                  "lng" : 98.62683810
+               },
+               "southwest" : {
+                  "lat" : 3.5644370,
+                  "lng" : 98.60503690
+               }
+            },
+            "location" : {
+               "lat" : 3.57848280,
+               "lng" : 98.61881609999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.59064410,
+                  "lng" : 98.62683810
+               },
+               "southwest" : {
+                  "lat" : 3.5644370,
+                  "lng" : 98.60503690
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Medan Sunggal",
+               "short_name" : "Medan Sunggal",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Medan",
+               "short_name" : "Medan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Medan Sunggal, Medan, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.6043120,
+                  "lng" : 98.65305599999999
+               },
+               "southwest" : {
+                  "lat" : 3.56257610,
+                  "lng" : 98.6021160
+               }
+            },
+            "location" : {
+               "lat" : 3.57595250,
+               "lng" : 98.62156490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.6043120,
+                  "lng" : 98.65305599999999
+               },
+               "southwest" : {
+                  "lat" : 3.56257610,
+                  "lng" : 98.6021160
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Medan",
+               "short_name" : "Medan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Medan, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.7964560,
+                  "lng" : 98.74651999999999
+               },
+               "southwest" : {
+                  "lat" : 3.4881170,
+                  "lng" : 98.5924670
+               }
+            },
+            "location" : {
+               "lat" : 3.60042490,
+               "lng" : 98.68206359999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.7964560,
+                  "lng" : 98.74651999999999
+               },
+               "southwest" : {
+                  "lat" : 3.4881170,
+                  "lng" : 98.5924670
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Medan",
+               "short_name" : "Medan",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Medan",
+               "short_name" : "Medan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Medan, North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.7964560,
+                  "lng" : 98.74651999999999
+               },
+               "southwest" : {
+                  "lat" : 3.4881170,
+                  "lng" : 98.5924670
+               }
+            },
+            "location" : {
+               "lat" : 3.5852420,
+               "lng" : 98.67559790000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.7964560,
+                  "lng" : 98.74651999999999
+               },
+               "southwest" : {
+                  "lat" : 3.4881170,
+                  "lng" : 98.5924670
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Sumatra",
+               "short_name" : "North Sumatra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Sumatra, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            },
+            "location" : {
+               "lat" : 2.11535470,
+               "lng" : 99.54509739999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.30134510,
+                  "lng" : 100.42578110
+               },
+               "southwest" : {
+                  "lat" : -0.63876090,
+                  "lng" : 97.05756190
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

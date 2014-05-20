@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cebek",
+               "short_name" : "Cebek",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Soreang",
+               "short_name" : "Soreang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Soreang",
+               "short_name" : "Soreang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bandung",
+               "short_name" : "Bandung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "40914",
+               "short_name" : "40914",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Cebek, Soreang, Bandung, West Java 40914, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.0326060,
+                  "lng" : 107.51817620
+               },
+               "southwest" : {
+                  "lat" : -7.033582999999999,
+                  "lng" : 107.51783460
+               }
+            },
+            "location" : {
+               "lat" : -7.03310220,
+               "lng" : 107.51802960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.031745519708497,
+                  "lng" : 107.5193543802915
+               },
+               "southwest" : {
+                  "lat" : -7.034443480291502,
+                  "lng" : 107.5166564197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Soreang",
+               "short_name" : "Soreang",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Soreang",
+               "short_name" : "Soreang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bandung",
+               "short_name" : "Bandung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Soreang, Bandung, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.026909000000001,
+                  "lng" : 107.5457190
+               },
+               "southwest" : {
+                  "lat" : -7.0426080,
+                  "lng" : 107.51475790
+               }
+            },
+            "location" : {
+               "lat" : -7.03201360,
+               "lng" : 107.52388880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.026909000000001,
+                  "lng" : 107.5457190
+               },
+               "southwest" : {
+                  "lat" : -7.0426080,
+                  "lng" : 107.51475790
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Soreang",
+               "short_name" : "Soreang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bandung",
+               "short_name" : "Bandung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Soreang, Bandung, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.001888999999999,
+                  "lng" : 107.54816290
+               },
+               "southwest" : {
+                  "lat" : -7.079930,
+                  "lng" : 107.4939690
+               }
+            },
+            "location" : {
+               "lat" : -7.039867699999999,
+               "lng" : 107.52093040
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.001888999999999,
+                  "lng" : 107.54816290
+               },
+               "southwest" : {
+                  "lat" : -7.079930,
+                  "lng" : 107.4939690
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Soreang",
+               "short_name" : "Soreang",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Soreang",
+               "short_name" : "Soreang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bandung",
+               "short_name" : "Bandung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Soreang, Bandung, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.001888999999999,
+                  "lng" : 107.54816290
+               },
+               "southwest" : {
+                  "lat" : -7.079930,
+                  "lng" : 107.4939690
+               }
+            },
+            "location" : {
+               "lat" : -7.0258670,
+               "lng" : 107.5168990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.001888999999999,
+                  "lng" : 107.54816290
+               },
+               "southwest" : {
+                  "lat" : -7.079930,
+                  "lng" : 107.4939690
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "40911",
+               "short_name" : "40911",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Java 40911, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.87835120,
+                  "lng" : 107.66374210
+               },
+               "southwest" : {
+                  "lat" : -7.081188500000001,
+                  "lng" : 107.47489920
+               }
+            },
+            "location" : {
+               "lat" : -7.009363199999999,
+               "lng" : 107.50909740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.93850840,
+                  "lng" : 107.55300140
+               },
+               "southwest" : {
+                  "lat" : -7.081188500000001,
+                  "lng" : 107.47489920
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bandung",
+               "short_name" : "Bandung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bandung, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.8108230,
+                  "lng" : 107.9318770
+               },
+               "southwest" : {
+                  "lat" : -7.316122000000001,
+                  "lng" : 107.2504660
+               }
+            },
+            "location" : {
+               "lat" : -7.13407020,
+               "lng" : 107.62153210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.8108230,
+                  "lng" : 107.9318770
+               },
+               "southwest" : {
+                  "lat" : -7.316122000000001,
+                  "lng" : 107.2504660
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.914709999999999,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.820987000000001,
+                  "lng" : 106.3705080
+               }
+            },
+            "location" : {
+               "lat" : -7.090910999999999,
+               "lng" : 107.6688870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.914709999999999,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.820987000000001,
+                  "lng" : 106.3705080
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

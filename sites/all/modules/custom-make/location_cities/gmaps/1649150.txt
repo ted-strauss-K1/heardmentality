@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Putri Gading Cempaka",
+               "short_name" : "Jl. Putri Gading Cempaka",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Ratu Samban",
+               "short_name" : "Ratu Samban",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "38222",
+               "short_name" : "38222",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Putri Gading Cempaka, Ratu Samban, Bengkulu 38222, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.79995430,
+                  "lng" : 102.26502140
+               },
+               "southwest" : {
+                  "lat" : -3.80147710,
+                  "lng" : 102.26442610
+               }
+            },
+            "location" : {
+               "lat" : -3.80071780,
+               "lng" : 102.26472910
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.799366719708497,
+                  "lng" : 102.2660727302915
+               },
+               "southwest" : {
+                  "lat" : -3.802064680291502,
+                  "lng" : 102.2633747697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Penurunan",
+               "short_name" : "Penurunan",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Ratu Samban",
+               "short_name" : "Ratu Samban",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Penurunan, Ratu Samban, Bengkulu, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.7973070,
+                  "lng" : 102.2705670
+               },
+               "southwest" : {
+                  "lat" : -3.81453380,
+                  "lng" : 102.2615440
+               }
+            },
+            "location" : {
+               "lat" : -3.806177999999999,
+               "lng" : 102.26480650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.7973070,
+                  "lng" : 102.2705670
+               },
+               "southwest" : {
+                  "lat" : -3.81453380,
+                  "lng" : 102.2615440
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ratu Samban",
+               "short_name" : "Ratu Samban",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ratu Samban, Bengkulu, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.78837190,
+                  "lng" : 102.2786770
+               },
+               "southwest" : {
+                  "lat" : -3.81453380,
+                  "lng" : 102.25480490
+               }
+            },
+            "location" : {
+               "lat" : -3.79871160,
+               "lng" : 102.26480650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.78837190,
+                  "lng" : 102.2786770
+               },
+               "southwest" : {
+                  "lat" : -3.81453380,
+                  "lng" : 102.25480490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "38222",
+               "short_name" : "38222",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bengkulu 38222, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.78715390,
+                  "lng" : 102.28259270
+               },
+               "southwest" : {
+                  "lat" : -3.80891090,
+                  "lng" : 102.25837690
+               }
+            },
+            "location" : {
+               "lat" : -3.79989420,
+               "lng" : 102.26909880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.78715390,
+                  "lng" : 102.28259270
+               },
+               "southwest" : {
+                  "lat" : -3.80891090,
+                  "lng" : 102.25837690
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bengkulu, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.72721110,
+                  "lng" : 102.40597690
+               },
+               "southwest" : {
+                  "lat" : -3.94476290,
+                  "lng" : 102.2469450
+               }
+            },
+            "location" : {
+               "lat" : -3.79555560,
+               "lng" : 102.25916670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.72721110,
+                  "lng" : 102.40597690
+               },
+               "southwest" : {
+                  "lat" : -3.94476290,
+                  "lng" : 102.2469450
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bengkulu, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.72721110,
+                  "lng" : 102.40597690
+               },
+               "southwest" : {
+                  "lat" : -3.94476290,
+                  "lng" : 102.2469450
+               }
+            },
+            "location" : {
+               "lat" : -3.826653899999999,
+               "lng" : 102.31203040
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.72721110,
+                  "lng" : 102.40597690
+               },
+               "southwest" : {
+                  "lat" : -3.94476290,
+                  "lng" : 102.2469450
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bengkulu",
+               "short_name" : "Bengkulu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bengkulu, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.2767620,
+                  "lng" : 103.7634780
+               },
+               "southwest" : {
+                  "lat" : -5.5142130,
+                  "lng" : 101.0225720
+               }
+            },
+            "location" : {
+               "lat" : -3.57784710,
+               "lng" : 102.34638750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.2767620,
+                  "lng" : 103.7634780
+               },
+               "southwest" : {
+                  "lat" : -5.5142130,
+                  "lng" : 101.0225720
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

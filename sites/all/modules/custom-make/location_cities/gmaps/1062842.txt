@@ -1,0 +1,293 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "4",
+               "short_name" : "4",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Maevatanana",
+               "short_name" : "Maevatanana",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Maevatanana",
+               "short_name" : "Maevatanana",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Mahajanga",
+               "short_name" : "Mahajanga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "4, Maevatanana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -16.94589490,
+                  "lng" : 46.83386429999999
+               },
+               "southwest" : {
+                  "lat" : -16.94817330,
+                  "lng" : 46.82720240
+               }
+            },
+            "location" : {
+               "lat" : -16.94692860,
+               "lng" : 46.83051580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -16.94568511970850,
+                  "lng" : 46.83386429999999
+               },
+               "southwest" : {
+                  "lat" : -16.94838308029150,
+                  "lng" : 46.82720240
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Maevatanana",
+               "short_name" : "Maevatanana",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Maevatanana",
+               "short_name" : "Maevatanana",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Mahajanga",
+               "short_name" : "Mahajanga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Maevatanana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -16.94027060,
+                  "lng" : 46.83965210
+               },
+               "southwest" : {
+                  "lat" : -16.96005730,
+                  "lng" : 46.82072640
+               }
+            },
+            "location" : {
+               "lat" : -16.950,
+               "lng" : 46.83333330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -16.94027060,
+                  "lng" : 46.83965210
+               },
+               "southwest" : {
+                  "lat" : -16.96005730,
+                  "lng" : 46.82072640
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Maevatanana",
+               "short_name" : "Maevatanana",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Mahajanga",
+               "short_name" : "Mahajanga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Maevatanana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -16.5690740,
+                  "lng" : 47.4060060
+               },
+               "southwest" : {
+                  "lat" : -17.87807570,
+                  "lng" : 46.21270690
+               }
+            },
+            "location" : {
+               "lat" : -17.30961410,
+               "lng" : 46.6705340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -16.5690740,
+                  "lng" : 47.4060060
+               },
+               "southwest" : {
+                  "lat" : -17.87807570,
+                  "lng" : 46.21270690
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Betsiboka",
+               "short_name" : "Betsiboka",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Mahajanga",
+               "short_name" : "Mahajanga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Betsiboka, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -16.30794790,
+                  "lng" : 48.18946850
+               },
+               "southwest" : {
+                  "lat" : -17.85786510,
+                  "lng" : 45.48683180
+               }
+            },
+            "location" : {
+               "lat" : -17.28335620,
+               "lng" : 47.13621250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -16.30794790,
+                  "lng" : 48.18946850
+               },
+               "southwest" : {
+                  "lat" : -17.85786510,
+                  "lng" : 45.48683180
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mahajanga",
+               "short_name" : "Mahajanga",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mahajanga, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -13.8768370,
+                  "lng" : 49.59388790
+               },
+               "southwest" : {
+                  "lat" : -19.3088630,
+                  "lng" : 43.9298590
+               }
+            },
+            "location" : {
+               "lat" : -16.5238830,
+               "lng" : 46.5162620
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -13.8768370,
+                  "lng" : 49.59388790
+               },
+               "southwest" : {
+                  "lat" : -19.3088630,
+                  "lng" : 43.9298590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

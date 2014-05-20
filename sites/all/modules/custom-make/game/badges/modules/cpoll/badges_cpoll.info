@@ -1,0 +1,6 @@
+name = Badges for Votes
+description = Badges for Votes
+package = Custom Modules :: Badges
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = 'cpoll'

@@ -1,0 +1,100 @@
+<?php
+
+/**
+ *
+ */
+require_once __DIR__ . "/newsletter.inc";
+
+/**
+ * Implementation of hook_install()
+ */
+function newsletter_install() {
+  drupal_install_schema('newsletter');
+
+  $ret = array();
+  $field = array(
+    'type'        => 'int',
+    'not null'    => TRUE,
+    'default'     => NEWSLETTER_WEEKLY,
+    'description' => 'Frequency',
+  );
+  db_add_field($ret, 'simplenews_subscriptions', 'freq', $field);
+}
+
+/**
+ * Implementation of hook_install()
+ */
+function newsletter_uninstall() {
+  $ret = array();
+  db_drop_field($ret, 'simplenews_subscriptions', 'freq');
+
+  drupal_uninstall_schema('newsletter');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function newsletter_schema() {
+  $schema = array();
+
+  $schema['newsletter'] = array(
+    'description' => t('Stores the newsletter.'),
+    'fields'      => array(
+      'hash'      => array(
+        'description' => t('Hash for newsletter.'),
+        'type'        => 'varchar',
+        'not null'    => TRUE,
+        'length'      => 64,
+      ),
+      'snid'      => array(
+        'description' => 'Subscription id',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0
+      ),
+      'send_date' => array(
+        'description' => t('Date this newsletter should be sent.'),
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => FALSE,
+      ),
+      'status'    => array(
+        'description' => t("The newsletter status (0 - not sent, 1 - sent)"),
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+      ),
+    ),
+    'primary key' => array('hash'),
+    'unique keys' => array(
+      'hash' => array('hash'),
+    ),
+  );
+
+  $schema['newsletter_nodes'] = array(
+    'description' => t('Newsletter to nodes relation.'),
+    'fields'      => array(
+      'hash' => array(
+        'description' => t('Hash for newsletter'),
+        'type'        => 'varchar',
+        'not null'    => TRUE,
+        'length'      => 64,
+      ),
+      'nid'  => array(
+        'description' => '{node}.nid',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0
+      ),
+    ),
+    'unique keys' => array(
+      'hash_node' => array(
+        'hash',
+        'nid'
+      ),
+    ),
+  );
+
+  return $schema;
+}

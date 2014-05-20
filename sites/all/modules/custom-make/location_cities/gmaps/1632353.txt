@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Lasiming",
+               "short_name" : "Jl. Lasiming",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Pare-Pare",
+               "short_name" : "Pare-Pare",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Ujung",
+               "short_name" : "Ujung",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pare-Pare",
+               "short_name" : "Pare-Pare",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "91113",
+               "short_name" : "91113",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Lasiming, Ujung, Pare-Pare, South Sulawesi 91113, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.01270640,
+                  "lng" : 119.63116480
+               },
+               "southwest" : {
+                  "lat" : -4.01301890,
+                  "lng" : 119.63046780
+               }
+            },
+            "location" : {
+               "lat" : -4.012862699999999,
+               "lng" : 119.63081630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.011513669708497,
+                  "lng" : 119.6321652802915
+               },
+               "southwest" : {
+                  "lat" : -4.014211630291502,
+                  "lng" : 119.6294673197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ujung Bulu",
+               "short_name" : "Ujung Bulu",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Ujung",
+               "short_name" : "Ujung",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pare-Pare",
+               "short_name" : "Pare-Pare",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ujung Bulu, Ujung, Pare-Pare, South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.010575999999999,
+                  "lng" : 119.63130890
+               },
+               "southwest" : {
+                  "lat" : -4.016380,
+                  "lng" : 119.6245550
+               }
+            },
+            "location" : {
+               "lat" : -4.01401190,
+               "lng" : 119.62818370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.010575999999999,
+                  "lng" : 119.63130890
+               },
+               "southwest" : {
+                  "lat" : -4.016380,
+                  "lng" : 119.6245550
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "91111",
+               "short_name" : "91111",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Pare-Pare",
+               "short_name" : "Pare-Pare",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pare-Pare, South Sulawesi 91111, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.01180210,
+                  "lng" : 119.63409410
+               },
+               "southwest" : {
+                  "lat" : -4.02030320,
+                  "lng" : 119.62121590
+               }
+            },
+            "location" : {
+               "lat" : -4.01625960,
+               "lng" : 119.62818370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.01180210,
+                  "lng" : 119.63409410
+               },
+               "southwest" : {
+                  "lat" : -4.02030320,
+                  "lng" : 119.62121590
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ujung",
+               "short_name" : "Ujung",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pare-Pare",
+               "short_name" : "Pare-Pare",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ujung, Pare-Pare, South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.9640660,
+                  "lng" : 119.6754910
+               },
+               "southwest" : {
+                  "lat" : -4.02018220,
+                  "lng" : 119.6197080
+               }
+            },
+            "location" : {
+               "lat" : -4.00067640,
+               "lng" : 119.65281360
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.9640660,
+                  "lng" : 119.6754910
+               },
+               "southwest" : {
+                  "lat" : -4.02018220,
+                  "lng" : 119.6197080
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pare-Pare",
+               "short_name" : "Pare-Pare",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pare-Pare",
+               "short_name" : "Pare-Pare",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pare-Pare, South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.96128890,
+                  "lng" : 119.7150420
+               },
+               "southwest" : {
+                  "lat" : -4.07940790,
+                  "lng" : 119.6165470
+               }
+            },
+            "location" : {
+               "lat" : -4.01666670,
+               "lng" : 119.62361110
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.96128890,
+                  "lng" : 119.7150420
+               },
+               "southwest" : {
+                  "lat" : -4.07940790,
+                  "lng" : 119.6165470
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pare-Pare",
+               "short_name" : "Pare-Pare",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pare-Pare, South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.96128890,
+                  "lng" : 119.7150420
+               },
+               "southwest" : {
+                  "lat" : -4.07940790,
+                  "lng" : 119.6165470
+               }
+            },
+            "location" : {
+               "lat" : -4.02954240,
+               "lng" : 119.66150550
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.96128890,
+                  "lng" : 119.7150420
+               },
+               "southwest" : {
+                  "lat" : -4.07940790,
+                  "lng" : 119.6165470
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South Sulawesi",
+               "short_name" : "South Sulawesi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Sulawesi, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.8952360,
+                  "lng" : 121.84020990
+               },
+               "southwest" : {
+                  "lat" : -7.758941000000001,
+                  "lng" : 117.03851490
+               }
+            },
+            "location" : {
+               "lat" : -3.66879940,
+               "lng" : 119.97405340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.8952360,
+                  "lng" : 121.84020990
+               },
+               "southwest" : {
+                  "lat" : -7.758941000000001,
+                  "lng" : 117.03851490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

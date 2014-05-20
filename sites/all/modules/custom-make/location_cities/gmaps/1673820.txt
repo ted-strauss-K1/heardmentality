@@ -1,0 +1,467 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "9",
+               "short_name" : "9",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Alley 21, Lane 296, Guǎngxi Road",
+               "short_name" : "Alley 21, Lane 296, Guǎngxi Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "忠孝里",
+               "short_name" : "忠孝里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Qianzhen District",
+               "short_name" : "Qianzhen District",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kaohsiung City",
+               "short_name" : "Kaohsiung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "806",
+               "short_name" : "806",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "No. 9, Alley 21, Lane 296, Guǎngxi Road, Qianzhen District, Kaohsiung City, Taiwan 806",
+         "geometry" : {
+            "location" : {
+               "lat" : 22.61618580,
+               "lng" : 120.31334820
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.61753478029150,
+                  "lng" : 120.3146971802915
+               },
+               "southwest" : {
+                  "lat" : 22.61483681970850,
+                  "lng" : 120.3119992197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "三多市場",
+               "short_name" : "三多市場",
+               "types" : [ "bus_station", "transit_station", "establishment" ]
+            },
+            {
+               "long_name" : "忠孝里",
+               "short_name" : "忠孝里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Qianzhen District",
+               "short_name" : "Qianzhen District",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kaohsiung City",
+               "short_name" : "Kaohsiung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "806",
+               "short_name" : "806",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "806, Taiwan, Kaohsiung City, Qianzhen District, 三多市場",
+         "geometry" : {
+            "location" : {
+               "lat" : 22.6160350,
+               "lng" : 120.3143920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.61738398029150,
+                  "lng" : 120.3157409802915
+               },
+               "southwest" : {
+                  "lat" : 22.61468601970850,
+                  "lng" : 120.3130430197085
+               }
+            }
+         },
+         "types" : [ "bus_station", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "三多市場",
+               "short_name" : "三多市場",
+               "types" : [ "bus_station", "transit_station", "establishment" ]
+            },
+            {
+               "long_name" : "普照里",
+               "short_name" : "普照里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Lingya District",
+               "short_name" : "Lingya District",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kaohsiung City",
+               "short_name" : "Kaohsiung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "802",
+               "short_name" : "802",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "802, Taiwan, Kaohsiung City, Lingya District, 三多市場",
+         "geometry" : {
+            "location" : {
+               "lat" : 22.6172080,
+               "lng" : 120.3139640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.61855698029150,
+                  "lng" : 120.3153129802915
+               },
+               "southwest" : {
+                  "lat" : 22.61585901970850,
+                  "lng" : 120.3126150197085
+               }
+            }
+         },
+         "types" : [ "bus_station", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "三多市場",
+               "short_name" : "三多市場",
+               "types" : [ "bus_station", "transit_station", "establishment" ]
+            },
+            {
+               "long_name" : "忠孝里",
+               "short_name" : "忠孝里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Qianzhen District",
+               "short_name" : "Qianzhen District",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kaohsiung City",
+               "short_name" : "Kaohsiung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "806",
+               "short_name" : "806",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "806, Taiwan, Kaohsiung City, Qianzhen District, 三多市場",
+         "geometry" : {
+            "location" : {
+               "lat" : 22.616340,
+               "lng" : 120.3146590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.61768898029150,
+                  "lng" : 120.3160079802915
+               },
+               "southwest" : {
+                  "lat" : 22.61499101970850,
+                  "lng" : 120.3133100197085
+               }
+            }
+         },
+         "types" : [ "bus_station", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "忠孝里",
+               "short_name" : "忠孝里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Qianzhen District",
+               "short_name" : "Qianzhen District",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kaohsiung City",
+               "short_name" : "Kaohsiung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "806",
+               "short_name" : "806",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "806, Taiwan, Kaohsiung City, Qianzhen District, 忠孝里",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.6177710,
+                  "lng" : 120.31652890
+               },
+               "southwest" : {
+                  "lat" : 22.6131160,
+                  "lng" : 120.3116630
+               }
+            },
+            "location" : {
+               "lat" : 22.61533990,
+               "lng" : 120.3140
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.6177710,
+                  "lng" : 120.31652890
+               },
+               "southwest" : {
+                  "lat" : 22.6131160,
+                  "lng" : 120.3116630
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "806",
+               "short_name" : "806",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Qianzhen District",
+               "short_name" : "Qianzhen District",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kaohsiung City",
+               "short_name" : "Kaohsiung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Qianzhen District, Kaohsiung City, Taiwan 806",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.61832290,
+                  "lng" : 120.33940770
+               },
+               "southwest" : {
+                  "lat" : 22.56124520,
+                  "lng" : 120.28184660
+               }
+            },
+            "location" : {
+               "lat" : 22.59707940,
+               "lng" : 120.31472080
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.61832290,
+                  "lng" : 120.33940770
+               },
+               "southwest" : {
+                  "lat" : 22.56124520,
+                  "lng" : 120.28184660
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Qianzhen District",
+               "short_name" : "Qianzhen District",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kaohsiung City",
+               "short_name" : "Kaohsiung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "806",
+               "short_name" : "806",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Qianzhen District, Kaohsiung City, Taiwan 806",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.61832290,
+                  "lng" : 120.33940770
+               },
+               "southwest" : {
+                  "lat" : 22.56124520,
+                  "lng" : 120.28184660
+               }
+            },
+            "location" : {
+               "lat" : 22.59707940,
+               "lng" : 120.31472080
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.61832290,
+                  "lng" : 120.33940770
+               },
+               "southwest" : {
+                  "lat" : 22.56124520,
+                  "lng" : 120.28184660
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kaohsiung City",
+               "short_name" : "Kaohsiung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kaohsiung City, Taiwan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.47172670,
+                  "lng" : 121.04901470
+               },
+               "southwest" : {
+                  "lat" : 22.47559620,
+                  "lng" : 120.17469250
+               }
+            },
+            "location" : {
+               "lat" : 23.01087140,
+               "lng" : 120.66600440
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.47172670,
+                  "lng" : 121.04901470
+               },
+               "southwest" : {
+                  "lat" : 22.47559620,
+                  "lng" : 120.17469250
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Taiwan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.38735330,
+                  "lng" : 122.00690520
+               },
+               "southwest" : {
+                  "lat" : 20.56379080,
+                  "lng" : 116.71186010
+               }
+            },
+            "location" : {
+               "lat" : 23.697810,
+               "lng" : 120.9605150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 25.30044080,
+                  "lng" : 122.00690520
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.02780170
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

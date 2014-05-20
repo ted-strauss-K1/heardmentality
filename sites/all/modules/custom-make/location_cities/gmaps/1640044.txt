@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Hang Jebat",
+               "short_name" : "Jl. Hang Jebat",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "East Bintan",
+               "short_name" : "East Bintan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bintan",
+               "short_name" : "Bintan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "29151",
+               "short_name" : "29151",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Hang Jebat, East Bintan, Bintan, Riau Islands 29151, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.8530162000000001,
+                  "lng" : 104.6106370
+               },
+               "southwest" : {
+                  "lat" : 0.8486952999999999,
+                  "lng" : 104.60794740
+               }
+            },
+            "location" : {
+               "lat" : 0.85132970,
+               "lng" : 104.6106080
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.8530162000000001,
+                  "lng" : 104.6106411802915
+               },
+               "southwest" : {
+                  "lat" : 0.8486952999999999,
+                  "lng" : 104.6079432197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Air Glubi",
+               "short_name" : "Air Glubi",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Bintan Pesisir",
+               "short_name" : "Bintan Pesisir",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bintan",
+               "short_name" : "Bintan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Air Glubi, Bintan Pesisir, Bintan, Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.9021450000000001,
+                  "lng" : 104.66747410
+               },
+               "southwest" : {
+                  "lat" : 0.8537250000000001,
+                  "lng" : 104.61692790
+               }
+            },
+            "location" : {
+               "lat" : 0.88087390,
+               "lng" : 104.64129250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.9021450000000001,
+                  "lng" : 104.66747410
+               },
+               "southwest" : {
+                  "lat" : 0.8537250000000001,
+                  "lng" : 104.61692790
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bintan Pesisir",
+               "short_name" : "Bintan Pesisir",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bintan",
+               "short_name" : "Bintan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bintan Pesisir, Bintan, Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.0449590,
+                  "lng" : 104.92740090
+               },
+               "southwest" : {
+                  "lat" : 0.7065910,
+                  "lng" : 104.61692790
+               }
+            },
+            "location" : {
+               "lat" : 0.77456810,
+               "lng" : 104.71709540
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.0449590,
+                  "lng" : 104.85449910
+               },
+               "southwest" : {
+                  "lat" : 0.7065910,
+                  "lng" : 104.61692790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "29151",
+               "short_name" : "29151",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Riau Islands 29151, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.2126590,
+                  "lng" : 104.93160240
+               },
+               "southwest" : {
+                  "lat" : 0.68587290,
+                  "lng" : 104.28277580
+               }
+            },
+            "location" : {
+               "lat" : 0.9689163000000001,
+               "lng" : 104.58883560
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.2126590,
+                  "lng" : 104.93160240
+               },
+               "southwest" : {
+                  "lat" : 0.68587290,
+                  "lng" : 104.28277580
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bintan",
+               "short_name" : "Bintan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bintan, Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.2295390,
+                  "lng" : 107.83944990
+               },
+               "southwest" : {
+                  "lat" : 0.7065910,
+                  "lng" : 104.2137060
+               }
+            },
+            "location" : {
+               "lat" : 1.06191730,
+               "lng" : 104.51892140
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.2295390,
+                  "lng" : 104.92740090
+               },
+               "southwest" : {
+                  "lat" : 0.7065910,
+                  "lng" : 104.2137060
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Riau Islands",
+               "short_name" : "Riau Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Riau Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.7955170,
+                  "lng" : 109.1640180
+               },
+               "southwest" : {
+                  "lat" : -0.8641219999999999,
+                  "lng" : 103.2782370
+               }
+            },
+            "location" : {
+               "lat" : 3.94565140,
+               "lng" : 108.14286690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.26655210,
+                  "lng" : 108.5425160
+               },
+               "southwest" : {
+                  "lat" : 3.4780680,
+                  "lng" : 107.7783750
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

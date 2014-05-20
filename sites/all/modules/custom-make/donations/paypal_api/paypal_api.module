@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * include admin file
+ */
+include_once "paypal_api.admin.inc";
+
+/**
+ * include required class
+ */
+require_once "paypal_api.class";
+
+/**
+ * @return array
+ */
+function paypal_api_donations() {
+  return array('paypal_api' => t('Paypal'));
+}
+
+/**
+ * @param $op_id
+ */
+function paypal_api_donation_make($op_id) {
+  if ($record = donations_record($op_id)) {
+    $requestParams = array(
+      'RETURNURL' => url('donate/success/paypal_api/' . $record->id, array('absolute' => TRUE)),
+      'CANCELURL' => url('donate/cancel/paypal_api/' . $record->id, array('absolute' => TRUE)),
+    );
+    $orderParams = array(
+      'PAYMENTREQUEST_0_AMT'          => $record->amount,
+      'PAYMENTREQUEST_0_SHIPPINGAMT'  => '0',
+      'PAYMENTREQUEST_0_CURRENCYCODE' => $record->currency,
+      'PAYMENTREQUEST_0_ITEMAMT'      => $record->amount,
+    );
+    $item = array(
+      'L_PAYMENTREQUEST_0_NAME0' => t('Donation'),
+      'L_PAYMENTREQUEST_0_DESC0' => t('Donation to ') . variable_get('site_name', 'Heard Mentality'),
+      'L_PAYMENTREQUEST_0_AMT0'  => $record->amount,
+      'L_PAYMENTREQUEST_0_QTY0'  => '1'
+    );
+    $params = $requestParams + $orderParams + $item;
+    $output = paypal_api_request($params);
+    if ($output === FALSE) {
+      form_set_error('request failed', t('Request to Paypal failed'));
+    }
+    else {
+      $gateway = variable_get('paypal_api_live', FALSE) ? 'https://www.paypal.com/webscr' : 'https://www.sandbox.paypal.com/webscr';
+      drupal_goto($gateway, 'cmd=_express-checkout&token=' . urlencode($params['token']));
+    }
+  }
+}
+
+/**
+ * @param $record
+ */
+function paypal_api_donations_cancel() {
+  $op_id = arg(3);
+  if ($record = donations_record($op_id)) {
+    if (isset($_GET['token']) && !empty($_GET['token'])) {
+      db_query("UPDATE {donations} SET token = '%s' WHERE id = '%d'", $_GET['token'], $record->id);
+    }
+    return $record;
+  }
+  return FALSE;
+}
+
+/**
+ * @param $record
+ */
+function paypal_api_donations_success() {
+  $op_id = arg(3);
+  if ($record = donations_record($op_id)) {
+    if (isset($_GET['token']) && !empty($_GET['token'])) {
+      db_query("UPDATE {donations} SET token = '%s' WHERE id = '%d'", $_GET['token'], $record->id);
+      $paypal = paypal_api();
+      $requestParams = array(
+        'TOKEN'                         => $_GET['token'],
+        'PAYMENTACTION'                 => 'Sale',
+        'PAYERID'                       => $_GET['PayerID'],
+        'PAYMENTREQUEST_0_AMT'          => $record->amount,
+        'PAYMENTREQUEST_0_CURRENCYCODE' => $record->currency,
+      );
+
+      $response = $paypal->request('DoExpressCheckoutPayment', $requestParams);
+      if (is_array($response) && $response['ACK'] == 'Success') {
+        db_query("UPDATE {donations} SET transaction_id = '%s' WHERE id = '%d'", $response['PAYMENTINFO_0_TRANSACTIONID'], $record->id);
+      }
+      else {
+        db_query("UPDATE {donations} SET status = '%d' WHERE id = '%d'", DONATION_FAILURE, $record->id);
+        return FALSE;
+      }
+    }
+    return $record;
+  }
+  return FALSE;
+}
+
+
+/**
+ * Paypal API class constructor
+ */
+function paypal_api() {
+  $credentials = array(
+    'USER'      => variable_get('paypal_api_user', ''),
+    'PWD'       => variable_get('paypal_api_pwd', ''),
+    'SIGNATURE' => variable_get('paypal_api_signature', ''),
+  );
+  $live = variable_get('paypal_api_live', FALSE);
+  return new Paypal($credentials, $live);
+}
+
+/**
+ * Paypal API request
+ *
+ * @var array $params The array containing the list of params to send to Paypal
+ * The list of params
+ *  RETURNURL
+ *  CANCELURL
+ *  PAYMENTREQUEST_0_AMT
+ *  PAYMENTREQUEST_0_SHIPPINGAMT
+ *  PAYMENTREQUEST_0_CURRENCYCODE
+ *  PAYMENTREQUEST_0_ITEMAMT
+ *  L_PAYMENTREQUEST_0_NAME0
+ *  L_PAYMENTREQUEST_0_DESC0
+ *  L_PAYMENTREQUEST_0_AMT0
+ *  L_PAYMENTREQUEST_0_QTY0
+ */
+function paypal_api_request(&$params) {
+  $requestParams = array();
+  foreach (array(
+             'AMT',
+             'CURRENCYCODE',
+             'RETURNURL',
+             'CANCELURL',
+             'PAYMENTREQUEST_0_AMT',
+             'PAYMENTREQUEST_0_SHIPPINGAMT',
+             'PAYMENTREQUEST_0_CURRENCYCODE',
+             'PAYMENTREQUEST_0_ITEMAMT',
+             'L_PAYMENTREQUEST_0_NAME0',
+             'L_PAYMENTREQUEST_0_DESC0',
+             'L_PAYMENTREQUEST_0_AMT0',
+             'L_PAYMENTREQUEST_0_QTY0'
+           ) as $key) {
+    if (isset($params[$key])) {
+      $requestParams[$key] = $params[$key];
+    }
+  }
+  $paypal_api = paypal_api();
+  $response = $paypal_api->request('SetExpressCheckout', $requestParams);
+  if (is_array($response) && $response['ACK'] == 'Success') {
+    $params['token'] = $response['TOKEN'];
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}

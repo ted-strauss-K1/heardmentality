@@ -1,0 +1,395 @@
+<?php
+
+
+/**
+ * @return array
+ */
+function cpoll_vote_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'cpoll_vote');
+  return array(
+    $path . '/cpoll_vote.js' => array(
+      'Multiple submissions are not allowed',
+      'Wait for few seconds to add your suggestion',
+      'Your suggestion was added',
+      'Wait for few seconds to change your vote',
+      'Your vote is accepted',
+      'Change vote',
+      'The choice submitted cannot be empty',
+      'The choice was already submitted',
+
+    ),
+  );
+}
+
+/**
+ * Form for adding/editing the Issues' votes
+ *
+ * @param      $form
+ * @param      $node
+ * @param bool $nowrap
+ *
+ * @return array
+ */
+function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
+  global $user;
+  $form = array();
+
+  $form['#attributes'] = array('class' => 'issue-vote-form');
+
+  # js
+  drupal_add_js(drupal_get_path("module", "cpoll_vote") . "/cpoll_vote.js");
+
+  # wrappers
+  if (!$nowrap) {
+    $form['#prefix'] = sprintf('<div id="voteform-%d" class="voteform">', $node->nid);
+    $form['#suffix'] = '</div>';
+  }
+
+  # info
+  $form['nid'] = array(
+    '#type'  => 'hidden',
+    '#value' => $node->nid,
+  );
+  $form['uid'] = array(
+    '#type'  => 'hidden',
+    '#value' => $node->uid,
+  );
+  $form['vote'] = array(
+    '#type'  => 'hidden',
+    '#value' => $node->vote ? $node->vote : -1,
+  );
+
+  # votes
+  if ($node->choices) {
+    $options = array();
+    foreach ($node->choices as $chid => $choice) {
+      $options[$chid] = '<span class="ch">' . check_plain(issue_translate($node, 'chtext', $chid)) . '</span>';
+    }
+
+    $options[-1] = '<span class="ch">&nbsp;</span>';
+
+    $form['choices'] = array(
+      '#type'          => 'radios',
+      '#default_value' => $node->vote,
+      '#options'       => $options,
+      '#prefix'        => '<div class="choices">',
+      '#suffix'        => '</div>',
+      '#disabled'      => !$node->cpoll['active'],
+    );
+  }
+
+  # add beauty
+  $form['choices']['#after_build'] = array('cpoll_vote_form_radios');
+
+  # login warning
+  if (!user_is_logged_in()) {
+    $form['#attributes']['class'] .= ' anonymous';
+    //    $form['login_error'] = array(
+    //      '#type' => 'markup',
+    //      '#prefix' => '<div class="login-error">',
+    //      '#value' => t('You should login to vote or post suggest answers.'),
+    //      '#suffix' => '</div>',
+    //    );
+  }
+
+  # suggestions
+  $suggestions = TRUE;
+  foreach ($node->choices as $choice) {
+    if ($user->uid == $choice['uid'] && 'suggested' == $choice['chtype']) {
+      $suggestions = FALSE;
+      break;
+    }
+  }
+
+  if ($suggestions && !$node->cpoll['fixed'] && $node->cpoll['active']) {
+    # add suggested answers
+    $form['suggest'] = array(
+      '#type'        => 'fieldset',
+      '#title'       => t('...Or submit a different answer'),
+      '#collapsible' => TRUE,
+      '#collapsed'   => TRUE,
+      '#tree'        => TRUE,
+    );
+    $form['suggest']['suggest_answer'] = array(
+      '#type'        => 'textfield',
+      '#size'        => 38,
+      '#description' => '(' . t('Answers must not exceed 140 carachters in length') . ')',
+      '#attributes'  => array('class' => 'floatleft'),
+      '#maxlength'   => 140,
+      '#prefix'      => '<div class="nsa-wrapper"><table><tr><td class="first">',
+      '#suffix'      => '</td><td>',
+    );
+    $form['suggest']['submit_suggest_answer'] = array(
+      '#type'       => 'submit',
+      '#value'      => t('Add Answer'),
+      '#attributes' => array('class' => 'add-answer2 light'),
+      '#suffix'     => '</td></tr></table></div>',
+      '#id'         => 'suggest',
+    );
+  }
+
+  # not-voted
+  if (!$node->vote && $node->cpoll['active']) {
+    $form['#attributes']['class'] .= ' not-voted';
+  }
+  $form['#attributes']['class'] .= ' voteform-' . $node->nid;
+
+  # add vote submit button
+  if (user_is_logged_in()) {
+    $form['main_submit'] = array(
+      '#type'       => 'submit',
+      '#value'      => t('Vote'),
+      '#attributes' => array('class' => 'button vote floatright'),
+      '#id'         => 'vote',
+      '#prefix'     => '<div class="votebtn_wrap clearfix">',
+      '#suffix'     => '</div>',
+    );
+    if ($node->vote) {
+      $form['main_submit']['#value'] = t('Change vote');
+    }
+    $form['main_submit']['#attributes']['class'] .= ' not-changed';
+  }
+  else {
+    $form['main_submit'] = array(
+      '#type'       => 'button',
+      '#value'      => t('Login to vote'),
+      '#attributes' => array('class' => 'button vote floatright ' . theme('user_login_modal_class', TRUE)),
+      '#id'         => 'vote-login',
+      '#prefix'     => '<div class="votebtn_wrap clearfix">',
+      '#suffix'     => '</div>',
+    );
+    unset($form['suggest']);
+  }
+
+  if (!$node->cpoll['active']) {
+    unset($form['main_submit']);
+    $form['main_submit'] = array(
+      '#type'   => 'markup',
+      '#value'  => t('Voting is closed'),
+      '#prefix' => '<div class="votebtn_wrap clearfix message">',
+      '#suffix' => '</div>',
+    );
+  }
+
+  if (!$page) {
+    unset($form['suggest']);
+  }
+
+  // for ajax callbacks
+  $form['action'] = array(
+    '#type'  => 'hidden',
+    '#value' => 'vote',
+  );
+
+  return $form;
+}
+
+/**
+ * @param $form_element
+ * @param $form_state
+ */
+function cpoll_vote_form_radios($form_element, &$form_state) {
+  $node = node_load($form_state['values']['nid']);
+  $count = count($form_element['#options']);
+
+  if ($count != count($node->choices)) {
+    // return $form_element;
+  }
+
+  $node->choices[-1] = array('votes' => 0, 'chtype' => 'suggested');
+
+  if ($node->choices) {
+    foreach ($node->choices as $i => $choice) {
+      $vote_number = intval($choice['votes']);
+      $vote_string = t('vote' . ($vote_number == 1 ? '' : 's'));
+
+      $classes = array();
+      $classes[] = 'choice-' . $choice['chtype'];
+      if (-1 == $i) {
+        $classes[] = 'choice-empty';
+      }
+      $classes[] = 'choice-' . $i;
+      if ($node->vote == $choice['chid']) {
+        $classes[] = 'current-vote';
+      }
+
+      $prefix = '
+      <div class="choice-radio-wrapper clearfix ' . implode(' ', $classes) . '">
+        <div class="choice-radio-votes"><span>' . $vote_number . '</span>' . $vote_string . '</div>
+        <div class="choice-radio-title">
+          <div
+            class="choice-radio-percentage"
+          style="width:' . $choice['votes_percent'] . '%"></div>';
+      $suffix = '
+        </div>
+      </div>';
+
+
+      //      $prefix .= '<div class="radio_wrapper choice-' . $choice['chtype'] . ' ' . ($node->vote == $choice['chid'] ? 'current-vote ' : '') . 'clearfix"><span class="teaser_count_vote vote-result-' . (-1 == $i ? 'empty' : $i) . '"> <span class="vote-result-' . $i . '">' . $vote_number . '</span>' . $vote_string . '</span>';
+      //      $suffix = '</div>';
+
+      $form_element[$i]['#prefix'] = $prefix;
+      $form_element[$i]['#suffix'] = $suffix;
+    }
+  }
+
+  return $form_element;
+}
+
+/**
+ * @return array
+ */
+function cpoll_vote_menu() {
+  $menu = array();
+
+  $menu['cpoll_vote/ajax'] = array(
+    'page callback'   => 'cpoll_vote_ajax',
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
+  );
+  $menu['cpoll_vote/external'] = array(
+    'page callback'   => 'cpoll_vote_external',
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ *
+ */
+function cpoll_vote_ajax() {
+  global $user;
+  $post = & $_REQUEST;
+
+  # suppress form submission
+  unset($post['form_build_id']);
+  unset($post['form_id']);
+  unset($post['form_token']);
+
+  # logged in user validation
+  if (user_is_anonymous()) {
+    print json_encode(array(
+      'status'  => FALSE,
+      'message' => t('Please log in'),
+      'result'  => cpoll_load_choices($post['nid'], TRUE),
+    ));
+    exit;
+  }
+
+  # add suggestion
+  if ($post['suggestion']) {
+    $choices = cpoll_load_choices($post['nid']);
+    // todo new choice validation
+    $choice = array(
+      'chid'         => -1,
+      'nid'          => $post['nid'],
+      'uid'          => $user->uid,
+      'chtext'       => $post['suggestion'],
+      'chtext_short' => $post['suggestion'],
+      'weight'       => count($choices),
+      'chtype'       => 'suggested',
+    );
+    $object = cpoll_choice_save($choice);
+    $post['chid'] = $object->chid;
+  }
+
+  # vote
+  cpoll_vote($post['chid']);
+
+  # actions
+  function_exists('action_queue') && action_queue(array(
+    'uid'         => $user->uid,
+    'operation'   => 'vote',
+    'entity_id'   => $post['nid'],
+    'entity_type' => 'node',
+    'chid'        => $post['chid'],
+  ));
+
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_index_node($post['nid']);
+  }
+
+  print json_encode(array(
+    'status'  => TRUE,
+    'message' => t('Your vote was added'),
+    'result'  => cpoll_load_choices($post['nid'], TRUE),
+    'chid'    => $post['chid'],
+  ));
+  exit;
+}
+
+
+/**
+ * @return null|string
+ */
+function cpoll_vote_external() {
+  $uid = $_REQUEST['uid'];
+  $chid = $_REQUEST['chid'];
+  $hash = $_REQUEST['hash'];
+
+  # validation
+  if (!is_numeric($uid) || !is_numeric($chid) || ($hash != cpoll_vote_external_hash($uid, $chid))) {
+    return t('An error has happened, we could not save your vote');
+  }
+
+  # vote
+  cpoll_vote($chid, $uid);
+
+  # actions
+  $nid = cpoll_nid($chid);
+  function_exists('action_queue') && action_queue(array(
+    'uid'         => $uid,
+    'operation'   => 'vote',
+    'entity_id'   => $nid,
+    'entity_type' => 'node',
+    'chid'        => $chid,
+  ));
+
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_index_node($nid);
+  }
+
+  drupal_set_message(t('Your vote was saved'));
+  drupal_goto('node/' . $nid);
+
+  return t('Your vote was saved');
+}
+
+/**
+ * @param $uid
+ * @param $chid
+ *
+ * @return string
+ */
+function cpoll_vote_external_hash($uid, $chid) {
+  return substr(md5($uid . ':' . $chid), 0, 6);
+}
+
+/**
+ * @param      $uid
+ * @param      $chid
+ * @param bool $short
+ *
+ * @return string
+ */
+function cpoll_vote_external_link($uid, $chid, $short = FALSE) {
+  $url = url('cpoll_vote/external', array(
+    'query'    => array(
+      'uid'  => $uid,
+      'chid' => $chid,
+      'hash' => cpoll_vote_external_hash($uid, $chid),
+    ),
+    'absolute' => TRUE,
+  ));
+
+  if ($short && module_exists('shorturl')) {
+    module_load_include('inc', 'shorturl', 'shorturl.engine');
+    $url = shorturl_shorten($url, TRUE);
+  }
+
+  return $url;
+}

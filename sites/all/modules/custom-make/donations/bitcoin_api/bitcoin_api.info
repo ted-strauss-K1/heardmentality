@@ -1,0 +1,5 @@
+name = Bitcoin API
+description = Bitcoin API for Donations. See https://github.com/coinbase/coinbase-php for complete usage info
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x

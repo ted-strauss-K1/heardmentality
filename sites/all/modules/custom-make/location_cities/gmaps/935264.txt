@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "14",
+               "short_name" : "14",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Rue Sainte-Anne",
+               "short_name" : "Rue Sainte-Anne",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Centre",
+               "short_name" : "Centre",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Saint Denis",
+               "short_name" : "Saint Denis",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint-Denis",
+               "short_name" : "Saint-Denis",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "14 Rue Sainte-Anne, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.88177640,
+                  "lng" : 55.45105310
+               },
+               "southwest" : {
+                  "lat" : -20.88213470,
+                  "lng" : 55.44978440
+               }
+            },
+            "location" : {
+               "lat" : -20.88200710,
+               "lng" : 55.45030250
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.88060656970850,
+                  "lng" : 55.45176773029151
+               },
+               "southwest" : {
+                  "lat" : -20.88330453029150,
+                  "lng" : 55.44906976970851
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Centre",
+               "short_name" : "Centre",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Saint Denis",
+               "short_name" : "Saint Denis",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint-Denis",
+               "short_name" : "Saint-Denis",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Centre, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.87173550,
+                  "lng" : 55.46715780
+               },
+               "southwest" : {
+                  "lat" : -20.89083950,
+                  "lng" : 55.44385639999999
+               }
+            },
+            "location" : {
+               "lat" : -20.88359690,
+               "lng" : 55.45546880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.87173550,
+                  "lng" : 55.46715780
+               },
+               "southwest" : {
+                  "lat" : -20.89083950,
+                  "lng" : 55.44385639999999
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint Denis",
+               "short_name" : "Saint Denis",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint Denis, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.51283240
+               },
+               "southwest" : {
+                  "lat" : -21.01497050,
+                  "lng" : 55.37581440
+               }
+            },
+            "location" : {
+               "lat" : -20.91009630,
+               "lng" : 55.46931630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.51283240
+               },
+               "southwest" : {
+                  "lat" : -21.01497050,
+                  "lng" : 55.37581440
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint-Denis",
+               "short_name" : "Saint-Denis",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint-Denis, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.87197820,
+                  "lng" : 55.6461750
+               },
+               "southwest" : {
+                  "lat" : -21.0151780,
+                  "lng" : 55.37582370
+               }
+            },
+            "location" : {
+               "lat" : -20.92025860,
+               "lng" : 55.51364330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.87197820,
+                  "lng" : 55.6461750
+               },
+               "southwest" : {
+                  "lat" : -21.0151780,
+                  "lng" : 55.37582370
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            },
+            "location" : {
+               "lat" : -21.1151410,
+               "lng" : 55.5363840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

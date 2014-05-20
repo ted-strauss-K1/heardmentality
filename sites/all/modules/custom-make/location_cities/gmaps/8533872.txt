@@ -1,0 +1,134 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rum Point Drive",
+               "short_name" : "Rum Point Drive",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "North Side",
+               "short_name" : "North Side",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cayman Islands",
+               "short_name" : "KY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rum Point Drive, Cayman Islands",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 19.35117850,
+                  "lng" : -81.23957580000001
+               },
+               "southwest" : {
+                  "lat" : 19.35026360,
+                  "lng" : -81.24157910
+               }
+            },
+            "location" : {
+               "lat" : 19.35071050,
+               "lng" : -81.24058269999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 19.35207003029150,
+                  "lng" : -81.23922846970849
+               },
+               "southwest" : {
+                  "lat" : 19.34937206970850,
+                  "lng" : -81.24192643029151
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Side",
+               "short_name" : "North Side",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cayman Islands",
+               "short_name" : "KY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Side, Cayman Islands",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 19.3719750,
+                  "lng" : -81.15384999999999
+               },
+               "southwest" : {
+                  "lat" : 19.30053060,
+                  "lng" : -81.2833380
+               }
+            },
+            "location" : {
+               "lat" : 19.33853070,
+               "lng" : -81.21332620
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 19.3719750,
+                  "lng" : -81.15384999999999
+               },
+               "southwest" : {
+                  "lat" : 19.30053060,
+                  "lng" : -81.2833380
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cayman Islands",
+               "short_name" : "KY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cayman Islands",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 19.75696850,
+                  "lng" : -79.72299760
+               },
+               "southwest" : {
+                  "lat" : 19.2628390,
+                  "lng" : -81.42006390
+               }
+            },
+            "location" : {
+               "lat" : 19.31330,
+               "lng" : -81.25460
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 19.39655740,
+                  "lng" : -81.08430880
+               },
+               "southwest" : {
+                  "lat" : 19.2628390,
+                  "lng" : -81.42006390
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

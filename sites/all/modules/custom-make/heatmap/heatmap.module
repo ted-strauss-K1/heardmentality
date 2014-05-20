@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function heatmap_theme() {
+  $theme = array();
+
+  $theme['heatmap'] = array(
+    'arguments'            => array(),
+    'template'             => 'heatmap',
+    'preprocess functions' => array('theme_heatmap_preprocess'),
+  );
+
+  return $theme;
+}
+
+/**
+ * Theme "heatmap" preprocess function
+ *
+ * @param $vars
+ */
+function theme_heatmap_preprocess(&$vars) {
+  drupal_add_js(drupal_get_path('module', 'heatmap') . '/heatmap.js');
+
+  $countries = location_get_iso3166_list();
+
+  $columns = array();
+  $item = new stdClass();
+  $item->type = 'string';
+  $item->name = 'Country';
+  $columns[] = $item;
+
+  $cases = array();
+  $cases['users'] = array(
+    'name'   => t('Users'),
+    'result' => db_query("SELECT pv.value AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid INNER JOIN {users} u ON u.uid = pv.uid AND u.status = 1 WHERE pf.name = 'profile_country' GROUP BY pv.value"),
+    'count'  => db_result(db_query("SELECT COUNT(*) FROM {users} WHERE status = 1")),
+  );
+
+  $cases['nodes'] = array(
+    'name'   => t('Issues'),
+    'result' => db_query("SELECT l.country, COUNT(DISTINCT(nid)) AS count FROM {location_instance} li INNER JOIN {location} l ON l.lid = li.lid GROUP BY l.country"),
+    'count'  => db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = 'issue' AND status = 1")),
+  );
+
+  $cases['online'] = array(
+    'name'   => t('Online'),
+    'result' => db_query("SELECT pv.value AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid INNER JOIN {users} u ON u.uid = pv.uid AND u.access >= '%d' AND u.status = 1 WHERE pf.name = 'profile_country' GROUP BY pv.value", time() - variable_get('user_block_seconds_online', 900)),
+    'count'  => db_result(db_query("SELECT COUNT(*) FROM {users} WHERE access >= '%d' AND status = 1", time() - variable_get('user_block_seconds_online', 900))),
+  );
+
+  $cases['votes'] = array(
+    'name'   => t('Votes'),
+    'result' => db_query("
+      SELECT pv.value AS country, COUNT(*) AS count
+      FROM {cpoll_votes} AS v
+      INNER JOIN {cpoll_choices} c ON c.chid = v.chid
+      INNER JOIN {profile_values} pv ON pv.uid = v.uid
+      INNER JOIN {profile_fields} pf ON pv.fid = pf.fid
+      INNER JOIN {users} u ON u.uid = pv.uid AND u.status = 1
+      WHERE pf.name = 'profile_country'
+      GROUP BY pv.value"),
+    'count'  => db_result(db_query("SELECT COUNT(*) FROM {cpoll_votes} cv INNER JOIN {users} u ON cv.uid = u.uid AND u.status = 1 WHERE cv.status = 1")),
+  );
+
+  foreach ($cases as $key => $case) {
+    $vars['count_' . $key] = 0;
+    $cols = $columns;
+    $item = new stdClass();
+    $item->type = 'number';
+    $item->name = $case['name'];
+    $cols[] = $item;
+    $data = array();
+    while ($row = db_fetch_array($case['result'])) {
+      $data[] = array($countries[$row['country']], (int) $row['count']);
+      //      $vars['count_' . $key] += (int)$row['count'];
+    }
+    $vars['count_' . $key] = (int) $case['count'];
+    drupal_add_js(array(
+      'heatmap' => array(
+        $key => array(
+          'columns' => $cols,
+          'dataset' => $data,
+        )
+      )
+    ), 'setting');
+  }
+
+  drupal_add_js(array('heatmap' => array('current' => 'users')), 'setting');
+}
+
+/**
+ * Implementation of hook_block()
+ *
+ * @param string $op
+ * @param int    $delta
+ * @param array  $edit
+ *
+ * @return mixed
+ */
+function heatmap_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      $blocks['heatmap'] = array(
+        'info' => t('Front Heatmap'),
+      );
+      return $blocks;
+
+    case 'view':
+      switch ($delta) {
+        case 'heatmap':
+          $block['subject'] = t("THE HERD");
+          $block['content'] = theme('heatmap');
+          break;
+      }
+      return $block;
+  }
+}

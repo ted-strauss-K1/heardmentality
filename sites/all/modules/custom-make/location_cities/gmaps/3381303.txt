@@ -1,0 +1,250 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Avenue de Rue Thomas Guidiglo",
+               "short_name" : "Avenue de Rue Thomas Guidiglo",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Kourou Bourg",
+               "short_name" : "Kourou Bourg",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Kourou",
+               "short_name" : "Kourou",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kourou",
+               "short_name" : "Kourou",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Cayenne",
+               "short_name" : "Cayenne",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Avenue de Rue Thomas Guidiglo, Kourou, French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.1553280,
+                  "lng" : -52.64734510
+               },
+               "southwest" : {
+                  "lat" : 5.154444499999999,
+                  "lng" : -52.64880930
+               }
+            },
+            "location" : {
+               "lat" : 5.15490960,
+               "lng" : -52.64809930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.156235230291501,
+                  "lng" : -52.64672821970849
+               },
+               "southwest" : {
+                  "lat" : 5.153537269708497,
+                  "lng" : -52.64942618029149
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kourou",
+               "short_name" : "Kourou",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kourou",
+               "short_name" : "Kourou",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Cayenne",
+               "short_name" : "Cayenne",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kourou, French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.18292710,
+                  "lng" : -52.62603530
+               },
+               "southwest" : {
+                  "lat" : 5.14283570,
+                  "lng" : -52.67592440
+               }
+            },
+            "location" : {
+               "lat" : 5.159700000000001,
+               "lng" : -52.65029999999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.18292710,
+                  "lng" : -52.62603530
+               },
+               "southwest" : {
+                  "lat" : 5.14283570,
+                  "lng" : -52.67592440
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kourou",
+               "short_name" : "Kourou",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Cayenne",
+               "short_name" : "Cayenne",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kourou, French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.26942660,
+                  "lng" : -52.56494530
+               },
+               "southwest" : {
+                  "lat" : 4.50181540,
+                  "lng" : -52.92972560
+               }
+            },
+            "location" : {
+               "lat" : 5.042849899999999,
+               "lng" : -52.78841710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.26942660,
+                  "lng" : -52.56494530
+               },
+               "southwest" : {
+                  "lat" : 4.50181540,
+                  "lng" : -52.92972560
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cayenne",
+               "short_name" : "Cayenne",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cayenne, French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.555251999999999,
+                  "lng" : -51.61394890
+               },
+               "southwest" : {
+                  "lat" : 2.1697510,
+                  "lng" : -53.5327790
+               }
+            },
+            "location" : {
+               "lat" : 4.27605990,
+               "lng" : -52.36133780
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.555251999999999,
+                  "lng" : -51.61394890
+               },
+               "southwest" : {
+                  "lat" : 2.1697510,
+                  "lng" : -53.5327790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.757189599999999,
+                  "lng" : -51.63359639999999
+               },
+               "southwest" : {
+                  "lat" : 2.1092870,
+                  "lng" : -54.55443790
+               }
+            },
+            "location" : {
+               "lat" : 3.9338890,
+               "lng" : -53.1257820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.757189599999999,
+                  "lng" : -51.63359639999999
+               },
+               "southwest" : {
+                  "lat" : 2.1092870,
+                  "lng" : -54.55443790
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

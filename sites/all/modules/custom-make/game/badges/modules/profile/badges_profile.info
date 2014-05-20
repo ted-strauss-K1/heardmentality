@@ -1,0 +1,6 @@
+name = Badges for User Profile
+description = Badges for User Profile
+package = Custom Modules :: Badges
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = 'pcp_alter'

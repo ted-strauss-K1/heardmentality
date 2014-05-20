@@ -1,0 +1,192 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rua João Cleófas Martins",
+               "short_name" : "Rua João Cleófas Martins",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Mindelo",
+               "short_name" : "Mindelo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sao Vicente",
+               "short_name" : "Sao Vicente",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Sao Vicente",
+               "short_name" : "Sao Vicente",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cape Verde",
+               "short_name" : "CV",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rua João Cleófas Martins, Mindelo, Cape Verde",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 16.89028930,
+                  "lng" : -24.98481740
+               },
+               "southwest" : {
+                  "lat" : 16.88914470,
+                  "lng" : -24.98504680
+               }
+            },
+            "location" : {
+               "lat" : 16.8897170,
+               "lng" : -24.98493210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 16.89106598029150,
+                  "lng" : -24.98358311970850
+               },
+               "southwest" : {
+                  "lat" : 16.88836801970850,
+                  "lng" : -24.98628108029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mindelo",
+               "short_name" : "Mindelo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sao Vicente",
+               "short_name" : "Sao Vicente",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cape Verde",
+               "short_name" : "CV",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mindelo, Cape Verde",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 16.90648090,
+                  "lng" : -24.95501520
+               },
+               "southwest" : {
+                  "lat" : 16.85859820,
+                  "lng" : -25.00814450
+               }
+            },
+            "location" : {
+               "lat" : 16.8906180,
+               "lng" : -24.9808210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 16.90648090,
+                  "lng" : -24.95501520
+               },
+               "southwest" : {
+                  "lat" : 16.85859820,
+                  "lng" : -25.00814450
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sao Vicente",
+               "short_name" : "Sao Vicente",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cape Verde",
+               "short_name" : "CV",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sao Vicente, Cape Verde",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 16.92315070,
+                  "lng" : -24.58070740
+               },
+               "southwest" : {
+                  "lat" : 16.6070920,
+                  "lng" : -25.08556620
+               }
+            },
+            "location" : {
+               "lat" : 16.83412710,
+               "lng" : -24.92795470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 16.92315070,
+                  "lng" : -24.8596420
+               },
+               "southwest" : {
+                  "lat" : 16.77679020,
+                  "lng" : -25.08556620
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cape Verde",
+               "short_name" : "CV",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cape Verde",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 17.20528650,
+                  "lng" : -22.65777820
+               },
+               "southwest" : {
+                  "lat" : 14.80235130,
+                  "lng" : -25.36099440
+               }
+            },
+            "location" : {
+               "lat" : 15.12172880,
+               "lng" : -23.60508170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 15.34378880,
+                  "lng" : -23.42883380
+               },
+               "southwest" : {
+                  "lat" : 14.89966870,
+                  "lng" : -23.78132960
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

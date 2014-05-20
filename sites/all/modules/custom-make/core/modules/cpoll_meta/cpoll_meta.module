@@ -1,0 +1,159 @@
+<?php
+
+/**
+ * Include admin panel management
+ */
+include_once "cpoll_meta.admin.inc";
+
+/**
+ * Define average (default) value
+ */
+define('CPOLL_META_AVG', 3);
+
+/**
+ * @param bool $nid
+ *
+ * @return array
+ */
+function cpoll_meta_get() {
+  static $cache = NULL;
+
+  if (is_null($cache)) {
+    $cache = array();
+    $result = db_query("SELECT cid, chtext FROM {cpoll_meta}");
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['cid']] = $row['chtext'];
+    }
+  }
+
+  return $cache;
+}
+
+/**
+ * @param $chtext
+ */
+function cpoll_meta_add($chtext) {
+  db_query("INSERT INTO {cpoll_meta} SET chtext = '%s'", $chtext);
+}
+
+/**
+ * @param $cid
+ */
+function cpoll_meta_delete($cid) {
+  db_query("DELETE FROM {cpoll_meta} WHERE cid = '%d'", $cid);
+  //  Don't need this as we have the constraints
+  //  db_query("DELETE FROM {cpoll_meta_values} WHERE cid = '%d'", $cid);
+}
+
+/**
+ * @param $cid
+ * @param $chtext
+ */
+function cpoll_meta_edit($cid, $chtext) {
+  db_query("UPDATE {cpoll_meta} SET chtext = '%s' WHERE cid = '%d'", $chtext, $cid);
+}
+
+/**
+ * @param $chid
+ * @param $uid
+ * @param $cid
+ * @param $value
+ */
+function cpoll_meta_value_set($chid, $uid, $cid, $value) {
+  db_query("REPLACE {cpoll_meta_values} SET value = '%s', chid = '%d', uid = '%d', cid = '%d'", $value, $chid, $uid, $cid);
+}
+
+/**
+ * @param      $nid
+ * @param bool $reset
+ *
+ * @return mixed
+ */
+function cpoll_meta_values_get($nid, $uid, $reset = FALSE) {
+  static $cache = NULL;
+
+  if (is_null($cache[$nid][$uid]) || $reset) {
+    $cache[$nid][$uid] = array();
+
+    $result = db_query("
+      SELECT c.chid, cm.cid, cm.chtext, IFNULL(cmv.value, '%d') val
+      FROM cpoll_choices c
+      JOIN cpoll_meta cm
+      LEFT JOIN cpoll_meta_values cmv ON cmv.cid = cm.cid AND cmv.chid = c.chid AND cmv.uid = '%d'
+      WHERE c.nid = '%d'
+      ORDER BY c.chid, cm.cid", CPOLL_META_AVG, $uid, $nid);
+    while ($row = db_fetch_array($result)) {
+      $cache[$nid][$uid][$row['chid']][$row['cid']] = $row;
+    }
+  }
+
+  return $cache[$nid][$uid];
+}
+
+/**
+ * @param      $node
+ * @param      $op
+ * @param null $a3
+ * @param null $a4
+ */
+function cpoll_meta_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ('issue' == $node->type) {
+    switch ($op) {
+      case 'delete' :
+        $choices = cpoll_load_choices($node->nid);
+        foreach ($choices as $chid => $choice) {
+          db_query("DELETE FROM {cpoll_meta_values} WHERE chid = '%d'", $chid);
+        }
+        break;
+      case 'load' :
+        global $user;
+        $meta = cpoll_meta_values_get($node->nid, $user->uid);
+        if ($node->choices) {
+          foreach ($node->choices as $chid => &$choice) {
+            $choice['meta'] = array();
+            if (!empty($meta[$chid])) {
+              foreach ($meta[$chid] as $cid => $value) {
+                $choice['meta'][$cid] = array(
+                  'chtext' => $value['chtext'],
+                  'value'  => $value['val'],
+                );
+              }
+            }
+          }
+        }
+        break;
+    }
+  }
+}
+
+/**
+ * Implementation of hook_user()
+ *
+ * @param      $op
+ * @param      $edit
+ * @param      $account
+ * @param null $category
+ */
+function cpoll_meta_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+    case 'delete' :
+      db_query("DELETE FROM {cpoll_meta_values} WHERE uid = '%d'", $account->nid);
+      break;
+  }
+}
+
+/**
+ * @param $chid
+ */
+function cpoll_meta_cpoll_choice_delete($chid) {
+  db_query("DELETE FROM {cpoll_meta_values} WHERE chid = '%d'", $chid);
+}
+
+/**
+ * @param $chtext
+ *
+ * @return string
+ */
+function cpoll_meta_code($chtext) {
+  return trim(preg_replace('/[^a-z]+/', '_', strtolower($chtext)));
+}

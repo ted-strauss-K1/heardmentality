@@ -1,7 +1,7 @@
 name = Analysis Extract
 description = Creates the site's overall data extraction
 package = Custom Modules
-version = "6.x-2.1"
+version = "6.x-2.2"
 core = 6.x
 
 dependencies[] = 'mimemail'

@@ -1,0 +1,361 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "2-24",
+               "short_name" : "2-24",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Jalan Delima 22",
+               "short_name" : "Jalan Delima 22",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Taman Delima",
+               "short_name" : "Taman Delima",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Banting",
+               "short_name" : "Banting",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Selangor",
+               "short_name" : "Selangor",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Malaysia",
+               "short_name" : "MY",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "42700",
+               "short_name" : "42700",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "2-24 Jalan Delima 22, Taman Delima, 42700 Banting, Selangor, Malaysia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.8170090,
+                  "lng" : 101.5001480
+               },
+               "southwest" : {
+                  "lat" : 2.8159910,
+                  "lng" : 101.4995420
+               }
+            },
+            "location" : {
+               "lat" : 2.81673050,
+               "lng" : 101.49993030
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.817848980291502,
+                  "lng" : 101.5011939802915
+               },
+               "southwest" : {
+                  "lat" : 2.815151019708498,
+                  "lng" : 101.4984960197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Taman Delima",
+               "short_name" : "Taman Delima",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Banting",
+               "short_name" : "Banting",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Selangor",
+               "short_name" : "Selangor",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Malaysia",
+               "short_name" : "MY",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "42700",
+               "short_name" : "42700",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Taman Delima, 42700 Banting, Selangor, Malaysia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.82263210,
+                  "lng" : 101.50475990
+               },
+               "southwest" : {
+                  "lat" : 2.8119430,
+                  "lng" : 101.49336290
+               }
+            },
+            "location" : {
+               "lat" : 2.81875910,
+               "lng" : 101.50065480
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.82263210,
+                  "lng" : 101.50475990
+               },
+               "southwest" : {
+                  "lat" : 2.8119430,
+                  "lng" : 101.49336290
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banting",
+               "short_name" : "Banting",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Selangor",
+               "short_name" : "Selangor",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Malaysia",
+               "short_name" : "MY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banting, Selangor, Malaysia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.9156120,
+                  "lng" : 101.6601980
+               },
+               "southwest" : {
+                  "lat" : 2.6882750,
+                  "lng" : 101.41179190
+               }
+            },
+            "location" : {
+               "lat" : 2.8095090,
+               "lng" : 101.5041550
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.9156120,
+                  "lng" : 101.6601980
+               },
+               "southwest" : {
+                  "lat" : 2.6882750,
+                  "lng" : 101.41179190
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "42700",
+               "short_name" : "42700",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Taman Seri Desa",
+               "short_name" : "Taman Seri Desa",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Banting",
+               "short_name" : "Banting",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Selangor",
+               "short_name" : "Selangor",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Malaysia",
+               "short_name" : "MY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Taman Seri Desa, 42700 Banting, Selangor, Malaysia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.10739340,
+                  "lng" : 101.80793350
+               },
+               "southwest" : {
+                  "lat" : 2.64320250,
+                  "lng" : 101.30482050
+               }
+            },
+            "location" : {
+               "lat" : 2.83884130,
+               "lng" : 101.57028130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.92429750,
+                  "lng" : 101.70682930
+               },
+               "southwest" : {
+                  "lat" : 2.64320250,
+                  "lng" : 101.36580050
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kuala Langat",
+               "short_name" : "Kuala Langat",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Malaysia",
+               "short_name" : "MY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kuala Langat, Malaysia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.97896190,
+                  "lng" : 101.68280610
+               },
+               "southwest" : {
+                  "lat" : 2.64258560,
+                  "lng" : 101.28384710
+               }
+            },
+            "location" : {
+               "lat" : 2.83884130,
+               "lng" : 101.57028130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.97896190,
+                  "lng" : 101.68280610
+               },
+               "southwest" : {
+                  "lat" : 2.64258560,
+                  "lng" : 101.28384710
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Selangor",
+               "short_name" : "Selangor",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Malaysia",
+               "short_name" : "MY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Selangor, Malaysia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 3.8683380,
+                  "lng" : 101.9700640
+               },
+               "southwest" : {
+                  "lat" : 2.5938060,
+                  "lng" : 100.80863810
+               }
+            },
+            "location" : {
+               "lat" : 3.5092470,
+               "lng" : 101.52480550
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 3.8683380,
+                  "lng" : 101.9700640
+               },
+               "southwest" : {
+                  "lat" : 2.5938060,
+                  "lng" : 100.80863810
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Malaysia",
+               "short_name" : "MY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Malaysia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.3634680,
+                  "lng" : 119.26581190
+               },
+               "southwest" : {
+                  "lat" : 0.85382090,
+                  "lng" : 99.64057299999999
+               }
+            },
+            "location" : {
+               "lat" : 4.2104840,
+               "lng" : 101.9757660
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.819846999999999,
+                  "lng" : 119.8134610
+               },
+               "southwest" : {
+                  "lat" : 0.4614210,
+                  "lng" : 99.42283599999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

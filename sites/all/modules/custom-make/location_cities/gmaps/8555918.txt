@@ -1,0 +1,638 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "１０",
+               "short_name" : "１０",
+               "types" : [ "sublocality_level_4", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "４",
+               "short_name" : "４",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "１丁目",
+               "short_name" : "１丁目",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Katahira",
+               "short_name" : "Katahira",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Aoba Ward",
+               "short_name" : "Aoba Ward",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Japan, Miyagi Prefecture, Sendai, Aoba Ward, Katahira, １丁目４−１０",
+         "geometry" : {
+            "location" : {
+               "lat" : 38.25741890,
+               "lng" : 140.86637310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.25876788029150,
+                  "lng" : 140.8677220802915
+               },
+               "southwest" : {
+                  "lat" : 38.25606991970850,
+                  "lng" : 140.8650241197085
+               }
+            }
+         },
+         "types" : [ "sublocality_level_4", "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "980-8640",
+               "short_name" : "980-8640",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "２",
+               "short_name" : "２",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "１丁目",
+               "short_name" : "１丁目",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Katahira",
+               "short_name" : "Katahira",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Aoba Ward",
+               "short_name" : "Aoba Ward",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "１丁目-２ Katahira, Aoba Ward, Sendai, Miyagi Prefecture 980-8640, Japan",
+         "geometry" : {
+            "location" : {
+               "lat" : 38.25835490,
+               "lng" : 140.86698410
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.25970388029150,
+                  "lng" : 140.8683330802915
+               },
+               "southwest" : {
+                  "lat" : 38.25700591970850,
+                  "lng" : 140.8656351197085
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "５",
+               "short_name" : "５",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "１丁目",
+               "short_name" : "１丁目",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Katahira",
+               "short_name" : "Katahira",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Aoba Ward",
+               "short_name" : "Aoba Ward",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Japan, Miyagi Prefecture, Sendai, Aoba Ward, Katahira, １丁目５",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.25769610,
+                  "lng" : 140.86857010
+               },
+               "southwest" : {
+                  "lat" : 38.2568790,
+                  "lng" : 140.86663290
+               }
+            },
+            "location" : {
+               "lat" : 38.25727730,
+               "lng" : 140.8671230
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.25863653029150,
+                  "lng" : 140.8689504802915
+               },
+               "southwest" : {
+                  "lat" : 38.25593856970850,
+                  "lng" : 140.8662525197085
+               }
+            }
+         },
+         "types" : [ "sublocality_level_3", "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "１丁目",
+               "short_name" : "１丁目",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Katahira",
+               "short_name" : "Katahira",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Aoba Ward",
+               "short_name" : "Aoba Ward",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Japan, Miyagi Prefecture, Sendai, Aoba Ward, Katahira, １丁目",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.25898980,
+                  "lng" : 140.87006420
+               },
+               "southwest" : {
+                  "lat" : 38.25543470,
+                  "lng" : 140.86385440
+               }
+            },
+            "location" : {
+               "lat" : 38.25796050,
+               "lng" : 140.86631470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.25898980,
+                  "lng" : 140.87006420
+               },
+               "southwest" : {
+                  "lat" : 38.25543470,
+                  "lng" : 140.86385440
+               }
+            }
+         },
+         "types" : [ "sublocality_level_2", "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Katahira",
+               "short_name" : "Katahira",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Aoba Ward",
+               "short_name" : "Aoba Ward",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Katahira, Aoba Ward, Sendai, Miyagi Prefecture, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.25898980,
+                  "lng" : 140.87803530
+               },
+               "southwest" : {
+                  "lat" : 38.25009280,
+                  "lng" : 140.86385440
+               }
+            },
+            "location" : {
+               "lat" : 38.25838540,
+               "lng" : 140.86540370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.25898980,
+                  "lng" : 140.87803530
+               },
+               "southwest" : {
+                  "lat" : 38.25009280,
+                  "lng" : 140.86385440
+               }
+            }
+         },
+         "types" : [ "sublocality_level_1", "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "980-0812",
+               "short_name" : "980-0812",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Katahira",
+               "short_name" : "Katahira",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Aoba Ward",
+               "short_name" : "Aoba Ward",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Katahira, Aoba Ward, Sendai, Miyagi Prefecture 980-0812, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.25931850,
+                  "lng" : 140.87866260
+               },
+               "southwest" : {
+                  "lat" : 38.25104940,
+                  "lng" : 140.86219670
+               }
+            },
+            "location" : {
+               "lat" : 38.25838540,
+               "lng" : 140.86540370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.25931850,
+                  "lng" : 140.87059230
+               },
+               "southwest" : {
+                  "lat" : 38.25587310,
+                  "lng" : 140.86219670
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Hirosedori Station",
+               "short_name" : "Hirosedori Station",
+               "types" : [ "train_station", "transit_station", "establishment" ]
+            },
+            {
+               "long_name" : "２",
+               "short_name" : "２",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "２丁目",
+               "short_name" : "２丁目",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Honcho",
+               "short_name" : "Honcho",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Aoba Ward",
+               "short_name" : "Aoba Ward",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Hirosedori Station, ２丁目-２ Honcho, Aoba Ward, Sendai, Miyagi Prefecture, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.2709650,
+                  "lng" : 140.8855180
+               },
+               "southwest" : {
+                  "lat" : 38.2544440,
+                  "lng" : 140.8626370
+               }
+            },
+            "location" : {
+               "lat" : 38.26297100000001,
+               "lng" : 140.8757360
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.2709650,
+                  "lng" : 140.8855180
+               },
+               "southwest" : {
+                  "lat" : 38.2544440,
+                  "lng" : 140.8626370
+               }
+            }
+         },
+         "types" : [ "train_station", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Aoba Ward",
+               "short_name" : "Aoba Ward",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Aoba Ward, Sendai, Miyagi Prefecture, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.45466250,
+                  "lng" : 140.89976730
+               },
+               "southwest" : {
+                  "lat" : 38.23646970,
+                  "lng" : 140.56320290
+               }
+            },
+            "location" : {
+               "lat" : 38.26907610,
+               "lng" : 140.87040290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.45466250,
+                  "lng" : 140.89976730
+               },
+               "southwest" : {
+                  "lat" : 38.23646970,
+                  "lng" : 140.56320290
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sendai",
+               "short_name" : "Sendai",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sendai, Miyagi Prefecture, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.45466250,
+                  "lng" : 141.04691330
+               },
+               "southwest" : {
+                  "lat" : 38.17249610,
+                  "lng" : 140.46941810
+               }
+            },
+            "location" : {
+               "lat" : 38.2682150,
+               "lng" : 140.86935580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.31880,
+                  "lng" : 140.94190
+               },
+               "southwest" : {
+                  "lat" : 38.22170,
+                  "lng" : 140.79190
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Miyagi Prefecture",
+               "short_name" : "Miyagi Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Miyagi Prefecture, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 39.00285630,
+                  "lng" : 141.6754530
+               },
+               "southwest" : {
+                  "lat" : 37.77385930,
+                  "lng" : 140.27466290
+               }
+            },
+            "location" : {
+               "lat" : 38.26883730,
+               "lng" : 140.87210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 39.00285630,
+                  "lng" : 141.6754530
+               },
+               "southwest" : {
+                  "lat" : 37.77385930,
+                  "lng" : 140.27466290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.52277190,
+                  "lng" : 153.98743060
+               },
+               "southwest" : {
+                  "lat" : 24.04604460,
+                  "lng" : 122.93383020
+               }
+            },
+            "location" : {
+               "lat" : 36.2048240,
+               "lng" : 138.2529240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.52277190,
+                  "lng" : 145.81755030
+               },
+               "southwest" : {
+                  "lat" : 24.04869280,
+                  "lng" : 122.93383020
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

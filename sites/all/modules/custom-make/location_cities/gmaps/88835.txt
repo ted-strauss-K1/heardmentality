@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "AL-Orouba Road",
+               "short_name" : "AL-Orouba Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Al Qubah",
+               "short_name" : "Al Qubah",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Al Qubah",
+               "short_name" : "Al Qubah",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "AL-Orouba Road, Al Qubah, Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 32.76813140,
+                  "lng" : 22.24397660
+               },
+               "southwest" : {
+                  "lat" : 32.76795550,
+                  "lng" : 22.24262510
+               }
+            },
+            "location" : {
+               "lat" : 32.76804670,
+               "lng" : 22.24330130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 32.76939243029150,
+                  "lng" : 22.24464983029150
+               },
+               "southwest" : {
+                  "lat" : 32.76669446970850,
+                  "lng" : 22.24195186970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Al Qubah",
+               "short_name" : "Al Qubah",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Al Qubah",
+               "short_name" : "Al Qubah",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Al Qubah, Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 32.77894980,
+                  "lng" : 22.26359340
+               },
+               "southwest" : {
+                  "lat" : 32.74593470,
+                  "lng" : 22.21002330
+               }
+            },
+            "location" : {
+               "lat" : 32.7666670,
+               "lng" : 22.250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 32.77894980,
+                  "lng" : 22.26359340
+               },
+               "southwest" : {
+                  "lat" : 32.74593470,
+                  "lng" : 22.21002330
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Darnah",
+               "short_name" : "Darnah",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Darnah, Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 32.93376190,
+                  "lng" : 23.3307150
+               },
+               "southwest" : {
+                  "lat" : 31.0559880,
+                  "lng" : 21.92549510
+               }
+            },
+            "location" : {
+               "lat" : 31.91864350,
+               "lng" : 22.42914640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 32.93376190,
+                  "lng" : 23.3307150
+               },
+               "southwest" : {
+                  "lat" : 31.0559880,
+                  "lng" : 21.92549510
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 33.16678710,
+                  "lng" : 25.1469540
+               },
+               "southwest" : {
+                  "lat" : 19.50042980,
+                  "lng" : 9.391466399999999
+               }
+            },
+            "location" : {
+               "lat" : 27.05677690,
+               "lng" : 14.52804050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.16678710,
+                  "lng" : 25.1469540
+               },
+               "southwest" : {
+                  "lat" : 19.50042980,
+                  "lng" : 9.391466399999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

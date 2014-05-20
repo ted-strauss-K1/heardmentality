@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kwanza - Kapenguria Road",
+               "short_name" : "D341",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Kitale",
+               "short_name" : "Kitale",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Trans Nzoia",
+               "short_name" : "Trans Nzoia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kwanza - Kapenguria Road, Kitale, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.01541850,
+                  "lng" : 35.00569760
+               },
+               "southwest" : {
+                  "lat" : 1.01411390,
+                  "lng" : 35.00482890
+               }
+            },
+            "location" : {
+               "lat" : 1.01477150,
+               "lng" : 35.00527150000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.016115180291502,
+                  "lng" : 35.00661223029150
+               },
+               "southwest" : {
+                  "lat" : 1.013417219708498,
+                  "lng" : 35.00391426970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kitale",
+               "short_name" : "Kitale",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Trans Nzoia",
+               "short_name" : "Trans Nzoia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kitale, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.06341730,
+                  "lng" : 35.04170970
+               },
+               "southwest" : {
+                  "lat" : 0.9686920999999998,
+                  "lng" : 34.96787190
+               }
+            },
+            "location" : {
+               "lat" : 1.0190890,
+               "lng" : 35.00230480
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.06341730,
+                  "lng" : 35.04170970
+               },
+               "southwest" : {
+                  "lat" : 0.9686920999999998,
+                  "lng" : 34.96787190
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Trans Nzoia",
+               "short_name" : "Trans Nzoia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Trans Nzoia, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.2905850,
+                  "lng" : 35.36351290
+               },
+               "southwest" : {
+                  "lat" : 0.8141250,
+                  "lng" : 34.59178890
+               }
+            },
+            "location" : {
+               "lat" : 1.05666670,
+               "lng" : 34.95066250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.2905850,
+                  "lng" : 35.36351290
+               },
+               "southwest" : {
+                  "lat" : 0.8141250,
+                  "lng" : 34.59178890
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

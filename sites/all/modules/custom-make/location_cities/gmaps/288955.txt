@@ -1,0 +1,144 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Al Suwayq",
+               "short_name" : "Al Suwayq",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Al Bāţinah",
+               "short_name" : "Al Bāţinah",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Oman",
+               "short_name" : "OM",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "1, Al Suwayq, Oman",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.82453060,
+                  "lng" : 57.43560880
+               },
+               "southwest" : {
+                  "lat" : 23.82124510,
+                  "lng" : 57.42448570
+               }
+            },
+            "location" : {
+               "lat" : 23.82278190,
+               "lng" : 57.42999370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.82453060,
+                  "lng" : 57.43560880
+               },
+               "southwest" : {
+                  "lat" : 23.82124510,
+                  "lng" : 57.42448570
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Al Suwayq",
+               "short_name" : "Al Suwayq",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Al Bāţinah",
+               "short_name" : "Al Bāţinah",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Oman",
+               "short_name" : "OM",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Al Suwayq, Oman",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.86007070,
+                  "lng" : 57.47182570
+               },
+               "southwest" : {
+                  "lat" : 23.8025140,
+                  "lng" : 57.40564759999999
+               }
+            },
+            "location" : {
+               "lat" : 23.84573890,
+               "lng" : 57.436710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.86007070,
+                  "lng" : 57.47182570
+               },
+               "southwest" : {
+                  "lat" : 23.8025140,
+                  "lng" : 57.40564759999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Oman",
+               "short_name" : "OM",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Oman",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.40539470,
+                  "lng" : 59.83939739999999
+               },
+               "southwest" : {
+                  "lat" : 16.6503360,
+                  "lng" : 52.00000180
+               }
+            },
+            "location" : {
+               "lat" : 21.5125830,
+               "lng" : 55.9232550
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 26.40539470,
+                  "lng" : 59.83939739999999
+               },
+               "southwest" : {
+                  "lat" : 16.6503360,
+                  "lng" : 52.00000180
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

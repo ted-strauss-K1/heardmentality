@@ -1,0 +1,366 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Samas",
+               "short_name" : "Jl. Samas",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Bambanglipuro",
+               "short_name" : "Bambanglipuro",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bambanglipuro",
+               "short_name" : "Bambanglipuro",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bantul",
+               "short_name" : "Bantul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "55764",
+               "short_name" : "55764",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Samas, Bambanglipuro, Bantul, Special District of Yogyakarta 55764, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.95343630,
+                  "lng" : 110.29352450
+               },
+               "southwest" : {
+                  "lat" : -7.954865699999999,
+                  "lng" : 110.29284130
+               }
+            },
+            "location" : {
+               "lat" : -7.95415480,
+               "lng" : 110.2931910
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.952802019708497,
+                  "lng" : 110.2945318802915
+               },
+               "southwest" : {
+                  "lat" : -7.955499980291502,
+                  "lng" : 110.2918339197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Caturharjo",
+               "short_name" : "Caturharjo",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Pandak",
+               "short_name" : "Pandak",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bantul",
+               "short_name" : "Bantul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Caturharjo, Pandak, Bantul, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.9312380,
+                  "lng" : 110.29204510
+               },
+               "southwest" : {
+                  "lat" : -7.958271099999999,
+                  "lng" : 110.2546760
+               }
+            },
+            "location" : {
+               "lat" : -7.947504200000001,
+               "lng" : 110.27428580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.9312380,
+                  "lng" : 110.29204510
+               },
+               "southwest" : {
+                  "lat" : -7.958271099999999,
+                  "lng" : 110.2546760
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "55764",
+               "short_name" : "55764",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bantul",
+               "short_name" : "Bantul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bantul, Special District of Yogyakarta 55764, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.91606940,
+                  "lng" : 110.3480530
+               },
+               "southwest" : {
+                  "lat" : -7.973438199999999,
+                  "lng" : 110.28069290
+               }
+            },
+            "location" : {
+               "lat" : -7.94812290,
+               "lng" : 110.31300870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.91606940,
+                  "lng" : 110.3480530
+               },
+               "southwest" : {
+                  "lat" : -7.973438199999999,
+                  "lng" : 110.28069290
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pandak",
+               "short_name" : "Pandak",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bantul",
+               "short_name" : "Bantul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pandak, Bantul, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.8902770,
+                  "lng" : 110.3150340
+               },
+               "southwest" : {
+                  "lat" : -7.958271099999999,
+                  "lng" : 110.2546760
+               }
+            },
+            "location" : {
+               "lat" : -7.92869510,
+               "lng" : 110.2891790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.8902770,
+                  "lng" : 110.3150340
+               },
+               "southwest" : {
+                  "lat" : -7.958271099999999,
+                  "lng" : 110.2546760
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bantul",
+               "short_name" : "Bantul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bantul, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.767899000000001,
+                  "lng" : 110.5213280
+               },
+               "southwest" : {
+                  "lat" : -8.028480799999999,
+                  "lng" : 110.20418510
+               }
+            },
+            "location" : {
+               "lat" : -7.919016900000001,
+               "lng" : 110.37854380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.767899000000001,
+                  "lng" : 110.5213280
+               },
+               "southwest" : {
+                  "lat" : -8.028480799999999,
+                  "lng" : 110.20418510
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.2041880,
+                  "lng" : 110.0139420
+               }
+            },
+            "location" : {
+               "lat" : -7.875384899999999,
+               "lng" : 110.42620880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.2041880,
+                  "lng" : 110.0139420
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,424 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rue Randriantsilanizaka Joseph",
+               "short_name" : "Rue Randriantsilanizaka Joseph",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Ambalapaiso",
+               "short_name" : "Ambalapaiso",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Tanana Ambany",
+               "short_name" : "Tanana Ambany",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa I",
+               "short_name" : "Fianarantsoa I",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rue Randriantsilanizaka Joseph, Fianarantsoa, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.45010020,
+                  "lng" : 47.08603040
+               },
+               "southwest" : {
+                  "lat" : -21.4541740,
+                  "lng" : 47.08334410
+               }
+            },
+            "location" : {
+               "lat" : -21.45217380,
+               "lng" : 47.08475420
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.45010020,
+                  "lng" : 47.08603623029150
+               },
+               "southwest" : {
+                  "lat" : -21.4541740,
+                  "lng" : 47.08333826970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ambalapaiso",
+               "short_name" : "Ambalapaiso",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Tanana Ambany",
+               "short_name" : "Tanana Ambany",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa I",
+               "short_name" : "Fianarantsoa I",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ambalapaiso, Fianarantsoa, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.44529480,
+                  "lng" : 47.09008460
+               },
+               "southwest" : {
+                  "lat" : -21.45875530,
+                  "lng" : 47.07836330
+               }
+            },
+            "location" : {
+               "lat" : -21.45303490,
+               "lng" : 47.08628740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.44529480,
+                  "lng" : 47.09008460
+               },
+               "southwest" : {
+                  "lat" : -21.45875530,
+                  "lng" : 47.07836330
+               }
+            }
+         },
+         "types" : [ "neighborhood", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tanana Ambany",
+               "short_name" : "Tanana Ambany",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa I",
+               "short_name" : "Fianarantsoa I",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tanana Ambany, Fianarantsoa, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.40658040,
+                  "lng" : 47.13027480
+               },
+               "southwest" : {
+                  "lat" : -21.45550010,
+                  "lng" : 47.07753710
+               }
+            },
+            "location" : {
+               "lat" : -21.4257810,
+               "lng" : 47.1021120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.40658040,
+                  "lng" : 47.13027480
+               },
+               "southwest" : {
+                  "lat" : -21.45550010,
+                  "lng" : 47.07753710
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa I",
+               "short_name" : "Fianarantsoa I",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Fianarantsoa, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.40652040,
+                  "lng" : 47.13031770
+               },
+               "southwest" : {
+                  "lat" : -21.48885230,
+                  "lng" : 47.04122539999999
+               }
+            },
+            "location" : {
+               "lat" : -21.45361110,
+               "lng" : 47.08583330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.40652040,
+                  "lng" : 47.13031770
+               },
+               "southwest" : {
+                  "lat" : -21.48885230,
+                  "lng" : 47.04122539999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Fianarantsoa I",
+               "short_name" : "Fianarantsoa I",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Fianarantsoa I, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.41763710,
+                  "lng" : 47.20600590
+               },
+               "southwest" : {
+                  "lat" : -21.5477550,
+                  "lng" : 47.04302790
+               }
+            },
+            "location" : {
+               "lat" : -21.4857480,
+               "lng" : 47.15570870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.41763710,
+                  "lng" : 47.20600590
+               },
+               "southwest" : {
+                  "lat" : -21.5477550,
+                  "lng" : 47.04302790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Haute Matsiatra",
+               "short_name" : "Haute Matsiatra",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Haute Matsiatra, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.76767090,
+                  "lng" : 47.44308470
+               },
+               "southwest" : {
+                  "lat" : -22.25859670,
+                  "lng" : 45.47103880
+               }
+            },
+            "location" : {
+               "lat" : -21.33908680,
+               "lng" : 46.5162620
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.76767090,
+                  "lng" : 47.44308470
+               },
+               "southwest" : {
+                  "lat" : -22.25859670,
+                  "lng" : 45.47103880
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Fianarantsoa, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.9002150,
+                  "lng" : 48.597370
+               },
+               "southwest" : {
+                  "lat" : -24.31456610,
+                  "lng" : 45.0145470
+               }
+            },
+            "location" : {
+               "lat" : -22.3536240,
+               "lng" : 46.82528380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.9002150,
+                  "lng" : 48.597370
+               },
+               "southwest" : {
+                  "lat" : -24.31456610,
+                  "lng" : 45.0145470
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,341 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "7",
+               "short_name" : "7",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Antsirabe",
+               "short_name" : "Antsirabe",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Antsirabe I",
+               "short_name" : "Antsirabe I",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "7, Antsirabe, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.86540310,
+                  "lng" : 47.03388430
+               },
+               "southwest" : {
+                  "lat" : -19.86663910,
+                  "lng" : 47.03383890
+               }
+            },
+            "location" : {
+               "lat" : -19.86602110,
+               "lng" : 47.03386159999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.86467211970850,
+                  "lng" : 47.03521058029150
+               },
+               "southwest" : {
+                  "lat" : -19.86737008029150,
+                  "lng" : 47.03251261970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Antsirabe",
+               "short_name" : "Antsirabe",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Antsirabe I",
+               "short_name" : "Antsirabe I",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Antsirabe, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.80187650,
+                  "lng" : 47.09203720
+               },
+               "southwest" : {
+                  "lat" : -19.90839760,
+                  "lng" : 47.01238630
+               }
+            },
+            "location" : {
+               "lat" : -19.86666670,
+               "lng" : 47.03333330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.80187650,
+                  "lng" : 47.09203720
+               },
+               "southwest" : {
+                  "lat" : -19.90839760,
+                  "lng" : 47.01238630
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Antsirabe I",
+               "short_name" : "Antsirabe I",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Antsirabe I, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.74731680,
+                  "lng" : 47.19383240
+               },
+               "southwest" : {
+                  "lat" : -19.96947680,
+                  "lng" : 46.91848750
+               }
+            },
+            "location" : {
+               "lat" : -19.88376550,
+               "lng" : 47.09724240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.74731680,
+                  "lng" : 47.19383240
+               },
+               "southwest" : {
+                  "lat" : -19.96947680,
+                  "lng" : 46.91848750
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Antsirabe II",
+               "short_name" : "Antsirabe II",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Antsirabe II, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.43810430,
+                  "lng" : 47.47260790
+               },
+               "southwest" : {
+                  "lat" : -20.22562680,
+                  "lng" : 46.85394290
+               }
+            },
+            "location" : {
+               "lat" : -19.80416840,
+               "lng" : 47.21424170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.43810430,
+                  "lng" : 47.47260790
+               },
+               "southwest" : {
+                  "lat" : -20.22562680,
+                  "lng" : 46.85394290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Vakinankaratra",
+               "short_name" : "Vakinankaratra",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Vakinankaratra, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.1098120,
+                  "lng" : 47.85542060
+               },
+               "southwest" : {
+                  "lat" : -20.23900580,
+                  "lng" : 45.79446490
+               }
+            },
+            "location" : {
+               "lat" : -19.71846630,
+               "lng" : 46.6705340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.1098120,
+                  "lng" : 47.85542060
+               },
+               "southwest" : {
+                  "lat" : -20.23900580,
+                  "lng" : 45.79446490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Antananarivo",
+               "short_name" : "Antananarivo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Antananarivo, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -17.72687410,
+                  "lng" : 48.0398660
+               },
+               "southwest" : {
+                  "lat" : -20.29286210,
+                  "lng" : 45.506330
+               }
+            },
+            "location" : {
+               "lat" : -18.70514740,
+               "lng" : 46.82528380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -17.72687410,
+                  "lng" : 48.0398660
+               },
+               "southwest" : {
+                  "lat" : -20.29286210,
+                  "lng" : 45.506330
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

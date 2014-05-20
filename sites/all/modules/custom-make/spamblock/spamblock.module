@@ -1,0 +1,121 @@
+<?php
+
+/**
+ *
+ */
+define('SPAMBLOCK_ADMIN', 'Administer Spam-Block module');
+
+/**
+ * @return array
+ */
+function spamblock_perm() {
+  return array(SPAMBLOCK_ADMIN);
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function spamblock_menu() {
+  $items = array();
+
+  $items['admin/settings/spamblock'] = array(
+    'title'            => 'Throwaway Email Blacklist',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('spamblock_admin'),
+    'access arguments' => array(SPAMBLOCK_ADMIN),
+    'type'             => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+function spamblock_admin() {
+  $form = array();
+
+  $form['spamblock_message'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Error message',
+    '#maxlength'     => 512,
+    '#attributes'    => array('style' => 'width:300px'),
+    '#default_value' => variable_get('spamblock_message', ''),
+  );
+
+  $form['throwaway_email_blacklist'] = array(
+    '#type'          => 'textarea',
+    '#title'         => 'List',
+    '#descritpion'   => 'Put the Throwaway Email Blacklist in format "@domain.com" per line, empty lines and lines starting with # are ignored',
+    '#attributes'    => array('style' => 'width:300px'),
+    '#default_value' => variable_get('throwaway_email_blacklist', ''),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Collects the pairs "form_id" => "field_id"
+ *
+ * @return array
+ */
+function spamblock_email_fields() {
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = module_invoke_all('spamblock_email_fields');
+  }
+
+  return $cache;
+}
+
+/**
+ *
+ */
+function spamblock_spamblock_email_fields() {
+  return array(
+    'user_register' => 'mail',
+  );
+}
+
+/**
+ *
+ */
+function spamblock_form_alter(&$form, &$form_state, $form_id) {
+  $spamblock_email_fields = spamblock_email_fields();
+  if (!user_access(SPAMBLOCK_ADMIN) && array_key_exists($form_id, $spamblock_email_fields)) {
+    $form_state['spamblock'] = $form_id;
+    $form['#validate'][] = 'spamblock_validate';
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function spamblock_validate(&$form, &$form_state) {
+  $spamblock_email_fields = spamblock_email_fields();
+  $key = $spamblock_email_fields[$form_state['spamblock']];
+  $values = $form_state['values'];
+  if (@spamblock_throwaway_email($values[$key])) {
+    form_set_error($key, variable_get('spamblock_message', 'You use email from blocked domain'));
+  }
+}
+
+/**
+ * @param $email
+ *
+ * @return bool
+ */
+function spamblock_throwaway_email($email) {
+  $list = variable_get('throwaway_email_blacklist', '');
+  $list = explode("\n", $list);
+  foreach ($list as $item) {
+    $item = preg_replace('/[\r\n]/', '', $item);
+    $item = trim($item);
+    if (!empty($item) && ('#' != $item{0})) {
+      if (FALSE !== strpos($email, '@' . $item)) {
+        return TRUE;
+      }
+    }
+  }
+  return FALSE;
+}

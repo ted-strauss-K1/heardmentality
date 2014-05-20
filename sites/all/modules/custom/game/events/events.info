@@ -1,7 +1,7 @@
 name = Events
 description = Provides the API for Event Stream
 package = Custom Modules :: Gameification
-version = "6.x-1.5"
+version = "6.x-1.6"
 core = 6.x
 
 dependencies[] = "action"

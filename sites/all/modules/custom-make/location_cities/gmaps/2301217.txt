@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Atebubu- Ejura Road",
+               "short_name" : "Atebubu- Ejura Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Ejura",
+               "short_name" : "Ejura",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Ejura",
+               "short_name" : "Ejura",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Ashanti",
+               "short_name" : "Ashanti",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Atebubu- Ejura Road, Ejura, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.387029500000001,
+                  "lng" : -1.35270830
+               },
+               "southwest" : {
+                  "lat" : 7.38408930,
+                  "lng" : -1.35548360
+               }
+            },
+            "location" : {
+               "lat" : 7.38553170,
+               "lng" : -1.35406760
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.387029500000001,
+                  "lng" : -1.35270830
+               },
+               "southwest" : {
+                  "lat" : 7.38408930,
+                  "lng" : -1.35548360
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ejura",
+               "short_name" : "Ejura",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Ejura",
+               "short_name" : "Ejura",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Ashanti",
+               "short_name" : "Ashanti",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ejura, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.395620999999999,
+                  "lng" : -1.34479510
+               },
+               "southwest" : {
+                  "lat" : 7.369489499999999,
+                  "lng" : -1.37410640
+               }
+            },
+            "location" : {
+               "lat" : 7.383333299999999,
+               "lng" : -1.36666670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.395620999999999,
+                  "lng" : -1.34479510
+               },
+               "southwest" : {
+                  "lat" : 7.369489499999999,
+                  "lng" : -1.37410640
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ejura",
+               "short_name" : "Ejura",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Ashanti",
+               "short_name" : "Ashanti",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ejura, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.655872700000001,
+                  "lng" : -1.15287770
+               },
+               "southwest" : {
+                  "lat" : 7.176519499999999,
+                  "lng" : -1.77566530
+               }
+            },
+            "location" : {
+               "lat" : 7.39243520,
+               "lng" : -1.48214820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.655872700000001,
+                  "lng" : -1.15287770
+               },
+               "southwest" : {
+                  "lat" : 7.176519499999999,
+                  "lng" : -1.77566530
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ashanti",
+               "short_name" : "Ashanti",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ashanti, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.621659999999999,
+                  "lng" : -0.2224130
+               },
+               "southwest" : {
+                  "lat" : 5.853753999999999,
+                  "lng" : -2.4517150
+               }
+            },
+            "location" : {
+               "lat" : 6.74704360,
+               "lng" : -1.52086240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.621659999999999,
+                  "lng" : -0.2224130
+               },
+               "southwest" : {
+                  "lat" : 5.853753999999999,
+                  "lng" : -2.4517150
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            },
+            "location" : {
+               "lat" : 7.9465270,
+               "lng" : -1.0231940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,346 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "12",
+               "short_name" : "12",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "4",
+               "short_name" : "4",
+               "types" : []
+            },
+            {
+               "long_name" : "Moskevská",
+               "short_name" : "Moskevská",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Český Těšín",
+               "short_name" : "Český Těšín",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Karviná District",
+               "short_name" : "Karviná District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Moravian-Silesian Region",
+               "short_name" : "Moravian-Silesian Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "737 01",
+               "short_name" : "737 01",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Český Těšín 1",
+               "short_name" : "Český Těšín 1",
+               "types" : [ "postal_town" ]
+            }
+         ],
+         "formatted_address" : "Moskevská 4/12, 737 01 Český Těšín, Czech Republic",
+         "geometry" : {
+            "location" : {
+               "lat" : 49.74637389999999,
+               "lng" : 18.62639180
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.74772288029149,
+                  "lng" : 18.62774078029150
+               },
+               "southwest" : {
+                  "lat" : 49.74502491970849,
+                  "lng" : 18.62504281970850
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Český Těšín 1",
+               "short_name" : "Český Těšín 1",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "737 01",
+               "short_name" : "737 01",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Český Těšín 1, 737 01, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.76236510,
+                  "lng" : 18.63377630
+               },
+               "southwest" : {
+                  "lat" : 49.70378710,
+                  "lng" : 18.54221690
+               }
+            },
+            "location" : {
+               "lat" : 49.71924210,
+               "lng" : 18.5916590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.76236510,
+                  "lng" : 18.63377630
+               },
+               "southwest" : {
+                  "lat" : 49.70378710,
+                  "lng" : 18.54221690
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "737 01",
+               "short_name" : "737 01",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "737 01, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.76236510,
+                  "lng" : 18.63377630
+               },
+               "southwest" : {
+                  "lat" : 49.70378710,
+                  "lng" : 18.54221690
+               }
+            },
+            "location" : {
+               "lat" : 49.71924210,
+               "lng" : 18.5916590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.76236510,
+                  "lng" : 18.63377630
+               },
+               "southwest" : {
+                  "lat" : 49.70378710,
+                  "lng" : 18.54221690
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Český Těšín",
+               "short_name" : "Český Těšín",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Karviná District",
+               "short_name" : "Karviná District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Moravian-Silesian Region",
+               "short_name" : "Moravian-Silesian Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Český Těšín, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.76903340,
+                  "lng" : 18.63253780
+               },
+               "southwest" : {
+                  "lat" : 49.70378710,
+                  "lng" : 18.52839780
+               }
+            },
+            "location" : {
+               "lat" : 49.74704410,
+               "lng" : 18.62379610
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.76903340,
+                  "lng" : 18.63253780
+               },
+               "southwest" : {
+                  "lat" : 49.70378710,
+                  "lng" : 18.52839780
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Karviná District",
+               "short_name" : "Karviná District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Moravian-Silesian Region",
+               "short_name" : "Moravian-Silesian Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Karviná District, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.94962070,
+                  "lng" : 18.63253780
+               },
+               "southwest" : {
+                  "lat" : 49.70378710,
+                  "lng" : 18.30114940
+               }
+            },
+            "location" : {
+               "lat" : 49.84096790,
+               "lng" : 18.46338770
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.94962070,
+                  "lng" : 18.63253780
+               },
+               "southwest" : {
+                  "lat" : 49.70378710,
+                  "lng" : 18.30114940
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Moravian-Silesian Region",
+               "short_name" : "Moravian-Silesian Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Moravian-Silesian Region, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 50.32795790,
+                  "lng" : 18.85925480
+               },
+               "southwest" : {
+                  "lat" : 49.3926080,
+                  "lng" : 17.14626290
+               }
+            },
+            "location" : {
+               "lat" : 49.73053270,
+               "lng" : 18.23326370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.32795790,
+                  "lng" : 18.85925480
+               },
+               "southwest" : {
+                  "lat" : 49.3926080,
+                  "lng" : 17.14626290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 51.05571850,
+                  "lng" : 18.85923610
+               },
+               "southwest" : {
+                  "lat" : 48.55180810,
+                  "lng" : 12.0905890
+               }
+            },
+            "location" : {
+               "lat" : 49.81749199999999,
+               "lng" : 15.4729620
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.05571850,
+                  "lng" : 18.85923610
+               },
+               "southwest" : {
+                  "lat" : 48.55180810,
+                  "lng" : 12.0905890
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

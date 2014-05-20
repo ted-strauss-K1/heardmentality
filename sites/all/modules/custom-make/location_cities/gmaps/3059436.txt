@@ -1,0 +1,379 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "19",
+               "short_name" : "19",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Gazdovská",
+               "short_name" : "Gazdovská",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Komárno",
+               "short_name" : "Komárno",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Komarno",
+               "short_name" : "Komarno",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "945 05",
+               "short_name" : "945 05",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Gazdovská 19, 945 05 Komárno, Slovakia",
+         "geometry" : {
+            "location" : {
+               "lat" : 47.76334090,
+               "lng" : 18.12276930
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 47.76468988029149,
+                  "lng" : 18.12411828029150
+               },
+               "southwest" : {
+                  "lat" : 47.76199191970849,
+                  "lng" : 18.12142031970850
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "945 05",
+               "short_name" : "945 05",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "945 05, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 47.7661350,
+                  "lng" : 18.13130380
+               },
+               "southwest" : {
+                  "lat" : 47.75060089999999,
+                  "lng" : 18.10907950
+               }
+            },
+            "location" : {
+               "lat" : 47.76073250,
+               "lng" : 18.11939740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 47.7661350,
+                  "lng" : 18.13130380
+               },
+               "southwest" : {
+                  "lat" : 47.75060089999999,
+                  "lng" : 18.10907950
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Komárno 5",
+               "short_name" : "Komárno 5",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "945 05",
+               "short_name" : "945 05",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Komárno 5, 945 05, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 47.7661350,
+                  "lng" : 18.13130380
+               },
+               "southwest" : {
+                  "lat" : 47.75060089999999,
+                  "lng" : 18.10907950
+               }
+            },
+            "location" : {
+               "lat" : 47.76073250,
+               "lng" : 18.11939740
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 47.7661350,
+                  "lng" : 18.13130380
+               },
+               "southwest" : {
+                  "lat" : 47.75060089999999,
+                  "lng" : 18.10907950
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Komárno",
+               "short_name" : "Komárno",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Komarno",
+               "short_name" : "Komarno",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Komárno, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 47.77858440,
+                  "lng" : 18.14560850
+               },
+               "southwest" : {
+                  "lat" : 47.74997240,
+                  "lng" : 18.08779610
+               }
+            },
+            "location" : {
+               "lat" : 47.76260150,
+               "lng" : 18.12939610
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 47.77858440,
+                  "lng" : 18.14560850
+               },
+               "southwest" : {
+                  "lat" : 47.74997240,
+                  "lng" : 18.08779610
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Komarno",
+               "short_name" : "Komarno",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Komárno",
+               "short_name" : "Komárno",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Nitra Region",
+               "short_name" : "Nitra Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Komarno, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 47.84873070,
+                  "lng" : 18.21477550
+               },
+               "southwest" : {
+                  "lat" : 47.73994670,
+                  "lng" : 17.99637580
+               }
+            },
+            "location" : {
+               "lat" : 47.76257850,
+               "lng" : 18.12941320
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 47.84873070,
+                  "lng" : 18.21477550
+               },
+               "southwest" : {
+                  "lat" : 47.73994670,
+                  "lng" : 17.99637580
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Komárno",
+               "short_name" : "Komárno",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Nitra Region",
+               "short_name" : "Nitra Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Komárno, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 47.98627310,
+                  "lng" : 18.53467720
+               },
+               "southwest" : {
+                  "lat" : 47.73137830,
+                  "lng" : 17.70727340
+               }
+            },
+            "location" : {
+               "lat" : 47.84582080,
+               "lng" : 18.07422920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 47.98627310,
+                  "lng" : 18.53467720
+               },
+               "southwest" : {
+                  "lat" : 47.73137830,
+                  "lng" : 17.70727340
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nitra Region",
+               "short_name" : "Nitra Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nitra Region, Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.71452520,
+                  "lng" : 19.07240640
+               },
+               "southwest" : {
+                  "lat" : 47.73137830,
+                  "lng" : 17.70727340
+               }
+            },
+            "location" : {
+               "lat" : 48.01437650,
+               "lng" : 18.54165050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.71452520,
+                  "lng" : 19.07240640
+               },
+               "southwest" : {
+                  "lat" : 47.73137830,
+                  "lng" : 17.70727340
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Slovakia",
+               "short_name" : "SK",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Slovakia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 49.61380510000001,
+                  "lng" : 22.55928180
+               },
+               "southwest" : {
+                  "lat" : 47.7311590,
+                  "lng" : 16.83318210
+               }
+            },
+            "location" : {
+               "lat" : 48.6690260,
+               "lng" : 19.6990240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.61380510000001,
+                  "lng" : 22.55928180
+               },
+               "southwest" : {
+                  "lat" : 47.7311590,
+                  "lng" : 16.83318210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

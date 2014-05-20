@@ -1,0 +1,308 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "135",
+               "short_name" : "135",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Zhōngzhèng Road",
+               "short_name" : "Zhōngzhèng Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "城北里",
+               "short_name" : "城北里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Hengchun Township",
+               "short_name" : "Hengchun Township",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pingtung County",
+               "short_name" : "Pingtung County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "946",
+               "short_name" : "946",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "No. 135, Zhōngzhèng Road, Hengchun Township, Pingtung County, Taiwan 946",
+         "geometry" : {
+            "location" : {
+               "lat" : 22.00425230,
+               "lng" : 120.74398480
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.00560128029150,
+                  "lng" : 120.7453337802915
+               },
+               "southwest" : {
+                  "lat" : 22.00290331970850,
+                  "lng" : 120.7426358197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "城北里",
+               "short_name" : "城北里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Hengchun Township",
+               "short_name" : "Hengchun Township",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pingtung County",
+               "short_name" : "Pingtung County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "946",
+               "short_name" : "946",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "946, Taiwan, Pingtung County, Hengchun Township, 城北里",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.0095110,
+                  "lng" : 120.7506140
+               },
+               "southwest" : {
+                  "lat" : 22.00224910,
+                  "lng" : 120.743130
+               }
+            },
+            "location" : {
+               "lat" : 22.00623340,
+               "lng" : 120.74577130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.0095110,
+                  "lng" : 120.7506140
+               },
+               "southwest" : {
+                  "lat" : 22.00224910,
+                  "lng" : 120.743130
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Hengchun Township",
+               "short_name" : "Hengchun Township",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pingtung County",
+               "short_name" : "Pingtung County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "946",
+               "short_name" : "946",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Hengchun Township, Pingtung County, Taiwan 946",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.0628080,
+                  "lng" : 120.86644650
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.69059880
+               }
+            },
+            "location" : {
+               "lat" : 22.0,
+               "lng" : 120.750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.0628080,
+                  "lng" : 120.86644650
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.69059880
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "946",
+               "short_name" : "946",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Hengchun Township",
+               "short_name" : "Hengchun Township",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pingtung County",
+               "short_name" : "Pingtung County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Hengchun Township, Pingtung County, Taiwan 946",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.0628080,
+                  "lng" : 120.86644650
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.69059880
+               }
+            },
+            "location" : {
+               "lat" : 21.97733730,
+               "lng" : 120.74648970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.0628080,
+                  "lng" : 120.86644650
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.69059880
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pingtung County",
+               "short_name" : "Pingtung County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pingtung County, Taiwan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.88518440,
+                  "lng" : 120.90420070
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.35264040
+               }
+            },
+            "location" : {
+               "lat" : 22.54950570,
+               "lng" : 120.61998950
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.88518440,
+                  "lng" : 120.90420070
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.35264040
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Taiwan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.38735330,
+                  "lng" : 122.00690520
+               },
+               "southwest" : {
+                  "lat" : 20.56379080,
+                  "lng" : 116.71186010
+               }
+            },
+            "location" : {
+               "lat" : 23.697810,
+               "lng" : 120.9605150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 25.30044080,
+                  "lng" : 122.00690520
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.02780170
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

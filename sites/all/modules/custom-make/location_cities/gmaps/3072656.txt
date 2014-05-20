@@ -1,0 +1,389 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "30-32",
+               "short_name" : "30-32",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Hlavní náměstí",
+               "short_name" : "Hlavní nám.",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Krnov",
+               "short_name" : "Krnov",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bruntál District",
+               "short_name" : "Bruntál District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Moravian-Silesian Region",
+               "short_name" : "Moravian-Silesian Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "794 01",
+               "short_name" : "794 01",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Hlavní náměstí 30-32, 794 01 Krnov, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 50.08965340,
+                  "lng" : 17.70437350
+               },
+               "southwest" : {
+                  "lat" : 50.08961020,
+                  "lng" : 17.70383190
+               }
+            },
+            "location" : {
+               "lat" : 50.08960050,
+               "lng" : 17.70386230
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.09098078029150,
+                  "lng" : 17.70545168029150
+               },
+               "southwest" : {
+                  "lat" : 50.08828281970850,
+                  "lng" : 17.70275371970850
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Krnov",
+               "short_name" : "Krnov",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bruntál District",
+               "short_name" : "Bruntál District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Moravian-Silesian Region",
+               "short_name" : "Moravian-Silesian Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Krnov, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 50.13479640,
+                  "lng" : 17.75929780
+               },
+               "southwest" : {
+                  "lat" : 50.05615380,
+                  "lng" : 17.59665680
+               }
+            },
+            "location" : {
+               "lat" : 50.09058340,
+               "lng" : 17.70306810
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.13479640,
+                  "lng" : 17.75929780
+               },
+               "southwest" : {
+                  "lat" : 50.05615380,
+                  "lng" : 17.59665680
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Krnov 1",
+               "short_name" : "Krnov 1",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "794 01",
+               "short_name" : "794 01",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Krnov 1, 794 01, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 50.1508510,
+                  "lng" : 17.76011630
+               },
+               "southwest" : {
+                  "lat" : 50.02588290,
+                  "lng" : 17.45802680
+               }
+            },
+            "location" : {
+               "lat" : 50.09320260,
+               "lng" : 17.61761350
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.1508510,
+                  "lng" : 17.76011630
+               },
+               "southwest" : {
+                  "lat" : 50.02588290,
+                  "lng" : 17.45802680
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "794 01",
+               "short_name" : "794 01",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "794 01, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 50.1508510,
+                  "lng" : 17.76011630
+               },
+               "southwest" : {
+                  "lat" : 50.02588290,
+                  "lng" : 17.45802680
+               }
+            },
+            "location" : {
+               "lat" : 50.09320260,
+               "lng" : 17.61761350
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.1508510,
+                  "lng" : 17.76011630
+               },
+               "southwest" : {
+                  "lat" : 50.02588290,
+                  "lng" : 17.45802680
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bruntál District",
+               "short_name" : "Bruntál District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Moravian-Silesian Region",
+               "short_name" : "Moravian-Silesian Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bruntál District, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 50.32795790,
+                  "lng" : 17.77310650
+               },
+               "southwest" : {
+                  "lat" : 49.78959920,
+                  "lng" : 17.14626290
+               }
+            },
+            "location" : {
+               "lat" : 50.05601570,
+               "lng" : 17.51621250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.32795790,
+                  "lng" : 17.77310650
+               },
+               "southwest" : {
+                  "lat" : 49.78959920,
+                  "lng" : 17.14626290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "48",
+               "short_name" : "48",
+               "types" : [ "postal_code_prefix", "postal_code" ]
+            },
+            {
+               "long_name" : "Poland",
+               "short_name" : "PL",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Poland",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 50.65814470,
+                  "lng" : 18.05771010
+               },
+               "southwest" : {
+                  "lat" : 49.98141540,
+                  "lng" : 16.95147610
+               }
+            },
+            "location" : {
+               "lat" : 50.43018640,
+               "lng" : 17.57004990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.65814470,
+                  "lng" : 18.05771010
+               },
+               "southwest" : {
+                  "lat" : 49.98141540,
+                  "lng" : 16.95147610
+               }
+            }
+         },
+         "types" : [ "postal_code_prefix", "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Moravian-Silesian Region",
+               "short_name" : "Moravian-Silesian Region",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Moravian-Silesian Region, Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 50.32795790,
+                  "lng" : 18.85925480
+               },
+               "southwest" : {
+                  "lat" : 49.3926080,
+                  "lng" : 17.14626290
+               }
+            },
+            "location" : {
+               "lat" : 49.73053270,
+               "lng" : 18.23326370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.32795790,
+                  "lng" : 18.85925480
+               },
+               "southwest" : {
+                  "lat" : 49.3926080,
+                  "lng" : 17.14626290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Czech Republic",
+               "short_name" : "CZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Czech Republic",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 51.05571850,
+                  "lng" : 18.85923610
+               },
+               "southwest" : {
+                  "lat" : 48.55180810,
+                  "lng" : 12.0905890
+               }
+            },
+            "location" : {
+               "lat" : 49.81749199999999,
+               "lng" : 15.4729620
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 51.05571850,
+                  "lng" : 18.85923610
+               },
+               "southwest" : {
+                  "lat" : 48.55180810,
+                  "lng" : 12.0905890
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

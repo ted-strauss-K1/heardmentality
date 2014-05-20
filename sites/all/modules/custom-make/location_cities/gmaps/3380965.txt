@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "N4",
+               "short_name" : "N4",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Matoury",
+               "short_name" : "Matoury",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Matoury",
+               "short_name" : "Matoury",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Cayenne",
+               "short_name" : "Cayenne",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "N4, Matoury, French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.8481850,
+                  "lng" : -52.3160250
+               },
+               "southwest" : {
+                  "lat" : 4.84719610,
+                  "lng" : -52.31607970
+               }
+            },
+            "location" : {
+               "lat" : 4.84769060,
+               "lng" : -52.31605230
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.849039530291502,
+                  "lng" : -52.31470336970850
+               },
+               "southwest" : {
+                  "lat" : 4.846341569708498,
+                  "lng" : -52.31740133029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Matoury",
+               "short_name" : "Matoury",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Matoury",
+               "short_name" : "Matoury",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Cayenne",
+               "short_name" : "Cayenne",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Matoury, French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.85973970,
+                  "lng" : -52.31045730
+               },
+               "southwest" : {
+                  "lat" : 4.80824630,
+                  "lng" : -52.38444330
+               }
+            },
+            "location" : {
+               "lat" : 4.8472140,
+               "lng" : -52.331120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.85973970,
+                  "lng" : -52.31045730
+               },
+               "southwest" : {
+                  "lat" : 4.80824630,
+                  "lng" : -52.38444330
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Matoury",
+               "short_name" : "Matoury",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Cayenne",
+               "short_name" : "Cayenne",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Matoury, French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 4.89975570,
+                  "lng" : -52.25818640
+               },
+               "southwest" : {
+                  "lat" : 4.72254120,
+                  "lng" : -52.41920480
+               }
+            },
+            "location" : {
+               "lat" : 4.82721970,
+               "lng" : -52.34005170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 4.89975570,
+                  "lng" : -52.25818640
+               },
+               "southwest" : {
+                  "lat" : 4.72254120,
+                  "lng" : -52.41920480
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cayenne",
+               "short_name" : "Cayenne",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cayenne, French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.555251999999999,
+                  "lng" : -51.61394890
+               },
+               "southwest" : {
+                  "lat" : 2.1697510,
+                  "lng" : -53.5327790
+               }
+            },
+            "location" : {
+               "lat" : 4.27605990,
+               "lng" : -52.36133780
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.555251999999999,
+                  "lng" : -51.61394890
+               },
+               "southwest" : {
+                  "lat" : 2.1697510,
+                  "lng" : -53.5327790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "French Guiana",
+               "short_name" : "GF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "French Guiana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.757189599999999,
+                  "lng" : -51.63359639999999
+               },
+               "southwest" : {
+                  "lat" : 2.1092870,
+                  "lng" : -54.55443790
+               }
+            },
+            "location" : {
+               "lat" : 3.9338890,
+               "lng" : -53.1257820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.757189599999999,
+                  "lng" : -51.63359639999999
+               },
+               "southwest" : {
+                  "lat" : 2.1092870,
+                  "lng" : -54.55443790
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

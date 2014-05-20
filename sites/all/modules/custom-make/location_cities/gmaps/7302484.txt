@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "40-42",
+               "short_name" : "40-42",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Pleasant Road",
+               "short_name" : "Pleasant Rd",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Glen Eden",
+               "short_name" : "Glen Eden",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "0602",
+               "short_name" : "0602",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "40-42 Pleasant Road, Glen Eden, Auckland 0602, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -36.91706950,
+                  "lng" : 174.65954050
+               },
+               "southwest" : {
+                  "lat" : -36.92112920,
+                  "lng" : 174.65774280
+               }
+            },
+            "location" : {
+               "lat" : -36.91753630,
+               "lng" : 174.65777550
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -36.91706950,
+                  "lng" : 174.6599906302915
+               },
+               "southwest" : {
+                  "lat" : -36.92112920,
+                  "lng" : 174.6572926697085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Glen Eden",
+               "short_name" : "Glen Eden",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Glen Eden, Auckland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -36.896870,
+                  "lng" : 174.66743530
+               },
+               "southwest" : {
+                  "lat" : -36.93018680000001,
+                  "lng" : 174.62068660
+               }
+            },
+            "location" : {
+               "lat" : -36.90991229999999,
+               "lng" : 174.65070630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -36.896870,
+                  "lng" : 174.66743530
+               },
+               "southwest" : {
+                  "lat" : -36.93018680000001,
+                  "lng" : 174.62068660
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "0602",
+               "short_name" : "0602",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Auckland 0602, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -36.8781820,
+                  "lng" : 174.67414170
+               },
+               "southwest" : {
+                  "lat" : -36.93017460,
+                  "lng" : 174.62069140
+               }
+            },
+            "location" : {
+               "lat" : -36.90388930,
+               "lng" : 174.65314370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -36.8781820,
+                  "lng" : 174.67414170
+               },
+               "southwest" : {
+                  "lat" : -36.93017460,
+                  "lng" : 174.62069140
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Auckland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -36.6605710,
+                  "lng" : 175.28713710
+               },
+               "southwest" : {
+                  "lat" : -37.06547510,
+                  "lng" : 174.44380160
+               }
+            },
+            "location" : {
+               "lat" : -36.84845970,
+               "lng" : 174.76333150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -36.6605710,
+                  "lng" : 175.28713710
+               },
+               "southwest" : {
+                  "lat" : -37.06547510,
+                  "lng" : 174.44380160
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Auckland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -35.89880140,
+                  "lng" : 175.55098550
+               },
+               "southwest" : {
+                  "lat" : -37.58634210,
+                  "lng" : 174.1620890
+               }
+            },
+            "location" : {
+               "lat" : -36.74228140,
+               "lng" : 174.52221890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -35.89880810,
+                  "lng" : 175.55098550
+               },
+               "southwest" : {
+                  "lat" : -37.58634210,
+                  "lng" : 174.1620890
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Auckland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -35.89880140,
+                  "lng" : 175.55098550
+               },
+               "southwest" : {
+                  "lat" : -37.58634210,
+                  "lng" : 174.1620890
+               }
+            },
+            "location" : {
+               "lat" : -36.74228140,
+               "lng" : 174.52221890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -35.89880810,
+                  "lng" : 175.55098550
+               },
+               "southwest" : {
+                  "lat" : -37.58634210,
+                  "lng" : 174.1620890
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -29.23134190,
+                  "lng" : -176.15422480
+               },
+               "southwest" : {
+                  "lat" : -52.61941849999999,
+                  "lng" : 165.86943690
+               }
+            },
+            "location" : {
+               "lat" : -40.9005570,
+               "lng" : 174.8859710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -34.12955780,
+                  "lng" : 179.06253570
+               },
+               "southwest" : {
+                  "lat" : -47.76812409999999,
+                  "lng" : 166.42613610
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

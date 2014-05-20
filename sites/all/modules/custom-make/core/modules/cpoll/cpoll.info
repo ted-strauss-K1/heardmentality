@@ -1,0 +1,5 @@
+name = "core poll"
+description = "Core Poll functionality"
+core = "6.x"
+package = "Custom Modules"
+version = "6.x-1.3"

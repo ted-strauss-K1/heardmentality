@@ -1,0 +1,361 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Parko gatvė",
+               "short_name" : "Parko g.",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Visaginas",
+               "short_name" : "Visaginas",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Visagino savivaldybė",
+               "short_name" : "Visagino sav.",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Utena County",
+               "short_name" : "Utena County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "31130",
+               "short_name" : "31130",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Parko gatvė 1, Visaginas 31130, Lithuania",
+         "geometry" : {
+            "location" : {
+               "lat" : 55.59911349999999,
+               "lng" : 26.42184990
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.60046248029150,
+                  "lng" : 26.42319888029150
+               },
+               "southwest" : {
+                  "lat" : 55.59776451970850,
+                  "lng" : 26.42050091970850
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "31108",
+               "short_name" : "31108",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Visaginas",
+               "short_name" : "Visaginas",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Visagino savivaldybė",
+               "short_name" : "Visagino sav.",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Utena County",
+               "short_name" : "Utena County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Visaginas 31108, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.61247190,
+                  "lng" : 26.4299770
+               },
+               "southwest" : {
+                  "lat" : 55.5965990,
+                  "lng" : 26.40986770
+               }
+            },
+            "location" : {
+               "lat" : 55.60689890,
+               "lng" : 26.42074870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.61247190,
+                  "lng" : 26.4299770
+               },
+               "southwest" : {
+                  "lat" : 55.5965990,
+                  "lng" : 26.40986770
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Visaginas",
+               "short_name" : "Visaginas",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Visagino savivaldybė",
+               "short_name" : "Visagino sav.",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Visagino savivaldybė",
+               "short_name" : "Visagino sav.",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Utena County",
+               "short_name" : "Utena County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Visaginas, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.61768690,
+                  "lng" : 26.46289890
+               },
+               "southwest" : {
+                  "lat" : 55.57775640000001,
+                  "lng" : 26.40111380
+               }
+            },
+            "location" : {
+               "lat" : 55.5972760,
+               "lng" : 26.43131690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.61768690,
+                  "lng" : 26.46289890
+               },
+               "southwest" : {
+                  "lat" : 55.57775640000001,
+                  "lng" : 26.40111380
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Visagino savivaldybė",
+               "short_name" : "Visagino sav.",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Utena County",
+               "short_name" : "Utena County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Visagino savivaldybė, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.61768690,
+                  "lng" : 26.46289890
+               },
+               "southwest" : {
+                  "lat" : 55.57775640000001,
+                  "lng" : 26.40111380
+               }
+            },
+            "location" : {
+               "lat" : 55.59411799999999,
+               "lng" : 26.43079540
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.61768690,
+                  "lng" : 26.46289890
+               },
+               "southwest" : {
+                  "lat" : 55.57775640000001,
+                  "lng" : 26.40111380
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Visagino savivaldybė",
+               "short_name" : "Visagino sav.",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Visagino savivaldybė",
+               "short_name" : "Visagino sav.",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Utena County",
+               "short_name" : "Utena County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Visagino savivaldybė, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.61768690,
+                  "lng" : 26.46289890
+               },
+               "southwest" : {
+                  "lat" : 55.57775640000001,
+                  "lng" : 26.40111380
+               }
+            },
+            "location" : {
+               "lat" : 55.59411799999999,
+               "lng" : 26.43079540
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.61768690,
+                  "lng" : 26.46289890
+               },
+               "southwest" : {
+                  "lat" : 55.57775640000001,
+                  "lng" : 26.40111380
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Utena County",
+               "short_name" : "Utena County",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Utena County, Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.943780,
+                  "lng" : 26.83557980
+               },
+               "southwest" : {
+                  "lat" : 55.03097680,
+                  "lng" : 24.6531760
+               }
+            },
+            "location" : {
+               "lat" : 55.53189690000001,
+               "lng" : 25.79046990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.943780,
+                  "lng" : 26.83557980
+               },
+               "southwest" : {
+                  "lat" : 55.03097680,
+                  "lng" : 24.6531760
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lithuania",
+               "short_name" : "LT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lithuania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 56.45032089999999,
+                  "lng" : 26.83559130
+               },
+               "southwest" : {
+                  "lat" : 53.89687869999999,
+                  "lng" : 20.95436790
+               }
+            },
+            "location" : {
+               "lat" : 55.1694380,
+               "lng" : 23.8812750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 56.45032089999999,
+                  "lng" : 26.83559130
+               },
+               "southwest" : {
+                  "lat" : 53.89687869999999,
+                  "lng" : 20.95436790
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

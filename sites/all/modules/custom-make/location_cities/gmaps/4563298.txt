@@ -1,0 +1,346 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Calle Wilson",
+               "short_name" : "Calle Wilson",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Cataño Pueblo",
+               "short_name" : "Cataño Pueblo",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "00962",
+               "short_name" : "00962",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Calle Wilson, Cataño, 00962, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.44153620,
+                  "lng" : -66.11820190
+               },
+               "southwest" : {
+                  "lat" : 18.4411130,
+                  "lng" : -66.11837790
+               }
+            },
+            "location" : {
+               "lat" : 18.44132460,
+               "lng" : -66.11828989999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.44267358029150,
+                  "lng" : -66.11694091970848
+               },
+               "southwest" : {
+                  "lat" : 18.43997561970849,
+                  "lng" : -66.11963888029150
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cataño Pueblo",
+               "short_name" : "Cataño Pueblo",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cataño Pueblo, Cataño, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.46105290,
+                  "lng" : -66.10828090
+               },
+               "southwest" : {
+                  "lat" : 18.43310,
+                  "lng" : -66.1245620
+               }
+            },
+            "location" : {
+               "lat" : 18.44654570,
+               "lng" : -66.11475709999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.46105290,
+                  "lng" : -66.10828090
+               },
+               "southwest" : {
+                  "lat" : 18.43310,
+                  "lng" : -66.1245620
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cataño, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.46235390,
+                  "lng" : -66.11043140
+               },
+               "southwest" : {
+                  "lat" : 18.4208010,
+                  "lng" : -66.1703060
+               }
+            },
+            "location" : {
+               "lat" : 18.4454140,
+               "lng" : -66.1394250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.46235390,
+                  "lng" : -66.11043140
+               },
+               "southwest" : {
+                  "lat" : 18.4208010,
+                  "lng" : -66.1703060
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cataño, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.46235390,
+                  "lng" : -66.11043140
+               },
+               "southwest" : {
+                  "lat" : 18.4208010,
+                  "lng" : -66.1703060
+               }
+            },
+            "location" : {
+               "lat" : 18.44653550,
+               "lng" : -66.13557750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.46235390,
+                  "lng" : -66.11043140
+               },
+               "southwest" : {
+                  "lat" : 18.4208010,
+                  "lng" : -66.1703060
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "00962",
+               "short_name" : "00962",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cataño",
+               "short_name" : "Cataño",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cataño, 00962, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.46279690,
+                  "lng" : -66.10959200000001
+               },
+               "southwest" : {
+                  "lat" : 18.41300190,
+                  "lng" : -66.1703060
+               }
+            },
+            "location" : {
+               "lat" : 18.43542980,
+               "lng" : -66.13557750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.46279690,
+                  "lng" : -66.10959200000001
+               },
+               "southwest" : {
+                  "lat" : 18.41300190,
+                  "lng" : -66.1703060
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "San Juan-Caguas-Guaynabo, PR",
+               "short_name" : "San Juan-Caguas-Guaynabo, PR",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "San Juan-Caguas-Guaynabo, PR, Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.4941990,
+                  "lng" : -65.65807099999999
+               },
+               "southwest" : {
+                  "lat" : 17.98185440,
+                  "lng" : -66.96842810
+               }
+            },
+            "location" : {
+               "lat" : 18.27523110,
+               "lng" : -66.14152630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.4941990,
+                  "lng" : -65.65807099999999
+               },
+               "southwest" : {
+                  "lat" : 17.98185440,
+                  "lng" : -66.96842810
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Puerto Rico",
+               "short_name" : "PR",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Puerto Rico",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.51600990,
+                  "lng" : -65.22110990
+               },
+               "southwest" : {
+                  "lat" : 17.88142860,
+                  "lng" : -67.94554710
+               }
+            },
+            "location" : {
+               "lat" : 18.2208330,
+               "lng" : -66.5901490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.51600990,
+                  "lng" : -65.22110990
+               },
+               "southwest" : {
+                  "lat" : 17.88142860,
+                  "lng" : -67.27129590
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Carretera Central",
+               "short_name" : "CC",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Guanajay",
+               "short_name" : "Guanajay",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Guanajay",
+               "short_name" : "Guanajay",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Artemisa Province",
+               "short_name" : "Artemisa Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Carretera Central, Guanajay, Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.92618930,
+                  "lng" : -82.68684360
+               },
+               "southwest" : {
+                  "lat" : 22.92612590,
+                  "lng" : -82.68762509999999
+               }
+            },
+            "location" : {
+               "lat" : 22.92615760,
+               "lng" : -82.68723430
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.92750658029150,
+                  "lng" : -82.68588536970849
+               },
+               "southwest" : {
+                  "lat" : 22.92480861970850,
+                  "lng" : -82.68858333029149
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Guanajay",
+               "short_name" : "Guanajay",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Guanajay",
+               "short_name" : "Guanajay",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Artemisa Province",
+               "short_name" : "Artemisa Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Guanajay, Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.94120280,
+                  "lng" : -82.66735550
+               },
+               "southwest" : {
+                  "lat" : 22.90302010,
+                  "lng" : -82.71340370
+               }
+            },
+            "location" : {
+               "lat" : 22.93055560,
+               "lng" : -82.68805560
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.94120280,
+                  "lng" : -82.66735550
+               },
+               "southwest" : {
+                  "lat" : 22.90302010,
+                  "lng" : -82.71340370
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Guanajay",
+               "short_name" : "Guanajay",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Artemisa Province",
+               "short_name" : "Artemisa Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Guanajay, Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.97562120,
+                  "lng" : -82.63409609999999
+               },
+               "southwest" : {
+                  "lat" : 22.86067470,
+                  "lng" : -82.75657640
+               }
+            },
+            "location" : {
+               "lat" : 22.91698110,
+               "lng" : -82.70233829999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.97562120,
+                  "lng" : -82.63409609999999
+               },
+               "southwest" : {
+                  "lat" : 22.86067470,
+                  "lng" : -82.75657640
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Artemisa Province",
+               "short_name" : "Artemisa Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Artemisa Province, Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.0686720,
+                  "lng" : -82.39349399999999
+               },
+               "southwest" : {
+                  "lat" : 22.48669990,
+                  "lng" : -83.38892810
+               }
+            },
+            "location" : {
+               "lat" : 22.75229030,
+               "lng" : -82.99316069999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.0686720,
+                  "lng" : -82.39349399999999
+               },
+               "southwest" : {
+                  "lat" : 22.48669990,
+                  "lng" : -83.38892810
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.27675210,
+                  "lng" : -74.13222309999999
+               },
+               "southwest" : {
+                  "lat" : 19.82589940,
+                  "lng" : -85.07125599999999
+               }
+            },
+            "location" : {
+               "lat" : 21.5217570,
+               "lng" : -77.7811670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.27675210,
+                  "lng" : -74.13222309999999
+               },
+               "southwest" : {
+                  "lat" : 19.82589940,
+                  "lng" : -85.07125599999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

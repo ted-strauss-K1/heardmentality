@@ -1,0 +1,394 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "1A",
+               "short_name" : "1A",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Rogan Street",
+               "short_name" : "Rogan St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Welbourn",
+               "short_name" : "Welbourn",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "New Plymouth",
+               "short_name" : "New Plymouth",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Taranaki",
+               "short_name" : "Taranaki",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "4310",
+               "short_name" : "4310",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "1A Rogan Street, Welbourn, New Plymouth 4310, New Zealand",
+         "geometry" : {
+            "location" : {
+               "lat" : -39.06608430,
+               "lng" : 174.08116470
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.06473531970850,
+                  "lng" : 174.0825136802915
+               },
+               "southwest" : {
+                  "lat" : -39.06743328029150,
+                  "lng" : 174.0798157197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Welbourn",
+               "short_name" : "Welbourn",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "New Plymouth",
+               "short_name" : "New Plymouth",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "New Plymouth District",
+               "short_name" : "New Plymouth District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taranaki",
+               "short_name" : "Taranaki",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Welbourn, New Plymouth, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -39.05824720,
+                  "lng" : 174.10004570
+               },
+               "southwest" : {
+                  "lat" : -39.08304880,
+                  "lng" : 174.08056380
+               }
+            },
+            "location" : {
+               "lat" : -39.07219070,
+               "lng" : 174.09116390
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.05824720,
+                  "lng" : 174.10004570
+               },
+               "southwest" : {
+                  "lat" : -39.08304880,
+                  "lng" : 174.08056380
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "4310",
+               "short_name" : "4310",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Taranaki",
+               "short_name" : "Taranaki",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Taranaki 4310, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -39.04598140,
+                  "lng" : 174.09718920
+               },
+               "southwest" : {
+                  "lat" : -39.09892139999999,
+                  "lng" : 174.01374880
+               }
+            },
+            "location" : {
+               "lat" : -39.07554320,
+               "lng" : 174.04846010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -39.04598140,
+                  "lng" : 174.09718920
+               },
+               "southwest" : {
+                  "lat" : -39.09892139999999,
+                  "lng" : 174.01374880
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Plymouth",
+               "short_name" : "New Plymouth",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "New Plymouth District",
+               "short_name" : "New Plymouth District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taranaki",
+               "short_name" : "Taranaki",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Plymouth, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -38.99500690,
+                  "lng" : 174.19212420
+               },
+               "southwest" : {
+                  "lat" : -39.11002149999999,
+                  "lng" : 174.00012640
+               }
+            },
+            "location" : {
+               "lat" : -39.05562530,
+               "lng" : 174.07522780
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -38.99500690,
+                  "lng" : 174.19212420
+               },
+               "southwest" : {
+                  "lat" : -39.11002149999999,
+                  "lng" : 174.00012640
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Plymouth",
+               "short_name" : "New Plymouth",
+               "types" : [ "postal_town" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Plymouth, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -38.99100350,
+                  "lng" : 174.29637160
+               },
+               "southwest" : {
+                  "lat" : -39.29892299999999,
+                  "lng" : 173.75986360
+               }
+            },
+            "location" : {
+               "lat" : -39.12796780,
+               "lng" : 174.0590290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -38.99100350,
+                  "lng" : 174.29637160
+               },
+               "southwest" : {
+                  "lat" : -39.29892299999999,
+                  "lng" : 173.75986360
+               }
+            }
+         },
+         "types" : [ "postal_town" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Plymouth District",
+               "short_name" : "New Plymouth District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taranaki",
+               "short_name" : "Taranaki",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Plymouth District, Taranaki, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -38.7063940,
+                  "lng" : 174.91872610
+               },
+               "southwest" : {
+                  "lat" : -39.28808840,
+                  "lng" : 173.81000210
+               }
+            },
+            "location" : {
+               "lat" : -39.10111960,
+               "lng" : 174.35420490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -38.7063940,
+                  "lng" : 174.91872610
+               },
+               "southwest" : {
+                  "lat" : -39.28808840,
+                  "lng" : 173.81000210
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Taranaki",
+               "short_name" : "Taranaki",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Taranaki, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -38.7063940,
+                  "lng" : 174.97619540
+               },
+               "southwest" : {
+                  "lat" : -39.8693740,
+                  "lng" : 173.7513230
+               }
+            },
+            "location" : {
+               "lat" : -39.35381490,
+               "lng" : 174.43827210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -38.7063940,
+                  "lng" : 174.97619540
+               },
+               "southwest" : {
+                  "lat" : -39.8693740,
+                  "lng" : 173.7513230
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -29.23134190,
+                  "lng" : -176.15422480
+               },
+               "southwest" : {
+                  "lat" : -52.61941849999999,
+                  "lng" : 165.86943690
+               }
+            },
+            "location" : {
+               "lat" : -40.9005570,
+               "lng" : 174.8859710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -34.12955780,
+                  "lng" : 179.06253570
+               },
+               "southwest" : {
+                  "lat" : -47.76812409999999,
+                  "lng" : 166.42613610
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

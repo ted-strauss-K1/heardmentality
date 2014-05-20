@@ -1,0 +1,192 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Abdulahad Kakharov Street",
+               "short_name" : "РҶ042",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Dushanbe",
+               "short_name" : "Dushanbe",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Vahdat District",
+               "short_name" : "Vahdat District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Districts of Republican Subordination",
+               "short_name" : "Districts of Republican Subordination",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tajikistan",
+               "short_name" : "TJ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Abdulahad Kakharov Street, Dushanbe, Tajikistan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.49446770,
+                  "lng" : 68.78417250
+               },
+               "southwest" : {
+                  "lat" : 38.49348270,
+                  "lng" : 68.78368589999999
+               }
+            },
+            "location" : {
+               "lat" : 38.49398290,
+               "lng" : 68.78395470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.49532418029150,
+                  "lng" : 68.78527818029150
+               },
+               "southwest" : {
+                  "lat" : 38.49262621970850,
+                  "lng" : 68.78258021970849
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Rudaki",
+               "short_name" : "Rudaki",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Districts of Republican Subordination",
+               "short_name" : "Districts of Republican Subordination",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tajikistan",
+               "short_name" : "TJ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Rudaki, Tajikistan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 38.59111390,
+                  "lng" : 68.93783569999999
+               },
+               "southwest" : {
+                  "lat" : 37.87809450,
+                  "lng" : 68.27521299999999
+               }
+            },
+            "location" : {
+               "lat" : 38.17693330,
+               "lng" : 68.57241119999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 38.59111390,
+                  "lng" : 68.93783569999999
+               },
+               "southwest" : {
+                  "lat" : 37.87809450,
+                  "lng" : 68.27521299999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Districts of Republican Subordination",
+               "short_name" : "Districts of Republican Subordination",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Tajikistan",
+               "short_name" : "TJ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Districts of Republican Subordination, Tajikistan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 39.61362110,
+                  "lng" : 72.15984310
+               },
+               "southwest" : {
+                  "lat" : 37.9093930,
+                  "lng" : 68.0581280
+               }
+            },
+            "location" : {
+               "lat" : 39.08579020,
+               "lng" : 70.24083250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 39.61362110,
+                  "lng" : 72.15984310
+               },
+               "southwest" : {
+                  "lat" : 37.9093930,
+                  "lng" : 68.0581280
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tajikistan",
+               "short_name" : "TJ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tajikistan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 41.0443670,
+                  "lng" : 75.15395640
+               },
+               "southwest" : {
+                  "lat" : 36.67198980,
+                  "lng" : 67.34201209999999
+               }
+            },
+            "location" : {
+               "lat" : 38.8610340,
+               "lng" : 71.2760930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.0443670,
+                  "lng" : 75.15395640
+               },
+               "southwest" : {
+                  "lat" : 36.67198980,
+                  "lng" : 67.34201209999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,293 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pasterova",
+               "short_name" : "Pasterova",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Nada Purić",
+               "short_name" : "Nada Purić",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Valjevo",
+               "short_name" : "Valjevo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kolubara District",
+               "short_name" : "Kolubara District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pasterova, Valjevo, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.27540780,
+                  "lng" : 19.89824160
+               },
+               "southwest" : {
+                  "lat" : 44.27529890,
+                  "lng" : 19.89473350
+               }
+            },
+            "location" : {
+               "lat" : 44.27536110,
+               "lng" : 19.89648710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.27670233029149,
+                  "lng" : 19.89824160
+               },
+               "southwest" : {
+                  "lat" : 44.27400436970850,
+                  "lng" : 19.89473350
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nada Purić",
+               "short_name" : "Nada Purić",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Valjevo",
+               "short_name" : "Valjevo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kolubara District",
+               "short_name" : "Kolubara District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nada Purić, Valjevo, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.28264730,
+                  "lng" : 19.90203370
+               },
+               "southwest" : {
+                  "lat" : 44.27328740,
+                  "lng" : 19.88984570
+               }
+            },
+            "location" : {
+               "lat" : 44.27706430,
+               "lng" : 19.89477750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.28264730,
+                  "lng" : 19.90203370
+               },
+               "southwest" : {
+                  "lat" : 44.27328740,
+                  "lng" : 19.88984570
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Valjevo",
+               "short_name" : "Valjevo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kolubara District",
+               "short_name" : "Kolubara District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Valjevo, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.29571870,
+                  "lng" : 19.95906830
+               },
+               "southwest" : {
+                  "lat" : 44.24495310,
+                  "lng" : 19.84199510
+               }
+            },
+            "location" : {
+               "lat" : 44.2743680,
+               "lng" : 19.89110
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.29571870,
+                  "lng" : 19.95906830
+               },
+               "southwest" : {
+                  "lat" : 44.24495310,
+                  "lng" : 19.84199510
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Valjevo",
+               "short_name" : "Valjevo",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Kolubara District",
+               "short_name" : "Kolubara District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Valjevo, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.45645210,
+                  "lng" : 20.07888790
+               },
+               "southwest" : {
+                  "lat" : 44.08117310000001,
+                  "lng" : 19.59325790
+               }
+            },
+            "location" : {
+               "lat" : 44.27627420,
+               "lng" : 19.78018830
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.45645210,
+                  "lng" : 20.07888790
+               },
+               "southwest" : {
+                  "lat" : 44.08117310000001,
+                  "lng" : 19.59325790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kolubara District",
+               "short_name" : "Kolubara District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kolubara District, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.5870690,
+                  "lng" : 20.44492180
+               },
+               "southwest" : {
+                  "lat" : 44.0742250,
+                  "lng" : 19.4459090
+               }
+            },
+            "location" : {
+               "lat" : 44.35098110,
+               "lng" : 20.00043050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.5870690,
+                  "lng" : 20.44492180
+               },
+               "southwest" : {
+                  "lat" : 44.0742250,
+                  "lng" : 19.4459090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

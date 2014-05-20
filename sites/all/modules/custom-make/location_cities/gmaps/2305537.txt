@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Konongo-Atebubu Road",
+               "short_name" : "Konongo-Atebubu Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Agogo",
+               "short_name" : "Agogo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Asante Akim North",
+               "short_name" : "Asante Akim North",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Ashanti",
+               "short_name" : "Ashanti",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Konongo-Atebubu Road, Agogo, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.80003710,
+                  "lng" : -1.08192750
+               },
+               "southwest" : {
+                  "lat" : 6.799701799999999,
+                  "lng" : -1.08196770
+               }
+            },
+            "location" : {
+               "lat" : 6.799869699999999,
+               "lng" : -1.08194540
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 6.801218430291502,
+                  "lng" : -1.080598619708498
+               },
+               "southwest" : {
+                  "lat" : 6.798520469708498,
+                  "lng" : -1.083296580291502
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Agogo",
+               "short_name" : "Agogo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Asante Akim North",
+               "short_name" : "Asante Akim North",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Ashanti",
+               "short_name" : "Ashanti",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Agogo, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.81121660,
+                  "lng" : -1.07451440
+               },
+               "southwest" : {
+                  "lat" : 6.7880350,
+                  "lng" : -1.09511380
+               }
+            },
+            "location" : {
+               "lat" : 6.80,
+               "lng" : -1.08333330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 6.81121660,
+                  "lng" : -1.07451440
+               },
+               "southwest" : {
+                  "lat" : 6.7880350,
+                  "lng" : -1.09511380
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Asante Akim North",
+               "short_name" : "Asante Akim North",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Ashanti",
+               "short_name" : "Ashanti",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Asante Akim North, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.05114930,
+                  "lng" : -0.77728270
+               },
+               "southwest" : {
+                  "lat" : 6.52477650,
+                  "lng" : -1.30393990
+               }
+            },
+            "location" : {
+               "lat" : 6.87691250,
+               "lng" : -1.02032240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.05114930,
+                  "lng" : -0.77728270
+               },
+               "southwest" : {
+                  "lat" : 6.52477650,
+                  "lng" : -1.30393990
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ashanti",
+               "short_name" : "Ashanti",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ashanti, Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.621659999999999,
+                  "lng" : -0.2224130
+               },
+               "southwest" : {
+                  "lat" : 5.853753999999999,
+                  "lng" : -2.4517150
+               }
+            },
+            "location" : {
+               "lat" : 6.74704360,
+               "lng" : -1.52086240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.621659999999999,
+                  "lng" : -0.2224130
+               },
+               "southwest" : {
+                  "lat" : 5.853753999999999,
+                  "lng" : -2.4517150
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ghana",
+               "short_name" : "GH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ghana",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            },
+            "location" : {
+               "lat" : 7.9465270,
+               "lng" : -1.0231940
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 11.16666750,
+                  "lng" : 1.19936250
+               },
+               "southwest" : {
+                  "lat" : 4.73887370,
+                  "lng" : -3.2607860
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,337 @@
+<?php
+
+/**
+ * @return array
+ */
+function cpoll_create_content_translate_rebuild_js() {
+  $path = drupal_get_path('module', 'cpoll_create');
+  return array(
+    $path . '/cpoll_create.js' => array(
+      'Maximum fields exceeded',
+      'The question is too long',
+      'Enter more that two elements',
+      'The question is too short',
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_menu()
+ *
+ * @return array
+ */
+function cpoll_create_menu() {
+  $menu = array();
+
+  $menu['create'] = array(
+    'title'            => t('Add an Issue'),
+    'page callback'    => 'cpoll_create',
+    'access arguments' => array('create issue content'),
+    'type'             => MENU_CALLBACK,
+  );
+  $menu['create/ahah'] = array(
+    'page callback'    => 'cpoll_create_ahah',
+    'access arguments' => array('create issue content'),
+    'type'             => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * @param $vars
+ */
+function cpoll_create_preprocess_page(&$vars) {
+  if (('node' == arg(0)) && ('add' == arg(1))) {
+    drupal_goto('create');
+  }
+  if (arg(0) == 'create') {
+    drupal_set_subtitle(t('Add an Issue'));
+    array_push($vars['template_files'], 'page_11_5');
+    $vars['content_class'] = 'grey-box';
+    $vars['content_nowrap'] = TRUE;
+
+    # right block
+    $vars['right'] = theme('guidelines');
+  }
+}
+
+/**
+ * Implementation of hook_theme()
+ *
+ * @return array
+ */
+function cpoll_create_theme() {
+  $theme = array();
+
+  $theme['guidelines'] = array(
+    'arguments' => array(),
+    'template'  => 'template-guidelines',
+  );
+
+  return $theme;
+}
+
+/**
+ * @return null|string
+ */
+function cpoll_create() {
+  return drupal_get_form('cpoll_create_form');
+}
+
+/**
+ * @return array
+ */
+function cpoll_create_form() {
+  $form = array();
+
+  // js
+  drupal_add_js('misc/ahah.js');
+  drupal_add_js(drupal_get_path('module', 'cpoll_create') . '/cpoll_create.js');
+
+  //  $form['#attributes'] = array('onsubmit' => 'return limitChars(true)');
+
+  $form['issue_cont'] = array(
+    '#type'  => 'markup',
+    '#value' => '
+      <div class="grey-box full" id="create_box">
+        <div class="new-issue clearfix">
+    '
+  );
+  $form['title_div'] = array(
+    '#type'  => 'markup',
+    '#value' => '
+      <label for="" class="add-on">
+        <div class="number dinbold">1</div>
+        <span class="add-on-title-wrapper">
+        <span class="title ">' . t('Question') . '</span>
+        <span class="guides"><span id="q_counter">140</span> ' . t('chars left.') . '</span>
+        </span>
+      </label>
+    '
+  );
+  $form['q_quest'] = array(
+    '#type'       => 'textarea',
+    '#rows'       => 4,
+    '#id'         => 'q_quest',
+    '#attributes' => array('rows' => 0, 'cols' => 0),
+    '#suffix'     => '<hr class="short2">',
+  );
+  $form['desc_div'] = array(
+    '#type'  => 'markup',
+    '#value' => '
+      <label for="" class="add-on">
+        <div class="number dinbold">2</div>
+        <span class="add-on-title-wrapper">
+        <span class="title ">' . t('Context') . '</span>
+        <span class="guides">' . t('Enter a brief description or backstory to provide context. You may include links.') . '</span>
+        </span>
+      </label>
+    '
+  );
+  $form['q_context'] = array(
+    '#type'       => 'textarea',
+    '#rows'       => 4,
+    '#id'         => 'Question',
+    '#suffix'     => '<hr class="short2">',
+    '#attributes' => array('rows' => 0, 'cols' => 0)
+  );
+  if (isset($form_state['choice_count'])) {
+    $choice_count = $form_state['choice_count'];
+  }
+  else {
+    $choice_count = 2;
+  }
+  $form['choice_wrapper'] = array(
+    '#tree'   => FALSE,
+    '#prefix' => '<div class="clear-block" id="poll-choice-wrapper">',
+    '#suffix' => '</div>',
+  );
+  $form['choice_wrapper']['answer'] = array(
+    '#prefix' => '
+      <div id="poll-choices">
+        <label for="" class="add-on">
+          <div class="number dinbold">3</div>
+          <span class="add-on-title-wrapper">
+          <span class="title ">' . t('Answers') . '</span>
+          <span class="guides">' . t('Enter at least two answers.') . '</span>
+          </span>
+        </label>
+    ',
+    '#suffix' => '</div><div class="clear"></div>',
+  );
+  for ($delta = 0; $delta < $choice_count; $delta++) {
+    $form['choice_wrapper']['answer'][$delta] = cpoll_create_form_textfield($delta);
+  }
+  $form['choice_wrapper']['poll_more'] = array(
+    '#type'        => 'submit',
+    '#value'       => '+ ' . t('Add another answer'),
+    '#description' => t("If the amount of boxes above isn't enough, click here to add more choices."),
+    '#weight'      => 1,
+    '#ahah'        => array(
+      'path'    => 'create/ahah',
+      'wrapper' => 'poll-choices',
+      'method'  => 'replace',
+      'effect'  => 'fade',
+    ),
+    '#attributes'  => array('class' => 'add-answer light'),
+    '#suffix'      => '<div class="clear"></div><hr class="bottom">',
+  );
+  $form['submit'] = array(
+    '#type'       => 'submit',
+    '#attributes' => array('class' => 'submit-issue'),
+    '#value'      => t('SUBMIT NEW ISSUE'),
+    '#id'         => 'save_issue',
+    '#prefix'     => '
+      <label class="before-submit">' . t('Our moderators also check every issue to ensure our Policy and Guidelines have been followed. Your original text may be edited to conform.') . '</label>
+      <label class="before-submit">' . t('Site moderators will generate interest for your issue by classifying it so other users can find it easier and by submitting it to be translated into into our worlds major language so you can poll people from around the world.') . '</label>
+    ',
+    '#suffix'     => ' <div class="clear"></div>'
+  );
+  $form['issue_cont_close'] = array(
+    '#type'  => 'markup',
+    '#value' => '</div></div>'
+  );
+  $form['#cache'] = TRUE;
+  return $form;
+}
+
+/**
+ * "issue/create/ahah/answer" menu callback
+ */
+function cpoll_create_ahah() {
+  $delta = count($_POST['answer']);
+  # build form element
+  $form_element = cpoll_create_form_textfield($delta);
+  # build new form
+  $form_state = array('storage' => NULL, 'submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+  # add element
+  $form = form_get_cache($form_build_id, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  if ($form_element !== FALSE) {
+    $form['choice_wrapper']['answer'][$delta] = $form_element;
+  }
+  form_set_cache($form_build_id, $form, $form_state);
+  $form += array(
+    '#post'       => $_POST,
+    '#programmed' => FALSE,
+  );
+  $form_state['post'] = $_POST;
+  # Build, validate and if possible, submit the form.
+  $form_state['action'] = $form['#action'];
+  $form_state['rebuild'] = TRUE;
+  drupal_process_form($form_id, $form, $form_state);
+  # Rebuild the form.
+  $form = form_builder($form_id, $form, $args, $form_state);
+  # Render the new output.
+  unset($_SESSION['messages']);
+  $choice_form = $form['choice_wrapper']['answer'];
+  //unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
+  $choice_form[$delta]['#attributes']['class'] = empty($choice_form[$delta]['#attributes']['class']) ? 'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] . ' ahah-new-content';
+  $output = drupal_render($choice_form);
+
+  $ahah = array('status' => TRUE, 'data' => $output);
+  if ($form_element === FALSE) {
+    $ahah['js'] = array('func' => 'cpoll_create_ahah_error');
+  }
+  print json_encode($ahah);
+}
+
+/**
+ * "issue/create/ahah/answer" callback
+ */
+function cpoll_create_form_textfield($delta, $value = '') {
+  if ($delta < 10) {
+    $form = array(
+      '#tree' => TRUE,
+    );
+    $form['chtext'] = array(
+      '#type'          => 'textfield',
+      '#default_value' => $value,
+      '#parents'       => array('answer', $delta),
+      '#id'            => 'Answer',
+    );
+    return $form;
+  }
+  return FALSE;
+}
+
+/**
+ * "issue/create" form validation
+ *
+ * @param $form
+ * @param $form_state
+ */
+function cpoll_create_form_validate($form, &$form_state) {
+  $post = $form_state['values'];
+  if ($post['q_quest'] == '') {
+    form_set_error('error', t('Please enter your question'));
+  }
+  if ($post['answer'][0] == '' && $post['answer'][1] == '') {
+    form_set_error('error', t('You must enter at least two answers'));
+  }
+}
+
+/**
+ * "issue/create" form submission
+ *
+ * @param $form
+ * @param $form_state
+ */
+function cpoll_create_form_submit($form, &$form_state) {
+  global $user, $language;
+  $post = $form_state['clicked_button']['#post'];
+
+  $node = new stdClass();
+  $node->type = 'issue';
+  $node->language = !empty($user->language) ? $user->language : $language->language;
+  $node->uid = $user->uid;
+  $node->status = 1;
+  $node->moderate = MODERATION_ALLOWED;
+  $node->title = trim($post['q_quest']);
+  // preg_replace('/\?$/', '', trim($post['q_quest']));
+  $node->body = $post['q_context'];
+  $node->name = $user->name;
+  node_save($node);
+
+  $allowed = array('chid', 'nid', 'uid', 'chtext', 'chtext_short', 'weight', 'chtype', 'cdate');
+  $i = 0;
+  foreach ($post['answer'] as $text) {
+    if (empty($text)) {
+      continue;
+    }
+
+    $choice = array(
+      'chid'         => -1,
+      'nid'          => $node->nid,
+      'uid'          => $user->uid,
+      'chtext'       => $text,
+      'chtext_short' => $text,
+      'weight'       => $i,
+      'chtype'       => 'regular',
+    );
+    cpoll_choice_save($choice);
+
+    $i++;
+  }
+
+  // reindex
+  if (module_exists('issue_search')) {
+    issue_search_index_node($node->nid);
+  }
+
+  drupal_set_message(t('Your issue has been added. It will be reviewed by 3 moderators but is available immediately.
+'), 'success');
+
+  # actions
+  function_exists('action_queue') && action_queue(array(
+    'uid'         => $user->uid,
+    'operation'   => 'create',
+    'entity_id'   => $node->nid,
+    'entity_type' => 'node',
+  ));
+
+  drupal_goto($node->path);
+}

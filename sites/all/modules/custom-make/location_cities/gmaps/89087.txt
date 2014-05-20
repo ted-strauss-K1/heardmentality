@@ -1,0 +1,134 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Al-Abyār",
+               "short_name" : "Al-Abyār",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Al Hizam Al Akhdar",
+               "short_name" : "Al Hizam Al Akhdar",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Al-Abyār, Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 32.20989520,
+                  "lng" : 20.60952320
+               },
+               "southwest" : {
+                  "lat" : 32.16703810,
+                  "lng" : 20.57379810
+               }
+            },
+            "location" : {
+               "lat" : 32.18888890,
+               "lng" : 20.59666670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 32.20989520,
+                  "lng" : 20.60952320
+               },
+               "southwest" : {
+                  "lat" : 32.16703810,
+                  "lng" : 20.57379810
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banghazi",
+               "short_name" : "Banghazi",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banghazi, Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 32.52788120,
+                  "lng" : 21.35536390
+               },
+               "southwest" : {
+                  "lat" : 30.9626990,
+                  "lng" : 19.92409390
+               }
+            },
+            "location" : {
+               "lat" : 31.55942510,
+               "lng" : 20.52154590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 32.52788120,
+                  "lng" : 21.35536390
+               },
+               "southwest" : {
+                  "lat" : 30.9626990,
+                  "lng" : 19.92409390
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Libya",
+               "short_name" : "LY",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Libya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 33.16678710,
+                  "lng" : 25.1469540
+               },
+               "southwest" : {
+                  "lat" : 19.50042980,
+                  "lng" : 9.391466399999999
+               }
+            },
+            "location" : {
+               "lat" : 27.05677690,
+               "lng" : 14.52804050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.16678710,
+                  "lng" : 25.1469540
+               },
+               "southwest" : {
+                  "lat" : 19.50042980,
+                  "lng" : 9.391466399999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

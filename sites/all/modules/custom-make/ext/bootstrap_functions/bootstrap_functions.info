@@ -1,0 +1,4 @@
+name = EXT - Bootstrap: Global Functions
+package = Custom Modules : EXT
+version = "6.x-1.1"
+core = 6.x

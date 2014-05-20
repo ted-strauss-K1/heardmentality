@@ -1,0 +1,250 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "9-17",
+               "short_name" : "9-17",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Rue Lauret Inard",
+               "short_name" : "Rue Lauret Inard",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Centre Ville",
+               "short_name" : "Centre Ville",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Le Tampon",
+               "short_name" : "Le Tampon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint Pierre",
+               "short_name" : "Saint Pierre",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "9-17 Rue Lauret Inard, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.28228950,
+                  "lng" : 55.5191840
+               },
+               "southwest" : {
+                  "lat" : -21.28307920,
+                  "lng" : 55.51768560
+               }
+            },
+            "location" : {
+               "lat" : -21.28297010,
+               "lng" : 55.51795389999999
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.28133536970850,
+                  "lng" : 55.51978378029150
+               },
+               "southwest" : {
+                  "lat" : -21.28403333029150,
+                  "lng" : 55.51708581970851
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Centre Ville",
+               "short_name" : "Centre Ville",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Le Tampon",
+               "short_name" : "Le Tampon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint Pierre",
+               "short_name" : "Saint Pierre",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Centre Ville, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.25939130,
+                  "lng" : 55.53143619999999
+               },
+               "southwest" : {
+                  "lat" : -21.28961940,
+                  "lng" : 55.50006510
+               }
+            },
+            "location" : {
+               "lat" : -21.27622060,
+               "lng" : 55.51641450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.25939130,
+                  "lng" : 55.53143619999999
+               },
+               "southwest" : {
+                  "lat" : -21.28961940,
+                  "lng" : 55.50006510
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Le Tampon",
+               "short_name" : "Le Tampon",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Saint Pierre",
+               "short_name" : "Saint Pierre",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Le Tampon, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.1339440,
+                  "lng" : 55.66341150
+               },
+               "southwest" : {
+                  "lat" : -21.31646290,
+                  "lng" : 55.47948710
+               }
+            },
+            "location" : {
+               "lat" : -21.22099110,
+               "lng" : 55.55799270
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.1339440,
+                  "lng" : 55.66341150
+               },
+               "southwest" : {
+                  "lat" : -21.31646290,
+                  "lng" : 55.47948710
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Saint Pierre",
+               "short_name" : "Saint Pierre",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Saint Pierre, Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.0856620,
+                  "lng" : 55.8104610
+               },
+               "southwest" : {
+                  "lat" : -21.38695070,
+                  "lng" : 55.31915340
+               }
+            },
+            "location" : {
+               "lat" : -21.23661450,
+               "lng" : 55.53581519999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.0856620,
+                  "lng" : 55.8104610
+               },
+               "southwest" : {
+                  "lat" : -21.38695070,
+                  "lng" : 55.31915340
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Reunion",
+               "short_name" : "RE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Reunion",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            },
+            "location" : {
+               "lat" : -21.1151410,
+               "lng" : 55.5363840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.87175570,
+                  "lng" : 55.83655359999999
+               },
+               "southwest" : {
+                  "lat" : -21.3896220,
+                  "lng" : 55.21640530
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Teuku Umar",
+               "short_name" : "Jl. Teuku Umar",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Pontianak",
+               "short_name" : "Pontianak",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pontianak Kota",
+               "short_name" : "Pontianak Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pontianak",
+               "short_name" : "Pontianak",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "78243",
+               "short_name" : "78243",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Teuku Umar, Pontianak Kota, Pontianak, West Kalimantan 78243, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.03225480,
+                  "lng" : 109.33420260
+               },
+               "southwest" : {
+                  "lat" : -0.03330150,
+                  "lng" : 109.33311290
+               }
+            },
+            "location" : {
+               "lat" : -0.03278010,
+               "lng" : 109.33365970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.03142916970849797,
+                  "lng" : 109.3350067302915
+               },
+               "southwest" : {
+                  "lat" : -0.03412713029150203,
+                  "lng" : 109.3323087697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Darat Sekip",
+               "short_name" : "Darat Sekip",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Pontianak Kota",
+               "short_name" : "Pontianak Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pontianak",
+               "short_name" : "Pontianak",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Darat Sekip, Pontianak Kota, Pontianak, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.0225160,
+                  "lng" : 109.3447590
+               },
+               "southwest" : {
+                  "lat" : -0.0354050,
+                  "lng" : 109.3286420
+               }
+            },
+            "location" : {
+               "lat" : -0.02971060,
+               "lng" : 109.33519550
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.0225160,
+                  "lng" : 109.3447590
+               },
+               "southwest" : {
+                  "lat" : -0.0354050,
+                  "lng" : 109.3286420
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pontianak Kota",
+               "short_name" : "Pontianak Kota",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Pontianak",
+               "short_name" : "Pontianak",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pontianak Kota, Pontianak, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.01649230,
+                  "lng" : 109.3447590
+               },
+               "southwest" : {
+                  "lat" : -0.06335499999999999,
+                  "lng" : 109.28497110
+               }
+            },
+            "location" : {
+               "lat" : -0.03962490,
+               "lng" : 109.31289090
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.01649230,
+                  "lng" : 109.3447590
+               },
+               "southwest" : {
+                  "lat" : -0.06335499999999999,
+                  "lng" : 109.28497110
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "78243",
+               "short_name" : "78243",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Pontianak",
+               "short_name" : "Pontianak",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pontianak, West Kalimantan 78243, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.02023090,
+                  "lng" : 109.36464690
+               },
+               "southwest" : {
+                  "lat" : -0.04676380,
+                  "lng" : 109.32408150
+               }
+            },
+            "location" : {
+               "lat" : -0.01320060,
+               "lng" : 109.34857870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.02023090,
+                  "lng" : 109.36464690
+               },
+               "southwest" : {
+                  "lat" : -0.04676380,
+                  "lng" : 109.32408150
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pontianak",
+               "short_name" : "Pontianak",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pontianak",
+               "short_name" : "Pontianak",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pontianak, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.0380960,
+                  "lng" : 109.3841250
+               },
+               "southwest" : {
+                  "lat" : -0.09830499999999999,
+                  "lng" : 109.27209910
+               }
+            },
+            "location" : {
+               "lat" : -0.0225230,
+               "lng" : 109.3303070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.0380960,
+                  "lng" : 109.3841250
+               },
+               "southwest" : {
+                  "lat" : -0.09830499999999999,
+                  "lng" : 109.27209910
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pontianak",
+               "short_name" : "Pontianak",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pontianak, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.0380960,
+                  "lng" : 109.3841250
+               },
+               "southwest" : {
+                  "lat" : -0.09830499999999999,
+                  "lng" : 109.27209910
+               }
+            },
+            "location" : {
+               "lat" : -0.0264070,
+               "lng" : 109.34263060
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.0380960,
+                  "lng" : 109.3841250
+               },
+               "southwest" : {
+                  "lat" : -0.09830499999999999,
+                  "lng" : 109.27209910
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.0114640,
+                  "lng" : 114.2008290
+               },
+               "southwest" : {
+                  "lat" : -3.0391840,
+                  "lng" : 108.0207820
+               }
+            },
+            "location" : {
+               "lat" : -0.27878080,
+               "lng" : 111.47528510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.0114640,
+                  "lng" : 114.2008290
+               },
+               "southwest" : {
+                  "lat" : -3.0391840,
+                  "lng" : 108.0207820
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

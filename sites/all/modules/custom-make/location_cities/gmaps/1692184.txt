@@ -1,0 +1,303 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ronquillo",
+               "short_name" : "Ronquillo",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Quiapo",
+               "short_name" : "Quiapo",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Manila",
+               "short_name" : "Manila",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Metro Manila",
+               "short_name" : "NCR",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ronquillo, Manila, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.60029190,
+                  "lng" : 120.98346640
+               },
+               "southwest" : {
+                  "lat" : 14.60003110,
+                  "lng" : 120.98274220
+               }
+            },
+            "location" : {
+               "lat" : 14.60016150,
+               "lng" : 120.98310430
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.60151048029150,
+                  "lng" : 120.9844532802915
+               },
+               "southwest" : {
+                  "lat" : 14.59881251970850,
+                  "lng" : 120.9817553197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "307",
+               "short_name" : "Brgy. 307",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Quiapo",
+               "short_name" : "Quiapo",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Manila",
+               "short_name" : "Manila",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Metro Manila",
+               "short_name" : "NCR",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "307, Manila, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.60093810,
+                  "lng" : 120.98453510
+               },
+               "southwest" : {
+                  "lat" : 14.59808840,
+                  "lng" : 120.98130050
+               }
+            },
+            "location" : {
+               "lat" : 14.59971160,
+               "lng" : 120.98297170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.60093810,
+                  "lng" : 120.98453510
+               },
+               "southwest" : {
+                  "lat" : 14.59808840,
+                  "lng" : 120.98130050
+               }
+            }
+         },
+         "types" : [ "neighborhood", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Quiapo",
+               "short_name" : "Quiapo",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Manila",
+               "short_name" : "Manila",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Metro Manila",
+               "short_name" : "NCR",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Quiapo, Manila, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.60371030,
+                  "lng" : 120.99130510
+               },
+               "southwest" : {
+                  "lat" : 14.59330470,
+                  "lng" : 120.98047970
+               }
+            },
+            "location" : {
+               "lat" : 14.60,
+               "lng" : 120.9830
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.60371030,
+                  "lng" : 120.99130510
+               },
+               "southwest" : {
+                  "lat" : 14.59330470,
+                  "lng" : 120.98047970
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Manila",
+               "short_name" : "Manila",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Metro Manila",
+               "short_name" : "NCR",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Manila, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.63964540,
+                  "lng" : 121.02616860
+               },
+               "southwest" : {
+                  "lat" : 14.55415550,
+                  "lng" : 120.9332380
+               }
+            },
+            "location" : {
+               "lat" : 14.59951240,
+               "lng" : 120.98421950
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.63964540,
+                  "lng" : 121.02616860
+               },
+               "southwest" : {
+                  "lat" : 14.55415550,
+                  "lng" : 120.9332380
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Metro Manila",
+               "short_name" : "NCR",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Metro Manila, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.7812170,
+                  "lng" : 121.1320120
+               },
+               "southwest" : {
+                  "lat" : 14.34938610,
+                  "lng" : 120.91725690
+               }
+            },
+            "location" : {
+               "lat" : 14.60905370,
+               "lng" : 121.02225650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.7812170,
+                  "lng" : 121.1320120
+               },
+               "southwest" : {
+                  "lat" : 14.34938610,
+                  "lng" : 120.91725690
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            },
+            "location" : {
+               "lat" : 12.8797210,
+               "lng" : 121.7740170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

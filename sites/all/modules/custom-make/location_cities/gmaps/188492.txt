@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "machakos- kangundo rd",
+               "short_name" : "machakos- kangundo rd",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Machakos",
+               "short_name" : "Machakos",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Machakos",
+               "short_name" : "Machakos",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "machakos- kangundo rd, Machakos, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.51638150,
+                  "lng" : 37.26435320
+               },
+               "southwest" : {
+                  "lat" : -1.51778570,
+                  "lng" : 37.26421580
+               }
+            },
+            "location" : {
+               "lat" : -1.51708450,
+               "lng" : 37.26426840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.515734619708498,
+                  "lng" : 37.26563348029149
+               },
+               "southwest" : {
+                  "lat" : -1.518432580291502,
+                  "lng" : 37.26293551970849
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Machakos",
+               "short_name" : "Machakos",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Machakos",
+               "short_name" : "Machakos",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Machakos, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.49363810,
+                  "lng" : 37.27601050
+               },
+               "southwest" : {
+                  "lat" : -1.53438340,
+                  "lng" : 37.23290799999999
+               }
+            },
+            "location" : {
+               "lat" : -1.51768370,
+               "lng" : 37.26341460
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.49363810,
+                  "lng" : 37.27601050
+               },
+               "southwest" : {
+                  "lat" : -1.53438340,
+                  "lng" : 37.23290799999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Machakos",
+               "short_name" : "Machakos",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Machakos, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.7818018999999999,
+                  "lng" : 37.86616110
+               },
+               "southwest" : {
+                  "lat" : -1.7926920,
+                  "lng" : 36.87852010
+               }
+            },
+            "location" : {
+               "lat" : -1.33042260,
+               "lng" : 37.46813960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.7818018999999999,
+                  "lng" : 37.86616110
+               },
+               "southwest" : {
+                  "lat" : -1.7926920,
+                  "lng" : 36.87852010
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

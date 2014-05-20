@@ -1,0 +1,361 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Pramuka",
+               "short_name" : "Jl. Pramuka",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Sleman",
+               "short_name" : "Sleman",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sleman",
+               "short_name" : "Sleman",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "55511",
+               "short_name" : "55511",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Pramuka, Sleman, 55511, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.71534720,
+                  "lng" : 110.359320
+               },
+               "southwest" : {
+                  "lat" : -7.715840999999998,
+                  "lng" : 110.35911670
+               }
+            },
+            "location" : {
+               "lat" : -7.715576299999999,
+               "lng" : 110.35917920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.714245119708497,
+                  "lng" : 110.3605673302915
+               },
+               "southwest" : {
+                  "lat" : -7.716943080291502,
+                  "lng" : 110.3578693697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tridadi",
+               "short_name" : "Tridadi",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Sleman",
+               "short_name" : "Sleman",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sleman",
+               "short_name" : "Sleman",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tridadi, Sleman, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.695650000000001,
+                  "lng" : 110.36675010
+               },
+               "southwest" : {
+                  "lat" : -7.72826690,
+                  "lng" : 110.339790
+               }
+            },
+            "location" : {
+               "lat" : -7.71189770,
+               "lng" : 110.35173340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.695650000000001,
+                  "lng" : 110.36675010
+               },
+               "southwest" : {
+                  "lat" : -7.72826690,
+                  "lng" : 110.339790
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "55511",
+               "short_name" : "55511",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Sleman",
+               "short_name" : "Sleman",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sleman, Special District of Yogyakarta 55511, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.695580000000001,
+                  "lng" : 110.36700430
+               },
+               "southwest" : {
+                  "lat" : -7.728671500000001,
+                  "lng" : 110.34004970
+               }
+            },
+            "location" : {
+               "lat" : -7.71189770,
+               "lng" : 110.35173340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.695580000000001,
+                  "lng" : 110.36700430
+               },
+               "southwest" : {
+                  "lat" : -7.728671500000001,
+                  "lng" : 110.34004970
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sleman",
+               "short_name" : "Sleman",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sleman",
+               "short_name" : "Sleman",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sleman, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.661989999999999,
+                  "lng" : 110.381830
+               },
+               "southwest" : {
+                  "lat" : -7.72826690,
+                  "lng" : 110.30713090
+               }
+            },
+            "location" : {
+               "lat" : -7.688920299999999,
+               "lng" : 110.34875450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.661989999999999,
+                  "lng" : 110.381830
+               },
+               "southwest" : {
+                  "lat" : -7.72826690,
+                  "lng" : 110.30713090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sleman",
+               "short_name" : "Sleman",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sleman, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.54652910
+               },
+               "southwest" : {
+                  "lat" : -7.83754110,
+                  "lng" : 110.2160210
+               }
+            },
+            "location" : {
+               "lat" : -7.732521299999999,
+               "lng" : 110.4023760
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.54652910
+               },
+               "southwest" : {
+                  "lat" : -7.83754110,
+                  "lng" : 110.2160210
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.2041880,
+                  "lng" : 110.0139420
+               }
+            },
+            "location" : {
+               "lat" : -7.875384899999999,
+               "lng" : 110.42620880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.2041880,
+                  "lng" : 110.0139420
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

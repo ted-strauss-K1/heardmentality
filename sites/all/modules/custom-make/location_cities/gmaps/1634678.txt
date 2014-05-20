@@ -1,0 +1,351 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Belolaut",
+               "short_name" : "Belolaut",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Mentok",
+               "short_name" : "Mentok",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "West Bangka",
+               "short_name" : "West Bangka",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Belolaut, Mentok, West Bangka, Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.0421630,
+                  "lng" : 105.365010
+               },
+               "southwest" : {
+                  "lat" : -2.15319290,
+                  "lng" : 105.17673790
+               }
+            },
+            "location" : {
+               "lat" : -2.07852820,
+               "lng" : 105.30141090
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.0421630,
+                  "lng" : 105.365010
+               },
+               "southwest" : {
+                  "lat" : -2.15319290,
+                  "lng" : 105.17673790
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mentok",
+               "short_name" : "Mentok",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mentok",
+               "short_name" : "Mentok",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "West Bangka",
+               "short_name" : "West Bangka",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mentok, West Bangka, Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.899590,
+                  "lng" : 105.365010
+               },
+               "southwest" : {
+                  "lat" : -2.15319290,
+                  "lng" : 105.1083960
+               }
+            },
+            "location" : {
+               "lat" : -2.0676810,
+               "lng" : 105.1587980
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.899590,
+                  "lng" : 105.365010
+               },
+               "southwest" : {
+                  "lat" : -2.15319290,
+                  "lng" : 105.1083960
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mentok",
+               "short_name" : "Mentok",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "West Bangka",
+               "short_name" : "West Bangka",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mentok, West Bangka, Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.899590,
+                  "lng" : 105.365010
+               },
+               "southwest" : {
+                  "lat" : -2.15319290,
+                  "lng" : 105.1083960
+               }
+            },
+            "location" : {
+               "lat" : -2.01325130,
+               "lng" : 105.19607950
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.899590,
+                  "lng" : 105.365010
+               },
+               "southwest" : {
+                  "lat" : -2.15319290,
+                  "lng" : 105.1083960
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "33351",
+               "short_name" : "33351",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bangka Belitung Islands 33351, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.8954110,
+                  "lng" : 105.3756790
+               },
+               "southwest" : {
+                  "lat" : -2.15146390,
+                  "lng" : 105.10815430
+               }
+            },
+            "location" : {
+               "lat" : -2.01280430,
+               "lng" : 105.24288530
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.8954110,
+                  "lng" : 105.3756790
+               },
+               "southwest" : {
+                  "lat" : -2.15146390,
+                  "lng" : 105.10815430
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Bangka",
+               "short_name" : "West Bangka",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Bangka, Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.5274170,
+                  "lng" : 105.7858630
+               },
+               "southwest" : {
+                  "lat" : -2.15319290,
+                  "lng" : 105.1083960
+               }
+            },
+            "location" : {
+               "lat" : -1.84050460,
+               "lng" : 105.50054830
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.5274170,
+                  "lng" : 105.7858630
+               },
+               "southwest" : {
+                  "lat" : -2.15319290,
+                  "lng" : 105.1083960
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bangka-Belitung Islands",
+               "short_name" : "Bangka-Belitung Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bangka Belitung Islands, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.5006170,
+                  "lng" : 108.84799210
+               },
+               "southwest" : {
+                  "lat" : -3.4165350,
+                  "lng" : 105.1083960
+               }
+            },
+            "location" : {
+               "lat" : -2.74105130,
+               "lng" : 106.44058720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.5006170,
+                  "lng" : 108.84799210
+               },
+               "southwest" : {
+                  "lat" : -3.4165350,
+                  "lng" : 105.1083960
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

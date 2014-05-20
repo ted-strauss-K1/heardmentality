@@ -1,0 +1,155 @@
+<?php
+
+require_once("mstapi.php");
+
+define('MICROSOFT_TRANSLATOR_ADMIN', 'administer microsoft translator api module');
+
+function mstapi_perm() {
+  return array(MICROSOFT_TRANSLATOR_ADMIN);
+}
+
+function mstapi_menu() {
+  $menu = array();
+
+  $menu['admin/settings/mstapi'] = array(
+    'title'            => t('Microsoft Translator'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('mstapi_form'),
+    'access arguments' => array(MICROSOFT_TRANSLATOR_ADMIN),
+    'type'             => MENU_NORMAL_ITEM,
+  );
+
+  return $menu;
+}
+
+function mstapi_form() {
+  $form = array();
+
+  $form['mstapi_clientid'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Client ID',
+    '#default_value' => variable_get('mstapi_clientid', ''),
+  );
+  $form['mstapi_clientsecret'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Client Secret',
+    '#default_value' => variable_get('mstapi_clientsecret', ''),
+  );
+
+  return system_settings_form($form);
+}
+
+function mstapi_exec($lang_from, $lang_to, $list = array()) {
+  static $mstapi = NULL;
+  static $t = array(); // t is for translations
+
+  # run mstapi
+  if (is_null($mstapi)) {
+    $mstapi = new MicrosoftTranslate(variable_get('mstapi_clientid', ''), variable_get('mstapi_clientsecret', ''));
+  }
+  # check the codes
+  if ((FALSE === mstapi_langcodes($lang_from)) || (FALSE === mstapi_langcodes($lang_to))) {
+    return array();
+  }
+  # flush mstapi
+  $mstapi->dequeue();
+  # init translation arrays
+  $dir = $lang_from . '_' . $lang_to;
+  $rev = $lang_to . '_' . $lang_from;
+  foreach (array($dir, $rev) as $langcode) {
+    if (is_null($t[$langcode])) {
+      $t[$langcode] = variable_get('mstapi_' . $langcode, array());
+    }
+  }
+  # queue strings
+  $translated = array();
+  foreach ($list as $string) {
+    if (isset($t[$dir][$string])) {
+      $translated[$string] = $t[$dir][$string];
+      unset($list[$string]);
+    }
+    else {
+      $mstapi->queue($string);
+    }
+  }
+
+  # exec
+  $queue = $mstapi->exec($lang_from, $lang_to, $t[$dir]);
+  if ($queue === FALSE) {
+    $queue = array();
+  }
+  # cache results
+  foreach ($queue as $string => $string_trans) {
+    if (!isset($t[$dir][$string])) {
+      $t[$dir][$string] = $string_trans;
+    }
+    if (!isset($t[$rev][$string_trans])) {
+      $t[$rev][$string_trans] = $string;
+    }
+  }
+  # save cache
+  foreach (array($dir, $rev) as $langcode) {
+    variable_set('mstapi_' . $langcode, $t[$langcode]);
+  }
+
+  return array_merge($queue, $translated);
+}
+
+function mstapi_langcodes($code = FALSE) {
+  static $list = NULL;
+
+  if (is_null($list)) {
+    $list = array(
+      'ar'     => t('Arabic'),
+      'bg'     => t('Bulgarian'),
+      'ca'     => t('Catalan'),
+      'zh-chs' => t('Chinese (Simplified)'),
+      'zh-cht' => t('Chinese (Traditional)'),
+      'cs'     => t('Czech'),
+      'da'     => t('Danish'),
+      'nl'     => t('Dutch'),
+      'en'     => t('English'),
+      'et'     => t('Estonian'),
+      'fa'     => t('Persian (Farsi)'),
+      'fi'     => t('Finnish'),
+      'fr'     => t('French'),
+      'de'     => t('German'),
+      'el'     => t('Greek'),
+      'ht'     => t('Haitian Creole'),
+      'he'     => t('Hebrew'),
+      'hi'     => t('Hindi'),
+      'hu'     => t('Hungarian'),
+      'id'     => t('Indonesian'),
+      'it'     => t('Italian'),
+      'ja'     => t('Japanese'),
+      'ko'     => t('Korean'),
+      'lv'     => t('Latvian'),
+      'lt'     => t('Lithuanian'),
+      'mww'    => t('Hmong Daw'),
+      'no'     => t('Norwegian'),
+      'pl'     => t('Polish'),
+      'pt'     => t('Portuguese'),
+      'ro'     => t('Romanian'),
+      'ru'     => t('Russian'),
+      'sk'     => t('Slovak'),
+      'sl'     => t('Slovenian'),
+      'es'     => t('Spanish'),
+      'sv'     => t('Swedish'),
+      'th'     => t('Thai'),
+      'tr'     => t('Turkish'),
+      'uk'     => t('Ukrainian'),
+      'vi'     => t('Vietnamese'),
+    );
+  }
+
+  if ($code === FALSE) {
+    return $list;
+  }
+  elseif (isset($list[$code])) {
+    return $code;
+  }
+  else {
+    return FALSE;
+  }
+}
+

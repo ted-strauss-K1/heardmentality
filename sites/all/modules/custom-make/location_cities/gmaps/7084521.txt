@@ -1,0 +1,361 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Pemuda",
+               "short_name" : "Jl. Pemuda",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Seririt",
+               "short_name" : "Seririt",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Buleleng",
+               "short_name" : "Buleleng",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "81153",
+               "short_name" : "81153",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Pemuda, Seririt, Buleleng 81153, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.198958899999999,
+                  "lng" : 114.93586290
+               },
+               "southwest" : {
+                  "lat" : -8.199268999999999,
+                  "lng" : 114.9357440
+               }
+            },
+            "location" : {
+               "lat" : -8.19911450,
+               "lng" : 114.93580190
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.197764969708496,
+                  "lng" : 114.9371524302915
+               },
+               "southwest" : {
+                  "lat" : -8.200462930291501,
+                  "lng" : 114.9344544697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Seririt",
+               "short_name" : "Seririt",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Seririt",
+               "short_name" : "Seririt",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Buleleng",
+               "short_name" : "Buleleng",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "81153",
+               "short_name" : "81153",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Seririt, Buleleng, Bali 81153, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.183356999999999,
+                  "lng" : 114.944050
+               },
+               "southwest" : {
+                  "lat" : -8.20110,
+                  "lng" : 114.9261390
+               }
+            },
+            "location" : {
+               "lat" : -8.192540899999999,
+               "lng" : 114.93092130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.183356999999999,
+                  "lng" : 114.944050
+               },
+               "southwest" : {
+                  "lat" : -8.20110,
+                  "lng" : 114.9261390
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "81153",
+               "short_name" : "81153",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bali 81153, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.17517760,
+                  "lng" : 114.98445120
+               },
+               "southwest" : {
+                  "lat" : -8.28520,
+                  "lng" : 114.86399840
+               }
+            },
+            "location" : {
+               "lat" : -8.23631320,
+               "lng" : 114.9160880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.17517760,
+                  "lng" : 114.98445120
+               },
+               "southwest" : {
+                  "lat" : -8.28520,
+                  "lng" : 114.86399840
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Seririt",
+               "short_name" : "Seririt",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Buleleng",
+               "short_name" : "Buleleng",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Seririt, Buleleng, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.180833999999999,
+                  "lng" : 115.0131710
+               },
+               "southwest" : {
+                  "lat" : -8.337805000000001,
+                  "lng" : 114.8221810
+               }
+            },
+            "location" : {
+               "lat" : -8.205319600000001,
+               "lng" : 114.92795470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.180833999999999,
+                  "lng" : 115.0131710
+               },
+               "southwest" : {
+                  "lat" : -8.337805000000001,
+                  "lng" : 114.8221810
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Buleleng",
+               "short_name" : "Buleleng",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Buleleng, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.4570290
+               },
+               "southwest" : {
+                  "lat" : -8.38325910,
+                  "lng" : 114.4322760
+               }
+            },
+            "location" : {
+               "lat" : -8.22389680,
+               "lng" : 114.95168690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.4570290
+               },
+               "southwest" : {
+                  "lat" : -8.38325910,
+                  "lng" : 114.4322760
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.71152810
+               },
+               "southwest" : {
+                  "lat" : -8.849260899999999,
+                  "lng" : 114.4316260
+               }
+            },
+            "location" : {
+               "lat" : -8.40951780,
+               "lng" : 115.1889160
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.71152810
+               },
+               "southwest" : {
+                  "lat" : -8.849260899999999,
+                  "lng" : 114.4316260
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

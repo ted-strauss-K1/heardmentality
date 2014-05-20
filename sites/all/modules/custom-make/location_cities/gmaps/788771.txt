@@ -1,0 +1,240 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Николе Вујачића",
+               "short_name" : "Николе Вујачића",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Lazarevac",
+               "short_name" : "Lazarevac",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Lazarevac",
+               "short_name" : "Lazarevac",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "City of Belgrade",
+               "short_name" : "City of Belgrade",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Николе Вујачића, Lazarevac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.38554520,
+                  "lng" : 20.25738060
+               },
+               "southwest" : {
+                  "lat" : 44.38442310,
+                  "lng" : 20.25547390
+               }
+            },
+            "location" : {
+               "lat" : 44.3849410,
+               "lng" : 20.25637820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.38633313029150,
+                  "lng" : 20.25777623029150
+               },
+               "southwest" : {
+                  "lat" : 44.38363516970850,
+                  "lng" : 20.25507826970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lazarevac",
+               "short_name" : "Lazarevac",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "City of Belgrade",
+               "short_name" : "City of Belgrade",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lazarevac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.38756559999999,
+                  "lng" : 20.28099780
+               },
+               "southwest" : {
+                  "lat" : 44.37336440,
+                  "lng" : 20.23844710
+               }
+            },
+            "location" : {
+               "lat" : 44.38545999999999,
+               "lng" : 20.2744010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.38756559999999,
+                  "lng" : 20.28099780
+               },
+               "southwest" : {
+                  "lat" : 44.37336440,
+                  "lng" : 20.23844710
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lazarevac",
+               "short_name" : "Lazarevac",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "City of Belgrade",
+               "short_name" : "City of Belgrade",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lazarevac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.56478960,
+                  "lng" : 20.45070660
+               },
+               "southwest" : {
+                  "lat" : 44.26954220,
+                  "lng" : 20.19424430
+               }
+            },
+            "location" : {
+               "lat" : 44.40708040,
+               "lng" : 20.32045070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.56478960,
+                  "lng" : 20.45070660
+               },
+               "southwest" : {
+                  "lat" : 44.26954220,
+                  "lng" : 20.19424430
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "City of Belgrade",
+               "short_name" : "City of Belgrade",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "City of Belgrade, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.0991930,
+                  "lng" : 20.8600790
+               },
+               "southwest" : {
+                  "lat" : 44.2627390,
+                  "lng" : 19.98315090
+               }
+            },
+            "location" : {
+               "lat" : 44.58503950,
+               "lng" : 20.39640260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.0991930,
+                  "lng" : 20.8600790
+               },
+               "southwest" : {
+                  "lat" : 44.2627390,
+                  "lng" : 19.98315090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function feedback_mail_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'feedback_form') {
+    unset($form['messages']);
+    array_unshift($form['#submit'], 'feedback_mail_send');
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function feedback_mail_send(&$form, &$form_state) {
+  if (user_is_logged_in()) {
+    global $user;
+    $to = variable_get('site_mail', ini_get('sendmail_from'));
+    drupal_mail('feedback_mail', 'notify', $to, 'en', array(
+      'name'    => $user->name,
+      'message' => $form_state['values']['message'],
+    ));
+  }
+}
+
+/**
+ * @param $key
+ * @param $message
+ * @param $params
+ */
+function feedback_mail_mail($key, &$message, $params) {
+  $message['subject'] = 'Feedback from ' . $params['name'];
+  $message['body'][] = $params['message'];
+}

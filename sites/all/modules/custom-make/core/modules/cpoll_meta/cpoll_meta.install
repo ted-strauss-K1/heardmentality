@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function cpoll_meta_install() {
+  drupal_install_schema('cpoll_meta');
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function cpoll_meta_uninstall() {
+  drupal_uninstall_schema('cpoll_meta');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function cpoll_meta_schema() {
+  $schema = array();
+
+  $schema['cpoll_meta'] = array(
+    'description' => 'Stores the {cpoll} meta for choices.',
+    'fields'      => array(
+      'cid'    => array(
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'description' => 'Unique identifier for a meta characteristic.',
+      ),
+      'chtext' => array(
+        'type'        => 'varchar',
+        'length'      => 128,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => 'The text for this characteristic.',
+      ),
+    ),
+    'indexes'     => array(
+      'cid' => array('cid')
+    ),
+    'primary key' => array('cid'),
+  );
+
+  $schema['cpoll_meta_values'] = array(
+    'description' => 'Stores the values of characteristics for {poll} choices',
+    'fields'      => array(
+      'chid'  => array(
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => '',
+      ),
+      'uid'   => array(
+        'description' => 'The {users}.uid that owns this node; initially, this is the user that created it.',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0
+      ),
+      'cid'   => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => 'The {cpoll_meta}.cid this value belongs to.',
+      ),
+      'value' => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => 'Value.',
+      ),
+    ),
+    'primary key' => array('chid', 'uid', 'cid'),
+  );
+
+  return $schema;
+}

@@ -1,0 +1,424 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Serma Peturun",
+               "short_name" : "Jl. Serma Peturun",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Kotabumi",
+               "short_name" : "Kotabumi",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kotabumi",
+               "short_name" : "Kotabumi",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "North Lampung",
+               "short_name" : "North Lampung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "34516",
+               "short_name" : "34516",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Serma Peturun, Kotabumi, North Lampung, Lampung 34516, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.824540,
+                  "lng" : 104.8827540
+               },
+               "southwest" : {
+                  "lat" : -4.8254450,
+                  "lng" : 104.882030
+               }
+            },
+            "location" : {
+               "lat" : -4.82497510,
+               "lng" : 104.88236980
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.823643519708498,
+                  "lng" : 104.8837409802915
+               },
+               "southwest" : {
+                  "lat" : -4.826341480291503,
+                  "lng" : 104.8810430197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sribasuki",
+               "short_name" : "Sribasuki",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Kotabumi",
+               "short_name" : "Kotabumi",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "North Lampung",
+               "short_name" : "North Lampung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sribasuki, Kotabumi, North Lampung, Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.81527010,
+                  "lng" : 104.89697010
+               },
+               "southwest" : {
+                  "lat" : -4.82862210,
+                  "lng" : 104.88152490
+               }
+            },
+            "location" : {
+               "lat" : -4.82292120,
+               "lng" : 104.88924730
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.81527010,
+                  "lng" : 104.89697010
+               },
+               "southwest" : {
+                  "lat" : -4.82862210,
+                  "lng" : 104.88152490
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "34516",
+               "short_name" : "34516",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "North Lampung",
+               "short_name" : "North Lampung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Lampung, Lampung 34516, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.8198280,
+                  "lng" : 104.9506530
+               },
+               "southwest" : {
+                  "lat" : -4.85515680,
+                  "lng" : 104.76940910
+               }
+            },
+            "location" : {
+               "lat" : -4.83789130,
+               "lng" : 104.78126540
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.8198280,
+                  "lng" : 104.80538940
+               },
+               "southwest" : {
+                  "lat" : -4.84971090,
+                  "lng" : 104.76940910
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kotabumi",
+               "short_name" : "Kotabumi",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "North Lampung",
+               "short_name" : "North Lampung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kotabumi, North Lampung, Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.7889880,
+                  "lng" : 104.95164190
+               },
+               "southwest" : {
+                  "lat" : -4.8548760,
+                  "lng" : 104.7684550
+               }
+            },
+            "location" : {
+               "lat" : -4.821640599999999,
+               "lng" : 104.83378790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.7889880,
+                  "lng" : 104.95164190
+               },
+               "southwest" : {
+                  "lat" : -4.8548760,
+                  "lng" : 104.7684550
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kotabumi",
+               "short_name" : "Kotabumi",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kotabumi",
+               "short_name" : "Kotabumi",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "North Lampung",
+               "short_name" : "North Lampung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kotabumi, North Lampung, Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.7889880,
+                  "lng" : 104.95164190
+               },
+               "southwest" : {
+                  "lat" : -4.8548760,
+                  "lng" : 104.7684550
+               }
+            },
+            "location" : {
+               "lat" : -4.821640599999999,
+               "lng" : 104.83378790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.7889880,
+                  "lng" : 104.95164190
+               },
+               "southwest" : {
+                  "lat" : -4.8548760,
+                  "lng" : 104.7684550
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Lampung",
+               "short_name" : "North Lampung",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Lampung, Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -4.5278810,
+                  "lng" : 105.12699010
+               },
+               "southwest" : {
+                  "lat" : -5.08889690,
+                  "lng" : 104.4945780
+               }
+            },
+            "location" : {
+               "lat" : -4.81339050,
+               "lng" : 104.75209390
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -4.5278810,
+                  "lng" : 105.12699010
+               },
+               "southwest" : {
+                  "lat" : -5.08889690,
+                  "lng" : 104.4945780
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.72382290,
+                  "lng" : 105.91664410
+               },
+               "southwest" : {
+                  "lat" : -6.1685580,
+                  "lng" : 103.57269310
+               }
+            },
+            "location" : {
+               "lat" : -4.55858490,
+               "lng" : 105.40680790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.72382290,
+                  "lng" : 105.91664410
+               },
+               "southwest" : {
+                  "lat" : -6.1685580,
+                  "lng" : 103.57269310
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

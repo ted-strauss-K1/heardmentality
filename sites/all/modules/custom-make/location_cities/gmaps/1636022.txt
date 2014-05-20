@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Veteran",
+               "short_name" : "Jl. Veteran",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Martapura",
+               "short_name" : "Martapura",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banjar",
+               "short_name" : "Banjar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "70714",
+               "short_name" : "70714",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Veteran, Martapura, Banjar, South Kalimantan 70714, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.42111770,
+                  "lng" : 114.84421710
+               },
+               "southwest" : {
+                  "lat" : -3.42128280,
+                  "lng" : 114.84328850
+               }
+            },
+            "location" : {
+               "lat" : -3.42119970,
+               "lng" : 114.84375270
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.419851269708498,
+                  "lng" : 114.8451017802915
+               },
+               "southwest" : {
+                  "lat" : -3.422549230291502,
+                  "lng" : 114.8424038197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cindai Alus",
+               "short_name" : "Cindai Alus",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Martapura",
+               "short_name" : "Martapura",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banjar",
+               "short_name" : "Banjar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cindai Alus, Martapura, Banjar, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.3870440,
+                  "lng" : 114.8509430
+               },
+               "southwest" : {
+                  "lat" : -3.42606190,
+                  "lng" : 114.80241490
+               }
+            },
+            "location" : {
+               "lat" : -3.41222170,
+               "lng" : 114.82707450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.3870440,
+                  "lng" : 114.8509430
+               },
+               "southwest" : {
+                  "lat" : -3.42606190,
+                  "lng" : 114.80241490
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "70714",
+               "short_name" : "70714",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Kalimantan 70714, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.4002160,
+                  "lng" : 114.90140
+               },
+               "southwest" : {
+                  "lat" : -3.467770,
+                  "lng" : 114.78179980
+               }
+            },
+            "location" : {
+               "lat" : -3.42557340,
+               "lng" : 114.8448790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.4002160,
+                  "lng" : 114.90140
+               },
+               "southwest" : {
+                  "lat" : -3.467770,
+                  "lng" : 114.78179980
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Martapura",
+               "short_name" : "Martapura",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banjar",
+               "short_name" : "Banjar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Martapura, Banjar, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.3610560,
+                  "lng" : 114.9227450
+               },
+               "southwest" : {
+                  "lat" : -3.4356180,
+                  "lng" : 114.80241490
+               }
+            },
+            "location" : {
+               "lat" : -3.4064670,
+               "lng" : 114.86861690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.3610560,
+                  "lng" : 114.9227450
+               },
+               "southwest" : {
+                  "lat" : -3.4356180,
+                  "lng" : 114.80241490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banjar",
+               "short_name" : "Banjar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banjar, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.8224240,
+                  "lng" : 115.6100770
+               },
+               "southwest" : {
+                  "lat" : -3.7307230,
+                  "lng" : 114.49974710
+               }
+            },
+            "location" : {
+               "lat" : -3.32002280,
+               "lng" : 114.99914640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.8224240,
+                  "lng" : 115.6100770
+               },
+               "southwest" : {
+                  "lat" : -3.7307230,
+                  "lng" : 114.49974710
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.3150370,
+                  "lng" : 116.5559610
+               },
+               "southwest" : {
+                  "lat" : -4.7448130,
+                  "lng" : 114.3458590
+               }
+            },
+            "location" : {
+               "lat" : -3.09264150,
+               "lng" : 115.28375850
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.3150370,
+                  "lng" : 116.5559610
+               },
+               "southwest" : {
+                  "lat" : -4.7448130,
+                  "lng" : 114.3458590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

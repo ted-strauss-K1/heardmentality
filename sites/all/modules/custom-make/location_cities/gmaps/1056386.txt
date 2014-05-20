@@ -1,0 +1,197 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "5",
+               "short_name" : "5",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Soanierana - Ivongo",
+               "short_name" : "Soanierana - Ivongo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Soanierana-Ivongo",
+               "short_name" : "Soanierana-Ivongo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toamasina",
+               "short_name" : "Toamasina",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "5, Soanierana - Ivongo, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -16.9187730,
+                  "lng" : 49.58593370
+               },
+               "southwest" : {
+                  "lat" : -16.92062060,
+                  "lng" : 49.5825380
+               }
+            },
+            "location" : {
+               "lat" : -16.91990020,
+               "lng" : 49.58434860
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -16.91834781970850,
+                  "lng" : 49.58593370
+               },
+               "southwest" : {
+                  "lat" : -16.92104578029150,
+                  "lng" : 49.5825380
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Soanierana-Ivongo",
+               "short_name" : "Soanierana-Ivongo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toamasina",
+               "short_name" : "Toamasina",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Soanierana-Ivongo, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -16.31025440,
+                  "lng" : 49.80440110
+               },
+               "southwest" : {
+                  "lat" : -17.08720220,
+                  "lng" : 48.83834830000001
+               }
+            },
+            "location" : {
+               "lat" : -16.73812280,
+               "lng" : 49.20308510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -16.31025440,
+                  "lng" : 49.80440110
+               },
+               "southwest" : {
+                  "lat" : -17.08720220,
+                  "lng" : 48.83834830000001
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Analanjirofo",
+               "short_name" : "Analanjirofo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toamasina",
+               "short_name" : "Toamasina",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Analanjirofo, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -14.93350640,
+                  "lng" : 50.03723140
+               },
+               "southwest" : {
+                  "lat" : -17.72841260,
+                  "lng" : 48.70376580
+               }
+            },
+            "location" : {
+               "lat" : -16.5075370,
+               "lng" : 49.52799960
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -14.93350640,
+                  "lng" : 50.03723140
+               },
+               "southwest" : {
+                  "lat" : -17.72841260,
+                  "lng" : 48.70376580
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

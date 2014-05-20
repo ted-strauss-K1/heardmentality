@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Carretera Artemisa Ceiba",
+               "short_name" : "Carretera Artemisa Ceiba",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Ceiba del Agua",
+               "short_name" : "Ceiba del Agua",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Caimito",
+               "short_name" : "Caimito",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Artemisa Province",
+               "short_name" : "Artemisa Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Carretera Artemisa Ceiba, Ceiba del Agua, Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.87976670,
+                  "lng" : -82.63348150
+               },
+               "southwest" : {
+                  "lat" : 22.87815330,
+                  "lng" : -82.63633460
+               }
+            },
+            "location" : {
+               "lat" : 22.87886120,
+               "lng" : -82.63484179999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.88030898029150,
+                  "lng" : -82.63348150
+               },
+               "southwest" : {
+                  "lat" : 22.87761101970850,
+                  "lng" : -82.63633460
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Güira de Melena",
+               "short_name" : "Güira de Melena",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Guira de Melena",
+               "short_name" : "Guira de Melena",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Artemisa Province",
+               "short_name" : "Artemisa Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Güira de Melena, Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.82330,
+                  "lng" : -82.49183169999999
+               },
+               "southwest" : {
+                  "lat" : 22.7802570,
+                  "lng" : -82.52513399999999
+               }
+            },
+            "location" : {
+               "lat" : 22.799870,
+               "lng" : -82.5052570
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.82330,
+                  "lng" : -82.49183169999999
+               },
+               "southwest" : {
+                  "lat" : 22.7802570,
+                  "lng" : -82.52513399999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Guira de Melena",
+               "short_name" : "Guira de Melena",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Artemisa Province",
+               "short_name" : "Artemisa Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Guira de Melena, Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 22.84936460,
+                  "lng" : -82.42978610
+               },
+               "southwest" : {
+                  "lat" : 22.67876020,
+                  "lng" : -82.53817149999999
+               }
+            },
+            "location" : {
+               "lat" : 22.75345640,
+               "lng" : -82.49693309999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 22.84936460,
+                  "lng" : -82.42978610
+               },
+               "southwest" : {
+                  "lat" : 22.67876020,
+                  "lng" : -82.53817149999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Artemisa Province",
+               "short_name" : "Artemisa Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Artemisa Province, Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.0686720,
+                  "lng" : -82.39349399999999
+               },
+               "southwest" : {
+                  "lat" : 22.48669990,
+                  "lng" : -83.38892810
+               }
+            },
+            "location" : {
+               "lat" : 22.75229030,
+               "lng" : -82.99316069999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.0686720,
+                  "lng" : -82.39349399999999
+               },
+               "southwest" : {
+                  "lat" : 22.48669990,
+                  "lng" : -83.38892810
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cuba",
+               "short_name" : "CU",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cuba",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.27675210,
+                  "lng" : -74.13222309999999
+               },
+               "southwest" : {
+                  "lat" : 19.82589940,
+                  "lng" : -85.07125599999999
+               }
+            },
+            "location" : {
+               "lat" : 21.5217570,
+               "lng" : -77.7811670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.27675210,
+                  "lng" : -74.13222309999999
+               },
+               "southwest" : {
+                  "lat" : 19.82589940,
+                  "lng" : -85.07125599999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

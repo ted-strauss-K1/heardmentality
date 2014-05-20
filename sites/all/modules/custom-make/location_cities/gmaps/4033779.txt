@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Servitude scholermann",
+               "short_name" : "Servitude scholermann",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Puna'auia",
+               "short_name" : "Puna'auia",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Windward Islands",
+               "short_name" : "Windward Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Polynesia",
+               "short_name" : "PF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Servitude scholermann, Puna'auia, French Polynesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -17.61597330,
+                  "lng" : -149.60880970
+               },
+               "southwest" : {
+                  "lat" : -17.61598710,
+                  "lng" : -149.60987940
+               }
+            },
+            "location" : {
+               "lat" : -17.61598070,
+               "lng" : -149.60934460
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -17.61463121970850,
+                  "lng" : -149.6079955697085
+               },
+               "southwest" : {
+                  "lat" : -17.61732918029150,
+                  "lng" : -149.6106935302915
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Puna'auia",
+               "short_name" : "Puna'auia",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Windward Islands",
+               "short_name" : "Windward Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Polynesia",
+               "short_name" : "PF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Puna'auia, French Polynesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -17.57710290,
+                  "lng" : -149.58143230
+               },
+               "southwest" : {
+                  "lat" : -17.67095070,
+                  "lng" : -149.61736240
+               }
+            },
+            "location" : {
+               "lat" : -17.630,
+               "lng" : -149.60
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -17.57710290,
+                  "lng" : -149.58143230
+               },
+               "southwest" : {
+                  "lat" : -17.67095070,
+                  "lng" : -149.61736240
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Windward Islands",
+               "short_name" : "Windward Islands",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "French Polynesia",
+               "short_name" : "PF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Windward Islands, French Polynesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -16.98452390,
+                  "lng" : -148.05996170
+               },
+               "southwest" : {
+                  "lat" : -17.88002580,
+                  "lng" : -150.65187080
+               }
+            },
+            "location" : {
+               "lat" : -17.65091950,
+               "lng" : -149.42604210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -17.4994950,
+                  "lng" : -149.12847960
+               },
+               "southwest" : {
+                  "lat" : -17.88002580,
+                  "lng" : -149.62088750
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "French Polynesia",
+               "short_name" : "PF",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "French Polynesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.89561510,
+                  "lng" : -138.60940170
+               },
+               "southwest" : {
+                  "lat" : -23.90624090,
+                  "lng" : -153.99164910
+               }
+            },
+            "location" : {
+               "lat" : -17.6797420,
+               "lng" : -149.4068430
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -17.49441140,
+                  "lng" : -149.12515630
+               },
+               "southwest" : {
+                  "lat" : -17.8804320,
+                  "lng" : -149.62088750
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

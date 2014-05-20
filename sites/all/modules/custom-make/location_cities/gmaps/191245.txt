@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Omino Crescent Road",
+               "short_name" : "Omino Crescent Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Omino Crescent Road, Kisumu, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.10162770,
+                  "lng" : 34.76203760
+               },
+               "southwest" : {
+                  "lat" : -0.10248760,
+                  "lng" : 34.76125240
+               }
+            },
+            "location" : {
+               "lat" : -0.10205770,
+               "lng" : 34.7616450
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.1007086697084980,
+                  "lng" : 34.76299398029150
+               },
+               "southwest" : {
+                  "lat" : -0.1034066302915020,
+                  "lng" : 34.76029601970851
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kisumu, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -0.07961599999999999,
+                  "lng" : 34.77580560000001
+               },
+               "southwest" : {
+                  "lat" : -0.12823090,
+                  "lng" : 34.7366130
+               }
+            },
+            "location" : {
+               "lat" : -0.10124340,
+               "lng" : 34.75788210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -0.07961599999999999,
+                  "lng" : 34.77580560000001
+               },
+               "southwest" : {
+                  "lat" : -0.12823090,
+                  "lng" : 34.7366130
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kisumu, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.03750810,
+                  "lng" : 34.90124690
+               },
+               "southwest" : {
+                  "lat" : -0.18745380,
+                  "lng" : 34.57523440
+               }
+            },
+            "location" : {
+               "lat" : -0.09170159999999999,
+               "lng" : 34.76795680
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.03750810,
+                  "lng" : 34.90124690
+               },
+               "southwest" : {
+                  "lat" : -0.18745380,
+                  "lng" : 34.57523440
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kisumu",
+               "short_name" : "Kisumu",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kisumu, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.0210850,
+                  "lng" : 35.3438330
+               },
+               "southwest" : {
+                  "lat" : -0.4207240,
+                  "lng" : 34.409520
+               }
+            },
+            "location" : {
+               "lat" : -0.18437850,
+               "lng" : 34.77407930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.0210850,
+                  "lng" : 35.3438330
+               },
+               "southwest" : {
+                  "lat" : -0.4207240,
+                  "lng" : 34.409520
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

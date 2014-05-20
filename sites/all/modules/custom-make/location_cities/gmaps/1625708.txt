@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Kenyeri",
+               "short_name" : "Jl. Kenyeri",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "82121",
+               "short_name" : "82121",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Kenyeri, Tabanan, Bali 82121, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.5411690,
+                  "lng" : 115.1257790
+               },
+               "southwest" : {
+                  "lat" : -8.5413990,
+                  "lng" : 115.1252680
+               }
+            },
+            "location" : {
+               "lat" : -8.54128450,
+               "lng" : 115.12552330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.539935019708498,
+                  "lng" : 115.1268724802915
+               },
+               "southwest" : {
+                  "lat" : -8.542632980291502,
+                  "lng" : 115.1241745197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Delod Peken",
+               "short_name" : "Delod Peken",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Delod Peken, Tabanan, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.53642290,
+                  "lng" : 115.1388950
+               },
+               "southwest" : {
+                  "lat" : -8.558249000000002,
+                  "lng" : 115.1207050
+               }
+            },
+            "location" : {
+               "lat" : -8.54362450,
+               "lng" : 115.12814250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.53642290,
+                  "lng" : 115.1388950
+               },
+               "southwest" : {
+                  "lat" : -8.558249000000002,
+                  "lng" : 115.1207050
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "82121",
+               "short_name" : "82121",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bali 82121, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.51672840,
+                  "lng" : 115.16723630
+               },
+               "southwest" : {
+                  "lat" : -8.62995330,
+                  "lng" : 115.0858230
+               }
+            },
+            "location" : {
+               "lat" : -8.56499810,
+               "lng" : 115.12962490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.51672840,
+                  "lng" : 115.16723630
+               },
+               "southwest" : {
+                  "lat" : -8.62995330,
+                  "lng" : 115.0858230
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tabanan, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.4414540,
+                  "lng" : 115.1578810
+               },
+               "southwest" : {
+                  "lat" : -8.593188899999999,
+                  "lng" : 115.05934610
+               }
+            },
+            "location" : {
+               "lat" : -8.5445160,
+               "lng" : 115.1197970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.4414540,
+                  "lng" : 115.1578810
+               },
+               "southwest" : {
+                  "lat" : -8.593188899999999,
+                  "lng" : 115.05934610
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tabanan, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.4414540,
+                  "lng" : 115.1578810
+               },
+               "southwest" : {
+                  "lat" : -8.593188899999999,
+                  "lng" : 115.05934610
+               }
+            },
+            "location" : {
+               "lat" : -8.54014160,
+               "lng" : 115.12369520
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.4414540,
+                  "lng" : 115.1578810
+               },
+               "southwest" : {
+                  "lat" : -8.593188899999999,
+                  "lng" : 115.05934610
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tabanan",
+               "short_name" : "Tabanan",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tabanan, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.241584099999999,
+                  "lng" : 115.2181750
+               },
+               "southwest" : {
+                  "lat" : -8.6368730,
+                  "lng" : 114.9139280
+               }
+            },
+            "location" : {
+               "lat" : -8.459556100000002,
+               "lng" : 115.04659910
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.241584099999999,
+                  "lng" : 115.2181750
+               },
+               "southwest" : {
+                  "lat" : -8.6368730,
+                  "lng" : 114.9139280
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.71152810
+               },
+               "southwest" : {
+                  "lat" : -8.849260899999999,
+                  "lng" : 114.4316260
+               }
+            },
+            "location" : {
+               "lat" : -8.40951780,
+               "lng" : 115.1889160
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.71152810
+               },
+               "southwest" : {
+                  "lat" : -8.849260899999999,
+                  "lng" : 114.4316260
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

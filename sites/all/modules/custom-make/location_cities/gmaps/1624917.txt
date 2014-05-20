@@ -1,0 +1,419 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Amir Hamzah",
+               "short_name" : "Jl. Amir Hamzah",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Bandar Lampung",
+               "short_name" : "Bandar Lampung",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Central Tanjung Karang",
+               "short_name" : "Central Tanjung Karang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bandar Lampung City",
+               "short_name" : "Bandar Lampung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "35214",
+               "short_name" : "35214",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Amir Hamzah, Central Tanjung Karang, Bandar Lampung City, Lampung 35214, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.42559840,
+                  "lng" : 105.25775810
+               },
+               "southwest" : {
+                  "lat" : -5.42564490,
+                  "lng" : 105.25732480
+               }
+            },
+            "location" : {
+               "lat" : -5.425606699999999,
+               "lng" : 105.25753930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.424272669708498,
+                  "lng" : 105.2588904302915
+               },
+               "southwest" : {
+                  "lat" : -5.426970630291502,
+                  "lng" : 105.2561924697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Gotong Royong",
+               "short_name" : "Gotong Royong",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Central Tanjung Karang",
+               "short_name" : "Central Tanjung Karang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bandar Lampung City",
+               "short_name" : "Bandar Lampung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Gotong Royong, Central Tanjung Karang, Bandar Lampung City, Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.42125090,
+                  "lng" : 105.25902790
+               },
+               "southwest" : {
+                  "lat" : -5.4279890,
+                  "lng" : 105.25139490
+               }
+            },
+            "location" : {
+               "lat" : -5.42394730,
+               "lng" : 105.25605180
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.42125090,
+                  "lng" : 105.25902790
+               },
+               "southwest" : {
+                  "lat" : -5.4279890,
+                  "lng" : 105.25139490
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "35214",
+               "short_name" : "35214",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bandar Lampung City",
+               "short_name" : "Bandar Lampung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bandar Lampung City, Lampung 35214, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.413802100000001,
+                  "lng" : 105.25949850
+               },
+               "southwest" : {
+                  "lat" : -5.43371670,
+                  "lng" : 105.23901360
+               }
+            },
+            "location" : {
+               "lat" : -5.42532840,
+               "lng" : 105.25166290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.413802100000001,
+                  "lng" : 105.25949850
+               },
+               "southwest" : {
+                  "lat" : -5.43371670,
+                  "lng" : 105.23901360
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Tanjung Karang",
+               "short_name" : "Central Tanjung Karang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bandar Lampung City",
+               "short_name" : "Bandar Lampung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Tanjung Karang, Bandar Lampung City, Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.398219099999999,
+                  "lng" : 105.2628890
+               },
+               "southwest" : {
+                  "lat" : -5.4279890,
+                  "lng" : 105.23810
+               }
+            },
+            "location" : {
+               "lat" : -5.41518110,
+               "lng" : 105.25166290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.398219099999999,
+                  "lng" : 105.2628890
+               },
+               "southwest" : {
+                  "lat" : -5.4279890,
+                  "lng" : 105.23810
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bandar Lampung",
+               "short_name" : "Bandar Lampung",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bandar Lampung City",
+               "short_name" : "Bandar Lampung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bandar Lampung, Bandar Lampung City, Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.335306999999999,
+                  "lng" : 105.3594190
+               },
+               "southwest" : {
+                  "lat" : -5.5218520,
+                  "lng" : 105.1755320
+               }
+            },
+            "location" : {
+               "lat" : -5.450,
+               "lng" : 105.26666670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.335306999999999,
+                  "lng" : 105.3594190
+               },
+               "southwest" : {
+                  "lat" : -5.5218520,
+                  "lng" : 105.1755320
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bandar Lampung City",
+               "short_name" : "Bandar Lampung City",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bandar Lampung City, Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.335306999999999,
+                  "lng" : 105.3594190
+               },
+               "southwest" : {
+                  "lat" : -5.5218520,
+                  "lng" : 105.1755320
+               }
+            },
+            "location" : {
+               "lat" : -5.42809080,
+               "lng" : 105.24288530
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.335306999999999,
+                  "lng" : 105.3594190
+               },
+               "southwest" : {
+                  "lat" : -5.5218520,
+                  "lng" : 105.1755320
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lampung",
+               "short_name" : "Lampung",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lampung, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -3.72382290,
+                  "lng" : 105.91664410
+               },
+               "southwest" : {
+                  "lat" : -6.1685580,
+                  "lng" : 103.57269310
+               }
+            },
+            "location" : {
+               "lat" : -4.55858490,
+               "lng" : 105.40680790
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -3.72382290,
+                  "lng" : 105.91664410
+               },
+               "southwest" : {
+                  "lat" : -6.1685580,
+                  "lng" : 103.57269310
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

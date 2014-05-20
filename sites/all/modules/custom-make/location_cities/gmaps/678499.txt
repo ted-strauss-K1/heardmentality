@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Strada Libertății",
+               "short_name" : "Strada Libertății",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Făgăraș",
+               "short_name" : "Făgăraș",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Brașov",
+               "short_name" : "BV",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Romania",
+               "short_name" : "RO",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Strada Libertății, Făgăraș, Romania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.85057980,
+                  "lng" : 24.96774480
+               },
+               "southwest" : {
+                  "lat" : 45.84960850,
+                  "lng" : 24.96724610
+               }
+            },
+            "location" : {
+               "lat" : 45.85009370,
+               "lng" : 24.96749350
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.85144313029149,
+                  "lng" : 24.96884443029150
+               },
+               "southwest" : {
+                  "lat" : 45.84874516970850,
+                  "lng" : 24.96614646970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Făgăraș",
+               "short_name" : "Făgăraș",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Brașov",
+               "short_name" : "BV",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Romania",
+               "short_name" : "RO",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Făgăraș, Romania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.85990080,
+                  "lng" : 24.99919660
+               },
+               "southwest" : {
+                  "lat" : 45.78981659999999,
+                  "lng" : 24.94874940
+               }
+            },
+            "location" : {
+               "lat" : 45.8433420,
+               "lng" : 24.9778710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.85990080,
+                  "lng" : 24.99919660
+               },
+               "southwest" : {
+                  "lat" : 45.78981659999999,
+                  "lng" : 24.94874940
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Brașov",
+               "short_name" : "BV",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Romania",
+               "short_name" : "RO",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Brașov, Romania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.2021560,
+                  "lng" : 26.08079490
+               },
+               "southwest" : {
+                  "lat" : 45.40764890,
+                  "lng" : 24.6311180
+               }
+            },
+            "location" : {
+               "lat" : 45.77818440,
+               "lng" : 25.22258010
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.2021560,
+                  "lng" : 26.08079490
+               },
+               "southwest" : {
+                  "lat" : 45.40764890,
+                  "lng" : 24.6311180
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Romania",
+               "short_name" : "RO",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Romania",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.2652740,
+                  "lng" : 29.75710149999999
+               },
+               "southwest" : {
+                  "lat" : 43.61861930,
+                  "lng" : 20.26175930
+               }
+            },
+            "location" : {
+               "lat" : 45.9431610,
+               "lng" : 24.966760
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.2652740,
+                  "lng" : 29.75710149999999
+               },
+               "southwest" : {
+                  "lat" : 43.61861930,
+                  "lng" : 20.26175930
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,187 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Unnamed Road",
+               "short_name" : "Unnamed Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Eloten",
+               "short_name" : "Eloten",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mary",
+               "short_name" : "Mary",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Turkmenistan",
+               "short_name" : "TM",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Unnamed Road, Eloten, Turkmenistan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 37.30192060,
+                  "lng" : 62.35979860
+               },
+               "southwest" : {
+                  "lat" : 37.29849680,
+                  "lng" : 62.35752290000001
+               }
+            },
+            "location" : {
+               "lat" : 37.30020810,
+               "lng" : 62.35865920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.30192060,
+                  "lng" : 62.36000973029151
+               },
+               "southwest" : {
+                  "lat" : 37.29849680,
+                  "lng" : 62.35731176970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Eloten",
+               "short_name" : "Eloten",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mary",
+               "short_name" : "Mary",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Turkmenistan",
+               "short_name" : "TM",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Eloten, Turkmenistan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 37.33044710,
+                  "lng" : 62.39521979999999
+               },
+               "southwest" : {
+                  "lat" : 37.26496840,
+                  "lng" : 62.32037529999999
+               }
+            },
+            "location" : {
+               "lat" : 37.29202990,
+               "lng" : 62.35900099999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.33044710,
+                  "lng" : 62.39521979999999
+               },
+               "southwest" : {
+                  "lat" : 37.26496840,
+                  "lng" : 62.32037529999999
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mary",
+               "short_name" : "Mary",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Turkmenistan",
+               "short_name" : "TM",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mary, Turkmenistan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 39.51360290,
+                  "lng" : 64.73783899999999
+               },
+               "southwest" : {
+                  "lat" : 35.1411510,
+                  "lng" : 60.39503499999999
+               }
+            },
+            "location" : {
+               "lat" : 36.94816230,
+               "lng" : 62.45041540
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 39.51360290,
+                  "lng" : 64.73783899999999
+               },
+               "southwest" : {
+                  "lat" : 35.1411510,
+                  "lng" : 60.39503499999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Turkmenistan",
+               "short_name" : "TM",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Turkmenistan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.7988440,
+                  "lng" : 66.70735309999999
+               },
+               "southwest" : {
+                  "lat" : 35.128760,
+                  "lng" : 52.44774320
+               }
+            },
+            "location" : {
+               "lat" : 38.9697190,
+               "lng" : 59.5562780
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.7988440,
+                  "lng" : 66.70735309999999
+               },
+               "southwest" : {
+                  "lat" : 35.128760,
+                  "lng" : 52.44774320
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

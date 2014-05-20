@@ -1,0 +1,293 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Raya River",
+               "short_name" : "Raya River",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Raya Kepulauan River",
+               "short_name" : "Raya Kepulauan River",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bengkayang",
+               "short_name" : "Bengkayang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Raya River, Raya Kepulauan River, Bengkayang, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.7962960000000001,
+                  "lng" : 109.01239310
+               },
+               "southwest" : {
+                  "lat" : 0.6950290,
+                  "lng" : 108.7526020
+               }
+            },
+            "location" : {
+               "lat" : 0.73949320,
+               "lng" : 108.93833770
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.7962960000000001,
+                  "lng" : 109.01239310
+               },
+               "southwest" : {
+                  "lat" : 0.6950290,
+                  "lng" : 108.85962670
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Raya Kepulauan River",
+               "short_name" : "Raya Kepulauan River",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bengkayang",
+               "short_name" : "Bengkayang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Raya Kepulauan River, Bengkayang, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.8451670,
+                  "lng" : 109.0505910
+               },
+               "southwest" : {
+                  "lat" : 0.6563430,
+                  "lng" : 108.68678290
+               }
+            },
+            "location" : {
+               "lat" : 0.7665510,
+               "lng" : 108.92645240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.84140710,
+                  "lng" : 109.0505910
+               },
+               "southwest" : {
+                  "lat" : 0.6563430,
+                  "lng" : 108.84067350
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "79271",
+               "short_name" : "79271",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Kalimantan 79271, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 0.84638110,
+                  "lng" : 109.11033630
+               },
+               "southwest" : {
+                  "lat" : 0.5309693999999999,
+                  "lng" : 108.68843080
+               }
+            },
+            "location" : {
+               "lat" : 0.6943815999999999,
+               "lng" : 108.97399540
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 0.84638110,
+                  "lng" : 109.11033630
+               },
+               "southwest" : {
+                  "lat" : 0.5309693999999999,
+                  "lng" : 108.83549490
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bengkayang",
+               "short_name" : "Bengkayang",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bengkayang, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.53817810,
+                  "lng" : 110.1378630
+               },
+               "southwest" : {
+                  "lat" : 0.5277888000000001,
+                  "lng" : 108.68678290
+               }
+            },
+            "location" : {
+               "lat" : 1.069110,
+               "lng" : 109.66393090
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.53817810,
+                  "lng" : 110.1378630
+               },
+               "southwest" : {
+                  "lat" : 0.5277888000000001,
+                  "lng" : 108.68678290
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.0114640,
+                  "lng" : 114.2008290
+               },
+               "southwest" : {
+                  "lat" : -3.0391840,
+                  "lng" : 108.0207820
+               }
+            },
+            "location" : {
+               "lat" : -0.27878080,
+               "lng" : 111.47528510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.0114640,
+                  "lng" : 114.2008290
+               },
+               "southwest" : {
+                  "lat" : -3.0391840,
+                  "lng" : 108.0207820
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,192 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "R-123",
+               "short_name" : "R-123",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Zhetizhal",
+               "short_name" : "Zhetizhal",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Koksu District",
+               "short_name" : "Koksu District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Almaty Province",
+               "short_name" : "Almaty Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kazakhstan",
+               "short_name" : "KZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "R-123, Zhetizhal, Kazakhstan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.01986760,
+                  "lng" : 77.92453580
+               },
+               "southwest" : {
+                  "lat" : 44.98609520,
+                  "lng" : 77.90491100000001
+               }
+            },
+            "location" : {
+               "lat" : 45.00353550,
+               "lng" : 77.91708539999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.01986760,
+                  "lng" : 77.92453580
+               },
+               "southwest" : {
+                  "lat" : 44.98609520,
+                  "lng" : 77.90491100000001
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Koksu District",
+               "short_name" : "Koksu District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Almaty Province",
+               "short_name" : "Almaty Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kazakhstan",
+               "short_name" : "KZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Koksu District, Kazakhstan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.14136750,
+                  "lng" : 78.52066040
+               },
+               "southwest" : {
+                  "lat" : 44.4896480,
+                  "lng" : 76.84112540
+               }
+            },
+            "location" : {
+               "lat" : 44.76891270,
+               "lng" : 77.55726220
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.14136750,
+                  "lng" : 78.52066040
+               },
+               "southwest" : {
+                  "lat" : 44.4896480,
+                  "lng" : 76.84112540
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Almaty Province",
+               "short_name" : "Almaty Province",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kazakhstan",
+               "short_name" : "KZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Almaty Province, Kazakhstan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 47.3298470,
+                  "lng" : 82.63085889999999
+               },
+               "southwest" : {
+                  "lat" : 42.2020490,
+                  "lng" : 74.04462210
+               }
+            },
+            "location" : {
+               "lat" : 45.01192270,
+               "lng" : 78.42293920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 47.3298470,
+                  "lng" : 82.63085889999999
+               },
+               "southwest" : {
+                  "lat" : 42.2020490,
+                  "lng" : 74.04462210
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kazakhstan",
+               "short_name" : "KZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kazakhstan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 55.44198390,
+                  "lng" : 87.3154150
+               },
+               "southwest" : {
+                  "lat" : 40.56858410,
+                  "lng" : 46.49367190
+               }
+            },
+            "location" : {
+               "lat" : 48.0195730,
+               "lng" : 66.92368399999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 55.44198390,
+                  "lng" : 87.3154150
+               },
+               "southwest" : {
+                  "lat" : 40.56858410,
+                  "lng" : 46.49367190
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

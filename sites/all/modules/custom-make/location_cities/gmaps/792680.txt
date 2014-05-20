@@ -1,0 +1,245 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Svetozara Markovića",
+               "short_name" : "Svetozara Markovića",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Belgrade",
+               "short_name" : "Belgrade",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Savski Venac",
+               "short_name" : "Savski Venac",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "City of Belgrade",
+               "short_name" : "City of Belgrade",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "11000",
+               "short_name" : "11000",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Svetozara Markovića, Belgrade 11000, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.80471440,
+                  "lng" : 20.46517660
+               },
+               "southwest" : {
+                  "lat" : 44.80419759999999,
+                  "lng" : 20.46454080
+               }
+            },
+            "location" : {
+               "lat" : 44.8044560,
+               "lng" : 20.46485870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.80580498029150,
+                  "lng" : 20.46620768029150
+               },
+               "southwest" : {
+                  "lat" : 44.80310701970850,
+                  "lng" : 20.46350971970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Savski Venac",
+               "short_name" : "Savski Venac",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "City of Belgrade",
+               "short_name" : "City of Belgrade",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Savski Venac, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.81543590,
+                  "lng" : 20.47399340
+               },
+               "southwest" : {
+                  "lat" : 44.75445730,
+                  "lng" : 20.42472110
+               }
+            },
+            "location" : {
+               "lat" : 44.78217270,
+               "lng" : 20.45144240
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.81543590,
+                  "lng" : 20.47399340
+               },
+               "southwest" : {
+                  "lat" : 44.75445730,
+                  "lng" : 20.42472110
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Belgrade",
+               "short_name" : "Belgrade",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "City of Belgrade",
+               "short_name" : "City of Belgrade",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Belgrade, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.94244530,
+                  "lng" : 20.61893450
+               },
+               "southwest" : {
+                  "lat" : 44.68804540,
+                  "lng" : 20.22171020
+               }
+            },
+            "location" : {
+               "lat" : 44.82055560,
+               "lng" : 20.46222220
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.94244530,
+                  "lng" : 20.61893450
+               },
+               "southwest" : {
+                  "lat" : 44.68804540,
+                  "lng" : 20.22171020
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "City of Belgrade",
+               "short_name" : "City of Belgrade",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "City of Belgrade, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.0991930,
+                  "lng" : 20.8600790
+               },
+               "southwest" : {
+                  "lat" : 44.2627390,
+                  "lng" : 19.98315090
+               }
+            },
+            "location" : {
+               "lat" : 44.58503950,
+               "lng" : 20.39640260
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.0991930,
+                  "lng" : 20.8600790
+               },
+               "southwest" : {
+                  "lat" : 44.2627390,
+                  "lng" : 19.98315090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

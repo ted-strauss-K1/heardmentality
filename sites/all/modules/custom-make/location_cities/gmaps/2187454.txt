@@ -1,0 +1,346 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "96",
+               "short_name" : "96",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Bader Drive",
+               "short_name" : "Bader Drive",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Mangere",
+               "short_name" : "Mangere",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "2022",
+               "short_name" : "2022",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "96 Bader Drive, Mangere, Auckland 2022, New Zealand",
+         "geometry" : {
+            "location" : {
+               "lat" : -36.96787770,
+               "lng" : 174.79856880
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -36.96652871970850,
+                  "lng" : 174.7999177802915
+               },
+               "southwest" : {
+                  "lat" : -36.96922668029150,
+                  "lng" : 174.7972198197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mangere",
+               "short_name" : "Mangere",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mangere, Auckland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -36.9491810,
+                  "lng" : 174.83658880
+               },
+               "southwest" : {
+                  "lat" : -37.00667720,
+                  "lng" : 174.72961610
+               }
+            },
+            "location" : {
+               "lat" : -36.96862770,
+               "lng" : 174.79368720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -36.9491810,
+                  "lng" : 174.83658880
+               },
+               "southwest" : {
+                  "lat" : -37.00667720,
+                  "lng" : 174.72961610
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "2022",
+               "short_name" : "2022",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Auckland 2022, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -36.93279920,
+                  "lng" : 174.83658820
+               },
+               "southwest" : {
+                  "lat" : -37.02390330,
+                  "lng" : 174.72681250
+               }
+            },
+            "location" : {
+               "lat" : -36.97936430,
+               "lng" : 174.78377170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -36.93279920,
+                  "lng" : 174.83658820
+               },
+               "southwest" : {
+                  "lat" : -37.02390330,
+                  "lng" : 174.72681250
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Auckland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -36.6605710,
+                  "lng" : 175.28713710
+               },
+               "southwest" : {
+                  "lat" : -37.06547510,
+                  "lng" : 174.44380160
+               }
+            },
+            "location" : {
+               "lat" : -36.84845970,
+               "lng" : 174.76333150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -36.6605710,
+                  "lng" : 175.28713710
+               },
+               "southwest" : {
+                  "lat" : -37.06547510,
+                  "lng" : 174.44380160
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Auckland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -35.89880140,
+                  "lng" : 175.55098550
+               },
+               "southwest" : {
+                  "lat" : -37.58634210,
+                  "lng" : 174.1620890
+               }
+            },
+            "location" : {
+               "lat" : -36.74228140,
+               "lng" : 174.52221890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -35.89880810,
+                  "lng" : 175.55098550
+               },
+               "southwest" : {
+                  "lat" : -37.58634210,
+                  "lng" : 174.1620890
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Auckland",
+               "short_name" : "Auckland",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Auckland, New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -35.89880140,
+                  "lng" : 175.55098550
+               },
+               "southwest" : {
+                  "lat" : -37.58634210,
+                  "lng" : 174.1620890
+               }
+            },
+            "location" : {
+               "lat" : -36.74228140,
+               "lng" : 174.52221890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -35.89880810,
+                  "lng" : 175.55098550
+               },
+               "southwest" : {
+                  "lat" : -37.58634210,
+                  "lng" : 174.1620890
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "New Zealand",
+               "short_name" : "NZ",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "New Zealand",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -29.23134190,
+                  "lng" : -176.15422480
+               },
+               "southwest" : {
+                  "lat" : -52.61941849999999,
+                  "lng" : 165.86943690
+               }
+            },
+            "location" : {
+               "lat" : -40.9005570,
+               "lng" : 174.8859710
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -34.12955780,
+                  "lng" : 179.06253570
+               },
+               "southwest" : {
+                  "lat" : -47.76812409999999,
+                  "lng" : 166.42613610
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

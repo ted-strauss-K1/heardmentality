@@ -1,0 +1,341 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "41",
+               "short_name" : "41",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Fandriana",
+               "short_name" : "Fandriana",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Fandriana",
+               "short_name" : "Fandriana",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "41, Fandriana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.23535070,
+                  "lng" : 47.37871170
+               },
+               "southwest" : {
+                  "lat" : -20.23766580,
+                  "lng" : 47.37820940
+               }
+            },
+            "location" : {
+               "lat" : -20.23644540,
+               "lng" : 47.37846580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.23515926970850,
+                  "lng" : 47.37980953029150
+               },
+               "southwest" : {
+                  "lat" : -20.23785723029150,
+                  "lng" : 47.37711156970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Fandriana",
+               "short_name" : "Fandriana",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Fandriana",
+               "short_name" : "Fandriana",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Fandriana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.22559680,
+                  "lng" : 47.39068510
+               },
+               "southwest" : {
+                  "lat" : -20.25728540,
+                  "lng" : 47.36527930
+               }
+            },
+            "location" : {
+               "lat" : -20.2402190,
+               "lng" : 47.3709980
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.22559680,
+                  "lng" : 47.39068510
+               },
+               "southwest" : {
+                  "lat" : -20.25728540,
+                  "lng" : 47.36527930
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Fandriana",
+               "short_name" : "Fandriana",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Fandriana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.91525710,
+                  "lng" : 47.72186290
+               },
+               "southwest" : {
+                  "lat" : -20.43736350,
+                  "lng" : 47.27485650
+               }
+            },
+            "location" : {
+               "lat" : -20.20243340,
+               "lng" : 47.52754220
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.91525710,
+                  "lng" : 47.72186290
+               },
+               "southwest" : {
+                  "lat" : -20.43736350,
+                  "lng" : 47.27485650
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ambositra",
+               "short_name" : "Ambositra",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ambositra, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.00754850,
+                  "lng" : 47.87361160
+               },
+               "southwest" : {
+                  "lat" : -20.83699430,
+                  "lng" : 47.07023620
+               }
+            },
+            "location" : {
+               "lat" : -20.51451280,
+               "lng" : 47.29238930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.00754850,
+                  "lng" : 47.87361160
+               },
+               "southwest" : {
+                  "lat" : -20.83699430,
+                  "lng" : 47.07023620
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Amoron'i Mania",
+               "short_name" : "Amoron'i Mania",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Amoron'i Mania, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.87522580,
+                  "lng" : 47.75825500000001
+               },
+               "southwest" : {
+                  "lat" : -21.07929970,
+                  "lng" : 45.68115230
+               }
+            },
+            "location" : {
+               "lat" : -20.62840320,
+               "lng" : 46.6705340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.87522580,
+                  "lng" : 47.75825500000001
+               },
+               "southwest" : {
+                  "lat" : -21.07929970,
+                  "lng" : 45.68115230
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Fianarantsoa, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.9002150,
+                  "lng" : 48.597370
+               },
+               "southwest" : {
+                  "lat" : -24.31456610,
+                  "lng" : 45.0145470
+               }
+            },
+            "location" : {
+               "lat" : -22.3536240,
+               "lng" : 46.82528380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.9002150,
+                  "lng" : 48.597370
+               },
+               "southwest" : {
+                  "lat" : -24.31456610,
+                  "lng" : 45.0145470
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

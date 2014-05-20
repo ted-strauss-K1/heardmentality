@@ -1,0 +1,10 @@
+name = Newsletter
+description = "Newsletter implementation"
+package = Custom Modules
+core = 6.x
+
+dependencies[] = simplenews
+
+dependencies[] = cpoll_vote
+
+

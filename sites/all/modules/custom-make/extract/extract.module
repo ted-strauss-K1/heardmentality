@@ -1,0 +1,53 @@
+<?php
+
+/**
+ *
+ */
+require_once __DIR__ . '/extract.inc';
+
+/**
+ * @return array
+ */
+function extract_menu() {
+  $menu = array();
+
+  $menu['analysis'] = array(
+    'title'           => t('Analysis'),
+    'page callback'   => 'theme',
+    'page arguments'  => array('analysis'),
+    'access callback' => TRUE,
+  );
+
+  $menu['admin/build/extract'] = array(
+    'title'            => t('Rebuild Extract Caches'),
+    'page callback'    => 'extract_rebuild',
+    'access arguments' => array('administer site configuration'),
+    'type'             => MENU_NORMAL_ITEM,
+  );
+
+  return $menu;
+}
+
+/**
+ * @return array
+ */
+function extract_theme() {
+  $theme = array();
+
+  $theme['analysis'] = array(
+    'arguments'            => array(),
+    'template'             => 'analysis',
+    'preprocess functions' => array('extract_theme_theme_analysis_preprocess'),
+  );
+
+  return $theme;
+}
+
+/**
+ * @param $vars
+ */
+function extract_preprocess_page(&$vars) {
+  if ('analysis' == arg(0)) {
+    array_push($vars['template_files'], 'page_16_0');
+  }
+}

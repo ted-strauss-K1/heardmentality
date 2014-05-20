@@ -1,0 +1,134 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Talau Road",
+               "short_name" : "Talau Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "West Pokot",
+               "short_name" : "West Pokot",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Talau Road, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.22966620,
+                  "lng" : 35.11981490
+               },
+               "southwest" : {
+                  "lat" : 1.22887250,
+                  "lng" : 35.11729360
+               }
+            },
+            "location" : {
+               "lat" : 1.22903460,
+               "lng" : 35.11858920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.230618330291502,
+                  "lng" : 35.11990323029150
+               },
+               "southwest" : {
+                  "lat" : 1.227920369708498,
+                  "lng" : 35.11720526970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Pokot",
+               "short_name" : "West Pokot",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Pokot, Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.6987390,
+                  "lng" : 35.7906790
+               },
+               "southwest" : {
+                  "lat" : 1.1294910,
+                  "lng" : 34.769760
+               }
+            },
+            "location" : {
+               "lat" : 1.59244380,
+               "lng" : 35.28536160
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.6987390,
+                  "lng" : 35.7906790
+               },
+               "southwest" : {
+                  "lat" : 1.1294910,
+                  "lng" : 34.769760
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kenya",
+               "short_name" : "KE",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kenya",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            },
+            "location" : {
+               "lat" : -0.0235590,
+               "lng" : 37.9061930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.033420899999999,
+                  "lng" : 41.90683170
+               },
+               "southwest" : {
+                  "lat" : -4.679681599999999,
+                  "lng" : 33.90982120
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

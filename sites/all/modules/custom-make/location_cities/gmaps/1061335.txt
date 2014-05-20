@@ -1,0 +1,293 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "25",
+               "short_name" : "25",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Mananjary",
+               "short_name" : "Mananjary",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mananjary",
+               "short_name" : "Mananjary",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "25, Mananjary, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.23826830,
+                  "lng" : 48.34367330000001
+               },
+               "southwest" : {
+                  "lat" : -21.23832260,
+                  "lng" : 48.34205060
+               }
+            },
+            "location" : {
+               "lat" : -21.23828430,
+               "lng" : 48.34286250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.23694646970850,
+                  "lng" : 48.34421093029150
+               },
+               "southwest" : {
+                  "lat" : -21.23964443029150,
+                  "lng" : 48.34151296970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mananjary",
+               "short_name" : "Mananjary",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Mananjary",
+               "short_name" : "Mananjary",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mananjary, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.1939010,
+                  "lng" : 48.36247320
+               },
+               "southwest" : {
+                  "lat" : -21.24511870,
+                  "lng" : 48.33689570
+               }
+            },
+            "location" : {
+               "lat" : -21.23111110,
+               "lng" : 48.34194440
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.1939010,
+                  "lng" : 48.36247320
+               },
+               "southwest" : {
+                  "lat" : -21.24511870,
+                  "lng" : 48.33689570
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mananjary",
+               "short_name" : "Mananjary",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mananjary, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.7695970,
+                  "lng" : 48.47335289999999
+               },
+               "southwest" : {
+                  "lat" : -21.8023420,
+                  "lng" : 47.76855470
+               }
+            },
+            "location" : {
+               "lat" : -21.26755260,
+               "lng" : 48.00102820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.7695970,
+                  "lng" : 48.47335289999999
+               },
+               "southwest" : {
+                  "lat" : -21.8023420,
+                  "lng" : 47.76855470
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Vatovavy-Fitovinany",
+               "short_name" : "Vatovavy-Fitovinany",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Vatovavy-Fitovinany, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.28924920,
+                  "lng" : 48.59256280
+               },
+               "southwest" : {
+                  "lat" : -22.53848240,
+                  "lng" : 47.08671570
+               }
+            },
+            "location" : {
+               "lat" : -21.32056530,
+               "lng" : 47.92182039999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.28924920,
+                  "lng" : 48.59256280
+               },
+               "southwest" : {
+                  "lat" : -22.53848240,
+                  "lng" : 47.08671570
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Fianarantsoa",
+               "short_name" : "Fianarantsoa",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Fianarantsoa, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -19.9002150,
+                  "lng" : 48.597370
+               },
+               "southwest" : {
+                  "lat" : -24.31456610,
+                  "lng" : 45.0145470
+               }
+            },
+            "location" : {
+               "lat" : -22.3536240,
+               "lng" : 46.82528380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -19.9002150,
+                  "lng" : 48.597370
+               },
+               "southwest" : {
+                  "lat" : -24.31456610,
+                  "lng" : 45.0145470
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

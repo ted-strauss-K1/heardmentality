@@ -1,0 +1,424 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Satria",
+               "short_name" : "Jl. Satria",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Wonosari",
+               "short_name" : "Wonosari",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wonosari",
+               "short_name" : "Wonosari",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Gunung Kidul",
+               "short_name" : "Gunung Kidul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "55851",
+               "short_name" : "55851",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Satria, Wonosari, Gunung Kidul, Special District of Yogyakarta 55851, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.964543699999999,
+                  "lng" : 110.6026240
+               },
+               "southwest" : {
+                  "lat" : -7.9648730,
+                  "lng" : 110.60221950
+               }
+            },
+            "location" : {
+               "lat" : -7.96471210,
+               "lng" : 110.60241840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.963359369708497,
+                  "lng" : 110.6037707302915
+               },
+               "southwest" : {
+                  "lat" : -7.966057330291502,
+                  "lng" : 110.6010727697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wonosari",
+               "short_name" : "Wonosari",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Wonosari",
+               "short_name" : "Wonosari",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Gunung Kidul",
+               "short_name" : "Gunung Kidul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wonosari, Gunung Kidul, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.950956099999999,
+                  "lng" : 110.61844810
+               },
+               "southwest" : {
+                  "lat" : -7.972346999999999,
+                  "lng" : 110.5948760
+               }
+            },
+            "location" : {
+               "lat" : -7.961393699999999,
+               "lng" : 110.6079530
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.950956099999999,
+                  "lng" : 110.61844810
+               },
+               "southwest" : {
+                  "lat" : -7.972346999999999,
+                  "lng" : 110.5948760
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wonosari",
+               "short_name" : "Wonosari",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Gunung Kidul",
+               "short_name" : "Gunung Kidul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wonosari, Gunung Kidul, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.9001480,
+                  "lng" : 110.63052810
+               },
+               "southwest" : {
+                  "lat" : -8.060139999999999,
+                  "lng" : 110.5497770
+               }
+            },
+            "location" : {
+               "lat" : -7.98081160,
+               "lng" : 110.58113630
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.9001480,
+                  "lng" : 110.63052810
+               },
+               "southwest" : {
+                  "lat" : -8.060139999999999,
+                  "lng" : 110.5497770
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "55851",
+               "short_name" : "55851",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Gunung Kidul",
+               "short_name" : "Gunung Kidul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Gunung Kidul, Special District of Yogyakarta 55851, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.89999910,
+                  "lng" : 110.63088220
+               },
+               "southwest" : {
+                  "lat" : -8.060016599999999,
+                  "lng" : 110.55009470
+               }
+            },
+            "location" : {
+               "lat" : -7.938369300000001,
+               "lng" : 110.60497340
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.89999910,
+                  "lng" : 110.63088220
+               },
+               "southwest" : {
+                  "lat" : -8.060016599999999,
+                  "lng" : 110.55009470
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Wonosari",
+               "short_name" : "Wonosari",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wonosari",
+               "short_name" : "Wonosari",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Gunung Kidul",
+               "short_name" : "Gunung Kidul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Wonosari, Gunung Kidul, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.9001480,
+                  "lng" : 110.63052810
+               },
+               "southwest" : {
+                  "lat" : -8.060139999999999,
+                  "lng" : 110.5497770
+               }
+            },
+            "location" : {
+               "lat" : -7.9650650,
+               "lng" : 110.5999980
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.9001480,
+                  "lng" : 110.63052810
+               },
+               "southwest" : {
+                  "lat" : -8.060139999999999,
+                  "lng" : 110.5497770
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Gunung Kidul",
+               "short_name" : "Gunung Kidul",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Gunung Kidul, Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.782178099999999,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.204191999999999,
+                  "lng" : 110.32923590
+               }
+            },
+            "location" : {
+               "lat" : -8.03050910,
+               "lng" : 110.61689210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.782178099999999,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.204191999999999,
+                  "lng" : 110.32923590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Special District of Yogyakarta",
+               "short_name" : "Jogja",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Special District of Yogyakarta, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.2041880,
+                  "lng" : 110.0139420
+               }
+            },
+            "location" : {
+               "lat" : -7.875384899999999,
+               "lng" : 110.42620880
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -7.54189490,
+                  "lng" : 110.83463290
+               },
+               "southwest" : {
+                  "lat" : -8.2041880,
+                  "lng" : 110.0139420
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,243 @@
+<?php
+
+/**
+ * @param int $code
+ */
+function ulogin_alter_redirect($code = 0) {
+  // parse given destination
+  $destination = $_REQUEST['destination'];
+  $destination = parse_url($destination);
+  $_GET['q'] = $destination['path'];
+  parse_str($destination['query'], $destination_params);
+  $_REQUEST = $_GET + $destination_params;
+  unset($_REQUEST['destination']);
+
+  // get redirect path
+  $form = array();
+  user_login_modal_form_redirect($form);
+
+  // redirect
+  drupal_goto($form['#redirect']);
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function ulogin_alter_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'ulogin_settings_form') {
+
+    $fields = _ulogin_fields_list();
+    $form['fset_ulogin_fields']['ulogin_fields_optional'] = array(
+      '#type'          => 'checkboxes',
+      '#title'         => t('Fields to request optionally'),
+      '#options'       => $fields,
+      '#default_value' => variable_get('ulogin_fields_optional', array()),
+      '#description'   => t('Select optional fields you need to have.'),
+    );
+    $form['fset_ulogin_fields']['ulogin_fields_optional'] = array(
+      '#type'          => 'checkboxes',
+      '#title'         => t('Fields to request optionally'),
+      '#options'       => $fields,
+      '#default_value' => variable_get('ulogin_fields_optional', array()),
+      '#description'   => t('Select optional fields you need to have.'),
+    );
+    $form['fset_ulogin_other']['ulogin_duplicate_emails']['#options'][2] = t("Allow duplicate email addresses, log in using the existing account with that email");
+
+  }
+
+  if (user_access('use ulogin') && user_is_anonymous() && in_array($form_id, array_filter(variable_get('ulogin_forms', array(
+      'user_login',
+      'user_login_block'
+    ))))
+  ) {
+    $form['ulogin'] = array(
+      '#type'   => 'ulogin_alter_widget',
+      '#weight' => -100,
+    );
+  }
+}
+
+/**
+ * @param $items
+ */
+function ulogin_alter_menu_alter(&$items) {
+  $items['ulogin']['page callback'] = 'ulogin_alter_callback';
+}
+
+/**
+ * @return int
+ */
+function ulogin_alter_callback() {
+  if (!empty($_POST['token'])) {
+    $data = drupal_http_request('http://ulogin.ru/token.php?token=' . $_POST['token'] . '&host=' . $_SERVER['HTTP_HOST']);
+    $data = json_decode($data->data, TRUE);
+    //check for error
+    if (!empty($data['error'])) {
+      drupal_set_message($data['error'], 'error');
+      return MENU_ACCESS_DENIED;
+    }
+    //validate that returned data contains 'network' and 'uid' keys
+    if (empty($data['network']) || empty($data['uid'])) {
+      drupal_set_message('something is wrong, try again later', 'error');
+      return MENU_ACCESS_DENIED;
+    }
+    //remove 'access_token' property
+    unset($data['access_token']);
+  }
+  else {
+    if (user_is_logged_in()) {
+      ulogin_alter_redirect(1);
+      return MENU_FOUND;
+    }
+
+    drupal_set_message('no token given', 'error');
+    return MENU_ACCESS_DENIED;
+  }
+
+  global $user;
+  //user is already logged in, tries to add new identity
+  if (user_is_logged_in()) {
+    //identity is already registered
+    if ($identity = _ulogin_identity_load($data)) {
+      //registered to this user
+      if ($user->uid == $identity['uid']) {
+        drupal_set_message(t('You have already registered this identity.'));
+        ulogin_alter_redirect(2);
+      } //registered to another user
+      else {
+        drupal_set_message(t('This identity is registered to another user.'), 'error');
+        ulogin_alter_redirect(3);
+      }
+    } //identity is not registered - register it to the logged in user
+    else {
+      _ulogin_identity_save($data);
+      drupal_set_message(t('New identity added.'));
+      ulogin_alter_redirect(4);
+    }
+  }
+
+  if ($identity = _ulogin_identity_load($data)) {
+    user_external_login(user_load($identity['uid']));
+  } // odyachenko
+  //handle duplicate email addresses
+  elseif ((variable_get('ulogin_duplicate_emails', 1) == 2) && !empty($data['email']) && $account = ulogin_user_load_by_mail($data['email'])) {
+    user_external_login($account);
+  } // end odyachenko
+
+  //handle duplicate email addresses
+  elseif (variable_get('ulogin_duplicate_emails', 1) && !empty($data['email']) && $account = ulogin_user_load_by_mail($data['email'])) {
+    drupal_set_message(t('You are trying to login with email address of another user.'), 'error');
+    if (!empty($account->ulogin)) {
+      $providers = _ulogin_providers_list();
+      drupal_set_message(t('If you are completely sure it is your email address, try to login through %network.', array('%network' => $providers[$account->ulogin['network']])), 'status');
+    }
+    else {
+      drupal_set_message(t('If you are completely sure it is your email address, try to login using your username and password on this site. If you don\'t remember your password - <a href="@password">request new password</a>.', array('@password' => url('user/password'))));
+    }
+  }
+  else {
+    global $ulogin_data;
+    $ulogin_data = $data;
+    user_external_login_register(_ulogin_make_username($data), 'ulogin');
+    _ulogin_identity_save($data);
+
+    $user_save_trigger = FALSE;
+    $edit = array();
+    //save user picture
+    if (variable_get('user_pictures', 0) && variable_get('ulogin_pictures', 1)) {
+      $photo_url = '';
+      if (!empty($data['photo_big']) && $data['photo_big'] != 'http://ulogin.ru/img/photo_big.png') {
+        $photo_url = $data['photo_big'];
+      }
+      elseif (!empty($data['photo']) && $data['photo'] != 'http://ulogin.ru/img/photo.png') {
+        $photo_url = $data['photo'];
+      }
+      if ($photo_url) {
+        $photo = drupal_http_request($photo_url);
+        $file = file_save_data($photo->data, file_directory_temp() . '/' . md5($photo_url), FILE_EXISTS_REPLACE);
+
+        $info = image_get_info($file);
+        $destination = variable_get('user_picture_path', 'pictures') . '/picture-' . $user->uid . '.' . $info['extension'];
+        if (file_copy($file, $destination, FILE_EXISTS_REPLACE)) {
+          $edit['picture'] = $file;
+          $user_save_trigger = TRUE;
+        }
+      }
+    }
+    //set email address
+    if (!empty($data['email'])) {
+      $edit['mail'] = $data['email'];
+      $user_save_trigger = TRUE;
+    }
+
+    if ($user_save_trigger) {
+      user_save($user, $edit);
+    }
+  }
+
+  ulogin_alter_redirect(5);
+}
+
+/**
+ * Implements hook_elements().
+ */
+function ulogin_alter_elements() {
+  $types = array();
+
+  $types['ulogin_alter_widget'] = array(
+    '#input'              => FALSE,
+    '#theme'              => 'ulogin_widget',
+    '#ulogin_id'          => 'uLogin',
+    '#ulogin_display'     => variable_get('ulogin_display', 'panel'),
+    '#ulogin_fields'      => implode(',', array_filter(variable_get('ulogin_fields', array(
+      'first_name',
+      'last_name',
+      'email',
+      'nickname',
+      'bdate',
+      'sex',
+      'photo',
+      'photo_big',
+      'country',
+      'city'
+    )))),
+    // odyachenko
+    //    '#ulogin_optional' => '',
+    '#ulogin_optional'    => implode(',', array_filter(variable_get('ulogin_fields_optional', array(
+      'first_name',
+      'last_name',
+      'email',
+      'nickname',
+      'bdate',
+      'sex',
+      'photo',
+      'photo_big',
+      'country',
+      'city'
+    )))),
+    '#ulogin_providers'   => variable_get('ulogin_adv_providers', '') ? variable_get('ulogin_adv_providers', '') : implode(',', array_filter(variable_get('ulogin_providers', array(
+        'vkontakte',
+        'odnoklassniki',
+        'mailru',
+        'facebook'
+      )))),
+    '#ulogin_hidden'      => variable_get('ulogin_adv_hidden', '') ? variable_get('ulogin_adv_hidden', '') : implode(',', array_filter(variable_get('ulogin_hidden', array(
+        'twitter',
+        'google',
+        'yandex',
+        'livejournal',
+        'openid'
+      )))),
+    '#ulogin_destination' => variable_get('ulogin_destination', ''),
+    '#ulogin_redirect'    => variable_get('ulogin_redirect', 0),
+  );
+
+  //TODO: how to make it to respect custom value for '#ulogin_redirect'
+  if ($types['ulogin_widget']['#ulogin_redirect']) {
+    //$types['ulogin_widget']['#attached']['js'][drupal_get_path('module', 'ulogin') . '/js/ulogin.js'] = array('type' => 'file');
+  }
+
+  return $types;
+}

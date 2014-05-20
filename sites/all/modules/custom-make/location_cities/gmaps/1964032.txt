@@ -1,0 +1,361 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Utama",
+               "short_name" : "Utama",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Ciranjang",
+               "short_name" : "Ciranjang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Cianjur",
+               "short_name" : "Cianjur",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "43282",
+               "short_name" : "43282",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Utama, Ciranjang, Cianjur 43282, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.819698199999999,
+                  "lng" : 107.25746110
+               },
+               "southwest" : {
+                  "lat" : -6.8197930,
+                  "lng" : 107.25686230
+               }
+            },
+            "location" : {
+               "lat" : -6.81974560,
+               "lng" : 107.25716170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.818396619708498,
+                  "lng" : 107.2585106802915
+               },
+               "southwest" : {
+                  "lat" : -6.821094580291502,
+                  "lng" : 107.2558127197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Mekargalih",
+               "short_name" : "Mekargalih",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Ciranjang",
+               "short_name" : "Ciranjang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Cianjur",
+               "short_name" : "Cianjur",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Mekargalih, Ciranjang, Cianjur, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.816870,
+                  "lng" : 107.268620
+               },
+               "southwest" : {
+                  "lat" : -6.837569999999999,
+                  "lng" : 107.25436010
+               }
+            },
+            "location" : {
+               "lat" : -6.826726799999999,
+               "lng" : 107.25925120
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.816870,
+                  "lng" : 107.268620
+               },
+               "southwest" : {
+                  "lat" : -6.837569999999999,
+                  "lng" : 107.25436010
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ciranjang",
+               "short_name" : "Ciranjang",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Cianjur",
+               "short_name" : "Cianjur",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ciranjang, Cianjur, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.768160399999999,
+                  "lng" : 107.3002620
+               },
+               "southwest" : {
+                  "lat" : -6.85373010,
+                  "lng" : 107.234710
+               }
+            },
+            "location" : {
+               "lat" : -6.81251290,
+               "lng" : 107.26072890
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.768160399999999,
+                  "lng" : 107.3002620
+               },
+               "southwest" : {
+                  "lat" : -6.85373010,
+                  "lng" : 107.234710
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "43282",
+               "short_name" : "43282",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Cianjur",
+               "short_name" : "Cianjur",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cianjur, West Java 43282, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.763656699999999,
+                  "lng" : 107.31575020
+               },
+               "southwest" : {
+                  "lat" : -6.85366820,
+                  "lng" : 107.23496230
+               }
+            },
+            "location" : {
+               "lat" : -6.806715899999999,
+               "lng" : 107.27846150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.763656699999999,
+                  "lng" : 107.31575020
+               },
+               "southwest" : {
+                  "lat" : -6.85366820,
+                  "lng" : 107.23496230
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cianjur",
+               "short_name" : "Cianjur",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Cianjur, West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -6.60209510,
+                  "lng" : 107.48484010
+               },
+               "southwest" : {
+                  "lat" : -7.504656999999999,
+                  "lng" : 106.7760470
+               }
+            },
+            "location" : {
+               "lat" : -7.35797730,
+               "lng" : 107.19572030
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -6.60209510,
+                  "lng" : 107.48484010
+               },
+               "southwest" : {
+                  "lat" : -7.504656999999999,
+                  "lng" : 106.7760470
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Java",
+               "short_name" : "West Java",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Java, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -5.914709999999999,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.820987000000001,
+                  "lng" : 106.3705080
+               }
+            },
+            "location" : {
+               "lat" : -7.090910999999999,
+               "lng" : 107.6688870
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -5.914709999999999,
+                  "lng" : 108.8397680
+               },
+               "southwest" : {
+                  "lat" : -7.820987000000001,
+                  "lng" : 106.3705080
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

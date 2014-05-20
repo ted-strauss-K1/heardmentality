@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * Implementation of hook_badges()
+ *
+ * @return array
+ */
+function badges_userpoints_badges() {
+  return array(
+    'userpoints_yearling' => array(
+      'function'  => 'badges_userpoints_yearling_check',
+      'name'      => t('Yearling'),
+      'info'      => t('Active member for a year, earning at least 200 reputation'),
+      'arguments' => array('count' => 200, 'days' => 365),
+    ),
+  );
+}
+
+/**
+ * @param $uid
+ *
+ * @return bool
+ */
+function badges_userpoints_yearling_check($uid, $arguments = array()) {
+  static $cache;
+
+  if (is_null($cache)) {
+    $cache = array();
+
+    $result = db_query("
+      SELECT
+        u.uid,
+        DATEDIFF(CURDATE(), FROM_UNIXTIME(u.created, '%Y-%m-%d')) days,
+        IFNULL(up.points, 0) count
+      FROM {users} u
+      LEFT JOIN {userpoints} up ON u.uid = up.uid");
+    while ($row = db_fetch_array($result)) {
+      $cache[$row['uid']] = array('count' => $row['count'], 'days' => $row['days']);
+    }
+  }
+
+  return ($cache[$uid]['count'] >= $arguments['count']) && ($cache[$uid]['days'] >= $arguments['days']);
+}
+
+/**
+ * @param $params
+ */
+function badges_userpoints_queue_action($params) {
+  if ('login' == $params['operation']) {
+    badges_queue_badge(array(
+      'uid'         => $params['uid'],
+      'operation'   => BADGES_ACTION_PREFIX . 'userpoints_yearling',
+      'entity_id'   => 0,
+      'entity_type' => 'badge',
+      'time_stamp'  => $params['timestamp'],
+    ));
+  }
+}

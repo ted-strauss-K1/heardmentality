@@ -1,0 +1,182 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Majuro SDA School System",
+               "short_name" : "Majuro SDA School System",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Majuro Atoll",
+               "short_name" : "Majuro Atoll",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Marshall Islands",
+               "short_name" : "MH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Majuro SDA School System, Majuro Atoll, RMI",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.09196430,
+                  "lng" : 171.38397220
+               },
+               "southwest" : {
+                  "lat" : 7.091288199999999,
+                  "lng" : 171.38355370
+               }
+            },
+            "location" : {
+               "lat" : 7.091646099999999,
+               "lng" : 171.38378440
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.092975230291501,
+                  "lng" : 171.3851119302915
+               },
+               "southwest" : {
+                  "lat" : 7.090277269708497,
+                  "lng" : 171.3824139697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "96960",
+               "short_name" : "96960",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Majuro Atoll",
+               "short_name" : "Majuro Atoll",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Marshall Islands",
+               "short_name" : "MH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Majuro Atoll 96960, RMI",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.14024590,
+                  "lng" : 171.38393270
+               },
+               "southwest" : {
+                  "lat" : 7.06761530,
+                  "lng" : 171.0368210
+               }
+            },
+            "location" : {
+               "lat" : 7.068208899999999,
+               "lng" : 171.28154130
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.069642880291503,
+                  "lng" : 171.2828256302915
+               },
+               "southwest" : {
+                  "lat" : 7.066944919708498,
+                  "lng" : 171.2801276697085
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Majuro Atoll",
+               "short_name" : "Majuro Atoll",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Marshall Islands",
+               "short_name" : "MH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Majuro Atoll, RMI",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 7.22215780,
+                  "lng" : 171.38506660
+               },
+               "southwest" : {
+                  "lat" : 7.05217150,
+                  "lng" : 171.02715250
+               }
+            },
+            "location" : {
+               "lat" : 7.13646650,
+               "lng" : 171.11960750
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.16953430,
+                  "lng" : 171.38506660
+               },
+               "southwest" : {
+                  "lat" : 7.05217150,
+                  "lng" : 171.02715250
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Marshall Islands",
+               "short_name" : "MH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Marshall Islands",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 14.6732550,
+                  "lng" : 172.17018120
+               },
+               "southwest" : {
+                  "lat" : 4.57295560,
+                  "lng" : 160.79795850
+               }
+            },
+            "location" : {
+               "lat" : 7.1314740,
+               "lng" : 171.1844780
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 7.16953430,
+                  "lng" : 171.384970
+               },
+               "southwest" : {
+                  "lat" : 7.052192799999999,
+                  "lng" : 171.02716330
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

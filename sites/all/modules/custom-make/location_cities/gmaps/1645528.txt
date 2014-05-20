@@ -1,0 +1,424 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Veteran",
+               "short_name" : "Jl. Veteran",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Denpasar",
+               "short_name" : "Denpasar",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "North Denpasar",
+               "short_name" : "North Denpasar",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Denpasar",
+               "short_name" : "Denpasar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "80233",
+               "short_name" : "80233",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Veteran, North Denpasar, Denpasar, Bali 80233, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.649563499999999,
+                  "lng" : 115.21744780
+               },
+               "southwest" : {
+                  "lat" : -8.650335799999999,
+                  "lng" : 115.21739910
+               }
+            },
+            "location" : {
+               "lat" : -8.64994950,
+               "lng" : 115.21742810
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.648600669708499,
+                  "lng" : 115.2187724302915
+               },
+               "southwest" : {
+                  "lat" : -8.651298630291503,
+                  "lng" : 115.2160744697085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Dangin Puri Kauh",
+               "short_name" : "Dangin Puri Kauh",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "North Denpasar",
+               "short_name" : "North Denpasar",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Denpasar",
+               "short_name" : "Denpasar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Dangin Puri Kauh, North Denpasar, Denpasar, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.64601390,
+                  "lng" : 115.21879410
+               },
+               "southwest" : {
+                  "lat" : -8.656241099999999,
+                  "lng" : 115.2141490
+               }
+            },
+            "location" : {
+               "lat" : -8.651863199999999,
+               "lng" : 115.21633430
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.64601390,
+                  "lng" : 115.21879410
+               },
+               "southwest" : {
+                  "lat" : -8.656241099999999,
+                  "lng" : 115.2141490
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "80233",
+               "short_name" : "80233",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "North Denpasar",
+               "short_name" : "North Denpasar",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Denpasar",
+               "short_name" : "Denpasar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Denpasar, Denpasar, Bali 80233, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.62685010,
+                  "lng" : 115.2194290
+               },
+               "southwest" : {
+                  "lat" : -8.650881799999999,
+                  "lng" : 115.20913690
+               }
+            },
+            "location" : {
+               "lat" : -8.632320999999999,
+               "lng" : 115.21559330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.62685010,
+                  "lng" : 115.2194290
+               },
+               "southwest" : {
+                  "lat" : -8.650881799999999,
+                  "lng" : 115.20913690
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Denpasar",
+               "short_name" : "North Denpasar",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Denpasar",
+               "short_name" : "Denpasar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Denpasar, Denpasar, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.5927250,
+                  "lng" : 115.23718210
+               },
+               "southwest" : {
+                  "lat" : -8.656898000000002,
+                  "lng" : 115.18608090
+               }
+            },
+            "location" : {
+               "lat" : -8.62535830,
+               "lng" : 115.20670110
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.5927250,
+                  "lng" : 115.23718210
+               },
+               "southwest" : {
+                  "lat" : -8.656898000000002,
+                  "lng" : 115.18608090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Denpasar",
+               "short_name" : "Denpasar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Denpasar, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.59162390,
+                  "lng" : 115.27508770
+               },
+               "southwest" : {
+                  "lat" : -8.752644099999999,
+                  "lng" : 115.17369810
+               }
+            },
+            "location" : {
+               "lat" : -8.670458199999999,
+               "lng" : 115.21262930
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.59162390,
+                  "lng" : 115.27508770
+               },
+               "southwest" : {
+                  "lat" : -8.752644099999999,
+                  "lng" : 115.17369810
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Denpasar",
+               "short_name" : "Denpasar",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Denpasar",
+               "short_name" : "Denpasar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Denpasar, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.59162390,
+                  "lng" : 115.27508770
+               },
+               "southwest" : {
+                  "lat" : -8.752644099999999,
+                  "lng" : 115.17369810
+               }
+            },
+            "location" : {
+               "lat" : -8.656290,
+               "lng" : 115.2220990
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.59162390,
+                  "lng" : 115.27508770
+               },
+               "southwest" : {
+                  "lat" : -8.752644099999999,
+                  "lng" : 115.17369810
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.71152810
+               },
+               "southwest" : {
+                  "lat" : -8.849260899999999,
+                  "lng" : 114.4316260
+               }
+            },
+            "location" : {
+               "lat" : -8.40951780,
+               "lng" : 115.1889160
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.71152810
+               },
+               "southwest" : {
+                  "lat" : -8.849260899999999,
+                  "lng" : 114.4316260
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,308 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "77",
+               "short_name" : "77",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Běichén Street",
+               "short_name" : "Běichén Street",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "北門里",
+               "short_name" : "北門里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Puli Township",
+               "short_name" : "Puli Township",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Nantou County",
+               "short_name" : "Nantou County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "545",
+               "short_name" : "545",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "No. 77, Běichén Street, Puli Township, Nantou County, Taiwan 545",
+         "geometry" : {
+            "location" : {
+               "lat" : 23.9663940,
+               "lng" : 120.9689940
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.96774298029150,
+                  "lng" : 120.9703429802915
+               },
+               "southwest" : {
+                  "lat" : 23.96504501970849,
+                  "lng" : 120.9676450197085
+               }
+            }
+         },
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "東門里",
+               "short_name" : "東門里",
+               "types" : [ "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Puli Township",
+               "short_name" : "Puli Township",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Nantou County",
+               "short_name" : "Nantou County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "545",
+               "short_name" : "545",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "545, Taiwan, Nantou County, Puli Township, 東門里",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 23.9672590,
+                  "lng" : 120.9741520
+               },
+               "southwest" : {
+                  "lat" : 23.96299710,
+                  "lng" : 120.9677640
+               }
+            },
+            "location" : {
+               "lat" : 23.96449980,
+               "lng" : 120.97114050
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 23.9672590,
+                  "lng" : 120.9741520
+               },
+               "southwest" : {
+                  "lat" : 23.96299710,
+                  "lng" : 120.9677640
+               }
+            }
+         },
+         "types" : [ "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "545",
+               "short_name" : "545",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Puli Township",
+               "short_name" : "Puli Township",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Nantou County",
+               "short_name" : "Nantou County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Puli Township, Nantou County, Taiwan 545",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 24.05325740,
+                  "lng" : 121.06948860
+               },
+               "southwest" : {
+                  "lat" : 23.90479210,
+                  "lng" : 120.87840220
+               }
+            },
+            "location" : {
+               "lat" : 23.99328720,
+               "lng" : 120.96468660
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 24.05325740,
+                  "lng" : 121.06948860
+               },
+               "southwest" : {
+                  "lat" : 23.90479210,
+                  "lng" : 120.87840220
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Puli Township",
+               "short_name" : "Puli Township",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Nantou County",
+               "short_name" : "Nantou County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "545",
+               "short_name" : "545",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Puli Township, Nantou County, Taiwan 545",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 24.05325740,
+                  "lng" : 121.06948860
+               },
+               "southwest" : {
+                  "lat" : 23.90479210,
+                  "lng" : 120.87840220
+               }
+            },
+            "location" : {
+               "lat" : 23.96666670,
+               "lng" : 120.96666670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 24.05325740,
+                  "lng" : 121.06948860
+               },
+               "southwest" : {
+                  "lat" : 23.90479210,
+                  "lng" : 120.87840220
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nantou County",
+               "short_name" : "Nantou County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nantou County, Taiwan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 24.24630890,
+                  "lng" : 121.34947520
+               },
+               "southwest" : {
+                  "lat" : 23.4353850,
+                  "lng" : 120.61556140
+               }
+            },
+            "location" : {
+               "lat" : 23.83876010,
+               "lng" : 120.98763210
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 24.24630890,
+                  "lng" : 121.34947520
+               },
+               "southwest" : {
+                  "lat" : 23.4353850,
+                  "lng" : 120.61556140
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Taiwan",
+               "short_name" : "TW",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Taiwan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 26.38735330,
+                  "lng" : 122.00690520
+               },
+               "southwest" : {
+                  "lat" : 20.56379080,
+                  "lng" : 116.71186010
+               }
+            },
+            "location" : {
+               "lat" : 23.697810,
+               "lng" : 120.9605150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 25.30044080,
+                  "lng" : 122.00690520
+               },
+               "southwest" : {
+                  "lat" : 21.89669580,
+                  "lng" : 120.02780170
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

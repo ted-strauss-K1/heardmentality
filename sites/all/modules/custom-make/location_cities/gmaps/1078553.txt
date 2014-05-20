@@ -1,0 +1,293 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "10",
+               "short_name" : "10",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Ampanihy",
+               "short_name" : "Ampanihy",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Ampanihy",
+               "short_name" : "Ampanihy",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "10, Ampanihy, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -24.68967130,
+                  "lng" : 44.74587840
+               },
+               "southwest" : {
+                  "lat" : -24.69338530,
+                  "lng" : 44.73999850
+               }
+            },
+            "location" : {
+               "lat" : -24.69188230,
+               "lng" : 44.74285840
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -24.68967130,
+                  "lng" : 44.74587840
+               },
+               "southwest" : {
+                  "lat" : -24.69338530,
+                  "lng" : 44.73999850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ampanihy",
+               "short_name" : "Ampanihy",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Ampanihy",
+               "short_name" : "Ampanihy",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ampanihy, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -24.68488580,
+                  "lng" : 44.7561550
+               },
+               "southwest" : {
+                  "lat" : -24.69884480,
+                  "lng" : 44.73821640
+               }
+            },
+            "location" : {
+               "lat" : -24.69304870,
+               "lng" : 44.74517650
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -24.68488580,
+                  "lng" : 44.7561550
+               },
+               "southwest" : {
+                  "lat" : -24.69884480,
+                  "lng" : 44.73821640
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ampanihy",
+               "short_name" : "Ampanihy",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ampanihy, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -23.92852360,
+                  "lng" : 45.14625550
+               },
+               "southwest" : {
+                  "lat" : -25.28914650,
+                  "lng" : 43.6669960
+               }
+            },
+            "location" : {
+               "lat" : -24.54324650,
+               "lng" : 44.70061380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -23.92852360,
+                  "lng" : 45.14625550
+               },
+               "southwest" : {
+                  "lat" : -25.28914650,
+                  "lng" : 43.6669960
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Atsimo-Andrefana",
+               "short_name" : "Atsimo-Andrefana",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Atsimo-Andrefana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.94348480,
+                  "lng" : 45.80612170
+               },
+               "southwest" : {
+                  "lat" : -25.28892260,
+                  "lng" : 43.22394509999999
+               }
+            },
+            "location" : {
+               "lat" : -23.14852690,
+               "lng" : 44.39928920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.94348480,
+                  "lng" : 45.80612170
+               },
+               "southwest" : {
+                  "lat" : -25.28892260,
+                  "lng" : 43.22394509999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Toliara, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -18.1937060,
+                  "lng" : 47.42046819999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.22487610
+               }
+            },
+            "location" : {
+               "lat" : -23.14852690,
+               "lng" : 44.39928920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -18.1937060,
+                  "lng" : 47.42046819999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.22487610
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

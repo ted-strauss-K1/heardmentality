@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Pembangunan",
+               "short_name" : "Jl. Pembangunan",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Pemangkat",
+               "short_name" : "Pemangkat",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sambas",
+               "short_name" : "Sambas",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "79453",
+               "short_name" : "79453",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Pembangunan, Pemangkat, Sambas, West Kalimantan 79453, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.17711030,
+                  "lng" : 108.97889680
+               },
+               "southwest" : {
+                  "lat" : 1.17599410,
+                  "lng" : 108.97729780
+               }
+            },
+            "location" : {
+               "lat" : 1.17655370,
+               "lng" : 108.97809720
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.177901180291502,
+                  "lng" : 108.9794462802915
+               },
+               "southwest" : {
+                  "lat" : 1.175203219708498,
+                  "lng" : 108.9767483197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pemangkat Kota",
+               "short_name" : "Pemangkat Kota",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Pemangkat",
+               "short_name" : "Pemangkat",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sambas",
+               "short_name" : "Sambas",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pemangkat Kota, Pemangkat, Sambas, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.1833330,
+                  "lng" : 108.9859530
+               },
+               "southwest" : {
+                  "lat" : 1.1053560,
+                  "lng" : 108.90795090
+               }
+            },
+            "location" : {
+               "lat" : 1.15562930,
+               "lng" : 108.93833770
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.1833330,
+                  "lng" : 108.9859530
+               },
+               "southwest" : {
+                  "lat" : 1.1053560,
+                  "lng" : 108.90795090
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pemangkat",
+               "short_name" : "Pemangkat",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Sambas",
+               "short_name" : "Sambas",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pemangkat, Sambas, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.19970010,
+                  "lng" : 109.03671210
+               },
+               "southwest" : {
+                  "lat" : 1.1053560,
+                  "lng" : 108.90795090
+               }
+            },
+            "location" : {
+               "lat" : 1.15529990,
+               "lng" : 108.9858820
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.19970010,
+                  "lng" : 109.03671210
+               },
+               "southwest" : {
+                  "lat" : 1.1053560,
+                  "lng" : 108.90795090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "79453",
+               "short_name" : "79453",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Kalimantan 79453, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 1.70773710,
+                  "lng" : 109.50543210
+               },
+               "southwest" : {
+                  "lat" : 1.05849740,
+                  "lng" : 108.90879030
+               }
+            },
+            "location" : {
+               "lat" : 1.52641720,
+               "lng" : 109.3545270
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 1.70773710,
+                  "lng" : 109.50543210
+               },
+               "southwest" : {
+                  "lat" : 1.45886070,
+                  "lng" : 109.27519990
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sambas",
+               "short_name" : "Sambas",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sambas, West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.0114640,
+                  "lng" : 109.75031210
+               },
+               "southwest" : {
+                  "lat" : 0.9640029999999999,
+                  "lng" : 108.90795090
+               }
+            },
+            "location" : {
+               "lat" : 1.36251910,
+               "lng" : 109.28315310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.0114640,
+                  "lng" : 109.75031210
+               },
+               "southwest" : {
+                  "lat" : 0.9640029999999999,
+                  "lng" : 108.90795090
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "West Kalimantan",
+               "short_name" : "West Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "West Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 2.0114640,
+                  "lng" : 114.2008290
+               },
+               "southwest" : {
+                  "lat" : -3.0391840,
+                  "lng" : 108.0207820
+               }
+            },
+            "location" : {
+               "lat" : -0.27878080,
+               "lng" : 111.47528510
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 2.0114640,
+                  "lng" : 114.2008290
+               },
+               "southwest" : {
+                  "lat" : -3.0391840,
+                  "lng" : 108.0207820
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

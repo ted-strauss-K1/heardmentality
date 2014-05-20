@@ -1,0 +1,182 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ankazoabo-Atsimo",
+               "short_name" : "Ankazoabo-Atsimo",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ankazoabo-Atsimo, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -21.71102480,
+                  "lng" : 45.29675250
+               },
+               "southwest" : {
+                  "lat" : -22.58024830,
+                  "lng" : 44.04399340
+               }
+            },
+            "location" : {
+               "lat" : -22.0426350,
+               "lng" : 44.55019350
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -21.71102480,
+                  "lng" : 45.29675250
+               },
+               "southwest" : {
+                  "lat" : -22.58024830,
+                  "lng" : 44.04399340
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Atsimo-Andrefana",
+               "short_name" : "Atsimo-Andrefana",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Atsimo-Andrefana, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -20.94348480,
+                  "lng" : 45.80612170
+               },
+               "southwest" : {
+                  "lat" : -25.28892260,
+                  "lng" : 43.22394509999999
+               }
+            },
+            "location" : {
+               "lat" : -23.14852690,
+               "lng" : 44.39928920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -20.94348480,
+                  "lng" : 45.80612170
+               },
+               "southwest" : {
+                  "lat" : -25.28892260,
+                  "lng" : 43.22394509999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Toliara",
+               "short_name" : "Toliara",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Toliara, Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -18.1937060,
+                  "lng" : 47.42046819999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.22487610
+               }
+            },
+            "location" : {
+               "lat" : -23.14852690,
+               "lng" : 44.39928920
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -18.1937060,
+                  "lng" : 47.42046819999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.22487610
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Madagascar",
+               "short_name" : "MG",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Madagascar",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            },
+            "location" : {
+               "lat" : -18.7669470,
+               "lng" : 46.8691070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -11.95196390,
+                  "lng" : 50.48377989999999
+               },
+               "southwest" : {
+                  "lat" : -25.60657170,
+                  "lng" : 43.18513950
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

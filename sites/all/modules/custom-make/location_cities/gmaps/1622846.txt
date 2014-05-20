@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Hanoman",
+               "short_name" : "Jl. Hanoman",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Ubud",
+               "short_name" : "Ubud",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Gianyar",
+               "short_name" : "Gianyar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "80571",
+               "short_name" : "80571",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Jalan Hanoman, Ubud, Gianyar 80571, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.50820210,
+                  "lng" : 115.26526580
+               },
+               "southwest" : {
+                  "lat" : -8.510426299999999,
+                  "lng" : 115.264730
+               }
+            },
+            "location" : {
+               "lat" : -8.50930460,
+               "lng" : 115.26496250
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.507965219708497,
+                  "lng" : 115.2663468802915
+               },
+               "southwest" : {
+                  "lat" : -8.510663180291502,
+                  "lng" : 115.2636489197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ubud",
+               "short_name" : "Ubud",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Ubud",
+               "short_name" : "Ubud",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Gianyar",
+               "short_name" : "Gianyar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ubud, Gianyar, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.468940,
+                  "lng" : 115.27748590
+               },
+               "southwest" : {
+                  "lat" : -8.52333290,
+                  "lng" : 115.2545930
+               }
+            },
+            "location" : {
+               "lat" : -8.497725900000001,
+               "lng" : 115.26301420
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.468940,
+                  "lng" : 115.27748590
+               },
+               "southwest" : {
+                  "lat" : -8.52333290,
+                  "lng" : 115.2545930
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "80571",
+               "short_name" : "80571",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bali 80571, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.45591450,
+                  "lng" : 115.27955620
+               },
+               "southwest" : {
+                  "lat" : -8.5717830,
+                  "lng" : 115.22952260
+               }
+            },
+            "location" : {
+               "lat" : -8.51640720,
+               "lng" : 115.24819590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.45591450,
+                  "lng" : 115.27955620
+               },
+               "southwest" : {
+                  "lat" : -8.5717830,
+                  "lng" : 115.22952260
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ubud",
+               "short_name" : "Ubud",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Gianyar",
+               "short_name" : "Gianyar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ubud, Gianyar, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.455027899999999,
+                  "lng" : 115.28234710
+               },
+               "southwest" : {
+                  "lat" : -8.579090899999999,
+                  "lng" : 115.2298490
+               }
+            },
+            "location" : {
+               "lat" : -8.5210440,
+               "lng" : 115.25412330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.455027899999999,
+                  "lng" : 115.28234710
+               },
+               "southwest" : {
+                  "lat" : -8.579090899999999,
+                  "lng" : 115.2298490
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Gianyar",
+               "short_name" : "Gianyar",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Gianyar, Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.3135940,
+                  "lng" : 115.3711240
+               },
+               "southwest" : {
+                  "lat" : -8.650269999999999,
+                  "lng" : 115.2253790
+               }
+            },
+            "location" : {
+               "lat" : -8.42482440,
+               "lng" : 115.26005060
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.3135940,
+                  "lng" : 115.3711240
+               },
+               "southwest" : {
+                  "lat" : -8.650269999999999,
+                  "lng" : 115.2253790
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bali",
+               "short_name" : "Bali",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bali, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.71152810
+               },
+               "southwest" : {
+                  "lat" : -8.849260899999999,
+                  "lng" : 114.4316260
+               }
+            },
+            "location" : {
+               "lat" : -8.40951780,
+               "lng" : 115.1889160
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -8.061681999999999,
+                  "lng" : 115.71152810
+               },
+               "southwest" : {
+                  "lat" : -8.849260899999999,
+                  "lng" : 114.4316260
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

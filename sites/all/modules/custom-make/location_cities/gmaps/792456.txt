@@ -1,0 +1,235 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Albanske spomenice",
+               "short_name" : "Albanske spomenice",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Bor",
+               "short_name" : "Bor",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bor District",
+               "short_name" : "Bor District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Albanske spomenice, Bor, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.07688390,
+                  "lng" : 22.0964670
+               },
+               "southwest" : {
+                  "lat" : 44.07484520,
+                  "lng" : 22.09554970
+               }
+            },
+            "location" : {
+               "lat" : 44.07587720,
+               "lng" : 22.0960290
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.07721353029150,
+                  "lng" : 22.09735733029150
+               },
+               "southwest" : {
+                  "lat" : 44.07451556970850,
+                  "lng" : 22.09465936970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bor",
+               "short_name" : "Bor",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Bor District",
+               "short_name" : "Bor District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bor, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.10925109999999,
+                  "lng" : 22.13392160
+               },
+               "southwest" : {
+                  "lat" : 44.04041920,
+                  "lng" : 22.07749840
+               }
+            },
+            "location" : {
+               "lat" : 44.05936950,
+               "lng" : 22.10052320
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.10925109999999,
+                  "lng" : 22.13392160
+               },
+               "southwest" : {
+                  "lat" : 44.04041920,
+                  "lng" : 22.07749840
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bor",
+               "short_name" : "Bor",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Bor District",
+               "short_name" : "Bor District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bor, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.28650290,
+                  "lng" : 22.2445680
+               },
+               "southwest" : {
+                  "lat" : 43.90828190,
+                  "lng" : 21.7831420
+               }
+            },
+            "location" : {
+               "lat" : 44.0632980,
+               "lng" : 22.09296310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.28650290,
+                  "lng" : 22.2445680
+               },
+               "southwest" : {
+                  "lat" : 43.90828190,
+                  "lng" : 21.7831420
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Bor District",
+               "short_name" : "Bor District",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Bor District, Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 44.7194140,
+                  "lng" : 22.76219910
+               },
+               "southwest" : {
+                  "lat" : 43.90050,
+                  "lng" : 21.79162510
+               }
+            },
+            "location" : {
+               "lat" : 44.37019520,
+               "lng" : 22.2857390
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 44.7194140,
+                  "lng" : 22.76219910
+               },
+               "southwest" : {
+                  "lat" : 43.90050,
+                  "lng" : 21.79162510
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Serbia",
+               "short_name" : "RS",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Serbia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            },
+            "location" : {
+               "lat" : 44.0165210,
+               "lng" : 21.0058590
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.1900320,
+                  "lng" : 23.00630950
+               },
+               "southwest" : {
+                  "lat" : 42.23150290,
+                  "lng" : 18.83852210
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

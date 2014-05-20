@@ -1,0 +1,6 @@
+name = EXT - Feedback: Send Feedback Messages to Mail
+description = Creates the site's overall data extraction
+package = Custom Modules : EXT
+version = "6.x-1.0"
+core = 6.x
+dependencies[] = "feedback"

@@ -1,0 +1,414 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Polem",
+               "short_name" : "Polem",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Banda Aceh",
+               "short_name" : "Banda Aceh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Kuta Alam",
+               "short_name" : "Kuta Alam",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banda Aceh",
+               "short_name" : "Banda Aceh",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "24415",
+               "short_name" : "24415",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Polem, Kuta Alam, Banda Aceh, Aceh 24415, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.557773800000001,
+                  "lng" : 95.32161830
+               },
+               "southwest" : {
+                  "lat" : 5.557349599999999,
+                  "lng" : 95.32157520
+               }
+            },
+            "location" : {
+               "lat" : 5.557561799999999,
+               "lng" : 95.32159770
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.558910680291502,
+                  "lng" : 95.32294573029151
+               },
+               "southwest" : {
+                  "lat" : 5.556212719708498,
+                  "lng" : 95.32024776970850
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Laksana",
+               "short_name" : "Laksana",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Kuta Alam",
+               "short_name" : "Kuta Alam",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banda Aceh",
+               "short_name" : "Banda Aceh",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Laksana, Kuta Alam, Banda Aceh, Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.56200990,
+                  "lng" : 95.32654409999999
+               },
+               "southwest" : {
+                  "lat" : 5.55591510,
+                  "lng" : 95.32096709999999
+               }
+            },
+            "location" : {
+               "lat" : 5.559454199999999,
+               "lng" : 95.32397490
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.56200990,
+                  "lng" : 95.32654409999999
+               },
+               "southwest" : {
+                  "lat" : 5.55591510,
+                  "lng" : 95.32096709999999
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kuta Alam",
+               "short_name" : "Kuta Alam",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Banda Aceh",
+               "short_name" : "Banda Aceh",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kuta Alam, Banda Aceh, Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.59033990,
+                  "lng" : 95.34584199999999
+               },
+               "southwest" : {
+                  "lat" : 5.5508810,
+                  "lng" : 95.31530909999999
+               }
+            },
+            "location" : {
+               "lat" : 5.56401320,
+               "lng" : 95.32593580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.59033990,
+                  "lng" : 95.34584199999999
+               },
+               "southwest" : {
+                  "lat" : 5.5508810,
+                  "lng" : 95.31530909999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "24415",
+               "short_name" : "24415",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Aceh 24415, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.58224040,
+                  "lng" : 95.42407980
+               },
+               "southwest" : {
+                  "lat" : 5.50788690,
+                  "lng" : 95.32025139999999
+               }
+            },
+            "location" : {
+               "lat" : 5.52957810,
+               "lng" : 95.37563440
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.54165160,
+                  "lng" : 95.42407980
+               },
+               "southwest" : {
+                  "lat" : 5.50788690,
+                  "lng" : 95.37065129999999
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banda Aceh",
+               "short_name" : "Banda Aceh",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banda Aceh, Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.607916100000001,
+                  "lng" : 95.3772570
+               },
+               "southwest" : {
+                  "lat" : 5.515406899999999,
+                  "lng" : 95.2801480
+               }
+            },
+            "location" : {
+               "lat" : 5.54837050,
+               "lng" : 95.32070690
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.607916100000001,
+                  "lng" : 95.3772570
+               },
+               "southwest" : {
+                  "lat" : 5.515406899999999,
+                  "lng" : 95.2801480
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Banda Aceh",
+               "short_name" : "Banda Aceh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Banda Aceh",
+               "short_name" : "Banda Aceh",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Banda Aceh, Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 5.607916100000001,
+                  "lng" : 95.3772570
+               },
+               "southwest" : {
+                  "lat" : 5.515406899999999,
+                  "lng" : 95.2801480
+               }
+            },
+            "location" : {
+               "lat" : 5.550,
+               "lng" : 95.31666670
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.607916100000001,
+                  "lng" : 95.3772570
+               },
+               "southwest" : {
+                  "lat" : 5.515406899999999,
+                  "lng" : 95.2801480
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Aceh",
+               "short_name" : "Aceh",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Aceh, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.076939899999999,
+                  "lng" : 98.28815890
+               },
+               "southwest" : {
+                  "lat" : 2.0047870,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : 4.6951350,
+               "lng" : 96.74939929999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 6.076939899999999,
+                  "lng" : 98.28815890
+               },
+               "southwest" : {
+                  "lat" : 2.0047870,
+                  "lng" : 95.00970699999999
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

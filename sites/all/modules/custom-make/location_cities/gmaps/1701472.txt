@@ -1,0 +1,303 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "IIigan-Marawi Road",
+               "short_name" : "IIigan-Marawi Road",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Iligan City",
+               "short_name" : "Iligan City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Lanao del Norte",
+               "short_name" : "Lanao del Norte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Northern Mindanao",
+               "short_name" : "Northern Mindanao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "IIigan-Marawi Road, Iligan City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 8.171780499999999,
+                  "lng" : 124.20366210
+               },
+               "southwest" : {
+                  "lat" : 8.166140199999999,
+                  "lng" : 124.20316810
+               }
+            },
+            "location" : {
+               "lat" : 8.168984099999999,
+               "lng" : 124.20363330
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 8.171780499999999,
+                  "lng" : 124.2047640802915
+               },
+               "southwest" : {
+                  "lat" : 8.166140199999999,
+                  "lng" : 124.2020661197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Upper Tominobo",
+               "short_name" : "Upper Tominobo",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Iligan City",
+               "short_name" : "Iligan City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Lanao del Norte",
+               "short_name" : "Lanao del Norte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Northern Mindanao",
+               "short_name" : "Northern Mindanao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Upper Tominobo, Iligan City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 8.189572399999999,
+                  "lng" : 124.23992170
+               },
+               "southwest" : {
+                  "lat" : 8.14420370,
+                  "lng" : 124.21434390
+               }
+            },
+            "location" : {
+               "lat" : 8.16163890,
+               "lng" : 124.22548550
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 8.189572399999999,
+                  "lng" : 124.23992170
+               },
+               "southwest" : {
+                  "lat" : 8.14420370,
+                  "lng" : 124.21434390
+               }
+            }
+         },
+         "types" : [ "neighborhood", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Iligan City",
+               "short_name" : "Iligan City",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Lanao del Norte",
+               "short_name" : "Lanao del Norte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Northern Mindanao",
+               "short_name" : "Northern Mindanao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Iligan City, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 8.339829999999999,
+                  "lng" : 124.58006860
+               },
+               "southwest" : {
+                  "lat" : 8.1336680,
+                  "lng" : 124.16539290
+               }
+            },
+            "location" : {
+               "lat" : 8.228020899999999,
+               "lng" : 124.24524220
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 8.339829999999999,
+                  "lng" : 124.58006860
+               },
+               "southwest" : {
+                  "lat" : 8.1336680,
+                  "lng" : 124.16539290
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lanao del Norte",
+               "short_name" : "Lanao del Norte",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Northern Mindanao",
+               "short_name" : "Northern Mindanao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lanao del Norte, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 8.341472899999999,
+                  "lng" : 124.5733050
+               },
+               "southwest" : {
+                  "lat" : 7.69346210,
+                  "lng" : 123.6213280
+               }
+            },
+            "location" : {
+               "lat" : 7.87218110,
+               "lng" : 123.88577470
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 8.341472899999999,
+                  "lng" : 124.5733050
+               },
+               "southwest" : {
+                  "lat" : 7.69346210,
+                  "lng" : 123.6213280
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Northern Mindanao",
+               "short_name" : "Northern Mindanao",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Northern Mindanao, Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 9.25801830,
+                  "lng" : 125.4444640
+               },
+               "southwest" : {
+                  "lat" : 7.39916090,
+                  "lng" : 123.5556260
+               }
+            },
+            "location" : {
+               "lat" : 8.020163499999999,
+               "lng" : 124.68565090
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 9.25801830,
+                  "lng" : 125.4444640
+               },
+               "southwest" : {
+                  "lat" : 7.39916090,
+                  "lng" : 123.5556260
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Philippines",
+               "short_name" : "PH",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Philippines",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            },
+            "location" : {
+               "lat" : 12.8797210,
+               "lng" : 121.7740170
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 19.57402410,
+                  "lng" : 126.60438370
+               },
+               "southwest" : {
+                  "lat" : 4.613444299999999,
+                  "lng" : 116.14749990
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

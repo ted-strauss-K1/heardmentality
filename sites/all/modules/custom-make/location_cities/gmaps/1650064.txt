@@ -1,0 +1,356 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Jalan Antasari",
+               "short_name" : "Jl. Antasari",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Barabai",
+               "short_name" : "Barabai",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Central Hulu Sungai",
+               "short_name" : "Central Hulu Sungai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Jalan Antasari, Barabai, Central Hulu Sungai, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.5812970,
+                  "lng" : 115.3823690
+               },
+               "southwest" : {
+                  "lat" : -2.5816980,
+                  "lng" : 115.3817120
+               }
+            },
+            "location" : {
+               "lat" : -2.58149620,
+               "lng" : 115.38203970
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.580148519708498,
+                  "lng" : 115.3833894802915
+               },
+               "southwest" : {
+                  "lat" : -2.582846480291502,
+                  "lng" : 115.3806915197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Barabai",
+               "short_name" : "North Barabai",
+               "types" : [ "political" ]
+            },
+            {
+               "long_name" : "Barabai",
+               "short_name" : "Barabai",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Central Hulu Sungai",
+               "short_name" : "Central Hulu Sungai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Barabai, Barabai, Central Hulu Sungai, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.58069010,
+                  "lng" : 115.3846840
+               },
+               "southwest" : {
+                  "lat" : -2.58846410,
+                  "lng" : 115.37500310
+               }
+            },
+            "location" : {
+               "lat" : -2.58341760,
+               "lng" : 115.38005310
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.58069010,
+                  "lng" : 115.3846840
+               },
+               "southwest" : {
+                  "lat" : -2.58846410,
+                  "lng" : 115.37500310
+               }
+            }
+         },
+         "types" : [ "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "71315",
+               "short_name" : "71315",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Central Hulu Sungai",
+               "short_name" : "Central Hulu Sungai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Hulu Sungai, South Kalimantan 71315, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.54539790,
+                  "lng" : 115.43069970
+               },
+               "southwest" : {
+                  "lat" : -2.6221220,
+                  "lng" : 115.37690
+               }
+            },
+            "location" : {
+               "lat" : -2.604230,
+               "lng" : 115.4081950
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.54539790,
+                  "lng" : 115.43069970
+               },
+               "southwest" : {
+                  "lat" : -2.6221220,
+                  "lng" : 115.37690
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barabai",
+               "short_name" : "Barabai",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Central Hulu Sungai",
+               "short_name" : "Central Hulu Sungai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barabai, Central Hulu Sungai, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.5300780,
+                  "lng" : 115.42098110
+               },
+               "southwest" : {
+                  "lat" : -2.6272790,
+                  "lng" : 115.34264810
+               }
+            },
+            "location" : {
+               "lat" : -2.57305490,
+               "lng" : 115.39042150
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.5300780,
+                  "lng" : 115.42098110
+               },
+               "southwest" : {
+                  "lat" : -2.6272790,
+                  "lng" : 115.34264810
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_3", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Central Hulu Sungai",
+               "short_name" : "Central Hulu Sungai",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Central Hulu Sungai, South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -2.4409310,
+                  "lng" : 115.8923670
+               },
+               "southwest" : {
+                  "lat" : -2.7822570,
+                  "lng" : 115.15784010
+               }
+            },
+            "location" : {
+               "lat" : -2.615316200000001,
+               "lng" : 115.52073580
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -2.4409310,
+                  "lng" : 115.8923670
+               },
+               "southwest" : {
+                  "lat" : -2.7822570,
+                  "lng" : 115.15784010
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_2", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "South Kalimantan",
+               "short_name" : "South Kalimantan",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "South Kalimantan, Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : -1.3150370,
+                  "lng" : 116.5559610
+               },
+               "southwest" : {
+                  "lat" : -4.7448130,
+                  "lng" : 114.3458590
+               }
+            },
+            "location" : {
+               "lat" : -3.09264150,
+               "lng" : 115.28375850
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -1.3150370,
+                  "lng" : 116.5559610
+               },
+               "southwest" : {
+                  "lat" : -4.7448130,
+                  "lng" : 114.3458590
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Indonesia",
+               "short_name" : "ID",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Indonesia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 6.0769120,
+                  "lng" : 141.01956210
+               },
+               "southwest" : {
+                  "lat" : -11.00743610,
+                  "lng" : 95.00970699999999
+               }
+            },
+            "location" : {
+               "lat" : -6.355056599999999,
+               "lng" : 106.88594370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 5.9068210,
+                  "lng" : 141.0186620
+               },
+               "southwest" : {
+                  "lat" : -11.0046730,
+                  "lng" : 95.01106489999999
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
