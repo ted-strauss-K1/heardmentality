@@ -9,10 +9,13 @@
 /**
  *
  */
-function extract_rebuild() {
+function extract_rebuild($action = NULL, $redirect = TRUE) {
   set_time_limit(0);
 
-  $action = $_REQUEST['action'];
+  // set action
+  if (is_null($action)) {
+    $action = $_REQUEST['action'];
+  }
 
   if (!in_array($action, array('install', 'uninstall', 'reinstall'))) {
     echo '<ul>';
@@ -31,7 +34,10 @@ function extract_rebuild() {
   }
 
   if ($action == 'uninstall') {
-    exit("All views and cache tables were uninstalled.");
+    drupal_set_message('All views and cache tables were uninstalled.');
+    if ($redirect) {
+      drupal_goto();
+    }
   }
 
   // create tables
@@ -51,7 +57,9 @@ function extract_rebuild() {
 
   drupal_set_message(t('Extract caches were rebuilt'));
 
-  drupal_goto();
+  if ($redirect) {
+    drupal_goto();
+  }
 }
 
 /**

@@ -63,7 +63,10 @@ function tt_enable() {
   // locations
   db_query("DELETE FROM {locales_source} WHERE textgroup = '%s'", 'location');
   if (module_exists('extract')) {
-    extract_cache_location();
+    //
+    extract_rebuild("reinstall", FALSE);
+
+    //
     db_query("
       INSERT INTO {locales_source}
       SELECT
