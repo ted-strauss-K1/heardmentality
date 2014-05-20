@@ -2,19 +2,19 @@
 
 function location_province_list_sv() {
   return array(
-    "AH" => t("Departamento de Ahuachapán"),
-    "CA" => t("Departamento de Cabañas"),
-    "CH" => t("Departamento de Chalatenango"),
-    "CU" => t("Departamento de Cuscatlán"),
-    "LI" => t("Departamento de La Libertad"),
-    "PA" => t("Departamento de La Paz"),
-    "UN" => t("Departamento de La Unión"),
-    "MO" => t("Departamento de Morazán"),
-    "SM" => t("Departamento de San Miguel"),
-    "SS" => t("Departamento de San Salvador"),
-    "SV" => t("Departamento de San Vicente"),
-    "SA" => t("Departamento de Santa Ana"),
-    "SO" => t("Departamento de Sonsonate"),
-    "US" => t("Departamento de Usulután"),
+    "AH" => "Departamento de Ahuachapán",
+    "CA" => "Departamento de Cabañas",
+    "CH" => "Departamento de Chalatenango",
+    "CU" => "Departamento de Cuscatlán",
+    "LI" => "Departamento de La Libertad",
+    "PA" => "Departamento de La Paz",
+    "UN" => "Departamento de La Unión",
+    "MO" => "Departamento de Morazán",
+    "SM" => "Departamento de San Miguel",
+    "SS" => "Departamento de San Salvador",
+    "SV" => "Departamento de San Vicente",
+    "SA" => "Departamento de Santa Ana",
+    "SO" => "Departamento de Sonsonate",
+    "US" => "Departamento de Usulután",
   );
 }

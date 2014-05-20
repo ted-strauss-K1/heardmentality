@@ -10,22 +10,22 @@ function badges_cpoll_taxonomy_badges() {
 
   $badges['poll_votes_taxonomy_bronze'] = array(
     'function'  => 'badges_cpoll_taxonomy_votes_taxonomy_check',
-    'name'      => t('Generalist'),
-    'info'      => t('User has voted on at least 5 questions in 10 bottom level categories (i.e categories without children subcategories)'),
+    'name'      => 'Generalist',
+    'info'      => 'User has voted on at least 5 questions in 10 bottom level categories (i.e categories without children subcategories)',
     'type'      => 'bronze',
     'arguments' => array('nids' => 5, 'tids' => 10),
   );
   $badges['poll_votes_taxonomy_silver'] = array(
     'function'  => 'badges_cpoll_taxonomy_votes_taxonomy_check',
-    'name'      => t('Well Read'),
-    'info'      => t('User has voted on at least 10 questions in 20 bottom level categories (i.e categories without children subcategories)'),
+    'name'      => 'Well Read',
+    'info'      => 'User has voted on at least 10 questions in 20 bottom level categories (i.e categories without children subcategories)',
     'type'      => 'silver',
     'arguments' => array('nids' => 10, 'tids' => 20),
   );
   $badges['poll_votes_taxonomy_gold'] = array(
     'function'  => 'badges_cpoll_taxonomy_votes_taxonomy_check',
-    'name'      => t('Scholar'),
-    'info'      => t('User has voted on at least 20 questions in 30 bottom level categories (i.e categories without children subcategories)'),
+    'name'      => 'Scholar',
+    'info'      => 'User has voted on at least 20 questions in 30 bottom level categories (i.e categories without children subcategories)',
     'type'      => 'gold',
     'arguments' => array('nids' => 20, 'tids' => 30),
   );

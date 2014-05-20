@@ -8,7 +8,7 @@ function location_cities_list_lc_ar() {
 
 function location_cities_list_lc_ca() {
   return array(
-    "3576812" => t("Castries"),
+    "3576812" => "Castries",
   );
 }
 

@@ -63,7 +63,7 @@ function location_cities_list_mv_39() {
 
 function location_cities_list_mv_mle() {
   return array(
-    "1282027" => t("Male"),
+    "1282027" => "Male",
   );
 }
 

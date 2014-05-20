@@ -15,7 +15,6 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
 
   // countries
   $countries = location_get_iso3166_list();
-  $tfl['list'][] = $countries;
 
   // countries checked
   $checked = array();
@@ -23,6 +22,7 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
     if (in_array($code, $codes1)) {
       $checked[] = $code;
     }
+    $tfl['list'][0][$code] = __($name, array('@code' => 'location-' . location_encode($code), '@textgroup' => 'location'));
   }
   $tfl['checked'][] = $checked;
 
@@ -30,7 +30,11 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
   $provinces = array();
   foreach ($checked as $code) {
     foreach (location_get_provinces($code) as $pcode => $pname) {
-      $provinces[$code . '_' . $pcode] = $pname;
+      $location_encode = location_encode($code, $pcode);
+      $provinces[$location_encode] = __($pname, array(
+        '@code'      => 'location-' . $location_encode,
+        '@textgroup' => 'location'
+      ));
     }
   }
   $tfl['list'][] = $provinces;
@@ -47,9 +51,13 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
   // cities
   $cities = array();
   foreach ($checked as $code) {
-    list($ccode, $pcode) = explode("_", $code, 2);
+    list($ccode, $pcode, $citycode) = location_decode($code);
     foreach (location_get_cities($ccode, $pcode) as $citycode => $cityname) {
-      $cities[$code . '_' . $citycode] = $cityname;
+      $location_encode = location_encode($ccode, $pcode, $citycode);
+      $cities[$location_encode] = __($cityname, array(
+        '@code'      => 'location-' . $location_encode,
+        '@textgroup' => 'location'
+      ));
     }
   }
   $tfl['list'][] = $cities;
@@ -63,32 +71,17 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
   }
   $tfl['checked'][] = $checked;
 
-  // setting
-  $all = array_keys($countries);
-  foreach ($countries as $code => $countryname) {
-    foreach (location_get_provinces($code) as $pcode => $pname) {
-      $id = $code . '_' . $pcode;
-      $all[$code][$id] = array(
-        'id'   => $id,
-        'name' => $pname,
-      );
-      foreach (location_get_cities($code, $pcode) as $citycode => $cityname) {
-        $id = $code . '_' . $pcode . '_' . $citycode;
-        $all[$code . '_' . $pcode][$id] = array(
-          'id'   => $id,
-          'name' => $cityname,
-        );
-      }
-    }
-  }
+  // all locations translated
+  $all = tfl_list_used();
 
+  // filter
   if ($filter) {
     static $codes = array();
 
     if (empty($codes)) {
       $result = db_query("SELECT DISTINCT(name) code FROM {location}");
       while ($code = db_result($result)) {
-        $split = explode("_", $code);
+        $split = location_decode($code);
         $tmp = $split[0];
         $codes[0][$tmp] = $tmp;
         for ($i = 1; $i <= 2; $i++) {
@@ -105,6 +98,7 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
     foreach ($tfl['list'] as $i => &$list) {
       $list = array_intersect_key($list, $codes[$i]);
     }
+
     $all = array_intersect_key($all, array_merge($codes[0], $codes[1]));
     for ($i = 0; $i <= 1; $i++) {
       foreach ($codes[$i] as $code) {
@@ -118,7 +112,81 @@ function tfl_list($codes1 = array(), $codes2 = array(), $codes3 = array(), $filt
   return $tfl;
 }
 
-
-function location_code($c1, $c2 = NULL, $c3 = NULL) {
+/**
+ * @param      $c1
+ * @param null $c2
+ * @param null $c3
+ *
+ * @return string
+ */
+function location_encode($c1, $c2 = NULL, $c3 = NULL) {
   return $c1 . (is_null($c2) ? '' : '_' . $c2 . (is_null($c3) ? '' : '_' . $c3));
+}
+
+/**
+ * @param $location
+ *
+ * @return array
+ */
+function location_decode($location) {
+  return explode('_', $location, 3);
+}
+
+/**
+ *
+ */
+function tfl_list_used($reset = FALSE) {
+  static $used = array();
+
+  // language
+  global $language;
+  $langcode = $language->language;
+
+  //
+  if ($reset) {
+    $used = array();
+    cache_clear_all(__FUNCTION__ . ":", 'cache', TRUE);
+  }
+
+  //
+  $cache_id = __FUNCTION__ . ":" . $langcode;
+  if (!isset($used[$langcode])) {
+    $used[$langcode] = array();
+
+    //
+    if ($cache = cache_get($cache_id, 'cache')) {
+      $used[$langcode] = $cache->data;
+    }
+
+    //
+    else {
+      // collect data
+      $countries = location_get_iso3166_list();
+      $data = array_keys($countries);
+      foreach ($countries as $code => $countryname) {
+        foreach (location_get_provinces($code) as $pcode => $pname) {
+          $location_encode = location_encode($code, $pcode);
+          $data[$code][$location_encode] = array(
+            'id'   => $location_encode,
+            'name' => __($pname, array('@code' => 'location-' . $location_encode, '@textgroup' => 'location')),
+          );
+          foreach (location_get_cities($code, $pcode) as $citycode => $cityname) {
+            $location_encode2 = location_encode($code, $pcode, $citycode);
+            $data[$location_encode][$location_encode2] = array(
+              'id'   => $location_encode2,
+              'name' => __($cityname, array('@code' => 'location-' . $location_encode2, '@textgroup' => 'location')),
+            );
+          }
+        }
+      }
+
+      // static var
+      $used[$langcode] = $data;
+
+      // cache data
+      cache_set($cache_id, $used[$langcode]);
+    }
+  }
+
+  return $used[$langcode];
 }

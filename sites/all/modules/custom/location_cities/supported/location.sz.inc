@@ -3,8 +3,8 @@
 
 function location_cities_list_sz_hh() {
   return array(
-    "934985" => t("Mbabane"),
-    "935048" => t("Lobamba"),
+    "934985" => "Mbabane",
+    "935048" => "Lobamba",
   );
 }
 
@@ -16,7 +16,7 @@ function location_cities_list_sz_lu() {
 
 function location_cities_list_sz_ma() {
   return array(
-    "934995" => t("Manzini"),
+    "934995" => "Manzini",
   );
 }
 

@@ -2,13 +2,13 @@
 
 function location_province_list_kg() {
   return array(
-    "B"  => t("Batken Oblasty"),
-    "C"  => t("Chüy Oblasty"),
-    "GB" => t("Gorod Bishkek"),
-    "Y"  => t("Issyk-Kul’skaya Oblast’"),
-    "J"  => t("Jalal-Abad Oblasty"),
-    "N"  => t("Naryn Oblasty"),
-    "O"  => t("Osh Oblasty"),
-    "T"  => t("Talas Oblasty"),
+    "B"  => "Batken Oblasty",
+    "C"  => "Chüy Oblasty",
+    "GB" => "Gorod Bishkek",
+    "Y"  => "Issyk-Kul’skaya Oblast’",
+    "J"  => "Jalal-Abad Oblasty",
+    "N"  => "Naryn Oblasty",
+    "O"  => "Osh Oblasty",
+    "T"  => "Talas Oblasty",
   );
 }

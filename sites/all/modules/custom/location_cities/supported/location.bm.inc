@@ -13,7 +13,7 @@ function location_cities_list_bm_ha() {
 
 function location_cities_list_bm_hc() {
   return array(
-    "3573197" => t("Hamilton"),
+    "3573197" => "Hamilton",
   );
 }
 

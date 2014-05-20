@@ -3,15 +3,12 @@
 /**
  * @return array
  */
-function cpoll_create_content_translate_rebuild_js() {
-  $path = drupal_get_path('module', 'cpoll_create');
+function cpoll_create_tt_js() {
   return array(
-    $path . '/cpoll_create.js' => array(
-      'Maximum fields exceeded',
-      'The question is too long',
-      'Enter more that two elements',
-      'The question is too short',
-    ),
+    'cpoll_create-error-max'   => 'Maximum fields exceeded',
+    'cpoll_create-error-long'  => 'The question is too long',
+    'cpoll_create-error-min'   => 'Enter more that two elements',
+    'cpoll_create-error-short' => 'The question is too short',
   );
 }
 

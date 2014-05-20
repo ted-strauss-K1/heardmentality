@@ -53,6 +53,6 @@ function location_cities_list_li_10() {
 
 function location_cities_list_li_11() {
   return array(
-    "3042030" => t("Vaduz"),
+    "3042030" => "Vaduz",
   );
 }

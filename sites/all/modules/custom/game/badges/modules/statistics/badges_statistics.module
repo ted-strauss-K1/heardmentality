@@ -10,30 +10,30 @@ function badges_statistics_badges() {
 
   $badges['statistics_bronze'] = array(
     'function'  => 'badges_statistics_check',
-    'name'      => t('Notable Issue'),
-    'info'      => t('Posted issue with 1,000 views'),
+    'name'      => 'Notable Issue',
+    'info'      => 'Posted issue with 1,000 views',
     'type'      => 'bronze',
     'arguments' => array('views' => 1000),
   );
   $badges['statistics_silver'] = array(
     'function'  => 'badges_statistics_check',
-    'name'      => t('Popular Issue'),
-    'info'      => t('Posted issue with 2,500 views'),
+    'name'      => 'Popular Issue',
+    'info'      => 'Posted issue with 2,500 views',
     'type'      => 'silver',
     'arguments' => array('views' => 2500),
   );
   $badges['statistics_gold'] = array(
     'function'  => 'badges_statistics_check',
-    'name'      => t('Provocative Issue'),
-    'info'      => t('Posted issue with 10,000 views'),
+    'name'      => 'Provocative Issue',
+    'info'      => 'Posted issue with 10,000 views',
     'type'      => 'gold',
     'arguments' => array('views' => 10000),
   );
 
   $badges['statistics_tumbleweed'] = array(
     'function'  => 'badges_statistics_tumbleweed_check',
-    'name'      => t('Tumbleweed'),
-    'info'      => t('Asked a question with no answers, no comments, and low views for a week'),
+    'name'      => 'Tumbleweed',
+    'info'      => 'Asked a question with no answers, no comments, and low views for a week',
     'arguments' => array('views' => 10, 'days' => 7),
   );
 

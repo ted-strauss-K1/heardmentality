@@ -13,7 +13,7 @@ function location_cities_list_cv_br() {
 
 function location_cities_list_cv_pr() {
   return array(
-    "3374333" => t("Praia"),
+    "3374333" => "Praia",
   );
 }
 
@@ -40,7 +40,7 @@ function location_cities_list_cv_ca() {
 
 function location_cities_list_cv_cf() {
   return array(
-    "3374707" => t("Cova Figueira"),
+    "3374707" => "Cova Figueira",
   );
 }
 
@@ -72,7 +72,7 @@ function location_cities_list_cv_ss() {
 
 function location_cities_list_cv_sv() {
   return array(
-    "3374462" => t("Mindelo"),
+    "3374462" => "Mindelo",
   );
 }
 
@@ -114,6 +114,6 @@ function location_cities_list_cv_mo() {
 
 function location_cities_list_cv_sl() {
   return array(
-    "3374218" => t("Santa Maria"),
+    "3374218" => "Santa Maria",
   );
 }

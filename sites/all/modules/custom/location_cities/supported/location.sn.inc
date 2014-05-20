@@ -3,113 +3,113 @@
 
 function location_cities_list_sn_dk() {
   return array(
-    "2246678" => t("Pikine"),
-    "2251339" => t("Grand Dakar"),
-    "2253354" => t("Dakar"),
+    "2246678" => "Pikine",
+    "2251339" => "Grand Dakar",
+    "2253354" => "Dakar",
   );
 }
 
 
 function location_cities_list_sn_db() {
   return array(
-    "2244322" => t("Touba"),
-    "2244616" => t("Tiebo"),
-    "2248698" => t("Mbake"),
+    "2244322" => "Touba",
+    "2244616" => "Tiebo",
+    "2248698" => "Mbake",
   );
 }
 
 
 function location_cities_list_sn_fk() {
   return array(
-    "2246608" => t("Pourham"),
-    "2251230" => t("Guinguineo"),
+    "2246608" => "Pourham",
+    "2251230" => "Guinguineo",
   );
 }
 
 
 function location_cities_list_sn_kl() {
   return array(
-    "2247157" => t("Nioro du Rip"),
-    "2250805" => t("Kaolack"),
+    "2247157" => "Nioro du Rip",
+    "2250805" => "Kaolack",
   );
 }
 
 
 function location_cities_list_sn_kd() {
   return array(
-    "2244177" => t("Velingara"),
-    "2249782" => t("Kolda"),
+    "2244177" => "Velingara",
+    "2249782" => "Kolda",
   );
 }
 
 
 function location_cities_list_sn_lg() {
   return array(
-    "2247813" => t("Ndibene Dahra"),
-    "2249222" => t("Louga"),
-    "2253277" => t("Dara"),
+    "2247813" => "Ndibene Dahra",
+    "2249222" => "Louga",
+    "2253277" => "Dara",
   );
 }
 
 
 function location_cities_list_sn_mt() {
   return array(
-    "2248752" => t("Matam"),
+    "2248752" => "Matam",
   );
 }
 
 
 function location_cities_list_sn_ka() {
   return array(
-    "2251007" => t("Kaffrine"),
+    "2251007" => "Kaffrine",
   );
 }
 
 
 function location_cities_list_sn_ke() {
   return array(
-    "2250645" => t("Kedougou"),
+    "2250645" => "Kedougou",
   );
 }
 
 
 function location_cities_list_sn_se() {
   return array(
-    "2245704" => t("Sedhiou"),
+    "2245704" => "Sedhiou",
   );
 }
 
 
 function location_cities_list_sn_th() {
   return array(
-    "2244799" => t("Thies Nones"),
-    "2246606" => t("Pout"),
-    "2247381" => t("Nguekhokh"),
-    "2248409" => t("Mekhe"),
-    "2250677" => t("Kayar"),
-    "2251084" => t("Joal-Fadiout"),
+    "2244799" => "Thies Nones",
+    "2246606" => "Pout",
+    "2247381" => "Nguekhokh",
+    "2248409" => "Mekhe",
+    "2250677" => "Kayar",
+    "2251084" => "Joal-Fadiout",
   );
 }
 
 
 function location_cities_list_sn_sl() {
   return array(
-    "2246452" => t("Saint-Louis"),
-    "2246544" => t("Richard-Toll"),
+    "2246452" => "Saint-Louis",
+    "2246544" => "Richard-Toll",
   );
 }
 
 
 function location_cities_list_sn_tc() {
   return array(
-    "2244991" => t("Tambacounda"),
+    "2244991" => "Tambacounda",
   );
 }
 
 
 function location_cities_list_sn_zg() {
   return array(
-    "2243940" => t("Ziguinchor"),
-    "2253901" => t("Bignona"),
+    "2243940" => "Ziguinchor",
+    "2253901" => "Bignona",
   );
 }

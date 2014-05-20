@@ -13,7 +13,7 @@ function location_cities_list_fm_ksa() {
 
 function location_cities_list_fm_pni() {
   return array(
-    "2081986" => t("Palikir - National Government Center"),
+    "2081986" => "Palikir - National Government Center",
   );
 }
 

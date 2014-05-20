@@ -3,7 +3,7 @@
 
 function location_cities_list_km_g() {
   return array(
-    "921772" => t("Moroni"),
+    "921772" => "Moroni",
   );
 }
 
@@ -15,6 +15,6 @@ function location_cities_list_km_m() {
 
 function location_cities_list_km_a() {
   return array(
-    "921753" => t("Moutsamoudou"),
+    "921753" => "Moutsamoudou",
   );
 }

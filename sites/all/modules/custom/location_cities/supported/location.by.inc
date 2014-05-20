@@ -3,90 +3,90 @@
 
 function location_cities_list_by_br() {
   return array(
-    "622997" => t("Pruzhany"),
-    "623549" => t("Pinsk"),
-    "625818" => t("Luninyets"),
-    "627145" => t("Kobryn"),
-    "627800" => t("Ivatsevichy"),
-    "629454" => t("Byaroza"),
-    "629634" => t("Brest"),
-    "630429" => t("Baranavichy"),
+    "622997" => "Pruzhany",
+    "623549" => "Pinsk",
+    "625818" => "Luninyets",
+    "627145" => "Kobryn",
+    "627800" => "Ivatsevichy",
+    "629454" => "Byaroza",
+    "629634" => "Brest",
+    "630429" => "Baranavichy",
   );
 }
 
 
 function location_cities_list_by_ho() {
   return array(
-    "618806" => t("Zhlobin"),
-    "621074" => t("Svyetlahorsk"),
-    "622739" => t("Rahachow"),
-    "622794" => t("Rechytsa"),
-    "625324" => t("Mazyr"),
-    "627751" => t("Kalinkavichy"),
-    "627907" => t("Homyel'"),
-    "629018" => t("Dobrush"),
+    "618806" => "Zhlobin",
+    "621074" => "Svyetlahorsk",
+    "622739" => "Rahachow",
+    "622794" => "Rechytsa",
+    "625324" => "Mazyr",
+    "627751" => "Kalinkavichy",
+    "627907" => "Homyel'",
+    "629018" => "Dobrush",
   );
 }
 
 
 function location_cities_list_by_hr() {
   return array(
-    "620391" => t("Vawkavysk"),
-    "621713" => t("Smarhon'"),
-    "621754" => t("Slonim"),
-    "622113" => t("Shchuchin"),
-    "624785" => t("Navahrudak"),
-    "625367" => t("Masty"),
-    "626081" => t("Lida"),
-    "627904" => t("Hrodna"),
+    "620391" => "Vawkavysk",
+    "621713" => "Smarhon'",
+    "621754" => "Slonim",
+    "622113" => "Shchuchin",
+    "624785" => "Navahrudak",
+    "625367" => "Masty",
+    "626081" => "Lida",
+    "627904" => "Hrodna",
   );
 }
 
 
 function location_cities_list_by_ma() {
   return array(
-    "624034" => t("Asipovichy"),
-    "625665" => t("Mahilyow"),
-    "626450" => t("Krychaw"),
-    "627905" => t("Horki"),
-    "629447" => t("Bykhaw"),
-    "630468" => t("Babruysk"),
+    "624034" => "Asipovichy",
+    "625665" => "Mahilyow",
+    "626450" => "Krychaw",
+    "627905" => "Horki",
+    "629447" => "Bykhaw",
+    "630468" => "Babruysk",
   );
 }
 
 
 function location_cities_list_by_hm() {
   return array(
-    "8020218" => t("Malinovka"),
+    "8020218" => "Malinovka",
   );
 }
 
 
 function location_cities_list_by_mi() {
   return array(
-    "618800" => t("Horad Zhodzina"),
-    "620181" => t("Vilyeyka"),
-    "621266" => t("Stowbtsy"),
-    "621741" => t("Slutsk"),
-    "622428" => t("Salihorsk"),
-    "625144" => t("Minsk"),
-    "625409" => t("Mar''ina Horka"),
-    "625625" => t("Maladzyechna"),
-    "627083" => t("Kalodzishchy"),
-    "628634" => t("Dzyarzhynsk"),
-    "630376" => t("Horad Barysaw"),
+    "618800" => "Horad Zhodzina",
+    "620181" => "Vilyeyka",
+    "621266" => "Stowbtsy",
+    "621741" => "Slutsk",
+    "622428" => "Salihorsk",
+    "625144" => "Minsk",
+    "625409" => "Mar''ina Horka",
+    "625625" => "Maladzyechna",
+    "627083" => "Kalodzishchy",
+    "628634" => "Dzyarzhynsk",
+    "630376" => "Horad Barysaw",
   );
 }
 
 
 function location_cities_list_by_vi() {
   return array(
-    "620127" => t("Vitebsk"),
-    "623317" => t("Polatsk"),
-    "623760" => t("Pastavy"),
-    "624079" => t("Orsha"),
-    "624784" => t("Navapolatsk"),
-    "625743" => t("Lyepyel'"),
-    "627908" => t("Hlybokaye"),
+    "620127" => "Vitebsk",
+    "623317" => "Polatsk",
+    "623760" => "Pastavy",
+    "624079" => "Orsha",
+    "624784" => "Navapolatsk",
+    "625743" => "Lyepyel'",
+    "627908" => "Hlybokaye",
   );
 }

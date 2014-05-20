@@ -3,102 +3,102 @@
 
 function location_cities_list_lk_2() {
   return array(
-    "1232783" => t("Nuwara Eliya"),
-    "1241622" => t("Kandy"),
-    "1244596" => t("Hatton"),
-    "1246000" => t("Gampola"),
-    "1248749" => t("Dambulla"),
+    "1232783" => "Nuwara Eliya",
+    "1241622" => "Kandy",
+    "1244596" => "Hatton",
+    "1246000" => "Gampola",
+    "1248749" => "Dambulla",
   );
 }
 
 
 function location_cities_list_lk_5() {
   return array(
-    "1226260" => t("Trincomalee"),
-    "1242110" => t("Kalmunai"),
-    "1246924" => t("Eravur Town"),
-    "1250161" => t("Batticaloa"),
-    "1251459" => t("Ampara"),
+    "1226260" => "Trincomalee",
+    "1242110" => "Kalmunai",
+    "1246924" => "Eravur Town",
+    "1250161" => "Batticaloa",
+    "1251459" => "Ampara",
   );
 }
 
 
 function location_cities_list_lk_7() {
   return array(
-    "1251081" => t("Anuradhapura"),
+    "1251081" => "Anuradhapura",
   );
 }
 
 
 function location_cities_list_lk_6() {
   return array(
-    "1229293" => t("Puttalam"),
-    "1237980" => t("Kurunegala"),
-    "1249145" => t("Chilaw"),
+    "1229293" => "Puttalam",
+    "1237980" => "Kurunegala",
+    "1249145" => "Chilaw",
   );
 }
 
 
 function location_cities_list_lk_4() {
   return array(
-    "1225018" => t("Vavuniya"),
-    "1225142" => t("Valvedditturai"),
-    "1229989" => t("Point Pedro"),
-    "1242833" => t("Jaffna"),
+    "1225018" => "Vavuniya",
+    "1225142" => "Valvedditturai",
+    "1229989" => "Point Pedro",
+    "1242833" => "Jaffna",
   );
 }
 
 
 function location_cities_list_lk_9() {
   return array(
-    "1228730" => t("Ratnapura"),
+    "1228730" => "Ratnapura",
   );
 }
 
 
 function location_cities_list_lk_8() {
   return array(
-    "1250615" => t("Badulla"),
+    "1250615" => "Badulla",
   );
 }
 
 
 function location_cities_list_lk_3() {
   return array(
-    "1223738" => t("Weligama"),
-    "1235846" => t("Matara"),
-    "1246294" => t("Galle"),
-    "1249978" => t("Bentota"),
-    "1251574" => t("Ambalangoda"),
+    "1223738" => "Weligama",
+    "1235846" => "Matara",
+    "1246294" => "Galle",
+    "1249978" => "Bentota",
+    "1251574" => "Ambalangoda",
   );
 }
 
 
 function location_cities_list_lk_1() {
   return array(
-    "1223648" => t("Welisara"),
-    "1224085" => t("Wattala"),
-    "1230089" => t("Pita Kotte"),
-    "1230613" => t("Peliyagoda"),
-    "1231410" => t("Panadura"),
-    "1233369" => t("Negombo"),
-    "1234378" => t("Mulleriyawa"),
-    "1234633" => t("Moratuwa"),
-    "1236854" => t("Maharagama"),
-    "1238992" => t("Sri Jayewardenepura Kotte"),
-    "1239047" => t("Kotikawatta"),
-    "1239593" => t("Kolonnawa"),
-    "1240622" => t("Kelaniya"),
-    "1240935" => t("Katunayaka North"),
-    "1241750" => t("Kandana"),
-    "1241964" => t("Kalutara"),
-    "1242835" => t("Ja Ela"),
-    "1243936" => t("Homagama"),
-    "1244397" => t("Hendala"),
-    "1244773" => t("Hanwella Ihala"),
-    "1246321" => t("Galkissa"),
-    "1248991" => t("Colombo"),
-    "1249931" => t("Beruwala"),
-    "1250164" => t("Battaramulla South"),
+    "1223648" => "Welisara",
+    "1224085" => "Wattala",
+    "1230089" => "Pita Kotte",
+    "1230613" => "Peliyagoda",
+    "1231410" => "Panadura",
+    "1233369" => "Negombo",
+    "1234378" => "Mulleriyawa",
+    "1234633" => "Moratuwa",
+    "1236854" => "Maharagama",
+    "1238992" => "Sri Jayewardenepura Kotte",
+    "1239047" => "Kotikawatta",
+    "1239593" => "Kolonnawa",
+    "1240622" => "Kelaniya",
+    "1240935" => "Katunayaka North",
+    "1241750" => "Kandana",
+    "1241964" => "Kalutara",
+    "1242835" => "Ja Ela",
+    "1243936" => "Homagama",
+    "1244397" => "Hendala",
+    "1244773" => "Hanwella Ihala",
+    "1246321" => "Galkissa",
+    "1248991" => "Colombo",
+    "1249931" => "Beruwala",
+    "1250164" => "Battaramulla South",
   );
 }

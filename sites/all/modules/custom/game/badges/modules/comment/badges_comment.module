@@ -10,8 +10,8 @@ function badges_comment_badges() {
 
   $badges['comment_bronze'] = array(
     'function'  => 'badges_comment_check',
-    'name'      => t('Commentator'),
-    'info'      => t('Left 10 Comments'),
+    'name'      => 'Commentator',
+    'info'      => 'Left 10 Comments',
     'type'      => 'bronze',
     'arguments' => array('comment_count' => 10),
   );

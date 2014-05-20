@@ -8,7 +8,7 @@ function location_cities_list_me_01() {
 
 function location_cities_list_me_02() {
   return array(
-    "3204509" => t("Bar"),
+    "3204509" => "Bar",
   );
 }
 
@@ -20,21 +20,21 @@ function location_cities_list_me_03() {
 
 function location_cities_list_me_04() {
   return array(
-    "3204176" => t("Bijelo Polje"),
+    "3204176" => "Bijelo Polje",
   );
 }
 
 
 function location_cities_list_me_05() {
   return array(
-    "3203106" => t("Budva"),
+    "3203106" => "Budva",
   );
 }
 
 
 function location_cities_list_me_06() {
   return array(
-    "3202641" => t("Cetinje"),
+    "3202641" => "Cetinje",
   );
 }
 
@@ -46,7 +46,7 @@ function location_cities_list_me_07() {
 
 function location_cities_list_me_08() {
   return array(
-    "3199394" => t("Herceg-Novi"),
+    "3199394" => "Herceg-Novi",
   );
 }
 
@@ -68,7 +68,7 @@ function location_cities_list_me_09() {
 
 function location_cities_list_me_12() {
   return array(
-    "3194494" => t("Niksic"),
+    "3194494" => "Niksic",
   );
 }
 
@@ -100,14 +100,14 @@ function location_cities_list_me_21() {
 
 function location_cities_list_me_14() {
   return array(
-    "3193161" => t("Pljevlja"),
+    "3193161" => "Pljevlja",
   );
 }
 
 
 function location_cities_list_me_16() {
   return array(
-    "3193044" => t("Podgorica"),
+    "3193044" => "Podgorica",
   );
 }
 

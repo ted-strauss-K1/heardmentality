@@ -58,7 +58,7 @@ function location_cities_list_sc_11() {
 
 function location_cities_list_sc_16() {
   return array(
-    "241131" => t("Victoria"),
+    "241131" => "Victoria",
   );
 }
 

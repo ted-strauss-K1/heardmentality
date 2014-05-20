@@ -6,7 +6,7 @@
     <tbody>
     <tr style="background : #362750; height: 80px;">
         <td
-            style=""><?php print l('<img style="height: 44px; width: 81px;" title="Heard Mentality Logo" alt="Heard Mentality Logo" src="' . url($theme_path . '/sites/all/themes/heardmentalitylight/images/logo_emails.png', array('absolute' => TRUE)) . '">', '', array(
+            style=""><?php print l('<img style="height: 44px; width: 81px;" title="Heard Mentality Logo" alt="Heard Mentality Logo" src="' . url($theme_path . '/images/logo_emails.png', array('absolute' => TRUE)) . '">', '', array(
                 'absolute' => TRUE,
                 'html' => TRUE,
                 'attributes' => array(

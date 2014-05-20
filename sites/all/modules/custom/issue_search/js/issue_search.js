@@ -60,7 +60,7 @@ $('#my_region').live('change', function () {
       tfl_user.prop('selected', true);
     } else {
       $.hrd.noty({
-        text: Drupal.t('No issues for you region'),
+        text: Drupal.tt('No issues for you region', {code: "issue-search-noissues"}),
         type: 'error'
       });
       $(this).prop('checked', false)
@@ -275,11 +275,11 @@ function issue_search() {
   loader.slideDown(500);
 
   $.ajax({
-    type    : 'POST',
+    type: 'POST',
     dataType: 'json',
-    url     : Drupal.settings.language_prefix + '/issues/ajax',
-    data    : search_arguments(),
-    success : function (response) {
+    url: Drupal.settings.language_prefix + '/issues/ajax',
+    data: search_arguments(),
+    success: function (response) {
       if (!response.status) {
         $.hrd.noty({
           text: response.message,
@@ -312,11 +312,11 @@ $('.issue-search-more').live('click', function () {
 
   // search
   $.ajax({
-    type    : 'POST',
+    type: 'POST',
     dataType: 'json',
-    url     : Drupal.settings.language_prefix + '/issues/ajax',
-    data    : search_arguments(),
-    success : function (response) {
+    url: Drupal.settings.language_prefix + '/issues/ajax',
+    data: search_arguments(),
+    success: function (response) {
       if (!response.status) {
         $.hrd.noty({
           text: response.message,

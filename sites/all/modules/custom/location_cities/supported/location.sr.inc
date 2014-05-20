@@ -33,7 +33,7 @@ function location_cities_list_sr_pr() {
 
 function location_cities_list_sr_pm() {
   return array(
-    "3383330" => t("Paramaribo"),
+    "3383330" => "Paramaribo",
   );
 }
 
@@ -50,6 +50,6 @@ function location_cities_list_sr_si() {
 
 function location_cities_list_sr_wa() {
   return array(
-    "3383714" => t("Lelydorp"),
+    "3383714" => "Lelydorp",
   );
 }

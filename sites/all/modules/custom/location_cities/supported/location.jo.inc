@@ -3,95 +3,95 @@
 
 function location_cities_list_jo_aj() {
   return array(
-    "250799" => t("'Ajlun"),
+    "250799" => "'Ajlun",
   );
 }
 
 
 function location_cities_list_jo_am() {
   return array(
-    "246013" => t("Wadi as Sir"),
-    "246314" => t("Umm as Summaq"),
-    "247105" => t("Sahab"),
-    "250441" => t("Amman"),
-    "250461" => t("Al Quwaysimah"),
-    "250637" => t("Al Jubayhah"),
+    "246013" => "Wadi as Sir",
+    "246314" => "Umm as Summaq",
+    "247105" => "Sahab",
+    "250441" => "Amman",
+    "250461" => "Al Quwaysimah",
+    "250637" => "Al Jubayhah",
   );
 }
 
 
 function location_cities_list_jo_aq() {
   return array(
-    "250774" => t("Aqaba"),
+    "250774" => "Aqaba",
   );
 }
 
 
 function location_cities_list_jo_ba() {
   return array(
-    "250258" => t("As Salt"),
+    "250258" => "As Salt",
   );
 }
 
 
 function location_cities_list_jo_ir() {
   return array(
-    "248414" => t("Kurayyimah"),
-    "248946" => t("Irbid"),
-    "250152" => t("Aydun"),
-    "250336" => t("Ar Ramtha"),
-    "250420" => t("`Anjarah"),
+    "248414" => "Kurayyimah",
+    "248946" => "Irbid",
+    "250152" => "Aydun",
+    "250336" => "Ar Ramtha",
+    "250420" => "`Anjarah",
   );
 }
 
 
 function location_cities_list_jo_ja() {
   return array(
-    "248875" => t("Jarash"),
+    "248875" => "Jarash",
   );
 }
 
 
 function location_cities_list_jo_ka() {
   return array(
-    "248923"  => t("`Izra"),
-    "6946409" => t("Karak City"),
+    "248923"  => "`Izra",
+    "6946409" => "Karak City",
   );
 }
 
 
 function location_cities_list_jo_md() {
   return array(
-    "248370" => t("Madaba"),
+    "248370" => "Madaba",
   );
 }
 
 
 function location_cities_list_jo_ma() {
   return array(
-    "250582" => t("Al Mafraq"),
+    "250582" => "Al Mafraq",
   );
 }
 
 
 function location_cities_list_jo_mn() {
   return array(
-    "248382" => t("Ma'an"),
-    "250624" => t("Qir Moav"),
+    "248382" => "Ma'an",
+    "250624" => "Qir Moav",
   );
 }
 
 
 function location_cities_list_jo_at() {
   return array(
-    "250198" => t("At Tafilah"),
+    "250198" => "At Tafilah",
   );
 }
 
 
 function location_cities_list_jo_az() {
   return array(
-    "250090"  => t("Zarqa"),
-    "7838895" => t("Russeifa"),
+    "250090"  => "Zarqa",
+    "7838895" => "Russeifa",
   );
 }

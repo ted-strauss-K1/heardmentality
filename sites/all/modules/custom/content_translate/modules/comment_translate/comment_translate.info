@@ -1,6 +1,0 @@
-name = Comment Translation
-description = Comment Translation
-package = Custom Modules
-version = "6.x-1.6"
-core = 6.x
-dependencies[] = "mstapi"

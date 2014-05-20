@@ -526,6 +526,7 @@ function user_profile_edit_form_submit_image(&$form, &$form_state) {
 
   $dest = str_replace(file_directory_path(), '', $dest);
   $dest = preg_replace('@^/+@', '', $dest);
+
   $user->picture = $dest;
   user_save($user, array('picture' => $dest));
 }

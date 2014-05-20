@@ -1,0 +1,102 @@
+<?php
+
+/**
+ *
+ */
+require_once __DIR__ . '/tt.inc';
+require_once __DIR__ . '/tt.admin.inc';
+
+/**
+ * React on cache flush
+ *
+ * @return array
+ */
+function tt_flush_caches() {
+  // cleanup tt_locale cache
+  tt_locale(NULL, NULL, NULL, TRUE);
+
+  // rebuild tt_js caches
+  tt_js();
+
+  return array();
+}
+
+/**
+ * Translate strings for JS
+ *
+ * @uses hook_tt_js()
+ */
+function tt_js() {
+  // collect js
+  $js = module_invoke_all('tt_js');
+  foreach ($js as $code => $text) {
+    if (FALSE === strpos($text, '@count')) {
+      __($text, array('@code' => $code, '@textgroup' => 'js'));
+    }
+    else {
+      __($text, array('@code' => $code, '@textgroup' => 'js', '@count' => 0));
+      __($text, array('@code' => $code, '@textgroup' => 'js', '@count' => 1));
+    }
+  }
+}
+
+/**
+ * Put JS translation function
+ */
+function tt_preprocess_page() {
+  $js = tt_locale(NULL, array('@textgroup' => 'js'), NULL, FALSE);
+  drupal_add_js(array('tt' => $js), 'setting');
+  drupal_add_js(drupal_get_path('module', 'tt') . '/tt.js');
+}
+
+/**
+ * Cache Locations/Terms translations
+ */
+function tt_enable() {
+  // terms
+  db_query("DELETE FROM {locales_source} WHERE textgroup = '%s'", 'term');
+  db_query("
+    INSERT INTO {locales_source}
+    SELECT NULL, '', 'term', name, '%s', CONCAT('term-', tid)
+    FROM {term_data}", VERSION);
+
+  // locations
+  db_query("DELETE FROM {locales_source} WHERE textgroup = '%s'", 'location');
+  if (module_exists('extract')) {
+    extract_cache_location();
+    db_query("
+      INSERT INTO {locales_source}
+      SELECT
+        NULL,
+        '',
+        'location',
+        (CASE
+          WHEN location3_name <> '' THEN location3_name
+          WHEN location2_name <> '' THEN location2_name
+          ELSE location1_name
+          END),
+        '%s',
+        CONCAT('location-', location_id)
+      FROM {extract_cache_location}", VERSION);
+  }
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function tt_form_alter(&$form, &$form_state, $form_id) {
+  //
+}
+
+// todo remove below
+
+/**
+ *
+ */
+function tt_init() {
+  if (isset($_REQUEST['translate'])) {
+    // tt_enable();
+  }
+}

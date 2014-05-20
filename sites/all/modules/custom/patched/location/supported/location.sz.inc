@@ -2,9 +2,9 @@
 
 function location_province_list_sz() {
   return array(
-    "HH" => t("Hhohho District"),
-    "LU" => t("Lubombo District"),
-    "MA" => t("Manzini District"),
-    "SH" => t("Shiselweni District"),
+    "HH" => "Hhohho District",
+    "LU" => "Lubombo District",
+    "MA" => "Manzini District",
+    "SH" => "Shiselweni District",
   );
 }

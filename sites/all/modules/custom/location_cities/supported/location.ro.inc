@@ -3,372 +3,372 @@
 
 function location_cities_list_ro_ar() {
   return array(
-    "686254" => t("Arad"),
+    "686254" => "Arad",
   );
 }
 
 
 function location_cities_list_ro_bh() {
   return array(
-    "668129" => t("Salonta"),
-    "671768" => t("Oradea"),
+    "668129" => "Salonta",
+    "671768" => "Oradea",
   );
 }
 
 
 function location_cities_list_ro_b() {
   return array(
-    "683506" => t("Bucharest"),
+    "683506" => "Bucharest",
   );
 }
 
 
 function location_cities_list_ro_cv() {
   return array(
-    "665000" => t("Targu Secuiesc"),
-    "667303" => t("Sfantu-Gheorghe"),
+    "665000" => "Targu Secuiesc",
+    "667303" => "Sfantu-Gheorghe",
   );
 }
 
 
 function location_cities_list_ro_dj() {
   return array(
-    "678261" => t("Filiasi"),
-    "680332" => t("Craiova"),
-    "683034" => t("Calafat"),
-    "685785" => t("Bailesti"),
+    "678261" => "Filiasi",
+    "680332" => "Craiova",
+    "683034" => "Calafat",
+    "685785" => "Bailesti",
   );
 }
 
 
 function location_cities_list_ro_gr() {
   return array(
-    "677106" => t("Giurgiu"),
+    "677106" => "Giurgiu",
   );
 }
 
 
 function location_cities_list_ro_gj() {
   return array(
-    "665010" => t("Targu Jiu"),
-    "672757" => t("Motru"),
+    "665010" => "Targu Jiu",
+    "672757" => "Motru",
   );
 }
 
 
 function location_cities_list_ro_hr() {
   return array(
-    "671964" => t("Odorheiu Secuiesc"),
-    "673441" => t("Miercurea-Ciuc"),
-    "677458" => t("Gheorgheni"),
+    "671964" => "Odorheiu Secuiesc",
+    "673441" => "Miercurea-Ciuc",
+    "677458" => "Gheorgheni",
   );
 }
 
 
 function location_cities_list_ro_hd() {
   return array(
-    "670938" => t("Petrosani"),
-    "670969" => t("Petrila"),
-    "671757" => t("Orastie"),
-    "675918" => t("Hunedoara"),
-    "679452" => t("Deva"),
-    "683974" => t("Brad"),
+    "670938" => "Petrosani",
+    "670969" => "Petrila",
+    "671757" => "Orastie",
+    "675918" => "Hunedoara",
+    "679452" => "Deva",
+    "683974" => "Brad",
   );
 }
 
 
 function location_cities_list_ro_if() {
   return array(
-    "662476" => t("Voluntari"),
-    "669870" => t("Popesti-Leordeni"),
-    "671382" => t("Pantelimon"),
-    "683394" => t("Buftea"),
+    "662476" => "Voluntari",
+    "669870" => "Popesti-Leordeni",
+    "671382" => "Pantelimon",
+    "683394" => "Buftea",
   );
 }
 
 
 function location_cities_list_ro_ab() {
   return array(
-    "667526" => t("Sebes"),
-    "672024" => t("Ocna Mures"),
-    "679995" => t("Cugir"),
-    "684612" => t("Blaj"),
-    "686578" => t("Alba Iulia"),
-    "686590" => t("Aiud"),
+    "667526" => "Sebes",
+    "672024" => "Ocna Mures",
+    "679995" => "Cugir",
+    "684612" => "Blaj",
+    "686578" => "Alba Iulia",
+    "686590" => "Aiud",
   );
 }
 
 
 function location_cities_list_ro_ag() {
   return array(
-    "670609"  => t("Pitesti"),
-    "679907"  => t("Curtea de Arges"),
-    "7733099" => t("Mioveni"),
+    "670609"  => "Pitesti",
+    "679907"  => "Curtea de Arges",
+    "7733099" => "Mioveni",
   );
 }
 
 
 function location_cities_list_ro_bc() {
   return array(
-    "672926" => t("Moinesti"),
-    "681017" => t("Comanesti"),
-    "683365" => t("Buhusi"),
-    "685948" => t("Bacau"),
+    "672926" => "Moinesti",
+    "681017" => "Comanesti",
+    "683365" => "Buhusi",
+    "685948" => "Bacau",
   );
 }
 
 
 function location_cities_list_ro_bn() {
   return array(
-    "684657" => t("Bistrita"),
+    "684657" => "Bistrita",
   );
 }
 
 
 function location_cities_list_ro_bt() {
   return array(
-    "679065" => t("Dorohoi"),
-    "684039" => t("Botosani"),
+    "679065" => "Dorohoi",
+    "684039" => "Botosani",
   );
 }
 
 
 function location_cities_list_ro_bv() {
   return array(
-    "662284" => t("Zarnesti"),
-    "668314" => t("Sacele"),
-    "668828" => t("Rasnov"),
-    "683844" => t("Brasov"),
+    "662284" => "Zarnesti",
+    "668314" => "Sacele",
+    "668828" => "Rasnov",
+    "683844" => "Brasov",
   );
 }
 
 
 function location_cities_list_ro_br() {
   return array(
-    "683902" => t("Braila"),
+    "683902" => "Braila",
   );
 }
 
 
 function location_cities_list_ro_bz() {
   return array(
-    "668873" => t("Ramnicu Sarat"),
-    "683123" => t("Buzau"),
+    "668873" => "Ramnicu Sarat",
+    "683123" => "Buzau",
   );
 }
 
 
 function location_cities_list_ro_cs() {
   return array(
-    "668954" => t("Resita"),
-    "682729" => t("Caransebes"),
-    "684490" => t("Bocsa"),
+    "668954" => "Resita",
+    "682729" => "Caransebes",
+    "684490" => "Bocsa",
   );
 }
 
 
 function location_cities_list_ro_cj() {
   return array(
-    "664460" => t("Turda"),
-    "677429" => t("Gherla"),
-    "679550" => t("Dej"),
-    "681290" => t("Cluj-Napoca"),
-    "681865" => t("Campia Turzii"),
+    "664460" => "Turda",
+    "677429" => "Gherla",
+    "679550" => "Dej",
+    "681290" => "Cluj-Napoca",
+    "681865" => "Campia Turzii",
   );
 }
 
 
 function location_cities_list_ro_ct() {
   return array(
-    "672486" => t("Navodari"),
-    "673636" => t("Medgidia"),
-    "673921" => t("Mangalia"),
-    "680963" => t("Constanta"),
-    "682321" => t("Cernavoda"),
+    "672486" => "Navodari",
+    "673636" => "Medgidia",
+    "673921" => "Mangalia",
+    "680963" => "Constanta",
+    "682321" => "Cernavoda",
   );
 }
 
 
 function location_cities_list_ro_cl() {
   return array(
-    "671832" => t("Oltenita"),
+    "671832" => "Oltenita",
   );
 }
 
 
 function location_cities_list_ro_db() {
   return array(
-    "665024" => t("Targoviste"),
-    "672862" => t("Moreni"),
-    "677742" => t("Gaesti"),
+    "665024" => "Targoviste",
+    "672862" => "Moreni",
+    "677742" => "Gaesti",
   );
 }
 
 
 function location_cities_list_ro_gl() {
   return array(
-    "665355" => t("Tecuci"),
-    "677697" => t("Galati"),
+    "665355" => "Tecuci",
+    "677697" => "Galati",
   );
 }
 
 
 function location_cities_list_ro_il() {
   return array(
-    "664074"  => t("Urziceni"),
-    "678301"  => t("Fetesti-Gara"),
-    "678306"  => t("Fetesti"),
-    "8581467" => t("Slobozia"),
+    "664074"  => "Urziceni",
+    "678301"  => "Fetesti-Gara",
+    "678306"  => "Fetesti",
+    "8581467" => "Slobozia",
   );
 }
 
 
 function location_cities_list_ro_is() {
   return array(
-    "675810"  => t("Iasi"),
-    "6945426" => t("Pascani"),
+    "675810"  => "Iasi",
+    "6945426" => "Pascani",
   );
 }
 
 
 function location_cities_list_ro_mh() {
   return array(
-    "678817" => t("Drobeta-Turnu Severin"),
+    "678817" => "Drobeta-Turnu Severin",
   );
 }
 
 
 function location_cities_list_ro_ms() {
   return array(
-    "664963"  => t("Tarnaveni"),
-    "665004"  => t("Targu-Mures"),
-    "674541"  => t("Ludus"),
-    "8436351" => t("Sighisoara"),
+    "664963"  => "Tarnaveni",
+    "665004"  => "Targu-Mures",
+    "674541"  => "Ludus",
+    "8436351" => "Sighisoara",
   );
 }
 
 
 function location_cities_list_ro_nt() {
   return array(
-    "665003" => t("Targu Neamt"),
-    "668732" => t("Roman"),
-    "670889" => t("Piatra Neamt"),
+    "665003" => "Targu Neamt",
+    "668732" => "Roman",
+    "670889" => "Piatra Neamt",
   );
 }
 
 
 function location_cities_list_ro_sb() {
   return array(
-    "667268" => t("Sibiu"),
-    "673634" => t("Medias"),
-    "681502" => t("Cisnadie"),
+    "667268" => "Sibiu",
+    "673634" => "Medias",
+    "681502" => "Cisnadie",
   );
 }
 
 
 function location_cities_list_ro_sj() {
   return array(
-    "662334" => t("Zalau"),
-    "667101" => t("Simleu Silvaniei"),
+    "662334" => "Zalau",
+    "667101" => "Simleu Silvaniei",
   );
 }
 
 
 function location_cities_list_ro_tm() {
   return array(
-    "665087" => t("Timisoara"),
-    "674531" => t("Lugoj"),
+    "665087" => "Timisoara",
+    "674531" => "Lugoj",
   );
 }
 
 
 function location_cities_list_ro_vl() {
   return array(
-    "668872" => t("Ramnicu Valcea"),
-    "678978" => t("Dragasani"),
+    "668872" => "Ramnicu Valcea",
+    "678978" => "Dragasani",
   );
 }
 
 
 function location_cities_list_ro_mm() {
   return array(
-    "667227" => t("Sighetu Marmatiei"),
-    "684156" => t("Borsa"),
-    "685823" => t("Baia Sprie"),
-    "685826" => t("Baia Mare"),
+    "667227" => "Sighetu Marmatiei",
+    "684156" => "Borsa",
+    "685823" => "Baia Sprie",
+    "685826" => "Baia Mare",
   );
 }
 
 
 function location_cities_list_ro_ot() {
   return array(
-    "666767" => t("Slatina"),
-    "680897" => t("Corabia"),
-    "682747" => t("Caracal"),
-    "685586" => t("Bals"),
+    "666767" => "Slatina",
+    "680897" => "Corabia",
+    "682747" => "Caracal",
+    "685586" => "Bals",
   );
 }
 
 
 function location_cities_list_ro_ph() {
   return array(
-    "670474" => t("Ploiesti"),
-    "673033" => t("Mizil"),
-    "681862" => t("Campina"),
-    "683760" => t("Breaza"),
-    "685811" => t("Baicoi"),
+    "670474" => "Ploiesti",
+    "673033" => "Mizil",
+    "681862" => "Campina",
+    "683760" => "Breaza",
+    "685811" => "Baicoi",
   );
 }
 
 
 function location_cities_list_ro_sm() {
   return array(
-    "667873"  => t("Satu Mare"),
-    "682685"  => t("Carei"),
-    "6697993" => t("Baia Mare"),
+    "667873"  => "Satu Mare",
+    "682685"  => "Carei",
+    "6697993" => "Baia Mare",
   );
 }
 
 
 function location_cities_list_ro_sv() {
   return array(
-    "663100" => t("Vatra Dornei"),
-    "665850" => t("Suceava"),
-    "669289" => t("Radauti"),
-    "676527" => t("Gura Humorului"),
-    "678459" => t("Falticeni"),
-    "681845" => t("Campulung Moldovenesc"),
+    "663100" => "Vatra Dornei",
+    "665850" => "Suceava",
+    "669289" => "Radauti",
+    "676527" => "Gura Humorului",
+    "678459" => "Falticeni",
+    "681845" => "Campulung Moldovenesc",
   );
 }
 
 
 function location_cities_list_ro_tr() {
   return array(
-    "662187" => t("Zimnicea"),
-    "664437" => t("Turnu Magurele"),
-    "686502" => t("Alexandria"),
+    "662187" => "Zimnicea",
+    "664437" => "Turnu Magurele",
+    "686502" => "Alexandria",
   );
 }
 
 
 function location_cities_list_ro_tl() {
   return array(
-    "664518" => t("Tulcea"),
+    "664518" => "Tulcea",
   );
 }
 
 
 function location_cities_list_ro_vs() {
   return array(
-    "663118" => t("Vaslui"),
-    "675892" => t("Husi"),
-    "684802" => t("Barlad"),
+    "663118" => "Vaslui",
+    "675892" => "Husi",
+    "684802" => "Barlad",
   );
 }
 
 
 function location_cities_list_ro_vn() {
   return array(
-    "678015" => t("Focsani"),
+    "678015" => "Focsani",
   );
 }

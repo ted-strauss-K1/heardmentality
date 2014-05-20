@@ -9,8 +9,8 @@ function badges_userpoints_badges() {
   return array(
     'userpoints_yearling' => array(
       'function'  => 'badges_userpoints_yearling_check',
-      'name'      => t('Yearling'),
-      'info'      => t('Active member for a year, earning at least 200 reputation'),
+      'name'      => 'Yearling',
+      'info'      => 'Active member for a year, earning at least 200 reputation',
       'arguments' => array('count' => 200, 'days' => 365),
     ),
   );

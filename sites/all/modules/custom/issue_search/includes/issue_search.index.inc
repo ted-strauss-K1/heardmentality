@@ -522,6 +522,7 @@ function issue_search_extra_fields_indexing_views_count($node, $field_name, $ind
 function issue_search_extra_fields_indexing_languages($node, $field_name, $index_key, $field_info) {
   $fields = array();
 
+  // todo index fields using the new translation procedure
   $languages = array();
   $query = db_query("SELECT ct.language AS langcode FROM {content_translate} ct WHERE ct.content_type = 'node' AND ct.content_id = %d", $node->nid);
   while ($record = db_fetch_object($query)) {

@@ -2,16 +2,16 @@
 
 function location_province_list_bm() {
   return array(
-    "DS" => t("Devonshire Parish"),
-    "HA" => t("Hamilton Parish"),
-    "HC" => t("Hamilton city"),
-    "PG" => t("Paget"),
-    "PB" => t("Pembroke Parish"),
-    "GC" => t("Saint George"),
-    "SG" => t("Saint George’s Parish"),
-    "SA" => t("Sandys Parish"),
-    "SM" => t("Smith’s Parish"),
-    "SH" => t("Southampton Parish"),
-    "WA" => t("Warwick Parish"),
+    "DS" => "Devonshire Parish",
+    "HA" => "Hamilton Parish",
+    "HC" => "Hamilton city",
+    "PG" => "Paget",
+    "PB" => "Pembroke Parish",
+    "GC" => "Saint George",
+    "SG" => "Saint George’s Parish",
+    "SA" => "Sandys Parish",
+    "SM" => "Smith’s Parish",
+    "SH" => "Southampton Parish",
+    "WA" => "Warwick Parish",
   );
 }

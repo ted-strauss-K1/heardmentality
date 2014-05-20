@@ -8,7 +8,7 @@ function location_cities_list_wf_a() {
 
 function location_cities_list_wf_w() {
   return array(
-    "4034821" => t("Mata-Utu"),
+    "4034821" => "Mata-Utu",
   );
 }
 

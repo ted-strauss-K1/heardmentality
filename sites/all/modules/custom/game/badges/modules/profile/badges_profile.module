@@ -9,8 +9,8 @@ function badges_profile_badges() {
   return array(
     'user_profile' => array(
       'function' => 'badges_user_profile_check',
-      'name'     => t('Autobiographer'),
-      'info'     => t('Completed all user profile fields'),
+      'name'     => 'Autobiographer',
+      'info'     => 'Completed all user profile fields',
     ),
   );
 }

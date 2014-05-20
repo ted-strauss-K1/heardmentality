@@ -3,37 +3,37 @@
 
 function location_cities_list_ss_ec() {
   return array(
-    "363619" => t("Yei"),
-    "373303" => t("Juba"),
+    "363619" => "Yei",
+    "373303" => "Juba",
   );
 }
 
 
 function location_cities_list_ss_ee() {
   return array(
-    "365742" => t("Torit"),
-    "375495" => t("Pajok"),
+    "365742" => "Torit",
+    "375495" => "Pajok",
   );
 }
 
 
 function location_cities_list_ss_jg() {
   return array(
-    "377241" => t("Bor"),
+    "377241" => "Bor",
   );
 }
 
 
 function location_cities_list_ss_lk() {
   return array(
-    "367927" => t("Rumbek"),
+    "367927" => "Rumbek",
   );
 }
 
 
 function location_cities_list_ss_bn() {
   return array(
-    "364367" => t("Aweil"),
+    "364367" => "Aweil",
   );
 }
 
@@ -45,28 +45,28 @@ function location_cities_list_ss_uy() {
 
 function location_cities_list_ss_nu() {
   return array(
-    "370737" => t("Malakal"),
+    "370737" => "Malakal",
   );
 }
 
 
 function location_cities_list_ss_wr() {
   return array(
-    "365763" => t("Tonj"),
-    "374739" => t("Gogrial"),
+    "365763" => "Tonj",
+    "374739" => "Gogrial",
   );
 }
 
 
 function location_cities_list_ss_bw() {
   return array(
-    "363885" => t("Wau"),
+    "363885" => "Wau",
   );
 }
 
 
 function location_cities_list_ss_ew() {
   return array(
-    "363656" => t("Yambio"),
+    "363656" => "Yambio",
   );
 }

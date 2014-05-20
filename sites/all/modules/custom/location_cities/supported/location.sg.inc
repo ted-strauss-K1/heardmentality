@@ -28,6 +28,6 @@ function location_cities_list_sg_05() {
 
 function location_cities_list_sg_00() {
   return array(
-    "1880252" => t("Singapore"),
+    "1880252" => "Singapore",
   );
 }

@@ -2,14 +2,14 @@
 
 function location_province_list_at() {
   return array(
-    "1" => t("Burgenland"),
-    "2" => t("Carinthia"),
-    "3" => t("Lower Austria"),
-    "5" => t("Salzburg"),
-    "6" => t("Styria"),
-    "7" => t("Tyrol"),
-    "4" => t("Upper Austria"),
-    "9" => t("Vienna"),
-    "8" => t("Vorarlberg"),
+    "1" => "Burgenland",
+    "2" => "Carinthia",
+    "3" => "Lower Austria",
+    "5" => "Salzburg",
+    "6" => "Styria",
+    "7" => "Tyrol",
+    "4" => "Upper Austria",
+    "9" => "Vienna",
+    "8" => "Vorarlberg",
   );
 }

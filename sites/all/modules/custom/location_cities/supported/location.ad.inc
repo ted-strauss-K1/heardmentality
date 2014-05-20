@@ -8,7 +8,7 @@ function location_cities_list_ad_02() {
 
 function location_cities_list_ad_07() {
   return array(
-    "3041563" => t("Andorra la Vella"),
+    "3041563" => "Andorra la Vella",
   );
 }
 
@@ -20,7 +20,7 @@ function location_cities_list_ad_03() {
 
 function location_cities_list_ad_08() {
   return array(
-    "3040051" => t("les Escaldes"),
+    "3040051" => "les Escaldes",
   );
 }
 

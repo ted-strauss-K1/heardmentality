@@ -3,462 +3,462 @@
 
 function location_cities_list_ng_ab() {
   return array(
-    "2320576" => t("Umuahia"),
-    "2327494" => t("Ohafia-Ifigh"),
-    "2347303" => t("Bende"),
-    "2350249" => t("Amaigbo"),
-    "2353151" => t("Aba"),
+    "2320576" => "Umuahia",
+    "2327494" => "Ohafia-Ifigh",
+    "2347303" => "Bende",
+    "2350249" => "Amaigbo",
+    "2353151" => "Aba",
   );
 }
 
 
 function location_cities_list_ng_ad() {
   return array(
-    "2318044" => t("Yola"),
-    "2328617" => t("Numan"),
-    "2329821" => t("Mubi"),
-    "2336056" => t("Jimeta"),
-    "2340446" => t("Little Gombi"),
-    "2341955" => t("Ganye"),
+    "2318044" => "Yola",
+    "2328617" => "Numan",
+    "2329821" => "Mubi",
+    "2336056" => "Jimeta",
+    "2340446" => "Little Gombi",
+    "2341955" => "Ganye",
   );
 }
 
 
 function location_cities_list_ng_ak() {
   return array(
-    "2319480" => t("Uyo"),
-    "2336985" => t("Itu"),
-    "2338106" => t("Ikot-Ekpene"),
-    "2343093" => t("Esuk Oron"),
-    "2343720" => t("Eket"),
+    "2319480" => "Uyo",
+    "2336985" => "Itu",
+    "2338106" => "Ikot-Ekpene",
+    "2343093" => "Esuk Oron",
+    "2343720" => "Eket",
   );
 }
 
 
 function location_cities_list_ng_ba() {
   return array(
-    "2335015" => t("Kari"),
-    "2345152" => t("Darazo"),
-    "2347470" => t("Bauchi"),
-    "2348595" => t("Azare"),
+    "2335015" => "Kari",
+    "2345152" => "Darazo",
+    "2347470" => "Bauchi",
+    "2348595" => "Azare",
   );
 }
 
 
 function location_cities_list_ng_by() {
   return array(
-    "2318123" => t("Yenagoa"),
+    "2318123" => "Yenagoa",
   );
 }
 
 
 function location_cities_list_ng_be() {
   return array(
-    "2322552" => t("Takum"),
-    "2325437" => t("Otukpa"),
-    "2331140" => t("Makurdi"),
-    "2334801" => t("Katsina Ala"),
-    "2338660" => t("Igbor"),
+    "2322552" => "Takum",
+    "2325437" => "Otukpa",
+    "2331140" => "Makurdi",
+    "2334801" => "Katsina Ala",
+    "2338660" => "Igbor",
   );
 }
 
 
 function location_cities_list_ng_bo() {
   return array(
-    "2329946" => t("Mongonu"),
-    "2330719" => t("Marte"),
-    "2331447" => t("Maiduguri"),
-    "2331528" => t("Magumeri"),
-    "2333563" => t("Kukawa"),
-    "2339665" => t("Gwoza"),
-    "2342192" => t("Gambaru"),
-    "2344854" => t("Dikwa"),
-    "2345498" => t("Damboa"),
-    "2346995" => t("Biu"),
-    "2347954" => t("Bama"),
+    "2329946" => "Mongonu",
+    "2330719" => "Marte",
+    "2331447" => "Maiduguri",
+    "2331528" => "Magumeri",
+    "2333563" => "Kukawa",
+    "2339665" => "Gwoza",
+    "2342192" => "Gambaru",
+    "2344854" => "Dikwa",
+    "2345498" => "Damboa",
+    "2346995" => "Biu",
+    "2347954" => "Bama",
   );
 }
 
 
 function location_cities_list_ng_cr() {
   return array(
-    "2320831" => t("Ugep"),
-    "2327650" => t("Ogoja"),
-    "2328151" => t("Obudu"),
-    "2338242" => t("Ikom"),
-    "2346229" => t("Calabar"),
+    "2320831" => "Ugep",
+    "2327650" => "Ogoja",
+    "2328151" => "Obudu",
+    "2338242" => "Ikom",
+    "2346229" => "Calabar",
   );
 }
 
 
 function location_cities_list_ng_de() {
   return array(
-    "2319133" => t("Warri"),
-    "2320829" => t("Ughelli"),
-    "2323675" => t("Sapele"),
-    "2327513" => t("Ogwashi-Uku"),
-    "2332871" => t("Kwale"),
-    "2346317" => t("Burutu"),
-    "2349276" => t("Asaba"),
-    "2351979" => t("Agbor"),
+    "2319133" => "Warri",
+    "2320829" => "Ughelli",
+    "2323675" => "Sapele",
+    "2327513" => "Ogwashi-Uku",
+    "2332871" => "Kwale",
+    "2346317" => "Burutu",
+    "2349276" => "Asaba",
+    "2351979" => "Agbor",
   );
 }
 
 
 function location_cities_list_ng_eb() {
   return array(
-    "2337148" => t("Isieke"),
-    "2342883" => t("Ezza Ohu"),
-    "2343985" => t("Effium"),
-    "2352250" => t("Afikpo"),
-    "2353099" => t("Abakaliki"),
+    "2337148" => "Isieke",
+    "2342883" => "Ezza Ohu",
+    "2343985" => "Effium",
+    "2352250" => "Afikpo",
+    "2353099" => "Abakaliki",
   );
 }
 
 
 function location_cities_list_ng_ed() {
   return array(
-    "2319668" => t("Uromi"),
-    "2321031" => t("Ubiaja"),
-    "2343641" => t("Ekpoma"),
-    "2347283" => t("Benin City"),
-    "2348892" => t("Auchi"),
+    "2319668" => "Uromi",
+    "2321031" => "Ubiaja",
+    "2343641" => "Ekpoma",
+    "2347283" => "Benin City",
+    "2348892" => "Auchi",
   );
 }
 
 
 function location_cities_list_ng_ek() {
   return array(
-    "2327233" => t("Oke Ila"),
-    "2337207" => t("Ise-Ekiti"),
-    "2337352" => t("Ipoti"),
-    "2338287" => t("Ikerre"),
-    "2338385" => t("Ijero-Ekiti"),
-    "2338630" => t("Igede-Ekiti"),
-    "2338810" => t("Igbara-Odo"),
-    "2343299" => t("Emure-Ekiti"),
-    "2349529" => t("Araomoko Ekiti"),
-    "2352379" => t("Ado-Ekiti"),
+    "2327233" => "Oke Ila",
+    "2337207" => "Ise-Ekiti",
+    "2337352" => "Ipoti",
+    "2338287" => "Ikerre",
+    "2338385" => "Ijero-Ekiti",
+    "2338630" => "Igede-Ekiti",
+    "2338810" => "Igbara-Odo",
+    "2343299" => "Emure-Ekiti",
+    "2349529" => "Araomoko Ekiti",
+    "2352379" => "Ado-Ekiti",
   );
 }
 
 
 function location_cities_list_ng_en() {
   return array(
-    "2328684" => t("Nsukka"),
-    "2343273" => t("Enugu-Ezike"),
-    "2343279" => t("Enugu"),
-    "2343822" => t("Eha Amufu"),
-    "2348783" => t("Awgu"),
-    "2350886" => t("Aku"),
+    "2328684" => "Nsukka",
+    "2343273" => "Enugu-Ezike",
+    "2343279" => "Enugu",
+    "2343822" => "Eha Amufu",
+    "2348783" => "Awgu",
+    "2350886" => "Aku",
   );
 }
 
 
 function location_cities_list_ng_fc() {
   return array(
-    "2333604" => t("Kuje"),
-    "2352778" => t("Abuja"),
+    "2333604" => "Kuje",
+    "2352778" => "Abuja",
   );
 }
 
 
 function location_cities_list_ng_go() {
   return array(
-    "2324857" => t("Pindiga"),
-    "2329562" => t("Nafada"),
-    "2333451" => t("Kumo"),
-    "2340451" => t("Gombe"),
-    "2341758" => t("Garko"),
-    "2344418" => t("Dukku"),
-    "2345029" => t("Deba Habe"),
-    "2347155" => t("Biliri"),
+    "2324857" => "Pindiga",
+    "2329562" => "Nafada",
+    "2333451" => "Kumo",
+    "2340451" => "Gombe",
+    "2341758" => "Garko",
+    "2344418" => "Dukku",
+    "2345029" => "Deba Habe",
+    "2347155" => "Biliri",
   );
 }
 
 
 function location_cities_list_ng_im() {
   return array(
-    "2325330" => t("Owerri"),
-    "2327143" => t("Okigwi"),
-    "2327521" => t("Oguta"),
-    "2328790" => t("Nkwerre"),
+    "2325330" => "Owerri",
+    "2327143" => "Okigwi",
+    "2327521" => "Oguta",
+    "2328790" => "Nkwerre",
   );
 }
 
 
 function location_cities_list_ng_ji() {
   return array(
-    "2334306" => t("Kiyawa"),
-    "2339631" => t("Hadejia"),
-    "2339786" => t("Gwaram"),
-    "2340091" => t("Gumel"),
-    "2344245" => t("Dutse"),
-    "2347057" => t("Birnin Kudu"),
+    "2334306" => "Kiyawa",
+    "2339631" => "Hadejia",
+    "2339786" => "Gwaram",
+    "2340091" => "Gumel",
+    "2344245" => "Dutse",
+    "2347057" => "Birnin Kudu",
   );
 }
 
 
 function location_cities_list_ng_kd() {
   return array(
-    "2317765" => t("Zaria"),
-    "2322957" => t("Soba"),
-    "2332079" => t("Lere"),
-    "2335614" => t("Kagoro"),
-    "2335713" => t("Kafachan"),
-    "2335727" => t("Kaduna"),
-    "2335798" => t("Kachia"),
-    "2344229" => t("Dutsen Wai"),
-    "2347061" => t("Sofo-Birnin-Gwari"),
-    "2349951" => t("Anchau"),
+    "2317765" => "Zaria",
+    "2322957" => "Soba",
+    "2332079" => "Lere",
+    "2335614" => "Kagoro",
+    "2335713" => "Kafachan",
+    "2335727" => "Kaduna",
+    "2335798" => "Kachia",
+    "2344229" => "Dutsen Wai",
+    "2347061" => "Sofo-Birnin-Gwari",
+    "2349951" => "Anchau",
   );
 }
 
 
 function location_cities_list_ng_kn() {
   return array(
-    "2318933" => t("Wudil"),
-    "2324575" => t("Rano"),
-    "2335204" => t("Kano"),
-    "2339756" => t("Gwarzo"),
-    "2341580" => t("Gaya"),
+    "2318933" => "Wudil",
+    "2324575" => "Rano",
+    "2335204" => "Kano",
+    "2339756" => "Gwarzo",
+    "2341580" => "Gaya",
   );
 }
 
 
 function location_cities_list_ng_kt() {
   return array(
-    "2331005" => t("Malumfashi"),
-    "2334802" => t("Katsina"),
-    "2342490" => t("Funtua"),
-    "2345094" => t("Daura"),
+    "2331005" => "Malumfashi",
+    "2334802" => "Katsina",
+    "2342490" => "Funtua",
+    "2345094" => "Daura",
   );
 }
 
 
 function location_cities_list_ng_ke() {
   return array(
-    "2317548" => t("Zuru"),
-    "2335333" => t("Kamba"),
-    "2336237" => t("Jega"),
-    "2347059" => t("Birnin Kebbi"),
-    "2349431" => t("Argungu"),
+    "2317548" => "Zuru",
+    "2335333" => "Kamba",
+    "2336237" => "Jega",
+    "2347059" => "Birnin Kebbi",
+    "2349431" => "Argungu",
   );
 }
 
 
 function location_cities_list_ng_ko() {
   return array(
-    "2327827" => t("Ogaminan"),
-    "2331939" => t("Lokoja"),
-    "2335843" => t("Kabba"),
-    "2337235" => t("Isanlu Itedoijowa"),
-    "2339156" => t("Idah"),
-    "2343943" => t("Egbe"),
-    "2351470" => t("Ajaokuta"),
+    "2327827" => "Ogaminan",
+    "2331939" => "Lokoja",
+    "2335843" => "Kabba",
+    "2337235" => "Isanlu Itedoijowa",
+    "2339156" => "Idah",
+    "2343943" => "Egbe",
+    "2351470" => "Ajaokuta",
   );
 }
 
 
 function location_cities_list_ng_kw() {
   return array(
-    "2324960" => t("Pategi"),
-    "2326811" => t("Okuta"),
-    "2327879" => t("Offa"),
-    "2332504" => t("Lafiagi"),
-    "2335596" => t("Kaiama"),
-    "2336251" => t("Jebba"),
-    "2337639" => t("Ilorin"),
-    "2346951" => t("Bode Sadu"),
+    "2324960" => "Pategi",
+    "2326811" => "Okuta",
+    "2327879" => "Offa",
+    "2332504" => "Lafiagi",
+    "2335596" => "Kaiama",
+    "2336251" => "Jebba",
+    "2337639" => "Ilorin",
+    "2346951" => "Bode Sadu",
   );
 }
 
 
 function location_cities_list_ng_la() {
   return array(
-    "2331158" => t("Makoko"),
-    "2332459" => t("Lagos"),
-    "2338313" => t("Ikeja"),
-    "2343252" => t("Epe"),
-    "2344082" => t("Ebute Ikorodu"),
-    "2348395" => t("Badagry"),
+    "2331158" => "Makoko",
+    "2332459" => "Lagos",
+    "2338313" => "Ikeja",
+    "2343252" => "Epe",
+    "2344082" => "Ebute Ikorodu",
+    "2348395" => "Badagry",
   );
 }
 
 
 function location_cities_list_ng_na() {
   return array(
-    "2319257" => t("Wamba"),
-    "2329451" => t("Nassarawa"),
-    "2332515" => t("Lafia"),
-    "2334652" => t("Keffi"),
-    "2344600" => t("Doma"),
-    "2350806" => t("Akwanga"),
+    "2319257" => "Wamba",
+    "2329451" => "Nassarawa",
+    "2332515" => "Lafia",
+    "2334652" => "Keffi",
+    "2344600" => "Doma",
+    "2350806" => "Akwanga",
   );
 }
 
 
 function location_cities_list_ng_ni() {
   return array(
-    "2317569" => t("Zungeru"),
-    "2322263" => t("Tegina"),
-    "2322794" => t("Suleja"),
-    "2324504" => t("Rijau"),
-    "2329981" => t("Mokwa"),
-    "2330100" => t("Minna"),
-    "2332249" => t("Lapai"),
-    "2334008" => t("Kontagora"),
-    "2339293" => t("Ibeto"),
-    "2347209" => t("Bida"),
-    "2347592" => t("Baro"),
-    "2348507" => t("Babana"),
+    "2317569" => "Zungeru",
+    "2322263" => "Tegina",
+    "2322794" => "Suleja",
+    "2324504" => "Rijau",
+    "2329981" => "Mokwa",
+    "2330100" => "Minna",
+    "2332249" => "Lapai",
+    "2334008" => "Kontagora",
+    "2339293" => "Ibeto",
+    "2347209" => "Bida",
+    "2347592" => "Baro",
+    "2348507" => "Babana",
   );
 }
 
 
 function location_cities_list_ng_og() {
   return array(
-    "2323411" => t("Shagamu"),
-    "2337379" => t("Iperu"),
-    "2337759" => t("Ilaro"),
-    "2338400" => t("Ijebu-Ode"),
-    "2338403" => t("Ijebu-Igbo"),
-    "2338876" => t("Ifo"),
-    "2352356" => t("Ado Odo"),
-    "2352947" => t("Abeokuta"),
+    "2323411" => "Shagamu",
+    "2337379" => "Iperu",
+    "2337759" => "Ilaro",
+    "2338400" => "Ijebu-Ode",
+    "2338403" => "Ijebu-Igbo",
+    "2338876" => "Ifo",
+    "2352356" => "Ado Odo",
+    "2352947" => "Abeokuta",
   );
 }
 
 
 function location_cities_list_ng_on() {
   return array(
-    "2325314" => t("Owo"),
-    "2326171" => t("Ondo"),
-    "2328090" => t("Ode"),
-    "2339150" => t("Idanre"),
-    "2350841" => t("Akure"),
+    "2325314" => "Owo",
+    "2326171" => "Ondo",
+    "2328090" => "Ode",
+    "2339150" => "Idanre",
+    "2350841" => "Akure",
   );
 }
 
 
 function location_cities_list_ng_os() {
   return array(
-    "2325249" => t("Oyan"),
-    "2325506" => t("Otan Aiyegbaju"),
-    "2325590" => t("Osogbo"),
-    "2326302" => t("Olupona"),
-    "2327223" => t("Oke Mesi"),
-    "2330028" => t("Modakeke"),
-    "2336905" => t("Iwo"),
-    "2337490" => t("Inisa"),
-    "2337659" => t("Ilobu"),
-    "2337704" => t("Ilesa"),
-    "2337765" => t("Ila Orangun"),
-    "2338269" => t("Ikirun"),
-    "2338273" => t("Ikire"),
-    "2338401" => t("Ijebu Ijesha"),
-    "2341355" => t("Gbongan"),
-    "2343784" => t("Ejigbo"),
-    "2343983" => t("Effon Alaiye"),
-    "2349558" => t("Apomu"),
+    "2325249" => "Oyan",
+    "2325506" => "Otan Aiyegbaju",
+    "2325590" => "Osogbo",
+    "2326302" => "Olupona",
+    "2327223" => "Oke Mesi",
+    "2330028" => "Modakeke",
+    "2336905" => "Iwo",
+    "2337490" => "Inisa",
+    "2337659" => "Ilobu",
+    "2337704" => "Ilesa",
+    "2337765" => "Ila Orangun",
+    "2338269" => "Ikirun",
+    "2338273" => "Ikire",
+    "2338401" => "Ijebu Ijesha",
+    "2341355" => "Gbongan",
+    "2343784" => "Ejigbo",
+    "2343983" => "Effon Alaiye",
+    "2349558" => "Apomu",
   );
 }
 
 
 function location_cities_list_ng_oy() {
   return array(
-    "2323390" => t("Saki"),
-    "2325200" => t("Oyo"),
-    "2325733" => t("Orita Eruwa"),
-    "2332357" => t("Lalupon"),
-    "2334327" => t("Kishi"),
-    "2338669" => t("Igbo Ora"),
-    "2338711" => t("Igboho"),
-    "2338772" => t("Igbeti"),
-    "2339354" => t("Ibadan"),
-    "2342628" => t("Fiditi"),
+    "2323390" => "Saki",
+    "2325200" => "Oyo",
+    "2325733" => "Orita Eruwa",
+    "2332357" => "Lalupon",
+    "2334327" => "Kishi",
+    "2338669" => "Igbo Ora",
+    "2338711" => "Igboho",
+    "2338772" => "Igbeti",
+    "2339354" => "Ibadan",
+    "2342628" => "Fiditi",
   );
 }
 
 
 function location_cities_list_ng_pl() {
   return array(
-    "2325060" => t("Pankshin"),
-    "2335953" => t("Jos"),
-    "2346561" => t("Bukuru"),
+    "2325060" => "Pankshin",
+    "2335953" => "Jos",
+    "2346561" => "Bukuru",
   );
 }
 
 
 function location_cities_list_ng_ri() {
   return array(
-    "2324774" => t("Port Harcourt"),
-    "2326899" => t("Okrika"),
-    "2328185" => t("Obonoma"),
-    "2343512" => t("Elele"),
-    "2346615" => t("Buguma"),
-    "2346812" => t("Bonny"),
-    "2591159" => t("Degema Hulk"),
+    "2324774" => "Port Harcourt",
+    "2326899" => "Okrika",
+    "2328185" => "Obonoma",
+    "2343512" => "Elele",
+    "2346615" => "Buguma",
+    "2346812" => "Bonny",
+    "2591159" => "Degema Hulk",
   );
 }
 
 
 function location_cities_list_ng_so() {
   return array(
-    "2322495" => t("Tambawel"),
-    "2322911" => t("Sokoto"),
-    "2337680" => t("Illela"),
-    "2339892" => t("Gwadabawa"),
+    "2322495" => "Tambawel",
+    "2322911" => "Sokoto",
+    "2337680" => "Illela",
+    "2339892" => "Gwadabawa",
   );
 }
 
 
 function location_cities_list_ng_ta() {
   return array(
-    "2318921" => t("Wukari"),
-    "2336589" => t("Jalingo"),
-    "2339287" => t("Ibi"),
-    "2341275" => t("Gembu"),
-    "2347330" => t("Beli"),
+    "2318921" => "Wukari",
+    "2336589" => "Jalingo",
+    "2339287" => "Ibi",
+    "2341275" => "Gembu",
+    "2347330" => "Beli",
   );
 }
 
 
 function location_cities_list_ng_an() {
   return array(
-    "2320920" => t("Uga"),
-    "2325161" => t("Ozubulu"),
-    "2326016" => t("Onitsha"),
-    "2328765" => t("Nnewi"),
-    "2328811" => t("Nkpor"),
-    "2338497" => t("Ihiala"),
-    "2338640" => t("Igbo-Ukwu"),
-    "2343270" => t("Enugu-Ukwu"),
-    "2348773" => t("Awka"),
-    "2351740" => t("Agulu"),
+    "2320920" => "Uga",
+    "2325161" => "Ozubulu",
+    "2326016" => "Onitsha",
+    "2328765" => "Nnewi",
+    "2328811" => "Nkpor",
+    "2338497" => "Ihiala",
+    "2338640" => "Igbo-Ukwu",
+    "2343270" => "Enugu-Ukwu",
+    "2348773" => "Awka",
+    "2351740" => "Agulu",
   );
 }
 
 
 function location_cities_list_ng_yo() {
   return array(
-    "2324767" => t("Potiskum"),
-    "2328952" => t("Nguru"),
-    "2333490" => t("Kumagunnam"),
-    "2341294" => t("Geidam"),
-    "2341656" => t("Gashua"),
-    "2345096" => t("Daura"),
-    "2345521" => t("Damaturu"),
+    "2324767" => "Potiskum",
+    "2328952" => "Nguru",
+    "2333490" => "Kumagunnam",
+    "2341294" => "Geidam",
+    "2341656" => "Gashua",
+    "2345096" => "Daura",
+    "2345521" => "Damaturu",
   );
 }
 
 
 function location_cities_list_ng_za() {
   return array(
-    "2322529" => t("Talata Mafara"),
-    "2329920" => t("Moriki"),
-    "2334756" => t("Kaura Namoda"),
-    "2339937" => t("Gusau"),
-    "2340086" => t("Gummi"),
+    "2322529" => "Talata Mafara",
+    "2329920" => "Moriki",
+    "2334756" => "Kaura Namoda",
+    "2339937" => "Gusau",
+    "2340086" => "Gummi",
   );
 }

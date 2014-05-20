@@ -61,7 +61,7 @@ $(function () {
 function cpoll_create_ahah_error() {
   $.hrd.noty({
     'type': 'error',
-    'text': Drupal.t('Maximum fields exceeded')
+    'text': Drupal.tt('Maximum fields exceeded', {"@code": "cpoll_create-error-max"})
   });
 }
 
@@ -73,15 +73,15 @@ $('#cpoll-create-form').live('submit', function (e) {
   var q = $("#q_quest");
   var errors = [];
   if (q.val().length > maxlength) {
-    errors.push(Drupal.t('The question is too long'));
+    errors.push(Drupal.tt('The question is too long', {"@code": "cpoll_create-error-long"}));
   }
   if (2 > $('#poll-choices input').filter(function () {
     return $(this).val();
   }).length) {
-    errors.push(Drupal.t('Enter more that two elements'));
+    errors.push(Drupal.tt('Enter more that two elements', {"@code": "cpoll_create-error-min"}));
   }
   if (20 > q.val().length) {
-    errors.push(Drupal.t('The question is too short'));
+    errors.push(Drupal.tt('The question is too short', {"@code": "cpoll_create-error-short"}));
   }
   if (errors.length) {
     e.preventDefault();

@@ -108,7 +108,7 @@ function location_cities_list_lv_023() {
 
 function location_cities_list_lv_022() {
   return array(
-    "460570" => t("Cesis"),
+    "460570" => "Cesis",
   );
 }
 
@@ -125,7 +125,7 @@ function location_cities_list_lv_dgv() {
 
 function location_cities_list_lv_025() {
   return array(
-    "460413" => t("Daugavpils"),
+    "460413" => "Daugavpils",
   );
 }
 
@@ -202,7 +202,7 @@ function location_cities_list_lv_040() {
 
 function location_cities_list_lv_jel() {
   return array(
-    "459279" => t("Jelgava"),
+    "459279" => "Jelgava",
   );
 }
 
@@ -219,14 +219,14 @@ function location_cities_list_lv_jkb() {
 
 function location_cities_list_lv_042() {
   return array(
-    "459283" => t("Jekabpils"),
+    "459283" => "Jekabpils",
   );
 }
 
 
 function location_cities_list_lv_jur() {
   return array(
-    "459201" => t("Jurmala"),
+    "459201" => "Jurmala",
   );
 }
 
@@ -238,7 +238,7 @@ function location_cities_list_lv_043() {
 
 function location_cities_list_lv_vmr() {
   return array(
-    "453754" => t("Valmiera"),
+    "453754" => "Valmiera",
   );
 }
 
@@ -285,8 +285,8 @@ function location_cities_list_lv_053() {
 
 function location_cities_list_lv_lpx() {
   return array(
-    "454432" => t("Vec-Liepaja"),
-    "457954" => t("Liepaja"),
+    "454432" => "Vec-Liepaja",
+    "457954" => "Liepaja",
   );
 }
 
@@ -358,7 +358,7 @@ function location_cities_list_lv_066() {
 
 function location_cities_list_lv_067() {
   return array(
-    "457065" => t("Ogre"),
+    "457065" => "Ogre",
   );
 }
 
@@ -440,7 +440,7 @@ function location_cities_list_lv_083() {
 
 function location_cities_list_lv_rez() {
   return array(
-    "456202" => t("Rezekne"),
+    "456202" => "Rezekne",
   );
 }
 
@@ -452,7 +452,7 @@ function location_cities_list_lv_077() {
 
 function location_cities_list_lv_rix() {
   return array(
-    "456172" => t("Riga"),
+    "456172" => "Riga",
   );
 }
 
@@ -474,7 +474,7 @@ function location_cities_list_lv_085() {
 
 function location_cities_list_lv_087() {
   return array(
-    "455898" => t("Salaspils"),
+    "455898" => "Salaspils",
   );
 }
 
@@ -531,7 +531,7 @@ function location_cities_list_lv_097() {
 
 function location_cities_list_lv_099() {
   return array(
-    "454768" => t("Tukums"),
+    "454768" => "Tukums",
   );
 }
 
@@ -573,7 +573,7 @@ function location_cities_list_lv_ven() {
 
 function location_cities_list_lv_106() {
   return array(
-    "454310" => t("Ventspils"),
+    "454310" => "Ventspils",
   );
 }
 
