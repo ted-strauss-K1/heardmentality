@@ -47,6 +47,9 @@ function heardmentalitylight_status_messages($display = NULL) {
  * @param $vars
  */
 function heardmentalitylight_preprocess_page(&$vars) {
+  drupal_add_js('sites/all/libraries/colorbox/colorbox/jquery.colorbox-min.js');
+  drupal_add_css('sites/all/libraries/colorbox/example3/colorbox.css');
+
   if ($_GET['q'] == variable_get('site_403', '') || $_GET['q'] == variable_get('site_404', '')) {
     array_push($vars['template_files'], 'page-error');
   }

@@ -19,7 +19,7 @@ $(document).ready(function () {
     return false;
   });
 
-  $('#dialog_link').live('click', function (e) {
+  $('#dialog_link:not(.openlogin_box)').live('click', function (e) {
     e.preventDefault();
 
     if ($.browser.mobile) {
