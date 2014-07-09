@@ -1,0 +1,13 @@
+<?php
+
+/**
+ *
+ */
+function colorbox_fix_preprocess_page(&$variables) {
+  if (in_array(arg(0), array('admin', 'batch'))) {
+    drupal_add_js(drupal_get_path('module', 'colorbox_fix') . '/colorbox_fix.js');
+    $variables['scripts'] = drupal_get_js();
+  }
+}
+
+
