@@ -1,0 +1,26 @@
+<?php
+
+/**
+ *
+ */
+function language_redirect_init() {
+  // not to redirect if were redirected
+  if (isset($_COOKIE['language_redirect'])) {
+    return;
+  }
+
+  // not to redirect if not prefixed
+  $mode = variable_get('language_negotiation', LANGUAGE_NEGOTIATION_NONE);
+  if (LANGUAGE_NEGOTIATION_PATH != $mode) {
+    return;
+  }
+
+  // not to redirect if browser matches current language
+  global $language;
+  $language_detect = language_from_browser();
+  if ($language->language != $language_detect->language) {
+    setcookie('language_redirect', 1);
+    $url = url($_GET['q'], array('language' => $language_detect, 'absolute' => TRUE));
+    drupal_goto($url);
+  }
+}
