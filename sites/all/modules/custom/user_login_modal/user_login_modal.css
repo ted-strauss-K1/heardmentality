@@ -1,5 +1,9 @@
+#popup-login {
+  width: 640px;
+}
+
 #tabs-1.popup-tab {
-  width   : 257px;
+  width   : 220px;
   height  : 350px;
   float   : left;
   margin  : 0;

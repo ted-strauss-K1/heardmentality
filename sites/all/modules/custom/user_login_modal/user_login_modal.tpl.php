@@ -20,4 +20,15 @@
 
     </div>
   </div>
+
+  <script>
+    (function () {
+      Recaptcha.create(
+        '<?php print variable_get('recaptcha_public_key', ''); ?>',
+        'recaptcha_ajax_api_container',
+        {theme: '<?php print variable_get('recaptcha_theme', 'red'); ?>'}
+      );
+    })();
+  </script>
+
 <?php endif; ?>
