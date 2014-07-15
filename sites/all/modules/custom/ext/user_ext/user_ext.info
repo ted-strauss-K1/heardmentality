@@ -1,0 +1,5 @@
+name = EXT - User: Track Source
+core = 6.x
+version = "6.x-1.0"
+package = Custom Modules : EXT
+dependencies[] = user

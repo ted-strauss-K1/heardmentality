@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Implementation of hook_install()
+ */
+function user_ext_install() {
+  $ret = array();
+
+  foreach (array(
+             'source_ip' => 'Source IP',
+             'source_page' => 'Source Page',
+           ) as $field_key => $field_title) {
+    $field = array(
+      'type'        => 'varchar',
+      'length'      => 255,
+      'not null'    => TRUE,
+      'default'     => '',
+      'description' => $field_title,
+    );
+    db_add_field($ret, 'users', $field_key, $field);
+  }
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function user_ext_uninstall() {
+  $ret = array();
+  db_drop_field($ret, 'users', 'source_ip');
+  db_drop_field($ret, 'users', 'source_page');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function user_ext_schema() {
+  $schema = array();
+
+  //
+
+  return $schema;
+}
