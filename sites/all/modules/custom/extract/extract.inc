@@ -323,7 +323,7 @@ function extract_cache_profile($uid = FALSE) {
 function extract_user($op, &$edit, &$account, $category = NULL) {
   switch ($op) {
     case 'delete' :
-      db_query("DELETE FROM {extract_cache_taxonomy} WHERE uid = '%s'", $account->uid);
+      db_query("DELETE FROM {extract_cache_profile} WHERE uid = '%s'", $account->uid);
       break;
   }
 }
