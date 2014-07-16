@@ -1,0 +1,148 @@
+<?php
+
+/**
+ * @return array
+ */
+function user_cleanup_menu() {
+  $items = array();
+
+  $items['admin/user/cleanup'] = array(
+    'title'            => t('Cleanup'),
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('user_cleanup_admin_form'),
+    'access arguments' => array('administer content'),
+    'type'             => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * @return array
+ */
+function user_cleanup_admin_form() {
+  $form = array();
+
+  $form['#tree'] = TRUE;
+
+  $form['options'] = array(
+    '#type'  => 'fieldset',
+    '#title' => 'Clean Up options',
+  );
+
+  $form['options']['inactive'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => 'Remove users with no logins',
+    '#default_value' => 0,
+  );
+
+  $form['options']['nocontent'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => 'Remove users with no content created',
+    '#default_value' => 0,
+  );
+
+  $form['options']['blocked'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => 'Remove blocked users',
+    '#default_value' => 0,
+  );
+
+  $form['submit'] = array(
+    '#type'  => 'submit',
+    '#value' => 'Clean Up',
+  );
+
+  return $form;
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function user_cleanup_admin_form_submit($form, $form_state) {
+  $options = $form_state['values']['options'];
+  $batch = user_cleanup_batch($options);
+  batch_set($batch);
+}
+
+/**
+ * @param $options
+ */
+function user_cleanup_batch($options) {
+  $uids = array();
+
+  // inactive
+  if ($options['inactive']) {
+    $results = db_query("SELECT uid FROM {users} WHERE access = 0");
+    while ($uid = db_result($results)) {
+      $uids[] = $uid;
+    }
+  }
+
+  // nocontent
+  if ($options['nocontent']) {
+    $results = db_query("SELECT uid FROM {users} WHERE uid NOT IN (SELECT uid FROM {comments} WHERE status = 0) AND uid NOT IN (SELECT uid FROM {node} WHERE status = 1)");
+    while ($uid = db_result($results)) {
+      $uids[] = $uid;
+    }
+  }
+
+  // blocked
+  if ($options['blocked']) {
+    $results = db_query("SELECT uid FROM {users} WHERE status = 0");
+    while ($uid = db_result($results)) {
+      $uids[] = $uid;
+    }
+  }
+
+  //
+  $uids = array_unique($uids);
+
+  //
+  $operations = array();
+  foreach ($uids as $uid) {
+    $operations[] = array('user_cleanup_batch_op', array($uid));
+  }
+
+  //
+  $batch = array(
+    'operations' => $operations,
+    'finished'   => 'user_cleanup_batch_finished',
+  );
+  return $batch;
+}
+
+
+/**
+ * @param $uid
+ * @param $context
+ */
+function user_cleanup_batch_op($uid, &$context) {
+  $account = user_load($uid);
+
+  //
+  user_delete(array(), $account->uid);
+
+  //
+  $context['results'][] = $account->uid;
+  $context['message'] = $account->name . ' (#' . $account->uid . ' - ' . $account->mail . ')';
+}
+
+/**
+ * Batch 'finished' callback used by both batch 1 and batch 2
+ */
+function user_cleanup_batch_finished($success, $results, $operations) {
+  if ($success) {
+    // Here we could do something meaningful with the results.
+    // We just display the number of nodes we processed...
+    $message = count($results) . ' users were deleted.';
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    $message = 'An error occurred while processing ' . $error_operation[0] . ' with arguments :' . print_r($error_operation[0], TRUE);
+  }
+  drupal_set_message($message);
+}

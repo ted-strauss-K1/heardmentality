@@ -1,0 +1,5 @@
+name = User Cleanup
+description = Removes users with no activity / blocked / with no content created
+package = Custom Modules
+version = "6.x-1.0"
+core = 6.x
