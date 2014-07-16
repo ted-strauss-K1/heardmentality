@@ -72,6 +72,10 @@ function badges_user($op, &$edit, &$account, $category = NULL) {
       if (!isset($user->badges)) {
         $user->badges = badges_userbadges($user->uid);
       }
+    break;
+
+    case "delete" :
+      db_query("DELETE FROM {badges} WHERE uid = '%s'", $account->uid);
       break;
   }
 }
