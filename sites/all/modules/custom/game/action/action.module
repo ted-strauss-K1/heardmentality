@@ -141,3 +141,20 @@ function action_dequeue() {
 function action_preprocess_page(&$vars) {
   drupal_add_js(drupal_get_path('module', 'action') . '/action.js');
 }
+
+
+/**
+ * Implementation of hook_user()
+ *
+ * @param      $op
+ * @param      $edit
+ * @param      $account
+ * @param null $category
+ */
+function action_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+    case 'delete' :
+      db_query("DELETE FROM {action_queue} WHERE uid = '%s'", $account->uid);
+      break;
+  }
+}
