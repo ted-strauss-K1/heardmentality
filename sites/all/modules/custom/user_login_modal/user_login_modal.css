@@ -2,6 +2,10 @@
   width: 640px;
 }
 
+#popup-login.logged_in {
+  width : 300px;
+}
+
 #tabs-1.popup-tab {
   width   : 220px;
   height  : 350px;
