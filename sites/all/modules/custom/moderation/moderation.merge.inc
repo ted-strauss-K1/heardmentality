@@ -23,7 +23,7 @@ function moderation_merge_form($form_state, $merge, $base) {
 
   $form['warning'] = array(
     '#type'   => 'markup',
-    '#value'  => t('The action cannot be undone. Merged issue will be removed.'),
+    '#value'  => __('The action cannot be undone. Merged issue will be removed.', array('@code' => 'issues-merge-01')),
     '#prefix' => '<div class="warning">',
     '#suffix' => '</div>',
   );
@@ -34,7 +34,7 @@ function moderation_merge_form($form_state, $merge, $base) {
   if (!$base_allow) {
     $form['warning2'] = array(
       '#type'   => 'markup',
-      '#value'  => t('You cannot merge to issue duplicating another one.') . '<span>(' . $base_link . ')<//span>',
+      '#value'  => __('You cannot merge to issue duplicating another one.', array('@code' => 'issues-merge-02')) . '<span>(' . $base_link . ')<//span>',
       '#prefix' => '<div class="warning">',
       '#suffix' => '</div>',
     );
@@ -43,7 +43,7 @@ function moderation_merge_form($form_state, $merge, $base) {
   if (!$merge_allow) {
     $form['warning3'] = array(
       '#type'   => 'markup',
-      '#value'  => t('This issue is duplicating another one already.') . '<span>(' . $merge_link . ')</span>',
+      '#value'  => __('This issue is duplicating another one already.', array('@code' => 'issues-merge-03')) . '<span>(' . $merge_link . ')</span>',
       '#prefix' => '<div class="warning">',
       '#suffix' => '</div>',
     );
@@ -55,24 +55,30 @@ function moderation_merge_form($form_state, $merge, $base) {
 
   $base_choices = array();
   foreach ($base->choices as $chid => $choice) {
-    $base_choices[$chid] = t('Merge into ') . ' "' . $choice['chtext'] . '"';
+    $base_choices[$chid] = __('Merge into !text', array(
+        '@code' => 'issues-merge-04',
+        '!text' => '"' . __($choice['chtext'], array(
+            '@code' => 'choice-' . $chid,
+            '@textgroup' => 'choice',
+          )) . '"',
+      ));
   }
-  $base_choices[0] = t('Transfer the answer');
-  $base_choices[-1] = t('Remove the answer');
+  $base_choices[0] = __('Transfer the answer', array('@code' => 'issues-merge-05'));
+  $base_choices[-1] = __('Remove the answer', array('@code' => 'issues-merge-06'));
 
   $form['table'] = array(
     '#type'   => 'markup',
     '#value'  => '&nbsp;',
     '#prefix' => '<table class="merge-issue"><th><tr>
-      <td class="merge-main">' . t('Merged Issue') . '<br>' . $merge_link . '</td>
-      <td class="merge-center">' . l(t('Swap Issues'), 'moderation/merge/' . $base->nid . '/' . $merge->nid) . '</td>
-      <td class="merge-main">' . t('Base Issue') . '<br>' . $base_link . '</td>
+      <td class="merge-main">' . __('Merged Issue', array('@code' => 'issues-merge-07')) . '<br>' . $merge_link . '</td>
+      <td class="merge-center">' . l(__('Swap Issues', array('@code' => 'issues-merge-08')), 'moderation/merge/' . $base->nid . '/' . $merge->nid) . '</td>
+      <td class="merge-main">' . __('Base Issue', array('@code' => 'issues-merge-09')) . '<br>' . $base_link . '</td>
     </tr></th>',
     '#suffix' => '</table>',
   );
   $form['table']['item'] = array(
     '#type'   => 'markup',
-    '#value'  => t('Choices'),
+    '#value'  => __('Choices', array('@code' => 'issues-merge-10')),
     '#prefix' => '<tr><td class="merge-header" colspan=3>',
     '#suffix' => '</td><tr>',
   );
@@ -106,7 +112,7 @@ function moderation_merge_form($form_state, $merge, $base) {
 
   $form['submit'] = array(
     '#type'  => 'submit',
-    '#value' => t('Merge'),
+    '#value' => __('Merge', array('@code' => 'issues-merge-11')),
   );
 
   return $form;

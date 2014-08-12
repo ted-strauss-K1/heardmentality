@@ -82,7 +82,7 @@ function geocode() {
   if ((FALSE === $location['latitude']) && (FALSE === $location['longitude'])) {
     exit(json_encode(array(
       'status'   => FALSE,
-      'message'  => t('We could not determine your location'),
+      'message'  => __('We could not determine your location', array('@code' => 'geocode-01')),
       'location' => $location,
     )));
   }
@@ -123,7 +123,7 @@ function geocode() {
   # found location
   exit(json_encode(array(
     'status'   => TRUE,
-    'message'  => t('We have determined your location'),
+    'message'  => __('We have determined your location', array('@code' => 'geocode-02')),
     'location' => $location,
   )));
 }

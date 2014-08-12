@@ -28,7 +28,7 @@ function categories_subscribe() {
   if (!$term) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('Unknown error'),
+      'message' => __('Unknown error', array('@code' => 'categories-01')),
     ));
     exit;
   }
@@ -47,7 +47,13 @@ function categories_subscribe() {
   // output
   print json_encode(array(
     'status'  => TRUE,
-    'message' => t('You have ' . ($exists ? 'un' : '') . 'subscribed ' . ($exists ? 'from' : 'to') . ' !name', array('!name' => $term->name)),
+    'message' => __('You have ' . ($exists ? 'un' : '') . 'subscribed ' . ($exists ? 'from' : 'to') . ' !name', array(
+      '!name' => __($term->name, array(
+        '@code' => 'term-' . $term->tid,
+        '@textgroup' => 'term',
+      )),
+      '@code' => 'categories-' . ($exists ? 'un' : '') . 'subscribe',
+    )),
     'result'  => !$exists,
   ));
 
@@ -97,10 +103,10 @@ function categories_block($op = 'list', $delta = 0, $edit = array()) {
       $blocks = array();
 
       $blocks['categories'] = array(
-        'info' => t('Active Categories'),
+        'info' => 'Active Categories',
       );
       $blocks['categories-popular'] = array(
-        'info' => t('Popular Categories'),
+        'info' => 'Popular Categories',
       );
 
       return $blocks;
@@ -109,11 +115,11 @@ function categories_block($op = 'list', $delta = 0, $edit = array()) {
 
       switch ($delta) {
         case 'categories' :
-          $block['subject'] = t('');
+          $block['subject'] = '';
           $block['content'] = theme('categories_block');
           break;
         case 'categories-popular' :
-          $block['subject'] = t('');
+          $block['subject'] = '';
           $block['content'] = theme('categories_popular_block');
           break;
       }
@@ -174,7 +180,7 @@ function theme_categories_subscribe($name, $hierarchy) {
     $tids = $subscription->tids;
   }
 
-  return (user_access('subscribe to newsletters') ? sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, t('Check to subscribe'), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $tids) ? 'checked' : '') : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
+  return (user_access('subscribe to newsletters') ? sprintf('<input type="checkbox" name="%s" class="categories_subscribe" title="%s" name="%s" %s>', $hierarchy, __('Check to subscribe', array('@code' => 'categories-02')), $hierarchy, in_array(preg_replace('/-.*$/', '', $hierarchy), $tids) ? 'checked' : '') : '') . l($name, 'issues', array('query' => array('tids' => $hierarchy)));
 }
 
 /**

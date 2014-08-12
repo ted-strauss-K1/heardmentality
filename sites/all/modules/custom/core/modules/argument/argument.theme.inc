@@ -17,7 +17,7 @@ function theme_argument_tab($nodes) {
     $output .= theme('argument_item', $node);
   }
   if (empty($output)) {
-    $output = '<div class="messages warning">' . t('No arguments posted yet') . '</div>';
+    $output = '<div class="messages warning">' . __('No arguments posted yet', array('@code' => 'argument-25')) . '</div>';
   }
   return $output;
 }
@@ -55,12 +55,13 @@ function theme_argument_result_ball($count) {
 function theme_argument_delete($content_type, $content_id) {
   global $user;
   if (user_access('moderation', $user) || argument_check_owner($content_type, $content_id)) {
-    return l(t('Delete'), '', array(
+    $text = __('Delete', array('@code' => 'argument-26'));
+    return l($text, '', array(
       'attributes' => array(
         'class'          => 'flag2 delete argument-delete',
-        'title'          => t('Delete'),
+        'title'          => $text,
         'name'           => $content_type . '/' . $content_id,
-        'original-title' => t('delete'),
+        'original-title' => $text,
       )
     ));
   }

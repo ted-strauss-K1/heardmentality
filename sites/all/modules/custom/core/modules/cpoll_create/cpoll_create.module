@@ -21,7 +21,7 @@ function cpoll_create_menu() {
   $menu = array();
 
   $menu['create'] = array(
-    'title'            => t('Add an Issue'),
+    'title'            => __('Add an Issue', array('@code' => 'cpoll_create-01')),
     'page callback'    => 'cpoll_create',
     'access arguments' => array('create issue content'),
     'type'             => MENU_CALLBACK,
@@ -43,7 +43,7 @@ function cpoll_create_preprocess_page(&$vars) {
     drupal_goto('create');
   }
   if (arg(0) == 'create') {
-    drupal_set_subtitle(t('Add an Issue'));
+    drupal_set_subtitle(__('Add an Issue', array('@code' => 'cpoll_create-01')));
     array_push($vars['template_files'], 'page_11_5');
     $vars['content_class'] = 'grey-box';
     $vars['content_nowrap'] = TRUE;
@@ -101,8 +101,8 @@ function cpoll_create_form() {
       <label for="" class="add-on">
         <div class="number dinbold">1</div>
         <span class="add-on-title-wrapper">
-        <span class="title ">' . t('Question') . '</span>
-        <span class="guides"><span id="q_counter">140</span> ' . t('chars left.') . '</span>
+        <span class="title ">' . __('Question', array('@code' => 'cpoll_create-02')) . '</span>
+        <span class="guides"><span id="q_counter">140</span> ' . __('chars left.', array('@code' => 'cpoll_create-03')) . '</span>
         </span>
       </label>
     '
@@ -120,8 +120,8 @@ function cpoll_create_form() {
       <label for="" class="add-on">
         <div class="number dinbold">2</div>
         <span class="add-on-title-wrapper">
-        <span class="title ">' . t('Context') . '</span>
-        <span class="guides">' . t('Enter a brief description or backstory to provide context. You may include links.') . '</span>
+        <span class="title ">' . __('Context', array('@code' => 'cpoll_create-04')) . '</span>
+        <span class="guides">' . __('Enter a brief description or backstory to provide context. You may include links.', array('@code' => 'cpoll_create-05')) . '</span>
         </span>
       </label>
     '
@@ -150,8 +150,8 @@ function cpoll_create_form() {
         <label for="" class="add-on">
           <div class="number dinbold">3</div>
           <span class="add-on-title-wrapper">
-          <span class="title ">' . t('Answers') . '</span>
-          <span class="guides">' . t('Enter at least two answers.') . '</span>
+          <span class="title ">' . __('Answers', array('@code' => 'cpoll_create-06')) . '</span>
+          <span class="guides">' . __('Enter at least two answers.', array('@code' => 'cpoll_create-07')) . '</span>
           </span>
         </label>
     ',
@@ -162,8 +162,8 @@ function cpoll_create_form() {
   }
   $form['choice_wrapper']['poll_more'] = array(
     '#type'        => 'submit',
-    '#value'       => '+ ' . t('Add another answer'),
-    '#description' => t("If the amount of boxes above isn't enough, click here to add more choices."),
+    '#value'       => '+ ' . __('Add another answer', array('@code' => 'cpoll_create-08')),
+    '#description' => __("If the amount of boxes above isn't enough, click here to add more choices.", array('@code' => 'cpoll_create-09')),
     '#weight'      => 1,
     '#ahah'        => array(
       'path'    => 'create/ahah',
@@ -177,11 +177,11 @@ function cpoll_create_form() {
   $form['submit'] = array(
     '#type'       => 'submit',
     '#attributes' => array('class' => 'submit-issue'),
-    '#value'      => t('SUBMIT NEW ISSUE'),
+    '#value'      => __('SUBMIT NEW ISSUE', array('@code' => 'cpoll_create-10')),
     '#id'         => 'save_issue',
     '#prefix'     => '
-      <label class="before-submit">' . t('Our moderators also check every issue to ensure our Policy and Guidelines have been followed. Your original text may be edited to conform.') . '</label>
-      <label class="before-submit">' . t('Site moderators will generate interest for your issue by classifying it so other users can find it easier and by submitting it to be translated into into our worlds major language so you can poll people from around the world.') . '</label>
+      <label class="before-submit">' . __('Our moderators also check every issue to ensure our Policy and Guidelines have been followed. Your original text may be edited to conform.', array('@code' => 'cpoll_create-11')) . '</label>
+      <label class="before-submit">' . __('Site moderators will generate interest for your issue by classifying it so other users can find it easier and by submitting it to be translated into into our worlds major language so you can poll people from around the world.', array('@code' => 'cpoll_create-12')) . '</label>
     ',
     '#suffix'     => ' <div class="clear"></div>'
   );
@@ -264,10 +264,10 @@ function cpoll_create_form_textfield($delta, $value = '') {
 function cpoll_create_form_validate($form, &$form_state) {
   $post = $form_state['values'];
   if ($post['q_quest'] == '') {
-    form_set_error('error', t('Please enter your question'));
+    form_set_error('error', __('Please enter your question', array('@code' => 'cpoll_create-13')));
   }
   if ($post['answer'][0] == '' && $post['answer'][1] == '') {
-    form_set_error('error', t('You must enter at least two answers'));
+    form_set_error('error', __('You must enter at least two answers', array('@code' => 'cpoll_create-14')));
   }
 }
 
@@ -319,8 +319,8 @@ function cpoll_create_form_submit($form, &$form_state) {
     issue_search_index_node($node->nid);
   }
 
-  drupal_set_message(t('Your issue has been added. It will be reviewed by 3 moderators but is available immediately.
-'), 'success');
+  drupal_set_message(__('Your issue has been added. It will be reviewed by 3 moderators but is available immediately.
+', array('@code' => 'cpoll_create-15')), 'success');
 
   # actions
   function_exists('action_queue') && action_queue(array(

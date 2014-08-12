@@ -1,6 +1,6 @@
 <?php if ($node->choices) : global $user, $language; ?>
   <div <?php if ($node->vote) : ?>class="voted"<?php endif; ?>>
-    <?php print l('<h1>' . $node->title . '</h1>', 'node/' . $node->nid, array(
+    <?php print l('<h1>' . __($node->title, array('@code' => 'issue-' . $node->nid, '@textgroup' => 'content')) . '</h1>', 'node/' . $node->nid, array(
       'attributes' => array('target' => '_blank'),
       'absolute'   => TRUE,
       'html'       => TRUE,
@@ -16,7 +16,7 @@
                 print 'checked';
               } ?>
                                value="<?php print $choice['chid']; ?>"><label
-              for="chid-<?php print $choice['chid']; ?>"><?php print $choice['chtext']; ?></label></td>
+              for="chid-<?php print $choice['chid']; ?>"><?php print __($choice['chtext'], array('@code' => 'choice-' . $choice['chid'], '@textgroup' => 'choice')); ?></label></td>
         </tr>
         <tr data-width="<?php print intval($percents); ?>%" data-percent="<?php print number_format($percents, 2); ?>"
             data-votes="<?php print $choice['votes']; ?>" data-count="<?php print $node->votecount + 1; ?>"
@@ -31,6 +31,6 @@
         </tr>
       <?php endforeach; ?>
     </table>
-    <input type="button" value="<?php print t('Vote'); ?>">
+    <input type="button" value="<?php print __('Vote', array('@code' => 'embed-02')); ?>">
   </div>
 <?php endif; ?>

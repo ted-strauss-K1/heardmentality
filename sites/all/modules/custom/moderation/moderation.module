@@ -26,7 +26,7 @@ function moderation_perm() {
  */
 function moderation_preprocess_page(&$vars) {
   if ('moderation' == arg(0)) {
-    drupal_set_subtitle(t('Moderator'));
+    drupal_set_subtitle(__('Moderator', array('@code' => 'moderator-01')));
 
     if (in_array(arg(1), array('issue', 'argument', 'comment',))) {
       $type = arg(1);
@@ -61,7 +61,7 @@ function moderation_preprocess_page(&$vars) {
     }
 
     if ('merge' == arg(1)) {
-      drupal_set_subtitle(t('Merge Issues'));
+      drupal_set_subtitle(__('Merge Issues', array('@code' => 'moderator-02')));
 
       # css/js
       drupal_add_js(drupal_get_path("module", "moderation") . "/moderation.merge.js");
@@ -110,7 +110,8 @@ function moderation_menu() {
   $menu = array();
 
   $menu['moderation'] = array(
-    'title'           => t('Moderation'),
+    'title callback'  => '__',
+    'title arguments' => array('Moderation', array('@code' => 'moderator-03')),
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('moderation_issues_form'),
     'access callback' => 'moderation_check_perm',
@@ -118,7 +119,8 @@ function moderation_menu() {
     'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/issues'] = array(
-    'title'           => t('Issues'),
+    'title callback'  => '__',
+    'title arguments' => array('Issues', array('@code' => 'moderator-04')),
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('moderation_issues_form'),
     'access callback' => 'moderation_check_perm',
@@ -127,7 +129,8 @@ function moderation_menu() {
     'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/arguments'] = array(
-    'title'           => t('Arguments'),
+    'title callback'  => '__',
+    'title arguments' => array('Arguments', array('@code' => 'moderator-05')),
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('moderation_arguments_form'),
     'access callback' => 'moderation_check_perm',
@@ -136,7 +139,8 @@ function moderation_menu() {
     'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/comments'] = array(
-    'title'           => t('Comments'),
+    'title callback'  => '__',
+    'title arguments' => array('Comments', array('@code' => 'moderator-06')),
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('moderation_comments_form'),
     'access callback' => 'moderation_check_perm',
@@ -145,7 +149,8 @@ function moderation_menu() {
     'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/users'] = array(
-    'title'            => t('Moderators'),
+    'title callback'  => '__',
+    'title arguments' => array('Moderators', array('@code' => 'moderator-07')),
     'page callback'    => 'drupal_get_form',
     'page arguments'   => array('moderation_users_form'),
     'access arguments' => array(MODERATION_ADMIN),
@@ -154,7 +159,6 @@ function moderation_menu() {
     'file'             => 'moderation.pages.inc',
   );
   $menu['moderation/userflags'] = array(
-    'title'            => t('Moderators'),
     'page callback'    => 'drupal_get_form',
     'page arguments'   => array('moderation_userflags_form'),
     'access arguments' => array(MODERATION_ADMIN),
@@ -164,7 +168,8 @@ function moderation_menu() {
   );
 
   $menu['moderation/issue/%'] = array(
-    'title'           => t('Issue'),
+    'title callback'  => '__',
+    'title arguments' => array('Issue', array('@code' => 'moderator-08')),
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('moderation_issue_view_form', 2),
     'access callback' => 'moderation_check_perm',
@@ -172,7 +177,8 @@ function moderation_menu() {
     'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/argument/%'] = array(
-    'title'           => t('Argument'),
+    'title callback'  => '__',
+    'title arguments' => array('Argument', array('@code' => 'moderator-09')),
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('moderation_argument_view_form', 2),
     'access callback' => 'moderation_check_perm',
@@ -180,7 +186,8 @@ function moderation_menu() {
     'file'            => 'moderation.pages.inc',
   );
   $menu['moderation/comment/%'] = array(
-    'title'           => t('Comment'),
+    'title callback'  => '__',
+    'title arguments' => array('Comment', array('@code' => 'moderator-38')),
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('moderation_comment_view_form', 2),
     'access callback' => 'moderation_check_perm',
@@ -206,7 +213,8 @@ function moderation_menu() {
 
   // merge
   $menu['moderation/merge/%/%'] = array(
-    'title'           => t('Merge Issues'),
+    'title callback'  => '__',
+    'title arguments' => array('Merge Issues', array('@code' => 'moderator-10')),
     'page callback'   => 'drupal_get_form',
     'page arguments'  => array('moderation_merge_form', 2, 3),
     'access callback' => 'moderation_check_perm',

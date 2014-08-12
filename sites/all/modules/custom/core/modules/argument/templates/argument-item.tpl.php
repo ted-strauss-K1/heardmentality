@@ -52,7 +52,7 @@ $nid = $node->nid;
                       <?php print $node->title; ?>
                     </a>
                   </h5>
-                  <span class="source"><?php print t('source') ?>:
+                  <span class="source"><?php print __('source', array('@code' => 'argument-27')) ?>:
                   <a target="_blank" title="reference" href="<?php print $url; ?>">
                     <?php print $node->field_source[0]['value']; ?>
                   </a>
@@ -61,7 +61,7 @@ $nid = $node->nid;
                   <h5 class="ref_title">
                     <?php print $node->title; ?>
                   </h5>
-                  <span class="source"><?php print t('source') ?>:
+                  <span class="source"><?php print __('source', array('@code' => 'argument-27')) ?>:
                   <strong><?php print $node->field_source[0]['value']; ?></strong>
                 </span>
                 <?php endif; ?>
@@ -88,7 +88,7 @@ $nid = $node->nid;
         <!-- User Info -->
         <?php $account = user_load(array('uid' => $node->uid)); ?>
         <div class="userinfo-debate">
-          <span class="date"><?php print t('posted'); ?>&nbsp;
+          <span class="date"><?php print __('posted', array('@code' => 'argument-28')); ?>&nbsp;
             <span><?php print $node->creation_time; ?></span>
           </span> <a class="user-thumb" href="<?php print url($account->viewlink); ?>"> <img
               src="<?php print user_profile_image($account); ?>" alt="<?php print $node->name; ?>" class="user-thumb">
@@ -117,7 +117,7 @@ $nid = $node->nid;
           'absolute' => TRUE,
           'fragment' => 'forum-block-' . $nid
         ));
-        $links[] = l(t('link'), 'node/' . $node->field_issue[0]['nid'], array(
+        $links[] = l(__('link', array('@code' => 'argument-29')), 'node/' . $node->field_issue[0]['nid'], array(
           'absolute'   => TRUE,
           'fragment'   => 'forum-block-' . $nid,
           'attributes' => array(
@@ -146,7 +146,7 @@ $nid = $node->nid;
           <legend class="comment-meta">
             &#9658;
             <span
-              class="replycount"><?php print count($node->comments); ?></span><span><?php print t('replies'); ?></span>
+              class="replycount"><?php print count($node->comments); ?></span><span><?php print __('replies', array('@code' => 'argument-30')); ?></span>
           </legend>
           <div class="fieldset-wrapper">
             <ul>

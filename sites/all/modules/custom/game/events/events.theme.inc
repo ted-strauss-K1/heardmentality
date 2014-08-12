@@ -134,7 +134,7 @@ function theme_events_item_default_theme_preprocess(&$vars) {
  */
 function theme_events_item_create_theme_preprocess(&$vars) {
   theme_events_item__issue_theme_preprocess($vars);
-  $vars['text'] = t('added a new issue');
+  $vars['text'] = __('added a new issue', array('@code' => 'events-01'));
 }
 
 /**
@@ -142,7 +142,7 @@ function theme_events_item_create_theme_preprocess(&$vars) {
  */
 function theme_events_item_vote_theme_preprocess(&$vars) {
   theme_events_item__issue_theme_preprocess($vars);
-  $vars['text'] = t('voted on an issue');
+  $vars['text'] = __('voted on an issue', array('@code' => 'events-02'));
 }
 
 /**
@@ -151,7 +151,7 @@ function theme_events_item_vote_theme_preprocess(&$vars) {
 function theme_events_item_follow_theme_preprocess(&$vars) {
   $target = user_load($vars['item']['entity_id']);
 
-  $vars['text'] = t('now following');
+  $vars['text'] = __('now following', array('@code' => 'events-03'));
   $vars['link'] = '<span class="name"><a href="' . url($target->viewlink) . '" title="' . $target->name . '">' . ucwords($target->name) . '</a></span>';
   $vars['text2'] = l(sprintf('<img class="following-user listed" src="%s" />', user_profile_image($target)), $target->viewlink, array('html' => TRUE));
 
@@ -166,10 +166,10 @@ function theme_events_item_follow_theme_preprocess(&$vars) {
 function theme_events_item_debate_theme_preprocess(&$vars) {
   theme_events_item__debate_theme_preprocess($vars);
   if ('resource' == $vars['debate_type']) {
-    $vars['text'] = t('posted a reference on the issue');
+    $vars['text'] = __('posted a reference on the issue', array('@code' => 'events-04'));
   }
   else {
-    $vars['text'] = t('posted an argument on the issue');
+    $vars['text'] = __('posted an argument on the issue', array('@code' => 'events-05'));
   }
 }
 
@@ -178,7 +178,7 @@ function theme_events_item_debate_theme_preprocess(&$vars) {
  */
 function theme_events_item_reply_theme_preprocess(&$vars) {
   theme_events_item__reply_theme_preprocess($vars);
-  $vars['text'] = t('replied to an argument on the issue');
+  $vars['text'] = __('replied to an argument on the issue', array('@code' => 'events-06'));
 }
 
 /**
@@ -215,7 +215,7 @@ function theme_events_item_taxonomy_theme_preprocess(&$vars) {
  * @param $vars
  */
 function theme_events_item_user_update_theme_preprocess(&$vars) {
-  $vars['text'] = t('updated the profile');
+  $vars['text'] = __('updated the profile', array('@code' => 'events-07'));
 }
 
 /**
@@ -295,11 +295,15 @@ function theme_events_item__yn_theme_preprocess(&$vars) {
   switch ($vars['item']['entity_type']) {
     case 'node' :
       theme_events_item__debate_theme_preprocess($vars);
-      $vars['text'] = ($vars['item']['vars']['vote'] == VOTE_AGREE ? t('agreed') : t('disagreed')) . ' ' . t('with an argument on the issue');
+      $vars['text'] = $vars['item']['vars']['vote'] == VOTE_AGREE ?
+        __('agreed with an argument on the issue', array('@code' => 'events-08')) :
+        __('disagreed with an argument on the issue', array('@code' => 'events-09'));
       break;
     case 'comment' :
       theme_events_item__reply_theme_preprocess($vars);
-      $vars['text'] = ($vars['item']['vars']['vote'] == VOTE_AGREE ? t('strenghtened') : t('weakened')) . ' ' . t('an argument on the issue');
+      $vars['text'] = $vars['item']['vars']['vote'] == VOTE_AGREE ?
+        __('strenghtened an argument on the issue', array('@code' => 'events-10')) :
+        __('weakened an argument on the issue', array('@code' => 'events-11'));
       break;
     default :
       $vars['skip'] = TRUE;
@@ -319,13 +323,13 @@ function events_block($op = 'list', $delta = 0, $edit = array()) {
   switch ($op) {
     case 'list':
       $blocks['events-front'] = array(
-        'info' => t('Front Events'),
+        'info' => __('Front Events', array('@code' => 'events-13')),
       );
       return $blocks;
     case 'view':
       switch ($delta) {
         case 'events-front' :
-          $block['subject'] = t('HAPPENING NOW');
+          $block['subject'] = __('HAPPENING NOW', array('@code' => 'events-12'));
 
           $request = events_build_query(array(
             array(

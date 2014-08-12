@@ -9,7 +9,7 @@
  * @return string
  */
 function theme_flagger_btn_flag ($content_id, $content_type) {
-  $text = 'user' == $content_type ? t('block user') : t('flag');
+  $text = 'user' == $content_type ? __('block user', array('@code' => 'flagger-18')) : __('flag', array('@code' => 'flagger-19'));
 
   if (flagger_permission($content_type)) {
     global $user;
@@ -24,7 +24,7 @@ function theme_flagger_btn_flag ($content_id, $content_type) {
     if ('user' == $content_type) {
       return '';
     } else {
-      return l(t('flag'), '', array(
+      return l($text, '', array(
         'attributes' => array(
           'class' => theme('user_login_modal_class', TRUE),
         )
@@ -44,11 +44,12 @@ function theme_flagger_btn_flags ($content_id, $content_type, $flagged = NULL, $
     return '';
   }
 
-  return l(t('flags'), '', array(
+  $text = __('flags', array('@code' => 'flagger-20'));
+  return l($text, '', array(
     'attributes' => array(
       'class'          => 'flagger_flags flagger-btn-flags-' . $content_type . '-' . $content_id . ((!is_null($flagged) && !$flagged) || !flagger_get_flags($content_type, $content_id) ? '' : ' flagged'),
       'name'           => $content_type . '/' . $content_id,
-      'original-title' => t('flags'),
+      'original-title' => $text,
     )
   ));
 }
@@ -64,11 +65,11 @@ function theme_flagger_btn_history ($content_id, $content_type, $text = false) {
     return '';
   }
 
-  return l(false === $text ? t('history') : $text, '', array(
+  return l(false === $text ? __('history', array('@code' => 'flagger-21')) : $text, '', array(
     'attributes' => array(
       'class'          => 'flagger_history flagger-btn-flags-history-' . $content_type . '-' . $content_id,
       'name'           => $content_type . '/' . $content_id,
-      'original-title' => t('flags history'),
+      'original-title' => __('flags history', array('@code' => 'flagger-22')),
     ),
     array('html' => true),
   ));

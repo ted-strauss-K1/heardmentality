@@ -9,7 +9,7 @@
     <br clear="both">
 
     <p class="action-comment-ref">
-      <?php print t('New issue posted') . ' ' . $link ?>
+      <?php print __('New issue posted', array('@code' => 'events-14')) . ' ' . $link ?>
       <br clear="both">
     </p>
     <span class="submitted" name="<?php print $item['timestamp']; ?>"><?php print $item['date_added']; ?></span>

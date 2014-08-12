@@ -80,12 +80,6 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
   # login warning
   if (!user_is_logged_in()) {
     $form['#attributes']['class'] .= ' anonymous';
-    //    $form['login_error'] = array(
-    //      '#type' => 'markup',
-    //      '#prefix' => '<div class="login-error">',
-    //      '#value' => t('You should login to vote or post suggest answers.'),
-    //      '#suffix' => '</div>',
-    //    );
   }
 
   # suggestions
@@ -101,7 +95,7 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
     # add suggested answers
     $form['suggest'] = array(
       '#type'        => 'fieldset',
-      '#title'       => t('...Or submit a different answer'),
+      '#title'       => __('...Or submit a different answer', array('@code' => 'cpoll_vote-13')),
       '#collapsible' => TRUE,
       '#collapsed'   => TRUE,
       '#tree'        => TRUE,
@@ -109,7 +103,7 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
     $form['suggest']['suggest_answer'] = array(
       '#type'        => 'textfield',
       '#size'        => 38,
-      '#description' => '(' . t('Answers must not exceed 140 carachters in length') . ')',
+      '#description' => '(' . __('Answers must not exceed 140 carachters in length', array('@code' => 'cpoll_vote-01')) . ')',
       '#attributes'  => array('class' => 'floatleft'),
       '#maxlength'   => 140,
       '#prefix'      => '<div class="nsa-wrapper"><table><tr><td class="first">',
@@ -117,7 +111,7 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
     );
     $form['suggest']['submit_suggest_answer'] = array(
       '#type'       => 'submit',
-      '#value'      => t('Add Answer'),
+      '#value'      => __('Add Answer', array('@code' => 'cpoll_vote-02')),
       '#attributes' => array('class' => 'add-answer2 light'),
       '#suffix'     => '</td></tr></table></div>',
       '#id'         => 'suggest',
@@ -134,21 +128,21 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
   if (user_is_logged_in()) {
     $form['main_submit'] = array(
       '#type'       => 'submit',
-      '#value'      => t('Vote'),
+      '#value'      => __('Vote', array('@code' => 'cpoll_vote-03')),
       '#attributes' => array('class' => 'button vote floatright'),
       '#id'         => 'vote',
       '#prefix'     => '<div class="votebtn_wrap clearfix">',
       '#suffix'     => '</div>',
     );
     if ($node->vote) {
-      $form['main_submit']['#value'] = t('Change vote');
+      $form['main_submit']['#value'] = __('Change vote', array('@code' => 'cpoll_vote-04'));
     }
     $form['main_submit']['#attributes']['class'] .= ' not-changed';
   }
   else {
     $form['main_submit'] = array(
       '#type'       => 'button',
-      '#value'      => t('Login to vote'),
+      '#value'      => __('Login to vote', array('@code' => 'cpoll_vote-05')),
       '#attributes' => array('class' => 'button vote floatright ' . theme('user_login_modal_class', TRUE)),
       '#id'         => 'vote-login',
       '#prefix'     => '<div class="votebtn_wrap clearfix">',
@@ -161,7 +155,7 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
     unset($form['main_submit']);
     $form['main_submit'] = array(
       '#type'   => 'markup',
-      '#value'  => t('Voting is closed'),
+      '#value'  => __('Voting is closed', array('@code' => 'cpoll_vote-06')),
       '#prefix' => '<div class="votebtn_wrap clearfix message">',
       '#suffix' => '</div>',
     );
@@ -197,7 +191,7 @@ function cpoll_vote_form_radios($form_element, &$form_state) {
   if ($node->choices) {
     foreach ($node->choices as $i => $choice) {
       $vote_number = intval($choice['votes']);
-      $vote_string = t('vote' . ($vote_number == 1 ? '' : 's'));
+      $vote_string = __('votes', array('@code' => 'cpoll_vote-07', '@count' => $vote_number));
 
       $classes = array();
       $classes[] = 'choice-' . $choice['chtype'];
@@ -267,7 +261,7 @@ function cpoll_vote_ajax() {
   if (user_is_anonymous()) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('Please log in'),
+      'message' => __('Please log in', array('@code' => 'cpoll_vote-08')),
       'result'  => cpoll_load_choices($post['nid'], TRUE),
     ));
     exit;
@@ -309,7 +303,7 @@ function cpoll_vote_ajax() {
 
   print json_encode(array(
     'status'  => TRUE,
-    'message' => t('Your vote was added'),
+    'message' => __('Your vote was added', array('@code' => 'cpoll_vote-09')),
     'result'  => cpoll_load_choices($post['nid'], TRUE),
     'chid'    => $post['chid'],
   ));
@@ -326,7 +320,7 @@ function cpoll_vote_external() {
 
   # validation
   if (!is_numeric($uid) || !is_numeric($chid) || ($hash != cpoll_vote_external_hash($uid, $chid))) {
-    return t('An error has happened, we could not save your vote');
+    return __('An error has happened, we could not save your vote', array('@code' => 'cpoll_vote-10'));
   }
 
   # vote
@@ -347,10 +341,10 @@ function cpoll_vote_external() {
     issue_search_index_node($nid);
   }
 
-  drupal_set_message(t('Your vote was saved'));
+  drupal_set_message(__('Your vote was saved', array('@code' => 'cpoll_vote-11')));
   drupal_goto('node/' . $nid);
 
-  return t('Your vote was saved');
+  return __('Your vote was saved', array('@code' => 'cpoll_vote-12'));
 }
 
 /**

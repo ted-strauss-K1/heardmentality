@@ -14,7 +14,7 @@ require_once "lib/Coinbase.php";
  * @return array
  */
 function bitcoin_api_donations() {
-  return array('bitcoin_api' => t('Bitcoin'));
+  return array('bitcoin_api' => __('Bitcoin', array('@code' => 'donate-api-03')));
 }
 
 /**
@@ -26,8 +26,8 @@ function bitcoin_api_donation_make($op_id) {
   if ($record = donations_record($op_id)) {
     $apikey = variable_get('bitcoin_api_apikey', '');
     $coinbase = new Coinbase($apikey);
-    $response = $coinbase->createButton(t('Donation to ') . variable_get('site_name', 'Heard Mentality'), $record->amount, $record->currency, $record->id, array(
-      'description'  => t('Donation to ') . variable_get('site_name', 'Heard Mentality'),
+    $response = $coinbase->createButton(__('Donation to @site', array('@code' => 'donate-api-02', '@site' => variable_get('site_name', 'Heard Mentality'))), $record->amount, $record->currency, $record->id, array(
+      'description'  => __('Donation to @site', array('@code' => 'donate-api-02', '@site' => variable_get('site_name', 'Heard Mentality'))),
       'choose_price' => TRUE,
     ));
     db_query("UPDATE {donations} SET token = '%s' WHERE id = '%d'", $response->button->code, $record->id);
@@ -56,7 +56,7 @@ function bitcoin_api_donations_success() {
     $op_id = $data['order']['custom'];
     if ($record = donations_record($op_id)) {
       db_query("UPDATE {donations} SET transaction_id = '%d' WHERE id = '%d'", $data['order']['transaction']['hash'], $record->id);
-      drupal_set_message(t('Thank you for the donation!'));
+      drupal_set_message(__('Thank you for the donation!', array('@code' => 'donate-api-01')));
       return $record;
     }
   }

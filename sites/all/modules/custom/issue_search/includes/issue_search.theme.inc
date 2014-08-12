@@ -37,7 +37,7 @@ function theme_issue_search_pager_link($page, $page_active, $anchor = FALSE) {
  *  Output.
  */
 function theme_issue_search_filter() {
-  $issues_count = '<i class="icon cat text icon-binoculars-searchalt"></i><label class="tags-on search_issues" for="count_results-wrapper">' . t('Search Issues') . '</label><div id="count_results-wrapper" class="form-item"><span>0</span> ' . t('issues') . '</div>';
+  $issues_count = '<i class="icon cat text icon-binoculars-searchalt"></i><label class="tags-on search_issues" for="count_results-wrapper">' . __('Search Issues', array('@code' => 'issues-04')) . '</label><div id="count_results-wrapper" class="form-item">' . __('<span>0</span> issues', array('@code' => 'issues-05')) . '</div>';
   return '<div class="filter_search grey-box poll-box issues_search">' . $issues_count . drupal_get_form('issue_search_filter_form') . '</div>';
 }
 
@@ -127,7 +127,7 @@ function issue_search_filter_form($form_state) {
     );
 
     if ($i == 0) {
-      $form['taxonomy-' . $i]['#title'] = t('Narrow by');
+      $form['taxonomy-' . $i]['#title'] = __('Narrow by', array('@code' => 'issues-06'));
       $form['taxonomy-' . $i]['#size'] = count($options);
     }
     else {
@@ -158,7 +158,7 @@ function issue_search_filter_form($form_state) {
       );
 
       if ($i == 0) {
-        $form['location-' . $i]['#title'] = t('Location');
+        $form['location-' . $i]['#title'] = __('Location', array('@code' => 'issues-07'));
       }
       else {
         $form['location-' . $i]['#attributes']['class'] .= ' hideable';
@@ -171,7 +171,7 @@ function issue_search_filter_form($form_state) {
     if (isset($user->profile_country)) {
       $form['region'] = array(
         '#type'          => 'checkbox',
-        '#title'         => t('My region'),
+        '#title'         => __('My region', array('@code' => 'issues-08')),
         '#id'            => 'my_region',
         '#default_value' => $settings['my_region'],
       );
@@ -179,7 +179,7 @@ function issue_search_filter_form($form_state) {
     else {
       $form['region'] = array(
         '#type'  => 'item',
-        '#value' => l(t('Add location to your profile'), 'user/profile/edit/', array('fragment' => 'profile-country-wrapper')),
+        '#value' => l(__('Add location to your profile', array('@code' => 'issues-09')), 'user/profile/edit/', array('fragment' => 'profile-country-wrapper')),
       );
     }
   }
@@ -192,16 +192,16 @@ function issue_search_filter_form($form_state) {
   $form['voted_status'] = array(
     '#type'          => 'checkbox',
     '#default_value' => $settings['not_voted'],
-    '#title'         => t('Show only not voted'),
+    '#title'         => __('Show only not voted', array('@code' => 'issues-10')),
   );
   $form['search_text'] = array(
     '#type'  => 'textfield',
-    '#title' => t('Keyword'),
+    '#title' => __('Keyword', array('@code' => 'issues-11')),
     '#value' => $settings['keywords'],
   );
   $form['search'] = array(
     '#type'  => 'submit',
-    '#value' => t('Search'),
+    '#value' => __('Search', array('@code' => 'issues-12')),
     '#id'    => 'search-solr-block',
   );
 

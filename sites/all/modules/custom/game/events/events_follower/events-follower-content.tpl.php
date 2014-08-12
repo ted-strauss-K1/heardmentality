@@ -1,7 +1,7 @@
 <div class="sort-wrapper">
-  <span class="activity"><?php print t('Sort by'); ?></span>&nbsp; <a class="active"><?php print t('All'); ?></a> | <a
-    name="votes"><?php print t('Votes'); ?></a> | <a name="arguments"><?php print t('Debate'); ?></a> | <a
-    name="issues"><?php print t('Issues'); ?></a>
+  <span class="activity"><?php print __('Sort by', array('@code' => 'events_following-04')); ?></span>&nbsp; <a class="active"><?php print __('All', array('@code' => 'events_following-05')); ?></a> | <a
+    name="votes"><?php print __('Votes', array('@code' => 'events_following-06')); ?></a> | <a name="arguments"><?php print t('Debate'); ?></a> | <a
+    name="issues"><?php print __('Issues', array('@code' => 'events_following-07')); ?></a>
                                                             <!--  | <a name=>References</a>-->
 </div>
 

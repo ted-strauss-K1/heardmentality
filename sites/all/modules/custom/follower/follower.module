@@ -70,8 +70,8 @@ function follower_theme() {
 function theme_follower_button($follow) {
   global $user;
   if (user_is_logged_in() && $user->uid != $follow->uid) {
-    $text = follower_status($follow->uid) === FALSE ? t('Follow') : t('Unfollow');
-    return l(t($text), FOLLOWER_PATH . '/' . $follow->uid . '/', array(
+    $text = follower_status($follow->uid) === FALSE ? __('Follow', array('@code' => 'follower-01')) : __('Unfollow', array('@code' => 'follower-02'));
+    return l($text, FOLLOWER_PATH . '/' . $follow->uid . '/', array(
       'attributes' => array(
         'class' => 'button light follower',
         'name'  => $follow->uid,
@@ -116,10 +116,10 @@ function follower_page($follow_uid) {
  */
 function follower_strings() {
   return array(
-    'follow'       => t('Follow'),
-    'unfollow'     => t('Unfollow'),
-    'followtext'   => t('You now follow this user'),
-    'unfollowtext' => t('You now unfollow this user'),
+    'follow'       => __('Follow', array('@code' => 'follower-03')),
+    'unfollow'     => __('Unfollow', array('@code' => 'follower-04')),
+    'followtext'   => __('You now follow this user', array('@code' => 'follower-05')),
+    'unfollowtext' => __('You now unfollow this user', array('@code' => 'follower-06')),
   );
 }
 
@@ -140,8 +140,9 @@ function follower_form(&$form, $follow) {
   $form['#action'] = '/' . FOLLOWER_PATH . '/save';
 
   if (user_is_logged_in()) {
-    $text = follower_status($follow->uid) === FALSE ? t('follow') : t('unfollow');
-    $text = t('Are you sure you want to ') . $text . t(' this user?');
+    $text = follower_status($follow->uid) === FALSE ?
+      __('Are you sure you want to follow this user?', array('@code' => 'follower-07')) :
+      __('Are you sure you want to unfollow this user?', array('@code' => 'follower-08'));
     $form['title'] = array(
       '#type'  => 'markup',
       "#value" => $text,

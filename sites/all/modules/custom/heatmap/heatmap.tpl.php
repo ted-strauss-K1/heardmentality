@@ -22,7 +22,12 @@
 <div id="visualization" style="cursor:pointer;"></div>
 <ul class="map-stats">
   <?php
-  $list = array('users' => t('Users'), 'nodes' => t('Issues'), 'votes' => t('Votes'), 'online' => t('Online'));
+  $list = array(
+    'users' => __('Users', array('@code' => 'heatmap-01')),
+    'nodes' => __('Issues', array('@code' => 'heatmap-02')),
+    'votes' => __('Votes', array('@code' => 'heatmap-03')),
+    'online' => __('Online', array('@code' => 'heatmap-04'))
+  );
   foreach ($list as $type => $title) : $i++; ?>
     <li>
       <span class="count" id="count_<?php print $type; ?>">0</span>

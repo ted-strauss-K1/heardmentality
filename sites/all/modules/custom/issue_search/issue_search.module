@@ -47,7 +47,8 @@ function issue_search_menu() {
   # search page
   $menu['issues'] = array(
     'page callback'   => 'drupal_get_form',
-    'title'           => t('Issues'),
+    'title callback'  => '__',
+    'title arguments' => array('Issues', array('@code' => 'issues-01')),
     'page arguments'  => array('issue_search_form'),
     'access callback' => TRUE,
     'type'            => MENU_CALLBACK,
@@ -180,7 +181,7 @@ function issue_search_preprocess_page(&$variables) {
     // Filters sidebar.
     $variables['right'] = theme('issue_search_filter');
 
-    drupal_set_subtitle(t('Search'));
+    drupal_set_subtitle(__('Search', array('@code' => 'issues-02')));
   }
 }
 

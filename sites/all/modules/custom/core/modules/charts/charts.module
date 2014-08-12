@@ -84,7 +84,7 @@ function charts_theme_preprocess(&$vars) {
   # charts content
   $vars['charts'] = '';
   if (!$node->vote && $node->cpoll['active']) {
-    $vars['charts'] = '<span class="no_show">' . t('Vote now to show results.') . '</span>';
+    $vars['charts'] = '<span class="no_show">' . __('Vote now to show results.', array('@code' => 'charts-05')) . '</span>';
   }
   $vars['charts'] .= theme('charts_inner', $node);
 }
@@ -106,7 +106,7 @@ function charts_inner_theme_preprocess(&$vars) {
   # Filter
   $vars['filter'] = theme('charts_filter', $node);
   # Quick facts
-  $vars['quickfacts'] = $node->votecount <= 10 ? t('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.') : theme('charts_quickfacts', $node);
+  $vars['quickfacts'] = $node->votecount <= 10 ? __('We need 10 votes to show the results goodies, use the share links above  to let your peeps know.', array('@code' => 'charts-06')) : theme('charts_quickfacts', $node);
 }
 
 /**
@@ -466,7 +466,7 @@ function charts_filter_categories() {
     }
 
     $cat[''] = array(
-      '#name'    => t('Total Votes'),
+      '#name'    => __('Total Votes', array('@code' => 'charts-07')),
       '#options' => array(
         'Total Votes',
       ),
@@ -477,7 +477,7 @@ function charts_filter_categories() {
       switch ($field->name) {
         case 'profile_yob' :
           $cat['age'] = array(
-            '#name'    => t('Age'),
+            '#name'    => __('Age', array('@code' => 'charts-age')),
             '#options' => array(
               '18-30',
               '30-50',
@@ -489,7 +489,7 @@ function charts_filter_categories() {
         default:
           $name = str_replace('profile_', '', $field->name);
           $cat[$name] = array(
-            '#name'    => t($field->title),
+            '#name'    => __($field->title, array('@code' => 'charts-' . $name)),
             '#options' => explode("\n", $field->options),
           );
           $cat[$name]['#options'][] = 'undefined';
@@ -530,7 +530,7 @@ function theme_charts_strength($node) {
   drupal_add_js(array('charts' => array('strength' => charts_strength($node))), 'setting');
   drupal_add_js(drupal_get_path('module', 'charts') . "/include/charts.strength.js");
 
-  return '<div class="expanding stat"><h6 class="button" id="deb-ana">' . t('Stats') . '</h6></div>';
+  return '<div class="expanding stat"><h6 class="button" id="deb-ana">' . __('Stats', array('@code' => 'charts-08')) . '</h6></div>';
 }
 
 /**
@@ -631,10 +631,22 @@ function theme_charts_quickfacts($node) {
 
     switch ($key) {
       case 'age' :
-        $output[] = $percent . '% ' . t('of voters are') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . ' ' . t('yo') . '</span>';
+        $output[] = __('@percent% of voters are <span class="highlight">@highlight</span>', array(
+          '@code'      => 'charts-percent-1',
+          '@percent'   => $percent,
+          '@highlight' => __($data[$key]['#options'][$optkey] . ' yo', array(
+            '@code' => 'charts-optkey-age-' . $optkey,
+          ))
+        ));
         break;
       case 'income' :
-        $output[] = $percent . '% ' . t('of voters make') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . '</span>';
+        $output[] = __('@percent% of voters make <span class="highlight">@highlight</span>', array(
+          '@code'      => 'charts-percent-2',
+          '@percent'   => $percent,
+          '@highlight' => __($data[$key]['#options'][$optkey], array(
+            '@code' => 'charts-optkey-income-' . $optkey,
+          ))
+        ));
         break;
       case 'gender' :
       case 'ethnicity' :
@@ -643,7 +655,13 @@ function theme_charts_quickfacts($node) {
       case 'education' :
       case 'religion' :
       default :
-        $output[] = $percent . '% ' . t('of voters are') . ' <span class="highlight">' . t($data[$key]['#options'][$optkey]) . '</span>';
+        $output[] = __('@percent% of voters are <span class="highlight">@highlight</span>', array(
+          '@code'      => 'charts-percent-1',
+          '@percent'   => $percent,
+          '@highlight' => __($data[$key]['#options'][$optkey], array(
+            '@code' => 'charts-optkey-' . $key . '-' . $optkey,
+          ))
+        ));
         break;
     }
     if (++$i > 1) {
@@ -652,6 +670,7 @@ function theme_charts_quickfacts($node) {
   }
 
   $chtexts = charts_chtexts($node);
+  $chids = array_keys($node->choices);
 
   $i = 0;
   foreach ($list_choices as $key => $percent) {
@@ -661,8 +680,19 @@ function theme_charts_quickfacts($node) {
     $key = $key[2];
 
     $text = $chtexts[$chorder];
+    $chid = $chids[$chorder];
 
-    $output[] = $percent . '% ' . t('of votes for') . ' <span class="highlight">' . t($text) . '</span> ' . t('are') . ' ' . ($data[$key]['#options'][$optkey]);
+    $output[] = __('@percent% of votes for <span class="highlight">@choice</span> are @highlight', array(
+      '@code'      => 'charts-percent-3',
+      '@percent'   => $percent,
+      '@highlight' => __($data[$key]['#options'][$optkey], array(
+        '@code' => 'charts-optkey-' . $key . '-' . $optkey,
+      )),
+      '@choice'    => __($text, array(
+        '@code'      => 'choice-' . $chid . '-short',
+        '@textgroup' => 'choice',
+      ))
+    ));
 
     if (++$i > 3) {
       break;
@@ -698,13 +728,13 @@ function charts_update($nid) {
   if (!($node = node_load($nid)) || ('issue' != $node->type)) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t("Content does not exist"),
+      'message' => __("Content does not exist", array('@code' => 'charts-09')),
     ));
   }
   else {
     print json_encode(array(
       'status'  => TRUE,
-      'message' => t('Success'),
+      'message' => __('Success', array('@code' => 'charts-10')),
       'data'    => array(
         'filter'   => charts_filter_theme_preprocess($node),
         'gmap'     => charts_gmap($node),

@@ -108,14 +108,14 @@ function argument_create_comment() {
   if (!user_is_logged_in()) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('Please login to post reply'),
+      'message' => __('Please login to post reply', array('@code' => 'argument-13')),
     ));
     exit();
   }
   if (!user_access('create forum topics')) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('You don\'t have permissions to post arguments'),
+      'message' => __('You don\'t have permissions to post arguments', array('@code' => 'argument-14')),
     ));
     exit();
   }
@@ -147,14 +147,14 @@ function argument_create_comment() {
   if (!_comment_save($comment)) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('Error occurred'),
+      'message' => __('Error occurred', array('@code' => 'argument-15')),
     ));
     exit();
   }
 
   print json_encode(array(
     'status'  => TRUE,
-    'message' => t('Thanks, Your reply posted!'),
+    'message' => __('Thanks, Your reply posted!', array('@code' => 'argument-16')),
     'content' => theme('argument_comment', $comment),
     'cid'     => $comment->cid,
   ));
@@ -233,7 +233,7 @@ function argument_create() {
 
         exit(json_encode(array(
           'success' => TRUE,
-          'message' => t('Your argument posted successfully'),
+          'message' => __('Your argument posted successfully', array('@code' => 'argument-17')),
           'nid'     => $node->nid,
         )));
       }
@@ -245,7 +245,7 @@ function argument_create() {
       if (empty($post['url'])) {
         exit(json_encode(array(
           'success' => FALSE,
-          'message' => t('Please enter an URL'),
+          'message' => __('Please enter an URL', array('@code' => 'argument-18')),
         )));
       }
       // url
@@ -275,7 +275,7 @@ function argument_create() {
         if ($youtube_id === FALSE || strlen($youtube_id) != 11) {
           exit(json_encode(array(
             'success' => FALSE,
-            'message' => t('YouTube video ID not found'),
+            'message' => __('YouTube video ID not found', array('@code' => 'argument-19')),
           )));
         }
         $node->field_youtube[0]['value'] = $youtube_id;
@@ -305,7 +305,7 @@ function argument_create() {
       if ($node) {
         exit(json_encode(array(
           'success' => TRUE,
-          'message' => t('Your argument was posted successfully!'),
+          'message' => __('Your argument was posted successfully!', array('@code' => 'argument-20')),
           'node'    => $node,
           'nid'     => $node->nid,
         )));
@@ -313,7 +313,7 @@ function argument_create() {
       else {
         exit(json_encode(array(
           'success' => FALSE,
-          'message' => t('Error occurred. Please check you URL'),
+          'message' => __('Error occurred. Please check you URL', array('@code' => 'argument-21')),
         )));
       }
       break;
@@ -321,7 +321,7 @@ function argument_create() {
   // error
   exit(json_encode(array(
     'success' => FALSE,
-    'message' => t('Error occurred. Please try again'),
+    'message' => __('Error occurred. Please try again', array('@code' => 'argument-22')),
     'post'    => $post,
   )));
 }
@@ -360,7 +360,7 @@ function argument_delete($content_type, $content_id) {
   if (!(module_exists('moderation') && moderation_check_perm()) && !argument_check_owner($content_type, $content_id)) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('Sorry, you have no permissions to delete the content'),
+      'message' => __('Sorry, you have no permissions to delete the content', array('@code' => 'argument-23')),
     ));
     exit;
   }
@@ -383,7 +383,7 @@ function argument_delete($content_type, $content_id) {
   }
   print json_encode(array(
     'status'  => TRUE,
-    'message' => t('Successfully deleted'),
+    'message' => __('Successfully deleted', array('@code' => 'argument-24')),
   ));
   exit();
 }

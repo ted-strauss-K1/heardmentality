@@ -42,7 +42,7 @@ function argument_form($form, $node) {
     '#rows'      => 3,
     '#resizable' => FALSE,
     '#id'        => 'deb_title',
-    '#prefix'    => '<div class="argument-form"><label for="deb_title">' . t('What\'s your argument?') . '</label>',
+    '#prefix'    => '<div class="argument-form"><label for="deb_title">' . __('What\'s your argument?', array('@code' => 'argument-01')) . '</label>',
     '#suffix'    => '</div>',
   );
   $form['url'] = array(
@@ -54,7 +54,7 @@ function argument_form($form, $node) {
     '#attributes'    => array('class' => 'embedly'),
     '#prefix'        => '
       <div class="reference-form">
-        <label for="edit-ref-title">' . t('Post a reference') . '<span>(' . t('news, blog, gov, data') . '...).</span>
+        <label for="edit-ref-title">' . __('Post a reference', array('@code' => 'argument-02')) . '<span>(' . __('news, blog, gov, data', array('@code' => 'argument-03')) . '...).</span>
         </label>',
     '#suffix'        => '
       </div>
@@ -68,9 +68,9 @@ function argument_form($form, $node) {
         <div class="assign">
           <table>
             <th>
-              <td style="width: 100%;"><span class="label">' . t('Assign values') . ':</span></td>
-              <td><span class="small_neg">' . t('-') . '</span></td>
-              <td><span class="small_pos">' . t('+') . '</span></td>
+              <td style="width: 100%;"><span class="label">' . __('Assign values', array('@code' => 'argument-04')) . ':</span></td>
+              <td><span class="small_neg">-</span></td>
+              <td><span class="small_pos">+</span></td>
             </th>
           </table>
         </div>'
@@ -104,12 +104,12 @@ function argument_form($form, $node) {
   }
   $form['clr_div'] = array(
     '#type'  => 'markup',
-    '#value' => '<div class="clr"></div><span class="req_assign">(' . t('Required to set one or more') . ')</span>'
+    '#value' => '<div class="clr"></div><span class="req_assign">(' . __('Required to set one or more', array('@code' => 'argument-12')) . ')</span>'
   );
 
   $form['submit'] = array(
     '#type'       => 'submit',
-    '#value'      => t('Add'),
+    '#value'      => __('Add', array('@code' => 'argument-05')),
     '#attributes' => array('class' => 'orange-btn'),
     '#prefix'     => '</td></tr></table><div class="add_button">',
     '#suffix'     => theme('sub_loader', 'display:none; float:left; margin-right:17px; position:relative; top:2px;'),
@@ -120,14 +120,14 @@ function argument_form($form, $node) {
   $allow_resources = ranks_permission(0, $user->uid); // todo has sufficient permissions
   $form['link-arg'] = array(
     '#type'   => 'item',
-    '#value'  => $allow_resources ? (l(t('Or post a reference') . '<br><span class="desc">(' . t('News, Data, Video, etc.') . ')</span>', '', array('html' => TRUE,))) : ('<span class="desc">(' . t('You need to have higher rank to posts resources') . ')</span>'),
+    '#value'  => $allow_resources ? (l(__('Or post a reference', array('@code' => 'argument-06')) . '<br><span class="desc">(' . __('News, Data, Video, etc.', array('@code' => 'argument-07')) . ')</span>', '', array('html' => TRUE,))) : ('<span class="desc">(' . __('You need to have higher rank to posts resources', array('@code' => 'argument-08')) . ')</span>'),
     '#prefix' => '<div class="argument-form">',
     '#suffix' => '</div>',
     '#id'     => 'link_arg',
   );
   $form['link-ref'] = array(
     '#type'   => 'item',
-    '#value'  => l(t('Or write an argument'), '#'),
+    '#value'  => l(__('Or write an argument', array('@code' => 'argument-09')), '#'),
     '#prefix' => '<div class="reference-form">',
     '#suffix' => '</div></div>',
     '#id'     => 'link_ref',
@@ -154,7 +154,7 @@ function reply_form($form, $nid) {
   if (!user_is_logged_in()) {
     $form['log_in'] = array(
       '#type'       => 'markup',
-      '#value'      => t('Please login to post reply'),
+      '#value'      => __('Please login to post reply', array('@code' => 'argument-10')),
       '#attributes' => array('class' => theme('user_login_modal_class', TRUE)),
     );
     return $form;
@@ -173,7 +173,7 @@ function reply_form($form, $nid) {
   );
   $form['reply_submit'] = array(
     '#type'   => 'submit',
-    '#value'  => t('Submit reply'),
+    '#value'  => __('Submit reply', array('@code' => 'argument-11')),
     '#prefix' => '<div align="right">',
     '#suffix' => '</div>' . theme('sub_loader', 'display:none; margin-bottom:-15px; float:left;'),
   );

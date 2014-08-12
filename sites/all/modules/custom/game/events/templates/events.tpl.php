@@ -10,7 +10,7 @@
       ?>
     <?php endforeach; ?>
     <?php if (!$viewed) : ?>
-      <div class="msg nomsg"><?php print t('No user activity found.'); ?></div>
+      <div class="msg nomsg"><?php print __('No user activity found.', array('@code' => 'events-15')); ?></div>
     <?php endif; ?>
   </div>
 </ul>

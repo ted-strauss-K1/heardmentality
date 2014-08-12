@@ -1,1 +1,1 @@
-<b>Heard Mentality</b><br><?php print t('Something wrong has happened.'); ?>
+<b>Heard Mentality</b><br><?php print __('Something wrong has happened.', array('@code' => 'embed-01')); ?>

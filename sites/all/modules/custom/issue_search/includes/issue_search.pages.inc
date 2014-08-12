@@ -18,9 +18,9 @@ function issue_search_form($form_state) {
     '#type'   => 'item',
     '#value'  => '
       <ul class="date-filter date_filter">
-        <li><a class="date-solr-filter first" href="issues" interval="week">' . t('This Week') . '</a></li>
-        <li><a class="date-solr-filter" href="issues" interval="month">' . t('This Month') . '</a></li>
-        <li><a class="date-solr-filter last active" href="issues" interval="all">' . t('All time') . '</a></li>
+        <li><a class="date-solr-filter first" href="issues" interval="week">' . __('This Week', array('@code' => 'issues-filter-01')) . '</a></li>
+        <li><a class="date-solr-filter" href="issues" interval="month">' . __('This Month', array('@code' => 'issues-filter-02')) . '</a></li>
+        <li><a class="date-solr-filter last active" href="issues" interval="all">' . __('All time', array('@code' => 'issues-filter-03')) . '</a></li>
       </ul>',
     '#prefix' => '<div class="search_top_filters clearfix">',
   );
@@ -30,9 +30,9 @@ function issue_search_form($form_state) {
     '#type'   => 'item',
     '#value'  => '
       <ul class="sort-filter options_filter">
-        <li><a href="issues" class="solr-sort first active" solrsort="ds_created" direction="desc">' . t('Latest') . '</a></li>
-        <li><a href="issues" class="solr-sort" solrsort="is_views_count" direction="desc">' . t('By Views') . '</a></li>
-        <li><a href="issues" class="solr-sort last" solrsort="is_votes_count" direction="desc">' . t('By Votes') . '</a></li>
+        <li><a href="issues" class="solr-sort first active" solrsort="ds_created" direction="desc">' . __('Latest', array('@code' => 'issues-sort-01')) . '</a></li>
+        <li><a href="issues" class="solr-sort" solrsort="is_views_count" direction="desc">' . __('By Views', array('@code' => 'issues-sort-02')) . '</a></li>
+        <li><a href="issues" class="solr-sort last" solrsort="is_votes_count" direction="desc">' . __('By Votes', array('@code' => 'issues-sort-03')) . '</a></li>
       </ul>',
     '#suffix' => '</div>',
   );
@@ -78,7 +78,7 @@ function issue_search_ajax() {
   // JSON params.
   $json = array(
     'status'  => TRUE,
-    'message' => $pages ? $message : t('No results found'),
+    'message' => $pages ? $message : __('No results found', array('@code' => 'issues-03')),
     'rows'    => $rows,
     'time'    => round(microtime(TRUE), 4) - $mtime,
   );

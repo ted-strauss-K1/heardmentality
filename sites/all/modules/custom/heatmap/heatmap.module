@@ -35,25 +35,25 @@ function theme_heatmap_preprocess(&$vars) {
 
   $cases = array();
   $cases['users'] = array(
-    'name'   => t('Users'),
+    'name'   => __('Users', array('@code' => 'heatmap-01')),
     'result' => db_query("SELECT pv.value AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid INNER JOIN {users} u ON u.uid = pv.uid AND u.status = 1 WHERE pf.name = 'profile_country' GROUP BY pv.value"),
     'count'  => db_result(db_query("SELECT COUNT(*) FROM {users} WHERE status = 1")),
   );
 
   $cases['nodes'] = array(
-    'name'   => t('Issues'),
+    'name'   => __('Issues', array('@code' => 'heatmap-02')),
     'result' => db_query("SELECT l.country, COUNT(DISTINCT(nid)) AS count FROM {location_instance} li INNER JOIN {location} l ON l.lid = li.lid GROUP BY l.country"),
     'count'  => db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = 'issue' AND status = 1")),
   );
 
   $cases['online'] = array(
-    'name'   => t('Online'),
+    'name'   => __('Online', array('@code' => 'heatmap-03')),
     'result' => db_query("SELECT pv.value AS country, COUNT(*) AS count FROM {profile_fields} pf INNER JOIN {profile_values} pv ON pv.fid = pf.fid INNER JOIN {users} u ON u.uid = pv.uid AND u.access >= '%d' AND u.status = 1 WHERE pf.name = 'profile_country' GROUP BY pv.value", time() - variable_get('user_block_seconds_online', 900)),
     'count'  => db_result(db_query("SELECT COUNT(*) FROM {users} WHERE access >= '%d' AND status = 1", time() - variable_get('user_block_seconds_online', 900))),
   );
 
   $cases['votes'] = array(
-    'name'   => t('Votes'),
+    'name'   => __('Votes', array('@code' => 'heatmap-04')),
     'result' => db_query("
       SELECT pv.value AS country, COUNT(*) AS count
       FROM {cpoll_votes} AS v
@@ -105,14 +105,14 @@ function heatmap_block($op = 'list', $delta = 0, $edit = array()) {
   switch ($op) {
     case 'list':
       $blocks['heatmap'] = array(
-        'info' => t('Front Heatmap'),
+        'info' => 'Front Heatmap',
       );
       return $blocks;
 
     case 'view':
       switch ($delta) {
         case 'heatmap':
-          $block['subject'] = t("THE HERD");
+          $block['subject'] = __("THE HERD", array('@code' => 'heatmap-05'));
           $block['content'] = theme('heatmap');
           break;
       }

@@ -49,13 +49,13 @@ function events_add(&$params) {
     if (!$params['uid']) {
       return array(
         'status' => FALSE,
-        'reason' => t('No user selected'),
+        'reason' => 'No user selected',
       );
     }
     if (!in_array($params['operation'], events_operations())) {
       return array(
         'status' => FALSE,
-        'reason' => t('Operation not supported'),
+        'reason' => 'Operation not supported',
       );
     }
     $params['tid'] = $tid;
@@ -70,7 +70,7 @@ function events_add(&$params) {
   }
   return array(
     'status' => FALSE,
-    'reason' => t('No events term'),
+    'reason' => 'No events term',
   );
 }
 

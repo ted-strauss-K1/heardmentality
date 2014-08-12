@@ -9,7 +9,8 @@ function events_follower_menu() {
   $menu = array();
 
   $menu['following'] = array(
-    'title'           => t('Following'),
+    'title callback'  => '__',
+    'title arguments' => array('Following', array('@code' => 'events_following-08')),
     'page callback'   => 'theme',
     'page arguments'  => array('events_follower_content'),
     'access callback' => 'user_is_logged_in',
@@ -86,7 +87,7 @@ function events_follower_preprocess_page(&$vars) {
 
     $vars['right'] = theme('events_follower_block');
 
-    drupal_set_subtitle(t('Following'));
+    drupal_set_subtitle(__('Following', array('@code' => 'events_following-08')));
   }
 }
 
