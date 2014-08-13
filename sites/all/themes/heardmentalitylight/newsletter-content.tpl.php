@@ -49,8 +49,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td rowspan="1" colspan="1"
-                            style=" width: 100%;
+                      <td rowspan="1" colspan="1"
+                          style=" width: 100%;
                         font-family: Arial;
                         padding: 2px 8px;
                         font-size: 10px;
@@ -60,13 +60,22 @@
                         background: #76d2dc;
                         border: 1px solid #92b7dd;
                         color: #362750;">
-                            <?php print intval($node->info['argument']); ?>&nbsp;<?php print t('ARGUMENTS'); ?>
-                            &nbsp;|&nbsp;
-                            <?php print intval($node->info['resource']); ?>&nbsp;<?php print t('REFERENCES'); ?>
-                            &nbsp;|&nbsp;
-                            <?php print intval($node->votecount); ?>&nbsp;<?php print t('VOTES'); ?>
+                        <?php print __('@count&nbsp;ARGUMENTS', array(
+                          '@code'  => 'newsletter-01',
+                          '@count' => intval($node->info['argument'])
+                        )); ?>
+                        &nbsp;|&nbsp;
+                        &nbsp;<?php print __('@count&nbsp;REFERENCES', array(
+                          '@code'  => 'newsletter-02',
+                          '@count' => intval($node->info['resource'])
+                        )); ?>
+                        &nbsp;|&nbsp;
+                        &nbsp;<?php print __('@count&nbsp;VOTES', array(
+                          '@code'  => 'newsletter-03',
+                          '@count' => intval($node->votecount)
+                        )); ?>
 
-                        </td>
+                      </td>
                     </tr>
                     </tbody>
                 </table>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-  <title><?php print t('Heard Mentality Newsletter'); ?></title>
+  <title><?php print __('Heard Mentality Newsletter', array('@code' => 'newsletter-title')); ?></title>
 </head>
 
 <?php global $theme_path; ?>

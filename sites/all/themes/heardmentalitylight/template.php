@@ -59,7 +59,7 @@ function heardmentalitylight_preprocess_page(&$vars) {
       switch ($node->type) {
         case 'issue' :
           # set specific page templates
-          drupal_set_subtitle(t('Issue'));
+          drupal_set_subtitle(__('Issue', array('@code' => 'issue-page-title')));
           array_push($vars['template_files'], 'page_12_4');
           $vars['content_class'] = 'poll-box';
           break;

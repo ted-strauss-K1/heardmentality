@@ -13,7 +13,7 @@
                 color: #cccccc;
                 font-family: Arial;
                 padding: 30px 5px 10px 5px;
-                margin: 0 85px;"><?php print t("Be Heard! Don't Be Part of the Herd."); ?></p>
+                margin: 0 85px;"><?php print __("Be Heard! Don't Be Part of the Herd.", array('@code' => 'site-blurb')); ?></p>
 
             <p style=" background: #3c3c3c;
             padding: 10px 5px 40px 5px;

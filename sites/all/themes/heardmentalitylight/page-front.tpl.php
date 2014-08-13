@@ -6,27 +6,27 @@
       <div class="one-third column">
         <div class="circle-box">
           <div class="see-banner circle-wrapper" id="circle0">
-            <a class="see" href="issues"><span class="title"><?php print t('SEE'); ?></span>
+            <a class="see" href="issues"><span class="title"><?php print __('SEE', array('@code' => 'page-front-01')); ?></span>
 
-              <p class="hover"><?php print t('See global opinions on important issues'); ?></p></a>
+              <p class="hover"><?php print __('See global opinions on important issues', array('@code' => 'page-front-02')); ?></p></a>
           </div>
         </div>
       </div>
       <div class="one-third column">
         <div class="circle-box">
           <div class="vote-banner circle-wrapper" id="circle1">
-            <a class="vote-now" href="issues"><span class="title"><?php print t('VOTE'); ?></span>
+            <a class="vote-now" href="issues"><span class="title"><?php print __('VOTE', array('@code' => 'page-front-03')); ?></span>
 
-              <p class="hover"><?php print t('Vote on issues and let your voice be heard'); ?></p></a>
+              <p class="hover"><?php print __('Vote on issues and let your voice be heard', array('@code' => 'page-front-04')); ?></p></a>
           </div>
         </div>
       </div>
       <div class="one-third column ">
         <div class="circle-box">
           <div class="share-banner circle-wrapper" id="circle2">
-            <a class="share-now" href="issues"><span class="title"><?php print t('SHARE'); ?></span>
+            <a class="share-now" href="issues"><span class="title"><?php print __('SHARE', array('@code' => 'page-front-05')); ?></span>
 
-              <p class="hover"><?php print t('Share your opinions with the community'); ?></p></a>
+              <p class="hover"><?php print __('Share your opinions with the community', array('@code' => 'page-front-06')); ?></p></a>
           </div>
         </div>
       </div>
@@ -37,9 +37,9 @@
 
         <div class="border-bottom clearfix">
           <div class="helper">
-            <p class="din banner-text">Heard Mentality: <?php print t('The Global Forum for Public Opinion'); ?>.</p>
+            <p class="din banner-text">Heard Mentality: <?php print __('The Global Forum for Public Opinion', array('@code' => 'page-front-07')); ?>.</p>
             <span class="banven clearfix"><a href="<?php url('issues') ?>"
-                                             class="button vote floatright participate"><?php print t('Be heard!'); ?></a></span>
+                                             class="button vote floatright participate"><?php print __('Be heard!', array('@code' => 'page-front-08')); ?></a></span>
           </div>
         </div>
       </div>
