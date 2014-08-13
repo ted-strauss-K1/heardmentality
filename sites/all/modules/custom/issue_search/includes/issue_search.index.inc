@@ -524,7 +524,10 @@ function issue_search_extra_fields_indexing_languages($node, $field_name, $index
 
   // todo index fields using the new translation procedure
   $languages = array();
-  $query = db_query("SELECT ct.language AS langcode FROM {content_translate} ct WHERE ct.content_type = 'node' AND ct.content_id = %d", $node->nid);
+  $query = db_query("
+    SELECT DISTINCT t.language AS langcode
+    FROM {locales_source} s, {locales_target} t
+    WHERE s.lid = t.lid AND s.textgroup = 'issue' AND s.code LIKE 'node-issue-".$node->nid."%'");
   while ($record = db_fetch_object($query)) {
     $languages[] = $record->langcode;
   }
@@ -611,15 +614,16 @@ function issue_search_apachesolr_index_documents_alter(array &$documents, $entit
 
     // Get translations to add.
     $fields = array();
-    $query = db_query("SELECT ct.text AS text FROM {content_translate} ct WHERE ct.content_id = %d", $entity->nid);
+    $query = db_query("
+      SELECT t.translation AS text
+      FROM {locales_source} s, {locales_target} t
+      WHERE s.lid = t.lid AND s.textgroup = 'issue' AND s.code LIKE 'node-issue-".$entity->nid."%'");
     while ($record = db_fetch_object($query)) {
       $fields[] = $record->text;
     }
 
     // Extend content.
-    foreach ($fields as $field) {
-      $content .= ' ' . $field;
-    }
+    $content .= implode(' ', $fields);
 
     // Set new content.
     $document->content = $content;

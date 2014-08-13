@@ -2,7 +2,7 @@ name = Newsletter
 description = "Newsletter implementation"
 package = Custom Modules
 core = 6.x
-version = "6.x-1.1"
+version = "6.x-1.2"
 
 dependencies[] = simplenews
 

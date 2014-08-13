@@ -1,7 +1,7 @@
 name = User Modal Login
 description = User Modal Login. Depends on jquery.ui 1.8+
 package = Custom Modules
-version = "6.x-2.5"
+version = "6.x-2.6"
 core = 6.x
 
 dependencies[] = colorbox

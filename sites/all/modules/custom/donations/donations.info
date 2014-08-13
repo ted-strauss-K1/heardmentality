@@ -1,5 +1,5 @@
 name = Donations
 description = Donations on site
 package = Custom Modules
-version = "6.x-1.7.1"
+version = "6.x-1.8"
 core = 6.x

@@ -1,7 +1,7 @@
 name = EXT - uLogin: Optonal Parameters
 description = "Adds optional fields selector to admin form."
 core = 6.x
-version = "6.x-1.5"
+version = "6.x-1.6"
 package = Custom Modules : EXT
 dependencies[] = ulogin
 dependencies[] = user_login_modal
