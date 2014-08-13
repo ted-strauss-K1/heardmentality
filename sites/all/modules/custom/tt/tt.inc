@@ -14,6 +14,8 @@
  */
 if (!function_exists('__')) {
   function __($string, $args = array(), $langcode = NULL) {
+    // todo temp
+    // return preg_replace('@[a-z]@', 'x', preg_replace('@[A-Z]@', 'X', preg_replace('@[^A-Za-z0-9]@', ' ', $string)));
     // detect language
     if (is_null($langcode)) {
       global $language;
@@ -215,4 +217,43 @@ function tt_locale($string, $args = array(), $langcode = NULL, $reset = FALSE) {
   }
 
   return $locale[$langcode][$textgroup][$code][$string] === TRUE ? $string : $locale[$langcode][$textgroup][$code][$string];
+}
+
+/**
+ * @param $string Translation
+ * @param array $args
+ * @param null $langcode
+ */
+function __update($string, $args = array(), $langcode = NULL) {
+  if (is_null($langcode)) {
+    global $language;
+    $langcode = $language->language;
+  }
+
+  // detect code
+  if (!isset($args['@code'])) {
+    return FALSE;
+  }
+
+  // detect textgroup
+  if (!isset($args['@textgroup'])) {
+    $args['@textgroup'] = 'default';
+  }
+
+  // check if this text allows plurality (has @count arg)
+  if (isset($args['@count'])) {
+    $count = $args['@count'];
+    unset($args['@count']);
+    $index = (function_exists('locale_get_plural')) ? locale_get_plural($count, $langcode) : -1;
+    $args['@count[' . $index . ']'] = $count;
+  }
+
+  // save
+  if ($lid = (int)db_result(db_query("SELECT lid FROM {locales_source} WHERE textgroup = '%s' AND code = '%s'", $args['@textgroup'], $args['@code']))) {
+    db_query("DELETE FROM {locales_target} WHERE lid = '%s' AND language = '%s'", $lid, $langcode);
+    db_query("INSERT INTO {locales_target} SET lid = '%s', language = '%s', translation = '%s'", $lid, $langcode, $string);
+    return TRUE;
+  }
+
+  return FALSE;
 }

@@ -238,7 +238,7 @@ function theme_events_item_yn_votedn_theme_preprocess(&$vars) {
 function theme_events_item__issue_theme_preprocess(&$vars) {
   $node = node_load($vars['item']['entity_id']);
 
-  $vars['link'] = l(issue_translate($node, 'title'), $node->path, array());
+  $vars['link'] = l(__($node->title, array('@code' => 'node-issue-' . $node->nid . '-title', '@textgroup' => 'issue')), $node->path, array());
   $vars['text2'] = '';
 
   if ($node->status != 1) {
@@ -253,7 +253,7 @@ function theme_events_item__debate_theme_preprocess(&$vars) {
   $debate = node_load($vars['item']['entity_id']);
   $node = node_load($debate->field_reference[0]['nid']);
 
-  $vars['link'] = l(issue_translate($node, 'title'), $node->path, empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid));
+  $vars['link'] = l(__($node->title, array('@code' => 'node-issue-' . $node->nid . '-title', '@textgroup' => 'issue')), $node->path, empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid));
   $vars['text2'] = '
     <!-- google translate -->
     <span class="goog-trans-section events_google_translate">' . $debate->title . '&nbsp;<span class="sq">[<span class="goog-trans-control translate"></span>]</span>
@@ -273,7 +273,7 @@ function theme_events_item__reply_theme_preprocess(&$vars) {
   $debate = node_load($comment->nid);
   $node = node_load($debate->field_reference[0]['nid']);
 
-  $vars['link'] = l(issue_translate($node, 'title'), $node->path, empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid));
+  $vars['link'] = l(__($node->title, array('@code' => 'node-issue-' . $node->nid . '-title', '@textgroup' => 'issue')), $node->path, empty($debate) ? array() : array('fragment' => 'forum-block-' . $debate->nid));
   $vars['text2'] = '
     <!-- google translate -->
     <span class="goog-trans-section events_google_translate">' . $comment->comment . '&nbsp;<span class="sq">[<span class="goog-trans-control translate"></span>]</span>

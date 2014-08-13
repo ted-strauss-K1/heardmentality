@@ -39,7 +39,7 @@
           <?php if ($node->field_base_issue[0]['safe']['status']) : ?>
             <?php print __('Duplicates issue', array('@code' => 'node-issue-02')) ?> <?php
             $base_issue = node_load($node->field_base_issue[0]['nid']);
-            print l(issue_translate($base_issue, 'title'), 'node/' . $base_issue->nid);
+            print l(__($base_issue->title, array('@code' => 'node-issue-' . $base_issue->nid . '-title', '@textgroup' => 'issue')), 'node/' . $base_issue->nid);
             ?>
           <?php else : ?>
             <?php print __('Closed as the duplicate to other content on site', array('@code' => 'node-issue-03')); ?>

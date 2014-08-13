@@ -18,8 +18,8 @@ function moderation_merge_form($form_state, $merge, $base) {
   $base = node_load($base);
   $merge = node_load($merge);
 
-  $base_link = l(issue_translate($base, 'title'), $base->path);
-  $merge_link = l(issue_translate($merge, 'title'), $merge->path);
+  $base_link = l(__($base->title, array('@code' => 'node-issue-' . $base->nid . '-title', '@textgroup' => 'issue')), $base->path);
+  $merge_link = l(__($merge->title, array('@code' => 'node-issue-' . $merge->nid . '-title', '@textgroup' => 'issue')), $merge->path);
 
   $form['warning'] = array(
     '#type'   => 'markup',

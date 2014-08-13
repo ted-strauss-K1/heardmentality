@@ -157,7 +157,10 @@ function _moderation_form_filter_elements($filters) {
     $form['filters']['status'] = array(
       '#type'          => 'select',
       '#title'         => __('Content', array('@code' => 'moderator-13')),
-      '#options'       => array(1 => __('Flagged', array('@code' => 'moderator-14')), 2 => __('Not moderated', array('@code' => 'moderator-15'))),
+      '#options'       => array(
+        1 => __('Flagged', array('@code' => 'moderator-14')),
+        2 => __('Not moderated', array('@code' => 'moderator-15'))
+      ),
       '#default_value' => $filters['status'],
     );
   }
@@ -491,9 +494,9 @@ function moderation_markup_userflag($user) {
     <h2 class="din half">' . ucwords($user->name) . ' <div class="open"></div> </h2>
     <div class="mod-buttons">'
   . sprintf('<a href="%s" target="_blank"><span class="mod-view mod-icon" title="%s"></span></a>',
-        url($user->viewlink),
-        __('View Profile', array('@code' => 'moderator-18'))
-      )
+    url($user->viewlink),
+    __('View Profile', array('@code' => 'moderator-18'))
+  )
   . theme('flagger_btn_history', $user->uid, 'user') . '</div>
   </div>';
 }
@@ -556,7 +559,7 @@ function moderation_issue_view_form($form_state, $nid) {
   $form['title'] = array(
     '#type'   => 'textfield',
     '#title'  => __('Title', array('@code' => 'moderator-20')),
-    '#value'  => issue_translate($node, 'title'),
+    '#value'  => __($node->title, array('@code' => 'node-issue-' . $node->nid . '-title', '@textgroup' => 'issue')),
     '#prefix' => '<div class="question_section">' . '<div class="view_q">' . l(sprintf('<i class="mod-view mod-icon" title="%s"></i>%s', __('View', array('@code' => 'moderator-25')), __('View', array('@code' => 'moderator-25'))), $node->path, array(
         'html'       => TRUE,
         'attributes' => array('target' => '_blank'),
@@ -566,7 +569,7 @@ function moderation_issue_view_form($form_state, $nid) {
   $form['body'] = array(
     '#type'   => 'textarea',
     '#title'  => __('Description', array('@code' => 'moderator-21')),
-    '#value'  => issue_translate($node, 'body'),
+    '#value'  => __($node->body, array('@code' => 'node-issue-' . $node->nid . '-body', '@textgroup' => 'issue')),
     '#suffix' => '</div>',
   );
 
@@ -593,8 +596,10 @@ function moderation_issue_view_form($form_state, $nid) {
 
   //
   foreach ($node->choices as $chid => $choice) {
-    $choice['chtext'] = issue_translate($node, 'chtext', $chid);
-    $choice['chtext_short'] = issue_translate($node, 'chtext_short', $chid);
+    $choice['chtext'] = __($choice['chtext'], array('@code' => 'choice-' . $chid, '@textgroup' => 'choice'));
+    $choice['chtext_short'] = __($choice['chtext_short'], array('@code'      => 'choice-' . $chid . '-short',
+                                                                '@textgroup' => 'choice'
+    ));
     $form_element = _moderation_ahah_choice($choice['index'], $choice, $nid);
     $form['choices'][$choice['index']] = $form_element;
   }
@@ -669,7 +674,7 @@ function moderation_issue_view_form($form_state, $nid) {
  *
  * @param      $delta
  * @param bool $choice
- * @param int  $nid
+ * @param int $nid
  *
  * @return array
  */
@@ -964,7 +969,9 @@ function moderation_delete_request($form) {
     drupal_set_message(__('Content deletion approved.', array('@code' => 'moderator-35')));
   }
   else {
-    drupal_set_message(__('Content deletion not approved.', array('@code' => 'moderator-36')) . ' ' . __('@count deletion requests from other moderators are required.', array('@code' => 'moderator-37', '@count' => MODERATION_DELETE_COUNT - $delete_requests)));
+    drupal_set_message(__('Content deletion not approved.', array('@code' => 'moderator-36')) . ' ' . __('@count deletion requests from other moderators are required.', array('@code'  => 'moderator-37',
+                                                                                                                                                                               '@count' => MODERATION_DELETE_COUNT - $delete_requests
+    )));
   }
 }
 
@@ -997,13 +1004,13 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
 
 
   // title changed
-  $title = issue_translate($node, 'title');
+  $title = __($node->title, array('@code' => 'node-issue-' . $node->nid . '-title', '@textgroup' => 'issue'));
   if ($title != $values['title']) {
     $changed['title'] = $values['title'];
   }
 
   // body changed
-  $body = issue_translate($node, 'body');
+  $body = __($node->body, array('@code' => 'node-issue-' . $node->nid . '-body', '@textgroup' => 'issue'));
   if ($body != $values['body']) {
     $changed['body'] = $values['body'];
   }
@@ -1014,8 +1021,8 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
   foreach ($values['choices'] as $choice) {
     $chid = $choice['chid'];
     // chtext
-    foreach (array('chtext', 'chtext_short') as $key) {
-      $$key = issue_translate($node, $key, $chid);
+    foreach (array('chtext' => 'choice-' . $chid, 'chtext_short' => 'choice-' . $chid . '-short') as $key => $code) {
+      $$key = __($node->choices[$chid][$key], array('@code' => $code, '@textgroup' => 'choice'));
       if ($choice[$key] != $$key) {
         $changed['choices'][$chid][$key] = $choice[$key];
         $changed['choices'][$chid][$key . '_old'] = $$key;
@@ -1115,51 +1122,12 @@ function moderation_issue_view_form_save(&$form, &$form_state) {
     }
   }
 
-  # save
-  global $language;
-  # original language
-  if ($node->language == $language->language) {
-    $node->title = $values['title'];
-    $node->body = $values['body'];
-
-    # add new choices
-    foreach ($values['choices'] as $choice) {
-      if (!isset($node->choices[$choice['chid']])) {
-        $count = count($node->choice);
-        $node->choices[$choice['chid']] = array(
-          'chid'         => $choice['chid'],
-          'nid'          => $node->nid,
-          'uid'          => $choice['uid'],
-          'chtext'       => $choice['chtext'],
-          'chtext_short' => $choice['chtext_short'],
-          'weight'       => $count,
-          'type'         => 'regular',
-        );
-      }
-      else {
-        $node->choices[$choice['chid']]['chtext'] = $choice['chtext'];
-        $node->choices[$choice['chid']]['chtext_short'] = $choice['chtext_short'];
-      }
-    }
-  }
-
-  # translation
-  else {
-    # init translation if it does not exist
-    if (!$node->t) {
-      $node->t = array();
-    }
-    if (!$node->t[$language->language]) {
-      $node->t[$language->language] = array();
-    }
-    $t = & $node->t[$language->language];
-
-    $t['title'][0] = $values['title'];
-    $t['body'][0] = $values['body'];
-    foreach ($values['choices'] as $choice) {
-      $t['chtext'][$choice['chid']] = $choice['chtext'];
-      $t['chtext_short'][$choice['chid']] = $choice['chtext_short'];
-    }
+  # save translations
+  __update($values['title'], array('@code' => 'node-issue-' . $node->nid . '-title', '@textgroup' => 'issue'));
+  __update($values['body'], array('@code' => 'node-issue-' . $node->nid . '-body', '@textgroup' => 'issue'));
+  foreach ($values['choices'] as $choice) {
+    __update($choice['chtext'], array('@code' => 'choice-' . $choice['chid'], '@textgroup' => 'choice'));
+    __update($choice['chtext_short'], array('@code' => 'choice-' . $choice['chid'] . '-short', '@textgroup' => 'choice'));
   }
 
   # record the changes to history

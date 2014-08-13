@@ -7,5 +7,4 @@ core = 6.x
 dependencies[] = "action"
 dependencies[] = "bootstrap_functions"
 
-dependencies[] = "issue_translate"
 dependencies[] = "yn"

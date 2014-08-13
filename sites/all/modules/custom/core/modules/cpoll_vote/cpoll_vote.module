@@ -59,7 +59,12 @@ function cpoll_vote_form($form, $node, $nowrap = FALSE, $page = TRUE) {
   if ($node->choices) {
     $options = array();
     foreach ($node->choices as $chid => $choice) {
-      $options[$chid] = '<span class="ch">' . check_plain(issue_translate($node, 'chtext', $chid)) . '</span>';
+      $options[$chid] = '<span class="ch">' . check_plain(
+          __($node->choices[$chid]['chtext'], array(
+            '@code' => 'choice-' . $chid,
+            '@textgroup' => 'choice',
+          ))
+        ) . '</span>';
     }
 
     $options[-1] = '<span class="ch">&nbsp;</span>';
