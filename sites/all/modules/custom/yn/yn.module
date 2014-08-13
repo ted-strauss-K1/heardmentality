@@ -33,25 +33,26 @@ function theme_yn($content_type, $content_id, $owner = FALSE) {
   $notrated = FALSE;
   list($vote_up, $vote_dn, $vote_sum, $yn_rated) = yn_votes($content_id, $content_type);
   if ($owner) {
-    $title1 = t('You are not able to rate your own post!');
+    $title1 = __('You are not able to rate your own post!', array('@code' => 'yn-01'));
     $title2 = $title1;
   }
   elseif ($yn_rated) {
-    $title1 = t('You have rated this!');
+    $title1 = __('You have rated this!', array('@code' => 'yn-02'));
     $title2 = $title1;
   }
   else {
-    $title1 = t('Agree this!');
-    $title2 = t('Disagree this!');
+    $title1 = __('Agree this!', array('@code' => 'yn-03'));
+    $title2 = __('Disagree this!', array('@code' => 'yn-04'));
     $notrated = TRUE;
   }
 
   return '
     <span class="comment-agree" id="yn-' . $content_type . '-' . $content_id . '">
-      <strong>' . t('Do you agree') . ($content_type == 'comment' ? '' : ' ' . t('with the argument')) . '?</strong>
-      <a href="javascript:void(0);" class="yn agree ' . ($notrated ? ' yn-a' : '') . ' yn-a-' . $content_id . '" title="' . $title1 . '" name="' . $content_id . '/' . $content_type . '/' . VOTE_AGREE . '">' . t('Yes') . '<span' . ($notrated ? '' : ' class="notvoted"') . '>(' . $vote_up . ')</span></a>&nbsp;|
-      <a href="javascript:void(0);" class="yn disagree ' . ($notrated ? ' yn-d' : '') . ' yn-d-' . $content_id . '" title="' . $title2 . '" name="' . $content_id . '/' . $content_type . '/' . VOTE_DISAGREE . '">' . t('No') . '<span' . ($notrated ? '' : ' class="notvoted"') . '>(' . $vote_dn . ')</span></a>
-      <strong class="motivat">' . t('(Click yes/no to leave support/oppose comment.)') . '</strong>
+      <strong>' .
+        ($content_type == 'comment' ? __('Do you agree?', array('@code' => 'yn-05')) : __('Do you agree with the argument?', array('@code' => 'yn-06'))) .  '</strong>
+      <a href="javascript:void(0);" class="yn agree ' . ($notrated ? ' yn-a' : '') . ' yn-a-' . $content_id . '" title="' . $title1 . '" name="' . $content_id . '/' . $content_type . '/' . VOTE_AGREE . '">' . __('Yes', array('@code' => 'yn-07')) . '<span' . ($notrated ? '' : ' class="notvoted"') . '>(' . $vote_up . ')</span></a>&nbsp;|
+      <a href="javascript:void(0);" class="yn disagree ' . ($notrated ? ' yn-d' : '') . ' yn-d-' . $content_id . '" title="' . $title2 . '" name="' . $content_id . '/' . $content_type . '/' . VOTE_DISAGREE . '">' . __('No', array('@code' => 'yn-08')) . '<span' . ($notrated ? '' : ' class="notvoted"') . '>(' . $vote_dn . ')</span></a>
+      <strong class="motivat">' . __('(Click yes/no to leave support/oppose comment.)', array('@code' => 'yn-09')) . '</strong>
     </span>';
 }
 
@@ -423,21 +424,21 @@ function yn_ajax($content_id, $content_type, $vote_value) {
   if (empty($content_id) || empty($content_type) || !in_array($vote_value, array(VOTE_AGREE, VOTE_DISAGREE))) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('Error occurred'),
+      'message' => __('Error occurred', array('@code' => 'yn-10')),
     ));
     exit();
   }
   if (!user_is_logged_in()) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('You need to log in to join this debate'),
+      'message' => __('You need to log in to join this debate', array('@code' => 'yn-11')),
     ));
     exit();
   }
   if (yn_user_voted($content_id, $content_type)) {
     print json_encode(array(
       'status'  => FALSE,
-      'message' => t('You have already voted'),
+      'message' => __('You have already voted', array('@code' => 'yn-12')),
     ));
     exit();
   }
@@ -485,7 +486,7 @@ function yn_ajax($content_id, $content_type, $vote_value) {
   $output['parent_id'] = $parent_id;
   $output['first_voter'] = $fvote['uid'];
 
-  $message = $vote_value == VOTE_AGREE ? t('Agreed') : t('Disagreed');
+  $message = $vote_value == VOTE_AGREE ? __('Agreed', array('@code' => 'yn-13')) : __('Disagreed', array('@code' => 'yn-14'));
   print json_encode(array(
     'status'  => TRUE,
     'message' => $message . '!',

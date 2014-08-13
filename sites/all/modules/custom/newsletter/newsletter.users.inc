@@ -29,7 +29,7 @@ function newsletter_form_alter(&$form, &$form_state, $form_id) {
     //    );
     $form['subscription_submit'] = array(
       '#type'       => 'submit',
-      '#value'      => t('Submit'),
+      '#value'      => __('Submit', array('@code' => 'newsletter-01')),
       '#id'         => 'subscription_submit',
       '#name'       => 'subscription_submit',
       '#attributes' => array('class' => 'submit-issue leftfloat'),
@@ -63,6 +63,6 @@ function newsletter_frequency_submit(&$form, &$form_state) {
  */
 function newsletter_init() {
   if (isset($_REQUEST['newsletter_action']) && user_is_anonymous()) {
-    drupal_set_message(t('Log in to unsubscribe'));
+    drupal_set_message(__('Log in to unsubscribe', array('@code' => 'newsletter-02')));
   }
 }

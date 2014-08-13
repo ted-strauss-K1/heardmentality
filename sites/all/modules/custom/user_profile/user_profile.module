@@ -79,22 +79,22 @@ function user_profile_form_alter(&$form, &$form_state, $form_id) {
   # alter register form
   if ($form_id == 'user_register') {
     $form['#title'] = '';
-    $form['mail']['#title'] = t("What's your email address?");
+    $form['mail']['#title'] = __("What's your email address?", array('@code' => 'user_profile-18'));
     $form['mail']['#description'] = '';
     $form['pass']['#description'] = '';
     $form['name']['#description'] = '';
     if ('admin' != arg(0)) {
-      $form['submit']['#value'] = t('Sign up');
+      $form['submit']['#value'] = __('Sign up', array('@code' => 'user_profile-19'));
     }
     $form['#validate'][] = 'user_profile_register_form_validate';
     $form['news'] = array(
       '#type'          => 'checkbox',
-      '#title'         => t('Yes, send me useful news about Heard Mentality.'),
+      '#title'         => __('Yes, send me useful news about Heard Mentality.', array('@code' => 'user_profile-20')),
       '#default_value' => 1,
     );
     $form['terms'] = array(
       '#type'  => 'checkbox',
-      '#title' => t('I agree to the') . ' ' . l(t('Terms of use'), 'terms', array('attributes' => array('target' => '_blank'))) . ' ' . t('and') . ' ' . l(t('Privacy Policy'), 'privacy', array('attributes' => array('target' => '_blank'))),
+      '#title' => __('I agree to the', array('@code' => 'user_profile-24')) . ' ' . l(__('Terms of use', array('@code' => 'user_profile-21')), 'terms', array('attributes' => array('target' => '_blank'))) . ' ' . __('and', array('@code' => 'user_profile-22')) . ' ' . l(__('Privacy Policy', array('@code' => 'user_profile-23')), 'privacy', array('attributes' => array('target' => '_blank'))),
     );
   }
 
@@ -136,7 +136,7 @@ function user_profile_form_alter(&$form, &$form_state, $form_id) {
 function user_profile_register_form_validate($form, $form_state) {
   $value = $form_state['values']['terms'];
   if (0 == $value) {
-    form_set_error('terms', t('You must agree with the Terms of Use and Privacy Policy to get an account.'));
+    form_set_error('terms', __('You must agree with the Terms of Use and Privacy Policy to get an account.', array('@code' => 'user_profile-25')));
   }
 }
 
@@ -175,7 +175,7 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
 
       foreach (array('right', 'bottom') as $place) {
         $blocks['user-profile-' . $place] = array(
-          'info' => t('User Profile Complete Percent (' . ucfirst($place) . ')'),
+          'info' => 'User Profile Complete Percent (' . ucfirst($place) . ')',
         );
       }
       return $blocks;
@@ -184,7 +184,7 @@ function user_profile_block($op = 'list', $delta = 0, $edit = array()) {
 
       foreach (array('right', 'bottom') as $place) {
         if ($delta == 'user-profile-' . $place) {
-          $block['subject'] = t('');
+          $block['subject'] = '';
           $block['content'] = theme('user_profile_' . $place);
         }
       }

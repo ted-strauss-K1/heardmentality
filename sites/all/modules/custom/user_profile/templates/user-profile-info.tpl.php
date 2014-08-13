@@ -11,7 +11,9 @@
           <?php if (isset($badges['#stat'])) : ?>
             <?php foreach ($badges['#stat'] as $type => $badge) : ?>
               <span class="medal_box"><span class="medal1 <?php print $type ?>"
-                                            title="<?php print t(ucfirst($type) . ' Medals'); ?>">&nbsp;</span><?php print $badge; ?>
+                                            title="<?php print __(badges_types($type) . ' Medals', array(
+                                              '@code' => 'medals-' . $type,
+                                            )); ?>">&nbsp;</span><?php print $badge; ?>
           </span>
             <?php endforeach; ?>
           <?php endif; ?>
@@ -21,22 +23,22 @@
       <div class="user_info">
         <div class="section">
         <span class="right_wrapper">
-          <span class="user-title"><?php print t('Member since'); ?>:</span>
+          <span class="user-title"><?php print __('Member since', array('@code' => 'user_profile-51')); ?>:</span>
           <span class="user-data"><?php print date("d-m-y", $account->created); ?></span>
         </span>
 
         <span class="right_wrapper">
-          <span class="user-title"><?php print t('Votes'); ?>:</span>
+          <span class="user-title"><?php print __('Votes', array('@code' => 'user_profile-52')); ?>:</span>
           <span class="user-data"><?php print number_format($votes); ?></span>
         </span>
 
         <span class="right_wrapper">
-          <span class="user-title"><?php print t('Comments'); ?>: </span>
+          <span class="user-title"><?php print __('Comments', array('@code' => 'user_profile-53')); ?>: </span>
           <span class="user-data"><?php print number_format($comments); ?></span>
         </span>
 
         <span class="right_wrapper">
-          <span class="user-title"><?php print t('References'); ?>: </span>
+          <span class="user-title"><?php print __('References', array('@code' => 'user_profile-54')); ?>: </span>
           <span class="user-data"><?php print number_format($references); ?></span>
         </span>
         </div>
@@ -53,7 +55,7 @@
             'html'       => TRUE,
           ));?>
         <?php endforeach; ?>
-        <?php print l(t('See all') . ' (' . $following_count . ')', 'user/profile/follow/' . $account->uid . '/following', array('attributes' => array('class' => 'more'))); ?>
+        <?php print l(__('See all', array('@code' => 'user_profile-55')) . ' (' . $following_count . ')', 'user/profile/follow/' . $account->uid . '/following', array('attributes' => array('class' => 'more'))); ?>
       </div>
     <?php endif; ?>
 
@@ -66,13 +68,13 @@
             'html'       => TRUE,
           ));?>
         <?php endforeach; ?>
-        <?php print l(t('See all') . ' (' . $followers_count . ')', 'user/profile/follow/' . $account->uid . '/followers', array('attributes' => array('class' => 'more'))); ?>
+        <?php print l(__('See all', array('@code' => 'user_profile-55')) . ' (' . $followers_count . ')', 'user/profile/follow/' . $account->uid . '/followers', array('attributes' => array('class' => 'more'))); ?>
       </div>
     <?php endif; ?>
 
     <?php if ($badges['#list']) : ?>
       <ul class="badges profile clearfix">
-        <label for="badges" class="badges"><?php print t('Badges'); ?></label>
+        <label for="badges" class="badges"><?php print __('Badges', array('@code' => 'user_profile-56')); ?></label>
         <?php foreach ($badges['#list'] as $name => $info) : ?>
           <li>
             <span class="badge <?php print $info['type']; ?>"></span>

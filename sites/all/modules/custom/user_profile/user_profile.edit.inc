@@ -18,35 +18,35 @@ function user_profile_edit_form() {
 
   $form['username'] = array(
     '#type'          => 'textfield',
-    '#title'         => t(''),
+    '#title'         => '',
     '#maxlength'     => 20,
-    '#description'   => t(' '),
+    '#description'   => ' ',
     '#value'         => $user->name,
-    '#default_value' => t('Username'),
+    '#default_value' => __('Username', array('@code' => 'user_profile-01')),
     '#id'            => 'username',
     '#required'      => TRUE,
-    '#attributes'    => array('class' => 'info validate validate-username', 'blurtext' => t('Username')),
+    '#attributes'    => array('class' => 'info validate validate-username', 'blurtext' => __('Username', array('@code' => 'user_profile-01'))),
   );
   $form['password'] = array(
     '#type'          => 'textfield',
-    '#title'         => t(''),
+    '#title'         => '',
     '#maxlength'     => 20,
-    '#description'   => t(' '),
+    '#description'   => ' ',
     '#value'         => '',
-    '#default_value' => t('Password'),
+    '#default_value' => __('Password', array('@code' => 'user_profile-02')),
     '#id'            => 'username',
     '#required'      => FALSE,
-    '#attributes'    => array('class' => 'info validate validate-username', 'blurtext' => t('Password')),
+    '#attributes'    => array('class' => 'info validate validate-username', 'blurtext' => __('Password', array('@code' => 'user_profile-02'))),
   );
   $form['email'] = array(
     '#type'          => 'textfield',
-    '#title'         => t(''),
+    '#title'         => '',
     '#maxlength'     => 50,
-    '#description'   => t(' '),
+    '#description'   => ' ',
     '#value'         => $user->mail,
-    '#default_value' => t('Email'),
+    '#default_value' => __('Email', array('@code' => 'user_profile-03')),
     '#id'            => 'email',
-    '#attributes'    => array('class' => 'info validate validate-email', 'blurtext' => t('Email')),
+    '#attributes'    => array('class' => 'info validate validate-email', 'blurtext' => __('Email', array('@code' => 'user_profile-03'))),
     '#disabled'      => TRUE,
   );
 
@@ -68,9 +68,10 @@ function user_profile_edit_form() {
   # profile fields
   $result = _profile_get_fields('profile');
   while ($field = db_fetch_object($result)) {
+    $field_title = __($field->title, array('@code' => 'user_profile-field-' . $field->name));
     switch ($field->type) {
       case 'selection' :
-        $options = array('-1' => t($field->title));
+        $options = array('-1' => $field_title);
         if ($field->name == 'profile_country') {
           $options += location_get_iso3166_list();
         }
@@ -79,9 +80,9 @@ function user_profile_edit_form() {
         }
         $form[$field->name] = array(
           '#type'          => 'select',
-          '#title'         => t(''),
+          '#title'         => '',
           '#options'       => $options,
-          '#description'   => t(' '),
+          '#description'   => ' ',
           '#value'         => $user->{$field->name},
           '#default_value' => -1,
           '#id'            => $field->name,
@@ -91,27 +92,27 @@ function user_profile_edit_form() {
       case 'textfield' :
         $form[$field->name] = array(
           '#type'          => 'textfield',
-          '#title'         => t(''),
+          '#title'         => '',
           '#maxlength'     => 64,
-          '#description'   => t(' '),
+          '#description'   => ' ',
           '#value'         => $user->{$field->name},
-          '#default_value' => t($field->title),
+          '#default_value' => $field_title,
           '#id'            => $field->name,
-          '#attributes'    => array('class' => 'info', 'blurtext' => t($field->title)),
+          '#attributes'    => array('class' => 'info', 'blurtext' => $field_title),
         );
 
         break;
       case 'textarea' :
         $form[$field->name] = array(
           '#type'          => 'textarea',
-          '#title'         => t(''),
+          '#title'         => '',
           '#value'         => $user->{$field->name},
-          '#default_value' => t($field->title),
+          '#default_value' => $field_title,
           '#cols'          => '',
           '#rows'          => 1,
-          '#description'   => t(''),
+          '#description'   => '',
           '#id'            => $field->name,
-          '#attributes'    => array('class' => 'info', 'blurtext' => t($field->title)),
+          '#attributes'    => array('class' => 'info', 'blurtext' => $field_title),
           '#resizable'     => FALSE,
         );
         break;
@@ -128,17 +129,18 @@ function user_profile_edit_form() {
   # profile fields - links
   $result = _profile_get_fields('links');
   while ($field = db_fetch_object($result)) {
+    $field_title = __($field->title, array('@code' => 'user_profile-field-' . $field->name));
     switch ($field->type) {
       case 'textfield' :
         $form[$field->name] = array(
           '#type'          => 'textfield',
-          '#title'         => t(''),
+          '#title'         => '',
           '#maxlength'     => 64,
-          '#description'   => t(' '),
+          '#description'   => ' ',
           '#value'         => $user->{$field->name},
-          '#default_value' => t($field->title),
+          '#default_value' => $field_title,
           '#id'            => $field->name,
-          '#attributes'    => array('class' => 'info', 'blurtext' => t($field->title)),
+          '#attributes'    => array('class' => 'info', 'blurtext' => $field_title),
         );
         break;
     }
@@ -176,7 +178,7 @@ function user_profile_edit_form() {
   );
   $form['language_submit'] = array(
     '#type'       => 'submit',
-    '#value'      => t('Submit'),
+    '#value'      => __('Submit', array('@code' => 'user_profile-04')),
     '#id'         => 'language_submit',
     '#name'       => 'language_submit',
     '#attributes' => array('class' => 'submit-issue leftfloat'),
@@ -190,12 +192,12 @@ function user_profile_edit_form() {
       <div id="al-msg"></div>
       <div class="avatar-left">
         <img id="image-avatar-pic" src="' . user_profile_image($user) . '" />
-        <p>' . t('Select an image file from your computer.<br />(2MBs max)') . '</p>',
+        <p>' . __('Select an image file from your computer.<br />(2MBs max)', array('@code' => 'user_profile-05')) . '</p>',
     '#suffix' => '</div>',
   );
   $form['image_submit'] = array(
     '#type'       => 'submit',
-    '#value'      => t('Submit'),
+    '#value'      => __('Submit', array('@code' => 'user_profile-06')),
     '#id'         => 'submit_brow-avat',
     '#name'       => 'image_submit',
     '#attributes' => array('class' => 'submit-issue leftfloat'),
@@ -209,7 +211,7 @@ function user_profile_edit_form() {
   # submit
   $form['submit'] = array(
     '#type'       => 'submit',
-    '#value'      => t('Save Changes'),
+    '#value'      => __('Save Changes', array('@code' => 'user_profile-07')),
     '#id'         => 'submit',
     '#name'       => 'submit',
     '#attributes' => array('class' => 'submit-issue'),
@@ -280,11 +282,11 @@ function user_profile_edit_form_validate_profile(&$form, &$form_state) {
   # username
   if ($post['username'] != $user->name) {
     if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $post['username'])) {
-      form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
+      form_set_error('username', __('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed', array('@code' => 'user_profile-08')));
       $form_state['rebuild'] = TRUE;
     }
     elseif (0 !== (int) db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid != '%d'", $post['username'], $user->uid))) {
-      form_set_error('username', t('Sorry username already exists. Try any other combination'));
+      form_set_error('username', __('Sorry username already exists. Try any other combination', array('@code' => 'user_profile-09')));
       $form_state['rebuild'] = TRUE;
     }
   }
@@ -300,14 +302,14 @@ function user_profile_edit_form_validate_profile(&$form, &$form_state) {
 
   # Year of Birth
   if (!empty($post['profile_yob']) && ($post['profile_yob'] != $form['profile_yob']['#default_value']) && !preg_match('/^\d{4}$/i', $post['profile_yob'])) {
-    form_set_error('profile_yob', t('Year Of Birth should be Numeric & Proper Format Ex : 1986'));
+    form_set_error('profile_yob', __('Year Of Birth should be Numeric & Proper Format Ex : 1986', array('@code' => 'user_profile-10')));
     $form_state['rebuild'] = TRUE;
   }
 
   # Zip
   if (!empty($post['profile_zip']) && !empty($post['profile_country']) && !user_profile_edit_form_validate_zip($post['profile_zip'], $post['profile_country'])
   ) {
-    form_set_error('profile_zip', t('Cannot determine your location with provided country and zip code'));
+    form_set_error('profile_zip', __('Cannot determine your location with provided country and zip code', array('@code' => 'user_profile-11')));
     $form_state['rebuild'] = TRUE;
   }
 
@@ -319,11 +321,11 @@ function user_profile_edit_form_validate_profile(&$form, &$form_state) {
       if (preg_match('/^https?:\/\//', $input)) {
         $parse = parse_url($input);
         if (!in_array($parse['host'], array($provider . '.com', 'www.' . $provider . '.com'))) {
-          form_set_error('profile_' . $provider, t('The URL you entered does not seem to be a !provider URL', array('!provider' => $provider)));
+          form_set_error('profile_' . $provider, __('The URL you entered does not seem to be a !provider URL', array('@code' => 'user_profile-12', '!provider' => $provider)));
         }
       }
       else {
-        form_set_error('profile_' . $provider, t('The input should be a !provider profile URL', array('!provider' => $provider)));
+        form_set_error('profile_' . $provider, __('The input should be a !provider profile URL', array('@code' => 'user_profile-13', '!provider' => $provider)));
       }
     }
     $post['profile_' . $provider] = $input;
@@ -333,7 +335,7 @@ function user_profile_edit_form_validate_profile(&$form, &$form_state) {
   if (!empty($post['profile_website'])) {
     $post['profile_website'] = trim($post['profile_website']);
     if (!filter_var($post['profile_website'], FILTER_VALIDATE_URL)) {
-      form_set_error('profile_website', t('The input is not a valid URL'));
+      form_set_error('profile_website', __('The input is not a valid URL', array('@code' => 'user_profile-14')));
     }
   }
 
@@ -540,7 +542,7 @@ function user_profile_edit_form_submit_image(&$form, &$form_state) {
  */
 function theme_user_profile_avatar_selection($user) {
   drupal_add_css(drupal_get_path('module', 'user_profile') . '/user_profile.css');
-  $output = '<div id="user_profile_avatar_selection"><p>' . t('Pick a profile photo') . '</p>';
+  $output = '<div id="user_profile_avatar_selection"><p>' . __('Pick a profile photo', array('@code' => 'user_profile-15')) . '</p>';
   $avatars = _avatar_selection_image_list($user);
   foreach ($avatars['avatars'] as $avatar) {
     $output .= $avatar;

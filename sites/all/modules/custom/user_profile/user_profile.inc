@@ -124,7 +124,8 @@ function user_profile_menu() {
 
   # view page
   $menu['user/profile/view'] = array(
-    'title'            => t('View Profile'),
+    'title callback' => '__',
+    'title arguments' => array('View Profile', array('@code' => 'user_profile-view')),
     'page callback'    => 'theme',
     'page arguments'   => array('user_profile_view'),
     'access callback'  => 'user_profile_access_user_profile',
@@ -134,7 +135,8 @@ function user_profile_menu() {
 
   # edit page
   $menu['user/profile/edit'] = array(
-    'title'            => t('Edit Profile'),
+    'title callback' => '__',
+    'title arguments' => array('Edit Profile', array('@code' => 'user_profile-edit')),
     'page callback'    => 'drupal_get_form',
     'page arguments'   => array('user_profile_edit_form'),
     'access arguments' => array(USER_PROFILE_EDIT),
@@ -207,7 +209,7 @@ function user_profile_preprocess_page(&$vars) {
             ));
             $vars['content_bottom'] = theme('events', events_get($request['query'], $request['vars']));
           }
-          drupal_set_subtitle(t('View Profile'));
+          drupal_set_subtitle(__('View Profile', array('@code' => 'user_profile-view')));
         }
         array_push($vars['template_files'], 'page_11_5');
         break;
@@ -383,7 +385,7 @@ function user_profile_info_preprocess(&$vars) {
  * @return null|string
  */
 function user_profile_follow_title($code, $set_as_title = FALSE) {
-  $title = $code == 'following' ? t('Following Users') : t('Followers');
+  $title = $code == 'following' ? __('Following Users', array('@code' => 'user_profile-16')) : __('Followers', array('@code' => 'user_profile-17'));
   return $set_as_title ? drupal_set_subtitle($title) : $title;
 }
 

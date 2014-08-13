@@ -14,7 +14,7 @@
         <label for="profile" class="profile"></label>
         <?php print l('<img class="user-profile" src="' . user_profile_image($user) . '"/>', 'user/profile/view', array(
           'attributes' => array(
-            'title' => t('View Profile'),
+            'title' => __('View Profile', array('@code' => 'user_profile-view')),
           ),
           'html'       => TRUE,
         )); ?>
@@ -23,18 +23,19 @@
             <div class="profile-meta quick-profile">
 
               <div class="profile-meta quick-profile">
-                <p><?php print t('Your profile is !complete% Complete', array('!complete' => $complete['percent'])) ?></p>
+                <p><?php print __('Your profile is !complete% Complete', array('@code' => 'user_profile-57', '!complete' => $complete['percent'])) ?></p>
 
                 <div class="profile-complete">
                   <div class="progress" style="width: <?php print $complete['percent']; ?>%;"></div>
                 </div>
                 <p>
-                  <?php print t('Filling in your <em>!empty-field</em> will bring you to !complete% Complete', array(
-                    '!empty-field' => t($complete['nextfield']),
-                    '!complete'    => $complete['nextpercent']
+                  <?php print __('Filling in your <em>!empty-field</em> will bring you to !complete% Complete', array(
+                    '!empty-field' => __($complete['nextfield'], array('@code' => 'user_profile-field-' . $complete['nextname'])),
+                    '!complete'    => $complete['nextpercent'],
+                    '@code'        => 'user_profile-58',
                   )); ?>
                   <a class="blue"
-                     href="<?php print url('user/profile/edit', array('fragment' => $complete['nextname'] . "-wrapper")) ?>"><?php print t('Add it here.'); ?></a>
+                     href="<?php print url('user/profile/edit', array('fragment' => $complete['nextname'] . "-wrapper")) ?>"><?php print __('Add it here.', array('@code' => 'user_profile-59')); ?></a>
                 </p>
               </div>
 
@@ -47,7 +48,9 @@
             <?php foreach ($badges['#stat'] as $type => $badge) : ?>
               <div class="medal">
                 <span class="<?php print $type ?>" id="medal1"
-                      title="<?php print ucfirst($type) ?> Medals">&nbsp;</span>
+                      title="<?php print __(badges_types($type) . ' Medals', array(
+                        '@code' => 'medals-' . $type,
+                      )); ?>">&nbsp;</span>
                 <?php print $badge; ?>
               </div>
             <?php endforeach; ?>
@@ -56,9 +59,9 @@
         <?php endif; ?>
 
         <p class="profile-links quick-profile">
-          <a href="<?php print url('user/profile/view'); ?>"><?php print t('View Profile'); ?></a> | <a
-            href="<?php print url('user/profile/edit'); ?>"><?php print t('Edit Profile'); ?></a> | <a
-            href="<?php print url('logout'); ?>"><?php print t('Logout'); ?></a>
+          <a href="<?php print url('user/profile/view'); ?>"><?php print __('View Profile', array('@code' => 'user_profile-view')); ?></a> | <a
+            href="<?php print url('user/profile/edit'); ?>"><?php print __('Edit Profile', array('@code' => 'user_profile-edit')); ?></a> | <a
+            href="<?php print url('logout'); ?>"><?php print __('Logout', array('@code' => 'user_profile-logout')); ?></a>
         </p>
 
       </div>

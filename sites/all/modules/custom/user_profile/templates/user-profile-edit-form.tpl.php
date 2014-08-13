@@ -27,7 +27,7 @@ $privacy = user_profile_profile_privacy_values();
 ?>
 
 <div class="page_title_wrapper">
-  <h2 class="dinbold page-title"><?php print t('Edit Profile'); ?></h2>
+  <h2 class="dinbold page-title"><?php print __('Edit Profile', array('@code' => 'user_profile-edit')); ?></h2>
 </div>
 
 <div class="four columns edit_profile_four_columns">
@@ -35,13 +35,13 @@ $privacy = user_profile_profile_privacy_values();
   <div class="dark-grey-box top clearfix">
     <div class="profile-meta">
       <i class="icon cat text icon-businesscardalt"></i> <label for="profile"
-                                                                class="white_text with_icon"><?php print t('Change Photo'); ?></label>
+                                                                class="white_text with_icon"><?php print __('Change Photo', array('@code' => 'user_profile-29')); ?></label>
       <?php print drupal_render($form['image_upload']); ?>
       <div id="brow_img_name"></div>
       <p class="choose_pic">
-        ...<?php print t('or choose a picture'); ?>
+        <?php print __('... or choose a picture', array('@code' => 'user_profile-30')); ?>
         <a href="#" id="user-profile-avatar-selection-open"
-           title="<?php print t('Pick a photo') ?>"> <?php print t('here'); ?> </a>
+           title="<?php print __('Pick a photo', array('@code' => 'user_profile-31')) ?>"> <?php print __('here', array('@code' => 'user_profile-32')); ?> </a>
       </p>
       <?php print drupal_render($form['image_submit']); ?>
       <?php print drupal_render($form['image_avatar']); ?>
@@ -50,13 +50,13 @@ $privacy = user_profile_profile_privacy_values();
 
   <?php if ($form['subscription_notify']) : ?>
     <div class="grey-box full clearfix">
-      <label for="" class="subscriptions"><?php print t('Subscriptions'); ?></label>
+      <label for="" class="subscriptions"><?php print __('Subscriptions', array('@code' => 'user_profile-33')); ?></label>
 
-      <p class="twelve"><?php print t('Send me a summary of what\'s happening on Heard Mentality to my email'); ?></p>
+      <p class="twelve"><?php print __('Send me a summary of what\'s happening on Heard Mentality to my email', array('@code' => 'user_profile-34')); ?></p>
       <ul class="subscription">
-        <li><span class="privacy-answer"><?php print t('Never'); ?></span><br></li>
-        <li><span class="privacy-answer"><?php print t('Monthly'); ?></span><br></li>
-        <li><span class="privacy-answer"><?php print t('Weekly'); ?></span></li>
+        <li><span class="privacy-answer"><?php print __('Never', array('@code' => 'user_profile-35')); ?></span><br></li>
+        <li><span class="privacy-answer"><?php print __('Monthly', array('@code' => 'user_profile-36')); ?></span><br></li>
+        <li><span class="privacy-answer"><?php print __('Weekly', array('@code' => 'user_profile-37')); ?></span></li>
 
         <?php print drupal_render($form['subscription_notify']); ?>
         <?php print drupal_render($form['subscription_email']); ?>
@@ -66,9 +66,9 @@ $privacy = user_profile_profile_privacy_values();
   <?php endif; ?>
 
   <div class="grey-box full clearfix">
-    <label for="" class="subscriptions"><?php print t('Language settings'); ?></label>
+    <label for="" class="subscriptions"><?php print __('Language settings', array('@code' => 'user_profile-38')); ?></label>
 
-    <p class="twelve"><?php print t('Set your default language'); ?></p>
+    <p class="twelve"><?php print __('Set your default language', array('@code' => 'user_profile-39')); ?></p>
     <?php print drupal_render($form['language']); ?>
     <?php print drupal_render($form['language_submit']); ?>
   </div>
@@ -79,11 +79,11 @@ $privacy = user_profile_profile_privacy_values();
 
   <div class="grey-box clearfix" id="edit_profile">
 
-    <h2 class="din"><?php print t('Profile Settings'); ?></h2>
+    <h2 class="din"><?php print __('Profile Settings', array('@code' => 'user_profile-40')); ?></h2>
 
     <div class="privacy-info">
-      <p><strong><?php print t('Privacy'); ?></strong>
-        <?php print t('Set the privacy levels for each of your profile characteristics. If you choose to hide your profile details, your demographic info will still be calculated but not shown. No one will ever know.'); ?>
+      <p><strong><?php print __('Privacy', array('@code' => 'user_profile-41')); ?></strong>
+        <?php print __('Set the privacy levels for each of your profile characteristics. If you choose to hide your profile details, your demographic info will still be calculated but not shown. No one will ever know.', array('@code' => 'user_profile-42')); ?>
       </p>
     </div>
 
@@ -92,31 +92,31 @@ $privacy = user_profile_profile_privacy_values();
 
         <li class="username">
           <label for="" class="add-on-2 small"><span class="title-2">
-            <?php print t('Username'); ?>
+            <?php print __('Username', array('@code' => 'user_profile-43')); ?>
               <small class="red">*</small></span> </label>
           <?php print drupal_render($form['username']); ?>
         </li>
 
         <li class="password">
           <label for="" class="add-on-2 small"><span class="title-2">
-          <?php print t('Password'); ?> </span> </label>
+          <?php print __('Password', array('@code' => 'user_profile-44')); ?> </span> </label>
           <?php print drupal_render($form['password']); ?>
         </li>
 
 
         <li class="email">
           <label for="" class="add-on-2 small"><span class="title-2">
-          <?php print t('Email'); ?>
+          <?php print __('Email', array('@code' => 'user_profile-45')); ?>
               <small class="red">*</small></span> </label>
           <?php print drupal_render($form['email']); ?>
 
           <?php if ($privacy) : ?>
-            <div class="visible-to"><?php print t('Visible to'); ?>:</div>
+            <div class="visible-to"><?php print __('Visible to', array('@code' => 'user_profile-46')); ?>:</div>
             <ul class="privacy">
               <fieldset>
                 <?php foreach ($privacy as $key => $value) : ?>
-                  <li class="privacy-rules" title="<?php print strip_tags($value['description']); ?>">
-                    <span class="privacy-answer"><?php print $value['label']; ?></span>
+                  <li class="privacy-rules" title="<?php print strip_tags(__($value['description'], array('@code' => 'user_profile-privacy-desc-' . $key))); ?>">
+                    <span class="privacy-answer"><?php print __($value['label'], array('@code' => 'user_profile-privacy-' . $key)); ?></span>
                   </li>
                 <?php endforeach; ?>
                 <?php print drupal_render($form['private_profile_email']); ?>
@@ -128,11 +128,11 @@ $privacy = user_profile_profile_privacy_values();
         <?php $result = _profile_get_fields('profile');
         while ($field = db_fetch_object($result)) : ?>
           <li>
-            <label for="" class="add-on-2 small"><span class="title-2"><?php print t($field->title); ?></span></label>
+            <label for="" class="add-on-2 small"><span class="title-2"><?php print __($field->title, array('@code' => 'user_profile-field-' . $field->name)); ?></span></label>
             <?php print drupal_render($form[$field->name]); ?>
 
             <?php if ($privacy) : ?>
-              <div class="visible-to"><?php print t('Visible to'); ?>:</div>
+              <div class="visible-to"><?php print __('Visible to', array('@code' => 'user_profile-46')); ?>:</div>
               <ul class="privacy">
                 <fieldset>
                   <?php foreach ($privacy as $key => $value) : ?>
@@ -147,7 +147,7 @@ $privacy = user_profile_profile_privacy_values();
           </li>
           <?php if ($field->name == 'profile_name') : ?>
             <li class="user-profile-location">
-              <div class="determine"><?php print l(t('Determine my location'), 'user/profile/edit', array(
+              <div class="determine"><?php print l(__('Determine my location', array('@code' => 'user_profile-47')), 'user/profile/edit', array(
                   'attributes' => array(
                     'class' => 'geocode_latlng',
                   ),
@@ -164,11 +164,11 @@ $privacy = user_profile_profile_privacy_values();
         <?php $result = _profile_get_fields('links');
         while ($field = db_fetch_object($result)) : ?>
           <li>
-            <label for="" class="add-on-2 small"><span class="title-2"><?php print t($field->title); ?></span></label>
+            <label for="" class="add-on-2 small"><span class="title-2"><?php print __($field->title, array('@code' => 'user_profile-field-' . $field->name)); ?></span></label>
             <?php print drupal_render($form[$field->name]); ?>
 
             <?php if ($privacy) : ?>
-              <div class="visible-to"><?php print t('Visible to'); ?>:</div>
+              <div class="visible-to"><?php print __('Visible to', array('@code' => 'user_profile-46')); ?>:</div>
               <ul class="privacy">
                 <fieldset>
                   <?php foreach ($privacy as $key => $value) : ?>

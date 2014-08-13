@@ -28,10 +28,10 @@
     <?php
     global $user;
     if ($user->uid == $uid) {
-      print $code == 'following' ? t('You\'re not following anyone from the Heard yet. You can follow users by clicking the \'Follow\' button on their profile pages.') : t('No users from the Heard follow you yet');
+      print $code == 'following' ? __('You\'re not following anyone from the Heard yet. You can follow users by clicking the \'Follow\' button on their profile pages.', array('@code' => 'user_profile-48')) : __('No users from the Heard follow you yet', array('@code' => 'user_profile-49'));
     }
     else {
-      print t('No users found');
+      print __('No users found', array('@code' => 'user_profile-50'));
     }
     ?>
 

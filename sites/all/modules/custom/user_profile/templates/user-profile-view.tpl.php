@@ -3,7 +3,7 @@ print theme('follower_button', $account);
 
 global $user;
 if ($user->uid == $account->uid) {
-  print l(t('Edit Profile'), 'user/profile/edit', array(
+  print l(__('Edit Profile', array('@code' => 'user_profile-edit')), 'user/profile/edit', array(
     'attributes' => array(
       'class' => 'button light editlink',
     )
@@ -11,9 +11,9 @@ if ($user->uid == $account->uid) {
 }
 ?>
 <h2 class="din"><?php print $account->name; ?></h2>
-
+<?php $rank = $user->rank; ?>
 <div class="user-info">
-  <p><?php print t($rank); ?>
+  <p><?php print __($rank['name'], array('@code' => 'rank-' . $rank['index'], '@textgroup' => 'rank')); ?>
     <!-- points: <?php print points_count($account->uid); ?> --></p>
   <!-- pennies: <?php print pennies_count($account->uid); ?> --></p>
 
@@ -21,7 +21,7 @@ if ($user->uid == $account->uid) {
   <?php foreach ($fields as $field) : ?>
     <?php if (!empty($account->{$field->name}) && profile_privacy_get_field_access($account, $field)) : ?>
       <span class="URL block">
-          <strong><?php print t($field->title); ?>:</strong>
+          <strong><?php print __($field->title, array('@code' => 'user_profile-field-' . $field->name)); ?>:</strong>
         <?php switch ($field->name) :
           case 'profile_twitter' :
             ?>

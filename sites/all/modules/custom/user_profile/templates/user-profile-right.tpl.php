@@ -5,7 +5,7 @@
 
     <p class="profile-status">
       <strong>
-        <?php print t('Your profile is !complete% Complete', array('!complete' => $complete['percent'])) ?>
+        <?php print __('Your profile is !complete% Complete', array('@code' => 'user_profile-57', '!complete' => $complete['percent'])) ?>
       </strong>
     </p>
 
@@ -13,13 +13,14 @@
       <div class="progress" style="width: <?php print $complete['percent']; ?>%;"></div>
     </div>
     <p>
-      <?php print t('Filling in your <em>!empty-field</em> will bring you to !complete% Complete', array(
-        '!empty-field' => $complete['nextfield'],
-        '!complete'    => $complete['nextpercent']
+      <?php print __('Filling in your <em>!empty-field</em> will bring you to !complete% Complete', array(
+        '!empty-field' => __($complete['nextfield'], array('@code' => 'user_profile-field-' . $complete['nextname'])),
+        '!complete'    => $complete['nextpercent'],
+        '@code'        => 'user_profile-58',
       )); ?>
       <a class="bolded"
          href="<?php print url('user/profile/edit', array('fragment' => $complete['nextname'] . "-wrapper")) ?>">
-        <?php print t('Add it here.'); ?>
+        <?php print __('Add it here.', array('@code' => 'user_profile-59')); ?>
       </a>
     </p>
   </div>
