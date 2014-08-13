@@ -74,6 +74,10 @@ if (!function_exists('__')) {
  * @return null|string
  */
 function tt_t($string, $args = array(), $langcode = NULL) {
+  if (is_null($string)) {
+    return "";
+  }
+
   // detect language
   if (is_null($langcode)) {
     global $language;
